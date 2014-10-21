@@ -2,12 +2,12 @@
 # It will NOT be updated and reflects only the
 # installation profile at installation time.
 selected_scheme scheme-custom
-TEXDIR /var/go/texlive
+TEXDIR /var/go/r-snap-texlive/texlive
 TEXMFCONFIG $TEXMFSYSCONFIG
 TEXMFHOME $TEXMFLOCAL
-TEXMFLOCAL /var/go/texlive/texmf-local
-TEXMFSYSCONFIG /var/go/texlive/texmf-config
-TEXMFSYSVAR /var/go/texlive/texmf-var
+TEXMFLOCAL /var/go/r-snap-texlive/texlive/texmf-local
+TEXMFSYSCONFIG /var/go/r-snap-texlive/texlive/texmf-config
+TEXMFSYSVAR /var/go/r-snap-texlive/texlive/texmf-var
 TEXMFVAR $TEXMFSYSVAR
 binary_x86_64-linux 1
 collection-basic 1
