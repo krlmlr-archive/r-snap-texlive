@@ -2,6 +2,10 @@
 
 set -e
 
+log() {
+  echo $* >> /dev/stderr
+}
+
 clone_or_pull() {
   cd $SNAP_CACHE_DIR
   if test -d r-snap-texlive/.git; then
