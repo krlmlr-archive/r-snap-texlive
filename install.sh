@@ -13,4 +13,4 @@ clone_or_pull() {
 }
 
 (clone_or_pull > /dev/null)
-echo 'PATH='$SNAP_CACHE_DIR'/r-snap-texlive/texlive/bin/x86_64-linux:$PATH'
+echo $SNAP_CACHE_DIR'/r-snap-texlive/texlive/bin/x86_64-linux'
