@@ -30,14 +30,14 @@ update_cache_version() {
 provide_latex() {
   if ! test -d texlive; then
     if ! install_latex; then
-      rm -rf texlive
+      rm -rf $CACHE_BASE_PATH/texlive
       return 1
     fi
   fi
 }
 
 install_latex() {
-  mkdir texlive
+  mkdir $CACHE_BASE_PATH/texlive
   pushd /tmp
   curl -L http://mirror.ctan.org/systems/texlive/tlnet/install-tl-unx.tar.gz | tar -xzv
   cd install-tl-*
@@ -45,7 +45,16 @@ install_latex() {
   popd
 }
 
-check_cache_version
-cd $CACHE_BASE_PATH
+push_latex() {
+  rm -rf texlive
+  cp -arx $CACHE_BASE_PATH/texlive .
+  git add -A
+  if test -n $(git status --porcelain); then
+    git commit -m "update bits"
+    git push origin
+  fi
+}
 
+check_cache_version
 provide_latex
+push_latex
