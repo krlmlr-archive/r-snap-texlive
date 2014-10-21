@@ -5,7 +5,7 @@ set -e
 CACHE_BASE_PATH=$SNAP_CACHE_DIR/r-snap-texlive
 CACHE_VERSION_FILENAME=r-snap-texlive-cache-version
 CACHE_VERSION_PATH=$CACHE_BASE_PATH/$CACHE_VERSION_FILENAME
-CURRENT_VERSION=2
+CURRENT_VERSION=1
 
 log() {
   echo $* >> /dev/stderr
