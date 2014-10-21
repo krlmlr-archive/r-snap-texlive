@@ -13,7 +13,7 @@ clone_or_pull() {
 }
 
 set_symlinks() {
-  sudo ln -s $SNAP_CACHE_DIR/r-snap-texlive/texlive/bin/x86_64-linux/* /usr/local/bin
+  sudo ln -s -f $SNAP_CACHE_DIR/r-snap-texlive/texlive/bin/x86_64-linux/* /usr/local/bin
 }
 
 clone_or_pull
