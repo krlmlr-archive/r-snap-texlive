@@ -5,10 +5,10 @@ set -e
 clone_or_pull() {
   cd $SNAP_CACHE_DIR
   if test -d r-snap-texlive/.git; then
-    git clone git@github.com:krlmlr/r-snap-texlive.git
-  else
     cd r-snap-texlive
     git pull
+  else
+    git clone git@github.com:krlmlr/r-snap-texlive.git
   fi
 }
 
