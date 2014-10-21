@@ -1,0 +1,710 @@
+%%
+%% This is file `FAQ-printout.tex',
+%% generated with the docstrip utility.
+%%
+%% The original source files were:
+%%
+%% texpower-doc.dtx  (with options: `version,faq-print,faq,enddoc')
+%% 
+%% --------------------------------------------------------------
+%% TeXPower bundle - dynamic online presentations with LaTeX
+%% Copyright (C) 1999-2004 Stephan Lehmke
+%% Copyright (C) 2003-2005 Hans Fredrik Nordhaug
+%% 
+%% This program is free software; you can redistribute it and/or
+%% modify it under the terms of the GNU General Public License
+%% as published by the Free Software Foundation; either version 2
+%% of the License, or (at your option) any later version.
+%% 
+%% This program is distributed in the hope that it will be useful,
+%% but WITHOUT ANY WARRANTY; without even the implied warranty of
+%% MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+%% GNU General Public License for more details.
+%% --------------------------------------------------------------
+%% 
+%% The list of all files belonging to the TeXPower bundle is
+%% given in the file `00readme.txt'.
+%% 
+\ProvidesFile{FAQ-printout.tex}%
+      [2005/04/07 TeXPower FAQ]
+
+% Version info used in titles
+\def\tpversion{v0.2 of April 8, 2005}
+
+\documentclass[12pt]{scrartcl}
+
+%-----------------------------------------------------------------------------------------------------------------
+% We need some more packages...
+%
+
+\usepackage{url}
+
+\usepackage[latin1]{inputenc}
+
+% The following package makes code look a little nicer, but it may not be present on all systems.
+
+\IfFileExists{cmtt.sty}{\usepackage[override]{cmtt}}{}
+
+% Loading the soul package enables the \highlighttext command.
+
+\usepackage{soul}
+
+% One more Text emphasis command...
+
+\let\name=\textsc
+
+
+\usepackage{fancyvrb}
+
+\usepackage{array}
+
+\usepackage{longtable}
+
+
+%-----------------------------------------------------------------------------------------------------------------
+% Load hyperref.
+%
+\usepackage[bookmarksopen,colorlinks]{hyperref}
+
+%-----------------------------------------------------------------------------------------------------------------
+% Finally, the texpower package is loaded.
+%
+\usepackage{texpower}
+
+%-----------------------------------------------------------------------------------------------------------------
+% The configuration file allows user-specific settings.
+
+\input{__TPcfg}
+
+%-----------------------------------------------------------------------------------------------------------------
+% The code in the file __TPFAQ is meant for the document class seminar. Thus, it contains some seminar-specific commands
+% which are replaced by dummies here.
+
+\let\newslide=\relax
+
+%-----------------------------------------------------------------------------------------------------------------
+% The following command produces the title for this document.
+
+\newcommand{\makeslidetitle}[1]
+{%
+  \hypersetup{pdftitle={#1}}
+  \title{The \TeX Power bundle\\{\normalfont #1}}
+  \author{Stephan Lehmke\\\url{mailto:Stephan.Lehmke@cs.uni-dortmund.de}}
+  \maketitle
+}
+
+  \tolerance 1414
+  \hbadness 1414
+  \emergencystretch 1.5em
+  \hfuzz 0.3pt
+  \vfuzz \hfuzz
+  \relax
+
+%-----------------------------------------------------------------------------------------------------------------
+% Finally, everything is set up. Here we go...
+%
+
+\begin{document}
+
+\providecommand{\vanishcolor}{}
+
+\DefineVerbatimEnvironment{LaTeXCode}{Verbatim}
+{gobble=2,formatcom=\codeswitch,frame=single,numbers=left,xleftmargin=1em,numbersep=.5em}
+
+%-----------------------------------------------------------------------------------------------------------------
+%
+\makeslidetitle
+{%
+  Frequently asked questions list%
+  \thanks{FAQ for \TeX Power \tpversion .}%
+  }%
+
+\setcounter{firststep}{0}
+
+\tableofcontents
+
+\newslide
+
+%-----------------------------------------------------------------------------------------------------------------
+%
+\section{General}
+\subsection{Where can I get the newest version of the \TeX Power FAQ\,?}
+You can download the latest version of the \TeX Power FAQ from the following URLs:
+
+\begin{center}
+Screen version:\\
+\url{http://texpower.sourceforge.net/doc/FAQ-display.pdf}
+
+Printout version:\\
+\url{http://texpower.sourceforge.net/doc/FAQ-printout.pdf}
+\end{center}
+
+
+\newslide
+
+\subsection{What is \TeX Power\,?}
+The \TeX Power bundle contains style and class files for creating dynamic online presentations with \LaTeX.
+
+The heart of the bundle is the package \code{texpower.sty} which implements some commands for presentation effects. This
+includes setting page transitions, color highlighting and displaying pages incrementally.
+
+The document class \code{powersem.cls} is a wrapper for seminar which sets up everything for dynamic presentations.
+
+
+\newslide
+
+\subsection{Where can I obtain \TeX Power\,?}
+The complete bundle, together with its documentation, can be found under the URL
+\begin{center}
+  \url{http://texpower.sourceforge.net/}
+\end{center}
+
+\newslide
+
+\subsection{Where can I discuss \TeX Power or ask for help\,?}
+Bug and problem reports should go to
+\href{http://sourceforge.net/tracker/?group_id=60743&atid=495145}{the bug tracker}.
+
+Discussions about \TeX Power should take place on
+\href{http://lists.sourceforge.net/lists/listinfo/texpower-users/}{the mailing list}
+or in
+\href{http://sourceforge.net/forum/forum.php?forum_id=204738}{the discussion forum}.
+
+
+\newslide
+
+\subsection{What alternatives are there to using \TeX Power\,?}
+The most prominent alternative to \TeX Power is the \concept{Pdf Presentation Post Processor} PPower4, the homepage of
+which is
+\begin{quote}
+  \url{http://www-sp.iti.informatik.tu-darmstadt.de/software/ppower4/}
+\end{quote}
+
+Another alternative is the \concept{Utopia PDF Presentations Bundle}, which provides a complete presentation design
+environment. Its home page is
+\begin{quote}
+  \url{http://www.utopiatype.com.au/products/ubundle.html}
+\end{quote}
+
+Comparisons of different presentation packages can be found on the home page of \name{Prof.\,D.\,P.\,Story}:
+\begin{quote}
+  \url{http://www.math.uakron.edu/~dpstory/pdf_demos.html}
+\end{quote}
+and in the talk held by \name{Ross Moore} at the \name{California Institute of Technology} on 8th May 2000:
+\begin{quote}
+  \url{http://www.cds.caltech.edu/caltex/2000/}
+\end{quote}
+
+
+
+
+
+\newslide
+
+%-----------------------------------------------------------------------------------------------------------------
+%
+\section{Usage}
+
+\subsection{How do I design a presentation with \TeX Power\,?}
+It should be stressed that \TeX Power is \underl{not} (currently) a complete presentation package. It just adds dynamic
+presentation effects (and some other gimmicks specifically interesting for dynamic presentations) and should always be
+combined with a document class dedicated to designing presentations (or a package like
+\href{ftp://ftp.dante.de/tex-archive/help/Catalogue/entries/pdfslide.html}{\code{pdfslide}}).
+
+There are demos in the \href{http://texpower.sourceforge.net/doc/}{\code{doc}} directory for most
+popular presentation-making document classes and packages.
+
+
+\newslide
+
+\subsection{I find \TeX Power very complicated. How can I learn how to realize dynamic effects\,?}
+
+As always with \TeX, you should first make up your mind what kind of effect you desire, and what \LaTeX{} structures
+will be involved.
+
+Then you should check the examples in the \href{http://texpower.sourceforge.net/doc/}{\code{doc}}
+directory for anything similar to what you want. If you find anything suitable, read the corresponding code. There are
+some inline comments to explain what's going on. Print out the
+\href{http://texpower.sourceforge.net/doc/manual.pdf}{\code{manual}} for documentation of the \TeX
+Power commands.
+
+Further `recepies' can be found in section \ref{Sec:HowTo}.
+
+If you don't find anything suitable you can modify to your needs, and can't figure out from the documentation how to
+achieve your aims, please ask on
+\href{http://lists.sourceforge.net/lists/listinfo/texpower-users/}{the mailing list}. If
+you've found an application for \TeX Power not covered by the examples, a new example should be created.
+
+
+\newslide
+
+\subsection{Can I combine \TeX Power with PPower4\,?}
+There is no problem postprocessing documents in which \TeX Power is used. This can be useful, for instance, for
+realising structured backgrounds with the \code{background} package from the
+\href{http://www-sp.iti.informatik.tu-darmstadt.de/software/ppower4/}{PPower4 bundle}.
+
+If there are presentation effects for which you'd like to use PPower4's implementation of the \macroname{pause} command,
+then just load PPower4's \code{pause} package. PPower4's definition of \macroname{pause} will override
+\code{texpower}'s. Then you can combine PPower4's \macroname{pause} functionality with \TeX Power's \macroname{stepwise}
+functionality, for maximum expressive power.
+
+\newslide
+
+\subsection{I'm missing some of the classes and packages used in the demo and example files.}
+
+First of all, it has to be said that \TeX Power makes use of some `modern' features which have been introduced into the
+\TeX{} System quite recently and are evolving swiftly. The core of the \code{texpower} package, namely the commands
+\macroname{pause} and \macroname{stepwise} is implemented in `pure' \LaTeX{} and should be largely independent of any
+fancy extensions, but to get most out of \TeX Power's presentation features and process the more advanced examples, it
+is recommended to have a moderately new \TeX{} distribution installed (rule of thumb: not older than one year).
+
+But even if your distribution is quite new, it might not contain some of the classes and packages used by the demos and
+examples. Here's a list of (hopefully all of) the packages and classes used (which are not part of core \LaTeX) and
+their availability:
+
+
+\newlength{\twidth}%
+{%
+  \makeatletter
+  \ifthenelse{\boolean{display}}{\def\@outputpage{\setbox\@cclv\box\@outputbox\slide@output}}{}%
+  \makeatother
+  \setlength{\twidth}{\linewidth-\widthof{\code{pdfscreen}}-2cm-6\tabcolsep}%
+\begin{longtable}{lp{2cm}>{\raggedright\footnotesize}p{\twidth}}
+  Package&used in&\normalsize available from\tabularnewline\hline\endhead
+  \href{ftp://ftp.dante.de/tex-archive/help/Catalogue/entries/hyperref.html}{\code{hyperref}}&most
+  &\href{http://www.ctan.org/}{CTAN}, e.\,g.\
+  \url{ftp://ftp.dante.de/tex-archive/macros/latex/contrib/supported/hyperref}
+  \tabularnewline
+  \href{ftp://ftp.dante.de/tex-archive/help/Catalogue/entries/url.html}{\code{url}}&most
+  &\href{http://www.ctan.org/}{CTAN}, e.\,g.\ \url{ftp://ftp.dante.de/tex-archive/macros/latex/contrib/other/misc}
+  \tabularnewline
+  \href{ftp://ftp.dante.de/tex-archive/help/Catalogue/entries/soul.html}{\code{soul}}&many
+  &\href{http://www.ctan.org/}{CTAN}, e.\,g.\ \url{ftp://ftp.dante.de/tex-archive/macros/latex/contrib/supported/soul}
+  \tabularnewline
+  \href{ftp://ftp.dante.de/tex-archive/help/Catalogue/entries/pstricks.html}{\code{pstricks}}
+  &\small\code{fulldemo}, \code{picexample}
+  &\href{http://www.ctan.org/}{CTAN}, e.\,g.\ \url{ftp://ftp.dante.de/tex-archive/graphics/pstricks}
+  \tabularnewline
+  \href{ftp://ftp.dante.de/tex-archive/help/Catalogue/entries/xr.html}{\code{xr-hyper}}
+  &\small\code{manual}
+  &\href{http://www.ctan.org/}{CTAN}, e.\,g.\
+  \url{ftp://ftp.dante.de/tex-archive/macros/latex/contrib/supported/hyperref}
+  \tabularnewline
+  \href{ftp://ftp.dante.de/tex-archive/help/Catalogue/entries/fancyvrb.html}{\code{fancyvrb}}
+  &\small\code{FAQ}
+  &\href{http://www.ctan.org/}{CTAN}, e.\,g.\
+  \url{ftp://ftp.dante.de/tex-archive/macros/latex/contrib/supported/fancyvrb}
+  \tabularnewline
+  \href{ftp://ftp.dante.de/tex-archive/help/Catalogue/entries/pdfscreen.html}{\code{pdfscreen}}
+  &\small\code{pdfscrdemo}
+  &\href{http://www.ctan.org/}{CTAN}, e.\,g.\
+  \url{ftp://ftp.dante.de/tex-archive/macros/latex/contrib/supported/pdfscreen}
+  \tabularnewline
+  \href{ftp://ftp.dante.de/tex-archive/help/Catalogue/entries/pdfslide.html}{\code{pdfslide}}
+  &\small\code{pdfslidemo}
+  &\href{http://www.ctan.org/}{CTAN}, e.\,g.\
+  \url{ftp://ftp.dante.de/tex-archive/macros/latex/contrib/supported/pdfslide}
+  \tabularnewline
+  \href{ftp://ftp.dante.de/tex-archive/help/Catalogue/entries/ppower4.html}{\code{pp4slide}}
+  &\small\code{pp4sldemo}
+  &\href{http://www.ctan.org/}{CTAN}, e.\,g.\
+  \url{ftp://ftp.dante.de/tex-archive/support/ppower4/pp4sty.zip}
+  \tabularnewline
+  \href{ftp://ftp.dante.de/tex-archive/help/Catalogue/entries/ifmslide.html}{\code{ifmslide}}
+  &\small\code{ifmslidemo}
+  &\href{http://www.ctan.org/}{CTAN}, e.\,g.\
+  \url{ftp://ftp.dante.de/tex-archive/macros/latex/contrib/supported/ifmslide}
+  \tabularnewline
+\end{longtable}
+}
+
+{%
+  \makeatletter
+  \ifthenelse{\boolean{display}}{\def\@outputpage{\setbox\@cclv\box\@outputbox\slide@output}}{}%
+  \makeatother
+  \setlength{\twidth}{\linewidth-\widthof{\code{scrartcl}}-2cm-6\tabcolsep}%
+\begin{longtable}{lp{2cm}>{\raggedright\footnotesize}p{\twidth}}
+  Class&used in&\normalsize available from\tabularnewline\hline\endhead
+  \href{ftp://ftp.dante.de/tex-archive/help/Catalogue/entries/seminar.html}{\code{seminar}}&most
+  &\href{http://www.ctan.org/}{CTAN}, e.\,g.\
+  \url{ftp://ftp.dante.de/tex-archive/macros/latex/contrib/other/seminar}
+  \tabularnewline
+  \href{ftp://ftp.dante.de/tex-archive/help/Catalogue/entries/koma-script.html}{\code{scrartcl}}&most
+  &\href{http://www.ctan.org/}{CTAN}, e.\,g.\
+  \url{ftp://ftp.dante.de/tex-archive/macros/latex/contrib/supported/koma-script}
+  \tabularnewline
+  \href{ftp://ftp.dante.de/tex-archive/help/Catalogue/entries/slides.html}{\code{slides}}
+  &\small\code{slidesdemo}
+  &\href{http://www.ctan.org/}{CTAN}, e.\,g.\
+  \url{ftp://ftp.dante.de/tex-archive/macros/latex/base/}
+  \tabularnewline
+  \href{ftp://ftp.dante.de/tex-archive/help/Catalogue/entries/foiltex.html}{\code{foils}}
+  &\small\code{foilsdemo}, \code{pp4sldemo}
+  &\href{http://www.ctan.org/}{CTAN}, e.\,g.\
+  \url{ftp://ftp.dante.de/tex-archive/nonfree/macros/latex/contrib/supported/foiltex}
+  \tabularnewline
+  \href{ftp://ftp.dante.de/tex-archive/help/Catalogue/entries/prosper.html}{\code{prosper}}
+  &\small\code{prosperdemo}
+  &\url{http://prosper.sourceforge.net/}
+  \tabularnewline
+\end{longtable}
+}
+
+\newslide
+
+%-----------------------------------------------------------------------------------------------------------------
+%
+\section{How do I\dots}\label{Sec:HowTo}
+
+\subsection{How can I incrementally display a paragraph of text\,?}\label{Q:Par}
+
+The easiest solution is to use \macroname{parstepwise}, but if the arguments of \macroname{step} are long, you'll get
+problems with line breaks, as \macroname{parstepwise} forces \macroname{step} to put its argument in a box.
+
+You can use \macroname{hidetext} like this:
+
+\begin{LaTeXCode}
+  \stepwise[\let\hidestepcontents=\hidetext]
+  {\step{Line breaks} \step{work in here.}}
+\end{LaTeXCode}
+
+
+\stepwise[\let\hidestepcontents=\hidetext]
+{%
+  \ifthenelse{\boolean{display}}
+  {%
+    yields
+    \present
+    {%
+      \begin{minipage}{7em}
+        \step{Line breaks} \step{work in here.}
+      \end{minipage}%
+      }
+    }
+  {}
+
+  But note that \macroname{hidetext}, being implemented using the \code{soul} package, is quite fragile (compare
+  \ref{Sec:hidetext}).
+
+  }
+
+\newslide
+
+If you're not using structured backgrounds, \macroname{hidevanish} is another alternative which can be used exactly like
+\macroname{hidetext}, but is much more robust (note that this will fail whenever your text should appear in front of
+different background colors, for any reason).
+
+In the argument of \macroname{hidevanish}, which uses \macroname{textcolor}, paragraph breaks are not allowed. Using
+\macroname{vstep} is a little less restrictive:
+
+
+\begin{LaTeXCode}
+  \stepwise
+  {%
+    {\vstep Line and paragraph breaks
+    \vstep work in here.\par Yeah!}%
+    }
+\end{LaTeXCode}
+
+\stepwise[\renewcommand{\vanishcolor}{presentcolor}]
+{%
+  \ifthenelse{\boolean{display}}
+  {%
+    yields
+    \present
+    {%
+      \begin{minipage}{13em}
+        \vstep Line and paragraph breaks \vstep work in here.\par Yeah!
+      \end{minipage}%
+      }
+    }
+  {}
+}
+
+\newslide
+
+To facilitate the decision, here's a side-by-side comparison of the pros and cons:
+
+\macroname{parstepwise}:
+\begin{itemize}
+\item[\origmath{+}] robust
+\item[\origmath{+}] works with structured backgrounds
+\item[\origmath{-}] no automatic line breaks in \macroname{step}'s argument
+\item[\origmath{-}] no paragraph breaks in \macroname{step}'s argument
+\end{itemize}
+
+\macroname{hidetext}:
+\begin{itemize}
+\item[\origmath{-}] very fragile
+\item[\origmath{+}] works with structured backgrounds
+\item[\origmath{+}] allows automatic line breaks in \macroname{step}'s argument
+\item[\origmath{-}] no paragraph breaks in \macroname{step}'s argument
+\end{itemize}
+
+\newslide
+
+\macroname{hidevanish}:
+\begin{itemize}
+\item[\origmath{+}] robust
+\item[\origmath{-}] fails with structured backgrounds
+\item[\origmath{+}] allows automatic line breaks in \macroname{step}'s argument
+\item[\origmath{-}] no paragraph breaks in \macroname{step}'s argument
+\end{itemize}
+
+\macroname{vstep}:
+\begin{itemize}
+\item[\origmath{+}] very robust
+\item[\origmath{-}] fails with structured backgrounds
+\item[\origmath{+}] allows automatic line breaks
+\item[\origmath{+}] allows paragraph breaks
+\end{itemize}
+
+\newslide
+
+
+\subsection{Instead of making text appear `out of nowhere', I'd rather just change colors from `dimmed' to normal.}
+
+There are some analogies between this item and \ref{Q:Par}.
+
+If you're using \code{texpower}'s standard colors, probably \macroname{hidedimmed} does what you want:
+
+\begin{LaTeXCode}
+  \stepwise[\let\hidestepcontents=\hidedimmed]
+  {%
+    \step{This works with} \step{\emph{all}}
+    \step{\highlighttext{highlighting} commands.}%
+    }
+\end{LaTeXCode}
+
+\stepwise[\let\hidestepcontents=\hidedimmed]
+{%
+  \ifthenelse{\boolean{display}}
+  {%
+    yields
+    \present
+    {%
+      \begin{minipage}{10em}
+        \step{This works with} \step{\emph{all}} \step{\highlighttext{highlighting} commands.}
+      \end{minipage}%
+      }
+    }
+  {}
+  }
+
+\newslide
+
+In the argument of \macroname{hidedimmed}, which uses \macroname{textcolor}, paragraph breaks are not allowed. Using
+\macroname{dstep} is a little less restrictive. The following achieves the same result as above:
+
+\begin{LaTeXCode}
+  \stepwise
+  {%
+    \dstep This works with \dstep \emph{all}
+    \dstep \highlighttext{highlighting} commands.%
+    }
+\end{LaTeXCode}
+
+\newslide
+
+If the dimmed colors look too fancy to you, you can also use \macroname{vstep} for this purpose, setting
+\macroname{vanishcolor} to some `dimmed' color:
+
+\begin{LaTeXCode}
+  \stepwise[\renewcommand{\vanishcolor}{inactivecolor}]
+  {%
+    \vstep This works with \vstep \emph{all}
+    \vstep \highlighttext{highlighting} commands.%
+    }
+\end{LaTeXCode}
+
+\stepwise[\renewcommand{\vanishcolor}{inactivecolor}]
+{%
+  \ifthenelse{\boolean{display}}
+  {%
+    yields
+    \present
+    {%
+      \begin{minipage}{10em}
+        \vstep This works with \vstep \emph{all} \vstep \highlighttext{highlighting} commands.
+      \end{minipage}%
+      }
+    }
+  {}
+  }
+
+Achieving the same with \macroname{hidevanish} is left as an exercise to the reader.
+
+\newslide
+
+\subsection{\macroname{dstep} and \macroname{hidedimmed} work only with \code{texpower}'s standard colors. How can I dim
+  my own colors\,?}
+
+\code{texpower} maintains a list of colors which will be affected by \macroname{dimcolors} (which is behind
+\macroname{dstep} and \macroname{hidedimmed}).
+
+You can add your own colors to this list by issuing \commandapp{addTPcolor}{mycolor}. Then you only have to define
+another color \code{dmycolor} which will be replaced for \code{mycolor} automatically when \macroname{dimcolors} is
+executed.
+
+\newslide
+
+For instance:
+{\small
+\begin{LaTeXCode}
+  \definecolor{mycolor}{rgb}{1,0.5,0}%
+  \definecolor{dmycolor}{rgb}{0.9,0.8,0.6}%
+  \addTPcolor{mycolor}
+  \stepwise
+  {\dstep My \emph{own} \dstep \textcolor{mycolor}{color}.}
+\end{LaTeXCode}
+}%
+
+\ifthenelse{\boolean{display}}
+{%
+  \definecolor{mycolor}{rgb}{1,0.5,0}%
+  \definecolor{dmycolor}{rgb}{0.9,0.8,0.6}%
+  \addTPcolor{mycolor}%
+  \liststepwise
+  {%
+    yields
+    \present
+    {%
+      \dstep My \emph{own} \dstep \textcolor{mycolor}{color}.
+      }
+    }
+  }
+{}
+
+Note that if you ever wish to use \macroname{enhancecolors} or \macroname{highlightenhanced}, you'll also need an
+\emph{enhanced} version of your new color named \code{emycolor}.
+
+If you wish to use one of the commands \macroname{whitebackground}, \macroname{lightbackground},
+\macroname{darkbackground}, or \macroname{blackbackground}, you'll need even more variants of your new color. In this
+case, you'll better define it in the file \code{tpsettings.cfg} (which contains an example).
+
+
+\newslide
+
+%-----------------------------------------------------------------------------------------------------------------
+%
+\section{Problems}
+
+\subsection{I'm loading the \code{texpower} package, but dynamic features don't seem to work.}
+
+Remember that you have to turn on dynamic features explicitly by giving the \code{display} option either to
+\code{texpower} or as a global option. Otherwise, a printout version of your document is produced.
+
+\newslide
+
+\subsection{When I use the \code{colormath} option, my displayed formulae are not colored.}
+
+Don't use the \TeX{} environment \code{\$\$}\dots\code{\$\$} for displayed formulae if you want to profit from math
+coloring.
+
+\code{texpower} supports \LaTeX's environments \macroname{[}\dots\macroname{]}, \code{displaymath}, \code{equation},
+\code{eqnarray}, and \code{eqnarray*}. It also works with the diverse displayed math environments from the
+\href{ftp://ftp.dante.de/tex-archive/help/Catalogue/entries/amsmath.html}{\code{amsmath}} package.
+
+Replacing \code{\$\$}\dots\code{\$\$} everywhere by \macroname{[}\dots\macroname{]} should solve this problem.
+
+\newslide
+
+\subsection{It seems I can't use \macroname{vfill} in combination with \macroname{pause}.}
+
+This is a problem indeed, as \LaTeX{} never gets to see anything after \macroname{pause} when the first part of the
+sequence is produced. You can use \macroname{vfill} with \macroname{stepwise} if you
+\begin{enumerate}
+\item use a configuration where \macroname{step} leaves blank space (to ensure proper vertical spacing);
+\item put \emph{all} \macroname{vfill}s into the argument of \macroname{stepwise}, \emph{outside} the argument of any
+  \macroname{step}.
+\end{enumerate}
+
+For instance:
+
+\begin{LaTeXCode}
+  \parstepwise
+  {\step{One.}\vfill\step{Two.}\vfill\step{Three.}}
+\end{LaTeXCode}
+
+\parstepwise
+{%
+  \ifthenelse{\boolean{display}}
+  {%
+    yields
+    \present
+    {%
+      \begin{minipage}[c][10ex][s]{10em}
+        \step{One.}\vfill\step{Two.}\vfill\step{Three.}
+      \end{minipage}
+      }
+    }
+  {}
+  }
+
+
+\newslide
+
+\subsection{When I use \LaTeX+\code{dvips}+\code{distiller}, the result looks strange and `hyper' features don't work.}
+
+Check the \code{log} file of your document. If it contains the line
+{\codeswitch%
+\begin{verbatim}
+*hyperref using default driver hypertex*
+\end{verbatim}%
+}%
+then the default hyperref driver for your system is not suited for processing by \code{dvips}+\code{distiller}.
+
+Either you set another default driver (for instance, in the file \code{hyperref.cfg}), or you use the option
+\code{dvips} in your document as a global option or an option to \commandapp{usepackage}{hyperref}. See the
+documentation of the \href{ftp://ftp.dante.de/tex-archive/help/Catalogue/entries/hyperref.html}{\code{hyperref}} package
+for details.
+
+\newslide
+
+\subsection{When using \macroname{highlighttext} or \macroname{hidetext}, I'm getting strange error messages.}
+\label{Sec:hidetext}
+
+Note that both these commands are implemented using the
+\href{ftp://ftp.dante.de/tex-archive/help/Catalogue/entries/soul.html}{\code{soul}} package. \code{soul} has some rather
+severe restrictions concerning what is allowed to appear in the argument of commands using it. Consult the documentation
+of \href{ftp://ftp.dante.de/tex-archive/help/Catalogue/entries/soul.html}{\code{soul}} for a detailed description of
+these restrictions.
+
+The most prominent one is that almost no \LaTeX{} command is allowed in the argument of a command implemented using
+\code{soul}. For instance, to use an emphasis or highlighting command like \macroname{emph}, you have to use a sequence
+of \macroname{highlighttext} commands, putting \macroname{emph} `outside'. Expect glitches in display quality though.
+
+\code{\small\commandapp{highlighttext}{This~}\discretionary{\%}{}{}\commandapp{emph}{\commandapp{highlighttext}{annoying~}}\discretionary{\%}{}{}\commandapp{highlighttext}{behaviour}}
+yields \highlighttext{This }\emph{\highlighttext{annoying }}\highlighttext{behaviour}.
+
+\newslide
+
+Another restriction is that accents are separated from the characters they belong to and break. You have to enclose the
+complete accented character with braces or use an appropriate input encoding, typing accented characters `as one'.
+\begin{center}
+  \begin{tabular}{l@{ yields }l}
+    \commandapp{highlighttext}{S\{\macroname{"}u\}\macroname{ss} es}&\highlighttext{S{\"u}\ss es}\\
+    \commandapp{highlighttext}{Süßes}&\highlighttext{Süßes}\\
+  \end{tabular}
+\end{center}
+
+\newslide
+
+\subsection{Inside the argument of \macroname{stepwise}, all counters seem to be freezed on all pages of the sequence
+  generated. How can I use a self-defined counter which does not freeze\,?}
+
+Freezing counters is a desirable behaviour in general, for instance to stop equation numbers from going astray.
+
+But \code{texpower} maintains a list of counters which are \emph{not} freezed, containing for instance the counter
+\code{step}.
+
+If you need a counter for special effects while the incremental sequence is generated (for instance: generating a
+sequence of MetaPost figures with the \code{emp} and \code{feynmp} packages), use
+\begin{LaTeXCode}
+  \releasecounter{mycounter}
+\end{LaTeXCode}
+to release the counter \code{mycounter}.
+\end{document}
+\endinput
+%%
+%% End of file `FAQ-printout.tex'.

@@ -1,0 +1,177 @@
+%%
+%% This is file `hilitexample.tex',
+%% generated with the docstrip utility.
+%%
+%% The original source files were:
+%%
+%% texpower-doc.dtx  (with options: `hilitexample,hilitexample-src,end')
+%% 
+%% --------------------------------------------------------------
+%% TeXPower bundle - dynamic online presentations with LaTeX
+%% Copyright (C) 1999-2004 Stephan Lehmke
+%% Copyright (C) 2003-2005 Hans Fredrik Nordhaug
+%% 
+%% This program is free software; you can redistribute it and/or
+%% modify it under the terms of the GNU General Public License
+%% as published by the Free Software Foundation; either version 2
+%% of the License, or (at your option) any later version.
+%% 
+%% This program is distributed in the hope that it will be useful,
+%% but WITHOUT ANY WARRANTY; without even the implied warranty of
+%% MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+%% GNU General Public License for more details.
+%% --------------------------------------------------------------
+%% 
+%% The list of all files belonging to the TeXPower bundle is
+%% given in the file `00readme.txt'.
+%% 
+\ProvidesFile{hilitexample.tex}%
+      [2005/04/07 TeXPower example file]
+%-----------------------------------------------------------------------------------------------------------------
+%
+% Highlighting example for the package texpower.sty.
+%
+%-----------------------------------------------------------------------------------------------------------------
+% Use slifonts.
+
+\RequirePackage{tpslifonts}
+
+% Input the generic preamble.
+
+\input{__TPpreamble}
+\hypersetup{pdftitle={texpower highlighting example}}
+
+% The package soul is needed for \highlighttext to work.
+
+\usepackage{soul}
+
+%-----------------------------------------------------------------------------------------------------------------
+% Finally, everything is set up. Here we go...
+%
+\begin{document}
+\begin{slide}
+%-----------------------------------------------------------------------------------------------------------------
+%
+\makeslidetitle{\macroname{stepwise} Example: Highlighting Text}\label{Sec:Exhl}
+% The default for \step's which are not yet `active' is to be `invisible'. In preceding examples, we have redefined
+% internal macros like \hidestepcontents or \activatestep to achieve special `highlighting' effects.
+% Here, we demonstrate how make text `stand out' from the background incrementally without having it appear from thin
+% air.
+
+% The first example demonstrates how to make \step its argument `stand out' instead of making it appear `out of
+% nowhere'.
+
+\makeatletter
+\ifthenelse{\boolean{TPcolor}}% Can we use colors?
+{% Yes. In this case \step should change colors from `dimmed' to `active'.
+
+  % The command \hidedimmed switches colors to `dimmed', the command \highlightenhanced switches colors to `enhanced'.
+  \liststepwise[\let\hidestepcontents=\hidedimmed\let\activatestep=\highlightenhanced]
+  {%
+    \vspace*{\fill}
+    \begin{quote}
+      \Large%
+      \step{Instead of making things appear out of `thin air',} \step{we can also make them appear `out of the
+        background'} \step{by incrementally changing color from \concept{inactive}} \step{to \concept{active}.}
+      \step{This also works with \emph{color emphasis}} \step{and \concept{math coloring}: $a=b^2$.}
+    \end{quote}
+    \vspace*{\fill}\vspace*{\fill}
+    }%
+  }
+{% No. In this case we have to `handwave' using the soul package.
+  % Instead of hiding its argument, the new command \myhide just changes the font size (maintaining the overall text
+  % length though).
+  \def\myhide
+  {%
+    \leavevmode%
+    \SOUL@setup
+    \def\SOUL@everytoken{\makebox[\widthof{\the\SOUL@token}][s]{\rule[\depthof{\the\SOUL@token}*-1]{0pt}{\depthof{\the\SOUL@token}+\heightof{\the\SOUL@token}}\hrulefill\tiny\the\SOUL@token\hrulefill}\SOUL@setkern\SOUL@charkern}%
+    \SOUL@%
+    }
+
+  \liststepwise[\let\hidestepcontents=\myhide\setcounter{firststep}{0}]
+  {%
+    \vspace*{\fill}
+    \begin{quote}
+      \LARGE%
+      \step{Instead of making things appear out of `thin air',} \step{we can also make them appear `out of the
+        background'} \step{incrementally.}
+    \end{quote}
+    \vspace*{\fill}\vspace*{\fill}
+    }%
+  }
+\makeatother
+
+\newslide
+
+% Next, it is demonstrated how we can `flip through' an itemize environment by just highlighting the items in turn
+% instead of making them appear one by one.
+%
+% Define a macro \mystep which implements the highlighting effect.
+\ifthenelse{\boolean{TPcolor}}% Can we use colors?
+{% Yes. In this case highlighting is implemented by switching color.
+  \def\mystep% Note that \mystep takes no argument. It just changes the way the next item is displayed.
+  {%
+    \usecolorset{stwcolors}%             Restore the undimmed colors valid at the beginning of \stepwise.
+    \dstep[][\boolean{firstactivation}]% \dstep switches colors. The optional argument makes it appear only once.
+    }%
+}
+{% No. In this case highlighting is implemented by redefining \labelitemi.
+  \def\mystep
+  {%
+    \switch[][\boolean{firstactivation}]% The optional arguments make \switch act only once.
+    {\def\labelitemi{\origmath{\gg}}}{\def\labelitemi{\origmath{\cdot}}}%
+    }%
+  }
+
+% We define a custom itemize environment which automatically adds calls to \mystep:
+\newenvironment{stepitemize}
+{%
+  \huge
+  \begin{itemize}
+    \let\origitem=\item
+    % Here, the \mystep command is hidden inside \item
+    \renewcommand{\item}{\mystep\origitem}%
+    }
+  {%
+  \end{itemize}
+  }
+
+Instead of displaying incrementally, we can just `flip through' some items by highlighting them:
+
+% Note that we use the starred version of \liststepwise so that the first item is highlighted on the first slide
+% produced by \liststepwise.
+%
+\liststepwise*
+{%
+  \begin{stepitemize}
+  \item Item 1
+  \item Item 2
+  \item Item 3
+  \end{stepitemize}
+  }
+
+\pause
+
+% The following example demonstrates highlighting inside a paragraph using \highlighttext. By redefining \activatestep
+% to \highlighttext, the argument of every \step will be highlighted when the \step is activated for the first
+% time. Note that highlighting doesn't influence line breaks because \highlighttext is implemented using the soul
+% package.
+%
+% Again, we define \hidestepcontents to display its argument, so that the complete text is visible from the outset.
+
+\stepwise[\let\activatestep=\highlighttext\let\hidestepcontents=\displayidentical]
+{%
+  \vspace*{\fill}
+  \begin{minipage}{\linewidth}
+    \LARGE
+    \step{Inside} a paragraph, we can \step{highlight} text \step{without influencing} \step{line breaks}.
+  \end{minipage}
+  \vspace*{\fill}
+  }
+\newslide
+\end{slide}
+\end{document}
+\endinput
+%%
+%% End of file `hilitexample.tex'.

@@ -1,0 +1,210 @@
+% Copyright 2013 Thomas Koenig, Alexander Michel, Michael Baumgart
+%
+% This file is part of NumericPlots.
+%
+% NumericPlots is free software: you can redistribute it and/or modify
+% it under the terms of the GNU General Public License as published by
+% the Free Software Foundation, either version 3 of the License, or
+% any later version.
+%
+% NumericPlots is distributed in the hope that it will be useful,
+% but WITHOUT ANY WARRANTY; without even the implied warranty of
+% MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+% GNU General Public License for more details.
+%
+% You should have received a copy of the GNU General Public License
+% along with NumericPlots.  If not, see <http://www.gnu.org/licenses/>.
+
+
+\documentclass[parskip]{scrartcl}
+
+\usepackage[ansinew]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+
+\usepackage{amsmath}
+\usepackage{siunitx}
+% \usepackage{floatbarrier}
+% \usepackage{showexpl}
+\usepackage{etex} % use e-TeX’s extended register set
+
+% options for package:
+% BW: black and white
+% AxisStyle=<style>: set standard axis style ([Boxed], Frame, FrameI, None)
+\usepackage[
+	%BW,
+  	xAxisStyle=Lower,
+ 	yAxisStyle=Left,
+ 	]{NumericPlots}
+ 
+\usepackage[
+	ps2pdf,							%% similar to dvips but redefines some macros for use with ps2pdf
+	final,
+	bookmarks=true,				%% if true, generate PDF bookmarks (requires two passes of pdflatex)
+	bookmarksopen=false,			%% if true, show all PDF bookmarks expanded
+	bookmarksnumbered=true,		%% if true, add the section numbers to the bookmarks
+% 		linkbordercolor=acin_red,
+% 		urlbordercolor=acin_red,
+% 		citebordercolor=acin_red,
+% 		filebordercolor=acin_red,
+	pdfpagemode=UseOutlines, %% None, UseOutlines (=show bookmarks), UseThumbs (show thumbnails), FullScreen
+%	breaklinks,
+	pdfauthor = {Thomas Koenig Alexander Michel Michael Baumgart},
+	pdftitle = {NumericPlots - plot numeric data with latex},
+	pdfsubject = {},
+	plainpages=false,
+	hyperindex=true,
+]{hyperref}
+
+\usepackage{graphicx}
+
+\definecolor{NumericPlotsCommands}{RGB}{0, 102, 153}
+\usepackage{listings}
+\lstset{language=[latex]tex,tabsize=2,basicstyle=\small\ttfamily,%
+	numbers=none, numberstyle=\tiny,%
+	breaklines=true, breakatwhitespace=false,%
+	emptylines=*1,%
+	columns=flexible,%
+	keywordstyle=\color{black},commentstyle=\color{gray},%
+	keywordstyle={[2]\color{NumericPlotsCommands}},%
+	morekeywords={[2]setxAxis, setyAxis, NumericDataPlot, plotxAxis, plotyAxis,%
+	NDPput,putExpX,putExpY,%
+	putN,putNE,putE,putSE,putS,putSW,putW,putNW,%
+	PutTickLabelYaxis,PutTickLabelXaxis,%
+	NDPhline, NDPvline, NDPline, NDPhbox, NDPvbox, NDPbox,%
+	LegendDefinition, LegLine,%
+	StdLabelOption,StdTickLabelOption,%
+	multilistplot, testframe}%
+	}
+ 	
+\title{NumericPlots - plot numeric data with latex}
+\author{Thomas K\"{o}nig, Alexander Michel, Michael Baumgart}
+\date{\today}
+
+% \includeonly{TestPlots}
+% \includeonly{TechnicalDetails}
+
+% input DefineData here, as the examples from DefineData are used throughout the
+% document (includeonly still works).
+\input{examples/DefineData}
+\input{examples/DataTestRealData}
+
+\begin{document}
+
+% redefining the StdLabelOption and StdTickLabelOption applies to all following
+% plots.
+% \renewcommand{\StdLabelOption}{\LARGE}
+% \renewcommand{\StdTickLabelOption}{\LARGE}
+
+\maketitle
+
+Plotting numeric data is a task which often has to be done for scientific
+papers. In \LaTeX, however, it is only possible to include graphics created with
+an external program. The pstricks-packages provide many commands to
+generate graphics in \LaTeX. To generate simple graphics from numeric data,
+however, it is difficult to use. This package provides a simpler interface for
+the pstricks-package to plot numeric data.
+
+The authors may be reached at
+\href{mailto:numericplots@tikey.de}{numericplots@tikey.de}.
+
+\tableofcontents
+
+\part{Introduction}
+
+Plotting numeric data is a task which often has to be done for scientific
+papers. In \LaTeX, however, it is only possible to include graphics created with
+an external program. The pstricks-packages provide very many commands to
+generate graphics in \LaTeX. To generate simple graphics from numeric data,
+however, it is difficult to use. This package provides a simpler interface for
+the pstricks-package to plot numeric data.
+
+NumericPlots is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+any later version.
+
+NumericPlots is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with NumericPlots.  If not, see http://www.gnu.org/licenses/.
+
+Copyright 2013 Thomas K\"{o}nig, Alexander Michel, Michael Baumgart
+
+
+% \part{Using the package} -> in BasicFunctionality
+
+\include{BasicFunctionality}
+
+\include{MultiplePlots}
+
+\input{MatlabSupport}
+
+%\section{package options}
+
+%\section{list of commands and options}
+
+\include{options}
+
+\include{TechnicalDetails}
+
+% \part{Examples}
+
+\include{FurtherExamples}
+
+\include{TestPlots}
+
+
+% \part{Version}
+
+\include{history}
+
+% \section{Test Calculations}
+%
+% Teste setkeys
+%
+% Watch:
+%
+% \setkeys*[NumericDataPlot]{Axis}{xO=34, xMin=10}
+% \setrmkeys[NumericDataPlot]{AxisWait}
+% 	\begin{tabular}{ll}
+% 	xMin & \NumDataPlotxMin\\
+% 	\textbf{xO:} & \NumDataPlotxO \\
+% 	\end{tabular}
+%
+% \setkeys*[NumericDataPlot]{Axis}{xMin=10, xO=34}
+% \setrmkeys[NumericDataPlot]{AxisWait}
+% 	\begin{tabular}{ll}
+% 	xMin & \NumDataPlotxMin\\
+% 	\textbf{xO:} & \NumDataPlotxO \\
+% 	\end{tabular}
+%
+% \setkeys*[NumericDataPlot]{Axis}{xMin=10}
+% \setrmkeys[NumericDataPlot]{AxisWait}
+% 	\begin{tabular}{ll}
+% 	xMin & \NumDataPlotxMin\\
+% 	\textbf{xO:} & \NumDataPlotxO \\
+% 	\end{tabular}
+%
+% calculation example:
+
+% \setkeys*[NumericDataPlot]{Axis}{xO=34, xMax=20, xMin=10, Dx=2}
+% \setrmkeys[NumericDataPlot]{AxisWait}
+% 	\begin{tabular}{ll}
+% 	xCoordMin & \NumDataPlotxCoordMin\\
+% 	xCoordMax & \NumDataPlotxCoordMax \\
+% 	xMin: & \NumDataPlotxMin \\
+% 	xMax: & \NumDataPlotxMax \\
+% 	xCoordMax: & \NumDataPlotxCoordMax \\
+% 	xCoordMin: & \NumDataPlotxCoordMin \\
+% 	Dx: & \NumDataPlotDx \\
+% 	\textit{xNrTicks:} & \xNrTicks \\
+% 	%\textit{NumDataPlotdx} & \NumDataPlotdx\\
+% 	%\textit{NumDataPlotxCoordOrig} & \NumDataPlotdx\\
+% 	\textbf{xO:} & \NumDataPlotxO \\
+% 	\end{tabular}
+
+\end{document}

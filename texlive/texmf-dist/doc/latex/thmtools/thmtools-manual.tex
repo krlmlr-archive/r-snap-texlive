@@ -1,0 +1,1154 @@
+%&pdflatex
+\documentclass[paper=a4, pagesize, DIV=20,
+  english, 
+  headings=small,11pt,
+  titlepage=false,
+  numbers=noendperiod
+]{scrreprt}
+\addtokomafont{sectioning}{\rmfamily}
+
+\usepackage[T1]{fontenc}
+\usepackage[charter]{mathdesign}
+\usepackage{luximono}
+\usepackage[scaled]{helvet}
+
+\usepackage[dvipsnames]{xcolor}
+
+\usepackage{doc,shortvrb,xspace}
+\makeatletter
+% to be fixed at some point...
+\let\PrintDescribeMacro\@gobble
+\let  \PrintDescribeEnv\@gobble
+\let    \PrintMacroName\@gobble
+\let      \PrintEnvName\@gobble
+\makeatother
+\CodelineNumbered
+
+\usepackage{listings}
+
+\usepackage{amsmath, amsthm}
+\usepackage{tikz}
+
+\usepackage{nameref}
+\usepackage{hyperref}
+\usepackage{cleveref}[2010/05/01]
+
+\usepackage{thmtools, thm-restate}
+\usepackage[unq]{unique}
+
+\providecommand\pkg[1]{\textsf{#1}}
+\providecommand\Thmtools{\pkg{Thmtools}\xspace}
+\providecommand\thmtools{\pkg{thmtools}\xspace}
+\providecommand\oarg[1]{\texttt{[}\textit{#1}\texttt{]}}
+\providecommand\marg[1]{\texttt{\{}\textit{#1}\texttt{\}}}
+
+
+\providecommand\clap{\makebox[0pt][c]}
+
+\newcommand\key[2][\keydefaultcontext]{%
+  % todo: create an index from this...
+  \paragraph*{\texttt{#2}}
+}
+
+\lstloadlanguages{[LaTeX]TeX}
+\lstset{language=[LaTeX]TeX,basicstyle=\small\ttfamily,keywordstyle=\mdseries,aboveskip=0pt}
+
+\lstnewenvironment{preamble}[1][]{%
+  \lstset{backgroundcolor=\color{Purple!15},#1}%
+}{%
+}
+\lstnewenvironment{body}[1][]{%
+  \lstset{backgroundcolor=\color{Yellow!30},#1}%
+}{%
+}
+
+\newenvironment{source}{%
+  \par\noindent\strut\minipage[t]{0.61\linewidth}
+}{%
+  \endminipage
+}
+\newenvironment{result}{%
+  \hfill\minipage[t]{0.37\linewidth}
+}{%
+  \endminipage\strut\par
+}
+%\MakeShortVerb{\|}
+\lstMakeShortInline{|}
+
+
+\declaretheorem{theorem}
+\declaretheorem[numberwithin=section]{theoremS}
+\declaretheorem[name=\"Ubung]{exercise}
+\declaretheorem[sibling=theorem]{lemma}
+\declaretheorem[numbered=no,
+  name=Euclid's Prime Theorem]{euclid}
+\declaretheorem[numbered=unless unique]{singleton}
+\declaretheorem[numbered=unless unique]{couple}
+\declaretheorem[style=remark]{remark}
+\declaretheorem{Theorem}
+
+\declaretheorem[shaded={bgcolor=Lavender,
+      textwidth=12em}]{BoxI}
+
+\declaretheorem[shaded={rulecolor=Lavender,
+  rulewidth=2pt, bgcolor={rgb}{1,1,1}}]{BoxII}
+
+    \declaretheorem[thmbox=L]{boxtheorem L}
+    \declaretheorem[thmbox=M]{boxtheorem M}
+    \declaretheorem[thmbox=S]{boxtheorem S}
+
+\declaretheoremstyle[
+      spaceabove=6pt, spacebelow=6pt,
+      headfont=\normalfont\bfseries,
+      notefont=\mdseries, notebraces={(}{)},
+      bodyfont=\normalfont,
+      postheadspace=1em,
+      qed=\qedsymbol
+    ]{mystyle}
+\declaretheorem[style=mystyle
+  ]{styledtheorem}
+
+\declaretheorem[name=Theorem, refname={theorem,theorems},
+    Refname={Theorem,Theorems}]{callmeal}
+
+
+\input{VERSION.tex}
+
+\title{\Thmtools Users' Guide}
+\author{Dr. Ulrich M. Schwarz -- ulmi@absatzen.de\thanks{
+  who would like to thank the users for testing, encouragement, feature requests, and
+  bug reports. In particular, Denis Bitouz\'e prompted further improvement
+  when \thmtools got stuck in a ``good enough for me'' slump.
+}}
+\date{\VERSION}
+
+\begin{document}
+  \maketitle
+  \section*{\abstractname}
+  
+  The \thmtools bundle is a collection of packages that is designed to
+  provide an easier interface to theorems, and to facilitate some more
+  advanced tasks.
+  
+  If you are a first-time user and you don't think your requirements are out
+  of the ordinary, browse the examples in \autoref{cha:impatient}. If you're
+  here because the other packages you've tried so far just can't do what you
+  want, take inspiration from \autoref{cha:extravagant}. If you're a repeat
+  customer, you're most likely to be interested in the refence section in
+  \autoref{cha:reference}.
+  
+  \begin{multicols}{2}[\section*{\contentsname}]
+  \makeatletter\let\chapter\@gobbletwo
+  \tableofcontents
+  \end{multicols}
+  \clearpage
+  
+  \chapter{\Thmtools for the impatient}\label{cha:impatient}
+  
+  \section*{How to use this document}
+  
+  This guide consists mostly of examples and their output, sometimes with a
+  few additional remarks. Since theorems are defined in the preamble and
+  used in the document, the snippets are two-fold:
+  \begin{source}
+  \begin{preamble}[gobble=4]
+    % Preamble code looks like this.
+    \usepackage{amsthm}
+    \usepackage{thmtools}
+    \declaretheorem{theorem}
+  \end{preamble}
+  \begin{body}[gobble=4]
+    % Document code looks like this.
+    \begin{theorem}[Euclid]
+     \label{thm:euclid}%
+     For every prime $p$, there is a prime $p'>p$.
+     In particular, the list of primes,
+     \begin{equation}\label{eq:1}
+       2,3,5,7,\dots
+     \end{equation}
+     is infinite.
+    \end{theorem}
+  \end{body}
+  \end{source}
+  \begin{result}
+    The result looks like this:
+%    \begin{theorem}[Euclid]
+%      For every prime $p$, there is a prime $p'>p$.
+%      In particular, there are infinitely many primes.
+%    \end{theorem}
+  \begin{restatable}[Euclid]{theorem}{firsteuclid}
+     \label{thm:euclid}%
+     For every prime $p$, there is a prime $p'>p$.
+     In particular, the list of primes,
+     \begin{equation}\label{eq:1}
+       2,3,5,7,\dots
+     \end{equation}
+     is infinite.
+  \end{restatable}
+  \end{result}
+  
+  Note that in all cases, you will need a \emph{backend} to provide the
+  command |\newtheorem| with the usual behaviour. The \LaTeX\
+  kernel has a built-in backend which cannot do very much; the most common
+  backends these days are the \pkg{amsthm} and \pkg{ntheorem} packages. 
+  Throughout this document, we'll use \pkg{amsthm}, and some of the features
+  won't work with \pkg{ntheorem}.
+  
+  \section{Elementary definitions}
+  
+  As you have seen above, the new command to define theorems is
+  |\declaretheorem|, which in its most basic form just takes the
+  name of the environment. All other options can be set through a key-val
+  interface:
+  \begin{source}
+  \begin{preamble}[gobble=4]
+    \usepackage{amsthm}
+    \usepackage{thmtools}
+    \declaretheorem[numberwithin=section]{theoremS}
+  \end{preamble}
+  \begin{body}[gobble=4]
+    \begin{theoremS}[Euclid]
+      For every prime $p$, there is a prime $p'>p$.
+      In particular, there are infinitely many primes.
+    \end{theoremS}
+  \end{body}
+  \end{source}
+  \begin{result}
+    \begin{restatable}[Euclid]{theoremS}{euclidii}
+      For every prime $p$, there is a prime $p'>p$.
+      In particular, there are infinitely many primes.
+    \end{restatable}
+  \end{result}
+  
+  Instead of ``numberwithin='', you can also use ``parent='' and
+  ``within=''. They're all the same, use the one you find easiest to
+  remember.
+  
+  Note the example above looks somewhat bad: sometimes, the name of the environment, 
+  with the first
+  letter uppercased, is not a good choice for the theorem's title.
+  
+  \begin{source}
+  \begin{preamble}[gobble=4]
+    \usepackage{amsthm}
+    \usepackage{thmtools}
+    \declaretheorem[name=\"Ubung]{exercise}
+  \end{preamble}
+  \begin{body}[gobble=4]
+    \begin{exercise}
+      Prove Euclid's Theorem.
+    \end{exercise}
+  \end{body}
+  \end{source}
+  \begin{result}
+    \begin{exercise}
+      Prove Euclid's Theorem.
+    \end{exercise}
+  \end{result}
+  
+  To save you from having to look up the name of the key every time, you can
+  also use ``title='' and ``heading='' instead of ``name=''; they do exactly
+  the same and hopefully one of these will be easy to remember for you.
+
+  Of course, you do not have to follow the abominal practice of numbering
+  theorems, lemmas, etc., separately:  
+  \begin{source}
+  \begin{preamble}[gobble=4]
+    \usepackage{amsthm}
+    \usepackage{thmtools}
+    \declaretheorem[sibling=theorem]{lemma}
+  \end{preamble}
+  \begin{body}[gobble=4]
+    \begin{lemma}
+      For every prime $p$, there is a prime $p'>p$.
+      In particular, there are infinitely many primes.      
+    \end{lemma}
+  \end{body}
+  \end{source}
+  \begin{result}
+    \begin{lemma}
+      For every prime $p$, there is a prime $p'>p$.
+      In particular, there are infinitely many primes.      
+    \end{lemma}
+  \end{result}
+
+  Again, instead of ``sibling='', you can also use ``numberlike='' and
+  ``sharecounter=''.
+
+  Some theorems have a fixed name and are not supposed to get a number.
+  To this end, \pkg{amsthm} provides |\newtheorem*|, which is
+  accessible through \thmtools:
+  \begin{source}
+  \begin{preamble}[gobble=4]
+    \usepackage{amsthm}
+    \usepackage{thmtools}
+    \declaretheorem[numbered=no,
+      name=Euclid's Prime Theorem]{euclid}
+  \end{preamble}
+  \begin{body}[gobble=4]
+    \begin{euclid}
+      For every prime $p$, there is a prime $p'>p$.
+      In particular, there are infinitely many primes.      
+    \end{euclid}
+  \end{body}
+  \end{source}
+  \begin{result}
+    \begin{euclid}
+      For every prime $p$, there is a prime $p'>p$.
+      In particular, there are infinitely many primes.      
+    \end{euclid}
+  \end{result}
+
+  As a somewhat odd frill, you can turn off the number if there's only one
+  instance of the kind in the document. This might happen when you split and
+  join your papers into short conference versions and longer journal papers
+  and tech reports. Note that this doesn't combine well with the sibling
+  key: how do you count like somebody who suddenly doesn't count anymore?
+  Also, it takes an extra \LaTeX\ run to settle.
+  \begin{source}
+  \begin{preamble}[gobble=4]
+    \usepackage{amsthm}
+    \usepackage{thmtools}
+    \usepackage[unq]{unique}
+    \declaretheorem[numbered=unless unique]{singleton}
+    \declaretheorem[numbered=unless unique]{couple}
+  \end{preamble}
+  \begin{body}[gobble=4]
+    \begin{couple}
+      Marc \& Anne
+    \end{couple}
+    \begin{singleton}
+      Me.
+    \end{singleton}
+    \begin{couple}
+      Buck \& Britta
+    \end{couple}
+  \end{body}
+  \end{source}
+  \begin{result}
+    \begin{couple}
+      Marc \& Anne
+    \end{couple}
+    \begin{singleton}
+      Me.
+    \end{singleton}
+    \begin{couple}
+      Buck \& Britta
+    \end{couple}
+  \end{result}
+
+  \section{Frilly references}
+
+  In case you didn't know, you should: \pkg{hyperref}, \pkg{nameref} and
+  \pkg{cleveref} offer ways of ``automagically'' knowing that
+  |\label{foo}| was inside a theorem, so that a reference adds the
+  string ``Theorem''. This is all done for you, but there's one catch: you
+  have to tell \thmtools\ what the name to add is. By default, it will use
+  the title of the theorem, in particular, it will be uppercased.
+  (This happens to match the guidelines of all
+  publishers I have encountered.) But there is an alternate spelling
+  available, denoted by a capital letter, and in any case, if you use
+  \pkg{cleveref}, you should give two values separated by a comma, because
+  it will generate plural forms if you reference many theorems in one
+  |\cite|.
+  \begin{source}
+    \begin{preamble}[gobble=6]
+      \usepackage{amsthm, thmtools}
+      \usepackage{
+        nameref,%\nameref
+        hyperref,%\autoref
+        % n.b. \Autoref is defined by thmtools
+        cleveref,% \cref
+        % n.b. cleveref after! hyperref
+      }
+      \declaretheorem[name=Theorem, 
+        refname={theorem,theorems},
+        Refname={Theorem,Theorems}]{callmeal}
+    \end{preamble}
+    \begin{body}[gobble=6]
+      \begin{callmeal}[Simon]\label{simon}
+        One
+      \end{callmeal}
+      \begin{callmeal}\label{garfunkel}
+        and another, and together, 
+        \autoref{simon}, ``\nameref{simon}'',
+        and \cref{garfunkel} are referred 
+        to as \cref{simon,garfunkel}.
+        \Cref{simon,garfunkel}, if you are at 
+        the beginning of a sentence.
+      \end{callmeal}
+    \end{body}
+  \end{source}
+  \begin{result}
+      \begin{callmeal}[Simon]\label{simon}
+        One
+      \end{callmeal}
+      \begin{callmeal}\label{garfunkel}
+        and another, and together, \autoref{simon}, ``\nameref{simon}'',
+        and \cref{garfunkel} are referred to as \cref{simon,garfunkel}.
+        \Cref{simon,garfunkel}, if you are at the beginning of a sentence.
+      \end{callmeal}
+  \end{result}
+
+  \section{Styling theorems}
+  
+  The major backends provide a command |\theoremstyle| to switch
+  between looks of theorems. This is handled as follows:
+  \begin{source}
+  \begin{preamble}[gobble=4]
+    \usepackage{amsthm}
+    \usepackage{thmtools}
+    \declaretheorem[style=remark]{remark}
+    \declaretheorem{Theorem}
+  \end{preamble}
+  \begin{body}[gobble=4]
+    \begin{Theorem}
+      This is a theorem.
+    \end{Theorem}
+    \begin{remark}
+      Note how it still retains the default style, `plain'.
+    \end{remark}
+  \end{body}
+  \end{source}
+  \begin{result}
+    \begin{Theorem}
+      This is a theorem.
+    \end{Theorem}
+    \begin{remark}
+      Note how it still retains the default style, `plain'.
+    \end{remark}
+  \end{result}
+  
+  Thmtools also supports the shadethm and thmbox packages:
+  \begin{source}
+  \begin{preamble}[gobble=4]
+    \usepackage{amsthm}
+    \usepackage{thmtools}
+    \usepackage[dvipsnames]{xcolor}
+    \declaretheorem[shaded={bgcolor=Lavender,
+      textwidth=12em}]{BoxI}
+    \declaretheorem[shaded={rulecolor=Lavender,
+      rulewidth=2pt, bgcolor={rgb}{1,1,1}}]{BoxII}
+  \end{preamble}
+  \begin{body}[gobble=4]
+    \begin{BoxI}[Euclid]
+      For every prime $p$, there is a prime $p'>p$.
+      In particular, there are infinitely many primes.
+    \end{BoxI}
+    \begin{BoxII}[Euclid]
+      For every prime $p$, there is a prime $p'>p$.
+      In particular, there are infinitely many primes.
+    \end{BoxII}
+  \end{body}
+  \end{source}
+  \begin{result}
+    \begin{BoxI}
+      For every prime $p$, there is a prime $p'>p$.
+      In particular, there are infinitely many primes.
+    \end{BoxI}
+    \begin{BoxII}
+      For every prime $p$, there is a prime $p'>p$.
+      In particular, there are infinitely many primes.
+    \end{BoxII}
+  \end{result}
+
+  As you can see, the color parameters can take two forms: it's either the
+  name of a color that is already defined, without curly braces, or it can
+  start with a curly brace, in which case it is assumed that
+  |\definecolor{colorname}|$\langle$\textsl{what you said}$\rangle$ will be
+  valid \LaTeX\ code. In our case, we use the rbg model to manually specify
+  white. (Shadethm's default value is some sort of gray.)
+  
+  For the thmbox package, use the thmbox key:
+  \begin{source}
+  \begin{preamble}[gobble=4]
+    \usepackage{amsthm}
+    \usepackage{thmtools}
+    \declaretheorem[thmbox=L]{boxtheorem L}
+    \declaretheorem[thmbox=M]{boxtheorem M}
+    \declaretheorem[thmbox=S]{boxtheorem S}
+  \end{preamble}
+  \begin{body}[gobble=4]
+    \begin{boxtheorem L}[Euclid]
+      For every prime $p$, there is a prime $p'>p$.
+      In particular, there are infinitely many primes.
+    \end{boxtheorem L}
+    \begin{boxtheorem M}[Euclid]
+      For every prime $p$, there is a prime $p'>p$.
+      In particular, there are infinitely many primes.
+    \end{boxtheorem M}
+    \begin{boxtheorem S}[Euclid]
+      For every prime $p$, there is a prime $p'>p$.
+      In particular, there are infinitely many primes.
+    \end{boxtheorem S}
+  \end{body}
+  \end{source}
+  \begin{result}
+    \begin{boxtheorem L}[Euclid]
+      For every prime $p$, there is a prime $p'>p$.
+      In particular, there are infinitely many primes.
+    \end{boxtheorem L}
+    \begin{boxtheorem M}[Euclid]
+      For every prime $p$, there is a prime $p'>p$.
+      In particular, there are infinitely many primes.
+    \end{boxtheorem M}
+    \begin{boxtheorem S}[Euclid]
+      For every prime $p$, there is a prime $p'>p$.
+      In particular, there are infinitely many primes.
+    \end{boxtheorem S}
+  \end{result}
+
+  Note that for both thmbox and shaded keys, it's quite possible they will not
+  cooperate with a style key you give at the same time.
+
+  \subsection{Declaring new theoremstyles}
+  
+  \Thmtools\ also offers a new command to define new theoremstyles. It is
+  partly a frontend to the |\newtheoremstyle| command of \pkg{amsthm} or
+  \pkg{ntheorem}, but it offers (more or less successfully) the settings of both to 
+  either. So we are talking about the same things, consider the sketch in
+  \autoref{fig:params}. To get a result like that, you would use something
+  like
+  \begin{source}
+  \begin{preamble}[gobble=4]
+    \declaretheoremstyle[
+      spaceabove=6pt, spacebelow=6pt,
+      headfont=\normalfont\bfseries,
+      notefont=\mdseries, notebraces={(}{)},
+      bodyfont=\normalfont,
+      postheadspace=1em,
+      qed=\qedsymbol
+    ]{mystyle}
+    \declaretheorem[style=mystyle]{styledtheorem}
+  \end{preamble}
+  \begin{body}[gobble=4]
+    \begin{styledtheorem}[Euclid]
+      For every prime $p$\dots
+    \end{styledtheorem}
+  \end{body}
+  \end{source}
+  \begin{result}
+    \begin{styledtheorem}[Euclid]
+      For every prime $p$\dots
+    \end{styledtheorem}
+  \end{result}
+  Again, the defaults are reasonable and you don't
+  have to give values for everything.
+  
+  There is one important thing you cannot see in this example: there are
+  more keys you can pass to |\declaretheoremstyle|: if \thmtools\ cannot
+  figure out at all what to do with it, it will pass it on to the
+  |\declaretheorem| commands that use that style. For example, you may use
+  the boxed and shaded keys here.
+  
+  To change the order in which title, number and note appear, there is a key
+  headformat. Currently, the values ``margin'' and ``swapnumber'' are
+  supported. The daring may also try to give a macro here that uses the
+  commands |\NUMBER|, |\NAME| and |\NOTE|. 
+  You cannot circumvent the fact
+  that headpunct comes at the end, though, nor the fonts and braces you
+  select with the other keys.
+  
+  \begin{figure}\centering
+    % please don't make me touch this picture ever again.
+    \fbox{
+    \begin{minipage}{0.618\textwidth}\Large
+    \tikzset{font=\normalfont\small\sffamily\itshape,y=12pt,>=latex}
+    \noindent which resulted in the following insight:
+    \par
+    \tikz{\draw[|<->|] (0,-1)--(0,1); 
+      \draw[anchor=west] (0,0) node {spaceabove};}
+    \par
+    \tikz{\draw[|<->|] (-1,0)--(1,0); 
+      \draw[anchor=south] (0,0) node {headindent};}
+    \textbf{Theo%
+    \smash{\clap{\tikz{\draw (0,0)--(0,1.2) node [anchor=south]{headfont};}}}%
+      rem 1.2 
+      (\smash{\rlap{\tikz{\draw (0,0)--(0,2.5) node [anchor=base west]{notebraces};}}}%
+       Euc%
+\smash{\clap{\tikz{\draw (0,0)--(0,1.2) node [anchor=south]{notefont};}}}%
+       lid)%
+      .\smash{\rlap{\tikz{\draw (0,0)--(0,1.2) node [anchor=south west]{headpunct};}}}}%
+      \tikz{\draw[|<->|] (-1,0)--(1,0); 
+      \draw[anchor=south] (0,0) node {postheadspace};}
+    For every prime $p$, there is a prime $p'>p$.
+    In particular, the list of primes,
+    $2,3,5,7,\dots$,
+    is infinite.
+   \hfill{\tikz{\draw[anchor=north east] (0,0) node{qed}; }}$\Box$
+    \par
+    \tikz{\draw[|<->|] (0,-1)--(0,1); 
+      \draw[anchor=west] (0,0) node {spacebelow};}
+    \par
+   
+   As a consequence, lorem ipsum dolor sit amet frob-%nicate foo
+%   paret.
+  \end{minipage}
+  }
+    \caption{Settable parameters of a theorem style.}
+    \label{fig:params}
+  \end{figure}
+
+  \section{Repeating theorems}
+  
+  Sometimes, you want to repeat a theorem you have given in full earlier,
+  for example you either want to state your strong result in the
+  introduction and then again in the full text, or you want to re-state a
+  lemma in the appendix where you prove it. For example, I lied about
+  \autoref{thm:euclid} on p.\,\pageref{thm:euclid}: the true code used was
+  \begin{source}
+    \begin{preamble}[gobble=6]
+      \usepackage{thmtools, thm-restate}
+      \declaretheorem{theorem}
+    \end{preamble}
+    \begin{body}[gobble=6]
+      \begin{restatable}[Euclid]{theorem}{firsteuclid}
+        \label{thm:euclid}%
+        For every prime $p$, there is a prime $p'>p$.
+        In particular, the list of primes,
+        \begin{equation}\label{eq:1}
+          2,3,45,7,\dots
+        \end{equation}
+        is infinite.
+      \end{restatable}
+    \end{body}
+    and to the right, I just use
+    \begin{body}[gobble=6]
+      \firsteuclid*
+      \vdots
+      \firsteuclid*
+    \end{body}
+  \end{source}
+  \begin{result}
+    \firsteuclid*
+    \vdots
+    \firsteuclid*
+  \end{result}
+  
+  Note that in spite of being a theorem-environment, it gets number one all
+  over again. Also, we get equation number~\eqref{eq:1} again. The star in 
+  |\firsteuclid*| tells thmtools that it should redirect the label
+  mechanism, so that this reference: \autoref{thm:euclid} points to
+  p.\,\pageref{thm:euclid}, where the unstarred environment is used. (You can
+  also use a starred environment and an unstarred command, in which case the
+  behaviour is reversed.) Also, if you use \pkg{hyperref}, the links will lead you
+  to the unstarred occurence.
+  
+  Just to demonstrate that we also handle more involved cases, I repeat
+  another theorem here, but this one was numbered within its section: note
+  we retain the section number which does not fit the current section:
+  \begin{source}
+    \begin{body}
+      \euclidii*
+    \end{body}
+  \end{source}
+  \begin{result}
+    \euclidii*
+  \end{result}
+
+  
+  \section{Lists of theorems}
+  
+  To get a list of theorems with default formatting, just use
+  |\listoftheorems|:
+  \begin{source}
+    \begin{body}[gobble=6]
+      \listoftheorems
+    \end{body}
+  \end{source}
+  \begin{result}
+    \let\chapter\section
+    \let\clearpage\relax
+    \listoftheorems
+  \end{result}
+  
+  Not everything might be of the same importance, so you can filter out
+  things by environment name:
+  \begin{source}
+    \begin{body}[gobble=6]
+      \listoftheorems[ignoreall, 
+        show={theorem,Theorem,euclid}]
+    \end{body}
+  \end{source}
+  \begin{result}
+    \let\chapter\section
+    \let\clearpage\relax
+    \listoftheorems[ignoreall, show={theorem,Theorem,euclid}]
+  \end{result}
+  
+  And you can also restrict to those environments that have an optional
+  argument given. Note that two theorems disappear compared to the previous
+  example. You could also say just ``onlynamed'', in which case it will
+  apply to \emph{all} theorem environments you have defined.
+  \begin{source}
+    \begin{body}[gobble=6]
+      \listoftheorems[ignoreall, 
+        onlynamed={theorem,Theorem,euclid}]
+    \end{body}
+  \end{source}
+  \begin{result}
+    \let\chapter\section
+    \let\clearpage\relax
+    \listoftheorems[ignoreall, onlynamed={theorem,Theorem,euclid}]
+  \end{result}
+
+  As might be expected, the heading given is defined in |\listtheoremname|.
+
+  \section{Extended arguments to theorem environments}
+  
+  Usually, the optional argument of a theorem serves just to give a note
+  that is shown in the theorem's head. \Thmtools\ allows you to have a 
+  key-value list here as well. The following keys are known right now:
+  \begin{description}
+    \item[name] This is what used to be the old argument. It usually holds
+    the name of the theorem, or a source. This key also accepts an
+    \emph{optional} argument, which will go into the list of theorems. Be
+    aware that since we already are within an optional argument, you have to
+    use an extra level of curly braces:
+    |\begin{theorem}[{name=[Short name]A long name,...}]|
+    \item[label] This will issue a |\label| command after the head. Not very
+    useful, more of a demo.
+    \item[continues] Saying |continues=foo| will cause the number that is
+    given to be changed to |\ref{foo}|, and a text is added to the note.
+    (The exact text is given by the macro |\thmcontinues|, which takes the
+    label as its argument.)
+    \item[restate] Saying |restate=foo| will hopefully work like
+    wrapping this theorem in a restatable environment. (It probably still fails
+    in cases that I didn't think of.) This key also accepts an optional
+    argument: when restating, the restate key is replaced by this argument,
+    for example, |restate=[name=Boring rehash]foo| will result in a
+    different name. (Be aware that it is possible to give the same key
+    several times, but I don't promise the results. In case of the name key,
+    the names happen to override one another.)
+  \end{description}
+  \begin{source}
+    \begin{body}[gobble=6]
+      \begin{theorem}[name=Keyed theorem, 
+        label=thm:key]
+        This is a 
+        key-val theorem.
+      \end{theorem}
+      \begin{theorem}[continues=thm:key]
+        And it's spread out.
+      \end{theorem}
+    \end{body}
+  \end{source}
+  \begin{result}
+    \begin{theorem}[name=Keyed theorem, 
+        label=thm:key]
+        This is a key-val theorem.
+    \end{theorem}
+    \begin{theorem}[continues=thm:key]
+        And it's spread out.
+    \end{theorem}
+  \end{result}
+
+  
+
+  \chapter{\Thmtools for the extravagant}\label{cha:extravagant}
+
+  This chapter will go into detail on the slightly more technical offerings
+  of this bundle. In particular, it will demonstrate how to use the general
+  hooks provided to extend theorems in the way you want them to behave.
+  Again, this is done mostly by some examples.
+  
+  \section{Understanding \thmtools' extension mechanism}
+
+  \Thmtools\ draws most of its power really only from one feature:
+  the |\newtheorem| of the backend will, for example, create
+  a theorem environment, i.e. the commands |\theorem| and
+  |\endtheorem|. To add functionality, four places immediately
+  suggest themselves: ``immediately before'' and ``immediately after'' those
+  two.
+  
+  There are two equivalent ways of adding code there: one is to call
+  |\addtotheorempreheadhook| and its brothers and sisters
+  |...postheadhook|, |...prefoothook|
+  and |...postfoothook|.
+  All of these take an \emph{optional} argument, the name of the
+  environment, and the new code as a mandatory argument. The environment is 
+  optional because there  is also a set of ``generic'' hooks added to every
+  theorem that you define.
+  
+  The other way is to use the keys |preheadhook| et al. in your
+  |\declaretheorem|. (There is no way of accessing the generic
+  hook in this way.)
+  
+  The hooks are arranged in the following way: first the specific prehead,
+  then the generic one. Then, the original |\theorem| (or
+  whatever) will be called. Afterwards, first the specific posthead again,
+  then the generic one. (This means that you cannot wrap the head alone in
+  an environment this way.) At the end of the theorem, it is the other way
+  around: first the generic, then the specific, both before and after that
+  |\endtheorem|. This means you can wrap the entire theorem
+  easily by adding to the prehead and the postfoot hooks. Note that
+  \thmtools\ does not look inside |\theorem|, so you cannot get
+  inside the head formatting, spacing, punctuation in this way.
+  
+  In many situations, adding static code will not be enough. Your code can
+  look at |\thmt@envname|, |\thmt@thmname| and 
+  |\thmt@optarg|, which will contain the name of the environment,
+  its title, and, if present, the optional argument (otherwise, it is
+  |\@empty|).
+  \emph{However}, you should not make assumptions about the optional
+  argument in the preheadhook: it might still be key-value, or it might
+  already be what will be placed as a note. (This is because the key-val
+  handling itself is added as part of the headkeys.)
+
+
+  \section{Case in point: the shaded key}
+  
+  Let us look at a reasonably simple example: the shaded key, which we've
+  already seen in the first section. You'll observe that we run into a
+  problem similar to the four-hook mess: your code may either want to modify
+  parameters that need to be set beforehand, or it wants to modify the 
+  environment after it has been created. To hide this from the user, the
+  code you define for the key is actually executed twice, and
+  |\thmt@trytwice{A}{B}| will execute A on the first pass, and B
+  on the second. Here, we want to add to the hooks, and the hooks are only
+  there in the second pass.
+  
+  \DocInput{thmdef-shaded.dtx}
+
+  \section{Case in point: the thmbox key}
+
+  \DocInput{thmdef-thmbox.dtx}
+
+  \section{Case in point: the mdframed key}
+  \DocInput{thmdef-mdframed.dtx}
+  
+  \section{How \thmtools\ finds your extensions}
+
+  Up to now, we have discussed how to write the code that adds functionality
+  to your theorems, but you don't know how to activate it yet. 
+  Of course, you can put it in your preamble, likely embraced by
+  |\makeatletter| and |\makeatother|, because you are
+  using internal macros with @ in their name (viz.,
+  |\thmt@envname| and friends). You can also put them into a
+  package (then, without the |\makeat...|), 
+  which is simply a file ending in .sty put somewhere that \LaTeX\ can find
+  it, which can then be laoded with |\usepackage|.
+  To find out where exactly that is, and if you'd need to update
+  administrative helper files such as a filename database FNDB, 
+  please consult the documentation of your \TeX\ distribution.
+  
+  Since you most likely want to add keys as well, there is a shortcut that
+  \thmtools\ offers you: whenever you use a key |key| in a
+  |\declaretheorem| command, and \thmtools\ doesn't already know
+  what to do with it, it will try to |\usepackage{thmdef-key}| and
+  evaluate the key again. (If that doesn't work, \thmtools\ will cry
+  bitterly.)
+  
+  For example, there is no provision in \thmtools\ itself that make the
+  |shaded| and |thmbox| keys described above special:
+  in fact, if you want to use a different package to create frames, you just
+  put a different |thmdef-shaded.sty| into a preferred texmf tree.
+  Of course, if your new package doesn't offer the old keys, your old
+  documents might break!
+  
+  The behaviour for the keys in the style definition is slightly different:
+  if a key is not known there, it will be used as a ``default key'' to every
+  theorem that is defined using this style. For example, you can give the
+  |shaded| key in a style definition.
+  
+  Lastly, the key-val arguments to the theorem environments themselves need
+  to be loaded manually, not least because inside the document it's too late
+  to call |\usepackage|.
+
+  \chapter{\Thmtools for the completionist}\label{cha:reference}
+
+  This will eventually contain a reference to all known keys, commands, etc.
+
+
+  \section{Known keys to \texttt{\textbackslash declaretheoremstyle}}
+  \def\keydefaultcontext{declaretheoremstyle}
+
+  N.b. implementation for \pkg{amsthm} and \pkg{ntheorem} is separate for
+  these, so if it doesn't work for \pkg{ntheorem}, try if it works with
+  \pkg{amsthm}, which in general supports more things.
+
+  Also, all keys listed as known to |\declaretheorem| are valid.
+
+  \key{spaceabove} Value: a length. Vertical space above the theorem,
+  possibly discarded if the theorem is at the top of the page.
+
+  \key{spacebelow} Value: a length. Vertical space after the theorem,
+  possibly discarded if the theorem is at the top of the page.
+
+  \key{headfont} Value: \TeX\ code. Executed just before the head of the
+  theorem is typeset, inside a group. Intended use it to put font switches here.
+
+  \key{notefont}
+    Value: \TeX\ code. Executed just before the note in the head is typeset, inside a group. 
+    Intended use it to put font switches here. Formatting also applies to
+    the braces around the note.
+    Not supported by \pkg{ntheorem}.
+
+  \key{bodyfont} 
+    Value: \TeX\ code. Executed before the begin part of the theorem ends,
+    but before all afterheadhooks. Intended use it to put font switches here.
+  
+  \key{headpunct}
+    Value: \TeX\ code, usually a single character. Put at the end of the
+    theorem's head, prior to linebreaks or indents.
+  
+  \key{notebraces}
+    Value: Two characters, the opening and closing symbol to use around a
+    theorem's note.
+    (Not supported by \pkg{ntheorem}.)
+
+  \key{postheadspace}
+    Value: a length. Horizontal space inserted after the entire head of the
+    theorem, before the body. Does probably not apply (or make sense) for
+    styles that have a linebreak after the head.
+
+  \key{headformat}
+    Value: \LaTeX\ code using the special placeholders |\NUMBER|, |\NAME|
+    and |\NOTE|, which correspond to the (formatted, including the braces
+    for |\NOTE| etc.) three parts of a theorem's head. This can be used to
+    override the usual style ``1.1 Theorem (Foo)'', for example to let the
+    numbers protude in the margin or put them after the name.
+    
+    Additionally, a number of keywords are allowed here instead of \LaTeX\
+    code:
+    \begin{description}
+      \item[margin] Lets the number protude in the (left) margin.
+      \item[swapnumber] Puts the number before the name. Currently
+      not working so well for unnumbered theorems.
+      \item[] \emph{This list is likely to grow}
+    \end{description}
+
+  \key{headindent}
+    Value: a length. Horizontal space inserted before the head. Some
+    publishers like |\parindent| here for remarks, for example.
+
+
+  \section{Known keys to \texttt{\textbackslash declaretheorem}}
+  \def\keydefaultcontext{declaretheorem}
+
+  \key{parent}
+    Value: a counter name. The theorem will be reset whenever that counter
+    is incremented. Usually, this will be a sectioning level, |chapter| or
+    |section|.
+
+  \key{numberwithin}
+    Value: a counter name. The theorem will be reset whenever that counter
+    is incremented. Usually, this will be a sectioning level, |chapter| or
+    |section|.
+    (Same as parent.)
+
+  \key{within}
+    Value: a counter name. The theorem will be reset whenever that counter
+    is incremented. Usually, this will be a sectioning level, |chapter| or
+    |section|.
+    (Same as parent.)
+
+  
+  \key{sibling}
+    Value: a counter name. The theorem will use this counter for numbering.
+    Usually, this is the name of another theorem environment.
+    
+  \key{numberlike}
+    Value: a counter name. The theorem will use this counter for numbering.
+    Usually, this is the name of another theorem environment.
+    (Same as sibling.)
+  
+  \key{sharenumber}
+    Value: a counter name. The theorem will use this counter for numbering.
+    Usually, this is the name of another theorem environment.
+    (Same as sibling.)
+
+  
+  \key{title}
+    Value: \TeX\ code. The title of the theorem. Default is the name of the
+    environment, with |\MakeUppercase| prepended. You'll have to give
+    this if your title starts with a accented character, for example.
+
+  \key{name}
+    Value: \TeX\ code. The title of the theorem. Default is the name of the
+    environment, with |\MakeUppercase| prepended. You'll have to give
+    this if your title starts with a accented character, for example.
+    (Same as title.)
+
+  \key{heading}
+    Value: \TeX\ code. The title of the theorem. Default is the name of the
+    environment, with |\MakeUppercase| prepended. You'll have to give
+    this if your title starts with a accented character, for example.
+    (Same as title.)
+  
+  \key{numbered}
+    Value: one of the keywords |yes|, |no| or |unless unique|. The theorem
+    will be numbered, not numbered, or only numbered if it occurs more than
+    once in the document. (The latter requires another \LaTeX\ run and will
+    not work well combined with |sibling|.)
+  
+  \key{style}
+    Value: the name of a style defined with |\declaretheoremstyle| or
+    |\newtheoremstyle|. The theorem will use the settings of this style.
+  
+  \key{preheadhook}
+    Value: \LaTeX\ code. This code will be executed at the beginning of the
+    environment, even before vertical spacing is added and the head is
+    typeset. However, it is already within the group defined by the
+    environment.
+  
+  \key{postheadhook}
+    Value: \LaTeX\ code. This code will be executed after the call to the
+    original begin-theorem code. Note that all backends seem to delay
+    typesetting the actual head, so code here should probably enter
+    horizontal mode to be sure it is after the head, but this will change
+    the spacing/wrapping behaviour if your body starts with another list.
+
+  \key{prefoothook}
+    Value: \LaTeX\ code. This code will be executed at the end of the body
+    of the environment.
+    
+  \key{postfoothook}
+    Value: \LaTeX\ code. This code will be executed at the end of the
+    environment, even after eventual vertical spacing, but still within the
+    group defined by the environment.
+  
+  \key{refname}
+    Value: one string, or two string separated by a comma (no spaces). This
+    is the name of the theorem as used by |\autoref|, |\cref| and friends. If it is
+    two strings, the second is the plural form used by |\cref|. Default
+    value is the value of |name|, i.e. usually the environment name, with
+    \MakeUppercase.
+
+  \key{Refname}
+    Value: one string, or two string separated by a comma (no spaces). This
+    is the name of the theorem as used by |\Autoref|, |\Cref| and friends. If it is
+    two strings, the second is the plural form used by |\Cref|. This can be
+    used for alternate spellings, for example if your style requests no
+    abbreviations at the beginning of a sentence. No default.
+
+  
+  \key{shaded}
+    Value: a key-value list, where the following keys are possible:
+    \begin{description}
+      \item[textwidth]
+        The linewidth within the theorem.
+      \item[bgcolor]
+        The color of the background of the theorem. Either a color name or a
+        color spec as accepted by |\definecolor|, such as |{gray}{0.5}|.
+      \item[rulecolor]
+        The color of the box surrounding the theorem. Either a color name or
+        a color spec.
+      \item[rulewidth]
+        The width of the box surrounding the theorem.
+      \item[margin]
+        The length by which the shade box surrounds the text.
+    \end{description}
+  
+  \key{thmbox}
+    Value: one of the characters L, M and S; see examples above.
+  
+
+  \section{Known keys to in-document theorems}
+  \def\keydefaultcontext{theorem}
+
+  \key{label} Value: a legal |\label| name.
+  Issues a |\label| command after the theorem's head.
+
+  \key{name} Value: \TeX\ code that will be typeset.
+  What you would have put in the optional argument in the
+  non-keyval style, i.e. the note to the head. This is \emph{not} the same
+  as the name key to |\declaretheorem|, you cannot override that from within
+  the document.
+  
+  \key{listhack} Value: doesn't matter. (But put something to trigger
+  key-val behaviour, maybe listhack=true.) Linebreak styles in \pkg{amsthm}
+  don't linebreak if they start with another list, like an |enumerate|
+  environment. Giving the |listhack| key fixes that. \emph{Don't} give this
+  key for non-break styles, you'll get too little vertical space! (Just use
+  |\leavevmode| manually there.)
+  An all-around listhack that handles both situations might come in a
+  cleaner rewrite of the style system.
+
+  \section{Restatable -- hints and caveats}
+
+  TBD.
+  \begin{itemize}
+    \item Some counters are saved so that the same values appear when you
+    re-use them. The list of these counters is stored in the macro
+    |\thmt@innercounters| as a comma-separated list without spaces; default: equation.
+
+    \item To preserve the influence of other counters (think: equation
+    numbered per section and recall the theorem in another section), we need
+    to know all macros that are used to turn a counter into printed output.
+    Again, comma-separated list without spaces, without leading backslash, stored as
+    |\thmt@counterformatters|. Default:
+    |@alph,@Alph,@arabic,@roman,@Roman,@fnsymbol|
+    All these only take
+    the \LaTeX\ counter |\c@foo| as arguments. If you bypass this and use
+    |\romannumeral|, your numbers go wrong and you get what you deserve.
+    Important if you have very strange numbering, maybe using greek letters
+    or somesuch.
+
+    \item I think you cannot have one stored counter within another one's
+    typeset representation. I don't think that ever occurs in reasonable
+    circumstances, either. Only one I could think of: multiple subequation
+    blocks that partially overlap the theorem. Dude, that doesn't even nest.
+    You get what you deserve.
+    
+    \item |\label| and \pkg{amsmath}'s |\ltx@label| are disabled inside the
+    starred execution. Possibly, |\phantomsection| should be disabled as
+    well?
+  \end{itemize}
+
+  \appendix
+  
+
+  \chapter{\Thmtools for the morbidly curious}\label{cha:sourcecode}
+
+  This chapter consists of the implementation of Thmtools, in case you
+  wonder how this or that feature was implemented. Read on if you want a
+  look under the bonnet, but you enter at your own risk, and bring an oily
+  rag with you.
+
+  \section{Core functionality}
+  
+  \subsection{The main package}
+  \DocInput{thmtools.dtx}
+
+  \subsection{Adding hooks to the relevant commands}
+  \DocInput{thm-patch.dtx}
+
+  \subsection{The key-value interfaces}
+  \DocInput{thm-kv.dtx}
+
+  \subsection{Lists of theorems}
+  \DocInput{thm-listof.dtx}
+
+  \subsection{Re-using environments}
+  \DocInput{thm-restate.dtx}
+
+  \subsection{Fixing autoref and friends}  
+  \DocInput{thm-autoref.dtx}
+
+  \section{Glue code for different backends}
+  
+  \subsection{amsthm}
+  \DocInput{thm-amsthm.dtx}
+
+  \subsection{beamer}
+  \DocInput{thm-beamer.dtx}
+
+  \subsection{ntheorem}
+  \DocInput{thm-ntheorem.dtx}
+  
+  \section{Generic tools}
+  
+  \subsection{A generalized argument parser}
+  \DocInput{parseargs.dtx}
+  
+  \subsection{Different counters sharing the same register}
+  \DocInput{aliasctr.dtx}
+  
+  \subsection{Tracking occurences: none, one or many}
+  \DocInput{unique.dtx}
+
+  
+
+      
+\end{document}

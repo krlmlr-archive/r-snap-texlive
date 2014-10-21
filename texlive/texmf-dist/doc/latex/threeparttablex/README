@@ -1,0 +1,55 @@
+% (C) Lars Madsen, daleif@imf.au.dk, 2013/07/23
+% This material is subject to the LaTeX Project Public License. 
+% See http://www.ctan.org/tex-archive/help/Catalogue/licenses.lppl.html 
+% for the details of that license.
+
+This small package brings tablenotes to longtable, though using a
+slightly different syntax.
+
+By default it does not change anything in theeparttable.
+
+If asked for (using the referable package option), we change some
+threeparttable internals such that table notes are referable, i.e.
+
+\item[a] \label{tn:a} some text
+
+then \ref{tn:a} gives you an 'a' (without any formatting). Instead of
+manually keeping track of all the \tnote arguments in the table you
+can now do \tnotex{tn:a} to get \tnote{\ref{tn:a}}. 
+
+For information on how to use threeparttable with longtable see the manual.
+
+
+* v0.3
+  Bug fix, \roman -> \romannumeral
+
+* v0.25
+  Sporadic space removed
+
+* v0.2 
+  Bug fixes regarding threeparttable options	
+
+* v0.1
+  Bug fix, width of table notes inserted into longtable 
+  might get the wrong width
+
+* v0.08
+  re-Added support for \note and \source when loading the referable option, 
+  for example of use, see the manual
+
+  They got lost in the last update (someone forgot to commit them to his 
+  subversion repository)
+
+* v0.06
+  Made \tnotex robust
+
+* v0.04 
+  Added \setTableNoteFont
+
+* v0.03 
+  First public release.
+
+
+
+
+/daleif

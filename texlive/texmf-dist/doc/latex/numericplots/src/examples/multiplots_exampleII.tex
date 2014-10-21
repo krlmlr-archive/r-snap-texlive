@@ -1,0 +1,24 @@
+\newpsstyle{Database}{linecolor=LineColorA, linestyle=none, dotstyle=*,
+showpoints=true, dotsize=5pt}
+\newpsstyle{Result}{linecolor=LineColorB, linestyle=none, dotstyle=+,
+showpoints=true, dotsize=10pt}
+
+\begin{NumericDataPlot}{\textwidth}{0.25\textheight}
+		
+	% --- definition of the axis and the grid ---
+	\setxAxis{xMin=2, xMax=17, Dx=4}
+	\setyAxis{yMin=20, yMax=70, Dy=20}
+	
+	% plot the axis of the lower left corner
+	\plotxAxis{Stichnummer}
+	\plotyAxis{$F_{roll}$ in $\si{\mega\newton}$}
+
+	\listplot[style=Database]{\DataA}
+	
+	% define a second y-axis 
+	\setyAxis{yMin=40, yMax=90, Dy=20}
+	\plotyAxis[AxisStyle=Right, NoGrid]{$F_{roll}$}
+	
+	\listplot[style=Result]{\DataA}
+	
+\end{NumericDataPlot}

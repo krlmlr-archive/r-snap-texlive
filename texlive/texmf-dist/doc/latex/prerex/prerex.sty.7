@@ -1,0 +1,423 @@
+.TH PREREX.STY 7 2014-04-11 "prerex.sty-6.6" ""
+.SH NAME
+prerex.sty  \- a LaTeX document style for prerequisite charts 
+.SH DESCRIPTION
+.B prerex.sty
+defines macros that 
+.B [pdf]latex
+can use
+to draw charts consisting of labelled course boxes linked by arrows
+that represent pre- and co-requisite requirements.
+.P
+If the source file satisfies the constraints
+of the
+.BR prerex (5)
+format, a chart description may be edited using the
+.BR prerex (1)
+interactive editor (as well as any conventional text editor).
+.SH TERMINOLOGY
+A prerequisite chart consists of several
+.I course boxes,
+linked by 
+.I arrows.
+Courses are either
+.I half
+or
+.I full,
+and may be
+.I required 
+or
+.I optional
+(or neither).
+Each course box can contain a course
+.I code
+(upper left corner),
+a course 
+.I title
+(lower half),
+and
+.I timetable
+information
+(upper right corner).
+An arrow can be either a
+.I prerequisite 
+(solid),
+a
+.I corequisite 
+(dotted),
+or 
+.I recommended
+(dashed).
+When a conventional arrow would be inappropriate, it is possible to use
+a
+.I mini 
+course "box" (consisting of just a course code) just above a target box.
+An arbitrary line of text may be placed anywhere on the chart.
+.SH COORDINATE SYSTEM
+A conventional two-dimensional
+Cartesian coordinate system is used to specify the locations of
+diagram elements.
+The
+origin (where
+.I x = 0
+and
+.IR "y = 0" )
+is at the lower-left corner of the diagram.
+The diagram height is configurable; the width is determined by
+the values of
+.I \etextwidth
+and
+an adjustable
+.I \eunit
+length, which defines the absolute value of a coordinate unit.
+It is possible to put a coordinate grid with labelled axes
+in the background of a chart.
+The coordinates of a
+.I box,
+.I mini, 
+or
+.I text-line
+are those of its centre point.  
+An
+.I arrow 
+is described by the
+coordinates of the centre points of its source and target boxes/minis/text-lines. 
+.SH USAGE
+The command
+.B \eusepackage{prerex}
+should appear in the document preamble.
+This will define a LaTeX environment 
+.IP
+.BI \ebegin{chart} " ... " \eend{chart}
+.LP
+within which the following commands may be used
+to produce course boxes, minis, text-lines, and arrows. 
+The order of commands is not significant except
+that the commands for the source and target boxes of an arrow should 
+.I precede
+the command for the arrow. 
+.SH COURSE BOXES
+The commands producing course boxes have the following forms:
+.IP 
+.BI \ehalfcourse " x,y" :{ code }{ title }{ timetable }
+.IP
+.BI \efullcourse " x,y" :{ code }{ title }{ timetable }
+.IP
+.BI \ereqhalfcourse " x,y" :{ code }{ title }{ timetable }
+.IP
+.BI \ereqfullcourse " x,y" :{ code }{ title }{ timetable }
+.IP
+.BI \eopthalfcourse " x,y" :{ code }{ title }{ timetable }
+.IP
+.BI \eoptfullcourse " x,y" :{ code }{ title }{ timetable }
+.LP
+where
+.I x,y
+are the coordinates of the 
+.I centerpoint 
+of the box, relative to the origin
+of the coordinate system at the lower-left corner of the diagram.
+The 
+.I code,
+.I title,
+and
+.I timetable
+arguments are arbitrary (well-bracketed) text, possibly with LaTeX markup.
+
+The following are similar but take an additional argument to specify the (non-default)
+background color of the course box:
+.IP 
+.BI \ehalfcoursec " x,y" :{ code }{ title }{ timetable }{ color }
+.IP
+.BI \efullcoursec " x,y" :{ code }{ title }{ timetable }{ color }
+.IP
+.BI \ereqhalfcoursec " x,y" :{ code }{ title }{ timetable }{ color }
+.IP
+.BI \ereqfullcoursec " x,y" :{ code }{ title }{ timetable }{ color }
+.IP
+.BI \eopthalfcoursec " x,y" :{ code }{ title }{ timetable }{ color }
+.IP
+.BI \eoptfullcoursec " x,y" :{ code }{ title }{ timetable }{ color }
+.LP
+.SH MINI COURSE BOXES AND TEXT LINES
+A mini course "box" is produced by a command of the form
+.IP 
+.BI \emini " x,y" :{ code }
+.LP
+The following instruction places a line of text centered at the coordinates:
+.IP
+.BI \etext " x,y" :{ text-line } 
+.LP
+There are several differences between minis and text-lines.
+The maximum length allowed for a course-code may be less than that
+for a text-line. A sans-serif font and a reduced font size is used for a course-code.  A course-code
+may be hyperlinked but a text-line is not (except when the coordinate grid is on).
+A
+.B \eparbox 
+command
+may be used in the 
+.I text-line 
+argument if more than one line is desired.
+.SH ARROWS
+Arrows between course boxes (or from a mini or text-line to a course box) are produced
+by commands of the form
+.IP
+.BI \eprereq " x0,y0,x1,y1" :
+.IP
+.BI \ecoreq " x0,y0,x1,y1" :
+.IP
+.BI \erecomm " x0,y0,x1,y1" :
+.LP
+These produce, respectively, solid, dotted, and dashed arrows from
+the course box (or mini or text-line) centered at coordinates
+.I x0,y0
+to the course box centered at coordinates
+.I x1,y1.
+.PP
+Arrows by default have a
+non-zero curvature (unless they are very short).  It is possible to override the default curvature 
+for a particular arrow by using
+the instructions
+.IP
+.BI \eprereqc " x0,y0,x1,y1;c" :
+.IP
+.BI \ecoreqc " x0,y0,x1,y1;c" :
+.IP
+.BI \erecommc " x0,y0,x1,y1;c" :
+.LP
+where
+.I c
+is an integer in the range 0-100 specifying the desired curvature; for example, 
+.IR c= 0
+will produce a 
+.I straight 
+arrow. To change the default curvature, the user program may redefine the
+.B \eDefaultCurvature
+command.
+.SH WEB LINKS
+Course boxes (including minis) may be hyperlinked.
+The default URL for course boxes is 
+.IR ./course-code .html
+where
+.I course-code
+is
+the 
+.I code
+argument
+of the course box. The URL scheme may be changed by the user 
+by re-defining the 
+.B   \eCourseURL
+command.
+.SH COORDINATE GRID
+The following command produces a coordinate grid, which is
+useful for editing a diagram: 
+.IP
+.B \egrid 
+.LP
+The grid lines will be covered by course boxes and arrows.
+The 
+.B \egrid 
+command
+also redefines the 
+.B \eCourseURL 
+command 
+so that,
+if the mouse cursor is placed over a box or mini in (some) PDF viewers,
+the 
+.I coordinates
+of the box, mini, or text-line will be displayed 
+as follows: 
+in the status bar in
+.BR xpdf 
+and
+.BR gpdf ,
+and in a "tooltip" in recent versions of
+.BR kpdf " (now re-named"
+.BR okular ),
+.BR evince ,
+and
+the Adobe Reader.
+Similarly, the coordinates of the source and target boxes of arrows
+are displayed if the mouse hovers over the mid-point of an arrow,
+Such coordinate displays make it easier to edit chart descriptions.
+When the grid is on, the mid-point of every arrow is highlighted by a
+"bullet".
+.PP
+There is a GUI frontend 
+.BR vprerex (1)
+to the
+.BR prerex (1)
+editor which incorporates a minimalistic prerex-enabled PDF viewer.
+.SH STAND-ALONE COMMANDS
+The following commands may be used outside a 
+.B chart
+environment, such as in the explanatory notes for a chart:
+.IP
+.B \esolidarrow
+.IP
+.B \edottedarrow
+.IP
+.B \edashedarrow
+.IP
+.B \elightbox
+.IP
+.B \eboldbox
+.IP
+.B \edashedbox
+.LP
+.SH CONFIGURATION 
+The following are defined by the style file but may be re-defined by the
+user:
+.IP
+.BI   \enewcommand{\eDefaultCurvature}{ 20 }    
+.LP
+where the argument should be in the range 0-100; 0 means no curvature.
+.IP
+.BI   \enewcommand{\eCourseURL}[3]{ #3.html }
+.LP
+where the arguments supplied at the call are the
+.I x
+and
+.I y
+coordinates of the box or mini and the course code.
+.IP
+.BI   \enewcommand{\ebackground}{ LightYellow }
+.LP
+where 
+.I LightYellow 
+is defined by 
+.IP
+.BI       \edefinecolor{LightYellow}{ rgb }{ "1.0, 1.0, 0.878431" }
+.IP
+.BI   \esetlength{\eunit}{ 5.7816pt } 
+.LP
+which defines the absolute size of a coordinate unit; this yields 10 pixels per
+coordinate unit if the chart is converted to an image at 125 dpi.
+.IP
+.BI   \enewcommand{\edpi}{ 125 }  
+.IP
+.BI   \enewcommand{\ePixelsPerUnit}{ 10 }  
+.LP
+.IP
+.BI   \esetcounter{diagheight}{ 75 }  
+.LP
+which is the 
+.IR y -coordinate
+of the top of the diagram (reduced to 65 in landscape mode);
+the nominal diagram width is 
+.IR \etextwidth " / " \eunit " + " 10.
+.P
+The following define the thicknesses of the three kinds of arrows,
+and the thickness of bold boxes:
+.IP
+.BI   \enewcommand{\esolidwidth}{ 0.5pt }
+.IP
+.BI   \enewcommand{\edottedwidth}{ 0.8pt }
+.IP
+.BI   \enewcommand{\edashedwidth}{ 0.5pt }
+.IP
+.BI   \enewcommand{\eboldwidth}{ 1.0pt }
+.LP
+.P
+The following command is used to change to a smaller size for course codes,
+timetable information, and mini-course codes:
+.IP
+.BI   \enewcommand{\esmallersize}{\erelsize{-3}}
+.LP
+.P
+The following command defines the baseline adjustment for the stand-alone arrows and boxes;
+this parameter is font-dependent.
+.IP
+.BI   \enewcommand{\ebaselineAdj}{ -0.5ex }
+.LP
+.SH DEPEDENCIES
+This implementation of 
+.B prerex.sty
+uses 
+.B pgf
+(version 3.0 or later)
+with add-on package
+.B tikz.
+The following additional packages are used:
+.B relsize,
+.B calc,
+.B multido,
+.B textcomp,
+.B xcolor,
+and 
+.B hyperref.
+.I Either 
+.BR pdflatex (1)
+.I or
+.BR latex (1)
+followed by 
+.BR dvips (1)
+(and possibly
+.BR ps2pdf (1))
+.I or
+.BR latex (1)
+followed by
+.BR dvipdfmx (1)
+may be used.
+.P
+To convert a PDF chart to SVG (Scaleable Vector Graphic) format, it is recommended to
+use 
+.BR pdf2svg (1),
+obtainable from
+http://www.cityinthesky.co.uk/opensource/pdf2svg/.
+
+.SH  IMPLEMENTATION DETAILS
+.P
+To improve the appearance, boxes are drawn with slightly rounded corners.  The half-course
+boxes are assigned a minimum height to give a more uniform appearance to horizontal
+rows of such boxes. 
+The mini and text boxes have white frames and their
+fill colour is white, which is assumed to be the background colour of the chart.
+A text box is not normally hyperlinked; however, if the coordinate grid is
+on, it is hyperlinked and its chart coordinates are encoded in the URI. 
+.P
+Arrows with a small height and arrows whose
+source and target points have equal x or y coordinates are always draw straight
+(using a specialized and simpler macro)  unless an explicit
+non-zero curvature argument is provided.
+If the coordinate grid is on, a hyperlink with the source and target coordinates is placed
+at the mid-point of the arrow.
+A wider background white edge is drawn below an arrow to 
+improve the appearance
+of crossing arrows; the background also
+ensures visibility of the
+arrow when the coordinate grid is on.
+A thin white arrow (with a visible
+arrowhead) is drawn beneath the visible arrow to obtain a thin arrowhead.
+.P
+When the coordinate grid is drawn, the 
+.B CourseURL
+command
+is re-defined to pass node coordinates in URIs. Also,
+two "anchor" hyperlinks are inserted at the southwest and northeast corners
+of the diagram to allow prerex-enabled
+PDF viewers to compute chart coordinates.
+.SH LICENSE
+.B prerex.sty
+and this document may be distributed and/or modified under the
+conditions of the LaTeX Project Public License.
+.SH AUTHOR
+R. D. Tennent (rdt@cs.queensu.ca)
+.SH SEE ALSO
+.BR dvipdfmx (1),
+.BR dvips (1),
+.BR evince (1), 
+.BR gpdf (1),
+.BR kpdf (1),
+.BR latex (1),
+.BR okular (1),
+.BR pdf2svg (1),
+.BR pdflatex (1),
+.BR prerex (1),
+.BR prerex (5),
+.BR ps2pdf (1),
+.BR tikz (1),
+.BR pgf (1),
+.BR vprerex (1),
+and
+.BR xpdf (1).

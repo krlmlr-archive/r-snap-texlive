@@ -1,0 +1,44 @@
+Package: logbox - e-TeX showbox facilities (FC)
+-------------------------------------------------------------
+logbox provides facilities to display the contents of boxes in
+the log file or print them with their dimensions in the final
+document.
+
+For "exploration purpose".
+
+The TeX primitive \showbox stops the compilation.
+Looking at the box contents requires to set the \showboxbreadth
+and \showboxdepth parameters accordingly.
+
+logbox.sty sets those parameters, the \interactionmode is temporarily
+set so that the compilation don't stop and the box description can
+finally be explored in the .log file.
+
+As a tracing command, \logbox also works in harmony with the tracing
+parameter: \tracingoutput.
+
+
+Commands provided:
+
+\logbox          : TeX \showbox without stop in the compilation
+                                + \showboxbreadth >=  10
+                                + \showboxdepth   >=  10
+
+\dimbox          : typeset the type (hbox, vbox or void) of the box
+                   and its dimensions in the document.
+
+\viewbox         : \dimbox + \logbox
+\viewbox*        : \dimbox + \logbox + inserts the box in the document
+
+\Viewbox         : same as \viewbox but the argument is the box contents
+                   rather than the box register.
+
+\ShowGroups      : e-TeX \showgroups without stop in the compilation.
+
+\ShowLists       : e-TeX \showlists without stop in the compilation.
+
+\ShowIfs         : e-TeX \showifs without stop in the compilation.
+
+
+
+Copyright (C) 2011 by FC ------------------------------------

@@ -1,0 +1,121 @@
+    The oldprsn bundle provides fonts for the Old Persian Cuneiform script 
+in use between about 500 to 350 BC.
+This is one of a series for ancient scripts.
+
+Changes in version 1.2 (2005/06/17)
+o Font supplied as Postscript Type1 instead of MetaFont
+
+Changes in version 1.1 (2000/09/24)
+o Added numerals
+
+Changes in version 1.0 (1999/03/14)
+o First public release
+
+------------------------------------------------------------------
+  Author: Peter Wilson (Herries Press) herries dot press at earthlink dot net
+  Copyright 1999--2005 Peter R. Wilson
+
+  This work may be distributed and/or modified under the
+  conditions of the Latex Project Public License, either
+  version 1.3 of this license or (at your option) any
+  later version.
+  The latest version of the license is in
+    http://www.latex-project.org/lppl.txt
+  and version 1.3 or later is part of all distributions of
+  LaTeX version 2003/06/01 or later.
+
+  This work has the LPPL maintenance status "author-maintained".
+
+  This work consists of the files:
+    README (this file)
+    oldprsn.dtx
+    oldprsn.ins
+    oldprsn.pdf
+  and the derived files
+    oldprsn.sty
+    ot1copsn.fd
+    t1copsn.fd
+    oldprsn.map
+    copsn10.mf
+
+------------------------------------------------------------------
+     The distribution consists of the following files:
+README (this file)
+oldprsn.dtx
+oldprsn.ins
+oldprsn.pdf     (user manual)
+tryoldprsn.tex  (example usage)
+tryoldprsn.pdf
+copsn10.afm
+copsn10.pfb
+copsn10.tfm
+
+    To install the bundle:
+o If you want MetaFont sources uncomment the appropriate lines in oldprsn.ins.
+o run: latex oldprsn.ins, which will generate:
+       oldprsn.sty
+       *.fd files
+       oldprsn.map
+       and possibly copsn10.mf
+o Move *.sty and *.fd files to a location where LaTeX will find them
+    e.g., .../texmf-local/tex/latex/oldprsn
+o Move *.afm, *.pfb and *.tfm files to where LaTeX looks for font information
+    e.g., .../texmf-var/fonts/afm/public/archaic/*.afm
+          .../texmf-var/fonts/type1/public/archaic/*.pfb
+          .../texmf-var/fonts/tfm/public/archaic/*.tfm
+o Add the *.map information to the dvips/pdftex font maps
+   If you want the MetaFont version as well:
+   o Move the *.mf files to, e.g., .../texmf-var/fonts/source/public/oldprsn
+   o Add a line like the following to the (texmf/fontname/)special.map file:
+     copsn10.mf    public      oldprsn 
+o Refresh the database
+ (for more information on the above see the FAQ).
+
+o run: (pdf)latex tryoldprsn for a test of the font
+
+    If you want a full manual with all the MetaFont and LaTeX code and commentry, 
+comment out the \OnlyDescription line in oldprsn.dtx.
+o run: (pdf)latex oldprsn.dtx
+o (for an index run: makeindex -s gind.ist *.idx)
+o run: (pdf)latex *.dtx
+o Print *.(pdf|dvi) for a hardcopy of the package manual
+
+2005/06/17
+Peter Wilson
+herries dot press at earthlink dot net
+
+
+
+
+
+    The distribution consists of the following files:
+README (this file)
+oldprsn.ins
+oldprsn.dtx
+tryfont.tex
+
+    The distribution is provided under the terms of the LaTeX
+Project Public License (LPPL).
+
+    To install the package:
+o run: latex oldprsn.ins, which will generate:
+       copsn*.mf files
+       *.fd files
+       oldprsn.sty
+o run: latex oldprsn.dtx
+o run: makeindex -s gind.ist oldprsn
+o run: latex oldprsn.dtx
+o Print oldprsn.dvi for a hardcopy of the package manual 
+o Move the generated files to locations where LaTeX will find them.
+    For example: the copsn*.mf files to .../texmf/fonts/source/public/oldprsn
+                 the *.fd and .sty files to /texmf/tex/latex/local/oldprsn
+    On a teTeX distribution you might also have to add the following 
+    line to texmf/fontname/special.map:
+      copsn10.mf     public    oldprsn
+    On a teTeX distribution remember to run texhash after moving the files.
+
+o run: latex tryfont  for a testpage of the font
+
+2000/09/16
+Peter Wilson
+peter.r.wilson@boeing.com

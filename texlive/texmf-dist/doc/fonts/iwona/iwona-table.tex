@@ -1,0 +1,146 @@
+%&mex --translate-file=cp1250pl
+% Polish plain format (MeX)
+\baselineskip 20pt
+
+\def\texttestqx{\f Za¿ó³æ gêœl¹ jaŸñ\par}
+\def\texttest{\f OHamburgefonsz\par}
+\def\Font#1{\font\f #1 at16pt%
+ \leftline{\hbox to3cm{\rm #1\hfil} \texttest}}
+\def\FontQX#1{\font\f #1 at16pt%
+ \leftline{\hbox to3cm{\rm #1\hfil} \texttestqx}}
+\def\chartable #1{\smallbreak\vbox{\tracinglostchars=0\relax\noindent%
+     \underbar{Characters in the #1 font, with decimal codes:}
+     \raggedright \hbadness5000 \tolerance10000 \medskip
+     \font\ft #1 at 12pt
+     %\let\ft=#1
+     \ft \dimen0=14pt \baselineskip=\dimen0
+     \ifdim\dimen0<3.25ex \baselineskip=3.25ex \fi \count255=0 \dimen0=10pt
+     \loop \setbox0=\hbox{\char\count255}
+     \ifdim\wd0>\dimen0 \dimen0=\wd0 \fi \advance\count255 by1
+     \ifnum\count255<256 \repeat \count255=0
+     \advance\dimen0 by 25pt \noindent \loop
+     \hbox to\dimen0{\hbox to23pt{\hfil\rm\the\count255:\ }\char\count255\hfil}
+     \advance\count255 by1 \ifnum\count255<256 \quad\repeat
+     \smallbreak} \font\tenrm=cmr10 }
+
+
+\def\ec{
+\hbox{\hsize=.5\hsize\vbox{
+\Font{ec-iwonal}       \Font{ec-iwonal-sc}
+\Font{ec-iwonali}      \Font{ec-iwonali-sc}
+\Font{ec-iwonar}       \Font{ec-iwonar-sc}
+\Font{ec-iwonari}      \Font{ec-iwonari-sc}
+\Font{ec-iwonam}       \Font{ec-iwonam-sc}
+\Font{ec-iwonami}      \Font{ec-iwonami-sc}
+\Font{ec-iwonab}       \Font{ec-iwonab-sc}
+\Font{ec-iwonabi}      \Font{ec-iwonabi-sc}
+\Font{ec-iwonah}       \Font{ec-iwonah-sc}
+\Font{ec-iwonahi}      \Font{ec-iwonahi-sc}
+}\vbox{
+\Font{ec-iwonacl}       \Font{ec-iwonacl-sc}
+\Font{ec-iwonacli}      \Font{ec-iwonacli-sc}
+\Font{ec-iwonacr}       \Font{ec-iwonacr-sc}
+\Font{ec-iwonacri}      \Font{ec-iwonacri-sc}
+\Font{ec-iwonacm}       \Font{ec-iwonacm-sc}
+\Font{ec-iwonacmi}      \Font{ec-iwonacmi-sc}
+\Font{ec-iwonacb}       \Font{ec-iwonacb-sc}
+\Font{ec-iwonacbi}      \Font{ec-iwonacbi-sc}
+\Font{ec-iwonach}       \Font{ec-iwonach-sc}
+\Font{ec-iwonachi}      \Font{ec-iwonachi-sc}
+}}}
+
+\def\qx{
+\hbox{\hsize=.5\hsize\vbox{
+\FontQX{qx-iwonal}       \FontQX{qx-iwonal-sc}
+\FontQX{qx-iwonali}      \FontQX{qx-iwonali-sc}
+\FontQX{qx-iwonar}       \FontQX{qx-iwonar-sc}
+\FontQX{qx-iwonari}      \FontQX{qx-iwonari-sc}
+\FontQX{qx-iwonam}       \FontQX{qx-iwonam-sc}
+\FontQX{qx-iwonami}      \FontQX{qx-iwonami-sc}
+\FontQX{qx-iwonab}       \FontQX{qx-iwonab-sc}
+\FontQX{qx-iwonabi}      \FontQX{qx-iwonabi-sc}
+\FontQX{qx-iwonah}       \FontQX{qx-iwonah-sc}
+\FontQX{qx-iwonahi}      \FontQX{qx-iwonahi-sc}
+}\vbox{
+\FontQX{qx-iwonacl}       \FontQX{qx-iwonacl-sc}
+\FontQX{qx-iwonacli}      \FontQX{qx-iwonacli-sc}
+\FontQX{qx-iwonacr}       \FontQX{qx-iwonacr-sc}
+\FontQX{qx-iwonacri}      \FontQX{qx-iwonacri-sc}
+\FontQX{qx-iwonacm}       \FontQX{qx-iwonacm-sc}
+\FontQX{qx-iwonacmi}      \FontQX{qx-iwonacmi-sc}
+\FontQX{qx-iwonacb}       \FontQX{qx-iwonacb-sc}
+\FontQX{qx-iwonacbi}      \FontQX{qx-iwonacbi-sc}
+\FontQX{qx-iwonach}       \FontQX{qx-iwonach-sc}
+\FontQX{qx-iwonachi}      \FontQX{qx-iwonachi-sc}
+}}}
+
+
+\def\wncy{
+\hbox{\hsize=.5\hsize\vbox{
+\Font{wncy-iwonal}
+\Font{wncy-iwonali}
+\Font{wncy-iwonar}
+\Font{wncy-iwonari}
+\Font{wncy-iwonam}
+\Font{wncy-iwonami}
+\Font{wncy-iwonab}
+\Font{wncy-iwonabi}
+\Font{wncy-iwonah}
+\Font{wncy-iwonahi}
+}\vbox{
+\Font{wncy-iwonacl}
+\Font{wncy-iwonacli}
+\Font{wncy-iwonacr}
+\Font{wncy-iwonacri}
+\Font{wncy-iwonacm}
+\Font{wncy-iwonacmi}
+\Font{wncy-iwonacb}
+\Font{wncy-iwonacbi}
+\Font{wncy-iwonach}
+\Font{wncy-iwonachi}
+}}}
+
+QX Encoding\bigskip
+
+\qx
+\vfill\eject
+
+EC (Encode Cork) Encoding\bigskip
+
+\ec
+\vfill\eject
+
+WNCY Encoding\bigskip
+
+\wncy
+\vfill\eject
+
+\chartable{cs-iwonar}\vfill\eject
+\chartable{cs-iwonar-sc}\vfill\eject
+\chartable{ec-iwonar}\vfill\eject
+\chartable{ec-iwonar-sc}\vfill\eject
+\chartable{el-iwonar}\vfill\eject
+\chartable{el-iwonar-sc}\vfill\eject
+\chartable{ex-iwonar}\vfill\eject
+\chartable{exp-iwonar}\vfill\eject
+\chartable{greek-iwonar}\vfill\eject
+\chartable{l7x-iwonar-sc}\vfill\eject
+\chartable{l7x-iwonar}\vfill\eject
+\chartable{ly1-iwonar}\vfill\eject
+\chartable{ly1-iwonar-sc}\vfill\eject
+\chartable{mi-iwonari}\vfill\eject
+\chartable{qx-iwonar}\vfill\eject
+\chartable{qx-iwonar-sc}\vfill\eject
+\chartable{rm-iwonar}\vfill\eject
+\chartable{rm-iwonar-sc}\vfill\eject
+\chartable{sy-iwonarz}\vfill\eject
+\chartable{t2a-iwonar}\vfill\eject
+\chartable{t2b-iwonar}\vfill\eject
+\chartable{t2c-iwonar}\vfill\eject
+\chartable{t5-iwonar}\vfill\eject
+\chartable{t5-iwonar-sc}\vfill\eject
+\chartable{ts1-iwonar}\vfill\eject
+\chartable{wncy-iwonar}
+
+
+\bye

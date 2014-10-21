@@ -1,0 +1,75 @@
+%%
+%% This is file `trfexamp.tex',
+%% generated with the docstrip utility.
+%%
+%% The original source files were:
+%%
+%% trfsigns.dtx  (with options: `sample')
+%% 
+%% 
+%% This file is part of the trfsigns package
+%% -----------------------------------------
+%% 
+%% Copyright (C) 1998 Kai Rascher. All rights reserved.
+%% 
+%% To produce the example in the way you like you are allowed
+%% to change this file.
+%% 
+%% File: trfsigns.dtx Copyright (C) 1999 Kai Rascher
+\documentclass[11pt,a4paper]{article}
+\usepackage{german}
+\usepackage{trfsigns}
+
+\begin{document}
+\noindent
+\textbf{\LARGE Transformationszeichen der}
+
+\section*{Laplace-Transformation \protect\laplace, \protect\Laplace}
+\begin{eqnarray}
+  s(t)        &\laplace& \frac{1}{p}\\[1ex]
+  \frac{1}{p} &\Laplace& s(t)
+\end{eqnarray}
+
+\section*{(kontinuierlichen) Fourier-Transformation\newline
+          \protect\fourier, \protect\Fourier}
+\begin{eqnarray}
+  \cos(\omega_0 t) &\fourier&
+  \pi\left[\delta(\omega-\omega_0) +
+           \delta(\omega+\omega_0)\right]\\[1ex]
+  \pi\left[\delta(\omega-\omega_0) +
+  \delta(\omega+\omega_0)\right] &
+  \Fourier&
+  \cos(\omega_0 t)
+\end{eqnarray}
+
+\section*{diskontinuierlichen Fourier-Transformation\newline
+          \protect\dfourier, \protect\Dfourier}
+\begin{eqnarray}
+  a^n s[n]\quad\mbox{mit~}|a| < 1 &\dfourier&
+  \frac{1}{1-a \e^{\im\omega T}}\\[1ex]
+  \frac{1}{1-a \e^{\im\omega T}}  &\Dfourier&
+  a^n s[n]\quad\mbox{mit~}|a| < 1
+\end{eqnarray}
+
+\section*{Z-Transformation
+          \protect\ztransf, \protect\Ztransf}
+\begin{eqnarray}
+  s[n]          &\ztransf& \frac{z}{z-1}\\[1ex]
+  \frac{z}{z-1} &\Ztransf& s[n]
+\end{eqnarray}
+
+\section*{diskreten Fourier-Transformation
+          \protect\dft{}, \protect\DFT{}}
+\begin{eqnarray}
+  f[n] &\dft{N}&
+  F[m] = \sum_{n=0}^{N-1} f[n] \e^{-\im\frac{2 \pi}{N}nm}%
+  \:\;(m = 0, 1, \ldots, N-1)\\[1ex]
+  F[m] &\DFT{N}&
+  f[n] = \frac{1}{N}\sum_{m=0}^{N-1} F[m] \e^{\im\frac{2\pi}{N}mn}%
+  \:\;(n = 0, 1, \ldots, N-1)
+\end{eqnarray}
+
+\end{document}
+\endinput
+%%
+%% End of file `trfexamp.tex'.

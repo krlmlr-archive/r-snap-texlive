@@ -1,0 +1,218 @@
+\documentclass{article}
+
+\usepackage{sparklines}
+
+\renewcommand{\baselinestretch}{1.25}
+\let\env=\texttt
+\let\pkg=\textsf
+
+\definecolor{sparkrectanglecolor}{rgb}{0.8,0.95,0.8}
+\definecolor{sparkspikecolor}{rgb}{1,0,0}
+\setlength{\sparkdotwidth}{1.3pt}
+\setlength{\sparklinethickness}{.3pt}
+
+\begin{document}
+
+\title{Sparklines}
+\author{Andreas Loeffler \and Dan Luecking}
+\date{updated 19.~October 2014  (version 1.6)}\maketitle
+
+\section{What are sparklines?}
+
+Sparklines are intense, simple, wordlike graphics, so named by Edward
+Tufte. This is an example of sparkline:
+\begin{sparkline}{10}
+% This environment has now an own coordinate system. x and y run from 0 to 1.
+%
+% This draws a sparkling-rectangle with lower level y=0.3 and upper
+% level y=0.8
+\sparkrectangle 0.3 0.8
+%
+% This draws a blue colored sparkling-dot at x=0.5, y=0.62
+\sparkdot 0.5 0.62 blue
+%
+% This draws a red colored sparkling-dot at x=1, y=0.2
+\sparkdot 1 0.2 red
+%
+% This draws a sparkline with ten values starting at x=0.1 and
+% y=0.95, then x=0.2 and y=0.8 etc.  Drawing finishes if / appears
+\spark 0.1 0.95  0.2 0.8  0.3 0.3  0.4 0.52  0.5 0.62
+       0.6 0.7   0.7 0.5  0.8 0.4  0.9 0.25  1 0.2 /
+\end{sparkline}
+(the stock price of Daimler Chrysler, for example).
+%
+In lieu of a more detailed introduction, Professor Tufte's site
+has an early release of a chapter on sparklines, see
+www.edwardtufte.com. A PHP implementation can be found at
+http://sparkline.sourceforge.net/.
+
+A sparkline can be added using the \env{sparkline}--environment.
+Also, you can add sparkling rectangles for the median and special
+sparkling dots in red or blue. If we want to add a sparkline, be careful not to leave an empty line
+between the text left of the sparkline and the environment itself,
+since otherwise the sparkline starts a new paragraph.
+
+Sparklines do not appear within a
+dvi-file, they require either pdflatex or conversion to postscript with
+dvips. The \textsf{sparklines} package requires the \pkg{pgf} package.
+This makes it incompatible with \pkg{pictex}: the combination both
+require too many dimension parameters. It is possible that the package \pkg{sparklines}
+can be used with \pkg{pictexwd}; they can at least be loaded together
+without using too many dimensions, but no other test was conducted.
+
+
+\section{Usage}
+\paragraph{Sparkline environment}
+The sparkline at the beginning of the previous section was created with the
+following:
+\begin{verbatim}
+  \begin{sparkline}{10}
+    \sparkrectangle 0.3 0.8
+    \sparkdot 0.5 0.62 blue
+    \sparkdot 1 0.2 red
+    \spark 0.1 0.95  0.2 0.8  0.3 0.3  0.4 0.52  0.5 0.62
+           0.6 0.7   0.7 0.5  0.8 0.4  0.9 0.25  1 0.2 /
+  \end{sparkline}
+\end{verbatim}
+
+The argument of the environment gives the width of the graphic as a
+multiple of the dimension unit \texttt{ex} (approximately the height of
+the lowercase `x' in the current font). Within the environment,
+$x$-coordinates run from 0 (extreme left of the graphic) to 1 (extreme
+right).
+
+The height of the graphic is given by the \emph{macro}
+\verb$\sparklineheight$, defined to produce \texttt{1.75} by default.
+The units are the same as for the width: the \texttt{ex} of the current
+font. You can redefine that macro (with \verb$\renewcommand$) to force
+another height. Within the graphic, the $y$-coordinate runs from 0
+(lowermost point) to 1 (uppermost).
+
+Each pair of numbers after the macro \verb$\spark$ represents a
+coordinate pair, giving the location of a point in the above described
+coordinate system. The macro draws a line from each point to the next.
+Each number must be followed by a space, and the list is terminated by a
+\texttt{/}. Be careful that there are an even number of coordinates. The
+thickness of the line that is created is the value of the length
+\verb$\sparklinethickness$, which the user may change (with
+\verb$\setlength$). The default value is \texttt{0.2pt}; the above
+example was created with the value \texttt{0.3pt}.
+
+\paragraph{Sparkrectangle}
+The \verb$\sparkrectangle$ command produces a background rectangle. It
+must be followed by two numbers, each followed by a space or the end of
+the line. They are the $y$-coordinates of the bottom and top of the
+rectangle. This is supposed to show the `normal range' of the $y$-data,
+so that a point outside that rectangle represents a departure from
+normal. The color of the rectangle is `\texttt{sparkrectanglecolor}',
+which the user may redefine (with
+\verb$\definecolor$). The initial definition is given by \\
+\indent\verb$\definecolor{sparkrectanglecolor}{gray}{0.9}$\\
+In the above example, it was first changed to a light green.
+
+\paragraph{Sparkdots}
+The colored dots are produced by \verb$\sparkdot$, the diameter of the
+dot is the value of the length \verb$\sparkdotwidth$, which the user may
+change (with \verb$\setlength$). The default value is \texttt{1.2pt};
+the above example was created a value of \texttt{1.3pt}. The command
+takes three parameters, each of which must be followed by a space or the
+end of the line. The first two are the coordinates of the center of the
+dot, the third is the color.
+
+\paragraph{Bar graphs}
+Bar graphs can be drawn easily:
+\begin{sparkline}{5}
+\sparkspike .083 .18
+\sparkspike .25 .55
+\sparkspike .417 1
+\sparkspike .583 .62
+\sparkspike .75 .42
+\sparkspike .917 .5
+\end{sparkline}.
+This was created by the code:
+\begin{verbatim}
+  \begin{sparkline}{4}
+    \sparkspike .083 .18
+    \sparkspike .25 .55
+    \sparkspike .417 1
+    \sparkspike .583 .62
+    \sparkspike .75 .42
+    \sparkspike .917 .5
+  \end{sparkline}.
+\end{verbatim}
+The macro \verb$\sparkspike$ must be followed by a pair of numbers, each
+followed by a space or the end of the line. The first of the pair is the
+horizontal location of the bar and the second is the height. The bars
+are drawn in color `\texttt{sparkspikecolor}' which the user may
+redefine (with \verb$\definecolor$). The default is \texttt{black}; the
+above example was drawn with it changed to \texttt{red}. The width of
+each bar is the value of the length \verb$\sparkspikewidth$, which the
+user may change (with \verb$\setlength$). The default is \texttt{2pt}.
+
+\paragraph{Colors} In case you want to change colors use 
+\begin{verbatim}
+\definecolor{sparkrectanglecolor}{gray}{0.9}
+\definecolor{sparkspikecolor}{named}{red}
+\definecolor{sparklinecolor}{named}{red}
+\end{verbatim}
+before the sparkline environment (see a manual about defining colors in \LaTeX{} if you do not understand the definition of \emph{named} etc.).
+
+\paragraph{Bottom line} This adds a bottom line (the x-axis) which can be useful to visually separate different bar charts that are next to each other: 
+\begin{sparkline}{5}
+\definecolor{sparkbottomlinecolor}{gray}{0.9}
+\sparkspike .15 .55
+\sparkspike .317 1
+\sparkspike .483 .62
+\sparkspike .65 .42
+\sparkspike .817 .5
+\sparkbottomline 0.9 
+\end{sparkline}. 
+The code used was 
+\begin{verbatim}
+  \begin{sparkline}{5}
+	\definecolor{sparkbottomlinecolor}{gray}{0.9}
+    \sparkspike .15 .55
+    \sparkspike .317 1
+    \sparkspike .483 .62
+    \sparkspike .65 .42
+    \sparkspike .817 .5
+	\sparkbottomline 0.9
+  \end{sparkline}.
+\end{verbatim}
+Changing the color of the bottom line is quite easy using the command
+
+\section*{Version history}
+\begin{description}
+	\item[] Oct 19, 2014
+
+	version 1.6: Emiel van Miltenburg (emiel.van.miltenburg@vu.nl) - Adding a bottom line (the x-axis, this is useful to visually separate different bar charts that are next to each other) and changing the color of the bottom line.
+
+\item[] Nov 21, 2009
+
+version 1.5: Benno Puetz (puetz@mpipsykl.mpg.de) made change of colors possible.
+
+\item[] Apr 20, 2009
+
+    version 1.4: Alexander Kowalski (Alexander.Kowarik@statistik.gv.at) found an error concerning spark-rectangles
+
+\item[] Mar 21, 2007
+
+    version 1.3: User adjustable colors and parameters added by Dan
+    Luecking $\langle$luecking@uark.edu$\rangle$
+
+\item[] Mar 19, 2007
+
+    version 1.2: Sparkbars added thanks to Harlan Harris
+    $\langle$harlan@harris.name$\rangle$
+
+\item[] Apr 21, 2005
+
+    version 1.1: bug removed thanks to Mathias Hofmann
+    $\langle$mathias.hofmann@web.de$\rangle$
+
+\item[] Dec 12, 2004
+
+    version 1.0: first version of sparklines
+\end{description}
+
+\end{document}

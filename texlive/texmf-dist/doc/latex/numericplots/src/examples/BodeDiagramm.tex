@@ -1,0 +1,44 @@
+	\begin{NumericDataPlot}{0.85\textwidth}{6.5cm}
+		
+		\setxAxis{xMin=1, xMax=100, Dx=10, xLog}
+		\setyAxis{yMin=-20, yMax=0, Dy=5, yO=0, yCoordMin=525}
+		
+		\plotxAxis[NoTickLabel,NoLabel]{}
+		\plotyAxis{$\left|G\left(I\omega\right)\right|$ in \si{\decibel}}
+		
+		\NDPline[style=StdLineStyA]{0}{0}{1}{0}
+		\NDPline[style=StdLineStyA]{1}{0}{2}{-20}
+		
+		\listplot[style=StdLineStyC]{\DataBetrag}
+		
+		\NDPput[x=1, y=0]{\pnode{Pa}}
+		\NDPput[x=1, y=-3]{\pnode{Pb}}
+		\ncline{-}{Pb}{Pa}
+		\NDPput[x=1, y=-1.5]{\pnode{Pc}}
+		\NDPput[x=2, y=-2.5, RefPoint=r]%
+			{\Rnode{Pd}{
+			\psframebox[fillstyle=solid,fillcolor=white,linestyle=none,framesep=0pt]{%
+			\SI{-3}{\decibel} Betragskorrektur}}}
+		\pscustom[linewidth=0.5pt]{\ncline[angleA=0]{->}{Pd}{Pc}}
+		
+		\NDPput[x=0.8, y=0]{\pnode{Pf}}
+		\NDPput[x=1.25, y=-5]{\pnode{Pg}}
+		\NDPput[x=0.9, y=-12.5, RefPoint=r]%
+			{\Rnode{Pe}{
+			\psframebox[fillstyle=solid,fillcolor=white,linestyle=none]%
+			{Asymptoten}}}
+		\pscustom[linewidth=0.5pt]{\ncline{->}{Pe}{Pf}}
+		\pscustom[linewidth=0.5pt]{\ncline{->}{Pe}{Pg}}
+		
+		
+		\setyAxis{yMin=-90, yMax=0, Dy=45, yO=0, yCoordMax=475}
+
+		\plotxAxis{$\omega$ in $\si{\radian\per\second}$}
+		\plotyAxis{$\arg\left(G\left(I\omega\right)\right)$ in $\si{\degree}$}
+
+		\listplot[style=StdLineStyC]{\DataPhase}
+
+		\listplot[plotstyle=dots]{10 -45}
+		\NDPput[x=1, y=-45, RefPoint=lb]{ \SI{-45}{\degree}}
+		
+	\end{NumericDataPlot}

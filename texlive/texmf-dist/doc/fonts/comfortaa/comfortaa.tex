@@ -1,0 +1,226 @@
+%% comfortaa.tex
+%% Copyright 2011, 2012 Mohamed El Morabity
+%
+% This work may be distributed and/or modified under the conditions of the LaTeX
+% Project Public License, either version 1.3 of this license or (at your option)
+% any later version. The latest version of this license is in
+% http://www.latex-project.org/lppl.txt and version 1.3 or later is part of all
+% distributions of LaTeX version 2005/12/01 or later.
+%
+% This work has the LPPL maintenance status `maintained'.
+%
+% The Current Maintainer of this work is Mohamed El Morabity
+%
+% This work consists of all files listed in manifest.txt.
+
+\documentclass{article}
+
+\usepackage[american]{babel}
+\usepackage{booktabs}
+\usepackage[default]{comfortaa}
+\usepackage{microtype}
+\usepackage{multirow}
+\usepackage{path}
+\usepackage{varioref}
+\usepackage[colorlinks]{hyperref}
+
+\hypersetup{%
+  pdftitle={LaTeX support for Comfortaa},%
+  pdfauthor={Mohamed El Morabity}%
+}%
+
+\newcommand{\acronym}[1]{\textsc{\lowercase{#1}}}
+\newcommand{\code}{\texttt}
+\newcommand{\command}{\texttt}
+\newcommand{\email}[1]{\href{mailto:#1}{\nolinkurl{#1}}}
+\newcommand{\name}{}
+\newcommand{\package}{\texttt}
+\newcommand{\parameter}[1]{\textnormal{\textit{#1}}}
+\newcommand{\program}{}
+
+\title{\LaTeX{} support for Comfortaa\\Version~2.3}
+
+\author{Mohamed \name{El~Morabity}\\\email{melmorabity@fedoraproject.org}}
+
+\begin{document}
+
+\maketitle
+
+\tableofcontents
+
+\section{Introduction}
+
+Comfortaa is a sans-serif font comfortable in every aspect designed by Johan
+\name{Aakerlund}. This font, which includes three weights (see
+figure~\vref{styles}), is available on Johan's deviantArt web
+page~\cite{comfortaa} as TrueType files licensed under the \acronym{OFL}
+version~1.1.
+
+\begin{figure}
+  \centering
+  {%
+    \fcofamily%
+    {\fontseries{l}\selectfont Comfortaa Light}\\
+    Comfortaa Regular\\
+    {\bfseries Comfortaa Bold}%
+  }
+  \caption{Available styles for Comfortaa}
+  \label{styles}
+\end{figure}
+
+This package provides support for this font in \LaTeX{}. It includes the
+original TrueType fonts, as well as Type~1 versions, converted for this package
+using \program{FontForge} for full support with \program{Dvips}.
+
+\section{Installation}
+
+These directions assume that your \TeX{} distribution is
+\acronym{TDS}-compliant.
+
+Once the \path|comfortaa.zip| archive extracted:
+\begin{enumerate}
+\item Copy \path|doc/|, \path|fonts/|, \path|source/|, and \path|tex/|
+  directories to your \path|texmf/| directory (either your local or global
+  \path|texmf/| directory).
+\item Run \command{mktexlsr} to refresh the file name database and make \TeX{}
+  aware of the new files.
+\item Run \command{updmap --enable Map comfortaa.map} to make \program{Dvips},
+  \program{dvipdf} and \program{pdf\TeX} aware of the new fonts.
+\end{enumerate}
+
+Note that this package requires the \package{keyval}~\cite{keyval} and
+\package{slantsc}~\cite{slantsc} (to handle italic/slanted small caps) ones to
+work.
+
+\section{Usage}
+
+\subsection{Calling Comfortaa}
+
+You can use the Comfortaa font in a \LaTeX{} document by adding the command
+\begin{verbatim}
+\usepackage{comfortaa}
+\end{verbatim}
+to the preamble.  The package supplies the \code{\char`\\fcofamily} command to
+switch the current font to Comfortaa.
+
+\subsection{Options}
+
+\subsubsection{Comfortaa as default (sans-serif) font}
+
+You can set \LaTeX{} to use Comfortaa as standard font throughout the whole
+document by passing the \code{default} option to the package:
+\begin{verbatim}
+\usepackage[default]{comfortaa}
+\end{verbatim}
+To set Comfortaa as default sans-serif only:
+\begin{verbatim}
+\usepackage[defaultsans]{comfortaa}
+\end{verbatim}
+
+\subsubsection{Font scaling}
+
+The font can be up- and downscaled by any factor. This can be used to make
+Comfortaa more friendly when used in company with other type faces, e.g., to
+adapt the x-height. The package option \code{scale=\parameter{ratio}} will scale
+the font according to \parameter{ratio} (1.0 by default), for example:
+\begin{verbatim}
+\usepackage[scale=0.95]{comfortaa}
+\end{verbatim}
+
+\subsection{Encodings}
+
+The following encodings are supported:
+\begin{description}
+\item[Latin] OT1, T1, TS1 (partial)
+\item[Cyrillic] T2A, T2B, T2C, X2
+\item[Greek] LGR (monotonic only)
+\end{description}
+To use one or another encoding, give the \LaTeX{} name to the \package{fontenc}
+package as usual, as in
+\begin{verbatim}
+\usepackage[T1]{fontenc}
+\usepackage{comfortaa}
+\end{verbatim}
+
+Note that, as usual with OT1 encoded fonts, kerning with accented characters is
+treated poorly, if at all. Note difference in kerning between these two encoding
+in table~\vref{kerning}.
+\begin{table}
+\centering
+  \begin{tabular}{ll}
+    \toprule
+    OT1-encoded&{\fcofamily Te T\'e}\\
+    \midrule
+    T1-encoded&{\fcofamily\fontencoding{T1}\selectfont Te T\'e}\\
+    \bottomrule
+  \end{tabular}
+  \caption{Kerning with OT1 and T1 encodings}
+  \label{kerning}
+\end{table}
+It is therefore advised to always use the Comfortaa fonts in any encoding than
+OT1 when typing diacritics.
+
+\subsection{Available weights and variants}
+
+Table~\vref{nfss} lists the available font series and shapes with their
+\acronym{NFSS} classification. Parenthesized combinations are provided via
+substitutions.
+\begin{table}
+  \centering
+  \begin{tabular}{llll}
+    \toprule
+    family&encoding&series&shape\\
+    \midrule 
+    \multirow{4}{*}{fco}&OT1,T1,&\multirow{4}{*}{l, m, b (bx)}&\multirow{3}{*}{n, sl (it), sc, scsl (scit)}\\
+    &T2A, T2B, T2C, X2,&&\\
+    &LGR&&\\
+    \cmidrule{2-2}
+    \cmidrule{4-4}
+    &TS1&&n, sl (it)\\
+    \bottomrule
+  \end{tabular}
+  \caption{Available font series and shapes for Comfortaa}
+  \label{nfss}
+\end{table}
+Notice that the slanted shapes are faked ones, as well as the small capitals
+(reduced to 80\%).
+
+\section{Known bugs and improvements}
+
+Please send bug reports and suggestions about the Comfortaa \LaTeX{} support to
+\href{mailto:melmorabity@fedoraproject.org}{Mohamed \name{El~Morabity}}, not to
+Johan \name{Aakerlund}. Johan only distributes the TrueType font files
+themselves.
+
+\subsection{Small dotless ``j''}
+
+The Comfortaa font files do not provide any dotless ``j'' glyph. This \LaTeX{}
+support provides a faked one ({\fcofamily\j}), available by typing
+\code{\char`\\j}, and built using the \command{t1dotlessj} command (from
+LCDF~Typetools~\cite{lcdf}).
+
+\subsection{Searching for words containing ligatures in \acronym{PDF} documents}
+
+Searching for words typeset in Comfortaa and containing ligatures (such as
+``fi'' or ``fl'') in \acronym{PDF} documents is currently only possible if the
+\acronym{PDF} was generated using \program{pdf\TeX}~1.40 or above.
+
+\section{License}
+
+This package is released under the \LaTeX{} project public license, either
+version~1.3c or above~\cite{lppl}. Anyway both the TrueType and Type~1 files are
+delivered under the Open Font License version~1.1~\cite{ofl}.
+
+\begin{thebibliography}{9}
+\bibitem{comfortaa}
+  \url{http://aajohan.deviantart.com/art/Comfortaa-font-105395949}
+\bibitem{keyval}
+  \url{http://www.ctan.org/tex-archive/macros/latex/required/graphics/}
+\bibitem{slantsc}
+  \url{http://www.ctan.org/tex-archive/macros/latex/contrib/slantsc/}
+\bibitem{lcdf} \url{http://www.lcdf.org/type/}
+\bibitem{lppl} \url{http://www.latex-project.org/lppl/lppl-1-3c.html}
+\bibitem{ofl} \url{http://scripts.sil.org/OFL_web}
+\end{thebibliography}
+
+\end{document}

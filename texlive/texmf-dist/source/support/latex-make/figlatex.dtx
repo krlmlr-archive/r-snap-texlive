@@ -1,0 +1,510 @@
+%    \iffalse meta-comment
+%%
+%% File: figlatex.dtx Copyright (C) 2002--2005 V. Danjean, A. Legrand
+%%    Vincent.Danjean@ens-lyon.org
+%%    Arnaud.Legrand@ens-lyon.org
+%%
+%% This program is free software; you can redistribute it and/or
+%% modify it under the terms of the GNU General Public License
+%% as published by the Free Software Foundation; either version 2
+%% of the License, or (at your option) any later version.
+%% 
+%% This program is distributed in the hope that it will be useful,
+%% but WITHOUT ANY WARRANTY; without even the implied warranty of
+%% MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+%% GNU General Public License for more details.
+%% 
+%% You should have received a copy of the GNU General Public License
+%% along with this program; if not, write to the Free Software
+%% Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
+%%
+%
+%<*dtx>
+          \ProvidesFile{figlatex.dtx}
+%</dtx>
+%<package>\NeedsTeXFormat{LaTeX2e}%
+%<package>\ProvidesPackage{figlatex}%
+%<config> \ProvidesFile{figlatex.cfg}%
+%<compat> \ProvidesPackage{texgraphicx}%
+%    \fi
+%         \ProvidesFile{figlatex.dtx}
+[2011/09/25 v0.1.4 include fig and svg in LaTeX]
+% \iffalse
+%<*driver>
+\documentclass{ltxdoc}
+\usepackage[latin1]{inputenc}
+\usepackage[french,english]{babel}
+\NoAutoSpaceBeforeFDP
+\EnableCrossrefs
+\CodelineIndex
+\RecordChanges
+\setcounter{IndexColumns}{2}    % make a twocolumn index
+\setlength{\columnseprule}{0pt} % no rules between columns ...
+\setlength{\columnsep}{2em}     % ... but more spacing instead.
+\setcounter{unbalance}{4}
+\setlength{\IndexMin}{100pt}
+%%%%\OnlyDescription  % uncomment this line to suppress printing the source code
+\makeatletter
+% don't show underfull hboxes in index/glossary:
+\g@addto@macro{\IndexParms}{\hbadness=10000}
+\g@addto@macro{\GlossaryParms}{\hbadness=10000}
+\makeatother
+\begin{document}
+  \DocInput{figlatex.dtx}
+  \PrintIndex
+  \PrintChanges
+\end{document}
+%</driver>
+% \fi
+%
+% \GetFileInfo{figlatex.dtx}
+%
+% \DoNotIndex{\#,\$,\%,\&,\@,\\,\{,\},\^,\_,\~,\ }
+% \DoNotIndex{\def,\long,\edef,\xdef,\gdef,\let,\global}
+% \DoNotIndex{\if,\ifnum,\ifdim,\ifcat,\ifmmode,\ifvmode,\ifhmode,%
+%             \iftrue,\iffalse,\ifvoid,\ifx,\ifeof,\ifcase,\else,\or,\fi,\loop,\do}
+% \DoNotIndex{\box,\copy,\setbox,\unvbox,\unhbox,\hbox,%
+%             \vbox,\vtop,\vcenter}
+% \DoNotIndex{\@empty,\immediate,\write}
+% \DoNotIndex{\egroup,\bgroup,\expandafter,\begingroup,\endgroup}
+% \DoNotIndex{\divide,\advance,\multiply,\count,\dimen}
+% \DoNotIndex{\relax,\space,\string}
+% \DoNotIndex{\csname,\endcsname,\@spaces,\openin,\openout,%
+%             \closein,\closeout}
+% \DoNotIndex{\catcode,\endinput}
+% \DoNotIndex{\jobname,\message,\read,\the,\noexpand}
+% \DoNotIndex{\hsize,\vsize,\hskip,\vskip,\kern,\hfil,\hfill,\hss}
+% \DoNotIndex{\m@ne,\z@,\@m,\z@skip,\@ne,\tw@,\p@}
+% \DoNotIndex{\DeclareRobustCommand,\DeclareOption,\newcommand,\newcommand*}
+% \DoNotIndex{\newcount,\newif,\newlinechar,\newread,\newtoks,\newwrite}
+% \DoNotIndex{\dp,\wd,\ht,\vss,\unskip,\ifthenelse}
+%
+% \DoNotIndex{\@filef@und,\@nameddef,\@tempa}
+% \DoNotIndex{\define@key,\equal,\ExecuteOptions}
+% \DoNotIndex{\filename@area,\filename@base,\filename@ext,\filename@parse}
+% \DoNotIndex{\Gin@exclamation,\Gin@getbase,\Gin@scalex,\Gin@scaley}
+% \DoNotIndex{\Gread@eps,\Gread@pdf,\Gscale@box}
+% \DoNotIndex{\IfFileExists,\ifpdf,\input,\InputIfFileExists}
+% \DoNotIndex{\MessageBreak,\PackageWarning,\PackageWarningNoLine}
+% \DoNotIndex{\ProcessOptions,\RequirePackage,\typeout}
+% \DoNotIndex{}
+% \DoNotIndex{}
+%
+% \title{The \textsf{figlatex} package\thanks{This file
+%        has version number \fileversion, last
+%        revised \filedate.}}
+% \author{Arnaud \textsc{Legrand}\and Vincent \textsc{Danjean}}
+% \date{\filedate}
+% \maketitle
+% \begin{abstract}
+% This package allows \LaTeX\space to load XFig and SVG figures (or
+% subfigures) with the |\includegraphics| command.  
+% \end{abstract}
+% \CheckSum{217}
+%
+% \changes{v0.1.1}{2005/03/28}{Version 0.1.1 at last}
+% \changes{v0.1.2}{2005/03/29}{Manage index/glossary}
+% \changes{v0.1.3}{2008/01/28}{Better support for subfig with texdepends}
+% \changes{v0.1.4}{2011/09/25}{Support for svg with texdepends}
+%
+% \makeatletter
+% \def\SpecialOptionIndex#1{\@bsphack
+%     \index{#1\actualchar{\protect\ttfamily#1}
+%            (option)\encapchar usage}%
+%     \index{options:\levelchar{\protect\ttfamily#1}\encapchar
+%            usage}\@esphack}
+% \def\SpecialFileIndex#1{\@bsphack
+%     \index{#1\actualchar{\protect\ttfamily#1}
+%            (file)\encapchar usage}%
+%     \index{files:\levelchar{\protect\ttfamily#1}\encapchar
+%            usage}\@esphack}
+% \def\SpecialMainOptionIndex#1{\@bsphack\special@index{#1\actualchar
+%                                       {\string\ttfamily\space#1}
+%                                          (option)\encapchar main}%
+%     \special@index{options:\levelchar{%
+%                    \string\ttfamily\space#1}\encapchar
+%            main}\@esphack}
+% \def\option{\begingroup
+%    \catcode`\\12
+%    \MakePrivateLetters \mym@cro@ \iffalse}
+% \long\def\mym@cro@#1#2{\endgroup \topsep\MacroTopsep \trivlist
+%    \edef\saved@macroname{\string#2}%
+%   \def\makelabel##1{\llap{##1}}%
+%   \if@inlabel
+%     \let\@tempa\@empty \count@\macro@cnt
+%     \loop \ifnum\count@>\z@
+%       \edef\@tempa{\@tempa\hbox{\strut}}\advance\count@\m@ne \repeat
+%     \edef\makelabel##1{\llap{\vtop to\baselineskip
+%                                {\@tempa\hbox{##1}\vss}}}%
+%     \advance \macro@cnt \@ne
+%   \else  \macro@cnt\@ne  \fi
+%   \edef\@tempa{\noexpand\item[%
+%      #1%
+%        \noexpand\PrintMacroName
+%      \else
+%        \noexpand\PrintEnvName
+%      \fi
+%      {\string#2}]}%
+%   \@tempa
+%   \global\advance\c@CodelineNo\@ne
+%    #1%
+%       \SpecialMainIndex{#2}\nobreak
+%       \DoNotIndex{#2}%
+%    \else
+%       \SpecialMainOptionIndex{#2}\nobreak
+%    \fi
+%   \global\advance\c@CodelineNo\m@ne
+%   \ignorespaces}
+% \let\endoption \endtrivlist
+% \def\DescribeOption{\leavevmode\@bsphack\begingroup\MakePrivateLetters
+%   \Describe@Option}
+% \def\Describe@Option#1{\endgroup
+%               \marginpar{\raggedleft\PrintDescribeEnv{#1}}%
+%               \SpecialOptionIndex{#1}\@esphack\ignorespaces}
+% \def\DescribeFile{\leavevmode\@bsphack\begingroup\MakePrivateLetters
+%   \Describe@Option}
+% \def\Describe@File#1{\endgroup
+%               \marginpar{\raggedleft\PrintDescribeEnv{#1}}%
+%               \SpecialFileIndex{#1}\@esphack\ignorespaces}
+% \makeatother
+% \MakeShortVerb{\|}
+%
+% \section{Introduction}
+%
+% \subsection{General}
+% \DescribeMacro{\includegraphics}
+% This package allows to load XFig figures from \LaTeX\space sources with
+% the |\includegraphics| command from the |graphicx| package:
+% \begin{verbatim}
+% \includegraphics[width=\linewidth]{myfig.fig}
+% \end{verbatim}
+%
+% This package does not convert by itself XFig figures (see package
+% |texdepends| for that). It only diverts the loading functions so
+% that \LaTeX\space includes the |.pstex_t| or the |.pdftex_t|.
+%
+% \subsection{Options}
+% Available options for this package:
+% \begin{description}
+% \item[debug~:] \DescribeOption{debug}more messages written while compiling
+% \item[compatibility~:] \DescribeOption{compatibility}old versions of |pdflatex| do not allow
+% to declare a PDF file with |\DeclareGraphicsRule| that has not the 
+% |.pdf| extension. In such cases, this package uses the extension
+% |.pdf| instead of |.pdftex| for PDF created from XFig figures.
+% \end{description}
+%
+% \DescribeFile{figlatex.cfg}
+% \DescribeMacro{\compatibility}
+% \DescribeMacro{\debug}
+% When the package is loaded, it tries to read a |figlatex.cfg|
+% file. This file can contains |\compatibility| and/or |\debug| to
+% enable theses options site wide.
+%
+% \subsection{Subfigures}
+%
+% Sometimes, several figures made with XFig should be similar. It is
+% possible to make only one XFig figure and then create subfigures
+% which contains only a subset of the depths of the original figure.
+%
+% \StopEventually{
+% }
+% \section{Implementation}
+%
+% \subsection{figlatex}
+%    \begin{macrocode}
+%<*package>
+%    \end{macrocode}
+%
+% Options definitions
+% \begin{option}{compatibility}
+%    \begin{macrocode}
+\newif\ifFL@compatibility
+\DeclareOption{compatibility}{%
+  %\PackageWarning{figlatex}{option compatibility}%
+  \global\FL@compatibilitytrue%
+}
+%    \end{macrocode}
+% \end{option}
+% \begin{option}{debug}
+%    \begin{macrocode}
+\newif\ifFL@debug
+\DeclareOption{debug}{%
+  \global\FL@debugtrue%
+}
+%    \end{macrocode}
+% \end{option}
+% 
+% We load the config file if it exists.
+% Commands for the config file are local.
+%    \begin{macrocode}
+{
+%    \end{macrocode}
+% \begin{macro}{\compatibility}
+%    \begin{macrocode}
+  \def\compatibility{%
+    \ExecuteOptions{compatibility}%
+  }
+%    \end{macrocode}
+% \end{macro}
+% \begin{macro}{\debug}
+%    \begin{macrocode}
+  \def\debug{%
+    \ExecuteOptions{debug}%
+  }
+%    \end{macrocode}
+% \end{macro}
+%    \begin{macrocode}
+  \InputIfFileExists{figlatex.cfg}{%
+    \typeout{***************************************^^J%
+             * Local config file figlatex.cfg used *^^J%
+             ***************************************}
+  }{%
+    \typeout{Found no configuration file for figlatex}
+  }
+}
+%    \end{macrocode}
+% Run the options
+%    \begin{macrocode}
+\ProcessOptions
+%    \end{macrocode}
+% and requires some packages
+%    \begin{macrocode}
+\RequirePackage{ifpdf}
+\RequirePackage{graphicx}
+%    \end{macrocode}
+% XFig uses heavily the color package
+%    \begin{macrocode}
+\RequirePackage{color}
+\RequirePackage{epstopdf}
+%    \end{macrocode}
+% \begin{macro}{\FL@dmessage}
+%   Write the message only if debug is set
+%    \begin{macrocode}
+\def\FL@dmessage#1{% 
+  \ifFL@debug%
+    \message{#1}%
+  \fi%
+}
+%    \end{macrocode}
+% \end{macro}
+% \begin{macro}{\Ginclude@rawtex}
+%   |.pstex_t| or |.pdftex_t| are loaded with |\input|
+%    \begin{macrocode}
+\def\Ginclude@rawtex#1{%
+  \FL@dmessage{<#1>}%
+  \bgroup%
+  \def\@tempa{!}%
+  \ifx\Gin@scaley\@tempa%
+    \let\Gin@scaley\Gin@scalex%
+  \else%
+    \ifx\Gin@scalex\@tempa\let\Gin@scalex\Gin@scaley\fi%
+  \fi%
+  \hbox{%
+    \Gscale@box{\Gin@scalex}[\Gin@scaley]{%
+      \def\Gin@scalex{1}%
+      \let\Gin@scaley\Gin@exclamation% needed for pdflatex
+      \FL@dmessage{<loading rawtex #1>}%
+      \input{#1}}}%
+  \egroup}
+%    \end{macrocode}
+% \end{macro}
+% \begin{macro}{\Ginclude@figtex}
+%   |.fig| are loaded with |\includegraphics| after modifying the name
+%    \begin{macrocode}
+\def\Ginclude@figtex#1{%
+  \message{<#1>}%
+  \bgroup%
+  \xdef\FL@filename{#1}%
+  \filename@parse{\FL@filename}%
+  \xdef\FL@filename{\filename@area\filename@base.\FL@figext}%
+  \FL@dmessage{<****loading fig \FL@filename>}%
+  \FL@includerawtexgraphics[]{\FL@filename}%
+  \egroup}
+%    \end{macrocode}
+% \end{macro}
+% \begin{macro}{\Gread@figtex}
+%   |.fig| bounding box is the same as the corresponding |.pstex_t| or |.pdftex_t|
+%    \begin{macrocode}
+\newcommand{\Gread@figtex}[1]{%
+  %\typeout{Oh, file exists #1}%
+  \Gread@rawtex{#1}%
+}
+%    \end{macrocode}
+% \end{macro}
+% \begin{macro}{\Ginclude@svgtex}
+%   |.svg| are loaded with |\includegraphics| after modifying the name
+%    \begin{macrocode}
+\def\Ginclude@svgtex#1{%
+  \message{<#1>}%
+  \bgroup%
+  \xdef\FL@filename{#1}%
+  \filename@parse{\FL@filename}%
+  \xdef\FL@filename{\filename@area\filename@base.\FL@svgext}%
+  \FL@dmessage{<****loading svg \FL@filename>}%
+  \FL@includerawtexgraphics[]{\FL@filename}%
+  \egroup}
+%    \end{macrocode}
+% \end{macro}
+% \begin{macro}{\Gread@svgtex}
+%   |.svg| bounding box is the same as the corresponding |.pstex_t| or |.pdftex_t|
+%    \begin{macrocode}
+\newcommand{\Gread@svgtex}[1]{%
+  %\typeout{Oh, file exists #1}%
+  \Gread@rawtex{#1}%
+}
+%    \end{macrocode}
+% \end{macro}
+% Declare the right things depending whether we build a DVI or a PDF file.
+%    \begin{macrocode}
+\ifpdf
+%    \end{macrocode}
+% PDF part
+%    \begin{macrocode}
+  \def\FL@figext{pdftex_t}%
+  \def\FL@svgext{pdftex_t}%
+%    \end{macrocode}
+% To read bounding box information:
+%    \begin{macrocode}
+  \let\Gread@rawtex\Gread@pdf%
+  \DeclareGraphicsRule{.pdftex}{pdf}{*}{}%
+  \ifFL@compatibility%
+    \PackageWarningNoLine{figlatex}{Compatibility mode enabled
+      for old LaTeX
+      \MessageBreak Using .pdf extension for pdftex files}%
+    \DeclareGraphicsRule{.pdftex_t}{rawtex}{.pdf}{}%
+    \DeclareGraphicsRule{.fig}{figtex}{.pdf}{}%
+    \DeclareGraphicsRule{.svg}{svgtex}{.pdf}{}%
+  \else%
+    \DeclareGraphicsRule{.pdftex_t}{rawtex}{.pdftex}{}%
+    \DeclareGraphicsRule{.fig}{figtex}{.pdftex}{}%
+    \DeclareGraphicsRule{.svg}{svgtex}{.pdftex}{}%
+  \fi%
+\else
+%    \end{macrocode}
+% DVI part
+%    \begin{macrocode}
+  \def\FL@figext{pstex_t}%
+  \def\FL@svgext{pstex_t}%
+%    \end{macrocode}
+% To read bounding box information:
+%    \begin{macrocode}
+  \let\Gread@rawtex\Gread@eps%
+  \DeclareGraphicsRule{.pstex}{eps}{*}{}%
+  \DeclareGraphicsRule{.pstex_t}{rawtex}{.pstex}{}%
+  \DeclareGraphicsRule{.fig}{figtex}{.pstex}{}%
+  \DeclareGraphicsRule{.svg}{svgtex}{.pstex}{}%
+\fi
+%    \end{macrocode}
+%   This command is not really necessary here (code could be added in
+%   |\Ginclude@figtex|). However, it's very convinient for the
+%   |texdepends| package.
+%    \begin{macrocode}
+\newcommand{\FL@includerawtexgraphics}[2][]{%
+  \includegraphics[#1]{#2}%
+}
+%    \end{macrocode}
+% Addition of the |subfig=name| key for the options of the 
+% |\includegraphicx[..]{..}| macro.
+%    \begin{macrocode}
+\def\FL@exclamation{!}%
+\let\FL@subfig@name\FL@exclamation%
+\define@key{Gin}{subfig}{%
+  \def\FL@subfig@name{#1}%
+}
+\def\FL@sepdefault{_}%
+%    \end{macrocode}
+% We should ckeck if the \#1 file exists (XXX.subfig)
+% This is not yet done but texdepends divert this macro
+% to record the dependency
+%    \begin{macrocode}
+\def\FL@subfig@check#1{%
+}
+%    \end{macrocode}
+% We divert |\Gin@getbase| to modify the file name if the |subfig| key
+% is used.
+%    \begin{macrocode}
+\def\FL@Gin@getbase#1{%
+  \ifx\FL@subfig@name\FL@exclamation%
+  \else%
+  \ifthenelse{\equal{#1}{.fig}}{%
+    % If we're including a subfig
+    \IfFileExists{\filename@area\filename@base#1}{%
+      % If the original .fig file exists, just change the name so that
+      % it comprises the full path.
+      \filename@parse{\@filef@und}%
+      % Remove potential trailing spage at the end of the extension
+      \def\filename@ext{fig}%
+      % Check if the subfig file exists
+      \FL@subfig@check{\filename@area\filename@base.subfig}%
+    }{%
+      % Else, write a warning (LaTeX will warn as well but it doesn't
+      % hurt)
+      \PackageWarning{figlatex}{No file 
+        '\filename@area\filename@base#1'}%
+    }
+    % Add the subfig suffix to the fig name.
+    \edef\filename@base{\filename@base\FL@sepdefault\FL@subfig@name}%
+  }{%
+  }%
+  \ifthenelse{\equal{#1}{.svg}}{%
+    % If we're including a subfig
+    \IfFileExists{\filename@area\filename@base#1}{%
+      % If the original .svg file exists, just change the name so that
+      % it comprises the full path.
+      \filename@parse{\@filef@und}%
+      % Remove potential trailing spage at the end of the extension
+      \def\filename@ext{svg}%
+      % Check if the subfig file exists
+      \FL@subfig@check{\filename@area\filename@base.subfig}%
+    }{%
+      % Else, write a warning (LaTeX will warn as well but it doesn't
+      % hurt)
+      \PackageWarning{figlatex}{No file
+        '\filename@area\filename@base#1'}%
+    }
+    % Add the subfig suffix to the svg name.
+    \edef\filename@base{\filename@base\FL@sepdefault\FL@subfig@name}%
+  }{%
+  }%
+  \fi%
+  \FL@orig@Gin@getbase{#1}%
+}
+\let\FL@orig@Gin@getbase\Gin@getbase
+\let\Gin@getbase\FL@Gin@getbase
+
+%\@namedef{Gin@rule@.fig}#1{%
+  
+%}
+%    \end{macrocode}
+%    \begin{macrocode}
+%</package>
+%    \end{macrocode}
+% The sample config file |figlatex.cfg|\ldots
+%    \begin{macrocode}
+%<*config>
+%    \end{macrocode}
+%    \begin{macrocode}
+ %\compatibility
+ %\debug
+%    \end{macrocode}
+%    \begin{macrocode}
+%</config>
+%    \end{macrocode}
+% \subsection{texgraphicx}
+%    \begin{macrocode}
+%<*compat>
+%    \end{macrocode}
+% |texgraphicx.sty| is only a wrapper arround |figlatex.sty|.
+%    \begin{macrocode}
+\PackageWarning{texgraphicx}{'texgraphicx' is now 
+  deprecated\MessageBreak%
+  Please, consider switching to 'figlatex' 
+  package\MessageBreak}
+\RequirePackage{figlatex}
+\ProcessOptions
+%    \end{macrocode}
+%    \begin{macrocode}
+%</compat>
+%    \end{macrocode}
+% \Finale
+\endinput

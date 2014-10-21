@@ -1,0 +1,45 @@
+Formatting double-page floats in LaTeX
+
+You sometimes want to format two, full-page figures or tables to appear
+side-by-side in an opened book. The first figure must be on the left (even
+page) and the second figure must appear on the right (odd page).
+
+LaTeX provides no way to assure that two consecutive figures will come out
+this way. This double-page float package, dpfloat.sty, allows you to specify
+that a float must appear on an even page, and thereby allows you to format a
+double-page figure.
+
+  ------------------------------------------------------------------------
+
+You format a double-page figure by formatting two consecutive, full-page
+figures, specifying that the first must appear on a left page. The other
+will follow on the right page.
+
+It looks something like this:
+
+     \documentclass{...}
+
+     \usepackage{dpfloat}
+
+     \begin{document}
+
+      ...
+
+     % a double-page figure
+
+       \begin{figure}[p]% will be the left-side figure
+         \begin{leftfullpage}
+            This is the left side figure
+         \end{leftfullpage}
+       \end{figure}
+       \begin{figure}[p]% will be the right-side figure
+         \begin{fullpage}
+            This is the right side figure
+         \end{fullpage}
+       \end{figure}
+
+     % end of the figure
+
+      ...
+
+     \end{document}

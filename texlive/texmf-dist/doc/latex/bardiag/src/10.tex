@@ -1,0 +1,80 @@
+\renewcommand{\betweenticks}{100}
+\renewcommand{\shownumbers}{0}
+
+\definecolor{gA}{gray}{0.5}
+\definecolor{gB}{gray}{0.7}
+\definecolor{gC}{gray}{0.9}
+
+   
+\newpsstyle{diagframestyle}{linewidth=3pt,linecolor=black}
+
+\newpsstyle{stA}{linestyle=solid,hatchsep=6pt,fillstyle=vlines*}
+\newpsstyle{stB}{linestyle=solid,hatchsep=6pt,fillstyle=hlines*}
+\newpsstyle{stC}{linestyle=solid,hatchsep=6pt,fillstyle=crosshatch*}
+
+
+\bardiagrambegin{15}{1000}{2cm}{1}{4}{1cm}{0.015cm}
+       \newpsstyle{levellinestyle}{linewidth=0.5pt,linecolor=gray,linestyle=dashed}
+       \renewcommand{\barlabelangle}{0}
+       
+       \barspergroup{3}
+       
+       \drawlevellines
+       \baritem[style=stA]{Here}{161}{gA}
+         \subtopbaritem[style=stA]{}{250}{gB}
+         \subtopbaritem[style=stA]{}{150}{gC}
+	\subbaritem[style=stB]{}{381}{gA}
+         \subtopbaritem[style=stB]{}{200}{gB}
+         \subtopbaritem[style=stB]{}{150}{gC}
+	\subbaritem[style=stC]{}{281}{gA}
+         \subtopbaritem[style=stC]{}{200}{gB}
+         \subtopbaritem[style=stC]{}{50}{gC}
+       %
+       \baritem[style=stA]{There}{221}{gA}
+         \subtopbaritem[style=stA]{}{150}{gB}
+         \subtopbaritem[style=stA]{}{130}{gC}
+	\subbaritem[style=stB]{}{281}{gA}
+         \subtopbaritem[style=stB]{}{300}{gB}
+         \subtopbaritem[style=stB]{}{150}{gC}
+	\subbaritem[style=stC]{}{121}{gA}
+         \subtopbaritem[style=stC]{}{211}{gB}
+         \subtopbaritem[style=stC]{}{350}{gC}
+       %
+       \baritem[style=stA]{Elsewhere}{432}{gA}
+         \subtopbaritem[style=stA]{}{50}{gB}
+         \subtopbaritem[style=stA]{}{230}{gC}
+	\subbaritem[style=stB]{}{201}{gA}
+         \subtopbaritem[style=stB]{}{130}{gB}
+         \subtopbaritem[style=stB]{}{90}{gC}
+	\subbaritem[style=stC]{}{191}{gA}
+         \subtopbaritem[style=stC]{}{88}{gB}
+         \subtopbaritem[style=stC]{}{222}{gC}
+       %
+       \baritem[style=stA]{on Mars}{232}{gA}
+         \subtopbaritem[style=stA]{}{150}{gB}
+         \subtopbaritem[style=stA]{}{330}{gC}
+	\subbaritem[style=stB]{}{301}{gA}
+         \subtopbaritem[style=stB]{}{230}{gB}
+         \subtopbaritem[style=stB]{}{190}{gC}
+	\subbaritem[style=stC]{}{91}{gA}
+         \subtopbaritem[style=stC]{}{188}{gB}
+         \subtopbaritem[style=stC]{}{322}{gC}
+
+       %
+       % we can call
+       \diagLegendoptions{white}{white}{0pt}
+       % to produce a legend without a frame
+%
+       \diagLegendbegin{1}{980}{3.5}
+         \diagLegenditem[style=stA]{19.12.2002}{white}
+         \diagLegenditem[style=stB]{06.05.2003}{white}
+	 \diagLegenditem[style=stC]{01.02.2004}{white}
+       \diagLegendend
+       %
+       \diagLegendbegin{5}{980}{3.5}
+         \diagLegenditem{first try}{gA}
+         \diagLegenditem{second try}{gB}
+	 \diagLegenditem{third try}{gC}
+       \diagLegendend
+
+\bardiagramend{}{\large Number of smth}

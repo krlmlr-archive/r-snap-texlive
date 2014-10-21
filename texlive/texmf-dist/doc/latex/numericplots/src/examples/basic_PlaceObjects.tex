@@ -1,0 +1,31 @@
+\begin{NumericDataPlot}
+   {\textwidth}{6.5cm}
+	\setxAxis
+	   {xMin=1, xMax=2, Dx=0.2}
+	\setyAxis
+	   {yMin=50, yMax=150, Dy=25}
+	
+	\plotxAxis[LabelPos=1, LabelRefPt=tr]%
+		{x-axis label}
+	\plotyAxis[NoLabel]{}
+	
+	\listplot[style=StdLineStyA]
+	   {\IdentI}
+	
+	% put some stuff somewhere
+	\NDPput[x=1.2, y=75, RefPoint=br]{text}
+	\NDPput[x=1.2, y=100, Rot=45]{$a^2+b^2$}
+	
+	% or put nodes...
+	\NDPput[x=1.6, y=100]{\pnode{A}}
+	\NDPput[x=1.8, y=150]{\pnode{B}}
+	% ...and draw a line between them
+	\ncline{A}{B}
+	% .. with text
+	\naput{$e^2$}
+	
+	% or put the legend at a specific position
+	\NDPput[x=1.8, y=75]{\LegendDefinition{
+		\LegLine{style=StdLineStyA} & IdentI
+	}}
+\end{NumericDataPlot}

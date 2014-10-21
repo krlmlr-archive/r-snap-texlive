@@ -1,0 +1,30 @@
+%%
+%% Package: etoc
+%% Version: 1.07l (2014/04/22)
+%% License: LPPL 1.3c or later (see etoc.dtx for more information)
+%% Copyright (C) 2012-2013-2014 Jean-Francois Burnol <jfbu at free dot fr>
+%% Copyright (C) 2014 Christine Roemer <Christine_Roemer at t-online dot de>
+%%    and collaborators for the translation into German of the documentation
+%%
+%% run latex thrice on this file etoc.tex then dvipdfmx on etoc.dvi
+%% to produce the documentation etoc.pdf, with source code included.
+%%
+%% possible dvipdfmx warnings (due to hyperlinks extending over page
+%% breaks) may be ignored, but in case of a too old dvipdfmx, it may
+%% be preferable to use pdflatex. Set \Withdvipdfmx to 0 first.
+%%
+\chardef\Withdvipdfmx 1 % replace 1 by 0 for using latex+dvips or pdflatex
+\chardef\NoSourceCode 0 % replace 0 by 1 for the doc *without* the source code
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesFile {etoc.tex}[Driver for etoc documentation]%
+\PassOptionsToClass   {a4paper,fontsize=11pt,twoside}{scrdoc}
+\PassOptionsToPackage {german,english}{babel}
+\chardef\ForEnglish 1 % (can NOT be both 1..)
+\chardef\ForDeutsch 0 %
+\input etoc.dtx
+%%% Local Variables:
+%%% mode: latex
+%%% End:
+\endinput
+%%
+%% End of file `etoc.tex'.

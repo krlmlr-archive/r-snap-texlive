@@ -1,0 +1,65 @@
+\input fontinst.sty
+\needsfontinstversion{1.926}
+%:substitutions
+%bold for bold extended
+\substitutesilent{bx}{b}
+\substitutesilent{si}{it}
+\substitutesilent{it}{sl}
+\substitutesilent{sl}{it}
+\substitutesilent{sc}{n}
+%light for medium
+%\substitutesilent{m}{l}
+%demi-bold for bold
+%\substitutesilent{bx}{db}
+%:simulate small caps (if optical small caps are unavailable)
+%800 is fontinst's default
+\setint{smallcapsscale}{800}
+%:record transformations for later map file creation
+\recordtransforms{ybv-rec.tex}
+%:transformations - reencode
+	\transformfont{ybvr8r}{\reencodefont{8r}{\fromafm{ybvr8a}}}
+	\transformfont{ybvri8r}{\reencodefont{8r}{\fromafm{ybvri8a}}}
+	\transformfont{ybvb8r}{\reencodefont{8r}{\fromafm{ybvb8a}}}
+	\transformfont{ybvbi8r}{\reencodefont{8r}{\fromafm{ybvbi8a}}}
+	\transformfont{ybvh8r}{\reencodefont{8r}{\fromafm{ybvh8a}}}
+	\transformfont{ybvho8r}{\reencodefont{8r}{\fromafm{ybvho8a}}}
+	\transformfont{ybvr8s}{\reencodefont{supp-ybv}{\fromafm{ybvr8a}}}
+	\transformfont{ybvri8s}{\reencodefont{supp-ybv}{\fromafm{ybvri8a}}}
+	\transformfont{ybvb8s}{\reencodefont{supp-ybv}{\fromafm{ybvb8a}}}
+	\transformfont{ybvbi8s}{\reencodefont{supp-ybv}{\fromafm{ybvbi8a}}}
+	\transformfont{ybvh8s}{\reencodefont{supp-ybv}{\fromafm{ybvh8a}}}
+	\transformfont{ybvho8s}{\reencodefont{supp-ybv}{\fromafm{ybvho8a}}}
+	\input reglyph-ybv.tex
+%:installation - creation of virtual fonts
+	\installfonts
+		\installfamily{T1}{ybv}{}
+		\installfont{ybvr8t}{ybvr8r,ybvr8sr,newlatin}{t1-baskervald}{T1}{ybv}{m}{n}{}
+		\installfont{ybvri8t}{ybvri8r,ybvri8sr,newlatin}{t1-baskervald}{T1}{ybv}{m}{it}{}
+		\installfont{ybvb8t}{ybvb8r,ybvb8sr,newlatin}{t1-baskervald}{T1}{ybv}{b}{n}{}
+		\installfont{ybvbi8t}{ybvbi8r,ybvbi8sr,newlatin}{t1-baskervald}{T1}{ybv}{b}{it}{}
+		\installfont{ybvh8t}{ybvh8r,ybvh8sr,newlatin}{t1-baskervald}{T1}{ybv}{eb}{n}{}
+		\installfont{ybvho8t}{ybvho8r,ybvho8sr,newlatin}{t1-baskervald}{T1}{ybv}{eb}{sl}{}
+		\installfamily{T1}{ybvw}{}
+		\installfont{ybvrw8t}{ybvr8r,ybvr8sr,newlatin}{t1-baskervald-lig}{T1}{ybvw}{m}{n}{}
+		\installfont{ybvriw8t}{ybvri8r,ybvri8sr,newlatin}{t1-baskervald-lig}{T1}{ybvw}{m}{it}{}
+		\installfont{ybvbw8t}{ybvb8r,ybvb8sr,newlatin}{t1-baskervald-lig}{T1}{ybvw}{b}{n}{}
+		\installfont{ybvbiw8t}{ybvbi8r,ybvbi8sr,newlatin}{t1-baskervald-lig}{T1}{ybvw}{b}{it}{}
+		\installfont{ybvhw8t}{ybvh8r,ybvh8sr,newlatin}{t1-baskervald-lig}{T1}{ybvw}{eb}{n}{}
+		\installfont{ybvhow8t}{ybvho8r,ybvho8sr,newlatin}{t1-baskervald-lig}{T1}{ybvw}{eb}{sl}{}
+		\installfamily{TS1}{ybv}{}
+		\installfont{ybvr8c}{ybvr8r,ybvr8sr,textcomp}{ts1-baskervald}{TS1}{ybv}{m}{n}{}
+		\installfont{ybvri8c}{ybvri8r,ybvri8sr,textcomp}{ts1-baskervald}{TS1}{ybv}{m}{it}{}
+		\installfont{ybvb8c}{ybvb8r,ybvb8sr,textcomp}{ts1-baskervald}{TS1}{ybv}{b}{n}{}
+		\installfont{ybvbi8c}{ybvbi8r,ybvbi8sr,textcomp}{ts1-baskervald}{TS1}{ybv}{b}{it}{}
+		\installfont{ybvh8c}{ybvh8r,ybvh8sr,textcomp}{ts1-baskervald}{TS1}{ybv}{eb}{n}{}
+		\installfont{ybvho8c}{ybvho8r,ybvho8sr,textcomp}{ts1-baskervald}{TS1}{ybv}{eb}{sl}{}
+		\installfamily{TS1}{ybvw}{}
+		\installfontas{ybvr8c}{TS1}{ybvw}{m}{n}{}
+		\installfontas{ybvri8c}{TS1}{ybvw}{m}{it}{}
+		\installfontas{ybvb8c}{TS1}{ybvw}{b}{n}{}
+		\installfontas{ybvbi8c}{TS1}{ybvw}{b}{it}{}
+		\installfontas{ybvh8c}{TS1}{ybvw}{eb}{n}{}
+		\installfontas{ybvho8c}{TS1}{ybvw}{eb}{sl}{}
+	\endinstallfonts
+\endrecordtransforms
+\bye

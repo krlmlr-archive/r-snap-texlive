@@ -1,0 +1,37 @@
+PXpgfmark Package
+=================
+
+LaTeX: to make inter-picture connections work with e-pTeX engine
+
+PGF/TikZ's feature of “inter-picture connections” 
+(`remember picture` option) depends on the “save position” feature
+of pdfTeX. Today the latter feature is also supported by XeTeX
+and e-(u)pTeX engines. Unfortunately, PGF's driver for dvipdfmx
+relies on testing on engine (not feature) and thus inter-picture
+connections still fail on e-pTeX + dvipdfmx. This package fixes
+the problem.
+
+### Installation
+
+  - `*.sty` → $TEXMF/tex/latex/PXpgfmark
+
+### Usage
+
+Load this package after tikz (or pgf) package.
+
+    \documentclass[dvipdfmx]{article}
+    \usepackage{tikz} % or pgf
+    \usepackage{pxpgfmark}
+
+Note that this package is of no use unless you work on e-(u)pTeX +
+dvipdfmx combination.
+
+Revision History
+----------------
+
+  * Version 0.1 <2013/02/18>
+      - The first public version.
+
+--------------------
+Takayuki YATO (aka. "ZR")  
+http://zrbabbler.sp.land.to/

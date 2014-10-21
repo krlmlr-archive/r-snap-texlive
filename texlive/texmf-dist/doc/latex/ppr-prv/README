@@ -1,0 +1,98 @@
+This is the README file for the ppr-prv class (version 0.13c).
+(C) 2003-2004 Mathieu Goutelle (INRIA, France)
+mgoutell[at]users[dot]sourceforge[dot]net
+CVSid: $Id: README,v 1.6 2005/09/02 15:42:38 mgoutell Exp $
+
+This class is used with LaTeX presentations using the prosper class. ppr-prv
+stands for "Prosper Preview". The aim of this class is to produce a printable
+version of the slides written with Prosper, with two slides per page.
+
+The installation of ppr-prv files follows the same scheme as any other package
+installation on your distrib. You can consult this page from the UK TeX FAQ:
+<URL:http://www.tex.ac.uk/cgi-bin/texfaq2html?label=instpackages>.
+
+The common way to install it is:
+  - to create the 'ppr-prv.cls' and 'HAP-ppr-prv.def' files: latex ppr-prv.ins ;
+  - to create the 'ppr-prv.dvi' documentation: latex ppr-prv.dtx ;
+  - install the 'ppr-prv.cls' file in a directory where LaTeX can find it.
+
+You can send comments, bugs report or proposed improvements to the author by
+email: <mgoutell[at]users[dot]sourceforge[dot]net>.
+
+----[ Changelog ]----
+
+  v. 0.13:
+     * (0.13c) Bugfix: some (still!) missing prosper declarations
+       (thanks to Pauli A Miettinen for reporting it) ;
+     * (0.13b) Bugfix: no default definition when Babel language is not
+       supported (thanks to Lasse Bach for reporting it) ;
+     * Compatibility with HA-prosper 4.2 (\xitem particularly) ;
+     * Some bug fixes in starred version of overlay macros.
+
+  v. 0.12:
+     * (0.12b) Bugfix: all key definitions were lost due to name inconsistency ;
+     * Support for the onSlide macros added by HA-prosper ;
+     * Use of the 'HAP-ppr-prv.def' file for the support of HA-prosper ;
+     * Changes to support HA-prosper 4.0 (one undefined counter, some new
+       seminar and prosper macros are needed).
+
+  v. 0.11:
+     * New ppr-prv option: nopagebreak, to have more than two slides per page ;
+     * ppr-prv is now distributed as a .dtx file ;
+     * Better handling of options: you can now pass to the article class the
+       usual options for setting the paper and font sizes ;
+     * Use of the 'geometry' package to set margins ;
+     * I set a minimum height for the frame around the slides ;
+     * Bugfix: the optional argument of itemstep was not handle when using
+       HA-prosper ;
+     * ppr-prv supports HA-prosper 3.9 ('indent' option on dualslide and 
+       'enumstep' environment).
+
+  v. 0.10:
+     * Use of the 'float' package to declare the 'figure' and 'table' float as
+       non-floating environment ([H] for HERE!) ;
+     * I have removed some garbages in the code ;
+     * I found an other bug in {from|until|only}Slide macros ;
+     * Modifications to be compatible with HA-prosper v3.8 (starred version of
+       \tsection macro and \dualslide command). The backward compatibility with
+       previous version is unfornately not assured (due to \dualslide).
+
+  v. 0.09:
+     * The load of the babel package is now better detected ;
+     * ppr-prv is now compatible with the patch for Prosper written by Hendri
+       Adriaens (<URL:http://stuwww.uvt.nl/~hendri/Downloads/haprosper.html>).
+
+  v. 0.08:
+     * Modification of macro names to avoid clashes ;
+     * Bug in {from|until|only}Slide macros because of definition of the starred
+       version (thanks to Hendri Adriaens).
+
+  v. 0.07:
+     * Some improvements of the documentation while waiting for a .dtx ;
+     * Add multi-language support with Babel. Currently supported languages are
+       english, german and french (and all their variants). Other languages will
+       come sooner.
+
+  v. 0.06:
+     * Add the 'a4paper' option passed to the article class ;
+     * Bad spacing in title.
+
+  v. 0.05:
+     * Counter initialization problem: when there's no \maketitle, the slides
+       are bad numbered.
+
+  v. 0.04:
+    * Forgotten to define the 'Itemize' environment and to gobble the optional
+      parameter of the 'itemstep' environment ;
+    * 'textcomp' package added (for the \textdegree macro).
+
+  v. 0.03:
+    * Better handling of the {only,until,from}Slide* macros.
+
+  v. 0.02:
+    * Cosmetic changes.
+
+  v. 0.01:
+    * First version.
+
+---------------------

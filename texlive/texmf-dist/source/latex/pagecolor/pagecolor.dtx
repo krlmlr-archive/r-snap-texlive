@@ -1,0 +1,1091 @@
+% \iffalse meta-comment
+%
+% File: pagecolor.dtx
+% Version: 2012/02/23 v1.0e
+%
+% Copyright (C) 2011 - 2012 by
+%    H.-Martin M"unch <Martin dot Muench at Uni-Bonn dot de>
+%
+% This work may be distributed and/or modified under the
+% conditions of the LaTeX Project Public License, either
+% version 1.3c of this license or (at your option) any later
+% version. This version of this license is in
+%    http://www.latex-project.org/lppl/lppl-1-3c.txt
+% and the latest version of this license is in
+%    http://www.latex-project.org/lppl.txt
+% and version 1.3c or later is part of all distributions of
+% LaTeX version 2005/12/01 or later.
+%
+% This work has the LPPL maintenance status "maintained".
+%
+% The Current Maintainer of this work is H.-Martin Muench.
+%
+% This work consists of the main source file pagecolor.dtx,
+% the README, and the derived files
+%    pagecolor.sty, pagecolor.pdf,
+%    pagecolor.ins, pagecolor.drv,
+%    pagecolor-example.tex, pagecolor-example.pdf.
+%
+% Distribution:
+%    CTAN:macros/latex/contrib/pagecolor/pagecolor.dtx
+%    CTAN:macros/latex/contrib/pagecolor/pagecolor.pdf
+%    CTAN:install/macros/latex/contrib/pagecolor.tds.zip
+%
+% Cf. http://ctan.org/pkg/pagecolor and
+% http://www.tex.ac.uk/tex-archive/help/Catalogue/entries/pagecolor.html
+%
+% Unpacking:
+%    (a) If pagecolor.ins is present:
+%           tex pagecolor.ins
+%    (b) Without pagecolor.ins:
+%           tex pagecolor.dtx
+%    (c) If you insist on using LaTeX
+%           latex \let\install=y\input{pagecolor.dtx}
+%        (quote the arguments according to the demands of your shell)
+%
+% Documentation:
+%    (a) If pagecolor.drv is present:
+%           (pdf)latex pagecolor.drv
+%           makeindex -s gind.ist pagecolor.idx
+%           (pdf)latex pagecolor.drv
+%           makeindex -s gind.ist pagecolor.idx
+%           (pdf)latex pagecolor.drv
+%    (b) Without pagecolor.drv:
+%           (pdf)latex pagecolor.dtx
+%           makeindex -s gind.ist pagecolor.idx
+%           (pdf)latex pagecolor.dtx
+%           makeindex -s gind.ist pagecolor.idx
+%           (pdf)latex pagecolor.dtx
+%
+%    The class ltxdoc loads the configuration file ltxdoc.cfg
+%    if available. Here you can specify further options, e.g.
+%    use DIN A4 as paper format:
+%       \PassOptionsToClass{a4paper}{article}
+%
+% Installation:
+%    TDS:tex/latex/pagecolor/pagecolor.sty
+%    TDS:doc/latex/pagecolor/pagecolor.pdf
+%    TDS:doc/latex/pagecolor/pagecolor-example.tex
+%    TDS:doc/latex/pagecolor/pagecolor-example.pdf
+%    TDS:source/latex/pagecolor/pagecolor.dtx
+%
+%<*ignore>
+\begingroup
+  \catcode123=1 %
+  \catcode125=2 %
+  \def\x{LaTeX2e}%
+\expandafter\endgroup
+\ifcase 0\ifx\install y1\fi\expandafter
+         \ifx\csname processbatchFile\endcsname\relax\else1\fi
+         \ifx\fmtname\x\else 1\fi\relax
+\else\csname fi\endcsname
+%</ignore>
+%<*install>
+\input docstrip.tex
+\Msg{*****************************************************************}
+\Msg{* Installation                                                   }
+\Msg{* Package: pagecolor 2012/02/23 v1.0e Provides thepagecolor (HMM)}
+\Msg{*****************************************************************}
+
+\keepsilent
+\askforoverwritefalse
+
+\let\MetaPrefix\relax
+\preamble
+
+This is a generated file.
+
+Project: pagecolor
+Version: 2012/02/23 v1.0e
+
+Copyright (C) 2011 - 2012 by
+    H.-Martin M"unch <Martin dot Muench at Uni-Bonn dot de>
+
+The usual disclaimer applies:
+If it doesn't work right that's your problem.
+(Nevertheless, send an e-mail to the maintainer
+ when you find an error in this package.)
+
+This work may be distributed and/or modified under the
+conditions of the LaTeX Project Public License, either
+version 1.3c of this license or (at your option) any later
+version. This version of this license is in
+   http://www.latex-project.org/lppl/lppl-1-3c.txt
+and the latest version of this license is in
+   http://www.latex-project.org/lppl.txt
+and version 1.3c or later is part of all distributions of
+LaTeX version 2005/12/01 or later.
+
+This work has the LPPL maintenance status "maintained".
+
+The Current Maintainer of this work is H.-Martin Muench.
+
+This work consists of the main source file pagecolor.dtx,
+the README, and the derived files
+   pagecolor.sty, pagecolor.pdf,
+   pagecolor.ins, pagecolor.drv,
+   pagecolor-example.tex, pagecolor-example.pdf.
+
+\endpreamble
+\let\MetaPrefix\DoubleperCent
+
+\generate{%
+  \file{pagecolor.ins}{\from{pagecolor.dtx}{install}}%
+  \file{pagecolor.drv}{\from{pagecolor.dtx}{driver}}%
+  \usedir{tex/latex/pagecolor}%
+  \file{pagecolor.sty}{\from{pagecolor.dtx}{package}}%
+  \usedir{doc/latex/pagecolor}%
+  \file{pagecolor-example.tex}{\from{pagecolor.dtx}{example}}%
+}
+
+\catcode32=13\relax% active space
+\let =\space%
+\Msg{************************************************************************}
+\Msg{*}
+\Msg{* To finish the installation you have to move the following}
+\Msg{* file into a directory searched by TeX:}
+\Msg{*}
+\Msg{*     pagecolor.sty}
+\Msg{*}
+\Msg{* To produce the documentation run the file `pagecolor.drv'}
+\Msg{* through (pdf)LaTeX, e.g.}
+\Msg{*  pdflatex pagecolor.drv}
+\Msg{*  makeindex -s gind.ist pagecolor.idx}
+\Msg{*  pdflatex pagecolor.drv}
+\Msg{*  makeindex -s gind.ist pagecolor.idx}
+\Msg{*  pdflatex pagecolor.drv}
+\Msg{*}
+\Msg{* At least three runs are necessary e.g. to get the}
+\Msg{*  references right!}
+\Msg{*}
+\Msg{* Happy TeXing!}
+\Msg{*}
+\Msg{************************************************************************}
+
+\endbatchfile
+%</install>
+%<*ignore>
+\fi
+%</ignore>
+%
+% \section{The documentation driver file}
+%
+% The next bit of code contains the documentation driver file for
+% \TeX{}, i.\,e., the file that will produce the documentation you
+% are currently reading. It will be extracted from this file by the
+% \texttt{docstrip} programme. That is, run \LaTeX{} on \texttt{docstrip}
+% and specify the \texttt{driver} option when \texttt{docstrip}
+% asks for options.
+%
+%    \begin{macrocode}
+%<*driver>
+\NeedsTeXFormat{LaTeX2e}[2011/06/27]
+\ProvidesFile{pagecolor.drv}%
+  [2012/02/23 v1.0e Provides thepagecolor (HMM)]
+\documentclass{ltxdoc}[2007/11/11]% v2.0u
+\usepackage{holtxdoc}[2011/02/04]%  v0.21
+%% pagecolor may work with earlier versions of LaTeX2e and those
+%% class and package, but this was not tested.
+%% Please consider updating your LaTeX, class, and package
+%% to the most recent version (if they are not already the most
+%% recent version).
+\hypersetup{%
+ pdfsubject={Providing the thepagecolor command (HMM)},%
+ pdfkeywords={LaTeX, pagecolor, thepagecolor, H.-Martin Muench},%
+ pdfencoding=auto,%
+ pdflang={en},%
+ breaklinks=true,%
+ linktoc=all,%
+ pdfstartview=FitH,%
+ pdfpagelayout=OneColumn,%
+ bookmarksnumbered=true,%
+ bookmarksopen=true,%
+ bookmarksopenlevel=3,%
+ pdfmenubar=true,%
+ pdftoolbar=true,%
+ pdfwindowui=true,%
+ pdfnewwindow=true%
+}
+\CodelineIndex
+\hyphenation{printing docu-ment}
+\gdef\unit#1{\mathord{\thinspace\mathrm{#1}}}%
+\begin{document}
+  \DocInput{pagecolor.dtx}%
+\end{document}
+%</driver>
+%    \end{macrocode}
+%
+% \fi
+%
+% \CheckSum{137}
+%
+% \CharacterTable
+%  {Upper-case    \A\B\C\D\E\F\G\H\I\J\K\L\M\N\O\P\Q\R\S\T\U\V\W\X\Y\Z
+%   Lower-case    \a\b\c\d\e\f\g\h\i\j\k\l\m\n\o\p\q\r\s\t\u\v\w\x\y\z
+%   Digits        \0\1\2\3\4\5\6\7\8\9
+%   Exclamation   \!     Double quote  \"     Hash (number) \#
+%   Dollar        \$     Percent       \%     Ampersand     \&
+%   Acute accent  \'     Left paren    \(     Right paren   \)
+%   Asterisk      \*     Plus          \+     Comma         \,
+%   Minus         \-     Point         \.     Solidus       \/
+%   Colon         \:     Semicolon     \;     Less than     \<
+%   Equals        \=     Greater than  \>     Question mark \?
+%   Commercial at \@     Left bracket  \[     Backslash     \\
+%   Right bracket \]     Circumflex    \^     Underscore    \_
+%   Grave accent  \`     Left brace    \{     Vertical bar  \|
+%   Right brace   \}     Tilde         \~}
+%
+% \GetFileInfo{pagecolor.drv}
+%
+% \begingroup
+%   \def\x{\#,\$,\^,\_,\~,\ ,\&,\{,\},\%}%
+%   \makeatletter
+%   \@onelevel@sanitize\x
+% \expandafter\endgroup
+% \expandafter\DoNotIndex\expandafter{\x}
+% \expandafter\DoNotIndex\expandafter{\string\ }
+% \begingroup
+%   \makeatletter
+%     \lccode`9=32\relax
+%     \lowercase{%^^A
+%       \edef\x{\noexpand\DoNotIndex{\@backslashchar9}}%^^A
+%     }%^^A
+%   \expandafter\endgroup\x
+%
+% \DoNotIndex{\,,\\}
+% \DoNotIndex{\documentclass,\usepackage,\ProvidesPackage,\begin,\end}
+% \DoNotIndex{\MessageBreak}
+% \DoNotIndex{\NeedsTeXFormat,\DoNotIndex,\verb}
+% \DoNotIndex{\def,\edef,\gdef,\global}
+% \DoNotIndex{\ifx,\listfiles,\mathord,\mathrm}
+% \DoNotIndex{\kvoptions,\SetupKeyvalOptions,\ProcessKeyvalOptions}
+% \DoNotIndex{\bigskip,\space,\thinspace,\ldots}
+% \DoNotIndex{\indent,\noindent,\newline,\linebreak,\pagebreak,\newpage}
+% \DoNotIndex{\textbf,\textit,\textsf,\texttt,\textsc,\textquotedblleft,\textquotedblright}
+% \DoNotIndex{\plainTeX,\TeX,\LaTeX,\pdfLaTeX}
+% \DoNotIndex{\section,\color,\pagenumbering,\smallskip}
+% \DoNotIndex{\@ifundefined,\@ifpackageloaded}
+% \DoNotIndex{\DeclareStringOption}
+%
+% \title{The \xpackage{pagecolor} package}
+% \date{2012/02/23 v1.0e}
+% \author{H.-Martin M\"{u}nch\\\xemail{Martin.Muench at Uni-Bonn.de}}
+%
+% \maketitle
+%
+% \begin{abstract}
+%  This \LaTeX{} package provides the command |\thepagecolor|,
+% which gives the current page (background) colour,
+% i.\,e.~the argument used with the most recent call of |\pagecolor{...}|.
+% The command |\thepagecolornone| gives the same colour as |\thepagecolor|,
+% except when the page background colour is
+% \textquotedblleft|none|\textquotedblright. In that case |\thepagecolor| is
+% |white| and |\thepagecolornone| is |none|.\\
+% Similar to |\newgeometry| and |\restoregeometry| of the \xpackage{geometry}
+% package\\
+% |\newpagecolor{<|\textit{some colour} |>}| and |\restorepagecolor|
+% are provided.
+% \end{abstract}
+%
+% \bigskip
+%
+% \noindent Disclaimer for web links: The author is not responsible for any contents
+% referred to in this work unless he has full knowledge of illegal contents.
+% If any damage occurs by the use of information presented there, only the
+% author of the respective pages might be liable, not the one who has referred
+% to these pages.
+%
+% \bigskip
+%
+% \noindent {\color{green} Save per page about $200\unit{ml}$ water,
+% $2\unit{g}$ CO$_{2}$ and $2\unit{g}$ wood:\\
+% Therefore please print only if this is really necessary.}
+%
+% \pagebreak
+%
+% \tableofcontents
+%
+% \bigskip
+%
+% \section{Introduction\label{sec:Introduction}}
+%
+% \indent This \LaTeX{} package provides the command |\thepagecolor|,
+% which gives the current page (background) colour,
+% i.\,e.~the argument used with the most recent call of |\pagecolor{...}|.
+% The package should be loaded before any package sets a page (background)
+% colour, but after \xpackage{color} or \xpackage{xcolor} package.
+% Its option |pagecolor={...}| is used to set the |\pagecolor{...}|.\\
+% The command |\thepagecolornone| gives the same colour as |\thepagecolor|,
+% except when the page background colour is
+% \textquotedblleft|none|\textquotedblright (e.\,g. result of using the
+% |\nopagecolor| command). In that case |\thepagecolor| is |white| and\linebreak
+% |\thepagecolornone| is |none|.\\
+% Similar to |\newgeometry| and |\restoregeometry| of the \xpackage{geometry}
+% package\\
+% |\newpagecolor{<|\textit{some colour}|>}| and |\restorepagecolor|
+% are provided.
+%
+% \pagebreak
+%
+% \section{Usage}
+%
+% \indent Just load the package placing
+% \begin{quote}
+%   |\usepackage[<|\textit{option}|>]{pagecolor}|
+% \end{quote}
+% \noindent in the preamble of your \LaTeXe{} source file.
+% This should be done before another package uses |\pagecolor|,
+% but after |\nopagecolor| is defined (if that is defined in the document
+% at all).\\
+% Afterwards |\pagecolor{...}| can be used to change the page (background)
+% colour as usual. Then |\thepagecolor| gives the current page (background)
+% colour (in the same format as given with |\pagecolor{...}|).\\
+% Similar to |\newgeometry| and |\restoregeometry| of the \xpackage{geometry}
+% package\\
+% |\newpagecolor{<|\textit{some colour} |>}| and |\restorepagecolor|
+% are provided:\\
+% |\newpagecolor{<|\textit{some colour} |>}| will execute
+% |\pagecolor{<|\textit{some colour} |>}| and remember the page colour used before.
+% |\restorecolor| (without argument) restores the page colour to the one used before
+%  use of the |\newpagecolor{...}| command. When you want to change the colour for
+%  just one page and do not want to (or cannot) manually determine where the page ends,\\
+% |\newpagecolor{<|\textit{some colour}|>}\afterpage{\restorepagecolor}|\\
+% does the trick (and requires a |\usepackage{afterpage}| in the document's
+% preamble), or for short\\
+% |\newcommand{\onepagecolor}[1]{%|\\
+% |\newpagecolor{#1}\afterpage{\restorepagecolor}}|\\
+% in the preamble and\\
+% |\onepagecolor{<|\textit{some colour}|>}| in the document.
+%
+% \subsection{Option}
+% \DescribeMacro{option}
+% \indent The \xpackage{pagecolor} package takes the following option:
+%
+% \subsubsection{pagecolor\label{sss:pagecolor}}
+% \DescribeMacro{pagecolor}
+% \indent The option |pagecolor={...}| takes as value a colour. This
+% could be as simple as |white| or |black|, but when e.\,g.~the
+% \xpackage{xcolor} package is used (loaded before \xpackage{pagecolor}!),
+% also colours like |red!50!green!20!blue| are possible.
+% The default is |pagecolor={none}|.
+%
+% \section{Alternatives\label{sec:Alternatives}}
+%
+% As I neither know what exactly you want to accomplish
+% when using this package (e.\,g.~hiding text), nor what resources you have
+% (e.\,g.~\pdfTeX{} version), here is a list of some possible alternatives:\\
+%
+% \begin{description}
+%  \item[-]
+%  \DescribeMacro{transparent}
+%  \xpackage{transparent} package: With it some object can be made
+%  (fully or partially) transparent.
+% \end{description}
+%
+% \begin{description}
+%  \item[-]
+%  \DescribeMacro{hrefhide}\xpackage{hrefhide} package: It allows to
+%  \textquotedblleft hide\textquotedblright\ some (hyperlinked) text when
+%  printing the document while keeping the layout.
+% \end{description}
+%
+% \bigskip
+%
+% \noindent (You programmed or found another alternative,
+%  which is available at \CTAN{}?\\
+%  OK, send an e-mail to me with the name, location at \CTAN{},
+%  and a short notice, and I will probably include it in
+%  the list above.)\\
+%
+% \smallskip
+%
+% \noindent About how to get those packages, please see
+% subsection~\ref{ss:Downloads}.
+%
+% \newpage
+%
+% \section{Example}
+%
+%    \begin{macrocode}
+%<*example>
+\documentclass[british]{article}[2007/10/19]% v1.4h
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\usepackage[%
+ extension=pdf,%
+ plainpages=false,%
+ pdfpagelabels=true,%
+ hyperindex=false,%
+ pdflang={en},%
+ pdftitle={pagecolor package example},%
+ pdfauthor={H.-Martin Muench},%
+ pdfsubject={Example for the pagecolor package},%
+ pdfkeywords={LaTeX, pagecolor, thepagecolor, page colour,%
+  H.-Martin Muench},%
+ pdfview=Fit,pdfstartview=Fit,%
+ pdfpagelayout=SinglePage%
+]{hyperref}[2012/02/06]% v6.82o
+\usepackage[x11names]{xcolor}[2007/01/21]% v2.11
+ % The xcolor package would not be needed for just using
+ % the base colours. The color package would be sufficient for that.
+\usepackage[pagecolor={LightGoldenrod1}]{pagecolor}[2012/02/23]% v1.0e
+
+\usepackage{afterpage}[1995/10/27]% v1.08
+ % The afterpage package is generally not needed,
+ % but the |\newpagecolor{somecolour}\afterpage{\restorepagecolor}|
+ % construct shall be demonstrated.
+
+\usepackage{lipsum}[2011/04/14]% v1.2
+ % The lipsum package is generally not needed,
+ % but some blind text is needed for the example.
+
+\gdef\unit#1{\mathord{\thinspace\mathrm{#1}}}%
+\listfiles
+\begin{document}
+\pagenumbering{arabic}
+\section*{Example for pagecolor}
+
+This example demonstrates the use of package\newline
+\textsf{pagecolor}, v1.0e as of 2012/02/23 (HMM).\newline
+The used option was \verb|pagecolor={LightGoldenrod1}|.\newline
+\verb|pagecolor={none}| would be the default.\newline
+
+For more details please see the documentation!\newline
+
+\noindent {\color{teal} Save per page about $200\unit{ml}$ water,
+$2\unit{g}$ CO$_{2}$ and $2\unit{g}$ wood:\newline
+Therefore please print only if this is really necessary.}\newline
+
+The current page (background) colour is\newline
+\verb|\thepagecolor|\ =\ \thepagecolor \newline
+(and \verb|\thepagecolornone|\ =\ \thepagecolornone ,
+which would only be different from \verb|\thepagecolor|,
+when the page colour would be \verb|none|).
+
+\pagebreak
+\pagecolor{rgb:-green!40!yellow,3;green!40!yellow,2;red,1}
+
+{\color{white} The current page (background) colour is\newline
+\verb|\thepagecolor|\ =\ \thepagecolor . \newline}
+
+{\color{\thepagecolor} And that makes this text practically invisible.
+\newline}
+
+{\color{white} Which made the preceding line of text practically
+invisible.}
+
+\pagebreak
+\newpagecolor{red}
+
+This page uses \verb|\newpagecolor{red}|.
+
+\pagebreak
+\restorepagecolor
+
+{\color{white}And this page uses \verb|\restorepagecolor| to restore
+the page colour to the value it had before the red page.}
+
+\pagebreak
+\pagecolor{none}
+
+This page uses \verb|\pagecolor{none}|. If the \verb|\nopagecolor|
+command is known (pdf\TeX and Lua\TeX; not yet for dvips, dvipdfm(x)
+or Xe\TeX), the page colour is now \verb|none|, otherwise \verb|white|:
+\verb|\thepagecolor|\ =\ \thepagecolor\ and
+\verb|\thepagecolornone|\ =\ \thepagecolornone .
+
+\pagebreak
+\restorepagecolor
+
+{\color{white}\verb|\restorepagecolor| restored the page colour again.}
+
+\pagebreak
+\pagecolor{green}
+
+This page is green due to \verb|\pagecolor{green}|.
+
+\pagebreak
+\newpagecolor{blue}\afterpage{\restorepagecolor}
+
+{\color{white}\verb|\newpagecolor{blue}\afterpage{\restorepagecolor}|%
+\newline
+was used here, i.\,e.~this page is blue, and the next one will
+automatically have the same page colour before it was changed to blue
+here (i.\,e. green).}
+
+\smallskip
+{\color{red}\textbf{\lipsum[1-11]}}
+\bigskip
+
+The page colour was changed back at the end of the page -
+in mid-sentence!
+
+\end{document}
+%</example>
+%    \end{macrocode}
+%
+% \StopEventually{}
+%
+% \newpage
+%
+% \section{The implementation}
+%
+% We start off by checking that we are loading into \LaTeXe{} and
+% announcing the name and version of this package.
+%
+%    \begin{macrocode}
+%<*package>
+%    \end{macrocode}
+%
+%    \begin{macrocode}
+\NeedsTeXFormat{LaTeX2e}[2011/06/27]
+\ProvidesPackage{pagecolor}[2012/02/23 v1.0e
+            Provides thepagecolor (HMM)]
+%    \end{macrocode}
+%
+% A short description of the \xpackage{pagecolor} package:
+%
+%    \begin{macrocode}
+%% Provides the \thepagecolor, \thepagecolornone, \newpagecolor{...},
+%% and \restorepagecolor commands.
+%    \end{macrocode}
+%
+% We need the \xpackage{kvoptions} package by \textsc{Heiko Oberdiek}:
+%
+%    \begin{macrocode}
+\RequirePackage{kvoptions}[2010/12/23]% v3.10
+%    \end{macrocode}
+%
+% and either the \xpackage{color} or the \xpackage{xcolor} package:
+%
+%    \begin{macrocode}
+%% \RequirePackage{ either color or xcolor }:
+\@ifpackageloaded{xcolor}{% xcolor loaded
+   \@ifpackagelater{xcolor}{2007/01/21}{%
+      % 2007/01/21, v2.11, or even more recent: OK
+    }{% else: older package version
+      \PackageWarning{pagecolor}{%
+        It is requested version `2007/01/21' of package\MessageBreak%
+        xcolor, but only an older version is available.\MessageBreak%
+       }%
+     }%
+ }{% xcolor not loaded
+   \@ifpackageloaded{color}{%
+      \RequirePackage{color}[2005/11/14]% v1.0j
+    }{% \else
+      \PackageWarning{pagecolor}{%
+        The pagecolor package must be loaded after either\MessageBreak%
+        package color or after package xcolor (at your\MessageBreak%
+        option). Neither package was loaded before package\MessageBreak%
+        pagecolor. Loading of package xcolor will now be\MessageBreak%
+        tried automatically.\MessageBreak%
+        When the pagecolor package is used with option\MessageBreak%
+        pagecolor using a colour requiring e. g. x11names\MessageBreak%
+        option for xcolor package, this will not work!\MessageBreak%
+       }
+     }% \fi
+   \RequirePackage{xcolor}[2007/01/21]% v2.11
+  }% \fi
+%    \end{macrocode}
+%
+% A last information for the user:
+%
+%    \begin{macrocode}
+%% pagecolor may work with earlier versions of LaTeX and the
+%% packages, but this was not tested. Please consider updating
+%% your LaTeX and packages to the most recent version
+%% (if they are not already the most recent version).
+
+%    \end{macrocode}
+%
+% \indent See subsection~\ref{ss:Downloads} about how to get them.\\
+%
+% We process the options:
+%
+%    \begin{macrocode}
+\SetupKeyvalOptions{family=pagecolor,prefix=pagecolor@}
+\DeclareStringOption[none]{pagecolor}% \pagecolor@pagecolor
+\ProcessKeyvalOptions*
+
+%    \end{macrocode}
+%
+% We save the original |\pagecolor| command,
+%
+%    \begin{macrocode}
+\let\origpagecolour\pagecolor
+
+%    \end{macrocode}
+%
+%    \begin{macro}{\pagecolor}
+% before we redefine it to include a definition of |\thepagecolor|
+% and \linebreak
+% |\thepagecolornone|:
+%
+%    \begin{macrocode}
+\renewcommand{\pagecolor}[1]{\@bsphack%
+  \edef\pagecolourtmpa{#1}%
+  \def\pagecolourtmpb{none}%
+  \ifx\pagecolourtmpa\pagecolourtmpb
+    \@ifundefined{nopagecolor}{%
+      \PackageError{pagecolor}{%
+        pagecolor=none requested but \string\nopagecolor\space unknown%
+       }{%
+        \string\pagecolor{none} was used, but the command %
+        \string\nopagecolor\space is undefined.\MessageBreak%
+        Please use another colour. pagecolor=white will be used now.%
+        \MessageBreak%
+        }%
+      \gdef\thepagecolor{white}%
+      \gdef\thepagecolornone{white}% although it should be "none"
+      \origpagecolour{white}%
+     }{%
+      \nopagecolor%
+     }%
+  \else%
+    \xdef\thepagecolor{#1}%
+    \xdef\thepagecolornone{#1}%
+    \origpagecolour{\thepagecolornone}%
+  \fi%
+  \@esphack%
+}
+
+%    \end{macrocode}
+%    \end{macro}
+%
+% |\nopagecolor| is only defined for \pdfTeX and \LuaTeX, but not yet for dvips,
+% dvipdfm(x) or \XeTeX. Maybe
+% \begin{verbatim}
+% \@ifundefined{nopagecolor}{\newcommand{\nopagecolor}{\pagecolor{white}}}{}
+% \end{verbatim}
+% could be an alternative.\\
+% When |\pagecolor{none}| is used and |\nopagecolor| is defined, then \\
+% |\pagecolor{none}| is made into a synonym for |\nopagecolor|.\\
+% If |\nopagecolor| has not been defined, nothing needs to be done.
+% Otherwise we redefine |\nopagecolor|, thus that |\thepagecolor| is
+% set to |white| and |\thepagecolornone| to |none| whenever
+% |\nopagecolor| is used.
+%
+%    \begin{macrocode}
+\@ifundefined{nopagecolor}{%
+  \PackageWarning{pagecolor}{%
+    \string\nopagecolor\space is undefined.\MessageBreak%
+    (As long as it is neither used anywhere\MessageBreak%
+    \space nor defined later, that will be no problem.)\MessageBreak%
+   }
+  \AtEndDocument{%
+  \@ifundefined{nopagecolor}{% no problem
+    }{%
+    \PackageError{pagecolor}{%
+      \string\nopagecolor\space defined after loading package%
+      \MessageBreak%
+      pagecolor%
+      }{\string\nopagecolor\space was defined after loading the %
+       pagecolor package.\MessageBreak%
+       Either define \string\nopagecolor\space earlier or load the %
+       pagecolor package later.\MessageBreak%
+      }
+    }%
+  }%
+  }{% \else
+    \let\orignopagecolour\nopagecolor
+    \renewcommand{\nopagecolor}{%
+      \xdef\thepagecolor{white}
+      \xdef\thepagecolornone{none}
+      \orignopagecolour
+      }
+  }
+
+%    \end{macrocode}
+%
+% If the page colour as given with option |pagecolor={...}| is |none|,
+% but |\nopagecolor| is not known, |\pagecolor@pagecolor| is set to
+% |white| and a warning is given.
+%
+%    \begin{macrocode}
+\def\pagecolourtmpb{none}
+\ifx\pagecolor@pagecolor\pagecolourtmpb
+  \@ifundefined{nopagecolor}{%
+    \PackageWarning{pagecolor}{%
+      Option pagecolor=none (maybe by default) used,\MessageBreak%
+      but \string\nopagecolor\space is unknown. Please use another%
+      \MessageBreak%
+      option value; white will be used now.\MessageBreak%
+     }
+    \setkeys{pagecolor}{pagecolor=white}%
+  }{% ok
+  }%
+\fi
+
+%    \end{macrocode}
+%
+% The (new) |\pagecolor| is now just carried out.
+%
+%    \begin{macrocode}
+\pagecolor{\pagecolor@pagecolor}
+
+%    \end{macrocode}
+%
+% Now the page (background) colour and |\thepagecolor| and \\
+% |\thepagecolornone| are |\pagecolor@pagecolor| (or page (background) colour
+% and |\thepagecolornone| are |none|=|\pagecolor@pagecolor| and
+% |\thepagecolor| is |white|), and when the page (background) colour
+% is changed, |\thepagecolor| and |\thepagecolornone| are changed
+% accordingly.
+%
+% \newpage
+%
+%    \begin{macro}{\newpagecolor}
+% There have been requests (via e-mail and at \\
+% \url{http://tex.stackexchange.com/q/25137}) to change the colour of just one
+% (or two) page(s) only, similar to |\newgeometry| and |\restoregeometry| of the
+% \xpackage{geometry} package (\url{http://ctan.org/pkg/geometry}). Therefore
+% |\newpagecolor| and |\restorepagecolor| are introduced (as suggested by
+% \textsc{haoyun\_tex}):
+%
+%    \begin{macrocode}
+\newcommand{\newpagecolor}[1]{%
+\xdef\pagecolourtmpc{\thepagecolornone}%
+\pagecolor{#1}%
+}
+
+%    \end{macrocode}
+%    \end{macro}
+%
+% |\newpagecolor{<|\textit{some colour}|>}| will execute |\pagecolor{somecolour}|
+% and remember the page colour used before.\\
+%
+%    \begin{macro}{\restorepagecolor}
+%    \begin{macrocode}
+\newcommand{\restorepagecolor}{\pagecolor{\pagecolourtmpc}}
+
+%    \end{macrocode}
+%    \end{macro}
+%
+% |\restorecolor| (without argument) restores the page colour to the one used before
+% use of the |\newpagecolor{...}| command.
+%
+%    \begin{macrocode}
+\gdef\pagecolourtmpc{\thepagecolor}
+
+%    \end{macrocode}
+% is just a precaution for |\restorecolor| being used when no |\newpagecolor{...}|
+% was used before it.\\
+%
+% When you want to change the colour for just one page and do not want to
+% (or cannot) manually determine where the page ends,\\
+% |\newpagecolor{<|\textit{some colour}|>}\afterpage{\restorepagecolor}|\\
+% does the trick (and requires an additional |\usepackage{afterpage}| in the
+% document's preamble).
+%    \begin{macrocode}
+%</package>
+%    \end{macrocode}
+%
+% \newpage
+%
+% \section{Installation}
+%
+% \subsection{Downloads\label{ss:Downloads}}
+%
+% Everything is available on \CTAN{}, \url{http://www.ctan.org/tex-archive/},
+% but may need additional packages themselves.\\
+%
+% \DescribeMacro{pagecolor.dtx}
+% For unpacking the |pagecolor.dtx| file and constructing the documentation
+% it is required:
+% \begin{description}
+% \item[-] \TeX{} Format \LaTeXe{}, \url{http://www.CTAN.org/}
+%
+% \item[-] document class \xpackage{ltxdoc}, 2007/11/11, v2.0u,
+%           \url{http://ctan.org/pkg/ltxdoc}
+%
+% \item[-] package \xpackage{holtxdoc}, 2011/02/04, v0.21,
+%           \url{http://ctan.org/pkg/holtxdoc}
+% \end{description}
+%
+% \DescribeMacro{pagecolor.sty}
+% The |pagecolor.sty| for \LaTeXe{} (i.\,e. each document using
+% the \xpackage{pagecolor} package) requires:
+% \begin{description}
+% \item[-] \TeX{} Format \LaTeXe{}, \url{http://www.CTAN.org/}
+%
+% \item[-] package \xpackage{kvoptions}, 2010/12/23, v3.10,
+%           \url{http://ctan.org/pkg/kvoptions}
+% \end{description}
+% and either
+% \begin{description}
+% \item[-] package \xpackage{color}, 2005/11/14, v1.0j,
+%           \url{http://ctan.org/pkg/color} (from the\\
+%           \xpackage{graphics} package bundle)
+% \end{description}
+% or
+% \begin{description}
+% \item[-] package \xpackage{xcolor}, 2007/01/21, v2.11,
+%           \url{http://ctan.org/pkg/xcolor}
+% \end{description}
+%
+% \DescribeMacro{pagecolor-example.tex}
+% The |pagecolor-example.tex| requires the same files as all
+% documents using the \xpackage{pagecolor} package and additionally:
+% \begin{description}
+% \item[-] class \xpackage{article}, 2007/10/19, v1.4h, from \xpackage{classes.dtx}:\\
+%           \CTAN{macros/latex/base/classes.dtx}
+%
+% \item[-] package \xpackage{pagecolor}, 2012/02/23, v1.0e,
+%           \url{http://ctan.org/pkg/pagecolor}\\
+%           (Well, it is the example file for this package, and because you are
+%            reading the documentation for the \xpackage{pagecolor} package,
+%            it can be assumed that you already have some version of it --
+%            is it the current one?)
+%
+% \item[-] package \xpackage{xcolor}, 2007/01/21, v2.11,
+%           \url{http://ctan.org/pkg/xcolor}\\
+%           This package would not be needed for the use of just base colours only,
+%           the \xpackage{color} package would be sufficient for that.
+% \end{description}
+%
+% \DescribeMacro{transparent}
+% \DescribeMacro{hrefhide}
+% As possible alternatives in section \ref{sec:Alternatives} there are listed
+% \begin{description}
+% \item[-] package \xpackage{transparent}, 2007/01/08, v1.0, \\
+%           \url{http://ctan.org/pkg/transparent}
+%
+% \item[-] package \xpackage{hrefhide}, 2011/04/29, v1.0f, \\
+%           \url{http://ctan.org/pkg/hrefhide}
+% \end{description}
+%
+% \DescribeMacro{Oberdiek}
+% \DescribeMacro{holtxdoc}
+% \DescribeMacro{kvoptions}
+% All packages of \textsc{Heiko Oberdiek}'s bundle `oberdiek'
+% (especially \xpackage{holtxdoc} and \xpackage{kvoptions})
+% are also available in a TDS compliant ZIP archive:\\
+% \CTAN{install/macros/latex/contrib/oberdiek.tds.zip}.\\
+% It is probably best to download and use this, because the packages in there
+% are quite probably both recent and compatible among themselves.\\
+%
+% \DescribeMacro{hyperref}
+% \noindent \xpackage{hyperref} is not included in that bundle and needs to be
+% downloaded separately,\\
+% \url{http://mirror.ctan.org/install/macros/latex/contrib/hyperref.tds.zip}.\\
+%
+% \DescribeMacro{M\"{u}nch}
+% A hyperlinked list of my (other) packages can be found at
+% \url{http://www.Uni-Bonn.de/~uzs5pv/LaTeX.html}.\\
+%
+% \subsection{Package, unpacking TDS}
+% \paragraph{Package.} This package is available on \CTAN{}
+% \begin{description}
+% \item[\CTAN{macros/latex/contrib/pagecolor/pagecolor.dtx}]\hspace*{0.1cm} \\
+%       The source file.
+% \item[\CTAN{macros/latex/contrib/pagecolor/pagecolor.pdf}]\hspace*{0.1cm} \\
+%       The documentation.
+% \item[\CTAN{macros/latex/contrib/pagecolor/pagecolor-example.pdf}]\hspace*{0.1cm} \\
+%       The compiled example file, as it should look like.
+% \item[\CTAN{macros/latex/contrib/pagecolor/README}]\hspace*{0.1cm} \\
+%       The README file.
+% \end{description}
+% There is also a pagecolor.tds.zip available:
+% \begin{description}
+% \item[\CTAN{install/macros/latex/contrib/pagecolor.tds.zip}]\hspace*{0.1cm} \\
+%       Everything in \xfile{TDS} compliant, compiled format.
+% \end{description}
+% which additionally contains\\
+% \begin{tabular}{ll}
+% pagecolor.ins & The installation file.\\
+% pagecolor.drv & The driver to generate the documentation.\\
+% pagecolor.sty & The \xext{sty}le file.\\
+% pagecolor-example.tex & The example file.
+% \end{tabular}
+%
+% \bigskip
+%
+% \noindent For required other packages, please see the preceding subsection.
+%
+% \paragraph{Unpacking.} The \xfile{.dtx} file is a self-extracting
+% \docstrip{} archive. The files are extracted by running the
+% \xext{.dtx} through \plainTeX{}:
+% \begin{quote}
+%   \verb|tex pagecolor.dtx|
+% \end{quote}
+%
+% About generating the documentation see paragraph~\ref{GenDoc} below.\\
+%
+% \paragraph{TDS.} Now the different files must be moved into
+% the different directories in your installation TDS tree
+% (also known as \xfile{texmf} tree):
+% \begin{quote}
+% \def\t{^^A
+% \begin{tabular}{@{}>{\ttfamily}l@{ $\rightarrow$ }>{\ttfamily}l@{}}
+%   pagecolor.sty & tex/latex/pagecolor/pagecolor.sty\\
+%   pagecolor.pdf & doc/latex/pagecolor/pagecolor.pdf\\
+%   pagecolor-example.tex & doc/latex/pagecolor/pagecolor-example.tex\\
+%   pagecolor-example.pdf & doc/latex/pagecolor/pagecolor-example.pdf\\
+%   pagecolor.dtx & source/latex/pagecolor/pagecolor.dtx\\
+% \end{tabular}^^A
+% }^^A
+% \sbox0{\t}^^A
+% \ifdim\wd0>\linewidth
+%   \begingroup
+%     \advance\linewidth by\leftmargin
+%     \advance\linewidth by\rightmargin
+%   \edef\x{\endgroup
+%     \def\noexpand\lw{\the\linewidth}^^A
+%   }\x
+%   \def\lwbox{^^A
+%     \leavevmode
+%     \hbox to \linewidth{^^A
+%       \kern-\leftmargin\relax
+%       \hss
+%       \usebox0
+%       \hss
+%       \kern-\rightmargin\relax
+%     }^^A
+%   }^^A
+%   \ifdim\wd0>\lw
+%     \sbox0{\small\t}^^A
+%     \ifdim\wd0>\linewidth
+%       \ifdim\wd0>\lw
+%         \sbox0{\footnotesize\t}^^A
+%         \ifdim\wd0>\linewidth
+%           \ifdim\wd0>\lw
+%             \sbox0{\scriptsize\t}^^A
+%             \ifdim\wd0>\linewidth
+%               \ifdim\wd0>\lw
+%                 \sbox0{\tiny\t}^^A
+%                 \ifdim\wd0>\linewidth
+%                   \lwbox
+%                 \else
+%                   \usebox0
+%                 \fi
+%               \else
+%                 \lwbox
+%               \fi
+%             \else
+%               \usebox0
+%             \fi
+%           \else
+%             \lwbox
+%           \fi
+%         \else
+%           \usebox0
+%         \fi
+%       \else
+%         \lwbox
+%       \fi
+%     \else
+%       \usebox0
+%     \fi
+%   \else
+%     \lwbox
+%   \fi
+% \else
+%   \usebox0
+% \fi
+% \end{quote}
+% If you have a \xfile{docstrip.cfg} that configures and enables \docstrip{}'s
+% \xfile{TDS} installing feature, then some files can already be in the right
+% place, see the documentation of \docstrip{}.
+%
+% \subsection{Refresh file name databases}
+%
+% If your \TeX{}~distribution (\teTeX{}, \mikTeX{},\dots{}) relies on file name
+% databases, you must refresh these. For example, \teTeX{} users run
+% \verb|texhash| or \verb|mktexlsr|.
+%
+% \subsection{Some details for the interested}
+%
+% \paragraph{Unpacking with \LaTeX{}.}
+% The \xfile{.dtx} chooses its action depending on the format:
+% \begin{description}
+% \item[\plainTeX:] Run \docstrip{} and extract the files.
+% \item[\LaTeX:] Generate the documentation.
+% \end{description}
+% If you insist on using \LaTeX{} for \docstrip{} (really,
+% \docstrip{} does not need \LaTeX{}), then inform the autodetect routine
+% about your intention:
+% \begin{quote}
+%   \verb|latex \let\install=y\input{pagecolor.dtx}|
+% \end{quote}
+% Do not forget to quote the argument according to the demands
+% of your shell.
+%
+% \paragraph{Generating the documentation.\label{GenDoc}}
+% You can use both the \xfile{.dtx} or the \xfile{.drv} to generate
+% the documentation. The process can be configured by a
+% configuration file \xfile{ltxdoc.cfg}. For instance, put the following
+% line into this file, if you want to have A4 as paper format:
+% \begin{quote}
+%   \verb|\PassOptionsToClass{a4paper}{article}|
+% \end{quote}
+%
+% \noindent An example follows how to generate the
+% documentation with \pdfLaTeX{}:
+%
+% \begin{quote}
+%\begin{verbatim}
+%pdflatex pagecolor.dtx
+%makeindex -s gind.ist pagecolor.idx
+%pdflatex pagecolor.dtx
+%makeindex -s gind.ist pagecolor.idx
+%pdflatex pagecolor.dtx
+%\end{verbatim}
+% \end{quote}
+%
+% \subsection{Compiling the example}
+%
+% The example file, \textsf{pagecolor-example.tex}, can be compiled via\\
+% |(pdf)latex pagecolor-example.tex|.\\
+%
+% \section{Acknowledgements}
+%
+% I would like to thank \textsc{Heiko Oberdiek} for providing a~lot~(!) of
+% useful packages (from which I also got everything I know about creating
+% a file in \xext{dtx} format, ok, say it: copying), and the
+% \Newsgroup{comp.text.tex} and \Newsgroup{de.comp.text.tex} newsgroups
+% for their help in all things \TeX{}, especially all contributors to the
+% discussion at
+% \url{http://groups.google.com/group/comp.text.tex/browse_thread/thread/533576ebe44d60f6/e1654d70a19de63c?lnk=gst&q=Determination+of+the+current+page+colour#e1654d70a19de63c}
+% \ (\textsc{H.~Oberdiek} \& \textsc{Gouailles}).\\
+% I thank \textsc{haoyun\_tex} for suggesting the |\newpagecolor|/|\restorepagecolor|
+% pair of commands and everyone at \url{http://tex.stackexchange.com/q/25137}
+% for their contributions there.
+%
+% \bigskip
+%
+% \phantomsection
+% \begin{History}\label{History}
+%   \begin{Version}{2011/07/16 v1.0a}
+%     \item First version discussed at \Newsgroup{comp.text.tex}.
+%   \end{Version}
+%   \begin{Version}{2011/08/06 v1.0b}
+%     \item Changed version uploaded to \CTAN{}.
+%   \end{Version}
+%   \begin{Version}{2011/08/08 v1.0c}
+%     \item Fixed a |\setkeys|.
+%   \end{Version}
+%   \begin{Version}{2012/02/01 v1.0d}
+%     \item Bugfix: Obsolete installation path given in the documentation, updated.
+%     \item New commands: |\newpagecolor{...}|, |\restorepagecolor|.
+%     \item Update of documentation, README, and \xfile{dtx} internals.
+%   \end{Version}
+%   \begin{Version}{2012/02/23 v1.0e}
+%     \item Fixed an error in the documentation.
+%     \item Check for loading of \xpackage{color} or \xpackage{xcolor} package
+%             and their versions has been changed, because \xpackage{xcolor} sets\\
+%             |\@namedef{ver@color.sty}{1999/02/16}|\\
+%             which gave a warning about old \xpackage{color} package even if a new
+%             version was used.
+%   \end{Version}
+% \end{History}
+%
+% \bigskip
+%
+% When you find a mistake or have a suggestion for an improvement of this package,
+% please send an e-mail to the maintainer, thanks! (Please see BUG REPORTS in the README.)
+%
+% \newpage
+%
+% \PrintIndex
+%
+% \Finale
+\endinput

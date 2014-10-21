@@ -1,0 +1,60 @@
+%%
+%% This is file `example.tex',
+%% generated with the docstrip utility.
+%%
+%% The original source files were:
+%%
+%% semioneside.dtx  (with options: `example')
+%% 
+%% This is a generated file.
+%% 
+%% Copyright (C) 2005 by Stephan Hennig <stephanhennig@arcor.de>
+%% 
+%% This file may be distributed and/or modified under the conditions of
+%% the LaTeX Project Public License, either version 1.2 of this license
+%% or (at your option) any later version.  The latest version of this
+%% license is in:
+%% 
+%%    http://www.latex-project.org/lppl.txt
+%% 
+%% and version 1.2 or later is part of all distributions of LaTeX version
+%% 1999/12/01 or later.
+%% 
+\documentclass{article}
+\usepackage{semioneside}
+\usepackage[english]{babel}
+\usepackage{blindtext}
+\begin{document}
+\section{Example}
+\Blindtext[3]
+\renewcommand{\leftpagecontent}{
+ \begin{figure}
+   \centering
+   \rule{4cm}{2cm}
+   \caption{A picture.}
+   \label{fig:picA}
+ \end{figure}
+}
+\Blindtext[3]
+A reference to figure~\ref{fig:picB} on p.~\pageref{fig:picB}.
+\renewcommand{\leftpagecontent}{
+ \begin{figure}
+   \centering
+   \rule{3cm}{2cm}
+   \caption{A second picture.}
+   \label{fig:picB}
+ \end{figure}
+ \begin{figure}
+   \centering
+   \rule{4cm}{5cm}
+   \caption{A third picture.}
+   \label{fig:picC}
+ \end{figure}
+}
+\Blindtext[6]
+A reference to figure~\ref{fig:picA} on p.~\pageref{fig:picA}
+\semionesideoff
+\end{document}
+\endinput
+%%
+%% End of file `example.tex'.

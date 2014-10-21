@@ -1,0 +1,16 @@
+MakeTeXPK lfb5 600 600 1.0 ljfour
+MakeTeXPK lfb6 600 600 1.0 ljfour
+MakeTeXPK lfb7 600 600 1.0 ljfour
+MakeTeXPK lfb8 600 600 1.0 ljfour
+MakeTeXPK lfb9 600 600 1.0 ljfour
+MakeTeXPK lfb10 600 600 1.0 ljfour
+MakeTeXPK lfb11 600 600 1.0 ljfour
+MakeTeXPK lfb12 600 600 1.0 ljfour
+MakeTeXPK lfbb5 600 600 1.0 ljfour
+MakeTeXPK lfbb6 600 600 1.0 ljfour
+MakeTeXPK lfbb7 600 600 1.0 ljfour
+MakeTeXPK lfbb8 600 600 1.0 ljfour
+MakeTeXPK lfbb9 600 600 1.0 ljfour
+MakeTeXPK lfbb10 600 600 1.0 ljfour
+MakeTeXPK lfbb11 600 600 1.0 ljfour
+MakeTeXPK lfbb12 600 600 1.0 ljfour

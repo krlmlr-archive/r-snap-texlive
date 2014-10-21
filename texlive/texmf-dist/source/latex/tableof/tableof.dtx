@@ -1,0 +1,838 @@
+% -*- coding: iso-latin-1; -*-
+%<*ins>
+\def\pkgname{tableof}
+\def\pkgdate{2013/03/04}
+\def\pkgversion{v1.2}
+\def\pkgdescription{tables of tagged contents (jfB)}
+%</ins>
+%%
+%% Package `tableof' by Jean-Francois Burnol
+%% Copyright (C) 2012,2013 by Jean-Francois Burnol
+%%
+%<*none>
+\def\lasttimestamp{Time-stamp: <04-03-2013 21:29:27 CET jfb>}
+\def\docdate{2013/03/04}
+\def\striptimestamp#1 <#2 #3 #4 #5>{#2 at #3 #4}
+\edef\dtxtimestamp{\expandafter\striptimestamp\lasttimestamp}
+\ProvidesFile{\pkgname.dtx}
+  [`\pkgname' source and documentation (\dtxtimestamp)]
+%
+% The copyright notice applies to `tableof.dtx' and to its derived files.
+% 
+%    They may be distributed and/or modified under the
+%    conditions of the LaTeX Project Public License,
+%    either version 1.3 of this license or (at your
+%    option) any later version.  The latest version of
+%    this license is in:
+%
+%    http://www.latex-project.org/lppl.txt 
+%
+%    and version 1.3 or later is part of all distributions of
+%    LaTeX version 2003/12/01 or later.  
+% 
+%  Installation:
+%  ============
+%
+% `latex tableof.dtx' or `pdflatex tableof.dtx'
+%  Run twice to get the bookmarks right.
+%
+%  `tableof.sty', `tableof.ins' and `tableoftest.tex' are generated on
+%  the first latex run.
+%
+%  Move `tableof.sty' to a suitable location within the TeX installation:
+%          tableof.sty -> ..path..to../tex/latex/tableof/
+%
+%  `tableof.ins' is for TeX distributions expecting it.
+%
+%  `tableoftest.tex' is an example of use of the package commands. Run
+%  latex twice on it to get examples of tagged tables of contents.
+%
+\begingroup
+\input docstrip.tex
+\askforoverwritefalse
+\def\pkgpreamble{\defaultpreamble^^J\MetaPrefix^^J%
+\string\ProvidesPackage{\pkgname}^^J%
+\space[\pkgdate\space\pkgversion\space\pkgdescription]}
+\generate{\nopreamble
+\file{\pkgname.ins}{\from{\pkgname.dtx}{ins}}
+\usepreamble\defaultpreamble
+\file{\pkgname test.tex}{\from{\pkgname.dtx}{test}}
+\usepreamble\pkgpreamble
+\file{\pkgname.sty}{\from{\pkgname.dtx}{package}}}
+\endgroup
+\iffalse
+%</none>
+%<*ins>
+%-------------------------------------------------------------------------------
+%% This file `tableof.ins' is provided for compatibility with TeX
+%% distributions expecting to find it for installation of `tableof.sty'.
+%%
+%% As usual `latex tableof.ins' produces `tableof.sty' from the source
+%% `tableof.dtx'
+%%
+%% (an already existing `tableof.sty' in the same repertory will be
+%% overwritten)
+%% 
+%% Move `tableof.sty' to a suitable location within the TeX installation:
+%% tableof.sty -> ................/tex/latex/tableof/
+%%
+%% The generated auxiliary files may be discarded. 
+%%
+%% See `tableof.dtx' for the statements of copyright and conditions of
+%% distribution and/or modification.
+%%
+\input docstrip.tex
+\askforoverwritefalse
+\def\pkgpreamble{\defaultpreamble^^J\MetaPrefix^^J%
+\string\ProvidesPackage{\pkgname}^^J%
+\space[\pkgdate\space\pkgversion\space\pkgdescription]}
+\generate{\usepreamble\pkgpreamble
+\file{\pkgname.sty}{\from{\pkgname.dtx}{package}}}
+\endbatchfile
+%-------------------------------------------------------------------------------
+%</ins>
+%<*test>
+%-------------------------------------------------------------------------------
+%% This file `tableoftest.tex' serves to demontrate the use of the
+%% commands from the package `tableof'.
+%%
+%% (run on it `latex' or `pdflatex' twice.)
+%%
+\documentclass{article}
+\usepackage[T1]{fontenc}
+\usepackage[colorlinks,linkcolor=blue]{hyperref}
+\usepackage{tableof}
+%%\usepackage{etoc} % for testing
+\DeclareRobustCommand\lowast{\raisebox{-.25\height}{*}}
+\begin{document}
+%% \etoctoclines % (if using package etoc)
+%%
+%% we don't need here \tofOpenTocFileForWrite
+%% as the document has \tableofcontents a few lines down.
+%%
+\section*{\string\tableof\{\}}
+\tableof{}
+\section*{\string\tableof\lowast\{A,B,C,D,E,F\}}
+\tableof*{A,B,C,D,E,F}
+\section*{\string\tableof\{A\}}
+\tableof{A}
+\section*{\string\tableof\lowast\{A\}}
+\tableof*{A}
+\section*{\string\tableof\{A,C\}}
+\tableof{A,C}
+\section*{\string\tableof\lowast\{A,C\}}
+\tableof*{A,C}
+\section*{\string\tableoftaggedcontents\lowast\{A,D\}\{B,F\}}
+\tableoftaggedcontents*{A,D}{B,F}
+\renewcommand\contentsname{\string\nexttocwithtags\lowast\{A,D\}\lowast\{B,F\}\string\tableofcontents}
+\nexttocwithtags*{A,D}*{B,F}
+\tableofcontents
+%% requires package etoc 
+%% \etoctocstyle{1}{with A and D and without B and without F}
+%% \nexttocwithtags{A,D}{B,F}\tableofcontents
+%% \etoctocstyle{1}{with (A or D) and without B and without F}
+%% \nexttocwithtags*{A,D}{B,F}\tableofcontents
+%% \etoctocstyle{1}{with A and D and (without B or without F)}
+%% \nexttocwithtags{A,D}*{B,F}\tableofcontents
+\section*{with B or with C (using \string\tableoftaggecontents)}
+\tableoftaggedcontents*{B,C}{}
+\section*{with B or with C (using \string\tableof\lowast)}
+\tableof*{B,C}
+\section*{with A and with B and with C}
+\tableof{A,B,C}
+\section*{with A or with B or with C}
+\tableof*{A,B,C}
+\section*{without B (and) (using \string\tableoftaggedcontents)}
+\tableoftaggedcontents{}{B}
+\section*{without A and without B (using \string\tableoftaggedcontents)}
+\tableoftaggedcontents{}{A,B}
+\section*{without A or without C}
+\tablenotof*{A,C}
+\section*{without A and without B and without C}
+\tablenotof{A,B,C}
+\section*{without A or without B or without C}
+\tablenotof*{A,B,C}
+\section*{with D and with E}
+\tableof{D,E}
+\section*{with E}
+\tableof{E}
+\section*{without D}
+\tablenotof{D}
+\section*{ecology and rabbits}
+\tableof{ecology,rabbits}
+\section*{rabbits and not ecology}
+\tableoftaggedcontents{rabbits}{ecology}
+\section*{kitchenware and not rabbits}
+\tableoftaggedcontents{kitchenware}{rabbits}
+\clearpage
+\section{no tag}
+nothing
+\begin{verbatim}
+\toftagstart{D,E,F}
+\toftagthis{A}
+\end{verbatim}
+\toftagstart{D,E,F}
+\toftagthis{A}
+\section{A,D,E,F}
+A,D,E,F
+\begin{verbatim}
+\toftagthis{B}
+\end{verbatim}
+\toftagthis{B}
+\section{B,D,E,F}
+B,D,E,F
+\begin{verbatim}
+\toftagthis{C}
+\end{verbatim}
+\toftagthis{C}
+\section{C,D,E,F}
+C,D,E,F
+\begin{verbatim}
+\toftagstop{F}
+\toftagthis{A,B}
+\end{verbatim}
+\toftagstop{F}
+\toftagthis{A,B}
+\section{A,B,D,E}
+A,B,D,E
+\begin{verbatim}
+\toftagthis{B,C}
+\end{verbatim}
+\toftagthis{B,C}
+\section{B,C,D,E}
+B,C,D
+\begin{verbatim}
+\toftagthis{A,C}
+\toftagstop{E}
+\end{verbatim}
+\toftagthis{A,C}
+\toftagstop{E}
+\section{A,C,D}
+A,C,D
+\begin{verbatim}
+\toftagstop{D}
+\toftagthis{A,B,C}
+\end{verbatim}
+\toftagstop{D}
+\toftagthis{A,B,C}
+\section{A,B,C}
+A,B,C
+\begin{verbatim}
+\toftagstop{A,B,C,D,E,F}
+\toftagstart{kitchenware,rabbits}
+\end{verbatim}
+\toftagstop{A,B,C,D,E,F}
+\toftagstart{kitchenware,rabbits}
+\section{Knives and rabbits}
+\begin{verbatim}
+\tofuntagthis{kitchenware}
+\end{verbatim}
+\tofuntagthis{kitchenware}
+\subsection{Hunting rabbits}
+\begin{verbatim}
+\tofuntagthis{rabbits}
+\end{verbatim}
+\tofuntagthis{rabbits}
+\subsection{Best knives for cooking}
+\subsection{Eating rabbits}
+\begin{verbatim}
+\toftagstart{ecology}\tofuntagthis{rabbits}
+\end{verbatim}
+\toftagstart{ecology}\tofuntagthis{rabbits}
+\section{Knives and global climate}
+\begin{verbatim}
+\toftagstop{kitchenware}
+\end{verbatim}
+\toftagstop{kitchenware}
+\section{The rabbit in the wild}
+\subsection{Impact of the rabbit on global climate}
+\begin{verbatim}
+\toftagstop{rabbits}
+\end{verbatim}
+\toftagstop{rabbits}
+\section{Other species of interest for cooking}
+\end{document}\endinput
+%-------------------------------------------------------------------------------
+%</test>
+%<*none>
+\fi
+\documentclass[a4paper,11pt,abstract]{scrdoc}
+\pagestyle{headings}
+\usepackage[latin1]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[hscale=0.66,vscale=0.75]{geometry}
+
+\usepackage{txfonts}
+\DeclareFontFamily{T1}{txtt}{}
+\DeclareFontShape{T1}{txtt}{m}{n}{	%medium
+     <->s*[.96] t1xtt%
+}{}
+\DeclareFontShape{T1}{txtt}{m}{sc}{	%cap & small cap
+     <->s*[.96] t1xttsc%
+}{}
+\DeclareFontShape{T1}{txtt}{m}{sl}{	%slanted
+     <->s*[.96] t1xttsl%
+}{}
+\DeclareFontShape{T1}{txtt}{m}{it}{	%italic
+     <->ssub * txtt/m/sl%
+}{}
+\DeclareFontShape{T1}{txtt}{m}{ui}{   	%unslanted italic
+     <->ssub * txtt/m/sl%
+}{}
+\DeclareFontShape{T1}{txtt}{bx}{n}{	%bold extended
+     <->t1xbtt%
+}{}
+\DeclareFontShape{T1}{txtt}{bx}{sc}{	%bold extended cap & small cap
+     <->t1xbttsc%
+}{}
+\DeclareFontShape{T1}{txtt}{bx}{sl}{	%bold extended slanted
+     <->t1xbttsl%
+}{}
+\DeclareFontShape{T1}{txtt}{bx}{it}{	%bold extended italic
+     <->ssub * txtt/bx/sl%
+}{}
+\DeclareFontShape{T1}{txtt}{bx}{ui}{  	%bold extended unslanted italic
+     <->ssub * txtt/bx/sl%
+}{}
+\DeclareFontShape{T1}{txtt}{b}{n}{	%bold
+     <->ssub * txtt/bx/n%
+}{}
+\DeclareFontShape{T1}{txtt}{b}{sc}{	%bold cap & small cap
+     <->ssub * txtt/bx/sc%
+}{}
+\DeclareFontShape{T1}{txtt}{b}{sl}{	%bold slanted
+     <->ssub * txtt/bx/sl%
+}{}
+\DeclareFontShape{T1}{txtt}{b}{it}{   	%bold italic
+     <->ssub * txtt/bx/it%
+}{}
+\DeclareFontShape{T1}{txtt}{b}{ui}{   	%bold unslanted italic
+     <->ssub * txtt/bx/ui%
+}{}
+
+\usepackage{xspace}
+\usepackage{color}
+
+\definecolor{joli}{RGB}{225,95,0}
+\definecolor{JOLI}{RGB}{225,95,0}
+\definecolor{BLUE}{RGB}{0,0,255}
+\definecolor{niceone}{RGB}{38,128,192}
+
+\usepackage[english]{babel}
+
+\usepackage[%dvipdfmx,%
+pdfencoding=pdfdoc,bookmarks=true]{hyperref}
+
+\hypersetup{%
+linktoc=all,%
+breaklinks=true,%
+hidelinks,%
+pdfauthor={Jean-Fran\c cois Burnol},%
+pdftitle={The tableof package},%
+pdfsubject={LaTeX, table of contents},%
+pdfkeywords={LaTeX, table of contents},%
+pdfstartview=FitH,%
+pdfpagemode=UseOutlines}
+
+
+\DeclareRobustCommand\csa[1]{{\ttfamily\char`\\#1}}
+\DeclareRobustCommand\csb[1]{{\color{blue}\ttfamily\char`\\#1}}
+
+\newcommand\csahyp[1]{\texorpdfstring{\csa{#1}}{\textbackslash #1}}
+\newcommand\csbhyp[1]{\texorpdfstring{\csb{#1}}{\textbackslash #1}}
+\newcommand\lowast{\raisebox{-.25\height}{*}}
+\newcommand\starit[1]{\csa{#1\lowast}}
+\newcommand\staritb[1]{\csb{#1\lowast}}
+
+\makeatletter\let\check@percent\relax\makeatother
+
+\def\MacroFont{\ttfamily\small\baselineskip12pt\relax\catcode`*\active}
+
+\begingroup
+\catcode`*\active
+\def\x{\endgroup\let*\lowast}\x
+
+\newcommand\tableof{%
+    \texorpdfstring{{\color{joli}\ttfamily\bfseries tableof}}
+                   {tableof}\xspace}
+\newcommand\etoc{%
+    \texorpdfstring{{\color{niceone}\ttfamily\bfseries etoc}}
+                   {etoc}\xspace}
+
+\frenchspacing
+
+\renewcommand\familydefault\sfdefault
+
+\begin{document}
+\thispagestyle{empty}
+\rmfamily
+
+\begin{center}
+  {\normalfont\Large The \tableof  package}\\
+  \textsc{Jean-François Burnol}\par
+  \footnotesize \ttfamily 
+  jfbu (at) free (dot) fr\\
+  Package version: \pkgversion\ (\pkgdate)\\
+  Documentation generated from the source file\\
+  with timestamp ``\dtxtimestamp''
+\end{center}
+
+\begin{abstract}
+  The package commands \csa{toftagstart}, \csa{toftagstop}, \csa{toftagthis},
+  \csa{tofuntagthis} are used to flag chapters or sections or anything ending up
+  in the |.toc| file following an (implicit or explicit)
+  \csa{addcontentsline}. Then\\
+  \hbox to
+  \linewidth{\hss\csa{nexttocwithtags}\marg{required1,required2,...}\marg{excluded1,excluded2,...}\hss}
+  specifies which tags are to be required and which ones are to be excluded by
+  the next \csa{tableofcontents} (or equivalent) document command. For document
+  with classes where \csa{tableofcontents} is only single-use, the package
+  provides:\\
+  \hbox to
+  \linewidth{\hss\csa{tableoftaggedcontents}\marg{required1,required2,...}\marg{excluded1,excluded2,...}\hss}
+  which removes this restriction.
+\end{abstract}
+
+\tableofcontents
+
+
+\section{Tagging commands}
+
+\subsection{\csbhyp{toftagstart\{csv,list\}} and \csbhyp{toftagstop\{csv,list\}}}
+
+These commands have a mandatory argument which is a comma separated list of
+tags. The tags need not have been predeclared.
+\begin{verbatim}
+\toftagstart{kitchenware,weaponry,gastronomy} 
+\section{Dealing with knives}    % tagged with kitchenware+weaponry+gastronomy
+
+\toftagstop{kitchenware}
+\section{Hunting rabbits}        % tagged with weaponry+gastronomy
+
+\toftagstart{tag1}
+\subsection{This is tagged, too} % tagged with weaponry+gastronomy+tag1
+
+\toftagstop{weaponry}
+\section{Eating rabbits}         % tagged with gastronomy+tag1
+\end{verbatim}
+
+\subsection{\csbhyp{toftagthis\{csv,list\}}  and \csbhyp{tofuntagthis\{csv,list\}}}
+
+The \csa{toftagthis} command flags with the comma separated values from its list
+argument only the \emph{next} sectioning command. The \csa{tofuntagthis} command
+similarly untags only the \emph{next} entry.
+\begin{verbatim}
+\toftagstart{kitchenware,rabbits}
+\section{Knives and rabbits}     % tagged with kitchenware and rabbits
+
+\tofuntagthis{kitchenware}
+\subsection{Hunting rabbits}     % tagged only with rabbits
+
+\subsection{Best knives for cooking} % tagged with kitchenware and rabbits
+
+\toftagstart{ecology}
+\toftagthis{climate}
+\section{Knives and global climate} % tagged with kitchenware+rabbits+ecology+climate
+
+\toftagstop{kitchenware}
+\section{The rabbit in the wild}    % tagged with rabbits+ecology
+\end{verbatim}
+
+\subsection{Spaces}
+
+Spaces in tags are significant (as usual with \TeX{} multiple spaces count for
+one). Do not use spaces after the opening brace or before the closing brace, do
+not use spaces before or after a comma: |\toftagthis{one tag with spaces}| is
+ok, |\toftagthis{tag1 }| or |\toftagthis{tag1, tag2}| are not.
+
+
+
+\section{Table of contents commands}
+
+\subsection{\csbhyp{tableoftaggedcontents\{required,csv,list\}\{excluded,csv,list\}}}
+
+This command is provided in case the document class allows only a single use of
+\csa{tableofcontents}: it can be used arbitrarily many times. However it does not
+typeset a heading. Example:
+\begin{verbatim}
+\section*{A table of tagged contents}  % <- needs to be explicitely added
+\tableoftaggedcontents{weaponry,hunting}{ecology,climate}
+\end{verbatim}
+This will limit the printed TOC entries to the ones which have been tagged with
+|weaponry| and also with |hunting|, but not with |ecology| and neither with
+|climate|.
+
+\subsubsection{starred variants}
+
+There are starred variants:
+\begin{verbatim}
+\tableoftaggedcontents{A,B}{C,D,E}   % A and B and neither C nor D nor E
+\tableoftaggedcontents*{A,B}{C,D,E}  % (A or B) and neither C nor D nor E
+\tableoftaggedcontents{A,B}*{C,D,E}  % A and B and (not C or not D or not E)
+\tableoftaggedcontents*{A,B}*{C,D,E} % (A or B) and (not C or not D or not E)
+\end{verbatim}
+
+\subsection{\csbhyp{tableof\{required,csv,list\}}}
+
+This is equivalent to |\tableoftaggedcontents{required,csv,list}{}|.
+\begin{verbatim}
+\tableof{weaponry,hunting}  % will print the entries tagged with weaponry 
+                                                             AND hunting
+\end{verbatim}
+There is a starred variant:
+\begin{verbatim}
+\tableof*{weaponry,hunting} % will print the entries tagged with weaponry 
+                                                              OR hunting
+\end{verbatim}
+
+\subsection{\csbhyp{tablenotof\{excluded,csv,list\}}}
+
+This is equivalent to |\tableoftaggedcontents{}{excluded,csv,list}|.
+\begin{verbatim}
+\tablenotof{weaponry,hunting}  % will print the entries NOT tagged with weaponry
+                                                        NEITHER with hunting
+\end{verbatim}
+There is a starred variant:
+\begin{verbatim}
+\tablenotof*{weaponry,hunting} % will print the entries NOT tagged with weaponry
+                                                     OR NOT tagged with hunting
+\end{verbatim}
+
+
+\subsection{\csbhyp{nexttocwithtags\{required,csv,list\}\{excluded,csv,list\}}}
+
+This command influences the next \csa{tableofcontents} (or equivalent) command:
+\begin{verbatim}
+\nexttocwithtags{A,B}{C,D,E}
+\tableofcontents
+\end{verbatim}
+will let \csa{tableofcontents} print only the sectioning units having been
+flagged with both |A| and |B| and none of |C|, |D|, or |E|.
+
+Do not forget the second pair of braces if you only want to require some tags:
+\csa{nexttocwithtags}|{tag1,tag2}{}|. 
+
+\subsubsection{starred variants}
+
+There are starred variants:
+\begin{verbatim}
+\nexttocwithtags{A,B}{C,D,E}   % A and B and neither C nor D nor E
+\nexttocwithtags*{A,B}{C,D,E}  % (A or B) and neither C nor D nor E
+\nexttocwithtags{A,B}*{C,D,E}  % A and B and (not C or not D or not E)
+\nexttocwithtags*{A,B}*{C,D,E} % (A or B) and (not C or not D or not E)
+\end{verbatim}
+
+
+\subsection{\csbhyp{tofOpenTocFileForWrite}}
+
+The |.toc| file is read (if it exists) into memory by \tableof at the time
+of \csa{usepackage\{tableof\}}, for use by \csa{tableoftaggedcontents},
+\csa{tableof} and \csa{tablenotof}.
+
+But the creation
+of the |.toc| file is not dealt with by \tableof itself: either this will be
+done by a standard \csa{tableofcontents} command somewhere in the document, or,
+one may use the package provided command \csa{tofOpenTocFileForWrite} which does
+not display anything and just does what its name indicates. This command can be
+used also in the preamble.
+
+% \footnote{Note to people or packages wanting also to
+%   access the |.toc| file: as happens with the standard \csa{tableofcontents}, the
+%   |.toc| file becomes temporarily empty immediately after
+%   \csa{tofOpenTocFileForWrite}.}
+
+Again: this command should \emph{not} be used when the document makes use of its
+own \csa{tableofcontents} or equivalent. It is provided only for the case where
+the document uses exclusively \csa{tableoftaggedcontents}, \csa{tableof} and
+\csa{tablenotof}.
+
+\subsection{Compatibility with other packages}
+
+\tableof checks if |hyperref| is loaded as |hyperref| modifies the format of the
+lines in the |.toc| file (and this must be taken into account). This check is
+done at the \csa{begin}|{document}| so the order of loading is not important.
+
+\tableof adds the tag data to the |.toc| file, but this data self-defines
+itself to do nothing when not activated by \tableof's own commands.
+
+% Hence the generated |.toc| file may be imported for use
+% by other \TeX{} documents.\footnote{this import must do \csa{makeatletter} and
+%   also the new document must use |hyperref| if the original did so.}
+
+No testing has actually been done of compatibility with packages manipulating
+tables of contents, apart from
+\etoc.\footnote{\url{http://www.ctan.org/pkg/etoc}} It went fine. 
+
+\subsection{TODO}
+
+Create a parser for arbitrary iterated boolean combinations of tags . . . but
+this kind of thing must have been done a zillion times already, as it belongs to
+the basics in computer science! ... and it surely is no easy task in \TeX{}!
+so I cautiously retreated from re-doing something difficult which has already
+been done somewhere by someone ...
+
+\subsection{version history}
+
+\begingroup
+\parindent0pt 
+\makeatletter
+\settowidth{\dimen@}{\ttfamily 2013/03/04 v1.2: i.\space}
+\everypar\expandafter{\expandafter\hangindent\the\dimen@
+                                  \hangafter1 }
+\makeatother
+
+|2013/03/04 v1.2: i. |added \csa{tableoftaggedcontents} as a wrapper for using
+\csa{nexttocwithtags} followed with |tableof|'s private copy of the |.toc| data.
+
+|                ii. |added \csa{if@filesw} test to \csa{tofOpenTocFileForWrite}.
+
+|2012/12/13 v1.1: i. |new command \csa{nexttocwithtags}.
+
+|                ii. ||.toc| may be input in another document not loading \tableof.
+
+|2012/12/06 v1.0:    |initial version.\par
+
+\endgroup
+
+\bigskip % pourquoi le faut-il?
+
+\section{Generating the package file and the test file}
+
+Running |latex| (or |pdflatex|) on |tableof.dtx| generates:
+{1})~the package file |tableof.sty| (which should be moved to a suitable
+location within the \TeX{} installation),
+{2})~|tableof.ins| for \TeX{}
+distributions expecting such a file,
+{3})~|tableoftest.tex| which
+demonstrates the package features (one should run |latex| twice on it),
+and
+{4})~the documentation itself (run |pdflatex| twice to get the
+bookmarks.)
+
+
+\section{Implementation}
+
+\makeatletter
+\StopEventually{\check@checksum\end{document}}
+\makeatother
+
+Writing-up source code comments is hopefully for a future
+release. 
+
+\makeatletter
+\begingroup
+\topsep\MacrocodeTopsep
+\trivlist\parskip\z@\item[]
+\macro@font
+\leftskip\@totalleftmargin  \advance\leftskip\MacroIndent
+\rightskip\z@  \parindent\z@  \parfillskip\@flushglue
+\global\@newlistfalse \global\@minipagefalse
+\ifcodeline@index
+  \everypar{\global\advance\c@CodelineNo\@ne
+  \llap{\theCodelineNo\ \hskip\@totalleftmargin}}%
+\fi
+\string\ProvidesPackage\string{\pkgname\string}\par
+\noindent\space [\pkgdate\space\pkgversion\space\pkgdescription]\par
+\nointerlineskip
+\global\@inlabelfalse
+\endtrivlist
+\endgroup
+\makeatother
+% The catcode hackery next is to avoid to have <*package> to be listed
+% in the commented source code...
+% (c) 2012/11/19 jf burnol ;-)
+\MakePercentIgnore
+%
+% \catcode`\<=0 \catcode`\>=11 \catcode`\*=11 \catcode`\/=11
+% \let</none>\relax
+% \def<*package>{\catcode`\<=12 \catcode`\>=12 \catcode`\*=12 \catcode`\/=12}
+%
+%</none>
+%<*package>
+%    \begin{macrocode}
+\NeedsTeXFormat{LaTeX2e}
+\DeclareOption*{\PackageWarning{tableof}{Option `\CurrentOption' is unknown.}}
+\ProcessOptions\relax
+%    \end{macrocode}
+%    \begin{macrocode}
+\newtoks\tof@toctoks
+%    \end{macrocode}
+%    \begin{macrocode}
+\def\tof@readtoc#1{%
+  \ifeof #1
+     \let\tof@nextread\@gobble
+     \global\tof@toctoks\expandafter{\the\tof@toctoks}%
+  \else
+     \let\tof@nextread\tof@readtoc
+     \read #1 to \tof@buffer
+     \tof@toctoks\expandafter\expandafter\expandafter
+       {\expandafter\the\expandafter\tof@toctoks\tof@buffer}%
+  \fi
+  \tof@nextread{#1}}
+%    \end{macrocode}
+%    \begin{macrocode}
+\IfFileExists{\jobname .toc}
+    {{% \endlinechar-1
+        \makeatletter
+        \newread\tof@tf
+        \openin\tof@tf\@filef@und
+           \tof@readtoc\tof@tf
+        \closein\tof@tf}}{}
+%    \end{macrocode}
+% 2013/03/04: \csa{string\{}->\{, idem with \}. And added \csa{if@filesw} test.
+%    \begin{macrocode}
+\AtBeginDocument{
+    \addtocontents{toc}{\string\@ifundefined{tof@begin}}
+    \addtocontents{toc}{{\let\string\tof@begin\string\relax%
+        \string\let\string\tof@finish\string\relax%
+        \string\let\string\tof@starttags\string\@gobble%
+        \string\let\string\tof@stoptags\string\@gobble%
+        \string\let\string\tof@tagthis\string\@gobble%
+        \string\let\string\tof@untagthis\string\@gobble}{}}
+    \addtocontents{toc}{\string\tof@begin}
+    \@ifpackageloaded{hyperref}
+       {\def\tof@gobblethree@orfour#1#2#3#4{}%
+        \ifx\hyper@last\@undefined\tof@toctoks{}\fi}
+       {\def\tof@gobblethree@orfour#1#2#3{}}}
+\AtEndDocument{\addtocontents{toc}{\string\tof@finish}}
+\newcommand\tofOpenTocFileForWrite{%
+  \if@filesw 
+   \newwrite \tf@toc 
+   \immediate \openout \tf@toc \jobname .toc\relax 
+  \fi}
+%    \end{macrocode}
+% Creating our booleans is not the most economical, (one could have used a
+% single list macro) but heck, how many tags are there going to be anyhow in
+% normal use? a dozen at the very most I think.
+%    \begin{macrocode}
+\def\tof@tags{}
+\def\tof@tags@tmp{}
+\def\tof@untags@tmp{}
+\def\tof@true#1{\expandafter\let\csname tofsw@#1\endcsname\iftrue}
+\def\tof@false#1{\expandafter\let\csname tofsw@#1\endcsname\iffalse}
+\def\tof@secondiftrue#1{\csname tofsw@#1\endcsname
+                       \let\tof@next\@secondoftwo\fi}
+\def\tof@secondiffalse#1{\csname tofsw@#1\endcsname\else
+                       \let\tof@next\@secondoftwo\fi}
+%    \end{macrocode}
+% Just using the \csa{@for} thing with no attempt at any more sophisticated
+% parsing (for spaces in particular).
+%    \begin{macrocode}
+\def\tof@setflags#1{\let\tof@next\@firstoftwo
+        \@for\@tempa:=#1\do{\tof@true{\@tempa}}%
+        \@for\@tempa:=\tof@tags\do{\tof@false{\@tempa}}%
+        \@for\@tempa:=\tof@tags@tmp\do{\tof@false{\@tempa}}%
+        \@for\@tempa:=\tof@untags@tmp\do{\tof@true{\@tempa}}}  
+%    \end{macrocode}
+%    \begin{macrocode}
+\def\tof@filter#1#2{\ifx#1#2\else
+               \ifx\tof@tmptags\@empty\edef\tof@tmptags{#2}\else
+               \edef\tof@tmptags{\tof@tmptags,#2}\fi\fi}
+\def\tof@@starttags#1{%
+        \ifx\tof@tags\@empty\edef\tof@tags{#1}\else
+        \edef\tof@tags{\tof@tags,#1}\fi}
+\def\tof@@stoptags#1{%
+        \@for\@tempa:=#1\do{\def\tof@tmptags{}%
+            \@for\@tempb:=\tof@tags\do{\tof@filter\@tempa\@tempb}%
+            \edef\tof@tags{\tof@tmptags}}}
+%    \end{macrocode}
+%    \begin{macrocode}
+\def\tof@init#1{%
+    \def\tof@begin{%
+        \begingroup
+        \def\tof@finish{\endgroup\global\let\tof@begin\relax}%
+        \let\tof@savedcontentsline\contentsline
+        \let\tof@starttags\tof@@starttags
+        \let\tof@stoptags\tof@@stoptags
+        \def\tof@tagthis####1{\def\tof@tags@tmp{####1}}%
+        \def\tof@untagthis####1{\def\tof@untags@tmp{####1}}%
+        \def\contentsline{#1}}}
+%    \end{macrocode}
+%    \begin{macrocode}
+\def\tof@and#1{%
+    \tof@init{\tof@setflags{#1}\def\tof@tags@tmp{}\def\tof@untags@tmp{}%
+        \@for\@tempa:=#1\do{\tof@secondiftrue{\@tempa}}%
+        \tof@next\tof@savedcontentsline\tof@gobblethree@orfour}%
+    \the\tof@toctoks}
+\def\tof@or#1{%
+    \tof@init{\tof@setflags{#1}\def\tof@tags@tmp{}\def\tof@untags@tmp{}%
+        \@for\@tempa:=#1\do{\tof@secondiffalse{\@tempa}}%
+        \tof@next\tof@gobblethree@orfour\tof@savedcontentsline}%
+    \the\tof@toctoks}
+\def\tof@nor#1{%
+    \tof@init{\tof@setflags{#1}\def\tof@tags@tmp{}\def\tof@untags@tmp{}%
+        \@for\@tempa:=#1\do{\tof@secondiffalse{\@tempa}}%
+        \tof@next\tof@savedcontentsline\tof@gobblethree@orfour}%
+   \the\tof@toctoks}
+\def\tof@nand#1{%
+    \tof@init{\tof@setflags{#1}\def\tof@tags@tmp{}\def\tof@untags@tmp{}%
+        \@for\@tempa:=#1\do{\tof@secondiftrue{\@tempa}}%
+        \tof@next\tof@gobblethree@orfour\tof@savedcontentsline}%
+    \the\tof@toctoks}
+\newcommand*\tableof{\@ifstar{\tof@or}{\tof@and}}
+\newcommand*\tablenotof{\@ifstar{\tof@nand}{\tof@nor}}
+%    \end{macrocode}
+%    \begin{macrocode}
+\def\tof@nextof@or#1{\toks\z@{\tof@setflags{#1}%
+        \@for\@tempa:=#1\do{\tof@secondiffalse{\@tempa}}%
+        \tof@next
+        {\def\tof@tags@tmp{}\def\tof@untags@tmp{}\tof@gobblethree@orfour}}%
+        \@ifstar{\tof@nextof@nand}{\tof@nextof@nor}}
+\def\tof@nextof@and#1{\toks\z@{\tof@setflags{#1}%
+             \@for\@tempa:=#1\do{\tof@secondiftrue{\@tempa}}%
+             \tof@next\@secondoftwo\@firstoftwo
+             {\def\tof@tags@tmp{}\def\tof@untags@tmp{}\tof@gobblethree@orfour}}%
+        \@ifstar{\tof@nextof@nand}{\tof@nextof@nor}}
+\def\tof@nextof@nor#1{%
+       \toks\z@\expandafter{\the\toks\z@ 
+             {\tof@setflags{#1}\def\tof@tags@tmp{}\def\tof@untags@tmp{}%
+              \@for\@tempa:=#1\do{\tof@secondiffalse{\@tempa}}%
+              \tof@next\tof@savedcontentsline\tof@gobblethree@orfour}}%
+       \expandafter\tof@init\expandafter{\the\toks\z@}%
+       \tof@printtoc}
+\def\tof@nextof@nand#1{%
+       \toks\z@\expandafter{\the\toks\z@ 
+             {\tof@setflags{#1}\def\tof@tags@tmp{}\def\tof@untags@tmp{}%
+              \@for\@tempa:=#1\do{\tof@secondiftrue{\@tempa}}%
+              \tof@next\tof@gobblethree@orfour\tof@savedcontentsline}}%
+       \expandafter\tof@init\expandafter{\the\toks\z@}%
+       \tof@printtoc}
+\newcommand*{\nexttocwithtags}{\let\tof@printtoc\relax
+             \@ifstar{\tof@nextof@or}{\tof@nextof@and}}
+\newcommand*{\tableoftaggedcontents}{\def\tof@printtoc{\the\tof@toctoks}%
+             \@ifstar{\tof@nextof@or}{\tof@nextof@and}}
+%    \end{macrocode}
+%    \begin{macrocode}
+\newcommand*\toftagthis[1]{\addtocontents{toc}
+          {\string\tof@tagthis{#1}}}
+\newcommand*\tofuntagthis[1]{\addtocontents{toc}
+          {\string\tof@untagthis{#1}}}
+\newcommand*\toftagstart[1]{\addtocontents{toc}
+          {\string\tof@starttags{#1}}}
+\newcommand*\toftagstop[1]{\addtocontents{toc}
+          {\string\tof@stoptags{#1}}}
+\endinput
+%    \end{macrocode}
+% \MakePercentComment
+\CharacterTable
+ {Upper-case    \A\B\C\D\E\F\G\H\I\J\K\L\M\N\O\P\Q\R\S\T\U\V\W\X\Y\Z
+  Lower-case    \a\b\c\d\e\f\g\h\i\j\k\l\m\n\o\p\q\r\s\t\u\v\w\x\y\z
+  Digits        \0\1\2\3\4\5\6\7\8\9
+  Exclamation   \!     Double quote  \"     Hash (number) \#
+  Dollar        \$     Percent       \%     Ampersand     \&
+  Acute accent  \'     Left paren    \(     Right paren   \)
+  Asterisk      \*     Plus          \+     Comma         \,
+  Minus         \-     Point         \.     Solidus       \/
+  Colon         \:     Semicolon     \;     Less than     \<
+  Equals        \=     Greater than  \>     Question mark \?
+  Commercial at \@     Left bracket  \[     Backslash     \\
+  Right bracket \]     Circumflex    \^     Underscore    \_
+  Grave accent  \`     Left brace    \{     Vertical bar  \|
+  Right brace   \}     Tilde         \~}
+
+\CheckSum{473}
+
+\Finale
+%%
+%% End of file `tableof.dtx'.
+

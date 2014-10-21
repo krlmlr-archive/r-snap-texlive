@@ -1,0 +1,199 @@
+%%
+%% This is file `AnonymousPro-drv.tex',
+%% generated with the docstrip utility.
+%%
+%% The original source files were:
+%%
+%% AnonymousPro.dtx  (with options: `anp-drv')
+%% 
+%% Copyright (C) 2013-2014 Arash Esbati <esbati'at'gmx.de>
+%% 
+%% This work may be distributed and/or modified under the conditions
+%% of the LaTeX Project Public License (LPPL), either version 1.3c of
+%% this license or (at your option) any later version.  The latest
+%% version of this license is in the file:
+%% 
+%%    http://www.latex-project.org/lppl.txt
+%% 
+\input fontinst.sty
+\needsfontinstversion{1.926}
+\setint{monowidth}{1}
+\setint{ligaturing}{0}
+\substitutesilent{bx}{b}
+\substitutesilent{sl}{it}
+\setint{smallcapsscale}{800}
+\recordtransforms{anonymouspro-rec.tex}
+\fontinstcc
+\def\fd_family#1#2#3{
+   \a_toks{#3}
+   \edef\lowercase_file{\lowercase{
+     \edef\noexpand\lowercase_file{#1#2.fd}}}
+   \lowercase_file
+   \open_out{\lowercase_file}
+   \out_line{\percent_char~Filename:~\lowercase_file}
+   \out_line{\percent_char~Created~by:~tex~\jobname}
+   \out_line{\percent_char~Created~using~fontinst~v\fontinstversion}
+   \out_line{}
+   \out_line{\percent_char~THIS~FILE~SHOULD~BE~PUT~IN~A~TEX~INPUTS~
+      DIRECTORY}
+   \out_line{}
+   \out_line{\string\ProvidesFile{\lowercase_file}}
+   \out_lline{[
+      \the\year/
+      \ifnum10>\month0\fi\the\month/
+      \ifnum10>\day0\fi\the\day\space
+      Fontinst~v\fontinstversion\space
+      font~definitions~for~#1/#2.
+   ]}
+   \out_line{}
+%% Start Patch
+   \out_line{\string\expandafter\string\ifx\string\csname\space
+     ANP@scale\string\endcsname\string\relax}
+   \out_lline{\string\let\string\ANP@@scale\string\@empty}
+   \out_line{\string\else}
+   \out_lline{\string\edef\string\ANP@@scale\left_brace_char
+       s*[\string\csname\space ANP@scale\string\endcsname]
+       \right_brace_char\percent_char}
+   \out_line{\string\fi}
+   \out_line{}
+%% End Patch
+   \out_line{\string\DeclareFontFamily{#1}{#2}{\the\a_toks}}
+   {
+      \csname #1-#2\endcsname
+      \out_line{}
+      \let\do_shape=\substitute_shape
+      \csname #1-#2\endcsname
+      \let\do_shape=\remove_shape
+      \csname #1-#2\endcsname
+   }
+   \x_cs\g_let{#1-#2}\x_relax
+   \out_line{}
+   \out_line{\string\endinput}
+   \close_out{Font~definitions}
+}
+\normalcc
+\foreach(i){01,02,03}
+  \transformfont
+    {AnonymousPro-Regular-\str{i}}%
+    {\reencodefont{AnonymousPro-\str{i}}{\fromafm{AnonymousPro-Regular}}}
+  \transformfont
+    {AnonymousPro-Italic-\str{i}}%
+    {\reencodefont{AnonymousPro-\str{i}}{\fromafm{AnonymousPro-Italic}}}
+  \transformfont
+    {AnonymousPro-Bold-\str{i}}%
+    {\reencodefont{AnonymousPro-\str{i}}{\fromafm{AnonymousPro-Bold}}}
+  \transformfont
+    {AnonymousPro-BoldItalic-\str{i}}%
+    {\reencodefont{AnonymousPro-\str{i}}{\fromafm{AnonymousPro-BoldItalic}}}
+\endfor(i)
+\transformfont
+  {AnonymousPro-Regular-Symbols-base}%
+  {\reencodefont{AnonymousPro-symbols}{\fromafm{AnonymousPro-Regular}}}
+\transformfont
+  {AnonymousPro-Italic-Symbols-base}%
+  {\reencodefont{AnonymousPro-symbols}{\fromafm{AnonymousPro-Italic}}}
+\transformfont
+  {AnonymousPro-Bold-Symbols-base}%
+  {\reencodefont{AnonymousPro-symbols}{\fromafm{AnonymousPro-Bold}}}
+\transformfont
+  {AnonymousPro-BoldItalic-Symbols-base}%
+  {\reencodefont{AnonymousPro-symbols}{\fromafm{AnonymousPro-BoldItalic}}}
+\installfonts
+\installfamily{T1}{AnonymousPro}{}
+\installfont
+  {AnonymousPro-Regular-t1}%
+  {AnonymousPro-Regular-01,AnonymousPro-Regular-02,AnonymousPro-Regular-03,%
+    anonymouspro-fixlatin,newlatin}%
+  {t1}{T1}{AnonymousPro}{m}{n}{<->\string\ANP@@scale}
+
+\installfont
+  {AnonymousPro-RegularSC-t1}%
+  {AnonymousPro-Regular-01,AnonymousPro-Regular-02,AnonymousPro-Regular-03,%
+    anonymouspro-fixlatin,newlatin}%
+  {t1c}{T1}{AnonymousPro}{m}{sc}{<->\string\ANP@@scale}
+
+\installfont
+  {AnonymousPro-Italic-t1}%
+  {AnonymousPro-Italic-01,AnonymousPro-Italic-02,AnonymousPro-Italic-03,%
+    anonymouspro-fixlatin,newlatin}%
+  {t1}{T1}{AnonymousPro}{m}{it}{<->\string\ANP@@scale}
+
+\installfont
+  {AnonymousPro-Bold-t1}%
+  {AnonymousPro-Bold-01,AnonymousPro-Bold-02,AnonymousPro-Bold-03,%
+    anonymouspro-fixlatin,newlatin}%
+  {t1}{T1}{AnonymousPro}{b}{n}{<->\string\ANP@@scale}
+
+\installfont
+  {AnonymousPro-BoldSC-t1}%
+  {AnonymousPro-Bold-01,AnonymousPro-Bold-02,AnonymousPro-Bold-03,%
+    anonymouspro-fixlatin,newlatin}%
+  {t1c}{T1}{AnonymousPro}{b}{sc}{<->\string\ANP@@scale}
+
+\installfont
+  {AnonymousPro-BoldItalic-t1}%
+  {AnonymousPro-BoldItalic-01,AnonymousPro-BoldItalic-02,%
+    AnonymousPro-BoldItalic-03,anonymouspro-fixlatin,newlatin}%
+  {t1}{T1}{AnonymousPro}{b}{it}{<->\string\ANP@@scale}
+\endinstallfonts
+\installfonts
+\installfamily{TS1}{AnonymousPro}{}
+\installfont
+  {AnonymousPro-Regular-ts1}%
+  {AnonymousPro-Regular-01,AnonymousPro-Regular-02,AnonymousPro-Regular-03,%
+    anonymouspro-fixtextcomp,textcomp}%
+  {ts1}{TS1}{AnonymousPro}{m}{n}{<->\string\ANP@@scale}
+
+\installfontas
+  {AnonymousPro-Regular-ts1}%
+  {TS1}{AnonymousPro}{m}{sc}{<->\string\ANP@@scale}
+
+\installfont
+  {AnonymousPro-Italic-ts1}%
+  {AnonymousPro-Italic-01,AnonymousPro-Italic-02,AnonymousPro-Italic-03,%
+    anonymouspro-fixtextcomp,textcomp}%
+  {ts1}{TS1}{AnonymousPro}{m}{it}{<->\string\ANP@@scale}
+
+\installfont
+  {AnonymousPro-Bold-ts1}%
+  {AnonymousPro-Bold-01,AnonymousPro-Bold-02,AnonymousPro-Bold-03,%
+    anonymouspro-fixtextcomp,textcomp}%
+  {ts1}{TS1}{AnonymousPro}{b}{n}{<->\string\ANP@@scale}
+
+\installfontas
+  {AnonymousPro-Bold-ts1}%
+  {TS1}{AnonymousPro}{b}{sc}{<->\string\ANP@@scale}
+
+\installfont
+  {AnonymousPro-BoldItalic-ts1}%
+  {AnonymousPro-BoldItalic-01,AnonymousPro-BoldItalic-02,%
+    AnonymousPro-BoldItalic-03,anonymouspro-fixtextcomp,textcomp}%
+  {ts1}{TS1}{AnonymousPro}{b}{it}{<->\string\ANP@@scale}
+\endinstallfonts
+\installfonts
+\installfamily{U}{AnonymousPro}{}
+\installfont
+  {AnonymousPro-Regular-Symbols-u}%
+  {AnonymousPro-Regular-Symbols-base}%
+  {txtfdmns,AnonymousPro-symbols}{U}{AnonymousPro}{m}{n}{<->\string\ANP@@scale}
+
+\installfont
+  {AnonymousPro-Italic-Symbols-u}%
+  {AnonymousPro-Italic-Symbols-base}%
+  {txtfdmns,AnonymousPro-symbols}{U}{AnonymousPro}{m}{it}{<->\string\ANP@@scale}
+
+\installfont
+  {AnonymousPro-Bold-Symbols-u}%
+  {AnonymousPro-Bold-Symbols-base}%
+  {txtfdmns,AnonymousPro-symbols}{U}{AnonymousPro}{b}{n}{<->\string\ANP@@scale}
+
+\installfont
+  {AnonymousPro-BoldItalic-Symbols-u}%
+  {AnonymousPro-BoldItalic-Symbols-base}%
+  {txtfdmns,AnonymousPro-symbols}{U}{AnonymousPro}{b}{it}{<->\string\ANP@@scale}
+\endinstallfonts
+\endrecordtransforms
+\bye
+\endinput
+%%
+%% End of file `AnonymousPro-drv.tex'.

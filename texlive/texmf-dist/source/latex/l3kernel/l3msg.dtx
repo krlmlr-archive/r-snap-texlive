@@ -1,0 +1,2174 @@
+% \iffalse meta-comment
+%
+%% File: l3msg.dtx Copyright (C) 2009-2014 The LaTeX3 Project
+%%
+%% It may be distributed and/or modified under the conditions of the
+%% LaTeX Project Public License (LPPL), either version 1.3c of this
+%% license or (at your option) any later version.  The latest version
+%% of this license is in the file
+%%
+%%    http://www.latex-project.org/lppl.txt
+%%
+%% This file is part of the "l3kernel bundle" (The Work in LPPL)
+%% and all files in that bundle must be distributed together.
+%%
+%% The released version of this bundle is available from CTAN.
+%%
+%% -----------------------------------------------------------------------
+%%
+%% The development version of the bundle can be found at
+%%
+%%    http://www.latex-project.org/svnroot/experimental/trunk/
+%%
+%% for those people who are interested.
+%%
+%%%%%%%%%%%
+%% NOTE: %%
+%%%%%%%%%%%
+%%
+%%   Snapshots taken from the repository represent work in progress and may
+%%   not work or may contain conflicting material!  We therefore ask
+%%   people _not_ to put them into distributions, archives, etc. without
+%%   prior consultation with the LaTeX3 Project.
+%%
+%% -----------------------------------------------------------------------
+%
+%<*driver>
+\documentclass[full]{l3doc}
+%</driver>
+%<*driver|package>
+\GetIdInfo$Id: l3msg.dtx 5358 2014-08-24 09:19:52Z bruno $
+  {L3 Messages}
+%</driver|package>
+%<*driver>
+\begin{document}
+  \DocInput{\jobname.dtx}
+\end{document}
+%</driver>
+% \fi
+%
+% \title{^^A
+%   The \pkg{l3msg} package\\ Messages^^A
+%   \thanks{This file describes v\ExplFileVersion,
+%      last revised \ExplFileDate.}^^A
+% }
+%
+% \author{^^A
+%  The \LaTeX3 Project\thanks
+%    {^^A
+%      E-mail:
+%        \href{mailto:latex-team@latex-project.org}
+%          {latex-team@latex-project.org}^^A
+%    }^^A
+% }
+%
+% \date{Released \ExplFileDate}
+%
+% \maketitle
+%
+% \begin{documentation}
+%
+% Messages need to be passed to the user by modules, either when errors
+% occur or to indicate how the code is proceeding. The \pkg{l3msg}
+% module provides a consistent method for doing this (as opposed to
+% writing directly to the terminal or log).
+%
+% The system used by \pkg{l3msg} to create messages divides the process
+% into two distinct parts. Named messages are created in the first part
+% of the process; at this stage, no decision is made about the type of
+% output that the message will produce. The second part of the process
+% is actually producing a message. At this stage a choice of message
+% \emph{class} has to be made, for example \texttt{error},
+% \texttt{warning} or \texttt{info}.
+%
+% By separating out the creation and use of messages, several benefits
+% are available. First, the messages can be altered later without
+% needing details of where they are used in the code. This makes it
+% possible to alter the language used, the detail level and so on.
+% Secondly, the output which results from a given message can be
+% altered. This can be done on a message class, module or message name
+% basis. In this way, message behaviour can be altered and messages can
+% be entirely suppressed.
+%
+% \section{Creating new messages}
+%
+% All messages have to be created before they can be used.
+% The text of messages will automatically by wrapped to the length
+% available in the console. As a result, formatting is only needed
+% where it will help to show meaning. In particular, |\\| may be
+% used to force a new line and \verb*|\ | forces an explicit space.
+% Additionally, |\{|, |\#|, |\}|, |\%| and |\~| can be used to produce
+% the corresponding character.
+%
+% Messages may be subdivided \emph{by one level} using the~|/|
+% character.  This is used within the message filtering system to allow
+% for example the \LaTeX{} kernel messages to belong to the module
+% \texttt{LaTeX} while still being filterable at a more granular level.
+% Thus for example
+% \begin{verbatim}
+%   \msg_new:nnnn { mymodule } { submodule / message } ...
+% \end{verbatim}
+% will allow only those messages from the \texttt{submodule} to be filtered
+% out.
+%
+% \begin{function}[updated = 2011-08-16]{\msg_new:nnnn, \msg_new:nnn}
+%   \begin{syntax}
+%     \cs{msg_new:nnnn} \Arg{module} \Arg{message} \Arg{text} \Arg{more text}
+%   \end{syntax}
+%   Creates a \meta{message} for a given \meta{module}.
+%   The message will be defined to first give \meta{text} and then
+%   \meta{more text} if the user requests it. If no \meta{more text} is
+%   available then a standard text is given instead. Within \meta{text}
+%   and \meta{more text} four parameters (|#1| to |#4|) can be used:
+%   these will be supplied at the time the message is
+%   used. An error will be raised if the \meta{message} already exists.
+% \end{function}
+%
+% \begin{function}{\msg_set:nnnn, \msg_set:nnn, \msg_gset:nnnn, \msg_gset:nnn}
+%   \begin{syntax}
+%     \cs{msg_set:nnnn} \Arg{module} \Arg{message} \Arg{text} \Arg{more text}
+%   \end{syntax}
+%   Sets up the text for a \meta{message} for a given \meta{module}.
+%   The message will be defined to first give \meta{text} and then
+%   \meta{more text} if the user requests it. If no \meta{more text} is
+%   available then a standard text is given instead. Within \meta{text}
+%   and \meta{more text} four parameters (|#1| to |#4|) can be used:
+%   these will be supplied at the time the message is used.
+% \end{function}
+%
+% \begin{function}[EXP, pTF, added = 2012-03-03]{\msg_if_exist:nn}
+%   \begin{syntax}
+%     \cs{msg_if_exist_p:nn} \Arg{module} \Arg{message}
+%     \cs{msg_if_exist:nnTF} \Arg{module} \Arg{message} \Arg{true code} \Arg{false code}
+%   \end{syntax}
+%   Tests whether the \meta{message} for the \meta{module} is currently
+%   defined.
+% \end{function}
+%
+% \section{Contextual information for messages}
+%
+% \begin{function}[rEXP]{\msg_line_context:}
+%   \begin{syntax}
+%     \cs{msg_line_context:}
+%   \end{syntax}
+%   Prints the current line number when a message is given, and
+%   thus suitable for giving context to messages. The number itself
+%   is proceeded by the text |on line|.
+% \end{function}
+%
+% \begin{function}[EXP]{\msg_line_number:}
+%   \begin{syntax}
+%     \cs{msg_line_number:}
+%   \end{syntax}
+%   Prints the current line number when a message is given.
+% \end{function}
+%
+% \begin{function}[EXP]{\msg_fatal_text:n}
+%   \begin{syntax}
+%     \cs{msg_fatal_text:n} \Arg{module}
+%   \end{syntax}
+%   Produces the standard text
+%   \begin{quote}
+%     \ttfamily
+%     Fatal \meta{module} error
+%   \end{quote}
+%   This function can be redefined to alter the language in which the
+%   message is given, using |#1| as the name of the \meta{module} to
+%   be included.
+% \end{function}
+%
+% \begin{function}[EXP]{\msg_critical_text:n}
+%   \begin{syntax}
+%     \cs{msg_critical_text:n} \Arg{module}
+%   \end{syntax}
+%   Produces the standard text
+%   \begin{quote}
+%     \ttfamily
+%     Critical \meta{module} error
+%   \end{quote}
+%   This function can be redefined to alter the language in which the
+%   message is given, using |#1| as the name of the \meta{module} to
+%   be included.
+% \end{function}
+%
+% \begin{function}[EXP]{\msg_error_text:n}
+%   \begin{syntax}
+%     \cs{msg_error_text:n} \Arg{module}
+%   \end{syntax}
+%   Produces the standard text
+%   \begin{quote}
+%     \ttfamily
+%     \meta{module} error
+%   \end{quote}
+%   This function can be redefined to alter the language in which the
+%   message is given, using |#1| as the name of the \meta{module} to
+%   be included.
+% \end{function}
+%
+% \begin{function}[EXP]{\msg_warning_text:n}
+%   \begin{syntax}
+%     \cs{msg_warning_text:n} \Arg{module}
+%   \end{syntax}
+%   Produces the standard text
+%   \begin{quote}
+%     \ttfamily
+%     \meta{module} warning
+%   \end{quote}
+%   This function can be redefined to alter the language in which the
+%   message is given, using |#1| as the name of the \meta{module} to
+%   be included.
+% \end{function}
+%
+% \begin{function}[EXP]{\msg_info_text:n}
+%   \begin{syntax}
+%     \cs{msg_info_text:n} \Arg{module}
+%   \end{syntax}
+%   Produces the standard text:
+%   \begin{quote}
+%     \ttfamily
+%     \meta{module} info
+%   \end{quote}
+%   This function can be redefined to alter the language in which the
+%   message is given, using |#1| as the name of the \meta{module} to
+%   be included.
+% \end{function}
+%
+% \begin{function}[EXP]{\msg_see_documentation_text:n}
+%   \begin{syntax}
+%     \cs{msg_see_documentation_text:n} \Arg{module}
+%   \end{syntax}
+%   Produces the standard text
+%   \begin{quote}
+%     \ttfamily
+%
+%     See the \meta{module} documentation for further information.
+%   \end{quote}
+%   This function can be redefined to alter the language in which the
+%   message is given, using |#1| as the name of the \meta{module} to
+%   be included.
+% \end{function}
+%
+% \section{Issuing messages}
+%
+% Messages behave differently depending on the message class. In all cases,
+% the message may be issued supplying~$0$ to~$4$ arguments.  If the number of
+% arguments supplied here does not match the number in the definition of the
+% message, extra arguments will be ignored, or empty arguments added (of
+% course the sense of the message may be impaired). The four arguments will
+% be converted to strings before being added to the message text: the
+% \texttt{x}-type variants should be used to expand material.
+%
+% \begin{function}[updated = 2012-08-11]
+%   {
+%     \msg_fatal:nnnnnn ,
+%     \msg_fatal:nnnnn  ,
+%     \msg_fatal:nnnn   ,
+%     \msg_fatal:nnn    ,
+%     \msg_fatal:nn     ,
+%     \msg_fatal:nnxxxx ,
+%     \msg_fatal:nnxxx  ,
+%     \msg_fatal:nnxx   ,
+%     \msg_fatal:nnx
+%   }
+%   \begin{syntax}
+%     \cs{msg_fatal:nnnnnn} \Arg{module} \Arg{message} \Arg{arg one} \Arg{arg two} \Arg{arg three} \Arg{arg four}
+%   \end{syntax}
+%   Issues \meta{module} error \meta{message}, passing \meta{arg one} to
+%   \meta{arg four} to the text-creating functions. After issuing a
+%   fatal error the \TeX{} run will halt.
+% \end{function}
+%
+% \begin{function}[updated = 2012-08-11]
+%   {
+%     \msg_critical:nnnnnn ,
+%     \msg_critical:nnnnn  ,
+%     \msg_critical:nnnn   ,
+%     \msg_critical:nnn    ,
+%     \msg_critical:nn     ,
+%     \msg_critical:nnxxxx ,
+%     \msg_critical:nnxxx  ,
+%     \msg_critical:nnxx   ,
+%     \msg_critical:nnx
+%   }
+%   \begin{syntax}
+%     \cs{msg_critical:nnnnnn} \Arg{module} \Arg{message} \Arg{arg one} \Arg{arg two} \Arg{arg three} \Arg{arg four}
+%   \end{syntax}
+%   Issues \meta{module} error \meta{message}, passing \meta{arg one} to
+%   \meta{arg four} to the text-creating functions.  After issuing a
+%   critical error, \TeX{} will stop reading the current input file.
+%   This may halt the \TeX{} run (if the current file is the main file)
+%   or may abort reading a sub-file.
+%   \begin{texnote}
+%     The \TeX{} \tn{endinput} primitive is used to exit the file.  In
+%     particular, the rest of the current line remains in the input
+%     stream. ^^A Can we fix that?
+%   \end{texnote}
+% \end{function}
+%
+% \begin{function}[updated = 2012-08-11]
+%   {
+%     \msg_error:nnnnnn ,
+%     \msg_error:nnnnn  ,
+%     \msg_error:nnnn   ,
+%     \msg_error:nnn    ,
+%     \msg_error:nn     ,
+%     \msg_error:nnxxxx ,
+%     \msg_error:nnxxx  ,
+%     \msg_error:nnxx   ,
+%     \msg_error:nnx
+%   }
+%   \begin{syntax}
+%     \cs{msg_error:nnnnnn} \Arg{module} \Arg{message} \Arg{arg one} \Arg{arg two} \Arg{arg three} \Arg{arg four}
+%   \end{syntax}
+%   Issues \meta{module} error \meta{message}, passing \meta{arg one} to
+%   \meta{arg four} to the text-creating functions.  The error will
+%   interrupt processing and issue the text at the terminal.  After user
+%   input, the run will continue.
+% \end{function}
+%
+% \begin{function}[updated = 2012-08-11]
+%   {
+%     \msg_warning:nnnnnn ,
+%     \msg_warning:nnnnn  ,
+%     \msg_warning:nnnn   ,
+%     \msg_warning:nnn    ,
+%     \msg_warning:nn     ,
+%     \msg_warning:nnxxxx ,
+%     \msg_warning:nnxxx  ,
+%     \msg_warning:nnxx   ,
+%     \msg_warning:nnx
+%   }
+%   \begin{syntax}
+%     \cs{msg_warning:nnxxxx} \Arg{module} \Arg{message} \Arg{arg one} \Arg{arg two} \Arg{arg three} \Arg{arg four}
+%   \end{syntax}
+%   Issues \meta{module} warning \meta{message}, passing \meta{arg one}
+%   to \meta{arg four} to the text-creating functions. The warning text
+%   will be added to the log file and the terminal, but the \TeX{} run
+%   will not be interrupted.
+% \end{function}
+%
+% \begin{function}[updated = 2012-08-11]
+%   {
+%     \msg_info:nnnnnn ,
+%     \msg_info:nnnnn  ,
+%     \msg_info:nnnn   ,
+%     \msg_info:nnn    ,
+%     \msg_info:nn     ,
+%     \msg_info:nnxxxx ,
+%     \msg_info:nnxxx  ,
+%     \msg_info:nnxx   ,
+%     \msg_info:nnx
+%   }
+%   \begin{syntax}
+%     \cs{msg_info:nnnnnn} \Arg{module} \Arg{message} \Arg{arg one} \Arg{arg two} \Arg{arg three} \Arg{arg four}
+%   \end{syntax}
+%   Issues \meta{module} information \meta{message}, passing
+%   \meta{arg one} to \meta{arg four} to the text-creating functions.
+%   The information text will be added to the log file.
+% \end{function}
+%
+% \begin{function}[updated = 2012-08-11]
+%   {
+%     \msg_log:nnnnnn ,
+%     \msg_log:nnnnn  ,
+%     \msg_log:nnnn   ,
+%     \msg_log:nnn    ,
+%     \msg_log:nn     ,
+%     \msg_log:nnxxxx ,
+%     \msg_log:nnxxx  ,
+%     \msg_log:nnxx   ,
+%     \msg_log:nnx
+%   }
+%   \begin{syntax}
+%     \cs{msg_log:nnnnnn} \Arg{module} \Arg{message} \Arg{arg one} \Arg{arg two} \Arg{arg three} \Arg{arg four}
+%   \end{syntax}
+%   Issues \meta{module} information \meta{message}, passing
+%   \meta{arg one} to \meta{arg four} to the text-creating functions.
+%   The information text will be added to the log file: the output
+%   is briefer than \cs{msg_info:nnnnnn}.
+% \end{function}
+%
+% \begin{function}[updated = 2012-08-11]
+%   {
+%     \msg_none:nnnnnn ,
+%     \msg_none:nnnnn  ,
+%     \msg_none:nnnn   ,
+%     \msg_none:nnn    ,
+%     \msg_none:nn     ,
+%     \msg_none:nnxxxx ,
+%     \msg_none:nnxxx  ,
+%     \msg_none:nnxx   ,
+%     \msg_none:nnx
+%   }
+%   \begin{syntax}
+%     \cs{msg_none:nnnnnn} \Arg{module} \Arg{message} \Arg{arg one} \Arg{arg two} \Arg{arg three} \Arg{arg four}
+%   \end{syntax}
+%   Does nothing: used as a message class to prevent any output at
+%   all (see the discussion of message redirection).
+% \end{function}
+%
+% \section{Redirecting messages}
+%
+% Each message has a \enquote{name}, which can be used to alter the behaviour
+% of the message when it is given. Thus we might have
+% \begin{verbatim}
+%   \msg_new:nnnn { module } { my-message } { Some~text } { Some~more~text }
+% \end{verbatim}
+% to define a message, with
+% \begin{verbatim}
+%   \msg_error:nn { module } { my-message }
+% \end{verbatim}
+% when it is used. With no filtering, this will raise an error. However, we
+% could alter the behaviour with
+% \begin{verbatim}
+%   \msg_redirect_class:nn { error } { warning }
+% \end{verbatim}
+% to turn all errors into warnings, or with
+% \begin{verbatim}
+%   \msg_redirect_module:nnn { module } { error } { warning }
+% \end{verbatim}
+% to alter only messages from that module, or even
+% \begin{verbatim}
+%   \msg_redirect_name:nnn { module } { my-message } { warning }
+% \end{verbatim}
+% to target just one message. Redirection applies first to individual messages,
+% then to messages from one module and finally to messages of one class. Thus
+% it is possible to select out an individual message for special treatment
+% even if the entire class is already redirected.
+%
+% Multiple redirections are possible.  Redirections can be cancelled by
+% providing an empty argument for the target class.  Redirection to a
+% missing class will raise errors immediately.  Infinite loops are
+% prevented by eliminating the redirection starting from the target of
+% the redirection that caused the loop to appear.  Namely, if
+% redirections are requested as $A \to B$, $B \to C$ and $C \to A$ in
+% this order, then the $A \to B$ redirection is cancelled.
+%
+% \begin{function}[updated = 2012-04-27]{\msg_redirect_class:nn}
+%   \begin{syntax}
+%     \cs{msg_redirect_class:nn} \Arg{class one} \Arg{class two}
+%   \end{syntax}
+%   Changes the behaviour of messages of \meta{class one} so that they
+%   are processed using the code for those of \meta{class two}.
+% \end{function}
+%
+% \begin{function}[updated = 2012-04-27]{\msg_redirect_module:nnn}
+%   \begin{syntax}
+%     \cs{msg_redirect_module:nnn} \Arg{module} \Arg{class one} \Arg{class two}
+%   \end{syntax}
+%   Redirects message of \meta{class one} for \meta{module} to act as
+%   though they were from \meta{class two}. Messages of \meta{class one}
+%   from sources other than \meta{module} are not affected by this
+%   redirection. This function can be used to make some messages
+%   \enquote{silent} by default. For example, all of the
+%   \texttt{warning} messages of \meta{module} could be turned off with:
+%   \begin{verbatim}
+%     \msg_redirect_module:nnn { module } { warning } { none }
+%   \end{verbatim}
+% \end{function}
+%
+% \begin{function}[updated = 2012-04-27]{\msg_redirect_name:nnn}
+%   \begin{syntax}
+%     \cs{msg_redirect_name:nnn} \Arg{module} \Arg{message} \Arg{class}
+%   \end{syntax}
+%   Redirects a specific \meta{message} from a specific \meta{module} to
+%   act as a member of \meta{class} of messages.  No further redirection
+%   is performed.  This function can be used to make a selected message
+%   \enquote{silent} without changing global parameters:
+%   \begin{verbatim}
+%     \msg_redirect_name:nnn { module } { annoying-message } { none }
+%   \end{verbatim}
+% \end{function}
+%
+% \section{Low-level message functions}
+%
+% The lower-level message functions should usually be accessed from the
+% higher-level system. However, there are occasions where direct
+% access to these functions is desirable.
+%
+% \begin{function}[added = 2012-06-28]{\msg_interrupt:nnn}
+%   \begin{syntax}
+%     \cs{msg_interrupt:nnn} \Arg{first line} \Arg{text} \Arg{extra text}
+%   \end{syntax}
+%   Interrupts the \TeX{} run, issuing a formatted message comprising
+%   \meta{first line} and \meta{text} laid out in the format
+%   \begin{verbatim}
+%     !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+%     !
+%     ! <first line>
+%     !
+%     ! <text>
+%     !...............................................
+%   \end{verbatim}
+%   where the \meta{text} will be wrapped to fit within the current
+%   line length. The user may then request more information, at which
+%   stage the \meta{extra text} will be shown in the terminal in the
+%   format
+%   \begin{verbatim}
+%     |'''''''''''''''''''''''''''''''''''''''''''''''
+%     |  <extra text>
+%     |...............................................
+%   \end{verbatim}
+%   where the \meta{extra text} will be wrapped within the current
+%   line length. Wrapping of both \meta{text} and \meta{more text} takes place
+%   using \cs{iow_wrap:nnnN}; the documentation for the latter should be
+%   consulted for full details.
+% \end{function}
+%
+% \begin{function}[added = 2012-06-28]{\msg_log:n}
+%   \begin{syntax}
+%     \cs{msg_log:n} \Arg{text}
+%   \end{syntax}
+%   Writes to the log file with the \meta{text} laid out in the format
+%   \begin{verbatim}
+%     .................................................
+%     . <text>
+%     .................................................
+%   \end{verbatim}
+%   where the \meta{text} will be wrapped to fit within the current
+%   line length.  Wrapping takes place using \cs{iow_wrap:nnnN}; the
+%   documentation for the latter should be consulted for full details.
+% \end{function}
+%
+% \begin{function}[added = 2012-06-28]{\msg_term:n}
+%   \begin{syntax}
+%     \cs{msg_term:n} \Arg{text}
+%   \end{syntax}
+%   Writes to the terminal and log file with the \meta{text} laid out in the
+%   format
+%   \begin{verbatim}
+%     *************************************************
+%     * <text>
+%     *************************************************
+%   \end{verbatim}
+%   where the \meta{text} will be wrapped to fit within the current
+%   line length. Wrapping takes place using \cs{iow_wrap:nnnN}; the
+%   documentation for the latter should be consulted for full details.
+% \end{function}
+%
+% \section{Kernel-specific functions}
+%
+% Messages from \LaTeX3 itself are handled by the general message system,
+% but have their own functions. This allows some text to be pre-defined,
+% and also ensures that serious errors can be handled properly.
+%
+% \begin{function}[updated = 2011-08-16]
+%   {\__msg_kernel_new:nnnn, \__msg_kernel_new:nnn}
+%   \begin{syntax}
+%     \cs{__msg_kernel_new:nnnn} \Arg{module} \Arg{message} \Arg{text} \Arg{more text}
+%   \end{syntax}
+%   Creates a kernel \meta{message} for a given \meta{module}.
+%   The message will be defined to first give \meta{text} and then
+%   \meta{more text} if the user requests it. If no \meta{more text} is
+%   available then a standard text is given instead. Within \meta{text}
+%   and \meta{more text} four parameters (|#1| to |#4|) can be used:
+%   these will be supplied and expanded at the time the message is used.
+%   An error will be raised if the \meta{message} already exists.
+% \end{function}
+%
+% \begin{function}{\__msg_kernel_set:nnnn, \__msg_kernel_set:nnn}
+%   \begin{syntax}
+%     \cs{__msg_kernel_set:nnnn} \Arg{module} \Arg{message} \Arg{text} \Arg{more text}
+%   \end{syntax}
+%   Sets up the text for a kernel \meta{message} for a given \meta{module}.
+%   The message will be defined to first give \meta{text} and then
+%   \meta{more text} if the user requests it. If no \meta{more text} is
+%   available then a standard text is given instead. Within \meta{text}
+%   and \meta{more text} four parameters (|#1| to |#4|) can be used:
+%   these will be supplied and expanded at the time the message is used.
+% \end{function}
+%
+% \begin{function}[updated = 2012-08-11]
+%   {
+%     \__msg_kernel_fatal:nnnnnn ,
+%     \__msg_kernel_fatal:nnnnn  ,
+%     \__msg_kernel_fatal:nnnn   ,
+%     \__msg_kernel_fatal:nnn    ,
+%     \__msg_kernel_fatal:nn     ,
+%     \__msg_kernel_fatal:nnxxxx ,
+%     \__msg_kernel_fatal:nnxxx  ,
+%     \__msg_kernel_fatal:nnxx   ,
+%     \__msg_kernel_fatal:nnx
+%   }
+%   \begin{syntax}
+%     \cs{__msg_kernel_fatal:nnnnnn} \Arg{module} \Arg{message} \Arg{arg one} \Arg{arg two} \Arg{arg three} \Arg{arg four}
+%   \end{syntax}
+%   Issues kernel \meta{module} error \meta{message}, passing \meta{arg one}
+%   to \meta{arg four} to the text-creating functions. After issuing a
+%   fatal error the \TeX{} run will halt. Cannot be redirected.
+% \end{function}
+%
+% \begin{function}[updated = 2012-08-11]
+%   {
+%     \__msg_kernel_error:nnnnnn ,
+%     \__msg_kernel_error:nnnnn  ,
+%     \__msg_kernel_error:nnnn   ,
+%     \__msg_kernel_error:nnn    ,
+%     \__msg_kernel_error:nn     ,
+%     \__msg_kernel_error:nnxxxx ,
+%     \__msg_kernel_error:nnxxx  ,
+%     \__msg_kernel_error:nnxx   ,
+%     \__msg_kernel_error:nnx
+%   }
+%   \begin{syntax}
+%     \cs{__msg_kernel_error:nnnnnn} \Arg{module} \Arg{message} \Arg{arg one} \Arg{arg two} \Arg{arg three} \Arg{arg four}
+%   \end{syntax}
+%   Issues kernel \meta{module} error \meta{message}, passing \meta{arg one}
+%   to
+%   \meta{arg four} to the text-creating functions. The error will
+%   stop processing and issue the text at the terminal. After user input,
+%   the run will continue. Cannot be redirected.
+% \end{function}
+%
+% \begin{function}[updated = 2012-08-11]
+%   {
+%     \__msg_kernel_warning:nnnnnn ,
+%     \__msg_kernel_warning:nnnnn  ,
+%     \__msg_kernel_warning:nnnn   ,
+%     \__msg_kernel_warning:nnn    ,
+%     \__msg_kernel_warning:nn     ,
+%     \__msg_kernel_warning:nnxxxx ,
+%     \__msg_kernel_warning:nnxxx  ,
+%     \__msg_kernel_warning:nnxx   ,
+%     \__msg_kernel_warning:nnx
+%   }
+%   \begin{syntax}
+%     \cs{__msg_kernel_warning:nnnnnn} \Arg{module} \Arg{message} \Arg{arg one} \Arg{arg two} \Arg{arg three} \Arg{arg four}
+%   \end{syntax}
+%   Issues kernel \meta{module} warning \meta{message}, passing
+%   \meta{arg one} to
+%   \meta{arg four} to the text-creating functions. The warning text
+%   will be added to the log file, but the \TeX{} run will not be
+%   interrupted.
+% \end{function}
+%
+% \begin{function}[updated = 2012-08-11]
+%   {
+%     \__msg_kernel_info:nnnnnn ,
+%     \__msg_kernel_info:nnnnn  ,
+%     \__msg_kernel_info:nnnn   ,
+%     \__msg_kernel_info:nnn    ,
+%     \__msg_kernel_info:nn     ,
+%     \__msg_kernel_info:nnxxxx ,
+%     \__msg_kernel_info:nnxxx  ,
+%     \__msg_kernel_info:nnxx   ,
+%     \__msg_kernel_info:nnx
+%   }
+%   \begin{syntax}
+%     \cs{__msg_kernel_info:nnnnnn} \Arg{module} \Arg{message} \Arg{arg one} \Arg{arg two} \Arg{arg three} \Arg{arg four}
+%   \end{syntax}
+%   Issues kernel \meta{module} information \meta{message}, passing
+%   \meta{arg one} to \meta{arg four} to the text-creating functions.
+%   The information text will be added to the log file.
+% \end{function}
+%
+% \section{Expandable errors}
+%
+% In a few places, the \LaTeX3 kernel needs to produce errors in an
+% expansion only context. This must be handled internally very
+% differently from normal error messages, as none of the tools
+% to print to the terminal or the log file are expandable.
+% However, the interface is similar, with the important caveat that the
+% message text and arguments are not expanded, and messages should be
+% very short.
+%
+% \begin{function}[EXP, added = 2011-11-23]
+%   {
+%     \__msg_kernel_expandable_error:nnnnnn,
+%     \__msg_kernel_expandable_error:nnnnn,
+%     \__msg_kernel_expandable_error:nnnn,
+%     \__msg_kernel_expandable_error:nnn,
+%     \__msg_kernel_expandable_error:nn
+%   }
+%   \begin{syntax}
+%     \cs{__msg_kernel_expandable_error:nnnnnn} \Arg{module} \Arg{message} \Arg{arg one} \Arg{arg two} \Arg{arg three} \Arg{arg four}
+%   \end{syntax}
+%   Issues an error, passing \meta{arg one} to \meta{arg four}
+%   to the text-creating functions. The resulting string must
+%   be shorter than a line, otherwise it will be cropped.
+% \end{function}
+%
+% \begin{function}[EXP, added = 2011-08-11, updated = 2011-08-13]
+%   {\__msg_expandable_error:n}
+%   \begin{syntax}
+%     \cs{__msg_expandable_error:n} \Arg{error message}
+%   \end{syntax}
+%   Issues an \enquote{Undefined error} message from \TeX{} itself,
+%   and prints the \meta{error message}. The \meta{error message}
+%   must be short: it is cropped at the end of one line.
+%   \begin{texnote}
+%     This function expands to an empty token list after two steps.
+%     Tokens inserted in response to \TeX{}'s prompt are read with
+%     the current category code setting, and inserted just after
+%     the place where the error message was issued.
+%   \end{texnote}
+% \end{function}
+%
+% \section{Internal \pkg{l3msg} functions}
+%
+% The following functions are used in several kernel modules.
+%
+% \begin{function}
+%   {
+%     \__msg_term:nnnnnn,
+%     \__msg_term:nnnnnV,
+%     \__msg_term:nnnnn,
+%     \__msg_term:nnn  ,
+%     \__msg_term:nn
+%   }
+%   \begin{syntax}
+%     \cs{__msg_term:nnnnnn} \Arg{module} \Arg{message} \Arg{arg one} \Arg{arg two} \Arg{arg three} \Arg{arg four}
+%   \end{syntax}
+%   Prints the \meta{message} from \meta{module} in the terminal without
+%   formatting. Used in messages which print complex variable contents
+%   completely.
+% \end{function}
+%
+% \begin{function}[updated = 2012-09-09]{\__msg_show_variable:Nnn}
+%   \begin{syntax}
+%     \cs{__msg_show_variable:Nnn} \meta{variable} \Arg{type} \Arg{formatted content}
+%   \end{syntax}
+%   Displays the \meta{formatted content} of the \meta{variable} of
+%   \meta{type} in the terminal. The \meta{formatted content} will be
+%   processed as the first argument in a call to \cs{iow_wrap:nnnN},
+%   hence |\\|, \verb*|\ | and other formatting sequences can be used.
+%   Once expanded and processed, the \meta{formatted content} must
+%   either be empty or contain |>|; everything until the first |>| will
+%   be removed.
+% \end{function}
+%
+% \begin{function}[updated = 2012-09-09]{\__msg_show_variable:n}
+%   \begin{syntax}
+%     \cs{__msg_show_variable:n} \Arg{formatted text}
+%   \end{syntax}
+%   Shows the \meta{formatted text} on the terminal.  After expansion,
+%   unless it is empty, the \meta{formatted text} must contain |>|,
+%   and the part of \meta{formatted text} before the first |>| is
+%   removed. Failure to do so causes low-level \TeX{} errors.
+% \end{function}
+%
+% \begin{function}[updated = 2012-09-09]
+%   {\__msg_show_item:n, \__msg_show_item:nn, \__msg_show_item_unbraced:nn}
+%   \begin{syntax}
+%     \cs{__msg_show_item:n}  \meta{item}
+%     \cs{__msg_show_item:nn} \meta{item-key} \meta{item-value}
+%   \end{syntax}
+%   Auxiliary functions used within the argument of
+%   \cs{__msg_show_variable:Nnn} to format variable items correctly for
+%   display. The \cs{__msg_show_item:n} version is used for simple lists,
+%   the \cs{__msg_show_item:nn} and \cs{__msg_show_item_unbraced:nn} versions
+%   for key--value like data structures.
+% \end{function}
+% 
+% \begin{variable}{\c__msg_coding_error_text_tl}
+%   The text
+%   \begin{verbatim}
+%     This is a coding error.
+%   \end{verbatim}
+%   used by kernel functions when erroneous programming input is encountered.
+% \end{variable}
+%
+% \end{documentation}
+%
+% \begin{implementation}
+%
+% \section{\pkg{l3msg} implementation}
+%
+%    \begin{macrocode}
+%<*initex|package>
+%    \end{macrocode}
+%
+%    \begin{macrocode}
+%<@@=msg>
+%    \end{macrocode}
+%
+% \begin{variable}{\l_@@_internal_tl}
+%   A general scratch for the module.
+%    \begin{macrocode}
+\tl_new:N \l_@@_internal_tl
+%    \end{macrocode}
+% \end{variable}
+%
+% \subsection{Creating messages}
+%
+% Messages are created and used separately, so there two parts to
+% the code here. First, a mechanism for creating message text.
+% This is pretty simple, as there is not actually a lot to do.
+%
+% \begin{variable}{\c_@@_text_prefix_tl, \c_@@_more_text_prefix_tl}
+%   Locations for the text of messages.
+%    \begin{macrocode}
+\tl_const:Nn \c_@@_text_prefix_tl      { msg~text~>~ }
+\tl_const:Nn \c_@@_more_text_prefix_tl { msg~extra~text~>~ }
+%    \end{macrocode}
+% \end{variable}
+%
+% \begin{macro}[EXP,pTF]{\msg_if_exist:nn}
+%   Test whether the control sequence containing the message text exists
+%   or not.
+%    \begin{macrocode}
+\prg_new_conditional:Npnn \msg_if_exist:nn #1#2 { p , T , F , TF }
+  {
+    \cs_if_exist:cTF { \c_@@_text_prefix_tl #1 / #2 }
+      { \prg_return_true: } { \prg_return_false: }
+  }
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}[aux]{\__chk_if_free_msg:nn}
+%   This auxiliary is similar to \cs{__chk_if_free_cs:N}, and is used when
+%   defining messages with \cs{msg_new:nnnn}. It could be inlined in
+%   \cs{msg_new:nnnn}, but the experimental \pkg{l3trace} module needs
+%   to disable this check when reloading a package with the extra
+%   tracing information.
+%    \begin{macrocode}
+\cs_new_protected:Npn \__chk_if_free_msg:nn #1#2
+  {
+    \msg_if_exist:nnT {#1} {#2}
+      {
+        \@@_kernel_error:nnxx { kernel } { message-already-defined }
+          {#1} {#2}
+      }
+  }
+%<*package>
+\tex_ifodd:D \l@expl@log@functions@bool
+  \cs_gset_protected:Npn \__chk_if_free_msg:nn #1#2
+    {
+      \msg_if_exist:nnT {#1} {#2}
+        {
+          \@@_kernel_error:nnxx { kernel } { message-already-defined }
+            {#1} {#2}
+        }
+      \iow_log:x { Defining~message~ #1 / #2 ~\msg_line_context: }
+    }
+\fi:
+%</package>
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{\msg_new:nnnn, \msg_new:nnn}
+% \begin{macro}{\msg_gset:nnnn,\msg_gset:nnn}
+% \begin{macro}{\msg_set:nnnn, \msg_set:nnn}
+%   Setting a message simply means saving the appropriate text
+%   into two functions. A sanity check first.
+%    \begin{macrocode}
+\cs_new_protected:Npn \msg_new:nnnn #1#2
+  {
+    \__chk_if_free_msg:nn {#1} {#2}
+    \msg_gset:nnnn {#1} {#2}
+  }
+\cs_new_protected:Npn \msg_new:nnn #1#2#3
+  { \msg_new:nnnn {#1} {#2} {#3} { } }
+\cs_new_protected:Npn \msg_set:nnnn #1#2#3#4
+  {
+    \cs_set:cpn { \c_@@_text_prefix_tl #1 / #2 }
+      ##1##2##3##4 {#3}
+    \cs_set:cpn { \c_@@_more_text_prefix_tl #1 / #2 }
+      ##1##2##3##4 {#4}
+  }
+\cs_new_protected:Npn \msg_set:nnn #1#2#3
+  { \msg_set:nnnn {#1} {#2} {#3} { } }
+\cs_new_protected:Npn \msg_gset:nnnn #1#2#3#4
+  {
+    \cs_gset:cpn { \c_@@_text_prefix_tl #1 / #2 }
+      ##1##2##3##4 {#3}
+    \cs_gset:cpn { \c_@@_more_text_prefix_tl #1 / #2 }
+      ##1##2##3##4 {#4}
+  }
+\cs_new_protected:Npn \msg_gset:nnn #1#2#3
+  { \msg_gset:nnnn {#1} {#2} {#3} { } }
+%    \end{macrocode}
+% \end{macro}
+% \end{macro}
+% \end{macro}
+%
+% \subsection{Messages: support functions and text}
+%
+% \begin{variable}
+%   {
+%     \c_@@_coding_error_text_tl ,
+%     \c_@@_continue_text_tl     ,
+%     \c_@@_critical_text_tl     ,
+%     \c_@@_fatal_text_tl        ,
+%     \c_@@_help_text_tl         ,
+%     \c_@@_no_info_text_tl      ,
+%     \c_@@_on_line_text_tl      ,
+%     \c_@@_return_text_tl       ,
+%     \c_@@_trouble_text_tl
+%   }
+% Simple pieces of text for messages.
+%    \begin{macrocode}
+\tl_const:Nn \c_@@_coding_error_text_tl
+  {
+    This~is~a~coding~error.
+    \\ \\
+  }
+\tl_const:Nn \c_@@_continue_text_tl
+  { Type~<return>~to~continue }
+\tl_const:Nn \c_@@_critical_text_tl
+  { Reading~the~current~file~'\g_file_current_name_tl'~will~stop. }
+\tl_const:Nn \c_@@_fatal_text_tl
+  { This~is~a~fatal~error:~LaTeX~will~abort. }
+\tl_const:Nn \c_@@_help_text_tl
+  { For~immediate~help~type~H~<return> }
+\tl_const:Nn \c_@@_no_info_text_tl
+  {
+    LaTeX~does~not~know~anything~more~about~this~error,~sorry.
+    \c_@@_return_text_tl
+  }
+\tl_const:Nn \c_@@_on_line_text_tl { on~line }
+\tl_const:Nn \c_@@_return_text_tl
+  {
+    \\ \\
+    Try~typing~<return>~to~proceed.
+    \\
+    If~that~doesn't~work,~type~X~<return>~to~quit.
+  }
+\tl_const:Nn \c_@@_trouble_text_tl
+  {
+    \\ \\
+    More~errors~will~almost~certainly~follow: \\
+    the~LaTeX~run~should~be~aborted.
+  }
+%    \end{macrocode}
+% \end{variable}
+%
+% \begin{macro}{\msg_line_number:, \msg_line_context:}
+%   For writing the line number nicely. \cs{msg_line_context:} was set up
+%   earlier, so this is not \texttt{new}.
+%    \begin{macrocode}
+\cs_new_nopar:Npn \msg_line_number: { \int_use:N \tex_inputlineno:D }
+\cs_gset_nopar:Npn \msg_line_context:
+  {
+    \c_@@_on_line_text_tl
+    \c_space_tl
+    \msg_line_number:
+  }
+%    \end{macrocode}
+% \end{macro}
+%
+% \subsection{Showing messages: low level mechanism}
+%
+% \begin{macro}{\msg_interrupt:nnn}
+%   The low-level interruption macro is rather opaque, unfortunately.
+%   Depending on the availability of more information there is a choice
+%   of how to set up the further help.  We feed the extra help text and
+%   the message itself to a wrapping auxiliary, in this order because we
+%   must first setup \TeX{}'s \tn{errhelp} register before issuing an
+%   \tn{errmessage}.
+%    \begin{macrocode}
+\cs_new_protected:Npn \msg_interrupt:nnn #1#2#3
+  {
+    \tl_if_empty:nTF {#3}
+      {
+        \@@_interrupt_wrap:nn { \\ \c_@@_no_info_text_tl }
+          {#1 \\\\ #2 \\\\ \c_@@_continue_text_tl }
+      }
+      {
+        \@@_interrupt_wrap:nn { \\ #3 }
+          {#1 \\\\ #2 \\\\ \c_@@_help_text_tl }
+      }
+  }
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}[aux]{\@@_interrupt_wrap:nn}
+% \begin{macro}[aux]{\@@_interrupt_more_text:n}
+%   First setup \TeX{}'s \tn{errhelp} register with the extra help |#1|,
+%   then build a nice-looking error message with |#2|.  Everything is
+%   done using \texttt{x}-type expansion as the new line markers are
+%   different for the two type of text and need to be correctly set up.
+%   The auxiliary \cs{@@_interrupt_more_text:n} receives its argument
+%   as a line-wrapped string, which is thus unaffected by expansion.
+%    \begin{macrocode}
+\cs_new_protected:Npn \@@_interrupt_wrap:nn #1#2
+  {
+    \iow_wrap:nnnN {#1} { | ~ } { } \@@_interrupt_more_text:n
+    \iow_wrap:nnnN {#2} { ! ~ } { } \@@_interrupt_text:n
+  }
+\cs_new_protected:Npn \@@_interrupt_more_text:n #1
+  {
+    \exp_args:Nx \tex_errhelp:D
+      {
+        |'''''''''''''''''''''''''''''''''''''''''''''''
+        #1 \iow_newline:
+        |...............................................
+      }
+  }
+%    \end{macrocode}
+% \end{macro}
+% \end{macro}
+%
+% \begin{macro}[aux]{\@@_interrupt_text:n}
+%   The business end of the process starts by producing some visual
+%   separation of the message from the main part of the log.  The error
+%   message needs to be printed with everything made
+%   \enquote{invisible}: \TeX{}'s own information involves the macro in
+%   which \tn{errmessage} is called, and the end of the argument of the
+%   \tn{errmessage}, including the closing brace.  We use an active |!|
+%   to call the \tn{errmessage} primitive, and end its argument with
+%   \cs{use_none:n} \Arg{dots} which fills the output with dots.  Two
+%   trailing closing braces are turned into spaces to hide them as well.
+%   The group in which we alter the definition of the active |!| is
+%   closed before producing the message: this ensures that tokens
+%   inserted by typing |I| in the command-line will be inserted after
+%   the message is entirely cleaned up.
+
+%   The \cs{__iow_with:Nnn} auxiliary, defined in \pkg{l3file}, expects
+%   an \meta{integer variable}, an integer \meta{value}, and some
+%   \meta{code}.  It runs the \meta{code} after ensuring that the
+%   \meta{integer variable} takes the given \meta{value}, then restores
+%   the former value of the \meta{integer variable} if needed.  We use
+%   it to ensure that the \tn{newlinechar} is $10$, as needed for
+%   \cs{iow_newline:} to work, and that \tn{errorcontextlines} is $-1$,
+%   to avoid showing irrelevant context.  Note that restoring the former
+%   value of these integers requires inserting tokens after the
+%   \tn{errmessage}, which go in the way of tokens which could be
+%   inserted by the user.  This is unavoidable.
+%    \begin{macrocode}
+\group_begin:
+  \char_set_lccode:nn {`\{} {`\ }
+  \char_set_lccode:nn {`\}} {`\ }
+  \char_set_lccode:nn {`\&} {`\!}
+  \char_set_catcode_active:N \&
+\tl_to_lowercase:n
+  {
+    \group_end:
+    \cs_new_protected:Npn \@@_interrupt_text:n #1
+      {
+        \iow_term:x
+          {
+            \iow_newline:
+            !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+            \iow_newline:
+            !
+          }
+        \__iow_with:Nnn \tex_newlinechar:D { `\^^J }
+          {
+            \__iow_with:Nnn \tex_errorcontextlines:D \c_minus_one
+              {
+                \group_begin:
+                  \cs_set_protected_nopar:Npn &
+                    {
+                      \tex_errmessage:D
+                        {
+                          #1
+                          \use_none:n
+                            { ............................................ }
+                        }
+                    }
+                  \exp_after:wN
+                \group_end:
+                &
+              }
+          }
+      }
+  }
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{\msg_log:n}
+% \begin{macro}{\msg_term:n}
+%   Printing to the log or terminal without a stop is rather easier.
+%   A bit of simple visual work sets things off nicely.
+%    \begin{macrocode}
+\cs_new_protected:Npn \msg_log:n #1
+  {
+    \iow_log:n { ................................................. }
+    \iow_wrap:nnnN { . ~ #1} { . ~ } { } \iow_log:n
+    \iow_log:n { ................................................. }
+  }
+\cs_new_protected:Npn \msg_term:n #1
+  {
+    \iow_term:n { ************************************************* }
+    \iow_wrap:nnnN { * ~ #1} { * ~ } { } \iow_term:n
+    \iow_term:n { ************************************************* }
+  }
+%    \end{macrocode}
+% \end{macro}
+% \end{macro}
+%
+% \subsection{Displaying messages}
+%
+% \LaTeX{} is handling error messages and so the \TeX{} ones are disabled.
+% This is already done by the \LaTeXe{} kernel, so to avoid messing up any
+% deliberate change by a user this is only set in format mode.
+%    \begin{macrocode}
+%<*initex>
+\int_gset_eq:NN \tex_errorcontextlines:D \c_minus_one
+%</initex>
+%    \end{macrocode}
+%
+% \begin{macro}
+%   {
+%     \msg_fatal_text:n    ,
+%     \msg_critical_text:n ,
+%     \msg_error_text:n    ,
+%     \msg_warning_text:n  ,
+%     \msg_info_text:n
+%   }
+%   A function for issuing messages: both the text and order could
+%   in principle vary.
+%    \begin{macrocode}
+\cs_new:Npn \msg_fatal_text:n #1 { Fatal~#1~error }
+\cs_new:Npn \msg_critical_text:n #1 { Critical~#1~error }
+\cs_new:Npn \msg_error_text:n #1 { #1~error }
+\cs_new:Npn \msg_warning_text:n #1 { #1~warning }
+\cs_new:Npn \msg_info_text:n #1 { #1~info }
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{\msg_see_documentation_text:n}
+%   Contextual footer information.  The \LaTeX{} module only comprises
+%   \LaTeX3 code, so we refer to the \LaTeX3 documentation rather than
+%   simply \enquote{\LaTeX{}}.
+%    \begin{macrocode}
+\cs_new:Npn \msg_see_documentation_text:n #1
+  {
+    \\ \\ See~the~
+    \str_if_eq:nnTF {#1} { LaTeX } { LaTeX3 } {#1} ~
+    documentation~for~further~information.
+  }
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{\@@_class_new:nn}
+%    \begin{macrocode}
+\group_begin:
+  \cs_set_protected:Npn \@@_class_new:nn #1#2
+    {
+      \prop_new:c { l_@@_redirect_ #1 _prop }
+      \cs_new_protected:cpn { @@_ #1 _code:nnnnnn }
+          ##1##2##3##4##5##6 {#2}
+      \cs_new_protected:cpn { msg_ #1 :nnnnnn } ##1##2##3##4##5##6
+        {
+          \use:x
+            {
+              \exp_not:n { \@@_use:nnnnnnn {#1} {##1} {##2} }
+                { \tl_to_str:n {##3} } { \tl_to_str:n {##4} }
+                { \tl_to_str:n {##5} } { \tl_to_str:n {##6} }
+            }
+        }
+      \cs_new_protected:cpx { msg_ #1 :nnnnn } ##1##2##3##4##5
+        { \exp_not:c { msg_ #1 :nnnnnn } {##1} {##2} {##3} {##4} {##5} { } }
+      \cs_new_protected:cpx { msg_ #1 :nnnn } ##1##2##3##4
+        { \exp_not:c { msg_ #1 :nnnnnn } {##1} {##2} {##3} {##4} { } { } }
+      \cs_new_protected:cpx { msg_ #1 :nnn } ##1##2##3
+        { \exp_not:c { msg_ #1 :nnnnnn } {##1} {##2} {##3} { } { } { } }
+      \cs_new_protected:cpx { msg_ #1 :nn } ##1##2
+        { \exp_not:c { msg_ #1 :nnnnnn } {##1} {##2} { } { } { } { } }
+      \cs_new_protected:cpx { msg_ #1 :nnxxxx } ##1##2##3##4##5##6
+        {
+          \use:x
+            {
+              \exp_not:N \exp_not:n
+                { \exp_not:c { msg_ #1 :nnnnnn } {##1} {##2} }
+                {##3} {##4} {##5} {##6}
+            }
+        }
+      \cs_new_protected:cpx { msg_ #1 :nnxxx } ##1##2##3##4##5
+        { \exp_not:c { msg_ #1 :nnxxxx } {##1} {##2} {##3} {##4} {##5} { } }
+      \cs_new_protected:cpx { msg_ #1 :nnxx } ##1##2##3##4
+        { \exp_not:c { msg_ #1 :nnxxxx } {##1} {##2} {##3} {##4} { } { } }
+      \cs_new_protected:cpx { msg_ #1 :nnx } ##1##2##3
+        { \exp_not:c { msg_ #1 :nnxxxx } {##1} {##2} {##3} { } { } { } }
+    }
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}
+%   {
+%     \msg_fatal:nnnnnn ,
+%     \msg_fatal:nnnnn  ,
+%     \msg_fatal:nnnn   ,
+%     \msg_fatal:nnn    ,
+%     \msg_fatal:nn     ,
+%     \msg_fatal:nnxxxx ,
+%     \msg_fatal:nnxxx  ,
+%     \msg_fatal:nnxx   ,
+%     \msg_fatal:nnx
+%   }
+%   For fatal errors, after the error message \TeX{} bails out.
+%    \begin{macrocode}
+  \@@_class_new:nn { fatal }
+    {
+      \msg_interrupt:nnn
+        { \msg_fatal_text:n {#1} : ~ "#2" }
+        {
+          \use:c { \c_@@_text_prefix_tl #1 / #2 } {#3} {#4} {#5} {#6}
+          \msg_see_documentation_text:n {#1}
+        }
+        { \c_@@_fatal_text_tl }
+      \tex_end:D
+    }
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}
+%   {
+%     \msg_critical:nnnnnn ,
+%     \msg_critical:nnnnn  ,
+%     \msg_critical:nnnn   ,
+%     \msg_critical:nnn    ,
+%     \msg_critical:nn     ,
+%     \msg_critical:nnxxxx ,
+%     \msg_critical:nnxxx  ,
+%     \msg_critical:nnxx   ,
+%     \msg_critical:nnx
+%   }
+%   Not quite so bad: just end the current file.
+%    \begin{macrocode}
+  \@@_class_new:nn { critical }
+    {
+      \msg_interrupt:nnn
+        { \msg_critical_text:n {#1} : ~ "#2" }
+        {
+          \use:c { \c_@@_text_prefix_tl #1 / #2 } {#3} {#4} {#5} {#6}
+          \msg_see_documentation_text:n {#1}
+        }
+        { \c_@@_critical_text_tl }
+      \tex_endinput:D
+    }
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}
+%   {
+%     \msg_error:nnnnnn ,
+%     \msg_error:nnnnn  ,
+%     \msg_error:nnnn   ,
+%     \msg_error:nnn    ,
+%     \msg_error:nn     ,
+%     \msg_error:nnxxxx ,
+%     \msg_error:nnxxx  ,
+%     \msg_error:nnxx   ,
+%     \msg_error:nnx
+%   }
+% \begin{macro}[aux]{\@@_error:cnnnnn, \@@_no_more_text:nnnn}
+%   For an error, the interrupt routine is called.  We check if there is
+%   a \enquote{more text} by comparing that control sequence with a
+%   permanently empty text.
+%    \begin{macrocode}
+  \@@_class_new:nn { error }
+    {
+      \@@_error:cnnnnn
+        { \c_@@_more_text_prefix_tl #1 / #2 }
+        {#3} {#4} {#5} {#6}
+        {
+          \msg_interrupt:nnn
+            { \msg_error_text:n {#1} : ~ "#2" }
+            {
+              \use:c { \c_@@_text_prefix_tl #1 / #2 } {#3} {#4} {#5} {#6}
+              \msg_see_documentation_text:n {#1}
+            }
+       }
+    }
+  \cs_new_protected:Npn \@@_error:cnnnnn #1#2#3#4#5#6
+    {
+      \cs_if_eq:cNTF {#1} \@@_no_more_text:nnnn
+        { #6 { } }
+        { #6 { \use:c {#1} {#2} {#3} {#4} {#5} } }
+    }
+  \cs_new:Npn \@@_no_more_text:nnnn #1#2#3#4 { }
+%    \end{macrocode}
+% \end{macro}
+% \end{macro}
+%
+% \begin{macro}
+%   {
+%     \msg_warning:nnnnnn ,
+%     \msg_warning:nnnnn  ,
+%     \msg_warning:nnnn   ,
+%     \msg_warning:nnn    ,
+%     \msg_warning:nn     ,
+%     \msg_warning:nnxxxx ,
+%     \msg_warning:nnxxx  ,
+%     \msg_warning:nnxx   ,
+%     \msg_warning:nnx
+%   }
+%   Warnings are printed to the terminal.
+%    \begin{macrocode}
+  \@@_class_new:nn { warning }
+    {
+      \msg_term:n
+        {
+          \msg_warning_text:n {#1} : ~ "#2" \\ \\
+          \use:c { \c_@@_text_prefix_tl #1 / #2 } {#3} {#4} {#5} {#6}
+        }
+    }
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}
+%   {
+%     \msg_info:nnnnnn ,
+%     \msg_info:nnnnn  ,
+%     \msg_info:nnnn   ,
+%     \msg_info:nnn    ,
+%     \msg_info:nn     ,
+%     \msg_info:nnxxxx ,
+%     \msg_info:nnxxx  ,
+%     \msg_info:nnxx   ,
+%     \msg_info:nnx
+%   }
+%   Information only goes into the log.
+%    \begin{macrocode}
+  \@@_class_new:nn { info }
+    {
+      \msg_log:n
+        {
+          \msg_info_text:n {#1} : ~ "#2" \\ \\
+          \use:c { \c_@@_text_prefix_tl #1 / #2 } {#3} {#4} {#5} {#6}
+        }
+    }
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}
+%   {
+%     \msg_log:nnnnnn ,
+%     \msg_log:nnnnn  ,
+%     \msg_log:nnnn   ,
+%     \msg_log:nnn    ,
+%     \msg_log:nn     ,
+%     \msg_log:nnxxxx ,
+%     \msg_log:nnxxx  ,
+%     \msg_log:nnxx   ,
+%     \msg_log:nnx
+%   }
+%   \enquote{Log} data is very similar to information, but with no extras
+%   added.
+%    \begin{macrocode}
+  \@@_class_new:nn { log }
+    {
+      \iow_wrap:nnnN
+        { \use:c { \c_@@_text_prefix_tl #1 / #2 } {#3} {#4} {#5} {#6} }
+        { } { } \iow_log:n
+    }
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}
+%   {
+%     \msg_none:nnnnnn ,
+%     \msg_none:nnnnn  ,
+%     \msg_none:nnnn   ,
+%     \msg_none:nnn    ,
+%     \msg_none:nn     ,
+%     \msg_none:nnxxxx ,
+%     \msg_none:nnxxx  ,
+%     \msg_none:nnxx   ,
+%     \msg_none:nnx
+%   }
+%   The \texttt{none} message type is needed so that input can be gobbled.
+%    \begin{macrocode}
+  \@@_class_new:nn { none } { }
+%    \end{macrocode}
+% \end{macro}
+%
+% End the group to eliminate \cs{@@_class_new:nn}.
+%    \begin{macrocode}
+\group_end:
+%    \end{macrocode}
+%
+% \begin{macro}[aux]{\@@_class_chk_exist:nT}
+%   Checking that a message class exists.  We build this from
+%   \cs{cs_if_free:cTF} rather than \cs{cs_if_exist:cTF} because that
+%   avoids reading the second argument earlier than necessary.
+%    \begin{macrocode}
+\cs_new:Npn \@@_class_chk_exist:nT #1
+  {
+    \cs_if_free:cTF { @@_ #1 _code:nnnnnn }
+      { \@@_kernel_error:nnx { kernel } { message-class-unknown } {#1} }
+  }
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{variable}{\l_@@_class_tl, \l_@@_current_class_tl}
+%   Support variables needed for the redirection system.
+%    \begin{macrocode}
+\tl_new:N \l_@@_class_tl
+\tl_new:N \l_@@_current_class_tl
+%    \end{macrocode}
+% \end{variable}
+%
+% \begin{variable}{\l_@@_redirect_prop}
+%   For redirection of individually-named messages
+%    \begin{macrocode}
+\prop_new:N \l_@@_redirect_prop
+%    \end{macrocode}
+% \end{variable}
+%
+% \begin{variable}{\l_@@_hierarchy_seq}
+%   During redirection, split the message name into a sequence with
+%   items |{/module/submodule}|, |{/module}|, and |{}|.
+%    \begin{macrocode}
+\seq_new:N \l_@@_hierarchy_seq
+%    \end{macrocode}
+% \end{variable}
+%
+% \begin{variable}{\l_@@_class_loop_seq}
+%   Classes encountered when following redirections to check for loops.
+%    \begin{macrocode}
+\seq_new:N \l_@@_class_loop_seq
+%    \end{macrocode}
+% \end{variable}
+%
+% \begin{macro}[int]{\@@_use:nnnnnnn}
+% \begin{macro}[aux]
+%   {
+%     \@@_use_redirect_name:n  , \@@_use_hierarchy:nwwN ,
+%     \@@_use_redirect_module:n, \@@_use_code:
+%   }
+%   Actually using a message is a multi-step process.  First, some
+%   safety checks on the message and class requested.  The code and
+%   arguments are then stored to avoid passing them around.  The
+%   assignment to \cs{@@_use_code:} is similar to \cs{tl_set:Nn}.
+%   The message is eventually produced with whatever \cs{l_@@_class_tl}
+%   is when \cs{@@_use_code:} is called.
+%    \begin{macrocode}
+\cs_new_protected:Npn \@@_use:nnnnnnn #1#2#3#4#5#6#7
+  {
+    \msg_if_exist:nnTF {#2} {#3}
+      {
+        \@@_class_chk_exist:nT {#1}
+          {
+            \tl_set:Nn \l_@@_current_class_tl {#1}
+            \cs_set_protected_nopar:Npx \@@_use_code:
+              {
+                \exp_not:n
+                  {
+                    \use:c { @@_ \l_@@_class_tl _code:nnnnnn }
+                      {#2} {#3} {#4} {#5} {#6} {#7}
+                  }
+              }
+            \@@_use_redirect_name:n { #2 / #3 }
+          }
+      }
+      { \@@_kernel_error:nnxx { kernel } { message-unknown } {#2} {#3} }
+  }
+\cs_new_protected_nopar:Npn \@@_use_code: { }
+%    \end{macrocode}
+%   The first check is for a individual message redirection. If this
+%   applies then no further redirection is attempted.  Otherwise, split
+%   the message name into \texttt{module/submodule/message} (with an
+%   arbitrary number of slashes), and store |{/module/submodule}|,
+%   |{/module}| and |{}| into \cs{l_@@_hierarchy_seq}.  We will then
+%   map through this sequence, applying the most specific redirection.
+%    \begin{macrocode}
+\cs_new_protected:Npn \@@_use_redirect_name:n #1
+  {
+    \prop_get:NnNTF \l_@@_redirect_prop { / #1 } \l_@@_class_tl
+      { \@@_use_code: }
+      {
+        \seq_clear:N \l_@@_hierarchy_seq
+        \@@_use_hierarchy:nwwN { }
+          #1 \q_mark \@@_use_hierarchy:nwwN
+          /  \q_mark \use_none_delimit_by_q_stop:w
+          \q_stop
+        \@@_use_redirect_module:n { }
+      }
+  }
+\cs_new_protected:Npn \@@_use_hierarchy:nwwN #1#2 / #3 \q_mark #4
+  {
+    \seq_put_left:Nn \l_@@_hierarchy_seq {#1}
+    #4 { #1 / #2 } #3 \q_mark #4
+  }
+%    \end{macrocode}
+%   At this point, the items of \cs{l_@@_hierarchy_seq} are the
+%   various levels at which we should look for a redirection.
+%   Redirections which are less specific than the argument of
+%   \cs{@@_use_redirect_module:n} are not attempted.  This argument is
+%   empty for a class redirection, \texttt{/module} for a module
+%   redirection, \emph{etc.}  Loop through the sequence to find the most
+%   specific redirection, with module |##1|.  The loop is interrupted
+%   after testing for a redirection for |##1| equal to the argument |#1|
+%   (least specific redirection allowed).  When a redirection is found,
+%   break the mapping, then if the redirection targets the same class,
+%   output the code with that class, and otherwise set the target as the
+%   new current class, and search for further redirections.  Those
+%   redirections should be at least as specific as |##1|.
+%    \begin{macrocode}
+\cs_new_protected:Npn \@@_use_redirect_module:n #1
+  {
+    \seq_map_inline:Nn \l_@@_hierarchy_seq
+      {
+        \prop_get:cnNTF { l_@@_redirect_ \l_@@_current_class_tl _prop }
+          {##1} \l_@@_class_tl
+          {
+            \seq_map_break:n
+              {
+                \tl_if_eq:NNTF \l_@@_current_class_tl \l_@@_class_tl
+                  { \@@_use_code: }
+                  {
+                    \tl_set_eq:NN \l_@@_current_class_tl \l_@@_class_tl
+                    \@@_use_redirect_module:n {##1}
+                  }
+              }
+          }
+          {
+            \str_if_eq:nnT {##1} {#1}
+              {
+                \tl_set_eq:NN \l_@@_class_tl \l_@@_current_class_tl
+                \seq_map_break:n { \@@_use_code: }
+              }
+          }
+      }
+  }
+%    \end{macrocode}
+% \end{macro}
+% \end{macro}
+%
+% \begin{macro}{\msg_redirect_name:nnn}
+%   Named message will always use the given class even if that class is
+%   redirected further.  An empty target class cancels any existing
+%   redirection for that message.
+%    \begin{macrocode}
+\cs_new_protected:Npn \msg_redirect_name:nnn #1#2#3
+  {
+    \tl_if_empty:nTF {#3}
+      { \prop_remove:Nn \l_@@_redirect_prop { / #1 / #2 } }
+      {
+        \@@_class_chk_exist:nT {#3}
+          { \prop_put:Nnn \l_@@_redirect_prop { / #1 / #2 } {#3} }
+      }
+  }
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{\msg_redirect_class:nn, \msg_redirect_module:nnn}
+% \begin{macro}[aux]{\@@_redirect:nnn, \@@_redirect_loop_chk:nnn}
+% \begin{macro}[aux]{\@@_redirect_loop_list:n}
+%   If the target class is empty, eliminate the corresponding
+%   redirection.  Otherwise, add the redirection.  We must then check
+%   for a loop: as an initialization, we start by storing the initial
+%   class in \cs{l_@@_current_class_tl}.
+%    \begin{macrocode}
+\cs_new_protected_nopar:Npn \msg_redirect_class:nn
+  { \@@_redirect:nnn { } }
+\cs_new_protected:Npn \msg_redirect_module:nnn #1
+  { \@@_redirect:nnn { / #1 } }
+\cs_new_protected:Npn \@@_redirect:nnn #1#2#3
+  {
+    \@@_class_chk_exist:nT {#2}
+      {
+        \tl_if_empty:nTF {#3}
+          { \prop_remove:cn { l_@@_redirect_ #2 _prop } {#1} }
+          {
+            \@@_class_chk_exist:nT {#3}
+              {
+                \prop_put:cnn { l_@@_redirect_ #2 _prop } {#1} {#3}
+                \tl_set:Nn \l_@@_current_class_tl {#2}
+                \seq_clear:N \l_@@_class_loop_seq
+                \@@_redirect_loop_chk:nnn {#2} {#3} {#1}
+              }
+          }
+      }
+  }
+%    \end{macrocode}
+%   Since multiple redirections can only happen with increasing
+%   specificity, a loop requires that all steps are of the same
+%   specificity.  The new redirection can thus only create a loop with
+%   other redirections for the exact same module, |#1|, and not
+%   submodules.  After some initialization above, follow redirections
+%   with \cs{l_@@_class_tl}, and keep track in
+%   \cs{l_@@_class_loop_seq} of the various classes encountered.  A
+%   redirection from a class to itself, or the absence of redirection
+%   both mean that there is no loop.  A redirection to the initial class
+%   marks a loop.  To break it, we must decide which redirection to
+%   cancel.  The user most likely wants the newly added redirection to
+%   hold with no further redirection.  We thus remove the redirection
+%   starting from |#2|, target of the new redirection.  Note that no
+%   message is emitted by any of the underlying functions: otherwise we
+%   may get an infinite loop because of a message from the message
+%   system itself.
+%    \begin{macrocode}
+\cs_new_protected:Npn \@@_redirect_loop_chk:nnn #1#2#3
+  {
+    \seq_put_right:Nn \l_@@_class_loop_seq {#1}
+    \prop_get:cnNT { l_@@_redirect_ #1 _prop } {#3} \l_@@_class_tl
+      {
+        \str_if_eq_x:nnF { \l_@@_class_tl } {#1}
+          {
+            \tl_if_eq:NNTF \l_@@_class_tl \l_@@_current_class_tl
+              {
+                \prop_put:cnn { l_@@_redirect_ #2 _prop } {#3} {#2}
+                \@@_kernel_warning:nnxxxx
+                  { kernel } { message-redirect-loop }
+                  { \seq_item:Nn \l_@@_class_loop_seq { \c_one } }
+                  { \seq_item:Nn \l_@@_class_loop_seq { \c_two } }
+                  {#3}
+                  {
+                    \seq_map_function:NN \l_@@_class_loop_seq
+                      \@@_redirect_loop_list:n
+                    { \seq_item:Nn \l_@@_class_loop_seq { \c_one } }
+                  }
+              }
+              { \@@_redirect_loop_chk:onn \l_@@_class_tl {#2} {#3} }
+          }
+      }
+  }
+\cs_generate_variant:Nn \@@_redirect_loop_chk:nnn { o }
+\cs_new:Npn \@@_redirect_loop_list:n #1 { {#1} ~ => ~ }
+%    \end{macrocode}
+% \end{macro}
+% \end{macro}
+% \end{macro}
+%
+% \subsection{Kernel-specific functions}
+%
+% \begin{macro}{\@@_kernel_new:nnnn, \@@_kernel_new:nnn}
+% \begin{macro}{\@@_kernel_set:nnnn, \@@_kernel_set:nnn}
+%   The kernel needs some messages of its own. These are created using
+%   pre-built functions. Two functions are provided: one more general
+%   and one which only has the short text part.
+%    \begin{macrocode}
+\cs_new_protected:Npn \@@_kernel_new:nnnn #1#2
+  { \msg_new:nnnn { LaTeX } { #1 / #2 } }
+\cs_new_protected:Npn \@@_kernel_new:nnn #1#2
+  { \msg_new:nnn { LaTeX } { #1 / #2 } }
+\cs_new_protected:Npn \@@_kernel_set:nnnn #1#2
+  { \msg_set:nnnn { LaTeX } { #1 / #2 } }
+\cs_new_protected:Npn \@@_kernel_set:nnn #1#2
+  { \msg_set:nnn { LaTeX } { #1 / #2 } }
+%    \end{macrocode}
+% \end{macro}
+% \end{macro}
+%
+% \begin{macro}[aux]{\@@_kernel_class_new:nN}
+% \begin{macro}[aux]{\@@_kernel_class_new_aux:nN}
+%   All the functions for kernel messages come in variants ranging
+%   from~$0$ to~$4$ arguments.  Those with less than~$4$ arguments are
+%   defined in terms of the $4$-argument variant, in a way very similar
+%   to \cs{@@_class_new:nn}.  This auxiliary is destroyed at the end of
+%   the group.
+%    \begin{macrocode}
+\group_begin:
+  \cs_set_protected:Npn \@@_kernel_class_new:nN #1
+    { \@@_kernel_class_new_aux:nN { kernel_ #1 } }
+  \cs_set_protected:Npn \@@_kernel_class_new_aux:nN #1#2
+    {
+      \cs_new_protected:cpn { @@_ #1 :nnnnnn } ##1##2##3##4##5##6
+        {
+          \use:x
+            {
+              \exp_not:n { #2 { LaTeX } { ##1 / ##2 } }
+                { \tl_to_str:n {##3} } { \tl_to_str:n {##4} }
+                { \tl_to_str:n {##5} } { \tl_to_str:n {##6} }
+            }
+        }
+      \cs_new_protected:cpx { @@_ #1 :nnnnn } ##1##2##3##4##5
+        { \exp_not:c { @@_ #1 :nnnnnn } {##1} {##2} {##3} {##4} {##5} { } }
+      \cs_new_protected:cpx { @@_ #1 :nnnn } ##1##2##3##4
+        { \exp_not:c { @@_ #1 :nnnnnn } {##1} {##2} {##3} {##4} { } { } }
+      \cs_new_protected:cpx { @@_ #1 :nnn } ##1##2##3
+        { \exp_not:c { @@_ #1 :nnnnnn } {##1} {##2} {##3} { } { } { } }
+      \cs_new_protected:cpx { @@_ #1 :nn } ##1##2
+        { \exp_not:c { @@_ #1 :nnnnnn } {##1} {##2} { } { } { } { } }
+      \cs_new_protected:cpx { @@_ #1 :nnxxxx } ##1##2##3##4##5##6
+        {
+          \use:x
+            {
+              \exp_not:N \exp_not:n
+                { \exp_not:c { @@_ #1 :nnnnnn } {##1} {##2} }
+                {##3} {##4} {##5} {##6}
+            }
+        }
+      \cs_new_protected:cpx { @@_ #1 :nnxxx } ##1##2##3##4##5
+        { \exp_not:c { @@_ #1 :nnxxxx } {##1} {##2} {##3} {##4} {##5} { } }
+      \cs_new_protected:cpx { @@_ #1 :nnxx } ##1##2##3##4
+        { \exp_not:c { @@_ #1 :nnxxxx } {##1} {##2} {##3} {##4} { } { } }
+      \cs_new_protected:cpx { @@_ #1 :nnx } ##1##2##3
+        { \exp_not:c { @@_ #1 :nnxxxx } {##1} {##2} {##3} { } { } { } }
+    }
+%    \end{macrocode}
+% \end{macro}
+% \end{macro}
+%
+% \begin{macro}
+%   {
+%     \@@_kernel_fatal:nnnnnn ,
+%     \@@_kernel_fatal:nnnnn  ,
+%     \@@_kernel_fatal:nnnn   ,
+%     \@@_kernel_fatal:nnn    ,
+%     \@@_kernel_fatal:nn     ,
+%     \@@_kernel_fatal:nnxxxx ,
+%     \@@_kernel_fatal:nnxxx  ,
+%     \@@_kernel_fatal:nnxx   ,
+%     \@@_kernel_fatal:nnx    ,
+%     \@@_kernel_error:nnnnnn ,
+%     \@@_kernel_error:nnnnn  ,
+%     \@@_kernel_error:nnnn   ,
+%     \@@_kernel_error:nnn    ,
+%     \@@_kernel_error:nn     ,
+%     \@@_kernel_error:nnxxxx ,
+%     \@@_kernel_error:nnxxx  ,
+%     \@@_kernel_error:nnxx   ,
+%     \@@_kernel_error:nnx
+%   }
+%   Neither fatal kernel errors nor kernel errors can be redirected.  We
+%   directly use the code for (non-kernel) fatal errors and errors,
+%   adding the \enquote{\LaTeX{}} module name.  Three functions are
+%   already defined by \pkg{l3basics}; we need to undefine them to avoid
+%   errors.
+%    \begin{macrocode}
+  \@@_kernel_class_new:nN { fatal } \@@_fatal_code:nnnnnn
+  \cs_undefine:N \@@_kernel_error:nnxx
+  \cs_undefine:N \@@_kernel_error:nnx
+  \cs_undefine:N \@@_kernel_error:nn
+  \@@_kernel_class_new:nN { error } \@@_error_code:nnnnnn
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}
+%   {
+%     \@@_kernel_warning:nnnnnn ,
+%     \@@_kernel_warning:nnnnn  ,
+%     \@@_kernel_warning:nnnn   ,
+%     \@@_kernel_warning:nnn    ,
+%     \@@_kernel_warning:nn     ,
+%     \@@_kernel_warning:nnxxxx ,
+%     \@@_kernel_warning:nnxxx  ,
+%     \@@_kernel_warning:nnxx   ,
+%     \@@_kernel_warning:nnx    ,
+%     \@@_kernel_info:nnnnnn    ,
+%     \@@_kernel_info:nnnnn     ,
+%     \@@_kernel_info:nnnn      ,
+%     \@@_kernel_info:nnn       ,
+%     \@@_kernel_info:nn        ,
+%     \@@_kernel_info:nnxxxx    ,
+%     \@@_kernel_info:nnxxx     ,
+%     \@@_kernel_info:nnxx      ,
+%     \@@_kernel_info:nnx
+%   }
+%   Kernel messages which can be redirected simply use the machinery for
+%   normal messages, with the module name \enquote{\LaTeX{}}.
+%    \begin{macrocode}
+  \@@_kernel_class_new:nN { warning } \msg_warning:nnxxxx
+  \@@_kernel_class_new:nN { info } \msg_info:nnxxxx
+%    \end{macrocode}
+% \end{macro}
+%
+% End the group to eliminate \cs{@@_kernel_class_new:nN}.
+%    \begin{macrocode}
+\group_end:
+%    \end{macrocode}
+%
+% Error messages needed to actually implement the message system
+% itself.
+%    \begin{macrocode}
+\@@_kernel_new:nnnn { kernel } { message-already-defined }
+  { Message~'#2'~for~module~'#1'~already~defined. }
+  {
+    \c_@@_coding_error_text_tl
+    LaTeX~was~asked~to~define~a~new~message~called~'#2'\
+    by~the~module~'#1':~this~message~already~exists.
+    \c_@@_return_text_tl
+  }
+\@@_kernel_new:nnnn { kernel } { message-unknown }
+  { Unknown~message~'#2'~for~module~'#1'. }
+  {
+    \c_@@_coding_error_text_tl
+    LaTeX~was~asked~to~display~a~message~called~'#2'\\
+    by~the~module~'#1':~this~message~does~not~exist.
+    \c_@@_return_text_tl
+  }
+\@@_kernel_new:nnnn { kernel } { message-class-unknown }
+  { Unknown~message~class~'#1'. }
+  {
+    LaTeX~has~been~asked~to~redirect~messages~to~a~class~'#1':\\
+    this~was~never~defined.
+    \c_@@_return_text_tl
+  }
+\@@_kernel_new:nnnn { kernel } { message-redirect-loop }
+  {
+    Message~redirection~loop~caused~by~ {#1} ~=>~ {#2}
+    \tl_if_empty:nF {#3} { ~for~module~' \use_none:n #3 ' } .
+  }
+  {
+    Adding~the~message~redirection~ {#1} ~=>~ {#2}
+    \tl_if_empty:nF {#3} { ~for~the~module~' \use_none:n #3 ' } ~
+    created~an~infinite~loop\\\\
+    \iow_indent:n { #4 \\\\ }
+  }
+%    \end{macrocode}
+%
+% Messages for earlier kernel modules.
+%    \begin{macrocode}
+\@@_kernel_new:nnnn { kernel } { bad-number-of-arguments }
+  { Function~'#1'~cannot~be~defined~with~#2~arguments. }
+  {
+    \c_@@_coding_error_text_tl
+    LaTeX~has~been~asked~to~define~a~function~'#1'~with~
+    #2~arguments.~
+    TeX~allows~between~0~and~9~arguments~for~a~single~function.
+  }
+\@@_kernel_new:nnnn { kernel } { command-already-defined }
+  { Control~sequence~#1~already~defined. }
+  {
+    \c_@@_coding_error_text_tl
+    LaTeX~has~been~asked~to~create~a~new~control~sequence~'#1'~
+    but~this~name~has~already~been~used~elsewhere. \\ \\
+    The~current~meaning~is:\\
+    \ \ #2
+  }
+\@@_kernel_new:nnnn { kernel } { command-not-defined }
+  { Control~sequence~#1~undefined. }
+  {
+    \c_@@_coding_error_text_tl
+    LaTeX~has~been~asked~to~use~a~command~#1,~but~this~has~not~
+    been~defined~yet.
+  }
+\@@_kernel_new:nnnn { kernel } { empty-search-pattern }
+  { Empty~search~pattern. }
+  {
+    \c_@@_coding_error_text_tl
+    LaTeX~has~been~asked~to~replace~an~empty~pattern~by~'#1':~that~
+    would~lead~to~an~infinite~loop!
+  }
+\@@_kernel_new:nnnn { kernel } { out-of-registers }
+  { No~room~for~a~new~#1. }
+  {
+    TeX~only~supports~\int_use:N \c_max_register_int \
+    of~each~type.~All~the~#1~registers~have~been~used.~
+    This~run~will~be~aborted~now.
+  }
+\@@_kernel_new:nnnn { kernel } { missing-colon }
+  { Function~'#1'~contains~no~':'. }
+  {
+    \c_@@_coding_error_text_tl
+    Code-level~functions~must~contain~':'~to~separate~the~
+    argument~specification~from~the~function~name.~This~is~
+    needed~when~defining~conditionals~or~variants,~or~when~building~a~
+    parameter~text~from~the~number~of~arguments~of~the~function.
+  }
+\@@_kernel_new:nnnn { kernel } { protected-predicate }
+  { Predicate~'#1'~must~be~expandable. }
+  {
+    \c_@@_coding_error_text_tl
+    LaTeX~has~been~asked~to~define~'#1'~as~a~protected~predicate.~
+    Only~expandable~tests~can~have~a~predicate~version.
+  }
+\@@_kernel_new:nnnn { kernel } { conditional-form-unknown }
+  { Conditional~form~'#1'~for~function~'#2'~unknown. }
+  {
+    \c_@@_coding_error_text_tl
+    LaTeX~has~been~asked~to~define~the~conditional~form~'#1'~of~
+    the~function~'#2',~but~only~'TF',~'T',~'F',~and~'p'~forms~exist.
+  }
+%<*package>
+\bool_if:NT \l@expl@check@declarations@bool
+  {
+    \@@_kernel_new:nnnn { check } { non-declared-variable }
+      { The~variable~#1~has~not~been~declared~\msg_line_context:. }
+      {
+        Checking~is~active,~and~you~have~tried~do~so~something~like: \\
+        \ \ \tl_set:Nn ~ #1 ~ \{ ~ ... ~ \} \\
+        without~first~having: \\
+        \ \ \tl_new:N ~ #1  \\
+        \\
+        LaTeX~will~create~the~variable~and~continue.
+      }
+  }
+%</package>
+\@@_kernel_new:nnnn { kernel } { scanmark-already-defined }
+  { Scan~mark~#1~already~defined. }
+  {
+    \c_@@_coding_error_text_tl
+    LaTeX~has~been~asked~to~create~a~new~scan~mark~'#1'~
+    but~this~name~has~already~been~used~for~a~scan~mark.
+  }
+\@@_kernel_new:nnnn { kernel } { variable-not-defined }
+  { Variable~#1~undefined. }
+  {
+    \c_@@_coding_error_text_tl
+    LaTeX~has~been~asked~to~show~a~variable~#1,~but~this~has~not~
+    been~defined~yet.
+  }
+\@@_kernel_new:nnnn { kernel } { variant-too-long }
+  { Variant~form~'#1'~longer~than~base~signature~of~'#2'. }
+  {
+    \c_@@_coding_error_text_tl
+    LaTeX~has~been~asked~to~create~a~variant~of~the~function~'#2'~
+    with~a~signature~starting~with~'#1',~but~that~is~longer~than~
+    the~signature~(part~after~the~colon)~of~'#2'.
+  }
+\@@_kernel_new:nnnn { kernel } { invalid-variant }
+  { Variant~form~'#1'~invalid~for~base~form~'#2'. }
+  {
+    \c_@@_coding_error_text_tl
+    LaTeX~has~been~asked~to~create~a~variant~of~the~function~'#2'~
+    with~a~signature~starting~with~'#1',~but~cannot~change~an~argument~
+    from~type~'#3'~to~type~'#4'.
+  }
+%    \end{macrocode}
+%
+% Some errors only appear in expandable settings,
+% hence don't need a \enquote{more-text} argument.
+%    \begin{macrocode}
+\@@_kernel_new:nnn { kernel } { bad-variable }
+  { Erroneous~variable~#1 used! }
+\@@_kernel_new:nnn { kernel } { misused-sequence }
+  { A~sequence~was~misused. }
+\@@_kernel_new:nnn { kernel } { misused-prop }
+  { A~property~list~was~misused. }
+\@@_kernel_new:nnn { kernel } { negative-replication }
+  { Negative~argument~for~\prg_replicate:nn. }
+\@@_kernel_new:nnn { kernel } { unknown-comparison }
+  { Relation~'#1'~unknown:~use~=,~<,~>,~==,~!=,~<=,~>=. }
+\@@_kernel_new:nnn { kernel } { zero-step }
+  { Zero~step~size~for~step~function~#1. }
+%    \end{macrocode}
+%
+% Messages used by the \enquote{\texttt{show}} functions.
+%    \begin{macrocode}
+\@@_kernel_new:nnn { kernel } { show-clist }
+  {
+    The~comma~list~
+    \str_if_eq:nnF {#1} { \l__clist_internal_clist } { \token_to_str:N #1~}
+    \clist_if_empty:NTF #1
+      { is~empty }
+      { contains~the~items~(without~outer~braces): }
+  }
+\@@_kernel_new:nnn { kernel } { show-prop }
+  {
+    The~property~list~\token_to_str:N #1~
+    \prop_if_empty:NTF #1
+      { is~empty }
+      { contains~the~pairs~(without~outer~braces): }
+  }
+\@@_kernel_new:nnn { kernel } { show-seq }
+  {
+    The~sequence~\token_to_str:N #1~
+    \seq_if_empty:NTF #1
+      { is~empty }
+      { contains~the~items~(without~outer~braces): }
+  }
+\@@_kernel_new:nnn { kernel } { show-no-stream }
+  { No~ #1 ~streams~are~open }
+\@@_kernel_new:nnn { kernel } { show-open-streams }
+  { The~following~ #1 ~streams~are~in~use: }
+%    \end{macrocode}
+%
+% \subsection{Expandable errors}
+%
+% \begin{macro}[int]{\@@_expandable_error:n}
+% \begin{macro}[aux]{\@@_expandable_error:w}
+%   In expansion only context, we cannot use the normal means of
+%   reporting errors. Instead, we feed \TeX{} an undefined control
+%   sequence, \cs{LaTeX3 error:}. It is thus interrupted, and shows
+%   the context, which thanks to the odd-looking \cs{use:n} is
+%   \begin{verbatim}
+%     <argument> \LaTeX3 error:
+%                               The error message.
+%   \end{verbatim}
+%   In other words, \TeX{} is processing the argument of \cs{use:n},
+%   which is \cs{LaTeX3 error:} \meta{error message}.
+%   Then \cs{@@_expandable_error:w} cleans up. In fact, there
+%   is an extra subtlety: if the user inserts tokens for error recovery,
+%   they should be kept. Thus we also use an odd space character
+%   (with category code $7$) and keep tokens until that space character,
+%   dropping everything else until \cs{q_stop}. The \cs{c_zero} prevents
+%   losing braces around the user-inserted text if any, and stops the
+%   expansion of \tn{romannumeral}.
+%    \begin{macrocode}
+\group_begin:
+\char_set_catcode_math_superscript:N \^
+\char_set_lccode:nn { `^ } { `\  }
+\char_set_lccode:nn { `L } { `L }
+\char_set_lccode:nn { `T } { `T }
+\char_set_lccode:nn { `X } { `X }
+\tl_to_lowercase:n
+  {
+    \cs_new:Npx \@@_expandable_error:n #1
+      {
+        \exp_not:n
+          {
+            \tex_romannumeral:D
+            \exp_after:wN \exp_after:wN
+            \exp_after:wN \@@_expandable_error:w
+            \exp_after:wN \exp_after:wN
+            \exp_after:wN \c_zero
+          }
+        \exp_not:N \use:n { \exp_not:c { LaTeX3~error: } ^ #1 } ^
+      }
+    \cs_new:Npn \@@_expandable_error:w #1 ^ #2 ^ { #1 }
+  }
+\group_end:
+%    \end{macrocode}
+% \end{macro}
+% \end{macro}
+%
+% \begin{macro}
+%   {
+%     \@@_kernel_expandable_error:nnnnnn,
+%     \@@_kernel_expandable_error:nnnnn,
+%     \@@_kernel_expandable_error:nnnn,
+%     \@@_kernel_expandable_error:nnn,
+%     \@@_kernel_expandable_error:nn
+%   }
+%   The command built from the csname
+%   |\c_@@_text_prefix_tl LaTeX / #1 / #2|
+%   takes four arguments and builds the error text, which is fed to
+%   \cs{@@_expandable_error:n}.
+%    \begin{macrocode}
+\cs_new:Npn \@@_kernel_expandable_error:nnnnnn #1#2#3#4#5#6
+  {
+    \exp_args:Nf \@@_expandable_error:n
+      {
+        \exp_args:NNc \exp_after:wN \exp_stop_f:
+          { \c_@@_text_prefix_tl LaTeX / #1 / #2 }
+          {#3} {#4} {#5} {#6}
+      }
+  }
+\cs_new:Npn \@@_kernel_expandable_error:nnnnn #1#2#3#4#5
+  {
+    \@@_kernel_expandable_error:nnnnnn
+      {#1} {#2} {#3} {#4} {#5} { }
+  }
+\cs_new:Npn \@@_kernel_expandable_error:nnnn #1#2#3#4
+  {
+    \@@_kernel_expandable_error:nnnnnn
+      {#1} {#2} {#3} {#4} { } { }
+  }
+\cs_new:Npn \@@_kernel_expandable_error:nnn #1#2#3
+  {
+    \@@_kernel_expandable_error:nnnnnn
+      {#1} {#2} {#3} { } { } { }
+  }
+\cs_new:Npn \@@_kernel_expandable_error:nn #1#2
+  {
+    \@@_kernel_expandable_error:nnnnnn
+      {#1} {#2} { } { } { } { }
+  }
+%    \end{macrocode}
+% \end{macro}
+%
+% \subsection{Showing variables}
+%
+% Functions defined in this section are used for diagnostic functions
+% in \pkg{l3clist}, \pkg{l3file}, \pkg{l3prop}, \pkg{l3seq}, \pkg{xtemplate}
+%
+% \begin{macro}[int]
+%   {\@@_term:nnnnnn, \@@_term:nnnnnV}
+% \begin{macro}[int]{\@@_term:nnnnn}
+% \begin{macro}[int]{\@@_term:nnn}
+% \begin{macro}[int]{\@@_term:nn}
+%   Print the text of a message to the terminal without formatting:
+%   short cuts around \cs{iow_wrap:nnnN}.
+%    \begin{macrocode}
+\cs_new_protected:Npn \@@_term:nnnnnn #1#2#3#4#5#6
+  {
+    \iow_wrap:nnnN
+      { \use:c { \c_@@_text_prefix_tl #1 / #2 } {#3} {#4} {#5} {#6} }
+      { } { } \iow_term:n
+  }
+\cs_generate_variant:Nn \@@_term:nnnnnn { nnnnnV }
+\cs_new_protected:Npn \@@_term:nnnnn #1#2#3#4#5
+  { \@@_term:nnnnnn {#1} {#2} {#3} {#4} {#5} { } }
+\cs_new_protected:Npn \@@_term:nnn #1#2#3
+  { \@@_term:nnnnnn {#1} {#2} {#3} { } { } { } }
+\cs_new_protected:Npn \@@_term:nn #1#2
+  { \@@_term:nnnnnn {#1} {#2} { } { } { } { } }
+%    \end{macrocode}
+% \end{macro}
+% \end{macro}
+% \end{macro}
+% \end{macro}
+%
+% \begin{macro}[int]{\@@_show_variable:Nnn}
+% \begin{macro}[int]{\@@_show_variable:n}
+% \begin{macro}[aux]{\@@_show_variable_aux:n}
+% \begin{macro}[aux, EXP]{\@@_show_variable_aux:w}
+%   The arguments of \cs{@@_show_variable:Nnn} are
+%   \begin{itemize}
+%     \item The \meta{variable} to be shown.
+%     \item The type of the variable.
+%     \item A mapping of the form \cs{seq_map_function:NN} \meta{variable}
+%       \cs{@@_show_item:n}, which produces the formatted string.
+%   \end{itemize}
+%   As for \cs{__kernel_register_show:N}, check that the variable is
+%   defined.  If it is, output the introductory message, then show the
+%   contents |#3| using \cs{@@_show_variable:n}.  This wraps the
+%   contents (with leading \verb*|> |) to a fixed number of characters
+%   per line.  The expansion of |#3| may either be empty or start with
+%   \verb*|> |.  A leading |>|, if present, is removed using a
+%   \texttt{w}-type auxiliary, as well as a space following it (via
+%   \texttt{f}-expansion).  Note that we cannot remove the space as a
+%   delimiter for the \texttt{w}-type auxiliary, because a line-break
+%   may be taken there, and the space would then disappear.  Finally,
+%   the resulting token list \cs{l_@@_internal_tl} is displayed to the
+%   terminal, with an odd \cs{exp_after:wN} which expands the closing
+%   brace to improve the output slightly.
+%   The calls to \cs{__iow_with:Nnn} ensure that the \tn{newlinechar} is
+%   set to~$10$ so that the \cs{iow_newline:} inserted by the
+%   line-wrapping code are correctly recognized by \TeX{}, and that
+%   \tn{errorcontextlines} is $-1$ to avoid printing irrelevant context.
+%    \begin{macrocode}
+\cs_new_protected:Npn \@@_show_variable:Nnn #1#2#3
+  {
+    \cs_if_exist:NTF #1
+      {
+        \@@_term:nnn { LaTeX / kernel } { show- #2 } {#1}
+        \@@_show_variable:n {#3}
+      }
+      {
+        \@@_kernel_error:nnx { kernel } { variable-not-defined }
+          { \token_to_str:N #1 }
+      }
+  }
+\cs_new_protected:Npn \@@_show_variable:n #1
+  { \iow_wrap:nnnN {#1} { } { } \@@_show_variable_aux:n }
+\cs_new_protected:Npn \@@_show_variable_aux:n #1
+  {
+    \tl_if_empty:nTF {#1}
+      { \tl_clear:N \l_@@_internal_tl }
+      { \tl_set:Nf \l_@@_internal_tl { \@@_show_variable_aux:w #1 } }
+    \__iow_with:Nnn \tex_newlinechar:D { 10 }
+      {
+        \__iow_with:Nnn \tex_errorcontextlines:D \c_minus_one
+          {
+            \etex_showtokens:D \exp_after:wN \exp_after:wN \exp_after:wN
+              { \exp_after:wN \l_@@_internal_tl }
+          }
+      }
+  }
+\cs_new:Npn \@@_show_variable_aux:w #1 > { }
+%    \end{macrocode}
+% \end{macro}
+% \end{macro}
+% \end{macro}
+% \end{macro}
+%
+% \begin{macro}[int,EXP]{\@@_show_item:n}
+% \begin{macro}[int,EXP]{\@@_show_item:nn}
+% \begin{macro}[int,EXP]{\@@_show_item_unbraced:nn}
+%   Each item in the variable is formatted using one of
+%   the following functions.
+%    \begin{macrocode}
+\cs_new:Npn \@@_show_item:n #1
+  {
+    \\ > \ \ \{ \tl_to_str:n {#1} \}
+  }
+\cs_new:Npn \@@_show_item:nn #1#2
+  {
+    \\ > \ \ \{ \tl_to_str:n {#1} \}
+    \ \ => \ \ \{ \tl_to_str:n {#2} \}
+  }
+\cs_new:Npn \@@_show_item_unbraced:nn #1#2
+  {
+    \\ > \ \ \tl_to_str:n {#1}
+    \ \ => \ \ \tl_to_str:n {#2}
+  }
+%    \end{macrocode}
+% \end{macro}
+% \end{macro}
+% \end{macro}
+%
+%    \begin{macrocode}
+%</initex|package>
+%    \end{macrocode}
+%
+% \end{implementation}
+%
+% \PrintIndex

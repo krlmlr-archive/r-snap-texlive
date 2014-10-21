@@ -1,0 +1,39 @@
+	\begin{NumericDataPlot}{0.75\textwidth}{6cm}
+		
+		\setxAxis{xMin=0.0, xMax=4.0, Dx=0.5}
+		\setyAxis{yMin=0, yMax=11.5, Dy=2}
+
+		\plotxAxis{$t$}
+		\plotyAxis{$h\left(t\right)$}
+
+		% Markiere Fläche
+		\pscustom[fillstyle=solid, fillcolor=blue!30, linestyle=none]{
+			\listplot{\DataSprungantwort}
+			\NDPline{4}{10}{0}{10}
+		}
+		
+		% Hilfslinien
+		\NDPline{0}{0}{0.5}{10}
+		\NDPvline[linestyle=dashed, linewidth=0.5pt]{0.5}
+		\NDPhline[linestyle=dashed, linewidth=0.5pt]{10}
+		
+		
+		% plotte Sprungantwort
+		\listplot[style=StdLineStyC]{\DataSprungantwort}
+		
+		
+		% Beschriftung
+		\NDPput[x=0,y=10.3]{\pnode{A}}
+		\NDPput[x=0.5,y=10.3]{\pnode{B}}
+		\ncline[linewidth=0.5pt]{<->}{A}{B}
+		\naput{$T$}
+		
+		\NDPput[x=0.75, y=9]{\pnode{Fl1}}
+		\NDPput[x=1.25, y=7]{\Rnode{Fl2}{$A$}}
+		\ncline[linewidth=0.5pt]{->}{Fl2}{Fl1}
+				
+		\NDPput[x=1.1,y=10]{\pnode{V1}}
+		\NDPput[x=1.3, y=10.75]{\Rnode{V2}{$V$}}
+		\ncline[linewidth=0.5pt]{->}{V2}{V1}
+
+	\end{NumericDataPlot}

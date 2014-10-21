@@ -1,0 +1,94 @@
+%% public version
+%% Copyright 2010 Clea F. Rees
+%
+% This work may be distributed and/or modified under the
+% conditions of the LaTeX Project Public License, either version 1.3
+% of this license or (at your option) any later version.
+% The latest version of this license is in
+%   http://www.latex-project.org/lppl.txt
+% and version 1.3 or later is part of all distributions of LaTeX
+% version 2005/12/01 or later.
+%
+% This work has the LPPL maintenance status `maintained'.
+% 
+% The Current Maintainer of this work is Clea F. Rees.
+%
+% This work consists of all files listed in manifest.txt.
+\input fontinst.sty
+\needsfontinstversion{1.926}
+%:substitutions
+%bold for bold extended
+\substitutesilent{bx}{b}
+\substitutesilent{sl}{it}
+\substitutesilent{si}{sc}
+\substitutesilent{sc}{n}
+%:record transformations for later map file creation
+\recordtransforms{yv2-rec.tex}
+%:transformations - reencode
+	\transformfont{t1-yv2r}{\reencodefont{t1-f_f}{\fromafm{yv2r8a}}}
+	\transformfont{t1-yv2ri}{\reencodefont{t1-f_f}{\fromafm{yv2ri8a}}}
+	\transformfont{t1-yv2b}{\reencodefont{t1-f_f}{\fromafm{yv2b8a}}}
+	\transformfont{t1-yv2bi}{\reencodefont{t1-f_f}{\fromafm{yv2bi8a}}}
+	\transformfont{ts1-yv2r}{\reencodefont{ts1-euro}{\fromafm{yv2r8a}}}
+	\transformfont{ts1-yv2ri}{\reencodefont{ts1-euro}{\fromafm{yv2ri8a}}}
+	\transformfont{ts1-yv2b}{\reencodefont{ts1-euro}{\fromafm{yv2b8a}}}
+	\transformfont{ts1-yv2bi}{\reencodefont{ts1-euro}{\fromafm{yv2bi8a}}}
+%reencode condensed widths
+	\transformfont{t1-yv2r-c}{\reencodefont{t1-f_f}{\fromafm{yv2r8ac}}}
+	\transformfont{t1-yv2ri-c}{\reencodefont{t1-f_f}{\fromafm{yv2ri8ac}}}
+	\transformfont{t1-yv2b-c}{\reencodefont{t1-f_f}{\fromafm{yv2b8ac}}}
+	\transformfont{t1-yv2bi-c}{\reencodefont{t1-f_f}{\fromafm{yv2bi8ac}}}
+	\transformfont{ts1-yv2r-c}{\reencodefont{ts1-euro}{\fromafm{yv2r8ac}}}
+	\transformfont{ts1-yv2ri-c}{\reencodefont{ts1-euro}{\fromafm{yv2ri8ac}}}
+	\transformfont{ts1-yv2b-c}{\reencodefont{ts1-euro}{\fromafm{yv2b8ac}}}
+	\transformfont{ts1-yv2bi-c}{\reencodefont{ts1-euro}{\fromafm{yv2bi8ac}}}
+%reencode expanded widths
+	\transformfont{t1-yv2m}{\reencodefont{t1-f_f}{\fromafm{yv2m8a}}}
+	\transformfont{t1-yv2mi}{\reencodefont{t1-f_f}{\fromafm{yv2mi8a}}}
+	\transformfont{t1-yv2x}{\reencodefont{t1-f_f}{\fromafm{yv2x8a}}}
+	\transformfont{t1-yv2xi}{\reencodefont{t1-f_f}{\fromafm{yv2xi8a}}}
+	\transformfont{ts1-yv2m}{\reencodefont{ts1-euro}{\fromafm{yv2m8a}}}
+	\transformfont{ts1-yv2mi}{\reencodefont{ts1-euro}{\fromafm{yv2mi8a}}}
+	\transformfont{ts1-yv2x}{\reencodefont{ts1-euro}{\fromafm{yv2x8a}}}
+	\transformfont{ts1-yv2xi}{\reencodefont{ts1-euro}{\fromafm{yv2xi8a}}}
+%:installation - creation of virtual fonts
+	\installfonts
+		\installfamily{T1}{yv2}{}
+		\installfont{yv2r8t}{t1-yv2r,newlatin}{t1-f_f}{T1}{yv2}{m}{n}{}
+		\installfont{yv2ri8t}{t1-yv2ri,newlatin}{t1-f_f}{T1}{yv2}{m}{it}{}
+%:repeat for bold fonts
+		\installfont{yv2b8t}{t1-yv2b,newlatin}{t1-f_f}{T1}{yv2}{b}{n}{}
+		\installfont{yv2bi8t}{t1-yv2bi,newlatin}{t1-f_f}{T1}{yv2}{b}{it}{}
+%:condensed widths
+		\installfont{yv2r8tc}{t1-yv2r-c,newlatin}{t1-f_f}{T1}{yv2}{mc}{n}{}
+		\installfont{yv2ri8tc}{t1-yv2ri-c,newlatin}{t1-f_f}{T1}{yv2}{mc}{it}{}
+%:bold condensed
+		\installfont{yv2b8tc}{t1-yv2b-c,newlatin}{t1-f_f}{T1}{yv2}{bc}{n}{}
+		\installfont{yv2bi8tc}{t1-yv2bi-c,newlatin}{t1-f_f}{T1}{yv2}{bc}{it}{}
+%:expanded widths
+		\installfont{yv2m8t}{t1-yv2m,newlatin}{t1-f_f}{T1}{yv2}{mb}{n}{}
+		\installfont{yv2mi8t}{t1-yv2mi,newlatin}{t1-f_f}{T1}{yv2}{mb}{it}{}
+%:bold expanded
+		\installfont{yv2x8t}{t1-yv2x,newlatin}{t1-f_f}{T1}{yv2}{eb}{n}{}
+		\installfont{yv2xi8t}{t1-yv2xi,newlatin}{t1-f_f}{T1}{yv2}{eb}{it}{}
+		\installfamily{TS1}{yv2}{}
+		\installfont{yv2r8c}{t1-yv2r,ts1-yv2r,textcomp}{ts1-euro}{TS1}{yv2}{m}{n}{}
+		\installfont{yv2ri8c}{t1-yv2ri,ts1-yv2ri,textcomp}{ts1-euro}{TS1}{yv2}{m}{it}{}
+%:repeat for bold fonts
+		\installfont{yv2b8c}{t1-yv2b,ts1-yv2b,textcomp}{ts1-euro}{TS1}{yv2}{b}{n}{}
+		\installfont{yv2bi8c}{t1-yv2bi,ts1-yv2bi,textcomp}{ts1-euro}{TS1}{yv2}{b}{it}{}
+%:and condensed widths
+		\installfont{yv2r8cc}{t1-yv2r-c,ts1-yv2r-c,textcomp}{ts1-euro}{TS1}{yv2}{mc}{n}{}
+		\installfont{yv2ri8cc}{t1-yv2ri-c,ts1-yv2ri-c,textcomp}{ts1-euro}{TS1}{yv2}{mc}{it}{}
+%:and bold condensed
+		\installfont{yv2b8cc}{t1-yv2b-c,ts1-yv2b-c,textcomp}{ts1-euro}{TS1}{yv2}{bc}{n}{}
+		\installfont{yv2bi8cc}{t1-yv2bi-c,ts1-yv2bi-c,textcomp}{ts1-euro}{TS1}{yv2}{bc}{it}{}
+%:and expanded widths
+		\installfont{yv2m8c}{t1-yv2m,ts1-yv2m,textcomp}{ts1-euro}{TS1}{yv2}{mb}{n}{}
+		\installfont{yv2mi8c}{t1-yv2mi,ts1-yv2mi,textcomp}{ts1-euro}{TS1}{yv2}{mb}{it}{}
+%:and bold expanded
+		\installfont{yv2x8c}{t1-yv2x,ts1-yv2x,textcomp}{ts1-euro}{TS1}{yv2}{eb}{n}{}
+		\installfont{yv2xi8c}{t1-yv2xi,ts1-yv2xi,textcomp}{ts1-euro}{TS1}{yv2}{eb}{it}{}
+	\endinstallfonts
+\endrecordtransforms
+\bye

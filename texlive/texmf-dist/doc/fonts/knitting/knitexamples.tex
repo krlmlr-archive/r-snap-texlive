@@ -1,0 +1,262 @@
+% knitexamples.tex
+%
+% Provides examples of usage of the knitting package
+%
+% author: Ariel Barton
+%
+% Copyright Ariel Barton, 2010
+%
+% The contents of the files knitkey.tex and knitexamples.tex
+% may be copied and/or modified in other files without
+% restriction or need for acknowledgement. 
+%
+% The work as a whole may be distributed and/or modified under the
+% conditions of the LaTeX Project Public License, either
+% version 1.3 of this license or (at your option) any
+% later version.
+% The latest version of the license is in
+%    http://www.latex-project.org/lppl.txt
+% and version 1.3 or later is part of all distributions of
+% LaTeX version 2003/06/01 or later.
+%
+% This work has the LPPL maintenance status "author-maintained".
+%
+% The complete list of files considered part of this work is in
+% the file `knitting-doc.pdf' and its source code `knitting-doc.tex'.
+%
+% Date: 2010/08/29
+%
+% Version: 2
+
+\documentclass[draft]{article}
+
+\usepackage[chartsonly]{knitting}
+
+\usepackage{calc}
+
+%\textwidth = 3in
+
+\begin{document}
+
+\knitgrid
+
+\settowidth{\textwidth}{\begin{tabular}{|c|l|l|}
+\textknit{>}&Knit 2 together&Purl 2 together\\
+\end{tabular}}
+
+\begin{smallpage}
+\noindent\begin{tabular}{|c|l|l|}
+\hline
+& Right side & Wrong side\\\hline
+\textknit{-}&Knit&Purl\\
+\textknit{=}&Purl&Knit\\
+\textknit{>}&Knit 2 together&Purl 2 together\\
+\textknit{<}&Slip, slip, knit&Slip, slip, purl\\
+\hline
+\end{tabular}
+\end{smallpage}
+
+\ifchartsonly \else Odd-number ribbed braid \fi
+
+\knitgrid
+\rnevenonly
+
+\chart[right]{
+=--==\!==----==\!=
+\-{14}
+=--==\!==CCkk==\!=
+=--==\!==----==\!=
+=CCpp\!ggKKCCpp\!=
+~~~\_\_~~~~~~\_\_~
+===\!----====\!--=
+===\!ccKK====\!--=
+===\!----====\!--=
+~~~\_\_~~~~~~\_\_~
+=ggKK\!CCppggKK\!=
+=--==\!==----==\!=
+\-{14}
+\vskip 0.5\knitlinewd
+}
+\rnnormal
+
+\ifchartsonly \else Even-number ribbed braid \fi
+
+\knitnogrid
+\newdimen\knitlinewd
+\setlength{\knitlinewd}{1.2pt} 
+% Zigzagging lines will look better if we make them a little wider
+\chart[oddleft]{
+=--==\!==----==\!==--=
+\-{18}
+=--==\!==CCkk==\!==--=
+=--==\!==----==\!==--=
+=CCpp\!ggKKCCpp\!ggKK=
+~~~\_\_~~~~~~\_\_~
+===\!----====\!----===
+===\!ccKK====\!ccKK===
+===\!----====\!----===
+~~~\_\_~~~~~~\_\_~
+=ggKK\!CCppggKK\!CCpp=
+=--==\!==----==\!==--=
+\-{18}
+\vskip 0.5\knitlinewd
+}
+\rnnormal
+
+\ifchartsonly \else Twining leaves \fi
+
+\knitnogrid
+\definecolor{knitlinecolor}{rgb}{0,0,0.8}
+\definecolor{rncolor}{rgb}{0,0,0.8}
+\definecolor{rnarrowcolor}{rgb}{0,0,0.6}
+
+\rnevenonly
+\stitchcountchart[right]{
+===,,,,,,===--===,,,,,,===
+===,,,,,,===--==,,,\>3,,,===
+===,,,,,,===--==,,---,,===
+===,,,,,,===--==,,>-<,,===
+===,,,,,,===--==,-----,===
+===,,,,,,===--==,>---<,===
+===,,,,,,===--==-------===
+===,,,,,,===--==--O-O--===
+===,,,,,,===--==,-----,===
+\overline{===,,,\>3,,,==--==,-O-O-,===}
+===,,---,,==--==,,---,,===
+===,,>-<,,==--==,,O-O,,===
+===,-----,==--==-,,,,,,===
+===,>---<,==--=pK,,,,,,===
+===-------==--=-=,,,,,,===
+===--O-O--==--pK=,,,,,,===
+===,-----,==---==,,,,,,===
+===,-O-O-,==-kK=,,,\>3,,,===
+===,,---,,==--==,,---,,===
+===,,O-O,,==--==,,>-<,,===
+===,,,,,,-==--==,-----,===
+===,,,,,,Kp=--==,>---<,===
+===,,,,,,=-=--==-------===
+===,,,,,,=Kp--==--O-O--===
+===,,,,,,==---==,-----,===
+\overline{%
+===,,,,,,==Kk-==,-O-O-,===}
+===,,,,,,===--==,,---,,===
+===,,,,,,===--==,,O-O,,===
+===,,,,,,===--==-,,,,,,===
+===,,,,,,===--=pK,,,,,,===
+===,,,,,,===--=-=,,,,,,===
+===,,,,,,===--pK=,,,,,,===
+===,,,,,,===---==,,,,,,===
+===,,,,,,===-kK==,,,,,,===
+===,,,,,,===--===,,,,,,===
+}
+\rnnormal
+
+\definecolor{knitlinecolor}{rgb}{0.7,0,0}
+\definecolor{rncolor}{rgb}{0.6,0,0}
+\definecolor{rnarrowcolor}{rgb}{0.45,0,0}
+
+\ifchartsonly \else Print o' the Wave \fi
+
+\knitgrid
+
+\resetrnfalse
+\setcounter{rownumber}{99}
+\setcounter{rownumberskip}{2}
+
+\chart[right]{
+<O<O-----O))><((O<O----
+-<O<O---O))>--<((O<O---
+--<O<O-O))>----<((O<O--
+----O>O))><((O-----O>O>
+---O>O))>--<((O---O>O>-
+--O>O))>----<((O-O>O>--
+<O<O-----O))><((O<O----
+-<O<O---O))>--<((O<O---
+--<O<O-O))>----<((O<O--
+----O>O))><((O-----O>O>
+---O>O))>--<((O---O>O>-
+--O>O))>----<((O-O>O>--
+~~~\numberrow{20}{5}{1}
+}
+
+\resetrntrue
+\setcounter{rownumberskip}{1}
+
+
+\ifchartsonly \else Colorwork \fi
+
+\knitwide
+
+\definecolor{green}{rgb}{0,0.6,0.1}
+\definecolor{lightgreen}{rgb}{0.5,1,0.5}
+\definecolor{yellow}{rgb}{1,1,0.35}
+
+\catcode `\^=\active
+% Since we aren't using math, we turn ^ into an active character
+\renewcommand{^}{\noindent{\purlpass{\color{lightgreen}}=}}
+% And then we can define it like a command
+% The \noindent is there to keep the row numbering working.
+
+\chart[right]{{
+\purlpass{\color{blue}} % = produces blue
+-|--------------|
+-|=--=--=--=--=-|
+=|--=--=-=--=--=|
+^|^=^^=^^^=^^=^^|
+^|=^^=^^=^^=^^=^|
+\purlpass{\color{green}} % = produces green
+=|^^=^^=^=^^=^^=|
+^|^=^^=^^^=^^=^^|
+\renewcommand{^}{\noindent{\purlpass{\color{yellow}}=}} 
+% ^ produces yellow
+^|=^^=^^=^^=^^=^|
+=|^^=^^=^=^^=^^=|
+^|=^^=^^=^^=^^=^|
+\renewcommand{^}{\noindent{\purlpass{\color{lightgreen}}=}}
+% ^ produces light green
+^|^=^^=^^^=^^=^^|
+=|^^=^^=^=^^=^^=|
+\purlpass{\color{blue}} % = produces blue
+^|=^^=^^=^^=^^=^|
+^|^=^^=^^^=^^=^^|
+=|--=--=-=--=--=|
+-|=--=--=--=--=-|
+-|--------------|
+}}
+
+\renewcommand{\printrightrownumber}[1]{%
+	\knitleftarrowhead
+	\textnormal{\color{rncolor}%
+	#1 (\thestitchcountout\ sts)}}
+
+\newcommand\threepartrow[3]{%
+	% Count the stitches, counting the middle stitches 4 times
+	\mainpass{\countstitches{#1 #2#2#2#2 #3}}%
+	% Print the row
+	#1\|#2\|#3
+	% Print a bar if we have a stitch count mismatch
+	\mainpass{\stitchcountwarningbar}}
+	
+\knitgrid
+\resetrnfalse
+\setcounter{rownumber}{12}
+\setcounter{rownumberskip}{2}
+
+% Setting stitchcountin to any number less than -99 suppresses the
+% warning bar on the first row.
+\setcounter{stitchcountin}{-100}
+
+\chart[right]{
+    ~~~~~~~~\hskip\knitlinewd %
+    \mainpass{\makebox[18\stitchwd][c]{\color{rncolor}\textnormal{%
+    	Repeat 4 times}}} \nonumber ``
+    % The `` is necessary for proper vertical alignment
+	\threepartrow{-O------}{..-----OAO-----..-}{-----O-}
+	~\threepartrow{-O-----}{..----O>-<O----..-}{----O-}
+	~~\threepartrow{-O----}{..<--O>OAO<O-->..-}{---O-}
+	~~~\threepartrow{-O---}{.<--O>O>-<O<O-->.-}{--O-}
+	~~~~\threepartrow{-O--}{<--O>O>---<O<O-->-}{-O-}
+	~~~~~\threepartrow{-O-}{..------\narrowincrease{7}------..-}{O-}
+	}
+	
+\end{document}

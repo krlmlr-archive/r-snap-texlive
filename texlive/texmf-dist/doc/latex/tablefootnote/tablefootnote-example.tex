@@ -1,0 +1,231 @@
+%%
+%% This is file `tablefootnote-example.tex',
+%% generated with the docstrip utility.
+%%
+%% The original source files were:
+%%
+%% tablefootnote.dtx  (with options: `example')
+%% 
+%% This is a generated file.
+%% 
+%% Project: tablefootnote
+%% Version: 2014/01/26 v1.1c
+%% 
+%% Copyright (C) 2011 - 2014 by
+%%     H.-Martin M"unch <Martin dot Muench at Uni-Bonn dot de>
+%% 
+%% The usual disclaimer applies:
+%% If it doesn't work right that's your problem.
+%% (Nevertheless, send an e-mail to the maintainer
+%%  when you find an error in this package.)
+%% 
+%% This work may be distributed and/or modified under the
+%% conditions of the LaTeX Project Public License, either
+%% version 1.3c of this license or (at your option) any later
+%% version. This version of this license is in
+%%    http://www.latex-project.org/lppl/lppl-1-3c.txt
+%% and the latest version of this license is in
+%%    http://www.latex-project.org/lppl.txt
+%% and version 1.3c or later is part of all distributions of
+%% LaTeX version 2005/12/01 or later.
+%% 
+%% This work has the LPPL maintenance status "maintained".
+%% 
+%% The Current Maintainer of this work is H.-Martin Muench.
+%% 
+%% This work consists of the main source file tablefootnote.dtx,
+%% the README, and the derived files
+%%    tablefootnote.sty, tablefootnote.pdf,
+%%    tablefootnote.ins, tablefootnote.drv,
+%%    tablefootnote-example.tex, tablefootnote-example.pdf.
+%% 
+%% In memoriam Tommy Muench + 2014/01/02.
+%% 
+\documentclass[british]{article}[2007/10/19]% v1.4h
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\usepackage{float}[2001/11/08]%    v1.3d
+\usepackage{placeins}[2005/04/18]% v2.2  ; for \FloatBarrier
+\usepackage{rotating}[2009/03/28]% v2.16a; for sidewaystable-environment
+\usepackage[%
+ hyperfootnotes=true,%
+ extension=pdf,%
+ plainpages=false,%
+ pdfpagelabels=true,%
+ hyperindex=false,%
+ pdflang={en},%
+ pdftitle={tablefootnote package example},%
+ pdfauthor={H.-Martin Muench},%
+ pdfsubject={Example for the tablefootnote package},%
+ pdfkeywords={LaTeX, tablefootnote, footnote, table, H.-Martin Muench},%
+ % pdfview=FitH and FitBH do not work: hyperlinks in sidewaystables
+ % do no lead to the footnotes, due to a bug in pdfTeX,
+ % computing wrong anchor coordinates (Heiko Oberdiek, 29. October 2011)
+ % pdfview=Fit, FitV, FitR, FitB, FitBV work
+ % print is OK for all those options
+ pdfstartview=FitH,%
+ pdfpagelayout=OneColumn%
+]{hyperref}[2012/11/06]% v6.83m
+ % Due to the urls used in the example, either the hyperref or the url
+ % package are needed (or the urls must be removed before compiling).
+
+\usepackage{footnotebackref}[2012/07/01]% v1.0
+\usepackage{tablefootnote}[2014/01/26]%   v1.1c
+
+\gdef\unit#1{\mathord{\thinspace\mathrm{#1}}}%
+\listfiles
+\begin{document}
+\pagenumbering{arabic}
+\section*{Example for tablefootnote}
+
+This example demonstrates the use of package\newline
+\textsf{tablefootnote}, v1.1c as of 2014/01/26 (HMM).\newline
+There were no options used. (The package provides no options.)\newline
+
+\textbf{The \texttt{tablefootnote-example.tex} needs to be compiled
+at least twice to get the references right!}\newline
+
+If the etoolbox-package is found, it is automatically used.\newline
+
+For more details please see the documentation!\newline
+
+\noindent Save per page about $200\unit{ml}$ water,
+$2\unit{g}$ CO$_{2}$ and $2\unit{g}$ wood:\newline
+Therefore please print only if this is really necessary.\newline
+
+Here is some text.\footnote{And this is a text footnote.}\newline
+
+Tables \ref{tab.symbol}, \ref{tab.normal}, \ref{tab.another} and
+\ref{tab.floatH} show normal tables, table~\ref{tab.sideways} depicts
+a sidewaystable. Table~\ref{tab.floatH} uses the float
+specifier~\texttt{H} from the float package.\newline
+
+\texttt{Hyperref} option \verb|pdfview=FitH| and \verb|FitBH| do
+not work due to a bug in pdf\TeX{}, computing wrong
+anchor coordinates (\textsc{Heiko Oberdiek}, 29.~October 2011).
+Depending on used pdf-viewer, hyperlinks in sidewaystables lead
+e.\,g.~at the end of the document, not at the footnote.
+\verb|pdfview=Fit|, \verb|FitV|, \verb|FitR|, \verb|FitB|,
+\verb|FitBV| work, print is OK for all those options.
+
+\bigskip
+
+\listoftables
+
+\pagebreak
+
+\renewcommand{\thefootnote}{\fnsymbol{footnote}}
+\verb|\renewcommand{\thefootnote}{\fnsymbol{footnote}}|
+causes footnote{-}symbol{-}footnotes, which are possible
+(see Table~\ref{tab.symbol}).
+
+\begin{table}
+\centering
+\begin{tabular}{ccc}
+Another\tablefootnote{A table footnote.} & %
+text\tablefootnote{Another table footnote.} & %
+in a table\tablefootnote{A third table footnote.}
+\end{tabular}
+\caption[A footnotesymbol table]{%
+A table with footnote-symbol-footnotes.\label{tab.symbol}}
+\end{table}
+
+Some text.\footnote{A text footnote.}
+
+\renewcommand{\thefootnote}{\arabic{footnote}}
+\verb|\renewcommand{\thefootnote}{\arabic{footnote}}|
+switches back to normal footnote numbers again.
+
+\pagebreak
+
+\begin{table}
+\centering
+\begin{tabular}{ccc}
+Some\tablefootnote{A table footnote.} & %
+text\tablefootnote[99]{A table footnote with custom footnote number.} & %
+in a table\tablefootnote{A third table footnote.}
+\end{tabular}
+\caption[A table]{A normal table.\label{tab.normal}}
+\end{table}
+
+Some text.\footnote{Another text footnote.}
+
+\pagebreak
+
+More text.\footnote{And yet another text footnote.}
+
+\begin{table}[t]
+\centering
+\begin{tabular}{|c|c|c|}
+\hline
+Another\tablefootnote{A $3^{rd}$ table footnote.} & %
+text\tablefootnote{Another $3^{rd}$ table footnote.} & %
+in a table\tablefootnote{A $3^{rd}$ third table footnote.}\\ \hline
+\end{tabular}
+\caption[Another table]{Another table (third one)\label{tab.another}}
+\end{table}
+
+Please note that Table~\ref{tab.another} floated to the top of the page.
+While the footnotes are set and (when hyperref is used) hyperlinked,
+they are not automatically adapted. Thus either do not use a footnote
+at the same page before the table, or place the table in
+\textquotedblleft here\textquotedblright\ or
+\textquotedblleft bottom\textquotedblright\ position.
+\verb|\clear(double)page|, \verb|h(!)|, \verb|H|~from the
+\texttt{float} package, or \verb|\FloatBarrier| from the
+\texttt{picins} package might help, too. (Or move the table in the
+source code near the position where it floats to
+or use the optional footnote marks.)
+
+Table~\ref{tab.floatH} (page~\pageref{tab.floatH}) uses float specifier
+\texttt{H} from the float package and does not float.
+
+Some text.\footnote{This is just another text footnote.}
+
+\pagebreak
+
+\FloatBarrier
+
+\begin{sidewaystable}
+\centering%
+\begin{tabular}{ccc}
+Text\tablefootnote{Please rotate the view for testing the %
+hyperlinks.} & %
+in a\tablefootnote[98]{Another sidewaystable footnote %
+with optional footnote mark.} & %
+sidewaystable%
+\tablefootnote{Sidewaystable-environment provided by %
+\url{http://www.ctan.org/pkg/rotating} package.}
+\end{tabular}
+\caption[A sideways table]{A table in the \texttt{sideways} %
+environment\label{tab.sideways}}%
+\end{sidewaystable}%
+
+\FloatBarrier
+
+\pagebreak
+
+A last table, here with float specifier \texttt{H} from the
+float\footnote{\url{http://www.ctan.org/pkg/float}} package.
+
+\begin{table}[H]
+\centering
+\begin{tabular}{ccc}
+Another\tablefootnote{A $5^{th}$ table footnote.} & %
+text\tablefootnote{Another $5^{th}$ table footnote.} & %
+in a table\tablefootnote{A $5^{th}$ third table footnote.}
+\end{tabular}
+\caption[A last table]{A very last table\label{tab.floatH}}
+\end{table}
+
+Some text.\footnote{This is just another text footnote.}
+
+\pagebreak
+
+End of the example for the
+tablefootnote\footnote{\url{http://www.ctan.org/pkg/tablefootnote}}
+package.
+
+\end{document}
+\endinput
+%%
+%% End of file `tablefootnote-example.tex'.

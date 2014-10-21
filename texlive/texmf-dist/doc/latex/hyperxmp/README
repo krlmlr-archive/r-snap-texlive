@@ -1,0 +1,64 @@
+                      +-----------------------+
+                      |  THE HYPERXMP PACKAGE |
+                      |                       |
+                      |      Scott Pakin      |
+                      | scott+hyxmp@pakin.org |
+                      +-----------------------+
+
+
+Description
+===========
+
+XMP (eXtensible Metadata Platform) is a mechanism proposed by Adobe
+for embedding document metadata within the document itself.  The
+metadata are designed to be easy to extract, even by programs that are
+oblivious to the document's file format.  Most of Adobe's applications
+store XMP metadata when saving files.  Now, with the hyperxmp package,
+it is trivial for LaTeX document authors to store XMP metadata in
+their documents as well.
+
+hyperxmp integrates seamlessly with hyperref and requires virtually no
+modifications to documents that already exploit hyperref's mechanisms
+for specifying PDF metadata.  The current version of hyperxmp can
+embed the following metadata as XMP: authors, base URL, contact
+telephone number/postal address/email address/URL, copyright
+statement, creation date, document identifier, document instance
+identifier, file format, keywords, language, LaTeX file name, license
+URL, metadata writer, PDF version, PDF-generating tool, PDF/A
+compliance level and version, primary author's position or title,
+subject/summary, and title.  hyperxmp is compatible with pdflatex,
+latex+dvips+ps2pdf, latex+dvipdfm, xelatex, and lualatex.
+
+
+Installation
+============
+
+To create hyperxmp.sty simply run "tex hyperxmp.ins".  Install
+hyperxmp.sty somewhere where LaTeX can find it.  See
+http://www.tex.ac.uk/cgi-bin/texfaq2html?label=instpackages for
+general information about installing packages.
+
+Building hyperxmp.pdf is a little more involved:
+
+        pdflatex hyperxmp.dtx
+        pdflatex hyperxmp.dtx
+        makeindex -s gind-hyxmp.ist hyperxmp.idx -o hyperxmp.ind
+        makeindex -s gglo-hyxmp.ist hyperxmp.glo -o hyperxmp.gls
+        pdflatex hyperxmp.dtx
+        pdflatex hyperxmp.dtx
+
+
+Copyright and license
+=====================
+
+Copyright (C) 2014 Scott Pakin
+
+This file may be distributed and/or modified under the conditions of
+the LaTeX Project Public License, either version 1.3c of this license
+or (at your option) any later version.  The latest version of this
+license is in:
+
+                http://www.latex-project.org/lppl.txt
+
+and version 1.3c or later is part of all distributions of LaTeX
+version 2008/05/04 or later.

@@ -1,0 +1,955 @@
+\documentclass{article}
+\usepackage{ifpdf}
+\ifpdf\pdfmapfile{+jtm.map}\fi
+%\usepackage[T1]{fontenc}
+\usepackage{jamtimes}
+\usepackage{lipsum,textcomp,amsmath,url,amsfonts,longtable}
+\DeclareMathSymbol{\dit}{\mathord}{letters}{`d}
+\DeclareMathSymbol{\dup}{\mathord}{operators}{`d}
+\def\test#1{#1}
+
+\def\testnums{%
+  \test 0 \test 1 \test 2 \test 3 \test 4 \test 5 \test 6 \test 7
+  \test 8 \test 9 }
+\def\testupperi{%
+  \test A \test B \test C \test D \test E \test F \test G \test H
+  \test I \test J \test K \test L \test M }
+\def\testupperii{%
+  \test N \test O \test P \test Q \test R \test S \test T \test U
+  \test V \test W \test X \test Y \test Z }
+\def\testupper{%
+  \testupperi\testupperii}
+
+\def\testloweri{%
+  \test a \test b \test c \test d \test e \test f \test g \test h
+  \test i \test j \test k \test l \test m }
+\def\testlowerii{%
+  \test n \test o \test p \test q \test r \test s \test t \test u
+  \test v \test w \test x \test y \test z 
+  \test\imath \test\jmath }
+\def\testlower{%
+  \testloweri\testlowerii}
+
+\def\testupgreeki{%
+  \test A \test B \test\Gamma \test\Delta \test E \test Z \test H
+  \test\Theta \test I \test K \test\Lambda \test M }
+\def\testupgreekii{%
+  \test N \test\Xi \test O \test\Pi \test P \test\Sigma \test T
+  \test\Upsilon \test\Phi \test X \test\Psi \test\Omega 
+}
+\def\testupgreek{%
+  \testupgreeki\testupgreekii}
+
+\def\testlowgreeki{%
+  \test\alpha \test\beta \test\gamma \test\delta \test\epsilon
+  \test\zeta \test\eta \test\theta \test\iota \test\kappa \test\lambda
+  \test\mu }
+\def\testlowgreekii{%
+  \test\nu \test\xi \test o \test\pi \test\rho \test\sigma \test\tau
+  \test\upsilon \test\phi \test\chi \test\psi \test\omega }
+\def\testlowgreekiii{%
+  \test\varepsilon \test\vartheta \test\varpi \test\varrho
+  \test\varsigma \test\varphi \test\ell \test\wp}
+\def\testlowgreek{%
+  \testlowgreeki\testlowgreekii\testlowgreekiii}
+\begin{document}
+
+\section{Sebastian's math test}
+
+
+
+The default math mode font is $Math\ Italic$. This should not be
+confused with ordinary \emph{Text Italic} -- notice the different spacing\,!
+\verb|\mathbf| produces bold roman letters: $ \mathbf{abcABC} $.
+If you wish to embolden complete formulas,
+use the \verb|\boldmath| command \emph{before} going into math mode.  
+This changes the default math fonts to bold. 
+ 
+\begin{tabular}{ll}
+\texttt{normal}   & $ x = 2\pi \Rightarrow x \simeq 6.28 $\\
+\texttt{mathbf}   & $\mathbf{x} = 2\pi \Rightarrow \mathbf{x} \simeq 6.28 $\\
+\texttt{boldmath} & {\boldmath $x = \mathbf{2}\pi \Rightarrow x 
+                    \simeq{\mathbf{6.28}}              $}\\
+\end{tabular}
+\smallskip
+
+Greek is available in upper and lower case:
+$\alpha,\beta \dots \Omega$, and there are special
+symbols such as $ \hbar$ (compare to $h$).
+Digits in formulas $1, 2, 3\dots$ may differ from those in text: 4, 5,
+6\dots
+
+There is Sans Serif alphabet $\mathsf{abcdeABCD}$ selected by
+\verb|\mathsf| and Typewriter math $\mathtt{abcdeABCD}$ selected by
+\verb|\mathtt|. 
+
+There is a calligraphic alphabet \verb|\mathcal| for upper case letters
+$ \mathcal{ABCDE}\dots $, and there are letters for number sets: $\mathbb{A\dots Z} $,
+which are produced using \verb|\mathbb|.  There are Fraktur letters
+$\mathfrak{abcdeABCDE}$ produced using \verb|\mathfrak|
+ 
+\begin{equation}
+  \sigma(t)=\frac{1}{\sqrt{2\pi}}
+  \int^t_0 e^{-x^2/2} dx 
+\end{equation}
+
+\begin{equation}
+  \prod_{j\geq 0}
+  \left(\sum_{k\geq 0}a_{jk} z^k\right) 
+= \sum_{k\geq 0} z^n
+  \left( \sum_{{k_0,k_1,\ldots\geq 0}
+          \atop{k_0+k_1+\ldots=n}    }
+        a{_0k_0}a_{1k_1}\ldots  \right) 
+\end{equation}
+
+\begin{equation}
+\pi(n) = \sum_{m=2}^{n}
+  \left\lfloor \left(\sum_{k=1}^{m-1}
+       \lfloor(m/k)/\lceil m/k\rceil 
+       \rfloor \right)^{-1}
+  \right\rfloor
+\end{equation}
+
+\begin{equation}
+\{\underbrace{%
+    \overbrace{\mathstrut a,\ldots,a}^{k\ a's},
+    \overbrace{\mathstrut b,\ldots,b}^{l\ b's}}
+  _{k+l\ \mathrm{elements}}                   \}
+\end{equation}
+
+\[
+\mbox{W}^+\
+\begin{array}{l}
+\nearrow\raise5pt\hbox{$\mu^+ + \nu_{\mu}$}\\
+\rightarrow         \pi^+ +\pi^0         \\[5pt]
+\rightarrow \kappa^+ +\pi^0              \\
+\searrow\lower5pt\hbox{$\mathrm{e}^+ 
+          +\nu_{\scriptstyle\mathrm{e}}$}
+\end{array}
+\]
+
+\[
+\frac{\pm
+\left|\begin{array}{ccc}
+x_1-x_2  & y_1-y_2 & z_1-z_2 \\
+l_1      & m_1     & n_1     \\
+l_2      & m_2     & n_2
+\end{array}\right|}{
+\sqrt{\left|\begin{array}{cc}l_1&m_1\\
+l_2&m_2\end{array}\right|^2
++     \left|\begin{array}{cc}m_1&n_1\\
+n_1&l_1\end{array}\right|^2
++     \left|\begin{array}{cc}m_2&n_2\\
+n_2&l_2\end{array}\right|^2}}
+\]
+
+
+
+
+\section{Math Tests}
+\label{sec:mthtests}
+
+
+
+Math test are taken from\cite{Schmidt04:PSNFSS9.2}.
+
+\parindent 0pt
+%\mathindent 1em
+
+
+\subsection{Math Alphabets}
+
+Math Italic (\texttt{\string\mathnormal})
+\def\test#1{\mathnormal{#1},}
+\begin{eqnarray*}
+%  && {\testnums}\\
+  && {\testupper}\\
+  && {\testlower}\\ 
+  && {\testupgreek}\\
+  && {\testlowgreek}
+\end{eqnarray*}%
+
+Math Roman (\texttt{\string\mathrm})
+\def\test#1{\mathrm{#1},}
+\begin{eqnarray*}
+  && {\testnums}\\
+  && {\testupper}\\
+  && {\testlower}\\ 
+  && {\testupgreek}\\
+  && {\testlowgreek}
+\end{eqnarray*}%
+
+%Math Italic Bold
+%\def\test#1{\mathbm{#1},}
+%\begin{eqnarray*}
+%  && {\testnums}\\
+%  && {\testupper}\\
+%  && {\testlower}\\ 
+%  && {\testupgreek}\\
+%  && {\testlowgreek}
+%\end{eqnarray*}%
+
+Math Bold (\texttt{\string\mathbf})
+\def\test#1{\mathbf{#1},}
+\begin{eqnarray*}
+  && {\testnums}\\
+  && {\testupper}\\
+  && {\testlower}\\ 
+%  && {\testupgreek}
+\end{eqnarray*}%
+
+Math Sans Serif (\texttt{\string\mathsf})
+\def\test#1{\mathsf{#1},}
+\begin{eqnarray*}
+  && {\testnums}\\
+  && {\testupper}\\
+  && {\testlower}\\ 
+%  && {\testupgreek}
+\end{eqnarray*}%
+
+
+
+Caligraphic (\texttt{\string\mathcal})
+\def\test#1{\mathcal{#1},}
+\begin{eqnarray*}
+  && {\testupper}
+\end{eqnarray*}%
+
+%Script (\texttt{\string\mathscr})
+%\def\test#1{\mathscr{#1},}
+%\begin{eqnarray*}
+%  && {\testupper}
+%\end{eqnarray*}%
+
+Fraktur (\texttt{\string\mathfrak})
+\def\test#1{\mathfrak{#1},}
+\begin{eqnarray*}
+  && {\testupper}\\
+  && {\testlower}
+\end{eqnarray*}%
+
+Blackboard Bold (\texttt{\string\mathbb})
+\def\test#1{\mathbb{#1},}
+\begin{eqnarray*}
+  && {\testupper}
+\end{eqnarray*}%
+
+
+\clearpage
+\subsection{Character Sidebearings}
+
+\def\test#1{|#1|+}
+\begin{eqnarray*}
+  && {\testupperi}\\
+  && {\testupperii}\\
+  && {\testloweri}\\ 
+  && {\testlowerii}\\ 
+  && {\testupgreeki}\\
+  && {\testupgreekii}\\
+  && {\testlowgreeki}\\
+  && {\testlowgreekii}\\
+  && {\testlowgreekiii}
+\end{eqnarray*}%
+%
+\def\test#1{|\mathrm{#1}|+}%
+\begin{eqnarray*}
+  && {\testupperi}\\
+  && {\testupperii}\\
+  && {\testloweri}\\ 
+  && {\testlowerii}\\ 
+  && {\testupgreeki}\\
+  && {\testupgreekii}
+\end{eqnarray*}%
+%
+%\def\test#1{|\mathbm{#1}|+}%
+%\begin{eqnarray*}
+%  && {\testupperi}\\
+%  && {\testupperii}\\
+%  && {\testloweri}\\ 
+%  && {\testlowerii}\\ 
+%  && {\testupgreeki}\\
+%  && {\testupgreekii}\\
+%  && {\testlowgreeki}\\
+%  && {\testlowgreekii}\\
+%  && {\testlowgreekiii}
+%\end{eqnarray*}%
+%%
+%\def\test#1{|\mathbf{#1}|+}%
+%\begin{eqnarray*}
+%  && {\testupperi}\\
+%  && {\testupperii}\\
+%  && {\testloweri}\\ 
+%  && {\testlowerii}\\ 
+%  && {\testupgreeki}\\
+%  && {\testupgreekii}
+%\end{eqnarray*}%
+%
+\def\test#1{|\mathcal{#1}|+}%
+\begin{eqnarray*}
+  && {\testupperi}\\
+  && {\testupperii}
+\end{eqnarray*}%
+
+
+\clearpage
+\subsection{Superscript positioning}
+
+\def\test#1{#1^{2}+}%
+\begin{eqnarray*}
+  && {\testupperi}\\
+  && {\testupperii}\\
+  && {\testloweri}\\ 
+  && {\testlowerii}\\ 
+  && {\testupgreeki}\\
+  && {\testupgreekii}\\
+  && {\testlowgreeki}\\
+  && {\testlowgreekii}\\
+  && {\testlowgreekiii}
+\end{eqnarray*}%
+%
+\def\test#1{\mathrm{#1}^{2}+}%
+\begin{eqnarray*}
+  && {\testupperi}\\
+  && {\testupperii}\\
+  && {\testloweri}\\ 
+  && {\testlowerii}\\ 
+  && {\testupgreeki}\\
+  && {\testupgreekii}
+\end{eqnarray*}%
+%
+%\def\test#1{\mathbm{#1}^{2}+}%
+%\begin{eqnarray*}
+%  && {\testupperi}\\
+%  && {\testupperii}\\
+%  && {\testloweri}\\ 
+%  && {\testlowerii}\\ 
+%  && {\testupgreeki}\\
+%  && {\testupgreekii}\\
+%  && {\testlowgreeki}\\
+%  && {\testlowgreekii}\\
+%  && {\testlowgreekiii}
+%\end{eqnarray*}%
+%
+%\def\test#1{\mathbf{#1}^{2}+}%
+%\begin{eqnarray*}
+%  && {\testupperi}\\
+%  && {\testupperii}\\
+%  && {\testloweri}\\ 
+%  && {\testlowerii}\\ 
+%  && {\testupgreeki}\\
+%  && {\testupgreekii}
+%\end{eqnarray*}
+%
+\def\test#1{\mathcal{#1}^{2}+}%
+\begin{eqnarray*}
+  && {\testupperi}\\
+  && {\testupperii}
+\end{eqnarray*}%
+
+
+\clearpage
+\subsection{Subscript positioning}
+
+\def\test#1{\mathnormal{#1}_{i}+}%
+\begin{eqnarray*}
+  && {\testupperi}\\
+  && {\testupperii}\\
+  && {\testloweri}\\ 
+  && {\testlowerii}\\ 
+  && {\testupgreeki}\\
+  && {\testupgreekii}\\
+  && {\testlowgreeki}\\
+  && {\testlowgreekii}\\
+  && {\testlowgreekiii}
+\end{eqnarray*}%
+%
+\def\test#1{\mathrm{#1}_{i}+}%
+\begin{eqnarray*}
+  && {\testupperi}\\
+  && {\testupperii}\\
+  && {\testloweri}\\ 
+  && {\testlowerii}\\ 
+  && {\testupgreeki}\\
+  && {\testupgreekii}
+\end{eqnarray*}%
+%
+%\def\test#1{\mathbm{#1}_{i}+}%
+%\begin{eqnarray*}
+%  && {\testupperi}\\
+%  && {\testupperii}\\
+%  && {\testloweri}\\ 
+%  && {\testlowerii}\\ 
+%  && {\testupgreeki}\\
+%  && {\testupgreekii}\\
+%  && {\testlowgreeki}\\
+%  && {\testlowgreekii}\\
+%  && {\testlowgreekiii}
+%\end{eqnarray*}
+%%
+%\def\test#1{\mathbf{#1}_{i}+}%
+%\begin{eqnarray*}
+%  && {\testupperi}\\
+%  && {\testupperii}\\
+%  && {\testloweri}\\ 
+%  && {\testlowerii}\\ 
+%  && {\testupgreeki}\\
+%  && {\testupgreekii}
+%\end{eqnarray*}%
+%
+\def\test#1{\mathcal{#1}_{i}+}%
+\begin{eqnarray*}
+  && {\testupperi}\\
+  && {\testupperii}
+\end{eqnarray*}%
+
+
+\clearpage
+\subsection{Accent positioning}
+
+\def\test#1{\hat{#1}+}%
+\begin{eqnarray*}
+  && {\testupperi}\\
+  && {\testupperii}\\
+  && {\testloweri}\\ 
+  && {\testlowerii}\\ 
+  && {\testupgreeki}\\
+  && {\testupgreekii}\\
+  && {\testlowgreeki}\\
+  && {\testlowgreekii}\\
+  && {\testlowgreekiii}
+\end{eqnarray*}%
+%
+\def\test#1{\hat{\mathrm{#1}}+}%
+\begin{eqnarray*}
+  && {\testupperi}\\
+  && {\testupperii}\\
+  && {\testloweri}\\ 
+  && {\testlowerii}\\ 
+%  && {\testupgreeki}\\
+%  && {\testupgreekii}
+\end{eqnarray*}%
+%
+%\def\test#1{\hat{\mathbm{#1}}+}%
+%\begin{eqnarray*}
+%  && {\testupperi}\\
+%  && {\testupperii}\\
+%  && {\testloweri}\\ 
+%  && {\testlowerii}\\ 
+%  && {\testupgreeki}\\
+%  && {\testupgreekii}\\
+%  && {\testlowgreeki}\\
+%  && {\testlowgreekii}\\
+%  && {\testlowgreekiii}
+%\end{eqnarray*}%
+%%
+%\def\test#1{\hat{\mathbf{#1}}+}%
+%\begin{eqnarray*}
+%  && {\testupperi}\\
+%  && {\testupperii}\\
+%  && {\testloweri}\\ 
+%  && {\testlowerii}\\ 
+%  && {\testupgreeki}\\
+%  && {\testupgreekii}
+%\end{eqnarray*}
+%
+\def\test#1{\hat{\mathcal{#1}}+}%
+\begin{eqnarray*}
+  && {\testupperi}\\
+  && {\testupperii}
+\end{eqnarray*}%
+
+
+\clearpage
+\subsection{Differentials}
+
+\begin{eqnarray*}
+\gdef\test#1{\dit #1+}%
+  && {\testupperi}\\
+  && {\testupperii}\\
+  && {\testloweri}\\ 
+  && {\testlowerii}\\ 
+  && {\testupgreeki}\\
+  && {\testupgreekii}\\
+  && {\testlowgreeki}\\
+  && {\testlowgreekii}\\
+  && {\testlowgreekiii}\\
+\gdef\test#1{\dit \mathrm{#1}+}%
+  && {\testupgreeki}\\
+  && {\testupgreekii}
+\end{eqnarray*}%
+%
+\begin{eqnarray*}
+\gdef\test#1{\dup #1+}%
+  && {\testupperi}\\
+  && {\testupperii}\\
+  && {\testloweri}\\ 
+  && {\testlowerii}\\ 
+  && {\testupgreeki}\\
+  && {\testupgreekii}\\
+  && {\testlowgreeki}\\
+  && {\testlowgreekii}\\
+  && {\testlowgreekiii}\\
+\gdef\test#1{\dup \mathrm{#1}+}%
+  && {\testupgreeki}\\
+  && {\testupgreekii}
+\end{eqnarray*}%
+%
+\begin{eqnarray*}
+\gdef\test#1{\partial #1+}%
+  && {\testupperi}\\
+  && {\testupperii}\\
+  && {\testloweri}\\ 
+  && {\testlowerii}\\ 
+  && {\testupgreeki}\\
+  && {\testupgreekii}\\
+  && {\testlowgreeki}\\
+  && {\testlowgreekii}\\
+  && {\testlowgreekiii}\\
+\gdef\test#1{\partial \mathrm{#1}+}%
+  && {\testupgreeki}\\
+  && {\testupgreekii}
+\end{eqnarray*}%
+
+
+\clearpage
+\subsection{Slash kerning}
+
+\def\test#1{1/#1+}
+\begin{eqnarray*}
+  && {\testupperi}\\
+  && {\testupperii}\\
+  && {\testloweri}\\ 
+  && {\testlowerii}\\ 
+  && {\testupgreeki}\\
+  && {\testupgreekii}\\
+  && {\testlowgreeki}\\
+  && {\testlowgreekii}\\
+  && {\testlowgreekiii}
+\end{eqnarray*}
+
+\def\test#1{#1/2+}
+\begin{eqnarray*}
+  && {\testupperi}\\
+  && {\testupperii}\\
+  && {\testloweri}\\ 
+  && {\testlowerii}\\ 
+  && {\testupgreeki}\\
+  && {\testupgreekii}\\
+  && {\testlowgreeki}\\
+  && {\testlowgreekii}\\
+  && {\testlowgreekiii}
+\end{eqnarray*}
+
+
+\clearpage
+\subsection{Big operators}
+
+\def\testop#1{#1_{i=1}^{n} x^{n} \quad}
+\begin{displaymath}
+  \testop\sum 
+  \testop\prod 
+  \testop\coprod 
+  \testop\int 
+  \testop\oint
+\end{displaymath}
+\begin{displaymath}
+  \testop\bigotimes 
+  \testop\bigoplus
+  \testop\bigodot
+  \testop\bigwedge 
+  \testop\bigvee 
+  \testop\biguplus 
+  \testop\bigcup 
+  \testop\bigcap 
+  \testop\bigsqcup 
+% \testop\bigsqcap
+\end{displaymath}
+
+
+\subsection{Radicals}
+
+\begin{displaymath}
+  \sqrt{x+y} \qquad \sqrt{x^{2}+y^{2}} \qquad 
+  \sqrt{x_{i}^{2}+y_{j}^{2}} \qquad
+  \sqrt{\left(\frac{\cos x}{2}\right)} \qquad 
+  \sqrt{\left(\frac{\sin x}{2}\right)}
+\end{displaymath}
+  
+\begingroup
+\delimitershortfall-1pt
+\begin{displaymath}
+  \sqrt{\sqrt{\sqrt{\sqrt{\sqrt{\sqrt{\sqrt{x+y}}}}}}}
+\end{displaymath}
+\endgroup % \delimitershortfall
+
+
+\subsection{Over- and underbraces}
+
+\begin{displaymath}
+  \overbrace{x} \quad
+  \overbrace{x+y} \quad
+  \overbrace{x^{2}+y^{2}} \quad
+  \overbrace{x_{i}^{2}+y_{j}^{2}} \quad
+  \underbrace{x} \quad
+  \underbrace{x+y} \quad
+  \underbrace{x_{i}+y_{j}} \quad
+  \underbrace{x_{i}^{2}+y_{j}^{2}} \quad
+\end{displaymath}
+
+
+\subsection{Normal and wide accents}
+
+\begin{displaymath}
+  \dot{x} \quad 
+  \ddot{x} \quad 
+  \vec{x} \quad 
+  \bar{x} \quad
+  \overline{x} \quad
+  \overline{xx} \quad
+  \tilde{x} \quad
+  \widetilde{x} \quad
+  \widetilde{xx} \quad
+  \widetilde{xxx} \quad
+  \hat{x} \quad 
+  \widehat{x} \quad 
+  \widehat{xx} \quad 
+  \widehat{xxx} \quad
+\end{displaymath}
+
+
+\subsection{Long arrows}
+
+\begin{displaymath}
+  \leftarrow \mathrel{-} \rightarrow \quad
+  \leftrightarrow \quad
+  \longleftarrow  \quad
+  \longrightarrow \quad
+  \longleftrightarrow \quad
+  \Leftarrow = \Rightarrow \quad
+  \Leftrightarrow \quad
+  \Longleftarrow  \quad
+  \Longrightarrow \quad
+  \Longleftrightarrow \quad
+\end{displaymath}
+
+
+\subsection{Left and right delimters}
+
+\def\testdelim#1#2{ - #1 f #2 - }
+\begin{displaymath}
+  \testdelim() 
+  \testdelim[] 
+  \testdelim\lfloor\rfloor 
+  \testdelim\lceil\rceil 
+  \testdelim\langle\rangle 
+  \testdelim\{\} 
+\end{displaymath}
+
+\def\testdelim#1#2{ - \left#1 f \right#2 - }
+\begin{displaymath}
+  \testdelim() 
+  \testdelim[] 
+  \testdelim\lfloor\rfloor 
+  \testdelim\lceil\rceil 
+  \testdelim\langle\rangle 
+  \testdelim\{\} 
+% \testdelim\lgroup\rgroup
+% \testdelim\lmoustache\rmoustache
+\end{displaymath}
+\begin{displaymath}
+  \testdelim)(
+  \testdelim][
+  \testdelim// 
+  \testdelim\backslash\backslash
+  \testdelim/\backslash 
+  \testdelim\backslash/
+\end{displaymath}
+
+
+\clearpage
+\subsection{Big-g-g delimters}
+
+\def\testdelim#1#2{%
+  - \left#1\left#1\left#1\left#1\left#1\left#1\left#1\left#1 - 
+  \right#2\right#2\right#2\right#2\right#2\right#2\right#2\right#2 -}
+
+\begingroup
+\delimitershortfall-1pt
+\begin{displaymath}
+  \testdelim\lfloor\rfloor 
+  \qquad 
+  \testdelim()
+\end{displaymath}
+\begin{displaymath}
+  \testdelim\lceil\rceil 
+  \qquad 
+  \testdelim\{\} 
+\end{displaymath}
+\begin{displaymath}
+  \testdelim[] 
+  \qquad 
+  \testdelim\lgroup\rgroup
+\end{displaymath}
+\begin{displaymath}
+  \testdelim\langle\rangle
+  \qquad 
+  \testdelim\lmoustache\rmoustache
+\end{displaymath}
+\begin{displaymath}
+  \testdelim\uparrow\downarrow \quad
+  \testdelim\Uparrow\Downarrow \quad
+\end{displaymath}
+\endgroup % \delimitershortfall
+
+\subsection{Symbols}
+\label{sec:symbols}
+
+This is from~\cite{Eijkhout07:TeXbyTopic}
+
+\begin{longtable}{lllll}
+Symbol & Control Sequence & mathcode & Family & Hex Position \\
+$\partial$&partial&           "0140&1&40\\
+$\flat$&flat&              "015B&1&5B\\
+$\natural$&natural&           "015C&1&5C\\
+$\sharp$&sharp&             "015D&1&5D\\
+$\ell$&ell&               "0160&1&60\\
+$\imath$&imath&             "017B&1&7B\\
+$\jmath$&jmath&             "017C&1&7C\\
+$\wp$&wp&                "017D&1&7D\\
+$\prime$&prime&             "0230&2&30\\
+$\infty$&infty&             "0231&2&31\\
+$\triangle$&triangle&          "0234&2&34\\
+$\forall$&forall&            "0238&2&38\\
+$\exists$&exists&            "0239&2&39\\
+$\neg$&neg&               "023A&2&3A\\
+$\emptyset$&emptyset&          "023B&2&3B\\
+$\Re$&Re&                "023C&2&3C\\
+$\Im$&Im&                "023D&2&3D\\
+$\top$&top&               "023E&2&3E\\
+$\bot$&bot&               "023F&2&3F\\
+$\aleph$&aleph&             "0240&2&40\\
+$\nabla$&nabla&             "0272&2&72\\
+$\clubsuit$&clubsuit&          "027C&2&7C\\
+$\diamondsuit$&diamondsuit&       "027D&2&7D\\
+$\heartsuit$&heartsuit&         "027E&2&7E\\
+$\spadesuit$&spadesuit&         "027F&2&7F\\  
+$\smallint \displaystyle\smallint$&
+    smallint&          "1273&2&73\cr
+$\bigsqcup \displaystyle\bigsqcup$&
+    bigsqcup&          "1346&3&46\cr
+$\ointop \displaystyle\ointop$&
+    ointop&            "1348&3&48\cr
+$\bigodot \displaystyle\bigodot$&
+    bigodot&           "134A&3&4A\cr
+$\bigoplus \displaystyle\bigoplus$&
+    bigoplus&          "134C&3&4C\cr
+$\bigotimes \displaystyle\bigotimes$&
+    bigotimes&         "134E&3&4E\cr
+$\sum \displaystyle\sum$&
+    sum&               "1350&3&50\cr
+$\prod \displaystyle\prod$&
+    prod&              "1351&3&51\cr
+$\intop \displaystyle\intop$&
+    intop&             "1352&3&52\cr
+$\bigcup \displaystyle\bigcup$&
+    bigcup&            "1353&3&53\cr
+$\bigcap \displaystyle\bigcap$&
+    bigcap&            "1354&3&54\cr
+$\biguplus \displaystyle\biguplus$&
+    biguplus&          "1355&3&55\cr
+$\bigwedge \displaystyle\bigwedge$&
+    bigwedge&          "1356&3&56\cr
+$\bigvee \displaystyle\bigvee$&
+    bigvee&            "1357&3&57\cr
+$\coprod \displaystyle\coprod$&
+    coprod&            "1360&3&60\cr
+$\triangleright$&triangleright&     "212E&1&2E\cr
+$\triangleleft$&triangleleft&      "212F&1&2F\cr
+$\star$&star&              "213F&1&3F\cr
+$\cdot$&cdot&              "2201&2&01\cr
+$\times$&times&             "2202&2&02\cr
+$\ast$&ast&               "2203&2&03\cr
+$\div$&div&               "2204&2&04\cr
+$\diamond$&diamond&           "2205&2&05\cr
+$\pm$&pm&                "2206&2&06\cr
+$\mp$&mp&                "2207&2&07\cr
+$\oplus$&oplus&             "2208&2&08\cr
+$\ominus$&ominus&            "2209&2&09\cr
+$\otimes$&otimes&            "220A&2&0A\cr
+$\oslash$&oslash&            "220B&2&0B\cr
+$\odot$&odot&              "220C&2&0C\cr
+$\bigcirc$&bigcirc&           "220D&2&0D\cr
+$\circ$&circ&              "220E&2&0E\cr
+$\bullet$&bullet&            "220F&2&0F\cr
+$\bigtriangleup$&bigtriangleup&     "2234&2&34\cr
+$\bigtriangledown$&bigtriangledown&   "2235&2&35\cr
+$\cup$&cup&               "225B&2&5B\cr
+$\cap$&cap&               "225C&2&5C\cr
+$\uplus$&uplus&             "225D&2&5D\cr
+$\wedge$&wedge&             "225E&2&5E\cr
+$\vee$&vee&               "225F&2&5F\cr
+$\setminus$&setminus&          "226E&2&6E\cr
+$\wr$&wr&                "226F&2&6F\cr
+$\amalg$&amalg&             "2271&2&71\cr
+$\sqcup$&sqcup&             "2274&2&74\cr
+$\sqcap$&sqcap&             "2275&2&75\cr
+$\dagger$&dagger&            "2279&2&79\cr
+$\ddagger$&ddagger&           "227A&2&7A\cr
+$\leftharpoonup$&leftharpoonup&     "3128&1&28\cr
+$\leftharpoondown$&leftharpoondown&   "3129&1&29\cr
+$\rightharpoonup$&rightharpoonup&    "312A&1&2A\cr
+$\rightharpoondown$&rightharpoondown&  "312B&1&2B\cr
+$\smile$&smile&             "315E&1&5E\cr
+$\frown$&frown&             "315F&1&5F\cr
+$\asymp$&asymp&             "3210&2&10\cr
+$\equiv$&equiv&             "3211&2&11\cr
+$\subseteq$&subseteq&          "3212&2&12\cr
+$\supseteq$&supseteq&          "3213&2&13\cr
+$\leq$&leq&               "3214&2&14\cr
+$\geq$&geq&               "3215&2&15\cr
+$\preceq$&preceq&            "3216&2&16\cr
+$\succeq$&succeq&            "3217&2&17\cr
+$\sim$&sim&               "3218&2&18\cr
+$\approx$&approx&            "3219&2&19\cr
+$\subset$&subset&            "321A&2&1A\cr
+$\supset$&supset&            "321B&2&1B\cr
+$\ll$&ll&                "321C&2&1C\cr
+$\gg$&gg&                "321D&2&1D\cr
+$\prec$&prec&              "321E&2&1E\cr
+$\succ$&succ&              "321F&2&1F\cr
+$\leftarrow$&leftarrow&         "3220&2&20\cr
+$\rightarrow$&rightarrow&        "3221&2&21\cr
+$\leftrightarrow$&leftrightarrow&    "3224&2&24\cr
+$\nearrow$&nearrow&           "3225&2&25\cr
+$\searrow$&searrow&           "3226&2&26\cr
+$\simeq$&simeq&             "3227&2&27\cr
+$\Leftarrow$&Leftarrow&         "3228&2&28\cr
+$\Rightarrow$&Rightarrow&        "3229&2&29\cr
+$\Leftrightarrow$&Leftrightarrow&    "322C&2&2C\cr
+$\nwarrow$&nwarrow&           "322D&2&2D\cr
+$\swarrow$&swarrow&           "322E&2&2E\cr
+$\propto$&propto&            "322F&2&2F\cr
+$\in$&in&                "3232&2&32\cr
+$\ni$&ni&                "3233&2&33\cr
+$\not$&not&               "3236&2&36\cr
+$\mapstochar$&mapstochar&        "3237&2&37\cr
+$\perp$&perp&              "323F&2&3F\cr
+$\vdash$&vdash&             "3260&2&60\cr
+$\dashv$&dashv&             "3261&2&61\cr
+$\mid$&mid&               "326A&2&6A\cr
+$\parallel$&parallel&          "326B&2&6B\cr
+$\sqsubseteq$&sqsubseteq&        "3276&2&76\cr
+$\sqsupseteq$&sqsupseteq&        "3277&2&77\cr
+\end{longtable}
+
+
+\subsection{Miscellanneous formulae}
+\label{sec:misc}
+
+Taken from~\cite{Downes04:amsart}
+\begin{displaymath}
+  \hbar\nu=E,\qquad \hbar\ne\pi, \qquad \partial j, \qquad x^j, \qquad x^l
+\end{displaymath}
+
+Some other other equations:  $\sum^J a'$,  $r^a$ and $D^k$.
+
+
+Let $\mathbf{A}=(a_{ij})$ be the adjacency matrix of graph $G$. The
+corresponding Kirchhoff matrix $\mathbf{K}=(k_{ij})$ is obtained from
+$\mathbf{A}$ by replacing in $-\mathbf{A}$ each diagonal entry by the
+degree of its corresponding vertex; i.e., the $i$th diagonal entry is
+identified with the degree of the $i$th vertex. It is well known that
+\begin{equation}
+\det\mathbf{K}(i|i)=\text{ the number of spanning trees of $G$},
+\quad i=1,\dots,n
+\end{equation}
+where $\mathbf{K}(i|i)$ is the $i$th principal submatrix of
+$\mathbf{K}$.
+
+\newcommand{\abs}[1]{\left\lvert#1\right\rvert}
+\newcommand{\wh}{\widehat}
+Let $C_{i(j)}$ be the set of graphs obtained from $G$ by attaching edge
+$(v_iv_j)$ to each spanning tree of $G$. Denote by $C_i=\bigcup_j
+C_{i(j)}$. It is obvious that the collection of Hamiltonian cycles is a
+subset of $C_i$. Note that the cardinality of $C_i$ is $k_{ii}\det
+\mathbf{K}(i|i)$. Let $\wh X=\{\hat x_1,\dots,\hat x_n\}$.  Define multiplication for the elements of $\wh X$ by
+\begin{equation}\label{multdef}
+\hat x_i\hat x_j=\hat x_j\hat x_i,\quad \hat x^2_i=0,\quad
+i,j=1,\dots,n.
+\end{equation}
+Let $\hat k_{ij}=k_{ij}\hat x_j$ and $\hat k_{ij}=-\sum_{j\not=i} \hat
+k_{ij}$. Then the number of Hamiltonian cycles $H_c$ is given by the
+relation
+\begin{equation}\label{H-cycles}
+\biggl(\prod^n_{\,j=1}\hat x_j\biggr)H_c=\frac{1}{2}\hat k_{ij}\det
+\wh{\mathbf{K}}(i|i),\qquad i=1,\dots,n.
+\end{equation}
+The task here is to express \eqref{H-cycles}
+in a form free of any $\hat x_i$,
+$i=1,\dots,n$. The result also leads to the resolution of enumeration of
+Hamiltonian paths in a graph.
+
+It is well known that the enumeration of Hamiltonian cycles and paths
+in a complete graph $K_n$ and in a complete bipartite graph
+$K_{n_1n_2}$ can only be found from \textit{first combinatorial
+  principles}. One wonders if there exists a formula which can be used
+very efficiently to produce $K_n$ and $K_{n_1n_2}$. Recently, using
+Lagrangian methods, Goulden and Jackson have shown that $H_c$ can be
+expressed in terms of the determinant and permanent of the adjacency
+matrix. However, the formula of Goulden and
+Jackson determines neither $K_n$ nor $K_{n_1n_2}$ effectively. In this
+paper, using an algebraic method, we parametrize the adjacency matrix.
+The resulting formula also involves the determinant and permanent, but
+it can easily be applied to $K_n$ and $K_{n_1n_2}$. In addition, we
+eliminate the permanent from $H_c$ and show that $H_c$ can be
+represented by a determinantal function of multivariables, each
+variable with domain $\{0,1\}$. Furthermore, we show that $H_c$ can be
+written by number of spanning trees of subgraphs. Finally, we apply
+the formulas to a complete multigraph $K_{n_1\dots n_p}$.
+
+The conditions $a_{ij}=a_{ji}$, $i,j=1,\dots,n$, are not required in
+this paper. All formulas can be extended to a digraph simply by
+multiplying $H_c$ by 2.
+
+The boundedness, property of $\Phi_ 0$, then yields
+\[\int_{\mathcal{D}}\abs{\overline\partial u}^2e^{\alpha\abs{z}^2}\geq c_6\alpha
+\int_{\mathcal{D}}\abs{u}^2e^{\alpha\abs{z}^2}
++c_7\delta^{-2}\int_ A\abs{u}^2e^{\alpha\abs{z}^2}.\]
+
+Let $B(X)$ be the set of blocks of $\Lambda_{X}$
+and let $b(X) = \abs{B(X)}$. If $\phi \in Q_{X}$ then
+$\phi$ is constant on the blocks of $\Lambda_{X}$.
+\begin{equation}\label{far-d}
+ P_{X} = \{ \phi \in M \mid \Lambda_{\phi} = \Lambda_{X} \},
+\qquad
+Q_{X} = \{\phi \in M \mid \Lambda_{\phi} \geq \Lambda_{X} \}.
+\end{equation}
+If $\Lambda_{\phi} \geq \Lambda_{X}$ then
+$\Lambda_{\phi} = \Lambda_{Y}$ for some $Y \geq X$ so that
+\[ Q_{X} = \bigcup_{Y \geq X} P_{Y}. \]
+Thus by M\"obius inversion
+\[ \abs{P_{Y}}= \sum_{X\geq Y} \mu (Y,X)\abs{Q_{X}}.\]
+Thus there is a bijection from $Q_{X}$ to $W^{B(X)}$.
+In particular $\abs{Q_{X}} = w^{b(X)}$.
+
+
+\renewcommand{\arraystretch}{2.2}
+\[W(\Phi)= \begin{Vmatrix}
+\dfrac\varphi{(\varphi_1,\varepsilon_1)}&0&\dots&0\\
+\dfrac{\varphi k_{n2}}{(\varphi_2,\varepsilon_1)}&
+\dfrac\varphi{(\varphi_2,\varepsilon_2)}&\dots&0\\
+\hdotsfor{5}\\
+\dfrac{\varphi k_{n1}}{(\varphi_n,\varepsilon_1)}&
+\dfrac{\varphi k_{n2}}{(\varphi_n,\varepsilon_2)}&\dots&
+\dfrac{\varphi k_{n\,n-1}}{(\varphi_n,\varepsilon_{n-1})}&
+\dfrac{\varphi}{(\varphi_n,\varepsilon_n)}
+\end{Vmatrix}\]
+
+
+
+\bibliography{jamtimes}
+\bibliographystyle{unsrt}
+
+
+
+\end{document}

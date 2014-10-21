@@ -1,0 +1,113 @@
+%%
+%% This is file `parexample.tex',
+%% generated with the docstrip utility.
+%%
+%% The original source files were:
+%%
+%% texpower-doc.dtx  (with options: `parexample,parexample-src,end')
+%% 
+%% --------------------------------------------------------------
+%% TeXPower bundle - dynamic online presentations with LaTeX
+%% Copyright (C) 1999-2004 Stephan Lehmke
+%% Copyright (C) 2003-2005 Hans Fredrik Nordhaug
+%% 
+%% This program is free software; you can redistribute it and/or
+%% modify it under the terms of the GNU General Public License
+%% as published by the Free Software Foundation; either version 2
+%% of the License, or (at your option) any later version.
+%% 
+%% This program is distributed in the hope that it will be useful,
+%% but WITHOUT ANY WARRANTY; without even the implied warranty of
+%% MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+%% GNU General Public License for more details.
+%% --------------------------------------------------------------
+%% 
+%% The list of all files belonging to the TeXPower bundle is
+%% given in the file `00readme.txt'.
+%% 
+\ProvidesFile{parexample.tex}%
+      [2005/04/07 TeXPower example file]
+%-----------------------------------------------------------------------------------------------------------------
+%
+% Paragraph example for the package texpower.sty.
+%
+%-----------------------------------------------------------------------------------------------------------------
+% Use slifonts.
+
+\RequirePackage{tpslifonts}
+
+% Input the generic preamble.
+
+\input{__TPpreamble}
+\hypersetup{pdftitle={texpower paragraph example}}
+
+\usepackage{soul}
+
+
+%-----------------------------------------------------------------------------------------------------------------
+% Finally, everything is set up. Here we go...
+%
+\begin{document}
+\begin{slide}
+%
+%-----------------------------------------------------------------------------------------------------------------
+%
+\makeslidetitle{\macroname{stepwise} Example: Inside A Paragraph}\label{Sec:ExPar}
+
+%
+% We show that \stepwise can be used for highlighting words within a paragraph.
+% Furthermore, it is demonstrated how the order in which \step's are executed can be changed.
+%
+% We define a `placeholder' which will mark the place of missing words (instead of \displayphantom).
+%
+\newcommand{\placeholder}[1]{\leavevmode\phantom{#1}\llap{\rule{\widthof{\phantom{#1}}}{\fboxrule}}}%
+  %
+  % We use the custom command \parstepwise which not only wraps the whole argument of \stepwise into a minipage (because
+  % otherwise vertical spacing goes haywire, don't ask me why), but also gives substance to steps.
+  %
+  % All variants of \stepwise take an optional argument the contents of which are executed inside a group before the
+  % inner loop of starts. It can be used to set parameters locally.
+  % Here, we redefine \activatestep (which has been explained in the equation example) to highlight the first
+  % appearance of any word.
+  % \hidestepcontents is used as a `wrapper' for those arguments of \step which should not appear yet. It either
+  % displays nothing (this is the default for \stepwise and \liststepwise) or puts its argument into a \phantom
+  % (the default for \parstepwise); this behaviour is also toggled by \boxedsteps and \nonboxedsteps.
+  % Here, we redefine it to use our selfdefined \placeholder to mark `missing' words.
+  %
+  \parstepwise[\let\hidestepcontents=\placeholder\let\activatestep=\highlightboxed]%
+  {%
+    \begin{quote}
+      \Huge We can \step{create} a \step{fill-in-the-blanks}
+      %
+      % \step takes an optional argument with which it can be specified _when_ its argument is to appear. This is
+      % expressed in \ifthenelse syntax (see the documentation of the ifthen package).
+      % Here, we refer to the counter step which is advanced by \stepwise and contains the number of the current step.
+      % This way, steps can be made to appear in any order.
+      \step[\value{step}=5]{text} which is then
+      \step[\value{step}=4]{filled} in in
+      \step[\value{step}=3]{\textbf{any}} order!
+    \end{quote}
+    }%
+
+  \newslide
+
+  % The \hidetext command hides its argument while respecting automatic line breaks and such. The command needs the soul
+  % package to work. Read the documentation of soul for restrictions as to what can go in the argument of \hidetext.
+
+  \stepwise[\let\hidestepcontents=\hidetext\let\activatestep=\highlighttext]
+  {%
+    \vspace*{\fill}
+    \begin{minipage}{\linewidth}
+      \begin{quote}
+        \Huge We can step through a \step{paragraph} of \step{free text}
+        \step{without disturbing} line breaks!
+      \end{quote}
+    \end{minipage}
+    \vspace*{\fill}\vspace*{\fill}
+    }
+  \newslide
+\end{slide}
+\end{document}
+\endinput
+%%
+%% End of file `parexample.tex'.

@@ -1,0 +1,51 @@
+% tryoands.tex    Test OandS fonts
+\documentclass{article}
+\usepackage{oands}
+
+
+
+\newcommand{\OANDS}{` z}
+
+\title{Try OandS Fonts}
+\author{Peter Wilson}
+\date{}
+\begin{document}
+\maketitle
+
+    This provides a short test of the characters in the Odds and Sods font
+--- the \verb|oands| font family.
+
+\begin{center}
+The font in Large size \\
+{\oandsfamily\Large \OANDS}
+\end{center}
+
+\begin{center}
+The font --- \textoands{\OANDS} --- in its normal size \\
+%% \textoands{\OANDS} \\
+and the Computer Modern Roman --- {\OANDS} --- for comparison \\
+%% \OANDS
+\end{center}
+
+\begin{center}
+The font --- \textoands{\textit{\OANDS}} --- in its normal size and italic \\
+%%\textoands{\textit{\OANDS}} \\
+and the Computer Modern Roman --- \textit{\OANDS} --- for comparison \\
+%%\textit{\OANDS}
+\end{center}
+
+
+\begin{table}
+\centering
+\caption{Characters and commands}
+\begin{tabular}{|c|l|c|} \hline
+Symbol            & Name                 & Command \\ \hline
+\textoands{`}     & Mirrored right quote & ` \\
+\textoands{z}     & Glottal stop         & z \\ 
+\hline
+\end{tabular}
+\end{table}
+
+    This is the end of the test file.
+
+\end{document}

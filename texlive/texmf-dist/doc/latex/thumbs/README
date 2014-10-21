@@ -1,0 +1,168 @@
+README for thumbs package, 2014/03/09, v1.0q
+
+
+TABLE OF CONTENTS
+=================
+
+1 Introduction
+2 Download
+3 Installation
+4 Additional Packages
+5 Package Compatibility
+6 Author/Maintainer
+7 Bug Reports
+8 Known Problems
+
+
+1 INTRODUCTION
+==============
+
+This LaTeX package puts running, customizable thumb marks
+in the outer margin, moving downward as the chapter number
+(or whatever shall be marked by the thumb marks) increases.
+Additionally an overview page/table of thumb marks can be
+added automatically, which gives the respective names of the
+thumbed objects, the page where the object/thumb mark first
+appears, and the thumb mark itself at the respective
+position. The thumb marks are probably useful for documents,
+where a quick and easy way to find e.g. a chapter is needed,
+for example in reference guides, anthologies, or quite
+large documents. This material is subject to
+the LaTeX Project Public License (LPPL1.3).
+See http://www.ctan.org/license/lppl1.3 for the details.
+
+
+2 DOWNLOAD
+==========
+
+`thumbs' is available on CTAN:
+http://www.ctan.org/pkg/thumbs
+
+Running
+tex thumbs.dtx
+generates the files
+thumbs.ins, thumbs.drv, thumbs.sty,
+and thumbs-example.tex.
+
+Also a ZIP file is provided that contains these files,
+the manual (thumbs.pdf), the compiled example
+(thumbs-example.pdf), and this README, already
+sorted in a TDS tree:
+http://mirrors.ctan.org/install/macros/latex/
+contrib/thumbs.tds.zip
+
+
+3 INSTALLATION
+==============
+
+Installation with ZIP file in TDS format
+----------------------------------------
+The ZIP file `thumbs.tds.zip' contains the files
+sorted in a TDS tree. Thus you can directly unpack the
+ZIP file inside a TDS tree.
+See http://www.ctan.org/TDS-guidelines for an explanation
+of TDS.
+Example:
+  cd /...somewhere.../texmf
+  unzip /...downloadpath.../thumbs.tds.zip
+Do not forget to refresh the file name database of this
+TDS tree.
+Example:
+  texhash /...somewhere.../texmf
+
+Manual installation
+-------------------
+a) Download the thumbs files from CTAN.
+   If necessary, unpack them.
+b) Generate the package and driver files:
+     tex thumbs.dtx
+c) Install the file `*.sty' in your TDS tree:
+     cp *.sty TDS:tex/latex/thumbs/
+   Replace `TDS:' by the prefix of your TDS tree
+   (texmf directory).
+d) Create the documentation (if necessary), e.g.
+     pdflatex thumbs.dtx
+     makeindex -s gind.ist thumbs.idx
+     pdflatex thumbs.dtx
+     makeindex -s gind.ist thumbs.idx
+     pdflatex thumbs.dtx
+e) Update the databases if necessary, e.g. for teTeX:
+     mktexlsr .../texmf
+f) Create the thumbs-example.pdf (if necessary), e.g.
+     pdflatex thumbs-example.tex
+     pdflatex thumbs-example.tex
+     pdflatex thumbs-example.tex
+     pdflatex thumbs-example.tex
+g) Copy the documentation files to
+   "TDS:doc/latex/thumbs/":
+   README, thumbs.pdf, thumbs-example.tex,
+   thumbs-example.pdf.
+
+
+4 ADDITIONAL PACKAGES
+=====================
+
+Depending on the driver and option settings, thumbs loads
+other packages:
+kvoptions, atbegshi, xcolor, picture, alphalph, pageslts,
+pagecolor, rerunfilecheck, infwarerr, ltxcmds, and 
+atveryend, which again load other packages
+(see the result of the \listfiles command in the log-file
+ of the example).
+
+
+5 PACKAGE COMPATIBILITY
+=======================
+
+thumbs should be loaded AFTER the required packages,
+but loding it before those packages should be possible, too.
+Thumbs MUST be loaded AFTER packages handling the page size,
+for example geometry.
+
+
+6 AUTHOR/MAINTAINER
+=====================
+
+* H.-Martin Münch
+
+
+7 BUG REPORTS
+==============
+
+A bug report should contain:
+* Comprehensive problem description. This includes error or
+  warning messages.
+* \errorcontextlines=\maxdimen can be added in the
+  TeX code to get more information in TeX error messages.
+* Minimal test file that shows the problem, but does not
+  contain any unnecessary packages and code.
+* Used drivers/programs.
+* Version information about used packages and programs.
+* If you are using LaTeX, then add "\listfiles". Then
+  a list of version information is printed at the end
+  of the LaTeX run.
+* Please no other files than the minimal test file.
+  The other files .log, .dvi, .ps, .pdf are seldom
+  necessary, so send them only on request.
+* Please .zip or .tar.gz your file(s) before sending them!
+
+Bug address
+-----------
+Bug reports can be send to the maintainer:
+  H.-Martin Münch
+  <Martin [dot] Muench [at] Uni-Bonn [dot] de>
+
+
+8 KNOWN PROBLEMS
+=================
+
+* When the text for a thumb mark is too wide,
+the text is either split over two lines or is written over
+the border of the thumb mark. When the text is too wide for
+the thumb mark and cannot be split, LaTeX might nevertheless
+place the text into the next line. By this the text is
+placed too low. Please see the example file for information
+about possible solutions.
+
+* Right-to-left-writing with Polyglossary is probably
+not compatible with thumbs.

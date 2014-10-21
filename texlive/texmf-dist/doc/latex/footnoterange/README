@@ -1,0 +1,163 @@
+README for footnoterange package, 2012/02/17, v1.0a
+
+
+TABLE OF CONTENTS
+=================
+
+1 Introduction
+2 Download
+3 Installation
+4 Additional Packages
+5 Package Compatibility
+6 Author/Maintainer
+7 Bug Reports
+8 Known Problems
+
+
+1 INTRODUCTION
+==============
+
+This LaTeX2e package provides the environments footnoterange
+and footnoterange*. Multiple footnotes inside these
+environments are not referenced as e.g. "1 2 3" but as
+"1-3", i.e. the range (from first to last referred footnote
+at that place) is given. Depending on loading of hyperref
+package and use of its hyperfootnotes-option the references
+are hyperlinked. (References to footnotes in the
+footnoterange* environment are never hyperlinked.)
+This material is subject to the LaTeX Project Public License
+(LPPL). See http://www.ctan.org/tex-archive/help/Catalogue/
+licenses.lppl.html for the details of that license.
+
+
+2 DOWNLOAD
+==========
+
+`footnoterange' is available on CTAN:
+  CTAN:macros/latex/contrib/footnoterange/
+
+Running
+tex footnoterange.dtx
+generates the files
+footnoterange.ins, footnoterange.drv, footnoterange.sty,
+and footnoterange-example.tex.
+
+Also a ZIP file is provided that contains these files,
+the manual (footnoterange.pdf), the compiled example
+(footnoterange-example.pdf), and this README, already
+sorted in a TDS tree:
+  CTAN:install/macros/latex/contrib/footnoterange.tds.zip
+
+`CTAN:' means one of the `Comprehensive TeX Archive Network'
+nodes or one of its mirrors. This is explained in
+  http://www.tex.ac.uk/cgi-bin/texfaq2html?label=archives
+
+The CTAN stuff will be mirrored automatically from the
+ftp server, so
+  ftp://ftp.tug.org/pub/tex/footnoterange/
+corresponds to
+  CTAN:macros/latex/contrib/footnoterange/
+
+
+3 INSTALLATION
+==============
+
+Installation with ZIP file in TDS format
+----------------------------------------
+The ZIP file `footnoterange.tds.zip' contains the files
+sorted in a TDS tree. Thus you can directly unpack the
+ZIP file inside a TDS tree.
+(See CTAN:tds.zip for an explanation of TDS.)
+Example:
+  cd /...somewhere.../texmf
+  unzip /...downloadpath.../footnoterange.tds.zip
+Do not forget to refresh the file name database of this
+TDS tree.
+Example:
+  texhash /...somewhere.../texmf
+
+Manual installation
+-------------------
+a) Download the footnoterange files from CTAN.
+   If necessary, unpack them.
+b) Generate the package and driver files:
+     tex footnoterange.dtx
+c) Install the file `*.sty' in your TDS tree:
+     cp *.sty TDS:tex/latex/footnoterange/
+   Replace `TDS:' by the prefix of your TDS tree
+   (texmf directory).
+d) Create the documentation (if necessary), e.g.
+     pdflatex footnoterange.dtx
+     makeindex -s gind.ist footnoterange.idx
+     pdflatex footnoterange.dtx
+     makeindex -s gind.ist footnoterange.idx
+     pdflatex footnoterange.dtx
+e) Update the databases if necessary, e.g. for teTeX:
+     mktexlsr .../texmf
+f) Create the footnoterange-example.pdf (if necessary), e.g.
+     pdflatex footnoterange-example.tex
+     pdflatex footnoterange-example.tex
+     pdflatex footnoterange-example.tex
+g) Copy the documentation files to
+   "TDS:doc/latex/footnoterange/":
+   README, footnoterange.pdf, footnoterange-example.tex,
+   footnoterange-example.pdf.
+
+
+4 ADDITIONAL PACKAGES
+=====================
+
+footnoterange loads other packages:
+* ltxcmds, http://ctan.org/pkg/ltxcmds
+* xspace, http://ctan.org/pkg/xspace
+which again load other packages
+(see the result of the \listfiles command in the log-file
+ of the example).
+
+
+5 PACKAGE COMPATIBILITY
+=======================
+
+footnoterange should be loaded quite late, i.e. after
+footnote handling is changed by other packages.
+If the hyperref package is used, footnoterange should
+be loaded after hyperref.
+
+
+6 AUTHOR/MAINTAINER
+=====================
+
+* H.-Martin Münch
+
+
+7 BUG REPORTS
+==============
+
+A bug report should contain:
+* Comprehensive problem description. This includes error or
+  warning messages.
+* \errorcontextlines=\maxdimen can be added in the
+  TeX code to get more information in TeX error messages.
+* Minimal test file that shows the problem, but does not
+  contain any unnecessary packages and code.
+* Used drivers/programs.
+* Version information about used packages and programs.
+* If you are using LaTeX, then add "\listfiles". Then
+  a list of version information is printed at the end
+  of the LaTeX run.
+* Please no other files than the minimal test file.
+  The other files .log, .dvi, .ps, .pdf are seldom
+  necessary, so send them only on request.
+* Please .zip or .tar.gz your file(s) before sending them!
+
+Bug address
+-----------
+Bug reports can be send to the maintainer:
+  H.-Martin Münch
+  <Martin [dot] Muench [at] Uni-Bonn [dot] de>
+
+
+8 KNOWN PROBLEMS
+=================
+
+* as yet: none.

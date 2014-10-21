@@ -1,0 +1,69 @@
+Package:    EPSDICE  
+Version:    2.1 
+Date:       2007/02/15
+Author:     Thomas Heim (thomas.heim@unibas.ch)
+Purpose:    A scalable dice font 
+License:    LPPL
+
+Distributed files:
+
+   epsdice.ins      -- docstrip installer file
+   epsdice.dtx      -- source and sample doc
+   dice.pdf         -- dice drawings in pdf format
+   README           -- this file
+   epsdice.pdf      -- documentation (from LaTeX -> dvips -> pstopdf)
+
+Generated files:
+ 
+   epsdice.sty      -- the package
+   epsdice.cfg      -- a config file
+   dice.eps         -- dice drawings in eps format
+
+Test installation:
+
+With all distributed files in your present
+working directory, run epsdice.ins through LaTeX.
+To test the package, you can reproduce the documentation 
+(epsdice.pdf) by running epsdice.dtx (twice) through pdfLaTeX 
+or through LaTeX -> dvips -> pstopdf. 
+
+If you decide to keep the package, move the files 
+  epsdice.sty epsdice.cfg dice.eps dice.pdf
+to /tex/latex/epsdice in your local texmf tree 
+according to the instructions in epsdice.dtx/ins. 
+
+Changes from version 2.0: 
+
+- clean up the documentation
+- minor bug fix in generated file dice.eps: removed spurious
+  comment line at beginning
+  
+Changes from version 1.2: 
+
+  (suggested by Christoph Zurnieden; Thanks!)
+  
+- CHANGE TO USER INTERFACE: 
+  \epsdice now recognises an OPTIONAL ARGUMENT [black] for
+  reversed colors (white dots on black background)
+- additional drawings (originally by Christoph Zurnieden) 
+  in PostScript format
+
+Changes from version 1.1: 
+
+- Introduced `@' in counter name (program encapsulation)
+- More detailed documentation of the PostScript code
+  is now included in the sample document 
+- renamed files with drawings to `dice.eps' and `dice.pdf'
+- Now distributed as .ins and .dtx files (plus binary .pdf)
+- ***  NO CHANGES TO USER INTERFACE  ***
+
+Changes from version 1.0: 
+
+  (suggested by Rolf Niepraschk; Thanks!)
+
+- Removed package option [dvips] for graphicx.
+- Changed bounding box specifications to viewport specification
+  to facilitate clipping in pdflatex.
+- Added epsdice.pdf (generated from epsdice.eps).
+- Replaced documentation by dicetest.tex.
+

@@ -1,0 +1,17 @@
+\ProvidesFile{autodemo.tex}[2008/04/19 common sample for autoarea.sty]
+\documentclass[12pt]{article}
+\usepackage{pictex,lipsum}
+\autouse
+\pagestyle{plain}
+\renewcommand{\thepage}{\bfseries \sffamily \autofoot}
+\nofiles
+\begin{document}
+\lipsum[1]
+\[\beginpicture
+\setcoordinatesystem units <1mm,1mm> point at 0 0 
+%  \setplotarea x from -35 to 35, y from -35 to 35 %% compare to autoarea.sty 
+\circulararc 360 degrees from 0 35 center at 0 0
+\put {\textbf{\itshape X}} at -20 20
+\endpicture\]
+\lipsum[2]
+\end{document}

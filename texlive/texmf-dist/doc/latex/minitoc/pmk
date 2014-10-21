@@ -1,0 +1,1551 @@
+#! /bin/csh
+# set verbose
+# create a backup directory
+set w=`whoami`.pmk
+set OLD=/tmp/$w/OLD
+if ( -d $OLD ) then
+else
+   mkdir -p $OLD
+   echo "$OLD directory created"
+endif
+# save some files into the backup directory
+echo "Saving old files into $OLD directory"
+mv minitoc.sty mtcoff.sty mtcmess.sty minitoc.ist minitoc-fr.dtx minitoc-fr.ist minitoc.pre $OLD
+mv minitoc.lan minitoc-fr.lan $OLD
+mv boldsc.sty mypatches.sty franc.sty frbib.sty frnew.sty $OLD
+mv mtcpatchmem.sty $OLD
+mv *.mld $OLD
+mv *.mlo $OLD
+mv mtc-add.bib $OLD
+foreach i ( \
+   mtc-2c mtc-2nd mtc-3co mtc-add mtc-ads mtc-amm mtc-apx mtc-art \
+   mtc-bk mtc-bo mtc-ch0 mtc-cri mtc-fko mtc-fo1 mtc-fo2 mtc-gap \
+   mtc-hi1 mtc-hi2 mtc-hia mtc-hir mtc-hop mtc-liv \
+   mtc-mem mtc-mm1 mtc-mu mtc-nom mtc-ocf mtc-ofs mtc-sbf mtc-scr mtc-syn \
+   mtc-tbi mtc-tlc mtc-tlo mtc-tsf mtc-vti \
+)
+   foreach j ( tex pdf )
+   mv $i.$j $OLD
+   end
+end
+echo 'Creating the package... you can sip a cappuccino'
+# create the package from minitoc.ins and minitoc.dtx
+latex minitoc.ins
+cat mtc-add.bib | grep -v '^%%' > addbib;mv addbib mtc-add.bib
+# save the log file of this phase
+cp minitoc.log minitoc.log1
+# create the documentation (DVI): 4 latex runs, with index and biblio
+if ( -f minitoc.dtx ) then
+if ( -f minitoc.maf ) then
+   cat minitoc.maf | xargs -i -t \rm {}
+endif
+echo 'Creating the english documentation...'
+touch minitoc.idx minitoc.ind
+pdflatex minitoc.dtx
+grep -v  '\\ \[]\|'  minitoc.idx | grep -v '|main}{1}$' | grep -v '\! =\\verb\!\*+\!\\\! +' > minitoc.idx1; mv minitoc.idx1 minitoc.idx
+sed -e's/:>/=/' < minitoc.idx > minitoc.idx1; mv minitoc.idx1 minitoc.idx
+bibtex minitoc
+makeindex -s minitoc.ist -o minitoc.ind minitoc.idx
+mv minitoc.ilg minitoc.ilg1
+#
+pdflatex minitoc.dtx
+grep -v  '\\ \[]\|'  minitoc.idx | grep -v '|main}{1}$' | grep -v '\! =\\verb\!\*+\!\\\! +' > minitoc.idx1; mv minitoc.idx1 minitoc.idx
+sed -e's/:>/=/' < minitoc.idx > minitoc.idx1; mv minitoc.idx1 minitoc.idx
+makeindex -s minitoc.ist -o minitoc.ind minitoc.idx
+mv minitoc.ilg minitoc.ilg1
+#
+pdflatex minitoc.dtx
+grep -v  '\\ \[]\|'  minitoc.idx | grep -v '|main}{1}$' | grep -v '\! =\\verb\!\*+\!\\\! +' > minitoc.idx1; mv minitoc.idx1 minitoc.idx
+sed -e's/:>/=/' < minitoc.idx > minitoc.idx1; mv minitoc.idx1 minitoc.idx
+makeindex -s minitoc.ist -o minitoc.ind minitoc.idx
+mv minitoc.ilg minitoc.ilg1
+#
+pdflatex minitoc.dtx
+grep -v  '\\ \[]\|'  minitoc.idx | grep -v '|main}{1}$' | grep -v '\! =\\verb\!\*+\!\\\! +' > minitoc.idx1; mv minitoc.idx1 minitoc.idx
+sed -e's/:>/=/' < minitoc.idx > minitoc.idx1; mv minitoc.idx1 minitoc.idx
+endif
+# french documentation
+if ( -f minitoc-fr.dtx ) then
+if ( -f minitoc-fr.maf ) then
+   cat minitoc-fr.maf | xargs -i -t \rm {}
+endif
+echo 'Creating the french documentation...'
+touch minitoc-fr.idx minitoc-fr.ind
+# create the french documentation (PDF): 4 pdflatex runs, with index and biblio
+pdflatex minitoc-fr.dtx
+grep -v  '\\ \[]\|'  minitoc-fr.idx | grep -v '|main}{1}$' | grep -v '\! =\\verb\!\*+\!\\\! +' > minitoc-fr.idx1; mv minitoc-fr.idx1 minitoc-fr.idx
+sed -e's/:>/=/' < minitoc-fr.idx > minitoc-fr.idx1; mv minitoc-fr.idx1 minitoc-fr.idx
+bibtex minitoc-fr
+makeindex -s minitoc-fr.ist -o minitoc-fr.ind minitoc-fr.idx
+mv minitoc-fr.ilg minitoc-fr.ilg1
+#
+pdflatex minitoc-fr.dtx
+grep -v  '\\ \[]\|'  minitoc-fr.idx | grep -v '|main}{1}$' | grep -v '\! =\\verb\!\*+\!\\\! +' > minitoc-fr.idx1; mv minitoc-fr.idx1 minitoc-fr.idx
+sed -e's/:>/=/' < minitoc-fr.idx > minitoc-fr.idx1; mv minitoc-fr.idx1 minitoc-fr.idx
+makeindex -s minitoc-fr.ist -o minitoc-fr.ind minitoc-fr.idx
+mv minitoc-fr.ilg minitoc-fr.ilg1
+#
+pdflatex minitoc-fr.dtx
+grep -v  '\\ \[]\|'  minitoc-fr.idx | grep -v '|main}{1}$' | grep -v '\! =\\verb\!\*+\!\\\! +' > minitoc-fr.idx1; mv minitoc-fr.idx1 minitoc-fr.idx
+sed -e's/:>/=/' < minitoc-fr.idx > minitoc-fr.idx1; mv minitoc-fr.idx1 minitoc-fr.idx
+makeindex -s minitoc-fr.ist -o minitoc-fr.ind minitoc-fr.idx
+mv minitoc-fr.ilg minitoc-fr.ilg1
+#
+pdflatex minitoc-fr.dtx
+grep -v  '\\ \[]\|'  minitoc-fr.idx | grep -v '|main}{1}$' | grep -v '\! =\\verb\!\*+\!\\\! +' > minitoc-fr.idx1; mv minitoc-fr.idx1 minitoc-fr.idx
+sed -e's/:>/=/' < minitoc-fr.idx > minitoc-fr.idx1; mv minitoc-fr.idx1 minitoc-fr.idx
+else
+  echo 'French is still missing'
+endif
+# composition examples
+#######################
+foreach f ( mtc-add mtc-ads )
+   foreach i ( 1 2 3 )
+   pdflatex $f
+   bibtex $f
+      if ( -e $f.idx ) then
+           makeindex -s gind.ist -o $f.ind $f.idx
+      endif
+      if ( -e $f.glo ) then
+           makeindex -s gglo.ist -o $f.gls $f.glo
+      endif
+   end
+end
+#
+foreach i ( 1 2 3 )
+   foreach f ( \
+            mtc-2c mtc-2nd mtc-3co  mtc-amm mtc-apx mtc-art mtc-bk mtc-bo mtc-ch0 mtc-cri \
+            mtc-fko mtc-fo1 mtc-fo2 mtc-gap mtc-hi1 mtc-hi2 mtc-hia mtc-hir mtc-hop mtc-liv mtc-mem mtc-mm1 \
+            mtc-mu mtc-nom mtc-ocf mtc-ofs mtc-sbf mtc-scr mtc-syn mtc-tbi mtc-tlc mtc-tlo mtc-tsf mtc-vti \
+          )
+      pdflatex $f
+   end
+   makeindex -s nomencl.ist -o mtc-nom.nls mtc-nom.nlo
+end
+foreach f ( mtc-add mtc-ads \
+            mtc-2c mtc-2nd mtc-3co  mtc-amm mtc-apx mtc-art mtc-bk mtc-bo mtc-ch0 mtc-cri \
+            mtc-fko mtc-fo1 mtc-fo2 mtc-gap mtc-hi1 mtc-hi2 mtc-hia mtc-hir mtc-hop mtc-liv mtc-mem mtc-mm1 \
+            mtc-mu mtc-nom mtc-ocf mtc-ofs mtc-sbf mtc-scr mtc-syn mtc-tbi mtc-tlc mtc-tlo mtc-tsf mtc-vti \
+             )
+ \rm -f `cat $f.maf` $f.aux $f.log $f.toc $f.bbl $f.blg $f.lof $f.lot $f.ind $f.idx $f.ilg $f.ind $f.maf
+end
+\rm mtc-nom.nlo mtc-nom.nls
+#######################
+# repartition
+echo 'Repartition of files into classes'
+set WCL=/tmp/$w/CL
+foreach i ( 0 1 2 3 4 5 6 7 8 9 10 )
+  if ( -e ${WCL}$i ) then
+    \rm -rf ${WCL}$i
+  endif
+  if ( -d ${WCL}$i ) then
+    \rm -rf ${WCL}$i/*
+    rmdir ${WCL}$i
+  else
+    mkdir -m 755 -p ${WCL}$i
+  endif
+end
+# class 0
+echo 'Class 0'
+cp minitoc.dtx minitoc.ins minitoc-fr.dtx ${WCL}0
+chmod 644 ${WCL}0/*
+# class 1
+echo 'Class 1'
+cp minitoc.sty mtcoff.sty mtcmess.sty mtcpatchmem.sty ${WCL}1
+cp *.mld *.mlo ${WCL}1
+chmod 644 ${WCL}1/*
+# class 2
+echo 'Class 2'
+cp INSTALL minitoc.l README CATALOG TODO ${WCL}2
+chmod 644 ${WCL}2/*
+# class 3
+echo 'Class 3'
+cp mtc-add.bib ${WCL}3
+foreach i ( tex pdf )
+   foreach j ( \
+      mtc-2c mtc-2nd mtc-3co mtc-add mtc-ads mtc-amm mtc-apx mtc-art mtc-bk mtc-bo mtc-ch0 mtc-cri \
+      mtc-fko mtc-fo1 mtc-fo2 mtc-gap mtc-hi1 mtc-hi2 mtc-hia mtc-hir mtc-hop mtc-liv mtc-mem mtc-mm1 \
+      mtc-mu mtc-nom mtc-ocf mtc-ofs mtc-sbf mtc-scr mtc-syn mtc-tbi mtc-tlc mtc-tlo mtc-tsf mtc-vti \
+   )
+    cp $j.$i ${WCL}3
+   end
+end
+chmod 644 ${WCL}3/*
+# class 4
+echo 'Class 4'
+cp minitoc.bug minitoc.sum ${WCL}4
+chmod 644 ${WCL}4/*
+# class 5
+echo 'Class 5'
+cp minitoc.dtx minitoc.ins minitoc.bib minitoc.ist minitoc.lan en-mtc.bst ${WCL}5
+chmod 644 ${WCL}5/*
+# class 6
+echo 'Class 6'
+cp aaland-f.png ${WCL}6
+cp acadian-m.pdf ${WCL}6
+cp acadie-f.png ${WCL}6
+cp acadien-m.pdf ${WCL}6
+cp afghan-f.png ${WCL}6
+cp africa-lf.png africa-lo.pdf ${WCL}6
+cp afrsud-l.pdf afrsud-p.pdf ${WCL}6
+cp albania.pdf ${WCL}6
+cp alb2.png ${WCL}6
+cp alba-eth.pdf ${WCL}6
+cp albania-f.png ${WCL}6
+cp algeria-f.png ${WCL}6
+cp allemand.jpg ${WCL}6
+cp alsace-f.png ${WCL}6
+cp andorra-f.png ${WCL}6
+cp argentina-f.png ${WCL}6
+cp anglo1.pdf ${WCL}6
+cp angola-f.png ${WCL}6
+cp arab-l.jpg ${WCL}6
+cp arabw.png ${WCL}6
+cp armenia-f.png ${WCL}6
+cp armeniad.pdf ${WCL}6
+cp armenian-l.png ${WCL}6
+cp armeniar.jpg ${WCL}6
+cp aruba-f.png ${WCL}6
+cp australia-f.png ${WCL}6
+cp austria-f.png ${WCL}6
+cp azerbaijan-f.png ${WCL}6
+cp bahamas-f.png ${WCL}6
+cp bahrain-f.png ${WCL}6
+cp baltes.jpg ${WCL}6
+cp bangla.png ${WCL}6
+cp bangla1.png ${WCL}6
+cp bangla2.png ${WCL}6
+cp bangladesh-f.png ${WCL}6
+cp barbados-f.png ${WCL}6
+cp basque-de.png ${WCL}6
+cp basque-df.png ${WCL}6
+cp basque1.pdf ${WCL}6
+cp basque2.pdf ${WCL}6
+cp be-dg-f.png ${WCL}6
+cp belarus-f.png ${WCL}6
+cp belgique.pdf belgium-f.png ${WCL}6
+cp belize-f.png ${WCL}6
+cp bengali-m.jpg ${WCL}6
+cp benin-f.png ${WCL}6
+cp bolivia-f.png ${WCL}6
+cp bolzano-f.png ${WCL}6
+cp bosnia.pdf bosnia-hz-f.png ${WCL}6
+cp bozen-f.png ${WCL}6
+cp brazil.pdf ${WCL}6
+cp brazil-f.png ${WCL}6
+cp brazilp.pdf ${WCL}6
+cp bretagne.pdf ${WCL}6
+cp brussels-f.png ${WCL}6
+cp bulgaria-f.png ${WCL}6
+cp bulgariar.jpg bulgarski.png bulgmap.png ${WCL}6
+cp bur-f.png ${WCL}6
+cp burkina-f.png ${WCL}6
+cp burundi-f.png ${WCL}6
+cp buryatia.pdf buryatia-l.pdf ${WCL}6
+cp california-f.png ${WCL}6
+cp cambodia-f.png ${WCL}6
+cp cameroon-f.png ${WCL}6
+cp canada.pdf ${WCL}6
+cp canada-f.png ${WCL}6
+cp canada-l.pdf ${WCL}6
+cp canada-pe.png ${WCL}6
+cp canada-pf.pdf ${WCL}6
+cp canada1.pdf ${WCL}6
+cp cap-verde-f.png ${WCL}6
+cp castille-f.png ${WCL}6
+cp catalan-d.pdf catalan-p.pdf catalonia-f.png ${WCL}6
+cp caucasus.pdf ${WCL}6
+cp central-africa-f.png ${WCL}6
+cp chad-f.png ${WCL}6
+cp chile-f.png ${WCL}6
+cp china-ae.png china-af.png china-ch.png china-f.png china-l.pdf ${WCL}6
+cp china-w.png ${WCL}6
+cp chine1.pdf ${WCL}6
+cp chine2.pdf ${WCL}6
+cp cis-f.png ${WCL}6
+cp colombia-f.png ${WCL}6
+cp comoros-f.png ${WCL}6
+cp congo-f.png ${WCL}6
+cp corsica-f.jpg ${WCL}6
+cp costa-rica-f.jpg ${WCL}6
+cp cplp-0.png cplpmap.png ${WCL}6
+cp croatia-f.png ${WCL}6
+cp croatia-un.png ${WCL}6
+cp croatie2.png ${WCL}6
+cp cuba-f.png ${WCL}6
+cp cyprus-f.png ${WCL}6
+cp cyr-alf.png ${WCL}6
+cp cz1.pdf ${WCL}6
+cp cz3.png ${WCL}6
+cp czech-f.png ${WCL}6
+cp czechd.pdf ${WCL}6
+cp dane-f.png ${WCL}6
+cp danemark.jpg ${WCL}6
+cp danishd.pdf ${WCL}6
+cp danishg.pdf ${WCL}6
+cp devanagari.png ${WCL}6
+cp djibouti-f.png ${WCL}6
+cp dominica-f.png ${WCL}6
+cp dominican-f.png ${WCL}6
+cp dutchw.pdf ${WCL}6
+cp east-timor-f.png ${WCL}6
+cp ecosse1.pdf ${WCL}6
+cp ecosse2.pdf ${WCL}6
+cp ecosse3.pdf ${WCL}6
+cp ecuador-f.jpg ${WCL}6
+cp egypt-f.png ${WCL}6
+cp el-salvador-f.png ${WCL}6
+cp england-f.jpg ${WCL}6
+cp equa-guinea-f.png ${WCL}6
+cp eritrea-f.png ${WCL}6
+cp espa-l.pdf ${WCL}6
+cp espa-o.png ${WCL}6
+cp esperanto-f.png ${WCL}6
+cp estonia-a.pdf ${WCL}6
+cp estonia-b.pdf ${WCL}6
+cp estonia-f.png ${WCL}6
+cp eth2.png ${WCL}6
+cp ethiolang.png ${WCL}6
+cp ethiopia.pdf ethiopia-f.png ethiopia-p.pdf $(WCL}6
+cp euro-lan.png ${WCL}6
+cp euro-lan1.png ${WCL}6
+cp euro-lan2.png ${WCL}6
+cp eusk-f.png ${WCL}6
+cp euskara.png ${WCL}6
+cp faroe-f.png ${WCL}6
+cp farsi.pdf ${WCL}6
+cp farsi-logo.png ${WCL}6
+cp feroe.jpg ${WCL}6
+cp fiji-f.png ${WCL}6
+cp finland-f.png ${WCL}6
+cp finlande1.png ${WCL}6
+cp finlande2.pdf ${WCL}6
+cp finnishd.pdf ${WCL}6
+cp finnishl.pdf ${WCL}6
+cp flanders-f.png ${WCL}6
+cp france-f.png ${WCL}6
+cp france-lr.png ${WCL}6
+cp franco.png francophonie-f.png ${WCL}6
+cp gabon-f.png ${WCL}6
+cp gael-ft.pdf gaid.jpg ${WCL}6
+cp galicia-f.png galicia-m.pdf galicia-mp.pdf galician-l.png ${WCL}6
+cp galles1.pdf galles2.pdf ${WCL}6
+cp georgia-f.png ${WCL}6
+cp germ-w.png ${WCL}6
+cp german-c.pdf german-d.pdf german-m.pdf germany-f.jpg ${WCL}6
+cp ghana-f.png ${WCL}6
+cp gibraltar-f.png ${WCL}6
+cp grece1.pdf ${WCL}6
+cp grece2.pdf ${WCL}6
+cp greece-f.png ${WCL}6
+cp greeka.png ${WCL}6
+cp greekm.jpg ${WCL}6
+cp greenland-f.png ${WCL}6
+cp guatemala-f.jpg ${WCL}6
+cp guinea-bissau-f.png ${WCL}6
+cp guinea-f.png ${WCL}6
+cp gwenn-f.png ${WCL}6
+cp haiti-f.jpg ${WCL}6
+cp hangul.png ${WCL}6
+cp hanja.png ${WCL}6
+cp hanzi.png ${WCL}6
+cp hin.png ${WCL}6
+cp hindi-b.png ${WCL}6
+cp hindi-p.png ${WCL}6
+cp hispano.png ${WCL}6
+cp honduras-f.png ${WCL}6
+cp hrv.png ${WCL}6
+cp hun1.png ${WCL}6
+cp hun2.jpg ${WCL}6
+cp hungary-f.png ${WCL}6
+cp iceland-f.png ${WCL}6
+cp imongolia-f.png ${WCL}6
+cp inde1.pdf ${WCL}6
+cp inde2.jpg ${WCL}6
+cp india-f.png ${WCL}6
+cp indonesia-f.png ${WCL}6
+cp indonesia1.pdf ${WCL}6
+cp indonesia2.pdf ${WCL}6
+cp iran-f.png ${WCL}6
+cp iranian.jpg ${WCL}6
+cp iraq-f.png ${WCL}6
+cp ireland-f.png ${WCL}6
+cp irish.png ${WCL}6
+cp irlande.pdf ${WCL}6
+cp islam-pbc.png islam-sw.pdf ${WCL}6
+cp islande.png ${WCL}6
+cp islandep.jpg ${WCL}6
+cp isr1.pdf ${WCL}6
+cp isr2.pdf ${WCL}6
+cp israel-f.png ${WCL}6
+cp italian.pdf ${WCL}6
+cp italy-f.png ${WCL}6
+cp italo1.png ${WCL}6
+cp italysm.png ${WCL}6
+cp ivory-f.png ${WCL}6
+cp ivrit.png ${WCL}6
+cp jamaica-f.png ${WCL}6
+cp japan-f.png ${WCL}6
+cp japon1.pdf ${WCL}6
+cp japon2.jpg ${WCL}6
+cp jordan-f.png ${WCL}6
+cp jutland-f.png ${WCL}6
+cp kannada-n.png ${WCL}6
+cp karnad1.jpg ${WCL}6
+cp karnataka.jpg karnataka-f.jpg ${WCL}6
+cp kazakhstan-f.png ${WCL}6
+cp kenya-f.png ${WCL}6
+cp kerala.jpg kerala-f.jpg ${WCL}6
+cp khalkha.pdf ${WCL}6
+cp kiribati-f.png ${WCL}6
+cp korea-n-f.png ${WCL}6
+cp korea-s-f.png ${WCL}6
+cp korean1.png ${WCL}6
+cp korean2.jpg ${WCL}6
+cp kos-alb.png ${WCL}6
+cp kos-ml.png ${WCL}6
+cp kosovo-f.png ${WCL}6
+cp kuwait-f.png ${WCL}6
+cp kyrgyzstan-f.png ${WCL}6
+cp lamed3.png ${WCL}6
+cp lang-g.png ${WCL}6
+cp laos-f.png ${WCL}6
+cp latvia-f.png latvian-d.png latvian-r1.png ${WCL}6
+cp lebanon-f.png ${WCL}6
+cp lettonie.jpg ${WCL}6
+cp leur.png ${WCL}6
+cp liberia-f.png ${WCL}6
+cp libya-f.jpg ${WCL}6
+cp liech-f.png ${WCL}6
+cp lithuania-f.jpg lituanie.png ${WCL}6
+cp lorraine-f.jpg ${WCL}6
+cp louisiana-f.png ${WCL}6
+cp ls-f.png ${WCL}6
+cp luso1.pdf luso2.pdf ${WCL}6
+cp lux-f.png ${WCL}6
+cp macau-f.png ${WCL}6
+cp macedonia-f.png ${WCL}6
+cp madagascar-f.png ${WCL}6
+cp maine-f.jpg ${WCL}6
+cp malawi-f.png ${WCL}6
+cp malayalam.pdf ${WCL}6
+cp malayalam.png ${WCL}6
+cp malaysia-f.png ${WCL}6
+cp malaysia1.pdf ${WCL}6
+cp malaysia2.pdf ${WCL}6
+cp mali-f.png ${WCL}6
+cp malta1-f.png ${WCL}6
+cp manchu.jpg ${WCL}6
+cp manchuria.jpg ${WCL}6
+cp manjuc.jpg ${WCL}6
+cp manjui.png ${WCL}6
+cp mauritania-f.png ${WCL}6
+cp mauritius-f.png ${WCL}6
+cp mex1.pdf ${WCL}6
+cp mex2.pdf ${WCL}6
+cp mex3.pdf ${WCL}6
+cp mexico-f.jpg ${WCL}6
+cp mexip.pdf ${WCL}6
+cp meyalu.png ${WCL}6
+cp moldova-f.png ${WCL}6
+cp monaco-f.png ${WCL}6
+cp mondep.png ${WCL}6
+cp mongasie.pdf ${WCL}6
+cp mongolcy.png ${WCL}6
+cp mongolia-f.png mongolian.pdf ${WCL}6
+cp mongols.png ${WCL}6
+cp mongoltr.png ${WCL}6
+cp montenegro-f.jpg ${WCL}6
+cp morocco-f.png ${WCL}6
+cp mozambique-f.png ${WCL}6
+cp namibia-f.png ${WCL}6
+cp nbrunswick-f.png ${WCL}6
+cp ncyprus-f.png ${WCL}6
+cp neder.pdf netherlands-antilles-f.png netherlands-f.png ${WCL}6
+cp new-york-f.png ${WCL}6
+cp newzealand-f.png ${WCL}6
+cp nicaragua-f.png ${WCL}6
+cp nice-f.png ${WCL}6
+cp niger-f.png ${WCL}6
+cp nigeria-f.png ${WCL}6
+cp nihongo.png ${WCL}6
+cp norvege-c.pdf norvege-t.pdf norway-f.png norway-p.pdf ${WCL}6
+cp occ-f.png occdial1.jpg occdial2.png occitanie.png occtaur.jpg ${WCL}6
+cp oman-f.png ${WCL}6
+cp opole-f.png ${WCL}6
+cp pakistan-f.png ${WCL}6
+cp palestine-f.png ${WCL}6
+cp panama-f.png ${WCL}6
+cp paraguay.png paraguay-f.png paraguayp.pdf ${WCL}6
+cp peru-f.png ${WCL}6
+cp philippines-f.png ${WCL}6
+cp poland-f.png polish-d.jpg ${WCL}6
+cp polmin.jpg ${WCL}6
+cp pologne.pdf ${WCL}6
+cp polski-f.png ${WCL}6
+cp portu-a.png ${WCL}6
+cp portu-b.png ${WCL}6
+cp portu-p.jpg ${WCL}6
+cp portu-r.jpg ${WCL}6
+cp portugal.pdf portugal-f.png ${WCL}6
+cp puerto-rico-f.png ${WCL}6
+cp qatar-f.png ${WCL}6
+cp quebec-f.png ${WCL}6
+cp rdcongo-f.png ${WCL}6
+cp romania-f.png romanian.pdf ${WCL}6
+cp rus-cyr.png ${WCL}6
+cp rus-re.png ${WCL}6
+cp rus-su.pdf ${WCL}6
+cp russia-f.png russian.png ${WCL}6
+cp russian-e.pdf ${WCL}6
+cp russian-n.png ${WCL}6
+cp russian-w.png ${WCL}6
+cp rwanda-f.png ${WCL}6
+cp saint-lucia-f.png ${WCL}6
+cp same.png ${WCL}6
+cp same-f.png sami-f.png ${WCL}6
+cp samoa-f.png ${WCL}6
+cp san-marino-f.png ${WCL}6
+cp sao-f.png${WCL}6
+cp saudi-arabia-f.png${WCL}6
+cp scotland-f.png ${WCL}6
+cp senegal-f.png ${WCL}6
+cp serb-a.pdf serbia-f.png serbia-f2.png ${WCL}6
+cp serbia1.pdf ${WCL}6
+cp seychelles-f.png ${WCL}6
+cp singapore-f.png ${WCL}6
+cp slovak-ok.png ${WCL}6
+cp slovakia.pdf slovakia-f.png ${WCL}6
+cp slovenia-f.png slovenian.png slovenie.pdf ${WCL}6
+cp solomon-islands-f.png ${WCL}6
+cp somalia-f.png ${WCL}6
+cp sorabe-1.png ${WCL}6
+cp sorabe-2.png ${WCL}6
+cp sorben.jpg ${WCL}6
+cp sorbian.jpg ${WCL}6
+cp south-africa-f.png ${WCL}6
+cp spain.png spain-f.png ${WCL}6
+cp spilhennig.png ${WCL}6
+cp start.jpg ${WCL}6
+cp stop.png ${WCL}6
+cp sudan-f.png ${WCL}6
+cp suede-a.pdf ${WCL}6
+cp suede-fin.pdf ${WCL}6
+cp suisse-f.png.pdf ${WCL}6
+cp suriname-f.png ${WCL}6
+cp svenska.png ${WCL}6
+cp swahili.pdf ${WCL}6
+cp swahili-m.png ${WCL}6
+cp fswahili.pdf ${WCL}6
+cp sweden.pdf sweden-f.png ${WCL}6
+cp syria-f.png ${WCL}6
+cp taiwan-f.png ${WCL}6
+cp tajikistan-f.png ${WCL}6
+cp tanzania-f.png ${WCL}6
+cp thai.pdf ${WCL}6
+cp thai.png thailand-f.png ${WCL}6
+cp togo-f.png ${WCL}6
+cp tonga-f.png ${WCL}6
+cp tunisia-f.png ${WCL}6
+cp turkey-f.png turkish.png turquie.pdf ${WCL}6
+cp turkmenistan-f.png ${WCL}6
+cp tuvalu-f.png ${WCL}6
+cp uae-f.png ${WCL}6
+cp uganda-f.png ${WCL}6
+cp uighur-f.png uighur.pdf ${WCL}6
+cp uk-f.png ${WCL}6
+cp ukra.png ${WCL}6
+cp ukraine.jpg ukraine-f.png ${WCL}6
+cp ukrainep.pdf ${WCL}6
+cp uruguay-f.png ${WCL}6
+cp us-f.png ${WCL}6
+cp usa-f.png ${WCL}6
+cp uzbekistan-f.png ${WCL}6
+cp vanuatu-f.png ${WCL}6
+cp vatican-f.jpg ${WCL}6
+cp venezuela-f.png ${WCL}6
+cp vermont-f.png ${WCL}6
+cp viet2.pdf ${WCL}6
+cp viet3.pdf ${WCL}6
+cp viet4.pdf ${WCL}6
+cp viet-w.pdf vietnam-f.png ${WCL}6
+cp vojvodina-f.png ${WCL}6
+cp wales-f.png ${WCL}6
+cp wallonia-f.png ${WCL}6
+cp wallonie.pdf ${WCL}6
+cp wiki.png wikif.png ${WCL}6
+cp wrs-a.png wrs-a.png ${WCL}6
+cp xinjiang.png xinjiangc.png ${WCL}6
+cp xyugo.png ${WCL}6
+cp yemen-f.png ${WCL}6
+cp zambia-f.png ${WCL}6
+cp zanzibar-f.png ${WCL}6
+cp zimbabwe-f.png ${WCL}6
+chmod 644 ${WCL}6/*
+# class 7
+echo 'Class 7'
+cp minitoc.dtx minitoc-fr.dtx minitoc-fr.bib minitoc-fr.ist minitoc-fr.lan minitoc.pre ${WCL}6
+cp franc.sty frbib.sty frnew.sty fr-mtc.bst ${WCL}7
+chmod 644 ${WCL}7/*
+# class 8
+echo 'Class 8'
+cp minitoc.pdf ${WCL}8
+# cp minitoc.ps ${WCL}8
+chmod 644 ${WCL}8/*
+# class 9
+echo 'Class 9'
+cp minitoc-fr.pdf ${WCL}9
+# cp minitoc-fr.ps ${WCL}9
+chmod 644 ${WCL}9/*
+# class 10
+echo 'Class 10'
+cp pmk imk emk fmk rmk tmk xmk cmk ${WCL}10
+chmod 744 ${WCL}10/*
+# Cleaning
+echo "Cleaning"
+if ( -f minitoc.maf ) then
+   cat minitoc.maf | xargs -i -t \rm {}
+endif
+if ( -f minitoc-fr.maf ) then
+   cat minitoc-fr.maf | xargs -i -t \rm {}
+endif
+#
+set UN=`whoami`.tmk
+set RD=/tmp/$UN
+if ( -d $RD ) then
+else
+   mkdir -m 755 $RD
+endif
+set TDSDIR=tds
+set TDS=$RD/$TDSDIR
+echo "BIB files"
+if ( -d $TDS ) then
+else
+   mkdir -m 755 $TDS
+endif
+if ( -d $TDS/bibtex ) then
+else
+   mkdir -m 755 $TDS/bibtex
+endif
+if ( -d $TDS/bibtex/bib ) then
+else
+   mkdir -m 755 $TDS/bibtex/bib
+endif
+if ( -d $TDS/bibtex/bib/minitoc ) then
+   \rm -rf $TDS/bibtex/bib/minitoc
+endif
+mkdir -m 755 $TDS/bibtex/bib/minitoc
+foreach i ( minitoc-fr.bib minitoc.bib )
+   cp $i $TDS/bibtex/bib/minitoc
+   chmod 744 $TDS/bibtex/bib/minitoc/$i
+end
+#
+echo "BST files"
+if ( -d $TDS/bibtex/bst ) then
+else
+   mkdir -m 755 $TDS/bibtex/bst
+endif
+if ( -d $TDS/bibtex/bst/minitoc ) then
+   \rm -rf $TDS/bibtex/bst/minitoc
+endif
+mkdir -m 755 $TDS/bibtex/bst/minitoc
+foreach i ( en-mtc.bst fr-mtc.bst)
+   cp $i $TDS/bibtex/bst/minitoc
+   chmod 744 $TDS/bibtex/bst/minitoc/$i
+end
+#
+echo "SCRIPT files"
+if ( -d $TDS/scripts ) then
+else
+   mkdir -m 755 $TDS/scripts
+endif
+if ( -d $TDS/scripts/minitoc ) then
+   \rm -rf $TDS/scripts/minitoc
+endif
+mkdir -m 755 $TDS/scripts/minitoc
+foreach i ( emk fmk imk pmk rmk tmk xmk cmk )
+   cp $i $TDS/scripts/minitoc
+   chmod 755 $TDS/scripts/minitoc/$i
+end
+#
+echo "DVIPS files"
+if ( -d $TDS/dvips ) then
+else
+   mkdir -m 755 $TDS/dvips
+endif
+if ( -d $TDS/dvips/minitoc ) then
+   \rm -rf $TDS/dvips/minitoc
+endif
+mkdir -m 755 $TDS/dvips/minitoc
+#
+echo "INDEXING files"
+if ( -d $TDS/makeindex ) then
+else
+   mkdir -m 755 $TDS/makeindex
+endif
+if ( -d $TDS/makeindex/minitoc ) then
+   \rm -rf $TDS/makeindex/minitoc
+endif
+mkdir -m 755 $TDS/makeindex/minitoc
+foreach i ( minitoc-fr.ist minitoc.ist )
+   cp $i $TDS/makeindex/minitoc
+   chmod 744 $TDS/makeindex/minitoc/$i
+end
+#
+echo "LATEX files"
+if ( -d  $TDS/tex ) then
+else
+   mkdir -m 755 $TDS/tex
+endif
+if ( -d $TDS/tex/latex ) then
+else
+   mkdir -m 755 $TDS/tex/latex
+endif
+if ( -d $TDS/tex/latex/minitoc ) then
+   \rm -rf $TDS/tex/latex/minitoc
+endif
+mkdir -m 755 $TDS/tex/latex/minitoc
+foreach i ( \
+UKenglish.mld \
+USenglish.mld \
+acadien.mld \
+afrikaans.mld \
+albanian.mld \
+american.mld \
+arab.mld \
+arab2.mld \
+arabi.mld \
+arabic.mld \
+armenian.mld \
+australian.mld \
+austrian.mld \
+bahasa.mld \
+bahasai.mld \
+bahasam.mld \
+bangla.mld \
+basque.mld \
+bengali.mld \
+bicig.mld \
+bicig2.mld \
+bicig3.mld \
+bithe.mld \
+brazil.mld \
+brazilian.mld \
+breton.mld \
+british.mld \
+bulgarian.mld \
+bulgarianb.mld \
+buryat.mld \
+buryat2.mld \
+canadian.mld \
+canadien.mld \
+castillan.mld \
+castillian.mld \
+catalan.mld \
+chinese1.mld \
+chinese1.mlo \
+chinese2.mld \
+chinese2.mlo \
+croatian.mld \
+czech.mld \
+danish.mld \
+devanagari.mld \
+dutch.mld \
+english.mld \
+english1.mld \
+english2.mld \
+esperant.mld \
+esperanto.mld \
+estonian.mld \
+ethiopia.mld \
+ethiopian.mld \
+ethiopian2.mld \
+farsi1.mld \
+farsi1.mlo \
+farsi2.mld \
+farsi2.mlo \
+farsi3.mld \
+finnish.mld \
+finnish2.mld \
+francais.mld \
+french.mld \
+french1.mld \
+french2.mld \
+frenchb.mld \
+frenchle.mld \
+frenchpro.mld \
+galician.mld \
+german.mld \
+germanb.mld \
+germanb2.mld \
+greek-mono.mld \
+greek-polydemo.mld \
+greek-polykatha.mld \
+greek.mld \
+guarani.mld \
+hangul-u8.mld \
+hangul-u8.mlo \
+hangul1.mld \
+hangul1.mlo \
+hangul2.mld \
+hangul2.mlo \
+hangul3.mld \
+hangul3.mlo \
+hangul4.mld \
+hangul4.mlo \
+hanja-u8.mld \
+hanja-u8.mlo \
+hanja1.mld \
+hanja1.mlo \
+hanja2.mld \
+hanja2.mlo \
+hebrew.mld \
+hebrew2.mld \
+hindi-modern.mld \
+hindi.mld \
+hungarian.mld \
+icelandic.mld \
+indon.mld \
+indonesian.mld \
+interlingua.mld \
+irish.mld \
+italian.mld \
+italian2.mld \
+japanese.mld \
+japanese.mlo \
+japanese2.mld \
+japanese2.mlo \
+japanese3.mld \
+japanese3.mlo \
+japanese4.mld \
+japanese4.mlo \
+japanese5.mld \
+japanese5.mlo \
+japanese6.mld \
+japanese6.mlo \
+kannada.mld \
+khalkha.mld \
+latin.mld \
+latin2.mld \
+latinc.mld \
+latinc2.mld \
+latvian.mld \
+latvian2.mld \
+letton.mld \
+letton2.mld \
+lithuanian.mld \
+lithuanian2.mld \
+lowersorbian.mld \
+lsorbian.mld \
+magyar.mld \
+magyar2.mld \
+magyar3.mld \
+malay.mld \
+malayalam-b.mld \
+malayalam-keli.mld \
+malayalam-keli2.mld \
+malayalam-mr.mld \
+malayalam-omega.mld \
+malayalam-omega.mlo \
+malayalam-rachana.mld \
+malayalam-rachana2.mld \
+malayalam-rachana3.mld \
+manju.mld \
+mexican.mld \
+meyalu.mld \
+minitoc.sty \
+mongol.mld \
+mongolb.mld \
+mongolian.mld \
+mtcmess.sty \
+mtcoff.sty \
+mtcpatchmem.sty \
+naustrian.mld \
+newzealand.mld \
+ngerman.mld \
+ngermanb.mld \
+ngermanb2.mld \
+norsk.mld \
+norsk2.mld \
+nynorsk.mld \
+nynorsk2.mld \
+occitan.mld \
+occitan2.mld \
+polish.mld \
+polish2.mld \
+polski.mld \
+portuges.mld \
+portuguese.mld \
+romanian.mld \
+romanian2.mld \
+romanian3.mld \
+russian-cca.mld \
+russian-cca.mlo \
+russian-cca1.mld \
+russian-cca1.mlo \
+russian-lh.mld \
+russian-lh.mlo \
+russian-lhcyralt.mld \
+russian-lhcyralt.mlo \
+russian-lhcyrkoi.mld \
+russian-lhcyrkoi.mlo \
+russian-lhcyrwin.mld \
+russian-lhcyrwin.mlo \
+russian.mld \
+russian2m.mld \
+russian2o.mld \
+russianb.mld \
+russianc.mld \
+samin.mld \
+scottish.mld \
+serbian.mld \
+serbianc.mld \
+slovak.mld \
+slovene.mld \
+spanish.mld \
+spanish2.mld \
+spanish3.mld \
+spanish4.mld \
+swahili.mld \
+swedish.mld \
+swedish2.mld \
+thai.mld \
+thai.mlo \
+turkish.mld \
+uighur.mld \
+uighur2.mld \
+uighur3.mld \
+ukraineb.mld \
+ukrainian.mld \
+uppersorbian.mld \
+usorbian.mld \
+vietnam.mld \
+vietnamese.mld \
+welsh.mld \
+xalx.mld \
+xalx2.mld \
+xalx3.mld \
+)
+   cp $i $TDS/tex/latex/minitoc
+   chmod 744 $TDS/tex/latex/minitoc/$i
+end
+#
+## echo "TPM file"
+## if ( -d $TDS/tpm ) then
+## else
+##    mkdir -m 755 $TDS/tpm
+## endif
+## cp minitoc.tpm $TDS/tpm/minitoc.tpm
+## chmod 744 $TDS/tpm/minitoc.tpm
+#
+echo "DOCUMENTATION files"
+if ( -d $TDS/doc ) then
+else
+   mkdir -m 755 $TDS/doc
+endif
+if ( -d $TDS/doc/latex ) then
+else
+   mkdir -m 755 $TDS/doc/latex
+endif
+if ( -d $TDS/doc/latex/minitoc ) then
+   \rm -rf $TDS/doc/latex/minitoc
+endif
+mkdir -m 755 $TDS/doc/latex/minitoc
+foreach i ( \
+INSTALL \
+README \
+TODO \
+CATALOG \
+minitoc-fr.lan \
+minitoc-fr.pdf \
+minitoc.bug \
+minitoc.l \
+minitoc.lan \
+minitoc.pdf \
+minitoc.pre \
+minitoc.sum \
+franc.sty \
+frbib.sty \
+frnew.sty \
+)
+   cp $i $TDS/doc/latex/minitoc
+end
+echo "EXAMPLE files"
+mkdir -m 755 $TDS/bibtex/bib/minitoc/examples
+foreach i ( \
+mtc-2c.pdf \
+mtc-2c.tex \
+mtc-2nd.pdf \
+mtc-2nd.tex \
+mtc-3co.pdf \
+mtc-3co.tex \
+mtc-add.pdf \
+mtc-add.tex \
+mtc-add.bib \
+mtc-ads.pdf \
+mtc-ads.tex \
+mtc-amm.pdf \
+mtc-amm.tex \
+mtc-apx.pdf \
+mtc-apx.tex \
+mtc-art.pdf \
+mtc-art.tex \
+mtc-bk.pdf \
+mtc-bk.tex \
+mtc-bo.pdf \
+mtc-bo.tex \
+mtc-ch0.pdf \
+mtc-ch0.tex \
+mtc-cri.pdf \
+mtc-cri.tex \
+mtc-fko.pdf \
+mtc-fko.tex \
+mtc-fo1.pdf \
+mtc-fo1.tex \
+mtc-fo2.pdf \
+mtc-fo2.tex \
+mtc-gap.pdf \
+mtc-gap.tex \
+mtc-hi1.pdf \
+mtc-hi1.tex \
+mtc-hi2.pdf \
+mtc-hi2.tex \
+mtc-hia.pdf \
+mtc-hia.tex \
+mtc-hir.pdf \
+mtc-hir.tex \
+mtc-hop.pdf \
+mtc-hop.tex \
+mtc-liv.pdf \
+mtc-liv.tex \
+mtc-mem.pdf \
+mtc-mem.tex \
+mtc-mm1.pdf \
+mtc-mm1.tex \
+mtc-mu.pdf \
+mtc-mu.tex \
+mtc-nom.pdf \
+mtc-nom.tex \
+mtc-ocf.pdf \
+mtc-ocf.tex \
+mtc-ofs.pdf \
+mtc-ofs.tex \
+mtc-sbf.pdf \
+mtc-sbf.tex \
+mtc-scr.pdf \
+mtc-scr.tex \
+mtc-syn.pdf \
+mtc-syn.tex \
+mtc-tbi.pdf \
+mtc-tbi.tex \
+mtc-tlc.pdf \
+mtc-tlc.tex \
+mtc-tsf.pdf \
+mtc-tsf.tex \
+mtc-vti.pdf \
+mtc-vti.tex \
+)
+   cp $i $TDS/doc/latex/minitoc/examples
+end
+echo "IMAGE files"
+mkdir -m 755 $TDS/bibtex/bib/minitoc/images
+foreach i ( \
+aaland-f.png \
+acadian-m.pdf \
+acadie-f.png \
+acadien-m.pdf \
+afghan-f.png \
+africa-lf.png \
+africa-lo.pdf \
+afrsud-l.pdf \
+afrsud-p.pdf \
+albania.pdf \
+alb2.png \
+alba-eth.pdf \
+albania-f.png \
+algeria-f.png \
+allemand.jpg \
+alsace-f.png \
+andorra-f.png \
+argentina-f.png \
+anglo1.pdf \
+angola-f.png \
+arab-l.jpg \
+arabw.png \
+armenia-f.png \
+armeniad.pdf \
+armenian-l.png \
+armeniar.jpg \
+aruba-f.png \
+australia-f.png \
+austria-f.png \
+azerbaijan-f.png \
+bahamas-f.png \
+bahrain-f.png \
+baltes.jpg \
+bangla.png \
+bangla1.png \
+bangla2.png \
+bangladesh-f.png \
+barbados-f.png \
+basque-de.png \
+basque-df.png \
+basque1.pdf \
+basque2.pdf \
+be-dg-f.png \
+belarus-f.png \
+belgique.pdf \
+belgium-f.png \
+belize-f.png \
+bengali-m.jpg \
+benin-f.png \
+bolivia-f.png \
+bolzano-f.png \
+bosnia.pdf \
+bosnia-hz-f.png \
+bozen-f.png \
+brazil.pdf \
+brazil-f.png \
+brazilp.pdf \
+bretagne.pdf \
+brussels-f.png \
+bulgaria-f.png \
+bulgariar.jpg \
+bulgarski.png \
+bulgmap.png \
+bur-f.png \
+burkina-f.png \
+burundi-f.png \
+buryatia.pdf \
+buryatia-l.pdf \
+california-f.png \
+cambodia-f.png \
+cameroon-f.png \
+canada.pdf \
+canada-f.png \
+canada-l.pdf \
+canada-pe.png \
+canada-pf.pdf \
+canada1.pdf \
+cap-verde-f.png \
+castille-f.png \
+catalan-d.pdf \
+catalan-p.pdf \
+catalonia-f.png \
+caucasus.pdf \
+central-africa-f.png \
+chad-f.png \
+chile-f.png \
+china-ae.png \
+china-af.png \
+china-ch.png \
+china-f.png \
+china-l.pdf \
+china-w.png \
+chine1.pdf \
+chine2.pdf \
+cis-f.png \
+colombia-f.png \
+comoros-f.png \
+congo-f.png \
+corsica-f.jpg \
+costa-rica-f.jpg \
+cplp-0.png \
+cplpmap.png \
+croatia-f.png \
+croatia-un.png \
+croatie2.png \
+cuba-f.png \
+cyprus-f.png \
+cyr-alf.png \
+cz1.pdf \
+cz3.png \
+czech-f.png \
+czechd.pdf \
+dane-f.png \
+danemark.jpg \
+danishd.pdf \
+danishg.pdf \
+devanagari.png \
+djibouti-f.png \
+dominica-f.png \
+dominican-f.png \
+dutchw.pdf \
+east-timor-f.png \
+ecosse1.pdf \
+ecosse2.pdf \
+ecosse3.pdf \
+ecuador-f.jpg \
+egypt-f.png \
+el-salvador-f.png \
+england-f.jpg \
+equa-guinea-f.png \
+eritrea-f.png \
+espa-l.pdf \
+espa-o.png \
+esperanto-f.png \
+estonia-a.pdf \
+estonia-b.pdf \
+estonia-f.png \
+eth2.png \
+ethiolang.png \
+ethiopia.pdf \
+ethiopia-f.png \
+ethiopia-p.pdf \
+euro-lan.png \
+euro-lan1.png \
+euro-lan2.png \
+eusk-f.png \
+euskara.png \
+faroe-f.png\
+farsi.pdf \
+farsi-logo.png \
+feroe.jpg \
+fiji-f.png \
+finland-f.png \
+finlande1.png \
+finlande2.pdf \
+finnishd.pdf \
+finnishl.pdf \
+flanders-f.png \
+france-f.png \
+france-lr.png \
+franco.png \
+francophonie-f.png \
+gabon-f.png \
+gael-ft.pdf \
+gaid.jpg \
+galicia-f.png \
+galicia-m.pdf \
+galicia-mp.pdf \
+galician-l.png \
+galles1.pdf \
+galles2.pdf \
+georgia-f.png \
+germ-w.png \
+german-c.pdf \
+german-d.pdf \
+german-m.pdf \
+germany-f.jpg \
+ghana-f.png \
+gibraltar-f.png \
+grece1.pdf \
+grece2.pdf \
+greece-f.png \
+greeka.png \
+greekm.jpg \
+greenland-f.png \
+guatemala-f.jpg \
+guinea-bissau-f.png \
+guinea-f.png \
+gwenn-f.png \
+haiti-f.jpg \
+hangul.png \
+hanja.png \
+hanzi.png \
+hin.png \
+hindi-b.png \
+hindi-p.png \
+hispano.png \
+honduras-f.png \
+hrv.png \
+hun1.png \
+hun2.jpg \
+hungary-f.png \
+iceland-f.png \
+imongolia-f.png \
+inde1.pdf \
+inde2.jpg \
+india-f.png \
+indonesia-f.png \
+indonesia1.pdf \
+indonesia2.pdf \
+iran-f.png \
+iranian.jpg \
+iraq-f.png \
+ireland-f.png \
+irish.png \
+irlande.pdf \
+islam-pbc.png \
+islam-sw.pdf \
+islande.png \
+islandep.jpg \
+isr1.pdf \
+isr2.pdf \
+israel-f.png \
+italian.pdf \
+italy-f.png \
+italo1.png \
+italysm.png \
+ivory-f.png \
+ivrit.png \
+jamaica-f.png \
+japan-f.png \
+japon1.pdf \
+japon2.jpg \
+jordan-f.png \
+jutland-f.png \
+kannada-n.png \
+karnad1.jpg \
+karnataka.jpg \
+karnataka-f.jpg \
+kazakhstan-f.png \
+kenya-f.png \
+kerala.jpg \
+kerala-f.jpg \
+khalkha.pdf \
+kiribati-f.png \
+korea-n-f.png \
+korea-s-f.png \
+korean1.png \
+korean2.jpg \
+kos-alb.png \
+kos-ml.png \
+kosovo-f.png \
+kuwait-f.png \
+kyrgyzstan-f.png \
+lamed3.png \
+lang-g.png \
+laos-f.png \
+latvia-f.png \
+latvian-d.png \
+latvian-r1.png \
+lebanon-f.png \
+lettonie.jpg \
+leur.png \
+liberia-f.png \
+libya-f.jpg \
+liech-f.png \
+lithuania-f.jpg \
+lituanie.png \
+lorraine-f.jpg \
+louisiana-f.png \
+ls-f.png \
+luso1.pdf \
+luso2.pdf \
+lux-f.png \
+macau-f.png \
+macedonia-f.png \
+madagascar-f.png \
+maine-f.jpg \
+malawi-f.png \
+malayalam.pdf \
+malayalam.png \
+malaysia-f.png \
+malaysia1.pdf \
+malaysia2.pdf \
+mali-f.png \
+malta1-f.png \
+manchu.jpg \
+manchuria.jpg \
+manjuc.jpg \
+manjui.png \
+mauritania-f.png \
+mauritius-f.png \
+mex1.pdf \
+mex2.pdf \
+mex3.pdf \
+mexico-f.jpg \
+mexip.pdf \
+meyalu.png \
+moldova-f.png \
+monaco-f.png \
+mondep.png \
+mongasie.pdf \
+mongolcy.png \
+mongolia-f.png \
+mongolian.pdf \
+mongols.png \
+mongoltr.png \
+montenegro-f.jpg \
+morocco-f.png \
+mozambique-f.png \
+namibia-f.png \
+nbrunswick-f.png \
+ncyprus-f.png \
+neder.pdf \
+netherlands-antilles-f.png \
+netherlands-f.png \
+new-york-f.png \
+newzealand-f.png \
+nicaragua-f.png \
+nice-f.png \
+niger-f.png \
+nigeria-f.png \
+nihongo.png \
+norvege-c.pdf \
+norvege-t.pdf \
+norway-f.png \
+norway-p.pdf \
+occ-f.png \
+occdial1.jpg \
+occdial2.png \
+occitanie.png \
+occtaur.jpg \
+oman-f.png \
+opole-f.png \
+pakistan-f.png \
+palestine-f.png \
+panama-f.png \
+paraguay.png \
+paraguay-f.png \
+paraguayp.pdf \
+peru-f.png \
+philippines-f.png \
+poland-f.png \
+polish-d.jpg \
+polmin.jpg \
+pologne.pdf \
+polski-f.png \
+portu-a.png \
+portu-b.png \
+portu-p.jpg \
+portu-r.jpg \
+portugal.pdf \
+portugal-f.png \
+puerto-rico-f.png \
+qatar-f.png \
+quebec-f.png \
+rdcongo-f.png \
+romania-f.png \
+romanian.pdf \
+rus-cyr.png \
+rus-re.png \
+rus-su.pdf \
+russia-f.png \
+russian.png \
+russian-e.pdf \
+russian-n.png \
+russian-w.png \
+rwanda-f.png \
+saint-lucia-f.png \
+same.png \
+same-f.png \
+sami-f.png \
+samoa-f.png \
+san-marino-f.png \
+sao-f.png \
+saudi-arabia-f.png \
+scotland-f.png \
+senegal-f.png \
+serb-a.pdf \
+serbia-f.png \
+serbia-f2.png \
+serbia1.pdf \
+seychelles-f.png \
+singapore-f.png \
+slovak-ok.png \
+slovakia.pdf \
+slovakia-f.png \
+slovenia-f.png \
+slovenian.png \
+slovenie.pdf \
+solomon-islands-f.png \
+somalia-f.png \
+sorabe-1.jpg \
+sorabe-2.jpg \
+sorben.jpg \
+sorbian.jpg \
+south-africa-f.png \
+spain.png \
+spain-f.png \
+spilhennig.png \
+start.jpg \
+stop.png \
+sudan-f.png \
+suede-a.pdf \
+suede-fin.pdf \
+suisse-f.png \
+suriname-f.png \
+svenska.png \
+swahili.pdf \
+swahili-m.png \
+fswahili.pdf \
+sweden.pdf \
+sweden-f.png \
+syria-f.png \
+taiwan-f.png \
+tajikistan-f.png \
+tanzania-f.png \
+thai.pdf \
+thai.png \
+thailand-f.png \
+togo-f.png \
+tonga-f.png \
+tunisia-f.png \
+turkey-f.png \
+turkish.png \
+turkmenistan-f.png \
+turquie.pdf \
+tuvalu-f.png \
+uae-f.png \
+uganda-f.png \
+uighur-f.png \
+uighur.pdf \
+uk-f.png \
+ukra.png \
+ukraine.jpg \
+ukraine-f.png \
+ukrainep.pdf \
+uruguay-f.png \
+us-f.png \
+usa-f.png \
+uzbekistan-f.png \
+vanuatu-f.png \
+vatican-f.jpg \
+venezuela-f.png \
+vermont-f.png \
+viet2.pdf \
+viet3.pdf \
+viet4.pdf \
+viet-w.pdf \
+vietnam-f.png \
+vojvodina-f.png \
+wales-f.png \
+wallonia-f.png \
+wallonie.pdf \
+wiki.png \
+wikif.png \
+wrs-a.png \
+wrs-c.png \
+xinjiang.png \
+xinjiangc.png \
+xyugo.png \
+yemen-f.png \
+zambia-f.png \
+zanzibar-f.png \
+zimbabwe-f.png \
+)
+   cp $i $TDS/doc/latex/minitoc/images
+   chmod 644 $TDS/doc/latex/minitoc/images/$i
+end
+#
+echo "SOURCE files"
+if ( -d $TDS/source ) then
+else
+   mkdir -m 755 $TDS/source
+endif
+if ( -d $TDS/source/latex ) then
+else
+   mkdir -m 755 $TDS/source/latex
+endif
+if ( -d $TDS/source/latex/minitoc ) then
+   \rm -rf $TDS/source/latex/minitoc
+endif
+mkdir -m 755 $TDS/source/latex/minitoc
+foreach i ( minitoc-fr.dtx minitoc.dtx minitoc.ins )
+   cp $i $TDS/source/latex/minitoc
+   chmod 744 $TDS/source/latex/minitoc/$i
+end
+#
+echo "MINITOC-TDS.ZIP"
+set WD=`pwd`
+cd $RD/$TDSDIR
+\rm -f minitoc-tds.zip
+\rm -f minitoc.tds.zip
+zip -r minitoc.tds.zip * -i \*
+cd $WD
+# it's all!
+echo "It's all, folks..."
+exit
+

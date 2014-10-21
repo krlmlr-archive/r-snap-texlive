@@ -1,0 +1,1597 @@
+% \iffalse meta-comment
+%
+% etruscan.dtx
+%
+%  Author: Peter Wilson (Herries Press) herries dot press at earthlink dot net
+%  Copyright 1999--2005 Peter R. Wilson
+%
+%  This work may be distributed and/or modified under the
+%  conditions of the Latex Project Public License, either
+%  version 1.3 of this license or (at your option) any
+%  later version.
+%  The latest version of the license is in
+%    http://www.latex-project.org/lppl.txt
+%  and version 1.3 or later is part of all distributions of
+%  LaTeX version 2003/06/01 or later.
+%
+%  This work has the LPPL maintenance status "author-maintained".
+%
+%  This work consists of the files listed in the README file.
+%
+%<*driver>
+\documentclass[twoside]{ltxdoc}
+\usepackage{url}
+\usepackage[draft=false,
+            plainpages=false,
+            pdfpagelabels,
+            bookmarksnumbered,
+            hyperindex=false
+           ]{hyperref}
+\providecommand{\phantomsection}{}
+\OnlyDescription %% comment this out for the full glory
+\EnableCrossrefs
+\CodelineIndex
+\setcounter{StandardModuleDepth}{1}
+\makeatletter
+  \@mparswitchfalse
+\makeatother
+\renewcommand{\MakeUppercase}[1]{#1}
+\pagestyle{headings}
+\newenvironment{addtomargins}[1]{%
+  \begin{list}{}{%
+    \topsep 0pt%
+    \addtolength{\leftmargin}{#1}%
+    \addtolength{\rightmargin}{#1}%
+    \listparindent \parindent
+    \itemindent \parindent
+    \parsep \parskip}%
+  \item[]}{\end{list}}
+\begin{document}
+  \raggedbottom
+  \DocInput{etruscan.dtx}
+\end{document}
+%</driver>
+%
+%
+% \fi
+%
+% \CheckSum{329}
+%
+% \DoNotIndex{\',\.,\@M,\@@input,\@addtoreset,\@arabic,\@badmath}
+% \DoNotIndex{\@centercr,\@cite}
+% \DoNotIndex{\@dotsep,\@empty,\@float,\@gobble,\@gobbletwo,\@ignoretrue}
+% \DoNotIndex{\@input,\@ixpt,\@m}
+% \DoNotIndex{\@minus,\@mkboth,\@ne,\@nil,\@nomath,\@plus,\@set@topoint}
+% \DoNotIndex{\@tempboxa,\@tempcnta,\@tempdima,\@tempdimb}
+% \DoNotIndex{\@tempswafalse,\@tempswatrue,\@viipt,\@viiipt,\@vipt}
+% \DoNotIndex{\@vpt,\@warning,\@xiipt,\@xipt,\@xivpt,\@xpt,\@xviipt}
+% \DoNotIndex{\@xxpt,\@xxvpt,\\,\ ,\addpenalty,\addtolength,\addvspace}
+% \DoNotIndex{\advance,\Alph,\alph}
+% \DoNotIndex{\arabic,\ast,\begin,\begingroup,\bfseries,\bgroup,\box}
+% \DoNotIndex{\bullet}
+% \DoNotIndex{\cdot,\cite,\CodelineIndex,\cr,\day,\DeclareOption}
+% \DoNotIndex{\def,\DisableCrossrefs,\divide,\DocInput,\documentclass}
+% \DoNotIndex{\DoNotIndex,\egroup,\ifdim,\else,\fi,\em,\endtrivlist}
+% \DoNotIndex{\EnableCrossrefs,\end,\end@dblfloat,\end@float,\endgroup}
+% \DoNotIndex{\endlist,\everycr,\everypar,\ExecuteOptions,\expandafter}
+% \DoNotIndex{\fbox}
+% \DoNotIndex{\filedate,\filename,\fileversion,\fontsize,\framebox,\gdef}
+% \DoNotIndex{\global,\halign,\hangindent,\hbox,\hfil,\hfill,\hrule}
+% \DoNotIndex{\hsize,\hskip,\hspace,\hss,\if@tempswa,\ifcase,\or,\fi,\fi}
+% \DoNotIndex{\ifhmode,\ifvmode,\ifnum,\iftrue,\ifx,\fi,\fi,\fi,\fi,\fi}
+% \DoNotIndex{\input}
+% \DoNotIndex{\jobname,\kern,\leavevmode,\let,\leftmark}
+% \DoNotIndex{\list,\llap,\long,\m@ne,\m@th,\mark,\markboth,\markright}
+% \DoNotIndex{\month,\newcommand,\newcounter,\newenvironment}
+% \DoNotIndex{\NeedsTeXFormat,\newdimen}
+% \DoNotIndex{\newlength,\newpage,\nobreak,\noindent,\null,\number}
+% \DoNotIndex{\numberline,\OldMakeindex,\OnlyDescription,\p@}
+% \DoNotIndex{\pagestyle,\par,\paragraph,\paragraphmark,\parfillskip}
+% \DoNotIndex{\penalty,\PrintChanges,\PrintIndex,\ProcessOptions}
+% \DoNotIndex{\protect,\ProvidesClass,\raggedbottom,\raggedright}
+% \DoNotIndex{\refstepcounter,\relax,\renewcommand,\reset@font}
+% \DoNotIndex{\rightmargin,\rightmark,\rightskip,\rlap,\rmfamily,\roman}
+% \DoNotIndex{\roman,\secdef,\selectfont,\setbox,\setcounter,\setlength}
+% \DoNotIndex{\settowidth,\sfcode,\skip,\sloppy,\slshape,\space}
+% \DoNotIndex{\symbol,\the,\trivlist,\typeout,\tw@,\undefined,\uppercase}
+% \DoNotIndex{\usecounter,\usefont,\usepackage,\vfil,\vfill,\viiipt}
+% \DoNotIndex{\viipt,\vipt,\vskip,\vspace}
+% \DoNotIndex{\wd,\xiipt,\year,\z@}
+%
+% \changes{v1.0}{1999/03/14}{First public release}
+% \changes{v2.0}{2000/10/01}{Changes to practically everything}
+% \changes{v2.1}{2005/04/11}{Contact changes and additions for Postscript Type1}
+%
+% \def\fileversion{v1.0} \def\filedate{1999/03/14}
+% \def\fileversion{v2.0} \def\filedate{2000/10/01}
+% \def\fileversion{v2.1} \def\filedate{2005/04/11}
+% \newcommand*{\Lpack}[1]{\textsf {#1}}           ^^A typeset a package
+% \newcommand*{\Lopt}[1]{\textsf {#1}}            ^^A typeset an option
+% \newcommand*{\file}[1]{\texttt {#1}}            ^^A typeset a file
+% \newcommand*{\Lcount}[1]{\textsl {\small#1}}    ^^A typeset a counter
+% \newcommand*{\pstyle}[1]{\textsl {#1}}          ^^A typeset a pagestyle
+% \newcommand*{\Lenv}[1]{\texttt {#1}}            ^^A typeset an environment
+% \newcommand{\BC}{\textsc{bc}}
+% \newcommand{\AD}{\textsc{ad}}
+% \newcommand{\thisfont}{Etruscan}
+%
+% \title{The \Lpack{Etruscan} fonts\thanks{This
+%        file has version number \fileversion, last revised
+%        \filedate.}}
+%
+% \author{%
+% Peter Wilson\thanks{\texttt{herries dot press at earthlink dot net}}\\
+% Herries Press
+% }
+% \date{\filedate}
+% \maketitle
+% \begin{abstract}
+%    The \Lpack{etruscan} bundle provides a set of fonts for the Etruscan
+% script as used about the eighth century~\BC{} in Italy.
+% \end{abstract}
+% \tableofcontents
+%
+%
+% \section{Introduction}
+%
+% The Etruscan alphabet and characters is a direct ancestor of our modern day
+% Latin alphabet and fonts. Scholars can read Etruscan writing, but they
+% have little understanding of the language itself as, apart from proper names,
+% the meanings of less than a score of words are known. The font presented here
+% is one of a series showing the evolution of the modern Latin alphabet
+% from its original Phoenician source to its modern day appearance.
+% 
+% This manual is typeset according to the conventions of the
+% \LaTeX{} \textsc{docstrip} utility which enables the automatic
+% extraction of the \LaTeX{} macro source files~\cite{COMPANION}.
+%
+%    Section~\ref{sec:usc} describes the usage of the package.
+% Commented code for the fonts and the package are in later sections.
+%
+% \subsection{An alphabetic tree}
+%
+%    Scholars are reasonably agreed that all the world's alphabets are descended
+% from a Semitic alphabet invented about 1600~\BC{} in the Middle 
+% East~\cite{DRUCKER95}. The word `Semitic' refers
+% to the family of languages used in the geographical area from
+% Sinai in the south, up the Mediterranean coast to Asia Minor in the north and
+% west to the valley of the Euphrates.
+%
+%    The Phoenician alphabet was stable by about 1100~\BC{} and the script was
+% written right to left. In earlier times the writing direction was variable, 
+% and so were
+% the shapes and orientation of the characters. The alphabet consisted of
+% 22 letters and they were named after things. For example, their first two 
+% letters were called \textit{aleph} (ox), and \textit{beth} (house). 
+% The Phoenician script had
+% only one case --- unlike our modern fonts which have both upper- and 
+% lower-cases. In modern day terms the Phoenician abecedary was: \\
+% A B G D E Y Z H $\Theta$ I K L M N O P ts Q R S T \\
+% where the `Y' (\textit{vau}) character was sometimes written as `F', and
+% `ts' stands for the \textit{tsade} character.
+%
+%    The Greek alphabet is one of the descendants of the Phoenician alphabet;
+% another was Aramaic which is the ancestor of the Arabic, Persian and Indian 
+% scripts.
+% Initially Greek was written right to left but around the 6th C~\BC{} became 
+% \textit{boustrophedron}, meaning that the lines 
+% alternated in direction. At about 500~\BC{} the writing direction stabilised 
+% as left to 
+% right. The Greeks modified the Phoenician alphabet to match the vocalisation
+% of their language. They kept the Phoenician names of the letters, suitably
+% `greekified', so \textit{aleph} became the familar \textit{alpha} and 
+% \textit{beth} became \textit{beta}. At this
+% point the names of the letters had no meaning. There were several variants
+% of the Greek character glyphs until they were finally fixed in Athens in
+% 403~\BC.
+% The Greeks did not develop a lower-case 
+% script until about 600--700~\AD.
+%
+%    The Etruscans based their alphabet on the Greek one, and again modified it.
+% However, the Etruscans wrote right to left, so their borrowed characters are 
+% mirror images of the original Greek ones. Like the Phoenicians, the Etruscan
+% script consisted of only one case; they died out before ever needing a
+% lower-case script. The Etruscan script was used up until the first century 
+% \AD, even though the Etruscans themselves had dissapeared by that time.
+% 
+%
+%    In turn, the Romans based their alphabet on the Etruscan one, but as they 
+% wrote left to right, the characters were again mirrored (although the early
+% Roman inscriptions are boustrophedron). 
+%
+%    As the English alphabet is descended from the Roman alphabet
+% it has a pedigree of some three and a half thousand years.
+%
+% \section{The \Lpack{etruscan} package} \label{sec:usc}
+%
+%    The Etruscan alphabet originally consisted of 26 letters but by about
+% 450~\BC{} had decreased to only 20.
+% The Etruscan font as provided here consists of 27 letters. The font is 
+% mainly based on an 8th C~\BC{} Etruscan abecedary in the Museo Archeologico, 
+% Florence, together with one character that looks like our digit 8 as shown
+% by Richard Firmage~\cite{FIRMAGE93}. I also used information from the
+% \textit{Encyclopedia Brittanica}.
+%
+%
+%
+%    Table~\ref{tab} lists, in the \thisfont{} alphabetical order, the
+% transliterated value of the characters and the Greek and Phoenician
+% (in parenthesis) 
+% names of the character.
+%
+% \begin{table}
+% \centering
+% \caption{The \thisfont{} script and alphabet}\label{tab}
+% \begin{tabular}{clcll} \hline
+% Value & Name & ASCII & Command & Command \\ \hline
+% \textit{A} &
+% alpha (aleph) &
+% a & |\Aalpha| &
+% |\ARalpha| 
+% \\
+% \textit{B} &
+% beta (beth) &
+% b & |\Abeta| &
+% |\ARbeta|
+% \\
+% \textit{G} &
+% gamma (gimel) &
+% g & |\Agamma| &
+% |\Agamma|
+% \\
+% \textit{D} &
+% delta (daleth) &
+% d & |\Adelta| &
+% |\Adelta|
+% \\
+% \textit{E} &
+% epsilon (he) &
+% e & |\Aepsilon| &
+% |\ARepsilon|
+% \\
+% \textit{F} &
+% digamma (vav) &
+% F & |\Adigamma| &
+% |\ARdigamma|
+% \\
+% \textit{Z} &
+% zeta (zayin) &
+% z & |\Azeta| &
+% |\ARzeta|
+% \\
+% \textit{H} &
+% eta (heth) &
+% h & |\Aeta| &
+% |\AReta|
+% \\
+% $\Theta$ &
+% theta (teth) &
+% T & |\Atheta| &
+% |\ARtheta|
+% \\
+% \textit{I} &
+% iota (yod) &
+% i & |\Aiota| &
+% |\ARiota|
+% \\
+% \textit{K} &
+% kappa (kaph) &
+% k & |\Akappa| &
+% |\Akappa|
+% \\
+% \textit{L} &
+% lambda (lamed) &
+% l & |\Alambda| &
+% |\ARlambda|
+% \\
+% \textit{M} &
+% mu (mem) &
+% m & |\Amu| &
+% |\ARmu|
+% \\
+% \textit{N} &
+% nu (nun) &
+% n & |\Anu| &
+% |\ARnu|
+% \\
+% $\Xi$ &
+% xi (samekh) &
+% x & |\Axi| &
+% |\ARxi|
+% \\
+% \textit{O} &
+% omicron (ayin) &
+% o & |\Aomicron| &
+% |\ARomicron|
+% \\
+% \textit{P} &
+% pi (pe) &
+% p & |\Api| &
+% |\ARpi|
+% \\
+% \textit{S} &
+% (sade) &
+% S & |\Aesade| &
+% |\AResade|
+% \\
+% \textit{Q} &
+% (qoph) &
+% q & |\Aqoph| &
+% |\ARqoph|
+% \\
+% \textit{R} &
+% rho (resh) &
+% r & |\Arho| &
+% |\ARrho|
+% \\
+% \textit{S} &
+% sigma (shin) &
+% S & |\Asigma| &
+% |\ARsigma|
+% \\
+% \textit{T} &
+% tau (tav) &
+% t & |\Atau| &
+% |\ARtau|
+% \\
+% \textit{Y} &
+% upsilon (vav) &
+% y & |\Aupsilon| &
+% |\ARupsilon|
+% \\
+% \textit{X} &
+% chi &
+% X & |\Achi| &
+% |\ARchi|
+% \\
+% $\Phi$ &
+% phi &
+% f & |\Aphi| &
+% |\ARphi|
+% \\
+% $\Psi$ &
+% psi &
+% P & |\Apsi| &
+% |\ARpsi|
+% \\
+% \textit{F} &
+% (vav?) &
+% v & |\Avau| &
+% |\ARvau|
+% \\
+% \hline
+% \end{tabular}
+% \end{table}
+%
+%
+% \DescribeMacro{\etrfamily}
+%    This command selects the Etruscan font family. The family name is |etr|.
+%
+% \DescribeMacro{\textetr}
+% The command |\textetr{|\meta{text}|}| typesets \meta{text} in the
+% Etruscan font.
+%     
+%    I have provided two ways of accessing the \thisfont{} glyphs: 
+% (a) by ASCII characters, and
+% (b) by commands whose names are based on the (Greek or Phoenician) 
+% name of the
+%     character.
+% These are shown in Table~\ref{tab}. The commands of the form |\ARxxx|
+% access the glyph forms for writing right-to-left, while the forms
+% for writing left-to-right are accessed by either the ASCII characters
+% or the |\Axxx| commands.
+%
+% \DescribeMacro{\translitetr}
+% |\translitetr{|\meta{commands}|}| will typeset a transliterated 
+% version of the character \meta{commands} (those in the last two columns
+% of Table~\ref{tab}). A mixture of Latin and Greek uppercase characters
+% are used for the transliteration.
+%
+% \DescribeMacro{\translitetrfont}
+% The font used for the transliteration is defined by this macro,
+% which is initialised as an upright form (i.e., |\mathrm|).
+%
+% \StopEventually{
+% \bibliographystyle{alpha}
+% \begin{thebibliography}{GMS94}
+%
+% \bibitem[Dru95]{DRUCKER95}
+% Johanna Drucker.
+% \newblock \emph{The Alphabetic Labyrinth}.
+% \newblock Thames and Hudson, 1995.
+%
+% \bibitem[Fir93]{FIRMAGE93}
+% Richard A.~Firmage.
+% \newblock \emph{The Alphabet Abecedarium}.
+% \newblock David R.~Goodine, 1993.
+%
+% \bibitem[MG04]{COMPANION}
+% Frank Mittelbach and Michel Goossens.
+% \newblock \emph{The LaTeX Companion}.
+% \newblock Addison-Wesley Publishing Company, second edition, 2004.
+%
+% \end{thebibliography}
+% \PrintIndex
+% }
+%
+% 
+%
+%
+% \section{The Metafont code} \label{sec:mf}
+%
+% \subsection{The parameter file}
+%
+%    We deal with the parameter file first, and start by announcing
+% what it is for.
+%    \begin{macrocode}
+%<*up>
+%%% ETR10.MF  Computer Etruscan font 10 point design size.
+
+%    \end{macrocode}
+%    Specify the font size.
+%    \begin{macrocode}
+
+font_identifier:="etruscan"; font_size 10pt#;
+
+%    \end{macrocode}
+%
+%
+% \begin{macro}{u} 
+% \begin{macro}{ht} 
+% \begin{macro}{s} 
+% \begin{macro}{o} 
+% \begin{macro}{px} 
+% \begin{macro}{font-normal-space} 
+% \begin{macro}{font-normal-shrink} 
+% \begin{macro}{font-x-height} 
+% \begin{macro}{font-quad} 
+%    Define the very simple font parameters.
+%    \begin{macrocode}
+u#:=.2pt#;                 % unit width
+ht#:=7pt#;                 % height of characters (CM cap-height is approx 6.8pt)
+s#:=1.5pt#;                % width correction (right and left)
+o#:=1/20pt#;               % overshoot
+px#:=.7pt#;                % horizontal width of pen
+font_normal_space:=7pt#;   % width of a blank space
+font_normal_shrink:=.9pt#; % width correction for blank space
+font_x_height:=4.5pt#;     % height of one ex
+font_quad:=10pt#;          % an em
+
+%    \end{macrocode}
+% \end{macro}
+% \end{macro}
+% \end{macro}
+% \end{macro}
+% \end{macro}
+% \end{macro}
+% \end{macro}
+% \end{macro}
+% \end{macro}
+%
+%    For a full font the driver file would noramally be called for here.
+% In this case I have embedded it.
+%    
+%
+%
+% \subsection{The driver file}
+%
+%    If there was a driver file, this would be its contents.
+%
+%    \begin{macrocode}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% end of parameters
+% start of driver code
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+font_coding_scheme:="Etruscan glyphs";
+mode_setup;
+
+%    \end{macrocode}
+%
+% \begin{macro}{ho}
+% \begin{macro}{leftloc}
+% \begin{macro}{py}
+%  Perform additional setup.
+%    \begin{macrocode}
+ho#:=o#;                   % horizontal overshoot
+leftloc#:=s#;        % leftmost xcoord of character
+py#:=.9px#;                % vertical thickness of the pen
+
+define_pixels(s,u);
+define_blacker_pixels(px,py);
+define_good_x_pixels(leftloc);
+define_corrected_pixels(o);             % turn on overshoot correction
+define_horizontal_corrected_pixels(ho);  
+
+%    \end{macrocode}
+% \end{macro}
+% \end{macro}
+% \end{macro}
+%
+% \begin{macro}{midloc}
+% \begin{macro}{rightloc}
+%    Variables for the middle xcoord and rightmost xcoord of a character.
+%    \begin{macrocode}
+numeric midloc, rightloc;
+%    \end{macrocode}
+% \end{macro}
+% \end{macro}
+%
+% \begin{macro}{stylus}
+%    Define the pen.
+%    \begin{macrocode}
+pickup pencircle xscaled px yscaled py;
+stylus:=savepen;
+
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{beginglyph}
+%    A macro to save some typing of beginchar arguments.
+%    \begin{macrocode}
+def beginglyph(expr code, unit_width) =
+  beginchar(code, unit_width*ht#+2s#, ht#, 0);
+  midloc:=1/2w; rightloc:=(w-s);
+  pickup stylus enddef;
+
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{cmchar}
+%    |cmchar| should precede each character
+%    \begin{macrocode}
+let cmchar=\;
+
+%    \end{macrocode}
+% \end{macro}
+% 
+%    The end of the driver code, except for calling the glyph code.
+%
+% \subsection{The glyph code}
+%
+%    The following code generates the glyphs for the Etruscan font. The characters
+% are defined in the Etruscan alphabetic ordering.
+%
+%    \begin{macrocode}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% glyph code
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%    \end{macrocode}
+%
+% \begin{macro}{a}
+%    The letter A. Much like our modern A, and symmetrical. It corresponds to the
+% Phoenician \textit{alpeh} and the Greek \textit{alpha} ($A$).
+%    \begin{macrocode}
+ 
+cmchar "Etruscan letter A (a)";
+beginglyph("a",0.6);
+x1=leftloc; x3=rightloc;    % base points
+bot y1 = bot y3 = -o;
+x2 = midloc; top y2 = h;    % apex
+% draw the legs
+draw z1--z2--z3;
+z4 = 0.4[z1, z2]; z5 = 0.4[z3,z2];
+% draw the bar
+draw z4--z5;
+labels(1,2,3,4,5);
+endchar;
+
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{b}
+%    The letter B, which is similar to our modern B, and is asymmetric.
+% It corresponds to the Phoenician \textit{beth} and the Greek \textit{beta} ($B$)
+%    \begin{macrocode}
+ 
+cmchar "Etruscan letter B (b)";
+beginglyph("b",0.6);
+x1=x3=x5=leftloc;
+x2=x4=rightloc; 
+bot y1=-o; top y5=h;
+y2=1/4h; y3=1/2h; y4=3/4h;
+draw z1--z5;      % the upright
+draw z1{right}..z2..z3{left};  % lower bowl
+draw z3{right}..z4..z5{left};  % upper bowl
+labels(1,2,3,4,5); endchar;
+ 
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{g}
+%    The letter G. This corresponds to the Phoenician \textit{gimel} and the Greek 
+% \textit{gamma} ($\Gamma$).
+%    \begin{macrocode}
+ 
+cmchar "Etruscan letter G (g)";
+beginglyph("g", 0.6);
+x1=rightloc; 
+x2=leftloc; 
+x3=0.1[x2,x1];
+bot y3=-o; y2=h;
+y1=0.8h;
+draw z1...z2{left}--z3;
+labels(1,2,3); endchar;
+ 
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{d}
+%    The letter D. Our modern D is recognisably present.
+% It corresponds to the Phoenician \textit{daleth} and the Greek \textit{delta} ($\Delta$).
+%    \begin{macrocode}
+ 
+cmchar "Etruscan letter D (d)";
+beginglyph("d",0.6);
+x1=x3=leftloc;
+x2=rightloc; 
+bot y1=-o; y3=h;
+y2=1/2h;
+draw z1--z3;      % the upright
+draw z1..z2..z3;  % bowl
+labels(1,2,3); endchar;
+ 
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{e}
+%    The letter E. 
+% It corresponds to the Phoenician \textit{he} and the Greek \textit{epsilon} ($E$).
+%    \begin{macrocode}
+ 
+cmchar "Etruscan letter E (e)";
+beginglyph("e",0.6);
+numeric alpha;
+alpha:=0.1;
+x4=x5=x6=x7=leftloc;
+x1=x2=x3=rightloc; 
+bot y4=-o; y7=h;
+y6=.7h; y5=.4h;
+y1=y5-alpha*h; y2=y6-alpha*h; y3=y7-alpha*h;
+draw z4--z7;                           % the upright
+draw z1--z5; draw z2--z6; draw z3--z7; % the arms
+labels(1,2,3,4,5,6,7); endchar;
+ 
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{F}
+%    The letter F. This is like a 2-armed E.
+% It corresponds to the Phoenician \textit{vau}.
+%    \begin{macrocode}
+ 
+cmchar "Etruscan letter F (F)";
+beginglyph("F",0.6);
+numeric alpha;
+alpha:=0.1;
+x4=x5=x6=x7=leftloc;
+x1=x2=x3=rightloc; 
+bot y4=-o; y7=h;
+y6=.6h; y5=.4h;
+y1=y5-alpha*h; y2=y6-alpha*h; y3=y7-alpha*h;
+draw z4--z7;                           % the upright
+draw z2--z6; draw z3--z7;              % the arms
+labels(1,2,3,4,5,6,7); endchar;
+ 
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{z}
+%    The letter Z. This looks like our uppercase letter I.
+% It corresponds to the Phoenician \textit{zayin} and the Greek \textit{zeta}  ($Z$).
+%    \begin{macrocode}
+ 
+cmchar "Etruscan letter Z (z)";
+beginglyph("z",0.2);
+x1=x2=midloc;
+bot y1=-o; top y2=h;
+draw z1--z2;         % the upright
+x3=x5=leftloc; x4=x6=rightloc;
+y3=y4=y1;  y5=y6=y2;
+draw z3--z4;         % lower bar
+draw z5--z6;         % upper bar
+labels(1,2); endchar;
+
+%    \end{macrocode}
+% \end{macro}
+%
+% 
+%
+%
+% \begin{macro}{H}
+%    The letter H. It looks like a rectangle with two horizontal internal bars.
+% It corresponds to the Phoenician \textit{heth} and the Greek \textit{eta} ($H$).
+%    \begin{macrocode}
+ 
+cmchar "Etruscan letter H (h)";
+beginglyph("h", 0.6);
+numeric alpha;
+alpha:=0.1;
+x4=x6=leftloc;
+x1=x3=rightloc; 
+bot y1=-o; top y6=h;
+y3=y6-alpha*h; y4=y1+alpha*h;
+z2=0.35[z1,z3]; z5=0.35[z4,z6]; % ends of one bar
+z7=0.65[z1,z3]; z8=0.65[z4,z6]; % other bar
+draw z1--z3--z6--z4--cycle;     % outer boundary
+draw z2--z5; draw z7--z8;       % the bars
+
+labels(1,2,3,4,5,6); endchar;
+ 
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{T}
+% It corresponds to the Phoenician \textit{teth} and the Greek \textit{theta}  ($\Theta$).
+%    \begin{macrocode}
+ 
+cmchar "Etruscan letter Theta (T)";
+beginglyph("T",1.0);
+path p;
+x1=leftloc; 
+x3=rightloc;
+y2=h;
+y4=0;
+x2=x4=midloc;
+y1=y3=h/2;
+z100=(x2,y3);  % circle center
+p = z1..z2..z3..z4..cycle;
+z11= (z100--(leftloc,h)) intersectionpoint p;
+z12= (z100--(rightloc,h)) intersectionpoint p;
+z13= (z100--(rightloc,0)) intersectionpoint p;
+z14= (z100--(leftloc,0)) intersectionpoint p;
+draw p;
+draw z11--z13; draw z12--z14;   % the cross
+labels(1,2,3,4,11,12,13,14); endchar;
+
+%    \end{macrocode}
+% \end{macro}
+%
+%
+% \begin{macro}{i}
+%    The letter I.
+% It corresponds to the Phoenician \textit{yod}and the Greek \textit{iota}  ($I$).
+%    \begin{macrocode}
+ 
+cmchar "Etruscan letter I (i)";
+beginglyph("i",0.2);
+x1=x2=midloc;
+bot y1=-o; top y2=h;
+draw z1--z2;
+labels(1,2); endchar;
+
+%    \end{macrocode}
+% \end{macro}
+%
+%
+% \begin{macro}{k}
+%    The letter K.
+% It corresponds to the Phoenician \textit{kaph} and the Greek \textit{kappa} ($K$).
+%    \begin{macrocode}
+ 
+cmchar "Etruscan letter K (k)";
+beginglyph("k",0.6);
+numeric alpha;
+alpha:=0.1;
+x1=rightloc; 
+x2=x1+alpha*(w-s); 
+x3=x4=x5=leftloc;
+bot y1= bot y3=-o; 
+y2=y5=h; y4=1/2h;
+draw z3--z5;                           % the upright
+draw z1--z4; draw z4--z2;              % the arms
+labels(1,2,3,4,5); endchar;
+ 
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{l}
+%    The letter L. 
+% It corresponds to the Phoenician \textit{lamed} and the Greek \textit{lambda} ($\Lambda$).
+%    \begin{macrocode}
+ 
+cmchar "Etruscan letter L (l)";
+beginglyph("l",0.4);
+x2=x3=leftloc;
+x1=rightloc; 
+bot y2=-o; 
+y1=.3h;
+y3=h;
+draw z2--z3;               % the upright
+draw z2--z1;               % the arms
+labels(1,2,3); endchar;
+ 
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{m}
+%    The letter M. 
+% It corresponds to the Phoenician \textit{mem} and the Greek \textit{mu} ($M$).
+%    \begin{macrocode}
+ 
+cmchar"Etruscan letter M (m)";
+beginglyph("m",1.0);
+x1=rightloc;
+x5=x6=leftloc;
+x2=3/4[x5,x1]; x3=1/2[x5,x1]; x4=1/4[x5,x1]; 
+bot y6= -o;
+top y5= top y3 = h;
+top y1=.8h;
+y2=.6h;
+y4=.7h;
+draw z6--z5;
+draw z1--z2--z3--z4--z5;
+labels(1,2,3,4,5,6); endchar;
+ 
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{n}
+%    The letter N. 
+% It corresponds to the Phoenician \textit{nun} and the Greek \textit{nu} ($N$).
+%    \begin{macrocode}
+ 
+cmchar "Etruscan letter N (n)";
+beginglyph("n",0.6);
+x1=rightloc;
+x3=midloc; x2=x4=leftloc;
+bot y2=-o;
+top y1= top y4= h;
+y3=.7h;
+draw z2--z4;
+draw z1--z3--z4;
+labels(1,2,3,4); endchar;
+ 
+%    \end{macrocode}
+% \end{macro}
+%
+%
+% \begin{macro}{x}
+%    The letter corresponding to the Greek \textit{xi} ($\Xi$). It looks like a `boxed' 
+% version of the modern H.
+% It corresponds to the Phoenician \textit{samekh}.
+%    \begin{macrocode}
+ 
+cmchar "Etruscan letter Xi (x)";
+beginglyph("x", 0.6);
+numeric alpha;
+alpha:=0.1;
+x4=x6=leftloc;
+x1=x3=rightloc; 
+bot y1=-o; top y6=h;
+y3=y6-alpha*h; y4=y1+alpha*h;
+z2=0.5[z1,z3]; z5=0.5[z4,z6];
+draw z1--z3--z6--z4--cycle;   % outer boundary
+draw z2--z5;                  % bar
+labels(1,2,3,4,5,6); endchar;
+ 
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{o}
+%    The letter O. 
+% It corresponds to the Phoenician \textit{ayen} and the Greek \textit{omicron} ($O$).
+%    \begin{macrocode}
+ 
+cmchar "Etruscan letter O (o)";
+beginglyph("o",1.0);
+x1=leftloc; x3=rightloc;
+y2=h; y4=0;
+x2=x4=midloc;
+y1=y3=h/2;
+draw z1..z2..z3..z4..cycle;
+labels(1,2,3,4); endchar;
+ 
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{p}
+%    The letter P.
+% It corresponds to the Phoenician \textit{pe} and the Greek \textit{pi} ($\Pi$).
+%    \begin{macrocode}
+ 
+cmchar "Etruscan letter P (p)";
+beginglyph("p", 0.4);
+x1=rightloc; x2=x3=leftloc;
+bot y3=-o; y2=h;
+y1=0.8h;
+draw z1..z2{left}--z3;
+labels(1,2,3); endchar;
+ 
+%    \end{macrocode}
+% \end{macro}
+%
+%
+% \begin{macro}{S}
+%    The Etruscans had a letter that looks like a modern M, and in the same
+% position as the Phoenician \textit{tsade}. 
+%    \begin{macrocode}
+ 
+cmchar "Etruscan lookalike M letter (tsade, S)";
+beginglyph("S",0.8);
+x1=x2=leftloc;
+x4=x5=rightloc;
+x3=midloc;
+top y2= top y5= h;
+bot y1=bot y4= -o;
+y3=.7h;
+draw z1--z2--z3--z5--z4; 
+labels(1,2,3,4,5); endchar;
+ 
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{q}
+%    The letter Q. 
+% It corresponds to the Phoenician \textit{qoph}.
+%    \begin{macrocode}
+ 
+cmchar "Etruscan letter Q (q)";
+beginglyph("q",0.6);
+numeric alpha;
+x1=leftloc;
+x3=rightloc;
+alpha=0.5(x3-x1);  % circle radius
+y2=h;
+y4=y2-2alpha;
+bot y5=-o;
+x2=x4=x5=midloc;
+y1=y3=h-alpha;
+draw z1..z2..z3..z4..cycle;  % the circle
+draw z5--z4;                 % the upright
+labels(1,2,3,4,5); endchar;
+ 
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{r}
+%    The letter R. It looks somewhat like a 4.
+% It corresponds to the Phoenician \textit{resh} and the Greek \textit{rho} ($R$).
+%    \begin{macrocode}
+ 
+cmchar "Etruscan letter R (r)";
+beginglyph("r", 0.4);
+x1=x2=x3=leftloc; x4=rightloc;
+bot y1=-o; top y2=h;
+y3=y4=0.5h; 
+draw z1--z2--z4--z3;
+labels(1,2,3,4); endchar;
+ 
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{s}
+%    The letter S. 
+% It corresponds to the Phoenician \textit{shin} and the Greek \textit{sigma} ($\Sigma$).
+%    \begin{macrocode}
+ 
+cmchar "Etruscan letter S (s)";
+beginglyph("s", 0.4);
+x1=x2=rightloc; x3=x4=leftloc; x5=midloc;
+bot y1=-o; top y5=h;
+y2=y3=0.4h; y4=0.8h;
+draw z1--z3--z2--z4--z5;
+labels(1,2,3,4,5); endchar;
+ 
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{t}
+%    The letter T.
+% It corresponds to the Phoenician \textit{tav} and the Greek \textit{tau} ($T$).
+%    \begin{macrocode}
+ 
+cmchar "Etruscan letter T (t)";
+beginglyph("t", 0.6);
+x1=rightloc; x4=leftloc;
+bot y2=-o; top y4=h;
+y1=.9h;
+z3=0.5[z1,z4];
+x2=x3;
+draw z2--z3;      % the stem
+draw z1--z4;      % the bar
+labels(1,2,3,4); endchar;
+ 
+ 
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{y}
+%    The letter Y/U. This comes from the Greek \textit{upsilon} ($\Upsilon$)
+% and the Phoenician \textit{vau}.
+%    \begin{macrocode}
+ 
+cmchar "Etruscan letter Y/U (y)";
+beginglyph("y", 0.6);
+x1=rightloc; x4=leftloc;
+bot y2=-o; y1=0.9h;
+top y4=h;
+x2=x3=0.6[x4,x1];
+y3=.6h;
+draw z2--z3;          % the stem
+draw z1--z3--z4;      % the V
+labels(1,2,3,4); endchar;
+ 
+ 
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{X}
+%    The letter corresponding to the Greek \textit{chi} ($X$).
+%    \begin{macrocode}
+ 
+cmchar "Etruscan letter X";
+beginglyph("X", 0.6);
+x1=x2=leftloc; x3=x4=rightloc;
+bot y1= bot y3=-o; top y2= top y4=h;
+draw z1--z4; draw z2--z3;
+labels(1,2,3,4); endchar;
+ 
+ 
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{f}
+%    The Etruscan version of the Greek \textit{phi} ($\Phi$).
+%    \begin{macrocode}
+ 
+cmchar "Etruscan letter Phi (f)";
+beginglyph("f",0.6);
+numeric alpha;
+x1=leftloc; 
+x3=rightloc;
+alpha=0.5(x3-x1);  % circle radius
+y2=h;
+y4=y2-2alpha;
+bot y5=-o;
+x2=x4=x5=midloc;
+y1=y3=h-alpha;
+draw z1..z2..z3..z4..cycle;  % the circle
+draw z5--z2;                 % the upright
+labels(1,2,3,4,5); endchar;
+ 
+ 
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{P}
+%    The Etruscans had the Greek \textit{psi} ($\Psi$) letter.
+%    \begin{macrocode}
+ 
+cmchar "Etruscan letter Psi (P)";
+beginglyph("P", 0.6);
+x1=leftloc; x3=rightloc;
+x2=x4=midloc;
+bot y2=-o; top y4=h; y1=y3=y4;
+z5=0.5[z2,z4];
+draw z2--z4;      % the stem
+draw z1--z5--z3;  % the arms
+labels(1,2,3,4,5); endchar;
+ 
+ 
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{v}
+%    The Etruscans used a character that looks like the digit 8 for an
+% `f' sound.
+%    \begin{macrocode}
+ 
+cmchar "Etruscan letter 8 lookalike (v)";
+beginglyph("v", 0.6);
+x2=x6=leftloc; 
+x4=x7=rightloc; 
+x1=x3=x5=midloc;
+bot y1=-o; top y5=h; y3=0.5h;
+y2=y7=0.25h;
+y6=y4=0.75h;
+draw z1..z2..z3..z4..z5..z6..z3..z7..cycle;
+labels(1,2,3,4,5,6,7); endchar;
+ 
+%    \end{macrocode}
+% \end{macro}
+%
+%
+%     The following characters are for the normal Etruscan writing mode
+% of right to left. The characters are mirror images of the ASCII uppercase
+% counterparts. Symmetric characters that are called by \LaTeX{} commands
+% need not be coded.
+% 
+%
+% \begin{macro}{B}
+%    The letter B, which is asymmetrical.
+%    \begin{macrocode}
+ 
+cmchar "Etruscan letter L-R B (B)";
+beginglyph("B",0.6);
+x2=x4=leftloc; x1=x3=x5=rightloc;
+bot y1=-o; top y5=h;
+y2=1/4h; y3=1/2h; y4=3/4h;
+draw z1--z5;      % the upright
+draw z1{left}..z2..z3{right};  % lower bowl
+draw z3{left}..z4..z5{right};  % upper bowl
+labels(1,2,3,4,5); endchar;
+ 
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{G}
+%    The letter G which is asymmetrical.
+%    \begin{macrocode}
+ 
+cmchar "Etruscan letter L-R G (G)";
+beginglyph("G", 0.6);
+x1=leftloc; x2=rightloc; x3=0.9rightloc;
+bot y3=-o; y2=h;
+y1=0.8h;
+draw z1...z2{right}--z3;
+labels(1,2,3); endchar;
+ 
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{D}
+%    The letter D which is asymmetrical.
+%    \begin{macrocode}
+ 
+cmchar "Etruscan letter L-R D (D)";
+beginglyph("D",0.6);
+x2=leftloc; x1=x3=rightloc;
+bot y1=-o; y3=h;
+y2=1/2h;
+draw z1--z3;      % the upright
+draw z1..z2..z3;  % bowl
+labels(1,2,3); endchar;
+ 
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{E}
+%    The letter E which is asymmetrical. 
+%    \begin{macrocode}
+ 
+cmchar "Etruscan letter L-R E (E)";
+beginglyph("E",0.6);
+numeric alpha;
+alpha:=0.1;
+x1=x2=x3=leftloc; x4=x5=x6=x7=rightloc;
+bot y4=-o; y7=h;
+y6=.7h; y5=.4h;
+y1=y5-alpha*h; y2=y6-alpha*h; y3=y7-alpha*h;
+draw z4--z7;                           % the upright
+draw z1--z5; draw z2--z6; draw z3--z7; % the arms
+labels(1,2,3,4,5,6,7); endchar;
+ 
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{U}
+%    The letter F which is asymmetrical.
+%    \begin{macrocode}
+ 
+cmchar "Etruscan letter L-R F (U)";
+beginglyph("U",0.6);
+numeric alpha;
+alpha:=0.1;
+x1=x2=x3=leftloc; x4=x5=x6=x7=rightloc;
+bot y4=-o; y7=h;
+y6=.6h; y5=.4h;
+y1=y5-alpha*h; y2=y6-alpha*h; y3=y7-alpha*h;
+draw z4--z7;                           % the upright
+draw z2--z6; draw z3--z7;              % the arms
+labels(1,2,3,4,5,6,7); endchar;
+ 
+%    \end{macrocode}
+% \end{macro}
+%
+%
+% \begin{macro}{H}
+%    The letter H which is asymmetrical.
+% \changes{v2.1}{2005/04/11}{Changed H glyph}
+%    \begin{macrocode}
+ 
+cmchar "Etruscan letter L-R H (H)";
+beginglyph("H", 0.6);
+numeric alpha;
+alpha:=0.1;
+%%%% x4=x6=leftloc; x1=x3=rightloc; 
+x4=x6=rightloc; x1=x3=leftloc; 
+bot y1=-o; top y6=h;
+y3=y6-alpha*h; y4=y1+alpha*h;
+z2=0.35[z1,z3]; z5=0.35[z4,z6]; % ends of one bar
+z7=0.65[z1,z3]; z8=0.65[z4,z6]; % other bar
+draw z1--z3--z6--z4--cycle;     % outer boundary
+draw z2--z5; draw z7--z8;       % the bars
+labels(1,2,3,4,5,6); endchar;
+
+%    \end{macrocode}
+% \end{macro}
+%
+%
+% \begin{macro}{C}
+%    The letter x which is asymmetrical.
+% \changes{v2.1}{2005/04./11}{Added C glyph}
+%    \begin{macrocode}
+ 
+cmchar "Etruscan letter L-R x (C)";
+beginglyph("C", 0.6);
+numeric alpha;
+alpha:=0.1;
+%%%%x1=x3=rightloc; x4=x6=leftloc;
+x1=x3=leftloc; x4=x6=rightloc;
+bot y1=-o; top y6=h;
+y3=y6-alpha*h; y4=y1+alpha*h;
+z2=0.5[z1,z3]; z5=0.5[z4,z6];
+draw z1--z3--z6--z4--cycle;   % outer boundary
+draw z2--z5;                  % bar
+labels(1,2,3,4,5,6); endchar;
+ 
+%    \end{macrocode}
+% \end{macro}
+%
+%
+% \begin{macro}{K}
+%    The letter K which is asymmetrical.
+%    \begin{macrocode}
+ 
+cmchar "Etruscan letter L-R K (K)";
+beginglyph("K",0.6);
+numeric alpha;
+alpha:=0.1;
+x1=leftloc; x2=x1+alpha*(w-s); x3=x4=x5=rightloc;
+bot y1= bot y3=-o; 
+y2=y5=h; y4=1/2h;
+draw z3--z5;                           % the upright
+draw z1--z4; draw z4--z2;              % the arms
+labels(1,2,3,4,5); endchar;
+ 
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{L}
+%    The letter L which is asymmetrical. 
+%    \begin{macrocode}
+ 
+cmchar "Etruscan letter L-R L (L)";
+beginglyph("L",0.4);
+x1=leftloc; x2=x3=rightloc;
+bot y2=-o; 
+y1=.3h;
+y3=h;
+draw z2--z3;               % the upright
+draw z2--z1;               % the arms
+labels(1,2,3); endchar;
+ 
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{M}
+%    The letter M which is asymmetrical. 
+%    \begin{macrocode}
+ 
+cmchar"Etruscan letter L-R M (M)";
+beginglyph("M",1.0);
+x1=leftloc;
+x5=x6=rightloc;
+x2=1/4[x1,x5]; x3=1/2[x1,x5]; x4=3/4[x1,x5]; 
+bot y6= -o;
+top y5= top y3 = h;
+top y1=.8h;
+y2=.6h;
+y4=.7h;
+draw z6--z5;
+draw z1--z2--z3--z4--z5;
+labels(1,2,3,4,5,6); endchar;
+ 
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{N}
+%    The letter N which is asymmetrical. 
+%    \begin{macrocode}
+ 
+cmchar "Etruscan letter L-R N (N)";
+beginglyph("N",0.6);
+x1=leftloc;
+x3=midloc; x2=x4=rightloc;
+bot y2=-o;
+top y1= top y4= h;
+y3=.7h;
+draw z2--z4;
+draw z1--z3--z4;
+labels(1,2,3,4); endchar;
+ 
+%    \end{macrocode}
+% \end{macro}
+%
+%
+% \begin{macro}{Q}
+%    The letter P which is asymmetrical.
+%    \begin{macrocode}
+ 
+cmchar "Etruscan letter L-R P (Q)";
+beginglyph("Q", 0.4);
+x1=leftloc; x2=x3=rightloc;
+bot y3=-o; y2=h;
+y1=0.8h;
+draw z1..z2{right}--z3;
+labels(1,2,3); endchar;
+ 
+%    \end{macrocode}
+% \end{macro}
+%
+%
+%
+% \begin{macro}{R}
+%    The letter R which is asymmetrical.
+%    \begin{macrocode}
+cmchar "Etruscan letter L-R R (R)";
+beginglyph("R", 0.4);
+x1=x2=x3=rightloc; x4=leftloc;
+bot y1=-o; top y2=h;
+y3=y4=0.5h;
+draw z1--z2--z4--z3;
+labels(1,2,3,4); endchar;
+
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{Z}
+%    The letter S which is asymmetrical. 
+%    \begin{macrocode}
+ 
+cmchar "Etruscan letter L-R S (Z)";
+beginglyph("Z", 0.4);
+x1=x2=leftloc; x3=x4=rightloc; x5=midloc;
+bot y1=-o; top y5=h;
+y2=y3=0.4h; y4=0.8h;
+draw z1--z3--z2--z4--z5;
+labels(1,2,3,4,5); endchar;
+ 
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{J}
+%    The letter T which is asymmetrical.
+%    \begin{macrocode}
+ 
+cmchar "Etruscan letter L-R T (J)";
+beginglyph("J", 0.6);
+x1=leftloc; x4=rightloc;
+bot y2=-o; top y4=h;
+y1=.9h;
+z3=0.5[z1,z4];
+x2=x3;
+draw z2--z3;      % the stem
+draw z1--z4;      % the bar
+labels(1,2,3,4); endchar;
+ 
+ 
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{Y}
+%    The letter Y/U which is asymmetrical. 
+%    \begin{macrocode}
+ 
+cmchar "Etruscan letter L-R U (Y)";
+beginglyph("Y", 0.6);
+x1=leftloc; x4=rightloc;
+bot y2=-o; top y4=h;
+y1=.9h;
+x2=x3=0.4(w-s);
+y3=.6h;
+draw z2--z3;          % the stem
+draw z1--z3--z4;      % the V
+labels(1,2,3,4); endchar;
+ 
+%    \end{macrocode}
+% \end{macro}
+%
+%
+% The end of the glyph code, and the file.
+%    \begin{macrocode}
+
+end
+
+%</up> 
+%    \end{macrocode}
+%
+%
+%
+% \section{The font definition files} \label{sec:fd}
+%
+%    \begin{macrocode}
+%<*fdot1>
+\DeclareFontFamily{OT1}{etr}{}
+  \DeclareFontShape{OT1}{etr}{m}{n}{ <-> etr10 }{}
+  \DeclareFontShape{OT1}{etr}{bx}{n}{ <-> sub etr/m/n }{}
+  \DeclareFontShape{OT1}{etr}{b}{n}{ <-> sub etr/m/n }{}
+  \DeclareFontShape{OT1}{etr}{m}{sl}{ <-> sub etr/m/n }{}
+  \DeclareFontShape{OT1}{etr}{m}{it}{ <-> sub etr/m/n }{}
+%</fdot1>
+%    \end{macrocode}
+%
+%
+%    \begin{macrocode}
+%<*fdt1>
+\DeclareFontFamily{T1}{etr}{}
+  \DeclareFontShape{T1}{etr}{m}{n}{ <-> etr10 }{}
+  \DeclareFontShape{T1}{etr}{bx}{n}{ <-> sub etr/m/n }{}
+  \DeclareFontShape{T1}{etr}{b}{n}{ <-> sub etr/m/n }{}
+  \DeclareFontShape{T1}{etr}{m}{sl}{ <-> sub etr/m/n }{}
+  \DeclareFontShape{T1}{etr}{m}{it}{ <-> sub etr/m/n }{}
+%</fdt1>
+%    \end{macrocode}
+%
+% \section{The \Lpack{etruscan} package code} \label{sec:code}
+%
+%    Announce the name and version of the package, which requires
+% \LaTeXe{}.
+%    \begin{macrocode}
+%<*usc>
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{etruscan}[2000/10/01 v2.0 package for Etruscan fonts]
+%    \end{macrocode}
+%
+%
+% \begin{macro}{\etrfamily}
+%    Selects the Etruscan font family in the T1 encoding.
+%    \begin{macrocode}
+\newcommand{\etrfamily}{\usefont{T1}{etr}{m}{n}}
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{\textetr}
+%    Text command for the Etruscan font family.
+%    \begin{macrocode}
+\DeclareTextFontCommand{\textetr}{\etrfamily}
+%    \end{macrocode}
+% \end{macro}
+%
+% The commands for the signs.
+%
+%    \begin{macrocode}
+
+\chardef\Aalpha=`a
+\chardef\Abeta=`b
+\chardef\Agamma=`g
+\chardef\Adelta=`d
+\chardef\Aepsilon=`e
+\chardef\Adigamma=`F
+\chardef\Azeta=`z
+\chardef\Aeta=`h
+\chardef\Atheta=`T
+\chardef\Aiota=`i
+\chardef\Akappa=`k
+\chardef\Alambda=`l
+\chardef\Amu=`m
+\chardef\Anu=`n
+\chardef\Axi=`x
+\chardef\Aomicron=`o
+\chardef\Api=`p
+\chardef\Aesade=`S
+\chardef\Aqoph=`q
+\chardef\Arho=`r
+\chardef\Asigma=`s
+\chardef\Atau=`t
+\chardef\Aupsilon=`y
+\chardef\Achi=`X
+\chardef\Aphi=`f
+\chardef\Apsi=`P
+\chardef\Avau=`v
+
+\chardef\ARalpha=`a
+\chardef\ARbeta=`B
+\chardef\ARgamma=`G
+\chardef\ARdelta=`D
+\chardef\ARepsilon=`E
+\chardef\ARdigamma=`U
+\chardef\ARzeta=`z
+\chardef\AReta=`H
+\chardef\ARtheta=`T
+\chardef\ARiota=`i
+\chardef\ARkappa=`K
+\chardef\ARlambda=`L
+\chardef\ARmu=`M
+\chardef\ARnu=`N
+%%%%\chardef\ARxi=`x
+\chardef\ARxi=`C
+\chardef\ARomicron=`o
+\chardef\ARpi=`Q
+\chardef\AResade=`S
+\chardef\ARqoph=`q
+\chardef\ARrho=`R
+\chardef\ARsigma=`Z
+\chardef\ARtau=`J
+\chardef\ARupsilon=`y
+\chardef\ARchi=`X
+\chardef\ARphi=`f
+\chardef\ARpsi=`P
+\chardef\ARvau=`v
+
+%    \end{macrocode}
+%
+% \begin{macro}{\translitetr}
+% \begin{macro}{\translitetrfont}
+% |\translitetr{|\meta{commands}|}| transliterates \meta{commands} using
+% the |\translitetrfont| font.
+%    \begin{macrocode}
+\newcommand{\translitetr}[1]{{%
+  \@translitETR #1}}
+\newcommand{\translitetrfont}{\mathrm}
+
+%    \end{macrocode}
+% \end{macro}
+% \end{macro}
+%
+% \begin{macro}{\@translitETR}
+% This macro redefines all character commands to produce the transliterated
+% version instead of the glyphs. There must be no spaces in the definition.
+%    \begin{macrocode}
+\newcommand{\@translitETR}{%
+\def\Aalpha{\ensuremath{\translitetrfont{A}}}\def\ARalpha{\Aalpha}%
+\def\Abeta{\ensuremath{\translitetrfont{B}}}\def\ARbeta{\Abeta}%
+\def\Agamma{\ensuremath{\translitetrfont{G}}}\def\ARgamma{\Agamma}%
+\def\Adelta{\ensuremath{\translitetrfont{D}}}\def\ARdelta{\Adelta}%
+\def\Aepsilon{\ensuremath{\translitetrfont{E}}}\def\ARepsilon{\Aepsilon}%
+\def\Aupsilon{\ensuremath{\translitetrfont{Y}}}\def\ARupsilon{\Aupsilon}%
+\def\Adigamma{\ensuremath{\translitetrfont{F}}}\def\ARdigamma{\Adigamma}%
+\def\Azeta{\ensuremath{\translitetrfont{Z}}}\def\ARzeta{\Azeta}%
+\def\Aeta{\ensuremath{\translitetrfont{H}}}\def\AReta{\Aeta}%
+\def\Atheta{\ensuremath{\translitetrfont{\Theta}}}\def\ARtheta{\Atheta}%
+\def\Aiota{\ensuremath{\translitetrfont{I}}}\def\ARiota{\Aiota}%
+\def\Akappa{\ensuremath{\translitetrfont{K}}}\def\ARkappa{\Akappa}%
+\def\Alambda{\ensuremath{\translitetrfont{L}}}\def\ARlambda{\Alambda}%
+\def\Amu{\ensuremath{\translitetrfont{M}}}\def\ARmu{\Amu}%
+\def\Anu{\ensuremath{\translitetrfont{N}}}\def\ARnu{\Anu}%
+\def\Axi{\ensuremath{\translitetrfont{\Xi}}}\def\ARxi{\Axi}%
+\def\Aomicron{\ensuremath{\translitetrfont{O}}}\def\ARomicron{\Aomicron}%
+\def\Api{\ensuremath{\translitetrfont{P}}}\def\ARpi{\Api}%
+\def\Aesade{\ensuremath{\translitetrfont{S}}}\def\AResade{\Aesade}%
+\def\Aqoph{\ensuremath{\translitetrfont{Q}}}\def\ARqoph{\Aqoph}%
+\def\Arho{\ensuremath{\translitetrfont{R}}}\def\ARrho{\Arho}%
+\def\Asigma{\ensuremath{\translitetrfont{S}}}\def\ARsigma{\Asigma}%
+\def\Atau{\ensuremath{\translitetrfont{T}}}\def\ARtau{\Atau}%
+\def\Achi{\ensuremath{\translitetrfont{X}}}\def\ARchi{\Achi}%
+\def\Aphi{\ensuremath{\translitetrfont{\Phi}}}\def\ARphi{\Aphi}%
+\def\Apsi{\ensuremath{\translitetrfont{\Psi}}}\def\ARpsi{\Apsi}%
+\def\Avau{\ensuremath{\translitetrfont{F}}}\def\ARvau{\Avau}%
+}
+
+%    \end{macrocode}
+% \end{macro}
+%
+%
+%    The end of this package.
+%    \begin{macrocode}
+%</usc>
+%    \end{macrocode}
+%
+%
+%
+%
+% \Finale
+%
+\endinput
+
+%% \CharacterTable
+%%  {Upper-case    \A\B\C\D\E\F\G\H\I\J\K\L\M\N\O\P\Q\R\S\T\U\V\W\X\Y\Z
+%%   Lower-case    \a\b\c\d\e\f\g\h\i\j\k\l\m\n\o\p\q\r\s\t\u\v\w\x\y\z
+%%   Digits        \0\1\2\3\4\5\6\7\8\9
+%%   Exclamation   \!     Double quote  \"     Hash (number) \#
+%%   Dollar        \$     Percent       \%     Ampersand     \&
+%%   Acute accent  \'     Left paren    \(     Right paren   \)
+%%   Asterisk      \*     Plus          \+     Comma         \,
+%%   Minus         \-     Point         \.     Solidus       \/
+%%   Colon         \:     Semicolon     \;     Less than     \<
+%%   Equals        \=     Greater than  \>     Question mark \?
+%%   Commercial at \@     Left bracket  \[     Backslash     \\
+%%   Right bracket \]     Circumflex    \^     Underscore    \_
+%%   Grave accent  \`     Left brace    \{     Vertical bar  \|
+%%   Right brace   \}     Tilde         \~}
+
+

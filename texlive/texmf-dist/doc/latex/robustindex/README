@@ -1,0 +1,45 @@
+ Package robustindex.sty, Wilberd van der Kallen Feb 2005.
+ http://www.math.uu.nl/people/vdkallen/stind.html
+
+ This package addresses two issues.
+
+ 1. Third parties often change the page numbers without rerunning makeindex.
+ (Yes, it happened also to my 1993 book.)
+
+ One would like to make the page numbers in the index entries more robust.
+ We use the \pageref mechanism for that. Only after adding, deleting or
+ otherwise modifying an \index{entry}, or after changing the order of the
+ index entries, does one have to rerun makeindex.
+ Other changes do not matter, as long as one runs LaTeX or pdflatex twice.
+
+ 2. The theindex environment does not create a hyperref destination.
+
+ Therefore we introduce \indexincontents.
+ It does what \addcontentsline{toc}{chapter}{Index} or
+ \addcontentsline{toc}{section}{Index} should have done in the first place:
+ When one clicks on the link that displays the word Index, one actually ends
+ up in the index.
+
+ Our package performs no miracles. But in simple situations all you need is
+ adding the \usepackage{robustindex} to the preamble.
+
+ The implicit page range formation of makeindex is disabled.
+ Commands of the type \index{entry|editing command} are supported,
+ but much more naively than in the encapsulating mechanism of makeindex.
+
+ If you use hyperref, choose the option hyperindex=false, because our method
+ to set up these hyperlinked indices is different.
+ We tested a little with
+
+ \usepackage[plainpages=false,hyperindex=false]{hyperref}
+
+ See robustsample.tex for more details and illustrations.
+
+ There you find examples like
+
+ \index{alpha!see beta}
+ \index{alpha!see also gamma\gobblepageref}
+
+ \indexincontents % always put this before the index.
+
+ See also robustglossary.sty

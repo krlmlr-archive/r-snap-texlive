@@ -1,0 +1,50 @@
+
+Copyright (C) 2004 by Robert J Lee <latex@rjlee.homelinux.org>
+--------------------------------------------------------------
+
+This file may be distributed and/or modified under the
+conditions of the LaTeX Project Public License, either version 1.2
+of this license or (at your option) any later version.
+The latest version of this license is in:
+
+http://www.latex-project.org/lppl.txt
+
+and version 1.2 or later is part of all distributions of LaTeX 
+version 1999/12/01 or later.
+
+
+
+Parshape macros for LaTeX2e
+---------------------------
+
+Provides a front-end to the standard TeX \parshape macro. Allows
+length registers to be reused, and \parshape commands to be generated
+using loops and other TeX and LaTeX constructs.
+
+
+Example usage:
+
+\newlength{\len}
+
+\begin{parshapecollect}
+ \setlength{\len}{1em}
+ \parshapelenout{\len} \parshapelenout{15em}
+ \addtolength{\len}{6em}
+ \parshapelenout{\len} \parshapelenout{9em}
+ \addtolength{\len}{1em}
+ \parshapelenout{0em} \parshapelenout{\len}
+\end{parshapecollect}
+\texttt{The quick brown fox jumps over the lazy dog.}
+
+
+Produces (assuming a tt font with 1em per character):
+
+ The quick brown
+       fox jumps
+over the
+lazy dog
+
+
+
+Commands are also available to process arrays of lengths in various
+different ways; see PDF documentation for details.

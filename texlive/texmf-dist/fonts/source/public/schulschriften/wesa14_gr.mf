@@ -1,0 +1,477 @@
+% Schulausgangsschrift (SAS) wesa
+% Walter Entenmann
+% 23.10.2011
+%
+% Grossbuchstaben
+if not wortende:
+  beginchar("A",46ut#,Ht#,0);
+  else:
+beginchar(oct"201",35ut#,Ht#,0);
+    fi
+pickup wesa_pen;
+xpos:=0;
+A_char;
+zeigen;
+endchar;
+
+% Ligatur Ae
+  beginchar(oct"013",53.4ut#,Ht#,0);
+pickup wesa_pen;
+xpos:=0;
+latin_eA(xpos);
+zeigen;
+endchar;
+
+if not wortende:
+  beginchar("B",34.641ut#,Ht#,0);
+  else:
+beginchar(oct"202",25ut#,Ht#,0); 
+    fi
+  pickup wesa_pen;
+xpos:=0;
+ Horn(xpos);
+     stamm((Ht),(0),xpos);
+     Bauch(Bbreite',(Ht),ht,D,xpos);
+     mt:=0.5;
+     Bauch(Bbreite,ht,(0),D,xpos);
+     xpos:=Sporn+Bbreite;
+     tangente(D);
+zeigen;
+endchar;
+
+if not wortende:
+  beginchar("C",27.306ut#,Ht#,0);
+      else:
+beginchar(oct"203",13.75ut#,Ht#,0);
+    fi
+  pickup wesa_pen;
+  xpos:=0;
+ C_form(xpos);
+     Fahne;
+zeigen;
+endchar;
+
+if not wortende:
+  beginchar("D",34.176ut#,Ht#,0);
+      else:
+beginchar(oct"204",25ut#,Ht#,0);
+    fi
+  pickup wesa_pen;
+    xpos:=0;
+ Horn(xpos);
+     stamm((Ht),(0),xpos);
+     mt:=0.3;
+     Bauch(Bbreite,(Ht),(0),dd,xpos);
+     xpos:=Sporn+Bbreite;
+     tangente(11ut);
+zeigen;
+endchar;
+
+if not wortende:
+  beginchar("E",29.056ut#,Ht#,0);
+      else:
+beginchar(oct"205",12.5ut#,Ht#,0);
+    fi
+  pickup wesa_pen;
+xpos:=0;
+ Bauch(-10ut,(Ht),(ht),0,xpos+12.5ut);
+     Bauch(-12.5ut,(ht),(0),0,xpos);
+     schweif((Ht),(Ht-dd),D,0,-45,1,xpos);
+     gerade((ht),(ht),dd,xpos-D);
+     fahne((0),ht-Delta,D+((ht)-Delta)/m,0,angle(1,m),1.5,xpos-dd);
+zeigen;
+endchar;
+
+if not wortende:
+  beginchar("F",24ut#,Ht#,0);
+      else:
+beginchar(oct"206",22.5ut#,Ht#,0);
+    fi
+  pickup wesa_pen;
+  xpos:=0;
+stamm((Ht),(0),xpos+7.5ut);
+gerade((Ht),(Ht),22.5ut,xpos-7.5ut);
+% schweif((ht-Delta),(ht-Delta-eta),15ut,-45,0,1.8,xpos-20ut);
+     gerade((ht-Delta-eta),(ht-Delta-eta),15ut,xpos-20ut);
+     fahne((ht-Delta-eta),ht-Delta,6.5ut,0,angle(1,m),1.5,xpos);
+     if wortende:
+       xpos:=22.5ut;
+       fi
+zeigen;
+endchar;
+
+% Ligatur Fe
+beginchar(oct"014",29.9ut#,Ht#,0);
+    pickup wesa_pen;
+    xpos:=0;
+    latin_eF(xpos);
+zeigen;
+endchar;
+
+if not wortende:
+  beginchar("G",31.556ut#,Ht#,dt#);
+      else:
+beginchar(oct"207",20ut#,Ht#,dt#);
+    fi
+  pickup wesa_pen;
+xpos:=0;
+bogen((Ht-D),(Ht),ht,-Bbreite,0.375,120,-90,1,1,xpos+Bbreite);
+bogen(ht,(0),5ht/6,Bbreite,0.4,-90,90,1,1.2,xpos);
+stamm((ht),0,xpos);
+if not wortende:
+uschl(xpos);
+strich(xpos);
+else:
+  uschl_e(xpos);
+  fi
+zeigen;
+endchar;
+
+if not wortende:
+  beginchar("H",33.5ut#,Ht#,0);
+      else:
+beginchar(oct"210",22.5ut#,Ht#,0);
+    fi
+  pickup wesa_pen;
+xpos:=0;
+stamm((Ht),(0),xpos+Sporn);
+% schweif((ht-Delta),(ht-Delta-eta),Hbreite+Sporn,-45,0,1.8,xpos-Sporn);
+    gerade((ht-Delta-eta),(ht-Delta-eta),Hbreite+Sporn,xpos-Sporn);
+     stamm((Ht),(0),xpos);
+      fahne((ht-Delta-eta),ht-Delta,11ut,0,angle(1,m),2.5,xpos);
+zeigen;
+endchar;
+
+% Ligatur He
+  beginchar(oct"015",40.9ut#,Ht#,0);
+  pickup wesa_pen;
+  xpos:=0;
+  latin_eH(xpos);
+zeigen;
+endchar;
+
+if not wortende:
+  beginchar("I",28.295ut#,Ht#,0);
+      else:
+beginchar(oct"211",17.5ut#,Ht#,0);
+    fi
+  pickup wesa_pen;
+  xpos:=0;
+ gerade((Ht),(Ht),Hbreite,xpos);
+     stamm((Ht),10ut,xpos);
+     mt:=0.5;
+     bogen(10ut,(0),(dd),-Hbreite,0.5,-90,135,1,1,xpos);
+     xpos:=Hbreite;
+     tangente(D);
+zeigen;
+endchar;
+
+if not wortende:
+  beginchar("J",29.056ut#,Ht#,dt#);
+      else:
+beginchar(oct"212",17.5ut#,Ht#,dt#);
+    fi
+pickup wesa_pen;
+  xpos:=0;
+ gerade((Ht),(Ht),Hbreite,xpos);
+     stamm((Ht),0,xpos);
+if not wortende:
+  uschl(xpos);
+  strich(xpos);
+else:
+  uschl_e(xpos);
+  fi
+zeigen;
+  endchar;
+
+  if not wortende:
+    beginchar("K",31.573ut#,Ht#,0);
+        else:
+beginchar(oct"213",18.017ut#,Ht#,0);
+    fi
+  pickup wesa_pen;
+xpos:=0;
+stamm((Ht),(0),xpos);
+     gerade((ht),(Ht),Hbreite,xpos+rt(0));
+     schweif((ht),(0),Hbreite,angle(Hbreite,-ht),0,3.5,xpos-Hbreite);
+     Fahne;
+zeigen;
+endchar;
+
+if not wortende:
+  beginchar("L",36.056ut#,Ht#,0);
+      else:
+beginchar(oct"214",22.5ut#,Ht#,0);
+    fi
+  pickup wesa_pen;
+xpos:=0;
+ schweif((Ht-dd),(Ht),-D,135,180,1,xpos+Lbreite);
+     schweif((Ht),(0),-(Lbreite-D),180,-150,1,xpos);
+     schweif((0),(0),Lbreite,30,0,1,xpos);
+     Fahne;
+zeigen;
+endchar;
+
+if not wortende:
+  beginchar("M",61.556ut#,Ht#,0);
+      else:
+beginchar(oct"215",48.0ut#,Ht#,0);
+    fi
+  pickup wesa_pen;
+xpos:=0;
+ Flanke(sporn,Nbreite,xpos);
+     stamm((Ht),(0),xpos);
+     gerade((0),(Ht),Nbreite,xpos);
+     stamm((Ht),(rho),xpos);
+     stock(xpos);
+zeigen;
+endchar;
+
+if not wortende:
+  beginchar("N",47.056ut#,Ht#,0);
+      else:
+beginchar(oct"216",46ut#,Ht#,0);
+    fi
+  pickup wesa_pen;
+xpos:=0;
+Flanke(sporn,Nbreite-D,xpos);
+gerade((Ht),(0),D,xpos);
+mN:=Ht/(Nbreite-D);
+gerade((0),Ht-10ut,(Ht-10ut)/mN,xpos);
+bogen(Ht-10ut,(Ht),(Ht-eta/2),10ut/mN+D,0.8,angle(1,mN),-30,1,1,xpos);
+if not wortende:
+  fahne((0),ht-Delta,s+((ht)-Delta)/m,10,angle(1,m),1,xpos-Nbreite);
+  fi
+zeigen;
+endchar;
+
+if not wortende:
+  beginchar("O",36.974ut#,Ht#,0);
+      else:
+beginchar(oct"217",27.5ut#,Ht#,0);
+    fi
+  pickup wesa_pen;
+  xpos:=0;
+  O_char;
+  zeigen;
+endchar;
+
+if not wortende:
+  beginchar("P",26.556ut#,Ht#,0);
+      else:
+beginchar(oct"220",20ut#,Ht#,0);
+    fi
+  pickup wesa_pen;
+  xpos:=0;
+ Horn(xpos);
+     stamm((Ht),(0),xpos);
+     Bauch(Bbreite',(Ht),ht,D,xpos);
+     fahne((0),ht-Delta,10ut+((ht)-Delta)/m,10,angle(1,m),1,xpos);
+     if wortende:
+       xpos:=Sporn+Bbreite';
+       fi
+     zeigen;
+endchar;
+
+if not wortende:
+  beginchar("Q",39.806ut#,Ht#,0);
+      else:
+beginchar(oct"221",26.250ut#,Ht#,0);
+    fi
+  pickup wesa_pen;
+xpos:=0;
+ aalt:=a;balt:=b;
+     a:=A; b:=B;
+     mt:=0.5;
+     oval(xpos+delta);
+     a:=aalt;b:=balt;
+     schweif((s),(0),12.5ut,angle(1,-0.75),0,1.5,xpos-A);
+     Fahne;
+zeigen;
+endchar;
+
+if not wortende:
+  beginchar("R",34.073ut#,Ht#,0);
+      else:
+beginchar(oct"222",20.517ut#,Ht#,0);
+    fi
+  pickup wesa_pen;
+xpos:=0;
+Horn(xpos);
+     stamm((Ht),(0),xpos);
+     Bauch(Bbreite',(Ht),ht,D,xpos);
+     schweif(ht,(0),Bbreite',angle(Bbreite',-ht),0,3.5,xpos+rt(0));
+     Fahne;
+zeigen;
+endchar;
+
+if not wortende:
+  beginchar("S",26.412ut#,Ht#,0);
+      else:
+beginchar(oct"223",15ut#,Ht#,0);
+    fi
+  pickup wesa_pen;
+    xpos:=0;
+ mt:=0.5;
+     S_form(xpos);
+     tangente(D);
+zeigen;
+endchar;
+
+if not wortende:
+  beginchar("T",32.833ut#,Ht#,0);
+      else:
+beginchar(oct"224",30ut#,Ht#,0);
+    fi
+  pickup wesa_pen;
+  xpos:=0;
+ stamm((Ht),(0),xpos+15ut);
+ gerade((Ht),(Ht),30ut,xpos-15ut);
+ if not wortende:
+   fahne((0),ht-Delta,2ut+dd+ht/m,10,angle(1,m),2,xpos-15ut);
+   fi
+zeigen;
+endchar;
+
+if not wortende:
+  beginchar("U",36.390ut#,Ht#,0);
+      else:
+beginchar(oct"225",22.833ut#,Ht#,0);
+    fi
+  pickup wesa_pen;
+xpos:=0;
+U_char;
+zeigen;
+endchar;
+
+if not wortende:
+  beginchar("V",32.548ut#,Ht#,0);
+      else:
+beginchar(oct"226",26.111ut#,Ht#,0);
+    fi
+  pickup wesa_pen;
+xpos:=0;
+ V_kurzstrich(xpos);
+      stamm((Ht),ht/3,xpos);
+      mt:=0.1;
+      bogen(ht/2,(0),ht+dt/2,Hbreite,0.25,-90,90,1,1.2,xpos);
+      xtmp:=x0;ytmp:=y0;
+      schweif(ht+dt/2,(Ht),-einroll,90,180,2,xpos);
+      schweif((Ht),(Ht),s,angle(1,-mfahne),angle(1,2),1,xpos);
+      x0:=whatever; y0:=whatever;
+      z0=(xtmp,ytmp);
+      tangente(s+D);
+zeigen;
+endchar;
+
+if not wortende:
+  beginchar("W",50.048ut#,Ht#,0);
+      else:
+beginchar(oct"227",43.611ut#,Ht#,0);
+    fi
+  pickup wesa_pen;
+xpos:=0;
+ V_kurzstrich(xpos);
+     stamm((Ht),ht/2,xpos);
+     bogen(ht/2,(0),ht,Hbreite,0.4,-90,90,1,1,xpos);
+     stamm((Ht),ht/2,xpos);
+      mt:=0.1;
+      bogen(ht/2,(0),ht+dt/2,Hbreite,0.25,-90,90,1,1.2,xpos);
+      xtmp:=x0;ytmp:=y0;
+      schweif(ht+dt/2,(Ht),-einroll,90,180,2,xpos);
+      schweif((Ht),(Ht),s,angle(1,-mfahne),angle(1,2),1,xpos);
+      x0:=whatever; y0:=whatever;
+      z0=(xtmp,ytmp);
+      tangente(s+D);
+zeigen;
+endchar;
+
+if not wortende:
+  beginchar("X",36.056ut#,Ht#,0);
+      else:
+beginchar(oct"230",22.5ut#,Ht#,0);
+    fi
+  pickup wesa_pen;
+xpos:=0;
+gerade((0),(Ht),Hbreite+D,xpos);
+schweif((Ht),(0),Hbreite,angle(Hbreite,-Ht),0,5,xpos-Hbreite);
+Fahne;
+zeigen;
+endchar;
+
+if not wortende:
+  beginchar("Y",32.390ut#,Ht#,dt#);
+      else:
+beginchar(oct"231",20.833ut#,Ht#,dt#);
+    fi
+  pickup wesa_pen;
+ xpos:=0;
+ V_kurzstrich(xpos);
+     stamm((Ht),ht/2,xpos);
+     bogen(ht/2,(0),ht,Hbreite,0.4,-90,90,1,1,xpos);
+     stamm((Ht),0,xpos);
+     if not wortende:
+       uschl(xpos);
+       strich(xpos);
+     else:
+       uschl_e(xpos);
+       fi
+zeigen;
+endchar;
+
+if not wortende:
+  beginchar("Z",36.056ut#,Ht#,0);
+      else:
+beginchar(oct"232",22.5ut#,Ht#,0);
+    fi
+  pickup wesa_pen;
+xpos:=0;
+ gerade((Ht),(Ht),Lbreite,xpos);
+     gerade((Ht),(0),-Lbreite,xpos);
+     schweif((0),(0),Lbreite,45,0,1,xpos);
+     Fahne;
+zeigen;
+endchar;
+
+% Umlaute
+%\"A
+if not wortende:
+  beginchar(oct"304",46ut#,80ut#,0);
+      else:
+beginchar(oct"233",35ut#,42.5ut#,0);
+    fi
+  pickup wesa_pen;
+  xpos:=0;
+  Umlaut(sporn+Abreite,xpos);
+    A_char;
+    zeigen;
+endchar;
+  
+%\"O
+if not wortende:
+  beginchar(oct"326",36.974ut#,80ut#,0);
+      else:
+beginchar(oct"234",27.5ut#,42.5ut#,0);
+    fi
+  pickup wesa_pen;
+  xpos:=0;
+    Umlaut(A,xpos);
+    O_char;
+    zeigen;
+endchar;
+ 
+%
+%\"U
+if not wortende:
+  beginchar(oct"334",36.390ut#,42.5ut#,0);
+      else:
+beginchar(oct"235",22.833ut#,80ut#,0);
+    fi
+  pickup wesa_pen;
+  xpos:=0;
+ Umlaut(D/m+Hbreite/2,xpos);
+    U_char;
+    zeigen;
+endchar;
+
+%%%%%%%%%%%%% File-Ende %%%%%%%%%%%%%%

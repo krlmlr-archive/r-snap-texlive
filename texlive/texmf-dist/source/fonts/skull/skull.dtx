@@ -1,0 +1,122 @@
+% \def\fileversion{0.1}
+% \def\filedate{23. januar 2002}
+% \def\docdate{23. januar 2002}
+%
+% \CheckSum{22}
+%
+% \MakeShortVerb{\|}
+%
+% \title{Dødningehovedafbildningen...\thanks{Pakken foreligger i
+% øjeblikket i version \fileversion}}
+% \author{Henrik Chr.~Grove}
+% \date{Sidst rettet \filedate}
+% \maketitle
+%
+% \begin{abstract}
+% \changes{v0.1}{23. januar 2002}{F\o{}rste offentliggjorte version}
+% En \MF-font med et dødningehoved, og en \LaTeX-pakke til at
+% gøre det tilgængeligt som et matematisk symbol.
+% \end{abstract}
+%
+% \section{Introduktion}
+% 
+% Under en tavlegennemgang af et matematisk problem, kom en af mine
+% medstuderende for skade at benævne en "`ond"' afbildning, med et
+% dødningehoved. Det kan man sagtens på en tavle, men der fandtes
+% tilsyneladende ikke nogen skrifttype til \LaTeX{} der indeholdt
+% sådan et.
+%
+% Nu (længe efter) er det lykkedes mig at ændre på denne situation. 
+%
+% \section{Brug af pakken}
+%
+% Skrifttype og pakke er så simple at bruge som man kan ønske sig
+% det. Man fortæller \LaTeX{} at den skal bruge pakken med en
+% |\usepackage{skull}|, og derefter har man i matematiktilstand
+% (f.eks. mellem \$, eller mellem |\begin{equation}| og
+% |\end{equation}|) adgang til kommandoen |\skull|, der producerer et
+% $\skull$.
+%
+% \section{Installation}
+%
+% Pakken distribueres i tre filer |skull.mf|, |skull.dtx| og |skull.ins|. 
+% Pakken installeres ved at k\o{}re |skull.ins| gennem \LaTeX{},
+% hvilket genererer filen |skull.sty|, dette er den egentlige pakke
+% der anvendes af \LaTeX. Dokumentationen kræver at du har installeret
+% pakken først, derefter skal du blot køre |latex skull.dtx| to gange.
+%
+%\StopEventually{
+% \tableofcontents
+% 
+% \begin{thebibliography}{9}
+%  \bibitem{Companion} M.~Goosens, F.~Mittelbach and A.~Samarin:
+%   \emph{The \LaTeX{} Companion}, Addison-Wesley 1994.
+%  \bibitem{Metafont} Donald~E.~Knuth: \emph{The \MF book},
+%  Addison-Wesley 1986.
+% \end{thebibliography}
+%}
+% \section{Koden}
+%
+% \label{afs:kode}
+% F\o{}rst s\o{}rger vi for, at man kan generere dokumentationen ved 
+% at k\o{}re LaTeX{} p\aa{} denne fil. Dokumentationen skal 
+% s\ae{}ttes p\aa{} A4-papir, og er p\aa{} dansk. Fjern procenttegnet
+% (\%) foran |\OnlyDescription| for at generere dokumentationen uden 
+% dette afsnit.
+%    \begin{macrocode}
+%<*driver>
+\documentclass[12pt,a4paper]{ltxdoc}
+\usepackage{a4,ifthen,mflogo,skull,amssymb,amsmath}
+\usepackage[latin1]{inputenc}
+\usepackage[danish]{babel} 
+\usepackage[T1]{fontenc}
+%\OnlyDescription
+\EnableCrossrefs
+\RecordChanges
+\CodelineIndex
+\OldMakeindexcd
+\begin{document}
+\DocInput{skull.dtx}
+\end{document}
+%</driver>
+%    \end{macrocode}
+%
+% \noindent Flere trivialiteter.
+%    \begin{macrocode}
+\NeedsTeXFormat{LaTeX2e}[1995/12/01]
+\ProvidesPackage{skull}
+  [2002/01/23 v0.1 (c) Henrik Christian Grove <grove@math.ku.dk>]
+%    \end{macrocode}
+%
+% \section{Selve koden}
+% 
+% Hvis man kender til \textsf{NFSS} skulle dette være let at forstå,
+% ellers så læs om \textsf{NFSS} i \cite{Companion}.
+%
+%    \begin{macrocode}
+\DeclareFontFamily{U}{skulls}{}
+\DeclareFontShape{U}{skulls}{m}{n}{ <-> skull }{}
+\DeclareSymbolFont{SKULL}{U}{skulls}{m}{n}
+\DeclareMathSymbol{\skull}{\mathalpha}{SKULL}{'101}
+%    \end{macrocode}
+%
+% \noindent Og det var det\ldots Måske burde jeg se på om det var
+% muligt også at få \MF-koden ind her\ldots 
+%    \begin{macrocode}
+\endinput
+%    \end{macrocode}
+%
+%%% \pagebreak[2]
+%
+% \IndexPrologue{{\section*{Indeks}%
+%  \markboth{Indeks}{Indeks}%
+%  Tal skrevet med kursiv henviser til siden hvor det
+%  p\aa{}g\ae{}ldende opslag er beskrevet, de understregede til
+%  den kodelinie hvor man kan finde definitionen, resten til
+%  kodelinierne hvor opslaget bruges.}}
+%
+% \PrintChanges
+%
+% \PrintIndex
+%
+% \Finale

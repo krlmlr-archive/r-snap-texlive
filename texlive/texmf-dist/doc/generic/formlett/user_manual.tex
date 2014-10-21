@@ -1,0 +1,1113 @@
+% USER MANUAL in Plain TeX
+
+\input formlett.sty
+
+% FONTS
+\font\hbold=cmbx10 at 17.28pt
+\font\lbold=cmbx10 at 14.4pt
+\font\bbold=cmbx10 at 12pt
+\font\small=cmr8
+\font\tiny=cmr5
+\font\stt=cmtt9
+\catcode`\@=11\relax
+%
+%
+%
+% OTHER MACROS
+%
+\catcode`\~=11\relax \def\t{{\tt ~}}
+\catcode`\~=\active\relax
+\catcode`\!=0\relax !catcode`!\=11!relax
+!def!esc{\}!def!escs{\! }
+!catcode`!\=0!relax \catcode`\!=12\relax
+\def\rqs{\rq\ }
+\def\LaTeX{{\rm L\kern-.36em\raise.3ex\hbox{\font\sc=cmcsc10\sc a}\kern-.15em
+    T\kern-.1667em\lower.7ex\hbox{E}\kern-.125emX}}
+
+% makeshift macro
+\catcode`\^^M=13\relax%
+\def\setraw{\bgroup\rm@ligature\set@space\set@tab%
+\set@cr\stt\raw@chars[11][13][13][13][13]\def^^M{\strut\par}\setraw@@}%
+\edef\temp@macro{%
+   \noexpand\long\noexpand\def\noexpand\setraw@@\noexpand##1^^M##2%
+     \esc@  unsetraw{##1##2\noexpand\egroup}}\temp@macro %
+\catcode`\^^M=5\relax%
+
+
+\font\ninerm=cmr9  \font\eightrm=cmr8
+\font\ninei=cmmi9  \font\eighti=cmmi8
+\font\ninesy=cmsy9 \font\eightsy=cmsy8
+\font\ninebf=cmbx9 \font\eightbf=cmbx8
+\font\ninett=cmtt9 \font\eighttt=cmtt8
+\font\nineit=cmti9 \font\eightit=cmti8
+\font\ninesl=cmsl9 \font\eightsl=cmsl8
+
+\font\sixrm=cmr6
+\font\sixi=cmmi6
+\font\sixsy=cmsy6
+\font\sixbf=cmbx6
+
+\skewchar\ninei='177  \skewchar\eighti='177  \skewchar\sixi='177
+\skewchar\ninesy='60  \skewchar\eightsy='60  \skewchar\sixsy='60
+\hyphenchar\ninett=-1 \hyphenchar\eighttt=-1 \hyphenchar\tentt=-1
+
+\font\tentex=cmtex10
+\font\inchhigh=cminch
+\font\titlefont=cmssdc10 at 40pt   % titles in chapter openings
+\font\eightss=cmssq8               % quotations in chapter closings
+\font\eightssi=cmssqi8             % ditto, slanted
+\font\tenu=cmu10                   % unslanted te~t italic
+\font\manual=manfnt                % METAFONT logo and special symbols
+\font\magnifiedfiverm=cmr5 at 10pt % to demonstrate magnification
+
+\newskip\ttglue
+\def\eightpoint{\def\rm{\fam0\eightrm}% switch to 8-point type
+  \textfont0=\eightrm \scriptfont0=\sixrm \scriptscriptfont0=\fiverm
+  \textfont1=\eighti  \scriptfont1=\sixi  \scriptscriptfont1=\fivei
+  \textfont2=\eightsy \scriptfont2=\sixsy \scriptscriptfont2=\fivesy
+  \textfont3=\tenex   \scriptfont3=\tenex \scriptscriptfont3=\tenex
+  \textfont\itfam=\eightit  \def\it{\fam\itfam\eightit}%
+  \textfont\slfam=\eightsl  \def\sl{\fam\slfam\eightsl}%
+  \textfont\ttfam=\eighttt  \def\tt{\fam\ttfam\eighttt}%
+  \textfont\bffam=\eightbf  \scriptfont\bffam=\sixbf
+   \scriptscriptfont\bffam=\fivebf  \def\bf{\fam\bffam\eightbf}%,
+  \tt \ttglue=.5em plus.25em minus.15em
+  \normalbaselineskip=9pt
+  \setbox\strutbox=\hbox{\vrule height7pt depth2pt width0pt}%
+  \let\sc=\sixrm  \let\big=\eightbig  \normalbaselines\rm}
+
+
+%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%
+%
+% END OF EXTRA MACROS AND FONTS
+%
+%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%
+
+
+
+
+\catcode`\@=11\relax
+\PAGENO=1
+\voffset=-0.3in
+
+
+\ifx\pageno\undefined
+\errmessage{Please run TeX if you want this article on how to use
+<formlett.sty> to be processed as well!}
+\fi
+
+
+\parindent=0pt
+\hsize=469.75499pt  % the default
+\vsize=9.6in %8.83in
+
+\def\makefootline{\baselineskip=24pt \line{\the\footline}}
+\footline={\lower5pt
+\hbox to \hsize
+ {{\tenrm Jiang Z ~~~{\tensl Mail merge with the use of formlett.sty}
+\hss \folio}}}
+
+\leftline{\hbold Mail merge with the use of formlett.sty}
+\bigskip
+
+
+{\advance\leftskip by13mm \overfullrule=0pt
+\advance\rightskip by 20mm %28mm
+\sl
+\noindent Zhuhan JIANG\par
+\noindent School of Computing and Information Technology,
+ University of Western Sydney, Victoria Road, Parramatta NSW 2150, Australia.
+{\sl ~~Email}:~z.jiang@uws.edu.au\par
+\medskip
+\rm\smooth
+\noindent (Last updated on 26 May 2003)\par
+\medskip
+
+\noindent
+In this article, the author explains how to use a form-letter or mail
+merge style {\tt formlett.sty}, designed for plain \TeX\space and
+\LaTeX\space or \LaTeX2e. {\tt formlett.sty} supports different
+parameter input methods, parameter naming and defaulting mechanism, as
+well as facilities for previewing parameter positions and printing
+labels. It is written for the purpose of being powerful, robust and
+above all easy to use.\par }
+
+
+\begincolumns
+
+{\lbold Introduction}
+
+\smallskip
+
+Our purpose here is to describe a comprehensive implementation of a
+macro system, handling form letters or mail merge under plain \TeX\space
+or \LaTeX\space2.09 or \LaTeX2e. The main objective is to provide an
+easy way to output many form letters with their own parameters, with or
+without the use of multiple files. There will be a coherent and simple
+format for putting parameters inside a form letter, with a number of
+helping facilities for such as naming parameters and previewing their
+positions. A minimum support for printing mailing labels is also
+provided.
+
+
+\medskip
+
+The concept of macros [1] for form letters is not new: there already
+exist macros in this connection such as {\tt merge}, {\tt textmerg} and
+{\tt address} to name a few, see [2,3] for further details. Our stress
+here is therefore laid on the ease to use, along with the power and the
+robustness of the macros.
+
+\bigskip
+
+
+{\lbold Basic format}
+
+
+%%%%%%%%%%%%
+% letter top
+%%%%%%%%%%%%
+
+  \beginletter
+\sl
+\hsize=3.1in\relax
+\medskip
+  \paranames             % optional
+    \tt<<FULL NAME>>;%
+    \tt<<ADDRESS-01>>;%
+    \tt<<ADDRESS-02>>;%
+    \tt<<GIVEN NAME>>;%
+    \tt<<MISSING ITEM>>;%
+    \tt<<PHONE NUMBER>>!
+  \loaddefaultparas      % optional
+
+  \NOPAGENUMBERS\parindent=0pt\overfullrule=0pt
+  \paras[1]\par\paras[2]\par\paras[3]\par\medskip
+
+  Dear \paras[4],
+
+  \smallskip
+  We have been looking for
+  \paras[5] for quite a while
+  without any luck, could you help
+  us out? If so, please ring
+  \paras[6]. \par\medskip
+  Cheers!\hfill Michael\par %\vfill\eject
+\medskip
+  \endletter
+
+%%%%%%%%%%%%
+% letter end
+%%%%%%%%%%%%
+
+
+Suppose we would like to write a form letter for mail merge in the
+following form
+
+\showparas
+
+where the text inside the double arrow brackets are to be replaced by
+the parameters specific to each individual letter. If we number these
+parameters one by one in a single group, then the letter template will
+be organised as
+
+\preview
+
+and we need just 6 parameters to personalise an individual letter. A
+simplest example of supplying a set or a {\sl cluster} of these
+parameters to output a merged form letter is to use
+
+\setraw
+\moreletter
+  Mrs L Stenson;\#1-20 Sunset Street;%
+  Hills, Norway;Louise;a Bible;220-8888!
+\unsetraw
+
+For more letters to be merged this way, just use again the
+command {\tt\string\moreletter} in the above format, in which each
+parameter is separated by a semicolon `{\tt ;}' and the whole parameter
+cluster is ended by an exclamation mark `{\tt !}'. The actual code in
+\LaTeX\space for making the above form letter, along with an extra
+merged letter, may read as follows
+
+
+\edef\setrawcount{\stt\noexpand
+  \beginrawlist[][][4][][][3.3in]{\esc@ unsetraw}}
+
+\linecount=1\relax
+\setrawcount
+  \documentstyle[formlett]{article}
+  \begin{document}
+  \beginletter
+    \NOPAGENUMBERS\parindent=0pt
+    \paras[1]\par\paras[2]\par
+    \paras[3]\par\medskip
+    Dear \paras[4], \par\medskip
+    We have been looking for
+    \paras[5] for quite a while
+    without any luck, could you help
+    us out? If so, please ring
+    \paras[6]. \par\medskip
+    Cheers!\hfill Michael\vfill\eject
+  \endletter
+
+  \moreletter % letter one
+    Mrs L Stenson;\#1-20 Sunset Street;%
+    Hills, Norway;Louise;a Bible;220-8888!
+  \moreletter % letter two
+    S Wales;UMIST;Manchester;Sir or Madam;%
+    a \TeX\ package{+}manual;225-9905!
+  \end{document}
+\unsetraw
+\rm
+
+The line numbers in the above and later on are for quick reference only:
+they are not a part of the program code. The letter template in lines
+4-13 is defined by the {\tt\string\beginletter} and {\tt\string\endletter}
+pair in line 3 and line 14, with each use of {\tt\string\moreletter}
+generating a new merged letter. We note that command {\tt \string\paras[{\it
+m}]} represents the $m^{th}$ merged parameter (of the first group, see
+later), and the command {\tt\string\NOPAGENUMBERS}
+will remove the page numbering for both \LaTeX\space and plain
+\TeX. We also note that if one replaces lines 1-2 by
+{\tt\string\input\space formlett.sty}, then the program will be
+compilable under plain \TeX\space as well.
+
+
+\medskip
+
+Although the mail merge mechanism in the above will be sufficient for
+most simple applications, {\tt formlett} provides in fact many more
+features. We shall thus in the followings introduce the main features
+one by one, from the most useful to the less likely encountered.
+
+\medskip
+
+To start with, we notice that in the above example there are exactly two
+parameters to be used for the address. This is inconvenient to say the
+least, even if we allocate say three more extra parameters for the
+purpose. This naturally calls for the separation of the whole {\sl
+cluster} of parameters into several {\sl groups}, so that the numbering
+of the parameters in every group will be resynchronised. We thus use
+{\tt\string\paras[{\it m}][{\it n}]} to denote the $m^{th}$ parameter of
+the $n^{th}$ group of a whole cluster of merging parameters. In fact we
+may use {\tt\string\blockparas[{\it m}][{\it n}][{\it pre}][{\it post}]}
+to represent parameters in the $n^{th}$ group, from the $m^{th}$ to the
+last parameter of that group, where the tokens denoted by {\it pre} and
+{\it post} are those to be added in front and behind respectively each
+of the legitimate parameters. The defaults for {\it pre} and {\it post}
+are {\tt\string\noindent} and {\tt\string\par} respectively. It is
+therefore more sensible to specify the merging parameters of the earlier
+example via
+
+
+%%%%%%%%%%%%
+% letter top
+%%%%%%%%%%%%
+
+  \beginletter
+\sl
+\hsize=3.1in\relax
+\medskip
+  \paranames             % optional
+    \tt<<FULL NAME>>\hfill
+    \tiny\fillzeros[4]\linecount\global\advance\linecount1\relax\par;%
+    \tt<<ADDRESS-etc>>\hfill
+    \tiny\fillzeros[4]\linecount\global\advance\linecount1\relax\par;%
+   +\tt<<GIVEN NAME>>;%
+    \tt<<MISSING ITEM>>;%
+    \tt<<PHONE NUMBER>>!
+  \loaddefaultparas      % optional
+
+  \NOPAGENUMBERS\parindent=0pt\overfullrule=0pt
+  \noindent{\it\paras[1]}\par
+  \blockparas[2]\par\medskip
+
+  Dear \paras[1][2],
+
+  \smallskip
+  We have been looking for
+  \paras[2][2] for quite a while
+  without any luck, could you help
+  us out? If so, please ring
+  \paras[3][2]. \par\medskip
+  Cheers!\hfill Michael\par %\vfill\eject
+\medskip
+  \endletter
+
+%%%%%%%%%%%%
+% letter end
+%%%%%%%%%%%%
+
+\showparas
+
+where {\tt <<ADDRESS-etc>>} will be produced by
+{\tt\string\blockparas[2][1]}, i.e. all the parameters of the first
+group, starting from the 2nd parameter. We note that the missing
+square-bracketed macro parameters for {\tt\string\blockparas} are
+automatically provided: in fact macro parameters in {\tt formlett} are
+systematically defaulted. Hence for example, {\tt \string\paras[1][1]}
+is equivalent to any of the following commands
+
+\setraw
+  \paras, \paras[1], \paras[][1],
+  \paras[1][], \paras[][]
+\unsetraw
+
+As for the more precise position of the merging parameters, they can
+always be viewed via the command {\tt\string\preview}, which in this
+case gives the following positioning
+
+\preview
+
+This way, the mail merge for the above letter template can also be done
+(in plain \TeX) in the following more flexible way
+
+\setrawcount
+  \input formlett.sty
+  \beginletter
+  \NOPAGENUMBERS\parindent=0pt
+  \noindent{\it\paras[1]}\par
+  \blockparas[2]\par\bigskip
+  Dear \paras[1][2],\par\medskip
+  We have been looking for
+  \paras[2][2] for quite a while
+  without any luck, could you help
+  us out? If so, please ring
+  \paras[3][2]. \par\medskip
+  Cheers!\hfill Michael\vfill\eject
+  \endletter \preview
+
+  \beginpilemode
+    Mrs L Stenson;\#1-20 Sunset Street
+    Hills, Norway+Louise;a Bible;220-8888!
+
+    S Wales;UMIST;Manchester+%
+    Sir or Madam;a \TeX\space
+    package{+}manual;225-9905!
+  \endpilemode
+  \end
+\unsetraw
+\rm
+
+
+We note that by default we used plus sign `{\tt +}' to separate
+different groups inside a cluster of parameters, and each cluster inside
+a {\tt\string\beginpilemode} and {\tt\string\endpilemode} pair will
+output a merged letter, as if it were produced by command
+{\tt\string\moreletter} followed by that cluster of parameters.
+The output of the first merged letter in fact reads
+
+\moreletter
+    Mrs L Stenson;\#1-20 Sunset Street
+    Hills, Norway+Louise;a Bible;220-8888!
+
+
+\medskip
+
+It is often desirable to supply parameters line by line, i.e. one line
+as one parameter. Hence the two merged letters produced by lines 25-47
+can also be made by replacing the content included in the
+{\tt\string\beginpilemode} and {\tt\string\endpilemode} pair (lines
+39-46) by the following new code
+
+\setrawcount
+\blockmarks
+\beginblockmode
+Mrs L Stenson
+\#1-20 Sunset Street
+Hills, Norway
+-----
+Louise
+a Bible
+220-8888
+======
+
+S Wales
+UMIST
+Manchester
+----
+Sir or Madam
+a \TeX\ package+manual
+225-9905
+====
+\endblockmode
+\defaultmarks
+\unsetraw
+\rm
+
+where obviously we have used lines with `{\tt----}' to separate groups
+and used lines with `{\tt====}' to end a cluster of parameters. This was
+done by the use of {\tt\string\blockmarks} which changes the group
+delimiter `{\tt +}' and cluster delimiter `{\tt !}' into the above two
+new ones, with the {\tt\string\defaultmarks} at the end setting them
+back. If the whole cluster of parameters are categorised into a single
+(first) group, then we may even use a block of consecutive nonempty
+lines to provide the merging parameters. This is done by the use of
+command pair {\tt\string\beginlinemode} and {\tt\string\endlinemode}.
+Hence we may also conduct the above mail merge in for instance \LaTeX2e
+by
+
+
+\setrawcount
+\documentclass{article}
+\usepackage{formlett}
+\begin{document}
+  \beginletter
+    \NOPAGENUMBERS\parindent=0pt
+    \paras[4]\par\blockparas[5]
+    \par\medskip
+    Dear \paras[1], \par\medskip
+    We have been looking for
+    \paras[2] for quite a while
+    without any luck, could you help
+    us out? If so, please ring
+    \paras[3]. \par\medskip
+    Cheers!\hfill Michael\vfill\eject
+  \endletter
+
+\beginlinemode
+Louise
+a Bible
+220-8888
+Mrs L Stenson
+\#1-20 Sunset Street
+Hills, Norway
+
+Sir or Madam
+a \TeX\ package+manual
+225-9905
+S Wales
+UMIST
+Manchester
+\endlinemode
+\end{document}
+\unsetraw
+\rm
+
+Notice that we have changed the numbering order of the parameters so
+that the number of address lines output by {\tt\string\blockparas} is
+more flexible.
+
+
+\bigskip
+{\lbold Advanced features}
+
+The advanced features to be discussed below are mainly for the purpose
+of (i) writing {\sl long} form letter; (ii) making {\sl many} different
+form letters; (iii) reading mail merge parameters that are in {\sl
+crude} ASCII form; and (iv) generating mail labels.
+
+\medskip
+
+It is in general better to keep the letter template, i.e. the content
+between {\tt\string\beginletter} and {\tt\string\endletter} like those
+in lines 4-13, in a separate file, say {\tt myletter.let}, and use
+{\tt\string\inputletter$\{$myletter.let$\}$} to load in the letter
+template. The advantage of this over the previously used method is that
+the letter template can now be arbitrarily large without any risks of
+causing computer memory problem.
+
+\medskip
+
+Suppose we have a collection of letter templates, we may wish to remind
+ourselves what each parameter represents. For this purpose, we may add
+at the top of the letter template a command {\tt\string\paranames} {\it
+cluster}{\tt !}, where {\it cluster} is a cluster of parameters each
+giving a name to the corresponding parameter. Command
+{\tt\string\paranames} takes its macro parameters in the same way
+{\tt\string\moreletter} does. After a letter template is read in,
+command {\tt\string\showparas} will output a form letter with its
+parameters replaced by the corresponding names. The mainly italic
+passage containing lines 23-24, for instance, is the output of
+{\tt\string\showparas} for the letter template in lines 102-109 given
+explicitly later on.
+
+\medskip
+
+We may also use {\tt\string\paradefaults} {\it cluster}{\tt !} to
+provide default parameters, i.e. the parameters to replace the empty or
+not entered ones, and use {\tt\string \loaddefaultparas} inside letter
+template to activate the parameter defaulting. We note that in general
+commands {\tt\string\paranames} and {\tt\string\loaddefaultparas}, if
+present, should be at the top of the letter template, with
+{\tt\string\loaddefaultparas} below the command {\tt\string\paranames}.
+Hence for our previous mail merge, we may re-do it via
+
+
+\setrawcount
+  \input formlett.sty
+  \beginletter
+  \paranames             % optional
+    \tt<<FULL NAME>>;\tt<<ADDRESS-etc>>;%
+   +\tt<<GIVEN NAME>>;\tt<<MISSING ITEM>>;%
+    \tt<<PHONE NUMBER>>!
+  \loaddefaultparas      % optional
+\unsetraw
+
+\ \ \ {\it $\{$letter details given in lines 27-36$\}$}
+\hfill{\tiny\fillzeros[4]\linecount\global\advance\linecount1\relax}
+
+\setrawcount
+  \endletter
+  \preview \showparas
+
+  \paradefaults       % optional
+    To whom this may concern
+   +Sir or Madam;something;%
+    061-225-9905!
+
+\blockmarks
+\beginrawblockmode{}
+Mrs L Stenson
+#1-20 Sunset Street
+Hills, Norway
+------
+Louise
+a Bible
+220-8888
+=========
+
+......
+
+Above empty line active
+\endrawblockmode
+\defaultmarks
+\end{document}
+\unsetraw
+\rm
+
+We note that in {\sl blockmode} with {\tt\string\blockmarks}, a line
+with `{\tt ....}' marks the immediate start of a parameter block,
+whether or not the lines immediately following it are empty or not. Also
+that in {\it rawblockmode} enclosed by {\tt\string \beginrawblockmode}
+and {\tt\string\endrawblockmode}, all characters are input in their
+original ASCII form. In other words, the special characters for
+\TeX\space will be ignored here.
+
+\medskip
+
+If the merging parameters are given by exactly $m$ lines per cluster, as
+is often the case when they are produced by a database utility, then we
+may use the {\tt\string\begindatamode} and {\tt\string\enddatamode} pair
+to mark the beginning and the end of the merging parameters. For more
+details, see the Appendix at the end.
+
+\medskip
+
+We may keep the letter template and the merging parameters in two
+separate files. For instance, if we save lines 103-108 to file {\tt
+myletter.let}, lines 39-46 or lines 48-68 to file {\tt myletter.adr},
+then we can produce via \LaTeX\ the mail merge by
+
+\setrawcount
+  \documentstyle[formlett]{article}
+  \begin{document}
+  \inputletter{myletter.let}
+  \showparas \preview  % utility demo
+  \paradefaults To whom it may concern!
+  \inputfile{myletter.adr}
+  \beginlabels % 1st group as address
+  \inputfile{myletter.adr} % for labels
+  \endlabels
+  \end{document}
+\unsetraw
+\rm
+
+where the lines 140-142 will generate the address labels using the first
+group (as is intended here) of parameters. More precise format of
+{\tt\string\beginlabels} and etc can be found in the Appendix.
+
+\medskip
+
+Another way of making labels, if no separate files for the parameters
+are present, is to re-read the document itself and make labels instead
+of merged form letters in the second reading. We may thus use {\tt
+\string\input \ formlett.sty \string\initstyle\ [{\it styles}]$\{${\tt
+article}$\}\{${\it preamble}$\}$} to replace {\tt \string\documentstyle\
+[formlett, {\it styles}]$\{$article$\}$ {\it preamble}
+\string\begin$\{$document$\}$}, which will be valid for \LaTeX\ but
+ignored for \TeX\ , and will enable one to use {\tt \string\labelsquit}
+at the end to read in the current document again with all the letters
+there converted into the corresponding labels. Though
+{\tt\string\initstyle} is valid for plain \TeX, \LaTeX2.09 as well as
+\LaTeX2e, {\tt\string\initclass} will generate
+{\tt\string\documentclass} instead of {\tt\string\documentstyle} when
+\LaTeX2e is the processing environment. If you only want to execute
+certain commands the first time round (i.e. before {\tt
+\string\labelsquit} re-reads the file again), use {\tt
+\string\firstread$\{${\it commands}$\}$} for this purpose. For more
+detailed use and examples, read the {\sl programmer's document} attached
+to the style file {\tt formlett.sty} and the example files it generates.
+In fact, many details and extra features that are not contained in this
+article may be found there.
+
+\medskip
+
+We already noted that if a form letter is large, we have to use
+{\tt\string\inputletter} to load in the template. However, it is often
+still desirable to keep everything inside a single file, while allowing
+it to make new (scratch) files when it is being compiled. We may thus
+use for example
+
+\setraw
+  \beginfile{myletter.let}
+\unsetraw
+
+\ \ \ {\it $\{$letter template of lines 103-108$\}$}
+
+\setraw
+  \endfile
+\unsetraw
+\rm
+
+to create a letter template file {\tt myletter.let}. Likewise, the
+merging parameters can be saved to another run-time created file {\tt
+myletter.adr}.
+
+
+\medskip
+
+We have so far only used the default delimiters `{\tt ;}', `{\tt +}' and
+`{\tt !}' to separate single, group and cluster of parameters, with
+temporary change via {\tt\string\blockmarks} to `{\tt ....}', `{\tt
+----}' and `{\tt ====}' respectively. However we may change the
+delimiters to any characters by {\tt
+\string\delimiters$\{S\}\{G\}\{C\}$}, where $S$, $G$ and $C$ are the
+tokens to delimit single, group and cluster of parameters respectively,
+and change the delimiters back to the default by
+{\tt\string\defaultmarks} or equivalently by
+{\tt\string\delimiters$\{$;$\}\{$+$\}\{$!$\}$}.
+
+\medskip
+
+
+To conclude this section, let us finally look below at an `ideal' and
+`finished' mail merge application code,. It is currently in a form
+compilable under \LaTeX2e, and is also valid for plain \TeX\space if the
+first three lines (lines 144-146) are removed.
+
+\setrawcount
+\documentclass{article}
+\usepackage{formlett}  % LaTeX2e
+\begin{document}
+
+%%%%  MAKE file scr@tch@.let
+\beginfile{scr@tch@.let} % letter content
+\paranames <<name>>;<<address>>+<<items>>!
+\loaddefaultparas
+\parindent=0pt\blockparas\bigskip\bigskip
+Dear \paras, \par\bigskip
+This part is typically the letter content.
+It now displays all the items in the 2nd
+parameter group. They are \par
+\blockparas[][2] \vfill\eject
+\endfile
+
+%%%%  MAKE file scr@tch@.adr
+\beginfile{scr@tch@.adr} % address file
+\blockmarks
+\beginblockmode
+T Teng
+UMIST
+Manchester M60 1QD
+=====
+
+Z Jiang
+UNE
+Armidale NSW 2351
+Australia
+------
+Email: zhuhan@neumann.une.edu.au
+=====
+\endblockmode
+\defaultmarks
+\endfile
+
+% MAIN BODY
+\paradefaults To Whom It May Concern
+  +No further info available{!}!
+\inputletter{scr@tch@.let}
+\inputfile{scr@tch@.adr}% for letters
+\beginlabels
+\inputfile{scr@tch@.adr}% for labels
+\endlabels
+\end{document}
+\unsetraw
+\rm
+
+We note that if we replace lines 144-146 by {\tt\string\input\space
+formlett.sty \string\initstyle$\{\}\{\}$}, then the mail merge can be
+processed by either plain \TeX\space or \LaTeX\space (including
+\LaTeX2e). It is likewise if {\tt\string\initstyle} in the replaced
+line is replaced furthermore by {\tt\string\initclass}, except that now
+the native \LaTeX2e environment is preserved, when applicable, rather
+than turning it into the compatibility mode of \LaTeX2.09.
+
+\bigskip
+{\lbold Programmer's tips}
+
+\smallskip
+
+First we note that all the macro parameters that are to appear inside
+square brackets of {\tt formlett}'s commands are defaulted, just like
+how {\tt\string\paras[$m$][$n$]} is defaulted earlier on. The actual
+default values can be found in the Appendix.
+
+\medskip
+
+For those wizard users who want to do everything their own way, we point
+out that if for instance the 3rd letter parameter of the 2nd group of a
+cluster is given as {\tt<A>}, then {\tt \string\LET2*3\t} will contain
+{\tt \string\b@group \string\relax {\tt<A>}\string\e@group} right after
+a cluster is read in. {\tt \string\DEF2*3\string~}, on the other hand,
+contains the corresponding default parameter in the same fashion.
+Furthermore, the command {\tt\string\checkparas[$m$][$n$]$\{$LET$\}$}
+will copy the content of {\tt\string\paras[$m$][$n$]}, minus the
+`wrapping' extra tokens {\tt\string\b@group\string\relax} and
+{\tt\string\e@group}, to {\tt\string\cachedata} and set
+{\tt\string\ifemptyparas} to true or false depending on whether the
+content is empty or not. This way, a user may even change the
+characteristics of his letter template by first testing the content of
+the supplied individual parameters. However, we note that if {\tt\string
+\loaddefaultparas} is executed, then the {\tt LET} array, when some of
+its elements are not supplied, will contain the corresponding elements
+of the {\tt DEF} array. Hence care must be exercised under such
+circumstances, when interpreting the {\tt\string\cachedata} generated by
+{\tt\string\checkparas[$m$][$n$]$\{$LET$\}$}. If necessary, we may use
+{\tt\string\delparadefaults} to delete current default parameter array
+{\tt DEF} so as to conduct {\tt\string\checkparas$\{$LET$\}$} more
+precisely.
+
+\medskip
+
+There are also a number of generic macro utilities in {\tt formlett},
+including a user stack and a multi-dimensional array mechanism.
+
+\medskip
+
+{\tt formlett} was written for all \TeX\space dialects, its format is
+thus more close to that of plain \TeX. In fact, we deliberately avoided
+mixing up {\tt formlett} with the standard letter environment of \LaTeX.
+This is largely due to the fact that the limited facilities of
+\LaTeX\space letter environment are easy to come by anyway, and are not
+really worth writing buckled code to make {\tt formlett} a type of
+extension of the environment. Nevertheless, one can still use the letter
+environment of \LaTeX\space inside the form letter template. Besides,
+the applicability of {\tt formlett} is not restricted for making form
+{\sl letters}; it can also be used to merge other type of articles or
+passages.
+
+
+
+
+\bigskip
+{\lbold References}
+
+\smallskip
+{\parindent=2em
+\item{[1].} Knuth D E, {\sl The \TeX book}, Reading, Mass.,
+Addison-Wesley, 1992. \par
+\item{[2].} Piff M, Text merges in \TeX\ and \LaTeX, {\sl TUGboad},
+13(4):518, 1993. \par
+\item{[3].} Damrau J and Wester M, Form letters with 3-across
+labels capacity, {\sl TUGboat}, 13(4):510, 1991.
+\par
+}
+
+
+
+
+\penalty -50\bigskip
+
+{\lbold Appendix}
+
+
+
+\smallskip
+
+
+In the followings, we give a brief summary of the main commands given by
+{\tt formlett} version 2.1.
+
+\medskip
+
+Let $m$ and $n$ be numbers, $p$, $q$ and $r$ be dimensions, $A$,
+$B$, $S$, $G$, $C$ and $T$ be tokens, and $X$ be a box.
+Furthermore, we shall denote by $R$ a full set of letter
+parameters ended by \lq{\tt !}\rq, with \lq{\tt;}\rqs separating
+parameters inside a same group and \lq{\tt+}\rqs separating
+different parameter groups. We moreover denote $R$ by $F$, when
+\lq{\tt ; + !}\rqs there can be replaced by \lq$S$ $G$ $C$\rqs
+respectively if {\tt \string\delimiters$\{S\}\{G\}\{C\}$} is
+issued. In the commands tabulated below, the macro parameters
+contained in squared brackets support default. In particular, the
+defaults are $m$={\tt 1}, $n$={\tt 1}, $p$={\tt 8truecm},
+$q$={\tt 1.5em}, $r$={\tt 3pt}, $A$={\tt\string\noindent} and
+$B$={\tt\string\par}.
+
+
+
+\newdimen\tempdimone
+\newdimen\tempdimtwo
+\tempdimone=\hsize
+\advance\tempdimone by-0.2pt
+\tempdimtwo=\hsize
+\advance\tempdimtwo by-1.8in
+\def\hruler{\hrule width \tempdimone}
+\long\def\entry#1#2{%
+\par\hbox to \tempdimone{\noindent
+       \vrule~\textbox[1.7in]{#1}~\hss
+       \vrule~\textbox[\tempdimtwo]{\raggedright#2}~\vrule}%
+       \par}
+
+\long\def\longentry#1#2#3{%
+\par\hbox to \tempdimone{\noindent
+       \vrule~\textbox[3in]{#1}~\hss~\vrule}\par
+        {\kern-8pt \advance\tempdimtwo0.10in
+         \vrule width1.7in height0pt \vrule width\tempdimtwo height 0.4pt \par
+         \kern-3pt}
+        \entry{#2}{#3}}
+
+\long\def\Longentry#1#2#3{%
+\par\hbox to \tempdimone{\noindent
+       \vrule~\textbox[3in]{#1}~\hss~\vrule}\par
+       {\advance\tempdimtwo0.08in\kern-1pt
+        \vrule~\hfill\vrule width \tempdimtwo height 0.4pt \vrule\par
+        \kern-2.5pt}%
+        \entry{#2}{#3}}
+
+
+
+\bigskip %\bigskip
+\penalty-1000  \vskip 0pt plus4in
+
+{\eightpoint
+\nointerlineskip\parskip=0pt
+
+\hruler
+\entry{{\tt\string\paras[$m$][$n$]}}%
+  {$m^{th}$ parameter of $n^{th}$ group }%
+
+\entry{{\tt\string\blockparas[$m$][$n$][$A$][$B$]}}%
+  {$m^{th}$ to the last parameter of $n^{th}$ group, each
+preceded by $A$ and followed by $B$, wrapped by $\{$\penalty
+1000$\}$ if
+$B$={\tt\string\relax}}
+
+\entry{{\tt\string\addressparas[$m$][$n$][$p$][$q$]}}%
+  {$m^{th}$ to the last parameter of $n^{th}$ group, each put
+into a box of width $p$ with indent $q$ for wrapped portions}
+
+
+\entry{{\tt\string\loaddefaultparas}}%
+  {fill empty parameters with defaults}
+
+%\hruler \penalty-1000
+\hruler
+
+
+\entry{{\tt\string\checkparas[$m$][$n$]$\{T\}$}}%
+  {$m^{th}$ parameter of $n^{th}$ group copied to {\tt\string\cachedata};
+   {\tt\string\ifemptyparas} is true if element is empty; $T$ is often
+   {\tt LET} or {\tt DEF}}%
+
+
+\hruler
+
+
+\entry{{\tt\string\moreletter\ $F$}}%
+  {use parameters $F$ to output a new letter}
+
+
+\entry{{\tt\string\paranames\ $R$}}%
+  {use $R$ as parameter names}
+
+\entry{{\tt\string\paradefaults\ $R$}}%
+  {use $R$ as default parameters}
+
+\entry{{\tt\string\delparadefaults}}%
+  {delete default parameters}
+
+\hruler
+
+
+\entry{{\tt\string\delimiters$\{S\}\{G\}\{C\}$}}%
+  {use $S$, $G$, $C$ as delimiters}
+
+
+\entry{{\tt\string\defaultmarks}}%
+  {use \lq{\tt ; + !}\rqs as delimiters}
+
+
+\entry{{\tt\string\blockmarks}}%
+  {use \lq{\tt ....}\rq, \lq{\tt ----}\rq, \lq{\tt ====}\rqs as delimiters}
+
+%\hruler \penalty -1000
+\hruler
+
+\entry{{\tt\string\preview}}%
+  {highlight parameter positions}
+
+\entry{{\tt\string\showparas}}%
+  {display parameter names, if any}
+
+\hruler
+
+
+\entry{%
+$\left\{\matrix{ \hbox{\tt\string\beginfile[$T$]$\{{\it
+file.ext}\}$}\cr
+\hbox{\tt\string\endfile\ \ \ \ \ \ \ \ \ \ \ \ \ }\cr}\right.$\par
+ \ \ \ {\tiny }}%
+  {write text verbatim to file {\it file.ext} (empty implies {\tt
+scr@tch@.tex}), nonempty $T$ replaces {\tt
+\string\endfile} to mark last full line}
+
+
+
+\entry{{\tt\string\inputletter$\{file.ext\}$}}%
+  {input letter content}
+
+\entry{{\tt\string\inputfile$\{file.ext\}$}}%
+  {input $file.ext$}
+
+\hruler \penalty -5000 %\vskip0pt plus 1cm
+\hruler
+
+
+\entry{%
+$\left\{\matrix{ \hbox{\tt\string\beginletter}\cr
+\hbox{\tt\string\endletter~~}\cr}\right.$ }%
+  {delimiters for letter content (template)}
+
+\entry{%
+$\left\{\matrix{ \hbox{\tt\string\beginpilemode}\cr
+\hbox{\tt\string\endpilemode~~}\cr}\right.$ }%
+  {normal letter parameters cluster-wise}
+
+
+\entry{%
+$\left\{\matrix{ \hbox{\tt\string\beginblockmode}\cr
+\hbox{\tt\string\endblockmode~~}\cr}\right.$ }%
+  {for line-by-line blocks of parameters, empty lines active
+within each cluster}
+
+
+\entry{%
+$\left\{\matrix{ \hbox{\tt\string\beginlinemode}\cr
+\hbox{\tt\string\endlinemode~~}\cr}\right.$ }%
+  {for line-by-line parameters, empty lines delimit clusters}
+
+\hruler \penalty-1000
+%\hruler
+
+\entry{%
+$\left\{\matrix{ \hbox{\tt\string\beginrawblockmode$\{T\}$}\cr
+\hbox{\tt\string\endrawblockmode\ \ \ \ \ }\cr}\right.$ }%
+  {raw text mode; nonempty $T$ replaces {\tt\string\endrawblockmode}
+   to mark end}
+
+
+\entry{%
+$\left\{\matrix{ \hbox{\tt\string\beginrawlinemode$\{T\}$}\cr
+\hbox{\tt\string\endrawlinemode\ \ \ \ \ \ }\cr}\right.$ }%
+  {raw text parameters and active spaces etc}
+
+\entry{%
+$\left\{\matrix{ \hbox{\tt\string\begindatamode[$T$]$\{m\}$}\cr
+\hbox{\tt\string\enddatamode\ \ \ \ \ \ \ \ }\cr}\right.$ }%
+  {$m$ raw text lines for one form letter}
+
+
+%\hruler \penalty-2000
+\hruler
+
+
+\entry{{\tt\string\PAGENO=1}}%
+  {page number reset to 1}
+
+
+\entry{{\tt\string\NOPAGENUMBERS}}%
+  {no page numbers}
+
+
+\entry{{\tt\string\textbox[$p$]$\{text\}$}}%
+  {$text$ into box of width $p$}
+
+
+\entry{{\tt\string\boxmore[$r$]$\{X\}$}}%
+  {add borderline to box $X$ at a distance $r$}
+
+
+\entry{{\tt\string\addressbox[$p$][$q$]$\{text\}$}}%
+  {$text$ into box of width $p$, with wrapped options indented
+by $q$}
+
+
+\hruler
+
+\Longentry{%
+$\left\{\matrix{ \hbox{\tt\string\beginlabels
+       [$a$][$b$][$c$][$d$][$e$][$f$]}\cr
+ \hbox{\tt\string\endlabels\hskip3cm}\cr}\right.$ }%
+ {\strut\par{\sl defaults:}\everypar={\hbox{\ \ \ }}\par\par
+  $a$={\tt 20pt}, \par $b$={\tt\string\tt\string\raggedright},
+ \par $c$={\tt1}, $d$={\tt1}, \par
+  $e$={\tt2.6in},  $f$={\tt2em}}%
+ {form letters become labels: address taken from $c^{th}$ to
+last parameter of $d^{th}$ group, with width $e$, indent
+$f$, borderspace $a$ and font toks $b$}
+
+\hruler
+
+
+\entry{{\tt\string\firstread$\{T\}$}}%
+  {toks $T$ will not be read if the file is re-read via {\tt
+   \string\labelsquit}}
+
+
+\entry{{\tt\string\initstyle[$a$]$\{b\}\{c\}$}}%
+  {initiation for {\tt\string\labelsquit},with styles $a$,
+   documentstyle $b$ and preamble $c$}
+
+
+\entry{{\tt\string\initclass[$a$][$o$]$\{b\}\{c\}$}}%
+  {similar to {\tt\string\initstyle} ($o$ is \LaTeX2e options),
+   but retains  native \LaTeX2e when applicable}
+
+
+\hruler \vskip0.5pt
+\Longentry{%
+$\matrix{\hbox{\tt \string\labelsquit
+       [$a$][$b$][$c$][$d$][$e$][$f$]$\{$\it file.ext$\}$}\cr
+ \hbox{}\cr}$}%
+ {\strut\par{\sl defaults:}\everypar={\hbox{\ \ \ }}\par\par
+  see that for {\tt\string\beginlabels}}
+  {quit after converting letters to labels by reading the current
+   document or {\it file.ext}}
+
+\hruler
+
+}
+
+\footline={\lower5pt
+\hbox to \hsize
+ {{\rm Jiang Z ~~~{\sl Mail merge with the use of formlett.sty}
+  \hss {\sl $\bullet$End of Document$\bullet$}
+\hss \folio}}}
+
+
+\vrule height2.9in width0pt depth0pt
+\endcolumns
+\vfill\eject
+
+
+
+\end{document}
+
+
+
+

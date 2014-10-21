@@ -1,0 +1,686 @@
+%%
+%% This is file `bcfaq.tex',
+%% generated with the docstrip utility.
+%%
+%% The original source files were:
+%%
+%% barcodes.dtx  (with options: `bcfaq')
+%% As this is a generated file, you may perhaps not want to edit it.
+%% This file belongs to the barcode package.
+%% It may be of no great use without the rest of the barcode package.
+%% \CharacterTable
+%%  {Upper-case    \A\B\C\D\E\F\G\H\I\J\K\L\M\N\O\P\Q\R\S\T\U\V\W\X\Y\Z
+%%   Lower-case    \a\b\c\d\e\f\g\h\i\j\k\l\m\n\o\p\q\r\s\t\u\v\w\x\y\z
+%%   Digits        \0\1\2\3\4\5\6\7\8\9
+%%   Exclamation   \!     Double quote  \"     Hash (number) \#
+%%   Dollar        \$     Percent       \%     Ampersand     \&
+%%   Acute accent  \'     Left paren    \(     Right paren   \)
+%%   Asterisk      \*     Plus          \+     Comma         \,
+%%   Minus         \-     Point         \.     Solidus       \/
+%%   Colon         \:     Semicolon     \;     Less than     \<
+%%   Equals        \=     Greater than  \>     Question mark \?
+%%   Commercial at \@     Left bracket  \[     Backslash     \\
+%%   Right bracket \]     Circumflex    \^     Underscore    \_
+%%   Grave accent  \`     Left brace    \{     Vertical bar  \|
+%%   Right brace   \}     Tilde         \~}
+%%
+\documentclass[a4paper]{article}
+\bibliographystyle{alpha}
+
+
+\font\itf=wlitf scaled 1200
+
+\def\bcbox#1{\lower3pt\hbox{\itf +#1-}}
+
+\newbox\bsavebox
+\newdimen\bcboxdepth
+\bcboxdepth=4pt
+\def\bdbox#1{\setbox\bsavebox\hbox{\itf +#1-}
+\vbox{\hsize=\wd\bsavebox\offinterlineskip%
+\copy\bsavebox%
+\vskip-\ht\bsavebox\vskip\bcboxdepth%
+\box\bsavebox\vskip-\bcboxdepth}}
+\def\bebox#1{\setbox\bsavebox\hbox{\itf +#1-}
+\vbox{\hsize=\wd\bsavebox\offinterlineskip%
+\copy\bsavebox%
+\copy\bsavebox%
+\vskip-\ht\bsavebox\vskip\bcboxdepth%
+\box\bsavebox\vskip-\bcboxdepth}}
+
+\def\tbs{{\tt\char92}}
+\begin{document}
+\title{Barcodes-FAQ}
+\author{Peter Willadt}
+\date{2003-05-24}
+\maketitle
+\begin{abstract}
+
+This file deals with questions about barcode fonts created for
+\TeX{}. Its purpose is not to replace the regular documents, but to add
+informations that may be of no interest for the casual reader.
+
+\end{abstract}
+
+\section{Changelog}
+
+\subsection{Changes of the barcode package in general}
+\begin{tabular}{ll}
+\em Date & \em Change\\
+2003-05-24 & new release with some corrections to codean.pl\\
+           & Thanks to Jacek Ruzycka (uv\_centcom@yahoo.com)\\
+1999-05-29 & added license note to README\\
+1999-05-29 & added install.bat\\
+1998-11-28 & included wlcr39, wlcf39, and wlc93\\
+1998-04-21 & fixed wlitf bug\\
+1998-04-10 & switched partially to docstrip archive\\
+   & added support for code 11\\
+1998-01-24 & added code 128 in MF format, changed codean.pl\\
+1997-11-08 & changed metrics of {\sc itf} start/stop chars\\
+1997-10-09 & released first version of the barcode package
+\end{tabular}
+
+\subsection{Changes within this document}
+
+\begin{tabular}{ll}
+\em Date & \em Change\\
+1999-05-29 & added short info about install.bat\\
+1998-11-28 & added docs about code 93\\
+1998-04-10 & added docs about code 11\\
+1998-01-24 & added information about code 128\\
+1997-12-08 & added contributions to {\sc ean} coding by Kalvis M. Jansons\\
+ & changed section on plessey\\
+1997-11-09 & added several items, rearranged sections\\
+1997-11-08 & started writing first version
+\end{tabular}
+
+\section{Introduction}
+
+The barcode package itself can be found on {\tt ctan} in the
+subdirectory\\ {\tt fonts/barcodes/willadt}. It contains---among
+others---several fonts in {\sc vpl} format, so your {\sc dvi} driver
+should be able to handle virtual fonts. If it doesn't, you may perhaps
+use {\em dvicopy} to resolve the references to virtual fonts, or you
+may perhaps upgrade to a more modern \TeX{} package.
+
+\section{What about docs?}
+
+\subsection{Docs about barcodes}
+
+With the barcode package, there comes documentation about {\sc ean}
+fonts. In the README file, there are short examples of the use of
+the other fonts, too. Also the files {\tt examples.tex} shows the look
+and basic usage of the barcodes.
+
+In {\sl TUGboat}, barcoding has been covered in several
+articles \cite{bc:ean,bc:sauter,bc:vulis}. The barcode package itself
+is covered in an article that has appeared in the december issue,
+1997, of {\sl TUGboat}. As TUGboat is making the elder articles available
+online, I recommend looking for it.
+
+\subsection{Some information about code 128}
+
+Code 128 is able to print all 128 ascii chars. There are a little more
+than a hundred glyphs that are interpreted in three different
+ways. Some of the glyphs are used as shift chars to determine which
+interpretation to use. A checksum is mandatory. To use it, you must
+install {\tt wlc128.mf}.
+
+The preprocessing---switching among the different character sets,
+coding efficiently, calculating the checksum---is handled by the
+newer versions of codean.pl. This is perhaps not as pleasing as to do
+it with \TeX{} alone, but, alas, it works.
+
+The way to run the preprocessor is described in {\tt eandoc.tex}. To
+use code 128, you have to write a line starting with {\tt\tbs cxxviii\{}
+followed by the characters you want to code and followed by a closing
+brace. Non-printing seven-bit ascii characters may be specified in hex
+in C or \TeX{} style, like {\tt\tbs x3f} or \verb|^^3f|. Anything up to
+the rightmost closing brace in this line will be coded---there is no
+brace matching. But you will get a warning message if your text
+includes a right brace. So you may want to code braces in hex form to
+avoid this message. Please note that {\tt codean.pl} does almost no
+checking for errors, so if you intend to produce garbage, there are
+lots of ways. If you need code 128 escape characters, they may be
+included as hex characters with codes starting at 0x80.
+
+\begin{tabular}{lllll}
+\em Input Code & \em C128 number &\multicolumn{3}{c}{\em meaning}\\
+\em(hex) & \em(dec.) & \em Set A & \em Set B & \em Set C\\
+0x80  & 96  & FNC3 & FNC3 & 96\\
+0x81 & 97 & FNC2 & FNC2 & 97\\
+0x82 & 98 & SHIFT & SHIFT & 98\\
+0x83 & 99 & CODE C& CODE C& 99\\
+0x84 & 100 & CODE B& FNC4 & CODE B\\
+0x85 & 101 & FNC4 & CODE A& CODE A\\
+0x86 & 102 & FNC1 & FNC1 & FNC1\\
+0x87 & 103 & START A& START A& START A\\
+0x88 & 104 & START B& START B& START B\\
+0x89 & 105 & START C& START C& START C\\
+0x8a & 106 & STOP & STOP & STOP
+\end{tabular}
+
+But please keep in mind that {\tt codean.pl} does almost anything for you,
+you should not have the need to insert start/stop codes and the
+like. Only if you use EAN128, you will need {\tt FNC1}. Just to make
+it clear: For your barcode to include {\tt FNC1} you have to write
+\verb|^^86| before preprocessing.
+
+{\tt codean.pl} will insert a sequence of hex digits; the original
+text will be appended to the line as a comment.
+Also, your \TeX{} file has to define some macros. They look like
+this:
+
+\begin{verbatim}
+\font\fntcxx=wlc128 scaled \magstep3
+\def\CXXVIII{\bgroup\fntcxx\let\next\hexchar\next}
+\def\cxxviii{\message{OOPS, use codean.pl}}
+\def\hexchar#1#2{\if#1@
+            \global\let\next\egroup
+            \else\char"#1#2\fi\next}
+\end{verbatim}
+
+If you do not like end recursion, you might use other ones. If
+you dislike the hex format produced by {\tt codean.pl}, you are free to
+change it---as long as you don't redistribute.
+
+\subsection{A little bit about code 11}
+
+Code 11 is a numeric-only barcode. It is almost as space-efficient as
+{\sc itf}, and it comes with a checksum. The checksum should be
+swallowed by the reading device. The checksum is a weighted mod-11
+checksum. There are apparently two kinds of checksum in use: such with
+one checkdigit and such with two checkdigits.
+
+To use code 11, you should include {\tt barcode.sty}. \TeX{} will
+calculate the checksum on its own. If you need two check digits, you
+should say\\
+{\tt\tbs codexichecksumktrue}.\\
+How many check digits you
+actually need should be made clear in the documentation to your
+reading device\footnote{You may also want to check the documentation
+to find out if your reading device supports code 11 at all; code 11 is
+not that common.}. You may code the digits 0--9, and the minus
+sign. The start and stop sign is mapped to the @ character. Here is a
+full example. {Please note: If you do not use \LaTeX{}, you may
+have to supply a definition for {\tt\tbs makeatletter}
+and {\tt\tbs makeatother}}:
+
+\begin{verbatim}
+\input barcodes.sty
+%% with two check digits
+\codexichecksumktrue
+\codxi{12-1234}
+
+%% with only one check digit.
+\codexichecksumkfalse
+\codxi{12-1234}
+\bye
+\end{verbatim}
+
+\subsection{Which Code 39 should I use, there are different versions?}
+
+Well, you may \verb|\input code39| in your \TeX\ document to get the
+macro version. It is absolutely flexible in repect of barcode size and
+so on, but it is made of \TeX\ macros and there are probably
+situations where you may prefer a {\em real} font. So there is {\tt
+wlc39.mf} as a real font, {\tt wlcr39.mf} as a font running sideways,
+and{\tt wlcf39.vpl} as a full ascii code 39 in vpl format. The
+ltter two fonts are experimental, that means, they are not that much
+tested as the others.
+
+I recommend using either the \TeX\ macro or {\tt wlc39.mf}. The others
+are too special for normal use, rotation by the graohics driver is
+mor robust than building towers of letters, and full ascii code~39 is
+less than optimal.
+
+\subsection{About code 93}
+
+Code 93 is a little bit more compact than code 39 (as it uses also the
+gap between the characters), but in other aspects it is quite
+similiar. A checksum with two digits is mandatory. As with code 11,
+checksumming works by weighing the characters different depending on
+their position within the barcode.
+
+The version of code 93 that is included within the package resorts to
+uppercase ascii, digits, and to some other signs. Start and stop sign
+are mapped to {\tt<} and {\tt>}, respectively.
+
+Full ascii works similiar to full ascii with code 39 (that means with
+escape characters), but fortunately the escape characters are
+different from ordinary characters, so that you can hardly be
+misunderstood. Unfortunately the escape characters are named (\$),
+(\%), (/), and (+), so I decided to map them to opening and closing
+parentheses and brackets, respectively. This may not seem very clever
+when it comes to full ascii, but these characters may also appear as
+checksum characters, so we need them when doing uppercase ascii,
+too. For full ascii, it would be clever to redo the font in a
+completely different way and to map start sign, stop sign and the four
+escape characters to positions above 128, so that any 7 bit ascii
+character can be input directly.
+
+Code 93 is supported by codean.pl in the same way as ean or code 128
+are. You have to write {\tt\tbs xciii\{YOUR DATA 123\}}, run the file
+through {\tt codean.pl}, then you'll get\\
+{\tt\tbs XCIII\{YOUR DATA 123NN\}\%Code93(YOUR DATA 123)}
+
+The NN make up the two check characters. Normally, they are different,
+but in this example they are equal, by incident.
+
+\subsection{Docs about VPL Files}
+
+VPL files are documented in the files {\tt VPtoVF.WEB} and {\tt
+VFtoVP.WEB}. Both files can be found on {\sc ctan} under {\tt
+SYSTEMS/KNUTH}. {\em WEAVE} may be used to produce \TeX{} files. The
+documentation about the VPL/VF file formats is covered within the
+first few sections.
+
+\section{I want other metrics etc.}
+
+\subsection{My barcodes should have depth}
+
+You have got several possibilities to obtain depth. The most simple
+approach may be to set the barcodes with the regular barcode fonts into an
+{\tt\tbs hbox} and then to {\tt\tbs lower} this hbox.
+
+Let's look at an example:
+
+\begin{verbatim}
+\font\itf=wlitf scaled 1200
+\def\bcbox#1{\lower3pt\hbox{\itf +#1-}}
+ Example:
+{\sc itf} barcode looks like \quad\bcbox{1009}\quad
+for 1009, e.g.
+\end{verbatim}
+
+This code yields the following result:
+
+{\sc itf} barcode looks like \quad\bcbox{1009}\quad for 1009, e.g.
+
+Another approach is to edit the font sources. In case of {\sc vpl}
+files, this is quite painful. Rules in {\sc vpl} files do not have
+depth, so you have to change the characters mapping in a way that you
+add a {\em movedown} before you draw, and a {\em moveup} afterwards.
+You may see the changes for an arbitrary character from {\tt
+WLITF.VPL}:
+
+\begin{verbatim}
+(CHARACTER D48
+   (COMMENT from WLITF.VPL}
+   (CHARWD D 14)     (CHARHT R 10)
+   (CHARDP R  0)     (CHARIC R  0.0)
+   (MAP
+      (SETRULE R 14 R 1)(MOVERIGHT R 1)
+      (SETRULE R 14 R 1)(MOVERIGHT R 1)
+      (SETRULE R 14 R 2)(MOVERIGHT R 2)
+      (SETRULE R 14 R 2)(MOVERIGHT R 2)
+      (SETRULE R 14 R 1)(MOVERIGHT R 1)
+      )
+   )
+\end{verbatim}
+
+This character may be lowered by four units by editing in a way that the
+following lines result. Please note that there were not only the {\em
+moveup} and {\em movedown} commands added, but also the height an
+depth have been changed.
+
+\begin{verbatim}
+(CHARACTER D48
+   (COMMENT Lowered to give some depth)
+   (CHARWD D 14)     (CHARHT R 10)
+   (CHARDP R  4)     (CHARIC R  0.0)
+   (MAP
+      (MOVEDOWN R 4)
+      (SETRULE R 14 R 1)(MOVERIGHT R 1)
+      (SETRULE R 14 R 1)(MOVERIGHT R 1)
+      (SETRULE R 14 R 2)(MOVERIGHT R 2)
+      (SETRULE R 14 R 2)(MOVERIGHT R 2)
+      (SETRULE R 14 R 1)(MOVERIGHT R 1)
+      (MOVEUP R 4)
+      )
+   )
+\end{verbatim}
+
+\subsection{My barcodes are too tall}
+
+For the sake of the person who has to scan the barcodes, barcodes just
+can't be tall enough. If the complete code is as tall as wide, the
+reading device can be twisted against the code at an angle of 45
+degrees. If they are half as high, the angle reduces to 26 degrees.
+
+If you really want short codes, you have to edit the sources. In the
+{\sc vpl} file, you have to change the {\em charht} and the first parameter
+to the {\em setrule} command at well. You also should change the {\em
+designsize} parameter.
+
+For the EAN font, search for {\tt bheight\#} and change {\tt22.85
+mm\#} to the height you need. To get an EAN font without the digits
+(bars only), you also have to edit the character definitions by
+leaving out the last lines (saying {\tt nuller;}, e.g. and you have to
+change the formula for calculating {\tt totheight} to not include the
+height of the digits any more, also you should remove any references
+to {\tt klotz}.
+
+\subsection{My barcodes are not tall enough}
+
+You may also change the sources, like described in the previous
+subsection. But there is another solution that is perhaps more
+practical. The idea is simple that double black is still black and
+that you may overlay several printouts of the same barcode. Here is
+the example code (it may be made taller by adding more copies of the
+barcode box, of course). There is an extra dimension {\em bcboxdepth}
+added to yield depth for the barcodes.
+
+\begin{verbatim}
+\newbox\bsavebox
+\newdimen\bcboxdepth
+\bcboxdepth=4pt
+\def\bdbox#1{\setbox\bsavebox\hbox{\itf +#1-}
+\vbox{\hsize=\wd\bsavebox\copy\bsavebox%
+\vskip-\ht\bsavebox\vskip\bcboxdepth%
+\box\bsavebox\vskip-\bcboxdepth}}
+\def\bebox#1{\setbox\bsavebox\hbox{\itf +#1-}
+\vbox{\hsize=\wd\bsavebox\copy\bsavebox%
+\vskip0pt\copy\bsavebox%
+\vskip-\ht\bsavebox\vskip\bcboxdepth%
+\box\bsavebox\vskip-\bcboxdepth}}
+ Example:
+Tall {\sc itf} barcode looks like \quad\bdbox{1009}\quad
+or (still taller) \quad\bebox{1009}\quad for 1009, e.g.
+\end{verbatim}
+
+And here is the result, you may compare it with the output of the
+previous example:
+
+Tall {\sc itf} barcode looks like \quad\bdbox{1009}\quad or (still
+taller) \quad\bebox{1009}\quad for 1009, e.g.
+
+\subsection{My barcodes are too wide/too narrow}
+
+Perhaps you should change the barcode size (by changing
+{\tt\tbs magnification}) and then read the subsections above about too
+tall bars and bars that are not tall enough.
+
+\subsection{My barcodes should run vertically}
+
+Vertically oriented barcode is a good idea for cans, bottles and
+similiar things.
+
+It just depends on your {\sc dvi} driver. Perhaps there is a
+possibility to handle rotation via {\tt\tbs special}, as with {\em
+dvips} and the {\em rotate} macros. For experimantal purposes I have
+included a code 39 version running down instead right ({\tt
+wlcr39.mf}). You may perhaps use it with {\tt\tbs shortstack} or
+similiar. Here is some code I used (successfully) with plain \TeX:
+
+\begin{verbatim}
+\font\testfont=wlcr39 scaled 1200
+\def\bcbax{\let\next\bcbox\vbox\bgroup
+    \offinterlineskip\testfont\setbox0\hbox{@}\hsize=\wd0
+    \noindent{}@\hfil\break\next}
+\def\fertig{@\hfil\break\egroup}
+\def\bcbox#1{\if @#1\let\next\fertig\else#1\hfil\break\fi\next}
+
+Look buddy, this is \bcbax1406632@ code 39
+stacked and running downwards.
+\end{verbatim}
+
+\subsection{I heard something about full ascii code 39}
+
+Well, umh, now that you ask\dots The truth is: You may perhaps be able to
+configure your reading device to accept full ascii code~39. Then you may
+code any 7~bit character you may think of. The bad news is that most of
+the symbols have to be coded by two
+characters -- and as code 39 has already low density, you should not
+expect to get much use of it. Perhaps you might want to try code 128
+instead---it features full 7-bit ascii without any compromise.
+
+Another anti-feature is that switching to reading full-ascii code~39
+may lead to some bad reads of `normal' code~39. In full ascii, the lower
+case letters, e.g., are made by prepending the uppercase letters with a
+plus sign, so {\tt+A} is read as {\tt a}. So, if you have got regular
+code~39 that contains such character sequences, and you have switched
+your reading device to full ascii, you may get bad results.
+
+But, now that you want it: With the barcode package there comes a font
+{\tt wlcf39.vpl}. You may install it like the other vpl files. It has got
+132 characters and has already taken all the coding for full ascii, so
+when you typ {\tt e,\$4+A}, it will silently be mapped to what you
+would have typed as {\tt+E/L/D/KA}, if you would use the plain code~39
+format\footnote{Please take note: 6 characters are blown up to 9,
+think again about using another code}. In my version of full ascii
+code~39, the start/stop sign is mapped to @@ (or \verb|\char128|). So
+you actually had to add @@ to the front and the end of the example
+string. If you can not exclude that the character sequence @@ appears
+within the text you want to code, you have to avoid ligature
+processing. You may do that like this:
+
+\begin{verbatim}
+\font\fullas=wlcf39 scaled 1728
+\def\alphanolig{\char64\kern0pt}
+\def\printacode#1{{\fullas@@{\catcode`\@=\active%
+\let @=\alphanolig#1}@@}}
+\end{verbatim}
+
+You also have to escape or circumscribe special characters to make
+them really printable, of course, so that when you wanted a backspace,
+a tab, a space, a dollar sign, a percent sign, and a bell character to
+be coded, you would type something like
+
+\begin{verbatim}
+{\fullas @@\char8\char9\char32\$\%\char7}
+\end{verbatim}
+
+\section{Troubleshooting}
+
+\subsection{My barcodes can't be decoded}
+
+At the very, very first, check if you really have added start and stop
+codes. If you haven't, you're lost. Then check if you have enabled
+decoding of your special barcodes within your reading device. With
+modern scanners, you can disable almost any coding scheme.
+
+At first, try to make them larger. If that does't help, make them
+larger, again. If that will not help, obtain fonts in \TeX{} or
+Metafont format and make them brighter. Or, perhaps better, obtain a
+better printer.
+
+You also should check the contrast between bars and background,
+especially when using a dot matrix printer or coloured background
+or---still worse---red bars.
+
+\subsection{My decoder reads extra digits, sometimes}
+
+I guess you use {\sc itf} barcode with a number of digits that is
+sometimes even and sometimes odd. As {\sc itf} always codes two digits
+at once, you should take care just to code an even number of digits at
+any time. If an excess zero at the beginning of your number is not
+acceptable, you might try another kind of barcode instead of {\sc
+itf}.
+
+\subsection{Can't run pdf\TeX\ with barcode fonts}
+
+Get a later version of pdf\TeX, and you're done.
+
+\section{Missing items}
+
+\subsection{I am missing two-of-five}
+
+I got specs for two-of-five (three bars). If you want it, let me know;
+I might implement it. For other kinds of two-of-five, I haven't got
+complete specs.
+
+\subsection{I am missing plessey}
+
+I got the specs but I haven't yet got the time to implement them. With
+plessey, there also rise several questions due to the fact that
+plessey has never been officialy standardized. The only thing that is
+absolutely sure about plessey is how binary ones and zeros are
+encoded. There are codes that are more wide-spread. Several modern
+barcode readers can't cope with plessey code.
+
+\subsection{I am missing \dots{} some other barcode}
+
+I have checked out several two-dimensional barcodes. But for most of
+them, support by \TeX{} seems to be rather pointless. Perhaps Metafont
+could be called any time you have to code something to draw the
+symbols, but you might as well use a custom drawing program that comes
+from the barcode vendor. Also, most two-dimensional barcodes (and
+other barcodes not mentioned here) are proprietary. Last not least the
+reading devices I have access to can deal only with a finite range of
+barcodes.
+
+I am sorry, but I haven't got the specs for further barcodes
+not mentioned here. If you could be so kind as to send them to me, I
+might perhaps implement them.
+
+\section{Contributions}
+
+\subsection{EAN without preprocessing}
+
+The following code is due to Kalvis M. Jansons.
+
+It handles printing of {\sc ean} without having to run a
+preprocessor. Not only are the {\sc ean} bars drawn, also the checksum
+checksum is checked. It can be easily
+adapted to non-\LaTeX{} use by omitting anything before \verb|\font|
+
+\begin{verse}
+Kalvis M. Jansons
+
+eMail: \verb|<kalvis@math.ucl.ac.uk>|
+
+\end{verse}
+
+An easy way to use the barcode fonts in \LaTeX{}:
+
+\begin{verbatim}
+\documentclass[a4paper]{article}
+
+\pagestyle{empty}
+
+\setlength{\oddsidemargin}{0pt}
+\setlength{\textwidth}{\paperwidth}
+\addtolength{\textwidth}{-2in}
+\setlength{\marginparwidth}{0pt}
+
+\setlength{\textheight}{\paperheight}
+\addtolength{\textheight}{-2.5in}
+\setlength{\topmargin}{0pt}
+
+\font\eanfont=WLEAN scaled 2000
+\def\ean#1{\vbox{\vskip20pt\eanfont#1\vskip20pt}}
+\newcount\num
+\def\a#1{\num=#1 \advance\num by `A \char\num}
+\def\b#1{\num=#1 \advance\num by `a \char\num}
+\def\c#1{\num=#1 \advance\num by `K \char\num}
+\def\C#1#2#3#4#5#6{\c#1\c#2\c#3\c#4\c#5\c#6}
+
+\def\A#1#2#3#4#5#6#7{\ifcase #7
+{\a#1\a#2\a#3\a#4\a#5\a#6}%
+\or {\a#1\a#2\b#3\a#4\b#5\b#6}%
+\or {\a#1\a#2\b#3\b#4\a#5\b#6}%
+\or {\a#1\a#2\b#3\b#4\b#5\a#6}%
+\or {\a#1\b#2\a#3\a#4\b#5\b#6}%
+\or {\a#1\b#2\b#3\a#4\a#5\b#6}%
+\or {\a#1\b#2\b#3\b#4\a#5\a#6}%
+\or {\a#1\b#2\a#3\b#4\a#5\b#6}%
+\or {\a#1\b#2\a#3\b#4\b#5\a#6}%
+\or {\a#1\b#2\b#3\a#4\b#5\a#6}%
+\fi}
+
+\newcount\cha
+\newcount\chb
+\makeatletter
+\long\def\for{\@for}
+\makeatother
+\gdef\mysix#1#2#3#4#5#6{,#1#2,#3#4,#5#6}
+\gdef\mywork#1#2{\advance\cha by #1 \advance\chb by #2}
+\gdef\barch#1.#2.#3.{
+\xdef\mylist{0#1\mysix#2\mysix#3}
+\cha=0
+\chb=0
+\for \x:=\mylist\do{\expandafter\mywork\x}
+\multiply\cha by 3
+\advance\chb by \cha
+\cha=\chb
+\divide\cha by 10
+\multiply\cha by -10
+\advance\chb by \cha}
+\def\bar#1.#2.#3.{\barch#1.#2.#3.
+\ifnum\chb>0 #1#2#3 has a bad check sum!\\[20pt]
+\else \ean{#1 +\A#2#1-\C#3+}\fi}
+\begin{document}
+
+ Examples
+
+\bar3.034325.106199.
+
+\bar4.074400.410000.
+
+\bar5.449000.055521.
+
+\bar5.010027.522336.
+
+\bar8.410005.421052.
+
+\bar9.780192.828941.
+
+\end{document}
+\end{verbatim}
+
+\section{Installation}
+
+Installation is described within the README file, in short.
+Here I assume that you have a TDS compliant \TeX{} installation
+already running.
+
+Installation consists of several steps:
+
+\begin{enumerate}
+ \item unpack barcodes.dtx by running barcodes.ins through \TeX (I
+guess you have already done that, lest you would not be able to read
+this text), like {\tt tex barcodes.ins}
+\item run {\tt vptovf} on all the vpl files, e.g. type something like
+ {\tt vptovf wlitf.vpl wlitf.vf wlitf.tfm}
+\item if your \TeX\ system does not support automatic generation of
+{\tt tfm} files, run mf on all the .mf files.
+\item move all the files to appropriate locations
+\item install codean.pl for use with Perl
+\item run the documentation through \LaTeX{}
+\item clean up
+\end{enumerate}
+
+Items 1,2,4,6, and part of 7 can be automatically executed on ms-dos or
+ms windows systems by running {\tt install.bat}. If you do not supply
+any parameters, {\tt install} will install to {\tt C:\char92TeXMF}. If
+you do supply a parameter, it should be the path to your TEXMF tree
+(no trailing backslash, please).
+
+Here are the appropriate locations mentioned above -- all of them
+in the TEXMF tree:
+
+\begin{tabular}{ll}
+\em move & \em to\\
+\tt *.mf & \tt fonts/source/public/misc\\
+\tt *.tfm & \tt fonts/tfm/public/misc\\
+\tt *.vf & \tt fonts/vf/public\\
+\tt code39.tex &\tt tex/generic/misc\\
+\tt barcodes.sty &\tt tex/latex/misc\\
+\end{tabular}
+
+Of course other locations might also work, but to me it seems fine
+this way.
+
+Running plain \TeX{} on {\tt examples.tex} is the ultimate test: This
+will only work when all the installation is well done.
+
+The installation of Perl programs is beyond the scope of this
+documentation. If you do not need code 128, you can go without
+{\tt codean.pl}, especially if you use the macros described above.
+
+\bibliography{bcfaq}
+
+\end{document}
+\endinput
+%%
+%% End of file `bcfaq.tex'.

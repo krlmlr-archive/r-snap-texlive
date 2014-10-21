@@ -1,0 +1,28 @@
+sms:		$(MODS.sms) 
+
+####################### sTeX utilities ##############################
+
+$(MODS.sms): 	%.sms: %.tex $(STEXBINDIR)/sms 
+		$(SMSPROG) $<
+
+graph:	
+	$(GRAPHPROG) -o graph -f pdf $(SNIPPATHS) all.tex 
+
+idtest:		$(TARGET)
+		$(STEXBINDIR)/idcheck -q slides.tex
+
+struct:		$(TARGET)
+		$(STEXBINDIR)/modstr < slides.tex
+
+ccheck:		$(TARGET)
+		latex slides.tex
+		$(STEXBINDIR)/idcheck slides.tex
+		$(STEXBINDIR)/modstr -s < slides.tex > sstruct
+		cat sstruct
+
+############################# cleaning #################################
+clean: 
+	rm -Rf $(CLEAN)
+
+distclean:  clean
+	rm -Rf $(DISTCLEAN)

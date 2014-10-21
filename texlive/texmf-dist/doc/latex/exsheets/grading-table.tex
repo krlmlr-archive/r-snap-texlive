@@ -1,0 +1,21 @@
+\documentclass{scrartcl}
+\usepackage{exsheets}
+
+\begin{document}
+
+\begin{question}{3}\SetQuestionProperties{points=3}
+\end{question}
+\begin{question}{5}\SetQuestionProperties{points=5}
+\end{question}
+\begin{question}{10}\SetQuestionProperties{points=10}
+\end{question}
+\begin{question}{8}\SetQuestionProperties{points=8}
+\end{question}
+
+\begin{tabular}{|l|*{\numberofquestions}{c|}c|}\hline
+  Question & \ForEachQuestion{\QuestionNumber{#1}\iflastquestion{}{&}} & Total \\ \hline
+  Points   & \ForEachQuestion{\GetQuestionProperty{points}{#1}\iflastquestion{}{&}} & \pointssum* \\ \hline
+  Reached  & \ForEachQuestion{\iflastquestion{}{&}} & \\ \hline
+\end{tabular}
+
+\end{document}

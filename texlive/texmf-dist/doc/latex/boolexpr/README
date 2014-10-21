@@ -1,0 +1,64 @@
+% boolexpr : Purely expandable boolean expressions and switch (eTeX - v3.1 2009/09/30)
+%
+% The \boolexpr macro evaluate boolean expressions in a *purely expandable way*.
+%
+% \boolexpr{ A \OR B \AND C } expands to 0 if the logical expression is TRUE.
+%
+% A, B, C may be :
+%     - numeric expressions such as:  x = y,  x <> y,  x > y  or:  x < y
+%     - boolean switches:             \iftrue 0\else 1\fi
+%     - conditionals:                 \ifcsname whatsit\endcsname 0\else 1\fi
+%     - another \boolexpr:            \boolexpr{ D \OR E \AND F }
+%
+% \boolexpr may be used with \ifcase:
+%     \ifcase\boolexpr{ A \OR B \AND C }
+%           What to do if true
+%     \else
+%           What to do if false
+%     \fi
+%
+% \switch remains *purely expandable* (it may be used inside \csname...\endcsname f.ex.)
+%
+% \switch
+% \case{ boolean expression} to do in first case
+% \case{ boolean expression} to do in second case
+% \otherwise to do if no case were true
+% \endswitch
+%
+% \switch may have an optional argument to repeat in each \case evaluation, e.g. :
+%
+% \switch[\value{myCounter}]
+%      %|--|        --------------------------------------------------->   |--|
+% \case{>=12}It's $>=12$% => \case will expand to : \case{\value{myCounter}>=12}
+% \case{=1}It's $1$%      => \case will expand to : \case{\value{myCounter}=1}
+% \otherwise ...
+% \endswitch
+%
+% or : *(NB the double curly braces)*
+% \switch[\pdfstrcmp{dummy}}]
+%      %|-----|   ------------------------------------------------>  |-----|
+% \case{{first}}It's "FiRsT"% => \case{\lowercase{\ifstrequal{dummy}}{first}}
+% \case{{second}}It"s "SeCoNd"%=> \case{\lowercase{\ifstrequal{dummy}}{second}
+% \endswitch
+%
+% *********************************************************************************
+% This work consists of the main source file boolexpr.dtx and the derived
+% files :  boolexpr.sty, boolexpr.pdf, boolexpr.ins
+%
+% Some examples are included in the documentation: it is preferable (albeit
+% not necessary) to install boolexpr.sty before compiling the documentation.
+%
+% Unpacking:
+%    (a) If boolexpr.ins is present:
+%           etex boolexpr.ins
+%    (b) Without boolexpr.ins:
+%           etex boolexpr.dtx
+%    (c) If you insist on using LaTeX
+%           latex \let\install=y\input{boolexpr.dtx}
+%        (quote the arguments according to the demands of your shell)
+%
+% Documentation:
+%           (pdf)latex boolexpr.dtx
+%           makeindex -s gind.ist boolexpr.idx
+%
+% F Chervet - Jul-Sep 2009

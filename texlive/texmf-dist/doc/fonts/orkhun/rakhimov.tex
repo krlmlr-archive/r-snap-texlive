@@ -1,0 +1,427 @@
+\documentclass[11pt]{article}
+
+\makeatletter
+\newlength{\myFootnoteWidth}
+\newlength{\myFootnoteLabel}
+\setlength{\myFootnoteLabel}{0.6em}%  <-- can be changed to any valid value
+\renewcommand{\@makefntext}[1]{%
+  \setlength{\myFootnoteWidth}{\columnwidth}%
+  \addtolength{\myFootnoteWidth}{-\myFootnoteLabel}%
+  \noindent\makebox[\myFootnoteLabel][r]{\@makefnmark \ }%
+  \parbox[t]{\myFootnoteWidth}{#1}%
+}
+\makeatother
+
+\makeatletter
+\renewcommand\footnoterule{%
+  \vspace{1.5em}%   <-- one line space between text and footnoterule
+  \kern-3\p@\hrule\@width.4\columnwidth%
+  \kern2.6\p@}
+\makeatother
+
+
+\usepackage[dvips]{graphicx}
+\usepackage{amssymb}
+
+\usepackage[usenames]{color}
+\usepackage{colortbl}
+
+\usepackage{verbatim}
+\usepackage{multicol}
+
+\def\4tex{\raisebox{-0.7mm}{\sf 4}$\!$\TeX{}}
+\def\latex{(L\hspace*{-1.35mm}\raisebox{1.0mm}{\footnotesize\sc a})\TeX{}}
+
+
+\textwidth 6.2in
+\textheight 8.0in
+\oddsidemargin 0mm
+\evensidemargin 0mm
+
+\font\mf=logo10
+
+\font\mfsl=logosl10
+\hyphenchar\mf=-1
+\hyphenchar\mfsl=-1
+% A way to get a hyphen, courtesy of Karl Berry.
+\newcommand{\MF}{{\mf META}\-{\mf FONT\/}}
+\newcommand{\MFSL}{{\mfsl META}\-{\mfsl FONT\/}}
+
+\newcommand{\MP}{{\mf META}\-{\mf POST\/}}
+\newcommand{\MPSL}{{\mfsl META}\-{\mfsl POST\/}}
+
+\newfont{\acayipfont}{cmff10}
+
+\newfont{\wasytwenty}{wasy10 at 20pt}
+\newcommand{\bigtelephone}{\hbox{\wasytwenty\symbol{7}}}
+
+\newfont{\buyukacafont}{cmff10 at 20pt}
+\newfont{\buyukfont}{cmff10 scaled 2500}
+\newfont{\kucukfont}{cmff10 scaled 700}
+\newfont{\initial}{cmr10 at 48pt}
+\usepackage{wrapfig}
+
+\usepackage{makeidx}
+\makeindex
+
+
+\begin{document}
+
+\thispagestyle{empty}
+
+\font\letteror=orhant
+\font\letteroor=orhant14
+\font\letterooor=orhant16
+\font\letteroooor=orhant20
+\font\letterooooor=orhant25
+%\font\letteroooooor=orhant11
+
+
+
+\newbox{\literaT}
+\savebox{\literaT}{\hbox{\initial T}}
+
+%{\bf \huge Old Turkic script or Orkhon-Yenisey script.}\\
+\begin{center}
+{\bf \huge The Old Turkic Script}\\[6mm]
+
+{\bf Abdugafur A. Rakhimov}\\[10mm]
+
+\end{center}
+
+\noindent {\sf \large In brief about history of Script.}\\[- 2mm]
+
+.\vspace*{-0.25cm}
+\begin{wrapfigure}{l}{0.75\wd\literaT}
+\vbox to 0.4\ht\literaT{%
+   \vss \usebox{\literaT}%
+   \vspace*{-0.2\ht\literaT}%
+}
+\end{wrapfigure}
+he ORHONO-YENISEI INSCRIPTIONS, the most ancient writings, monuments of the Turkic people.
+In 1696-1722 years these inscriptions are opened by Russian scientists S.Remezov, F.Stralenberg,
+D.Messershmid in top of the current of the Yenisei. In 1889, on the rivers Orkhons (Mongolia)
+by Í.M.Jadrintsev is opened. In 1893, these inscriptions are decoded by the Danish linguist
+V.Tomsen. And for the first time are read by Russian linguist V.V.Radlov (1894).
+The Orhono-yenisei inscriptions concern by 7-11 centuries. Seven groups the Orhono-Yenisei
+inscriptions are known: Baikal, Yenisei, Mongolian, Altai, East Turkistan, Central Asian,
+and East European. Accordingly they belong to the breeding the union of the Kurgan,
+the empire of the Kirghiz, the empire of the East Turkic, the empire of the West Turkic,
+the empire of the Uigur (in Mongolia), the state of the Uigur (in East Turkistan), Khazars
+(Chazars) and Pechenegs. On a genre accessory are allocated: historically-biographic
+stone-letters texts of Mongolia; lyrics of texts of Yenisei; legal documents,
+magic and religious texts (on a paper) from East Turkistan; memorable inscriptions on
+rocks, stones and structures; labels on household subjects. The inscriptions of Mongolia
+stating history 2nd East Turkic and the empire of the Uigur have the greatest historical value.
+\\[2mm]
+
+\noindent {\sf \large The Font Base.}\\[-1mm]
+
+It is known, that \latex{} use only the fonts which have specially been written by Donald Knut
+in the language of the \MFSL{} Program. Here, we also used \MFSL{} what to create the Old Turkic script
+(Gokturk script or Orkhon script or Orkhon-Yenisey script). This font can be used only freely.\\[-1mm]
+
+In the ZIP-file there are .gf, .pk, .tfm files which it is necessary to copy corresponding folders in your
+\latex{}  program:\\[-2mm]
+
+\hspace{3.0cm} \verb!...\TEXMF\fonts\pk!
+
+\hspace{3.0cm} \verb!...\TEXMF\fonts\tfm!\\[-2mm]
+
+It is easy see, that these files make such sizes of fonts as 10pt, 11pt,
+14pt, 16pt, 20pt and 25pt. But, using the .mf file and setting the necessary values variable "u" (in the .mf file) you can create
+the necessary sizes of fonts (i.e. .gf, .pk, .tfm files you can to create, also, using  .mf file).
+In this case, of course, you should compile your .mf file (with new parametre of "u") on the \MFSL{} Program.\\[-3mm]
+
+{\footnotesize
+\begin{verbatim}
+     ..\BIN\win32\mf \mode=ljfour; mode_setup; input orhun.mf
+     ..\BIN\win32\gftodvi orhun.600gf
+     ..\BIN\win32\gftopk orhun.600gf
+     ..\BIN\win32\dvips orhun.dvi
+\end{verbatim}
+}
+
+\vspace{0.3cm}
+
+\noindent Then, the necessary font to appear in expansions .gf, .pk, .tfm. Moreover, these files can be copied in
+the catalogue (directory) in which you work.\\[2mm]
+
+\noindent {\sf \large To use the Orkhon-Yenisey script in the text.}\\[-2mm]
+
+To write the text in old Turkic language you should use the \TeX{}-command: \verb!\font!.
+For example,
+
+\vspace{0.3cm}
+
+{\small
+\noindent
+\begin{minipage}{4.3in}
+\begin{verbatim}
+\font\letteror=orhun
+
+{\letteror ABGdDOUoZt}
+
+{\letteror TYylLMnNsS}
+
+{\letteror PCkKrRvmcQ}
+
+{\letteror zVeawgibI:}
+\end{verbatim}
+\end{minipage}
+\begin{minipage}{2.5in}
+\begin{tabular}{|l|}
+\hline\\
+{\letterooooor ABGdDOUoZt}\\[3mm]
+{\letterooooor TYylLMnNsS}\\[3mm]
+{\letterooooor PCkKrRvmcQ}\\[3mm]
+{\letterooooor zVeawgibI:}\\[3mm]
+\hline
+\end{tabular}
+\end{minipage}
+}
+
+\vspace{0.5cm}
+
+\noindent So the following historical text is written
+
+\vspace{0.5cm}
+
+\noindent {\bf The monument of the TONYUKUK } ({\small The second stone, northern a part})\\[0.3cm]
+
+\hfill {\letterooor VOTAGLeBMZoNB:rsretrkY:RSMngZa:ngasertLe}\\[-2mm]
+
+\hfill {\letterooor rsrMtrkYNB:RSMngZa:kk}\\[-2mm]
+
+\hfill {\letterooor AMynDOb:AMyDOb:AtNery:nDObresKrot:ngangPa}\\[-2mm]
+
+\hfill {\letterooor :etreCtrkYede:AMyesei:}\\[-2mm]
+
+\hfill {\letterooor ot:ngangPa:NCokQgZa:kkVOTAGLeB:ngasrtLe}\\[-2mm]
+
+\hfill {\letterooor ObekDeROY:nDObresKr}\\[-2mm]
+
+\hfill {\letterooor odGe:gnDObZgO:gnDObresKrot:nga:AGLeBKrot}\\[-2mm]
+
+\hfill {\letterooor RURlU}
+
+\vspace{0.5cm}
+
+\noindent To write the text in Orkhon script, certainly, we should knowd Old Turkic alphabet.
+In the following table this alphabet is given
+
+\vspace{0.75cm}
+
+\hspace*{-1.0cm}
+\begin{tabular}{ll|ll|ll}
+\hline
+{\scriptsize O-Y} & {\small sound} & {\scriptsize O-Y}  & {\small sound} & {\scriptsize O-Y} & {\small sound}\\[1mm]
+\hline
+& & & \\[-3mm]
+{\letterooor A}&\verb!a!, \verb!e!                                                          &{\letterooor a}&\verb!k! ({\scriptsize with} {\small \verb!a!} )                  & {\letterooor R} & \verb!r! {\scriptsize (with thick vowels)}\\[2mm]
+
+{\letterooor B}&\verb!b! {\scriptsize (with thin vowels)}                             &{\letterooor w}&\verb!k! ({\scriptsize with hard} {\small \verb!i!} )                   & {\letterooor r} & \verb!r! {\scriptsize (with thin vowels)}\\[2mm]
+
+{\letterooor b}&\verb!b! {\scriptsize (with thick vowels)}                                &{\letterooor l}&\verb!L! {\scriptsize (with thick vowels)}  & {\letterooor S} & \verb!s! {\scriptsize (with thick vowels)}\\[2mm]
+
+{\letterooor C}&\verb!-ch (j)! {\scriptsize (in the end a word)}                                   &{\letterooor L}&\verb!L! {\scriptsize (with thin vowels)}   & {\letterooor s} & \verb!s! {\scriptsize (with thin vowels)}\\[2mm]
+
+{\letterooor I}&\verb!ich!,\verb!  ic!                                                      &{\letterooor m}&\verb!-it! {\scriptsize (in the end a word)} & {\letterooor v} & \verb!-sh! {\scriptsize (in the end a word)}\\[2mm]
+
+{\letterooor D}&\verb!d! {\scriptsize (with thick vowels)}                                &{\letterooor M}&\verb!-m! {\scriptsize (in the end a word)}     & {\letterooor T} & \verb!t! {\scriptsize (with thick vowels)}\\[2mm]
+
+{\letterooor d}&\verb!d! {\scriptsize (with thin vowels)}                             &{\letterooor n}&\verb!n! {\scriptsize (with thick vowels)}  & {\letterooor t} & \verb!t! {\scriptsize (with thin vowels)}\\[2mm]
+
+{\letterooor G}&\verb!g! {\scriptsize (with thin vowels)}                             &{\letterooor N}&\verb!n! {\scriptsize (with thin vowels)}   & {\letterooor O} & \verb!o!, \verb!u!\\[2mm]
+
+{\letterooor g}&\verb!g! {\scriptsize (with thick vowels)}                                &{\letterooor z}&\verb!-ng! {\scriptsize (in the end a word)}    & {\letterooor U} & \verb!o!, \verb!u!\\[2mm]
+
+{\letterooor e}& i, \ {\scriptsize the closed} {\small \verb!e! }                                &{\letterooor V}&\verb!-ny! {\scriptsize (in the end a word)}    & {\letterooor o} & \verb!o'!, {\scriptsize the soft} {\small \verb!u!} \\[2mm]
+
+{\letterooor i}&\verb!k! ({\small \verb!e!,} {\scriptsize with \verb!i!} )                  &{\letterooor c}&\verb!-nch(j)! {\scriptsize (in the end a word)} & {\letterooor Y} & \verb!y! {\scriptsize (with thick vowels)}\\[2mm]
+
+{\letterooor K}&\verb!k! (\verb!o'!, {\scriptsize with the soft} {\small \verb!u!} )  &{\letterooor Q}&\verb!-nt(d)! {\scriptsize (in the end a word)} & {\letterooor y} & \verb!y! {\scriptsize (with thin vowels)}\\[2mm]
+
+{\letterooor k}&\verb!k! ({\scriptsize with} {\small \verb!o!, \verb!u! } )                 &{\letterooor P}&\verb!-p! {\scriptsize (in the end a word)}     & {\letterooor Z} & \verb!-z! {\scriptsize (in the end a word)}\\[2mm]
+\hline
+\end{tabular}
+
+\vspace{1.0cm}
+
+\noindent In the keyboard the Orkhon script are typed as follows
+
+\vspace{0.45cm}
+
+{
+%\small
+\scriptsize
+
+\vspace*{0.5cm}
+
+\hspace*{-2.3cm}
+\fcolorbox[rgb]{.1,.1,.1}{.9,.9,.9}{
+\begin{tabular}{lr}
+Q&{\letteror Q}\\[2mm]
+q&\phantom{{\letteror w} }
+\end{tabular} }
+\fcolorbox[rgb]{.1,.1,.1}{.9,.9,.9}{
+\begin{tabular}{lr}
+W&\phantom{{\letteror w} }\\[2mm]
+w&{\letteror w}
+\end{tabular} }
+\fcolorbox[rgb]{.1,.1,.1}{.9,.9,.9}{
+\begin{tabular}{lr}
+E&\phantom{{\letteror w} }\\[2mm]
+e&{\letteror e}
+\end{tabular} }
+\fcolorbox[rgb]{.1,.1,.1}{.9,.9,.9}{
+\begin{tabular}{lr}
+R&{\letteror R}\\[2mm]
+r&{\letteror r}
+\end{tabular} }
+\fcolorbox[rgb]{.1,.1,.1}{.9,.9,.9}{
+\begin{tabular}{lr}
+T&{\letteror T}\\[2mm]
+t&{\letteror t}
+\end{tabular} }
+\fcolorbox[rgb]{.1,.1,.1}{.9,.9,.9}{
+\begin{tabular}{lr}
+Y&{\letteror Y}\\[2mm]
+y&{\letteror y}
+\end{tabular} }
+\fcolorbox[rgb]{.1,.1,.1}{.9,.9,.9}{
+\begin{tabular}{lr}
+U&{\letteror U}\\[2mm]
+u&\phantom{{\letteror w} }
+\end{tabular} }
+\fcolorbox[rgb]{.1,.1,.1}{.9,.9,.9}{
+\begin{tabular}{lr}
+I&{\letteror I}\\[2mm]
+i&{\letteror i}
+\end{tabular} }
+\fcolorbox[rgb]{.1,.1,.1}{.9,.9,.9}{
+\begin{tabular}{lr}
+O&{\letteror O}\\[2mm]
+o&{\letteror o}
+\end{tabular} }
+\fcolorbox[rgb]{.1,.1,.1}{.9,.9,.9}{
+\begin{tabular}{lr}
+P&{\letteror P}\\[2mm]
+p&\phantom{{\letteror w} }
+\end{tabular} }
+
+\vspace*{0.2cm}
+
+\hspace*{-1.0cm}
+\fcolorbox[rgb]{.1,.1,.1}{.9,.9,.9}{
+\begin{tabular}{lr}
+A&{\letteror A}\\[2mm]
+a&{\letteror a}
+\end{tabular} }
+\fcolorbox[rgb]{.1,.1,.1}{.9,.9,.9}{
+\begin{tabular}{lr}
+S&{\letteror S}\\[2mm]
+s&{\letteror s}
+\end{tabular} }
+\fcolorbox[rgb]{.1,.1,.1}{.9,.9,.9}{
+\begin{tabular}{lr}
+D&{\letteror D}\\[2mm]
+d&{\letteror d}
+\end{tabular} }
+\fcolorbox[rgb]{.1,.1,.1}{.9,.9,.9}{
+\begin{tabular}{lr}
+F&\phantom{{\letteror K}}\\[2mm]
+f&\phantom{{\letteror K}}
+\end{tabular} }
+\fcolorbox[rgb]{.1,.1,.1}{.9,.9,.9}{
+\begin{tabular}{lr}
+G&{\letteror G}\\[2mm]
+g&{\letteror g}
+\end{tabular} }
+\fcolorbox[rgb]{.1,.1,.1}{.9,.9,.9}{
+\begin{tabular}{lr}
+H&\phantom{{\letteror K}}\\[2mm]
+h&\phantom{{\letteror K}}
+\end{tabular} }
+\fcolorbox[rgb]{.1,.1,.1}{.9,.9,.9}{
+\begin{tabular}{lr}
+J&\phantom{{\letteror K}}\\[2mm]
+j&\phantom{{\letteror K}}
+\end{tabular} }
+\fcolorbox[rgb]{.1,.1,.1}{.9,.9,.9}{
+\begin{tabular}{lr}
+K&{\letteror K}\\[2mm]
+k&{\letteror k}
+\end{tabular} }
+\fcolorbox[rgb]{.1,.1,.1}{.9,.9,.9}{
+\begin{tabular}{lr}
+L&{\letteror L}\\[2mm]
+l&{\letteror l}
+\end{tabular} }
+
+\vspace*{0.25cm}
+
+\hspace*{-0.25cm}
+\hspace*{0.75cm} \fcolorbox[rgb]{.1,.1,.1}{.9,.9,.9}{
+\begin{tabular}{lr}
+Z&{\letteror Z}\\[2mm]
+z&{\letteror z}
+\end{tabular} }
+\fcolorbox[rgb]{.1,.1,.1}{.9,.9,.9}{
+\begin{tabular}{lr}
+X&\phantom{{\letteror K}}\\[2mm]
+x&\phantom{{\letteror K}}
+\end{tabular} }
+\fcolorbox[rgb]{.1,.1,.1}{.9,.9,.9}{
+\begin{tabular}{lr}
+C&{\letteror C}\\[2mm]
+c&{\letteror c}
+\end{tabular} }
+\fcolorbox[rgb]{.1,.1,.1}{.9,.9,.9}{
+\begin{tabular}{lr}
+V&{\letteror V}\\[2mm]
+v&{\letteror v}
+\end{tabular} }
+\fcolorbox[rgb]{.1,.1,.1}{.9,.9,.9}{
+\begin{tabular}{lr}
+B&{\letteror B}\\[2mm]
+b&{\letteror b}
+\end{tabular} }
+\fcolorbox[rgb]{.1,.1,.1}{.9,.9,.9}{
+\begin{tabular}{lr}
+N&{\letteror N}\\[2mm]
+n&{\letteror n}
+\end{tabular} }
+\fcolorbox[rgb]{.1,.1,.1}{.9,.9,.9}{
+\begin{tabular}{lr}
+M&{\letteror M}\\[2mm]
+m&{\letteror m}
+\end{tabular} }
+
+}
+
+%\vspace*{0.5cm}
+
+\newpage
+
+\noindent {\sf \large The conclusion.}\\[-3mm]
+
+\noindent Further we plan to write a orkhun-package which will allow to work more conveniently with these fonts and will expand possibilities use of fonts.
+On all questions and wishes, we ask you to address to the address written more low. We will be very glad to have your valuable remarks and wishes.\\[1mm]
+
+\noindent {\sf \large Acknowledgements.}\\[-3mm]
+
+\noindent I would like to thank the members of the Mathematical Department of the Karadeniz Technical University, for hospitality while this work was being done.
+In particular I am grateful to my friend to professor {\bf Vam\i k Kadimo\u glu} for helpful conversations.\\[-1mm]
+
+
+
+
+\medskip \smallskip Prof.Dr. {\bf Abdugafur Rakhimov} \newline
+The Tashkent institute of railways and engineering. Tashkent, Uzbekistan\newline
+The Karadeniz Technical University, Trabzon, Turkey\newline
+E-mail: rakhimov@ktu.edu.tr ; \ rakhimov2002@yahoo.com  ; \ gafur\_rakhimov@yahoo.com
+
+
+
+\end{document}

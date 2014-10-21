@@ -1,0 +1,63 @@
+%%
+%% This is file `example.tex',
+%% generated with the docstrip utility.
+%%
+%% The original source files were:
+%%
+%% nomentbl.dtx  (with options: `example')
+%% 
+%% Copyright (C) 2006 by Stefan Pinnow
+%% 
+%% This file can be redistributed and/or modified under the terms
+%% of the LaTeX Project Public License distributed from CTAN
+%% archives in the directory macros/latex/base/lppl.txt; either
+%% version 1.2 of the license, or (at your option) any later version.
+%% 
+%% Nomentbl example
+%% For nomentbl v0.4
+%% 
+%% Written by Stefan Pinnow
+%% 
+
+
+%%
+%%
+\documentclass{article}
+\usepackage[notintoc]{nomentbl}
+\usepackage{setspace}
+    \makenomenclature
+\begin{document}
+\section*{Main equations}
+Here an equation
+    \begin{equation}\label{eq:heatflux}
+        \dot{Q} = k \cdot A \cdot \Delta T
+    \end{equation}%
+    \nomenclature[aQ]{$\dot{Q}$}{heat flux}{W}{}%
+    \nomenclature[ak]{$k$}{overall heat transfer coefficient}{$\frac{\mathrm{W}}{\mathrm{m}^2\mathrm{K}}$}{see eq.~(\ref{eq:ohtc})}%
+    \nomenclature[aA]{$A$}{area}{m$^2$}{$L^2$}%
+    \nomenclature[aL]{$L$}{length}{m}{SI base quantity}%
+    \nomenclature[aT]{$T$}{temperature}{K}{SI base quantity}%
+    \nomenclature[aT]{$\Delta T$}{temperature difference}{K}{SI base quantity}%
+or another one
+    \begin{equation}\label{eq:ohtc}
+        \frac{1}{k} = \left[\frac{1}{\alpha _{\mathrm{i}}\,r_{\mathrm{i}}} +
+        \sum^n_{j=1}\frac{1}{\lambda _j}\,
+        \ln \frac{r_{\mathrm{a},j}}{r_{\mathrm{i},j}} +
+        \frac{1}{\alpha _{\mathrm{a}}\,
+          r_{\mathrm{a}}}\right] \cdot r_{\mathrm{reference}}
+    \end{equation}%
+    \nomenclature[ga]{$\alpha$}{convection heat transfer coefficient}{$\frac{\mathrm{W}}{\mathrm{m}^2\mathrm{K}}$}{}%
+    \nomenclature[zi]{i}{in}{}{}%
+    \nomenclature[gl]{$\lambda$}{thermal conductivity}{$\frac{\mathrm{W}}{\mathrm{m K}}$}{}%
+    \nomenclature[za]{a}{out}{}{}%
+    \nomenclature[zn]{$n$}{number of walls}{}{}%
+    \nomenclature[zj]{$j$}{running parameter}{}{}%
+That should do it.
+\onehalfspacing
+\printnomenclature
+\end{document}
+
+
+\endinput
+%%
+%% End of file `example.tex'.

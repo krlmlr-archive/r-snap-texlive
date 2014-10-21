@@ -1,0 +1,297 @@
+%%
+%% This is file `panelexample.tex',
+%% generated with the docstrip utility.
+%%
+%% The original source files were:
+%%
+%% texpower-doc.dtx  (with options: `panelexample')
+%% 
+%% --------------------------------------------------------------
+%% TeXPower bundle - dynamic online presentations with LaTeX
+%% Copyright (C) 1999-2004 Stephan Lehmke
+%% Copyright (C) 2003-2005 Hans Fredrik Nordhaug
+%% 
+%% This program is free software; you can redistribute it and/or
+%% modify it under the terms of the GNU General Public License
+%% as published by the Free Software Foundation; either version 2
+%% of the License, or (at your option) any later version.
+%% 
+%% This program is distributed in the hope that it will be useful,
+%% but WITHOUT ANY WARRANTY; without even the implied warranty of
+%% MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+%% GNU General Public License for more details.
+%% --------------------------------------------------------------
+%% 
+%% The list of all files belonging to the TeXPower bundle is
+%% given in the file `00readme.txt'.
+%% 
+\ProvidesFile{panelexample.tex}%
+      [2005/04/07 TeXPower example file]
+%------------------------------------------------------------------------------
+%
+% Example for the panel facilities of TeXPower.
+%
+%------------------------------------------------------------------------------
+% Enable all color emphasis and highlighting options. Use white
+% background and slifonts.
+
+\PassOptionsToPackage{coloremph,colormath,colorhighlight,whitebackground}
+{texpower}
+
+% Input the generic preamble.
+
+\input{__TPpreamble}
+
+\usepackage{tpslifonts}
+
+\hypersetup{pdftitle={texpower panel example}}
+
+%------------------------------------------------------------------------------
+% Settings individual for this example.
+
+\renewcommand{\buttonsep}{2pt}
+\renewcommand{\buttonshadowhshift}{1pt}
+\renewcommand{\buttonshadowvshift}{-1pt}
+
+\usepackage{graphicx}
+% The mps extension isn't supported out-of-the-box for latex+dvips
+\ifthenelse{\boolean{psspecialsallowed}}{%
+\DeclareGraphicsExtensions{.mps}}{}
+
+\newcounter{typed}
+
+\makeatletter
+\newcommand{\storehead}[3]
+{%
+  \global\let\@typed=\empty
+  \setcounter{typed}{0}%
+  \def\@typeto{#2}%
+  \let\type@next=\@typeit
+  \type@next#3\@nil
+  \global\let#1=\@typed
+}
+
+\newcommand{\@typeit}[1]
+{%
+  \ifx\@nil#1
+   \else
+    \stepcounter{typed}%
+    \ifthenelse{\value{typed}>\@typeto}
+    {\let\type@next=\@gobbletail}
+    {\g@addto@macro\@typed{#1}}%
+    \expandafter\type@next
+  \fi
+}
+
+\long\def\@gobbletail#1\@nil{}
+
+\newcounter{i}
+
+\newsavebox\logobox
+\newsavebox\hookbox
+
+\makeatother
+
+\mklength{\slidetopmargin}{\ht\logobox*\ratio{1cm}{\semcm}}
+
+\newlength{\buttonwidth}
+
+\newcommand{\mybutton}[2]
+{\raisebox{\depth}{\makebox[\buttonwidth][l]{\button[\buttonwidth]{#1}{#2}}}}
+
+\slidesonlyfalse\notestrue\noxcomment
+
+\begin{document}
+
+% Because the Context Support Macros are loaded at BeginDocument
+\savebox\hookbox{\includegraphics[width=1cm]{fig-2}}
+\makeatletter
+\savebox\logobox{\includegraphics[width=\strip@pt\paperwidth truept]{fig-3}}
+\makeatother
+\savebox\logobox{\raisebox{0cm}[\height-2ex][0pt]{\rlap{\usebox{\logobox}}}}
+
+\pageDuration{0.01}
+
+\begingroup
+\loop
+ \ifnum\value{i}<76
+  \stepcounter{i}%
+  \storehead{\partialtext}{\value{i}}
+  {%
+    Panels\space automatically\space adapt\space to\space the\space
+    size\space of\space their\space contents.\par
+    They\space can\space be\space placed
+  }%
+  \DeclarePanel{left}
+  {%
+    \leavevmode\scriptsize
+    \mbox{\usebox{\logobox}}
+
+    {\bfseries Stephan Lehmke
+
+      Lehr\-stuhl Informatik~I}
+
+    \vfill
+
+    \nointerlineskip
+    \rule{\linewidth}{\fboxrule}
+
+    \nointerlineskip\kern1ex
+    \partialtext
+
+    \nointerlineskip\kern1ex
+    \rule{\linewidth}{\fboxrule}
+
+    \vfill
+
+    \ifthenelse{\lengthtest{\linewidth>2cm}}
+    {\setlength{\buttonwidth}{.5\linewidth-.5ex}}
+    {\setlength{\buttonwidth}{\linewidth}}%
+    %
+    \lineskip1ex\relax
+    %
+    \mybutton{\Acrobatmenu{FirstPage}}{Start}\hfill
+    \mybutton{\Acrobatmenu{LastPage}}{End}\hfill
+    \mybutton{\Acrobatmenu{PrevPage}}{Prev}\hfill
+    \mybutton{\Acrobatmenu{NextPage}}{Next}
+
+    \mbox{\usebox{\hookbox}}
+  }%
+
+  \backgroundstyle{plain}
+
+  \mklength{\slideleftmargin}{\leftpanelwidth*\ratio{1cm}{\semcm}+.5cm}
+  \setlength{\slidewidth}{\paperwidth-\slideleftmargin-\sliderightmargin}
+
+  \begin{slide}
+    \makeslidetitle{\TeX Power Example: panels}
+  \end{slide}
+
+\repeat
+\endgroup
+
+\DeclarePanel*{left}{}
+\setcounter{i}{0}
+
+\setlength{\buttonwidth}{1.5cm}
+
+\DeclarePanel*{bottom}
+{%
+  \leavevmode\scriptsize\smash{\usebox{\hookbox}}\hfill%
+  \mybutton{\Acrobatmenu{FirstPage}}{Start}~%
+  \mybutton{\Acrobatmenu{LastPage}}{End}~%
+  \mybutton{\Acrobatmenu{PrevPage}}{Prev}~%
+  \mybutton{\Acrobatmenu{NextPage}}{Next}%
+}
+
+\mklength{\slidebottommargin}{\bottompanelheight*\ratio{1cm}{\semcm}+.5cm}
+
+\begingroup
+\loop
+ \ifnum\value{i}<24
+  \stepcounter{i}%
+  \storehead{\partialtext}{\value{i}}
+  {%
+    on\space any\space side\space of\space the\space page.
+  }%
+  \DeclarePanel{top}
+  {%
+    \leavevmode\scriptsize\parskip0pt\relax
+    \mbox{\usebox{\logobox}}
+
+    \medskip
+
+    \parbox[t]{\widthof{\bfseries Lehrstuhl Informatik~I}}
+    {\bfseries Stephan Lehmke\\ Lehrstuhl Informatik~I}\quad
+    \parbox[t]{\linewidth-\widthof{\bfseries Lehrstuhl Informatik~I}-3cm}
+    {%
+      Panels\space automatically\space adapt\space to\space the\space
+      size\space of\space their\space contents.\par
+      They\space can\space be\space placed
+      \partialtext
+    }
+  }%
+
+  \backgroundstyle{plain}
+
+  \mklength{\slidetopmargin}{\toppanelheight*\ratio{1cm}{\semcm}+.5cm}
+  \setlength{\slideheight}{\paperheight-\slidetopmargin-\slidebottommargin}
+
+  \begin{slide}
+    \small\makeslidetitle{\TeX Power Example: panels}
+  \end{slide}
+
+\repeat
+\endgroup
+
+\DeclarePanel*{top}{}
+\setlength{\slideheight}{\paperheight-\slidetopmargin-\slidebottommargin}
+
+\setcounter{i}{0}
+
+\makeatletter
+\savebox\logobox
+{%
+  \raisebox{0cm}[\height-1.5ex][0pt]
+  {\llap{\includegraphics[width=\strip@pt\paperwidth truept-1cm]{fig-3}}}%
+}
+\makeatother
+
+\mklength{\slidetopmargin}{\ht\logobox*\ratio{1cm}{\semcm}}
+
+\begingroup
+\loop
+ \ifnum\value{i}<146
+  \stepcounter{i}%
+  \storehead{\partialtext}{\value{i}}
+  {%
+    Normally,\space automatic\space line\space breaks\space are\space
+    not\space needed\space inside\space panels,\space but\space
+    it\space is\space nice\space that\space the\space size\space
+    automatically\space adapts\space to\space the\space size\space
+    of\space logos,\space buttons\space etc.
+  }%
+  \DeclarePanel{right}
+  {%
+    \leavevmode\scriptsize
+    \hspace*{\fill}\mbox{\usebox{\logobox}}\hspace*{-1.5ex}
+
+    \medskip
+
+    {\bfseries Stephan Lehmke
+
+      Lehr\-stuhl Informatik~I}
+
+    \vfill
+
+    \nointerlineskip
+    \rule{\linewidth}{\fboxrule}
+
+    \nointerlineskip\kern1ex
+    Panels\space automatically\space adapt\space to\space the\space
+    size\space of\space their\space contents.\par
+    They\space can\space be\space placed on\space any\space side\space
+    of\space the\space page.
+
+    \partialtext
+  }%
+
+  \backgroundstyle[hpanels=false]{plain}
+
+  \mklength{\sliderightmargin}{\rightpanelwidth*\ratio{1cm}{\semcm}+.5cm}
+  \setlength{\slidewidth}{\paperwidth-\slideleftmargin-\sliderightmargin}
+
+  \begin{slide}
+    \makeslidetitle{\TeX Power Example: panels}
+  \end{slide}
+
+\repeat
+\endgroup
+
+\hypersetup{pdfpageduration={}}
+
+
+\end{document}
+\endinput
+%%
+%% End of file `panelexample.tex'.

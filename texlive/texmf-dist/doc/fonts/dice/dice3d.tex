@@ -1,0 +1,46 @@
+%  DICE3D.TEX
+% 
+% a short demo on the usage of the DICE3D font
+%
+% Thomas A Heim (1998)
+%
+% LICENSE: LPPL
+%
+\documentclass{article}
+\addtolength{\textwidth}{1cm}
+\addtolength{\oddsidemargin}{-5mm}
+\addtolength{\evensidemargin}{-5mm}
+ \newfont\dice{dice3d}
+\pagestyle{empty}
+\begin{document}
+\section*{Dicey font}
+Plain 2D-like faces with the appropriate number of dots are obtained
+with the characters `1' through `6' in the font \verb+dice3d+.
+For an authentic 3D-look, we use the fact that for `good' dice the
+point total on opposing faces is always 7. Therefore, if face $n$ is
+up, there are only four possible values $m$ on the front. Furthermore,
+assuming identical dice throughout, the value on the right side is
+fixed once the values on the top and front are specified. Thus, we end up
+with 24 different 3D arrangement of the dots / faces. In the font,
+these are mapped to the letters `a' through `x'. In order to simplify
+the usage, the 3D dice are accessible using \emph{ligatures}, based on the
+following principle: A number from `1' to `6' determines the value on 
+the top face, and a letter (appended without a space) from `a' to `d' 
+determines the value on the front face, ordered according to increasing
+value. Alternatively, the value on the front face could be indicated
+directly with a letter from `a' to `f'. This can be achieved by changing
+the ligature tables appropriately (at the end of file \verb+dice3d.mf+).
+
+\subsection*{Example (at 30pt size)} 
+\begin{flushleft}
+{\dice 123456} \\
+produced with \verb+{\dice 123456}+ \\[2ex]
+{\dice 1a 1b 1c 1d 2a 2b 2c 2d} \\
+produced with \verb+{\dice 1a 1b 1c 1d 2a 2b 2c 2d}+ \\[2ex]
+{\dice 3a 3b 3c 3d 4a 4b 4c 4d} \\
+produced with \verb+{\dice 3a 3b 3c 3d 4a 4b 4c 4d}+ \\[2ex]
+{\dice 5a 5b 5c 5d 6a 6b 6c 6d} \\
+produced with \verb+{\dice 5a 5b 5c 5d 6a 6b 6c 6d}+ 
+\end{flushleft}
+\end{document}
+

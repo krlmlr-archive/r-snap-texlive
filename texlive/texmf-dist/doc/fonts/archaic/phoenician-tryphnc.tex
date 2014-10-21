@@ -1,0 +1,95 @@
+% tryphnc.tex    Test Phoenician fonts
+\documentclass{article}
+\usepackage{phoenician}
+
+%\newcommand{\ABC}{ABGDEFZH\TTheta{}IKLMN\TXi{}OP\Tsade{}QRSTV}
+%\newcommand{\abc}{abgdefzh\tTheta{}iklmn\tXi{}op\tsade{}qrstv}
+%\newcommand{\cba}{vtsrq\tsade{}po\tXi{}nmlki\tTheta{}hzfedgba}
+%\newcommand{\UCABC}{ABGDEFZH IKLMN OP QRSTV}
+\newcommand{\abc}{a b g d h w f z H T y k l m n s o p x q r S t}
+\newcommand{\cba}{\ARt\
+                  \ARsv\
+                  \ARr\
+                  \ARq\
+                  \ARsd\
+                  \ARp\
+                  \ARo\
+                  \ARs\
+                  \ARn\
+                  \ARm\
+                  \ARl\
+                  \ARk\
+                  \ARy\
+                  \ARtd\
+                  \ARhd\
+                  \ARz\
+                  \ARf\
+                  \ARw\
+                  \ARh\
+                  \ARd\
+                  \ARg\
+                  \ARb\
+                  \ARa}
+
+\title{Try Phoenician Fonts}
+\author{Peter Wilson}
+\date{2005/04/04}
+\begin{document}
+\maketitle
+
+    This provides a short test of the characters in the Phoenician fonts
+--- the \verb|phnc| font family.
+
+\begin{center}
+The Phoenician font in Large size \\
+{\phncfamily\Large \abc\\ \cba \par}
+\end{center}
+
+\begin{center}
+The font in its normal size \\
+\textphnc{\abc} \\
+and the Computer Modern Roman for comparison \\
+\abc
+\end{center}
+
+    PHOENICIAN in Phoenician is (as near as possible): \\
+\textphnc{phongan} which transliterates as: \\
+\translitphnc{\Ap\Ah\Ao\An\Ag\Aa\An}. But, they would have written it as: \\
+\begin{flushright} .\textphnc{\ARn\ARa\ARg\ARn\ARo\ARh\ARp} \end{flushright}
+
+
+\begin{table}
+\centering
+\caption{Alphabet and commands} 
+\begin{tabular}{|c||l|l|c|c|c|} \hline
+Value                   & Name   & Meaning & Glyph        & ASCII    & Command \\ 
+                        &        &         &              &  L-R    &   L-R   \\ \hline
+\translitphnc{\Aaleph}  & aleph  &  ox     & \textphnc{a} & ' a & \verb|\Arq| \verb|\Aa| \verb|\Aaleph|  \\
+\translitphnc{\Abeth}   & beth   & house   & \textphnc{b} &  b & \verb|\Ab| \verb|\Abeth| \\
+\translitphnc{\Agimel}  & gimel  & camel   & \textphnc{g} &  g & \verb|\Ag| \verb|\Agimel| \\
+\translitphnc{\Adaleth} & daleth & door    & \textphnc{d} &  d & \verb|\Ad| \verb|\Adaleth| \\
+\translitphnc{\Ahe}     & he     & window? & \textphnc{h} &  h & \verb|\Ah| \verb|\Ahe|    \\
+\translitphnc{\Avav}    & vau    & nail    & \textphnc{w} &  w & \verb|\Aw| \verb|\Avav|    \\
+\translitphnc{\Avav}    & vau    & nail    & \textphnc{f} & f & \verb|\Af| \verb|\Avaf|    \\
+\translitphnc{\Azayin}  & zayin  & dagger? & \textphnc{z} &  z & \verb|\Az| \verb|\Azayin|  \\
+\translitphnc{\Aheth}   & cheth  & fence?  & \textphnc{H} &  H & \verb|\Ahd| \verb|\Aheth|  \\
+\translitphnc{\Ateth}   & thet   &         & \textphnc{T} &  T & \verb|\Atd| \verb|\Ateth|  \\
+\translitphnc{\Ayod}    & yod    & hand    & \textphnc{y} &  y & \verb|\Ay| \verb|\Ayod|    \\
+\translitphnc{\Akaph}   & kaph   & palm    & \textphnc{k} &  k & \verb|\Ak| \verb|\Akaph|   \\
+\translitphnc{\Alamed}  & lamed  & ox goad & \textphnc{l} &  l & \verb|\Al| \verb|\Alamed|  \\
+\translitphnc{\Amem}    & mem    & water   & \textphnc{m} &  m & \verb|\Am| \verb|\Amem|    \\
+\translitphnc{\Anun}    & nun    & fish    & \textphnc{n} &  n & \verb|\An| \verb|\Anun|    \\
+\translitphnc{\Asamekh} & samech & post    & \textphnc{s} &  s & \verb|\As| \verb|\Asamekh| \\
+\translitphnc{\Aayin}   & ayin   & eye     & \textphnc{o} & ` o & \verb|\Alq| \verb|\Ao| \verb|\Aayin| \\
+\translitphnc{\Ape}     & pe     & mouth   & \textphnc{p} &  p & \verb|\Ap| \verb|\Ape|     \\
+\translitphnc{\Asade}   & tsade  &         & \textphnc{x} &  x & \verb|\Asd| \verb|\Asade|  \\
+\translitphnc{\Aqoph}   & qoph   & knot?   & \textphnc{q} &  q & \verb|\Aq| \verb|\Aqoph|   \\
+\translitphnc{\Aresh}   & resh   & head    & \textphnc{r} &  r & \verb|\Ar| \verb|\Aresh|   \\
+\translitphnc{\Ashin}   & shin   & teeth   & \textphnc{S} &  S & \verb|\Asv| \verb|\Ashin|  \\
+\translitphnc{\Atav}    & tav    & mark    & \textphnc{t} &  t & \verb|\At| \verb|\Atav|    \\ 
+\hline
+\end{tabular}
+\end{table}
+
+
+\end{document}

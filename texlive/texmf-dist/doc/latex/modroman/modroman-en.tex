@@ -1,0 +1,462 @@
+%%
+%% This is file `modroman-en.tex',
+%% generated with the docstrip utility.
+%%
+%% The original source files were:
+%%
+%% modroman.dtx  (with options: `doc,en')
+%% 
+%% This is a generated file.
+%% 
+%% Copyright (C) 2003, 2004, 2008, 2010 by Yvon Henel,
+%% dit «le TeXnicien de surface» <le.texnicien.de.surface@wanadoo.fr>
+%% 
+%% This file may be distributed and/or modified under the conditions of
+%% the LaTeX Project Public License, either version 1.2 of this license
+%% or (at your option) any later version.  The latest version of this
+%% license is in:
+%% 
+%%    http://www.latex-project.org/lppl.txt
+%% 
+%% and version 1.2 or later is part of all distributions of LaTeX version
+%% 1999/12/01 or later.
+%% 
+\documentclass[a4paper]{ltxdoc}
+\usepackage[latin1]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{modroman}[2010/04/09]
+\usepackage{xspace}
+\usepackage{array}
+\usepackage{ifthen}
+\usepackage{MODRdoctools}
+\IfFileExists{lmodern.sty}{\usepackage{lmodern}}{}
+\usepackage[frenchb,english]{babel}
+\usepackage[colorlinks=true,
+            linkcolor=blue,
+            urlcolor=blue,
+            citecolor=blue]{hyperref}
+
+\begin{document}
+\renewcommand\thepage{\textit{\modroman{page}}}
+\title{The package \textsf{modroman}\thanks{
+    This document corresponds to the file
+    \textsf{modroman}~\fileversion, dated \filedate.}}
+\author{\href{mailto:le.texnicien.de.surface@wanadoo.fr}{Le \TeX
+    nicien de surface}}
+
+\maketitle
+
+\begin{abstract}
+\begin{otherlanguage}
+{french}
+\bfseries{}
+  Documentation anglaise pour l'utilisateur final de l'extension
+  \Pkg{modroman}.
+  La documentation française est disponible sous le nom de
+  \texttt{modroman-fr}.
+\end{otherlanguage}
+
+\vspace{6pt}
+\noindent\hrulefill
+\vspace{6pt}
+
+This is the English documentation of \Pkg{modroman} for the final
+user.
+
+\MODRdescroen
+\end{abstract}
+
+\tableofcontents{}
+
+\section{Introduction}
+
+\subsection{Motivation}
+
+The ways of writing numbers with roman numerals are more diverse than
+it could be thought when one considers the \TeX{} \cs{romannumeral}
+and \LaTeX{} \cs{roman} and \cs{Roman}. Many other forms were used at
+a time or another through history. I saw, many years ago, the form
+\nbshortroman{8} in a manuscript. The first versions \TO from 0.1 to
+0.4\TF of this package provided just that form, with, user willing,
+the use of a~|u| to denote a group of~5 as in `xuij' for~17.
+
+The interested reader could cast a glance on the page wikipedia
+devotes to roman numerals to see that the world is not always as
+simple as one would like it to be.
+
+\subsection{
+Technical Remarks
+}
+
+The code of the first versions enable one to number the pages with
+\emph{modified} roman numerals but one could not then use the
+reference tools such as \cs{label} and \cs{ref} or even hope to see
+the page numbers correctly written in the table of contents.
+
+As the years go by I don't really become more clever but, for I read
+not a few documentations of packages, I end with knowing a bit more
+and I happen to stumble upon the solution to a problem I had just
+caught a glimpse of.
+
+I don't forget what I owe to T.~\textsc{Lachand}-\textsc{Robert}
+in~\cite{tlachand} -- numerous ideas, detailed examples, clear
+explanations -- but I now use other sources --
+\texttt{source2e}~\cite{source2e} to be accurate. That is where I have
+found the \emph{trick} which enables me to provide this new version of
+\Pkg{modroman}. The reader who would like to know more should have a
+look at the definition of the macro \cs{Roman} and its auxiliary
+macros.
+
+While rewriting the code I happen to understand that I was able to go
+a bit farther than I have gone previously without a tremendous extra
+cost. That's why one will now find more macros and more presentations
+of the roman numerals and an additional macro.
+
+This version~1 keeps the compatibility with the previous version but
+the code has been completely rewritten and the package now provides to
+the user in addition to \cs{modroman} and \cs{modromannumeral} about
+fifteen other macros.
+
+However, the main change introduced by this version~1 is the fact that
+from now on \cs{modroman} \TO and its pals \TF is purely expandable
+\TO see page~\pageref{puredev} for more details. One can then use it
+to number pages and obtain the correct thing in the table of content
+-- which was not the case until now. Caution, I do \emph{not} say that
+\cs{modromannumeral} is purely expandable -- it is not.
+
+\subsection{
+Purely Expandable Macros
+}
+
+One could, if one understands French, read the thread
+`\foreignlanguage{frenchb}{test de développabilité pure ?}' on the
+news group \texttt{fr.comp.text.tex} to see that that notion is not as
+simple as one could think at n-th sight \texttt{:-)} however, here,
+when I will say that a macro is `purely expandable' I will understand
+what follows.
+
+Let's assume that the macro \cs{thing} is such that
+\cs{thing}\marg{12} gives `xij' \TO does it ring a bell?\TF
+then\label{puredev}
+\begin{enumerate}
+\item the macro \cs{THING} defined by
+  |\edef|\BOP|\TRUC|\BOP|{|\BOP|\truc|\BOP|{|\BOP|12|\BOP|}|\BOP|}|
+  is such that:
+  \begin{enumerate}
+  \item \cs{THING} gives `xij' and
+  \item |\meaning\THING| gives `\texttt{macro:->xij}'
+  \end{enumerate}
+\item moreover, if one defines \cs{Axij} then the construct
+  |\csname| |A|\BOP|\truc|\BOP|{|\BOP|12|\BOP|}|\BOP|\endcsname|
+  truly calls the macro \cs{Axij}.
+\end{enumerate}
+
+\section{
+Usage
+}
+
+\subsection{
+The Macros
+}
+
+Macros the name of which ends with \texttt{numeral} are to be used as
+\TeX{} \cs{romannumeral}. They must be followed by a number and eat
+the spaces which are after it, e.~g.
+|\longromannumeral| \verb*+368  AND+ gives `\longromannumeral
+368   AND'.
+
+Macros the name of which begins with \cs{nb} take a number as argument
+such as |\nbLongRoman{127}| which gives `\nbLongRoman{127}'.
+
+Macros the name of which doesn't begin with \cs{nb} but ends with
+\texttt{roman} are used as \LaTeX{} \cs{roman}: their only argument is
+the name of a counter. With |\newcounter{machin}|,
+|\setcounter{machin}{124}|, |\shortroman{machin}| one obtains
+`\nbshortroman{124}'.
+
+In what follows \meta{nbr} denotes a number, \meta{ctr} denotes the
+\LaTeX{} name of a counter such as \texttt{page} or \texttt{chapter}.
+
+Here comes a presentation of all the macros available with this
+package. They are grouped by family where a family is defined with
+respect to the obtained presentation of roman numerals.
+
+After the macro's syntax, there will be \PD to mean that the macro is
+purely expandable \TO see page~\pageref{puredev}\TF, \LT to mean that
+it is used the \LaTeX{} way, \TX to mean that it is used as the \TeX{}
+\cs{romannumeral}.
+
+The examples are governed by the default options: \Option{jfinal},
+\Option{vpourv}, \Option{court}, \Option{min}.
+
+\subsubsection{
+shortroman
+Family
+}
+
+\begin{macro}{\shortroman}
+  \cs{shortroman}\marg{ctr} \PD \LT
+\end{macro}
+
+\begin{macro}{\shortromannumeral}
+  \cs{shortromannumeral} \meta{nbr} \TX
+\end{macro}
+
+\begin{macro}{\nbshortroman}
+    \cs{nbshortroman}\marg{nbr} \PD \LT
+\end{macro}
+
+\Exemples{shortroman}
+
+\subsubsection{
+longroman
+Family
+}
+
+\begin{macro}{\longroman}
+  \cs{longroman}\marg{ctr} \PD \LT
+\end{macro}
+
+\begin{macro}{\longromannumeral}
+  \cs{longromannumeral} \meta{nbr} \TX
+\end{macro}
+
+\begin{macro}{\nblongroman}
+    \cs{nblongroman}\marg{nbr} \PD \LT
+\end{macro}
+
+\Exemples{longroman}
+
+\subsubsection{
+LongRoman
+Family
+}
+
+\begin{macro}{\LongRoman}
+  \cs{LongRoman}\marg{ctr} \PD \LT
+\end{macro}
+
+\begin{macro}{\LongRomannumeral}
+  \cs{LongRomannumeral} \meta{nbr} \TX
+\end{macro}
+
+\begin{macro}{\nbLongRoman}
+    \cs{nbLongRoman}\marg{nbr} \PD \LT
+\end{macro}
+
+\Exemples{LongRoman}
+
+\subsubsection{
+roman
+Family
+}
+
+\TeX{} provides \cs{romannumeral} and \LaTeX{} \cs{roman}. I
+complete the family with \cs{nbroman}.
+
+\begin{macro}{\nbroman}
+    \cs{nbroman}\marg{nbr} \PD \LT
+\end{macro}
+
+\Exemples{roman}
+
+\subsubsection{
+Roman
+Family
+}
+
+\LaTeX{} provides \cs{Roman}. I complete the family with \cs{nbRoman} and
+\cs{Romannumeral}.
+
+\begin{macro}{\Romannumeral}
+  \cs{Romannumeral} \meta{nbr} \TX
+\end{macro}
+
+\begin{macro}{\nbRoman}
+    \cs{nbRoman}\marg{nbr} \PD \LT
+\end{macro}
+
+\Exemples{Roman}
+
+\subsubsection{
+modroman
+Family
+}
+
+The output of the macros \cs{modroman}, \cs{modromannumeral}, and
+\cs{nbmodroman} is determined by the chosen options. By default:
+
+\begin{macro}{\modroman}
+  \cs{modroman}\marg{ctr} $=$ \cs{shortroman}\marg{ctr} \PD \LT
+\end{macro}
+
+\begin{macro}{\modromannumeral}
+  \cs{modromannumeral}\meta{nbr} $=$ \cs{shortromannumeral}\meta{nbr} \TX
+\end{macro}
+
+\begin{macro}{\nbmodroman}
+    \cs{nbmodroman}\marg{nbr} $=$ \cs{nbshortroman}\marg{nbr} \PD \LT
+\end{macro}
+
+\Exemples{modroman}
+
+\subsubsection{
+Other macros
+}
+
+One can redefine the behaviour of families \cs{shortroman} and
+\cs{longroman} with the macro \cs{RedefineMRmdclxvij}.
+
+\begin{macro}{\RedefineMRmdclxvij}
+  \cs{RedefineMRmdclxvij}\oarg{ISOL}\BOP\marg{M}\BOP\marg{D}\BOP\marg{C}%
+  \BOP\marg{L}\BOP\marg{X}\BOP\marg{V}\BOP\marg{I}\BOP\marg{J}
+\end{macro}
+
+The above arguments determine the look of the roman numerals produced
+after \TO one should take care of the side effects and one would have
+to limit the scope of the redefinition ot a group if necessary\TF by
+the families \cs{shortroman}, \cs{longroman}, and, if it is linked to
+one of the two preceding, \cs{modroman}.
+
+The optional argument \meta{ISOL} gives the look of the isolated |i| \CAD the
+number~1. If one doesn't give the argument the look of the isolated
+|i| is the look of the non-final |i| determined by \meta{I}
+
+The look of the final~|i| is given by the argument \meta{J}. All other
+arguments give the look of the corresponding (lowercase) digit,
+e.~g. \meta{M} gives the look of~|m|.
+
+\begin{macro}{\printntimes}
+  \cs{printntimes}\marg{nbr}%
+\marg{text}
+\end{macro}
+
+Here are two examples using the macro.
+
+|$\ast$ \texttt{\printntimes{15}{*-*}} $\ast$|
+
+gives
+
+$\ast$ \texttt{\printntimes{15}{*-*}} $\ast$
+
+\bigskip
+
+|\newcommand\truc{\par\centering ***\par}|\par
+|\newcommand\saut{\par\noindent\hrulefill\par}|\par
+|\saut\texttt{\printntimes{5}{\truc}}\saut|
+
+gives
+
+\newcommand\truc{\par\centering ***\par}
+\newcommand\saut{\par\noindent\hrulefill\par}
+\saut\texttt{\printntimes{5}{\truc}}\saut
+
+\subsection{
+The Options
+}
+
+There exist -- since the version~0.2 -- options \Option{vpourv} and
+\Option{upourv}. The default option is \Option{vpourv} with which
+\cs{modromannumeral}|5| is written as `v'. With the option
+\Option{upourv} the same \cs{modromannumeral}|5| is written as `u'. It
+was a special requirement from \emph{one} person posting on
+\url{fr.comp.text.tex}. \emph{The (almost) French `vpourv' stands for
+  `v for v'.}
+
+For sake of symetry, I add, with this version~1, two
+antithetical options \Option{jfinal} -- final j -- the default, and
+\Option{ifinal} -- final i -- by which one can choose if the last~i of
+the number will be written as a~|j| or not.
+
+I add also two pairs of antithetic options. First \Option{min} \TO
+\CAD \emph{minuscule} lowercase, default option \TF and \Option{maj}
+\TO \CAD \emph{majuscule} uppercase\TF then \Option{court} \TO short,
+default option \TF and \Option{long}.
+
+Last, with this version~1, I add the option \Option{sansmod} --
+without modification -- which makes the macros of the \cs{modroman}
+family aliases of those of \cs{roman} family.
+
+The last five options determine the behaviour of the macros of the
+family \cs{modroman}.
+
+\DescribeOption{upourv}
+With that option, the roman numeral `v' is turn into an~`u' and one
+obtains, e.g., `xuij' for~17.
+
+\DescribeOption{vpourv}
+That option, enforced by default, is the opposite of the previous
+one. With it, one obtains \Exemple{17} for~17.
+
+The next three options appear with the version~1 of the package.
+
+\DescribeOption{jfinal}
+With that default option, if the processed number is greater than~1
+and if the last roman \emph{digit} is an~i then it is turned into
+a~j. See the examples above.
+
+\DescribeOption{ifinal}
+That option is the opposite of the previous one. When enforced, one
+obtains \romannumeral 17{} for~17.
+
+\DescribeOption{sansmod}
+With that option \cs{modroman}, \cs{modromannumeral} and
+\cs{nbmodroman} are just aliases -- obtained with \cs{let} -- of
+\cs{roman}, \cs{romannumeral}, and \cs{nbroman} respectively.
+
+If one choses options \Option{vpourv}, , \Option{court}, \Option{min},
+and \Option{ifinal} together, one enforces the option
+\Option{sansmod}.
+
+\bigskip
+
+The following table shows which family is linked to the \cs{modroman}
+family according to the chosen options when \Option{sansmod} is not
+enforced.
+
+\begin{center}
+  \begin{tabular}{|*{3}{c|}}\hline
+    & \Option{court} & \Option{long}\\ \hline
+    \Option{min} & \cs{shortroman} & \cs{longroman} \\ \hline
+    \Option{maj} & \cs{Roman} & \cs{LongRoman} \\ \hline
+  \end{tabular}
+\end{center}
+
+\input{MODRbiblio}
+
+\iffalse
+\newpage
+\section{
+Numbers from \nbmodroman{1} to \nbmodroman{1000}
+}
+
+\newcounter{machin}\setcounter{machin}{1}
+\noindent
+\whiledo{\value{machin}<1001}{%
+  \mbox{\arabic{machin} -- \shortroman{machin} -- \longroman{machin}
+    -- \LongRoman{machin}}\stepcounter{machin}\par\noindent}
+\newpage
+\fi
+\vspace*{\stretch{4}}
+\noindent\hrulefill
+\begin{center}
+In the preambule of this document, there is
+\\
+|\renewcommand\thepage{\textit{\modroman{page}}}|
+\\
+hence the page numbering.
+\end{center}
+\noindent\hrulefill
+
+\vspace*{\stretch{2}}
+
+\begin{center}
+\framebox{
+ Here ends the documentation of \Pkg{modroman}.
+}
+\end{center}
+\vspace*{\stretch{4}}
+\end{document}
+\endinput
+%%
+%% End of file `modroman-en.tex'.

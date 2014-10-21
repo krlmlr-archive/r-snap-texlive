@@ -1,0 +1,116 @@
+%%   $Id: dtk10.clo 14 2010-10-16 17:27:23Z herbert $
+\ProvidesFile{dtk10.clo}[2010/04/19 v0.02 dtk class option (RN,hv)]
+  
+\input{dtk.clo}%  Standardeinstellungen
+
+
+\newsavebox\tempbox
+
+\RequirePackage{ifthen}
+
+\newlength\fullwidth
+\newlength\marginwidth
+\setlength\fullwidth{\textwidth + \marginparwidth -4mm}% wegen Anschnitt
+%\setlength\fullwidth{\textwidth + \marginparsep + \marginparwidth }
+%\setlength\marginwidth{\fullwidth - \textwidth}
+\setlength\marginwidth{\fullwidth + \marginparsep - \textwidth}
+
+\newlength\de@Width
+\newlength\de@sepWidth\de@sepWidth=3mm
+\newlength\de@Indent\de@Indent=\fullwidth
+
+\def\Table{\@ifnextchar[\Table@i{\Table@i[]}}
+\def\Table@i[#1]{\@ifnextchar[{\Table@ii[#1]}{\Table@ii[#1][\fullwidth]}}
+\def\Table@ii[#1][#2]#3{% #1:TOC #2:width #3:caption
+  \def\de@OptCaption{#1}%
+  \setlength\de@Width{#2}\addtolength\de@Width{-\de@sepWidth}%
+  \setlength\de@Indent{#2}\addtolength\de@Indent{-\textwidth}%
+  \def\de@Caption{#3}%
+  \begin{lrbox}{\tempbox}}
+\def\endTable{%
+   \end{lrbox}\begin{table}[!htb]%
+   \abovecaptionskip=0pt\belowcaptionskip=0pt
+   \ifthenelse{\isodd{\pageref{\thetable:WideTable}}}%
+    {\minipage{\de@Width}\vspace{0pt}\minipage[t]{\wd\tempbox}\vspace{0pt}
+       \usebox\tempbox\endminipage\kern\de@sepWidth%
+     \minipage[t]{\de@Width-\wd\tempbox}\vspace{0pt}\label{\thetable:WideTable}%
+       \ifx\relax\de@OptCaption\relax\caption{\de@Caption}\else\caption[\de@OptCaption]{\de@Caption}\fi%
+     \endminipage\endminipage}%
+    {\ifdim\de@Width>\textwidth\hspace*{-\de@Indent}\fi\vspace{0pt}\minipage{\de@Width}\vspace{0pt}%
+     \minipage[t]{\de@Width-\wd\tempbox}\vspace{0pt}\label{\thetable:WideTable}%
+       \ifx\relax\de@OptCaption\relax\caption{\de@Caption}\else\caption[\de@OptCaption]{\de@Caption}\fi%
+     \endminipage\kern\de@sepWidth%
+     \minipage[t]{\wd\tempbox}\vspace{0pt}\usebox\tempbox\endminipage\endminipage}%
+   \end{table}}
+%
+\def\Figure{\@ifnextchar[\Figure@i{\Figure@i[]}}
+\def\Figure@i[#1]{\@ifnextchar[{\Figure@ii[#1]}{\Figure@ii[#1][\fullwidth]}}
+\def\Figure@ii[#1][#2]#3{%
+  \def\de@OptCaption{#1}%
+  \setlength\de@Width{#2}\addtolength\de@Width{-\de@sepWidth}%
+  \setlength\de@Indent{#2}\addtolength\de@Indent{-\textwidth}%
+  \def\de@Caption{#3}%
+  \begin{lrbox}{\tempbox}}
+\def\endFigure{%
+   \end{lrbox}\begin{figure}[!htb]%
+   \abovecaptionskip=0pt\belowcaptionskip=0pt
+   \ifthenelse{\isodd{\pageref{\thetable:WideTable}}}%
+    {\minipage{\de@Width}\vspace{0pt}\minipage[t]{\wd\tempbox}\vspace{0pt}
+       \usebox\tempbox\endminipage\kern\de@sepWidth%
+     \minipage[t]{\de@Width-\wd\tempbox}\vspace{0pt}\label{\thefigure:WideTable}%
+       \ifx\relax\de@OptCaption\relax\caption{\de@Caption}\else\caption[\de@OptCaption]{\de@Caption}\fi%
+     \endminipage\endminipage}%
+    {\ifdim\de@Width>\textwidth\hspace*{-\de@Indent}\fi\vspace{0pt}\minipage{\de@Width}\vspace{0pt}%
+     \minipage[t]{\de@Width-\wd\tempbox}\vspace{0pt}\label{\thetable:WideTable}%
+       \ifx\relax\de@OptCaption\relax\caption{\de@Caption}\else\caption[\de@OptCaption]{\de@Caption}\fi%
+     \endminipage\kern\de@sepWidth%
+     \minipage[t]{\wd\tempbox}\vspace{0pt}\usebox\tempbox\endminipage\endminipage}%
+   \end{figure}}
+%
+\IfFileExists{paralist.sty}{%
+\RequirePackage[neverdecrease]{paralist}
+  \let\itemize\compactitem
+  \let\enditemize\endcompactitem
+  \let\enumerate\compactenum
+  \let\endenumerate\endcompactenum
+  \let\description\compactdesc
+  \let\enddescription\endcompactdesc
+  \pltopsep=\medskipamount
+%  \plitemsep=\smallskipamount
+  \plitemsep=1pt
+%  \plparsep=\smallskipamount
+  \plparsep=1pt
+}{}
+
+\RequirePackage{hyphsubst}%
+\HyphSubstIfExists{ngerman-x-latest}{%
+  \HyphSubstLet{ngerman}{ngerman-x-latest}}{}
+\HyphSubstIfExists{german-x-latest}{%
+  \HyphSubstLet{german}{german-x-latest}}{}
+
+\RequirePackage{accsupp}% Heiko
+\providecommand\isbn[1]{}
+\renewcommand*\isbn[1]{%
+  ISBN:~%
+  \BeginAccSupp{method=plain,ActualText=\RemoveHyphen{#1}}%
+  #1%
+  \EndAccSupp{}%
+}
+\newcommand*{\RemoveHyphen}[1]{%
+  \@RemoveHyphen#1-\@nil
+}
+\def\@RemoveHyphen#1-#2\@nil{%
+  #1%
+  \ifx\\#2\\%
+    \expandafter\@gobble
+  \else
+    \expandafter\@firstofone
+  \fi
+  {%
+    \@RemoveHyphen#2\@nil
+  }%
+}
+\def\CoverArt@strip@no#1/#2;{#1/\kern-4pt#2}
+%
+\endinput
+

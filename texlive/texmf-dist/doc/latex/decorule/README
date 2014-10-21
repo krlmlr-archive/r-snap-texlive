@@ -1,0 +1,87 @@
+This is the README file for the decorule package.
+
+Summary
+
+This package implements a decorative swelled rule using
+only a symbol from a font installed with all distributions of
+\TeX{}, so it works independently, without the need to install
+any additional software or fonts.
+
+This is the packaged version of the macro which was
+originally published in the 'Typographers' Inn'
+column in TUGboat (Flynn 2010).
+
+This version fixes the bug caused by failing to supply the
+correct values for DVI drivers for rendering glyph rotation.
+The result now works in Postscript output but DVI viewers may
+still display incorrectly.
+
+INSTALLATION
+
+To install this package, run LaTeX on the decorule.ins file.
+This will create the package file decorule.sty, which you must 
+move to a directory (folder) where LaTeX will find it. 
+
+For personal installations, that is:
+
+(Mac)              ~/Library/texmf/tex/latex/decorule
+(Unix / GNU/Linux) ~/texmf/tex/latex/decorule
+(MS-Windows 95/XP) C:\texmf\tex\latex\decorule
+(Windows 7/8)      Computer\System\Users\your~name\texmf\tex\latex\decorule
+                      [replacing your-name with your account name]
+
+Create that directory (folder) if it does not exist.
+
+If you are a Windows user with MiKTeX and this is your 
+first time installing packages by hand, you must also 
+add the texmf folder to MiKTeX's list of supported
+folders (in the Roots tab of the MiKTeX Maintenance/Settings
+program), and then update the FNDB in the General tab.
+
+For shared installations (multi-user systems), identify 
+the shared local directory with the command
+
+   kpsewhich -expand-var '$TEXMFLOCAL'
+
+This will give you the texmf location within which you must
+create the tex/latex/decorule subdirectories. Do not forget
+to run the texhash or mktexlsr filename indexer program
+after installation, otherwise the files will not be findable.
+
+USAGE
+
+Add this line to the Preamble of your LateX document:
+
+   \usepackage[options]{decorule}
+
+Read the documentation for the options available.
+
+
+BUGS
+
+None known of.
+
+
+COPYRIGHT
+
+%% decorule.*
+%% Copyright © 2010-2011 by Peter Flynn <peter@silmaril.ie>
+%
+% This work may be distributed and/or modified under the
+% conditions of the LaTeX Project Public License, either
+% version 1.3 of this license or (at your option) any later
+% version. The latest version of this license is in:
+%
+%     http://www.latex-project.org/lppl.txt
+%
+% and version 1.3 or later is part of all distributions of
+% LaTeX version 2005/12/01 or later.
+%
+% This work has the LPPL maintenance status `maintained'.
+% 
+% The current maintainer of this work is Peter Flynn <peter@silmaril.ie>
+%
+% This work consists of the files decorule.dtx and decorule.ins
+% and the derived file decorule.sty.
+
+Please send comments and bug reports to the maintainer.

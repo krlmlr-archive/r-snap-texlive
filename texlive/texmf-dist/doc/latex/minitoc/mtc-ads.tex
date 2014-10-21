@@ -1,0 +1,232 @@
+%%
+%% This is file `mtc-ads.tex',
+%% generated with the docstrip utility.
+%%
+%% The original source files were:
+%%
+%% minitoc.dtx  (with options: `mtc-ads')
+%% This is a generated file.
+%% 
+%% 
+%% This file may be distributed and/or modified under the conditions of
+%% the LaTeX Project Public License, either version 1.3 of this license
+%% or (at your option) any later version.  The latest version of this
+%% license is in:
+%% 
+%%    http://www.latex-project.org/lppl.txt
+%% 
+%% and version 1.3 or later is part of all distributions of LaTeX version
+%% 2003/12/01 or later.
+%% 
+%% This work has the LPPL maintenance status "author-maintained".
+%% 
+%% This Current Maintainer of this work is Jean-Pierre F. Drucbert (JPFD).
+%% 
+%% This work consists of all the files listed in the file `minitoc.l'
+%% distributed with it.
+%% Copyright 1993 1994 1995 1996 1997 1998 1999 2000
+%%           2001 2002 2003 2004 2005 2006 2007 2008
+%% Jean-Pierre F. Drucbert
+%% <jean-pierre.drucbert@onera.fr>
+\documentclass[oneside,12pt,a4paper]{article}
+\ProvidesFile{mtc-ads.tex}%
+  [2007/01/04]
+\usepackage{url,tocbibind,makeidx}
+\makeatletter \newif\ifscan@allowed \scan@allowedtrue \makeatother
+\def\dotfil{\leaders\hbox to.6em{\hss .\hss}\hfil}%
+\def\pfill{\unskip~\dotfill\penalty500\strut\nobreak
+           \dotfil~\ignorespaces}%
+\usepackage[tight,hints,insection]{minitoc}
+%% \usepackage{mtcoff}
+\makeindex
+\begin{document}
+\doparttoc \dopartlof \dopartlot
+\dosecttoc \dosectlof \dosectlot
+\setcounter{tocdepth}{6}
+\setcounter{parttocdepth}{6}
+\setcounter{secttocdepth}{6}
+\tableofcontents \mtcaddsection
+\listoffigures   \mtcaddsection
+\listoftables    \mtcaddsection
+\part{Part~1}
+\parttoc \mtcskip \partlof \mtcskip \partlot
+
+\section{First section}
+\index{section!normal}
+\secttoc \mtcskip \sectlof \mtcskip \sectlot
+\subsection{First subsection}
+
+\begin{figure}[tp] \caption{First figure} \end{figure}
+\begin{table}[tp] \caption{First table} \end{table}
+
+\subsection{Second subsection}
+A small nice citation from~\cite{dark}:\\
+\index{small}\index{citation}\index{nice}\index{A}%
+\index{a}\index{and}\index{bird}\index{But}%
+\index{cannot}\index{claim}\index{great}\index{he}%
+\index{I}\index{imagine}\index{it}\index{know}%
+\index{land}\index{on}\index{once}\index{that}%
+\index{to}\index{tree}\index{would}\index{yes}%
+A bird cannot land once on a great tree and claim to know it.
+But I imagine that he would, yes.\\
+\hbox{}\hfill Iain~M.~\textsc{Banks} (1993), \textsl{Against a dark background.}%
+\index{Iain}\index{Banks}\index{Against}\index{dark}\index{background}
+\begin{figure}[tp] \caption{Second figure} \end{figure}
+\begin{table} \caption{Second table} \end{table}
+\section*{Second section, starred}
+\index{section!starred}
+%% UNCOMMENT ONE AND ONLY ONE OF THE 4 FOLLOWING LINES
+\mtcaddsection[Second section, starred] % OK
+%% \mtcaddsection[]     % BAD
+%% \mtcaddsection[~]    % produces a (strange) correct result.
+%% \mtcaddsection       % BAD
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\index{tests}
+
+This is a starred section; you can test here variations on
+the \verb|\mtcaddsection| command. Just uncomment one (and
+only one) of the \verb|\mtcaddsection| commands after
+\verb|\section*| in the source code of \texttt{mtc-add.tex}.
+For each case, look at the \index{Table of Contents}Table of Contents
+and at this section.
+\index{a}\index{added}\index{after}\index{also}\index{and}%
+\index{at}\index{can}\index{case}\index{section}%
+\index{code}\index{command}\index{commands}%
+\index{Contents}\index{each}\index{entries}\index{For}%
+\index{here}\index{I}\index{in}\index{index}\index{is}%
+\index{Just}\index{just}\index{look}\index{lot}%
+\index{of}\index{on}\index{one}\index{only}\index{source}%
+\index{starred}\index{Table}\index{test}\index{the}%
+\index{This}\index{this}\index{to}\index{uncomment}%
+\index{variations}\index{you}%
+I also added a lot of index entries, just to test.
+
+\section{Third section}
+\index{section!normal}
+\secttoc \mtcskip \sectlof \mtcskip \sectlot
+\subsection{Third subsection}
+
+\begin{figure} \caption{Third figure} \end{figure}
+\begin{table} \caption{Third table} \end{table}
+
+\subsection{Fourth subsection}
+
+\begin{figure} \caption{Fourth figure} \end{figure}
+\begin{table} \caption{Fourth table} \end{table}
+
+\subsubsection{Even a sub-sub-section!}
+\subsubsection{And yet another one}
+
+\part{Part~2}
+\parttoc \mtcskip \partlof \mtcskip \partlot
+
+\section{Fourth section}
+\index{section!normal}
+\secttoc \mtcskip \sectlof \mtcskip \sectlot
+\subsection{Fifth subsection}
+
+\begin{figure}[tp] \caption{Fifth figure} \end{figure}
+\begin{table}[tp] \caption{Fifth table} \end{table}
+
+\subsection{Sixth subsection}
+A small nice citation from~\cite{dark}:\\
+\index{small}\index{citation}\index{nice}\index{A}%
+\index{a}\index{and}\index{bird}\index{But}%
+\index{cannot}\index{claim}\index{great}\index{he}%
+\index{I}\index{imagine}\index{it}\index{know}%
+\index{land}\index{on}\index{once}\index{that}%
+\index{to}\index{tree}\index{would}\index{yes}%
+A bird cannot land once on a great tree and claim to know it.
+But I imagine that he would, yes.\\
+\hbox{}\hfill
+Iain~M.~\textsc{Banks} (1993), \textsl{Against a dark background.}%
+\index{Iain}\index{Banks}\index{Against}\index{dark}\index{background}
+
+\begin{figure}[tp] \caption{Sixth figure} \end{figure}
+\begin{table} \caption{Sixth table} \end{table}
+
+\section*{Fifth section, starred}
+\index{section!starred}
+%% UNCOMMENT ONE AND ONLY ONE OF THE 4 FOLLOWING LINES
+\mtcaddsection[Fifth section, starred] % OK
+%% \mtcaddsection[]     % OK
+%% \mtcaddsection[~]    % produces a (strange) correct result.
+%% \mtcaddsection       % OK
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\index{tests}
+
+This is a starred section; you can test here variations on
+the \verb|\mtcaddsection| command. Just uncomment one (and
+only one) of the \verb|\mtcaddsection| commands after
+\verb|\section*| in the source code of \texttt{mtc-add.tex}.
+For each case, look at the \index{Table of Contents}Table of Contents
+and at this section.\index{a}%
+\index{added}\index{after}\index{also}\index{and}%
+\index{at}\index{can}\index{case}\index{section}%
+\index{code}\index{command}\index{commands}\index{Contents}%
+\index{each}\index{entries}\index{For}\index{here}%
+\index{I}\index{in}\index{index}\index{is}%
+\index{Just}\index{just}\index{look}\index{lot}%
+\index{of}\index{on}\index{one}\index{only}%
+\index{source}\index{starred}\index{Table}\index{test}%
+\index{the}\index{This}\index{this}\index{to}%
+\index{uncomment}\index{variations}\index{you}%
+I also added a lot of index entries, just to test.
+
+\section{Sixth section}
+\index{section!normal}
+\secttoc \mtcskip \sectlof \mtcskip \sectlot
+\subsection{Seventh subsection}
+
+\begin{figure} \caption{Seventh figure} \end{figure}
+\begin{table} \caption{Seventh table} \end{table}
+
+\subsection{Eighth subsection}
+
+\begin{figure} \caption{Eighth figure} \end{figure}
+\begin{table} \caption{Eighth table} \end{table}
+\nocite*
+\def\noopsort#1{\relax}
+\bibliographystyle{plain}
+\bibliography{mtc-add}
+\adjuststc
+\printindex
+\mtcfixindex % use this OR the 3 following lines
+%% \addcontentsline{lof}{xsect}{}
+%% \addcontentsline{lot}{xsect}{}
+%% \mtcaddsection
+
+\appendix
+\section{App.~1}
+\index{section!appendix}
+\secttoc \mtcskip \sectlof \mtcskip \sectlot
+\subsection{Ninth subsection}
+
+\begin{figure} \caption{Ninth figure} \end{figure}
+\begin{table} \caption{Ninth table} \end{table}
+
+\subsection{Tenth subsection}
+
+\begin{figure} \caption{Tenth figure} \end{figure}
+\begin{table} \caption{Tenth table} \end{table}
+
+\section{App.~2}
+\index{section!appendix}
+%% contains no tables but asks for a sectlot! No sectlot printed.
+\secttoc \mtcskip \sectlof \mtcskip \sectlot
+\subsection{Eleventh subsection}
+
+\begin{figure} \caption{Eleventh figure} \end{figure}
+\begin{figure} \caption{Twelfth figure} \end{figure}
+
+\subsection{Twelfth subsection}
+
+\begin{figure} \caption{Thirdteenth figure} \end{figure}
+\begin{figure} \caption{Fourteenth figure} \end{figure}
+
+\end{document}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%
+\endinput
+%%
+%% End of file `mtc-ads.tex'.

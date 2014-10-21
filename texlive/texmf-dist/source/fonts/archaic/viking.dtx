@@ -1,0 +1,1041 @@
+% \iffalse meta-comment
+%
+% viking.dtx
+% Copyright Uwe Zimmermann
+%  based on runic.dtx by Peter R. Wilson (c)1999
+%
+% This program is provided under the terms of the
+% LaTeX Project Public License distributed from CTAN
+% archives in directory macros/latex/base/lppl.txt.
+%
+% Author: Uwe Zimmermann, uwe.zimmermann@sciencetronics.com
+%
+%
+%<*driver>
+\documentclass{ltxdoc}
+\EnableCrossrefs
+\CodelineIndex
+\setcounter{StandardModuleDepth}{1}
+\begin{document}
+  \DocInput{viking.dtx}
+\end{document}
+%</driver>
+%
+% \fi
+%
+% \CheckSum{21}
+%
+% \DoNotIndex{\',\.,\@M,\@@input,\@addtoreset,\@arabic,\@badmath}
+% \DoNotIndex{\@centercr,\@cite}
+% \DoNotIndex{\@dotsep,\@empty,\@float,\@gobble,\@gobbletwo,\@ignoretrue}
+% \DoNotIndex{\@input,\@ixpt,\@m}
+% \DoNotIndex{\@minus,\@mkboth,\@ne,\@nil,\@nomath,\@plus,\@set@topoint}
+% \DoNotIndex{\@tempboxa,\@tempcnta,\@tempdima,\@tempdimb}
+% \DoNotIndex{\@tempswafalse,\@tempswatrue,\@viipt,\@viiipt,\@vipt}
+% \DoNotIndex{\@vpt,\@warning,\@xiipt,\@xipt,\@xivpt,\@xpt,\@xviipt}
+% \DoNotIndex{\@xxpt,\@xxvpt,\\,\ ,\addpenalty,\addtolength,\addvspace}
+% \DoNotIndex{\advance,\Alph,\alph}
+% \DoNotIndex{\arabic,\ast,\begin,\begingroup,\bfseries,\bgroup,\box}
+% \DoNotIndex{\bullet}
+% \DoNotIndex{\cdot,\cite,\CodelineIndex,\cr,\day,\DeclareOption}
+% \DoNotIndex{\def,\DisableCrossrefs,\divide,\DocInput,\documentclass}
+% \DoNotIndex{\DoNotIndex,\egroup,\ifdim,\else,\fi,\em,\endtrivlist}
+% \DoNotIndex{\EnableCrossrefs,\end,\end@dblfloat,\end@float,\endgroup}
+% \DoNotIndex{\endlist,\everycr,\everypar,\ExecuteOptions,\expandafter}
+% \DoNotIndex{\fbox}
+% \DoNotIndex{\filedate,\filename,\fileversion,\fontsize,\framebox,\gdef}
+% \DoNotIndex{\global,\halign,\hangindent,\hbox,\hfil,\hfill,\hrule}
+% \DoNotIndex{\hsize,\hskip,\hspace,\hss,\if@tempswa,\ifcase,\or,\fi,\fi}
+% \DoNotIndex{\ifhmode,\ifvmode,\ifnum,\iftrue,\ifx,\fi,\fi,\fi,\fi,\fi}
+% \DoNotIndex{\input}
+% \DoNotIndex{\jobname,\kern,\leavevmode,\let,\leftmark}
+% \DoNotIndex{\list,\llap,\long,\m@ne,\m@th,\mark,\markboth,\markright}
+% \DoNotIndex{\month,\newcommand,\newcounter,\newenvironment}
+% \DoNotIndex{\NeedsTeXFormat,\newdimen}
+% \DoNotIndex{\newlength,\newpage,\nobreak,\noindent,\null,\number}
+% \DoNotIndex{\numberline,\OldMakeindex,\OnlyDescription,\p@}
+% \DoNotIndex{\pagestyle,\par,\paragraph,\paragraphmark,\parfillskip}
+% \DoNotIndex{\penalty,\PrintChanges,\PrintIndex,\ProcessOptions}
+% \DoNotIndex{\protect,\ProvidesClass,\raggedbottom,\raggedright}
+% \DoNotIndex{\refstepcounter,\relax,\renewcommand,\reset@font}
+% \DoNotIndex{\rightmargin,\rightmark,\rightskip,\rlap,\rmfamily,\roman}
+% \DoNotIndex{\roman,\secdef,\selectfont,\setbox,\setcounter,\setlength}
+% \DoNotIndex{\settowidth,\sfcode,\skip,\sloppy,\slshape,\space}
+% \DoNotIndex{\symbol,\the,\trivlist,\typeout,\tw@,\undefined,\uppercase}
+% \DoNotIndex{\usecounter,\usefont,\usepackage,\vfil,\vfill,\viiipt}
+% \DoNotIndex{\viipt,\vipt,\vskip,\vspace}
+% \DoNotIndex{\wd,\xiipt,\year,\z@}
+%
+% \changes{v1.0}{2003/08/12}{First public release}
+%
+% \def\fileversion{v1.0}
+% \def\filedate{2003/08/12}
+% \newcommand*{\Lpack}[1]{\textsf {#1}}           ^^A typeset a package
+% \newcommand*{\Lopt}[1]{\textsf {#1}}            ^^A typeset an option
+% \newcommand*{\file}[1]{\texttt {#1}}            ^^A typeset a file
+% \newcommand*{\Lcount}[1]{\textsl {\small#1}}    ^^A typeset a counter
+% \newcommand*{\pstyle}[1]{\textsl {#1}}          ^^A typeset a pagestyle
+% \newcommand*{\Lenv}[1]{\texttt {#1}}            ^^A typeset an environment
+% \newcommand{\BC}{\textsc{bc}}
+% \newcommand{\AD}{\textsc{ad}}
+%
+% \title{The \Lpack{Viking} fonts\thanks{This
+%        file has version number \fileversion, last revised
+%        \filedate.}}
+%
+% \author{%
+% Uwe Zimmermann\\
+% Sciencetronics \\
+% {\tt uwe.zimmermann@sciencetronics.com}
+% }
+% \date{\filedate}
+% \maketitle
+% \begin{abstract}
+%    The \Lpack{viking} package provides two sets of Runic letters in
+% the form used by the Scandinavian vikings around 1000~\AD. It is a
+% ``modernized'' set of 16 characters some of which are assigned several
+% pronunciations.
+% \end{abstract}
+% \tableofcontents
+%
+% \StopEventually{}
+%
+%
+%
+% \section{Introduction}
+%
+% This package is based on the \Lpack{runic} package by Peter Wilson,
+% but was modified to represent the Runic alphabet as it was used by the
+% Scandinavian vikings. The original 24 letter \textit{Futhark} had
+% at that time been simplified to a 16 letter alphabet, which existed
+% in two forms: one form with shorter and one form with longer branches.
+%
+% This package accommodates both sets of runic characters in the place
+% of the upper and lower case latin characters, respectively.
+%
+% This manual is typeset according to the conventions of the
+% \LaTeX{} \textsc{docstrip} utility which enables the automatic
+% extraction of the \LaTeX{} macro source files~\cite{GOOSSENS94}.
+%
+%    Section~\ref{sec:usc} describes the usage of the package.
+% Commented code for the fonts is in Sections~\ref{sec:mf} and~\ref{sec:fd}
+% and source code for the package is in Section~\ref{sec:code}.
+%
+% \section{The \Lpack{runic} package} \label{sec:usc}
+%
+%    The font in this package represents the later runic alphabet used
+% by the Scandinavian vikings from about 700~\AD\ until about 1200~\AD\
+% when the runes were replaced by both the medieval runic alphabet and the
+% roman (latin) alphabet. Originally this runic alphabet was developed
+% from the older versions with 24 letters, represented in the Lpack{runic}
+% package by Peter Wilson. The shape of the runes had been simplified and the
+% number was reduced from 24 to 16 characters.
+%
+% The font presented here is based on information from Enoksen~\cite{ENOKSEN98},
+% Jansson~\cite{JANSSON84}, Brink~\cite{BRINK83} and
+% Gustavson~\cite{GUSTAVSON91}.
+%
+% Many of the Runic characters
+% have a direct correspondence with the modern Latin alphabet.
+% The \textit{S} rune is allowed in a second mirrored form,
+% which was mapped as \textit{Z}. The \textit{yR} rune changed
+% their pronunciation towards \textit{Y} during the viking ages,
+% which allowed me to map it at this character position. Unlike
+% Wilson I chose to avoid a command for the \textit{thurs} (\textit{thorn})
+% rune and placed it as the letter \textit{D} instead. Since it
+% also represents the sound \textit{dh} this does not appear unreasonable
+% and eases the writing of texts and the reading of the source code.
+%
+% The uppercase letters will produce the long-armed form of the
+% runes, while the lowercase letters correspond to the somewhat
+% shorter alternative form (Swedish: \textit{kortkvist runor}).
+%
+% The letter sequence
+% for the viking futhark abecedary mapping is:\\
+% |F U D O R K   H N I A S   T B M L Y : .| \\
+% with the two punctuation marks |:| and |.| commonly found
+% in runic inscriptions.
+%
+%
+% \DescribeMacro{\futfamily}
+%    This command selects the Runic font family. The family name is |vik|.
+%
+% \DescribeMacro{\textfut}
+% The command |\textfut{|\meta{text}|}| typesets \meta{text} in the
+% Runic font.
+%
+%
+% \section{The Metafont code} \label{sec:mf}
+%
+% \subsection{The parameter file}
+%
+%    We deal with the parameter file first, and start by announcing
+% what it is for.
+%    \begin{macrocode}
+%<*up>
+%%% VIK10.MF  Computer Runic font 10 point design size.
+
+%    \end{macrocode}
+%    Specify the font size.
+%    \begin{macrocode}
+
+font_identifier:="Viking"; font_size 10pt#;
+
+%    \end{macrocode}
+%
+%
+% \begin{macro}{u}
+% \begin{macro}{ht}
+% \begin{macro}{s}
+% \begin{macro}{o}
+% \begin{macro}{px}
+% \begin{macro}{font-normal-space}
+% \begin{macro}{font-normal-shrink}
+% \begin{macro}{font-x-height}
+% \begin{macro}{font-quad}
+%    Define the very simple font parameters.
+%    \begin{macrocode}
+u#:=.2pt#;                 % unit width
+ht#:=7pt#;                 % height of characters (CM cap-height is approx 6.8pt)
+s#:=1.5pt#;                % width correction (right and left)
+o#:=1/20pt#;               % overshoot
+px#:=.7pt#;                % horizontal width of pen
+font_normal_space:=7pt#;   % width of a blank space
+font_normal_shrink:=.9pt#; % width correction for blank space
+font_x_height:=4.5pt#;     % height of one ex
+font_quad:=10pt#;          % an em
+
+%    \end{macrocode}
+% \end{macro}
+% \end{macro}
+% \end{macro}
+% \end{macro}
+% \end{macro}
+% \end{macro}
+% \end{macro}
+% \end{macro}
+% \end{macro}
+%
+%    Finally, call the driver file for the Runic font.
+%    \begin{macrocode}
+input viktitle      %% switch to the driver file---Runic title
+
+end
+
+%</up>
+%    \end{macrocode}
+%
+%
+% \subsection{The driver file}
+%
+%    Announce the file and switch into Metafont mode
+%
+%    \begin{macrocode}
+%<*mfd>
+% This is VIKTITLE.MF. It makes the short Runic font.
+
+font_coding_scheme:="Runic glyphs";
+mode_setup;
+
+%    \end{macrocode}
+%
+% \begin{macro}{ho}
+% \begin{macro}{leftloc}
+% \begin{macro}{py}
+%  Perform additional setup.
+%    \begin{macrocode}
+ho#:=o#;                   % horizontal overshoot
+leftloc#:=s#;        % leftmost xcoord of character
+py#:=.9px#;                % vertical thickness of the pen
+
+define_pixels(s,u);
+define_blacker_pixels(px,py);
+define_good_x_pixels(leftloc);
+define_corrected_pixels(o);             % turn on overshoot correction
+define_horizontal_corrected_pixels(ho);
+
+%    \end{macrocode}
+% \end{macro}
+% \end{macro}
+% \end{macro}
+%
+% \begin{macro}{midloc}
+% \begin{macro}{rightloc}
+%    Variables for the middle xcoord and rightmost xcoord of a character.
+%    \begin{macrocode}
+numeric midloc, rightloc;
+%    \end{macrocode}
+% \end{macro}
+% \end{macro}
+%
+% \begin{macro}{stylus}
+%    Define the pen.
+%    \begin{macrocode}
+pickup pencircle xscaled px yscaled py;
+stylus:=savepen;
+
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{stugna}
+%    Define the thicker pen for the E rune.
+%    \begin{macrocode}
+pickup pencircle xscaled 2px yscaled 2px;
+stugna:=savepen;
+
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{beginglyph}
+%    A macro to save some typing of beginchar arguments.
+%    \begin{macrocode}
+def beginglyph(expr code, unit_width) =
+  beginchar(code, unit_width*ht#+2s#, ht#, 0);
+  midloc:=1/2w; rightloc:=(w-s);
+  pickup stylus enddef;
+
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{cmchar}
+%    |cmchar| should precede each character
+%    \begin{macrocode}
+let cmchar=\;
+
+%    \end{macrocode}
+% \end{macro}
+%
+%    Finally, input the file that does all the work.
+%    \begin{macrocode}
+
+input vikglyph;        % Runic glyphs
+
+end
+
+%</mfd>
+%    \end{macrocode}
+%
+% \subsection{The glyph code}
+%
+%    The following code generates the glyphs for the Runic font. The characters
+% are defined in the futhark ordering.
+%
+%    \begin{macrocode}
+%<*maj>
+% VIKGLYPH.MF Program file for Runic font.
+%
+%
+%    \end{macrocode}
+%
+% \begin{macro}{F}
+%    The long-armed  F
+%    \begin{macrocode}
+cmchar "Runic letter F";
+beginglyph("F",0.6);
+z1 = (leftloc, 0.0h);
+z2 = (leftloc, 0.4h);
+z3 = (leftloc, 0.7h);
+z4 = (leftloc, 1.0h);
+z5 = (midloc, 1.0h);
+z6 = (rightloc, 1.0h);
+draw z1--z4;
+draw z2--z6;
+draw z3--z5;
+labels(1,2,3,4,5,6);
+endchar;
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{U}
+%    The long-armed  U
+%    \begin{macrocode}
+cmchar "Runic letter U";
+beginglyph("U",0.6);
+z1 = (leftloc, 0.0h);
+z2 = (leftloc, 1.0h);
+z3 = (0.75rightloc, 0.65h);
+z4 = (rightloc, 0.0h);
+draw z1--z2--z3--z4;
+labels(1,2,3,4);
+endchar;
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{D}
+%    The long-armed  TH
+%    \begin{macrocode}
+cmchar "Runic letter TH";
+beginglyph("D",0.4);
+z1 = (leftloc, 0.0h);
+z2 = (leftloc, 0.2h);
+z3 = (leftloc, 0.8h);
+z4 = (leftloc, 1.0h);
+z5 = (rightloc, 0.5h);
+draw z1--z4;
+draw z2--z5;
+draw z3--z5;
+labels(1,2,3,4,5);
+endchar;
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{O}
+%    The long-armed  O
+%    \begin{macrocode}
+cmchar "Runic letter O";
+beginglyph("O",0.4);
+z1 = (leftloc, 0.0h);
+z2 = (leftloc, 0.4h);
+z3 = (leftloc, 0.7h);
+z4 = (leftloc, 1.0h);
+z5 = (rightloc, 0.5h);
+z6 = (rightloc, 0.2h);
+draw z1--z4;
+draw z2--z6;
+draw z3--z5;
+labels(1,2,3,4,5,6);
+endchar;
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{R}
+%    The long-armed  R
+%    \begin{macrocode}
+cmchar "Runic letter R";
+beginglyph("R",0.6);
+z1 = (leftloc, 0.0h);
+z2 = (leftloc, 1.0h);
+z3 = (0.7(leftloc+rightloc), 0.75h);
+z4 = (0.3(leftloc+rightloc), 0.5h);
+z5 = (rightloc, 0.0h);
+draw z1--z2--z3--z4--z5;
+labels(1,2,3,4,5);
+endchar;
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{K}
+%    The long-armed  K
+%    \begin{macrocode}
+cmchar "Runic letter K";
+beginglyph("K",0.4);
+z1 = (leftloc, 0.0h);
+z2 = (leftloc, 0.5h);
+z3 = (leftloc, 1.0h);
+z4 = (rightloc, 1.0h);
+draw z1--z3;
+draw z2--z4;
+labels(1,2,3,4);
+endchar;
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{G}
+%    The long-armed  G
+%    \begin{macrocode}
+cmchar "Runic letter G";
+beginglyph("G",0.4);
+z1 = (leftloc, 0.0h);
+z2 = (leftloc, 0.5h);
+z3 = (leftloc, 1.0h);
+z4 = (rightloc, 1.0h);
+z5 = (midloc, 0.95h);
+draw z1--z3;
+draw z2--z4;
+draw z5;
+labels(1,2,3,4,5);
+endchar;
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{H}
+%    The long-armed  H
+%    \begin{macrocode}
+cmchar "Runic letter H";
+beginglyph("H",0.4);
+z1 = (midloc, 0.0h);
+z2 = (midloc, 1.0h);
+z3 = (leftloc, 0.3h);
+z4 = (leftloc, 0.7h);
+z5 = (rightloc, 0.7h);
+z6 = (rightloc, 0.3h);
+draw z1--z2;
+draw z3--z5;
+draw z4--z6;
+labels(1,2,3,4,5,6);
+endchar;
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{N}
+%    The long-armed  N
+%    \begin{macrocode}
+cmchar "Runic letter N";
+beginglyph("N",0.4);
+z1 = (midloc, 0.0h);
+z2 = (midloc, 1.0h);
+z4 = (leftloc, 0.7h);
+z6 = (rightloc, 0.3h);
+draw z1--z2;
+draw z4--z6;
+labels(1,2,4,6);
+endchar;
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{I}
+%    The long-armed  I
+%    \begin{macrocode}
+cmchar "Runic letter I";
+beginglyph("I",0.4);
+z1 = (midloc, 0.0h);
+z2 = (midloc, 1.0h);
+draw z1--z2;
+labels(1,2);
+endchar;
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{E}
+%    The long-armed  E
+%    \begin{macrocode}
+cmchar "Runic letter E";
+beginglyph("E",0.4);
+z1 = (midloc, 0.0h);
+z2 = (midloc, 1.0h);
+z3 = (midloc, 0.5h);
+draw z1--z2;
+pickup stugna
+draw z3;
+labels(1,2,3);
+endchar;
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{A}
+%    The long-armed  A
+%    \begin{macrocode}
+cmchar "Runic letter A";
+beginglyph("A",0.4);
+z1 = (midloc, 0.0h);
+z2 = (midloc, 1.0h);
+z4 = (leftloc, 0.3h);
+z6 = (rightloc, 0.7h);
+draw z1--z2;
+draw z4--z6;
+labels(1,2,4,6);
+endchar;
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{S}
+%    The long-armed  S
+%    \begin{macrocode}
+cmchar "Runic letter S";
+beginglyph("S",0.4);
+z1 = (rightloc, 0.0h);
+z2 = (rightloc, 0.7h);
+z3 = (leftloc, 0.3h);
+z4 = (leftloc, 1.0h);
+draw z1--z2--z3--z4;
+labels(1,2,3,4);
+endchar;
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{Z}
+%    The long-armed mirrored S
+%    \begin{macrocode}
+cmchar "Runic letter Z";
+beginglyph("Z",0.4);
+z1 = (leftloc, 0.0h);
+z2 = (leftloc, 0.7h);
+z3 = (rightloc, 0.3h);
+z4 = (rightloc, 1.0h);
+draw z1--z2--z3--z4;
+labels(1,2,3,4);
+endchar;
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{T}
+%    The long-armed  T
+%    \begin{macrocode}
+cmchar "Runic letter T";
+beginglyph("T",0.4);
+z1 = (midloc, 0.0h);
+z2 = (midloc, 1.0h);
+z3 = (leftloc, 0.8h);
+z4 = (rightloc, 0.8h);
+draw z1--z2;
+draw z2--z3;
+draw z2--z4;
+labels(1,2,3,4);
+endchar;
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{B}
+%    The long-armed  B
+%    \begin{macrocode}
+cmchar "Runic letter B";
+beginglyph("B",0.4);
+z1 = (leftloc, 0.0h);
+z2 = (leftloc, 0.5h);
+z3 = (leftloc, 1.0h);
+z4 = (rightloc, 0.75h);
+z5 = (rightloc, 0.25h);
+draw z1--z3;
+draw z3--z4--z2;
+draw z2--z5--z1;
+labels(1,2,3,4,5);
+endchar;
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{M}
+%    The long-armed  M
+%    \begin{macrocode}
+cmchar "Runic letter M";
+beginglyph("M",0.6);
+z1 = (midloc, 0.0h);
+z2 = (midloc, 0.7h);
+z3 = (midloc, 1.0h);
+z4 = (leftloc, 1.0h);
+z5 = (rightloc, 1.0h);
+draw z1--z3;
+draw z2--z4;
+draw z2--z5;
+labels(1,2,3,4,5);
+endchar;
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{L}
+%    The long-armed  L
+%    \begin{macrocode}
+cmchar "Runic letter L";
+beginglyph("L",0.4);
+z1 = (leftloc, 0.0h);
+z2 = (leftloc, 1.0h);
+z3 = (rightloc, 0.8h);
+draw z1--z2--z3;
+labels(1,2,3);
+endchar;
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{Y}
+%    The long-armed  Y
+%    \begin{macrocode}
+cmchar "Runic letter Y";
+beginglyph("Y",0.6);
+z1 = (midloc, 0.0h);
+z2 = (midloc, 0.3h);
+z3 = (midloc, 1.0h);
+z4 = (leftloc, 0.0h);
+z5 = (rightloc, 0.0h);
+draw z1--z3;
+draw z2--z4;
+draw z2--z5;
+labels(1,2,3,4,5);
+endchar;
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{:}
+%    The punctuation :
+%    \begin{macrocode}
+cmchar "Runic letter :";
+beginglyph(":",0.2);
+z3 = (leftloc, 0.4h);
+z4 = (leftloc, 0.6h);
+z5 = (rightloc, 0.6h);
+z6 = (rightloc, 0.4h);
+draw z3--z5;
+draw z4--z6;
+labels(3,4,5,6);
+endchar;
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{.}
+%    The punctuation .
+%    \begin{macrocode}
+cmchar "Runic letter .";
+beginglyph(".",0.2);
+z3 = (midloc, 0.5h);
+draw z3;
+labels(3);
+endchar;
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{f}
+%    The short-armed F
+%    \begin{macrocode}
+cmchar "Runic letter F";
+beginglyph("f",0.3);
+z1 = (leftloc, 0.0h);
+z2 = (leftloc, 0.5h);
+z3 = (leftloc, 0.75h);
+z4 = (leftloc, 1.0h);
+z5 = (rightloc, 1.0h);
+z6 = (rightloc, 0.75h);
+draw z1--z4;
+draw z2--z6;
+draw z3--z5;
+labels(1,2,3,4,5,6);
+endchar;
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{u}
+%    The short-armed  U
+%    \begin{macrocode}
+cmchar "Runic letter U";
+beginglyph("u",0.3);
+z1 = (leftloc, 0.0h);
+z2 = (leftloc, 1.0h);
+z4 = (rightloc, 0.0h);
+draw z1--z2--z4;
+labels(1,2,4);
+endchar;
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{d}
+%    The short-armed  TH
+%    \begin{macrocode}
+cmchar "Runic letter TH";
+beginglyph("d",0.3);
+z1 = (leftloc, 0.0h);
+z2 = (leftloc, 0.2h);
+z3 = (leftloc, 0.8h);
+z4 = (leftloc, 1.0h);
+z5 = (rightloc, 0.5h);
+draw z1--z4;
+draw z2--z5;
+draw z3--z5;
+labels(1,2,3,4,5);
+endchar;
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{o}
+%    The short-armed  O
+%    \begin{macrocode}
+cmchar "Runic letter O";
+beginglyph("o",0.3);
+z1 = (leftloc, 0.0h);
+z2 = (leftloc, 0.4h);
+z3 = (leftloc, 0.7h);
+z4 = (leftloc, 1.0h);
+z5 = (rightloc, 0.5h);
+z6 = (rightloc, 0.2h);
+draw z1--z4;
+draw z2--z6;
+draw z3--z5;
+labels(1,2,3,4,5,6);
+endchar;
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{r}
+%    The short-armed  R
+%    \begin{macrocode}
+cmchar "Runic letter R";
+beginglyph("r",0.3);
+z1 = (leftloc, 0.0h);
+z2 = (leftloc, 1.0h);
+z3 = (0.7(leftloc+rightloc), 0.75h);
+z4 = (0.3(leftloc+rightloc), 0.5h);
+z5 = (rightloc, 0.0h);
+draw z1--z2--z3--z4--z5;
+labels(1,2,3,4,5);
+endchar;
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{k}
+%    The short-armed  K
+%    \begin{macrocode}
+cmchar "Runic letter K";
+beginglyph("k",0.3);
+z1 = (leftloc, 0.0h);
+z2 = (leftloc, 0.5h);
+z3 = (leftloc, 1.0h);
+z4 = (rightloc, 1.0h);
+draw z1--z3;
+draw z2--z4;
+labels(1,2,3,4);
+endchar;
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{h}
+%    The short-armed  H
+%    \begin{macrocode}
+cmchar "Runic letter H";
+beginglyph("h",0.2);
+z1 = (midloc, 0.0h);
+z2 = (midloc, 1.0h);
+z3 = (leftloc, 0.5h);
+z5 = (rightloc, 0.5h);
+draw z1--z2;
+draw z3--z5;
+labels(1,2,3,5);
+endchar;
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{n}
+%    The short-armed  N
+%    \begin{macrocode}
+cmchar "Runic letter N";
+beginglyph("n",0.3);
+z1 = (leftloc, 0.0h);
+z2 = (leftloc, 1.0h);
+z4 = (leftloc, 0.6h);
+z6 = (rightloc, 0.3h);
+draw z1--z2;
+draw z4--z6;
+labels(1,2,4,6);
+endchar;
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{i}
+%    The short-armed  I
+%    \begin{macrocode}
+cmchar "Runic letter I";
+beginglyph("i",0.2);
+z1 = (midloc, 0.0h);
+z2 = (midloc, 1.0h);
+draw z1--z2;
+labels(1,2);
+endchar;
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{a}
+%    The short-armed  A
+%    \begin{macrocode}
+cmchar "Runic letter A";
+beginglyph("a",0.3);
+z1 = (leftloc, 0.0h);
+z2 = (leftloc, 1.0h);
+z4 = (leftloc, 0.4h);
+z6 = (rightloc, 0.7h);
+draw z1--z2;
+draw z4--z6;
+labels(1,2,4,6);
+endchar;
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{s}
+%    The short-armed  S
+%    \begin{macrocode}
+cmchar "Runic letter S";
+beginglyph("s",0.2);
+z1 = (midloc, 0.5h);
+z2 = (midloc, 1.0h);
+draw z1--z2;
+labels(1,2);
+endchar;
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{t}
+%    The short-armed  T
+%    \begin{macrocode}
+cmchar "Runic letter T";
+beginglyph("t",0.3);
+z1 = (rightloc, 0.0h);
+z2 = (rightloc, 1.0h);
+z3 = (leftloc, 0.8h);
+draw z1--z2;
+draw z2--z3;
+labels(1,2,3);
+endchar;
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{b}
+%    The short-armed  B
+%    \begin{macrocode}
+cmchar "Runic letter B";
+beginglyph("b",0.3);
+z1 = (leftloc, 0.0h);
+z2 = (leftloc, 0.3h);
+z3 = (leftloc, 0.6h);
+z4 = (leftloc, 1.0h);
+z5 = (rightloc, 0.8h);
+z6 = (rightloc, 0.5h);
+draw z1--z4;
+draw z2--z6;
+draw z3--z5;
+labels(1,2,3,4,5,6);
+endchar;
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{m}
+%    The short-armed  M
+%    \begin{macrocode}
+cmchar "Runic letter M";
+beginglyph("m",0.3);
+z1 = (midloc, 0.0h);
+z2 = (midloc, 1.0h);
+z3 = (leftloc, 1.0h);
+z4 = (rightloc, 1.0h);
+draw z1--z2;
+draw z3--z4;
+labels(1,2,3,4);
+endchar;
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{l}
+%    The short-armed  L
+%    \begin{macrocode}
+cmchar "Runic letter L";
+beginglyph("l",0.3);
+z1 = (leftloc, 0.0h);
+z2 = (leftloc, 1.0h);
+z3 = (rightloc, 0.8h);
+draw z1--z2--z3;
+labels(1,2,3);
+endchar;
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{y}
+%    The short-armed  Y
+%    \begin{macrocode}
+cmchar "Runic letter Y";
+beginglyph("y",0.2);
+z1 = (midloc, 0.0h);
+z2 = (midloc, 0.5h);
+draw z1--z2;
+labels(1,2);
+endchar;
+%</maj>
+%    \end{macrocode}
+% \end{macro}
+%
+% \section{The font definition files} \label{sec:fd}
+%
+%    \begin{macrocode}
+%<*fdot1>
+\DeclareFontFamily{OT1}{vik}{}
+  \DeclareFontShape{OT1}{vik}{m}{n}{ <-> vik10 }{}
+  \DeclareFontShape{OT1}{vik}{bx}{n}{ <-> sub vik/m/n }{}
+  \DeclareFontShape{OT1}{vik}{b}{n}{ <-> sub vik/m/n }{}
+  \DeclareFontShape{OT1}{vik}{m}{sl}{ <-> sub vik/m/n }{}
+  \DeclareFontShape{OT1}{vik}{m}{it}{ <-> sub vik/m/n }{}
+%</fdot1>
+%    \end{macrocode}
+%
+%
+%    \begin{macrocode}
+%<*fdt1>
+\DeclareFontFamily{T1}{vik}{}
+  \DeclareFontShape{T1}{vik}{m}{n}{ <-> vik10 }{}
+  \DeclareFontShape{T1}{vik}{bx}{n}{ <-> sub vik/m/n }{}
+  \DeclareFontShape{T1}{vik}{b}{n}{ <-> sub vik/m/n }{}
+  \DeclareFontShape{T1}{vik}{m}{sl}{ <-> sub vik/m/n }{}
+  \DeclareFontShape{T1}{vik}{m}{it}{ <-> sub vik/m/n }{}
+%</fdt1>
+%    \end{macrocode}
+%
+% \section{The \Lpack{viking} package code} \label{sec:code}
+%
+%    Announce the name and version of the package, which requires
+% \LaTeXe{}.
+%    \begin{macrocode}
+%<*usc>
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{viking}[2003/08/12 v1.0 package for Runic fonts]
+%    \end{macrocode}
+%
+%
+% \begin{macro}{\vikfamily}
+%    Selects the futharc (Runic) font family in the OT1 encoding.
+%    \begin{macrocode}
+\newcommand{\vikfamily}{\usefont{OT1}{vik}{m}{n}}
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{\textvik}
+%    Text command for the viking (Runic) font family.
+%    \begin{macrocode}
+\DeclareTextFontCommand{\textvik}{\vikfamily}
+%    \end{macrocode}
+% \end{macro}
+%
+%    The end of this package.
+%    \begin{macrocode}
+%</usc>
+%    \end{macrocode}
+%
+%
+% \bibliographystyle{alpha}
+%
+% \begin{thebibliography}{GMS94}
+%
+% \bibitem[Eno98]{ENOKSEN98}
+% Lars Magnus Enoksen.
+% \newblock {\em Runor}.
+% \newblock Historiska Media, 1998.
+% \newblock ISBN 91-89442-55-5
+%
+% \bibitem[Bri83]{BRINK83}
+% Thorgunn Sn{\ae}dal Brink.
+% \newblock {\em Runstenar och runinskrifter i Sigtuna kommun}.
+% \newblock Bohusl{\"a}ningens Boktryckeri, 1983.
+% \newblock ISSN 0280-8439
+%
+% \bibitem[Jan84]{JANSSON84}
+% Sven B.\ F.\ Jansson.
+% \newblock {\em Runinskrifter i Sverige}.
+% \newblock Almqvist \& Wiksell, 1984.
+% \newblock ISBN 91-20-07030-6
+%
+% \bibitem[Gus91]{GUSTAVSON91}
+% Helmer Gustavson.
+% \newblock {\em Runstenar i Vallentuna}.
+% \newblock CEWE, 1991.
+% \newblock ISBN 91-971070-6-9
+%
+% \bibitem[GMS94]{GOOSSENS94}
+% Michel Goossens, Frank Mittelbach, and Alexander Samarin.
+% \newblock {\em The LaTeX Companion}.
+% \newblock Addison-Wesley Publishing Company, 1994.
+% \newblock ISBN 0-201-54199-8
+%
+%
+% \end{thebibliography}
+%
+%
+% \Finale
+% \PrintIndex
+%
+\endinput
+
+%% \CharacterTable
+%%  {Upper-case    \A\B\C\D\E\F\G\H\I\J\K\L\M\N\O\P\Q\R\S\T\U\V\W\X\Y\Z
+%%   Lower-case    \a\b\c\d\e\f\g\h\i\j\k\l\m\n\o\p\q\r\s\t\u\v\w\x\y\z
+%%   Digits        \0\1\2\3\4\5\6\7\8\9
+%%   Exclamation   \!     Double quote  \"     Hash (number) \#
+%%   Dollar        \$     Percent       \%     Ampersand     \&
+%%   Acute accent  \'     Left paren    \(     Right paren   \)
+%%   Asterisk      \*     Plus          \+     Comma         \,
+%%   Minus         \-     Point         \.     Solidus       \/
+%%   Colon         \:     Semicolon     \;     Less than     \<
+%%   Equals        \=     Greater than  \>     Question mark \?
+%%   Commercial at \@     Left bracket  \[     Backslash     \\
+%%   Right bracket \]     Circumflex    \^     Underscore    \_
+%%   Grave accent  \`     Left brace    \{     Vertical bar  \|
+%%   Right brace   \}     Tilde         \~}

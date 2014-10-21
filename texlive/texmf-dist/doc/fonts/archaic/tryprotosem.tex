@@ -1,0 +1,78 @@
+% tryprotosem.tex    Test Proto-Semitic fonts
+\documentclass[11pt]{article}
+\usepackage{protosem}
+
+\newcommand{\thisfont}{Proto-Semitic}
+\newcommand{\ABC}{A B   D   e   E   Y K L     O   P X Q R   V}
+\newcommand{\abc}{a b g d z h w H T y k l m n o s p x q r S v t}
+
+\providecommand{\translitproto}[1]{}
+
+\title{The Proto-Semitic Fonts}
+\author{Peter Wilson \\ \texttt{herries dot press at earthlink dot net}}
+%%\author{}
+\date{}
+\begin{document}
+\maketitle
+
+    This provides a short test of the characters in the \thisfont{} fonts
+--- the \verb|proto| font family.
+
+    Following the declaration \verb?\protofamily? the \thisfont{} font
+is used. For just a few characters the \verb?\textproto{arg}? macro will
+typeset \verb?arg? in the \thisfont{} font.
+
+\begin{center}
+The \thisfont{} font, and alternate glyphs, in the huge size \\
+{\protofamily\huge \abc\\ \ABC\\}
+\end{center}
+
+\begin{center}
+The font, and alternates, in its normal size followed by the Computer Modern Roman
+for comparison \\
+\textproto{\abc} \\ \textproto{\ABC} \\
+\abc \\ \ABC 
+\end{center}
+
+    The macro \verb?\translitproto{<cmds>}? will give a transliteration
+of the commands in its argument. For example,
+    \thisfont, as near as possible, in \thisfont{} is: \textproto{proto Semitig},
+which transliterates as \translitproto{\Ap\Ar\Ao\At\Ao{} \Asv\Ae\Am\At\Ag}.
+
+
+\begin{table}
+\centering
+\caption{Alphabet and commands} 
+\begin{tabular}{|l|l|c|c|c|l|} \hline
+Name   & Meaning      & Value                  & Glyph(s)                    & ASCII & Commands \\ \hline
+alpu   &  ox          & \translitproto{\Aa}   & \textproto{a}  \textproto{A} &  a A  & \verb|\Aa| \verb|\Aaleph| \verb|\AAa| \verb|\AAaleph| \\
+betu   & house        & \translitproto{\Ab}   & \textproto{b}  \textproto{B} &  b B & \verb|\Ab| \verb|\Abeth| \verb|\AAb| \verb|\AAbeth| \\
+??     & throw-stick? & \translitproto{\Ag}   & \textproto{g}                &  g   & \verb|\Ag| \verb|\Agimel| \\
+??     & fish?        & \translitproto{\Ad}?  & \textproto{d}  \textproto{D} &  d D & \verb|\Ad| \verb|\Adaleth| \verb|\AAd| \verb|\AAdaleth| \\
+??     & man?         & \translitproto{\Ah}?  & \textproto{e}  \textproto{E} &  e E & \verb|\Ae| \verb|\Ahe| \verb|\AAe| \verb|\AAhe| \\
+wawwu  & hook/peg     & \translitproto{\Aw}   & \textproto{w}                &  w  & \verb|\Aw| \verb|\Avav|  \\ 
+??     & ??           & \translitproto{\Az}   & \textproto{z}                &  z  & \verb|\Az| \verb|\Azayin| \\ 
+hotu   & fence        & \translitproto{\Ahd}  & \textproto{h}  \textproto{H} &  h H & \verb|\Ahd| \verb|\Aheth| \verb|\AAhd| \verb|\AAheth| \\
+??     & twisted flax & \translitproto{\Atd}? & \textproto{T}                &  T  & \verb|\Atd| \verb|\Ateth| \\ 
+yadu   & hand/arm     & \translitproto{\Ay}   & \textproto{y}  \textproto{Y} &  y Y & \verb|\Ay| \verb|\Ayod| \verb|\AAy| \verb|\AAyod| \\
+kappu  & palm of hand & \translitproto{\Ak}   & \textproto{k}  \textproto{K} &  k K & \verb|\Ak| \verb|\Akaph| \verb|\AAk| \verb|\AAkaph| \\
+lamdu  & ox goad      & \translitproto{\Al}   & \textproto{l}  \textproto{L} &  l L & \verb|\Al| \verb|\Alamed| \verb|\AAl| \verb|\AAlamed| \\
+mayyuma? & water      & \translitproto{\Am}   & \textproto{m}                &  m   & \verb|\Am| \verb|\Amem| \\
+nahasu & snake        & \translitproto{\An}   & \textproto{n}                &  n   & \verb|\An| \verb|\Anun| \\
+enu    & eye          & \translitproto{\Ao}   & \textproto{o}  \textproto{O} &  o O & \verb|\Ao| \verb|\Aayin| \verb|\AAo| \verb|\AAayin| \\
+??     & ??           & \translitproto{\As}?  & \textproto{s}                &  s   & \verb|\As| \verb|\Asamekh| \\
+??     & leg/foot?    & \translitproto{\Ap}?  & \textproto{p}  \textproto{P} &  p P & \verb|\Ap| \verb|\Ape| \verb|\AAp| \verb|\AApe| \\
+??     & plant?       & \translitproto{\Asd}? & \textproto{x}  \textproto{X} &  x X & \verb|\Asd| \verb|\Asade| \verb|\AAsd| \verb|\AAsade| \\
+??     & knot?        & \translitproto{\Aq}?  & \textproto{q}  \textproto{Q} &  q Q & \verb|\Aq| \verb|\Aqoph| \verb|\AAq| \verb|\AAqoph| \\
+rasu   & head         & \translitproto{\Ar}   & \textproto{r}  \textproto{R} &  r R & \verb|\Ar| \verb|\Aresh| \verb|\AAr| \verb|\AAresh| \\
+??     & lotus pool?  & \translitproto{\Asv}  & \textproto{S}                &  S   & \verb|\Asv| \verb|\Ashin| \\
+tawwu  & mark         & \translitproto{\At}   & \textproto{t}                &  t   & \verb|\At| \verb|\Atav| \\
+%%%??     & ??           & \translitproto{\Au}   & \textproto{u}  \textproto{U} &  u U & \verb|\Au| \verb|\Afoot| \verb|\AAu| \verb|\AAfoot| \\
+??     & ??           & \translitproto{\Av}   & \textproto{v}  \textproto{V} &  v V & \verb|\Av| \verb|\Ahelmet| \verb|\AAv| \verb|\AAhelmet| \\
+\hline
+\end{tabular}
+\end{table}
+
+
+
+\end{document}

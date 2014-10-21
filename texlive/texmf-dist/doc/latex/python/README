@@ -1,0 +1,25 @@
+This package enables you to embed Python code (www.python.org) in LaTeX and insert the output into your LaTeX document.
+
+In you LaTeX document insert:
+
+\usepackage{python}
+...
+\begin{python}[optional.py]
+print("42")
+\end{python}
+
+The file optional.py is included together with the code between \begin{python} and \end{python}. Hence, you can extract common code to a shared file.
+
+Compile the document with the shell escape option and of course Python installed:
+
+% latex -shell-escape document.tex
+
+or insert/change "shell_escape = t" in your texmf.cnf
+
+If you have any comments, suggestions, or patches please email them to me.
+
+Please note that this material is subject to the GNU General Public License as published by the Free Software Foundation; either version 2 of the License, or (at your option) any later version.
+See http://www.gnu.org/copyleft/gpl.html for the details of that license.
+
+Martin R. Ehmsen
+martin@ehmsen.org

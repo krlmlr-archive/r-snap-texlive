@@ -1,0 +1,51 @@
+\input docstrip
+\keepsilent
+\preamble
+
+-------------------------------------------------------------------
+
+Copyright 2008--2010, Daniel H. Luecking
+
+Minifp may be distributed and/or modified under the conditions of the
+LaTeX Project Public License, either version 1.3b of this license or (at
+your option) any later version. The latest version of this license is in
+   <http://www.latex-project.org/lppl.txt>
+and version 1.3c or later is part of all distributions of LaTeX version
+2008/12/01 or later.
+
+Minifp has maintenance status "author-maintained". The Current Maintainer
+is Daniel H. Luecking. The Base Interpreters associated
+with minifp are plain TeX and LaTeX.
+
+\endpreamble
+\askforoverwritefalse
+\generate{%
+  \file{minifp.sty}{\from{minifp.dtx}{sty}}%
+  \file{mfpextra.tex}{\from{minifp.dtx}{extra}}%
+}
+
+\def\sps{\space\space\space\space}
+\def\sJ{^^J\sps}
+\immediate\write16{%
+^^J*******************************************************************
+^^J
+^^J To finish the installation:
+^^J
+^^J -- Copy the file minifp.sty to a location where TeX and LaTeX
+\sJ    will find them. For example, in a TDS compliant system,
+\sJ    the directory TEXMF/tex/generic/minifp/
+^^J
+^^J -- To obtain the documentation (minifp.pdf) if not provided, run
+\sJ\sps pdflatex minifp.dtx
+\sJ\sps pdflatex minifp.dtx
+\sJ\sps pdflatex minifp.dtx
+\sJ\sps makeindex -s gind.ist minifp.idx
+\sJ\sps pdflatex minifp.dtx
+\sJ    and copy minifp.pdf and README wherever you keep documentation
+\sJ    (for example, TEXMF/doc/generic/minifp/).
+^^J
+^^J -- Refresh the filename database if your TeX system requires it.
+^^J
+^^J*******************************************************************}
+
+\endbatchfile

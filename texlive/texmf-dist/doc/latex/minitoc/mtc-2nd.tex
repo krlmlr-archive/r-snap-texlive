@@ -1,0 +1,71 @@
+%%
+%% This is file `mtc-2nd.tex',
+%% generated with the docstrip utility.
+%%
+%% The original source files were:
+%%
+%% minitoc.dtx  (with options: `mtc-2nd')
+%% This is a generated file.
+%% 
+%% 
+%% This file may be distributed and/or modified under the conditions of
+%% the LaTeX Project Public License, either version 1.3 of this license
+%% or (at your option) any later version.  The latest version of this
+%% license is in:
+%% 
+%%    http://www.latex-project.org/lppl.txt
+%% 
+%% and version 1.3 or later is part of all distributions of LaTeX version
+%% 2003/12/01 or later.
+%% 
+%% This work has the LPPL maintenance status "author-maintained".
+%% 
+%% This Current Maintainer of this work is Jean-Pierre F. Drucbert (JPFD).
+%% 
+%% This work consists of all the files listed in the file `minitoc.l'
+%% distributed with it.
+%% Copyright 1993 1994 1995 1996 1997 1998 1999 2000
+%%           2001 2002 2003 2004 2005 2006 2007 2008
+%% Jean-Pierre F. Drucbert
+%% <jean-pierre.drucbert@onera.fr>
+%% Test de french2.mld:
+%% « seconde » ou « deuxième » partie?
+%% compilez 3 fois.
+\documentclass{report}
+\ProvidesFile{mtc-2nd.tex}%
+  [2007/01/04]
+\usepackage[french2,tight,listfiles]{minitoc}
+\usepackage[french]{babel}
+\usepackage{franc,frnew}
+\usepackage[OT1,TS1,T1]{fontenc}
+\usepackage[isolatin]{inputenc}
+\usepackage{mypatches}
+\begin{document}
+\ifmtcsecondpart
+Il n'y a que 2 parties: seconde.
+\else
+Il y a une partie ou plus de deux parties: deuxième.
+\fi
+\clearpage
+\doparttoc
+\faketableofcontents
+\part{P1}
+\parttoc
+\chapter{P1C1}
+\chapter{P1C2}
+\part{P2}
+\parttoc
+\chapter{P2C1}
+\chapter{P2C2}
+%% Commentez la ligne suivante puis recompilez 2 ou 3 fois.
+\end{document}
+\part{P3}
+\parttoc
+\chapter{P3C1}
+\chapter{P3C2}
+\end{document}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%
+\endinput
+%%
+%% End of file `mtc-2nd.tex'.

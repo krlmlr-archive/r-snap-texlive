@@ -1,0 +1,70 @@
+%%!TEX TS-program = pdflatexmk
+%%!TEX encoding = UTF-8 Unicode
+\documentclass{article}
+\usepackage{fourier}
+\usepackage[scaled=0.875]{helvet}
+\usepackage[scaled=0.95]{couriers}
+\usepackage{microtype}
+\usepackage{url}
+
+\newcommand{\fourier}{Fourier-GUT\kern-0.075em\textit{enberg}}
+\newcommand{\pkg}[1]{\textsf{#1}}
+
+\pagestyle{empty}
+
+\usepackage[small,compact]{titlesec}
+
+\begin{document}
+\begin{center}
+{\Large\bfseries A Scaled Courier Font}
+
+\vspace{3pt}
+Herbert Schulz\\\texttt{herbs2@mac.com}
+
+\vspace{3pt}
+December 24, 2011
+\end{center}
+%\maketitle
+%\thispagestyle{empty}
+
+\begin{abstract}
+The \pkg{couriers} package provides a scalable interface to the Courier Font for use as the Typewriter  Font with other type faces. It offers an interface just like that provided in the \pkg{helvet} package for the Helvetica Font used as the Sans Serif Font but with a different default magnification.
+\end{abstract}
+
+\section{Introduction}
+
+The \pkg{fourier} package uses the available Adobe Utopia fonts scaled down a bit for the Serif Font as well as maths. To my eyes the default Sans Serif and Typewriter Fonts, EC or CMSuper since \fourier\ uses T1 encoding, don't match well with scaled Utopia. I've settled on using Helvetica scaled at 0.875 for the Sans Serif Font but Courier at normal size appears too large. As with the \pkg{helvet} package this package provides a Scalable Courier which I use at 0.95 to match  \fourier; it is physically a bit too small but seems to look good at that scale to my eyes: as usual this is a bit on the personal side and YMMV.
+
+\section{Usage}
+
+Like the \pkg{helvet} package \pkg{couriers} takes a single optional argument, \texttt{scaled}. When used as
+\begin{verbatim}
+\usepackage{couriers}
+\end{verbatim}
+it gives you Courier scaled at its normal size as the default Typewriter Font. If you use the package with
+\begin{verbatim}
+\usepackage[scaled]{couriers}
+\end{verbatim}
+you get Courier scaled at 0.95 (i.e., a document set a 10pt will give Courier set a 9.5pt). You can get arbitrary scaling by using the package with
+\begin{verbatim}
+\usepackage[scaled=sfactor]{couriers}
+\end{verbatim}
+where \texttt{sfactor} is an arbitrary scale factor. E.g.,
+\begin{verbatim}
+\usepackage[scaled=1.05]{couriers}
+\end{verbatim}
+will give you Courier with a scale factor of 1.05 as the default Typewriter Font.
+
+\section{A Final Note}
+
+This document uses the \fourier\ Fonts (i.e., scaled Adobe Utopia) for the Serif Font, \textsf{Helvetica scaled at 0.875 for the Sans Serif Font (used for package names)} and \texttt{Courier scaled at 0.95 for the Typewriter Font}.
+
+\begin{center}
+\texttt{plain text \emph{emph text \textbf{bold emph text}} \textbf{bold text}}
+\end{center}
+
+\section{License}
+The couriers package may be distributed and/or modified under the conditions of the LaTeX Project Public License, either version 1.2 of this license or (at your option) any later version. The latest version of this license is in <\url{http://www.latex-project.org/lppl.txt}> and version 1.2 or later is part of all distributions of LaTeX version 1999/12/01 or later.
+
+\end{document}
+ 

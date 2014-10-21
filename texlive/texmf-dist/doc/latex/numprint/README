@@ -1,0 +1,77 @@
+numprint.sty and nbaseprt.sty
+=============================
+
+numprint.sty:
+Print numbers with a separator every three digits and convert numbers
+given as 12345.6e789 to 12\,345,6\cdot 10^{789}. Numbers are printed
+in the current mode (text or math) in order to use the correct font.
+  Many things, including the decimal sign, the thousand separator, as
+well as the product sign can be changed by the user, e.g., to reach
+12,345.6\times 10^{789}. If requested, numprint can round numbers to
+a given number of digits.
+  If an optional argument is given it is printed upright as unit.
+Numbers can be rounded to a given number of digits.
+  The package supports an automatic, language-dependent change of the
+number format.
+  Tabular alignment using the tabular(*), array, tabularx, and longtable
+environments (similar to the dcolumn and rccol packages) is supported
+using all features of numprint. Additional text can be added before and
+after the formatted number.
+
+If you prefer to use the old version 0.32 you may use numprint032.sty
+which will stay fixed.
+
+
+nbaseprt.sty:
+This package prints integer numbers in different bases (octal,
+decimal, hexadecimal, binary) similarly to the numprint package.
+But here, the number of digits within one group depends on the
+base.
+  This version of nbaseprt.sty is a BETA VERSION. The main command
+\nbaseprint will stay stable but all configuration commands and the output
+of \nbaseprint may change in future. Please give me feedback what can be
+improved and if the abbreviations for the different number bases are correct.
+
+
+
+Copyright 2000--2005, 2007, 2008, 2012 Harald Harders
+
+This program can be redistributed and/or modified under the terms
+of the LaTeX Project Public License Distributed from CTAN
+archives in directory macros/latex/base/lppl.txt; either
+version 1 of the License, or any later version.
+
+
+
+Installation:
+
+automatic: - run make
+	   - run make install
+	 or
+           - run make
+           - copy numprint.sty, nbaseprt.sty, and numprint032.sty to a place
+             where LaTeX can find them
+           - run texhash or the corresponding command of your distribution
+
+by hand: - execute latex on numprint.ins
+         - copy numprint.sty, nbaseprt.sty, and numprint032.sty to a place
+           where LaTeX can find them
+         - run texhash or the corresponding command of your distribution
+         If you also want to re-compile the documentation which should not
+         be necessary do the following items, too:
+         - execute:
+           pdflatex numprint.dtx
+           pdflatex numprint.dtx
+           makeindex -s gglo.ist -o numprint.gls numprint.glo
+           makeindex -s gind.ist numprint
+           pdflatex numprint.dtx
+         - copy numprint.pdf to the documentation tree of your 
+           TeX implementation
+	 - do the same replacing `numprint' by `nbaseprt' resp. 'numprint032'
+         - run texhash or the corresponding command of your distribution, 
+           again
+
+
+2012/08/20
+Harald Harders
+harald.harders@gmx.de

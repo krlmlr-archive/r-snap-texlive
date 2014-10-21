@@ -1,0 +1,133 @@
+%%
+%% This is file `msizetst.tex',
+%% generated with the docstrip utility.
+%%
+%% The original source files were:
+%%
+%% moresize.dtx  (with options: `testfile')
+%% 
+%%  Version: v1.9 [1999/07/26]
+%%  Author : Christian Cornelssen <cornsub1@flintstone.ukbf.fu-berlin.de>
+%% 
+%%  Copyright 1997,1998,1999 Christian Cornelssen
+%%  This program can be redistributed and/or modified under the terms
+%%  of the LaTeX Project Public License Distributed from CTAN
+%%  archives in directory macros/latex/base/lppl.txt; either
+%%  version 1 of the License, or any later version.
+%% 
+%% This is a test file for text and math size settings.
+%% You might want to test several configurations.  Therefore,
+%% it might be a good idea to save different versions of this file
+%% under different names.
+\documentclass[11pt,a4paper]{article}
+\usepackage{exscale}    %% for scaled \sum, \int etc.
+
+%% Available options for the `moresize' package:
+%%   10pt, 11pt, 12pt   (in \documentclass) determines font sizes
+%%   normalscripts      avoid script size explosion in huge writings
+%%   smallscripts       smaller, more appropriate script sizes
+%%   ecpatch            tell NFSS that huge EC fonts are available
+\usepackage[smallscripts]{moresize}
+
+%% Use the `t1enc' package for testing with DC/EC fonts
+\usepackage{t1enc}
+
+%% Consider a paragraph with a text line of depth d (below the baseline),
+%% followed by a line with an inline formula,
+%% followed by a text line with height h (above the baseline).
+%% Then the formula's height may not exceed \baselineskip - d,
+%% and its depth may not exceed \baselineskip - h,
+%% or the baseline skips will be stretched.
+%% The roman-text brackets `[' and `]' are used for estimating d and h.
+%% Note that the space for the formula seems to get larger if NFSS
+%% substitutes a smaller font, because \baselineskip does not shrink
+%% accordingly!
+\newlength\mathht       %% height available for an inline formula
+\newlength\mathdp       %% depth available for an inline formula
+\newcommand\calcmathspace{%
+        \settodepth\mathht{\textrm{[}}%
+        \setlength\mathht{-\mathht}%
+        \addtolength\mathht{\baselineskip}%
+        \settoheight\mathdp{\textrm{]}}%
+        \setlength\mathdp{-\mathdp}%
+        \addtolength\mathdp{\baselineskip}}
+
+%% The following command shows its argument, typeset in text style,
+%% between two horizontal lines showing the available space in a text line.
+%% If the argument overprints the lines, it would stretch
+%% the baseline skip in a paragraph.
+\newcommand\linebox[1]{\calcmathspace\begin{tabular}{@{}l@{}}\hline
+        \raisebox{0pt}[\mathht][\mathdp]{#1}\\\hline\end{tabular}}
+
+%% A macro for sample math expressions.
+%% The original definition gives expressions which should fit into
+%% paragraphs without enlarging the baseline skip.
+%% For variable-sized \sum or \int symbols, \usepackage{exscale} is needed.
+%% Caution: Main (i.e. non-script) symbols are 24.88pt maximum
+%% with CM math fonts. You may try using text fonts instead,
+%% but some vertical positionings and spacings still go wrong then.
+\newcommand\msample{\ensuremath{
+    \frac{X}{Y}
+\,  g^{i_1\ldots i_n}_{j_1\ldots j_n}
+\,  \frac{t^2}{2!}
+\,  e^{-\frac{t}{\tau}}
+}}
+
+%% None of the size options 10pt, 11pt, and 12pt offers the entire spectrum
+%% of available font sizes.
+%% For example, the 10pt option offers no command for selecting 10.95pt,
+%% and the 12pt option does not provide a command for 9pt.
+%% The 11pt option fills both gaps, but misses the extremes 35.83pt and 5pt.
+%% Therefore, a shorthand for lower-level size switches is provided.
+%% E.g. \Size{20.74}{25} selects a 20.74pt font size with 25pt baselineskip.
+\newcommand\Size[2]{\fontsize{#1}{#2}\selectfont}
+
+\begin{document}
+\parindent0pt
+
+%% The test output should fit onto one page
+\pagestyle{empty}
+\enlargethispage{1in}
+
+%% Don't forget to list the moresize options in the test output!
+\textsf{moresize} options:
+%%[10pt]
+[11pt]
+%%[12pt]
+%%[normalscripts]
+[smallscripts]
+%%[ecpatch]
+
+%% Are you using HUGE fonts?
+%%Using CM fonts only.
+%%Using DC fonts for text, CM fonts for math.
+Using EC fonts for text, CM fonts for math.
+
+\begin{center}
+\newcommand\n{\\\\[-1ex]}       %% for separating the tabular lines
+\begin{tabular}{@{}ll@{}}
+        \Size{35.83}{43}\linebox{36pt}
+                                & \Size{35.83}{43}\linebox{\msample}
+\n      \HUGE\linebox{HUGE}     & \HUGE\linebox{\msample}
+\n      \Huge\linebox{Huge}     & \Huge\linebox{\msample}
+\n      \huge\linebox{huge}     & \huge\linebox{\msample}
+\n      \LARGE\linebox{LARGE}   & \LARGE\linebox{\msample}
+\n      \Large\linebox{Large}   & \Large\linebox{\msample}
+\n      \large\linebox{large}   & \large\linebox{\msample}
+\n      \normalsize\linebox{normalsize}
+                                & \normalsize\linebox{\msample}
+\n      \small\linebox{small}   & \small\linebox{\msample}
+\n      \footnotesize\linebox{footnotesize}
+                                & \footnotesize\linebox{\msample}
+\n      \scriptsize\linebox{scriptsize}
+                                & \scriptsize\linebox{\msample}
+\n      \ssmall\linebox{ssmall} & \ssmall\linebox{\msample}
+\n      \tiny\linebox{tiny}     & \tiny\linebox{\msample}
+\n      \Size{5}{6}\linebox{5pt}
+                                & \Size{5}{6}\linebox{\msample}
+\end{tabular}
+\end{center}
+\end{document}
+%% 
+%%
+%% End of file `msizetst.tex'.

@@ -1,0 +1,98 @@
+%%
+%% This is file `verbexample.tex',
+%% generated with the docstrip utility.
+%%
+%% The original source files were:
+%%
+%% texpower-doc.dtx  (with options: `verbexample')
+%% 
+%% --------------------------------------------------------------
+%% TeXPower bundle - dynamic online presentations with LaTeX
+%% Copyright (C) 1999-2004 Stephan Lehmke
+%% Copyright (C) 2003-2005 Hans Fredrik Nordhaug
+%% 
+%% This program is free software; you can redistribute it and/or
+%% modify it under the terms of the GNU General Public License
+%% as published by the Free Software Foundation; either version 2
+%% of the License, or (at your option) any later version.
+%% 
+%% This program is distributed in the hope that it will be useful,
+%% but WITHOUT ANY WARRANTY; without even the implied warranty of
+%% MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+%% GNU General Public License for more details.
+%% --------------------------------------------------------------
+%% 
+%% The list of all files belonging to the TeXPower bundle is
+%% given in the file `00readme.txt'.
+%% 
+\ProvidesFile{verbexample.tex}%
+      [2005/04/07 TeXPower example file]
+%-----------------------------------------------------------------------------------------------------------------
+%
+% Example showing the use of verbatim/fragile steps (using the fragilesteps environment).
+%
+%-----------------------------------------------------------------------------------------------------------------
+
+\documentclass[12pt,a4paper]{article}
+\usepackage[display]{texpower}
+\usepackage{ fancyvrb,listings,alltt}
+% Command to easily include some lines of code from a file
+\def\listcodefromfile#1#2#3{%
+\lstinputlisting[firstline=#1,lastline=#2,aboveskip=0pt,belowskip=0pt]{#3}}
+\begin{document}
+
+\begin{center}
+{\textbf{Example showing the use of verbatim/fragile steps with the fragilesteps environment}}
+\end{center}
+
+A simple example (with alltt) showing steps with verbatim text.
+Multiple lines in one step is only supported by alltt (and only for the
+standard step command, not bstep).
+\pause
+\begin{fragilesteps}
+\begin{alltt}
+    One\step{
+    Two
+    Three}
+    Four
+\end{alltt}
+\end{fragilesteps}
+
+\pause
+
+An easy example (with listings) for including small parts of code in each step.
+If you want to include code line by line look at the next example. Notice that in this
+example you really don't need to use the fragilesteps environment, because
+there are no verbatim code - the next example however...
+\lstset{language=Java}
+\begin{fragilesteps}
+\step{\listcodefromfile{1}{3}{dummy.java}}
+\step{\listcodefromfile{4}{7}{dummy.java}}
+\end{fragilesteps}
+
+\pause
+
+A (fancy) example using the fancyvrb interface of the listings package.
+The re(b)step command is used to make some lines of code appear at the same time.
+(You can not include multiple lines in each (b)step command.)
+\pause
+\lstset{fancyvrb=true}
+\fvset{commandchars=\\\[\]}
+\begin{fragilesteps}
+\begin{Verbatim}[fontfamily=cmr]
+    public long recur(int n) {
+\bstep[        if (n<1) {]
+\rebstep[            return 0;]
+\bstep[        } else if (n == 1) {]
+\rebstep[            return 1;]
+\bstep[        } else {]
+\rebstep[            return \bstep[recur(n-1)+recur(n-2);]]
+\rebstep[        }]
+    }
+\end{Verbatim}
+\end{fragilesteps}
+
+\end{document}
+\endinput
+%%
+%% End of file `verbexample.tex'.

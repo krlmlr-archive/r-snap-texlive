@@ -1,0 +1,139 @@
+This relenc package is released under the LaTeX Project Public
+License, version 1 or (at your option) any later version.
+
+ABSTRACT: 
+What in my opinion is one of the most irritating limitations with the 
+standard encodings used with LaTeX today is that they either have very 
+few slots available for ligatures or offer no way in which LaTeX can make 
+use all those accented character glyphs that fonts usually come equipped 
+with. The relenc package makes it possible to get around this by 
+introducing the concept of a relaxed encoding. Unlike normal encodings, 
+relaxed encodings give the font designer (or whoever is setting up the 
+font for use with LaTeX) a saying on what the author commands setting text 
+from the fonts should really do to get their work done. This can be used 
+to make more slots available for ligatures without more than marginally 
+changing the visible result of any command.
+
+One such relaxed encoding is included with the relenc package: the T1R 
+encoding. It behaves like T1 to the author, but allows the font designer to 
+include some 60 ligatures in the font (T1 only allows seven). Note however 
+that it is up to the font designer to decide how those 60 slots should be 
+used, so any subset of them can just as well be used for accented letters.
+
+The package also comes with a font family called zcm, which exists only to 
+provide an example of what can be done with the relenc package. This 
+example can be viewed if you typeset the file reldemo.tex, but before you 
+do that you need to have docstrip generate some other files. That will be 
+done automatically if you run LaTeX on relenc.ins.
+
+
+The distribution of the package roughly consists of four logical parts:
+The first part is the package itself and its documentation, the second is 
+the T1R encoding, the third is the zcm font family, and the fourth consists 
+of files related to the distribution in general. The files in all four 
+parts are listed and described below. All these files should be present in 
+the distribution. If you recieve only some of these files from someone, 
+then complain.
+
+The files in the fourth part are:
+
+README        This file
+relenc.ins    The docstrip installation script for the package and 
+              accompanying files. This script extracts files for parts 
+              one, two, and three from their respective documented source 
+              files.
+
+The files in the first part are:
+
+relenc.dtx    The documented source file for the relenc package.
+relenc.tex    The complete documentation. The appendices of this document 
+              even contain the documentation for the T1R encoding and zcm 
+              font family, but that text is located in the files 
+              t1renc.dtx and t1rzcm.fdd.
+2sidedoc.sty  A LaTeX2e package used when typesetting relenc.tex and 
+              relenc.dtx. See [1] below.
+
+
+The file in the second part is:
+
+t1renc.dtx    The specification of the T1R encoding and the documented 
+              source for its encoding definition file.
+
+The files in the third part are:
+
+t1rzcm.fdd    A short description of the zcm font family and the 
+              documented source for its font definition file.
+reldemo.tex   A file that generates an example of what can be done with 
+              the relenc package.
+zcmr8d.tfm    \   The actual font files for the zcm font family.
+zcmr8d.vf      |  PLEASE NOTE: These files are binary files and must be 
+zcmr8d.vf2     |  transferred as such. If TeX, while typesetting
+zcmr8d.vf3     \  reldemo.tex, stops and complains about "Bad metric (TFM) 
+zcmra.tfm      /  file" then these files have most likely been damaged in 
+zcmra.vf       |  some way. This sort of thing is usually caused by the 
+zcmra.vf2      |  files being FTPed as text files instead of binary 
+zcmra.vf3     /   files. ALSO NOTE: You only need four of these for any 
+                  given TeX installation, but different installations need 
+                  different subsets of them. See the documentation (typeset 
+                  relenc.tex or t1rzcm.fdd) for more information.
+
+The files docstrip generate from the documented source files above are:
+
+relenc.sty    This is the relenc package itself.
+t1renc.def    This is the encoding definition file for the T1R encoding.
+t1rzcm.fd     This is the font definition file for the zcm font family 
+              under the T1R encoding.
+ecsubzcm.sty  This is a helper package, that may be useful for those who 
+              uses the T1R encoding but prefer not to have the zcm font 
+              family around.
+
+A simple installation:
+
+  Files to put in some TeX inputs directory:
+    relenc.sty
+    t1renc.def
+    t1rzcm.fd
+  
+  Files to put in some directory where TeX and DVI drivers looks for 
+  TeX font metric (TFM) files:
+    zcmr8d.tfm
+    zcmra.tfm
+
+  Files to put in some directory where DVI drivers looks for virtual font 
+  (VF) files:
+    zcmr8d.vf
+    zcmra.vf
+
+
+
+[1] The usage of the 2sidedoc package here is merely to split some of my 
+    overlong macro names on more than one line, but I originally wrote it 
+    to get a better layout on files documented with the doc package when 
+    printing them in twoside mode. 2sidedoc sees to that the macro and 
+    environment names printed in the margin by the commands in doc always 
+    end up in the outer margin (instead of the left margin as with the 
+    naked doc package) when the class operates in twoside mode.
+    
+    One funny thing about the package is that it writes information in the 
+    aux file to help it figure out (for each piece of marginal material) 
+    which margin is the outer. Due to this you may have to typeset a 
+    document more than one time before the placing gets correct 
+    everywhere, but that is the same kind of problem you'll be used to 
+    get with incorrect page references, so we all know we can live with it.
+    
+    I intend to make a proper release of the 2sidedoc package sometime, 
+    but first I will have to do something about the placement of codeline 
+    numbers as well. As it turns out, the codeline numbers will assume the 
+    role of an optical axis on the page; marking the boundary between the 
+    body text and marginal material parts of the paper. This means that 
+    these codeline numbers will have to change side depending on whether 
+    the page is odd or even as well, just like the marginal material, and 
+    I haven't gotten round to implementing a mechanism for this yet.
+    
+    Still, there is no harm in using the package as it is. If you put its 
+    \usepackage somewhere after that of doc, then it will modify the doc 
+    macros that needs to be modified. You don't notice much of it however, 
+    unless you are typesetting with twosided printing active.
+
+
+Lars Hellström

@@ -1,0 +1,139 @@
+%%
+%% This is file `examples.tex',
+%% generated with the docstrip utility.
+%%
+%% The original source files were:
+%%
+%% barcodes.dtx  (with options: `example')
+%% As this is a generated file, you may perhaps not want to edit it.
+%% This file belongs to the barcode package.
+%% It may be of no great use without the rest of the barcode package.
+%% \CharacterTable
+%%  {Upper-case    \A\B\C\D\E\F\G\H\I\J\K\L\M\N\O\P\Q\R\S\T\U\V\W\X\Y\Z
+%%   Lower-case    \a\b\c\d\e\f\g\h\i\j\k\l\m\n\o\p\q\r\s\t\u\v\w\x\y\z
+%%   Digits        \0\1\2\3\4\5\6\7\8\9
+%%   Exclamation   \!     Double quote  \"     Hash (number) \#
+%%   Dollar        \$     Percent       \%     Ampersand     \&
+%%   Acute accent  \'     Left paren    \(     Right paren   \)
+%%   Asterisk      \*     Plus          \+     Comma         \,
+%%   Minus         \-     Point         \.     Solidus       \/
+%%   Colon         \:     Semicolon     \;     Less than     \<
+%%   Equals        \=     Greater than  \>     Question mark \?
+%%   Commercial at \@     Left bracket  \[     Backslash     \\
+%%   Right bracket \]     Circumflex    \^     Underscore    \_
+%%   Grave accent  \`     Left brace    \{     Vertical bar  \|
+%%   Right brace   \}     Tilde         \~}
+%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%
+%% This file documents look and use of
+%% the barcodes this package belongs to.
+%% It may be freely used without any
+%% further permission.
+%% You should have received this file as part of
+%% the barcode package.
+%%
+%% Author: Peter Willadt
+%% Date: 1997-11-29
+%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%
+%% Note:
+%% 1. This file has already been run through codean.pl
+%%
+%% 2. You need to have the fonts installed, of course.
+%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Fonts
+%%
+\font\xlix=wlc39 scaled 2000
+\font\itf=wlitf  scaled 2000
+\font\cdb=wlcdb  scaled 2000
+\font\eanfont=WLEAN scaled 1200
+\font\fntcxx=wlc128 scaled \magstep3
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Inputs
+%%
+\input code39.tex
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Def's
+%%
+%% for EAN
+\def\ean#1{\message{Call codean.pl}}
+\def\eean#1{\message{Call codean.pl}}
+\def\isbn#1{\message{Call codean.pl}}
+\def\embed#1{}
+\def\EAN#1{\vbox{\hsize=0.4\hsize\vskip10pt\eanfont#1\vskip10pt}}
+%% for Code 128
+\def\CXXVIII{\bgroup\fntcxx\let\next\hexchar\next}
+\def\hexchar#1#2{\if#1@\global\let\next\egroup\else\char"#1#2\fi\next}
+%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Here we go
+\parindent0pt
+Hello, this is a test sheet of the barcode fonts.
+
+At first, we deal with code 39. Code 39 is represented in this package
+both in form of a native font (Metafont-source) and in form of
+\TeX{}-macros. code 39 features low-density alphanumeric encoding.
+
+Here you may see how HELLO looks like in code 39 (the start and stop
+sign is mapped to @, if you're curious, so in the source to this sheet
+I have written {\tt@HELLO@} after having selected the proper
+font). This first example uses the font.
+
+{\xlix@HELLO@}
+
+Another approach is to use \TeX{} macros to make up bars. Here is the
+same HELLO with macros: Please note that for the macro version, you
+have to use the underbar if you want to have a space coded.
+
+\begincodethirtynine{HELLO}\endcodethirtynine
+
+Interleaved two-of-five (ITF for short) features high-density
+numerical-only encoding. Your code has to have an even number of
+digits. The start sign is mapped to $+$, the end sign to $-$.
+So, to code 0123456789, you type {\tt+0123456789-}, and the result
+looks like this:
+
+{\itf+0123456789-}
+
+If you still have not got enough of barcoding, here is codabar. Here
+you got four sets of start/stop signs that get decoded together with
+the numbers. The start/stop sign pairs are a/t, b/n, c/*, and d/e. So
+{\tt a12345t} looks like this:\bigskip
+
+{\cdb a12345t}
+
+Now you should have a look at code 128. The bars itself look sometimes
+disrupted; this is due to the fact that the widest elements are four
+times as wide as the narrowest. Code 128 enables you to code any 7-bit
+ascii character. With digits only, it is as efficent as itf. The bad
+news is the preprocessing required, so you have to read the docs. The
+following bars mean {\tt Hallo123456}\bigskip
+
+\CXXVIII 6828414C4C4F630C2238506A@@  % Code128(Hallo123456)
+
+And, last and perhaps most important, the EAN font. Read {\tt
+eandoc.tex} to find out how these are coded, here is just the output
+of the example code mentioned there:
+\embed{2500000000000}
+
+\line{
+\EAN{4 +AcFHaa-KKLKNK+} % or, without checksum: %(4025700001030)
+\hfil
+\EAN{4 +AcFHaa-KKLKNK+} %(402570000103)
+}
+\line{
+\EAN{2 +FAaaAa-KKLMNT+} % embedded(123)
+\hfil
+\EAN{9 +HiaCaB-LNOOSN+} % ISBN(0201134489)
+}
+
+And that's all. Perhaps you may think that this is not a beautiful
+document---but barcodes aren't beautiful. As long as reading devices
+do not have \ae{}sthetic feelings, I don't regard this as a problem.
+\bye
+\endinput
+%%
+%% End of file `examples.tex'.

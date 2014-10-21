@@ -1,0 +1,52 @@
+\NeedsTeXFormat{LaTeX2e}[1999/12/01]
+\ProvidesPackage{logoletter}   
+  [2010/08/21 v1.1 logoletter style file for isodoc]
+\usepackage{fontspec,polyglossia}
+\hypersetup{hidelinks}
+\setupdocument{
+  nofooter,fold2,autograph=1,
+  company         = The Shiva Shakti Foundation,
+  who             = Wybo Dekker,
+  street          = Deilsedijk 60,
+  city            = Deil,
+  zip             = 4158 CH,
+  country         = The Netherlands,
+  countrycode     = IN,
+  areacode        = 31,
+  phone           = {87\,8748496},
+  cellphone       = {6\,15492070},
+  fax             = {},
+  website         = wybo.xs4all.nl,
+  email           = wybo@xs4all,
+  accountno       = {304046221},
+  iban            = nl61pstb0006238747,
+  bic             = pstbnl21,
+  addresscenter   = 70,
+  rightaddress
+}
+\autograph{2}{19mm}{17}{93}{21}{signblue}
+
+\definecolor{headcolor}{rgb}{.14,.33,.43}
+\definecolor{shivablue}{rgb}{.14,.33,.43}
+\definecolor{shivaback}{rgb}{.97,.87,.71}
+
+\renewcommand{\logo}{\if@isodoclogo
+  \pagecolor{shivaback}
+  \begin{textblock}{2}(10,13)
+    \includegraphics[scale=.3]{shiva-shakti.png}
+  \end{textblock}
+  \begin{textblock}{105}(88,15)
+    \begin{center}
+      \fontspec{ChopinScript}
+      \noindent\color{shivablue}{\Huge The Shiva Shakti Foundation}\\[2ex]
+      Main Building\quad 
+      567\textsuperscript{th} floor\quad 
+      Room 123\quad 
+      Bangkok
+    \end{center}
+  \end{textblock}\fi
+}
+\setmainfont[Mapping=tex-text]{MinionPro-Regular}
+\setdefaultlanguage{english}
+\setotherlanguage{dutch}
+\endinput

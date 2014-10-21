@@ -1,0 +1,97 @@
+%% BEGIN frame-doc
+%%
+%% $Id: frame-doc.tex 320 2010-05-15 09:42:13Z herbert $
+\documentclass[12pt]{article}
+\usepackage[T1]{fontenc}
+\usepackage{mathpazo,url}
+\usepackage[colorlinks,linktocpage]{hyperref}
+
+\usepackage{frame}
+\let\Ffv\fileversion
+% Usage:
+% \fancyframebox {rule thickness} {separation from inner guy} {inner guy}
+%
+% \makeemptybox {width} {height} {depth}
+\begin{document}
+\title{Documentation for frame.tex:\\
+  fancy frames for generic TeX}
+\author{Timothy Van Zandt\thanks{The documentation was put into
+  \LaTeX\ format by Herbert Vo\ss}\\ \url{tvz@Princeton.EDU}}
+\date{Version \Ffv\\[3pt] \today}
+
+\maketitle
+\thispagestyle{empty}
+
+\begin{abstract}
+\texttt{frame.tex/frame.sty} provides fancy frames for generic TeX 
+\end{abstract}
+
+\clearpage
+\tableofcontents
+\clearpage
+
+\section{Usage} 
+ 
+\setbox0=\hbox{\it the center}
+\count11=1
+\loop\ifnum\count11<11
+    \setbox0=\hbox{\fancyframebox{.1pt}{5pt}{\unhbox0}}
+    \advance\count11 by1
+\repeat
+ 
+\vbox{\centerline{\box0}\vss}
+ 
+This paragraph is probably rather hard to read.  I have used \TeX's
+rule-drawing and macro capability to set 10 boxes on top of the
+text.  This was rather easy to do in \TeX.  I challenge anyone
+to come up with as simple a method for {\it troff}.
+ 
+\def\\{\char`\\}\def\{{\char`\{}\def\}{\char`\}}
+The command I used was:
+ 
+$$\hbox{\tt \\fancyframebox\{.1pt\}\{5pt\}\{{\it text to be boxed}\}}$$
+ 
+{\tt \\fancyframebox} makes a framed {\tt \\hbox} containing its
+third argument, surrounded by extra space (its second argument),
+and rules on all four sides whose width is its first argument.
+To get 10 boxes, you just re-frame 10 times.  I used a {\tt \\loop}
+construct, but one could just write out 10 nested {\tt \\fancyframebox}
+calls.
+ 
+In order to center the fancy boxes, I put them into {\tt \\box0} and
+used {\tt \\centerline\{\\box0\}} to write it out.  To make the
+text come out on top, I put it in a {\tt \\vbox to 0pt} construct,
+making \TeX\ try to squeeze everything vertically to zero.  A
+{\tt \\vss} allowed the {\tt \\vbox} to shrink (without it \TeX
+\ would still have done the job, but would have complained about
+an ``overfull {\tt \\vbox}'').[Ed.-Example was changed...]
+ 
+Thus, the final set of commands, including the \TeX\ loop instructions,
+to typeset the boxes was
+ 
+\bigskip
+
+\begin{verbatim} 
+\setbox0=\hbox{\it the center}
+\count11=1
+\loop\ifnum\count11<11
+    \setbox0=\hbox{\fancyframebox{.1pt}{5pt}{\unhbox0}}
+    \advance\count11 by1
+\repeat
+ 
+\vbox{\centerline{\box0}\vss}
+\end{verbatim}
+ 
+\bigskip
+ 
+Simple---at least when you consider the task\dots.
+
+\section{Macros}
+
+
+\begin{verbatim}
+\fancyframebox{rule thickness}{separation from inner guy}{inner guy}
+\makeemptybox{width}{height}{depth}
+\end{verbatim}
+ 
+\end{document}

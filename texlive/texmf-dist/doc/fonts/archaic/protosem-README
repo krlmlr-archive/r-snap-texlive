@@ -1,0 +1,92 @@
+    The protosem package provides fonts for the Proto-Semitic script in use 
+about 1600 BC, and which may have been a very early ancestor of many of the 
+world's alphabets. Files for using the font with LaTeX are also included.
+This is one of a series of ancient fonts.
+
+Changes in version 1.3 (2005/07/21)
+----------------------
+o Minor fix to encoding 
+
+Changes in version 1.2 (2005/03/18)
+----------------------
+o Font supplied as Postscript Type1 instead of MetaFont
+
+Changes in version 1.1 (2000/09/30)
+----------------------
+o Minor changes to the glyph encoding to match other fonts in the series
+
+Changes in version 1.0 (1999/03/14)
+----------------------
+o First public release
+
+------------------------------------------------------------------
+  Author: Peter Wilson (Herries Press) herries dot press at earthlink dot net
+  Copyright 2005 Peter R. Wilson
+
+  This work may be distributed and/or modified under the
+  conditions of the Latex Project Public License, either
+  version 1.3 of this license or (at your option) any
+  later version.
+  The latest version of the license is in
+    http://www.latex-project.org/lppl.txt
+  and version 1.3 or later is part of all distributions of
+  LaTeX version 2003/06/01 or later.
+
+  This work has the LPPL maintenance status "author-maintained".
+
+  This work consists of the files:
+    README (this file)
+    protosem.dtx
+    protosem.ins
+    protosem.pdf
+  and the derived files
+    protosem.sty
+    ot1proto.fd
+    t1proto.fd
+    protosem.map
+    proto10.mf
+
+------------------------------------------------------------------
+     The distribution consists of the following files:
+README (this file)
+protosem.dtx
+protosem.ins
+protosem.pdf     (user manual)
+tryprotosem.tex  (example usage)
+tryprotosem.pdf  
+proto10.afm
+proto10.pfb
+proto10.tfm
+
+    To install the package:
+o run: latex protosem.ins, which will generate:
+       protosem.sty
+       *.fd files
+       protosem.map
+       and posibly proto10.mf
+o Move the *.sty and *.fd files to a location where LaTeX will find them 
+    e.g. .../texmf-local/tex/latex/protosem
+o Move the *.afm, *.pfb and *.tfm files where LaTeX looks for font information
+    e.g., .../texmf-var/fonts/afm/public/archaic/*.afm
+          .../texmf-var/fonts/type1/public/archaic/*.pfb
+          .../texmf-var/fonts/tfm/public/archaic/*.tfm
+o Add the *.map information to the dvips/pdftex psfont maps
+   If you want the MetaFont version as well:
+   o Move the *.mf files to, e.g., .../texmf-var/fonts/source/public/protosem
+   o Add a linec like the following to the (texmf/fontname)special.map file:
+     proto10.mf     public      protosem
+o Refresh the database
+  (for more information on the above see the FAQ).
+
+o run: latex tryprotosem for a test of the Proto-Semitic font
+
+    To generate a second copy of the manual (which is already supplied as a PDF file):
+o run: latex protosem.dtx
+o (for an index run: makeindex -s gind.ist protosem.idx)
+o run: latex protosem.dtx
+o Print protosem.dvi for a hardcopy of the package manual
+
+2005/07/21
+Peter Wilson
+herries dot press at earthlink dot net
+

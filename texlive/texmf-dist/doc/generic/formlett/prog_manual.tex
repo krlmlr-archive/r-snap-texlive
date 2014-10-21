@@ -1,0 +1,1906 @@
+% PROGRAMMER'S MANUAL in Plain TeX
+
+\input formlett.sty
+
+% FONTS
+\font\hbold=cmbx10 at 17.28pt
+\font\lbold=cmbx10 at 14.4pt
+\font\bbold=cmbx10 at 12pt
+\font\small=cmr8
+\font\tiny=cmr5
+\font\stt=cmtt9
+\catcode`\@=11\relax
+%
+%
+%
+% OTHER MACROS
+%
+\catcode`\~=11\relax \def\t{{\tt ~}}
+\catcode`\~=\active\relax
+\catcode`\!=0\relax !catcode`!\=11!relax
+!def!esc{\}!def!escs{\! }
+!catcode`!\=0!relax \catcode`\!=12\relax
+\def\rqs{\rq\ }
+\def\LaTeX{{\rm L\kern-.36em\raise.3ex\hbox{\font\sc=cmcsc10\sc a}\kern-.15em
+    T\kern-.1667em\lower.7ex\hbox{E}\kern-.125emX}}
+
+% makeshift macro
+\catcode`\^^M=13\relax%
+\def\setraw{\bgroup\rm@ligature\set@space\set@tab%
+\set@cr\stt\raw@chars[11][13][13][13][13]\def^^M{\strut\par}\setraw@@}%
+\edef\temp@macro{%
+   \noexpand\long\noexpand\def\noexpand\setraw@@\noexpand##1^^M##2%
+     \esc@  unsetraw{##1##2\noexpand\egroup}}\temp@macro %
+\catcode`\^^M=5\relax%
+
+
+\font\ninerm=cmr9  \font\eightrm=cmr8
+\font\ninei=cmmi9  \font\eighti=cmmi8
+\font\ninesy=cmsy9 \font\eightsy=cmsy8
+\font\ninebf=cmbx9 \font\eightbf=cmbx8
+\font\ninett=cmtt9 \font\eighttt=cmtt8
+\font\nineit=cmti9 \font\eightit=cmti8
+\font\ninesl=cmsl9 \font\eightsl=cmsl8
+
+\font\sixrm=cmr6
+\font\sixi=cmmi6
+\font\sixsy=cmsy6
+\font\sixbf=cmbx6
+
+\skewchar\ninei='177  \skewchar\eighti='177  \skewchar\sixi='177
+\skewchar\ninesy='60  \skewchar\eightsy='60  \skewchar\sixsy='60
+\hyphenchar\ninett=-1 \hyphenchar\eighttt=-1 \hyphenchar\tentt=-1
+
+\font\tentex=cmtex10
+\font\inchhigh=cminch
+\font\titlefont=cmssdc10 at 40pt   % titles in chapter openings
+\font\eightss=cmssq8               % quotations in chapter closings
+\font\eightssi=cmssqi8             % ditto, slanted
+\font\tenu=cmu10                   % unslanted te~t italic
+\font\manual=manfnt                % METAFONT logo and special symbols
+\font\magnifiedfiverm=cmr5 at 10pt % to demonstrate magnification
+
+\newskip\ttglue
+\def\eightpoint{\def\rm{\fam0\eightrm}% switch to 8-point type
+  \textfont0=\eightrm \scriptfont0=\sixrm \scriptscriptfont0=\fiverm
+  \textfont1=\eighti  \scriptfont1=\sixi  \scriptscriptfont1=\fivei
+  \textfont2=\eightsy \scriptfont2=\sixsy \scriptscriptfont2=\fivesy
+  \textfont3=\tenex   \scriptfont3=\tenex \scriptscriptfont3=\tenex
+  \textfont\itfam=\eightit  \def\it{\fam\itfam\eightit}%
+  \textfont\slfam=\eightsl  \def\sl{\fam\slfam\eightsl}%
+  \textfont\ttfam=\eighttt  \def\tt{\fam\ttfam\eighttt}%
+  \textfont\bffam=\eightbf  \scriptfont\bffam=\sixbf
+   \scriptscriptfont\bffam=\fivebf  \def\bf{\fam\bffam\eightbf}%,
+  \tt \ttglue=.5em plus.25em minus.15em
+  \normalbaselineskip=9pt
+  \setbox\strutbox=\hbox{\vrule height7pt depth2pt width0pt}%
+  \let\sc=\sixrm  \let\big=\eightbig  \normalbaselines\rm}
+
+
+%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%
+%
+% END OF EXTRA MACROS AND FONTS
+%
+%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%
+
+
+
+\message{<<document for programmers>>}
+\catcode`\@=11\relax
+\PAGENO=1
+\voffset=-0.3in
+
+
+\ifx\pageno\undefined
+\errmessage{Please run TeX if you want this article on how to use
+<formlett.sty> to be processed as well!}
+\fi
+
+
+\parindent=0pt
+\hsize=469.75499pt  % the default
+\vsize=9.6in %8.83in
+%\vsize=8.83in
+
+\def\makefootline{\baselineskip=24pt \line{\the\footline}}
+\footline={\lower5pt
+\hbox to \hsize
+ {{\tenrm Jiang Z ~~~{\tensl Formlett: ~for letters to multiple receivers}
+\hss \folio}}}
+
+\leftline{\hbold FORMLETT: ~~~for Letters to Multiple Receivers}
+\bigskip
+
+
+{\advance\leftskip by13mm \overfullrule=0pt
+\advance\rightskip by 20mm %28mm
+\sl
+\noindent Zhuhan JIANG\par
+\noindent School of Computing and Information Technology,
+ University of Western Sydney, Victoria Road, Parramatta NSW 2150, Australia.
+{\sl ~~Email}:~z.jiang@uws.edu.au\par
+\medskip
+\rm\smooth
+\noindent (Last updated on 26 May 2003)\par
+\medskip
+
+\noindent
+In this article, the author explains how to use a form-letter
+style {\tt formlett.sty}, designed for plain \TeX\ and \LaTeX
+\ or \LaTeX2e. {\tt formlett.sty} supports different parameter input
+methods, parameter naming and defaulting mechanism, as well as
+facilities for previewing parameter positions and printing
+labels. It is written for the purpose of being powerful, robust
+and above all easy to use.\par }
+
+
+\begincolumns
+
+{\lbold Introduction}
+
+\smallskip
+
+In this modern world of ours, we often need to send a set of form
+letters, personalised or non-personalised, to many receivers at
+the same time. Or perhaps we would like to have a collection of
+business letters or information brochures which we would like to
+call upon {\sl instantly} whenever we need them.
+
+\medskip
+
+Our purpose here is therefore to describe a comprehensive
+implementation of such a macro system, handling form letters
+under \TeX\ or \LaTeX. The main objective is to provide an easy
+way to output many form letters with  their own parameters, with
+or without the use of multiple files. There will be a coherent
+and simple format for putting parameters inside a form letter,
+with a number of helping facilities for such as naming parameters
+and previewing their positions. A minimum support for printing
+mailing labels is also provided.
+
+
+\medskip
+
+The concept of macros [1] for form letters is not new: there
+already exist macros in this connection such as {\tt merge}, {\tt
+textmerg} and {\tt address} to name a few, see [2,3] for further
+details. Our stress here is therefore laid on the ease to use,
+along with the power and the robustness of the macros.
+
+\bigskip
+{\lbold Format}
+
+\smallskip
+
+In this section, we always assume that the file {\tt formlett.sty}
+or {\tt formlett.tex} of version {\tt 2.3} has
+already been input. Certain version of {\tt formlett.sty} can be
+obtained via anonymous ftp from CTAN sites at
+{\tt macros /generic}.
+
+\medskip
+
+Essentially, each form letter, or letter format or letter
+template, will be included between {\tt \string\beginletter} and
+{\tt \string\endletter}. Letter parameters that will be specified
+later on for each particular letter can be given by {\tt
+\string\paras[<m>][<n>]}, representing the {\tt <m>}-th parameter
+of the {\tt<n>}-the parameter group, at the positions you want
+them to be. Let a cluster denote a complete collection of
+parameters that may be specified for a form letter. Then we can
+specify letter parameters group by group for a cluster such that
+inside each group the parameters are given {\sl sequentially} and
+a termination of one group should not affect the
+resynchronisation for the next group. For instance we can keep
+the address of a receiver as a single group, as it often contains
+different number of (parameter) lines.
+
+
+\medskip
+We often want to treat a particular group of letter
+parameters somewhat uniformly. This can be achieved by one of the
+following commands
+
+\setraw
+  \blockparas[<m>][<n>][<pre>][<post>]
+  \addressparas[<m>][<n>][<width>][<indent>]
+\unsetraw
+
+They represent parameters in the {\tt<n>}-th group, from the {\tt
+<m>}-th to the last parameter of that group. For {\tt
+\string\blockparas}, tokens {\tt <pre>} and {\tt <post>} are
+those to be added in front and behind respectively each of the
+legitimate parameters mentioned above. If {\tt <post>} is
+{\tt\string\relax}, it will then not be appended at the end.
+Instead, each chosen parameter will be put into a {\tt $\{\}$}-
+pair before preceded by the token {\tt <pre>}. The reason for
+this exception is that while {\tt <pre> and <post>} are meant to
+be the front and end macros for each selected parameter, in the
+case of {\tt <post>} being {\tt \string\relax}, we may regard
+{\tt<pre>} as {\sl acting upon} each chosen parameter.
+
+
+\medskip
+The command {\tt \string\addressparas}, however, uses
+{\tt \string\blockparas} indirectly and will put the chosen
+parameters into a box of width {\tt<width>}. If any selected
+parameter is longer than {\tt<width>}, then the line will be
+wrapped around, with all wrapped potions being indented by an
+{\tt<indent>}. This may be used to deal with very long address
+lines. Incidentally, we may use {\tt \string\textbox} or {\tt
+\string\addressbox} or {\tt \string\ADDRESSBOX} to control the
+width of a single parameter. The general format reads
+
+
+\setraw
+  \textbox[<width]{<materials>}
+  \addressbox[<width>][<indent>]{<materials>}
+  \ADDRESSBOX{<width>}{<indent>}{<materials>}
+\unsetraw
+
+where the meaning of the macro parameters are self-explanatory.
+
+
+\medskip
+
+For the macro parameters, we have for convenience provided the
+following defaults for those in the squared brackets
+
+\setraw
+  <m>=1
+  <n>=1
+  <pre>=\noindent
+  <post>=\par
+  <width>= 8truecm
+  <indent>= 1.5em
+\unsetraw
+
+This way, for instance, {\tt\string\paras[1][1]} is equivalent
+to any of the following commands
+
+\setraw
+  \paras, \paras[1], \paras[][1],
+  \paras[1][], \paras[][]
+\unsetraw
+
+and the following three commands are also the same
+
+\setraw
+  \addressbox{one address line}
+  \addressbox[8truecm]{one address line}
+  \addressbox[][1.5em]{one address line}
+\unsetraw
+
+
+\medskip
+
+Incidentally this is the reason why we used the second parameter
+{\tt<n>} to represent the group number: the defaults can often be
+dropped off more frequently. By default, all letter parameters
+specified will be put into a group environment before putting
+them into the form letter, unless {\tt \string\localparasfalse}
+is issued beforehand.
+
+\medskip
+To output a new letter entity, i.e a complete letter,
+we may use
+
+
+\setraw
+  \moreletter
+    para-1-1;para-1-2;para-1-3; ...
+   +para-2-1;para-2-2;...
+   +   ...
+   +para-n-1;para-n-2; ... ;para-n-m !
+\unsetraw
+
+
+where \lq{\tt ;}\rqs separate parameters inside a same group,
+\lq{\tt +}\rqs separates groups, \lq{\tt !}\rqs ends a cluster of
+parameters, and \lq{\tt ...}\rqs represent further letter
+parameters. These three tokens are nothing special: we may change
+them  to for instance \lq{\tt ....}\rq, \lq{\tt ----}\rqs and
+\lq{\tt ====}\rqs respectively by {\tt \string\blockmarks}, and
+change them back to \lq{\tt ; + !}\rqs by {\tt
+\string\defaultmarks}.  For more general case, use
+
+\setraw
+  \delimiters{<A>}{<B>}{<C>}
+\unsetraw
+
+where {\tt <A>}, {\tt <B>} and {\tt <C>} are the new toks
+replacing \lq{\tt ; + !}\rqs respectively. If we have to use
+these three special characters or tokens inside our {\sl letter
+parameters}, then use {\tt \string\pstr}, {\tt\string\gstr} and
+{\tt\string\cstr} respectively instead.
+
+\medskip
+
+For the case of many clusters, we may enclose them, separated by
+any white spaces or empty lines, between {\tt
+\string\beginpilemode} and {\tt \string\endpilemode} so that we
+don't have to put {\tt \string\moreletter} in front of each
+cluster of parameters.
+
+
+\medskip
+We may also enter letter parameters line by line. In other words,
+we may essentially replace \lq{\tt;}\rqs in the {\tt
+\string\moreletter} format by a normal line break. In this case,
+we shall put  clusters of parameters between {\tt
+\string\beginblockmode} and {\tt \string\endblockmode}.  Thus the
+following commands
+
+
+\setraw
+  \beginblockmode
+     <para-1-1>
+     <para-1-2>
+       +       letter one
+
+     <para-2-2>
+       !
+
+     <addr-1-1>
+     <addr-1-2>
+       !       letter two
+  \endblockmode
+\unsetraw
+
+
+will produce the required form letter for each cluster of
+parameters. The general rules are as follows:
+
+{\parindent=1.5em
+\item{$\bullet$} If a line contains {\tt \string\endblockmode} or {\tt !}
+or {\tt +}, then everything else on that line is ignored and that
+line serves as an end/cluster/group marking line in the given
+priority order.
+
+\item{$\bullet$} Leading and trailing empty lines before or after
+a complete cluster will be ignored, unless \lq{\tt ;}\rqs is
+there to force the next (empty) line as a starting parameter.
+\par }
+
+Obviously {\tt \string\blockmarks} provides a more sensible
+delimiters for the {\tt blockmode}, under which we could have
+
+\setraw
+  \blockmarks\beginblockmode
+    .......    force next empty line active
+
+   <para-1-2>
+   ------- -  mark end of 1st group
+
+   <para-2-2>
+   <para-2-3>
+   ========   end of cluster
+
+   <other clusters>
+  \endblockmode
+\unsetraw
+
+\medskip
+A simpler and perhaps more often encountered scenario is
+to use names and addresses only. In this case, there will be
+essentially only {\sl one} group of parameters for each cluster.
+Thus we may use empty lines to delimit the clusters, and use line
+by line mode for the individual parameters. This way, each
+block of consecutive nonempty lines in
+
+\setraw
+  \beginlinemode
+    <name-1>
+    <address-1-1>
+    <address-1-2>
+
+    <name-2>
+    <1st part of addr-2-1>  %
+    <continued part of line addr-2-1>
+
+    <name-3>      % letter three
+  \endlinemode
+\unsetraw
+
+
+will output a new complete letter, corresponding to the specified
+letter parameters.
+
+
+\medskip
+{\smooth
+Ideally, the name--address entries will be produced by a database
+utility. Since they often contain special characters such as \lq
+{\tt \#}\rqs and \lq{\tt \$}\rqs explicitly, we may wish to
+change such characters in the parameters to the normal printable
+ones. For this purpose, we could use correspondingly the pair
+{\tt \string\beginrawblockmode$\{$<token>$\}$} with {\tt
+\string\endrawblockmode} or the pair {\tt
+\string\beginrawlinemode$\{$<token>$\}$} with {\tt
+\string\endrawlinemode}. If {\tt <token>} is not empty, then we
+use {\tt <token>} in place of {\tt \string\endrawblockmode} or
+{\tt \string\endrawlinemode}. In other words, {\tt <token>} is
+the password to leave the raw text mode.  Since database utility
+will in general produce a {\sl fixed} number of {\tt <m>} lines
+for each cluster of parameters, we may use {\tt
+\string\begindatamode[<token>]$\{$<m>$\}$} and {\tt
+\string\enddatamode} (or {\tt<token>}) in place of {\tt
+\string\beginrawlinemode} and {\tt\string\endrawlinemode} so that
+each {\tt<m>} raw text lines, including the empty ones, will eject
+a form letter.
+}
+
+
+\medskip
+
+It is often desirable that a letter form or format and the actual
+parameters be kept in different files: it will help in archiving
+and retrieving form letters. Furthermore, if a letter is quite
+long such that the \TeX\ can't hold it in the memory, then we
+{\sl have to} keep the letter content in a separate file.
+Essentially we need to save everything between
+{\tt\string\beginletter} and {\tt \string\endletter} into a
+separate file, say, {\tt letter.let}, then later on use
+{\tt\string\inputletter$\{$letter.let$\}$} to load in the letter
+format. Should one prefer to keep everything inside a {\sl single}
+file, however, he may use {\tt\string\beginfile [{\it
+password}]$\{${\it file.ext}$\}$} and {\tt\string\endfile} (or
+{\it password}) to create files such as {\tt letter.let}
+mentioned above as a temporary scratch file. We note that {\tt
+letter.let} will not contain {\tt\string\beginletter} and
+{\tt\string\endletter} as {\tt \string\inputletter} will add them
+properly for us. Also the extension {\tt .let} is preferred in
+this connection as it can indicate that this type of format file
+should not quite be regarded as the normal \TeX\ files.
+
+\medskip
+
+Likewise, it is also desirable to have a separate address or
+general letter parameter file. For the address file, we remark
+that we have to keep the pairing {\tt \string\beginlinemode} with
+{\tt \string\endlinemode} or {\tt\string\beginblockmode} with
+{\tt \string\endblockmode} inside the address file, if we are to
+use any of them for some content of that file. Moreover, an
+extension {\tt .adr} is recommended for such files. Thus for a
+letter format or template saved in {\tt letter.let}, we may
+choose {\tt letter.adr} as the name for the related address file.
+
+\medskip
+After a letter format is completed for sometime, one may have
+difficulty in recalling what those parameters should refer to
+when using the form letter again. For this purpose, we provide
+a simple mechanism with {\tt\string\paranames} and {\tt
+\string\showparas}. To be more precise, if one puts {\tt
+\string\paranames\ name-1-1; ...; <etc>!} at the very beginning of
+the letter format, then one can use {\tt\string\showparas}
+outside to output a letter with its parameters replaced by their
+names.
+
+\medskip
+
+An alternative way, or rather a way of highlighting the positions
+of the letter parameters is to use {\tt\string\preview}. Under
+{\tt\string\preview}, or {\tt \string\previewtrue}, all
+parameters given by {\tt\string\paras[<m>][<n>]} will be boxed
+with double borderlines, similar to {\tt \previewtrue
+\paras[3][2]}, the number {\tt<n>-<m>} inside (corresponding to
+{\tt 2-3} in the shown box) denotes the {\tt<m>}-th parameter of
+the {\tt <n>}-th group. However, the parameters given by
+{\tt\string\blockparas} or {\tt\string\addressparas} will be
+boxed with triple borderlines. Moreover, the macro parameters
+{\tt<pre>} and {\tt <post>} will also be displayed explicitly.
+Since {\tt\string\addressparas} is essentially a special way of
+using {\tt\string\blockparas}, it is highlighted via that for the
+{\tt\string\blockparas}. In particular,
+{\tt\string\blockparas[3][6][\string\x][\string\y]} for instance
+will display under {\tt \string\preview} the following box
+
+\smallskip
+{\previewtrue  \blockparas[3][6][\x][\y]}
+
+
+\medskip
+
+Sometimes we may want to have each given {\sl empty} letter
+parameter automatically replaced by a particular {\sl default}
+parameter. This can be easily done by using {\tt
+\string\loaddefaultparas} inside your letter format, i.e.
+essentially between {\tt \string\beginletter} and {\tt
+\string\endletter}, before any calling of the letter parameters
+via {\tt \string\paras} etc.  Of course, the effect of {\tt
+\string\loaddefaultparas} is nil unless a command {\tt
+\string\paradefaults} is issued inside or (better still) outside
+the letter format. We note that {\tt \string\paradefaults} takes
+the macro parameters in the exact way as {\tt \string\paranames}
+does. One note of caution: {\tt \string\paradefaults} and {\tt
+\string\paranames} always use the default delimiters \lq{\tt ; +
+!}\rqs no matter how you changed them via {\tt
+\string\delimiters}. This is to avoid unnecessary complications.
+
+\medskip
+
+We note that printing labels is no more than designing a special
+letter template. The mechanism provided in {\tt formlett} however
+is to pick a subblock of parameters as the address. Basically all
+the form letter output inside {\tt\string\beginlabels} and
+{\tt\string\endlabels} will produce labels instead, taking the
+first parameter group as the address by default (see Appendix for
+more details). Incidentally, labels can be printed in single or
+double columns depending upon the choice of label width.
+
+\medskip
+
+To conclude this section, we remark that if you want to put {\tt
+\string\input\ {\sl filename} } into a letter parameter, make
+sure that there is a {\sl nontrivial} space following the {\sl
+filename}. To be on the safe side, always use {\tt
+\string\inputfile $\{$\sl filename.ext$\}$} instead. Also {\tt
+<!>}, when output to screen, is an invitation to read the log
+file for a warning message.
+
+\bigskip
+{\lbold Example}
+
+
+\smallskip
+
+The following is an example. If you are running plain \TeX, add
+{\tt\string\input\ formlett} at the top. But if you are running
+\LaTeX, then just add at the top the line
+
+\linecount=1\relax
+\stt\beginrawlist[][][4][][][3.3in]{}
+  \documentstyle[formlett]{article}
+  \begin{document}
+\endrawlist
+\rm
+
+
+
+The line numbering on the right hand side is for reference only,
+as in the other occurrences later on. The example reads as
+follows.
+
+\medskip
+
+\stt\beginrawlist[][][4][][][3.3in]{}
+  \beginletter
+  \paranames             % optional
+    \tt<<FULL NAME>>;%
+    \tt<<ADDRESS-etc>>;%
+   +\tt<<GIVEN NAME>>;%
+    \tt<<MISSING ITEM>>;%
+    \tt<<PHONE NUMBER>>!
+  \loaddefaultparas      % optional
+
+  \NOPAGENUMBERS\parindent=0pt
+  \noindent{\it\paras[1]}\par
+  \blockparas[2]\par\bigskip
+
+  Dear \paras[1][2],\par\medskip
+  We have been looking for
+  \paras[2][2] for quite a while
+  without any luck, could you help
+  us out? If so, please ring
+  \paras[3][2]. \par\medskip
+  Cheers!\hfill Michael\vfill\eject
+  \endletter
+  \preview \showparas
+\endrawlist
+\rm
+
+
+\medskip
+
+%%%%%%%%%%%%
+% letter top
+%%%%%%%%%%%%
+
+  \beginletter
+\sl
+\hsize=3.1in\relax
+\medskip
+  \paranames             % optional
+    \tt<<FULL NAME>>;%
+    \tt<<ADDRESS-etc>>;%
+   +\tt<<GIVEN NAME>>;%
+    \tt<<MISSING ITEM>>;%
+    \tt<<PHONE NUMBER>>!
+  \loaddefaultparas      % optional
+
+  \NOPAGENUMBERS\parindent=0pt\overfullrule=0pt
+  \noindent{\it\paras[1]}\par
+  \blockparas[2]\par\medskip
+
+  Dear \paras[1][2],
+
+  \smallskip
+  We have been looking for
+  \paras[2][2] for quite a while
+  without any luck, could you help
+  us out? If so, please ring
+  \paras[3][2]. \par\medskip
+  Cheers!\hfill Michael\par %\vfill\eject
+\medskip
+  \endletter
+
+%%%%%%%%%%%%
+% letter end
+%%%%%%%%%%%%
+
+
+The above is a typical letter format or form letter. Command
+{\tt\string\preview} in the last line gives
+
+{\preview}
+
+and, the name of the parameters are displayed via
+{\tt\string\showparas} as follows
+
+\showparas
+
+
+\medskip
+
+In other words, we can have a good understanding about what a
+letter format does {\sl without} reading its source code, which
+will be very handy for archiving and retrieving letter templates.
+To provide defaults for letter parameters and output new letters
+via {\tt blockmode}, we may add \par
+
+\medskip
+\stt\beginrawlist[][][4][][][3.3in]{}
+  \paradefaults       % optional
+    To whom this may concern
+   +Sir or Madam;something;%
+    061-225-9905!
+
+  \blockmarks
+  \beginrawblockmode{}
+
+  Mrs L Stenson
+  #1-20 Sunset Street
+  Hillside, Norway
+  ------
+  Louise
+  a Bible
+  220-8888
+  =========
+
+  ......
+
+  Above empty line active
+
+  \endrawblockmode
+\endrawlist
+\rm
+
+%%%%%%%%%%%%
+% 1st letter top
+%%%%%%%%%%%%
+\paradefaults       % optional
+ To whom this may concern
++Sir or Madam;something;%
+ 061-225-9905!
+
+%%%%%%%%%%%%
+% 1st letter end
+%%%%%%%%%%%%
+
+\medskip
+We note the parameters contain special characters \#.  That is
+the reason why we used {\tt\string\beginrawblockmode}. Now
+suppose we have to wrap a very long address line, we could use
+{\tt \string\addressbox} to control an {\sl individual}
+parameter. The following is a typical case
+
+\medskip
+\stt\beginrawlist[][][4][][][3.3in]{}
+  \defaultmarks
+  \moreletter
+     S Wales,;%
+     \addressbox[2in][1em]{%
+     University of Manchester Institute
+     of Science and Technology, This is
+     a long address line: it will be
+     wrapped up automatically.}%
+   +;a \TeX\ package \gstr\ manual and
+     many more (\cstr)!
+\endrawlist
+\rm
+
+\medskip
+which is manifested in the following output
+
+%%%%%%%%%%%%
+% 2nd letter top
+%%%%%%%%%%%%
+\defaultmarks
+\moreletter
+ S Wales,;%
+ \addressbox[2in][1em]{%
+ University of Manchester Institute
+ of Science and Technology, This is
+ a long address line: it will be
+ wrapped up automatically.}%
++;a \TeX\ package \gstr\ manual and
+ many more (\cstr)!
+%%%%%%%%%%%%
+% 2nd letter end
+%%%%%%%%%%%%
+
+
+\medskip
+
+Please note that the default parameters have been used there. In
+the case of putting {\sl only} name and address into a form
+letter, we may typically use {\tt linemode} via e.g.
+
+\medskip
+\stt\beginrawlist[][][4][][][3.3in]{}
+  \beginlinemode
+    Z Jiang
+    UNE, Arimdale
+
+    T Ribbons
+    UMIST, Manchester
+  \endlinemode
+  \end{document}
+\endrawlist
+\rm
+
+\medskip
+
+If one saves lines 4-22 to file {\tt myletter.let}, lines 25-63
+or simply lines 57-63 to file {\tt myletter.adr}, then we can for
+instance produce via \LaTeX\ the form letter for multiple
+receivers by
+
+\setraw
+  \documentstyle[formlett]{article}
+  \begin{document}
+  \inputletter{myletter.let}
+  \showparas \preview
+  \paradefaults To whom it may concern!
+  \inputfile{myletter.adr}
+  \beginlabels % 1st parameter group as address
+  \inputfile{myletter.adr} % for labels
+  \endlabels
+  \end{document}
+\unsetraw
+
+{\smooth
+
+If one puts commands {\tt\string\beginlables} and
+{\tt\string\endlabels} at e.g. immediately after line 2 and 63
+respectively, then one gets all the posting labels instead. If
+one puts commands {\tt\string\beginfile$\{$scratch.adr$\}$} and
+{\tt\string\endfile} there respectively, then by adding after
+{\tt\string\endfile} the commands
+
+\setraw
+  \inputfile{scratch.adr}
+  \beginlabels \inputfile{scratch.adr} \endlabels
+\unsetraw
+
+one gets both form letters and the labels. If one insists on not
+writing out auxiliary scratch files, then use {\tt \string\input
+\ formlett.sty \string\initstyle\ [{\it styles}]$\{${\tt
+article}$\}\{${\it preamble}$\}$} to replace {\tt
+\string\documentstyle\ [formlett, {\it styles}]$\{$article$\}$
+{\it preamble} \string\begin$\{$document$\}$}, which will be
+valid for \LaTeX\  but ignored for \TeX\ , and will enable one to
+use {\tt \string\labelsquit} at the end to read in the current
+document again with all the letters there converted into the
+corresponding labels. If you only want to execute certain
+commands the first time round (i.e. before {\tt
+\string\labelsquit} re-reads the file again), use {\tt
+\string\firstread$\{${\it commands}$\}$} for this purpose.
+
+}
+
+
+\bigskip
+{\lbold Macros}
+
+
+\smallskip
+
+One of the main technical features of this set of macros is the
+extensive use of arrays, both one dimensional and two
+dimensional. The one dimensional array {\tt STK} that we use is
+essentially an user-defined stack, while the two dimensional
+arrays {\tt LET} and {\tt DEF} are more like structure or record
+in other programming languages. First let us make clear that an
+array (or stack) of name, say {\tt ABC}, will contain elements
+{\tt \string\ABC\it m\tt\t} for one dimensional and {\tt
+\string\ABC\it m\tt*\it n\tt\t} for two dimensional case, where
+$m$ and $n$ are some non-negative integers representing row and
+column numbers respectively. The first element, if necessary,
+will be used to denote the length of that raw. Thus, {\tt
+\string\ABC1*0\t} for instance will denote the number of elements
+in the first raw of a two dimensional array {\tt ABC}.
+
+
+\medskip
+
+Let us now look at how a mechanism of defaulting {\sl macro}
+parameters is formulated. For this purpose, we first define a
+stack {\tt STK} and its stack pointer {\tt \string\STKcount} by
+
+\setraw
+  \def\make@STKcount{\csname newcount\endcsname
+    \STKcount\global\STKcount=0\relax}
+  \ifx\STKcount\undefined@\def\next{%
+    \make@STKcount}\else\def\next{}\fi\next
+  \long\def\push#1{\global
+    \advance\STKcount1\relax
+    \expandafter\gdef\csname STK\the
+    \STKcount\string~\endcsname{#1}}
+  \def\popnil{\expandafter\let
+    \expandafter\temp@macro\csname
+     STK\the\STKcount\string~\endcsname
+    \ifnum\STKcount>0\global\expandafter
+      \let\csname STK\the\STKcount
+      \string~\endcsname=\undefined@
+      \global\advance\STKcount-1%
+    \else
+      \def\temp@macro{}\global\STKcount=0%
+    \fi\relax }
+  \def\pop{\popnil\temp@macro}
+\unsetraw
+
+
+The first four lines of code will ensure that the stack pointer
+will not be flushed if this useful subset of macros is loaded
+again by for instance another style file in the middle of a \TeX
+\ document. With the above code, we can stack away anything by
+{\tt\string\push$\{anything\}$} and later use {\tt \string\pop}
+to recall them or {\tt \string\popnil} to remove one element from
+the stack.
+
+
+\medskip
+So, how can we make defaults for certain empty macro
+parameters? The simplest case is perhaps
+
+
+\setraw
+  \long\def\get@nepara[#1][#2]{{%
+    \def\next@{#2}%
+    \ifx\next@\empty\push{#1}\else
+    \push{#2}\fi}\ag@in}
+  \long\def\get@para\left@#1\right@{%
+    \def\check@{%
+    \ifx[\next@
+    \def\full@####1{\get@nepara[#1]####1}%
+    \else
+    \def\full@{\get@nepara[#1][#1]}\fi
+    \full@}%
+  \futurelet\next@\check@}
+\unsetraw
+
+
+
+Basically, {\tt\string\get@onepara[<A>][<B>]} will push the
+default {\tt <A>} to the stack {\tt STK} unless {\tt <B>} is
+nonempty. And {\tt\string \get@para\string \left@<A>\string
+\right@} will look at the next token to be read, if it is
+character \lq{\tt[}\rq, then reads in a macro parameter in the
+form of {\tt [<B>]} and then push {\tt <B>} to the stack {\tt
+STK}, otherwise push the default {\tt <A>} to that stack. For the
+more general case, we need to define
+
+
+\setraw
+  \long\def\do@nepara
+    \left@#1\right@#2\p@r@end{%
+    \gdef\p@r@data{#2}\global\advance
+    \p@r@count1\get@para\left@#1\right@}
+  \def\ag@in{\ifx\p@r@data\empty
+    \def\next@{\relax\getp@r@s\run@CMD}%
+    \else\def\next@{\expandafter\do@nepara
+         \p@r@data\p@r@end}%
+    \fi\next@}
+  \def\run@CMD{\csname STK\the\STKcount
+    \string~\endcsname}
+  \newcount\p@r@count
+  \long\def\st@ckparas#1\p@r@end{%
+    \global\p@r@count=0%
+    \gdef\p@r@data{#1}\ag@in}
+\unsetraw
+
+
+so that {\tt\string\st@ckparas \string\left@<A>\string\right@
+...\penalty -20 \string\left@<B>\string\right@ ...
+\string\p@r@end} will look for parameters enclosed in {\tt []}
+one by one, exhausting all the defaults paired by
+{\tt\string\left@} and {\tt \string\right@}. If future tokens
+inside {\tt []} are not found, or empty, the default tokens
+inside the corresponding pair {\tt\string\left@ \string\right@}
+will be used. The new or default tokens will be pushed to the
+general-purpose stack {\tt STK} for a later use, while {\tt
+\string\p@r@count} records the total number of the default macro
+parameters. We note that on exit of {\tt \string\st@ckparas}, the
+control is passed to {\tt\string\runCMD}.
+
+\medskip
+Once all macro parameters are pushed to the stack, we may
+transfer them to separate toks {\tt \string\p@r@one} to {\tt
+\string\p@r@nine} (an easier-to-use format) defined by
+
+\setraw
+  \newtoks\p@r@one\newtoks\p@r@two
+  \newtoks\p@r@three\newtoks\p@r@four
+  \newtoks\p@r@five \newtoks\p@r@six
+  \newtoks\p@r@seven\newtoks\p@r@eight
+  \newtoks\p@r@nine
+  \def\clrp@r@s{\global\p@r@one={}%
+   \global\p@r@two={}\global\p@r@three={}%
+   \global\p@r@four={}\global\p@r@five={}%
+   \global\p@r@six={}\global\p@r@seven={}%
+   \global\p@r@eight={}\global\p@r@nine={}}
+\unsetraw
+
+where {\tt\string\clrp@r@s} clears all the parameter toks. We can
+then retrieve parameters from the stack {\tt STK} to the
+parameter toks via {\tt\string \getp@r@s} with the following code
+
+
+\setraw
+  \newcount\temp@count
+  \def\getp@r@s{\temp@count=\p@r@count
+  {\loop
+   \ifnum\temp@count>0
+   \expandafter\let\expandafter
+   \t@macro\csname STK\the\STKcount
+     \string~\endcsname
+   \ifcase\temp@count
+   \or\global\p@r@one=\expandafter{\t@macro}%
+   \or\global\p@r@two=\expandafter{\t@macro}%
+   \or\global\p@r@three=\expandafter{\t@macro}%
+   \or\global\p@r@four=\expandafter{\t@macro}%
+   \or\global\p@r@five=\expandafter{\t@macro}%
+   \or\global\p@r@six=\expandafter{\t@macro}%
+   \or\global\p@r@seven=\expandafter{\t@macro}%
+   \or\global\p@r@eight=\expandafter{\t@macro}%
+   \or\global\p@r@nine=\expandafter{\t@macro}%
+   \else
+    \errmessage
+    {Parameter capacity exceeded.}%
+   \fi \global\expandafter\let
+   \csname STK\the\STKcount
+   \string~\endcsname=\undefined@%
+   \global\advance\STKcount-1%
+   \global\advance\temp@count-1\relax
+   \fi
+   \ifnum\temp@count>0\repeat}}
+\unsetraw
+
+
+
+\medskip
+We are now ready to use the above mechanism to default
+macro parameters for some already defined macros. Suppose we have
+already defined a macro {\tt \string\crudemac[<A>][<B>]} which
+takes two macro parameters {\tt <A>} and {\tt<B>}, and we want to
+define a new macro {\tt \string\smartmac} which behaves like {\tt
+\string\crudemac} but will default the macro parameters {\tt <A>}
+and {\tt <B>} to for instance 9 and 88 respectively. For this
+purpose, we may define {\tt \string\smartmac} via
+
+
+
+\setraw
+  \def\smartmac{\push{%
+   \edef\next@@{\noexpand
+   \crudemac[\the\p@r@one][\the\p@r@two]}%
+   \popnil\clrp@r@s\next@@}\st@ckparas
+   \left@9\right@\left@88\right@\p@r@end}
+\unsetraw
+
+This way, all the followings
+
+\setraw
+  \crudemac[9][88], \smartmac[9][88],
+  \smartmac, \smartmac[], \smartmac[][],
+  \smartmac[9], \smartmac[9][], \smartmac[][88]
+\unsetraw
+
+are the same under the assumption that we shall not use
+characters \lq{\tt[}\rqs and \lq{\tt]}\rqs for the macro
+parameters themselves, and that {\tt\string\crudemac} will not
+change any {\tt \string\catcode} inside. The reason for this
+latter condition lies in the fact that when {\tt\string\smartmac}
+looks at the next character, the character is in a sense already
+read. If {\tt \string\crudemac} changes the {\tt\string\catcode}
+of that particular character, then the one that is already read
+via {\tt\string\futurelet} will have a misleading
+{\tt\string\catcode}. If one has to change {\tt \string\catcode}
+inside but wants to avoid this possible misbehavior, always put
+full number of empty brackets \lq{\tt[]}\rqs for the defaults, or
+put a {\tt\string\relax} immediately afterwards. Better still,
+make the last parameter to appear in a mandatory \lq$\{\}$\rqs form
+rather than the \lq{\tt []}\rqs form via the {\tt \#$\{$} mechanism
+[1], so that those square brackets can be dropped off.
+
+
+\medskip
+
+
+For example, we as a by-product also defined a 100\%
+verbatim mode by
+
+{\stt
+\ \ \string\begin@@rawlist[$A$][$B$][$C$][$D$][$E$][$F$]$G$ }\par
+\setraw
+   <general text>
+  \endrawlist
+\unsetraw
+
+
+where, for the line numbering of the raw text, {\tt $A$}, ...,
+{\tt $G$} represent respectively the initial value, increment
+step, number of digits, font, horizontal position of text,
+horizontal shift of numbering, and the password to leave raw text
+mode. Incidentally, {\tt \string\linecount} records the current
+line numbering count. Our purpose is to define {\tt
+\string\beginrawlist} so that its format is
+
+{\stt
+\ \ \string\beginrawlist[$A$][$B$][$C$][$D$][$E$][$F$]$\{G\}$}\par
+
+in which $A$ to $F$ are {\sl optional} while $\{G\}$ is mandatory
+even though $G$ can be empty --- implying {\tt
+\string\endrawlist} is the password to leave the raw-text mode.
+For this purpose, we first define
+
+\setraw
+\def\begin@rawlist[#1][#2][#3][#4][#5][#6]#{%
+    \begin@@rawlist[#1][#2][#3][#4][#5][#6]}%
+\unsetraw
+
+to make \lq$\{\}$\rqs pair compulsory for {\tt \#7}, then we
+provide the defaults for {\tt $A$} to {$F$} as
+{\tt\string\linecount}, {\tt 1}, {\tt 0}, {\tt \string\tiny},
+{\tt 0pt} and {\tt 0pt} respectively via
+
+\setraw
+\def\beginrawlist{\push{%
+ \edef\next@@{\noexpand\begin@rawlist
+ [\the\p@r@one][\the\p@r@two][\the\p@r@three]%
+ [\the\p@r@four][\the\p@r@five][\the\p@r@six]}%
+ \popnil\clrp@r@s\next@@}%  end of push
+ \font\tiny@rm=cmr5%
+ \edef\temp@macro{%
+  \noexpand\left@\the\linecount\noexpand\right@
+  \noexpand\left@1\noexpand\right@
+  \noexpand\left@0\noexpand\right@
+  \noexpand\left@\noexpand\tiny@rm
+           \noexpand\right@
+  \noexpand\left@0pt\noexpand\right@
+  \noexpand\left@0pt\noexpand\right@}%
+  \expandafter\st@ckparas\temp@macro\p@r@end}%
+\unsetraw
+
+\medskip
+
+{\smooth
+\relax Likewise, we could also similarly define {\tt \string\printfile
+[...]}$\{${\it filename.ext}$\}$ so that \lq{\tt [...]}\rqs takes
+a same defaulting scheme. }
+
+
+\medskip
+There are several tiny but very useful macros in {\tt formlett}
+which are used again and again. One of such macros is for testing
+if one string contains another string. The following {\tt
+\string\test@str} tests if string {\tt\#1} is contained in string
+{\tt\#2}
+
+
+\setraw
+  \newif\iftemp@if \newtoks\temp@toks
+  % return \temp@iftrue if yes,
+  %  \first@half,\second@half are global
+  \long\def\test@str#1#2{%
+    \long\def\strip@endmark##1\s@fetymarkI
+      #1\s@fetymark{\gdef\second@half{##1}}%
+    \long\def\strip@markI##1\s@fetymarkI
+      \s@fetymark{\gdef\first@half{##1}}%
+    \long\def\p@rse##1#1##2\s@fetymark{%
+      \gdef\first@half{##1}%
+      \gdef\second@half{##2}%
+      \ifx\second@half\empty
+       \strip@markI##1\s@fetymark\temp@iffalse
+      \else
+       \strip@endmark##2\s@fetymark\temp@iftrue
+      \fi}%
+    \temp@toks={#2\s@fetymarkI#1\s@fetymark}%
+    \expandafter\p@rse\the\temp@toks }%
+\unsetraw
+
+
+The {\tt\string\first@half} will contain the tokens upto but
+excluding the substring {\tt\#1}, while the {\tt
+\string\second@half} will contain the tokens after the {\sl
+first} appearance of {\tt\#1}. Should {\tt\#2} not contain string
+{\tt\#1} at all, then {\tt \string\first@half} is the whole
+string {\tt\#2} whereas {\tt \string\second@half} is empty.
+
+\medskip
+
+The small macros such as the above one and the stack utilities,
+though built for the main purpose of {\tt formlett}, provide also
+a good \lq infrastructure\rqs for other house-keepings. One of
+the sidekicks of this type is our macro for commenting out blocks
+of text inside a \TeX\ file. Basically, {\tt
+\string\begincomment$\{$\it password$\}$} will set {\sl all}
+characters of code {\tt0} to {\tt \string\MAX@CHR@CODE}
+(={\tt255} by default) to catcode 11 or 12, and look for the {\it
+password}, or {\tt \string\endcomment} in the absence of a
+password, to quit the comment mode. In comparison to a very
+compact macro {\tt comment.sty} (currently at version 3.0)
+written by Victor Eijkhout, quitting comment mode via a password
+here seems more flexible.
+
+
+
+
+\medskip
+As for the other macros in {\tt formlett}, it is difficult to
+explain them without printing out all of them. So instead, we
+shall explain simply one of the strategies in parsing the letter
+parameters. Suppose $W$ is a list of parameters separated by
+\lq{\tt+}\rqs and ended by \lq{\tt!}\rq, i.e. $W$ is like
+{\tt<A>+<B>+...+<S>!}. Then it will be easy to parse all the
+parameters one by one (to a stack for instance) if we can know
+whether there is precisely one parameter left over. To detect it,
+we use
+
+
+
+\setraw
+  \newif\ifl@stline
+  \long\def\testl@stline
+    #1+#2!#3\s@fetymark{%
+   \def\next{#2}\ifx\next\empty
+   \l@stlinetrue\else\l@stlinefalse\fi
+   \def\next{#3}\def\nextsample{+!}%
+   \ifx\next\nextsample\l@stlinefalse\fi}
+\unsetraw
+
+
+
+{\smooth Then the command
+{\tt \string\testl@stline} {\tt $W$+!\string\s@fetymark }
+will set {\tt \string\l@stlinetrue} if
+there is only one parameter left in $W$, and will set {\tt
+\string\l@stlinefalse} if otherwise. }
+
+
+
+\medskip
+
+Finally, for those wizard users who want to do everything their own way,
+we just note that if for instance the 3rd letter parameter of the 2nd
+group of a cluster is given as {\tt<A>}, then {\tt \string\LET2*3\t}
+will contain {\tt \string\b@group \string\relax {\tt<A>}\string\e@group}
+right after a cluster is read in. {\tt \string\DEF2*3\string~}, on the
+other hand, contains the corresponding default parameter in the same
+fashion. Furthermore, the command
+{\tt\string\checkparas[$m$][$n$]$\{$LET$\}$} will copy the content of
+{\tt\string\paras[$m$][$n$]}, minus the `wrapping' extra tokens
+{\tt\string\b@group\string\relax} and {\tt\string\e@group}, to
+{\tt\string\cachedata} and set {\tt\string\ifemptyparas} to true or
+false depending on whether the content is empty or not. This way, a user
+may even change the characteristics of his letter template by first
+testing the content of the supplied individual parameters. However, we
+note that if {\tt\string \loaddefaultparas} is executed, then the {\tt
+LET} array, when some of its elements are not supplied, will contain the
+corresponding elements of the {\tt DEF} array. Hence care must be
+exercised under such circumstances, when interpreting the
+{\tt\string\cachedata} generated by
+{\tt\string\checkparas[$m$][$n$]$\{$LET$\}$}. If necessary, we may use
+{\tt\string\delparadefaults} to delete current default parameter array
+{\tt DEF} so as to conduct {\tt\string\checkparas$\{$LET$\}$} more
+precisely. So if anyone wants to manipulate furthermore letter
+parameters inside a letter template, he or she will now at least know
+where to look at.
+
+%\penalty -50
+\bigskip
+{\lbold References}
+
+\smallskip
+{\parindent=2em
+\item{[1].} Knuth D E, {\sl The \TeX book}, Reading, Mass.,
+Addison-Wesley, 1992. \par
+\item{[2].} Piff M, Text merges in \TeX\ and \LaTeX, {\sl TUGboad},
+13(4):518, 1993. \par
+\item{[3].} Damrau J and Wester M, Form letters with 3-across
+labels capacity, {\sl TUGboat}, 13(4):510, 1991.
+\par
+}
+
+
+\penalty -50\bigskip
+
+{\lbold Appendix}
+
+
+\smallskip
+
+
+In the followings, we give a brief summary of the new commands
+given by {\tt formlett} version 2.3.
+
+\medskip
+
+Let $m$ and $n$ be numbers, $p$, $q$ and $r$ be dimensions, $A$,
+$B$, $P$, $G$, $C$ and $T$ be tokens, and $X$ be a box.
+Furthermore, we shall denote by $R$ a full set of letter
+parameters ended by \lq{\tt !}\rq, with \lq{\tt;}\rqs separating
+parameters inside a same group and \lq{\tt+}\rqs separating
+different parameter groups. We moreover denote $R$ by $F$, when
+\lq{\tt ; + !}\rqs there can be replaced by \lq$P$ $G$ $C$\rqs
+respectively if {\tt \string\delimiters$\{P\}\{G\}\{C\}$} is
+issued. In the commands tabulated below, the macro parameters
+contained in squared brackets support default. In particular, the
+defaults are $m$={\tt 1}, $n$={\tt 1}, $p$={\tt 8truecm},
+$q$={\tt 1.5em}, $r$={\tt 3pt}, $A$={\tt\string\noindent},
+$B$={\tt\string\par}, {\tt\string\previewfalse},
+{\tt\string\localparastrue} and {\tt\string\nodefaultsfalse}.
+
+
+%\penalty-10000
+
+\vskip 0pt plus 5cm
+
+
+\newdimen\tempdimone
+\newdimen\tempdimtwo
+\tempdimone=\hsize
+\advance\tempdimone by-0.2pt
+\tempdimtwo=\hsize
+\advance\tempdimtwo by-1.8in
+\def\hruler{\hrule width \tempdimone}
+\long\def\entry#1#2{%
+\par\hbox to \tempdimone{\noindent
+       \vrule~\textbox[1.7in]{#1}~\hss
+       \vrule~\textbox[\tempdimtwo]{\raggedright#2}~\vrule}%
+       \par}
+
+\long\def\longentry#1#2#3{%
+\par\hbox to \tempdimone{\noindent
+       \vrule~\textbox[3in]{#1}~\hss~\vrule}\par
+        {\kern-8pt \advance\tempdimtwo0.10in
+         \vrule width1.7in height0pt \vrule width\tempdimtwo height 0.4pt \par
+         \kern-3pt}
+        \entry{#2}{#3}}
+
+\long\def\Longentry#1#2#3{%
+\par\hbox to \tempdimone{\noindent
+       \vrule~\textbox[3in]{#1}~\hss~\vrule}\par
+       {\advance\tempdimtwo0.08in\kern-1pt
+        \vrule~\hfill\vrule width \tempdimtwo height 0.4pt \vrule\par
+        \kern-2.5pt}%
+        \entry{#2}{#3}}
+
+
+
+\medskip \penalty-100
+{\eightpoint
+\nointerlineskip\parskip=0pt
+
+\hruler
+\entry{{\tt\string\paras[$m$][$n$]}}%
+  {$m^{th}$ parameter of $n^{th}$ group }%
+
+\entry{{\tt\string\blockparas[$m$][$n$][$A$][$B$]}}%
+  {$m^{th}$ to the last parameter of $n^{th}$ group, each
+preceded by $A$ and followed by $B$, wrapped by $\{$\penalty
+1000$\}$ if
+$B$={\tt\string\relax}}
+
+\entry{{\tt\string\addressparas[$m$][$n$][$p$][$q$]}}%
+  {$m^{th}$ to the last parameter of $n^{th}$ group, each put
+into a box of width $p$ with indent $q$ for wrapped portions}
+
+
+\entry{{\tt\string\loaddefaultparas}}%
+  {fill empty parameters with defaults}
+
+\hruler \penalty-1000
+\hruler
+
+
+\entry{{\tt\string\checkparas[$m$][$n$]$\{T\}$}}%
+  {$m^{th}$ parameter of $n^{th}$ group copied to {\tt\string\cachedata};
+   {\tt\string\ifemptyparas} is true if element is empty; $T$ is often
+   {\tt LET} or {\tt DEF}}%
+
+\hruler
+
+
+\entry{{\tt\string\moreletter\ $F$}}%
+  {use parameters $F$ to output a new letter}
+
+
+\entry{{\tt\string\paranames\ $R$}}%
+  {use $R$ as parameter names}
+
+\entry{{\tt\string\paradefaults\ $R$}}%
+  {use $R$ as default parameters}
+
+
+\entry{{\tt\string\delparadefaults}}%
+  {delete default parameters}
+
+%\hruler \penalty-1000
+\hruler
+
+
+\entry{{\tt\string\delimiters$\{P\}\{G\}\{C\}$}}%
+  {use $P$, $G$, $C$ as delimiters}
+
+
+\entry{{\tt\string\defaultmarks}}%
+  {use \lq{\tt ; + !}\rqs as delimiters}
+
+
+\entry{{\tt\string\blockmarks}}%
+  {use \lq{\tt ....}\rq, \lq{\tt ----}\rq, \lq{\tt ====}\rqs as delimiters}
+
+%\hruler \penalty -1000
+\hruler
+
+\entry{{\tt\string\preview}}%
+  {highlight parameter positions}
+
+\entry{{\tt\string\showparas}}%
+  {display parameter names, if any}
+
+\entry{{\tt\string\inputletter$\{file.ext\}$}}%
+  {input letter content}
+
+\entry{{\tt\string\inputfile$\{file.ext\}$}}%
+  {input $file.ext$}
+
+%\hruler \penalty -1000
+\hruler
+
+
+\entry{%
+$\left\{\matrix{ \hbox{\tt\string\beginletter}\cr
+\hbox{\tt\string\endletter~~}\cr}\right.$ }%
+  {delimiters for letter content (template)}
+
+\entry{%
+$\left\{\matrix{ \hbox{\tt\string\beginpilemode}\cr
+\hbox{\tt\string\endpilemode~~}\cr}\right.$ }%
+  {normal letter parameters cluster-wise}
+
+
+\entry{%
+$\left\{\matrix{ \hbox{\tt\string\beginblockmode}\cr
+\hbox{\tt\string\endblockmode~~}\cr}\right.$ }%
+  {for line-by-line blocks of parameters, empty lines active
+within each cluster}
+
+
+\entry{%
+$\left\{\matrix{ \hbox{\tt\string\beginlinemode}\cr
+\hbox{\tt\string\endlinemode~~}\cr}\right.$ }%
+  {for line-by-line parameters, empty lines delimit clusters}
+
+%\hruler \penalty-1000
+\hruler
+
+\entry{%
+$\left\{\matrix{ \hbox{\tt\string\beginrawblockmode$\{T\}$}\cr
+\hbox{\tt\string\endrawblockmode\ \ \ \ \ }\cr}\right.$ }%
+  {raw text mode; nonempty $T$ replaces {\tt\string\endrawblockmode}
+   to mark end}
+
+
+\entry{%
+$\left\{\matrix{ \hbox{\tt\string\beginrawlinemode$\{T\}$}\cr
+\hbox{\tt\string\endrawlinemode\ \ \ \ \ \ }\cr}\right.$ }%
+  {raw text parameters and active spaces etc}
+
+\entry{%
+$\left\{\matrix{ \hbox{\tt\string\begindatamode[$T$]$\{m\}$}\cr
+\hbox{\tt\string\enddatamode\ \ \ \ \ \ \ \ }\cr}\right.$ }%
+  {$m$ raw text lines for one form letter}
+
+\hruler
+
+\entry{%
+$\left\{\matrix{ \hbox{\tt\string\begincolumns[$a$][$b$]}\cr
+\hbox{\tt\string\endcolumns\ \ \ \ \ \ \ }\cr}\right.$ }%
+  {$a$-columns separated by distance $b$}
+
+
+\entry{%
+$\left\{\matrix{ \hbox{\tt\string\begincomment$\{T\}$}\cr
+\hbox{\tt\string\endcomment\ \ \ \ \ }\cr}\right.$\par
+ \ \ \ {\tiny }}%
+  {comment out lines, nonempty $T$ replaces {\tt
+\string\endcomment} to mark last {\sl full line} for comment}
+
+
+\entry{%
+$\left\{\matrix{ \hbox{\tt\string\beginfile[$T$]$\{{\it
+file.ext}\}$}\cr
+\hbox{\tt\string\endfile\ \ \ \ \ \ \ \ \ \ \ \ \ }\cr}\right.$\par
+ \ \ \ {\tiny }}%
+  {write text verbatim to file {\it file.ext} (empty implies {\tt
+scr@tch@.tex}), nonempty $T$ replaces {\tt
+\string\endfile} to mark last full line}
+
+
+
+\hruler
+
+
+\entry{{\tt\string\PAGENO=1}}%
+  {page number reset to 1}
+
+
+\entry{{\tt\string\NOPAGENUMBERS}}%
+  {no page numbers}
+
+
+\entry{{\tt\string\textbox[$p$]$\{text\}$}}%
+  {$text$ into box of width $p$}
+
+
+\entry{{\tt\string\boxmore[$r$]$\{X\}$}}%
+  {add borderline to box $X$ at a distance $r$}
+
+
+\entry{{\tt\string\addressbox[$p$][$q$]$\{text\}$}}%
+  {$text$ into box of width $p$, with wrapped options indented
+by $q$}
+
+\hruler
+
+
+\entry{{\tt\string\previewfalse}}%
+  {given parameters instead of highlighted boxes will be shown}
+
+
+\entry{{\tt\string\localparastrue}}%
+  {letter parameters put into $\{\}$ before displayed}
+
+
+\entry{{\tt\string\nodefaultsfalse}}%
+  {take defaults for empty letter parameters}
+
+\hruler
+
+\entry{{\tt\string\previewtrue}}{{\it cf.} above}
+
+
+\entry{{\tt\string\localparasfalse}}{}
+
+
+\entry{{\tt\string\nodefaultstrue}}{}
+
+\hruler
+
+\vskip0pt plus 1cm
+~\hfill $\underline{\hbox{\sl Table continues in the next page}}$
+
+\penalty-5000
+\hruler
+
+
+\Longentry{%
+$\left\{\matrix{ \hbox{\tt\string\beginrawlist
+       [$a$][$b$][$c$][$d$][$e$][$f$]$\{g\}$}\cr
+ \hbox{\tt\string\endrawlist\hskip3.4cm}\cr}\right.$ }%
+ {\strut\par{\sl defaults:}\everypar={\hbox{\ \ \ }}\par\par
+  $a$={\tt\string\linecount},\par
+  $b$={\tt1}, $c$={\tt0},\par
+  $d$={\tt\string\tiny@rm}, \par
+  $e$={\tt0pt},  $f$={\tt0pt}, \par
+  $g$={\tt\string\endrawlist}}%
+{verbatim listing, line count from $a$, step $b$, digits $c$,
+font $d$, text position $e$, numbering shift $f$, end mark $g$}
+
+\hruler \vskip0.5pt
+\Longentry{%
+$\matrix{\hbox{\tt \string\printfile
+       [$a$][$b$][$c$][$d$][$e$][$f$]$\{$\it file.ext$\}$}\cr
+ \hbox{}\cr}$}%
+  {\strut\par{\sl defaults:} ~~$c$={\tt6} {\it etc}}%
+      {verbatim listing of {\it file.ext}}
+
+\hruler
+
+
+
+\Longentry{%
+$\left\{\matrix{ \hbox{\tt\string\beginlabels
+       [$a$][$b$][$c$][$d$][$e$][$f$]}\cr
+ \hbox{\tt\string\endlabels\hskip3cm}\cr}\right.$ }%
+ {\strut\par{\sl defaults:}\everypar={\hbox{\ \ \ }}\par\par
+  $a$={\tt 20pt}, \par $b$={\tt\string\tt\string\raggedright},
+ \par $c$={\tt1}, $d$={\tt1}, \par
+  $e$={\tt2.6in},  $f$={\tt2em}}%
+ {form letters become labels: address taken from $c^{th}$ to
+last parameter of $d^{th}$ group, with width $e$, indent
+$f$, borderspace $a$ and font toks $b$}
+
+\hruler
+
+
+\entry{{\tt\string\firstread$\{T\}$}}%
+  {toks $T$ will not be read if the file is re-read via {\tt
+   \string\labelsquit}}
+
+
+\entry{{\tt\string\initstyle[$a$]$\{b\}\{c\}$}}%
+  {initiation for {\tt\string\labelsquit},with styles $a$,
+   documentstyle $b$ and preamble $c$}
+
+\entry{{\tt\string\initclass[$a$][$o$]$\{b\}\{c\}$}}%
+  {similar to {\tt\string\initstyle} ($o$ is \LaTeX2e options),
+   but retains  native \LaTeX2e when applicable}
+
+
+\hruler \vskip0.5pt
+\Longentry{%
+$\matrix{\hbox{\tt \string\labelsquit
+       [$a$][$b$][$c$][$d$][$e$][$f$]$\{$\it file.ext$\}$}\cr
+ \hbox{}\cr}$}%
+ {\strut\par{\sl defaults:}\everypar={\hbox{\ \ \ }}\par\par
+  see that for {\tt\string\beginlabels}}
+  {quit after converting letters to labels by reading the current
+   document or {\it file.ext}}
+
+\hruler
+
+
+
+\def\ABC{{\tt\esc@}{\it abc}}
+
+
+\entry{{\tt\string\newarray\ABC}}%
+  {make array named {\it abc} along with
+   {\tt\ABC} and {\tt\string\check{\it abc}}}
+
+
+\entry{{\tt\string\delarray\ABC}}%
+  {delete array named {\it abc}}
+
+
+\hruler
+
+
+\entry{{\tt\ABC($m$)=$\{T\}$}}%
+   {assign tokens $T$ to {\tt\ABC($m$)};
+    {\tt\ABC($m$)} $\equiv$
+    {\tt\ABC($m_1,...,m_k$)} for
+    $m$=$1+\sum_1^k  (m_i-1)*\hbox{\tt\string\dataheight}^{k-i}$}
+
+
+\entry{{\tt\ABC($m$)}}{value of {\tt\ABC($m$)},
+       if not followed by `{\tt=}'}
+
+
+\entry{{\tt\string\dataheight}}{current array dimension: {\it cf.}
+       {\tt\ABC($m$)}}
+
+
+\entry{{\tt\string\readarray$\{N\}\{a_1 \hbox{\&}\, ..\, \hbox{\&} a_n\}$}}%
+   {equivalent to {\tt\esc@{\it N}(1)}=$a_1$, ..,
+   {\tt\esc@{\it N}($n$)}=$a_n$}
+
+
+
+\entry{{\tt\string\check{\it abc}($m$)}}%
+      {copy {\tt\ABC($m$)} to {\tt\string\cachedata};
+       set {\tt\string\ifemptydata} to true/false accordingly}
+
+
+\hruler
+
+\entry{{\tt\string\readstyles$\{f_1,...,f_n\}$}}%
+      {read files $f_1$ to $f_n$ with default extension {\tt .sty};
+       {\tt @}'s catcode set to {\tt 11} during input}
+
+\hruler
+
+
+}
+
+\footline={\lower5pt
+\hbox to \hsize
+ {{\rm Jiang Z ~~~{\sl Formlett: ~for letters to multiple receivers}
+  \hss {\sl $\bullet$End of Document$\bullet$}
+\hss \folio}}}
+
+\vskip 8in
+
+%\vfill\eject
+\endcolumns
+\vfill\eject
+
+
+
+%%%%%%%%%%%%%%%%%%
+% MAKE EXAMPLE1.TEX EXAMPLE2.TEX
+%%%%%%%%%%%%%%%%%%
+
+
+
+\message{Can I create <example1.tex> and <example2.tex> ? (y/n) }%
+\read-1 to \reply \def\nono{n }\def\Nono{N }\def\noNo{no }\def\NoNo{NO }%
+\def\next{\end{document}}%
+\ifx\reply\nono\else\ifx\reply\Nono\else\ifx\reply\noNo\else
+\ifx\reply\NoNo\else\let\next\relax
+\message{(=== YES ===)}\fi\fi\fi\fi \next
+
+
+
+
+\beginfile[EndOfExample1]{example1.tex}
+
+% Example1: EXAMPLE for using scratch files
+%           under plain TeX or LaTeX
+%
+
+\input formlett.sty
+%
+%%%%  MAKE scr@tch@.let
+%
+\beginfile{scr@tch@.let}
+
+% letter content
+\boxmore[10pt]{\hbox{\vbox{%  BOX FOR BORDERLINE
+
+\parindent=0pt
+\blockparas
+
+\bigskip\bigskip
+
+Dear \paras,
+
+\bigskip
+
+This part is typically the letter content. Since we are using a
+scratch file for our main body of our letter, the letter can be
+arbitrarily long, in comparison to using {\tt \string\beginletter}
+and {\tt \string\endletter} mechanism. Using a scratch file enables
+us to keep everything inside one single file so that it won't be mixed
+up with other letters.
+
+\medskip
+
+The idea of scratch file can also be applied to creating the address
+file, so that the address file can be read for the form letters in the
+first time and for mailing labels in the second time. These features are
+the purpose of this particular example.
+
+\medskip
+Thanks for using {\tt formlett.sty}.
+
+}}}  % END OF BOX FOR BORDERLINE
+\vfill\eject
+
+\endfile
+
+
+%
+%%%%  MAKE scr@tch@.adr
+%
+\beginfile{scr@tch@.adr}
+% address file
+\beginlinemode
+\tt<name>
+address line one
+address line two
+etc
+
+\tt<NAME>
+ADDRESS LINE ONE
+ADDRESS LINE TWO
+ETC
+
+\endlinemode
+\endfile
+
+
+%
+%%%  MAIN PROCESSING BODY
+%
+
+\hsize=5in
+\initstyle{}{}
+       % Above line is put here for being
+       % able to run this file under either TeX or LaTeX.
+       % It may be deleted for TeX. It may also be replaced
+       % under LaTeX by  \documentstyle{article} \begin{article}
+       % for instance
+
+\inputletter{scr@tch@.let}
+\inputfile{scr@tch@.adr}  % for form letters
+\beginlabels
+\inputfile{scr@tch@.adr}  % for labels
+\endlabels
+
+\end{document}
+
+EndOfExample1
+% above is password
+
+
+
+
+
+
+\beginfile{example2.tex}%
+
+% Example2: EXAMPLE for self-read
+%           under plain TeX or LaTeX
+%
+
+
+\input formlett.sty
+\hsize=3.2in  % for plain TeX
+\initstyle[]{}{\textwidth=3.2in}  % for LaTeX
+
+% MY LOGO
+%
+\catcode`\@=11\relax
+\def\UWS{{\vbadness=10000 \hbadness=10000 \hfuzz=\maxdimen
+  \vfuzz=\maxdimen  \font\tiny=cmr5 \font\small=cmr7
+  \def\today{\number\day\space\ifcase\month\or January\or February\or
+      March\or April\or May\or June\or July\or August\or September\or
+      October\or November\or December\fi\space\number\year}%
+  \def\make@temp@box{\csname newbox\endcsname \temp@box\relax}%
+  \ifx\temp@box\undefined \def\next{\make@temp@box}\else\def\next{}\fi\next
+  \font\HUGE=cmss10 at  24.87999pt \noindent
+  \setbox\temp@box=\hbox{\vbox to 0pt{\hbox{\HUGE
+          U\hskip6pt W\hskip6pt S}}}%
+  \def\buffdim{65pt}%\wd\temp@box  61.588pt
+  \rlap{\copy\temp@box}%
+  \rlap{\hskip.4pt\copy\temp@box}%
+  \rlap{\hskip.8pt\copy\temp@box}%
+  \rlap{\hskip1.2pt\copy\temp@box}%
+  \rlap{\hskip1.6pt\copy\temp@box}%
+  \rlap{\hskip2pt\copy\temp@box}%
+  \rlap{\hskip2.4pt\copy\temp@box}%
+  \rlap{\hskip2.8pt\copy\temp@box}%
+  \rlap{\hskip6pt\copy\temp@box}%
+  \rlap{\lower23pt \hbox to \buffdim{\tiny \hskip4pt The ~~~University~~~ Of}}%
+  \rlap{\lower25pt \hbox{\hskip2pt
+         \hbox to \buffdim{\vrule width \buffdim depth .2pt}}}%
+  \rlap{\lower32pt \hbox to \buffdim{\small \hskip-1pt WESTERN SYDNEY}}%
+  \setbox\temp@box=\hbox{\vbox{\let\noindent=\hfill
+    \font\small=cmss8 \baselineskip=8pt %plus 0.5pt minus 0.5pt
+    \small \parskip=0pt
+    \noindent School of Computing and IT\par
+    \noindent University of Western Sydney\par
+    \noindent Victoria Road, Parramatta\par
+    \noindent NSW 2150, Australia\par
+    \medskip
+    \noindent Email: ~z.jiang@uws.edu.au\par
+    \noindent Tel: ~(INT-) 61- 2- 96859336\par
+    \noindent Fax: ~(INT-) 61- 2- 96859245\par
+    \medskip\bigskip
+    \noindent \tt\today}}%
+   \rlap{\lower3.0cm \hbox{\box\temp@box}}%
+}\par}\catcode`\@=12\relax
+%
+
+\beginletter
+\paranames             % optional
+  \tt<<FULL NAME>>;%
+  \tt<<ADDRESS-etc>>;%
+ +\tt<<GIVEN NAME>>;%
+  \tt<<MISSING ITEM>>;%
+  \tt<<PHONE NUMBER>>!
+\loaddefaultparas      % optional
+
+\NOPAGENUMBERS\parindent=0pt\overfullrule=0pt
+\UWS \par\bigskip\bigskip\bigskip
+\noindent{\it\paras[1]}\par
+\blockparas[2]\par\bigskip
+
+Dear \paras[1][2],\par\medskip
+We have been looking for
+\paras[2][2] for quite a while
+without any luck, could you help
+us out? If so, please ring
+\paras[3][2]. \par\medskip
+Cheers!\hfill Zhuhan\vfill\eject
+\endletter
+\preview \showparas
+\eject  % \eject here is purely for better labels
+
+
+\paradefaults       % optional
+  To whom this may concern
+ +Sir or Madam;something;%
+  061-225-9905!
+
+
+\blockmarks
+\beginblockmode
+
+Mrs L Stenson
+\#1-20 Sunset Street
+Hillside, Norway
+------                           separate groups
+Louise
+a Bible
+220-8888
+=========                        separate cluster
+
+......                           force entry next line
+
+Above empty line active
+
+\endblockmode                 comment ignored
+
+\defaultmarks
+\moreletter
+   S Wales,;%
+   \addressbox[2in][1em]{University of Manchester Institute
+   of Science and Technology, This is
+   a long address line: it will be
+   wrapped up automatically.}
+ +;a \TeX\ package \gstr\ manual and
+   many more (\cstr)!
+
+\beginlinemode
+  S Pan
+  UNE, Arimdale
+
+  T Ribbons
+  UMIST, Manchester
+\endlinemode
+
+\beginpilemode
+
+  C Anderson;42nd Street;USA+Christine;your service invoice!
+
+  D Holmes;Flat \#2, Finneybank Rd;London+David;the tax receipt;%
+     071-902 7799!
+
+\endpilemode
+
+\begindatamode{3} % strictly 3 lines for one letter
+data-#1
+data-#2
+data-#3
+data-#4
+data-#5
+\enddatamode
+
+\ifISLATEX \firstread{\global\textwidth=6in}
+\else \firstread{\hsize=6in}\fi  % make labels double columns
+
+\labelsquit{}
+\end{document}  % redundant
+\endfile
+
+
+
+\message{Now go and TeX or LaTeX <example1.tex> and <example2.tex>}%
+
+
+\end{document}
+%
+%
+%
+%ENDDOCUMENT
+
+
+

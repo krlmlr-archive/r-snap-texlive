@@ -1,0 +1,122 @@
+<factura.cls>
+
+* Brief description in english *
+
+'factura' is the spanish word for 'invoice', so this is a LaTeX
+class for writing invoices easily, made taking into account
+requirements of SENIAT legislation (tax collector entity on the
+Bolivarian Republic of Venezuela), but surely its use is not
+restricted to Venezuela because all variables and text displayed
+can be redefined.
+
+* Descripción en castellano *
+
+La clase de LaTeX 'factura' está diseñada para su uso en la
+República Bolivariana de Venezuela, conforme a los requerimientos
+fijados por las providencias del SENIAT, válidas para abril del
+año 2013.
+
+Este paquete consta de los siguientes archivos:
+
+factura.cls -> El archivo de la clase,
+factura.def -> Los valores iniciales,
+factura-modelo.tex -> Un modelo de factura con todas las posibilidades explicadas,
+factura-modelo-ya.tex -> Un modelo con las opciones más comunes para su uso inmediato,
+README -> Este archivo, que junto con el modelo principal conforman la documentación.
+
+Esta clase está hecha para imprimir en formas libres, donde las hojas entregadas
+por la tipografía tienen un encabezado con los datos del emisor y una nota al pie
+con la información de la imprenta. El espacio que queda en el centro está todo
+disponible para la impresión de la factura; este espacio es controlado por el paquete
+'geometry', con los valores por defecto de la geometría de la hoja definidos
+dentro del archivo 'factura.def'. El margen superior está contado desde el inicio del
+papel (tamaño carta predeterminado) hasta el óvalo de los datos del cliente; el margen
+inferior indica el fin de la descripción del servicio, o el fin del renglón
+propiamente de la factura, es decir, los items y los totales.
+
+Sin embargo, hay texto flotante que está fuera de estos márgenes, como la fecha de
+emisión, la 'denominación' del documento (que es 'FACTURA', 'PRESUPUESTO' o puede
+cambiarse también a otro texto), el número de la factura, el número de control, las
+condiciones de pago y las líneas para las firmas; todo este texto está fijado
+en posiciones arbitrarias fuera de los márgenes dejados por 'geometry'. La razón por
+la que estos textos son flotantes es para darles posiciones fijas que no dependan
+del contenido de cada factura sino del diseño del talonario impreso. Estas posiciones
+'fijas' están definidas en 'factura.def', es decir que también puede colocarse
+arbitrariamente donde se desee, ajustándolas al espacio que deja la forma libre
+entregada por la imprenta.
+
+En algunos casos las formas libres tienen impreso el número de la factura y no es
+controlable esto por el emisor (tal como ocurre con el número de control); en otros
+casos el emisor coloca el número de la factura. Esto también fue considerado y puede
+cambiarse ese comportamiento con una opción en \documentclass.
+
+Al usarse esta clase se deben primero hacer medidas en las formas libres de la
+imprenta para determinar dónde colocar los textos flotantes que se deseen cambiar
+de posición; para eso hay que ver 'factura.def' y saber qué dimensiones de LaTeX
+hay que cambiar y así redefinirlas con \setlength en los .tex de las facturas a
+emitir, o naturalmente también puede hacerse un .tex con toda la adecuación
+requerida y cargarlo siempre en todas las facturas; todo esto si hiciera falta,
+en caso de que no satisfaga completamente el formato predeterminado.
+
+El archivo 'factura.def' tiene todas aquellas definiciones y valores que pueden ser
+ajustados; basta redefinirlos en el .tex de la misma forma como están definidos
+en el .def, por ejemplo la línea \geometry, las dimensiones que cambian las
+posiciones de los textos arbitrarios antes mencionados, la separación entre los
+óvalos de los datos del cliente y el resumen, la separación vertical entre los
+elementos de la forma libre, así como también, entre otras cosas, la tipografía
+usada en cada texto a presentar.
+
+Por ejemplo, se puede cambiar el tipo de letra con el que se escribe la fecha, y
+se puede cambiar el texto que aparece indicando el monto del IVA general para que
+no sea 'IVA G' sino 'Alícuota G', y se hace de la siguiente forma:
+
+\renewcommand{\letrafecha}{\fontsize{14}{12}\selectfont}
+\makeatletter
+\def\@@AlicuotaG{Al\'icuota G}
+\makeatother
+
+La manera de usar esta clase es llamarla mediante \documentclass{factura}, con
+las posibles opciones explicadas en la plantilla, luego definir en el preámbulo
+los datos del cliente con \RS (razón social, o \Nombre), \RIF (o \CI),
+\Direccion, \Tel, \Email; también hace falta definir el \Emisor, la \Fecha,
+las \Condiciones de pago, opcionalmente se puede definir un \Resumen, y la
+numeración de la factura con \Num. Después de \begin{document} se escribe el
+renglón de la factura, para lo cual la clase define un ambiente 'factura'
+(\begin{factura}...\end{factura}), y la descripción larga (\desc) que va después
+de este ambiente. Esta descripción coloca un marco con sombra.
+
+Es posible incluir elementos gravados con alícuota general (12%), alícuota reducida
+(8%), alícuota adicional (22%), así como también elementos exentos de gravamen.
+
+Puede dársele también una opción para cambiar la forma de presentar los totales,
+se pueden suprimir las líneas verticales, se pueden agregar líneas horizontales
+separando cada ítem, se pueden agregar espacios vacíos para hacer más grande el
+renglón de la factura, también se puede colocar una línea oblicua que proteja
+el renglón de la factura de adiciones de texto posteriores.
+
+También se puede colocar la firma escaneada del emisor en el espacio dispuesto 
+para firmar; esto para los casos donde se envíe una 'prefactura' por correo
+electrónico o fax, para lo cual también hay una opción en \documentclass que
+incluye el número de control que aparecerá en la factura original, y también
+pide incluir una imagen con el diseño de la forma libre de la imprenta, así la
+prefactura enviada tiene el mismo aspecto que la factura legal que luego será
+impresa y entregada.
+
+Los comandos internos que colocan los textos en la página:
+\@FECHA
+\@DATOSCLIENTE
+\@DATOSCLIENTERESUMEN
+\@CONDICIONES
+\@NUMCONTROL
+\@DENOMINACION
+\@FIRMAS
+\@MARCO
+
+Todas estas macros las llama la clase automáticamente pero pueden ser redefinidas
+en el preámbulo del .tex, encerrándolas entre \makeatletter y \makeatother como con
+el ejemplo con la alícuota general. Una vez adecuada la clase al diseño de las
+facturas a utilizar se podrán colocar todos los comandos que hacen estos ajustes
+en un .tex y cargarlo con \input o \include, como se sugirió anteriormente.
+
+
+Emilio Lazo Zaia <emiliolazozaia@gmail.com>

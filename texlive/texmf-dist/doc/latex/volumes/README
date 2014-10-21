@@ -1,0 +1,26 @@
+Abstract
+
+ 	volumes.sty - Typeset only parts of a document, with complete indices etc.
+
+	This package tries to help you if you want to produce separate printed volumes
+	from one LaTeX document, as well as one comprehensive, "all-inclusive" version. 
+	It suppresses the part of the table of contents that are not typeset, while 
+	counters, definitions, index entries etc. are kept consistent throughout the 
+	input file.
+
+To produce the style and auxiliary files
+
+	latex volumes.ins
+
+
+To produce the documentation 
+
+  (pdf)latex volumes.dtx
+
+	To produce an index for the documentation:
+
+    makeindex -s gind.ist volumes
+
+  To produce a change history for the documentation:
+  
+    makeindex -s gglo.ist -o volumes.gls volumes.glo

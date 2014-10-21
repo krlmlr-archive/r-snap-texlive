@@ -1,0 +1,45 @@
+Copyright (c) 2011 Holger Marschall
+holgermarschall@yahoo.de
+Licence: LPPL
+<http://www.ctan.org/tex-archive/help/Catalogue/licenses.lppl.html>
+
+1. What is it 
+=============
+The Beamer Audience package provides macros to easily assemble frames according 
+to different audiences. It enables to pick up the frames for a specific audience 
+while leaving their order according to a logical structure in the LaTeX source. 
+This selection is done at compilation.
+
+This is the very first version! It's still considered experimental! Everything, 
+in particular the user interface, may change in the future in order to keep this 
+compatible to both beamer and packages extending beamer capabilities.
+
+The Beamer Audience package is a macro collection extending the Beamer Class. 
+Although it can only be used with the beamer class, it is not a part of the 
+beamer class! 
+
+2. Usage
+========
+Include package as 
+
+  \usepackage[audience=keyword]{beameraudience}
+  
+with the keyword denoting your audience (for example: experts or beginner).
+
+Within the presentation source, use the beameraudience macros in order to 
+assemble frames according to the audience. Essentially, there are three macros 
+doing the job
+* \framefor{/#1/}{/#2/}
+* \justfor{/#1/}{/#2/}
+* \showcontentfor{/#1/}{/#2/}
+where
+/#1/ is to provided as a keyword (for example: experts or beginner)
+/#2/ is the content to be selected according to the audience.
+     For \framefor{}{} it's the frame content; 
+     For \justfor{}{} it can be a frame environment;
+     For \showcontentfor{}{} it's the selective content in a frame.
+
+3. Files
+========
+readme                      this file
+beameraudience.sty          the package

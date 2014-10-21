@@ -1,0 +1,35 @@
+relsize.sty       4.1       Mar 29, 2013
+
+Setting the font size relative to the current size
+
+Authored by Donald Arseneau <asnd@triumf.ca> and Matt Swift <swift@bu.edu>.
+(Inspired by smaller.sty author Bernie Cosell)
+
+This software is contributed to the public domain by its authors, who disclaim
+all copyrights. For people and jurisdictions that do not recognize contribution
+to the public domain, this software is licensed by the terms of the unlicense, 
+<http://unlicense.org/>
+
+commands are:
+\relsize{n}  where n gives the number of steps ("mag-step" = factor of 1.2)
+             to change the size by;  n = 3 changes from \normalsize to 
+             \LARGE size.  Negative n selects smaller fonts. n is an
+             integer (or half-integer).
+
+\smaller = \relsize{-1},  \smaller[n] = \relsize{-n}
+\larger  = \relsize{1},   \larger[n]  = \relsize{n}
+
+\textsmaller{text}, \textlarger{text} - versions that take an argument
+
+\relscale{f}   like \relsize, but instead of scale-steps,
+               the parameter is a scale factor, such as .75
+\textscale{f}{text}
+
+The font-size command nearest the requested size will be used, and if
+the size error is more than \RSpercentTolerance, then the size will
+be adjusted more precisely using \fontsize.  (The default empty 
+\RSpercentTolerance signals automatic handling, choosing the tolerance 
+based on the font declarations.)
+
+\mathsmaller{A}, \mathlarger{B}       - math versions 
+  (The math versions are entirely different from the text versions.)

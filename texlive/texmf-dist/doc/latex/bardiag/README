@@ -1,0 +1,47 @@
+LaTeX package  "bardiag"
+
+Allows to draw bar diagrams using LaTeX.
+Based on PSTricks.
+
+Style files: bardiag.sty and pstfp.sty.
+             File bardiag.bar contains some additional definitions 
+             and is loaded from bardiag.sty
+	     Also (optional) bardiag.cfg is included. This is a config
+	     file loaded at the end of the bardiag.sty.
+
+"Manual"   : doc/bardiag.ps, doc/bardiag1.ps, doc/bardiag2.ps
+             (compiled from bardiag.tex, bardiag1.tex, bardiag2.tex
+              and figs in the "doc/figs" dir)
+
+Examples   : doc/example
+
+
+Read bardiag.ps for more info.
+
+All needed .ps file are included.
+To compile the docs yourself, on a *nix system, use smth like:
+
+ mv bardiag.ps bardiag.ps.bak
+ latex bardiag
+ makeindex bardiag
+ latex bardiag
+ latex bardiag
+ dvips bardiag.dvi
+ 
+and
+
+ mv bardiagX.ps bardiagX.ps.bak 
+ latex bardiagX
+ latex bardiagX
+ dvips bardiagX.dvi 
+
+where X=1,2.
+
+More or less the same commands should do the job under DOS/Windows and MacOS.
+
+The package has been tested under teTeX TeX distribution, but should work
+with any other TeX system.
+
+
+R.Stepanyan
+rstepanyan@yahoo.com

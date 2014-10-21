@@ -1,0 +1,159 @@
+% ASTROSYM.TXT : AstroSym (Version 2.20,  Aug. 10, 2002) - file 1 of 8
+% Peter Schmitt                      eMail: Peter.Schmitt@univie.ac.at
+% Institute of Mathematics, University of Vienna       Vienna, Austria
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+***************************************
+*** AstroSym : astronomical symbols ***
+***************************************
+* ( Version 2.2 --- August 10, 2002 ) *
+***************************************
+
+ASTROSYM is a font containing astronomical symbols, including those
+used for the planets, four planetoids, the phases of the moon,
+the signs of the zodiac, and some additional symbols.
+The shapes of the symbols are taken from various sources.
+For some symbols more than one shape was found - for these
+symbols variants are included.
+Some shapes were reviewed by some historians and astronomers, and the
+`main shape' reflects their preference.
+
+The main style used for the symbols in AstroSym is calligraphic (strokes
+of varying breadth). An additional version uses a uniform stroke.
+It is supplied in two variants (thin and thick strokes).
+The size of the symbols, and the breadth of the stroke, can easily
+be changed in the driver file.
+A particular set of symbols for the phases of the moon (with a `face')
+is provided in one version only.
+The MetaFont code of AstroSym uses the plain base, but is completely
+independent of the cm-fonts.
+
+The AstroSym-font contains the following characters:
+    calligraphic style:
+       \char0  - \char10 : main shape - the planetary system
+       \char11 - \char22 : main shape - the signs of the zodiac
+       \char23 - \char32 and
+       \char56 & \char57 and
+       \char68           : variant shapes
+       \char33 - \char38 and
+       \char58 - \char65 : additional astronomical and astrological symbols
+       \char69           : a variant shape
+       \char48 - \char55 and
+       \char66 & \char67 : the four main planetoids, Chiron and Lilith
+                           (and variants)
+       \char10 and \char39 - \char47 : phases of the moon, and variants
+    extra symbols:
+       \char90 - \char95 : phases of the moon, with `face'
+    uniform stroke, bold : \char100 - \char169
+    uniform stroke, thin : \char200 - \char255 , \char178 - \char191
+
+This is a preliminary version.
+     The shape of some symbols may need improvement.
+     In particular, symmetric symbols are not (yet) all guarded
+     against rounding effects.
+
+Remark: The original arrangement of symbols is retained for full compatibility.
+        However, since the symbols should be used via macros,
+        this seems not to be important and
+        a more logical ordering may be used in a later version.
+
+*** version 2.20
+*** new : characters 55-69,155-169 and 178-191,255
+          including: Lilith, Chiron (2 versions),
+                     three signs for Pluto (Pluto 4,5,6), and
+                     (there seems to be no agreement on this sign!)
+                     nine additional astronomical/astrological symbols
+Thus, version 2.20 contains 70 characters each in three styles,
+                       plus  6 characters
+      (compared to 55 characters in three styles in 2.00,
+               and 29 characters in three styles in 1.00).
+*** version 2.00 (preliminary) ***
+*** new : characters 29-54,129-154,229-254 and 91-95
+          including: symbols for phases of the moon
+                     six additional astronomical characters
+                     Terra 2, Mars 2, Pluto 3
+                     Libra 3 (enlarged symbol)
+                     symbols for four planetoids
+                             ( Ceres, Juno, Pallas, Vesta
+                               and Ceres 2, Juno 2, Vesta 2 )
+
+The package contains the following seven files:
+    ASTROSYM.TXT  this file
+    ASTROSYM.MF   the driver file
+    ASTROSYM.MAC  the macro file
+    ASTROSYM.CMN  character definitions - common to both styles
+    ASTROSYM.CAL  character definitions - calligraphic style only
+    ASTROSYM.UNI  character definitions - uniform stroke only
+    ASTROSYM.XTR  character definitions - extra symbols (one version only)
+    ASTROSYM.TEX  sample file with symbol list (for plain TeX)
+
+Sorry, so far no .fd file for LaTeX2e is provided ( I do not use LaTeX :-)
+
+Comments and suggestions are welcome.
+Since I am curious if the font is useful (and how it looks in practice) 
+I would appreciate a short message (with reference) - or even some sample
+page(s) - if it is used in a publication.
+
+%%%%%%%%%%%%%
+%% License %%
+
+Since CTAN requires a license a statement:
+ This is free software, LPPL (LaTeX Project Public License).
+
+
+%%%%%%%%%%%%%
+%% History %%
+
+version 1.00   May  1, 1992 : \char 0-28,100-128,200-228
+version 1.90 March 17, 1997 (preliminary, never published)
+             added : \char 29-47,90-95,129-147,229-247
+         corrected bugs :
+         (1) font_size : cm#    sharp dimension needed    (pointed out by ** )
+                                `cm' can cause checksum error
+         (2) [10] Luna (calligraphic) : improved calculation
+                       to avoid potential arithmetic overflow
+                                                   (reported by Jochen Cammin)
+         (3) [111] [211] Aries :
+                         wrong point (Br instead of br) in computation of b
+                               has caused a distorted shape
+version 2.00 February 14, 1999
+             added \char 48-54,148-154,248-254
+         corrected bugs :
+         (1) [11] slight change to avoid `strange path'
+                  with certain resolutions (hopefully)
+         (2) renamed ASTROSYM.COM to ASTROSYM.CMN
+                  ( extension .com has irritated some software,
+                    e.g., during downloading )
+version 2.00 June 25, 2002
+  After adding various symbols (on special request) in 1997 and 1999
+  I always intended to make the new versions available on CTAN
+  (after some cleaning up, or so).
+    But, alas, this never happened :-(
+  Therefore, it probably is best to publish them as they are,
+  saving improvments for some update in the future.
+         (3) renamed ASTROSYM.DOC to ASTROSYM.TXT
+                  ( to avoid confusion with Word documents :-)
+version 2.10 March 3, 1999 (never published)
+             added \char 55-65,155-165,255,178-187
+  (I did not think of this extension when publishing version 2.00.)
+version 2.20 August 10, 2002
+             added \char 66-69,166-169,188-191
+         (1) \char38,138,238 (Quadrature) : bug fix (missing semi-colon)
+         (2) \char156,157,178,179 (Pluto 4,5) : fitting signs to their box
+               ( modified macro REND
+                 - this affects \char148,149,248,249 (Ceres,Ceres2) )
+         (3) the following characters produce errors for some low resolutions:
+             \char16 (Virgo)   : looks usable
+             \char18 (Scorpio) : looks usable
+             \char94 (moon face: last quarter - inverse) : missing
+==========================================================
+ Peter Schmitt                           Strudlhofgasse 4
+ Institut f\"ur Mathematik                    A-1090 Wien
+ Universit\"at Wien                               Austria
+----------------------------------------------------------
+                               Peter.Schmitt@univie.ac.at
+==========================================================
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%% end of ASTROSYM.TXT %%%

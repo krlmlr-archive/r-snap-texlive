@@ -1,0 +1,14 @@
+% Unbekannter Style/Paket ``textlist''
+% nachgebaut analog zu ``deflist.sty''
+% (br, 12.02.2001)
+\newenvironment{textlist}[1]{%
+  \list{}{%
+    \settowidth{\labelwidth}{#1}%
+    \setlength{\leftmargin}{\labelwidth}%
+    \addtolength{\leftmargin}{\labelsep}%
+    \def\makelabel##1{##1\hfill}%
+  }%
+}{%
+  \endlist
+}
+\endinput

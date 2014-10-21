@@ -1,0 +1,225 @@
+\documentclass{article}
+
+\usepackage{starfont}
+\usepackage{url}
+\usepackage{hyperref}
+
+\newcommand{\showboth}[1]{\starfontsans #1 & \starfontserif #1}
+
+\begin{document}
+\title{The \texttt{starfont} package for \LaTeX, version 1.2}
+\author{Matthew Skala\thanks{\url{mailto:mskala@ansuz.sooke.bc.ca}}}
+\date{29 September 2010}
+\maketitle
+
+\section{Introduction}
+
+This package is designed to provide two fonts named StarFont Sans and
+StarFont Serif in \LaTeX.  These fonts contain a wide variety of glyphs
+suitable for typesetting astrological documents.  Astrological support in
+previous \LaTeX\ packages is inadequate for a number of reasons that include
+incomplete coverage of the popular glyph set, inconsistent style between
+glyphs that need to work well when used together, simply ugly glyphs, wide
+variation in widths of glyphs (which makes trouble in tables), no
+availability in outline form to make well-behaved PDFs, and so on.  These
+glyphs aren't perfect either, but they are certainly the best ones I've
+found for typesetting astrological material in \LaTeX.
+
+Given the typical use of \LaTeX\ in the scientific community and the
+relationship between the scientific community and astrology, it amuses me to
+have \LaTeX\ used for astrology.  It's also convenient because I write both
+astrological and scientific documents and want to use the same tools for
+both.
+
+This is version 1.2 of the package, adding support for StarFont Serif and
+changing the commentary on copying restrictions now that it's confirmed the
+fonts are public domain.  Version 1.1 dated from 29~June 2006; version 1.0
+was never widely distributed but first existed around 2003 or 2004.
+
+The fonts were designed, and distributed in TrueType form, by
+Anthony~I.P. Owen.  The packaging for TeX and LaTeX was done by Matthew
+Skala.  Both these authors have released their contributions to the public
+domain.  As such, the contents of this package are provided ``as is,'' with
+no warranties.  See the file \texttt{COPYING} for more information.
+
+\section{Using \texttt{starfont}}
+
+Install the fonts.  Installing fonts is a black art; I have included, in the
+\texttt{README} file, hints on where to put the files involved, but I do not
+really understand how \LaTeX\ (and \TeX, and \texttt{dvips}, and so on)
+finds font files and I cannot give meaningful instruction to others on it.
+
+The fonts should end up installed with the names ``\texttt{fstr8x}'' for
+StarFont Sans, and `\texttt{fsts8x}'' for StarFont Serif.  The
+\texttt{starfont} package defines NFSS families named ``\texttt{stf}'' and
+`\texttt{sts}''. The general approach used imitates the way the
+\texttt{marvosym} package works, and this package is to some degree
+compatible with \texttt{marvosym}.
+
+StarFont Sans is the default and recommended choice; I believe it mixes
+better with other fonts typically used in \LaTeX\ documents. However, the
+StarFont Serif version is also available via the \texttt{starfontserif}
+package option.  A corresponding \texttt{starfontsans} option will be
+accepted for clarity but has no actual effect because the Sans version is
+default anyway.  These options have verbose names to make it easier for them
+to inherit from a higher-level package like my \texttt{horoscop} package. 
+You can also switch between the two styles inside a document using the
+\verb|\starfontsans| and \verb|\starfontserif| macros; each of these will
+change the mode for any subsequent uses of the character macros below.  Both
+are shown in the sample tables below.
+
+\subsection{Luminaries and traditional planets}
+
+Here are the basics:
+
+\begin{tabular}{llll|llll}
+\verb|\Sun| & \showboth{\Sun} & Sun &
+   \verb|\Jupiter| & \showboth{\Jupiter} & Jupiter \\
+\verb|\Moon| & \showboth{\Moon} & Moon &
+   \verb|\Saturn| & \showboth{\Saturn} & Saturn \\
+\verb|\Mercury| & \showboth{\Mercury} & Mercury &
+   \verb|\Uranus| & \showboth{\Uranus} & Uranus \\
+\verb|\Venus| & \showboth{\Venus} & Venus &
+   \verb|\Neptune| & \showboth{\Neptune} & Neptune \\
+\verb|\Terra| & \showboth{\Terra} & Earth (planet) &
+   \verb|\Pluto| & \showboth{\Pluto} & Pluto \\
+\verb|\Mars| & \showboth{\Mars} & Mars
+\end{tabular}
+
+The planet Earth is referred to as ``Terra'' in the command name to
+prevent a collision with the glyph for the element Earth.  Since the
+element is much more commonly referred to in astrology than the
+planet, it takes precedence for the more straightforward name.  There
+are also variants of some of these glyphs:
+
+\begin{tabular}{llll|llll}
+\verb|\varMoon| & \showboth{\varMoon} & Moon &
+   \verb|\varUranus| & \showboth{\varUranus} & Uranus \\
+\verb|\varTerra| & \showboth{\varTerra} & Earth (planet) &
+   \verb|\varPluto| & \showboth{\varPluto} & Pluto
+\end{tabular}
+
+\subsection{Signs of the zodiac}
+
+\begin{tabular}{llll|llll}
+\verb|\Aries| & \showboth{\Aries} & Aries &
+   \verb|\Libra| & \showboth{\Libra} & Libra \\
+\verb|\Taurus| & \showboth{\Taurus} & Taurus &
+   \verb|\Scorpio| & \showboth{\Scorpio} & Scorpio \\
+\verb|\Gemini| & \showboth{\Gemini} & Gemini &
+   \verb|\Sagittarius| & \showboth{\Sagittarius} & Sagittarius \\
+\verb|\Cancer| & \showboth{\Cancer} & Cancer &
+   \verb|\Capricorn| & \showboth{\Capricorn} & Capricorn \\
+\verb|\Leo| & \showboth{\Leo} & Leo &
+   \verb|\Aquarius| & \showboth{\Aquarius} & Aquarius \\
+\verb|\Virgo| & \showboth{\Virgo} & Virgo &
+   \verb|\Pisces| & \showboth{\Pisces} & Pisces
+\end{tabular}
+
+The command
+\verb|\varCapricorn| produces ``\varCapricorn'' or
+``\starfontserif\varCapricorn,'' a variant symbol for
+Capricorn.  This package also
+provides a \verb|\Zodiac| command similar to the one in \texttt{marvosym}:
+\verb|\Zodiac{1}|\ldots\verb|\Zodiac{12}| produce
+\starfontsans\Zodiac{1}\ldots\Zodiac{12} or
+\starfontserif\Zodiac{1}\ldots\Zodiac{12}.
+
+\subsection{Asteroids}
+
+\begin{tabular}{llll|llll}
+\verb|\Ceres| & \showboth{\Ceres} & Ceres &
+   \verb|\Amor| & \showboth{\Amor} & Amor \\
+\verb|\Pallas| & \showboth{\Pallas} & Pallas &
+   \verb|\Eros| & \showboth{\Eros} & Eros \\
+\verb|\Juno| & \showboth{\Juno} & Juno &
+   \verb|\Hidalgo| & \showboth{\Hidalgo} & Hidalgo \\
+\verb|\Vesta| & \showboth{\Vesta} & Vesta &
+   \verb|\Hygiea| & \showboth{\Hygiea} & Hygiea \\
+\verb|\Chiron| & \showboth{\Chiron} & Chiron &
+   \verb|\Psyche| & \showboth{\Psyche} & Psyche \\
+& & & & \verb|\Sappho| & \showboth{\Sappho} & Sappho
+\end{tabular}
+
+\subsection{Uranian hypothetical planets}
+
+\begin{tabular}{llll|llll}
+\verb|\Cupido| & \showboth{\Cupido} & Cupido &
+   \verb|\Apollon| & \showboth{\Apollon} & Apollon \\
+\verb|\Hades| & \showboth{\Hades} & Hades &
+   \verb|\Admetos| & \showboth{\Admetos} & Admetos \\
+\verb|\Zeus| & \showboth{\Zeus} & Zeus &
+   \verb|\Vulkanus| & \showboth{\Vulkanus} & Vulkanus \\
+\verb|\Kronos| & \showboth{\Kronos} & Kronos &
+   \verb|\Poseidon| & \showboth{\Poseidon} & Poseidon
+\end{tabular}
+
+\subsection{Derived points}
+
+\begin{tabular}{llll|llll}
+\verb|\NorthNode| & \showboth{\NorthNode} & North~Node &
+   \verb|\SouthNode| & \showboth{\SouthNode} & Sout~Node \\
+\verb|\Lilith| & \showboth{\Lilith} & Lilith &
+   \verb|\Fortune| & \showboth{\Fortune} & Fortune
+\end{tabular}
+
+\subsection{Aspects}
+
+\begin{tabular}{llll|llll}
+\verb|\Conjunction| & \showboth{\Conjunction} & Conjunction &
+   \verb|\Quincunx| & \showboth{\Quincunx} & Quincunx \\
+\verb|\Opposition| & \showboth{\Opposition} & Opposition &
+   \verb|\Semisextile| & \showboth{\Semisextile} & Semisextile \\
+\verb|\Trine| & \showboth{\Trine} & Trine &
+   \verb|\Semisquare| & \showboth{\Semisquare} & Semisquare \\
+\verb|\Square| & \showboth{\Square} & Square &
+   \verb|\Sesquiquadrate| & \showboth{\Sesquiquadrate} & Sesquiquadrate \\
+\verb|\Sextile| & \showboth{\Sextile} & Sextile
+\end{tabular}
+
+\subsection{Angles}
+
+\begin{tabular}{llll|llll}
+\verb|\ASC| & \showboth{\ASC} & Ascendant &
+   \verb|\DSC| & \showboth{\DSC} & Descendant \\
+\verb|\MC| & \showboth{\MC} & Midheaven &
+   \verb|\IC| & \showboth{\IC} & Nadir \\
+ & & & (Medium C\oe li) & & & & (Imum C\oe li) \\
+\verb|\Vertex| & \showboth{\Vertex} & Vertex &
+   \verb|\EastPoint| & \showboth{\EastPoint} & East Point
+\end{tabular}
+
+\subsection{Directions}
+
+\begin{tabular}{llll|llll}
+\verb|\Retrograde| & \showboth{\Retrograde} & Retrograde &
+   \verb|\Station| & \showboth{\Station} & Station \\
+\verb|\Direct| & \showboth{\Direct} & Direct
+\end{tabular}
+
+\subsection{Elements}
+
+\begin{tabular}{llll|llll}
+\verb|\Fire| & \showboth{\Fire} & Fire &
+   \verb|\Earth| & \showboth{\Earth} & Earth (element) \\
+\verb|\Air| & \showboth{\Air} & Air &
+   \verb|\Water| & \showboth{\Water} & Water
+\end{tabular}
+
+\subsection{Other symbols}
+
+\begin{tabular}{llll|llll}
+\verb|\Natal| & \showboth{\Natal} & Natal &
+   \verb|\Radix| & \showboth{\Radix} & Radix \\
+\verb|\Pentagram| & \showboth{\Pentagram}
+\end{tabular}
+
+There are many other symbols in the font which I don't recognize,
+including a bunch that are probably from Cosmobiology.  It should be
+possible to add them easily enough by following the examples in
+\texttt{starfont.sty}. There is an encoding table (made by
+\texttt{testfont.tex}) provided in the file \texttt{table.pdf}.  I
+would appreciate hearing from readers who know of good names for the
+unknown symbols.
+
+\end{document}

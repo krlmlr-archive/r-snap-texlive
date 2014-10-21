@@ -1,0 +1,49 @@
+This is the README for the Overlock package, version 2014-05-24.
+
+This package provides LaTeX, pdfLaTeX, XeLaTeX and LuaLaTeX support
+for the Overlock and OverlookSC families of fonts, designed by
+Dario Manuel Muhafara of the TIPO foundry (http://www.tipo.net.ar).
+These are "rounded" sans-serif fonts in three weights (Regular,
+Bold, Black) with italic variants for each of them. There are also
+small-caps and old-style figures in the Regular weight.
+
+To install this package on a TDS-compliant TeX system download
+the file "tex-archive"/install/fonts/overlock.tds.zip, where the
+preferred URL for "tex-archive" is http://mirror.ctan.org. Unzip
+the archive at the root of an appropriate texmf tree, likely a
+personal or local tree. If necessary, update the file-name database
+(e.g., texhash). Update the font-map files by enabling the Map file
+overlock.map.
+
+To use, add
+
+\usepackage{overlock}
+
+to the preamble of your document. This will activate Overlock and
+OverlockSC as the sans-serif text fonts. To also set these as the
+main text fonts, use
+
+\usepackage[sfdefault]{overlock}
+
+The black option will use that weight as the default bold series.
+
+LuaLaTeX and xeLaTeX users who might prefer type1 fonts or who wish
+to avoid fontspec may use the type1 option.
+
+Options scaled=<number> or scale=<number> may be used to scale the
+fonts.
+
+The default figure style is proportional-lining but old-style
+figures are available for the regular weight using the small-cap
+shape. Font encodings supported are OT1, T1, LY1 and TS1.
+
+Command \overlook selects the Overlock and OverlockSC families
+and \overlockBlack selects the Black series.
+
+The original fonts are available at http://www.google.com and
+are licensed under the SIL Open Font License, (version 1.1); the
+text may be found in the doc directory. The type1 versions were
+created using fontforge. The support files were created using
+autoinst and are licensed under the terms of the LaTeX Project
+Public License. The maintainer of this package is Bob Tennent (rdt
+at cs.queensu.ca).

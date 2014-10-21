@@ -1,0 +1,398 @@
+% !TEX TS-program = pdflatex
+% !TEX encoding = UTF-8 Unicode
+%% berenisadf.tex
+%% Copyright 2013 Clea F. Rees
+%
+% This work may be distributed and/or modified under the
+% conditions of the LaTeX Project Public License, either version 1.3
+% of this license or (at your option) any later version.
+% The latest version of this license is in
+%   http://www.latex-project.org/lppl.txt
+% and version 1.3 or later is part of all distributions of LaTeX
+% version 2005/12/01 or later.
+%
+% This work has the LPPL maintenance status `maintained'.
+%
+% The Current Maintainer of this work is Clea F. Rees.
+%
+% This work consists of all files listed in manifest.txt.
+\listfiles
+\documentclass[11pt,british]{article}
+\usepackage{babel}
+\usepackage{berenis}
+	\pdfmapfile{+ybd.map}	% not necessary for installed package
+\renewcommand{\ttdefault}{lmvtt}
+\usepackage{fancyhdr,lastpage,fancyref}
+\usepackage{array,longtable,verbatim}
+\usepackage{booktabs}
+\usepackage{multirow}
+\usepackage{url}
+	\urlstyle{tt}
+\usepackage{hyperref}
+\usepackage{microtype}
+\usepackage[a4paper,headheight=14pt,scale=0.8]{geometry}	% use 14pt for 11pt text, 15pt for 12pt text
+
+\title{berenisadf}
+\author{Clea F.\ Rees\footnote{reesc21 <at> cardiff <dot> ac <dot> uk}}
+\newcommand*{\dyddiad}{20\textsu{th} November, 2013}
+\date{\dyddiad}
+\pagestyle{fancy}
+	\fancyhf[lh]{\itshape berenisadf}
+	\fancyhf[rh]{\itshape\dyddiad}
+	\fancyhf[ch]{}
+	\fancyhf[lf]{}
+	\fancyhf[rf]{}
+	\fancyhf[cf]{\itshape --- \thepage~\ofname~\pageref{LastPage} ---}
+
+\begin{document}
+\maketitle\thispagestyle{empty}
+\pdfinfo{%
+	/Creator		(TeX)
+	/Producer		(pdfTeX)
+	/Author			(Clea F.\ Rees)
+	/Title			(berenisadf)
+	/Subject		(TeX)
+	/Keywords		(TeX,LaTeX,font,fonts,tex,latex,Berenis,berenis,berenisadf,BerenisADF,BerenisADFPro,ADF,adf,Arkandis,Digital,Foundry,arkandis,digital,foundry,Hirwen,Harendal,Clea,Rees)}
+\pdfcatalog{%
+	/URL				()
+	/PageMode	/UseOutlines}	% other values: /UseNone, /UseOutlines, /UseThumbs, /FullScreen
+	%[openaction <actionspec>]
+%	\pagestyle{empty}	% if you want this, you probably want to comment out \maketitle as well...?
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{0.5em}
+
+
+\newcommand*{\adf}{\textsc{adf}}
+\newcommand*{\lpack}[1]{\textsf{#1}}
+\newcommand*{\fgroup}[1]{\textsf{#1}}
+\newcommand*{\fname}[1]{\textsf{#1}}
+
+\begin{abstract}
+	\hspace*{-\parindent}Hirwen Harendal, Arkandis Digital Foundry (\adf) has produced the Berenis \adf\ font collection. This guide outlines the \emph{experimental} \TeX/\LaTeX\ support provided by version 2.0 of \lpack{berenisadf} for version 1.004 of the fonts.
+\end{abstract}
+
+\tableofcontents
+
+\section{Introduction}
+
+This document explains how to use the \TeX/\LaTeX\ support provided for version 1.004 of the Berenis \adf\ font collection developed by Hirwen Harendal of the Arkandis Digital Foundry (\adf). \lpack{berenisadf} includes copies of the fonts in postscript type 1 format and opentype versions as source. Further  information about the fonts themselves can be found at \url{http://arkandis.tuxfamily.org/adffonts.html}. The fonts are released under the \textsc{gnu} General Public License as published by the Free Software Foundation; either version 2 of the License, or any later version, with font exception. For details, see \textsc{notice}.txt and \textsc{copying}.
+
+The \TeX/\LaTeX\ support package consists of all files listed in \path{manifest.txt}\ and these files are released under the \LaTeX\ Project Public License as explained in the included licensing notices. Please let me know of any problems so that I can solve them if I can. If you can correct the problems and send me the fix, that would be even better. Unlike the fonts themselves, the \TeX/\LaTeX\ support is somewhat experimental.
+
+\section{The collection}
+
+Berenis \adf\ is a serif family designed as a substitute for Bodoni or Didot. The family currently includes upright, italic, small-caps and italic small-caps shapes in each of regular and bold weights. Six sets of digits are provided: proportional oldstyle and lining; tabular oldstyle and lining; inferior; and superior\footnote{In fact, the fonts also include denominator and numerator figures. Since there is currently no use for these in TeX, however, the support package ignores them.}. The support package renames the fonts according to the Karl Berry fontname scheme and defines ten families. Four of these primarily provide access to the ``standard'' or default characters while the four ``ligature'' or ``swash'' families support additional non-standard ligatures, alternate glyphs, the slashed zero and additional pre-composed accented characters\footnote{\Fref{sec:encs} describes the encodings used to create these families. For further details see the encoding (\path{.enc}) and kerning/ligaturing (\path{.lig}) files.}. The remaining two families families include the inferior and superior figures, together with any other complementary characters included in the fonts. The included package files provide access to these features in \LaTeX\ as explained in \fref{sec:support} and \fref{sec:commands}.
+
+Version 1.0 provided support for only the \textsc{ly1} encoding. Version 2.0 adds support for \textsc{t1} and \textsc{ts1}, and includes some changes to the \textsc{ly1} encoding used. The ``ligature'' or ``swash'' families are supported only for \textsc{ly1}. In addition, Welsh should be typeset in \textsc{ly1} since the customised encodings better support it, especially in version 2.0.
+
+%\clearpage
+
+\begin{longtable}{llll}
+	\toprule
+	\textbf{\TeX\ directory}	&	\textbf{font families}	&	\textbf{Original name}	& \textbf{\TeX\ name}\\\midrule\endhead
+		\bottomrule\endfoot
+	\multirow{8}*{berenis}	& \multirow{8}{.2\textwidth}{ybd, ybdj, ybdjw, ybdw, \textl{ybd2, ybd2j, ybd2jw, ybd2w, ybd0, ybd1}	}	&	BerenisADFPro-Regular							&	ybdr\\
+						&																		&	BerenisADFPro-Italic						&	ybdri\\
+						&																		&	BerenisADFPro-Bold							&	ybdb\\
+						&																		&	BerenisADFPro-BoldItalic				&	ybdbi\\
+						&																		&	BerenisADFProSC-Regular						&	ybdrc\\
+						&																		&	BerenisADFProSC-Italic						&	ybdrci\\
+						&																		&	BerenisADFProSC-Bold							&	ybdbc\\
+						&																		&	BerenisADFProSC-BoldItalic				&	ybdbci\\
+\end{longtable}
+
+
+\section{Requirements}
+
+Apart from such obvious requirements as \LaTeXe, the \LaTeX\ support provided by \path{berenis.sty} requires \lpack{nfssext-cfr} and \lpack{xkeyval}. Without \lpack{nfssext-cfr}, you will get errors complaining that the package cannot be found and you will not be able to use any of the additional font commands described in \fref{sec:commands}.
+
+The documentation requires additional packages. These are all standard and available from \textsc{ctan} but you can always comment out the relevant lines in \path{berenisadf.tex} if you wish.
+
+\section{Installation}
+
+Installation varies with \TeX\ distribution so you should consult the documentation which came with your system for details. In most cases, you will need to perform three steps:
+		\begin{enumerate}
+			\item move or copy the package files to appropriate locations on your system;
+			\item refresh the \TeX\ database;
+			\item incorporate the included map file fragments for the different engines your distribution supports.
+		\end{enumerate}
+
+The following instructions assume you are using \TeX~Live\footnote{This includes Mac\TeX\ for OS X users.}. They should not be too difficult to adapt if you are using a different distribution.
+
+\subsection{Install the files}
+
+The files should be installed in one of two locations: \emph{either} the local system-wide \TeX\ tree \emph{or} your personal tree. If the package is installed system-wide, all users will have access to it. On the other hand, you may need privileges you do not have to do this in which case you must use your personal tree.
+
+For \TeX~Live, \verb|kpsewhich -var-value TEXMFLOCAL| will return the path to the local tree. To obtain the path to your personal tree, use \verb|kpsewhich -var-value TEXMFHOME|. The package already includes a hierarchy of files to help you install them correctly. Ignoring any symbolic link in the top directory, move or copy the files in \path{doc}, \path{fonts} and \path{tex} into the appropriate locations. If the tree is initially empty, you can simply move or copy the directories in as they are. If the tree already contains other packages, you may need to merge the package hierarchy with the pre-existing one. For example, if you already have a \path{doc/fonts} directory, move or copy \path{doc/fonts/berenis} into \path{doc/fonts/}. If you have a \path{doc} directory but not a \path{doc/fonts}, move \path{doc/fonts} into \path{doc/}.
+
+\subsection{Refresh the database}
+
+Again, this depends on your distribution. For \TeX~Live, \verb|mktexlsr <path to directory>| for the directory you used in the first step should do the trick. Note that you \emph{may} be able to skip this step if you install into your personal tree. Whether this is so depends on the details of your set-up. As a test, move to a directory containing none of the package files and try \verb|kpsewhich berenis.sty|. If the file is found, you don't need to refresh the database; otherwise use \verb|mktexlsr| and then try again.
+
+\subsection{Install the map fragments}
+
+For \TeX~Live, there are at least two ways of doing this. The second method varies according to the version of \TeX~Live and instructions are provided accordingly. Both methods depend on whether you installed into \verb|TEXMFLOCAL| or \verb|TEXMFHOME|. If you installed system-wide, the choice is relatively straightforward --- it obviously makes sense in that case to update the font maps system-wide as well. If, on the other hand, you installed into your personal tree, the matter is more complex. On the one hand, updating the system-wide maps may create difficulties or confusion for other users because while the map files will list the fonts as available, they will not be able to access them. On the other hand, maintaining personal font map files can produce difficulties and confusions of its own. Whether it is to be preferred or not is a complex issue and depends on the details of your \TeX\ distribution, local configuration and personal preference. The one clear case is that in which you install into your personal tree because you lack the privileges needed to install system-wide. In that case, you have no choice but to maintain personal font map files or forgo the use of all fonts not provided by your administrator. Other cases are thankfully beyond the scope of this document.
+
+\subsubsection{Method 1}
+
+If you installed the package system-wide, use the command:
+\begin{verbatim}
+	updmap-sys --enable Map=ybd.map
+\end{verbatim}
+If you installed the package in your personal tree, you \emph{may} prefer to use:
+\begin{verbatim}
+	updmap --enable Map=ybd.map
+\end{verbatim}
+
+Either way, \verb|updmap| will output a good deal of information after each incantation. This is normal. Just check that it does not end with an error and that it found the new map file.
+
+\subsubsection{Method 2: \TeX~Live 2008 (and probably earlier)}
+
+If you installed the package system-wide, use \verb|updmap-sys --edit|.
+
+If you installed into your personal tree, you \emph{may} prefer to use	\verb|updmap --edit|.
+
+Either way, a configuration file will be opened which you can edit. Move to the end of the file and add the following line:
+\begin{verbatim}
+	Map ybd.map
+\end{verbatim}
+When you are done, save the file. \verb|updmap| or \verb|updmap-sys| will produce a great deal of output if all is well. Just check that it does not end with an error and that \path{ybd.map} is found.
+
+\subsubsection{Method 2: \TeX~Live 2009 (and possibly later)}
+
+If you installed the package system-wide, edit or or create \path{TEXMFLOCAL/web2c/updmap-local.cfg} and add the following line to the end of the file:
+\begin{verbatim}
+	Map ybd.map
+\end{verbatim}
+Save the file and tell \verb|tlmgr| to merge in your addition using the command:
+\begin{verbatim}
+	tlmgr generate updmap
+\end{verbatim}
+\verb|tlmgr| will then tell you that you need to ensure the changes are propagated correctly by calling \verb|updmap-sys|. This should produce a great deal of output. Check that it finds the new map file and does not end with an error.
+
+If you installed into your personal tree, you \emph{may} prefer to use \verb|	updmap --edit| as described above for \TeX~Live 2008.
+
+To test your installation and that the package works on your system, latex this file (\path{berenisadf.tex}). The console output and/or log should tell you whether any fonts were not found. If you are careful not to overwrite it, you may also compare your output with \path{berenisadf.pdf}.
+
+\section{The support package}\label{sec:support}
+
+\subsection{Encodings}\label{sec:encs}
+
+The package supports modified TeXnANSI/\textsc{ly1} encodings. Version 2.0 provides limited support for \textsc{t1} and \textsc{ts1}. Most characters in the TeXnANSI encoding are available, including the \texteuro. Six of the families use encodings based on \path{texnansi.enc}; four use encodings based on \path{texnansx.enc}. These bases are reflected in the file names as shown below. All encodings make certain changes to accommodate differences in glyph names. For example, the slots for \path{onesuperior}, \path{twosuperior} and \path{threesuperior} are used for \path{one.superior}, \path{two.superior} and \path{three.superior} in all encodings.
+
+\begin{longtable}{llp{.2\textwidth}p{.175\textwidth}}
+	\toprule
+	\textbf{encoding file}	&	\textbf{provides}	&	\textbf{figures}		&	\textbf{empty slots $\rightarrow$}	\\\midrule\endhead
+		\bottomrule\endfoot
+		texnansi-ybd.enc			&	TeXnANSIEncoding-ybd			&	tabular lining					&	\multirow{4}{0.175\textwidth}{fj, ffj, \^W, \^w, \^Y, \^y}\\
+		texnansi-ybd2.enc		&	TeXnANSIEncoding-ybd2		&	proportional lining		&	\\
+		texnansi-ybd2j.enc		&	TeXnANSIEncoding-ybd2j		&	proportional oldstyle	&	\\
+		texnansi-ybdj.enc		&	TeXnANSIEncoding-ybdj		&	tabular oldstyle				&	\\\midrule
+		texnansx-ybd2jw.enc	&	TeXnANSIEncoding-ybd2jw	&	proportional oldstyle	&	\multirow{4}{0.175\textwidth}{fj, ffj, ft, fft, tt,\\\textswash{ch, ck, cl, ct,\\sh, sk, sl, sp, st,\\\textl{\zeroslash}, Q*, \^W, \^w, \^Y, \^y}}\\
+		texnansx-ybd2w.enc		&	TeXnANSIEncoding-ybd2w		&	proportional lining\\
+		texnansx-ybdjw.enc		&	TeXnANSIEncoding-ybdjw		&	tabular oldstyle\\
+		texnansx-ybdw.enc		&	TeXnANSIEncoding-ybdw		&	tabular lining\\\midrule
+		texnansi-ybd0.enc		&	TeXnANSIEncoding-ybd0		&	\multicolumn{2}{c}{inferiors, as available}\\\midrule
+		texnansi-ybd1.enc		&	TeXnANSIEncoding-ybd1		&	\multicolumn{2}{c}{superiors, as available}\\\midrule
+		t1-ybd.enc		&	T1-ybd		&	tabular lining			&	\multirow{4}{0.175\textwidth}{None}\\
+		t1-ybd2.enc		&	T1-ybd2		&	proportional lining		&	\\
+		t1-ybd2j.enc	&	T1-ybd2j	&	proportional oldstyle	&	\\
+		t1-ybdj.enc		&	T1-ybdj		&	tabular oldstyle		&	\\\midrule
+		t1-ybd0.enc		&	T1-ybd0		&	\multicolumn{2}{c}{inferiors, as available}\\\midrule
+		t1-ybd1.enc		&	T1-ybd1		&	\multicolumn{2}{c}{superiors, as available}\\\midrule
+		ts1-ybd.enc		&	TS1-ybd		&	tabular lining			&	\multirow{4}{0.175\textwidth}{N/A}\\
+		ts1-ybd2.enc	&	TS1-ybd2	&	proportional lining		&	\\
+		ts1-ybd2j.enc	&	TS1-ybd2j	&	proportional oldstyle	&	\\
+		ts1-ybdj.enc	&	TS1-ybdj	&	tabular oldstyle		&	\\\midrule
+		ts1-ybd0.enc	&	TS1-ybd0	&	\multicolumn{2}{c}{inferiors, as available}\\\midrule
+		ts1-ybd1.enc	&	TS1-ybd1	&	\multicolumn{2}{c}{superiors, as available}\\
+\end{longtable}
+
+By default, \path{texnansx.enc} does not work correctly with \path{ly1def.enc} which is needed by \lpack{fontenc} to implement the \textsc{ly1} encoding. The idea of the encoding file is to remove the duplicates found in the standard TeXnANSI/\textsc{ly1} encoding, freeing up additional slots for other purposes. Unfortunately, from the point of view of \path{ly1def.enc}, the file frequently removes the wrong duplicate. All encodings for \lpack{berenisadf} based on this file were therefore further modified to restore the removed duplicate and remove the correct one where this was necessary for cooperation with \path{ly1def.enc}.
+
+The fonts do not provide anything like a full set of inferiors or superiors. \path{texnansi-ybd0}, \path{texnansi-ybd1}, \path{t1-ybd0}, \path{t1-ybd1}, \path{ts1-ybd0} and \path{ts1-ybd1} are intended only to support what is available. This amounts to the digits (\textin{0123456789}/\textsu{0123456789}), some basic punctuation (\textin{(,)-.}/\textsu{(,)-.}) and symbols (\textin{+\pounds\$\textcent\texteuro\textyen}/\textsu{+\pounds\$\textcent\texteuro\textyen}) and, in the case of superiors, a selection of lowercase letters (\textsu{abcdefghijklmnopqrstuvwxyz}). The ``standard'' letters and symbols make no sense here so when inferiors or superiors are in use \emph{only} those symbols available in subscript or superscript form are provided.
+
+The encodings use symbols to match the relevant style of figures when these are available. For example, \verb|\texteuro 3.15| will variously produce \texteuro 3.15, \textl{\texteuro 3.15}, \textto{\texteuro 3.15}, \texttl{\texteuro 3.15}, \textin{\texteuro 3.15} or \textsu{\texteuro 3.15} depending on the current family.
+
+
+\subsection{\LaTeX\ package}
+
+To use the fonts in a \LaTeX\ document, add \verb|\usepackage{berenis}| to your document preamble. This will set the default serif/roman family to \fname{ybd} (\fgroup{berenis}) and enable access to the various alternates, styles and ligatures. Six optional arguments are available to tailor the behaviour of the package: \verb|lf|/\verb|osf|, \verb|tab|/\verb|prop|, \verb|lig| and \verb|lm|.
+
+By default, oldstyle figures are used as standard and lining digits are available using the commands explained in \fref{sec:commands}. To make lining figures the default instead, use one of the following when loading the package:
+\begin{verbatim}
+	\usepackage[lf]{berenis}
+	\usepackage[lf=true]{berenis}
+	\usepackage[osf=flase]{berenis}
+\end{verbatim}
+Similarly, to explicitly request oldstyle figures:
+\begin{verbatim}
+	\usepackage[osf]{berenis}
+	\usepackage[osf=true]{berenis}
+	\usepackage[lf=flase]{berenis}
+\end{verbatim}
+
+By default, proportional figures are used as standard and tabular digits are available using the commands explained in \fref{sec:commands}. To make tabular figures the default instead, use one of the following when loading the package:
+\begin{verbatim}
+	\usepackage[tab]{berenis}
+	\usepackage[tab=true]{berenis}
+	\usepackage[prop=flase]{berenis}
+\end{verbatim}
+Similarly, to explicitly request proportional figures:
+\begin{verbatim}
+	\usepackage[prop]{berenis}
+	\usepackage[prop=true]{berenis}
+	\usepackage[tab=flase]{berenis}
+\end{verbatim}
+
+By default, the package will use the \textsc{ly1} encoding. To use \textsc{t1}:
+\begin{verbatim}
+	\usepackage[enc=t1]{berenis}
+\end{verbatim}
+To explicitly request \textsc{ly1}, use:
+\begin{verbatim}
+	\usepackage[enc=ly1]{berenis}
+\end{verbatim}
+
+Loading \lpack{berenis} with \verb|lig| or \verb|lig=true| will select the versions which enable the additional ligatures and pre-built accented characters, and access to the alternate Q and the slashed zero as default. \textbf{\emph{This option is not recommended unless you are sure you know what you are doing}}. You should also note that this option will mean all of the additional ligatures will be active, which may not be what you want. Again, passing \verb|lig=false| will explicitly request the default --- and strongly recommended --- behaviour which is to \emph{not} enable the additional characters by default.
+
+Selecting \verb|lig| will also select the \textsc{ly1} encoding. Similarly, loading the package with \verb|enc=t1| will deselect the \verb|lig| option. If you try to pass the package both \verb|enc=t1| and \verb|lig|, the last option processed will be effective.
+
+The final option controls whether Latin Modern is used for sans and typewriter text. Because Computer Modern does not support the TeXnANSI/\textsc{ly1} encoding, you will likely get strange results unless you redefine \path{\sfdefault} and \path{\ttdefault}. Latin Modern is used because it is close to the default Computer Modern fonts and is widely available. If you would prefer that the package not redefine the default sans and typewriter families, use \verb|lm=false| when loading \lpack{berenis}. To explicitly request the default behaviour, which does redefine these families, use \verb|lm| or \verb|lm=true|.
+
+Note that loading \path{berenis.sty} will not affect the default setup for mathematics.
+
+\section{Additional font selection commands}\label{sec:commands}
+
+	The \LaTeX\ package \lpack{berenis}\ loads \lpack{nfssext-cfr}\ which is an extension of the package \lpack{nfssext}\ supplied by Philipp Lehman as part of The Font Installation Guide. The file extends the font selection commands to facilitate access to various font features. Both the original and the extension are designed for use with a wide range of fonts. For this reason, only a subset of the additional commands are relevant to any particular font support package. Those relevant to \lpack{berenisadf}\ are described below.
+
+	I consider my additions to \lpack{nfssext-cfr}\ to be \emph{highly experimental}. If things don't work as advertised, apart from letting me know about the problem, you may be able to access the features you need by issuing a \verb|\normalfont| and then selecting features from there. This command will return you to the default document text font --- typically the relevant serif in regular weight, standard width and upright shape with oldstyle or lining figures etc.\ as determined by the packages and options loaded or your distribution's setup.
+
+\subsection{nfssext-cfr}
+
+These commands are available when \lpack{berenis} is loaded. If for some reason you wish to make them available when no relevant package is loaded, use \verb|\usepackage{nfssext-cfr}| in your document preamble.
+
+
+\subsubsection{Shapes}
+
+These font features are available regardless of font encoding selected.
+
+	\begin{longtable}{lll}
+		\toprule
+		\textbf{shape}			&	\textbf{shape command}	&	\textbf{text command}\\\midrule\endhead
+		\bottomrule\endfoot
+		italic small-caps		&	\verb|\sishape|					&	\verb|\textsi{}|\\
+	\end{longtable}
+
+	For example, \verb|\textsi{Lewis Carroll wrote, ``I always avoid a kangaroo''.}| produces:
+		\begin{center}
+			\textsi{Lewis Carroll wrote, ``I always avoid a kangaroo''.}
+		\end{center}
+
+\subsubsection{Styles}
+
+This section applies only when the \textsc{ly1} encoding is used. If \textsc{t1} is selected instead, none of the font features described here will be active.
+
+	\begin{longtable}{llll}
+		\toprule
+		\textbf{style}			&	\textbf{style command}	&	\textbf{text command}	&	\textbf{effect}\\\midrule\endhead
+		\bottomrule\endfoot
+		ligature/swash			&	\verb|\swashstyle|				&	\verb|\textswash{}|			&	``ligature'' or ``swash'' as described\\
+	\end{longtable}
+
+	\verb|\swashstyle| and \verb|\textswash{}| switch to the ``ligature''/``swash'' families (\fgroup{ybdw}/\fgroup{ybdjw}/\fgroup{ybd2w}/\fgroup{ybd2jw}). Within the scope of these commands:
+	\begin{itemize}
+		\item \verb|Q| will typeset the regular `Q' (\textswash{Q});
+		\item \verb|Q*| will typeset the alternate `Q' (\textswash{Q*});
+		\item \verb|fj| \verb|ffj| will produce ligatures (\textswash{fj/ffj});
+		\item \verb|ch| \verb|ck| \verb|cl| \verb|ct| \verb|ft| \verb|fft| \verb|sh| \verb|sk| \verb|sl| \verb|sp| \verb|st| \verb|tt| will produce additional ligatures (\textswash{ch/ck/cl/ct/ft/fft/sh/sk/sl/sp/st/tt});
+		\item \verb|\zeroslash| will produce the slashed zero if lining figures are in use (\textswash{\textl{\zeroslash}/\texttl{\zeroslash}});
+		\item \verb|\^W|, \verb|\^w|, \verb|\^Y| and \verb|\^y| will use pre-composed glyphs (\textswash{\^W/\^w/\^Y/\^y}).
+	\end{itemize}
+
+	Outside the scope of these commands:
+	\begin{itemize}
+		\item \verb|Q| will typeset the regular `Q' (Q);
+		\item \verb|Q*| will typeset the regular `Q' followed by an asterisk (Q*);
+		\item \verb|fj| \verb|ffj| will produce ligatures (fj/ffj);
+		\item \verb|ch| \verb|ck| \verb|cl| \verb|ct| \verb|ft| \verb|fft| \verb|sh| \verb|sk| \verb|sl| \verb|sp| \verb|st|  \verb|tt| will not produce ligatures (ch/ck/cl/ct/ft/fft/sh/sk/sl/sp/st/tt);
+		\item \verb|\zeroslash| will not produce the slashed zero even if lining figures are in use (\textl{\zeroslash/\texttl{\zeroslash}});
+		\item \verb|\^W|, \verb|\^w|, \verb|\^Y| and \verb|\^y| will use pre-composed glyphs (\textswash{\^W/\^w/\^Y/\^y}).
+	\end{itemize}
+
+	For example, suppose that \lpack{berenis}\ was loaded and the following commands set up:
+		\begin{verbatim}
+		\newcommand{\fytext}{%
+			Queenie, actor-spy and often acclaimed sky-stringer, chuckled at slightly shivering otters in fjords.\\
+		 	\textswash{%
+			Q*ueenie, actor-spy and often acclaimed sky-stringer, chuckled at slightly shivering otters in fjords.}}
+			\newcommand{\fytest}{%
+			\fytext\\[1em]
+			\textit{\fytext}\\[1em]
+			\textsc{\fytext}\\[1em]
+			\textsi{\fytext}}
+		\end{verbatim}
+		\newcommand{\fytext}{%
+			Queenie, actor-spy and often acclaimed sky-stringer, chuckled at slightly shivering otters in fjords.\\
+		 	\textswash{%
+			Q*ueenie, actor-spy and often acclaimed sky-stringer, chuckled at slightly shivering otters in fjords.}}
+			\newcommand{\fytest}{%
+			\fytext\\[1em]
+			\textit{\fytext}\\[1em]
+			\textsc{\fytext}\\[1em]
+			\textsi{\fytext}}
+		Then:
+		\begin{verbatim}
+			\fytext
+		\end{verbatim}
+		produces:
+		\begin{center}
+			\fytest
+		\end{center}
+
+\subsubsection{Figures}
+
+The font features described in this section are available regardless of font encoding selected.
+
+Two sets of commands are available for choosing tabular or proportional and oldstyle or lining digits. The commands in the first four rows of the table below affect \emph{one} aspect of the figure style. Their effect therefore depends partly on the style of figures in use at the time they are issued. Since this document uses proportional oldstyle figures by default, \verb|\textl{}| gives \emph{proportional} lining figures and \verb|\textt{}| gives tabular \emph{oldstyle} digits. If lining figures had been in use, \verb|\textt{}| would have switched to tabular \emph{lining} figures rather than to tabular oldstyle digits. Likewise, if tabular figures had been in use, \verb|\textl{}| would have changed to \emph{tabular} lining figures.
+
+The commands in the next four rows of the table, on the other hand, affect \emph{two} aspects of the figure style --- whether digits are proportional or tabular \emph{and} whether they are oldstyle or lining. If you are not sure which style of figures will be active when the command is issued and you wish to ensure a particular result, choose one of these commands or combine two commands from the first four rows. For example, to ensure tabular lining figures, use \verb|\texttl{}|, \verb|\textt{\textl{}}| or \verb|\textl{\textt{}}|.
+
+The final two rows list commands for accessing superiors and inferiors.
+
+	\begin{longtable}{llll}
+		\toprule
+		\textbf{figure style}			&	\textbf{style command}	&	\textbf{text command}	&	\textbf{effect}\\\midrule\endhead
+		\bottomrule\endfoot
+		lining										&	\verb|\lstyle|						&	\verb|\textl{}|				&	\textl{0123456789}\\
+		oldstyle									&	\verb|\ostyle|						&	\verb|\texto{}|				&	\texto{0123456789}\\
+		tabular									&	\verb|\tstyle|						&	\verb|\textt{}|				&	\textt{0123456789}\\
+		proportional							&	\verb|\pstyle|						&	\verb|\textp{}|				&	\textp{0123456789}\\\midrule
+		tabular lining						&	\verb|\tlstyle|					&	\verb|\texttl{}|				&	\texttl{0123456789}\\
+		tabular oldstyle					&	\verb|\tostyle|					&	\verb|\textto{}|				&	\textto{0123456789}\\
+		proportional lining			&	\verb|\plstyle|					&	\verb|\textpl{}|				&	\textpl{0123456789}\\
+		proportional oldstyle		&	\verb|\postyle|					&	\verb|\textpo{}|				&	\textpo{0123456789}\\\midrule
+		inferior/subscript				&	\verb|\instyle|					&	\verb|\textin{}|				&	\textin{0123456789}\\
+		superior/superscript			&	\verb|\sustyle|					&	\verb|\textsu{}|				&	\textsu{0123456789}\\
+	\end{longtable}
+
+	In addition to modifying the figure style, these commands affect the style of certain complementary characters in the \textsc{ly1}, \textsc{t1} and \textsc{ts1} encodings as explained in \fref{sec:encs}. This means that:
+		\begin{verbatim}
+			50\%\ off! That's just \texteuro 2.95, \pounds 3.41, \textyen 5.28
+			\& \$8.67\textcent\ \textsl{or} less than \textdollar 1 \& \textsterling 0.99!!
+		\end{verbatim}
+	 produces:
+		\begin{center}
+			50\%\ off! That's just \texteuro 2.95, \pounds 3.41, \textyen 5.28
+			\& \$8.67\textcent\ \textsl{or} less than \textdollar 1 \& \textsterling 0.99!!
+		\end{center}
+		when oldstyle digits are in use, but:
+		\begin{center}
+			\textl{50\%\ off! That's just \texteuro 2.95, \pounds 3.41, \textyen 5.28
+			\& \$8.67\textcent\ \textsl{or} less than \textdollar 1 \& \textsterling 0.99!!}
+		\end{center}
+		after switching to lining figures.
+
+	Note that the commands for inferior and superior figures make further changes. \textbf{\emph{Normal text cannot be typeset within the scope of the commands for inferiors or superiors.}} The commands for subscript activate basic symbols and punctuation to complement the digits. So \verb|Llundain\textin{(1,4+\$5)}| produces Llundain\textin{(1,4+\$5)}. The commands for superscript activate a partial lowercase in as well. For example, \verb|postbox\textsu{9(iii)}| produces postbox\textsu{9(iii)}.
+
+\end{document}

@@ -1,0 +1,5690 @@
+% \iffalse meta-comment
+%
+% linearb.dtx
+%
+%  Author: Peter Wilson (Herries Press) herries dot press at earthlink dot net
+%  Copyright 1999--2005 Peter R. Wilson
+%
+%  This work may be distributed and/or modified under the
+%  conditions of the Latex Project Public License, either
+%  version 1.3 of this license or (at your option) any
+%  later version.
+%  The latest version of the license is in
+%    http://www.latex-project.org/lppl.txt
+%  and version 1.3 or later is part of all distributions of
+%  LaTeX version 2003/06/01 or later.
+%
+%  This work has the LPPL maintenance status "author-maintained".
+%
+%  This work consists of the files listed in the README file.
+% 
+% If you do not have the docmfp package (available from CTAN in
+% tex-archive/macros/latex/contrib/supported), comment out the
+% \usepackage{docmfp} line below and uncomment the line following it.
+% 
+%
+%<*driver>
+\documentclass[twoside]{ltxdoc}
+\usepackage{docmfp}
+%%%%% \providecommand{\DescribeVariable}[1]{} \newenvironment{routine}[1]{}{}
+\usepackage{url}
+\usepackage[draft=false,
+            plainpages=false,
+            pdfpagelabels,
+            bookmarksnumbered,
+            hyperindex=false
+           ]{hyperref}
+\providecommand{\phantomsection}{}
+\OnlyDescription %% comment this out for the full glory
+\EnableCrossrefs
+\CodelineIndex
+\setcounter{StandardModuleDepth}{1}
+\makeatletter
+  \@mparswitchfalse
+\makeatother
+\renewcommand{\MakeUppercase}[1]{#1}
+\pagestyle{headings}
+\newenvironment{addtomargins}[1]{%
+  \begin{list}{}{%
+    \topsep 0pt%
+    \addtolength{\leftmargin}{#1}%
+    \addtolength{\rightmargin}{#1}%
+    \listparindent \parindent
+    \itemindent \parindent
+    \parsep \parskip}%
+  \item[]}{\end{list}}
+\begin{document}
+  \raggedbottom
+  \DocInput{linearb.dtx}
+\end{document}
+%</driver>
+%
+%
+% \fi
+%
+% \CheckSum{780}
+%
+% \DoNotIndex{\',\.,\@M,\@@input,\@addtoreset,\@arabic,\@badmath}
+% \DoNotIndex{\@centercr,\@cite}
+% \DoNotIndex{\@dotsep,\@empty,\@float,\@gobble,\@gobbletwo,\@ignoretrue}
+% \DoNotIndex{\@input,\@ixpt,\@m}
+% \DoNotIndex{\@minus,\@mkboth,\@ne,\@nil,\@nomath,\@plus,\@set@topoint}
+% \DoNotIndex{\@tempboxa,\@tempcnta,\@tempdima,\@tempdimb}
+% \DoNotIndex{\@tempswafalse,\@tempswatrue,\@viipt,\@viiipt,\@vipt}
+% \DoNotIndex{\@vpt,\@warning,\@xiipt,\@xipt,\@xivpt,\@xpt,\@xviipt}
+% \DoNotIndex{\@xxpt,\@xxvpt,\\,\ ,\addpenalty,\addtolength,\addvspace}
+% \DoNotIndex{\advance,\Alph,\alph}
+% \DoNotIndex{\arabic,\ast,\begin,\begingroup,\bfseries,\bgroup,\box}
+% \DoNotIndex{\bullet}
+% \DoNotIndex{\cdot,\cite,\CodelineIndex,\cr,\day,\DeclareOption}
+% \DoNotIndex{\def,\DisableCrossrefs,\divide,\DocInput,\documentclass}
+% \DoNotIndex{\DoNotIndex,\egroup,\ifdim,\else,\fi,\em,\endtrivlist}
+% \DoNotIndex{\EnableCrossrefs,\end,\end@dblfloat,\end@float,\endgroup}
+% \DoNotIndex{\endlist,\everycr,\everypar,\ExecuteOptions,\expandafter}
+% \DoNotIndex{\fbox}
+% \DoNotIndex{\filedate,\filename,\fileversion,\fontsize,\framebox,\gdef}
+% \DoNotIndex{\global,\halign,\hangindent,\hbox,\hfil,\hfill,\hrule}
+% \DoNotIndex{\hsize,\hskip,\hspace,\hss,\if@tempswa,\ifcase,\or,\fi,\fi}
+% \DoNotIndex{\ifhmode,\ifvmode,\ifnum,\iftrue,\ifx,\fi,\fi,\fi,\fi,\fi}
+% \DoNotIndex{\input}
+% \DoNotIndex{\jobname,\kern,\leavevmode,\let,\leftmark}
+% \DoNotIndex{\list,\llap,\long,\m@ne,\m@th,\mark,\markboth,\markright}
+% \DoNotIndex{\month,\newcommand,\newcounter,\newenvironment}
+% \DoNotIndex{\NeedsTeXFormat,\newdimen}
+% \DoNotIndex{\newlength,\newpage,\nobreak,\noindent,\null,\number}
+% \DoNotIndex{\numberline,\OldMakeindex,\OnlyDescription,\p@}
+% \DoNotIndex{\pagestyle,\par,\paragraph,\paragraphmark,\parfillskip}
+% \DoNotIndex{\penalty,\PrintChanges,\PrintIndex,\ProcessOptions}
+% \DoNotIndex{\protect,\ProvidesClass,\raggedbottom,\raggedright}
+% \DoNotIndex{\refstepcounter,\relax,\renewcommand,\reset@font}
+% \DoNotIndex{\rightmargin,\rightmark,\rightskip,\rlap,\rmfamily,\roman}
+% \DoNotIndex{\roman,\secdef,\selectfont,\setbox,\setcounter,\setlength}
+% \DoNotIndex{\settowidth,\sfcode,\skip,\sloppy,\slshape,\space}
+% \DoNotIndex{\symbol,\the,\trivlist,\typeout,\tw@,\undefined,\uppercase}
+% \DoNotIndex{\usecounter,\usefont,\usepackage,\vfil,\vfill,\viiipt}
+% \DoNotIndex{\viipt,\vipt,\vskip,\vspace}
+% \DoNotIndex{\wd,\xiipt,\year,\z@}
+%
+% \changes{v1.0}{1999/06/20}{First public release}
+% \changes{v1.1}{2001/08/01}{Changed \cs{Bpiii} to \cs{Bpaiii}}
+% \changes{v1.2}{2005/06/22}{Added many more glyphs and just one MF file}
+% \changes{v1.2}{2005/06/22}{Added map file}
+%
+% \def\fileversion{v1.0} \def\filedate{1999/06/20}
+% \def\fileversion{v1.1} \def\filedate{2001/08/01}
+% \def\fileversion{v1.2} \def\filedate{2005/06/22}
+% \newcommand*{\Lpack}[1]{\textsf {#1}}           ^^A typeset a package
+% \newcommand*{\Lopt}[1]{\textsf {#1}}            ^^A typeset an option
+% \newcommand*{\file}[1]{\texttt {#1}}            ^^A typeset a file
+% \newcommand*{\Lcount}[1]{\textsl {\small#1}}    ^^A typeset a counter
+% \newcommand*{\pstyle}[1]{\textsl {#1}}          ^^A typeset a pagestyle
+% \newcommand*{\Lenv}[1]{\texttt {#1}}            ^^A typeset an environment
+% \newcommand{\BC}{\textsc{bc}}
+% \newcommand{\AD}{\textsc{ad}}
+% \newcommand{\jurgen}{J\"urgen Kraus}
+%
+% \title{The \Lpack{Linearb} font\thanks{This
+%        file has version number \fileversion, last revised
+%        \filedate.}}
+%
+% \author{%
+% Peter Wilson\thanks{With thanks to J\"{u}rgen Kraus who corrected my
+% misinterpretations of some of the signs.} \\
+% Herries Press\thanks{\texttt{herries dot press at earthlink dot net}}
+% }
+% \date{\filedate}
+% \maketitle
+% \begin{abstract}
+%    The \Lpack{linearb} bundle provides a font for the Linear B
+% syllabary which was used for writing Greek in the Bronze Age.
+% \end{abstract}
+% \tableofcontents
+% \listoftables
+%
+% 
+%
+% \section{Introduction}
+%
+%    The font presented here is a rendition of (part of) the Linear B script
+% that was used in the Bronze Age, particularly on Crete.
+% It is one of a series of fonts that was initially intended
+%nnn to show how the Latin alphabet has evolved from its original Phoenician form
+% to its present day appearance.
+%
+% This manual is typeset according to the conventions of the
+% \LaTeX{} \textsc{docstrip} utility which enables the automatic
+% extraction of the \LaTeX{} macro source files~\cite{GOOSSENS94}.
+%
+%    Section~\ref{sec:usc} describes the usage of the package.
+% Commented code for the fonts and source code for the package is in 
+% later sections.
+%
+% \subsection{An alphabetic tree}
+%
+%    Scholars are reasonably agreed that all the world's alphabets are descended
+% from a Semitic alphabet invented about 1600~\BC{} in the Middle 
+% East~\cite{DRUCKER95}. The word `Semitic' refers
+% to the family of languages used in the geographical area from
+% Sinai in the south, up the Mediterranean coast to Asia Minor in the north and
+% west to the valley of the Euphrates.
+%
+%    The Phoenician alphabet was stable by about 1100~\BC{} and the script was
+% written right to left. In earlier times the writing direction was variable, 
+% and so were
+% the shapes and orientation of the characters. The alphabet consisted of
+% 22 letters and they were named after things. For example, their first two 
+% letters were called \textit{aleph} (ox), and \textit{beth} (house). 
+% The Phoenician script had
+% only one case --- unlike our modern fonts which have both upper- and 
+% lower-cases. In modern day terms the Phoenician abecedary was: \\
+% A B G D E Y Z H $\Theta$ I K L M N X O P ts Q R S T \\
+% where the `Y' (\textit{vau}) character was sometimes written as `F' and
+% `ts' stands for the \textit{tsade} character.
+%
+%    The Greek alphabet is one of the descendants of the Phoenician alphabet;
+% another was Aramaic which is the ancestor of the Arabic, Persian and Indian 
+% scripts.
+% Initially Greek was written right to left but around the 6th C~\BC{} became 
+% \textit{boustrophedron}, meaning that the lines 
+% alternated in direction. At about 500~\BC{} the writing direction stabilised 
+% as left to 
+% right. The Greeks modified the Phoenician alphabet to match the vocalisation
+% of their language. They kept the Phoenician names of the letters, suitably
+% `greekified', so \textit{aleph} became the familar \textit{alpha} and 
+% \textit{beth} became \textit{beta}. At this
+% point the names of the letters had no meaning. Their were several variants
+% of the Greek character glyphs until they were finally fixed in Athens in
+% 403~\BC.
+% The Greeks did not develop a lower-case 
+% script until about 600--700~\AD.
+%
+%    The Etruscans based their alphabet on the Greek one, and again modified it.
+% However, the Etruscans wrote right to left, so their borrowed characters are 
+% mirror images of the original Greek ones. Like the Phoenicians, the Etruscan
+% script consisted of only one case; they died out before ever needing a
+% lower-case script. The Etruscan script was used up until the first century 
+% \AD, even though the Etruscans themselves had dissapeared by that time.
+% 
+%
+%    In turn, the Romans based their alphabet on the Etruscan one, but as they 
+% wrote left to right, the characters were again mirrored (although the early
+% Roman inscriptions are boustrophedron). 
+%
+%    As the English alphabet is descended from the Roman alphabet
+% it has a pedigree of some three and a half thousand years.
+%
+% \section{The \Lpack{linearb} package} \label{sec:usc}
+%
+%    In 1900~\AD{} Arthur Evans (later Sir Arthur) began excavating the
+% palace of Knossos on Crete, which had been destroyed about 1400~\BC. 
+% There he found clay tablets with unknown
+% writing on them. There were two different scripts which he called Linear~A
+% and Linear~B. Sir Arthur was convinced that the script was used for an
+% unknown Minoan language. He tried his hand at deciphering the scripts but
+% made virtually no progess. This was in spite of the fact that the Cypriot
+% script, which had several signs in common with Linear~B, had been deciphered
+% in the 1870's and shown to be used for writing Greek.
+% Later, in 1939, Carl W.~Blegen of the University
+% of Cincinnati led a combined American-Greek excavation at Pylos on
+% the mainland where he also found tablets inscribed with Linear~B.
+% During his lifetime Sir Arthur published only a few
+% of the tablets from Knossos. In 1951 the Pylos tablets were published
+% and in 1952, eleven years after Sir Athur's death, the Knossos tablets 
+% were published.
+%
+%    Michael Ventris (1922--1956) was an English architect who was 
+% fascinated by the
+% problem of deciphering Linear~B. He had studied the few published examples
+% of the script and had decided that Linear~B was a syllabary rather than
+% an alphabet because of the number of different signs. With the 
+% publication of the Pylos and Knossos tablets
+% he had a larger corpus to work on. He ignored the clue of the Cypriot
+% script and independantly determined that Linear~B was probably
+% used to write Greek, and then sought the help of John Chadwick of Cambridge
+% University whose speciality was the early history of the Greek language. 
+% They published their decipherment of Linear~B in the
+% \textit{Journal of Hellenic Studies}, 1953. Tragically, Ventris was killed
+% in a car accident in 1956.
+%
+%    Apart from the specialised literature, the story of Linear~B can be
+% found in~\cite{CHADWICK87} and~\cite{GORDON87} among others.
+%
+%    Linear~B was in use during the approximate period 1500--1200~\BC,
+% for writing in Mycenaean Greek. This was some centuries 
+% before the Greek alphabet
+% was invented. Perhaps surprisingly, Linear~B has no other relationship
+% to the Greek alphabet except that they can both be used to write dialects
+% of the same language.
+%
+%    Linear~B is basically a syllabary, where there is a sign for each 
+% syllable. There are 60 basic signs and 16 optional signs for clarifying
+% meanings; there are still some 11 signs whose meanings have not yet
+% been identified. The script was used for record keeping, not for literary
+% purposes. It has signs for numbering in a decimal system. The script also
+% includes some ideographic signs, such as symbols for various kinds of goods
+% and possesions,
+% for example wheat or sheep or wool or wine. 
+% There is also a system for weights and measures within
+% the script.
+%
+%    The font presented here is based on the signs illustrated by 
+% Chadwick~\cite{CHADWICK87}. \jurgen{} (\texttt{jkraus@uni-goettingen.de})
+% was kind enough to review my first renditions and gave valuable advice
+% concerning my errors of interpretation. 
+% The font consists of the basic, optional,
+% unidentified, and numbering signs only.
+%
+%
+%
+% \DescribeMacro{\linbfamily}
+%    This command selects the Linear B font family. 
+% The family name is |linb|.
+%
+% \DescribeMacro{\textlinb}
+% The command |\textlinb{|\meta{text}|}| typesets \meta{text} in the
+% Linear B font.
+%
+%    All the character commands start with |\B| (for the B in Linear~B).
+%
+%    The commands (and their ASCII equivalents) for the 60 basic signs
+% are given in Table~\ref{tab:basic}; you can use either the command or
+% its ASCII keyboard equivalent. There are 5 signs for the 5 vowels and
+% the remaining 55 signs are two-character syllables.
+% The apparently random
+% ASCII mapping is so that a companion Cypriot font~\cite{CYPRIOT} 
+% can use the same ASCII
+% characters for syllables common to both scripts.
+%
+% \begin{table}
+% \centering
+% \caption{Commands and encoding for the basic signs}\label{tab:basic}
+% \begin{tabular}{cccccc} \hline
+%    & a        & e        & i        & o        & u        \\ \hline
+%    & |\Ba|  a & |\Be|  e & |\Bi|  i & |\Bo|  o & |\Bu|  u \\
+% d  & |\Bda| d & |\Bde| D & |\Bdi| f & |\Bdo| g & |\Bdu| x \\
+% j  & |\Bja| j & |\Bje| J &          & |\Bjo| b & |\Bju| L \\
+% k  & |\Bka| k & |\Bke| K & |\Bki| c & |\Bko| h & |\Bku| v \\
+% m  & |\Bma| m & |\Bme| M & |\Bmi| y & |\Bmo| A & |\Bmu| B \\
+% n  & |\Bna| n & |\Bne| N & |\Bni| C & |\Bno| E & |\Bnu| F \\
+% p  & |\Bpa| p & |\Bpe| P & |\Bpi| G & |\Bpo| H & |\Bpu| I \\
+% q  & |\Bqa| q & |\Bqe| Q & |\Bqi| X & |\Bqo| 8 &          \\
+% r  & |\Bra| r & |\Bre| R & |\Bri| O & |\Bro| U & |\Bru| V \\
+% s  & |\Bsa| s & |\Bse| S & |\Bsi| Y & |\Bso| 1 & |\Bsu| 2 \\
+% t  & |\Bta| t & |\Bte| T & |\Bti| 3 & |\Bto| 4 & |\Btu| 5 \\
+% w  & |\Bwa| w & |\Bwe| W & |\Bwi| 6 & |\Bwo| 7 &          \\
+% z  & |\Bza| z & |\Bze| Z &          & |\Bzo| 9 &          \\
+% \hline
+% \end{tabular}
+% \end{table}
+%     
+%    The commands for the 16 optional signs
+% are given in Table~\ref{tab:optional}. Each entry is of the form: X |\Bcom|, 
+% where X is the value of the sign and |\Bcom| is the command. Where the
+% value includes a digit, I have used the corresponding roman numeral in the
+% command.
+%
+% \changes{v1.1}{2001/08/01}{Changed `p3' to `pa3' in optional signs table}
+% \changes{v1.1}{2001/08/01}{Changed \cs{Bpiii} to \cs{Bpaiii} in optional signs table}
+% \begin{table}
+% \centering
+% \caption{Commands for the optional signs}\label{tab:optional}
+% \begin{tabular}{lll} \hline
+%  a2  |\Baii|  & a3  |\Baiii|  & au  |\Bau|   \\
+%  dwe |\Bdwe|  & dwo |\Bdwo|   &              \\
+%  nwa |\Bnwa|  &               &              \\
+%  pa3 |\Bpaiii| & pu2 |\Bpuii|  & pte |\Bpte|  \\
+%  ra2 |\Braii| & ra3 |\Braiii| & ro2 |\Broii| \\
+%  swa |\Bswa|  & swi |\Bswi|   &              \\
+%  ta2 |\Btaii| & two |\Btwo|   &              \\
+% \hline
+% \end{tabular}
+% \end{table}
+%
+% The commands for the unidentified signs all have the form |\BUr|, where
+% |r| is a roman numeral. There are either eleven or twelve of these signs,
+% depending on the particular source for the character descriptions.
+% The commands range from |\BUi| to |\BUxii|. The last of these signs,
+% which looks like a `B', 
+% may be classified as `unidentified' in one source, while another source
+%  may give it the meaning \textit{twe}; 
+% the commands |\BUxii| and |\Btwe| both print the same sign.
+%
+%     The commands for the numbers are given in Table~\ref{tab:num}. The
+% commands are of the form |\BNr|, where |r| is the roman number for the
+% numeral in question.
+%
+% \begin{table}
+% \centering
+% \caption{Commands for the numbers}\label{tab:num}
+% \begin{tabular}{lllll} \hline
+%     & digits     & tens      & hundreds  & thousands \\ \hline
+% 1   & |\BNi|     & |\BNx|    & |\BNc|    & |\BNm|    \\
+% 2   & |\BNii|    & |\BNxx|   & |\BNcc|   &   \\
+% 3   & |\BNiii|   & |\BNxxx|  & |\BNccc|  &   \\
+% 4   & |\BNiv|    & |\BNxl|   & |\BNcd|   &   \\
+% 5   & |\BNv|     & |\BNl|    & |\BNd|    &   \\
+% 6   & |\BNvi|    & |\BNlx|   & |\BNdc|   &   \\
+% 7   & |\BNvii|   & |\BNlxx|  & |\BNdcc|  &   \\
+% 8   & |\BNviii|  & |\BNlxxx| & |\BNdccc| &   \\
+% 9   & |\BNix|    & |\BNxc|   & |\BNcm|   &   \\
+% \hline
+% \end{tabular}
+% \end{table}
+%
+%     The Linear~B script includes a word divider, which is a short vertical
+% line. In this font, there are three synonomous dividers which are produced
+% by the ASCII keyboard characters |: , /| (i.e., colon or comma or slash).
+% Using any of these when typesetting the script produce the same word divider
+% sign. 
+%
+% \begin{table}
+% \centering
+% \caption{Commands for weights and measures}\label{tab:measures}
+% \begin{tabular}{llcll} \hline
+% Weight & & & Volume & \\ \hline
+% Lightest & \cs{BPwta} & & Smallest & \cs{BPvola} \\
+%          & \cs{BPwtb} & &          & \cs{BPvolb} \\
+%          & \cs{BPwtc} & & Largest (dry) & \cs{BPvolcd} \\
+%          & \cs{BPwtd} & & Largest (fluid) & \cs{BPvolcf} \\
+% Heaviest & \cs{BPtalent} & & & \\ \hline
+% \end{tabular}
+% \end{table}
+%
+% \begin{table}
+% \centering
+% \caption{Commands for commodities}\label{tab:commodities}
+% \begin{tabular}{llcll} \hline
+% cloth & \cs{BPcloth} & & wool & \cs{BPwool} \\
+% wheat & \cs{BPwheat} & & barley & \cs{BPbarley} \\
+% wine  & \cs{BPwine} & & olive oil & \cs{BPolive} \\
+% bronze & \cs{BPbronze} & & gold & \cs{BPgold} \\ \hline
+% \end{tabular}
+% \end{table}
+%
+% \begin{table}
+% \centering
+% \caption{Commands for people and livestock}\label{tab:animals}
+% \begin{tabular}{llcllcll} \hline
+%       & & & man & \cs{BPman} & & woman & \cs{BPwoman} \\
+% sheep & \cs{BPsheep} & & ram & \cs{BPram} & & ewe & \cs{BPewe} \\
+% goat  & \cs{BPgoat} & & he goat & \cs{BPbilly} & & she goat & \cs{BPnanny} \\
+% pig   & \cs{BPpig} & & boar & \cs{BPboar} & & sow & \cs{BPsow} \\
+% ox    & \cs{BPox} & & bull & \cs{BPbull} & & cow & \cs{BPcow} \\
+% horse & \cs{BPhorse} & & foal & \cs{BPfoal} & & &  \\ \hline
+% \end{tabular}
+% \end{table}
+%
+%  
+% \begin{table}
+% \centering
+% \caption{Commands for weapons}\label{tab:weapons}
+% \begin{tabular}{llcll} \hline
+% chariot & \cs{BPchariot} & & sword & \cs{BPsword} \\
+% chariot body & \cs{BPchassis} & & arrow & \cs{BParrow} \\
+% (chariot) wheel & \cs{BPwheel} & & spear & \cs{BPspear} \\ \hline
+% \end{tabular}
+% \end{table}
+%
+%    A variety of glyphs are provided encompassing some of the pictograms in
+% the script. These are given in the following tables. All the commands
+% start with \verb?\BP? (the \verb?P? for pictogram).
+%
+% Table~\ref{tab:measures} lists the commands for the system of weights, 
+% and for volumetric quantities. There is an assumption that the heaviest 
+% weight might be a \textit{talent}, which was the most common one in 
+% archaic times. There are different pictograms for the largest volume for
+% dry materials (e.g., flour) and liquids.
+%
+% Table~\ref{tab:commodities} lists pictograms for various goods, and 
+% table~\ref{tab:animals} is for livestock as well as pictograms for 
+% a man and a woman.
+%
+% Pictograms related to warlike activities are in table~\ref{tab:weapons}.
+%
+%  
+%  
+%
+%
+% \DescribeMacro{\translitlinb}
+%  The command |\translitlinb{|\meta{char-commands}|}|, where \meta{char-commands}
+% are the Linear~B character commands, will typeset a transliteration of the
+% signs. For example,\\
+% |\translitlinb{\Bti\Bme:\Bto/\Bre\Bti\Bre}| will generate \\
+% \textit{ti-me-:to-/re-ti-re-} \\
+% Note that in the transliterated form the word dividers 
+% (|:| and |/| in this example) are printed as themselves. This is because
+% only the character commands are modified while any other text is printed as is.
+% The unidentified signs, |\BUi| through |\BUxii|, are all transliterated
+% as \textit{?-}.
+% It is a feature of the command that all transliterated commands, except
+% for pictograms, have a trailing |-| sign.
+%
+% The transliterations of the pictograms are given as words, enclosed in
+% slashes. For example, 
+% \verb?\translitlinb{\BPolive}? is \textit{ /olive oil/ }.
+% 
+% \DescribeMacro{\translitlinbfont}
+% The transliterated Linear~B is typeset with the font declarations specified by
+% |\translitlinbfont|, which defaults to |\itshape| thus printing the
+% transliteration in an italic font. The font can be changed by redefining
+% the command. For example, if you wanted to use a bold sans font you
+% would do: \\
+% |\renewcommand{\translitlinbfont}{\sffamily\bfseries}|
+%
+% 
+% \StopEventually{
+% \bibliographystyle{alpha}
+% \begin{thebibliography}{GMS94}
+%
+% \bibitem[Cha87]{CHADWICK87}
+% John Chadwick.
+% \newblock \emph{Linear~B and Related Scripts}.
+% \newblock University of California Press/British Museum, 1987.
+% (ISBN 0-520-06019-9)
+%
+% \bibitem[Dru95]{DRUCKER95}
+% Johanna Drucker.
+% \newblock \emph{The Alphabetic Labyrinth}.
+% \newblock Thames and Hudson, 1995.
+%
+% \bibitem[GMS94]{GOOSSENS94}
+% Michel Goossens, Frank Mittelbach, and Alexander Samarin.
+% \newblock \emph{The LaTeX Companion}.
+% \newblock Addison-Wesley Publishing Company, 1994.
+%
+% \bibitem[Gor87]{GORDON87}
+% Cyrus H.~Gordon.
+% \newblock \emph{Forgotten Scripts}.
+% \newblock Dorset Press, (Revised and enlarged edition) 1987.
+%
+% \bibitem[Rob02]{ROBINSON02}
+% Andrew Robinson.
+% \newblock \emph{Lost Languages}.
+% \newblock McGraw Hill, 2002.
+%
+% \bibitem[Wil99]{CYPRIOT}
+% Peter R.~Wilson.
+% \newblock \emph{The Cypriot Package}.
+% \newblock 1999. (Available from CTAN in \texttt{fonts/archaic}).
+%
+% \end{thebibliography}
+% \PrintIndex
+% }
+%
+%     
+%
+% \section{The Metafont code} \label{sec:mf}
+%
+% \subsection{Parameters and setup}
+%
+%    We deal with the parameter file first, and start by announcing
+% what it is for.
+%    \begin{macrocode}
+%<*up>
+%%% LINB10.MF  Linear B font 10 point design size.
+
+%    \end{macrocode}
+%    Specify the font size.
+%    \begin{macrocode}
+
+font_identifier:="LinearB"; font_size 10pt#;
+
+%    \end{macrocode}
+%
+%
+% \DescribeVariable{penfudge}
+%  Increase (decrease) this to get bolder (lighter) characters.
+%    \begin{macrocode}
+penfudge:=1.0;
+%    \end{macrocode}
+%  
+%
+% \DescribeVariable{heightfudge}
+%  Increase (decrease) this to get taller (shorter) characters.
+%    \begin{macrocode}
+heightfudge:=1.0;
+%    \end{macrocode}
+%  
+%
+% \DescribeVariable{u} 
+% |u| is the unit width.
+%    \begin{macrocode}
+u#:=.2pt#;                 % unit width
+%    \end{macrocode}
+%
+% \DescribeVariable{ht} 
+% |ht| is the height of the characters (the Computer Modern value 
+% for the capital letters is
+% approximately 6.8pt).
+%    \begin{macrocode}
+ht#:=heightfudge*10pt#;    % height of characters 
+%    \end{macrocode}
+%
+% \DescribeVariable{s} 
+% \DescribeVariable{o} 
+% |s| is the width of the space at either side of a character; |o| is
+% the amount that a charcter stroke can overshoot its normal width or height.
+%    \begin{macrocode}
+s#:=1.5pt#;                % width correction (right and left)
+o#:=1/20pt#;               % overshoot
+%    \end{macrocode}
+%
+% \DescribeVariable{px} 
+% |px| is the horizontal width of the pen.
+%    \begin{macrocode}
+%%%%%%px#:=penfudge*0.7pt#;      % horizontal width of pen
+px#:=penfudge*0.5pt#;      % horizontal width of pen
+%    \end{macrocode}
+%
+% \DescribeVariable{font-normal-space} 
+% \DescribeVariable{font-normal-shrink} 
+% \DescribeVariable{font-x-height} 
+% \DescribeVariable{font-quad}
+%    Define the very simple font values.
+%    \begin{macrocode}
+font_normal_space:=7pt#;   % width of a blank space
+font_normal_shrink:=.9pt#; % width correction for blank space
+font_x_height:=4.5pt#;     % height of one ex
+font_quad:=10pt#;          % an em
+
+%    \end{macrocode}
+%  
+% \DescribeVariable{digwd}
+% \DescribeVariable{digsz}
+% |digwid| is the character `width' of a pair of digit dashes. |digsz| is
+% the length (as a proportion of the character height) of a digit dash.
+%    \begin{macrocode}
+digwd:=0.2;
+digsz:=0.4;
+%    \end{macrocode}
+%  
+% \DescribeVariable{tenwd}
+% \DescribeVariable{tensz} 
+% \DescribeVariable{tensep} 
+% |tenwd| is the character `width' of a column of tens dashes. |tensz|
+% is the length (as a proportion of the character height) of a ten dash. 
+% |tensep| is the horizontal seperation between columns of tens dashes.
+%    \begin{macrocode}
+tensz:=0.4;
+tenwd:=tensz;
+tensep:=0.2;
+%    \end{macrocode}
+%  
+% \DescribeVariable{hunwd}
+% \DescribeVariable{hunsep}
+% \DescribeVariable{hunsz}
+% |hunwid| is the character `width' of hundred circle and |hunsep| is
+% the horizontal spacing the perimeters of a pair. |hunsz| is
+% the diameter (as a proportion of the character height) of a hundred
+% circle.
+%    \begin{macrocode}
+hunsz:=0.4;
+hunwd:=hunsz;
+hunsep:=0.1;
+
+%    \end{macrocode}
+%  
+%    This is where the driver file would normally be called.
+%
+%
+%    Here is the code for what would normally be the driver file.
+% \changes{v1.2}{2005/06/22}{Merged MF driver file into the main file}
+%
+% Switch into Metafont mode
+%
+%    \begin{macrocode}
+font_coding_scheme:="Linear B glyphs";
+mode_setup;
+
+%    \end{macrocode}
+%
+% \DescribeVariable{ho}
+% \DescribeVariable{leftloc}
+% \DescribeVariable{py}
+%  Perform additional setup.
+%    \begin{macrocode}
+ho#:=o#;                   % horizontal overshoot
+leftloc#:=s#;        % leftmost xcoord of character
+py#:=.9px#;                % vertical thickness of the pen
+
+define_pixels(s,u);
+define_blacker_pixels(px,py);
+define_good_x_pixels(leftloc);
+define_corrected_pixels(o);             % turn on overshoot correction
+define_horizontal_corrected_pixels(ho);  
+
+%    \end{macrocode}
+%  
+%
+% \DescribeVariable{midloc}
+% \DescribeVariable{rightloc}
+%    Variables for the middle xcoord and rightmost xcoord of a character.
+%    \begin{macrocode}
+numeric midloc, rightloc;
+%    \end{macrocode}
+%  
+%
+% \DescribeVariable{tiny}
+% \DescribeVariable{small}
+% \DescribeVariable{medium}
+% \DescribeVariable{large}
+% \DescribeVariable{huge}
+%   Some lengths.
+%    \begin{macrocode}
+tiny#:=px#;
+small#:=2px#;
+medium#:=3px#;
+large#:=4px#;
+huge#:=5px#;
+define_pixels(tiny,small,medium,large,huge);
+%    \end{macrocode}
+%  
+% \DescribeVariable{NE} 
+% \DescribeVariable{NW} 
+% \DescribeVariable{SW} 
+% \DescribeVariable{SE} 
+% Shorthand for direction vectors corresponding to the designated compass point.
+%    \begin{macrocode}
+pair NE,NW,SW,SE;
+NE:=(1,1);
+NW:=(-1,1);
+SW:=(-1,-1);
+SE:=(1,-1);
+%    \end{macrocode}
+%  
+%
+% \DescribeVariable{stylus}
+%    Define the pen.
+%    \begin{macrocode}
+pickup pencircle xscaled px yscaled py;
+stylus:=savepen;
+
+%    \end{macrocode}
+%  
+%
+% \begin{routine}{draw_hdash}
+%    |draw_hdash(1,len)| draws a horizontal line, length |len|, with its
+% midpoint at |z1|.
+%    \begin{macrocode}
+def draw_hdash(suffix $)(expr len)=
+  x$l=x$-len/2; x$r=x$+len/2; y$l=y$r=y$;
+  draw z$l--z$r;
+enddef;
+
+%    \end{macrocode}
+% \end{routine}
+%
+% \begin{routine}{draw_vdash}
+%    |draw_vdash(1,len)| draws a vertical line, length |len|, with its
+% midpoint at |z1|.
+%    \begin{macrocode}
+def draw_vdash(suffix $)(expr len)=
+  x$t=x$b=x$; y$t=y$+len/2; y$b=y$-len/2;
+  draw z$t--z$b;
+enddef;
+
+%    \end{macrocode}
+% \end{routine}
+%
+% \begin{routine}{draw_vloop}
+% Draws a vertical elliptical shape. |draw_vloop(1,2,f)| draws ellipse between
+% |z1| and |z2| with minor (horizontal) radius fraction |f| of major 
+% (vertical) radius.
+%    \begin{macrocode}
+def draw_vloop(suffix $, $$)(expr len)=
+  z$m=1/2[z$,z$$];
+  y$l=y$r=y$m;
+  q:=len*(y$-y$m);
+  x$l=x$m-q; x$r=x$m+q;
+  draw z$..z$l..z$$; draw z$$..z$r..z$;
+  labels($,$l,$m,$r,$$);
+enddef;  
+  
+%    \end{macrocode}
+% \end{routine}
+%
+% \begin{routine}{beginglyph}
+%    A macro to save some typing of beginchar arguments.
+%    \begin{macrocode}
+def beginglyph(expr code, unit_width) =
+  beginchar(code, unit_width*ht#+2s#, ht#, 0);
+  midloc:=1/2w; rightloc:=(w-s);
+  pickup stylus enddef;
+
+%    \end{macrocode}
+% \end{routine}
+%
+% \begin{routine}{cmchar}
+%    |cmchar| should precede each character
+%    \begin{macrocode}
+let cmchar=\;
+
+%    \end{macrocode}
+% \end{routine}
+% 
+%    This is where the glyph code file would normally be called.
+%
+%    The following code generates the glyphs for the Linear B font. 
+% \changes{v1.2}{2005/06/22}{Merged MF glyph file into the main one}
+%
+% \subsection{The basic glyphs}
+%
+% There are 60 basic glyphs. These are composed of the five vowels 
+% (a e i o u), and 55 syllables. First I define the vowels,
+% then the remaining characters in syllable order 
+% (e.g. \ldots nu, pa, pe, pi, po, pu, qa \ldots). The basic glyphs
+% are encoded as roman upper and lower case characters and the digits.
+%
+%    The somewhat peculiar mapping to the alphanumerics is so that a
+% companion Cypriot syllabary can use an identical encoding for the
+% syllables that are common between Linear B and Cypriot.
+%
+%    The vowels are mapped to their lowercase ASCII equivalents.
+% A syllable `xa' is mapped to ASCII x and `xe' is mapped to X.
+% Otherwise, the mapping appears random, although there is an 
+% underlying methodology.
+%
+% \begin{routine}{a}
+%    The sign \textit{a}. Like an old-rashioned English TV aerial.
+%    \begin{macrocode}
+cmchar "Linear B sign a";
+beginglyph("a",0.6);
+x1=x3=leftloc; x4=midloc;  x6=x8=rightloc;    
+y1=y6=1/2h; y3=y8=h; y4=0;
+z2=0.5[z1,z3]; z7=0.5[z6,z8]; z5=0.5[z2,z7];
+draw z1--z3;  % left vertical
+draw z4--z5;  % centre vertical
+draw z6--z8;  % right vertical
+draw z2--z7;  % bar
+labels(1,2,3,4,5,6,7,8);
+endchar;
+
+%    \end{macrocode}
+% \end{routine}
+%
+% \begin{routine}{e}
+%    The sign \textit{e}. Much like our modern A but but with an additional
+% crossbar.
+%    \begin{macrocode}
+cmchar "Linear B sign e";
+beginglyph("e",0.6);
+x1=x6=leftloc; x3=x7=rightloc;       % base points
+y1=y3=0;
+x2=midloc; y2=h;               % apex
+z4=0.4[z1,z2]; z5=0.4[z3,z2];  % lower bar
+y6=y7=0.5[y4,y2];              % upper bar
+draw z1--z2--z3;               % the legs
+draw z4--z5;                   % lower bar
+draw z6--z7;                   % upper bar
+labels(1,2,3,4,5,6,7);
+endchar;
+
+%    \end{macrocode}
+% \end{routine}
+%
+% \begin{routine}{i}
+%    The sign \textit{i}. Top half of an asterisk on a stem.
+%    \begin{macrocode}
+cmchar "Linear B sign i";
+beginglyph("i",0.6);
+x1=x2=x4=midloc; y1=0; y2=h;            % upright
+x3=leftloc; x5=rightloc;             % bar
+y3=y4=y5=2/3h;
+x6=leftloc; x7=rightloc;             % diagonals
+top y6=top y7=h;
+draw z1--z2;       % upright
+draw z3--z5;       % horizontal
+draw z6--z4--z7;   % diagonals
+labels(1,2,3,4,5,6,7);
+endchar;
+
+%    \end{macrocode}
+% \end{routine}
+%
+% \begin{routine}{o}
+%    The sign \textit{o}. Like a box with partially opened lid.
+%    \begin{macrocode}
+cmchar "Linear B sign o";
+beginglyph("o",0.6);
+numeric alpha; alpha:=2/3;
+x1=x2=leftloc; y1=h; y2=0;                  % left vertical
+x3=x4=rightloc; y3=y2; y4=y5=alpha*h;       % right vertical
+x5=x6=0.4[x1,x3]; y6=y1;                    % center vertical
+x7=x8=1/2[x5,x4]; y7=y4; y8=0.5[y4,y6];     % dash
+draw z1--z2--z3--z4;                        % main shape
+draw z1--z6{right}..{right}z5--z4;
+draw z7--z8;                                % dash
+labels(1,2,3,4,5,6,7,8);
+endchar;
+
+%    \end{macrocode}
+% \end{routine}
+%
+% \begin{routine}{u}
+%    The sign \textit{u}. Like an f.
+%    \begin{macrocode}
+cmchar "Linear B sign u";
+beginglyph("u",0.6);
+numeric alpha; alpha:=2/3;
+x1=x2=leftloc; y1=0; y2=alpha*h;            % left vertical
+x3=x5=midloc; x4=x6=rightloc;               % cross and curve
+y6=y2; y3=y4=h;
+y2-y5=y3-y2;
+draw z1--z2{up}..{right}z3--z4;             % vertical and curve top
+draw z2--z6; draw z3--z5;                   % cross
+labels(1,2,3,4,5,6,7,8);
+endchar;
+
+%    \end{macrocode}
+% \end{routine}
+%
+% \begin{routine}{da}
+%    The sign \textit{da}. Like |!-|.
+%    \begin{macrocode}
+cmchar "Linear B sign da";
+beginglyph("d",0.4);
+x1=x2=leftloc; y1=0; y2=h;            % left vertical
+z3=0.5[z1,z2];                        % horizontal
+x4=rightloc; y4=y3;
+draw z1--z2; draw z3--z4;
+labels(1,2,3,4);
+endchar;
+
+%    \end{macrocode}
+% \end{routine}
+%
+% \begin{routine}{de}
+%    The sign \textit{de}, with corrections suggested by \jurgen. Like a W on
+% top of a trestle table.
+% \begin{verbatim}
+% cmchar "Linear B sign de (original)";
+% beginglyph("D",0.8);
+% numeric alpha; alpha:=0.01;
+% x8=leftloc; x9=rightloc; y8=y9=0;     % base points
+% y2=y4=y6=h;                           % top points
+% y1=y3=y5=y7=0.7h;                     % middle points
+% x1=x8+alpha*w; x7=x9-alpha*w;
+% x2=1/6[x1,x7]; x3=2/6[x1,x7]; x4=3/6[x1,x7]; x5=4/6[x1,x7]; x6=5/6[x1,x7];
+% draw z1--z2--z3--z4--z5--z6--z7;      % top wavy
+% draw z3--z5;                          % triangle base
+% draw z8--z5; draw z9--z3;             % legs
+% labels(1,2,3,4,5,6,7,8,9); endchar;
+% \end{verbatim}
+%
+%    \begin{macrocode}
+cmchar "Linear B sign de";
+beginglyph("D",0.8);
+numeric alpha; alpha:=0.01;
+x2=leftloc; x6=rightloc; x4=0.5[x2,x6];  % top of W
+y2=y4=y6=h;                           
+x3=0.5[x2,x4]; x5=0.5[x4,x6]; y1=y3=y5=y7=0.7h;  % bottom of W
+z11=2/3[z3,z2]; z17=2/3[z5,z6];          % side points on W
+x1=x2; x7=x6;
+x12=x11; x15=x17; y12=y13=y14=y15=y1-3/4small;  % the horizontal
+x13=x3; x14=x5;
+x8=x12; x9=x15; y8=y9=0;                     % base points
+draw z2--z3--z4--z5--z6;                 % W
+draw z11--z1; draw z17--z7;              % side arms
+draw z12--z15;                           % horizontal
+draw z8--z14; draw z9--z13;              % legs
+labels(1,2,3,4,5,6,7,8,9,11,12,13,14,15,16,17);
+endchar;
+
+%    \end{macrocode}
+% \end{routine}
+%
+% \begin{routine}{di}
+%    The sign \textit{di}. Like a T with a fringe under the crossbar.
+%    \begin{macrocode}
+cmchar "Linear B sign di";
+beginglyph("f",0.6);
+numeric alpha; 
+alpha:=small;
+x1=x2=midloc; y1=0; y2=0.6h;          % stem
+x3=leftloc; x4=rightloc; y3=y4=h;     % bar
+x5=x6=x3; x7=x8=x2; x9=x10=x4;        % fringe
+y5=y7=y9=y3-alpha;
+y6=y8=y10=y2+alpha;
+draw z1--z2;                             % stem
+draw z3--z4;                             % bar
+draw z5--z6; draw z7--z8; draw z9--z10;  % fringe
+labels(1,2,3,4,5,6,7,8,9,10);
+endchar;
+
+%    \end{macrocode}
+% \end{routine}
+%
+% \begin{routine}{do}
+%    The sign \textit{do}, circle on a stem with various spikes emenating from 
+% the circle. \jurgen{} suggested a kinked stem with a semicircle and a dash.
+% \begin{verbatim}
+cmchar "Linear B sign do (original)";
+% beginglyph("g",0.8);
+% numeric alpha; alpha:=0.2*(rightloc-leftloc);
+% numeric rad;   rad:=0.3*(rightloc-leftloc);
+% x0=midloc; y0=h-rad-0.5alpha;         % circle center
+% x1=x2=x5=x9=x0;                       % mid vertical points
+% y1=0; y2=y0-rad; y5=y0+rad; y9=h;
+% y7=y3=y6=y11=y0;                      % mid horizontal points
+% x7=leftloc; x3=x0-rad; x6=x0+rad; x11=rightloc;
+% x10=x9-0.5alpha; y10=y9;              % top line
+% y12=y13=y11+small; x13=x11; x12=x13-0.25alpha;
+% path p;
+% p=z2..z3..z5..z6..cycle;
+% x8=x7; x4=x3; y8=y4=y3+small;
+% draw p;                               % circle
+% draw z1--z2;                          % stem
+% draw z7--z3; draw z6--z11;            % main horizontals
+% draw z12--z13;                        % right dash
+% draw z5--z9--z10;                     % top L
+% draw z4--z8;                          % left dash
+% labels(0,1,2,3,4,5,6,7,8,9,10,11,12,13); endchar;
+% \end{verbatim}
+%
+%    \begin{macrocode}
+cmchar "Linear B sign do";
+beginglyph("g",0.4);
+numeric alpha; alpha:=small;
+numeric rad;   rad:=0.15h;
+numeric beta; beta:=1.5tiny; % gap size
+numeric gam; gam:=1.5;    % the tension
+x0=midloc; y0=h-rad-alpha;            % circle center
+x1=x2=x4=x5=x0;                       % stem vertical points
+y1=0; y2=y0-rad; y4=y0+rad; y5=h;
+x3=x0-0.75rad; y3=y0;                     % mid arc point
+x12=x14=x0+beta; y12=y2; y14=y4;      % points on right arc
+x13=x14+rad; y13=y3;
+x15=x1; x16=x13; y15=y16=y2-beta;     % horizontal
+%%draw z1..tension gam..z2..tension gam..z3..tension gam..z4..tension gam..z5;
+%%draw z1---z2..tension gam..z3..tension gam..z4---z5;
+draw z1--z2{up}..z3..{up}z4--z5;
+draw z12..z13..z14;                   % right hand arc
+draw z15--z16;                        % horizontal
+labels(0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16);
+endchar;
+
+%    \end{macrocode}
+% \end{routine}
+%
+% \begin{routine}{du}
+%    The sign \textit{du}. A very vague resemblance to a chef's hat,
+%    \begin{macrocode}
+cmchar "Linear B sign du";
+beginglyph("x",0.6);
+x4=leftloc; x6=rightloc-tiny; x5=1/3[x4,x6];   % base points
+y4=y5=y6=0;
+y1=y2=y3=0.8h;                                % mid points
+x1=x4+tiny; x3=x6; x2=1/3[x1,x3];
+x7=leftloc; x8=rightloc;                      % top points
+y7=y8=h;
+draw z1--z3;                                  % horizontal
+draw z6--z3--z8;                              % right uprights
+draw z1{up}..z7;                              % top left
+draw z4{up}..z1; draw z5{up}..z2;             % curved legs
+labels(1,2,3,4,5,6,7,8);
+endchar;
+
+%    \end{macrocode}
+% \end{routine}
+%
+% \begin{routine}{ja}
+% The sign \textit{ja}. A rectangle with two interior lines.
+%    \begin{macrocode}
+cmchar "Linear B sign ja";
+beginglyph("j",0.6);
+x1=x2=x3=x4=leftloc;                       % left points
+y1=0; y4=h; y2=1/3[y1,y4]; y3=2/3[y1,y4];
+x5=x6=x7=x8=rightloc;
+y5=y1; y6=y2; y7=y3; y8=y4;
+draw z1--z4--z8--z5--cycle;               % exterior
+draw z2--z6; draw z3--z7;                 % lines
+labels(1,2,3,4,5,6,7,8); endchar;
+
+%    \end{macrocode}
+% \end{routine}
+%
+% \begin{routine}{je}
+% The sign \textit{je}. 
+%    \begin{macrocode}
+cmchar "Linear B sign je";
+beginglyph("J",0.6);
+path p[]; numeric alpha; alpha:=0.8;
+x1=leftloc; y1=0; x2=rightloc; y2=h;       % left leg
+p1=z1{up}..z2;
+z3 = point alpha of p1;
+x5=x2; y5=y1; x6=x1; y6=y2;                % right leg
+p2=z5{up}..z6;
+z7 = point alpha of p2;
+z4'=z3 shifted (w*(1,-1));
+z4 = whatever[z3,z4']= whatever[z5,z2];
+z7'= z7 shifted (w*(-1,-1));
+z8 = whatever[z7,z7'] = whatever[z1,z6];
+draw p1; draw z3--z4;                     % left leg
+draw p2; draw z7--z8;                     % right leg
+labels(1,2,3,4,5,6,7,8); endchar;
+
+%    \end{macrocode}
+% \end{routine}
+%
+% \begin{routine}{jo}
+% The sign \textit{jo}. An angled top bar on a kinked stem.
+%    \begin{macrocode}
+cmchar "Linear B sign jo";
+beginglyph("b",0.4);
+x1=x2=x4=midloc; y1=0;                      % center points
+x6=leftloc; y6=h-tiny; x7=rightloc; y7=h;   % crossbar
+z5=0.5[z6,z7];
+y4=y5-small; y2=y4-medium;
+x3=0.75[x4,x7]; y3=0.5[y2,y4];
+draw z6--z7;                                % crossbar
+draw z1--z2; draw z4--z5; draw z2{right}..z3..{left}z4;  % stem
+labels(1,2,3,4,5,6,7,8); endchar;
+
+%    \end{macrocode}
+% \end{routine}
+%
+% \begin{routine}{ju}
+% The sign \textit{ju}. Looks a bit like a chair. 
+%    \begin{macrocode}
+cmchar "Linear B sign ju";
+beginglyph("L",0.8);
+x1=x5=leftloc; y1=0; y5=h-tiny;    % back and leg
+x4=x1+tiny; y4=h;
+x2=0.5[x1,x4]; y2=1/2h;            
+x9=rightloc-tiny; y9=0;            % seat and leg
+x7=x9; y7=y2+tiny;
+x8=rightloc; y8=y7-2tiny;
+z10=1/3[z1,z9]; z12=2/3[z1,z9];
+x11=x10; x13=x12;
+y11=y2; y13=1/3[y2,y4];
+draw z1--z2--z4--z5;               % back leg
+draw z2---z7..z8---z9;               % seat and leg
+draw z10--z11; draw z12--z13;      % other legs
+labels(1,2,3,4,5,6,7,8,9,10,11,12,13); endchar;
+
+%    \end{macrocode}
+% \end{routine}
+%
+% \begin{routine}{ka}
+% The sign \textit{ka}. It is a circle with horizontal and vertical diameters.
+%    \begin{macrocode}
+cmchar "Linear B sign ka";
+beginglyph("k",0.8);
+numeric rad; rad:=0.5*(rightloc-leftloc);
+x0=midloc; y0=h/2;
+x1=x0-rad; x3=x0+rad;
+y2=y0+rad; y4=y0-rad;
+x2=x4=x0;
+y1=y3=y0;
+draw z1..z2..z3..z4..cycle;  % the circle
+draw z1--z3; draw z2--z4;   % the cross
+labels(0,1,2,3,4); endchar;
+
+%    \end{macrocode}
+% \end{routine}
+%
+% \begin{routine}{ke}
+%    The sign \textit{ke}. A W on curved legs (similar to \textit{de}).
+%    \begin{macrocode}
+cmchar "Linear B sign ke";
+beginglyph("K",0.8);
+numeric alpha; alpha:=0.01;
+x8=leftloc; x9=rightloc; y8=y9=0;     % base points
+y2=y4=y6=h;                           % top points
+y1=y3=y5=y7=0.7h;                     % middle points
+x1=x8+alpha*w; x7=x9-alpha*w;
+x2=1/6[x1,x7]; x3=2/6[x1,x7]; x4=3/6[x1,x7]; x5=4/6[x1,x7]; x6=5/6[x1,x7];
+x10=x11=x4; y10=y3;                       % line points
+y10-y11 = y4-y3;
+draw z1--z2--z3--z4--z5--z6--z7;      % top wavy
+draw z3--z5;                          % triangle base
+draw z8{up}..z5; draw z9{up}..z3;             % legs
+draw z10--z11;                        % line
+labels(1,2,3,4,5,6,7,8,9,10,11);
+endchar;
+
+%    \end{macrocode}
+% \end{routine}
+%
+% \begin{routine}{ki}
+%    The sign \textit{ki}, which is like a triangle with a bow at top left.
+%    \begin{macrocode}
+cmchar "Linear B sign ki";
+beginglyph("c",0.8);
+numeric rad; rad:=small;
+x0=leftloc+rad; y0=h-rad;      % circle center
+path p;
+p=fullcircle scaled (2rad) shifted z0;
+z2 = directionpoint (1,1) of p;    % triangle points
+x3=rightloc; y3=y2;
+x1=0.5[x2,x3]; y1=0;
+z4=z2 shifted (-rad,-rad);
+z5-z2=z2-z4;
+draw z1--z2--z3--cycle;  % triangle
+draw z4--z5; draw p;     % bow
+
+labels(0,1,2,3,4,5,6,7,8,9); endchar;
+ 
+%    \end{macrocode}
+% \end{routine}
+%
+% \begin{routine}{ko}
+%    The sign \textit{ko}, which is like an icecream cone.
+%    \begin{macrocode}
+cmchar "Linear B sign ko";
+beginglyph("h",0.4);
+numeric rad; rad:=0.5*(rightloc-leftloc);
+x1=x6=midloc; y1=0; y6=h;      % axis points
+x5=leftloc; x7=rightloc;       % circle horizontal diameter
+y5=y7=y6-rad;
+x9=x6; y9=y6-2rad;
+x2=x9-rad/2; x3=x9+rad/2;      % cone points
+y2=y3=3/4[y9,y5];
+path p[];
+p1=z5{down}..z9{right}..{up}z7;
+p2=z1--z2; p3=z1--z3;
+z4 = p2 intersectionpoint p1;
+z8 = p3 intersectionpoint p1;
+draw z1--z2--z3--cycle;       % cone
+draw z4..z5{up}..z6{right}..z7{down}..z8;  % icecream
+labels(1,2,3,4,5,6,7,8,9); endchar;
+ 
+%    \end{macrocode}
+% \end{routine}
+%
+% \begin{routine}{ku}
+%    The sign \textit{ku}, which is similar to our modern B, but no upright and
+% a faucet on the upper bowl. The correction by \jurgen{} looks very different,
+% a bit like |w)?|, or a satelite TV dish.
+% \begin{verbatim} 
+cmchar "Linear B sign ku (original)";
+% beginglyph("v",0.6);
+% x1=x3=x5=leftloc;
+% x2=x4=rightloc-small; 
+% bot y1=-o; top y5=h;
+% y2=1/4h; y3=1/2h; y4=3/4h;
+% path p;
+% p = z3{right}..z4..z5{left};    % upper bowl
+% z6 = directionpoint (1,1) of p;  % faucet
+% x7=rightloc; y7=y6;
+% x8=x7; y8=0.5[y2,y3];
+% draw z1{right}..z2..z3{left};  % lower bowl
+% draw p;                        % upper bowl
+% draw z6--z7--z8;               % faucet
+% labels(1,2,3,4,5,6,7,8); endchar;
+% \end{verbatim}
+%
+%    \begin{macrocode}
+cmchar "Linear B sign ku)";
+beginglyph("v",0.6);
+numeric alpha; alpha:=1/3(rightloc-leftloc);
+numeric beta; beta:=0.5alpha;
+x1=x3=leftloc; x2=rightloc-alpha; y1=0; y2=h/2; y3=h;  % the right paren
+x12=leftloc; x11=x13=1/4[x12,x2];                      % the w
+x14=1/2[x12,x2]; x15=3/4[x12,x2];
+y11=y2; y13=y15=y2-beta; y12=y14=0.5[y11,y13];
+x23=rightloc; x21=x22=0.5[x2,x23];                     % the ?
+y21=0; y23=y13; y23-y22=y2-y23;
+draw z1..z2{up}..z3;                          % the paren
+draw z11..z12..z13..z14; draw z14..z15..z2;   % the w
+draw z2{right}..z23..{down}z22--z21;          % the ?
+labels(1,2,3,11,12,13,14,15,21,22,23,24); 
+endchar;
+ 
+%    \end{macrocode}
+% \end{routine}
+%
+% \begin{routine}{ma}
+%    The sign \textit{ma}. My original was a bit like a V in a bucket.
+% \jurgen's correction is more like a Y with two stirrups.
+% \begin{verbatim} 
+cmchar "Linear B sign ma (original)";
+% beginglyph("m",0.75);
+% x1=leftloc; x3=midloc; x5=rightloc;  % triangley
+% y1=y5=h; y3=1/8h;                  
+% z2=3/4[z3,z1]; z4=3/4[z3,z5];    % top of bucket
+% x6=x8=x2; x7=x9=x4;              % bottom lines
+% y6=y7=0; y8=y9=y3;
+% draw z1--z3--z5;                   % triangle
+% draw z2--z6--z7--z4; draw z8--z9;  % bucket
+% labels(1,2,3,4,5,6,7,8,9); endchar;
+% \end{verbatim}
+%
+%    \begin{macrocode}
+cmchar "Linear B sign ma";
+beginglyph("m",0.75);
+x1=leftloc; x2=x3=midloc; x4=rightloc;  % The Y
+y1=y4=h; y2=1/2h; y3=0;
+z5=0.5[z1,z2];                          % top of left stirrup strap
+x7=x9=0.5[x5,x2]; x8=0.5[x5,x1];        % left stirrup
+y9=1/6[y3,y2]; y7=2/3[y9,y2]; y8=0.5[y7,y9];
+path p; p=z7..z8..z9;                   % strap point on stirrup
+z6=point 0.5 of p;
+z15=z5 reflectedabout (z3,z2);          % right strap and stirrup
+z16=z6 reflectedabout (z3,z2);
+z17=z7 reflectedabout (z3,z2);
+z18=z8 reflectedabout (z3,z2);
+z19=z9 reflectedabout (z3,z2);
+draw z1--z2--z3; draw z4--z2;       % Y
+draw z5--z6; draw z7..z8..z9;       % straps
+draw z15--z16; draw z17..z18..z19;  % right half
+labels(1,2,3,4,5,6,7,8,9); endchar;
+ 
+%    \end{macrocode}
+% \end{routine}
+%
+% \begin{routine}{me}
+%    The sign \textit{me}. A walking stick with a flash at the curved handle.
+%    \begin{macrocode}
+cmchar "Linear B sign me";
+beginglyph("M",0.8);
+numeric alpha; alpha:=2/3;
+x1=x2=midloc; y1=0; y2=alpha*h;            % right vertical and curve
+x4=leftloc; x3=0.5[x4,x1]; y4=y3=h;
+x5=x3; y5=y2;                              % cross 
+path p[];                                  % right jiggle
+p1=z1--z2{up}..{left}z3--z4;
+z6 = point 1.33 of p1;
+x9=rightloc; y9=y2;
+z8=1/3[z2,z9];
+x7=0.5[x2,x9]; y7=y6;
+draw p1;                                   % vertical and curve
+draw z2--z5--z3;                           % cross
+draw z6--z7--z8--z9;                       % jiggle
+labels(1,2,3,4,5,6,7,8,9);
+endchar;
+
+%    \end{macrocode}
+% \end{routine}
+%
+% \begin{routine}{mi}
+%    The sign \textit{mi}. A bit like a V.
+%    \begin{macrocode}
+cmchar "Linear B sign mi";
+beginglyph("y",0.8);
+numeric alpha; alpha:=small;
+x1=leftloc; x2=x1+alpha; x3=x4=x1+2alpha;   % left half
+y1=y3=h-alpha; y2=h; y4=0;
+x7=rightloc; y7=h;                          % right half
+x6=x7-alpha; y6=y7-alpha;
+x5=x7; y5=y6-alpha;
+draw z1..z2..z3---z4;                       % left half
+draw z4{up}..{(1,1)}z5--z6--z7;             % right half
+labels(1,2,3,4,5,6,7,8,9);
+endchar;
+
+%    \end{macrocode}
+% \end{routine}
+%
+% \begin{routine}{mo}
+%    The sign \textit{mo}, having a vague resemblance to a shepherd's crook.
+% \jurgen{} gives a different sign looking like a reflected epsilon by a kinked
+% stem.
+% \begin{verbatim} 
+cmchar "Linear B sign mo (initial)";
+% beginglyph("A",0.8);
+% numeric alpha; alpha:=small;
+% x1=x2=x4=midloc; y1=0; y2=0.65h; y4=h;  % shepherds crook
+% x3=rightloc; y3=0.5[y2,y4];
+% x5=leftloc; y5=0.5[y2,y3];
+% path p;
+% p = z5..z4{right}..z3{down}..z2--z1;
+% z6 = point 0.3 of p;                    % lines
+% z8 = point 0.6 of p;
+% z7=z6 shifted (alpha*(-1,1));
+% z9=z8 shifted (alpha*(-1,1));
+% draw p;
+% draw z6--z7; draw z8--z9;
+% labels(1,2,3,4,5,6,7,8,9);
+% endchar;
+% \end{verbatim}
+%
+%    \begin{macrocode}
+cmchar "Linear B sign mo";
+beginglyph("A",0.6);
+numeric alpha; alpha:=small;
+numeric rad;   rad:=0.15h;
+numeric beta; beta:=0.2h; % e radius
+numeric gam; gam:=1.5;    % the tension
+x3=rightloc;                           % stem points
+x1=x2=x4=x5=x0=x3-0.75rad;
+y1=0; y5=h; y0=h-rad-alpha;
+y2=y0-rad; y4=y0+rad; y3=y0;
+x7-x0 = x0-x3; y7=y0;                 % midpoint of e arc perimeter
+z9'=z7 shifted (beta*left); z9=z9' shifted (tiny*up);
+z6'=z9 shifted (beta*down); z6=z6' shifted (tiny*left);
+z8'=z9 shifted (beta*up);   z8=z8' shifted (tiny*right);
+%%draw z1..tension gam..z2..tension gam..z3..tension gam..z4..tension gam..z5;
+%%draw z1---z2..tension gam..z3..tension gam..z4---z5;
+draw z1--z2{up}..z3..{up}z4--z5;
+draw z7--z9;       % the e
+draw z6..z7..z8;
+labels(0,1,2,3,4,5,6,7,8,9); endchar;
+
+%    \end{macrocode}
+% \end{routine}
+%
+% \begin{routine}{mu}
+%    The sign \textit{mu}. 
+%    \begin{macrocode}
+cmchar "Linear B sign mu";
+beginglyph("B",0.8);
+numeric rad; rad:=small;
+x1=x2=leftloc+2rad; y1=0; y2=h-rad;     % stem
+x3=x5=leftloc+rad; y3=h; y5=y3-2rad;
+x4=leftloc; y4=y2;
+x6=x8=rightloc; y6=y5; y8=y3;            % bar and curve
+x7=x6-rad; y7=0.5[y6,y8];
+x9=x7-1/2rad; y9=y6;
+x10=x9; y10=y9-2rad;
+draw z1--z2{up}..z3{left}..z4{down}..{right}z5--z6;  % stem and bar
+draw z6{left}..z7{up}..{right}z8;                    % curve
+draw z9--z10;
+labels(1,2,3,4,5,6,7,8,9,10);
+endchar;
+
+%    \end{macrocode}
+% \end{routine}
+%
+% \begin{routine}{na}
+% The sign \textit{na}. Sort of semi-mirrored version of \textit{jo} (i.e.,
+% an angled top bar on a kinked stem).
+% \jurgen{} instead draws it as a Y with two bars on top.
+% \begin{verbatim} 
+cmchar "Linear B sign na (original)";
+% beginglyph("n",0.4);
+% x1=x2=midloc; y1=0;                      % center points
+% x6=leftloc; y6=h-tiny; x7=rightloc; y7=h;   % crossbar
+% z5=0.5[z6,z7];
+% y4=y5-small; y2=y4-small; x4=x2+small;
+% x3=0.5[x2,x6]; y3=0.5[y2,y4];
+% z8'= z6 shifted (tiny*down); z9'= z7 shifted (tiny*down);
+% z8 =0.45[z8',z9']; z9=0.55[z8',z9'];
+% draw z6--z7;                                % crossbar
+% draw z1--z2; draw z2{left}..z3..{right}z4;  % stem
+% draw z8--z9;                                % little bar
+% labels(1,2,3,4,5,6,7,8); endchar;
+% \end{verbatim}
+%
+%    \begin{macrocode}
+cmchar "Linear B sign na";
+beginglyph("n",0.4);
+numeric alpha; alpha:=(rightloc-leftloc);
+x1=leftloc; x3=rightloc; y1=y3=2/3h;     % top of Y
+x2=x4=midloc; y4=0; y2=2/3[y4,y1];       % leg of Y
+x5=x6=midloc; y6=h; y5=0.5[y1,y6];       % dash centers
+draw z1--z2--z3; draw z4--z2;              % Y
+draw_hdash(5,alpha); draw_hdash(6,alpha);  % crossbars
+labels(1,2,3,4,5,6); endchar;
+
+%    \end{macrocode}
+% \end{routine}
+%
+% \begin{routine}{ne}
+%    The sign \textit{ne}. A bit like a telegraph pole. \jurgen{} suggested
+% shortening the top bar.
+%    \begin{macrocode}
+cmchar "Linear B sign ne";
+beginglyph("N",1.0);
+numeric rad; 
+x1=x2=x3=midloc; y1=0; y2=h; y3=2/3[y1,y2];     % stem
+rad:=0.2*(y2-y3);                              % circle radius
+x6=leftloc; y6=y16=y3+4rad; x16=rightloc;      % curvey bar
+x7=x6+rad; x15=x16-rad; y7=y15=y6;
+x8=x9=x7+rad; x14=x13=x15-rad; y8=y14=y7-rad; y9=y13=y3+rad;
+x10=x9+rad; x12=x13-rad; y10=y12=y3;
+z0l=(x10,y9); z0r=(x12,y13);                    % circle centers
+%%x4=x0l; x5=x0r; y4=y5=y2;                       % top bar
+x4=0.25[x0l,x2]; x5=0.25[x0r,x2]; y4=y5=y2;       % top bar
+draw z1--z2;                     % stem
+draw z4--z5;                     % top bar
+draw z6..z8..{down}z9; draw z10--z12; draw z13{up}..z14..z16; 
+draw fullcircle scaled (2rad) shifted z0l;
+draw fullcircle scaled (2rad) shifted z0r;
+labels(0l,0r,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16); endchar;
+ 
+%    \end{macrocode}
+% \end{routine}
+%
+% \begin{routine}{ni}
+%    The sign \textit{ni}. A curved V with dashes near the top.
+%    \begin{macrocode}
+cmchar "Linear B sign ni";
+beginglyph("C",0.6);
+numeric alpha, beta;
+alpha:=0.2; beta:=tiny;
+x1=leftloc; x2=midloc; x3=rightloc; y1=y3=h; y2=0;  % V
+path p[];
+p1=z1{(1,-1)}...{down}z2;
+p2=z3{(-1,-1)}...{down}z2;
+z5 = point alpha of p1; 
+z8 = point alpha of p2;
+z4=z5 shifted (beta*(-1,-1)); z6=z5 shifted (beta*(1,1));
+z7=z8 shifted (beta*(-1,1)); z9=z8 shifted (beta*(1,-1));
+draw p1; draw p2;           % V
+draw z4--z6; draw z7--z9;   % dashes
+labels(1,2,3,4,5,6,7,8,9); endchar;
+ 
+%    \end{macrocode}
+% \end{routine}
+%
+% \begin{routine}{no}
+%    The sign \textit{no}. 
+%    \begin{macrocode}
+cmchar "Linear B sign no";
+beginglyph("E",1.0);
+numeric alpha, beta;
+alpha:=small; beta:=tiny;
+x1=x2=leftloc; y1=h; x3=x2+alpha; y3=1/3h; y2=y3+alpha;  % curves
+x4=x5-alpha; y4=y3; x5=rightloc; y5=y4+alpha;
+x6=x4; x9=x5; 
+y6=y5+alpha; y7=y6+alpha/2; y8=y9=y7+alpha/2;
+x7=x6-alpha/2; x8=0.5[x7,x9];
+x10=x11=1/4[x2,x7];             % toast rack
+x12=x13=1/2[x2,x7];
+x14=x15=3/4[x2,x7];
+y10=y12=y14=y3;
+y11=y13=y15=y1;
+x16=x10; x17=x14; y16=y17=0;    % legs
+draw z1---z2{down}..{right}z3---z4{right}..z5..z6..z7..z8--z9;
+draw z10--z11;         % toast rack
+draw z12--z13;
+draw z14--z15;
+draw z16--z12--z17;    % legs
+labels(1,2,3,4,5,6,7,8,9,10,11,12,13,14,15); endchar;
+ 
+%    \end{macrocode}
+% \end{routine}
+%
+% \begin{routine}{nu}
+%    The sign \textit{nu}. Two semicircles within two uprights.
+%    \begin{macrocode}
+cmchar "Linear B sign nu";
+beginglyph("F",0.6);
+numeric alpha, beta;
+alpha:=0.2*(rightloc-leftloc);
+beta:=small;
+x1=x2=leftloc; x3=x4=rightloc; y1=y3=0; y2=y4=h;  % uprights
+x9=x6=midloc; x5=x8=x6-alpha; x10=x7=x6+alpha;    % curves
+y8=y10=h/2 - beta; y5=y7=h/2 + beta;
+y6=y5+3/2alpha; y9=y8-3/2alpha;
+draw z1--z2; draw z3--z4;                         % uprights
+draw z5{up}..z6..{down}z7;                        % curves
+draw z8{down}..z9..{up}z10;
+labels(1,2,3,4,5,6,7,8,9); endchar;
+ 
+%    \end{macrocode}
+% \end{routine}
+%
+% \begin{routine}{pa}
+%    The sign \textit{pa}. Like a Lorraine cross. \jurgen{} drew this with
+% the crossbars equidistant from the center.
+%    \begin{macrocode}
+cmchar "Linear B sign pa";
+beginglyph("p",0.4);
+x1=x2=midloc; y1=0; y2=h;  % stem
+x3=x5=leftloc;             % crossbars
+%%y3=0.7h; y5=0.85h; 
+y3=0.375h; y5=0.625h; 
+x4=x6=rightloc; y4=y3; y6=y5;
+draw z1--z2;               % stem
+draw z3--z4; draw z5--z6;  % cross bars
+labels(1,2,3,4,5,6,7,8,9); endchar;
+ 
+%    \end{macrocode}
+% \end{routine}
+%
+% \begin{routine}{pe}
+%    The sign \textit{pe}. 
+%    \begin{macrocode}
+cmchar "Linear B sign pe";
+beginglyph("P",0.4);
+numeric alpha, beta; alpha:=0.2;
+x1=x2=leftloc; y1=0; y2=h;  % stem
+x3=x4=rightloc; y3=alpha[y1,y2]; y4=(1-alpha)[y1,y2];
+x6=0.5[x1,x3]; y6=h/2;
+beta:=0.5*(x6-x1);
+x5=x7=x1; y7=y6+beta; y5=y6-beta;
+draw z3--z1--z2--z4;
+draw z5..z6..z7;
+labels(1,2,3,4,5,6,7); endchar;
+ 
+%    \end{macrocode}
+% \end{routine}
+%
+% \begin{routine}{pi}
+%    The sign \textit{pi}. A triangle with a vertical divider and a crossbar
+% near the apex.
+%    \begin{macrocode}
+cmchar "Linear B sign pi";
+beginglyph("G",0.6);
+x1=x6=leftloc; x3=x7=rightloc; x4=midloc;       % base points
+y1=y3=y4=0;
+x2=midloc; y2=h;               % apex
+y6=y7=0.65h;                    % upper bar
+draw z1--z2--z3--cycle;        % the main triangle
+draw z2--z4;                   % vertical bisector
+draw z6--z7;                   % upper bar
+labels(1,2,3,4,5,6,7);
+endchar;
+
+%    \end{macrocode}
+% \end{routine}
+%
+% \begin{routine}{po}
+%    The sign \textit{po}. \jurgen{} drew an upright and more angular version of
+% my original.
+% \begin{verbatim} 
+% cmchar "Linear B sign po (original)";
+% beginglyph("H",0.6);
+% x4=leftloc; y4=h/3; x7=x4+small; y7=h;  % LHS
+% z5=1/3[z4,z7]; z6=2/3[z4,z7];
+% x3=rightloc; y3=h;      % RHS
+% x2=x3-small; y2=y5;
+% x1=midloc; y1=0;
+% draw z4--z7;                   % LHS
+% draw z1--z2--z5; draw z6--z3;  % RHS
+% labels(1,2,3,4,5,6,7); endchar;
+% \end{verbatim}
+%
+%    \begin{macrocode}
+cmchar "Linear B sign po";
+beginglyph("H",0.6);
+x1=x2=leftloc; y1=h; y2=h/2;        % LHS
+x3=x4=rightloc; y3=y2; y4=0;        % RHS
+z5=0.5[z1,z2]; x6=rightloc; y6=y5;  % bar
+draw z1--z2--z3--z4;                % h shape
+draw z5--z6;                        % bar
+labels(1,2,3,4,5,6,7);
+endchar;
+
+%    \end{macrocode}
+% \end{routine}
+%
+% \begin{routine}{pu}
+%    The sign \textit{pu}. An elephant with three legs and raised trunk.
+%    \begin{macrocode}
+cmchar "Linear B sign pu";
+beginglyph("I",0.6);
+numeric rad; rad:=small;
+x1=leftloc; y1=0;                              % bottom left
+x8=rightloc; y9=h; y8=y9-rad; x9=x8-rad;       % curl at top right
+x7=x9; y7=y8-rad;
+y2=y7-rad; x2=x1+rad;
+path p[];
+p1=z1{up}..z2..{right}z7..{up}z8..{left}z9;
+x5=x6=x7; y6=0; y5=y7;
+x4=0.5[x1,x6]; y4=0;
+z4'=z4 shifted (h*up);
+z3 = (z4--z4') intersectionpoint p1;
+draw p1;
+draw z4--z3; draw z6--z5;
+labels(1,2,3,4,5,6,7,8,9);
+endchar;
+
+%    \end{macrocode}
+% \end{routine}
+%
+% \begin{routine}{qa}
+%    The sign \textit{qa}. A circle with ears, on a stem.
+%    \begin{macrocode}
+cmchar "Linear B sign qa";
+beginglyph("q",0.8);
+numeric alpha; alpha:=0.2*(rightloc-leftloc);
+numeric rad;   rad:=0.3*(rightloc-leftloc);
+x0=midloc; y0=h-rad;                  % circle center
+x1=x2=x5=x0;                          % mid vertical points
+y1=0; y2=y0-rad; y5=y0+rad;
+y3=y6=y0;                             % mid horizontal points
+x3=x0-rad; x6=x0+rad; 
+path p[];                             % ears
+p1=z2{left}..z3{up}..{right}z5;
+p2=z5{right}..z6{down}..{left}z2;
+x7'=leftloc; y7'=y3-0.5rad; x11'=rightloc; y11'=y7';
+p3=z7'--z11';
+z7= p3 intersectionpoint p1;
+z11= p3 intersectionpoint p2;
+x8=leftloc; y8=0.5[y3,y7]; 
+x10=rightloc; y10=y8;
+draw p1; draw p2;                     % circle
+draw z1--z2;                          % stem
+draw z3..z8..z7; draw z6..z10..z11;   % ears
+labels(1,2,3,4,5,6,7,8,9); endchar;
+ 
+%    \end{macrocode}
+% \end{routine}
+%
+% \begin{routine}{qe}
+%    The sign \textit{qe}. A circle with 4 interior dashes.
+%    \begin{macrocode}
+cmchar "Linear B sign qe";
+beginglyph("Q",0.8);
+numeric alpha, beta; 
+numeric rad;   rad:=0.5*(rightloc-leftloc);
+alpha:=0.3rad;
+beta:= small;
+x0=midloc; y0=h/2;                    % circle center
+x1=x2=x5=x0;                          % mid vertical points
+y1=0; y2=y0-rad; y5=y0+rad;
+y3=y6=y0;                             % mid horizontal points
+x3=x0-rad; x6=x0+rad; 
+
+z10'=z0 shifted (alpha*(1,1)); 
+z11'=z0 shifted (alpha*(1,-1)); 
+z12'=z0 shifted (alpha*(-1,-1)); 
+z13'=z0 shifted (alpha*(-1,1)); 
+draw fullcircle scaled (2rad) shifted z0;
+draw_hdash(10',beta); draw_hdash(11',beta); draw_hdash(12',beta); draw_hdash(13',beta);
+labels(1,2,3,4,5,6,7,8,9,10,10',11,11',12,12',13,13'); endchar;
+ 
+%    \end{macrocode}
+% \end{routine}
+%
+% \begin{routine}{qi}
+%    The sign \textit{qi}. A T with an additional wavy line under the crossbar.
+%    \begin{macrocode}
+cmchar "Linear B sign qi";
+beginglyph("X",0.8);
+numeric alpha, beta;
+alpha:=small;
+beta:=medium;
+x1=leftloc; x2=rightloc-alpha; y1=y2=h;      % top bar
+x3=0.25[x1,x2]; y3=y1;                       % wave
+x4=0.25[x3,x2]; y4=y3-beta;
+x6=rightloc; y6=y3-0.5beta;
+x7=0.8[x1,x2]; y7=y1;                        % stem
+x8=x7; y8=0;
+draw z1--z2;                                 % top bar
+draw z8--z7;                                 % stem
+draw z3..z4{right}..z2{right}..z6;           % wave
+labels(1,2,3,4,5,6,7,8,9); endchar;
+ 
+%    \end{macrocode}
+% \end{routine}
+%
+% \begin{routine}{qo}
+%    The sign \textit{qo}. Vertically symmetric with the right half like an
+% L on top of the right half of a T.
+%    \begin{macrocode}
+cmchar "Linear B sign qo";
+beginglyph("8",0.6);
+numeric alpha, beta;
+alpha:=small;
+beta:=small;
+x1=x2=midloc; y1=0; y2=h/2;   % stem
+x5=leftloc; x8=rightloc;      % the Ls
+y5=y6=y9=y8=3/4h; y7=y10=h;
+x6=x7=1/3[x5,x8]; x9=x10=2/3[x5,x8];
+x3=0.5[x5,x6]; x4=0.5[x8,x9]; y3=y4=0.5[y2,y5]; % bar
+draw z1--z2;      % stem
+draw z3--z4;      % bar
+draw z5--z6--z7;  % left L
+draw z8--z9--z10; % right L
+labels(1,2,3,4,5,6,7,8,9,10); endchar;
+ 
+%    \end{macrocode}
+% \end{routine}
+%
+% \begin{routine}{ra}
+%    The sign \textit{ra}. Like an `L' with a kerned c.
+%    \begin{macrocode}
+cmchar "Linear B sign ra";
+beginglyph("r",0.6);
+x1=x2=leftloc; y1=h; y2=0;  x3=rightloc; y3=y2;  % the L
+x4=x6=x3; y4=y3+small; y6=y4+large;               % the c
+x5=x4-0.5*(y6-y4); y5=0.5[y4,y6];
+draw z1--z2--z3;                    % L
+draw z4{left}..z5{up}..{right}z6;   % c
+labels(1,2,3,4,5,6,7,8,9); endchar;
+ 
+%    \end{macrocode}
+% \end{routine}
+%
+% \begin{routine}{re}
+%    The sign \textit{re}. Like a Greek \textit{psi}.
+%    \begin{macrocode}
+cmchar "Linear B sign re";
+beginglyph("R",0.6);
+numeric rad;
+x1=x2=x4=midloc; y1=h; y2=0;       % stem
+rad = 0.5*(rightloc-leftloc);
+x3=leftloc; y3=y5=h; x5=rightloc; y4=y3-rad;
+draw z1--z2;          % stem
+draw z3..z4..z5;      % bowl
+labels(1,2,3,4,5); endchar;
+ 
+%    \end{macrocode}
+% \end{routine}
+%
+% \begin{routine}{ri}
+%    The sign \textit{ri}, sort of like a box on legs. \jurgen's rendition
+% is more like a pawn with a wsip of hair.
+% \begin{verbatim} 
+% cmchar "Linear B sign ri (original)";
+% beginglyph("O",0.8);
+% numeric rad;
+% x1=leftloc; x2=rightloc; y1=y2=0.2h;   % horizontal
+% x3=leftloc; y3=0;                      % left verticals
+% x4=x5=1/3[x1,x2]; y4=y1; y5=0.8h;
+% x6=rightloc; y6=0;                     % right verticals
+% x7=x8=2/3[x1,x2]; y7=y4; y8=y5;
+% x11=x5; y11=h;                         % top curve
+% draw z1--z2;                           % horizontal
+% draw z3--z4--z5--z8--z7--z6;           % box and legs
+% draw z8{up}..{left}z11;                 % top curve
+% labels(1,2,3,4,5,6,7,8,9,10,11); endchar;
+% \end{verbatim}
+%
+%    \begin{macrocode}
+cmchar "Linear B sign ri";
+beginglyph("O",0.4);   %% was 0.6
+numeric beta; beta:=small;
+x1=leftloc; x3=rightloc; y1=y3=0.55h;   % horizontal
+x4=0.1[x1,x3]; x5=0.1[x3,x1]; y4=y5=0; % legs
+z2=0.5[z1,z3];
+x14=x12=midloc; y14=h;                 % head
+y12=0.75[y2,y14];
+x11=0.3[x1,x2]; y11=2/3[y2,y12];
+z13=z11 reflectedabout (z2,z12);
+x15=x14-beta; y15=y14; %% y15=y14-0.5beta;
+draw z1--z3;                 % horizontal
+draw z4--z2--z5;             % base
+draw z2..z13..{left}z12; draw z2..z11..{right}z12; % head
+draw z2..z13..z14..z15;      % hair
+labels(1,2,3,4,5,6,7,8,9,10,11,12,13,14,15); endchar;
+ 
+%    \end{macrocode}
+% \end{routine}
+%
+% \begin{routine}{ro}
+%    The sign \textit{ro}. A cross.
+%    \begin{macrocode}
+cmchar "Linear B sign ro";
+beginglyph("U",0.6);
+x1=x2=midloc; y1=0; y2=h;
+x3=leftloc; x4=rightloc; y3=y4=0.6h;
+draw z1--z2; draw z3--z4;
+labels(1,2,3,4); endchar;
+ 
+%    \end{macrocode}
+% \end{routine}
+%
+% \begin{routine}{ru}
+%    The sign \textit{ru}. A bit like a tulip.
+%    \begin{macrocode}
+cmchar "Linear B sign ru";
+beginglyph("V",0.6);
+x1=x2=midloc; y1=0; y2=0.75h;
+x5=leftloc; x6=rightloc; 
+x3=0.25[x5,x6]; x4=0.75[x5,x6]; y3=y4=h;
+x7=x3; x8=x4; y7=y8=y2-0.1h;
+y5=y6=0.5[y7,y3];
+draw z1--z2;      % stem
+draw z2{down}..z7{left}..z5{up}..z3;   % left petal
+draw z2{down}..z8{right}..z6{up}..z4;  % right petal
+labels(1,2,3,4); endchar;
+ 
+%    \end{macrocode}
+% \end{routine}
+%
+% \begin{routine}{sa}
+%    The sign \textit{sa}. A Y with a dash on each arm.
+%    \begin{macrocode}
+cmchar "Linear B sign sa";
+beginglyph("s",0.6);
+x1=midloc; y1=0; 
+x3=leftloc; x4=rightloc; y3=y4=h;
+z3' = z3 shifted (w*(1,-1)); z4' = z4 shifted (w*(-1,-1));
+z2= whatever[z3,z3'] = whatever[z4,z4'];
+z5=0.5[z2,z3]; z6=0.5[z2,z4];
+z5'= z5 shifted (w*(-1,-1)); z6'= z6 shifted (w*(1,-1));
+z7 = whatever[z5,z5']; x7=x3;
+z8 = whatever[z6,z6']; x8=x4;
+draw z1--z2;                % stem
+draw z3--z2--z4;            % V
+draw z5--z7; draw z6--z8;   % 
+labels(1,2,3,4,5,6,7,8,9); endchar;
+ 
+%    \end{macrocode}
+% \end{routine}
+%
+% \begin{routine}{se}
+%    The sign \textit{se}. An E rotated 90 degrees on a stem.
+%    \begin{macrocode}
+cmchar "Linear B sign se";
+beginglyph("S",0.6);
+x1=x3=x2=leftloc; y1=0; y2=h; y3=2/3[y1,y2];
+x4=x5=midloc; x6=x7=rightloc;
+y4=y6=y3; y5=y7=y2;
+draw z1--z2;               % upright
+draw z3--z6;               % horizontal
+draw z4--z5; draw z6--z7;  % short uprights
+labels(1,2,3,4,5,6,7); endchar;
+ 
+%    \end{macrocode}
+% \end{routine}
+%
+% \begin{routine}{si}
+%    The sign \textit{si}. A bit like a cooling tower.
+%    \begin{macrocode}
+cmchar "Linear B sign si";
+beginglyph("Y",0.6);
+numeric alpha; alpha:=small;
+x1=leftloc; y1=0; x3=x1+alpha; y3=h-alpha;     % left leg
+x4=rightloc; y4=y1; x6=rightloc-alpha; y6=y3;  % right leg
+path p[];
+p1 = z1..{up}z3; p2 = z4..{up}z6;              % cross bar
+z2 = point 2/3 of p1;
+z5 = point 2/3 of p2;
+x7=x9=midloc; y9=h; y2-y7 = y3-y2;             % vertical
+draw p1; draw p2;      % legs
+draw z2--z5;           % bar
+draw z9--z7;           % vertical
+labels(1,2,3,4,5,6,7,8,9); endchar;
+ 
+%    \end{macrocode}
+% \end{routine}
+%
+% \begin{routine}{so}
+%    The sign \textit{so}. A bit like a backwards ? mark with half a cross 
+%   at the left. \jurgen's version is a kinked stem with a pi rotated 90 
+% degrees. However, I don't see that in any example tablets and it is not
+% in Robinson~\cite{ROBINSON02}.
+%
+%    \begin{macrocode}
+cmchar "Linear B sign so";
+beginglyph("1",0.6);
+numeric alpha, beta; 
+alpha:=medium;
+beta:=small;
+x5=rightloc-alpha; y5=0;       % stem
+x8=rightloc; y8=h;
+x6=rightloc; y6=y8-2alpha;
+x7=x6-alpha; y7=0.5[y6,y8];
+x1=x2=x3=leftloc;              % tother part
+y2=y7; y1=y2-2alpha; y3=y4=0.5[y1,y2];
+%%x4=x7-alpha;
+x4=0.5[x7,x2];
+draw z5---z6{left}..z7..z8;    % stem
+draw z1--z2; draw z3--z4;      % tother
+labels(1,2,3,4,5,6,7,8,9); endchar;
+
+%    \end{macrocode}
+%
+% \begin{verbatim}
+% cmchar "Linear B sign so (Jurgen's)";
+% beginglyph("1",0.6);
+% numeric alpha; alpha:=small;
+% numeric rad;   rad:=0.15h;
+% numeric gam; gam:=1.5;    % the tension
+% x3=rightloc;                           % stem points
+% x1=x2=x4=x5=x0=x3-0.75rad;
+% y1=0; y5=h; y0=h-rad-alpha;
+% y2=y0-rad; y4=y0+rad; y3=y0;
+% x6=x7=x8=x9=leftloc; x10=x11=x0-alpha;  % [ points
+% y9=y5; y8=y11=y4; y7=y10=y2; y7-y6=y9-y8;
+% %%draw z1..tension gam..z2..tension gam..z3..tension gam..z4..tension gam..z5;
+% %%draw z1---z2..tension gam..z3..tension gam..z4---z5;
+% draw z1--z2{up}..z3..{up}z4--z5;
+% draw z6--z9; draw z7--z10; draw z8--z11;
+% labels(0,1,2,3,4,5,6,7,8,9,10,11); endchar;
+% \end{verbatim}
+%
+% \end{routine}
+%
+% \begin{routine}{su}
+%    The sign \textit{su}. Like an angular sloping lowercase E, except that
+% \jurgen{} showed it upright without the small vertical dash.
+% \begin{verbatim} 
+% cmchar "Linear B sign su (original)";
+% beginglyph("2",0.6);
+% numeric alpha;
+% alpha:=small;
+% x1=leftloc; x3=x1+alpha; y1=y4=0; y3=y7=h;   % rectangle corner points
+% x7=rightloc; x4=x7-alpha;
+% z2=2/3[z1,z3];
+% z6=2/3[z4,z7];
+% z5=1/3[z4,z7];
+% draw z5--z4--z1--z3--z7--z6--z2;
+% labels(1,2,3,4,5,6,7,8,9); endchar;
+% \end{verbatim}
+% 
+%    \begin{macrocode}
+cmchar "Linear B sign su";
+beginglyph("2",0.6);
+numeric alpha;
+alpha:=small;
+x1=leftloc; x3=x1; y1=y4=0; y3=y7=h;   % rectangle corner points
+x7=rightloc; x4=x7;
+z2=2/3[z1,z3];
+z6=2/3[z4,z7];
+z5=1/3[z4,z7];
+draw z4--z1--z3--z7--z6--z2;
+labels(1,2,3,4,5,6,7,8,9); endchar;
+ 
+%    \end{macrocode}
+% \end{routine}
+%
+% \begin{routine}{ta}
+%    The sign \textit{ta}. Bit like a pi lying on its side.
+%    \begin{macrocode}
+cmchar "Linear B sign ta";
+beginglyph("t",0.6);
+x1=x3=leftloc; y1=0; y3=h;     % left upright
+x2=x3+small; y2=h/2;
+path p[];
+p1 = z1..z2{up}..z3;
+z4= point 0.5 of p1; z7= point 1.5 of p1;
+x6=x5=x8=x9=rightloc;
+y5=y4-small; y8=y7+small;
+y6=y1; y9=y3;
+draw p1;                       % upright
+draw z4--z5--z6;               % bottom arm
+draw z7--z8--z9;               % top arm
+labels(1,2,3,4,5,6,7,8,9); endchar;
+ 
+%    \end{macrocode}
+% \end{routine}
+%
+% \begin{routine}{te}
+%    The sign \textit{te}. Vertical stem with three crossbars.
+%    \begin{macrocode}
+cmchar "Linear B sign te";
+beginglyph("T",0.6);
+numeric alpha; alpha:=1/3;
+x1=x2=midloc; y1=0; y2=h;     % upright
+x3=x4=x5=leftloc; x6=x7=x8=x1-alpha;
+x9=x10=x11=x1+alpha; x12=x13=x14=rightloc;
+y3=y6=y9=y12=alpha*h;
+y5=y8=y11=y14=(1-alpha)*h;
+y4=y7=y10=y13=0.5[y3,y5];
+draw z1--z2;                                  % stem
+draw z3--z6; draw z4--z7; draw z5--z8;        % left dashes
+draw z9--z12; draw z10--z13; draw z11--z14;   % right dashes
+labels(1,2,3,4,5,6,7,8,9,10,11,12,13,14); endchar;
+ 
+%    \end{macrocode}
+% \end{routine}
+%
+% \begin{routine}{ti}
+%    The sign \textit{ti}. A dome enclosing a vertical dash.
+%    \begin{macrocode}
+cmchar "Linear B sign ti";
+beginglyph("3",0.6);
+numeric alpha; alpha:=0.15h;
+numeric beta; beta:=1.5;                % for tension
+x1=leftloc; x3=rightloc; y1=y3=0;      % base points
+x2=midloc; y2=h;                       % top point
+x4=x5=x6=midloc; y5=0.5h;
+y4=y5-alpha; y6=y5+alpha;
+draw z1{up}..tension beta..z2..tension beta..{down}z3;      % curve
+draw z4--z6;                           % vertical
+labels(1,2,3,4,5,6); endchar;
+ 
+%    \end{macrocode}
+% \end{routine}
+%
+% \begin{routine}{to}
+%    The sign \textit{to}. Like a T but two crossbars.
+%    \begin{macrocode}
+cmchar "Linear B sign to";
+beginglyph("4",0.6);
+numeric alpha; alpha:=0.2;
+x1=x2=midloc; y1=0; y2=h;             % stem
+x3=leftloc; x4=rightloc; y3=y4=y2;    % top bar
+x5=alpha[x3,x4]; x6-x2=x2-x5; y5=y6=0.75h;
+draw z1--z2;    % stem
+draw z3--z4;    % top bar
+draw z5--z6;    % middle bar
+labels(1,2,3,4,5,6); endchar;
+ 
+%    \end{macrocode}
+% \end{routine}
+%
+% \begin{routine}{tu}
+%    The sign \textit{tu}. Like a heart with a stalk. \jurgen{} has the stalk
+% going down to the point of the heart.
+%    \begin{macrocode}
+cmchar "Linear B sign tu";
+beginglyph("5",0.6);
+numeric alpha; alpha:=0.1h;
+x1=x5=midloc; y1=0;
+x3=leftloc; x7=rightloc;
+x4=0.25[x3,x7]; x6=0.75[x3,x7];
+y4=y6=h-alpha; y3=y7=2/3[y1,y4];
+y5=0.5[y3,y4];
+x10=x6; y10=h;
+draw z1{up}..z3{up}..z4{right}..z5;   % left half
+draw z1{up}..z7{up}..z6{left}..z5;    % right half
+%%draw z5{up}..z10;                     % stalk (original)
+draw z1---z5..z10;                    % stalk (jurgen)
+labels(1,2,3,4,5,6,7,8,9,10); endchar;
+ 
+%    \end{macrocode}
+% \end{routine}
+%
+% \begin{routine}{wa}
+%    The sign \textit{wa}. A box on three legs
+%    \begin{macrocode}
+cmchar "Linear B sign wa";
+beginglyph("w",0.6);
+x1=x2=x3=leftloc; y1=0; y2=0.67h; y3=h;
+x4=x5=midloc; y4=y1; y5=y2;
+x6=x7=x8=rightloc;
+y6=y1; y7=y2; y8=y3;
+draw z2--z3--z8--z7--cycle;  % box
+draw z1--z2; draw z4--z5; draw z6--z7;  % legs
+labels(1,2,3,4,5,6,7,8,9); endchar;
+ 
+%    \end{macrocode}
+% \end{routine}
+%
+% \begin{routine}{we}
+%    The sign \textit{we}. A reversed `S'.
+%    \begin{macrocode}
+cmchar "Linear B sign we";
+beginglyph("W",0.4);
+numeric alpha; alpha:=0.5*(rightloc-leftloc);
+x1=x5=leftloc; x6=x4=x2=midloc; x7=x3=rightloc;
+y6=0; y5=y7=y6+alpha; y4=h/2; y1=y3=y2-alpha; y2=h;
+draw z1..z2..z3..z4..z5..z6..z7;
+labels(1,2,3,4,5,6,7,8,9); endchar;
+ 
+%    \end{macrocode}
+% \end{routine}
+%
+% \begin{routine}{wi}
+%    The sign \textit{wi}. A bit like a whale's tooth with a cross at the bottom.
+%    \begin{macrocode}
+cmchar "Linear B sign wi";
+beginglyph("6",0.6);
+numeric alpha; alpha:=small;
+numeric beta; beta:= 0.15;
+x1=leftloc; x3=rightloc; x5=x3-alpha; y1=y5=0; y3=h;  % curves
+path p[];
+p1=z1{up}..z3; p2=z5{up}..z3;
+z2= point beta of p1; z4= point beta of p2;
+x6=x7=0.5[x1,x5]; y6=y1; y7-y2=y2;
+draw p1; draw p2; draw z1--z5;        % tooth
+draw z2--z4; draw z6--z7;             % cross
+labels(1,2,3,4,5,6,7,8,9); endchar;
+ 
+%    \end{macrocode}
+% \end{routine}
+%
+% \begin{routine}{wo}
+%    The sign \textit{wo}. Bit like pi with a small 3 tacked at the right of the 
+% crossbar.
+%    \begin{macrocode}
+cmchar "Linear B sign wo";
+beginglyph("7",0.6);
+numeric alpha; alpha:=small;
+numeric beta; beta:= 0.15;
+x1=x3=leftloc; x4=rightloc; x2=0.7[x1,x4]; y1=y4=0; y3=y2=h-alpha;
+x10=x11=x12=0.5[x2,x4]; x13=x14=rightloc;    % the 3
+y12=h; y11=y2; y11-y10=y12-y11;
+y14=0.5[y11,y12]; y13=0.5[y10,y11];
+draw z1--z2; draw z3--z2{down}..z4;      % main part
+draw z10..z13{up}..{left}z11;            % the 3
+draw z12..z14{down}..{left}z11;
+labels(1,2,3,4,5,6,7,8,9,10,11,12,13,14); endchar;
+ 
+%    \end{macrocode}
+% \end{routine}
+%
+% \begin{routine}{za}
+%    The sign \textit{za}. A circle on a stem with a crossbar at the bottom
+% of the circle.
+%    \begin{macrocode}
+cmchar "Linear B sign za";
+beginglyph("z",0.8);
+numeric alpha; alpha:=0.2*(rightloc-leftloc);
+numeric rad;   rad:=0.3*(rightloc-leftloc);
+x0=midloc; y0=h-rad;                  % circle center
+x1=x2=x5=x0;                          % mid vertical points
+y1=0; y2=y0-rad; y5=y0+rad;
+y3=y6=y0;                             % mid horizontal points
+x3=x0-rad; x6=x0+rad; 
+path p[];             
+p1=z2{left}..z3{up}..{right}z5;
+p2=z5{right}..z6{down}..{left}z2;
+x7=leftloc; y7=y2; x11=rightloc; y11=y7;
+p3=z7--z11;
+draw p1; draw p2;                     % circle
+draw z1--z2;                          % stem
+draw p3;                              % horizontal line
+labels(1,2,3,4,5,6,7,8,9); endchar;
+ 
+%    \end{macrocode}
+% \end{routine}
+%
+% \begin{routine}{ze}
+%    The sign \textit{ze}. Looks a bit like a fish hook.
+%    \begin{macrocode}
+cmchar "Linear B sign ze";
+beginglyph("Z",0.6);
+numeric rad;   rad:=0.5*(rightloc-leftloc);
+numeric alpha; alpha:=0.2*(rightloc-leftloc);
+numeric beta;
+x1=x2=leftloc; y1=h; y2=rad;            % the hook
+x3=midloc; y3=0; x4=rightloc; y4=y2;
+x5=x7=x1; y7=1/8[y2,y1]; y5=3/4[y2,y1]; % the lure
+x6=0.25[x2,x4]; y6=0.5[y7,y5];
+x10=x11=x12=x13=0.5[x6,x4];             % and dashes
+y10=0.1[y7,y5]; y13=0.9[y7,y5];
+y11=1/3[y10,y13]; y12=2/3[y10,y13];
+beta:=0.5(x4-x6);
+draw z1--z2..z3..z4;                  % hook
+draw z5..z6..z7;                      % lure
+draw_hdash(10,beta); draw_hdash(11,beta); 
+draw_hdash(12,beta); draw_hdash(13,beta);
+labels(1,2,3,4,5,6,7,8,9,10,11,12,13,14,17); endchar;
+ 
+%    \end{macrocode}
+% \end{routine}
+%
+% \begin{routine}{zo}
+%    The sign \textit{zo}. An upward arrow with a horizontal dash near the bottom.
+% \jurgen{} suggested that the dash be a little shorter.
+%    \begin{macrocode}
+cmchar "Linear B sign zo";
+beginglyph("9",0.6);
+x1=x2=midloc; y1=0; y2=h;      % stem
+x5=leftloc; x6=rightloc; y5=y6=3/4h;
+%%x3=leftloc; x4=rightloc; y3=y4=1/4h;  % bar (original)
+x3=0.2[x5,x6]; x4=0.2[x6,x5]; y3=y4=1/4h;  % bar (jurgen)
+draw z1--z2;      % stem
+draw z3--z4;      % bar
+draw z5--z2--z6;  % roof
+labels(1,2,3,4,5,6); endchar;
+ 
+%    \end{macrocode}
+% \end{routine}
+%
+%
+% \subsection{Unidentified glyphs}
+%
+%    There are 11 glyphs whose meanings have not yet been identified.
+% I will put these at the start of the encoding, where the upper case Greek
+% characters (there are 11 of them) normally reside.
+% \changes{v1.2}{2005/06/22}{Reordered the unknown glyphs}
+%
+% \begin{routine}{unkown 1}
+%    The 1st unknown character. A bit like a stick figure of a man with
+% spiky hair.
+%    \begin{macrocode}
+cmchar "Linear B unknown 1";
+beginglyph(oct"035", 0.6);
+numeric alpha; alpha:=0.2*(rightloc-leftloc);
+numeric rad;   rad:=0.3*(rightloc-leftloc);
+numeric hair;  hair:=0.1h;
+x0=midloc; y0=h-rad-hair;             % circle center
+x1=x2=x5=x0;                          % mid vertical points
+y1=0; y2=y0-rad; y5=y0+rad;
+y3=y6=y0;                             % mid horizontal points
+x3=x0-rad; x6=x0+rad; 
+path p[];             
+p1=z5{left}..z3{down}..{right}z2;
+p2=z5{right}..z6{down}..{left}z2;
+x7=leftloc; y7=y2; x11=rightloc; y11=y7;
+p3=z7--z11;
+% for the the hair lines
+x25=x5; y25=h;
+z16= point 1/3 of p1; z17= point 1/3 of p2;
+z26'=z16 shifted (w*(-1,2)); z27'=z17 shifted (w*(1,2));
+y26=y27=h; 
+z26=whatever[z16,z26']; z27=whatever[z17,z27'];
+draw p1; draw p2;                     % circle
+draw z1--z2;                          % stem
+draw p3;                              % horizontal line
+draw z16--z26; draw z5--z25; draw z17--z27;  % hairs
+labels(1,2,3,4,5,6,15,16,17,25,26,27); endchar;
+
+%    \end{macrocode}
+% \end{routine}
+%
+% \begin{routine}{unknown 2}
+%    The 2nd unknown character. A bit like a chess pawn.
+%    \begin{macrocode}
+cmchar "Linear B unknown 2";
+beginglyph(oct"036", 0.6);
+numeric alpha; alpha:=0.2*(rightloc-leftloc);
+x1=leftloc; x2=rightloc; y1=y2=0;     % base points
+x3=leftloc; x4=midloc; x5=rightloc; y3=y4=y5=h/2;  % middle points
+x8=x4;y8=h;                           % top point
+x6=leftloc+alpha; x7=rightloc-alpha; y6=y7=0.5[y4,y8];
+draw z1--z2--z4--cycle;               % bottom triangle
+draw z3--z5;                          % horizontal bar
+draw z4{left}..z6{up}..z8{right}..z7{down}..cycle;  % head
+labels(1,2,3,4,5,6,7,8); endchar;
+
+%    \end{macrocode}
+% \end{routine}
+%
+% \begin{routine}{unknown 3}
+%    The 3rd unknown character, like a T with a wavy top bar. 
+%    \begin{macrocode}
+cmchar "Linear B unknown 3";
+beginglyph(oct"037", 0.8);
+numeric alpha; alpha:=0.2h;
+x3=leftloc; x4=rightloc; x1=x2=2/3[x3,x4]; 
+y1=0; y3=y2=y4=h-alpha;
+x6=0.5[x3,x2]; y6=h;
+x7=0.5[x2,x4]; y7=h;
+draw z1--z2;                   % stem
+draw z3..z6{right}..z2;        % left bar
+draw z2..z7{right}..z4;        % right bar
+labels(1,2,3,4,5,6,7,8); endchar;
+
+%    \end{macrocode}
+% \end{routine}
+%
+% \begin{routine}{unknown 4}
+%    The 4th unknown character. A bow with a circle.
+%    \begin{macrocode}
+cmchar "Linear B unknown 4";
+beginglyph(oct"040", 0.6);
+numeric rad; rad:=1/3*(rightloc-leftloc);
+x1=rightloc; y1=0; 
+x3=rightloc; y3=h;
+x2=leftloc+rad; y2=0.5[y1,y3];
+draw z1..z2{up}..z3;
+draw fullcircle scaled (2rad) shifted z2;
+labels(1,2,3,4,5,6,7,8); endchar;
+
+%    \end{macrocode}
+% \end{routine}
+%
+% \begin{routine}{unknown 5}
+%    Suggested by \jurgen. A mirror image of the bow with circle.
+%    \begin{macrocode}
+cmchar "Linear B unknown 5";
+beginglyph(oct"041", 0.6);
+numeric rad; rad:=1/3*(rightloc-leftloc);
+x1=leftloc; y1=0; 
+x3=leftloc; y3=h;
+x2=rightloc-rad; y2=0.5[y1,y3];
+draw z1..z2{up}..z3;
+draw fullcircle scaled (2rad) shifted z2;
+labels(1,2,3,4,5,6,7,8); endchar;
+
+%    \end{macrocode}
+% \end{routine}
+%
+% \begin{routine}{unknown 6}
+%    The 6th unknown character. Two intersecting curves with a square
+% around the intersection.
+%    \begin{macrocode}
+cmchar "Linear B unknown 6";
+beginglyph(oct"042", 0.6);
+numeric alpha; 
+x1=x4=leftloc; x3=x2=rightloc; y1=y3=0; y2=y4=h;  % leg points
+path p[];
+p1=z1{up}..z2; p2=z3{up}..z4;
+z0 = p1 intersectionpoint p2;
+%%alpha:=0.5*(x0-x4);
+alpha:=0.75*(x0-x4);
+x5=x0-alpha; x7=x0+alpha; y5=y7=y0;
+x6=x8=x0; y8=y0-alpha; y6=y0+alpha;
+draw p1; draw p2;            % the legs
+draw z5--z6--z7--z8--cycle;  % the square
+labels(1,2,3,4,5,6,7,8); endchar;
+
+%    \end{macrocode}
+% \end{routine}
+%
+%
+% \begin{routine}{unknown 7}
+%    The 7th unknown character. Like a sketch of a bird, and three legs.
+%    \begin{macrocode}
+cmchar "Linear B unknown 7";
+beginglyph(oct"043", 0.8);
+numeric alpha; alpha:=0.1h;
+numeric beta; beta:=0.1;
+numeric gamma; gamma:=0.15*(rightloc-leftloc);
+x1=leftloc; x5=rightloc; y1=y5=(h-alpha);           % bird wings
+x3=0.5[x1,x5]; y3=y1;
+x2=0.5[x1,x3]; x4=0.5[x3,x5]; y2=y4=h;
+x12=x2; y12=y2; x15=x3; y15=y3; x18=x4; y18=y4;           % top of legs
+x10=leftloc+0.5gamma; x13=midloc; x16=rightloc-0.5gamma;  % bottom of legs
+y10=y13=y16=0;
+z11=beta[z10,z12]; z14=beta[z13,z15]; z17=beta[z16,z18]; % dash points
+draw z1..z2..z3; draw z3..z4..z5;                   % wings
+draw z10--z12; draw z13--z15; draw z16--z18;        % legs
+draw_hdash(10,gamma); draw_hdash(11,gamma);         % dashes
+draw_hdash(13,gamma); draw_hdash(14,gamma); 
+draw_hdash(16,gamma); draw_hdash(17,gamma); 
+labels(1,2,3,4,5,6,7,8,10,11,12,13,14,15,16,17,18); endchar;
+
+%    \end{macrocode}
+% \end{routine}
+%
+% \begin{routine}{unknown 8}
+%    The 8th unknown character. A bit like castle battlements.
+%    \begin{macrocode}
+cmchar "Linear B unknown 8";
+beginglyph(oct"044", 1.0);
+numeric alpha; alpha:=0.1h;
+numeric beta,gamma; 
+x1=x2=x3=leftloc; y1=0; y3=h; y2=(h-alpha);         % left upright
+x14=rightloc; y14=h;                                % rightmost point
+x9=x11=x12=4/5[x1,x14]; y9=y1; y11=(y2-2alpha); y12=y2;   % right upright
+x13=0.5[x12,x14]; y13=y14;
+x4=x6=x7=x8=0.5[x1,x9]; y4=y1; y6=y11; y7=y2; y8=y3; % middle upright
+x5=0.75[x1,x4]; x10=0.75[x4,x9]; y5=y10=0.25[y9,y11];  % dashes
+beta:=0.5*(x4-x1);                  % dash length
+gamma:=0.55;                        % zigzag overlap
+x2'=gamma[x2,x6]; y2'=y2; x6'=gamma[x6,x2]; y6'=y6;
+x7'=gamma[x7,x11]; y7'=y7; x11'=gamma[x11,x7]; y11'=y11;
+draw z1--z9;                        % base line
+draw z1--z3; draw z4--z8;           % uprights
+draw z9--z12{up}..{right}z13--z14;
+draw_hdash(5,beta); draw_hdash(10,beta);  % dashes
+draw z2---z2'{right}..{right}z6'---z6;    % left zigzag
+draw z7---z7'{right}..{right}z11'---z11;  % right zigzag
+labels(1,2,3,4,5,6,7,8,10,11,12,13,14,15,16,17,18); endchar;
+
+%    \end{macrocode}
+% \end{routine}
+%
+% \begin{routine}{unknown 9}
+%    The 9th unknown character.  Like a paramecium.
+%    \begin{macrocode}
+cmchar "Linear B unknown 9";
+beginglyph(oct"045", 0.8);
+numeric majrad,minrad;      % major and minor ellipse radii
+numeric alpha; 
+numeric beta,gamma; 
+x0=0.5[leftloc,rightloc]; y0=h/2;                      % center of ellipse
+majrad:=0.5*(rightloc-leftloc); minrad:=0.5majrad;
+z1=z0 shifted (majrad*NW); z3=z0 shifted (majrad*SE);  % ellipse points
+z2=z0 shifted (minrad*NE);  z4=z0 shifted (minrad*SW);
+path p[];
+p1=z1..z2..z3..z4..cycle;
+alpha:=0.4minrad;
+z1'=z1 shifted (alpha*NW); z3'=z3 shifted (alpha*SE); % expanded ellipse points
+z2'=z2 shifted (alpha*NE); z4'=z4 shifted (alpha*SW);
+p2= z1'..z2'..z3'..z4'..cycle;
+p3= z1'..z4'..z3'..z2'..cycle;
+gamma:=0.15;    % half the dash skip
+z14=point (1-3gamma) of p2; z24=point (1-3gamma) of p3;
+z15=point (1-gamma)  of p2; z25=point (1-gamma)  of p3;
+z16=point (1+gamma)  of p2; z26=point (1+gamma)  of p3;
+z17=point (1+3gamma) of p2; z27=point (1+3gamma) of p3;
+beta:=0.5tiny;
+z14''= z14 shifted (beta*SE); z14'=z14 shifted (beta*NW);
+z24''= z24 shifted (beta*SE); z24'=z24 shifted (beta*NW);
+z15''= z15 shifted (beta*SE); z15'=z15 shifted (beta*NW);
+z25''= z25 shifted (beta*SE); z25'=z25 shifted (beta*NW);
+z16''= z16 shifted (beta*SE); z16'=z16 shifted (beta*NW);
+z26''= z26 shifted (beta*SE); z26'=z26 shifted (beta*NW);
+z17''= z17 shifted (beta*SE); z17'=z17 shifted (beta*NW);
+z27''= z27 shifted (beta*SE); z27'=z27 shifted (beta*NW);
+draw p1;                                  % the ellipse
+draw z14'--z14''; draw z24'--z24'';       % the dashes
+draw z15'--z15''; draw z25'--z25'';
+draw z16'--z16''; draw z26'--z26'';
+draw z17'--z17''; draw z27'--z27'';
+labels(0,1,1',2,2',3,3',4,4',5,6,7,8,10,11,12,13,14,15,16,17,24,25,26,27); endchar;
+
+%    \end{macrocode}
+% \end{routine}
+%
+% \begin{routine}{unknown 10}
+%    The 10th unknown character.  Like a dome with a weathervane on top.
+% \jurgen{} changes the weather vane to a line with curls at each end.
+% \begin{verbatim}
+% cmchar "Linear B unknown 10 (original)";
+% beginglyph(oct"046", 0.8);
+% x1=leftloc; x7=rightloc; y1=y7=0;         % outside base points
+% x4=midloc; y4=2/3h;
+% z8=0.15[z1,z7]; z9=0.85[z1,z7];
+% x3=x8; x5=x9; y3=y5=y4-small;
+% x10=x4; y10=2/3[y4,h];                             % weathervane
+% x11=x8; x12=x9; y11=y12=y10;
+% z15=0.75[z10,z12];
+% numeric beta; beta:=(h-y10);
+% z13=z11 shifted (beta*SE); z14=z11 shifted (beta*NE); % arrow
+% draw z1{up}..z3..z4{right}..z5..{down}z7;          % dome
+% draw z8--z3; draw z9--z5;
+% draw z4--z10;                                      % weathervane support
+% draw z11--z12;                                     % arrow shaft
+% draw z13--z11--z14;                                % arrow head
+% draw_vdash(15,2beta); draw_vdash(12,2beta);        % feathers
+% labels(0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,24,25,26,27); endchar;
+% \end{verbatim}
+% 
+%    \begin{macrocode}
+cmchar "Linear B unknown 10";
+beginglyph(oct"046", 0.8);
+numeric rad; rad:=1/16h;
+x1=leftloc; x7=rightloc; y1=y7=0;                % dome outside base points
+x4=midloc; y4=h-6rad;                            % center top
+z8=0.15[z1,z7]; z9=0.85[z1,z7];                  % internal uprights
+x3=x8; x5=x9; y3=y5=y4-small;
+x22=x4; y22=h-2rad;                              % stem
+x24=x26=x8; y24=y22+rad; y26=y22-rad;            % left curls
+x23=x25=x27=x24+rad; y23=y24+rad; y25=y22; y27=y26-rad;
+z13=z23 reflectedabout (z4,z22);                 % right curls
+z14=z24 reflectedabout (z4,z22);
+z15=z25 reflectedabout (z4,z22);
+z16=z26 reflectedabout (z4,z22);
+z17=z27 reflectedabout (z4,z22);
+draw z1{up}..z3..z4{right}..z5..{down}z7;    % dome
+draw z8--z3; draw z9--z5;                    % internal uprights
+draw z4--z22;                                % stem
+draw z25--z15;                               % crossbar
+draw z23..z24..z25; draw z25..z26..z27;      % left curls
+draw z13..z14..z15; draw z15..z16..z17;      % right curls
+labels(1,2,3,4,5,6,7,8,9,13,14,15,16,17,22,23,24,25,26,27); endchar;
+
+
+%    \end{macrocode}
+% \end{routine}
+%
+% \begin{routine}{unknown 11}
+%    The 11th unknown character.  Like a scythe.
+%    \begin{macrocode}
+cmchar "Linear B unknown 11";
+beginglyph(oct"047", 0.8);
+x1=x5=x2=leftloc; y1=0; y2=h; y5= 0.2h;   % vertical handle
+x7=rightloc; y7-y5 = y5-y1;                    % rightmost point
+x4=0.9[x1,x7]; y7-y4=0.5(y5-y1);
+x3=x6=0.5[x1,x7]; y3-y1 = 0.25(y4-y1); y6-y3=y5-y1;
+draw z1--z2;                           % handle
+draw z1{right}..z3..z4; draw z4--z7;   % the blade
+draw z5{right}..z6..z7;
+draw z3--z6;
+labels(1,2,3,4,5,6,7); endchar;
+
+%    \end{macrocode}
+% \end{routine}
+%
+% \begin{routine}{unknown 12}
+%    The last unknown character. Like a capital letter B. \jurgen{} suggested
+% that it should be narrower, and also said that it was the \textit{twe} sign.
+%    \begin{macrocode}
+cmchar "Linear B unknown 12 (or twe)";
+beginglyph(oct"177", 0.35);
+numeric beta; beta:=2.0;  % tension
+x1=x3=leftloc; y1=0; y3=h; z2=0.5[z1,z3];   % upright
+x4=x5=rightloc;
+y4=0.5[y1,y2];
+y5=0.5[y2,y3];
+draw z1--z3;
+%%draw z1..tension beta..z4..tension beta..z2;  % lower bowl
+%%draw z2..tension beta..z5..tension beta..z3;  % lower bowl
+%%draw z1{right}..z4..{left}z2; 
+%%draw z2{right}..z5..{left}z3;
+draw z1{(2,1)}..z4..{(-2,1)}z2;
+draw z2{(2,1)}..z5..{(-2,1)}z3;
+labels(1,2,3,4,5,6,7); endchar;
+
+%    \end{macrocode}
+% \end{routine}
+%
+% \subsection{The optional signs}
+%
+%    There are 16 optional signs. There is also a word divider.
+% Hyphenation was, of course, unknown but it might be useful to
+% leave the normal character position for the hyphen (i.e., octal 055)
+% empty allowing, perhaps, \TeX{} to perform hyphenation but without
+% marking it.
+%
+% \begin{routine}{,}
+%    A word divider coded as a comma. It is a short vertical line above the
+% text baseline.
+%    \begin{macrocode}
+cmchar "Linear B word divider (1)";
+beginglyph(",",0.1);
+x1=x2=midloc; y1=0.2h; y2=0.4h;
+draw z1--z2;
+labels(1,2); endchar;
+
+%    \end{macrocode}
+% \end{routine}
+%
+% \begin{routine}{:}
+%    A word divider coded as a colon. It is a short vertical line above the
+% text baseline.
+%    \begin{macrocode}
+cmchar "Linear B word divider (2)";
+beginglyph(":",0.1);
+x1=x2=midloc; y1=0.2h; y2=0.4h;
+draw z1--z2;
+labels(1,2); endchar;
+
+%    \end{macrocode}
+% \end{routine}
+%
+% \begin{routine}{/}
+%    A word divider coded as a forward slash. It is a short vertical line above the
+% text baseline.
+%    \begin{macrocode}
+cmchar "Linear B word divider (3)";
+beginglyph("/",0.1);
+x1=x2=midloc; y1=0.2h; y2=0.4h;
+draw z1--z2;
+labels(1,2); endchar;
+
+%    \end{macrocode}
+% \end{routine}
+%
+% \begin{routine}{a2}
+%    Optional character \textit{a2}. Like a T with two loops under the crossbar.
+%    \begin{macrocode}
+cmchar "Linear B optional sign a2";
+beginglyph(oct"073",0.8);
+x1=x2=midloc; y1=0; y2=h;                          % upright
+x3=leftloc; x4=rightloc; y3=y4=y2;                 % crossbar
+x5=0.1[x3,x2]; x7=0.6[x3,x2]; y5=y7=y2-tiny;       % left loop
+x6=0.5[x5,x7]; y6=y5-small;
+z8=z7 reflectedabout (z1,z2);
+z9=z6 reflectedabout (z1,z2);
+z10=z5 reflectedabout (z1,z2);
+draw z1--z2; draw z3--z4;      % stem and crossbar
+draw z5..z6..z7;               % loops
+draw z8..z9..z10;
+labels(1,2,3,4,5,6,7,8,9,10); endchar;
+
+%    \end{macrocode}
+% \end{routine}
+%
+% \begin{routine}{a3}
+%    Optional character \textit{a3}. Like a crown on bowed legs.
+%    \begin{macrocode}
+cmchar "Linear B optional sign a3";
+beginglyph(oct"074",0.8);
+x5=leftloc; x10=rightloc; y5=y10=h;           % top left & right
+x4=0.1[x5,x10]; x9=0.9[x5,x10]; y4=y9=0.75h;  % ends of crossbar
+z11=1/3[z4,z9]; z13=2/3[z4,z9];               % vertical dashes
+x11=x12; y12=y5; x14=x13; y14=y12;
+z3=0.5[z4,z11]; x2=leftloc; y2=0.5[y1,y3];    % left leg
+x1=0.5[x2,x3]; y1=0;
+z8=0.5[z13,z9]; x7=rightloc; y7=y2;           % right leg
+x6=0.5[x8,x7]; y6=0;
+x15=x16=midloc; y15=y2; y16=0.5[y15,y4];      % central dash
+draw z1..z2{up}..z3;  draw z6..z7{up}..z8;    % legs
+draw z4--z9; draw z11--z12; draw z13--z14;    % crown
+draw z4{up}..z5; draw z9{up}..z10;
+draw z15--z16;                                % central dash
+labels(1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16); endchar;
+
+%    \end{macrocode}
+% \end{routine}
+%
+% \begin{routine}{au}
+%    Optional character \textit{au}. Like an antelope's head.
+%    \begin{macrocode}
+cmchar "Linear B optional sign au";
+beginglyph(oct"075",0.8);
+numeric alpha; alpha:=0.1h;
+x1=x2=x3=leftloc+alpha; y1=0; y2=0.33h; y3=h-3alpha;  % neck
+x5=leftloc; y5=h-small;                               % bottom of ear
+x4=0.5[x5,x3]; y4=0.5[y5,y3] - tiny;
+x6=x5+small; y6=h;                                    % top of ear
+x8-x6=x3-x5; y6-y8=y5-y3;
+x7=0.5[x8,x6]; y7=0.5[y8,y6] + tiny;
+x9=x10=rightloc; y10=1/3[y2,y8]; y9=2/3[y2,y8];       % head
+x12=x8; y12=y3; x11=0.3[x8,x9]; y11=0.5[y10,y9];      % eye
+draw z1--z3;                % neck
+draw z3..z4..{up}z5;        % ear
+draw z6{right}..z7..z8;
+draw z8--z9--z10--z2;       % head
+draw z11--z12;              % eye
+labels(1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16); endchar;
+
+%    \end{macrocode}
+% \end{routine}
+%
+% \begin{routine}{dwe}
+%    Optional character \textit{dwe}. A man with outstretched arms.
+%    \begin{macrocode}
+cmchar "Linear B optional sign dwe";
+beginglyph(oct"076",0.8);
+numeric rad; rad:=1/6h;
+numeric alpha; alpha:=0.1h;
+x1=leftloc; x4=rightloc; x2=x1+rad; x3=x4-rad; % arms
+y2=y3=1/3h; y1=y4=y2+rad;
+x0=midloc; y0=h-rad;                           % center of head
+x5=x0-1/2rad; x7=x0+1/2rad;              % body
+y5=y7=0;
+x0'=x0-rad; x0''=x0; x0'''=x0+rad;
+y0'=y0'''=y0; y0''=y0-rad;
+path p;
+p=z0'{down}..z0''{right}..{up}z0''';
+z5'=z5 shifted (h*up); z7'=z7 shifted (h*up);
+z6= (z5--z5') intersectionpoint p;
+z8= (z7--z7') intersectionpoint p;
+draw fullcircle scaled (2rad) shifted z0;    % head
+draw z6--z5--z7--z8;                         % body
+draw z1{right}..{down}z2--z3{up}..{right}z4; % arms
+labels(1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16); endchar;
+
+%    \end{macrocode}
+% \end{routine}
+%
+% \begin{routine}{dwo}
+%    Optional character \textit{dwo}. Two curved posts with dashes between at the
+% top. \jurgen{} suggested that the posts be tapered with two 3 between them.
+% \begin{verbatim}
+% cmchar "Linear B optional sign dwo (original)";
+% beginglyph(oct"077",1.0);
+% numeric beta; beta:=0.15h;  % dash length
+% numeric alpha; alpha:=(rightloc-leftloc);
+% x1=leftloc; x9=rightloc; y1=y9=0;        % extreme base points
+% x4=x1+0.4alpha; x6=x9-0.4alpha; y4=y6=0; % inner base points
+% x3=0.5[x1,x4]; x5=x4; x8=0.5[x6,x9]; x10=x9; y3=y5=y8=y10=(h - 1.5beta);
+% x21=x22=1/3[x5,x8]; x23=x24=2/3[x5,x8];
+% y22=y24=h-0.5beta; y21=y23=y22-2beta;
+% draw z1..{up}z3--z5--z4;                  % left half
+% draw z6..{up}z8--z10--z9;                 % right half
+% draw_vdash(21,beta); draw_vdash(22,beta); % dashes
+% draw_vdash(23,beta); draw_vdash(24,beta); 
+% labels(1,2,3,4,5,6,7,8,9,10,21,22,23,24); endchar;
+% \end{verbatim}
+% 
+%    \begin{macrocode}
+cmchar "Linear B optional sign dwo";
+beginglyph(oct"077",1.1);
+numeric alpha; alpha:=(rightloc-leftloc);
+numeric beta; beta:=0.2alpha;  % dash length
+numeric gap; gap:=3/2tiny;
+x0=x0'=midloc; y0=0; y0'=h;   % axis of symmetry
+x1=leftloc; x3=x0-0.5gap; y1=y3=0;    % left base points
+x2=0.5[x1,x3]; y2=0.9h;                  % top point
+x4=x1+gap; x5=x3-gap; y4=y5=0;        % base line
+%%x9=x10=0.5[x5,x3]; x6=x7=x8=0.5[(x2+0.5beta),x9];  % points for the 3
+x9=x10=x3; x6=x7=x8=0.5[(x2+0.5beta),x9];  % points for the 3
+y6=h; y7=y2; y7-y8=y6-y7;
+y10=0.5[y6,y7]; y9=0.5[y7,y8];
+z11=z1 reflectedabout (z0,z0');   % the symmetric right hand side
+z12=z2 reflectedabout (z0,z0');
+z13=z3 reflectedabout (z0,z0');
+z14=z4 reflectedabout (z0,z0');
+z15=z5 reflectedabout (z0,z0');
+z16=z6 reflectedabout (z0,z0');
+z17=z7 reflectedabout (z0,z0');
+z18=z8 reflectedabout (z0,z0');
+z19=z9 reflectedabout (z0,z0');
+z20=z10 reflectedabout (z0,z0');
+draw z1--z2--z3; draw z4--z5;         % triangle
+draw_hdash(2,beta);                   % dash at the top
+draw z6..z10..z7;                     % 3
+draw z7..z9..z8;   
+draw z11--z12--z13; draw z14--z15;    % and for the RHS
+draw_hdash(12,beta);                 
+draw z16..z20..z17;                  
+draw z17..z19..z18;   
+labels(1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20); endchar;
+
+%    \end{macrocode}
+% \end{routine}
+%
+% \begin{routine}{nwa}
+%    Optional character \textit{nwa}. Two rakes with crossed curved handles.
+%    \begin{macrocode}
+cmchar "Linear B optional sign nwa";
+beginglyph(oct"100",1.0);
+numeric beta; beta:=0.15h;  % dash length
+numeric alpha; alpha:=0.5beta;
+x1=x11=leftloc; x6=x16=rightloc; y1=y6=h-beta;  % extreme points
+z3=0.4[z1,z6]; z4=0.6[z1,z6]; 
+z2=0.5[z1,z3]; z5=0.5[z4,z6];
+x7=x2; x8=x5; y7=y8=0;          % base points
+x21=x1; x22=x2; x23=x3; x24=x4; x25=x5; x26=x6;
+y21=y22=y23=y24=y25=y26=h-alpha;
+draw z7{up}..z5; draw z8{up}..z2;       % legs
+draw z1--z3; draw z4--z6;               % 
+draw_vdash(21,beta); draw_vdash(22,beta); draw_vdash(23,beta); 
+draw_vdash(24,beta); draw_vdash(25,beta); draw_vdash(26,beta); 
+labels(1,2,3,4,5,6,7,8,9,10,21,22,23,24,25,26); endchar;
+
+%    \end{macrocode}
+% \end{routine}
+%
+% \begin{routine}{pa3}
+%    Optional character \textit{pa3}. A ladder with three rungs.
+%    \begin{macrocode}
+cmchar "Linear B optional sign pa3";
+beginglyph(oct"133",0.6);
+x1=x2=leftloc; x3=x4=rightloc; y1=y3=0; y2=y4=h;  % corner points
+z11=0.25[z1,z2]; z12=0.5[z1,z2]; z13=0.75[z1,z2]; % left
+z21=0.25[z3,z4]; z22=0.5[z3,z4]; z23=0.75[z3,z4]; % right
+draw z1--z2; draw z3--z4;                    % uprights
+draw z11--z21; draw z12--z22; draw z13--z23; % crossbars
+labels(1,2,3,4,5,6,7,8,9,10,21,22,23,24,25,26); endchar;
+
+%    \end{macrocode}
+% \end{routine}
+%
+% \begin{routine}{pu2}
+%    Optional character \textit{pu2}. 
+%    \begin{macrocode}
+cmchar "Linear B optional sign pu2";
+beginglyph(oct"134",0.8);
+numeric alpha; alpha:=small;   % length of dashes
+x1=leftloc; x2=rightloc; y1=y2=0.6h;       % crossbar
+x3=x4=x5=midloc; y3=0; y4=y1; y5=h;        % upright
+x11=0.5[x1,x4]; x21=0.5[x4,x2]; y11=y21=y4; % base of spikes
+x14=x1; x24=x2; y14=y24=y5;                 % top of spikes
+z12=1/3[z11,z14]; z13=2/3[z11,z14];         % left dash centers
+z22=1/3[z21,z24]; z23=2/3[z21,z24];         % right dash centers
+z32=1/3[z4,z5]; z33=2/3[z4,z5];             % middle dash centers
+draw z3--z5; draw z1--z2;                   % upright and crossbar
+draw z11--z14; draw z21--z24;               % angled stems
+draw_hdash(32,alpha); draw_hdash(33,alpha); % middle dashes
+draw_hdash(12,alpha); draw_hdash(13,alpha); % left dashes
+draw_hdash(22,alpha); draw_hdash(23,alpha); % right dashes
+labels(1,2,3,4,5,6,7,8,9,10,21,22,23,24,25,26); endchar;
+
+%    \end{macrocode}
+% \end{routine}
+%
+% \begin{routine}{pte}
+%    Optional character \textit{pte}. A box with a sunken top.
+%    \begin{macrocode}
+cmchar "Linear B optional sign pte";
+beginglyph(oct"135",0.8);
+numeric rad; rad:=small;   % radius
+x1=x2=leftloc; x3=x4=rightloc; y1=y3=0; y2=y4=h;  % straight exterior
+x13=x14=0.2[x2,x4]; x19=x20=0.8[x2,x4];
+x11=x13-rad; x22=x20+rad; y11=y22=h;
+y13=y20=y11-rad;
+x16=x14+rad; x17=x19-rad; y16=y17=0.6h;
+y14=y19=y16+rad;
+draw z2--z1--z3--z4;                       % straight exterior
+draw z2--z11{right}..{down}z13--z14{down}..{right}z16--z17{right}..{up}z19
+       --z20{up}..{right}z22--z4;          % top dish
+labels(1,2,3,4,11,12,13,14,15,16,17,18,19,20,21,22); endchar;
+
+%    \end{macrocode}
+% \end{routine}
+%
+% \begin{routine}{ra2}
+%    Optional character \textit{ra2}, like two lightning flashes.
+%    \begin{macrocode}
+cmchar "Linear B optional sign ra2";
+beginglyph(oct"136",0.6);
+numeric rad;          % radius
+numeric alpha; alpha:=(rightloc-leftloc);
+numeric beta, eta;
+rad:=0.1alpha;
+x1=x5=x6=leftloc; y1=0; y6=h;                   % left stroke leftmost points
+x12=rightloc; y12=h-2rad-rad;                   % right stroke rightmost point
+y13=y14=y12+rad; y15=y14+rad; y16=h;            % other right stroke points
+x13=x12-rad;
+x11=x16=x15=1/4[x1,x12]; y11=0;                 % right stroke leftmost points
+x14=x15+rad;
+y6-y5=2*(y16-y15) + tiny;                       % left stroke y coords
+y4=y3=y5-rad; y2=y3-rad;
+z2-z1=whatever*(z12-z11);                   % left and right strokes are parallel
+x4=x5+rad; x3=x2-rad;
+draw z1---z2..z3..z4..z5---z6;                  % left stroke
+draw z11---z12..z13..z14..z15---z16;            % right stroke
+labels(1,2,3,4,5,6,11,12,13,14,15,16); endchar;
+
+%    \end{macrocode}
+% \end{routine}
+%
+% \begin{routine}{ra3}
+%    Optional character \textit{ra3}. 
+%    \begin{macrocode}
+cmchar "Linear B optional sign ra3";
+beginglyph(oct"137",0.8);
+numeric alpha; alpha:=0.15*(rightloc-leftloc);  % dash length
+numeric beta; beta:=tiny;                     % small arc center offset
+x1=leftloc; x6=rightloc; y1=y6=h;              % top boundary points
+x7=x8=midloc; y7=0; y8=0.6h;                   % stem
+x3=x1+alpha; x4=x6-alpha; y3=y4=y1;            % inner ends of top dashes
+z2=0.5[z1,z3]; z5=0.5[z4,z6];                  % dash midpoints
+path p[];
+p1=z2{down}..z8{right}..{up}z5;                % bowl
+p2=z5{down}..z8{left}..{up}z2;
+z11=point 0.3 of p1; z21=point 0.3 of p2;      % end points of the small arcs
+z13=point 0.7 of p1; z23=point 0.7 of p2;
+z12'=0.5[z11,z13];   z22'=0.5[z21,z23];
+z12=z12' shifted (beta*(1,1)); z22=z22' shifted (beta*(-1,1));
+x31=x32=x33=x7-2alpha;                         % left stem dash centers
+y31=1/4[y7,y8]; y32=1/2[y7,y8]; y33=3/4[y7,y8];
+z41=z31 reflectedabout (z7,z8);                % right stem dash centers
+z42=z32 reflectedabout (z7,z8);
+z43=z33 reflectedabout (z7,z8);
+draw p1; draw z1--z3; draw z4--z6;            % bowl and top
+draw z11..z12..z13; draw z21..z22..z23;       % small arcs
+draw z7--z8;                                  % stem
+draw_hdash(31,alpha); draw_hdash(32,alpha); draw_hdash(33,alpha); 
+draw_hdash(41,alpha); draw_hdash(42,alpha); draw_hdash(43,alpha); 
+labels(1,2,3,4,5,6,7,8,11,12,13,21,22,23,31,32,33,41,42,43); endchar;
+
+%    \end{macrocode}
+% \end{routine}
+%
+% \begin{routine}{ro2}
+%    Optional character \textit{ro2}. A deep dish with a cross.
+% \jurgen's version is like a cherry with a cross on the long stalk.
+% \begin{verbatim}
+% cmchar "Linear B optional sign ro2 (original)";
+% beginglyph(oct"140",0.8);
+% numeric rad;    % radius
+% numeric beta;
+% x1=x3=midloc; y1=0; y3=h;               % axis of symmetry        
+% x2=leftloc; x4=rightloc; y2=y4=0.8h;    % extreme bowl points
+% rad:=(x4-x2)/8;
+% x11=x2+rad; y11=y2;                     % finish off left points
+% x13=x11+rad; y13=y11-rad;
+% x14=x13; y14=rad;
+% x16=x14+rad; y16=0;
+% z17=z16 reflectedabout (z1,z3);         % and right points
+% z19=z14 reflectedabout (z1,z3);
+% z20=z13 reflectedabout (z1,z3);
+% z22=z11 reflectedabout (z1,z3);
+% x31=x32=midloc; y32=h; y31=0.3h;            % vertical
+% x33=x31; y33=0.5[y2,y32];
+% beta:=0.5(x20-x13);
+% draw z2--z11{right}..{down}z13--z14{down}..{right}z16--z17{right}..{up}z19
+%        --z20{up}..{right}z22--z4;          % dish
+% draw z31--z32;                             % vertical
+% draw_hdash(33,beta);                       % crossbar
+% labels(1,2,3,4,11,12,13,14,15,16,17,18,19,20,21,22,31,32,33); endchar;
+% \end{verbatim}
+% 
+%    \begin{macrocode}
+cmchar "Linear B optional sign ro2";
+beginglyph(oct"140",0.6);
+numeric gap; gap=tiny;
+numeric alpha; alpha:=(rightloc-leftloc);
+numeric beta, eta;
+rad:=0.1alpha;
+x1=x2=midloc; y1=h; y2=0;           % middle points
+x5=x2-gap; y5=h/2;                  % curve points
+x3=leftloc; y3=0.75[y2,y5];
+x4=0.3[x3,x5]; y4=y5; 
+x6=x1; y6=y5+3/2gap;
+z13=z3 reflectedabout (z2,z1);
+z14=z4 reflectedabout (z2,z1);
+z15=z5 reflectedabout (z2,z1);
+draw z1--z2;                          % vertical
+draw_hdash(6,4gap);                   % crossbar
+draw z5---z4..z3..z2..z13..z14---z15;   % curve
+labels(1,2,3,4,5,6,11,12,13,14,15,16); endchar;
+
+
+%    \end{macrocode}
+% \end{routine}
+%
+% \begin{routine}{swa}
+%    Optional character \textit{swa}. 
+%    \begin{macrocode}
+cmchar "Linear B optional sign swa";
+beginglyph(oct"173",0.6);
+numeric beta; beta:=2;      % tension value
+numeric eta; eta:=small;    % dash size
+x1=leftloc; x1'=rightloc; y1=y1'=h/2;     % axis of symmetry        
+x2=leftloc; y2=0;
+x3=leftloc; y3=h/5;
+x5=0.75[x1,x1']; y5=y3;
+x7=0.875[x1,x5]; y7=y1;
+z12=z2 reflectedabout (z1,z1');
+z13=z3 reflectedabout (z1,z1');
+z15=z5 reflectedabout (z1,z1');
+z21=1/3[z1,z7]; z22=2/3[z1,z7];
+y23=y5+0.5eta; x23=rightloc;
+z24=z23 reflectedabout (z1,z1');
+draw z2..tension beta..z3..tension beta..z5..tension 0.5beta..z7
+       ..tension 0.5beta..z15..tension beta..z13..tension beta..z12;
+draw_vdash(21,eta); draw_vdash(22,eta);
+draw_vdash(23,eta); draw_vdash(24,eta);
+labels(1,2,3,4,5,6,7,8,12,13,14,15,16,17,18,21,22,23,24); endchar;
+
+%    \end{macrocode}
+% \end{routine}
+%
+% \begin{routine}{swi}
+%    Optional character \textit{swi}. An X inside brackets.
+%    \begin{macrocode}
+cmchar "Linear B optional sign swi";
+beginglyph(oct"174",0.8);
+numeric beta, eta, wid;
+wid:=(rightloc-leftloc);
+x0=x0'=midloc; y0=0; y0'=h;           % axis of symmetry
+x1=x2=leftloc; y1=0; y2=h;            % left bracket
+x3=x4=x1+0.1wid; y3=y1; y4=y2;
+x5=x7=x0-0.3wid; y5=0.3h; y7=0.7h;    % left of bars
+x6=x8=0.2[x5,x0]; y6=y5; y8=y7;       % left of X
+z21=z1 reflectedabout (z0,z0');       % the right half points
+z22=z2 reflectedabout (z0,z0');
+z23=z3 reflectedabout (z0,z0');
+z24=z4 reflectedabout (z0,z0');
+z25=z5 reflectedabout (z0,z0');
+z26=z6 reflectedabout (z0,z0');
+z27=z7 reflectedabout (z0,z0');
+z28=z8 reflectedabout (z0,z0');
+draw z3--z1--z2--z4; draw z23--z21--z22--z24; % brackets
+draw z5--z25; draw z7--z27;                   % bars
+draw z26--z8; draw z6--z28;                   % the X
+labels(1,2,3,4,5,6,7,8,21,22,23,24,25,26,27,28); endchar;
+
+%    \end{macrocode}
+% \end{routine}
+%
+% \begin{routine}{ta2}
+%    Optional character \textit{ta2}. 
+%    \begin{macrocode}
+cmchar "Linear B optional sign ta2";
+beginglyph(oct"175",0.8);
+numeric beta, eta, wid;
+wid:=(rightloc-leftloc);
+eta:= 1/7h;                           % dash length and vertical space
+beta:= 0.2wid;                        % dash horizontal seperation
+x0=x0'=midloc; y0=0; y0'=h;           % axis of symmetry
+x1=leftloc; x2=rightloc; y1=y2=h;     % top
+x3=1/4[x1,x2]; y3=0;                  % bottom left
+z4=z3 reflectedabout (z0,z0');        % bottom right
+x11=x0; y11=3/2eta;                   % bottom dash
+x12=x0-1/2beta; y12=y11+2eta;         % middle dashes
+z13=z12 reflectedabout (z0,z0');
+x15=x0; y15=y12+2eta;                 % top dashes
+x14=x15-beta; y14=y15;
+z16=z14 reflectedabout (z0,z0');
+draw z1--z2;                          % top
+draw z3{up}..z1; draw z4{up}..z2;     % sides
+draw_vdash(11,eta);                   % dashes
+draw_vdash(12,eta); draw_vdash(13,eta);
+draw_vdash(14,eta); draw_vdash(15,eta); draw_vdash(16,eta);
+labels(1,2,3,4,5,6,7,8,11,12,13,14,15,16); endchar;
+
+%    \end{macrocode}
+% \end{routine}
+%
+% \begin{routine}{two}
+%    Optional character \textit{two}. A bit like a bird house.
+%    \begin{macrocode}
+cmchar "Linear B optional sign two";
+beginglyph(oct"176",0.8);
+numeric beta, eta, wid;
+wid:=(rightloc-leftloc);
+eta:= 0.2wid;                           % dash length and vertical space
+x0=x0'=midloc; y0=0; y0'=h;             % axis of symmetry
+x1=leftloc; x2=midloc; y1=2/3h; y2=h;   % the roof
+z3=z1 reflectedabout (z0,z0');
+z4=0.2[z1,z2];                          % top of sides
+z5=z4 reflectedabout (z0,z0');
+x6=0.4[x1,x3]; y6=0;                    % bottom of sides
+z7=z6 reflectedabout (z0,z0');
+x8=0.5[x6,x7]; y8=(x0-x6);              % top of base
+x11=x12=x0; y11=y4-1/2eta; y12=y11+eta; % dash centers
+draw z1--z2--z3;                        % roof
+draw z6{up}..z4; draw z7{up}..z5;       % sides
+draw z6..z8..z7;                        % base
+draw_hdash(11,eta); draw_hdash(12,eta); % dashes
+labels(1,2,3,4,5,6,7,8,11,12,13,14,15,16); endchar;
+
+%    \end{macrocode}
+% \end{routine}
+%
+%
+%
+% \subsection{The numerals}
+%
+%    There are different signs for digits, tens, hundreds, and one thousand.
+% That is, 28 characters. I will put these into the positions normally
+% occupied by the lower case Greek letters and variants.
+% \changes{v1.2}{2005/06/22}{Rordered the numerals}
+%
+%
+%    The digits are composed of vertical dashes.
+% \begin{routine}{9}
+%    The numeral \textit{9}. 
+%    \begin{macrocode}
+cmchar "Linear B numeral sign 9";
+beginglyph(oct"011",4digwd);
+numeric alpha; alpha:=digsz*h;
+x1=x6=leftloc; y1=y2=y3=y4=y5=(1-digsz/2)*h;
+x5=rightloc;  y6=y7=y8=y9=(digsz/2)*h;
+x2=x7=1/4[leftloc,rightloc];
+x3=x8=1/2[leftloc,rightloc];
+x4=x9=3/4[leftloc,rightloc];
+% top row
+draw_vdash(1,alpha);
+draw_vdash(2,alpha);
+draw_vdash(3,alpha);
+draw_vdash(4,alpha);
+draw_vdash(5,alpha);
+% bottom row
+draw_vdash(6,alpha);
+draw_vdash(7,alpha);
+draw_vdash(8,alpha);
+draw_vdash(9,alpha);
+labels(1,2,3,4,5,6,7,8,9); endchar;
+ 
+%    \end{macrocode}
+% \end{routine}
+%
+% \begin{routine}{8}
+%    The numeral \textit{8}. 
+%    \begin{macrocode}
+cmchar "Linear B numeral sign 8";
+beginglyph(oct"010",3digwd);
+numeric alpha; alpha:=digsz*h;
+x1=x6=leftloc; y1=y2=y3=y4=y5=(1-digsz/2)*h;
+x5=rightloc;  y6=y7=y8=y9=(digsz/2)*h;
+x2=x7=1/3[leftloc,rightloc];
+x3=x8=2/3[leftloc,rightloc];
+x4=x9=rightloc;
+% top row
+draw_vdash(1,alpha);
+draw_vdash(2,alpha);
+draw_vdash(3,alpha);
+draw_vdash(4,alpha);
+% bottom row
+draw_vdash(6,alpha);
+draw_vdash(7,alpha);
+draw_vdash(8,alpha);
+draw_vdash(9,alpha);
+labels(1,2,3,4,5,6,7,8,9); endchar;
+ 
+%    \end{macrocode}
+% \end{routine}
+%
+% \begin{routine}{7}
+%    The numeral \textit{7}. 
+%    \begin{macrocode}
+cmchar "Linear B numeral sign 7";
+beginglyph(oct"007",3digwd);
+numeric alpha; alpha:=digsz*h;
+x1=x6=leftloc; y1=y2=y3=y4=y5=(1-digsz/2)*h;
+x5=rightloc;  y6=y7=y8=y9=(digsz/2)*h;
+x2=x7=1/3[leftloc,rightloc];
+x3=x8=2/3[leftloc,rightloc];
+x4=x9=rightloc;
+% top row
+draw_vdash(1,alpha);
+draw_vdash(2,alpha);
+draw_vdash(3,alpha);
+draw_vdash(4,alpha);
+% bottom row
+draw_vdash(6,alpha);
+draw_vdash(7,alpha);
+draw_vdash(8,alpha);
+labels(1,2,3,4,5,6,7,8,9); endchar;
+ 
+%    \end{macrocode}
+% \end{routine}
+%
+% \begin{routine}{6}
+%    The numeral \textit{6}. 
+%    \begin{macrocode}
+cmchar "Linear B numeral sign 6";
+beginglyph(oct"006",2digwd);
+numeric alpha; alpha:=digsz*h;
+x1=x6=leftloc; y1=y2=y3=y4=y5=(1-digsz/2)*h;
+x5=rightloc;  y6=y7=y8=y9=(digsz/2)*h;
+x2=x7=1/2[leftloc,rightloc];
+x3=x8=rightloc;
+x4=x9=rightloc;
+% top row
+draw_vdash(1,alpha);
+draw_vdash(2,alpha);
+draw_vdash(3,alpha);
+% bottom row
+draw_vdash(6,alpha);
+draw_vdash(7,alpha);
+draw_vdash(8,alpha);
+labels(1,2,3,4,5,6,7,8,9); endchar;
+ 
+%    \end{macrocode}
+% \end{routine}
+%
+% \begin{routine}{5}
+%    The numeral \textit{5}. 
+%    \begin{macrocode}
+cmchar "Linear B numeral sign 5";
+beginglyph(oct"005",2digwd);
+numeric alpha; alpha:=digsz*h;
+x1=x6=leftloc; y1=y2=y3=y4=y5=(1-digsz/2)*h;
+x5=rightloc;  y6=y7=y8=y9=(digsz/2)*h;
+x2=x7=1/2[leftloc,rightloc];
+x3=x8=rightloc;
+x4=x9=rightloc;
+% top row
+draw_vdash(1,alpha);
+draw_vdash(2,alpha);
+draw_vdash(3,alpha);
+% bottom row
+draw_vdash(6,alpha);
+draw_vdash(7,alpha);
+labels(1,2,3,4,5,6,7,8,9); endchar;
+ 
+%    \end{macrocode}
+% \end{routine}
+%
+% \begin{routine}{4}
+%    The numeral \textit{4}. 
+%    \begin{macrocode}
+cmchar "Linear B numeral sign 4";
+beginglyph(oct"004",digwd);
+numeric alpha; alpha:=digsz*h;
+x1=x6=leftloc; y1=y2=y3=y4=y5=(1-digsz/2)*h;
+x5=rightloc;  y6=y7=y8=y9=(digsz/2)*h;
+x2=x7=rightloc;
+x3=x8=rightloc;
+x4=x9=rightloc;
+% top row
+draw_vdash(1,alpha);
+draw_vdash(2,alpha);
+% bottom row
+draw_vdash(6,alpha);
+draw_vdash(7,alpha);
+labels(1,2,3,4,5,6,7,8,9); endchar;
+ 
+%    \end{macrocode}
+% \end{routine}
+%
+% \begin{routine}{3}
+%    The numeral \textit{3}. 
+%    \begin{macrocode}
+cmchar "Linear B numeral sign 3";
+beginglyph(oct"003",2digwd);
+numeric alpha; alpha:=digsz*h;
+x1=x6=leftloc; y1=y2=y3=y4=y5=(1-digsz/2)*h;
+x5=rightloc;  y6=y7=y8=y9=(digsz/2)*h;
+x2=x7=1/2[leftloc,rightloc];
+x3=x8=rightloc;
+x4=x9=rightloc;
+% top row
+draw_vdash(1,alpha);
+draw_vdash(2,alpha);
+draw_vdash(3,alpha);
+labels(1,2,3,4,5,6,7,8,9); endchar;
+ 
+%    \end{macrocode}
+% \end{routine}
+%
+% \begin{routine}{2}
+%    The numeral \textit{2}. 
+%    \begin{macrocode}
+cmchar "Linear B numeral sign 2";
+beginglyph(oct"002",digwd);
+numeric alpha; alpha:=digsz*h;
+x1=x6=leftloc; y1=y2=y3=y4=y5=(1-digsz/2)*h;
+x5=rightloc;  y6=y7=y8=y9=(digsz/2)*h;
+x2=x7=rightloc;
+x3=x8=rightloc;
+x4=x9=rightloc;
+% top row
+draw_vdash(1,alpha);
+draw_vdash(2,alpha);
+labels(1,2,3,4,5,6,7,8,9); endchar;
+ 
+%    \end{macrocode}
+% \end{routine}
+%
+% \begin{routine}{1}
+%    The numeral \textit{1}. 
+%    \begin{macrocode}
+cmchar "Linear B numeral sign 1";
+beginglyph(oct"001",digwd/2);
+numeric alpha; alpha:=digsz*h;
+x1=midloc; y1=(1-digsz/2)*h;
+draw_vdash(1,alpha);
+labels(1,2,3,4,5,6); endchar;
+ 
+%    \end{macrocode}
+% \end{routine}
+%
+%    The tens are all composed of horizontal dashes.
+%
+% \begin{routine}{90}
+%    The numeral \textit{90}.
+%    \begin{macrocode}
+cmchar "Linear B numeral sign 90";
+beginglyph(oct"022",(2tenwd+tensep));
+numeric alpha; alpha:=tensz*h;
+x1=x2=x3=x4=x5=leftloc+alpha/2;
+x6=x7=x8=x9=rightloc-alpha/2;
+y1=y6=h;
+y2=y7=3/4h;
+y3=y8=1/2h;
+y4=y9=1/4h;
+y5=0;
+%  left column
+draw_hdash(1,alpha);
+draw_hdash(2,alpha);
+draw_hdash(3,alpha);
+draw_hdash(4,alpha);
+draw_hdash(5,alpha);
+% right column
+draw_hdash(6,alpha);
+draw_hdash(7,alpha);
+draw_hdash(8,alpha);
+draw_hdash(9,alpha);
+labels(1,2,3,4,5,6,7,8,9); endchar;
+
+%    \end{macrocode}
+% \end{routine}
+%
+% \begin{routine}{80}
+%    The numeral \textit{80}.
+%    \begin{macrocode}
+cmchar "Linear B numeral sign 80";
+beginglyph(oct"021",(2tenwd+tensep));
+numeric alpha; alpha:=tensz*h;
+x1=x2=x3=x4=x5=leftloc+alpha/2;
+x6=x7=x8=x9=rightloc-alpha/2;
+y1=y6=h;
+y2=y7=3/4h;
+y3=y8=1/2h;
+y4=y9=1/4h;
+y5=0;
+%  left column
+draw_hdash(1,alpha);
+draw_hdash(2,alpha);
+draw_hdash(3,alpha);
+draw_hdash(4,alpha);
+% right column
+draw_hdash(6,alpha);
+draw_hdash(7,alpha);
+draw_hdash(8,alpha);
+draw_hdash(9,alpha);
+labels(1,2,3,4,5,6,7,8,9); endchar;
+
+%    \end{macrocode}
+% \end{routine}
+%
+% \begin{routine}{70}
+%    The numeral \textit{70}.
+%    \begin{macrocode}
+cmchar "Linear B numeral sign 70";
+beginglyph(oct"020",(2tenwd+tensep));
+numeric alpha; alpha:=tensz*h;
+x1=x2=x3=x4=x5=leftloc+alpha/2;
+x6=x7=x8=x9=rightloc-alpha/2;
+y1=y6=h;
+y2=y7=3/4h;
+y3=y8=1/2h;
+y4=y9=1/4h;
+y5=0;
+%  left column
+draw_hdash(1,alpha);
+draw_hdash(2,alpha);
+draw_hdash(3,alpha);
+draw_hdash(4,alpha);
+% right column
+draw_hdash(6,alpha);
+draw_hdash(7,alpha);
+draw_hdash(8,alpha);
+labels(1,2,3,4,5,6,7,8,9); endchar;
+
+%    \end{macrocode}
+% \end{routine}
+%
+% \begin{routine}{60}
+%    The numeral \textit{60}.
+%    \begin{macrocode}
+cmchar "Linear B numeral sign 60";
+beginglyph(oct"017",(2tenwd+tensep));
+numeric alpha; alpha:=tensz*h;
+x1=x2=x3=x4=x5=leftloc+alpha/2;
+x6=x7=x8=x9=rightloc-alpha/2;
+y1=y6=h;
+y2=y7=3/4h;
+y3=y8=1/2h;
+y4=y9=1/4h;
+y5=0;
+%  left column
+draw_hdash(1,alpha);
+draw_hdash(2,alpha);
+draw_hdash(3,alpha);
+% right column
+draw_hdash(6,alpha);
+draw_hdash(7,alpha);
+draw_hdash(8,alpha);
+labels(1,2,3,4,5,6,7,8,9); endchar;
+
+%    \end{macrocode}
+% \end{routine}
+%
+% \begin{routine}{50}
+%    The numeral \textit{50}.
+%    \begin{macrocode}
+cmchar "Linear B numeral sign 50";
+beginglyph(oct"016",(2tenwd+tensep));
+numeric alpha; alpha:=tensz*h;
+x1=x2=x3=x4=x5=leftloc+alpha/2;
+x6=x7=x8=x9=rightloc-alpha/2;
+y1=y6=h;
+y2=y7=3/4h;
+y3=y8=1/2h;
+y4=y9=1/4h;
+y5=0;
+%  left column
+draw_hdash(1,alpha);
+draw_hdash(2,alpha);
+draw_hdash(3,alpha);
+% right column
+draw_hdash(6,alpha);
+draw_hdash(7,alpha);
+labels(1,2,3,4,5,6,7,8,9); endchar;
+
+%    \end{macrocode}
+% \end{routine}
+%
+% \begin{routine}{40}
+%    The numeral \textit{40}.
+%    \begin{macrocode}
+cmchar "Linear B numeral sign 40";
+beginglyph(oct"015",(2tenwd+tensep));
+numeric alpha; alpha:=tensz*h;
+x1=x2=x3=x4=x5=leftloc+alpha/2;
+x6=x7=x8=x9=rightloc-alpha/2;
+y1=y6=h;
+y2=y7=3/4h;
+y3=y8=1/2h;
+y4=y9=1/4h;
+y5=0;
+%  left column
+draw_hdash(1,alpha);
+draw_hdash(2,alpha);
+% right column
+draw_hdash(6,alpha);
+draw_hdash(7,alpha);
+labels(1,2,3,4,5,6,7,8,9); endchar;
+
+%    \end{macrocode}
+% \end{routine}
+%
+% \begin{routine}{30}
+%    The numeral \textit{30}.
+%    \begin{macrocode}
+cmchar "Linear B numeral sign 30";
+beginglyph(oct"014",(tenwd));
+numeric alpha; alpha:=tensz*h;
+x1=x2=x3=x4=x5=leftloc+alpha/2;
+x6=x7=x8=x9=rightloc-alpha/2;
+y1=y6=h;
+y2=y7=3/4h;
+y3=y8=1/2h;
+y4=y9=1/4h;
+y5=0;
+%  left column
+draw_hdash(1,alpha);
+draw_hdash(2,alpha);
+draw_hdash(3,alpha);
+labels(1,2,3,4,5,6,7,8,9); endchar;
+
+%    \end{macrocode}
+% \end{routine}
+%
+% \begin{routine}{20}
+%    The numeral \textit{20}.
+%    \begin{macrocode}
+cmchar "Linear B numeral sign 20";
+beginglyph(oct"013",(tenwd));
+numeric alpha; alpha:=tensz*h;
+x1=x2=x3=x4=x5=leftloc+alpha/2;
+x6=x7=x8=x9=rightloc-alpha/2;
+y1=y6=h;
+y2=y7=3/4h;
+y3=y8=1/2h;
+y4=y9=1/4h;
+y5=0;
+%  left column
+draw_hdash(1,alpha);
+draw_hdash(2,alpha);
+labels(1,2,3,4,5,6,7,8,9); endchar;
+
+%    \end{macrocode}
+% \end{routine}
+%
+% \begin{routine}{10}
+%    The numeral \textit{10}.
+%    \begin{macrocode}
+cmchar "Linear B numeral sign 10";
+beginglyph(oct"012",(tenwd));
+numeric alpha; alpha:=tensz*h;
+x1=x2=x3=x4=x5=leftloc+alpha/2;
+x6=x7=x8=x9=rightloc-alpha/2;
+y1=y6=h;
+y2=y7=3/4h;
+y3=y8=1/2h;
+y4=y9=1/4h;
+y5=0;
+%  left column
+draw_hdash(1,alpha);
+labels(1,2,3,4,5,6,7,8,9); endchar;
+
+%    \end{macrocode}
+% \end{routine}
+%
+%    The hundreds are composed of circles.
+%
+% \begin{routine}{900}
+%    The numeral \textit{900}. 
+%    \begin{macrocode}
+cmchar "Linear B numeral sign 900";
+beginglyph(oct"033",(5hunwd+4hunsep));
+numeric diam, rad; diam:=hunsz*h; rad:=diam/2;
+x1=x6=leftloc+rad; y1=y2=y3=y4=y5=h-rad;
+x5=rightloc-rad;  y6=y7=y8=y9=rad;
+x2=x7=1/4[x1,x5];
+x3=x8=1/2[x1,x5];
+x4=x9=3/4[x1,x5];
+% top row
+draw fullcircle scaled diam shifted z1;
+draw fullcircle scaled diam shifted z2;
+draw fullcircle scaled diam shifted z3;
+draw fullcircle scaled diam shifted z4;
+draw fullcircle scaled diam shifted z5;
+% bottom row
+draw fullcircle scaled diam shifted z6;
+draw fullcircle scaled diam shifted z7;
+draw fullcircle scaled diam shifted z8;
+draw fullcircle scaled diam shifted z9;
+labels(1,2,3,4,5,6,7,8,9); endchar;
+ 
+%    \end{macrocode}
+% \end{routine}
+%
+% \begin{routine}{800}
+%    The numeral \textit{800}. 
+%    \begin{macrocode}
+cmchar "Linear B numeral sign 800";
+beginglyph(oct"032",(4hunwd+3hunsep));
+numeric diam, rad; diam:=hunsz*h; rad:=diam/2;
+x1=x6=leftloc+rad; y1=y2=y3=y4=y5=h-rad;
+x5=rightloc-rad;  y6=y7=y8=y9=rad;
+x4=x9=rightloc-rad;
+x2=x7=1/3[x1,x5];
+x3=x8=2/3[x1,x5];
+% top row
+draw fullcircle scaled diam shifted z1;
+draw fullcircle scaled diam shifted z2;
+draw fullcircle scaled diam shifted z3;
+draw fullcircle scaled diam shifted z4;
+% bottom row
+draw fullcircle scaled diam shifted z6;
+draw fullcircle scaled diam shifted z7;
+draw fullcircle scaled diam shifted z8;
+draw fullcircle scaled diam shifted z9;
+labels(1,2,3,4,5,6,7,8,9); endchar;
+ 
+%    \end{macrocode}
+% \end{routine}
+%
+% \begin{routine}{700}
+%    The numeral \textit{700}. 
+%    \begin{macrocode}
+cmchar "Linear B numeral sign 700";
+beginglyph(oct"031",(4hunwd+3hunsep));
+numeric diam, rad; diam:=hunsz*h; rad:=diam/2;
+x1=x6=leftloc+rad; y1=y2=y3=y4=y5=h-rad;
+x5=rightloc-rad;  y6=y7=y8=y9=rad;
+x4=x9=rightloc-rad;
+x2=x7=1/3[x1,x5];
+x3=x8=2/3[x1,x5];
+% top row
+draw fullcircle scaled diam shifted z1;
+draw fullcircle scaled diam shifted z2;
+draw fullcircle scaled diam shifted z3;
+draw fullcircle scaled diam shifted z4;
+% bottom row
+draw fullcircle scaled diam shifted z6;
+draw fullcircle scaled diam shifted z7;
+draw fullcircle scaled diam shifted z8;
+labels(1,2,3,4,5,6,7,8,9); endchar;
+ 
+%    \end{macrocode}
+% \end{routine}
+%
+%
+% \begin{routine}{600}
+%    The numeral \textit{600}. 
+%    \begin{macrocode}
+cmchar "Linear B numeral sign 600";
+beginglyph(oct"030",(3hunwd+2hunsep));
+numeric diam, rad; diam:=hunsz*h; rad:=diam/2;
+x1=x6=leftloc+rad; y1=y2=y3=y4=y5=h-rad;
+x5=rightloc-rad;  y6=y7=y8=y9=rad;
+x2=x7=1/2[x1,x5];
+x3=x8=rightloc-rad;
+x4=x9=rightloc-rad;
+% top row
+draw fullcircle scaled diam shifted z1;
+draw fullcircle scaled diam shifted z2;
+draw fullcircle scaled diam shifted z3;
+% bottom row
+draw fullcircle scaled diam shifted z6;
+draw fullcircle scaled diam shifted z7;
+draw fullcircle scaled diam shifted z8;
+labels(1,2,3,4,5,6,7,8,9); endchar;
+ 
+%    \end{macrocode}
+% \end{routine}
+%
+% \begin{routine}{500}
+%    The numeral \textit{500}. 
+%    \begin{macrocode}
+cmchar "Linear B numeral sign 500";
+beginglyph(oct"027",(3hunwd+2hunsep));
+numeric diam, rad; diam:=hunsz*h; rad:=diam/2;
+x1=x6=leftloc+rad; y1=y2=y3=y4=y5=h-rad;
+x5=rightloc-rad;  y6=y7=y8=y9=rad;
+x2=x7=1/2[x1,x5];
+x3=x8=rightloc-rad;
+x4=x9=rightloc-rad;
+% top row
+draw fullcircle scaled diam shifted z1;
+draw fullcircle scaled diam shifted z2;
+draw fullcircle scaled diam shifted z3;
+% bottom row
+draw fullcircle scaled diam shifted z6;
+draw fullcircle scaled diam shifted z7;
+labels(1,2,3,4,5,6,7,8,9); endchar;
+ 
+%    \end{macrocode}
+% \end{routine}
+%
+%
+% \begin{routine}{400}
+%    The numeral \textit{400}. 
+%    \begin{macrocode}
+cmchar "Linear B numeral sign 400";
+beginglyph(oct"026",(2hunwd+hunsep));
+numeric diam, rad; diam:=hunsz*h; rad:=diam/2;
+x1=x6=leftloc+rad; y1=y2=y3=y4=y5=h-rad;
+x5=rightloc-rad;  y6=y7=y8=y9=rad;
+x2=x7=rightloc-rad;
+x3=x8=rightloc-rad;
+x4=x9=rightloc-rad;
+% top row
+draw fullcircle scaled diam shifted z1;
+draw fullcircle scaled diam shifted z2;
+% bottom row
+draw fullcircle scaled diam shifted z6;
+draw fullcircle scaled diam shifted z7;
+labels(1,2,3,4,5,6,7,8,9); endchar;
+ 
+%    \end{macrocode}
+% \end{routine}
+%
+% \begin{routine}{300}
+%    The numeral \textit{400}. 
+%    \begin{macrocode}
+cmchar "Linear B numeral sign 300";
+beginglyph(oct"025",(2hunwd+hunsep));
+numeric diam, rad; diam:=hunsz*h; rad:=diam/2;
+x1=x6=leftloc+rad; y1=y2=y3=y4=y5=h-rad;
+x5=rightloc-rad;  y6=y7=y8=y9=rad;
+x2=x7=rightloc-rad;
+x3=x8=rightloc-rad;
+x4=x9=rightloc-rad;
+% top row
+draw fullcircle scaled diam shifted z1;
+draw fullcircle scaled diam shifted z2;
+% bottom row
+draw fullcircle scaled diam shifted z6;
+labels(1,2,3,4,5,6,7,8,9); endchar;
+ 
+%    \end{macrocode}
+% \end{routine}
+%
+% \begin{routine}{200}
+%    The numeral \textit{200}. 
+%    \begin{macrocode}
+cmchar "Linear B numeral sign 200";
+beginglyph(oct"024",hunwd);
+numeric diam, rad; diam:=hunsz*h; rad:=diam/2;
+x1=x6=leftloc+rad; y1=y2=y3=y4=y5=h-rad;
+x5=rightloc-rad;  y6=y7=y8=y9=rad;
+x2=x7=rightloc-rad;
+x3=x8=rightloc-rad;
+x4=x9=rightloc-rad;
+% top row
+draw fullcircle scaled diam shifted z1;
+% bottom row
+draw fullcircle scaled diam shifted z6;
+labels(1,2,3,4,5,6,7,8,9); endchar;
+ 
+%    \end{macrocode}
+% \end{routine}
+%
+% \begin{routine}{100}
+%    The numeral \textit{100}. 
+%    \begin{macrocode}
+cmchar "Linear B numeral sign 100";
+beginglyph(oct"023",hunwd);
+numeric diam, rad; diam:=hunsz*h; rad:=diam/2;
+x1=x6=leftloc+rad; y1=y2=y3=y4=y5=h-rad;
+x5=rightloc-rad;  y6=y7=y8=y9=rad;
+x2=x7=rightloc-rad;
+x3=x8=rightloc-rad;
+x4=x9=rightloc-rad;
+% top row
+draw fullcircle scaled diam shifted z1;
+labels(1,2,3,4,5,6,7,8,9); endchar;
+ 
+%    \end{macrocode}
+% \end{routine}
+%
+%
+% \begin{routine}{1000}
+%    The numeral \textit{1000}. It is a circle with spikes.
+%    \begin{macrocode}
+cmchar "Linear B numeral sign 1000";
+beginglyph(oct"034",1.0);
+numeric diam, rad; diam:=h/2; rad:=diam/2;
+x0=midloc; y0=h/2;   % circle center
+x5=leftloc; x1=x0-rad; x3=x0+rad; x7=rightloc; y5=y1=y3=y7=y0;
+x8=x4=x2=x6=x0; y8=0; y4=y0-rad; y2=y0+rad; y6=h;
+draw fullcircle scaled diam shifted z0;
+draw z5--z1; draw z6--z2; draw z7--z3; draw z8--z4;
+labels(0,1,2,3,4,5,6,7,8,9); endchar;
+ 
+%    \end{macrocode}
+% \end{routine}
+%
+% \subsection{Weights and measures}
+% 
+%  Chadwick shows 9 glyphs for weight and volume measures: 5 for weights
+% and 4 for volumes.
+% \changes{v1.2}{2005/06/22}{Added 9 weights and measures glyphs}
+%
+% \begin{routine}{wta}
+% The lowest weight unit. A shepherd's crook with a cross-bar.
+%    \begin{macrocode}
+cmchar "Linear B smallest weight (wta)";
+beginglyph(oct"200",0.4);
+x5=leftloc; x6=rightloc;
+x1=x2=x4=1/2[x5,x6]; x3=x5;
+y1=0; y4=h; y2=15/20[y1,y4]; y3=1/2[y2,y4]; y5=y6=15/20[y1,y2];
+draw z1--z2{left}..z3{up}..{right}z4;
+draw z5--z6;
+labels(1,2,3,4,5,6,7); endchar;
+
+%    \end{macrocode}
+% \end{routine}
+%
+% \begin{routine}{wtb}
+% The second lowest weight unit. A reversed S with a slash and dots.
+%    \begin{macrocode}
+cmchar "Linear B second smallest weight (wtb)";
+beginglyph(oct"201",0.4);
+numeric alpha; alpha:=0.5*(rightloc-leftloc);
+x1=x5=leftloc; x6=x4=x2=midloc; x7=x3=rightloc;
+y6=0; y5=y7=y6+alpha; y4=h/2; y1=y3=y2-alpha; y2=h;
+draw z1..z2..z3..z4..z5..z6..z7;
+z11=1/2[z4,z1]; z12=1/2[z4,z7];
+z13=1/2[z1,z3]; z14=1/2[z5,z7];
+draw z11--z12; draw z13; draw z14;
+labels(1,2,3,4,5,6,7,8,9); endchar;
+
+%    \end{macrocode}
+% \end{routine}
+%
+% \begin{routine}{wtc}
+% The third lowest weight unit. An octothorpe.
+%    \begin{macrocode}
+cmchar "Linear B third smallest weight(wtd)";
+beginglyph(oct"202",1.0);
+x1=x2=leftloc; x3=x4=rightloc;
+y5=y7=0; y6=y8=h;
+y1=y3=1/4[y5,y6]; y2=y4=3/4[y5,y6];
+x5=x6=0.25[x1,x3]; x7=x8=3/4[x1,x3];
+draw z1--z3; draw z2--z4;
+draw z5--z6; draw z7--z8;
+labels(1,2,3,4,5,6,7,8);
+endchar;
+
+%    \end{macrocode}
+% \end{routine}
+%
+% \begin{routine}{wtd}
+% The fourth lowest weight unit. Two reversed S's.
+%    \begin{macrocode}
+cmchar "Linear B fourth smallest weight (wtd)";
+beginglyph(oct"203",0.2);
+numeric alpha; alpha:=0.5*(rightloc-leftloc);
+x1=x5=leftloc; x6=x4=x2=midloc; x7=x3=rightloc;
+y6=11/20h; y2=h; y4=1/2[y6,y2];  y5=y7=1/2[y6,y4]; y1=y3=1/2[y4,y2];
+draw z1..z2..z3..z4..z5..z6..z7;
+
+x11=x15=x1; x16=x14=x12=x6; x17=x13=x7;
+y16=0; y12=9/20h; y14=1/2[y16,y12];  y15=y17=1/2[y16,y14]; y11=y13=1/2[y14,y12];
+draw z11..z12..z13..z14..z15..z16..z17;
+labels(1,2,3,4,5,6,7,8,9,11,12,13,14,15,16,17); endchar;
+
+%    \end{macrocode}
+% \end{routine}
+%
+% \begin{routine}{talent}
+% The symbol for weights; Chadwick suggests it might be a talent, the most 
+% common weight in antiquity.
+% A pair of scales.
+%    \begin{macrocode}
+cmchar "Linear B highest weight symbol (talent)";
+beginglyph(oct"204",1.1);
+numeric alpha; alpha:=(rightloc-leftloc);
+numeric beta; beta:=0.2alpha;  % dash length
+numeric gap; gap:=3/2tiny;
+x0=x0'=midloc; y0=0; y0'=h;   % axis of symmetry
+x1=leftloc; x3=x0-0.5gap; y1=y3=0;    % left base points
+x2=0.5[x1,x3]; y2=0.9h;                  % top point
+x4=x1+gap; x5=x3-gap; y4=y5=0;        % base line
+%%x9=x10=0.5[x5,x3]; x6=x7=x8=0.5[(x2+0.5beta),x9];  % points for the 3
+x9=x10=x3; x6=x7=x8=0.5[(x2+0.5beta),x9];  % points for the 3
+y6=h; y7=y2; y7-y8=y6-y7;
+y10=0.5[y6,y7]; y9=0.5[y7,y8];
+z11=z1 reflectedabout (z0,z0');   % the symmetric right hand side
+z12=z2 reflectedabout (z0,z0');
+z13=z3 reflectedabout (z0,z0');
+z14=z4 reflectedabout (z0,z0');
+z15=z5 reflectedabout (z0,z0');
+z16=z6 reflectedabout (z0,z0');
+z17=z7 reflectedabout (z0,z0');
+z18=z8 reflectedabout (z0,z0');
+z19=z9 reflectedabout (z0,z0');
+z20=z10 reflectedabout (z0,z0');
+%%draw z1--z2--z3; draw z4--z5;         % triangle
+draw z4--z2--z5--cycle;
+draw_hdash(2,beta);                   % dash at the top
+%%draw z6..z10..z7;                     % 3
+%%draw z7..z9..z8;   
+%%draw z11--z12--z13; draw z14--z15;    % and for the RHS
+draw z14--z12--z15--cycle;
+draw_hdash(12,beta);                 
+%%draw z16..z20..z17;                  
+%%draw z17..z19..z18;   
+draw z2--z12;
+x21=x22=1/2[x2,x12]; y21=0; y22=h;
+draw z21--z22;                          % upright
+labels(1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22); endchar;
+
+%    \end{macrocode}
+% \end{routine}
+%
+%
+% \begin{routine}{vola}
+% The lowest volume unit. A cup.
+%    \begin{macrocode}
+cmchar "Linear B lowest volume unit (vola)";
+beginglyph(oct"210",1.0);
+x11=leftloc; x2=rightloc; x1=3/20[x11,x2]; x3=1/2[x1,x2];
+y1=y2=1/3h; y3=0; y11=y1+1/2(x1-x11);
+draw z1--z2..z3..cycle;
+draw z1..z11..cycle;
+labels(1,2,3,11); endchar;
+
+%    \end{macrocode}
+% \end{routine}
+%
+%
+% \begin{routine}{volb}
+% The second lowest volume unit. A triangular P.
+%    \begin{macrocode}
+cmchar "Linear B second lowest volume unit (volb)";
+beginglyph(oct"211",0.6);
+x1=x2=midloc; y1=0; y2=h;
+x3=leftloc; x4=rightloc; y3=y4=0.6h;
+z5=0.5[z1,z2]; z6=0.8[z1,z2];
+x7=rightloc; y7=0.5[y5,y6];
+draw z1--z2; %% draw z3--z4;
+draw z5--z4; draw z6--z7;
+labels(1,2,3,4,5,6,7,8); endchar;
+
+%    \end{macrocode}
+% \end{routine}
+%
+%
+% \begin{routine}{volcd}
+% The highest dry volume unit. A T.
+%    \begin{macrocode}
+cmchar "Linear B highest dry volume unit (volcd)";
+beginglyph(oct"212",0.6);
+x1=x3=leftloc; x4=midloc;  x6=x8=rightloc;    
+y1=y6=3/4h; y3=y8=h; y4=0;
+z2=0.5[z1,z3]; z7=0.5[z6,z8]; z5=0.5[z2,z7];
+%%draw z1--z3;  % left vertical
+draw z4--z5;  % centre vertical
+%%draw z6--z8;  % right vertical
+draw z2--z7;  % bar
+labels(1,2,3,4,5,6,7,8); endchar;
+
+%    \end{macrocode}
+% \end{routine}
+%
+%
+% \begin{routine}{volcf}
+% The highest fluid volume unit. A turn left sign.
+%    \begin{macrocode}
+cmchar "Linear B highest fluid volume unit (volcf)";
+beginglyph(oct"213",0.5);
+x1=x2=rightloc; x4=leftloc; x3=2/3[x4,x2]; x5=x6=1/2[x4,x3];
+y1=0; y4=y3=18/20h; y6=h; y2=y3 - (x2-x3); y4-y5=y6-y4;
+draw z1--z2{up}..{left}z3--z4;      % stem
+draw z5--z4--z6;          % arrowhead
+labels(1,2,3,4,5,6,7); endchar;
+
+%    \end{macrocode}
+% \end{routine}
+%
+% \subsection{Commodities}
+%
+%  A selection of pictograms for commodities.
+% \changes{v1.2}{2005/06/22}{Added 8 commodity glyphs}
+%
+%
+% \begin{routine}{cloth}
+% Cloth. Rectangle with four threads hanging down.
+%    \begin{macrocode}
+cmchar "Linear B cloth pictogram";
+beginglyph(oct"220",0.8);
+x1=x2=x3=leftloc; x6=x7=x8=rightloc;
+y1=y6=0; y2=y7=1/4h; y3=y8=3/4h;
+%x4=x5=midloc; y4=y1; y5=y2;
+%y6=y1; y7=y2; y8=y3;
+z11=1/3[z1,z6]; z13=2/3[z1,z6];
+z12=1/3[z2,z7]; z14=2/3[z2,z7];
+draw z2--z3--z8--z7--cycle;  % box
+%draw z1--z2; draw z4--z5; draw z6--z7;  % legs
+draw z1--z2; draw z11--z12; draw z13--z14; draw z6--z7;  % legs
+labels(1,2,3,4,5,6,7,8,9,10,11,12,13,14); endchar;
+
+%    \end{macrocode}
+% \end{routine}
+%
+%
+% \begin{routine}{wool}
+% Wool. A bit like an M with squiggles.
+%    \begin{macrocode}
+cmchar "Linear B wool pictogram";
+beginglyph(oct"221",0.8);
+numeric alpha, beta;
+alpha:=0.2; beta:=tiny;
+x1=leftloc; x2=midloc; x3=rightloc; y1=y3=h;
+% y2=0;  % V
+y2 = 2/10h;
+path p[];
+p1=z1{(1,-1)}...{down}z2;
+p2=z3{(-1,-1)}...{down}z2;
+z5 = point alpha of p1; 
+z8 = point alpha of p2;
+z4=z5 shifted (beta*(-1,-1)); z6=z5 shifted (beta*(1,1));
+z7=z8 shifted (beta*(-1,1)); z9=z8 shifted (beta*(1,-1));
+draw p1; draw p2;           % V
+%%draw z4--z6; draw z7--z9;   % dashes
+x15=x1; x18=x3; y15=y18=y2;
+draw z5..{down}z15; draw z8..{down}z18;  % legs
+
+x21=x5; x23=x8; x22=x2; y21=y23=y1; y22=y5;
+draw z21--z22--z23;       % upper V
+
+x31=x33=x5; y31=0; y33=y2;
+draw z31{left}..{right}z33;
+
+x41=x43=x8; y41=y31; y43=y33;
+draw z41{right}..{left}z43;
+labels(1,2,3,4,5,6,7,8,9,15,18,21,22,23,31,33,41,43); endchar;
+ 
+%    \end{macrocode}
+% \end{routine}
+%
+%
+% \begin{routine}{wheat}
+% Wheat. Upward pointing full arrow.
+%    \begin{macrocode}
+cmchar "Linear B wheat pictogram";
+beginglyph(oct"222",0.6);
+x1=x2=midloc; y1=0; y2=h;      % stem
+x5=leftloc; x6=rightloc; y5=y6=13/20h;
+%%x3=leftloc; x4=rightloc; y3=y4=1/4h;  % bar (original)
+%%x3=0.2[x5,x6]; x4=0.2[x6,x5]; y3=y4=1/4h;  % bar (jurgen)
+draw z1--z2;      % stem
+%%draw z3--z4;      % bar
+draw z5--z2--z6--cycle;  % arrowhead 
+x11=leftloc; x12=rightloc; y11=y12=y2;
+draw z11--z12;
+labels(1,2,3,4,5,6); endchar;
+ 
+%    \end{macrocode}
+% \end{routine}
+%
+%
+% \begin{routine}{barley}
+% Barley. Sort of turn left sign.
+%    \begin{macrocode}
+cmchar "Linear B barley pictogram";
+beginglyph(oct"223",0.4);
+x7=leftloc; x4=rightloc; x6= 3/8[x7,x4]; x1=1/3[x6,x4];
+y7=h; y1=0; y6=9/10h; y4=8/10h;
+x2=x1; y2=1/3h; x5=7/8[x6,x4]; y5=y6;
+draw z1--z2{up}..{up}z4..{left}z5..{left}z6; % stem
+x14=leftloc; y14=h;
+x11=1/3[x6,x4]; y6-y11 = 3/2(y14-y6);
+x13=x14; y13=y6;
+draw z14{down}..{right}z11; % C at top left of stem
+labels(1,2,3,4,5,6,7,8,9,10,11,12,13,14); endchar;
+
+%    \end{macrocode}
+% \end{routine}
+%
+%
+% \begin{routine}{wine}
+% Wine.
+%    \begin{macrocode}
+cmchar "Linear B wine pictogram";
+beginglyph(oct"224",0.8);
+x1=x3=leftloc; x7=x4=rightloc; y1=y7=0; y3=y4=h;
+z2=3/4[z1,z3]; z8=3/4[z7,z4]; z5=1/2[z1,z7]; z6=1/2[z2,z8];
+draw z1--z3--z4;
+draw z2--z8--z7;
+draw z5--z6;
+%%%%% the dashes
+x21=x22=1/4[x1,x5]; x23=x24=3/4[x1,x5];
+y22=3/4[y1,y2]; y23=1/4[y1,y2];
+y21=1/4[y23,y22]; y24=3/4[y23,y22];
+draw z21--z23; draw z22--z24;
+x31=x32=1/4[x5,x7]; x33=x34=3/4[x5,x7];
+y31=y21; y32=y22; y33=y23; y34=y24;
+draw z31--z33; draw z32--z34;
+labels(1,2,3,4,5,6,7,8,9,10,11,12,13,14,21,22,23,24,31,32,33,34); endchar;
+
+%    \end{macrocode}
+% \end{routine}
+%
+%
+% \begin{routine}{olive-oil}
+% Olive oil. Question mark overlain with a reversed S.
+%    \begin{macrocode}
+cmchar "Linear B olive oil pictogram";
+beginglyph(oct"225",0.4);
+x6=x7=leftloc; x4=rightloc; x1=1/3[x6,x4];
+y7=h; y1=0; y6=9/10h; y4=8/10h;
+x2=x1; y2=1/3h; x5=7/8[x6,x4]; y5=y6;
+draw z1--z2{up}..{up}z4..{left}z5--z6--z7;
+
+x25=1/4[x6,x4]; y6-y25 = 3/2(y7-y6);
+x21=1/2[x2,x4]; y21=3/4[y1,y2];
+z23=1/2[z25,z21];
+y24=1/2[y23,y25]; x24=x4 + (x4-x5);
+x22=1/4[x6,x25]; y22=1/2[y21,y23];
+draw z25{right}..z24..{left}z23..z22..{right}z21;
+labels(1,2,3,4,5,6,7,8,9,10,11,12,13,14,21,22,23,24,25); endchar;
+
+%    \end{macrocode}
+% \end{routine}
+%
+%
+% \begin{routine}{bronze}
+% Bronze. Two boxes hung on a wall.
+%    \begin{macrocode}
+cmchar "Linear B bronze pictogram";
+beginglyph(oct"226",0.6);
+x1=x2=leftloc; y1=0; y2=h;
+z3=1/4[z1,z2]; z4=1/2[z1,z2]; z5=3/4[z1,z2];
+x6=x7=x8=rightloc; y6=y3; y7=y4; y8=y5;
+draw z1--z2;   % wall
+draw z3--z6--z8--z5; % box outside
+draw z4--z7;         % box interior
+labels(1,2,3,4,5,6,7,8,9,10,11,12,13,14); endchar;
+
+%    \end{macrocode}
+% \end{routine}
+%
+%
+% \begin{routine}{gold}
+% Gold. Small folding table with a box on top.
+%    \begin{macrocode}
+cmchar "Linear B gold pictogram";
+beginglyph(oct"227",0.6);
+numeric alpha; 
+x1=x4=leftloc; x3=x2=rightloc; y1=y3=0; y2=y4=9/10h;  % leg points
+path p[];
+p1=z1{up}..z2; p2=z3{up}..z4;
+z0 = p1 intersectionpoint p2;
+%%alpha:=0.5*(x0-x4);
+alpha:=0.75*(x0-x4);
+x5=x0-alpha; x7=x0+alpha; y5=y7=y0;
+x6=x8=x0; y8=y0-alpha; y6=y0+alpha;
+draw p1; draw p2;            % the legs
+%%draw z5--z6--z7--z8--cycle;  % the square
+p5=z5--z6; p7=z7--z6;
+z15 = p5 intersectionpoint p2; z17 = p7 intersectionpoint p1;
+draw z15--z5--z8--z7--z17;
+draw z2--z4;  % table top
+z21=1/4[z4,z2]; z24=3/4[z4,z2];
+x22=x21; x23=x24; y22 = y23 = y21 + 1/2(x24-x21); 
+draw z21--z22--z23--z24--cycle; % box
+labels(1,2,3,4,5,6,7,8,9,10,11,12,13,14); endchar;
+
+%    \end{macrocode}
+% \end{routine}
+%
+% \subsection{Vessels}
+%
+% Pictograms of various kinds of vessels for liquids.
+% \changes{v1.2}{2005/06/22}{Added 8 jar/cup/cauldron glyphs}
+%
+%
+% \begin{routine}{cup}
+%    \begin{macrocode}
+cmchar "Linear B cup";
+beginglyph(oct"230",1.0);
+x1=2/16[leftloc,rightloc]; x2=3/16[rightloc,leftloc];
+y1=y2=13/20h;
+y4=y6=0; y5=y7=8/20y1;
+x4=6/20[x1,x2]; x6=6/20[x2,x1]; x5=2/8[x4,x6]; x7=2/8[x6,x4];
+draw z5--z4--z6--z7;                         % stem
+draw z1{down}..z5..z7..{up}z2; draw z1--z2;  % bowl
+x21=x1; y21=8/20[y1,h]; draw z1{left}..{right}z21; % left handle
+x22=rightloc; y22=y2; draw z2..{down}z22;          % right handle
+labels(1,2,3,4,5,6,7,8,9,10,11,12,21,22); endchar;
+
+%    \end{macrocode}
+% \end{routine}
+% 
+% \begin{routine}{goblet}
+%    \begin{macrocode}
+cmchar "Linear B goblet";
+beginglyph(oct"231",0.6);
+x2=leftloc; x5=rightloc; x1=1/3[x2,x5]; x4=2/3[x2,x5]; x3=2/8[x2,x5]; x6=6/8[x2,x5];
+y1=y4=0; y3=y6=17/20h; y2=y5=3/4[y1,y3];
+draw z1{up}..z2; draw z2..{up}z3; draw z3--z6; draw z6{down}..z5; draw z5..{down}z4; draw z4--z1;
+labels(1,2,3,4,5,6,7,8,9,10,11,12,13,14); endchar;
+
+%    \end{macrocode}
+% \end{routine}
+% 
+%
+% \begin{routine}{amphora}
+%    \begin{macrocode}
+cmchar "Linear B amphora";
+beginglyph(oct"232",0.5);
+x2=leftloc; x12=rightloc; x1=1/4[x2,x12]; x11=3/4[x2,x12]; x4=1/3[x2,x12]; x14=2/3[x2,x12];
+x3=x4; x13=x14;
+y1=y11=0; y4=y14=h;
+y2=y12=5/8[y1,y4];
+y3=y13=1/2[y2,y4];
+draw z1..{up}z2..{up}z3..{up}z4; 
+draw z11..{up}z12..{up}z13..{up}z14; 
+draw z4--z14; draw z1--z11;
+x5=x2; x15=x12;
+y5=y15=1/2[y3,y4];
+draw z3{left}..z5..{right}z4; draw z13{right}..z15..{left}z14;
+labels(1,2,3,4,5,6,7,8,9,10,11,12,13,14,15); endchar;
+
+%    \end{macrocode}
+% \end{routine}
+% 
+%
+% \begin{routine}{wine jar}
+%    \begin{macrocode}
+cmchar "Linear B wine jar";
+beginglyph(oct"233",0.6);
+x2=leftloc; x5=rightloc; x1=1/3[x2,x5]; x4=2/3[x2,x5]; x3=2/8[x2,x5]; x6=6/8[x2,x5];
+y1=y4=0; y3=y6=17/20h; y2=y5=3/4[y1,y3];
+draw z1{up}..z2; draw z2..{up}z3; draw z3--z6; draw z6{down}..z5; draw z5..{down}z4; draw z4--z1;
+x12=x2; x15=x5; y12=y15=2/3[y2,y3];
+draw z2..{left}z12..z2; draw z5..{left}z15..z5;
+labels(1,2,3,4,5,6,7,8,9,10,11,12,13,14); endchar;
+
+%    \end{macrocode}
+% \end{routine}
+% 
+%
+% \begin{routine}{wine jar (3 handles)}
+%    \begin{macrocode}
+cmchar "Linear B 3 handled wine jar";
+beginglyph(oct"234",0.8);
+save P; P:=0.75;
+x2=leftloc; x5=rightloc; x1=1/3[x2,x5]; x4=2/3[x2,x5]; x3=1/8[x2,x5]; x6=7/8[x2,x5];
+y1=y4=0; y3=y6=17/20h; y2=y5=3/4[y1,y3];
+draw z1{up}..z2; draw z2..{up}z3; draw z3--z6; draw z6{down}..z5; draw z5..{down}z4; draw z4--z1;
+z11=1/2[z3,z6]; z12=2/3[z3,z6];
+x13=x3; x16=x6; y13=y16=h;
+z21=1/2[z13,z16]; z22=2/3[z13,z16];
+draw_vloop(3, 13, P);
+draw_vloop(11, 21, P);
+draw_vloop(16, 6, P);
+labels(1,2,3,4,5,6,7,8,9,10,11,12,13,14,21,22); endchar;
+
+%    \end{macrocode}
+% \end{routine}
+% 
+%
+% \begin{routine}{wine jar (4 handles)}
+%    \begin{macrocode}
+cmchar "Linear B 4 handled wine jar";
+beginglyph(oct"235",0.8);
+save Q;
+x2=leftloc; x5=rightloc; x1=1/3[x2,x5]; x4=2/3[x2,x5]; x3=1/8[x2,x5]; x6=7/8[x2,x5];
+y1=y4=0; y3=y6=17/20h; y2=y5=3/4[y1,y3];
+draw z1{up}..z2; draw z2..{up}z3; draw z3--z6; 
+draw z6{down}..z5; draw z5..{down}z4; draw z4--z1;
+z11=1/3[z3,z6]; z12=2/3[z3,z6];
+x13=1/2[x2,x3]; x16=1/2[x6,x5]; y13=y16=h;
+z21=1/3[z13,z16]; z22=2/3[z13,z16];
+Q:=0.75;
+draw_vloop(3,13,Q); draw_vloop(11,21,Q); 
+draw_vloop(12,22,Q); draw_vloop(6,16,Q);
+labels(1,2,3,4,5,6,7,8,9,10,11,12,13,14,21,22); endchar;
+
+%    \end{macrocode}
+% \end{routine}
+% 
+%
+% \begin{routine}{cauldron type 1}
+%    \begin{macrocode}
+cmchar "Linear B cauldron type 1";
+beginglyph(oct"236",1.0);
+save Q; Q:=0.75;
+path p[];
+x1=1/16[leftloc,rightloc]; x2=15/16[leftloc,rightloc]; y1=y2=18/20h;
+y6=0; y5=y7=10/20y1;
+x6=10/20[x1,x2]; x5=9/20[x1,x2]; x7-x6=x6-x5;
+p1 := z1{down}..z5..z7..{up}z2;
+draw p1; draw z1--z2;   % bowl
+draw z5--z6--z7;        % middle leg
+x11=leftloc; y11=y12=h; x12=rightloc;
+draw_vloop(1,11,Q); draw_vloop(2,12,Q);  % handles
+z0=1/2[z1,z2];
+x16=x1; y16=0; p2=z16--z0; z15=p2 intersectionpoint p1;
+x17-x15=x5-x7; y17=y15;
+draw z15--z16--z17;     % left leg
+x26=x2; y26=0; p3=z26--z0; z25=p3 intersectionpoint p1;
+x25-x27=x5-x7; y27=y25;
+draw z25--z26--z27;     % right leg
+labels(1,2,3,4,5,6,7,11,12,15,16,17,21,22,25,26,27); endchar;
+%    \end{macrocode}
+% \end{routine}
+% 
+%
+% \begin{routine}{cauldron type 2}
+%    \begin{macrocode}
+cmchar "Linear B cauldron type 2";
+beginglyph(oct"237",1.0);
+save Q; Q:=0.75;
+path p[];
+x1=3/32[leftloc,rightloc]; x2=3/32[rightloc,leftloc]; y1=y2=18/20h;
+y6=0; y5=y7=6/20y1;
+x6=10/20[x1,x2]; x5=9/20[x1,x2]; x7-x6=x6-x5;
+p1 := z1{down}..z5..z7..{up}z2;
+%%draw p1; draw z1--z2;   % bowl
+draw z5--z6--z7;        % middle leg
+x11=leftloc; y11=y12=h; x12=rightloc;
+draw_vloop(1,11,Q); draw_vloop(2,12,Q);  % handles
+x21=x11; y11-y1=y1-y21; 
+x22=x12; y12-y2=y2-y22; 
+z31=z1; z32=z2;
+draw_vloop(31,21,Q); draw_vloop(32,22,Q);  % second handles
+
+z0=1/2[z1,z2];
+x16=x1; y16=0; p2=z16--z0; z15=p2 intersectionpoint p1;
+x17-x15=x5-x7; y17=y15;
+draw z15--z16--z17;     % left leg
+x26=x2; y26=0; p3=z26--z0; z25=p3 intersectionpoint p1;
+x25-x27=x5-x7; y27=y25;
+draw z25--z26--z27;     % right leg
+z157=3/4[z17,z15]; z257=3/4[z27,z25];
+draw z1{down}..z157..z5..z7..z257..{up}z2; draw z2--z1;  % bowl
+labels(1,2,3,4,5,6,7,11,12,15,16,17,21,22,25,26,27,157,257); endchar;
+%    \end{macrocode}
+% \end{routine}
+% 
+% \subsection{Men and horses}
+%
+% \changes{v1.2}{2005/06/22}{Added 4 man, woman and horse glyphs}
+%
+%
+% \begin{routine}{man}
+%    \begin{macrocode}
+cmchar "Linear B man";
+beginglyph(oct"240",0.5);
+x1=1/8[leftloc,rightloc]; x3=1/8[rightloc,leftloc]; y1=y3=16/20h;  % shoulders
+z2=1/2[z1,z3]; x12=x2; y12=h;      % head
+x4=1/10[leftloc,rightloc]; y4=0; z5= z4 reflectedabout (z2,z12); % feet
+x6=leftloc; y6=1/3[y2,y4]; z7= z6 reflectedabout (z2,z12); % hands
+draw z6--z1--z3--z7; % arms and shoulders
+draw z1--z5; draw z3--z4;  % body
+draw z2{left}..{right}z12..cycle;  % head
+labels(1,2,3,4,5,6,7,8,9,10,11,12); endchar;
+
+%    \end{macrocode}
+% \end{routine}
+% 
+%
+% \begin{routine}{woman}
+%    \begin{macrocode}
+cmchar "Linear B woman";
+beginglyph(oct"241",0.5);
+x1=1/8[leftloc,rightloc]; x3=1/8[rightloc,leftloc]; y1=y3=16/20h;  % shoulders
+z2=1/2[z1,z3]; x12=x2; y12=h;      % head
+x4=1/10[leftloc,rightloc]; y4=0; z5= z4 reflectedabout (z2,z12); % feet
+x6=leftloc; y6=1/3[y2,y4]; z7= z6 reflectedabout (z2,z12); % hands
+draw z6--z2--z7; % arms and shoulders
+draw z4--z2--z5--cycle;;  % body
+y13=1/2[y2,y12]; x13 - x2 = y13 - y2;
+draw z2{left}..z12..z13;  % head
+labels(1,2,3,4,5,6,7,8,9,10,11,12); endchar;
+
+%    \end{macrocode}
+% \end{routine}
+% 
+% \begin{routine}{horse}
+%    \begin{macrocode}
+cmchar "Linear B horse";
+beginglyph(oct"244", 1.0);
+numeric eye; eye = 1/30h;
+pair mane; mane = (-8/40h, 6/40h);
+x1=leftloc; y1=0; x17=1/2[leftloc,rightloc]; y17=0;  % base of neck
+x10=rightloc; y10=1/4h;            % tip of nose
+x4=1/4[x1,x10]; y4=h;              % top left ear
+x15=1/3[x1,x10]; y15=9/20[y10,y4];  % neck/chin
+x2=1/4[x1,x4]; y2=1/2[y1,y4]; x3=2/3[x1,x4]; y3 = 17/20h; % back of neck
+x5-x4=x4-x3; x6-x5=1/2(x5-x4); x7-x6=x4-x3; x8-x7=x7-x6; % ears
+y5=y6=y8=y3; y7=y4;
+x9=2/3[x8,x10]; y9=2/3[y10,y8];
+x13=1/3[x10,x15]; y13=y10;
+
+x16=2/3[x3,x15]; y16=1/2[y17,y15]; % mid neck
+
+x11=8/20[x10,x13]; y11=y10-1/20h;  % nose/mouth
+x12=12/20[x10,x13]; y12=y11;
+y23=y10 + 1/20h; x23=3/4[x11,x12]; % mouth
+draw z11--z23--z12;
+
+draw z1..z2..z3--z4--z5--z6--z7--z8..z9..{down}z10..z11..z12..z13..z15..z3;
+draw z15..z16..z17;  % mouth
+z30=1/2[z15,z8];
+z31 = z30 shifted (-eye,eye); z32=z30 shifted (eye,-eye);
+draw z31--z32;       % eye
+z42=4/20[z2,z3]; z44=1/2[z2,z3]; z46=16/20[z2,z3];   % mane
+z41=z42 shifted mane; z43=z44 shifted mane; z45 = z46 shifted mane;
+draw z41--z42; draw z43--z44; draw z45--z46;
+labels(1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,30,31,32,41,42,43,44,45,46); endchar;
+
+%    \end{macrocode}
+% \end{routine}
+%
+% \begin{routine}{foal}
+%    \begin{macrocode}
+cmchar "Linear B foal";
+beginglyph(oct"245", 1.0);
+numeric eye; eye = 1/30h;
+pair mane; mane = (-4/40h, 3/40h);
+x1=leftloc; y1=0; x17=1/2[leftloc,rightloc]; y17=0;  % base of neck
+x10=rightloc; y10=1/4h;            % tip of nose
+x4=1/4[x1,x10]; y4=h;              % top left ear
+x15=1/3[x1,x10]; y15=9/20[y10,y4];  % neck/chin
+x2=1/4[x1,x4]; y2=1/2[y1,y4]; x3=2/3[x1,x4]; y3 = 17/20h; % back of neck
+x5-x4=x4-x3; x6-x5=1/2(x5-x4); x7-x6=x4-x3; x8-x7=x7-x6; % ears
+y5=y6=y8=y3; y7=y4;
+x9=2/3[x8,x10]; y9=2/3[y10,y8];
+x13=1/3[x10,x15]; y13=y10;
+
+x16=2/3[x3,x15]; y16=1/2[y17,y15]; % mid neck
+
+x11=8/20[x10,x13]; y11=y10-1/20h;  % nose/mouth
+x12=12/20[x10,x13]; y12=y11;
+y23=y10 + 1/20h; x23=3/4[x11,x12]; % mouth
+draw z11--z23--z12;
+
+draw z1..z2..z3--z4--z5--z6--z7--z8..z9..{down}z10..z11..z12..z13..z15..z3;
+draw z15..z16..z17;  % mouth
+z30=1/2[z15,z8];
+z31 = z30 shifted (-eye,eye); z32=z30 shifted (eye,-eye);
+draw z31--z32;       % eye
+%z42=1/4[z2,z3]; z44=1/2[z2,z3]; z46=3/4[z2,z3];  % mane
+% z41=z42 shifted mane; z43=z44 shifted mane; z45 = z46 shifted mane;
+%draw z41--z42; draw z43--z44; draw z45--z46;
+labels(1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,30,31,32,41,42,43,44,45,46); endchar;
+
+%    \end{macrocode}
+% \end{routine}
+%
+% \subsection{Livestock}
+%
+% \changes{v1.2}{2005/06/22}{Added 12 livestock glyphs}
+%
+% \begin{routine}{pig}
+% This is also the \texttt{au} glyph but I have modified that slightly to get a 
+% longer neck..
+%    \begin{macrocode}
+cmchar "Linear B pig";
+beginglyph(oct"250",0.8);
+numeric alpha; alpha:=0.1h;
+x1=x2=x3=leftloc+alpha; y1=0; y2=8/20h; y3=h-2alpha;  % neck
+x5=leftloc; y5=h-small;  % top of left ear
+x4=0.5[x5,x3]; y4=0.5[y5,y3]-tiny;
+x6=x5+small; y6=h;       % top of right ear
+x8-x6=x3-x5; y6-y8=y5-y3;
+x7=1/2[x8,x6]; y7=1/2[y8,y6] + tiny;
+x9=x10=rightloc; y10=1/3[y2,y8]; y9=2/3[y2,y8];  % nose
+x12=x8; y12=y3; x11=0.3[x8,x9]; y11=1/2[y10,y9]; % eye
+draw z1--z3;           % neck
+draw z3..z4..{up}z5;   % left ear
+draw z6{right}..z7..z8;% right ear
+draw z8--z9--z10--z2;  % head
+draw z11--z12;         % eye
+labels(1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16); endchar;
+
+%    \end{macrocode}
+% \end{routine}
+% 
+% \begin{routine}{boar}
+% A male pig.
+%    \begin{macrocode}
+cmchar "Linear B boar";
+beginglyph(oct"251",0.8);
+numeric alpha; alpha:=0.1h;
+x1=x2=x3=leftloc+alpha; y1=0;
+y2=10/20h; y3=h-2alpha;  % neck
+x5=leftloc; y5=h-small;  % top of left ear
+x4=0.5[x5,x3]; y4=0.5[y5,y3]-tiny;
+x6=x5+small; y6=h;       % top of right ear
+x8-x6=x3-x5; y6-y8=y5-y3;
+x7=1/2[x8,x6]; y7=1/2[y8,y6] + tiny;
+x9=x10=rightloc; y10=1/3[y2,y8]; y9=2/3[y2,y8];  % nose
+x12=x8; y12=y3; x11=0.3[x8,x9]; y11=1/2[y10,y9]; % eye
+draw z1--z3;           % neck
+draw z3..z4..{up}z5; draw z6{right}..z7..z8; % ears
+draw z8--z9--z10--z2;  % head
+draw z11--z12;         % eye
+x21=x23=leftloc; y21=1/3[y1,y2]; y23=2/3[y1,y2];  % bars
+z22=z21 reflectedabout (z1,z2);
+z24=z23 reflectedabout (z1,z2);
+draw z21--z22; draw z23--z24;
+labels(1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16); endchar;
+
+%    \end{macrocode}
+% \end{routine}
+% 
+% \begin{routine}{sow}
+% A female pig.
+%    \begin{macrocode}
+cmchar "Linear B sow";
+beginglyph(oct"252",0.8);
+numeric alpha; alpha:=0.1h;
+x1=x2=x3=leftloc+alpha; y1=0;
+y2=10/20h; y3=h-2alpha;  % neck
+x5=leftloc; y5=h-small;  % left ear
+x4=0.5[x5,x3]; y4=0.5[y5,y3]-tiny;
+x6=x5+small; y6=h;       % right ear
+x8-x6=x3-x5; y6-y8=y5-y3;
+x7=1/2[x8,x6]; y7=1/2[y8,y6] + tiny;
+x9=x10=rightloc; y10=1/3[y2,y8]; y9=2/3[y2,y8];  % nose
+x12=x8; y12=y3; x11=0.3[x8,x9]; y11=1/2[y10,y9]; % eye
+draw z2--z3;           % neck
+draw z3..z4..{up}z5; draw z6{right}..z7..z8; % ears
+draw z8--z9--z10--z2;  % head
+draw z11--z12;         % eye
+x21=leftloc; y21=0;    % female neck
+z22 = z21 reflectedabout (z1,z2);
+draw z21--z2--z22;
+labels(1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16); endchar;
+
+%    \end{macrocode}
+% \end{routine}
+% 
+% \begin{routine}{ox}
+% This is the same as the \texttt{mu} glyph.
+%    \begin{macrocode}
+cmchar "Linear B ox (mu)";
+beginglyph(oct"253",0.8);
+numeric rad; rad:=small;
+x1=x2=leftloc+2rad; y1=0; y2=h-rad; % stem
+x3=x5=leftloc+rad; y3=h; y5=y3-2rad;
+x4=leftloc; y4=y2;
+x6=x8=rightloc; y6=y5; y8=y3;   % bar and curve
+x7=x6-rad; y7=0.5[y6,y8];
+x9=x7-1/2rad; y9=y6;
+x10=x9; y10=y9-2rad;
+x11=x1; y11=y5;                % 
+draw z1--z2{up}..z3{left}..z4{down}..{right}z5--z6;  % stem and bar
+draw z6{left}..z7{up}..{right}z8;  % curve
+draw z9--z10;
+labels(1,2,3,4,5,6,7,8,9,10,11,12); endchar;
+
+%    \end{macrocode}
+% \end{routine}
+% 
+% \begin{routine}{bull}
+% A male ox.
+%    \begin{macrocode}
+cmchar "Linear B bull";
+beginglyph(oct"254",0.8);
+numeric rad; rad:=small;
+x1=x2=leftloc+2rad; y1=0; y2=h-rad; % stem
+x3=x5=leftloc+rad; y3=h; y5=y3-2rad;
+x4=leftloc; y4=y2;
+x6=x8=rightloc; y6=y5; y8=y3;   % bar and curve
+x7=x6-rad; y7=0.5[y6,y8];
+x9=x7-1/2rad; y9=y6;
+x10=x9; y10=y9-2rad;
+x11=x1; y11=y5;                % 
+draw z1--z2{up}..z3{left}..z4{down}..{right}z5--z6;  % stem and bar
+draw z6{left}..z7{up}..{right}z8;  % curve
+draw z9--z10;
+x21=x23=leftloc; y21=1/3[y1,y11]; y23=2/3[y1,y11];
+z22=z21 reflectedabout (z1,z11); z24=z23 reflectedabout (z1,z11);
+draw z21--z22; draw z23--z24;
+labels(1,2,3,4,5,6,7,8,9,10,11,12); endchar;
+
+%    \end{macrocode}
+% \end{routine}
+% 
+% \begin{routine}{cow}
+% A female ox.
+%    \begin{macrocode}
+cmchar "Linear B cow (mu)";
+beginglyph(oct"255",0.8);
+numeric rad; rad:=small;
+x1=x2=leftloc+2rad; y1=0; y2=h-rad; % stem
+x3=x5=leftloc+rad; y3=h; y5=y3-2rad;
+x4=leftloc; y4=y2;
+x6=x8=rightloc; y6=y5; y8=y3;   % bar and curve
+x7=x6-rad; y7=0.5[y6,y8];
+x9=x7-1/2rad; y9=y6;
+x10=x9; y10=y9-2rad;
+x11=x1; y11=y5;                % 
+draw z11--z2{up}..z3{left}..z4{down}..{right}z5--z6;  % stem and bar
+draw z6{left}..z7{up}..{right}z8;  % curve
+draw z9--z10;
+x21=leftloc; y21=0;
+z22=z21 reflectedabout (z1,z11); 
+draw z21--z11--z22; 
+labels(1,2,3,4,5,6,7,8,9,10,11,12); endchar;
+
+%    \end{macrocode}
+% \end{routine}
+% 
+%
+% \begin{routine}{sheep}
+%    \begin{macrocode}
+cmchar "Linear B sheep";
+beginglyph(oct"260",0.8);
+x1=x2=16/20[leftloc,rightloc]; y1=0; y2=17/20h; % upright
+x3=x8=rightloc; y8=h; y8-y2=y2-y3;  % tail
+x5=leftloc; y5=y2;                  % nose
+x6=x4=10/20[x2,x5]; y4=y8; y6=y3;   % middle of body
+draw z1--z2;        % upright
+draw z3..z2..z4..z5..z6..z2..z8;
+labels(1,2,3,4,5,6,7,8); endchar;
+
+%    \end{macrocode}
+% \end{routine}
+% 
+%
+% \begin{routine}{ram}
+% Male sheep;
+%    \begin{macrocode}
+cmchar "Linear B ram";
+beginglyph(oct"261",0.8);
+x1=x2=16/20[leftloc,rightloc]; y1=0; y2=17/20h; % upright
+x3=x8=rightloc; y8=h; y8-y2=y2-y3;  % tail
+x5=leftloc; y5=y2;                  % nose
+x6=x4=10/20[x2,x5]; y4=y8; y6=y3;   % middle of body
+draw z1--z2;        % upright
+draw z3..z2..z4..z5..z6..z2..z8;
+x22=x24=rightloc; y22=1/3[y1,y2]; y24=2/3[y1,y2];
+z21 = z22 reflectedabout (z1,z2);
+z23 = z24 reflectedabout (z1,z2);
+draw z21--z22; draw z23--z24;     % bars
+labels(1,2,3,4,5,6,7,8); endchar;
+
+%    \end{macrocode}
+% \end{routine}
+% 
+%
+% \begin{routine}{ewe}
+% Female sheep;
+%    \begin{macrocode}
+cmchar "Linear B ewe";
+beginglyph(oct"262",0.8);
+x1=x2=16/20[leftloc,rightloc]; y1=0; y2=17/20h; % upright
+x3=x8=rightloc; y8=h; y8-y2=y2-y3;  % tail
+x5=leftloc; y5=y2;                  % nose
+x6=x4=10/20[x2,x5]; y4=y8; y6=y3;   % middle of body
+%draw z1--z2;        % upright
+draw z3..z2..z4..z5..z6..z2..z8;
+x22=rightloc; y22=0;
+z21 = z22 reflectedabout (z1,z2);
+draw z21--z2--z22;      % legs
+labels(1,2,3,4,5,6,7,8); endchar;
+
+%    \end{macrocode}
+% \end{routine}
+% 
+%
+% \begin{routine}{goat}
+%    \begin{macrocode}
+cmchar "Linear B goat";
+beginglyph(oct"263",0.8);
+x1=x2= 16/20[leftloc,rightloc]; y1=0; y2=20/20h; % upright
+x3=rightloc; y3=17/20h;  % tail
+x6=leftloc; y6=y3;
+x5=1/3[x6,x2]; x4=2/3[x6,x2]; y5=h; y4=y6; 
+draw z1--z2;        % upright
+draw z3{left}..z2; draw z2..z4..z5..z6;
+labels(1,2,3,4,5,6,7,8); endchar;
+
+%    \end{macrocode}
+% \end{routine}
+% 
+%
+% \begin{routine}{billy}
+% Male goat.
+%    \begin{macrocode}
+cmchar "Linear B billy";
+beginglyph(oct"264",0.8);
+x1=x2= 16/20[leftloc,rightloc]; y1=0; y2=20/20h; % upright
+x3=rightloc; y3=17/20h;  % tail
+x6=leftloc; y6=y3;
+x5=1/3[x6,x2]; x4=2/3[x6,x2]; y5=h; y4=y6; 
+draw z1--z2;        % upright
+draw z3{left}..z2; draw z2..z4..z5..z6;
+x22=x24=rightloc; y22=1/3[y1,y2]; y24=2/3[y1,y2];
+z21 = z22 reflectedabout (z1,z2);
+z23 = z24 reflectedabout (z1,z2);
+draw z21--z22; draw z23--z24;     % bars
+labels(1,2,3,4,5,6,7,8); endchar;
+
+%    \end{macrocode}
+% \end{routine}
+% 
+%
+% \begin{routine}{nanny}
+% Female goat.
+%    \begin{macrocode}
+cmchar "Linear B nanny";
+beginglyph(oct"265",0.8);
+x1=x2= 16/20[leftloc,rightloc]; y1=0; y2=20/20h; % upright
+x3=rightloc; y3=17/20h;  % tail
+x6=leftloc; y6=y3;
+x5=1/3[x6,x2]; x4=2/3[x6,x2]; y5=h; y4=y6; 
+%draw z1--z2;        % upright
+draw z3{left}..z2; draw z2..z4..z5..z6;
+x22=rightloc; y22=0;
+z21 = z22 reflectedabout (z1,z2);
+draw z21--z2--z22;      % legs
+labels(1,2,3,4,5,6,7,8); endchar;
+
+%    \end{macrocode}
+% \end{routine}
+% 
+% \subsection{Weapons}
+%
+% \changes{v1.2}{2005/06/22}{Added 6 weapon glyphs}
+%
+%
+% \begin{routine}{chariot}
+%    \begin{macrocode}
+cmchar "Linear B chariot";
+beginglyph(oct"270", 1.2);
+x1=leftloc; x2=1/20[rightloc,leftloc];   % chariot ends
+y5=13/20h;   % chariot height
+x3=x4=x5=1/3[x1,x2]; y3=0; y4=1/2[y3,y5]; % wheel locations
+y1=y2=1/2[y4,y5];
+draw z2..z5..z1..z4..z2;    % body
+y13=1/2[y3,y4]; y14=1/2[y4,y5];
+x3-x13=1/2(y4-y3); x14=x13;
+z23=z13 reflectedabout (z3,z5); z24=z14 reflectedabout (z3,z5);
+draw z3..z13..z4..z23..cycle; draw z3--z4; draw z13--z23; % lower wheel
+draw z4..z14..z5..z24..cycle; draw z4--z5; draw z14--z24; % upper wheel
+x32=rightloc; y32-y2 = y5-y24;  % upper harness
+x31=x32; y2-y31=y32-y2; z200=z2;         % lower harness
+draw_vloop(2,32,0.75); draw_vloop(200,31,0.75);  % harness
+labels(1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20); endchar;
+
+%    \end{macrocode}
+% \end{routine}
+%
+% \begin{routine}{chariot chassis}
+%    \begin{macrocode}
+cmchar "Linear B chariot chassis";
+beginglyph(oct"271", 1.2);
+x1=leftloc; x2=1/20[rightloc,leftloc];   % chariot ends
+y5=13/20h;   % chariot height
+x3=x4=x5=1/3[x1,x2]; y3=0; y4=1/2[y3,y5]; % wheel locations
+y1=y2=1/2[y4,y5];
+y13=1/2[y3,y4]; y14=1/2[y4,y5];
+x3-x13=1/2(y4-y3); x14=x13;
+x100=x3; y100=y13;
+draw z2..z5..z1..z100..z2;    % body
+draw z100--z5;
+z23=z13 reflectedabout (z3,z5); z24=z14 reflectedabout (z3,z5);
+%draw z3..z13..z4..z23..cycle; draw z3--z4; draw z13--z23; % lower wheel
+%draw z4..z14..z5..z24..cycle; draw z4--z5; draw z14--z24; % upper wheel
+x32=rightloc; y32-y2 = y5-y24;  % upper harness
+x31=x32; y2-y31=y32-y2; z200=z2;         % lower harness
+draw_vloop(2,32,0.75); draw_vloop(200,31,0.75);  % harness
+labels(1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,100); endchar;
+
+%    \end{macrocode}
+% \end{routine}
+%
+% \begin{routine}{chariot wheel}
+%    \begin{macrocode}
+cmchar "Linear B wheel";
+beginglyph(oct"272", 0.6);
+x1=leftloc; x3=rightloc; y4=0; x0=x4=x2=1/2[x1,x3]; 
+y0-y4=x0-x1; y1=y3=y0; y2-y0=y0-y4;
+draw z1..z2..z3..z4..cycle;    % rim
+draw z1--z3; draw z2--z4;      % 4 spokes
+z11=z1 rotatedaround (z0,45); % draw z11--z0;
+z12=z2 rotatedaround (z0,45); % draw z12--z0;
+z13=z3 rotatedaround (z0,45); % draw z13--z0;
+z14=z4 rotatedaround (z0,45); % draw z14--z0;
+draw z11--z13; draw z12--z14;
+labels(0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18); endchar;
+
+%    \end{macrocode}
+% \end{routine}
+%
+% \begin{routine}{sword}
+%    \begin{macrocode}
+cmchar "Linear B sword";
+beginglyph(oct"273", 0.3);
+x1=x2=midloc; y1=0; y2=h;
+x3=x5=leftloc; x4=x7=rightloc; y3=y4=0; y5=y7=1/4h;
+draw z3--z4;  % handle
+draw z5--z2--z7--cycle; % blade
+draw z1--z2;
+labels(1,2,3,4,5,6,7); endchar;
+
+%    \end{macrocode}
+% \end{routine}
+% 
+%
+% \begin{routine}{arrow}
+%    \begin{macrocode}
+cmchar "Linear B arrow";
+beginglyph(oct"274", 0.8);
+numeric alpha, beta; alpha=4/20h;
+x1=leftloc+alpha; x3=rightloc; y1=y3=alpha;  % shaft
+z2=5/20[z1,z3];
+beta=x2-x1;
+z11=(leftloc,0); x21=x11; y21-y1=y1-y11;     % fletches
+z12=z11 shifted (beta,0); z22=z21 shifted (beta,0);
+x13=x23 = x3-alpha; y13=y11; y23=y21;        % head
+draw z1--z3; draw z11--z1--z21; draw z12--z2--z22; draw z13--z3--z23;
+labels(1,2,3,11,12,13,21,22,23); endchar;
+
+%    \end{macrocode}
+% \end{routine}
+% 
+%
+% \begin{routine}{spear}
+%    \begin{macrocode}
+cmchar "Linear B spear";
+beginglyph(oct"275", 0.8);
+numeric alpha; alpha=4/20h;
+pair SH, HS;
+z1=(leftloc,h); z2=(rightloc,0);             % shaft
+SH = (x2-x1, y2-y1);
+HS = (y2-y1, x1-x2);
+z4=12/20[z1,z2];
+x6=1/3[x4,x2]; y6=0;
+z9 = 1/3[z4,z2]; z7=z9 shifted -0.1HS;
+draw z1--z2;
+draw z4..z6; draw z6..{SH}z2;
+draw z4..z7..z2;
+labels(1,2,3,4,4,6,7,8,9); endchar;
+
+%    \end{macrocode}
+% \end{routine}
+% 
+%
+%    The end of this file
+%    \begin{macrocode} 
+end
+
+%</up> 
+%    \end{macrocode}
+%
+%
+%
+% \section{The font definition files} \label{sec:fd}
+%
+%    \begin{macrocode}
+%<*fdot1>
+\ProvidesFile{ot1linb.fd}[1999/06/20 v1.0 Linear B font definition]
+\DeclareFontFamily{OT1}{linb}{}
+  \DeclareFontShape{OT1}{linb}{m}{n}{ <-> linb10 }{}
+  \DeclareFontShape{OT1}{linb}{bx}{n}{ <-> sub linb/m/n }{}
+  \DeclareFontShape{OT1}{linb}{b}{n}{ <-> sub linb/m/n }{}
+  \DeclareFontShape{OT1}{linb}{m}{sl}{ <-> sub linb/m/n }{}
+  \DeclareFontShape{OT1}{linb}{m}{it}{ <-> sub linb/m/n }{}
+%</fdot1>
+%    \end{macrocode}
+%
+%
+%    \begin{macrocode}
+%<*fdt1>
+\ProvidesFile{t1linb.fd}[1999/06/20 v1.0 Linear B font definition]
+\DeclareFontFamily{T1}{linb}{}
+  \DeclareFontShape{T1}{linb}{m}{n}{ <-> linb10 }{}
+  \DeclareFontShape{T1}{linb}{bx}{n}{ <-> sub linb/m/n }{}
+  \DeclareFontShape{T1}{linb}{b}{n}{ <-> sub linb/m/n }{}
+  \DeclareFontShape{T1}{linb}{m}{sl}{ <-> sub linb/m/n }{}
+  \DeclareFontShape{T1}{linb}{m}{it}{ <-> sub linb/m/n }{}
+%</fdt1>
+%    \end{macrocode}
+%
+% \section{The \Lpack{linearb} package code} \label{sec:code}
+%
+%    Announce the name and version of the package, which requires
+% \LaTeXe{}.
+%    \begin{macrocode}
+%<*usc>
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{linearb}[2005/06/22 v1.2 package for Linear B font]
+%    \end{macrocode}
+%
+%   We need to check the encoding default for the document.
+% \begin{macro}{\Tienc}
+%    \begin{macrocode}
+\providecommand{\Tienc}{T1}
+%    \end{macrocode}
+% \end{macro}
+%
+%
+% \begin{macro}{\linbfamily}
+%    Selects the Linear B font family in the T1 encoding if this
+% is the document's default encoding. With the extended glyphs I think
+% that T1 should be used in any case.
+% \changes{v1.2}{2005/06/22}{Only select the T1 encoding}
+%    \begin{macrocode}
+%%%\ifx\Tienc\encodingdefault
+%%%  \newcommand{\linbfamily}{\usefont{T1}{linb}{m}{n}}
+%%%\else
+%%%  \newcommand{\linbfamily}{\usefont{OT1}{linb}{m}{n}}
+%%%\fi
+\newcommand{\linbfamily}{\usefont{T1}{linb}{m}{n}}
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{\textlinb}
+%    Text command for the Linear B font family.
+%    \begin{macrocode}
+\DeclareTextFontCommand{\textlinb}{\linbfamily}
+%    \end{macrocode}
+% \end{macro}
+%
+%    The commands for the basic signs.
+% \begin{macro}{\Ba}
+% \begin{macro}{\Be}
+% \begin{macro}{\Bi}
+% \begin{macro}{\Bo}
+% \begin{macro}{\Bu}
+% The 5 vowels.
+%    \begin{macrocode}
+\chardef\Ba=`a
+\chardef\Be=`e
+\chardef\Bi=`i
+\chardef\Bo=`o
+\chardef\Bu=`u
+%    \end{macrocode}
+% \end{macro}
+% \end{macro}
+% \end{macro}
+% \end{macro}
+% \end{macro}
+%
+% \begin{macro}{\Bda}
+% \begin{macro}{\Bde}
+% \begin{macro}{\Bdi}
+% \begin{macro}{\Bdo}
+% \begin{macro}{\Bdu}
+% The 5 D syllables.
+%    \begin{macrocode}
+\chardef\Bda=`d
+\chardef\Bde=`D
+\chardef\Bdi=`f
+\chardef\Bdo=`g
+\chardef\Bdu=`x
+%    \end{macrocode}
+% \end{macro}
+% \end{macro}
+% \end{macro}
+% \end{macro}
+% \end{macro}
+%
+%
+% \begin{macro}{\Bja}
+% \begin{macro}{\Bje}
+% \begin{macro}{\Bjo}
+% \begin{macro}{\Bju}
+% The 4 J syllables.
+%    \begin{macrocode}
+\chardef\Bja=`j
+\chardef\Bje=`J
+\chardef\Bjo=`b
+\chardef\Bju=`L
+%    \end{macrocode}
+% \end{macro}
+% \end{macro}
+% \end{macro}
+% \end{macro}
+%
+%
+% \begin{macro}{\Bka}
+% \begin{macro}{\Bke}
+% \begin{macro}{\Bki}
+% \begin{macro}{\Bko}
+% \begin{macro}{\Bku}
+% The 5 K syllables.
+%    \begin{macrocode}
+\chardef\Bka=`k
+\chardef\Bke=`K
+\chardef\Bki=`c
+\chardef\Bko=`h
+\chardef\Bku=`v
+%    \end{macrocode}
+% \end{macro}
+% \end{macro}
+% \end{macro}
+% \end{macro}
+% \end{macro}
+%
+%
+% \begin{macro}{\Bma}
+% \begin{macro}{\Bme}
+% \begin{macro}{\Bmi}
+% \begin{macro}{\Bmo}
+% \begin{macro}{\Bmu}
+% The 5 M syllables.
+%    \begin{macrocode}
+\chardef\Bma=`m
+\chardef\Bme=`M
+\chardef\Bmi=`y
+\chardef\Bmo=`A
+\chardef\Bmu=`B
+%    \end{macrocode}
+% \end{macro}
+% \end{macro}
+% \end{macro}
+% \end{macro}
+% \end{macro}
+%
+%
+% \begin{macro}{\Bna}
+% \begin{macro}{\Bne}
+% \begin{macro}{\Bni}
+% \begin{macro}{\Bno}
+% \begin{macro}{\Bnu}
+% The 5 N syllables.
+%    \begin{macrocode}
+\chardef\Bna=`n
+\chardef\Bne=`N
+\chardef\Bni=`C
+\chardef\Bno=`E
+\chardef\Bnu=`F
+%    \end{macrocode}
+% \end{macro}
+% \end{macro}
+% \end{macro}
+% \end{macro}
+% \end{macro}
+%
+% \begin{macro}{\Bpa}
+% \begin{macro}{\Bpe}
+% \begin{macro}{\Bpi}
+% \begin{macro}{\Bpo}
+% \begin{macro}{\Bpu}
+% The 5 P syllables.
+%    \begin{macrocode}
+\chardef\Bpa=`p
+\chardef\Bpe=`P
+\chardef\Bpi=`G
+\chardef\Bpo=`H
+\chardef\Bpu=`I
+%    \end{macrocode}
+% \end{macro}
+% \end{macro}
+% \end{macro}
+% \end{macro}
+% \end{macro}
+%
+%
+% \begin{macro}{\Bqa}
+% \begin{macro}{\Bqe}
+% \begin{macro}{\Bqi}
+% \begin{macro}{\Bqo}
+% The 4 Q syllables. 
+%    \begin{macrocode}
+\chardef\Bqa=`q
+\chardef\Bqe=`Q
+\chardef\Bqi=`X
+\chardef\Bqo=`8
+%    \end{macrocode}
+% \end{macro}
+% \end{macro}
+% \end{macro}
+% \end{macro}
+%
+%
+% \begin{macro}{\Bra}
+% \begin{macro}{\Bre}
+% \begin{macro}{\Bri}
+% \begin{macro}{\Bro}
+% \begin{macro}{\Bru}
+% The 5 R syllables.
+%    \begin{macrocode}
+\chardef\Bra=`r
+\chardef\Bre=`R
+\chardef\Bri=`O
+\chardef\Bro=`U
+\chardef\Bru=`V
+%    \end{macrocode}
+% \end{macro}
+% \end{macro}
+% \end{macro}
+% \end{macro}
+% \end{macro}
+%
+% \begin{macro}{\Bsa}
+% \begin{macro}{\Bse}
+% \begin{macro}{\Bsi}
+% \begin{macro}{\Bso}
+% \begin{macro}{\Bsu}
+% The 5 S syllables.
+%    \begin{macrocode}%
+\chardef\Bsa=`s
+\chardef\Bse=`S
+\chardef\Bsi=`Y
+\chardef\Bso=`1
+\chardef\Bsu=`2
+%    \end{macrocode}
+% \end{macro}
+% \end{macro}
+% \end{macro}
+% \end{macro}
+% \end{macro}
+%
+% \begin{macro}{\Bta}
+% \begin{macro}{\Bte}
+% \begin{macro}{\Bti}
+% \begin{macro}{\Bto}
+% \begin{macro}{\Btu}
+% The 5 T syllables.
+%    \begin{macrocode}
+\chardef\Bta=`t
+\chardef\Bte=`T
+\chardef\Bti=`3
+\chardef\Bto=`4
+\chardef\Btu=`5
+%    \end{macrocode}
+% \end{macro}
+% \end{macro}
+% \end{macro}
+% \end{macro}
+% \end{macro}
+%
+% \begin{macro}{\Bwa}
+% \begin{macro}{\Bwe}
+% \begin{macro}{\Bwi}
+% \begin{macro}{\Bwo}
+% The 4 W syllables.
+%    \begin{macrocode}
+\chardef\Bwa=`w
+\chardef\Bwe=`W
+\chardef\Bwi=`6
+\chardef\Bwo=`7
+%    \end{macrocode}
+% \end{macro}
+% \end{macro}
+% \end{macro}
+% \end{macro}
+%
+% \begin{macro}{\Bza}
+% \begin{macro}{\Bze}
+% \begin{macro}{\Bzo}
+% The 3 Z syllables.
+%    \begin{macrocode}
+\chardef\Bza=`z
+\chardef\Bze=`Z
+\chardef\Bzo=`9
+%    \end{macrocode}
+% \end{macro}
+% \end{macro}
+% \end{macro}
+%
+%
+% \begin{macro}{\Baii}
+% \begin{macro}{\Baiii}
+% \begin{macro}{\Bau}
+% \begin{macro}{\Bdwe}
+% \begin{macro}{\Bdwo}
+% \begin{macro}{\Bnwa}
+% \begin{macro}{\Bpaiii}
+% \begin{macro}{\Bpuii}
+% \begin{macro}{\Bpte}
+% \begin{macro}{\Braii}
+% \begin{macro}{\Braiii}
+% \begin{macro}{\Boii}
+% \begin{macro}{\Bswa}
+% \begin{macro}{\Bswi}
+% \begin{macro}{\Btaii}
+% \begin{macro}{\Btwo}
+%    The commands for the 16 optional characters.
+%    \begin{macrocode}
+\chardef\Baii='073
+\chardef\Baiii='074
+\chardef\Bau='075
+\chardef\Bdwe='076
+\chardef\Bdwo='077
+\chardef\Bnwa='100
+\chardef\Bpaiii='133
+\chardef\Bpuii='134
+\chardef\Bpte='135
+\chardef\Braii='136
+\chardef\Braiii='137
+\chardef\Broii='140
+\chardef\Bswa='173
+\chardef\Bswi='174
+\chardef\Btaii='175
+\chardef\Btwo='176
+%    \end{macrocode}
+% \end{macro}
+% \end{macro}
+% \end{macro}
+% \end{macro}
+% \end{macro}
+% \end{macro}
+% \end{macro}
+% \end{macro}
+% \end{macro}
+% \end{macro}
+% \end{macro}
+% \end{macro}
+% \end{macro}
+% \end{macro}
+% \end{macro}
+% \end{macro}
+%
+%
+% \begin{macro}{\BUi}
+% \begin{macro}{\BUii}
+% \begin{macro}{\BUiii}
+% \begin{macro}{\BUiv}
+% \begin{macro}{\BUv}
+% \begin{macro}{\BUvi}
+% \begin{macro}{\BUvii}
+% \begin{macro}{\BUviii}
+% \begin{macro}{\BUix}
+% \begin{macro}{\BUx}
+% \begin{macro}{\BUxi}
+%    The commands for the 11 unidentified characters.
+% \changes{v1.2}{2005/06/22}{Changed the macros for unidentified glyphs}
+%    \begin{macrocode}
+%%%\chardef\BUi='000
+%%%\chardef\BUii='001
+%%%\chardef\BUiii='002
+%%%\chardef\BUiv='003
+%%%\chardef\BUv='004
+%%%\chardef\BUvi='005
+%%%\chardef\BUvii='006
+%%%\chardef\BUviii='007
+%%%\chardef\BUix='010
+%%%\chardef\BUx='011
+%%%\chardef\BUxi='012
+\chardef\BUi='035
+\chardef\BUii='036
+\chardef\BUiii='037
+\chardef\BUiv='040
+\chardef\BUv='041
+\chardef\BUvi='042
+\chardef\BUvii='043
+\chardef\BUviii='044
+\chardef\BUix='045
+\chardef\BUx='046
+\chardef\BUxi='047
+%    \end{macrocode}
+% \end{macro}
+% \end{macro}
+% \end{macro}
+% \end{macro}
+% \end{macro}
+% \end{macro}
+% \end{macro}
+% \end{macro}
+% \end{macro}
+% \end{macro}
+% \end{macro}
+%
+% \begin{macro}{\BUxii}
+% \begin{macro}{\Btwe}
+%    My last unidentified character which \jurgen{} says is the \textit{twe}
+% syllable.
+%    \begin{macrocode}
+\chardef\BUxii='177
+\chardef\Btwe='177
+%    \end{macrocode}
+% \end{macro}
+% \end{macro}
+%
+%    Now the commands for numerals.
+% \begin{macro}{\BNi}
+% \begin{macro}{\BNii}
+% \begin{macro}{\BNiii}
+% \begin{macro}{\BNiv}
+% \begin{macro}{\BNv}
+% \begin{macro}{\BNvi}
+% \begin{macro}{\BNvii}
+% \begin{macro}{\BNviii}
+% \begin{macro}{\BNix}
+%    Commands for numbers from 1 to 9.
+% \changes{v1.2}{2005/06/22}{Changed the macros for the numerals}
+% 
+%    \begin{macrocode}
+%%%\chardef\BNi='013
+%%%\chardef\BNii='014
+%%%\chardef\BNiii='015
+%%%\chardef\BNiv='016
+%%%\chardef\BNv='017
+%%%\chardef\BNvi='020
+%%%\chardef\BNvii='021
+%%%\chardef\BNviii='022
+%%%\chardef\BNix='023
+\chardef\BNi='001
+\chardef\BNii='002
+\chardef\BNiii='003
+\chardef\BNiv='004
+\chardef\BNv='005
+\chardef\BNvi='006
+\chardef\BNvii='007
+\chardef\BNviii='010
+\chardef\BNix='011
+%    \end{macrocode}
+% \end{macro}
+% \end{macro}
+% \end{macro}
+% \end{macro}
+% \end{macro}
+% \end{macro}
+% \end{macro}
+% \end{macro}
+% \end{macro}
+%
+% \begin{macro}{\BNx}
+% \begin{macro}{\BNxx}
+% \begin{macro}{\BNxxx}
+% \begin{macro}{\BNxl}
+% \begin{macro}{\BNl}
+% \begin{macro}{\BNlx}
+% \begin{macro}{\BNlxx}
+% \begin{macro}{\BNlxxx}
+% \begin{macro}{\BNxc}
+%    Commands for the tens, 10 to 90
+%    \begin{macrocode}
+%%%\chardef\BNx='024
+%%%\chardef\BNxx='025
+%%%\chardef\BNxxx='026
+%%%\chardef\BNxl='027
+%%%\chardef\BNl='030
+%%%\chardef\BNlx='031
+%%%\chardef\BNlxx='032
+%%%\chardef\BNlxxx='033
+%%%\chardef\BNxc='034
+\chardef\BNx='012
+\chardef\BNxx='013
+\chardef\BNxxx='014
+\chardef\BNxl='015
+\chardef\BNl='016
+\chardef\BNlx='017
+\chardef\BNlxx='020
+\chardef\BNlxxx='021
+\chardef\BNxc='022
+%    \end{macrocode}
+% \end{macro}
+% \end{macro}
+% \end{macro}
+% \end{macro}
+% \end{macro}
+% \end{macro}
+% \end{macro}
+% \end{macro}
+% \end{macro}
+%
+% \begin{macro}{\BNc}
+% \begin{macro}{\BNcc}
+% \begin{macro}{\BNccc}
+% \begin{macro}{\BNcd}
+% \begin{macro}{\BNd}
+% \begin{macro}{\BNdc}
+% \begin{macro}{\BNdcc}
+% \begin{macro}{\BNdccc}
+% \begin{macro}{\BNcm}
+%    Commands for the hundreds, 100 to 900
+%    \begin{macrocode}
+%%%\chardef\BNc='035
+%%%\chardef\BNcc='036
+%%%\chardef\BNccc='037
+%%%\chardef\BNcd='040
+%%%\chardef\BNd='041
+%%%\chardef\BNdc='042
+%%%\chardef\BNdcc='043
+%%%\chardef\BNdccc='044
+%%%\chardef\BNcm='045
+\chardef\BNc='023
+\chardef\BNcc='024
+\chardef\BNccc='025
+\chardef\BNcd='026
+\chardef\BNd='027
+\chardef\BNdc='030
+\chardef\BNdcc='031
+\chardef\BNdccc='032
+\chardef\BNcm='033
+%    \end{macrocode}
+% \end{macro}
+% \end{macro}
+% \end{macro}
+% \end{macro}
+% \end{macro}
+% \end{macro}
+% \end{macro}
+% \end{macro}
+% \end{macro}
+%
+% \begin{macro}{\BNm}
+%    Command for 1000.
+%    \begin{macrocode}
+%%\chardef\BNm='046
+\chardef\BNm='034
+
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{\BPwta}
+% \begin{macro}{\BPwtb}
+% \begin{macro}{\BPwtc}
+% \begin{macro}{\BPwtd}
+% \begin{macro}{\BPtalent}
+% \begin{macro}{\BPvola}
+% \begin{macro}{\BPvolb}
+% \begin{macro}{\BPvolcd}
+% \begin{macro}{\BPvolcf}
+%  Macros for the weights and measures pictograms.
+% \changes{v1.2}{2005/06/22}{Added macros for weights and measures}
+%    \begin{macrocode}
+\chardef\BPwta='200
+\chardef\BPwtb='201
+\chardef\BPwtc='202
+\chardef\BPwtd='203
+\chardef\BPtalent='204
+\chardef\BPvola='210
+\chardef\BPvolb='211
+\chardef\BPvolcd='212
+\chardef\BPvolcf='213
+
+%    \end{macrocode}
+% \end{macro}
+% \end{macro}
+% \end{macro}
+% \end{macro}
+% \end{macro}
+% \end{macro}
+% \end{macro}
+% \end{macro}
+% \end{macro}
+%
+% \begin{macro}{BPcloth}
+% \begin{macro}{BPwool}
+% \begin{macro}{BPwheat}
+% \begin{macro}{BPbarley}
+% \begin{macro}{BPwine}
+% \begin{macro}{BPolive}
+% \begin{macro}{BPbronze}
+% \begin{macro}{BPgold}
+% Macros for commodities.
+% \changes{v1.2}{2005/06/22}{Added macros for commodities}
+%    \begin{macrocode}
+\chardef\BPcloth='220
+\chardef\BPwool='221
+\chardef\BPwheat='222
+\chardef\BPbarley='223
+\chardef\BPwine='224
+\chardef\BPolive='225
+\chardef\BPbronze='226
+\chardef\BPgold='227
+
+%    \end{macrocode}
+% \end{macro}
+% \end{macro}
+% \end{macro}
+% \end{macro}
+% \end{macro}
+% \end{macro}
+% \end{macro}
+% \end{macro}
+%
+% \begin{macro}{\BPcup}
+% \begin{macro}{\BPgoblet}
+% \begin{macro}{\BPamphora}
+% \begin{macro}{\BPwineiih}
+% \begin{macro}{\BPwineiiih}
+% \begin{macro}{\BPwineivh}
+% \begin{macro}{\BPcauldroni}
+% \begin{macro}{\BPcauldronii}
+% Macros for vessels for holding liquid.
+% \changes{v1.2}{2005/06/22}{Added macros for vessels}
+%    \begin{macrocode}
+\chardef\BPcup='230
+\chardef\BPgoblet='231
+\chardef\BPamphora='232
+\chardef\BPwineiih='233
+\chardef\BPwineiiih='234
+\chardef\BPwineivh='235
+\chardef\BPcauldroni='236
+\chardef\BPcauldronii='237
+
+%    \end{macrocode}
+% \end{macro}
+% \end{macro}
+% \end{macro}
+% \end{macro}
+% \end{macro}
+% \end{macro}
+% \end{macro}
+% \end{macro}
+%
+% \begin{macro}{\BPman}
+% \begin{macro}{\BPwoman}
+% \begin{macro}{\BPhorse}
+% \begin{macro}{\BPfoal}
+% Macros for man, woman, and horses.
+% \changes{v1.2}{2005/06/22}{Added macros for humans and horses}
+%    \begin{macrocode}
+\chardef\BPman='240
+\chardef\BPwoman='241
+\chardef\BPhorse='244
+\chardef\BPfoal='245
+
+%    \end{macrocode}
+% \end{macro}
+% \end{macro}
+% \end{macro}
+% \end{macro}
+%
+% \begin{macro}{\BPpig}
+% \begin{macro}{\BPboar}
+% \begin{macro}{\BPsow}
+% \begin{macro}{\BPox}
+% \begin{macro}{\BPbull}
+% \begin{macro}{\BPcow}
+% Macros for pigs and oxen.
+% \changes{v1.2}{2005/06/22}{Added macros for livestock}
+%    \begin{macrocode}
+\chardef\BPpig='250
+\chardef\BPboar='251
+\chardef\BPsow='252
+\chardef\BPox='253
+\chardef\BPbull='254
+\chardef\BPcow='255
+
+%    \end{macrocode}
+% \end{macro}
+% \end{macro}
+% \end{macro}
+% \end{macro}
+% \end{macro}
+% \end{macro}
+%
+% \begin{macro}{\BPsheep}
+% \begin{macro}{\BPram}
+% \begin{macro}{\BPewe}
+% \begin{macro}{\BPgoat}
+% \begin{macro}{\BPbilly}
+% \begin{macro}{\BPnanny}
+% Macros for sheep and goats.
+%    \begin{macrocode}
+\chardef\BPsheep='260
+\chardef\BPram='261
+\chardef\BPewe='262
+\chardef\BPgoat='263
+\chardef\BPbilly='264
+\chardef\BPnanny='265
+
+%    \end{macrocode}
+% \end{macro}
+% \end{macro}
+% \end{macro}
+% \end{macro}
+% \end{macro}
+% \end{macro}
+%
+% \begin{macro}{\BPchariot}
+% \begin{macro}{\BPchassis}
+% \begin{macro}{\BPwheel}
+% \begin{macro}{\BPsword}
+% \begin{macro}{\BParrow}
+% \begin{macro}{\BPspear}
+% Weapons of war.
+% \changes{v1.2}{2005/06/22}{Added macros for weapons}
+%    \begin{macrocode}
+\chardef\BPchariot='270
+\chardef\BPchassis='271
+\chardef\BPwheel='272
+\chardef\BPsword='273
+\chardef\BParrow='274
+\chardef\BPspear='275
+
+%    \end{macrocode}
+% \end{macro}
+% \end{macro}
+% \end{macro}
+% \end{macro}
+% \end{macro}
+% \end{macro}
+%
+%
+% \begin{macro}{\translitlinbfont}
+% \begin{macro}{\translitlinb}
+%    |\translitlinb{|\meta{char-commands}|}| transliterates Linear B character
+% commands into distinguished syllables; these are typeset using the 
+% |\translitlinbfont| font specification.
+%    \begin{macrocode}
+\newcommand{\translitlinbfont}{\itshape}
+\newcommand{\translitlinb}[1]{{%
+  \@translitB\translitlinbfont #1}}
+%    \end{macrocode}
+% \end{macro}
+% \end{macro}
+%
+% \begin{macro}{\@translitB}
+%    This macro redefines all the character producing commands for use
+% in |\translitlinb|.
+%
+% Start with the 5 vowels. We have to make sure that there are no extraneous
+% spaces within the command.
+%    \begin{macrocode}
+\newcommand{\@translitB}{%
+\def\Ba{a-}\def\Be{e-}\def\Bi{i-}\def\Bo{o-}\def\Bu{u-}%
+%    \end{macrocode}    
+%
+% The 5 D syllables.
+%    \begin{macrocode}
+\def\Bda{da-}\def\Bde{de-}\def\Bdi{di-}\def\Bdo{do-}\def\Bdu{du-}%
+%    \end{macrocode}
+%
+% The 4 J syllables.
+%    \begin{macrocode}
+\def\Bja{ja-}\def\Bje{je-}\def\Bjo{jo-}\def\Bju{ju-}%
+%    \end{macrocode}
+%
+% The 5 K syllables.
+%    \begin{macrocode}
+\def\Bka{ka-}\def\Bke{ke-}\def\Bki{ki-}\def\Bko{ko-}\def\Bku{ku-}%
+%    \end{macrocode}
+%
+% The 5 M syllables.
+%    \begin{macrocode}
+\def\Bma{ma-}\def\Bme{me-}\def\Bmi{mi-}\def\Bmo{mo-}\def\Bmu{mu-}%
+%    \end{macrocode}
+%
+% The 5 N syllables.
+%    \begin{macrocode}
+\def\Bna{na-}\def\Bne{ne-}\def\Bni{ni-}\def\Bno{no-}\def\Bnu{nu-}%
+%    \end{macrocode}
+%
+% The 5 P syllables.
+%    \begin{macrocode}
+\def\Bpa{pa-}\def\Bpe{pe-}\def\Bpi{pi-}\def\Bpo{po-}\def\Bpu{pu-}%
+%    \end{macrocode}
+%
+% The 4 Q syllables.
+%    \begin{macrocode}
+\def\Bqa{qa-}\def\Bqe{qe-}\def\Bqi{qi-}\def\Bqo{qo-}%
+%    \end{macrocode}
+%
+% The 5 R syllables.
+%    \begin{macrocode}
+\def\Bra{ra-}\def\Bre{re-}\def\Bri{ri-}\def\Bro{ro-}\def\Bru{ru-}%
+%    \end{macrocode}
+%
+% The 5 S syllables.
+%    \begin{macrocode}
+\def\Bsa{sa-}\def\Bse{se-}\def\Bsi{si-}\def\Bso{so-}\def\Bsu{su-}%
+%    \end{macrocode}
+%
+% The 5 T syllables.
+%    \begin{macrocode}
+\def\Bta{ta-}\def\Bte{te-}\def\Bti{ti-}\def\Bto{to-}\def\Btu{tu-}%
+%    \end{macrocode}
+%
+% The 4 W syllables.
+%    \begin{macrocode}
+\def\Bwa{wa-}\def\Bwe{we-}\def\Bwi{wi-}\def\Bwo{wo-}%
+%    \end{macrocode}
+%
+% The 3 Z syllables.
+%    \begin{macrocode}
+\def\Bza{za-}\def\Bze{ze-}\def\Bzo{zo-}%
+%    \end{macrocode}
+%
+% The 16 optional signs.
+%    \begin{macrocode}
+\def\Baii{a2-}\def\Baiii{a3-}\def\Bau{au-}%
+\def\Bdwe{dwe-}\def\Bdwo{dwo-}%
+\def\Bnwa{nwa-}%
+\def\Bpaiii{pa3-}\def\Bpuii{pu2-}\def\Bpte{pte-}%
+\def\Braii{ra2-}\def\Braiii{ra3-}\def\Broii{ro2-}%
+\def\Bswa{swa-}\def\Bswi{swi-}%
+\def\Btaii{ta2-}\def\Btwo{two-}%
+%    \end{macrocode}
+%
+% The numbers.
+%    \begin{macrocode}
+\def\BNi{1-}\def\BNii{2-}\def\BNiii{3-}\def\BNiv{4-}\def\BNv{5-}%
+  \def\BNvi{6-}\def\BNvii{7-}\def\BNviii{8-}\def\BNix{9-}%
+\def\BNx{10-}\def\BNxx{20-}\def\BNxxx{30-}\def\BNxl{40-}\def\BNl{50-}%
+  \def\BNlx{60-}\def\BNlxx{70-}\def\BNlxxx{80-}\def\BNxc{90-}%
+\def\BNc{100-}\def\BNcc{200-}\def\BNccc{300-}\def\BNcd{400-}\def\BNd{500-}%
+  \def\BNdc{600-}\def\BNdcc{700-}\def\BNdccc{800-}\def\BNcm{900-}%
+\def\BNm{1000-}%
+%    \end{macrocode}
+%
+% The 11 unidentified signs. These all map to `?-'.
+%    \begin{macrocode}
+\def\BUi{?-}\def\BUii{?-}\def\BUiii{?-}\def\BUiv{?-}\def\BUv{?-}\def\BUvi{?-}%
+  \def\BUvii{?-}\def\BUviii{?-}\def\BUix{?-}\def\BUx{?-}\def\BUxi{?-}%
+%    \end{macrocode}
+%
+% The unidentified sign looking like a B, which \jurgen says is the \textit{twe}
+% syllable.
+%    \begin{macrocode}
+\def\BUxii{?-}\def\Btwe{twe-}%
+%    \end{macrocode}
+%
+% Weights and measures.
+%    \begin{macrocode}
+\def\BPwta{ /weightA/ }\def\BPwtb{ /weightB/ }\def\BPwtc{ /weightC/ }%
+\def\BPwtd{ /weightC/ }\def\BPtalent{ /talent/ }%
+%    \end{macrocode}
+% Volumetric measures.
+%    \begin{macrocode}
+\def\BPvola{ /volumeA/ }\def\BPvolb{ /volumeB/ }\def\BPvolcd{ /volumeC/ }%
+\def\BPvolcf{ /volumeC/ }%
+%    \end{macrocode}
+%
+% Commodities.
+%    \begin{macrocode}
+\def\BPcloth{ /cloth/ }\def\BPwool{ /wool/ }\def\BPwheat{ /wheat/ }%
+\def\BPbarley{ /barley/ }\def\BPwine{ /wine/ }\def\BPolive{ /olive oil/ }%
+\def\BPbronze{ /bronze/ }\def\BPgold{ /gold/ }%
+%    \end{macrocode}
+%
+% Vessels
+%    \begin{macrocode}
+\def\BPcup{ /cup/ }\def\BPgoblet{ /goblet/ }\def\BPamphora{ /amphora/ }%
+\def\BPwineiih{ /wine jar/ }\def\BPwineiiih{ /wine jar/ }\def\BPwineivh{ /wine jar/ }%
+\def\BPcauldroni{ /cauldron/ }\def\BPcauldronii{ /cauldron/ }%
+%    \end{macrocode}
+%
+% Humans and horses
+%    \begin{macrocode}
+\def\BPman{ /man/ }\def\BPwoman{ /woman/ }\def\BPhorse{ /horse/ }\def\BPfoal{ /foal/ }%
+%    \end{macrocode}
+%
+% Livestock.
+%    \begin{macrocode}
+\def\BPpig{ /pig/ }\def\BPboar{ /boar/ }\def\BPsow{ /sow/ }%
+\def\BPox{ /ox/ }\def\BPbull{ /bull/ }\def\BPcow{ /cow/ }%
+\def\BPsheep{ /sheep/ }\def\BPram{ /ram/ }\def\BPewe{ /ewe/ }%
+\def\BPgoat{ /goat/ }\def\BPbilly{ /billy/ }\def\BPnanny{ /nanny/ }%
+%    \end{macrocode}
+%
+% Weapons
+%    \begin{macrocode}
+\def\BPchariot{ /chariot/ }\def\BPchassis{ /chassis/ }\def\BPwheel{ /wheel/ }%
+\def\BPsword{ /sword/ }\def\BParrow{ /arrow/ }\def\BPspear{ /spear/ }%
+%    \end{macrocode}
+%
+% Close the macro definition.
+%    \begin{macrocode}
+} % end of \@translitB
+%    \end{macrocode}
+% \end{macro}
+%
+%
+%    The end of this package.
+%    \begin{macrocode}
+%</usc>
+%    \end{macrocode}
+%
+% \section{Map file}
+%
+%    A short map file.
+% \changes{v1.2}{2005/06/22}{Added map file}
+%
+%    \begin{macrocode}
+%<*map>
+linb10        Archaic-Linear-B      <linb10.pfb
+%</map>
+%    \end{macrocode}
+%
+%  That's it.
+%
+%
+% \Finale
+%
+\endinput
+
+%% \CharacterTable
+%%  {Upper-case    \A\B\C\D\E\F\G\H\I\J\K\L\M\N\O\P\Q\R\S\T\U\V\W\X\Y\Z
+%%   Lower-case    \a\b\c\d\e\f\g\h\i\j\k\l\m\n\o\p\q\r\s\t\u\v\w\x\y\z
+%%   Digits        \0\1\2\3\4\5\6\7\8\9
+%%   Exclamation   \!     Double quote  \"     Hash (number) \#
+%%   Dollar        \$     Percent       \%     Ampersand     \&
+%%   Acute accent  \'     Left paren    \(     Right paren   \)
+%%   Asterisk      \*     Plus          \+     Comma         \,
+%%   Minus         \-     Point         \.     Solidus       \/
+%%   Colon         \:     Semicolon     \;     Less than     \<
+%%   Equals        \=     Greater than  \>     Question mark \?
+%%   Commercial at \@     Left bracket  \[     Backslash     \\
+%%   Right bracket \]     Circumflex    \^     Underscore    \_
+%%   Grave accent  \`     Left brace    \{     Vertical bar  \|
+%%   Right brace   \}     Tilde         \~}
+
+

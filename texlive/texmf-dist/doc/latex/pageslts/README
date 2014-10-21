@@ -1,0 +1,221 @@
+README for pageslts package, 2014/01/19, v1.2c
+
+
+TABLE OF CONTENTS
+=================
+
+1 Introduction
+2 Download
+3 Installation
+4 Additional Packages
+5 Package Compatibility
+6 Author/Maintainer
+7 Bug Reports
+8 Known Problems
+
+
+1 INTRODUCTION
+==============
+
+This package puts the labels LastPage (\AtEndDocument) and
+VeryLastPage (\AfterLastShipout) into the .aux file,
+allowing the user to refer to the (very) last page of a
+document. This might be particularly useful in places like
+headers or footers.
+When more than one page numbering scheme is used, these
+references do not give the total number of pages. For this
+case the label LastPages is introduced. Additionally, at the
+last page of each page numbering scheme a label
+pagesLTS.<numbering scheme> is placed, where
+<numbering scheme> is e. g. arabic, roman, Roman, alph, or
+Alph. For fnsymbol please use
+\lastpageref{pagesLTS.fnsymbol} instead of
+\pageref{pagesLTS.fnsymbol}. When the same numbering scheme
+is used twice, the page numbers are either reset to one or
+continued automatically, depending on the option given when
+the package is called. The command \theCurrentPage prints
+the current total/absolute page number - in contrast to
+\thepage, which gives only the page name in the current page
+numbering scheme. \theCurrentPageLocal gives the current
+number of pages in the current page numbering scheme.
+\thepage and \theCurrentPageLocal are different e. g. when
+\addtocounter{pageg}{...} or \setcounter{page}{...} were
+used.
+At the first page of the document a label pagesLTS.0 is
+created. This label can be referred to, too. Further labels
+are provided for special cases.
+The alphalph package is supported, i. e. page numbers alph
+or Alph > 26 and fnyambol > 9 can be used (with according
+options set). Even zero and negative page numbers can be
+used with arabic, alph, Alph, roman, Roman, and fnsymbol
+page numbering (with alphalph package and according
+options).
+\pageref* and \pageref*, for using hyperref but suppressing
+links, are supported.
+This material is subject to the LaTeX Project Public License
+(LPPL). See http://www.ctan.org/license/lppl1.3
+for the details of that license.
+
+
+2 DOWNLOAD
+==========
+
+`pageslts' is available on CTAN:
+  http://www.ctan.org/tex-archive/macros/latex/contrib/pageslts/
+
+Also a ZIP file is provided that contains the files, already
+sorted in a TDS tree:
+  http://mirrors.ctan.org/install/macros/latex/contrib/
+    pageslts.tds.zip
+
+
+3 INSTALLATION
+==============
+
+Installation with ZIP file in TDS format
+----------------------------------------
+The ZIP file `pageslts.tds.zip' contains the files sorted
+in a TDS tree. Thus you can directly unpack the ZIP file
+inside a TDS tree.
+(See http://www.ctan.org/TDS-guidelines for an explanation
+of TDS.)
+Example:
+  cd /...somewhere.../texmf
+  unzip /...downloadpath.../pageslts.tds.zip
+Do not forget to refresh the file name database of this
+TDS tree.
+Example:
+  texhash /...somewhere.../texmf
+
+Manual installation
+-------------------
+a) Download the pageslts files from CTAN or the TUG server.
+   If necessary, unpack them.
+b) Generate the package and driver files:
+     tex pageslts.ins
+c) Install the file `*.sty' in your TDS tree:
+     cp *.sty TDS:tex/latex/pageslts/
+   Replace `TDS:' by the prefix of your TDS tree
+   (texmf directory).
+d) Copy the documentation files to
+   "TDS:doc/latex/pageslts/":
+   README, pageslts.pdf,pageslts-example.tex,
+   pageslts-example.pdf.
+e) Update the databases if necessary, e. g. for teTeX:
+     mktexlsr .../texmf
+
+
+4 ADDITIONAL PACKAGES
+=====================
+
+Depending on the driver and option settings, pageslts loads
+other packages:
+
+For unpacking the pageslts.dtx file and constructing the
+documentation it is required:
+- TeXFormat LaTeX2e, 2011/06/27, v2e
+- document class ltxdoc, 2007/11/11, v2.0u,
+    CTAN:macros/latex/base/ltxdoc.dtx
+- package holtxdoc, 2012/03/21, v0.24,
+    CTAN:macros/latex/contrib/oberdiek/holtxdoc.dtx
+- package hypdoc, 2011/08/19, v1.11,
+    CTAN:macros/latex/contrib/oberdiek/hypdoc.dtx
+- package geometry, 2010/09/12, v5.6,
+    CTAN:macros/latex/contrib/geometry/geometry.dtx
+- package ulem, 2012/05/18, (no version number given),
+    CTAN:macros/latex/contrib/ulem/
+
+The pageslts.sty for LATEX2e (i. e. all documents using the
+ pageslts package) requires:
+- TeXFormat LaTeX2e, 2011/06/27, v2e
+- package atveryend, 2011/06/30, v1.8,
+    CTAN:macros/latex/contrib/oberdiek/atveryend.dtx
+- package letltxmacro, 2010/09/02, v1.4,
+    CTAN:macros/latex/contrib/oberdiek/letltxmacro.dtx
+- package ltxcmds, 2011/11/09, v1.22,
+    CTAN:macros/latex/contrib/oberdiek/ltxcmds.dtx
+- package kvoptions, 2011/06/30, v3.11,
+    CTAN:macros/latex/contrib/oberdiek/kvoptions.dtx
+- package everyshi, 2001/05/15, v3.00,
+    CTAN:macros/latex/contrib/ms/everyshi.dtx
+- package undolabl, 2012/01/01, v1.0k,
+    CTAN:macros/latex/contrib/undolabl/undolabl.dtx
+
+The pageslts-example.tex requires the same files as all
+ documents using the pageslts package, and additionally:
+- package alphalph, 2011/05/13, v2.4,
+    CTAN:macros/latex/generic/oberdiek/alphalph.dtx
+- package lipsum, 2011/04/14, v1.2,
+    CTAN:macros/latex/contrib/lipsum/lipsum.dtx
+- package showkeys, 2007/08/07, v3.15,
+    CTAN:macros/latex/required/tools/showkeys.dtx
+- package hyperref, 2012/11/06, v6.83m,
+    CTAN:macros/latex/contrib/hyperref.zip
+- package pageslts, 2014/01/19, v1.2c,
+    CTAN:macros/latex/contrib/pageslts/pageslts.dtx
+    (Well, it is the example file for this package, and
+     because you are reading the README for the pageslts
+     package, it can be assumed that you already have some
+     version of it - is it the current one?)
+
+which again load other packages
+(see the result of the \listfiles command in the log-file
+ of the example).
+
+
+5 PACKAGE COMPATIBILITY
+=======================
+
+* endfloat package
+  pageslts is not compatible with very old versions of
+  endfloat(2.0 and older).
+  Just get the recent version of the endfloat package
+  from CTAN.
+
+* lastpage package
+  \usepackage[pagecontinue=false]{pageslts}
+  can simulate the behaviour of the lastpage package.
+  Loading old (!) versions of the lastpage package before
+  the pageslts package before the hyperref package results
+  in multiply definitions of the LastPage label.
+
+* undolabl package
+  Version >= 1.0h is needed.
+
+6 AUTHOR/MAINTAINER
+=====================
+
+* H.-Martin Münch
+
+
+7 BUG REPORTS
+==============
+
+A bug report should contain:
+* Comprehensive problem description. This includes error or
+  warning messages.
+  * \errorcontextlines=\maxdimen can be added in the
+    TeX code to get more information in TeX error messages.
+* Minimal test file that shows the problem, but does not
+  contain any unnecessary packages and code.
+* Used drivers/programs.
+* Version information about used packages and programs.
+  * If you are using LaTeX, then add "\listfiles". Then
+    a list of version information is printed at the end
+    of the LaTeX run.
+* Please no other files than the minimal test file.
+  The other files .log, .dvi, .ps, .pdf are seldom
+  necessary, so send them only on request.
+* Please .zip or .tar.gz your file(s) before sending them!
+
+Bug address
+-----------
+Bug reports can be send to the maintainer:
+  H.-Martin Münch
+  <Martin [dot] Muench [at] Uni-Bonn [dot] de>
+
+
+8 KNOWN PROBLEMS
+=================
+
+* as yet: none...

@@ -1,0 +1,215 @@
+%%
+%% This is file `engpron-ex-fr.tex',
+%% generated with the docstrip utility.
+%%
+%% The original source files were:
+%%
+%% engpron.dtx  (with options: `exemple,fr')
+%% This is a generated file.
+%% 
+%% Copyright (C) 2003-2008 Y. Henel, le TeXnicien de surface
+%% <le.texnicien.de.surface@wanadoo.fr>
+%% 
+%% This file may be distributed and/or modified under the conditions of
+%% the LaTeX Project Public License, either version 1.2 of this license
+%% or (at your option) any later version.  The latest version of this
+%% license is in:
+%% 
+%%    http://www.latex-project.org/lppl.txt
+%% 
+%% and version 1.2 or later is part of all distributions of LaTeX version
+%% 1999/12/01 or later.
+\documentclass[a4paper]{article}
+\usepackage{array,xspace}
+\usepackage[latin1]{inputenc}
+\usepackage[tame,hyphenable]{engpron}[2008/08/15]
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+\usepackage[english, frenchb]{babel}
+\setlength{\parindent}{0pt}
+\newcommand\BOP{\discretionary{}{}{}}
+\newcommand{\TO}{\textemdash\ \ignorespaces}
+\newcommand{\TF}{\unskip\ \textemdash\xspace}
+\newcommand\Pkg[1]{\textsf{#1}}
+\newcommand\Option[1]{\textsc{#1}}
+\newcommand{\CAD}{c.-^^e0-d.\xspace}
+\begin{document}
+\begin{center}\LARGE
+ Utilisation du module \Pkg{engpron}
+\end{center}
+Voici quelques exemples d'utilisation des macros avec \texttt{^^a3}. Le
+module \verb+engpron+ est charg^^e9 avec les options \Option{jones},
+\Option{monstress}, \Option{unhyphenable}, \Option{visible},
+\Option{nice} et \Option{final} \TO options par d^^e9faut\TF et l'option
+explicite \Option{tame} qui remplace l'option par d^^e9faut
+\Option{wild}.
+\paragraph{Macro \texttt{^^a3X}} Cette macro \emph{doit} ^^eatre suivie d'une
+lettre seule. Elle note les sons optionnels ^^e0 la mani^^e8re de
+Jones~\cite{jones15}, avec l'option \Option{jones}, ou ^^e0 la mani^^e8re du
+Harraps~\cite{harraps}, avec l'option \Option{harraps}.
+
+On aura par exemple
+\verb!\PRON{!\texttt{^^a3e^^a3h^^a3Xt^^a3s^^a3U^^a3kli^^a3k^^a3en}\verb!}!
+qui donnera \PRON{^^a3e^^a3h^^a3Xt^^a3s^^a3U^^a3kli^^a3k^^a3en}.
+
+Suivie de la lettre \og e \fg elle donne \Pron{^^a3Xe}
+(\verb+\Pron{^^a3Xe}+) comme dans \PRON{^^a3B^^a3af^^a3kek^^a3Ht^^a3q^^a3k^^a3s^^a3Xen} qui
+s'obtient avec \verb+\PRON{^^a3B^^a3af^^a3kek^^a3Ht^^a3q^^a3k^^a3s^^a3Xen}+.
+\paragraph{Macros \texttt{^^a3M} et \texttt{^^a3m}} Elles permettent
+d'obtenir les voyelles nasalis^^e9s, ^^e0 la mode fran^^e7aise pour la 1\iere
+et ^^e0 la mode anglaise pour la 2\up{de}. Se reporter ^^e0 la 2\ieme
+table. Elles doivent ^^eatre suivies d'une des lettres : a, i, o,
+u. Penser ^^e0 \og ban \fg, \og vin \fg, \og long \fg et \og parfum \fg
+(dans la prononciation tr^^e8s correcte du fran^^e7ais soutenu).
+\paragraph{Macro \texttt{^^a3Z}} Elle note le \og r \fg final qui n'est
+prononc^^e9 qu'en cas de liaison. On a, p. ex. \Pron{^^a3H^^a3akt^^a3e^^a3Z} avec
+\verb+\Pron{^^a3H^^a3akt^^a3e^^a3Z}+.
+\paragraph{Macro \texttt{^^a3k}} Son comportement est d^^e9termin^^e9e par les
+options \Option{hyphenable} \TO qui s'oppose ^^e0
+\Option{unhyphenable}\TF et \Option{visible} \TO qui s'oppose ^^e0
+\Option{invisible}. Elle sert ^^e0 marquer les limites de syllabes.
+
+Avec l'option \Option{visible}, option par d^^e9faut, on obtient une
+marque qui est par d^^e9faut [.] et est d^^e9finie par la
+macro \verb+\EPSyllabeMarque+. Cette derni^^e8re peut ^^eatre red^^e9finie ^^e0
+l'aide de \verb+\renewcommand+.  Avec l'option \Option{invisible},
+\verb+^^a3k+ ne produit aucun glyphe.
+
+Avec l'option \Option{hyphenable}, \verb+^^a3k+ permet la c^^e9sure mais
+l'interdit avec l'option \Option{unhyphenable} qui est l'option par
+d^^e9faut.
+\paragraph{Macro \texttt{^^a3K}} Son comportement est d^^e9termin^^e9e par la
+lettre suivante. \texttt{X} donne un point de c^^e9sure invisible,
+\texttt{k} une marque ins^^e9cable et visible de syllabisation,
+\texttt{K} une marque \emph{s^^e9cable} et visible de syllabisation,
+\texttt{b} une marque d'accent tonique secondaire ins^^e9cable,
+\texttt{B} une marque d'accent tonique secondaire \emph{s^^e9cable},
+\texttt{h} une marque d'accent tonique principal ins^^e9cable et, enfin,
+\texttt{H} une marque d'accent tonique principal \emph{s^^e9cable}. Son
+comportement \textbf{ne d^^e9pend pas} des options en vigueur.
+\vspace*{\stretch{1}}
+
+\begin{thebibliography}{99}
+\bibitem{jones15} Daniel~\textsc{Jones} \dag.
+\emph{English Pronouncing Dictionary}.
+15th Edition. This major new edition edited by Peter Roach \& James
+Hartman.
+Cambridge University Press, 1997.
+\textsc{isbn} : \texttt{0-521-45903-6}
+\bibitem{harraps} J. E. \textsc{Manson}, M.A.
+\emph{Harrap's New Shorter French And English Dictionary.}
+Revised edition \copyright{} George G. Harrap \&
+Co. Ltd. \oldstylenums{1967}.
+Bordas diffuseur, \oldstylenums{1980}.
+\textsc{isbn} : \texttt{0 245 59062 5}
+\end{thebibliography}
+\newpage
+
+\vspace*{\stretch{1}}
+
+\begin{LivreActive}\Large
+\hspace*{\stretch{1}}
+\begin{tabular}[c]{|>{\ttfamily }c|c||>{\ttfamily }c|c||>{\ttfamily
+    }c|c||>{\ttfamily }c|c||>{\ttfamily }c|c|}\hline
+\multicolumn{10}{|c|}{
+Classement par ordre alphab^^e9tique
+}\\
+\multicolumn{10}{|c|}{
+L'^^e9toile renvoie aux explications ci-dessus
+}\\ \hline
+\^^a3a & ^^a3a & \^^a3b & ^^a3b & \^^a3c & ^^a3c & \^^a3d & ^^a3d & \^^a3e  & ^^a3e \\ \hline
+\^^a3f & ^^a3f & \^^a3g & ^^a3g & \^^a3h & ^^a3h & \^^a3i & ^^a3i & \^^a3j  & ^^a3j \\ \hline
+\^^a3k & $\ast$ & \^^a3l & ^^a3l & \^^a3m & $\ast$ & \^^a3n & ^^a3n & \^^a3o  & ^^a3o \\ \hline
+\^^a3p & ^^a3p & \^^a3q & ^^a3q & \^^a3r & ^^a3r & \^^a3s & ^^a3s & \^^a3t  & ^^a3t \\ \hline
+\^^a3u & ^^a3u & \^^a3v & ^^a3v & \^^a3w & ^^a3w & \^^a3x & ^^a3x & \^^a3y  & ^^a3y \\ \hline
+\^^a3z & ^^a3z &     &    &     &    &     &    &      &    \\ \hline
+\^^a3A & ^^a3A & \^^a3B & ^^a3B & \^^a3C & ^^a3C & \^^a3D & ^^a3D & \^^a3E  & ^^a3E \\ \hline
+\^^a3F & ^^a3F & \^^a3G & ^^a3G & \^^a3H & ^^a3H & \^^a3I & ^^a3I & \^^a3J  & ^^a3J \\ \hline
+\^^a3K & $\ast$ & \^^a3L & ^^a3L & \^^a3M & $\ast$ & \^^a3N & ^^a3N & \^^a3O  & ^^a3O \\ \hline
+\^^a3P & ^^a3P & \^^a3Q & ^^a3Q & \^^a3R & ^^a3R & \^^a3S & ^^a3S & \^^a3T  & ^^a3T \\ \hline
+\^^a3U & ^^a3U & \^^a3V & ^^a3V & \^^a3W & ^^a3W & \^^a3X & $\ast$ & \^^a3Y  & ^^a3Y \\ \hline
+\^^a3Z & ^^a3Z &     &    &     &    &     &    &      &    \\ \hline
+\end{tabular}
+\hspace*{\stretch{1}}
+\end{LivreActive}
+
+\vspace*{\stretch{1}}
+\newpage
+\thispagestyle{empty}
+
+\vspace*{\stretch{1}}
+\begin{LivreActive}
+\hspace*{\stretch{1}}
+{\Large
+\begin{tabular}[c]{|>{\ttfamily }c|c||>{\ttfamily }c|c||>{\ttfamily
+    }c|c||>{\ttfamily }c|c|}\hline
+\multicolumn{8}{|c|}{
+Voyelles
+}\\ \hline
+\^^a3a & ^^a3a & \^^a3A & ^^a3A & \^^a3e & ^^a3e & \^^a3E & ^^a3E \\ \hline
+\^^a3i & ^^a3i & \^^a3I & ^^a3I & \^^a3o & ^^a3o & \^^a3O & ^^a3O \\ \hline
+\^^a3u & ^^a3u & \^^a3U & ^^a3U & \^^a3v & ^^a3v & \^^a3x & ^^a3x \\ \hline
+\^^a3c & ^^a3c & \^^a3C & ^^a3C & \^^a3y & ^^a3y &     &    \\ \hline
+\multicolumn{8}{|c|}{
+Diphtongues
+}\\ \hline
+\^^a3p & ^^a3p & \^^a3q & ^^a3q & \^^a3r & ^^a3r & \^^a3P & ^^a3P\\ \hline
+\^^a3Q & ^^a3Q & \^^a3R & ^^a3R & \^^a3w & ^^a3w & \^^a3W & ^^a3W\\ \hline
+\^^a3V & ^^a3V &     &    &     &    &     &   \\ \hline
+\multicolumn{8}{|c|}{
+Consonnes
+}\\ \hline
+\^^a3d & ^^a3d & \^^a3f & ^^a3f & \^^a3j & ^^a3j & \^^a3l & ^^a3l \\ \hline
+\^^a3n & ^^a3n & \^^a3s & ^^a3s & \^^a3t & ^^a3t & \^^a3z & ^^a3z \\ \hline
+\^^a3T & ^^a3T & \^^a3L & ^^a3L &     &    &     &    \\ \hline
+\multicolumn{8}{|c|}{
+Accents toniques
+}\\ \hline
+\^^a3b & ^^a3b & \^^a3B & ^^a3B & \^^a3h & ^^a3h & \^^a3H & ^^a3H \\ \hline
+\^^a3Kb & ^^a3Kb & \^^a3KB & ^^a3KB & \^^a3Kh & ^^a3Kh & \^^a3KH & ^^a3KH \\ \hline
+\multicolumn{8}{|c|}{
+Voyelles nasalis^^e9es
+}\\
+\multicolumn{8}{|c|}{
+prononciation fran^^e7aise
+}\\ \hline
+\^^a3Ma & ^^a3Ma & \^^a3Mi & ^^a3Mi & \^^a3Mo & ^^a3Mo & \^^a3Mu & ^^a3Mu \\ \hline
+\multicolumn{8}{|c|}{
+prononciation anglaise
+}\\ \hline
+\^^a3ma & ^^a3ma & \^^a3mi & ^^a3mi & \^^a3mo & ^^a3mo & \^^a3mu & ^^a3mu \\ \hline
+\multicolumn{8}{|c|}{
+Syllabisation
+}\\ \hline
+\^^a3k & ^^a3k & \^^a3Kk & ^^a3Kk & \^^a3KK & ^^a3KK & \^^a3KX& ^^a3KX\\ \hline
+\end{tabular}}
+\hspace*{\stretch{1}}
+\vspace*{\stretch{4}}
+
+{\footnotesize
+Le tableau ci-dessus est ^^e9crit dans un environnement
+\verb+LivreActive+ et l'on doit utiliser la macro \verb+\+\texttt{\^^a3}
+pour obtenir le caract^^e8re \^^a3. Mais on peut ^^e9crire \og ^^a3a \fg
+directement avec \og \texttt{\^^a3a} \fg.
+
+Lorsque l'on se trouve dans l'environnement \verb+LivreActive+, on
+obtient \pron{^^a3H^^a3akt^^a3e^^a3Z} avec
+\verb+\pron{+\texttt{\^^a3H}\BOP\texttt{\^^a3akt}\BOP\texttt{\^^a3e}\BOP%
+  \texttt{\^^a3Z}\verb+}+ mais on remarquera, en lisant ce fichier
+\texttt{engpron-ex-fr.tex} ce qu'il faut faire comme \og gymnastique \fg
+pour obtenir un semblant de \texttt{verbatim}.
+}
+
+\vspace{2\baselineskip}
+\newlength{\montruc}\settowidth{\montruc}{Yvon \textsc{Henel}, \TeX
+  nicien de surface.}
+\hspace*{\stretch{1}}\makebox[\montruc][c]{Yvon \textsc{Henel}, \TeX
+  nicien de surface.}\\[.5\baselineskip]
+\hspace*{\stretch{1}}\makebox[\montruc][c]{2008-07-15}
+
+\vspace*{\stretch{1}}
+\end{LivreActive}
+\end{document}
+\endinput
+%%
+%% End of file `engpron-ex-fr.tex'.

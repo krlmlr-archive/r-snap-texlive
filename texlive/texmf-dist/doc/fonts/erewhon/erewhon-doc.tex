@@ -1,0 +1,87 @@
+% !TEX TS-program = pdflatexmk
+\documentclass[11pt]{amsart}
+\usepackage[margin=1.5in]{geometry} 
+\usepackage[parfill]{parskip}% Begin paragraphs with an empty line rather than an indent
+\usepackage{graphicx}
+\pdfmapfile{=erewhon.map}
+%SetFonts
+% erewhon+newtxmath
+\usepackage[sups,p,osf,scaled=.98]{erewhon}
+\usepackage[T1]{fontenc}
+\usepackage{textcomp}
+\usepackage{cabin}
+\usepackage[varqu,varl]{zi4}% inconsolata
+\usepackage[utopia,vvarbb,bigdelims]{newtxmath}
+%SetFonts
+\title{LaTeX Support for Erewhon}
+\author{Michael Sharpe}
+\date{\today}  % Activate to display a given date or no date
+\begin{document}
+\maketitle
+\emph{Erewhon} is a font package based largely on Andrey V. Panov's \emph{Heuristica}, but with so many changes that it is no longer strictly compatible with that package, and is offered instead as an enhanced alternative. (\emph{Heuristica}  extended the \emph{Utopia} font family made available by the \TeX\ Users' Group, adding many accented glyphs, Cyrillic glyphs, ligatures, superior and oldstyle fixed-width figures in all styles, and Small Caps in Regular style only. It is widely distributed as a free font collection in OpenType, TrueType and Type$1$ formats.) \emph{Erewhon} is provided in OpenType and Type$1$ formats with complete \LaTeX\ support files in encodings T$1$, TS$1$, LY$1$, T$2$A, T$2$B and T$2$C.  Changes made in the transition from \emph{Heuristica} to \emph{Erewhon} include:
+\begin{itemize}
+\item
+\textsl{slanted} as well as \textit{Italic} shapes;
+\item
+\textsc{Small Caps} in \textsc{\textbf{bold}} as well as \textsc{regular} upright shapes, with \textsc{\textit{italic}} and \textsc{\textsl{slanted  Small Caps}} shapes from the slanted variants;
+\item expanded lookup tables in the {\tt.otf} files for users of XeLaTeX and LuaLaTeX;
+\item a number of f-ligatures have been modified, and a \verb|T_h| ligature added;
+\item proportionally spaced figures (lining and oldstyle), adding to the existing taboldstyle figures;
+\item full collections of superior lowercase letters (including \`e as \textsu{\`e} and \'e as \textsu{\'e}), mainly for the benefit of languages in which those are in common use---e.g., French, Spanish;
+\item size reduced by 6\% from Heuristica, which matched the old version of Utopia---the new size matches that of Adobe's commercial UtopiaStd;
+\item shapes of some oldstyle figures modified to have more of an oldstyle appearance;
+\item fraction macros based on the new numerator and denominator figures;
+\item the bold upright face has been made less cramped.
+\end{itemize}
+
+The {\tt newtx} package has been modified, as of version $1.26$,  to offer a new option {\tt utopia} (or, equivalently, {\tt heuristica} or {\tt erewhon}) that uses math italic glyphs taken from Utopia and oldstyle figures from \emph{Erewhon}. Its slanted Greek alphabets are constructed from the {\tt txfonts} slanted Greek letters by reducing their italic angle from $15.5$\textdegree\ to $13$\textdegree, matching Utopia's italic angle. So, for Erewhon text and matching math, you can use\footnote{There is most likely also a way to use {\tt MathDesign} or {\tt fourier} with at least partial compatibility.}:
+\begin{verbatim}
+\usepackage[p,osf,scaled=.98]{erewhon}
+\usepackage[varqu,varl]{inconsolata} % typewriter
+\usepackage[type1,scaled=.95]{cabin} % sans serif like Gill Sans
+\usepackage[utopia,vvarbb,bigdelims]{newtxmath}
+\end{verbatim}
+The effect of the options {\tt p,osf} is to force the default figure style in {\tt erewhon} text to be proportional oldstyle 0123456789 while using lining figures $0123456789$ in math mode. If no options are specified, tabular lining figures will be used throughout.
+
+\textsc{Options available:}
+\begin{itemize}
+\item The option {\tt scaled} allows you to change the scale. E.g., if you want \emph{Erewhon} to render at the same size as the original \emph{Utopia} or \emph{Heuristica}, use {\tt scaled=1.064}.
+\item
+The option {\tt proportional}, or, equivalently, {\tt p}, specifies the use of proportional rather than the default tabular figures.
+\item
+ The {\tt space} option allows you to specify a factor by which to increase the interword spacing, which is, IMO, a bit tight.
+\item
+The option {\tt oldstyle}, or, equivalently, {\tt osf}, specifies oldstyle figures in text mode---math mode always uses tabular lining figures. By itself, {\tt osf} results in tabular oldstyle figures unless you also specify the option {\tt p}, or {\tt proportional}.
+\item The option {\tt scosf} changes the figure style to {\tt osf} only within small caps. 
+\item
+ The option {\tt sups}  changes the footnote marker style to use the superior figures from \emph{Erewhon} rather than the default  superscripts based on reduced lining figures, which usually appear too light. (The {\tt superiors} package offers further options.)
+\end{itemize}
+
+\emph{Erewhon} is so austere for a text font and \emph{Inconsolata} is so fancy for a typewriter font that you may find they blend together all too well. For more of a distinction replace the {\tt inconsolata} line above with
+\begin{verbatim}
+\usepackage{zlmtt} % serifed typewriter font extending cmtt
+\end{verbatim}
+
+As Utopia text is a bit cramped, you might try  applying a small amount of letterspacing (tracking) and increasing the interword spacing by means of the {\tt microtype} package, or use the {\tt space} option.
+
+\textsc{Macros:}
+\begin{itemize}
+\item
+\verb|\textlf| and \verb|\texttlf| render their arguments in proportional and tabular lining figures respectively, no matter what the default figure style. E.g., \verb|\textlf{345}| produces \textlf{345}.
+\item
+\verb|\textosf| and \verb|\texttosf| render their arguments in proportional and tabular oldstyle figures respectively, no matter what the default figure style. For example, \verb|\textosf{345}| produces~\textosf{345}.
+\item
+\verb|\textsu|  renders its argument in superior figures, no matter what the default figure style. E.g., \verb|\textsu{345}| produces \textsu{345}.
+\item
+\verb|\textin|  renders its argument in inferior figures, no matter what the default figure style. E.g., \verb|\textin{345}| produces \textin{345}.
+\item
+\verb|\textnu|  renders its argument in numerator figures, no matter what the default figure style. E.g., \verb|\textnu{345}| produces \textnu{345}.
+\item
+\verb|\textde|  renders its argument in denominator figures, no matter what the default figure style. E.g., \verb|\textde{345}| produces \textde{345}.
+\item
+\verb|\textfrac|  renders its two arguments as a vulgar fraction, using \verb|\textnu| for the numerator and \verb|\textde| for the denominator. E.g., \verb|\textfrac{31}{64}| produces~\textfrac{31}{64}.
+\end{itemize}
+\textsc{Very Brief, Nonsensical Math Example:}\\
+Let $B(X)$ be the set of blocks of $\Lambda_{X}$
+and let $b(X) \coloneq |{B(X)}|$ so that $\hat\phi=\sum_{Y\subset X}(-1)^{b(Y)}b(Y)$. 
+\end{document}   

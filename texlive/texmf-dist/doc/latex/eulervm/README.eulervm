@@ -1,0 +1,182 @@
+============================================================
+
+                 eulervm  v4.0, 2005-01-11
+                       
+ The Virtual Euler Math fonts and the LaTeX package eulervm
+ 
+============================================================
+                                              Walter Schmidt
+                                      w-a-schmidt(at)gmx.net
+
+
+
+The well-known Euler math fonts (designed by H. Zapf) are
+suitable for math typesetting in conjunction with a variety
+of text fonts which do not provide math character sets of
+their own.
+
+Euler-VM is a set of _virtual_ math fonts based on Euler and
+CM.  This approach has several advantages over immediately
+using the _real_ Euler fonts:  Most noticeably, less TeX
+resources are consumed, the quality of various math symbols
+is improved, and a usable \hslash symbol can be provided.
+
+The fonts are accompanied by a LaTeX package which makes
+them easy to use, particularly in conjunction with Type 1
+(PostScript) text fonts.
+
+To install Euler-VM, copy all files from the distribution
+to the corresponding directories of your TeX system.
+
+The documentation is provided as a ready-made PDF file with
+A4 media size in the directory doc/latex/eulervm.  
+It describes only the user interface.  To include also the
+implementation details or to typeset it on a different media
+size, run the source file file eulervm.dtx through LaTeX,
+using an appropriate configuration file ltxdoc.cfg.
+
+
+
+The fontinst sources
+--------------------
+The directory source/latex/eulervm/fontinst contains the
+sources of the virtual fonts, including a `makefile'.  You
+need these files only in case you want to rebuild or modify
+the fonts.  The following .pl files are required
+additionally:
+
+cmbsy10.pl  cmmi10.pl   cmr5.pl     eufb5.pl    eurb7.pl
+cmbsy5.pl   cmmi5.pl    cmr7.pl     eufb7.pl    eurm10.pl
+cmbsy7.pl   cmmi7.pl    cmsy10.pl   eufm10.pl   eurm5.pl
+cmbx10.pl   cmmib10.pl  cmsy5.pl    eufm5.pl    eurm7.pl
+cmbx5.pl    cmmib5.pl   cmsy7.pl    eufm7.pl    eusb10.pl
+cmbx7.pl    cmmib7.pl   euex10.pl   eurb10.pl   eusb5.pl
+cmex10.pl   cmr10.pl    eufb10.pl   eurb5.pl    eusb7.pl
+eusm10.pl   eusm5.pl    eusm7.pl    euex7.pl    cmex7.pl
+
+
+
+License
+-------
+The `Euler-VM' collection may be distributed and/or modified
+under the conditions of the LaTeX Project Public License,
+either version 1.1 of this license or (at your option) any
+later version.  The latest version of this license is in
+  http://www.latex-project.org/lppl.txt
+and version 1.1 or later is part of all distributions of
+LaTeX version 1999/06/01 or later.
+
+The list of all files belonging to the `Euler-VM Bundle' is
+given in the file doc/latex/eulervm/manifest.txt.
+
+
+
+History
+-------
+2005-01-11, v4.0
+  Distributon re-arraged \`a la TDS.
+  
+  An obscure bug, affecting the extensible symbols in the
+  font zeuex10, has been fixed.   (See eumx.etx) 
+  
+  A bug in the fontinst script fontevm.tex, which would
+  prevent it from being processed by newer versions of the
+  fontinst program, has been fixed.
+  
+  Slightly corrected vertical symmetry axis in formulas.
+  
+  Ready-made documentation in PDF format to show the
+  Euler-VM fonts in use.
+  
+  NB:  The macro package and the fd files are unchanged,
+  except for the version number.
+  
+
+2004-01-07, v3.0a
+  The package does no longer redefine \vdots and \ddots,
+  because fixing these macros should be left to the package
+  mathdots.sty.  Virtual fonts and font metrics are
+  unchanged.
+  
+  Documentation updated wrt/ email address and CTAN links.
+
+2003-06-10, v3.0
+  The symbols \leq and \geq now show the shape that is
+  preferred by DEK in conjunction with the Euler fonts.
+  (Credits to Frank Mittelbach for pointing me to this!)
+  The width of the symbols is unchanged.
+  
+  The option [small] now acts on the AMS fonts, too, so
+  there are no more restrictions affecting the usage of
+  amssymb.sty in conjunction with the Euler-VM fonts.
+  
+  Slightly changed mapping of font sizes to design sizes
+  used.  Particularly, when a math font with a size of 8pt
+  is requested, we are now going to scale up a 7pt font,
+  rather than scaling down a 10pt one.  This should improve
+  the appearance of documents with a normal font size of
+  11pt, where 8pt is used for super- and subscripts.
+  Strictly speaking, this is an incompatible change, but I
+  hope that the amount of practical problems is tolerable,
+  as compared with the improvement.
+  
+  Fixed Makefile so as not to install the auto-generated .fd
+  files, which are lacking the code for the [small] option.
+  
+  VFs and TFMs were now generated with fontinst v1.914, so
+  that the metrics may have changed sligthly, because of
+  improved rounding algorithm.  This may cause problems when
+  procesing existing DVI files.
+  
+2003-03-02, v2.9b
+  \hbar produces an appropriate warning message now,
+  as suggested by FMi.
+  Additional math symbols \upOmega and \upDelta with type 
+  \mathord, to protect against problems with the packages 
+  gensymb and units.
+  Small changes to the documentation.
+  Note that the virtual fonts are unchanged.
+
+2002-11-13, v2.9a
+  Virtual fonts: \epsilon and  \varepsilon are no longer
+  mixed up.
+  Macro package:  The slash, when used as a math delimiter,
+  is now taken from the Euler Roman font, rather than from
+  the text font.  
+  Documentation:  Minor fixes and additions.
+ 
+2002-03-10, v2.8
+  Use \familydefault for the operators font, rather
+  than \rmdefault.  Minor code cleanup.
+  
+2001-04-10, v2.7
+  The option [icomma] is still available, however 
+  undocumented.  The package icomma.sty from the CTAN 
+  directory macros/latex/contrib/supported/was/ should 
+  be used instead.
+  
+2001-03-06, v2.6
+  Bug fixes:  eulervm.sty should now work with amsmath 2.x,
+  regardless of the sequence of loading; \ldots, \vdots,
+  \ddots and the period are taken from the same fonts now,
+  according to the euler-digits option; improved algorithm
+  for the intelligent comma.
+  
+  New feature:  With the package option [small], the Euler
+  fonts will be used at 95% of their nominal size, thus 
+  blending better with certain text fonts such as Minion.
+  
+  The virtual fonts are unchanged.  When installing v2.6
+  over v2.2, only the package file and the .fd files need to
+  be replaced.
+  
+2000-02-02, v2.2
+  Bug fixes:  Use Euler script for \mathcal, instead of
+  CM-Calligraphic; added missing bold symbols; improved
+  documentation.
+
+2000-01-19, v2.1
+  first public release
+
+
+-- finis

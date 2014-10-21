@@ -1,0 +1,205 @@
+%%
+%% This is file `dintab.tex',
+%% generated with the docstrip utility.
+%%
+%% The original source files were:
+%%
+%% dinbrief.dtx  (with options: `dintab')
+%% 
+%% =======================================================================
+%% 
+%% Copyright (C) 1993, 96, 97 by University of Karlsruhe (Computing Center).
+%% Copyright (C) 1998, 2000   by University of Karlsruhe (Computing Center)
+%%                            and Richard Gussmann.
+%% All rights reserved.
+%% For additional copyright information see further down in this file.
+%% 
+%% This file is part of the DINBRIEF package
+%% -----------------------------------------------------------------------
+%% 
+%% It may be distributed under the terms of the LaTeX Project Public
+%% License (LPPL), as described in lppl.txt in the base LaTeX distribution.
+%% Either version 1.1 or, at your option, any later version.
+%% 
+%% The latest version of this license is in
+%% 
+%%         http://www.latex-project.org/lppl.txt
+%% 
+%% LPPL Version 1.1 or later is part of all distributions of LaTeX
+%% version 1999/06/01 or later.
+%% 
+%% 
+%% For error reports in case of UNCHANGED versions see readme files.
+%% 
+%% Please do not request updates from us directly.  Distribution is
+%% done through Mail-Servers, TeX organizations and others.
+%% 
+%% If you receive only some of these files from someone, complain!
+%% 
+%%
+%% \CharacterTable
+%%  {Upper-case    \A\B\C\D\E\F\G\H\I\J\K\L\M\N\O\P\Q\R\S\T\U\V\W\X\Y\Z
+%%   Lower-case    \a\b\c\d\e\f\g\h\i\j\k\l\m\n\o\p\q\r\s\t\u\v\w\x\y\z
+%%   Digits        \0\1\2\3\4\5\6\7\8\9
+%%   Exclamation   \!     Double quote  \"     Hash (number) \#
+%%   Dollar        \$     Percent       \%     Ampersand     \&
+%%   Acute accent  \'     Left paren    \(     Right paren   \)
+%%   Asterisk      \*     Plus          \+     Comma         \,
+%%   Minus         \-     Point         \.     Solidus       \/
+%%   Colon         \:     Semicolon     \;     Less than     \<
+%%   Equals        \=     Greater than  \>     Question mark \?
+%%   Commercial at \@     Left bracket  \[     Backslash     \\
+%%   Right bracket \]     Circumflex    \^     Underscore    \_
+%%   Grave accent  \`     Left brace    \{     Vertical bar  \|
+%%   Right brace   \}     Tilde         \~}
+%%
+\expandafter\ifx\csname documentclass\endcsname\relax
+    \documentstyle[german]{article}
+    \typeout{Using the command \string\documentstyle.}
+    \newcommand\LaTeXe{\LaTeX\kern.15em2$_\varepsilon$}
+  \else
+    \documentclass[10pt]{article}
+    \usepackage{german}
+    \typeout{Using the command \string\documentclass.}
+  \fi
+
+\newcommand\Dopt[1]{{\tt #1\/}}
+\newcommand\file[1]{{\tt #1\/}}
+
+\title{Standard Document Class `dinbrief'\\ for \LaTeX{} version 2e\\
+       Standard Document Style `dinbrief'\\ for \LaTeX{} version 2.09}
+
+\author{%
+Copyright \copyright\ 1993,\ 96,\ 98\\ by Klaus Dieter Braune, Richard Gussmann
+}
+\newenvironment{decl}%
+    {\par\small\addvspace{4.5ex plus 1ex}%
+     \vskip -\parskip
+     \noindent\hspace{-\leftmargini}%
+     \begin{tabular}{|l|}\hline\ignorespaces}%
+    {\\\hline\end{tabular}\par\nopagebreak\addvspace{2.3ex}%
+     \vskip -\parskip}
+\newcommand{\declline}[1]{\\\multicolumn1{|r|}{\small#1}}
+\newcommand{\m}[1]{\mbox{$\langle$\emph{#1}$\rangle$}}
+\renewcommand{\arg}[1]{{\tt\string{}\m{#1}{\tt\string}}}
+\expandafter\ifx\csname oarg\endcsname\relax
+  \newcommand{\oarg}[1]{{\tt[}\m{#1}{\tt]}}
+\fi
+\makeatletter
+\expandafter\ifx\csname cmd\endcsname\relax
+  \def\cmd#1{\cs{\expandafter\cmd@to@cs\string#1}}
+\fi
+\expandafter\ifx\csname cmd@to@cs\endcsname\relax
+\def\cmd@to@cs#1#2{\char\number`#2\relax}
+\fi
+\makeatother
+\expandafter\ifx\csname cs\endcsname\relax
+\def\cs#1{{\tt\char`\\#1}}
+\fi
+\newcommand{\env}[2]{\cmd{#1}{\protect\tt\char`\{#2\char`\}}}
+\newcommand{\envname}[1]{{\protect\tt#1}}
+\germanTeX
+\expandafter\ifx\csname emph\endcsname\relax
+  \newcommand\emph[1]{{\em#1\/}}% This is \emph{not} the LaTeX2e
+                                %  definition!
+\fi
+
+\begin{document}
+\maketitle
+
+\begin{table}[htp]
+\caption{Zusammenfassung der Dinbrief-Befehle (Teil 1):}\index{dinbrief>Befehle}
+
+\begin{center}
+\begin{tabular}{l}
+  \hline
+    \verb|\begin{document}|                                          \\
+    \verb|\end{document}|                                            \\
+  \hline
+    \verb|\begin{letter}|\arg{{Anschrift}}                           \\
+    \verb|\end{letter}|                                              \\
+  \hline
+    \verb|\signature|\arg{Unterschrift des Absenders}           \\
+    \verb|\address|\arg{{Name und Adresse des Absenders}}       \\
+    \verb|\backaddress|\arg{{Absenderadresse im Brieffenster}}  \\
+  \hline
+    \verb|\place|\arg{{Ortsangabe im Brief}}                    \\
+    \verb|\date|\arg{{Briefdatum}}                              \\
+    \verb|\yourmail|\arg{{Ihre Zeichen, Ihre Nachricht vom}}    \\
+    \verb|\sign|\arg{{Unsere Zeichen (, unsere Nachricht vom)}} \\
+    \verb|\phone|\arg{{Vorwahl}}\arg{{Rufnummer/Durchwahl}}     \\
+    \verb|\writer|\arg{{Sachbearbeiter}}                        \\
+  \hline
+    \verb|\subject|\arg{{Betreff}}                              \\
+    \verb|\concern|\arg{{Betreff}}                              \\
+    \verb|\opening|\arg{{Anrede}}                               \\
+    \verb|\closing|\oarg{Unterschrift}\arg{{Gru"sformel}}       \\
+  \hline
+    \verb|\centeraddress|                                       \\
+    \verb|\normaladdress|                                       \\
+  \hline
+    \verb|\encl|\arg{{Anlagen}}                               \\
+    \verb|\ps|\arg{{Postscriptum}}                            \\
+    \verb|\cc|\arg{{Verteiler}}                               \\
+  \hline
+    \verb|\makelabels|                                        \\
+    \verb|\labelstyle|\arg{{Stil der Label}}                  \\
+  \hline
+    \verb|\bottomtext|\arg{{Feld f\"ur Kapitalgesellschaften}}\\
+  \hline
+    \verb|\nowindowrules|                                     \\
+    \verb|\windowrules|                                       \\
+    \verb|\nobackaddressrule|                                 \\
+    \verb|\backaddressrule|                                   \\
+    \verb|\nowindowtics|                                      \\
+    \verb|\windowtics|                                        \\
+  \hline
+    \verb|\disabledraftstandard|                              \\
+    \verb|\enabledraftstandard|                               \\
+  \hline
+    \verb|\setaddressllcorner|\arg{Abstand vom linken Rand}   \\
+    \verb|\setaddressllhpos|\arg{Abstand vom linken Rand}     \\
+    \verb|\setaddressllvpos|\arg{Abstand vom oberen Rand}     \\
+    \verb|\addresshigh|                                       \\
+    \verb|\addressstd|                                        \\
+    \verb|\setaddresswidth|\arg{Breite des Anschriften-Fensters}\\
+    \verb|\setaddressheight|\arg{H"ohe des Anschriften-Fensters}\\
+    \verb|\setaddressoffset|\arg{Abstand vom linken Fensterrand}\\
+    \verb|\setbackaddressheight|\arg{H"ohe des Anschriften-Fensters}\\
+  \hline
+    \verb|\setreflinetop|\arg{Abstand vom oberen Rand}     \\
+    \verb|\setbottomtexttop|\arg{Abstand vom oberen Rand}   \\
+    \verb|\setupperfoldmarkvpos|\arg{Abstand vom oberen Rand} \\
+    \verb|\setlowerfoldmarkvpos|\arg{Abstand vom oberen Rand}  \\
+  \hline
+\end{tabular}
+\end{center}
+\end{table}
+
+\begin{table}[htp]
+\caption{Zusammenfassung der Dinbrief-Befehle (Teil 2):}\index{dinbrief>Befehle}
+
+\begin{center}
+\begin{tabular}{l}
+  \hline
+    \verb|\setlabelwidth|\arg{Breite eines Labels}            \\
+    \verb|\setlabelheight|\arg{H"ohe eines Labels}            \\
+    \verb|\setlabeltopmargin|\arg{oberer Rand}                \\
+    \verb|\setlabelnumber|\arg{Labelanzahl pro Spalte}        \\
+    \verb|\spare|\arg{Anzahl leerer Labels}                   \\
+  \hline
+    \verb|\stdaddress|\arg{Adresse des Absenders}             \\
+    \verb|\begin{dinquote}|                                   \\
+    \verb|\end{dinquote}|                                     \\
+    \verb|\enclright|                                         \\
+    \verb|\postremark|\arg{Postvermerk}                       \\
+    \verb|\handling|\arg{Behandlungsvermerk}                  \\
+  \hline
+\end{tabular}
+\end{center}
+\end{table}
+
+\end{document}
+\endinput
+%%
+%% End of file `dintab.tex'.

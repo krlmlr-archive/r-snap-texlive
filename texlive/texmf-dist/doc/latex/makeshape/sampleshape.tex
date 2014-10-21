@@ -1,0 +1,131 @@
+%%
+%% This is file `sampleshape.tex',
+%% generated with the docstrip utility.
+%%
+%% The original source files were:
+%%
+%% makeshape.dtx  (with options: `sample')
+%% 
+%% Copyright (C) 2013 by Adrian P Robson
+%%    adrian.robson@nepsweb.co.uk
+%% 
+%% This work may be distributed and/or modified under the
+%% conditions of the LaTeX Project Public License, either
+%% version 1.3c of this license or (at your option) any later
+%% version. The latest version of this license is in
+%%    http://www.latex-project.org/lppl.txt
+%% 
+%% This work has the LPPL maintenance status `maintained'.
+%% The Current Maintainer of this work is Adrian Robson.
+%% 
+%% This work consists of the files makeshape.ins
+%%                                 makeshape.dtx and
+%%                                 ontesting.dtx
+%% and the derived files           makeshape.sty
+%%                                 makeshape.pdf
+%%                                 sampleshape.tex
+%%                                 ontesting.pdf
+%%                                 testsample.tex and
+%%                                 testsample.pdf
+%% 
+%%--------------------------------------------------
+%%
+%% This is a sample shape for the makeshape package
+%%
+%% It can be adapted for other shapes. See
+%% makeshape.pdf for instructions.
+%%
+%% 25 January 2013
+
+\usepackage{makeshape}
+\makeatletter
+
+%% Constant for sample shape
+\def\gap{4pt}
+
+%% Anchor path <- change and rename as required
+\def\sampleanchor{
+   % get corrected text box
+   \pgf@xa=\ctbnex
+   \pgf@ya=\ctbney
+   % make room for shape
+   \advance\pgf@xa by \gap
+   \advance\pgf@ya by \gap
+   % correct for minheight and minwidth and
+   % for outerxsep or outerysep
+   \mincorrect{\pgf@xa}{\pgfshapeminwidth}
+   \advance\pgf@xa\pgfshapeouterxsep
+   \mincorrect{\pgf@ya}{\pgfshapeminheight}
+   \advance\pgf@ya\pgfshapeouterysep
+   % draw the path
+   \pgfpathmoveto{\pgfpoint{\pgf@xa}{\pgf@ya}}
+   \pgfpathlineto{\pgfpoint{\pgf@xa}{-\pgf@ya}}
+   \pgfpathlineto{\pgfpoint{-\pgf@xa}{-\pgf@ya}}
+   \pgfpathlineto{\pgfpoint{-\pgf@xa}{\pgf@ya}}
+   \pgfpathclose
+}
+
+%% Background path <- change and rename as required
+\def\sampleborder{
+   % get corrected text box
+   \pgf@xa=\ctbnex
+   \pgf@ya=\ctbney
+   % make room for shape
+   \advance\pgf@xa by \gap
+   \advance\pgf@ya by \gap
+   % correct for minheight and minwidth but
+   %    not for outerxsep or outerysep
+   \mincorrect{\pgf@xa}{\pgfshapeminwidth}
+   \mincorrect{\pgf@ya}{\pgfshapeminheight}
+   % draw outer shape
+   \pgfpathmoveto{\pgfpoint{\pgf@xa}{\pgf@ya}}
+   \pgfpathlineto{\pgfpoint{\pgf@xa}{-\pgf@ya}}
+   \pgfpathlineto{\pgfpoint{-\pgf@xa}{-\pgf@ya}}
+   \pgfpathlineto{\pgfpoint{-\pgf@xa}{\pgf@ya}}
+   \pgfpathclose
+   % draw inner shape
+   \advance\pgf@xa by -\gap
+   \advance\pgf@ya by -\gap
+   \pgfpathmoveto{\pgfpoint{\pgf@xa}{\pgf@ya}}
+   \pgfpathlineto{\pgfpoint{\pgf@xa}{-\pgf@ya}}
+   \pgfpathlineto{\pgfpoint{-\pgf@xa}{-\pgf@ya}}
+   \pgfpathlineto{\pgfpoint{-\pgf@xa}{\pgf@ya}}
+   \pgfpathclose
+}
+
+%%------------------------------------------------
+%% Shape declaration <- Change name as required
+\pgfdeclareshape{sample}{
+
+   % Set paths <- change path macros as required
+   \setpaths{\sampleanchor}{\sampleborder}
+
+   % Saved anchors <- change as required
+   \savedanchor{\northeast}{
+      \pgf@x = \ctbnex
+      \pgf@y = \ctbney
+      \advance\pgf@x by \gap
+      \advance\pgf@y by \gap
+      \mincorrect{\pgf@x}{\pgfshapeminwidth}
+      \mincorrect{\pgf@y}{\pgfshapeminheight}
+      \advance\pgf@x\pgfshapeouterxsep
+      \advance\pgf@y\pgfshapeouterysep
+   }
+
+   % Anchors <- change as required
+   \anchor{north}{\northeast \pgf@x=0pt}
+   \anchor{north east}{\northeast}
+   \anchor{east}{\northeast \pgf@y=0pt}
+   \anchor{south east}{\northeast \pgf@y=-\pgf@y}
+   \anchor{south}{\northeast \pgf@x=0pt \pgf@y=-\pgf@y}
+   \anchor{south west}{\northeast \pgf@x=-\pgf@x \pgf@y=-\pgf@y}
+   \anchor{west}{\northeast \pgf@x=-\pgf@x \pgf@y=0pt}
+   \anchor{north west}{\northeast \pgf@x=-\pgf@x}
+
+}
+
+\makeatother
+
+\endinput
+%%
+%% End of file `sampleshape.tex'.

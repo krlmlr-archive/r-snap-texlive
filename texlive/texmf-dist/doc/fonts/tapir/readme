@@ -1,0 +1,48 @@
+The 'Tapir' is a simple geometrical font mostly created of line and circular segments with constant thickness.
+The character set contains all characters in the range 0--127 (as in cmr10), accented characters used
+in czech, slovak and polish language.
+
+There are some other characters which are not created and encoded by default. To use them create your own encoding
+(see 'tap-enc.mf'). Full list of available symbols can be obtained by
+
+                       grep "iff known" tap.mf | sed -e "s/iff known \(.*\):/\1/"
+
+The set of symbols contains accented latin-based characters (identifiers beginning 'latin_') and some special symbols
+(identifiers beginning 'sign_'). Download the Type1 font with all characters from my web page.
+
+
+Installation:
+1) copy tap.mf into appropriate directory (e.g. texmf/fonts/source/public/tapir)
+2) copy tap.pfb into appropriate directory (e.g. texmf/fonts/type1/public/tapir)
+3) add line `tap Tapir <tap.pfb' into dvips map file (e.g. texmf/dvips/config/psfonts.map)
+4) refresh TeX database (mktexlsr)
+
+Testing of installation:
+1) run `tex testfont'
+2) enter `tap'
+3) enter `\table\end'
+4) view testfont.dvi
+
+Usage:
+1) put `\font\tapir tap' into your document
+2) use as `{\tapir My text}'
+
+Notes:
+1) There are some parameters on the beginning of `tap.mf' file. You can change them but the result is not predictable.
+2) There is a boolean parameter 'serifs'. When it is set 'true' by running METAFONT with
+                               boolean serifs; serifs:=true; input tap
+   lowercase letters will have upper serifs.
+3) Simple italic version can be made via `boolean italic; italic:=true; slant:=.25; input tap'. Only letters `a' and `g'
+   have different look.
+
+This font is licensed under GNU GPL.
+WWW: http://mitek.webpark.cz
+email: mitek@email.cz
+
+-----------------------------------------------
+Version 0.2    August 29, 2004
+               added polish and other characters (128+248)
+
+Version 0.1    July 17, 2004
+               initial release
+

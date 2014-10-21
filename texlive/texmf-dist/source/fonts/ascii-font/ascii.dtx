@@ -1,0 +1,280 @@
+%% \CharacterTable
+%%  {Upper-case    \A\B\C\D\E\F\G\H\I\J\K\L\M\N\O\P\Q\R\S\T\U\V\W\X\Y\Z
+%%   Lower-case    \a\b\c\d\e\f\g\h\i\j\k\l\m\n\o\p\q\r\s\t\u\v\w\x\y\z
+%%   Digits        \0\1\2\3\4\5\6\7\8\9
+%%   Exclamation   \!     Double quote  \"     Hash (number) \#
+%%   Dollar        \$     Percent       \%     Ampersand     \&
+%%   Acute accent  \'     Left paren    \(     Right paren   \)
+%%   Asterisk      \*     Plus          \+     Comma         \,
+%%   Minus         \-     Point         \.     Solidus       \/
+%%   Colon         \:     Semicolon     \;     Less than     \<
+%%   Equals        \=     Greater than  \>     Question mark \?
+%%   Commercial at \@     Left bracket  \[     Backslash     \\
+%%   Right bracket \]     Circumflex    \^     Underscore    \_
+%%   Grave accent  \`     Left brace    \{     Vertical bar  \|
+%%   Right brace   \}     Tilde         \~}
+%\iffalse
+%
+% (c) copyright 2006 A Syropoulos & RWD Nickalls
+% This program can be redistributed and/or modified under the terms
+% of the LaTeX Project Public License Distributed from CTAN
+% archives in directory macros/latex/base/lppl.txt; either
+% version 1 of the License, or any later version.
+%
+% Please report errors or suggestions for improvement to
+%    
+%    Apostolos Syropoulos	and/or Dick Nickalls
+%    asyropoulos@yahoo.com	dicknickalls@compuserve.com
+%
+%\fi
+% \CheckSum{286}
+% \iffalse This is a Metacomment
+%
+%<ascii, >\ProvidesFile{ascii.sty}
+%
+%<ascii, >  [2006/05/30 v2.0 Package `ascii.sty']
+%
+%    \begin{macrocode}
+%<*driver>
+\documentclass{ltxdoc}
+\usepackage{ascii,fullpage}
+\GetFileInfo{ascii.drv}
+\begin{document}
+   \DocInput{ascii.dtx}
+\end{document}
+%</driver>
+%    \end{macrocode}
+% \fi
+%\StopEventually{}
+%\MakeShortVerb{\|}
+%\title{The `ascii' package}
+%\author{A. Syropoulos and R.W.D. Nickalls}
+% \date{2006/05/30}
+%\maketitle
+% \begin{abstract}
+% The \textsf{ascii} package provides glyph and font access commands so
+% that \LaTeX\ users can use the ASCII font in their documents. The ASCII font
+% is encoded according to the {\em IBM PC Code Page 437 C0 Graphics}. This
+% package replaces any early \LaTeX2.09 package and "font" by R. Ramasubramanian and
+% R.W.D. Nickalls.   
+% symbols.  
+%\end{abstract}
+%
+% \section{Introduction}
+% In a number of documents it is quite useful to be able to use the graphical
+% representation of the first 32 ASCII characters as these have been defined
+% in the {\em IBM PC Code Page 437 C0 Graphics}. For this reason, in 1993 R. Ramasubramanian and 
+% R.W.D. Nickalls implemented the \textsf{ascii} package and provided a font so to allow
+% \LaTeX\ users to typeset the graphical representation of these characters. The present package
+% is a rewrite of the original package that relies on a new Type~1 font designed from scratch.
+% Naturally, the new package uses the NFSS to provide access to the accompanying font.  
+% 
+% Table~\ref{tab:1} shows the
+% the graphical representation of the various ASCII control characters. Notice
+% that these graphical representations are now part of the Unicode standard
+% as individual characters, which, however, do not represent the actual control
+% characters. In other words, the visual representations of the the control characters are now 
+% Unicode characters. In addition, the new font included a visual representation of the
+% ``NO BREAK SPACE'' character, since it is practically a font ``implementing'' the 
+% ISO8859-7 character set.
+% 
+% To access the control characters one can use the commands of the following
+% table:
+% \begin{center}
+%  \begin{tabular}{cccc}\hline
+%    Command  & ASCII & Command      & ASCII \\ \hline 
+% \verb|\SOH| & 0x1   & \verb|\DCa|  & 0x11 \\
+% \verb|\STX| & 0x2   & \verb|\DCb|  & 0x12 \\
+% \verb|\ETX| & 0x3   & \verb|\DCc|  & 0x13 \\
+% \verb|\EOT| & 0x4   & \verb|\DCd|  & 0x14 \\
+% \verb|\ENQ| & 0x5   & \verb|\NAK|  & 0x15 \\
+% \verb|\ACK| & 0x6   & \verb|\SYN|  & 0x16 \\
+% \verb|\BEL| & 0x7   & \verb|\ETB|  & 0x17 \\
+% \verb|\BS|  & 0x8   & \verb|\CAN|  & 0x18 \\
+% \verb|\HT|  & 0x9   & \verb|\EM|   & 0x19 \\
+% \verb|\LF|  & 0xA   & \verb|\SUB|  & 0x1A \\
+% \verb|\VT|  & 0xB   & \verb|\ESC|  & 0x1B \\
+% \verb|\FF|  & 0xC   & \verb|\FS|   & 0x1C \\
+% \verb|\CR|  & 0xD   & \verb|\GS|   & 0x1D \\
+% \verb|\SO|  & 0xE   & \verb|\RS|   & 0x1E \\
+% \verb|\SI|  & 0xF   & \verb|\US|   & 0x1F \\
+% \verb|\DEL| & 0x10  & \verb|\DEL|  & 0x7F \\ 
+% \verb|\NUL| & 0x0   & \verb|\NBSP| & 0x20 \\ 
+%\hline
+%  \end{tabular}
+% \end{center}
+% Unfortunately, the standard glyph access commands for the various special
+% \LaTeX\ symbols do not give the expected results and, so, we had to define
+% a number of commands to provide access to these special glyphs. These
+% commands are shown below:
+%\begin{center}
+%\begin{tabular}{lc}\hline
+%Command                 & Character \\ \hline
+%\verb|\asciihash|       & \asciihash\\
+%\verb|\asciipercent|    & \asciipercent\\
+%\verb|\asciicircum|     & \asciicircum\\
+%\verb|\asciitilde|      & \asciitilde\\
+%\verb|\asciilbrace|     & \asciilbrace\\
+%\verb|\asciidollar|     & \asciidollar\\
+%\verb|\asciiampersand|  & \asciiampersand\\
+%\verb|\asciiunderscore| & \asciiunderscore\\
+%\verb|\asciibackslash|  & \asciibackslash\\
+%\verb|\asciirbrace|     & \asciirbrace\\ 
+%\verb|\asciispace|      & \asciispace\\
+%\verb|\asciivert|       & \asciivert\\
+%\verb|\splitvert|       & \splitvert\\
+%\verb|\isosplitvert|    & \isosplitvert\\
+%\verb|\asciiquotedbl|   & \asciiquotedbl\\
+%\verb|\asciiquotegrave| & \asciiquotegrave\\
+%\verb|\asciiquoteacute| & \asciiquoteacute\\\hline
+%\end{tabular}
+%\end{center}
+% The reader should be aware that all these glyph access commands have been implemented 
+% using the \textsf{xspace} package and, thus, one does need to take any special 
+% precaution when using them. In addition, if someone wishes to typeset Greek text using
+% this package, he/she needs to use a Greek keyboard as there are no special glyph access
+% commands for the ``Greek'' characters of ISO8859-7.
+%
+% The command \verb|\textascii| is a font switching command and its argument is
+% typeset using the ASCII font.
+%\begin{table}
+%\begin{center}
+%\begin{tabular}{crlc}\hline\hline
+%  Code & IBM &  Unicode Name          & Glyph\\ \hline\hline          
+%  2400 &  00 &  NUL                   & \textascii{\char"00}\\               
+%  263A &  01 &  White smiling face    & \textascii{\char"01}\\   
+%  263B &  02 &  Black smiling face    & \textascii{\char"02}\\   
+%  2665 &  03 &  Black heart suit      & \textascii{\char"03}\\      
+%  2666 &  04 &  Black diamond suit    & \textascii{\char"04}\\   
+%  2663 &  05 &  Black club suit       & \textascii{\char"05}\\      
+%  2660 &  06 &  Black space suit      & \textascii{\char"06}\\     
+%  2022 &  07 &  Bullet                & \textascii{\char"07}\\               
+%  25D8 &  08 &  Inverse bullet        & \textascii{\char"08}\\       
+%  25EF &  09 &  Large circle          & \textascii{\char"09}\\         
+%  25D9 &  0A &  Inverse white circle  & \textascii{\char"0A}\\ 
+%  2642 &  0B &  Male sign             & \textascii{\char"0B}\\            
+%  2640 &  0C &  Female sign           & \textascii{\char"0C}\\          
+%  266A &  0D &  Eighth note           & \textascii{\char"0D}\\          
+%  266C &  0E &  Beamed 16th notes     & \textascii{\char"0E}\\    
+%  263C &  0F &  White sun with rays   & \textascii{\char"0F}\\   
+%  25BA &  10 &  Black right-pointing pointer & \textascii{\char"10}\\
+%  25C4 &  11 &  Black left-pointing pointer  & \textascii{\char"11}\\
+%  2195 &  12 &  Up down arrow          & \textascii{\char"12}\\
+%  203C &  13 &  Double exclamation mark & \textascii{\char"13}\\
+%  00B6 &  14 &  Pilcrow sign          & \textascii{\char"14}\\
+%  00A7 &  15 &  Section sign          & \textascii{\char"15}\\
+%  25AC &  16 &  Black rectangle       & \textascii{\char"16}\\
+%  21A8 &  17 &  Up down arrow with base & \textascii{\char"17}\\
+%  2191 &  18 &  Upwards arrow         & \textascii{\char"18}\\
+%  2193 &  19 &  Downwards arrow       & \textascii{\char"19}\\
+%  2192 &  1A &  Rightwards arrow      & \textascii{\char"1A}\\
+%  2190 &  1B &  Leftwards arrow       & \textascii{\char"1B}\\
+%  2319 &  1C &  Turned not sign       & \textascii{\char"1C}\\
+%  2194 &  1D &  Left right arrow      & \textascii{\char"1D}\\
+%  25B2 &  1E &  Black up-pointing triangle & \textascii{\char"1E}\\
+%  25BC &  1F &  Black down-pointing triangle & \textascii{\char"1F}\\
+%  00A0 &  -- &  NO BREAK SPACE        & \textascii{\char"A0}\\\hline 
+%\end{tabular}
+%\end{center}
+% \caption{The graphical representation of the first 32 ASCII characters 
+%          provided by the ASCII font.}\label{tab:1}
+%\end{table}
+%
+% \section{The Source Code}
+% The first thing we need to do is to define a new font family and the relevant
+% font substitutions. 
+%    \begin{macrocode}
+%<*ascii>
+\DeclareFontFamily{U}{ascii}{\hyphenchar \font\m@ne}
+\DeclareFontShape{U}{ascii}{m}{n}{
+   <-> ASCII}{}
+\DeclareFontShape{U}{ascii}{m}{sl}{
+   <-> ssub * ascii/m/n}{}
+\DeclareFontShape{U}{ascii}{m}{it}{
+   <-> ssub * ascii/m/n}{}
+\DeclareFontShape{U}{ascii}{m}{sc}{
+   <-> ssub * ascii/m/n}{}
+\DeclareFontShape{U}{ascii}{bx}{n}{
+   <-> ssub * ascii/m/n}{}
+\DeclareFontShape{U}{ascii}{bx}{sl}{
+   <-> ssub * ascii/m/n}{}
+\DeclareFontShape{U}{ascii}{bx}{it}{
+   <-> ssub * ascii/m/n}{}
+\DeclareFontShape{U}{ascii}{bx}{sc}{
+   <-> ssub * ascii/m/n}{}
+%    \end{macrocode}
+% Now we need to define a font access command:
+%    \begin{macrocode}
+\def\asciifamily{\fontencoding{U}\fontfamily{ascii}\selectfont}
+\long\def\textascii#1{{\asciifamily #1}}
+%    \end{macrocode}
+% The next step is to define glyph access commands for the first 32 glyphs
+% of the font and the various special \TeX\ characters. 
+%    \begin{macrocode}
+\RequirePackage{xspace}
+\def\NUL{{\asciifamily\char"00}\xspace}
+\def\SOH{{\asciifamily\char"01}\xspace}
+\def\STX{{\asciifamily\char"02}\xspace}
+\def\ETX{{\asciifamily\char"03}\xspace}
+\def\EOT{{\asciifamily\char"04}\xspace}
+\def\ENQ{{\asciifamily\char"05}\xspace}
+\def\ACK{{\asciifamily\char"06}\xspace}
+\def\BEL{{\asciifamily\char"07}\xspace}
+\def\BS{{\asciifamily\char"08}\xspace}
+\def\HT{{\asciifamily\char"09}\xspace}
+\def\LF{{\asciifamily\char"0A}\xspace}
+\def\VT{{\asciifamily\char"0B}\xspace}
+\def\FF{{\asciifamily\char"0C}\xspace}
+\def\CR{{\asciifamily\char"0D}\xspace}
+\def\SO{{\asciifamily\char"0E}\xspace}
+\def\SI{{\asciifamily\char"0F}\xspace}
+\def\DLE{{\asciifamily\char"10}\xspace}
+\def\DCa{{\asciifamily\char"11}\xspace}
+\def\DCb{{\asciifamily\char"12}\xspace}
+\def\DCc{{\asciifamily\char"13}\xspace}
+\def\DCd{{\asciifamily\char"14}\xspace}
+\def\NAK{{\asciifamily\char"15}\xspace}
+\def\SYN{{\asciifamily\char"16}\xspace}
+\def\ETB{{\asciifamily\char"17}\xspace}
+\def\CAN{{\asciifamily\char"18}\xspace}
+\def\EM{{\asciifamily\char"19}\xspace}
+\def\SUB{{\asciifamily\char"1A}\xspace}
+\def\ESC{{\asciifamily\char"1B}\xspace}
+\def\FS{{\asciifamily\char"1C}\xspace}
+\def\GS{{\asciifamily\char"1D}\xspace}
+\def\RS{{\asciifamily\char"1E}\xspace}
+\def\US{{\asciifamily\char"1F}\xspace}
+\def\DEL{{\asciifamily\char'177}\xspace}
+\def\NBSP{{\asciifamily\char"A0}\xspace}
+\def\asciihash{{\asciifamily\char`\#}\xspace}
+\def\asciipercent{{\asciifamily\char`\%}\xspace}
+\def\asciicircum{{\asciifamily\char`\^}\xspace}
+\def\asciitilde{{\asciifamily\char`\~}\xspace}
+\def\asciilbrace{{\asciifamily\char`\{}\xspace}
+\def\asciidollar{{\asciifamily\char`\$}\xspace}
+\def\asciiampersand{{\asciifamily\char`\&}\xspace}
+\def\asciiunderscore{{\asciifamily\char`\_}\xspace}
+\def\asciibackslash{{\asciifamily\char`\\}\xspace}
+\def\asciirbrace{{\asciifamily\char`\}}\xspace}
+\def\asciispace{{\asciifamily\char"20}\xspace}
+%    \end{macrocode}
+% The following three commands provide access to glyphs that were not included in the
+% original font.
+%    \begin{macrocode}
+\def\asciiquotedbl{{\asciifamily\char"22}\xspace}
+\def\asciiquotegrave{{\asciifamily\char"60}\xspace}
+\def\asciiquoteacute{{\asciifamily\char"27}\xspace}
+%    \end{macrocode}
+% In the original \textsf{ascii} package the |\splivert| command was supposed to provide 
+% access to the \splitvert character. However, it actually provided access to the
+% \asciivert character. To remedy this drawback, we introduced the correct glyph in
+% the new font and provided a new command to access this glyph. Needless to say, the
+% old command is now an alias to the new command. 
+%    \begin{macrocode}
+\def\isosplitvert{{\asciifamily\char"A6}\xspace}
+\def\asciivert{{\asciifamily\char"7C}\xspace}
+\let\splitvert\isosplitvert
+%</ascii>
+%    \end{macrocode}
+%
+% \Finale

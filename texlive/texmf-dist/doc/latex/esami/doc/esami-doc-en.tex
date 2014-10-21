@@ -1,0 +1,720 @@
+%\documentclass[10pt]{article}
+
+%\iffalse    This is a METACOMMENT
+%
+%<*driver>
+%\ProvidesFile{esami.dtx}
+\documentclass{ltxdoc}
+%\usepackage[colorlinks,hyperindex]{hyperref}
+%\usepackage{esami}
+\usepackage[braces]{colordoc}
+\usepackage[T1]{fontenc}
+\usepackage{calc}
+%\usepackage{textcomp}
+\usepackage{lmodern}
+\usepackage{comandi}
+\usepackage[utf8]{inputenc}
+\usepackage[english]{babel}
+\usepackage{graphicx}
+\usepackage[dvipsnames,svgnames]{xcolor}
+\usepackage{fancyvrb}
+\usepackage[lmargin=3.5cm,rmargin=3.5cm]{geometry}
+\usepackage[colorlinks=true,pdftex,hyperindex=true]{hyperref}
+\newcounter{esempio}
+\newsavebox{\fcolbox} %\newlength{\fcolwidth}
+\newenvironment{esempio}
+{\par \medskip
+\begin{example}
+  }
+  {\end{example}\medskip}
+
+\newenvironment{example}
+{\noindent\stepcounter{esempio}%\setlength{\fcolwidth}{\textwidth-2\fboxsep-2\fboxrule}%
+\begin{lrbox}{\fcolbox}%
+\begin{minipage}[c]{\textwidth-2\fboxsep-2\fboxrule}
+\textbf{\textsf{Example \theesempio.}}
+}
+{\end{minipage}\end{lrbox}\fbox{\usebox{\fcolbox}}}
+
+
+\EnableCrossrefs
+\CodelineIndex
+\PageIndex
+\RecordChanges
+\OnlyDescription
+\CheckSum{6041}
+\begin{document}
+%\GetFileInfo{esami.sty}
+%  \DocInput{esami.dtx}
+  %\PrintChanges
+  %\PrintIndex
+
+%</driver>
+%\fi
+%
+%  \CharacterTable
+%  {Upper-case    \A\B\C\D\E\F\G\H\I\J\K\L\M\N\O\P\Q\R\S\T\U\V\W\X\Y\Z
+%   Lower-case    \a\b\c\d\e\f\g\h\i\j\k\l\m\n\o\p\q\r\s\t\u\v\w\x\y\z
+%   Digits        \0\1\2\3\4\5\6\7\8\9
+%   Exclamation   \!     Double quote  \"     Hash (number) \#
+%   Dollar        \$     Percent       \%     Ampersand     \&
+%   Acute accent  \'     Left paren    \(     Right paren   \)
+%   Asterisk      \*     Plus          \+     Comma         \,
+%   Minus         \-     Point         \.     Solidus       \/
+%   Colon         \:     Semicolon     \;     Less than     \<
+%   Equals        \=     Greater than  \>     Question mark \?
+%   Commercial at \@     Left bracket  \[     Backslash     \\
+%   Right bracket \]     Circumflex    \^     Underscore    \_
+%   Grave accent  \`     Left brace    \{     Vertical bar  \|
+%   Right brace   \}     Tilde         \~}
+%
+
+\changes{Version 1.0}{2013/03/08}{First version released to CTAN}
+\changes{Version 1.1}{2013/12/09}{Inserted the dependance on the package \texttt{environ} to remove some errors in the \LaTeX\ compilation. Removed the dependance on the package \texttt{icomma} in the italian localization file es-italian.lng because of the introduction of new features in the package \texttt{babel} for the Italian langaguage (macro \texttt{IntelligentComma}).}
+
+\IndexPrologue{\section*{Index} Numbers written in italic refer to the page where the item is described; underlined numebers refer to the line of code in which the item is described; other references are to the line of code where the item is used.}
+\GlossaryPrologue{\section*{Changelog}}
+\def\MacroFont{\fontencoding\encodingdefault
+\fontfamily\ttdefault
+\fontseries\mddefault
+\fontshape\updefault
+\footnotesize}
+\GetFileInfo{esami.sty}
+\def\fileversion{versione 1.1}
+\def\filedate{2013/12/09}
+
+
+ \title{Package esami\thanks{This document
+   refers to the package \textsf{esami}~\fileversion, with date \filedate.}}
+ \author{Grazia Messineo <grazia.messineo@unicatt.it> \\ Salvatore Vassallo <salvatore.vassallo@unicatt.it>}
+\newcommand{\nuovo}[1]{\marginpar{\raggedleft{ \footnotesize{\textsf{Nuovo #1}}}}}
+
+ \maketitle
+
+ \tableofcontents
+ \newpage
+\newcommand*\pkgname[1]{\texttt{#1}}
+\newcommand*\clsname[1]{\texttt{#1}}
+\newcommand*\optname[1]{\emph{#1}}
+\newcommand*\envname[1]{\textsf{#1}}
+
+%\section{Il pacchetto esami}
+\section{Introduction and motivations}
+Package \texttt{esami} (i.e. exams in Italian) was created to generate texts and solutions for the exams of Mathematics in the Faculty of Economics of Catholic University of Milan and satisfies the need of generating many versions (usually from 12 to 50) of the same exam, containing similar, but different, exercises, of printing solutions and, if Multiple Choice Questions (MCQ) are inserted, the string of correct answers.
+
+The package allows to write various type of exercises (multiple choiche questions with answers varying in random order, with closed or open answer, \emph{matching}, problems, and so on). Questions of each group are randomly scrambled across the exam and variants of each exercise are chosen randomly from a file which contains them all and, as far as we know, it is the only package which allows to do this just using \LaTeX\ ad not auxiliary programs.
+
+The development of the package has begun in 2008 with the aim of unify and extend some properties of the packages \pkgname{exerquiz} e \pkgname{eqexam} by D.P. Story \cite{acrotex} and \pkgname{probsoln} by N.Talbot \cite{probsoln}.
+\section{Required packages}
+Package \pkgname{esami} depends on some other non standard packages:
+\begin{enumerate}
+\item \pkgname{fp}: for mathematical operations;
+\item \pkgname{currfile}: to obtain the file and folder names;
+\item \pkgname{xargs}: to have more than one optional parameter;
+\item \pkgname{pstricks}, \pkgname{pstricks-add} e \pkgname{auto-pst-pdf}: for graphics (our choice was \pkgname{pstricks} instead of other similar packages because we are used to it);
+\end{enumerate}
+Moreover following packages are optional, but recommended:
+\begin{enumerate}
+\item \pkgname{lmodern} and \pkgname{amsfonts}: useful for a good pdf output;
+\item \pkgname{numprint}: to have a better output  and different formats for numbers, depending on language;
+\item \pkgname{icomma}: from \pkgname{ws} package, for a correct format of commas;
+\item \pkgname{eurosym}: (optional) to use the euro symbol in Financial Mathematics exercises;
+\item \pkgname{icomma}: from the package \pkgname{ws} for a correct formatting of commas. This package can be substituted, for the Italian language, by the macro \cmd{\IntelligentComma} of the package \pkgname{babel}: this is the default option in the italian localization file  \texttt{es-italian.lng} and can be modified by commenting the macro \cmd{\IntelligentComma} (or by using the macro \cmd{\NoIntelligentComma}).
+\end{enumerate}
+All these packages are available both in \TeX Live and in Mik\TeX.
+
+\section{Installation}
+
+The package contains the file {\tt esami.sty}, some configuration files {\tt *.cfg}, 3 templates for the compilation and the documentation files. File {\tt sty} and files {\tt cfg} and {\tt lng} must be copied in a folder where \LaTeX\ can find them (i.e. {\tt texmf-local/tex/latex/esami}). An update of the database must be run.
+
+\section{How to write an exam}
+In this section we will see how to build an exam using the ``esami'' package.
+
+\subsection{Preamble}
+\begin{verbatim}
+\documentclass[<language>]{article}
+\usepackage[<options>]{esami}
+\end{verbatim}
+Options are discussed in section \ref{sec:opzioni}.
+\begin{verbatim}
+\def\numcompiti{10}
+\date{2013/04/21}%%% THE DATE IN THE FORMAT YYYY/MM/DD
+\def\Data{\longdate}%%% or \shortdate: the date in the heading
+\end{verbatim}
+Command \cmd{\date} is the standard \LaTeX\ command, but the date must be written in the form YYYY/MM/DD. Command \cmd{\numcompiti} states the number of versions to generate. Command \cmd{\Date} now prints the date in the form DD MMMM YYYY (\cmd{\longdate}) or DD/MM/YYYY
+\subsection{The document}
+\begin{verbatim}
+\begin{document}
+\date{\Data} \pagestyle{esame}
+%% \immediate\openout\sols=\thenomefile.sol.tex
+\end{verbatim}
+ Command \cmd{\pagestyle} is defined in a configuration file (see section \ref{sec:cfg}) and defines headers and footers. The commented command is used in the solutions file to generate another file which contains the string of the correct answers to MCQ.
+\begin{verbatim}
+\whiledo{\thevers<\numcompiti}{\stepcounter{vers}
+\end{verbatim}
+the routine for the compilation of variants begins here and it will end at the end of document.
+\begin{verbatim}
+\FPeval\seme{round((\thenomefile+\thevers):0)}
+\randomi=\seme
+\end{verbatim}
+generates the seed for the randomization process and assigns it also to \cmd{\randomi}.
+\begin{verbatim}
+%%\immediate\write\sols{\string\begin{minipage}{.33\string\textwidth}
+\string\large\string\textbf{Solution of Version n. \thevers}}
+\testa
+\istruzionii
+\end{verbatim}
+ \cmd{\testa}, \cmd{\istruzionii} are defined in the configuration file and contain the instructions for the heading and the instructions for the exam, while the commented command generates the string of the correct answers in the solutions file.
+\begin{verbatim}
+\begin{test}[points]
+\begin{questions}
+\esercizi{test1,test2,test3,test4}
+\end{questions}
+\end{test}
+%%\immediate\write\sols{\string\par\string\end\string{enumerate\string}\string\end{minipage}
+%%   \string\vspace{1.5cm}}
+\end{verbatim}
+Here we define an environment for a test with (usually) MCQ.  The command \cmd{\esercizi} chooses randomly the exercises from the files written in it and scrambles them. As before, the commented commands are used in the solutions file to generate the string of the correct answers.
+\begin{verbatim}
+  \esercizi{problema1, problema2}
+\end{verbatim}
+chooses between two exercises with open answer.
+\begin{verbatim}
+\setcounter{page}{1}
+}
+%%\immediate\closeout\sols
+%%\stringasol
+\end{document}
+\end{verbatim}
+It ends the routine for the compilation and closes the string of correct answers in the solution file.
+
+
+\section{Package options}\label{sec:opzioni}
+The package can be loaded with the usual command
+\cmd{\usepackage}[\meta{options}]\{esami\}. The possibile options are:
+  \begin{itemize}
+  \item \optname{allowrandomize} and \optname{norandomize}: with the first one the answers in MCQ are shuffled (default), with the second one they are printed in the same order in which they are written;
+   \item \optname{shuffle}, \optname{shufflerandom} and \optname{noshuffle}: the first one (the default) shuffles the exercises (randomly if they are more than eight, in a deterministic way if they are 8 or less), with the second one the exercises are always shuffled randomly (uncommenting   some lines in the file \texttt{esami.sty} it is possible to modify it so that the choice is random for more than $n<8$ exercises and deterministic otherwise), with the third  the exercises are not shuffled;
+  \item \optname{xyz}: it reads the  file (\verb|esami-xyz.cfg|) that contains some  commands and configurations, such as the name of the course, the instructions for the students, etc. The name of some configuration files is written in the file \texttt{esami.sty}, but it is possible to read a configuration file without modifying it: it is sufficient to put an unknown option like \optname{zzz} and write the file \verb|esami-zzz.cfg|;
+  \item \optname{pointsonright}: it is a boolean option that  generates a little box on the right of the page with the score of the exercise;
+    \item \optname{nosolutions}: with this option the exam is generated without  solutions (default);
+    \item \optname{solutions}: it generates the solutions file;
+    \item \optname{solutionsonly}: it generates a file with the solutions only  if  the environment \envname{domanda} is used;
+    \item \optname{prova}:  it is the Italian word for trial. Compiling the  file \verb|totale-versioni| with this option,  a PDF file is generated with all the variants of an exercise; automatically  the correct answers of MCQ and the solutions of the exercises are shown;
+    \item \optname{param}: with this option, used only in conjunction with the option \optname{prova}, the versions of the exercise are printed in parametric form, moreover it shows the range of variation of the parameters;
+    \item \optname{correzione}: it is the Italian word for correction. It can be used only with the option \optname{prova}. It prints only the text of all the exercises, without solution;
+   \item  \optname{fillb}: this option is necessary in order to have the correct answers in the string of solutions if there are exercises of  \verb|fillin| type;
+   \item \optname{twocolumns}: with this option the multiple choice questions are printed in two columns;
+   \item  \optname{sansserif}: a  \textit{sans serif} font is used.
+    \item \optname{autopston} e \optname{autopstoff}: both these options load the package  \pkgname{auto-pst-pdf} but the second one with the option \optname{off}; in this way it is possible to compile the file directly with PDF\LaTeX\ also if the exercises contain graphics in \pkgname{pstricks}, the graphics package we use. With the first one the images are generated and included in the document, while the second one does not generate the images but includes them if they exist.\VerbatimFootnotes
+\footnote{The package \pkgname{auto-pst-pdf} requires PDF\LaTeX\ to be called with the  \texttt{shell-escape} (in \TeX Live) or \texttt{write18} (in MiK\TeX) option}.
+\item {\optname{language}}: it reads the localisation file es-language.lng (see \ref{sec:lngsec:lng}). In this file there are the translations of the labels (exercise, solution, \dots), of the error messages, of the headings contained in the  file (\texttt{esami-xyz.cfg}). By default Italian language is chosen. Since these language options have the same name of the languages in \pkgname{babel} it's possible to put the option in \cmd{\documentclass}.
+\end{itemize}
+
+
+  \section{Exercises}
+  \subsection{Variants}
+ Each exercise (with all its variants) must be written in a separate file.
+\DescribeMacro{\newproblem}
+Each variant is enclosed in the command
+\cmd{\newproblem\{ .... \}} (which has no optional arguments).
+\begin{esempio}
+\begin{verbatim}
+%%% This is file1.tex with 2 variants of an exercise
+\newproblem{Text of first variant}
+\newproblem{Text of second variant}
+\end{verbatim}
+\end{esempio}
+Command \cmd{\newproblem} is a highly modified version of the similar command of the package \pkgname{probsoln}.
+\subsection{The environment test}
+\DescribeEnv{test}
+The environment \envname{test} allows to write exercises with MCQ or with open short answer, in which each question is randomly chosen from one of the files containing all the exercises and their variants.
+The environment is created by the command
+\begin{verbatim}
+  \begin{test}[<points>]
+    ...
+  \end{test}
+\end{verbatim}
+\DescribeMacro{points}
+The optional parameter \oarg{points} must be an integer number greater or equal to 1, which is the total number of points given to the whole group of questions.
+
+\DescribeEnv{questions}
+The questions of each group, in the master file, are enclosed in the environment \emph{questions} which is a modified version of the environment with the same name in the package \pkgname{exerquiz}:
+\begin{verbatim}
+    \begin{questions}
+        ....
+    \end{questions}
+\end{verbatim}
+It is possibile to insert in a \envname{test} environment more than one \envname{questions} environment. The exercises of each group will be independently scrambled.
+\begin{esempio}
+\begin{verbatim}
+\begin{test}
+    \begin{questions}
+        ....
+    \end{questions}
+....
+    \begin{questions}
+        ....
+    \end{questions}
+\end{test}
+\end{verbatim}
+\end{esempio}
+\DescribeMacro{\esercizi}
+Inside this environment, questions are loaded by the command \cmd{\esercizi} (exercises in Italian):
+\begin{verbatim}
+  \esercizi{name of source file 1, name of source file 2,...}
+\end{verbatim}
+The mandatory parameter is the name of each exercise you want to insert into the test, separated by a comma\footnote{We will describe other commands for loading the exercises in subsection \ref{list}.}.
+
+It is possibile both to insert all the exercises in a unique command and to use more than one command \cmd{\esercizi} or \cmd{\estraies} (see \ref{estraies}).\label{duecolonne}
+This is useful for example if you want exercises from two different subsets (5 exercises  on limits chosen among 7 and 3 exercises on derivatives chosen among 5) or if you want to have some exercises on two columns and other on one column, for a better layout of the page. In this case you must precede the part on two columns with
+\cmd{\begin\{multicols\}\{2\}} and end it with \cmd{\end\{multicols\}}. You \textbf{must not} use option \optname{twocolumns}.
+\begin{esempio}
+\begin{verbatim}
+  \begin{test}[punti]
+  \begin{multicols}{2}
+  \esercizi{es1,es2,es3}
+  \end{multicols}
+  \esercizi{es4,es5,es6}
+  \end{test}
+\end{verbatim}
+\end{esempio}
+In this way, exercises \texttt{es1,es2,es3} are typeset on two columns, while exercises \texttt{es4,es5,es6} are typeset on one column.
+
+In the file of the exercises, in
+\cmd{\newproblem} you must write:
+\begin{verbatim} \item \PTs{points}
+...text... \begin{answers}{number of columns}
+    \bChoices[random]
+\Ans0 wrong answer \eAns
+\Ans0 wrong answer \eAns
+\Ans1 correct answer \eAns
+        \eFreeze
+\Ans0 none of the other answers is correct \eAns
+    \eChoices
+\end{answers}
+  \end{verbatim}
+in which:
+\begin{itemize}
+  \item {\color{blue}{\begin{verbatim}
+\item \PTs{points}
+\end{verbatim}}}
+\DescribeMacro{\PTs}
+introduces a question with points written in the command \cmd{\PTs} (it can be a decimal number and the separator can be the comma).
+
+\item {\color{blue}{\begin{verbatim}
+\begin{answers}{number of columns}
+    \bChoices[random]
+    ...
+    \eChoices
+\end{answers}
+\end{verbatim}}}
+\DescribeEnv{answers}
+\DescribeMacro{\Ans0}
+\DescribeMacro{\Ans1}
+\DescribeMacro{\bChoices}
+\DescribeMacro{\eChoices}
+\DescribeMacro{\eFreeze}
+introduces answers split on the specified number of columns. Answers will be randomly shuffled only if the option \optname{random} is specified.
+
+\item {\color{blue}{\cmd{\Ans0} }} introduces a wrong answer
+\item {\color{blue}{\cmd{\Ans1}}} introduces the correct answer
+\item {\color{blue}{\cmd{\eFreeze}}} introduces (if desireded) one or more answers which will not be randomly shuffled.
+\end{itemize}
+\begin{esempio}
+  \begin{verbatim}
+\newproblem{
+\item \PTs{1} The solutions of the equation
+\[x^2-5x+6=0\]
+are
+\begin{answers}{2}
+    \bChoices[random]
+\Ans0 $x=3$ e $x=-2$ \eAns
+\Ans0 $x=-3$ e $x=-2$  \eAns
+\Ans1 $x=3$ e $x=2$  \eAns
+        \eFreeze
+\Ans0 none of the other answers is correct \eAns
+    \eChoices
+\end{answers}
+}
+
+\newproblem{
+\item \PTs{1} The solutions of the equation
+\[x^2+5x+6=0\]
+are
+\begin{answers}{2}
+    \bChoices[random]
+\Ans0 $x=3$ e $x=-2$ \eAns
+\Ans1 $x=-3$ e $x=-2$  \eAns
+\Ans0 $x=3$ e $x=2$  \eAns
+        \eFreeze
+\Ans0 none of the other answers is correct \eAns
+    \eChoices
+\end{answers}
+}
+  \end{verbatim}
+\end{esempio}
+
+Besides MCQ, you can use in the environment \envname{test} other kinds of questions, that will be described in section \ref{sec:altri_esercizi}.  Unfortunately using  \texttt{fill-in} type exercises, if you have more than one blank space to fill, the string of correct answers will be less useful because the numbering of the questions is wrong.
+
+\subsection{Environments problem and problem*}
+\DescribeEnv{problem}
+\DescribeEnv{problem*}
+These environments are used to write problems with open answers. They are used in the file which contains the variants of the exercise, nested in the command \cmd{\newproblem}, with the following syntax:
+\begin{verbatim}
+\begin{problem}
+  ...
+\end{problem}
+\end{verbatim}
+if you choose to write an open answer exercise with only one part; with the syntax
+\begin{verbatim}
+\begin{problem*}
+  ...
+\end{problem*}
+\end{verbatim}
+if you choose to write an open answer exercise with more than one part. The code for these environments is taken, with various modifications, from the code of the environment exercise in the package \pkgname{exerquiz}\footnote{The environment \envname{exercise} still exists and can be used as a template to build other environments such as new exercises, examples, etc.}.
+ \paragraph{Exercises in one part}
+
+It is introduced by the environment \envname{problem}.
+\begin{verbatim}
+\begin{problem} [score]
+........Text..........
+\begin{solution}[space for the solution]
+.... text of solution ......
+\end{solution}
+\end{problem}
+  \end{verbatim}
+  \DescribeEnv{solution}
+The argument \oarg{score} contains the points of the exercise,  the argument \oarg{space for the solution} contains the dimension of the \emph{possible} white space which must be left for the solution.
+\paragraph{Exercise in more than one part}
+\DescribeEnv{parts}
+It is introduced by the environment \envname{problem*}.
+  \begin{verbatim}
+\begin{problem*} [score]
+....text....
+\begin{parts}
+\item \PTs{partial score}
+....text....
+   \begin{solution}[space for the solution]
+    .... text of solution ......
+    \end{solution}
+\item \PTs{partial score}
+.....
+\end{parts}  \end{problem*}
+  \end{verbatim}
+The argument \cmd{\PTs\{partial score\}} contains the points of each part.
+\subsection{Other kinds of exercise}\label{sec:altri_esercizi}
+We have defined other new kinds of exercise:
+\paragraph{fillin:} \DescribeMacro{\fillin}
+it is used to create exercises in which some parts of the text is left blank and must be filled  by the student. It can also be used to create exercises with an open short answer. This kind of exercise is similar to the one introduced by D. P. Story in \pkgname{eqexam}.
+
+The syntax is:\\
+  \cs{fillin}\verb+[+\meta{type}\verb+]{+\meta{width of blank}\verb+}{+\meta{answer}\verb+}+
+
+  The two mandatory parameters are the width of the blank space, expressed as a length, and the correct answer (text or number) that the student has to write: it will be printed only in the solutions.
+The optional parameter \meta{type} defines the way in which the blank space is denoted: \texttt{u} (\emph{underlined}), the default, produces an underlined space,  \texttt{b} (\emph{boxed}) produces a little box , \texttt{e} (\emph{empty}) produces an empty space.
+In the blank space it is not possible to use the commands \cmd{\sempli} or \cmd{\semplix} (see Section \ref{sec:comandi}).
+\paragraph{domanda:}\DescribeEnv{domanda} (the word ``domanda'' means ``question'' in Italian)
+this environment must contain the text of the exercise (not the solution). It is  used in  \envname{problem} and \envname{problem*} and with the package option  \optname{solutionsonly} only the solution of the exercise is printed and not the text. In previous versions of this package (not released to CTAN) there was another environment in order  to obtain this.
+\paragraph{risposta:}\DescribeEnv{risposta} This environment generates a ruled or boxed space in which the student has to write the answer of an exercise  (``risposta'' is the Italian word for ``answer'').
+The syntax of the command is:
+\begin{verbatim}[\small]
+\begin{risposta}{type}{vertical_space}
+ ...
+\end{risposta}
+\end{verbatim}
+The  parameter \texttt{type} defines if the blank space has to be boxed (option  \texttt{b}, the default) or ruled  (option \texttt{l}). The  parameter \verb+vertical_space+ defines the height of the space for the answer: it is a length if it is boxed or the number of rules if it is ruled.
+
+\paragraph{matching:}\DescribeMacro{\matching} it is based on an idea of the package \pkgname{examdesign} \cite{examdesign}. It  is used to create exercises in which the student has to match items in two lists.
+
+\DescribeMacro{\pair} The pairs are defined by the command \cmd{\pair}:
+\begin{verbatim}
+  \pair{item 1}{item 2}
+\end{verbatim}
+repeated for each couple of items to match.
+
+The two lists are shuffled and then printed with the command \cmd{\matching}.
+
+\begin{esempio}
+
+\begin{minipage}{.4\textwidth}
+\begin{verbatim}
+  \pair{United Kingdom}{London}
+  \pair{France}{Paris}
+  \pair{Italy}{Rome}
+  \pair{Germany}{Berlin}
+  \pair{Greece}{Athens}
+  \matching
+\end{verbatim}
+\end{minipage}
+\begin{minipage}{.4\textwidth}
+\begin{center}
+\begin{tabular}{l l l }
+\rule{1cm}{1pt}& Greece & (A) Paris\\
+\rule{1cm}{1pt}& United Kingdom & (B) Berlin\\
+\rule{1cm}{1pt}& France & (C) Rome\\
+\rule{1cm}{1pt}& Italy & (D) London\\
+\rule{1cm}{1pt}& Germany & (E) Athens
+\end{tabular}
+\end{center}
+\end{minipage}
+\end{esempio}
+The solutions show the correct matching.
+\paragraph{tabella:}\DescribeEnv{tabella} (the word ``tabella'' means ``table'' in Italian) it is used to create exercises with many short open answers in column.
+
+The syntax is (the \cs{cr} at the end of the line is necessary):
+\begin{verbatim}
+  \begin{tabella}[num_visible_cols]
+{visible_cols_align}
+{hidden_col_align}
+ ... & ... \cr
+\end{tabella}
+\end{verbatim}
+The first parameter (default 2) is the number of columns of the table visible in the text of the exercise. The last column is invisible in the text and visible in the solutions.
+The second parameter gives the alignment of the visible columns (the same for all the columns) and the third one the alignment of the hidden column.
+
+\begin{esempio}
+With the code
+\begin{verbatim}
+\begin{center}
+\renewcommand\arraystretch{3}
+\begin{tabella}[1]{l}{l}
+ \hline
+The domain of the function is:
+&$D=(-\infty;2]$\cr
+ \hline
+The range of $f(x)$ is:
+& $f(D)=(-\infty,0]$ \cr
+ \hline
+  \end{tabella}
+\end{center}
+      \end{verbatim}
+       we obtain (the second column is visible in the solutions only):
+    \renewcommand\arraystretch{3}
+       \begin{center}
+\DeleteShortVerb{\|}
+   \MakeShortVerb{\!}
+\begin{tabular}{r|c}
+ \hline
+  The domain of the function is:
+&\textcolor[rgb]{1.00,0.00,0.00}{$D=(-\infty;2]$}\\
+ \hline
+The range of $f(x)$ is:
+& \textcolor[rgb]{1.00,0.00,0.00}{$f(D)=(-\infty,0]$} \\
+ \hline
+ \end{tabular}
+\end{center}
+    \end{esempio}
+\paragraph{workarea:}\DescribeEnv{workarea} this environment defines a blank space on the paper sheet where the student can write.  The syntax is:
+\begin{verbatim}
+\begin{solution}{height}
+\end{solution}
+\begin{workarea}[width]{height}
+\end{workarea}
+\end{verbatim}
+The height of \envname{workarea} and of \envname{solution} should be equal; on the contrary, if the text of the \envname{workarea} is greater than the height of the solution, it will be misaligned in the space of the solution, overlapping to the exercise. The width of the \envname{workarea} is optional and by default is equal to the textwidth. Differently from the environment \envname{solution}, in the blank space it's possible to put some text, a graphic, coordinate axis, etc.
+
+\subsection{Other commands}
+The package defines other two commands used in the file {\tt totale-versioni} (see \ref{sec:totale})
+\begin{itemize}
+  \item {\color{blue}{\cmd{\selectallproblems\{\textbackslash esercizio\}}}}:\DescribeMacro{\selectallproblems}\ it is used in the file which shows all the variants of an exercise, with calculated or uncalculated parameters.
+  \item {\color{blue}{\cmd{\esercizio}}}:\DescribeMacro{\esercizio}\ it is used in the file which shows all the variants of an exercise and defines the name of the exercise on that you are working and which is the argument of the command \cmd{\selectallproblems}. It will be printed as the title of the generated file. The syntax is \cmd{\def\textbackslash esercizio\{name\}}.
+  \end{itemize}
+
+\section{Commands to work with parameters and lists}
+\subsection{Commands to work on (random) parameters} \label{sec:comandi}
+We have defined some commands to work with (random) parameters.
+
+These commands are based on the package \pkgname{fp} \cite{fp}, which allows the execution of (complex) operations inside a \LaTeX\ document.
+
+\DescribeMacro{\FPsetpar} \ The basic command to define a parameter is
+{\color{blue}{\cmd{\FPsetpar}\oarg{seed}\marg{parameter-name}\marg{first value}\marg{last value}\oarg{{excl-values}}}}.
+The name of the random parameter will be\cs{param-name} and its range will be between \texttt{inf} and \texttt{sup} (included).
+
+The parameter will be an integer number.\footnote{Even if it is possible to define rational or (pseudo)real parameters, as in the package \pkgname{rangen} \cite{rangen}, we preferred to limit the choice to integer numbers and to obtain the other cases with operations on parameters}
+The  optional parameter \oarg{seed} is used to have a different seed for the generation of the random number. The default value is \cmd{\seme} (the Italian word for seed): it is defined in the preamble and it is based on the date of the exam and on the number of version.
+
+ It's possible to exclude one or more values from the choice (parameter \oarg{excl-values}). If the excluded values are more than one, they are enclosed in braces. The lower and the upper bounds (\marg{inf} and \marg{sup}, with \marg{inf} $<$ \marg{sup}) and the excluded values can be random parameters defined before. In order to satisfy the conditions, the generation of the random number is repeated many times: the maximum number of repetitions is given by the command \cmd{\maxLoopLimit}, by default $10$ (it can be redefined in the preamble of the document).
+
+
+\begin{esempio}
+\begin{verbatim}
+  \FPsetpar{a}{2}{10}
+\end{verbatim}
+creates a parameter \cmd{\a} which can be a random value between $2$ and $10$, in this case, the seed is defined in the preamble of the document.
+The commands
+\begin{verbatim}
+\FPsetpar{a}{2}{10}[3]
+\FPsetpar{b}{4}{12}[{\a,6}]
+\end{verbatim}
+create two parameters, \cmd{\a} (which can be a random value between 2 and 10, except 3) and \cmd{\b} (which can be a random value between 4 and 12,
+ except 6 and the value assigned to \cmd{\a}).
+\end{esempio}
+
+You can work on the parameters defined with this command as on numbers and we have defined commands which allow to work on them showing both the numerical result and the operations in a parametric form.
+
+\begin{itemize}
+  \item {\color{blue}{\cmd{\FPsv}\oarg{decimal}\marg{operation}}}:\DescribeMacro{\FPsv}\ it is used to do operations (on numbers or parameters) obtaining or the numeric value with \meta{decimal} decimal places (by default 0 decimal places) or, with the option \optname{param} in the package,  the typesetting of the operation (if you choose the option \optname{param} in the package \pkgname{esami}).
+
+\begin{esempio}
+ \begin{center}
+   \begin{tabular}{l|l|l}
+ \color{blue}{Instruction} & \color{blue}{Numerical result} & \color{blue}{Option \texttt{param}}\\
+ \hline
+ \hline
+   \verb|\FPsv{2*k+1}| & $5$& $2*k+1$ \\
+  \verb|\FPsv[2]{(2*k+1)/2}| & $2.50$& $(2*k+1)/2$ \\
+ \end{tabular}
+ \end{center}
+\end{esempio}
+The fundamental characteristics of the command \cmd{\FPsv} are (in the examples, $k=2$):
+\begin{itemize}
+\item the operations must  be written explicitly
+\begin{esempio}
+\begin{center}
+\begin{tabular}{lr}
+\verb!$\FPsv{2*k}$! & $4$\\
+\end{tabular}
+\end{center}
+\end{esempio}
+\item each operation is automatically enclosed in parenthesis. The parenthesis is not printed if the numerical value is shown, but it is printed when you use the option \optname{param}
+    \begin{esempio}
+     \begin{center}
+       \begin{tabular}{l|l|l}
+       \color{blue}{Instruction} & \color{blue}{Numerical result} & \color{blue}{Option \texttt{param}}\\
+          \verb|$\FPsv{2*k+1}x$| & $5x$ & $(2*k+1)x$
+       \end{tabular}
+     \end{center}
+     \end{esempio}
+\item you can use the following symbols for operations: \verb|+,-,*,/,^|
+\item Attention must be paid to the fact that the package \pkgname{fp} cannot handle powers with a negative basis.
+\end{itemize}
+
+  \item {\color{blue}{\cmd{\FPval}\marg{name}\marg{operation}}}:\DescribeMacro{\FPval}\
+  it assigns to \marg{nome} the rounded value of the operation (it is the command \cmd{\FPeval} from \pkgname{fp}, modified) or it prints the operation if you choose the option \optname{param} in the package \pkgname{esami}, as
+  con \cmd{\FPsv}.
+\begin{esempio}
+Let $k=2$. The code
+  \begin{verbatim}
+  \FPsetpar{k}{1}{3}
+    \FPval{a}{2*k+1}
+    \FPsetpar{b}{2}{20}[\a]
+  \end{verbatim}
+  generates a parameter \cmd{\b} which assumes a random value between $2$ and $20$, with the exception (in this case) of the value $5$. In the parametric version, a similar string appears (as far as the parameter \cmd{\b} is concerned)
+  \begin{center}
+    The parameter $b$ varies between $2$ and $20$. $b\neq (2*k+1)$. The seed is 209.
+  \end{center}
+  \end{esempio}
+  \item {\color{blue}{\cmd{\sempli}\marg{num}\marg{den}}}:\DescribeMacro{\sempli}\ it simplifies a fraction where \meta{num} and \meta{den} can contain parameters or operations on them.
+         Inside the command \cmd{\sempli} you must not use \cmd{\FPsv}.
+\begin{esempio}
+
+If $k=1$:
+\begin{center}
+    \begin{tabular}{lr}
+\verb!$\sempli{2*k}{3*k+1}$! &     $ \frac12$\\[2mm]
+\hline\\
+      \verb!$\frac{\FPsv{2*k}}{\FPsv{3*k+1}}$! &     $\frac24$\\
+\end{tabular}
+\end{center}
+\end{esempio}
+  \item {\color{blue}{\cmd{\semplix}\marg{num}\marg{den}}}:\DescribeMacro{\semplix}\ it simplifies a fraction where \marg{num} and \marg{den} can contain parameters, but where the result $1$ does not appear and the result $-1$ is shown like a minus sign ``$-$'' (for example it can be used before a $x$).
+
+      It works exactly as the command \cmd{\sempli}.
+
+      The command can also be used, setting the denominator equal to $1$, to format coefficients of a variable, so that the value $1$ does not appear and the value $-1$ appears as $-$.
+
+\begin{esempio}
+
+If the parameter $k$ is equal to $2$:
+\begin{center}
+    \begin{tabular}{lr}
+\verb|$\FPsv{k-1}x$| &    $1x$\\[2mm]
+\hline\\
+\verb!$\semplix{k-1}{1}x$! &  $x$\\[2mm]
+\hline\\
+\verb|$\semplix{1-k}{1}x$| & $-x$\\[2mm]
+\hline\\
+\verb|$\semplix{2*k}{k+2}x$| &  $x$\\
+\end{tabular}
+\end{center}
+    \end{esempio}
+  \item {\color{blue}{\cmd{\esempli}\marg{num}\marg{den}}}:\DescribeMacro{\esempli}\ it simplifies a fraction so  that the result $1$ cannot appear, but the result $-1$ has to appear explicitly (like in exponents). The command can be used also with denominator equal to $1$ to  format the exponents correctly.
+
+ It works exactly as the command \cmd{\sempli}.
+
+     The command can also be used, setting the denominator equal to $1$, to format exponents, so that the value $1$ does not appear and the value $-1$ appears as $-1$.
+\begin{esempio}
+
+If the parameter $k$ is equal to $2$:
+\begin{center}
+\begin{tabular}{lr}
+\verb|$x^{\FPsv{k-1}}$| &    $x^1$\\[2mm]
+\hline\\
+\verb|$x^{\esempli{k-1}{1}}$| & $x$\\[2mm]
+\hline\\
+\verb|$x^{\esempli{1-k}{1}}$| &  $x^{-1}$
+     \end{tabular}
+     \end{center}
+ \end{esempio}
+  \item {\color{blue}{\cmd\sempliz\marg{num}\marg{den}}}:\DescribeMacro{\sempliz}\ simplifies  fractions that can assume the value $0$ (for example, in answers). While with the other commands the result $0$ gives an error and stops the compilation, with this command the value $0$ is written.
+
+      It works exactly as the command \cmd{\sempli}.
+  \item {\color{blue}{\cmd{\simpsqrt}\marg{ind}\marg{rad}}}:\DescribeMacro{\simpsqrt}\ With this command it's possible to extract factors from radicals. With these factors is not possible to do other operations. The first mandatory parameter  \marg{ind} is the index of the radical and can be parametric; the second one, \marg{rad} is the radicand and can be also a parameter or an operation (also in this case \cmd{\FPsv} must not be used inside it).
+\begin{esempio}
+
+If  $a$ is equal to $2$ and $b$ is equal to $1$
+
+      \begin{tabular}{lr}
+\verb|$\simpsqrt{2}{a^2+4*b}$| & $2\sqrt{2}$
+\end{tabular}
+    \end{esempio}
+    \item {\color{blue}{\cmd{\RandS}}}:\DescribeMacro{\RandS}\ it is used to give a random sign ($+$ o $-$) to a number. The command is similar to the one of the package \pkgname{rangen}.
+\end{itemize}
+\subsection{Commands to choose from a list}\label{list}
+Besides the command \cmd{\esercizi} that we have already presented there are other commands to choose exercises, or, more in general, objects, from a list.
+
+The first command allows to choose randomly $n-m$ elements of a list
+\DescribeMacro{\estrai}.\  The command \cmd{\estrai}\oarg{m}\marg{list}\marg{name} is the user command to extract the elements from the list \marg{list} excluding \oarg{m} of them. The chosen elements will have the name \cmd{\namei}, \cmd{\nameii}, \dots.
+The elements of the list must be comma separated.
+\begin{esempio}
+
+With the command \cmd{\estrai[1]\{sets,logic,powers\}\{alpha\}} you choose 2 elements of the set and these elements will have the name\cmd{\alphai} e \cmd{\alphaii}. If these names are names of exercises, it is possible to insert in the file list argument of the command \cmd{\esercizi} also \cmd{\alphai} e \cmd{\alphaii}.
+\end{esempio}
+\DescribeMacro{\estraialfa} The command \cmd{\estraialfa}\marg{m}\marg{list}\marg{name} extracts \marg{m} random objects from the list
+\marg{list}, preserving the order. The chosen elements will have name \cmd{\namei}, \cmd{\nameii}, \dots.
+The elements of the list must be comma separated.
+\begin{esempio}
+
+With the command \cmd{\estraialfa[2]\{a,b,c,d\}\{alpha\}} you choose 2 elements from the set, preserving the alphabetical order, and these elements will be named \cmd{\alphai} and \cmd{\alphaii}.
+\end{esempio}
+\DescribeMacro{\estraies} \label{estraies}  The command \cmd{\estraies}\oarg{m}\marg{list}\marg{name} works as the command \cmd{\estrai}, but only on a list of exercises. Once the elements have been chosen, it prints them as the command \cmd{\esercizi}.
+
+\section{The auxiliary files}
+\subsection{The localisation file}\label{sec:lng}
+ The package has  localisations in Italian (the default), UK English, US English, French, Spanish (thanks to Maria Hernandez Cifre), German (thanks to Kerstin von Kirschhausen), Greek (thanks to Sotiris Hasapis). Using greek language (and maybe other non latin localisations) it's necessary to load the packages \pkgname{fontenc}, \pkgname{inputenc} e \pkgname{babel} before the package \pkgname{esami}\footnote{The option \optname{greek} requires at this moment the option \optname{iso-8859-7} for the package \pkgname{inputenc}}. In this file one can also load some language dependent packages, such as \pkgname{numprint}, \pkgname{geometry}, etc. and there are the definitions of the commands \cmd{\shortdate} and \cmd{\longdate} to write the date.
+\subsection{The configuration file}\label{sec:cfg}
+The configuration file \texttt{esami-xyz.cfg} contains various definitions, i.e. the header (command \cmd{\testa}), the footer, the format for the solution file, the page style, the instructions for the exam.
+\subsection{The \texttt{master} and \texttt{master-sol} files}
+These two files differ only because the second one shows the solutions. They contain the instructions to generate the test. In both the files you must write the date (command \cmd{\date}) in the format YYYY/MM/DD, the number of versions to generate (command \cmd{\numcompiti}), and, obviously, the exercises. The test can be divided in parts and in each one of them you can use one or more of the environments and commands that we have presented.
+
+The files has to be renamed before compiling them, otherwise compilation stops with an error message.
+
+In the file, with the command \cmd{\maxLoopLimit}, the maximum number of tries that  \cmd{\FPsetpar} should make in order to satsfy the conditions and how to calculate the initial seed for the generation of random numbers (command \cmd{\seme}).
+
+It is also possible to define the name of the parts in which the test is divided.
+\subsection{The \texttt{totale-versioni} file}\label{sec:totale}
+The file \texttt{totale-versioni} is used to generate all the variants of an exercise. With this file the package has always the option \optname{prova} and you can use the option \optname{param} to generate the parametric version of exercises.
+
+Inside this file you should use only one command, \cmd{\def \textbackslash esercizio \{name\}}, that should contain the name of the exercise to compile. If you compile the parametric version, the parameters and their intervals are shown at the end of the exercise.
+\section{Changelog}
+\begin{description}
+  \item[Version 1.0 (2013/03/08)]First version released to CTAN.
+  \item[Version 1.1 (2013/12/09)] Inserted the dependance on the package \texttt{environ} to remove some errors in the \LaTeX\ compilation. Removed the dependance on the package \texttt{icomma} in the italian localization file es-italian.lng because of the introduction of new features in the package \texttt{babel} for the Italian langaguage (macro \texttt{IntelligentComma}).
+\end{description}
+
+\bibliographystyle{plain}
+\bibliography{esami}
+
+\end{document}
+

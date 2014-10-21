@@ -1,0 +1,44 @@
+Use mylatexformat.ltx to make a format based on the preamble
+of any LaTeX file.
+
+The use of formats helps to speed up compilations: packages which have been
+dumped in the format are loaded at very high speed. This is useful when a
+document load many packages (pgf-TikZ among other...)
+
+For the creation of the format use a command line like:
+
+etex -initialize [opts] "&pdflatex" mylatexformat.ltx """abc.tex"""
+
+mylatexformat.ltx has been primarily written from mylatex.ltx
+(available on CTAN under the contrib/Carlisle/ directory) but
+gets rid of many limitations or problems of mylatex.ltx.
+
+More precisely:
+
+- The format is created from the beginning of the file (usually
+  \documentclass[...]{...}
+  until either:
+         ~ \begin{document}
+         ~ \endofdump
+                if \endofdump is encountered in the preamble
+         ~ \csname endofdump\endcsname
+                for convenience: to avoid `undefined control sequence'
+                in case the document is compiled without the format.
+
+- \begin{document} \endofdump or \csname endofdump\endcsname
+  can be precedeed or followed by other macros or commentaries.
+
+- Commentaries in the preamble are ignored (braces are not required
+  to be equilibrated).
+
+- packages that modify the \document macro (like auxhook.sty or
+  etoolbox.sty) can be included in the format.
+
+- A report is available in the .log file.
+
+I have been using mylatexformat.ltx with MikTeX under:
+    - pdfTeX in dvi mode
+    - pdfTeX in pdf mode
+    - XeTeX
+
+Comments about its use on other system are welcome !

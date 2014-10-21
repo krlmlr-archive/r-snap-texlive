@@ -1,0 +1,86 @@
+%%
+%% This is file `factura-modelo.tex',
+%% *NOT* generated with the docstrip utility.
+%%
+%% Copyright 2013 Emilio Lazo Zaia
+%%
+%% This work may be distributed and/or modified under the
+%% conditions of the LaTeX Project Public License, either version 1.3
+%% of this license or (at your option) any later version.
+%% The latest version of this license is in
+%%   http://www.latex-project.org/lppl.txt
+%% and version 1.3 or later is part of all distributions of LaTeX
+%% version 2005/12/01 or later.
+%%
+%% This work has the LPPL maintenance status "maintained".
+%%
+%% This Current Maintainer of this work is Emilio Lazo Zaia.
+%%
+%% This work consists of the files factura.cls, factura.def,
+%% and factura-modelo.tex, factura-modelo-ya.tex and README.
+%%
+%% Emilio Lazo Zaia <emiliolazozaia@gmail.com>
+%%
+%% This file is in UTF-8 format with Unix-like line breaks (LF only).
+%% Commands and commentaries are in spanish.
+%%
+\documentclass[%
+% prefactura, % La prefactura es la que no se imprime sobre papel de factura sino que puede enviarse por correo o fax. Para eso se define la imagen que contiene el diseño de la factura con el comando \Marco, se coloca la denominación, las numeraciones y también puede tener la firma del emisor (comando \Firma) escaneada.
+% presupuesto, % El presupuesto es una opción similar a la prefactura, sin número de control.
+% nospanish, % No carga babel en castellano ni la codificación T1 de las letras.
+% denom, % Con la opción 'denom(inación)' escribimos también por ejemplo el texto 'FACTURA' con el número. La razón de esto es que hay formas libres que tienen la numeración de la factura y otras que solamente tienen el número de control.
+% siniva, % No se cobra IVA, para los casos en los que esto aplica.
+% ivanoexplicito, % Al no cobrar IVA, tampoco aparece en la totalización los IVA ni las bases imponibles.
+% todosiva, % Agrega el exento y todos los tipos de IVA en los totales así no se hayan incluído items con tales gravámenes.
+% G, % Agrega la 'G' a todos los items de IVA general así sea el general el único IVA existente.
+% sincantidad, % El entorno 'factura' tiene también la posibilidad de no mostrar la cantidad, con esta opción.
+% sinfirmas, % No coloca las líneas para firmar.
+% sincond, % No coloca el texto de las condiciones de pago.
+% sinlineasv, % No aparecen las líneas verticales en el renglón de la factura.
+% separado, % Separa los totales de los items (sólo para el modo de totalización en columnas).
+% filas, % Muesta los totales en modo de filas.
+% centrado, % Centra el total general en el modo de filas (sólo para el modo de totalización en filas).
+% linea, % Agrega una línea diagonal protegiendo los espacios vacíos.
+% lineaitem, % Agrega una línea horizontal en cada ítem.
+% csv, % Escribe un archivo csv con la información numérica de la factura.
+]{factura}
+
+\usepackage[utf8]{inputenc}
+
+% Existe el comando \cliente{} para incluir un archivo .def con los valores siguientes que identifican al cliente.
+\Fecha{05-03-2013}% Define la fecha de emisión de la factura, en el formato venezolano DD/MM/AAAA.
+\RS{El cliente}% Define la razón social, o sea, el nombre del cliente (también sirve \Nombre{}).
+\RIF{El RIF}% Define el RIF del cliente (o \CI{} si se quiere especificar su cédula de identidad).
+\Direccion{La dirección}% Define la dirección fiscal del cliente.
+\Tel{El teléfono}% Define el/los teléfonos del cliente.
+\Email{El email}% (Opcional): define el E-mail del cliente.
+\Emisor{El emisor}% Define el nombre del emisor (para el espacio de la firma).
+% \Num{1234}% (Opcional): Define el número de la factura. Es opcional porque el talonario de las facturas puede ya tener la numeración. Es obligatorio cuando se define 'denom', 'prefactura' o 'presupuesto'.
+% \NumControl{4321}% (Opcional): Define el número de control de la factura. Esta opción sólo aplica en las 'prefacturas', ya que una factura siempre tiene el número de control impreso desde la tipografía. Si se usa 'prefactura' y no se define el número de control, tomará el mismo número de la factura.
+% \NumSerieControl{01}% (Opcional): También para 'prefactura'. Define el número de serie del número de control. Si no se define, toma '00'
+% \Denom{FACTURA}% (Opcional): Cambia el nombre del documento a algo distinto de 'FACTURA'.
+\Condiciones{Condiciones de pago: }% Define las condiciones de pago.
+% \Lineas{0}% Coloca líneas en blanco luego de los items.
+% \Marco{Formalibre}% (Opcional): Define el nombre de la imagen a cargar como diseño, para las opciones 'prefactura' y 'presupuesto'.
+\Resumen{El resumen}% (Opcional): Define un resumen que va en un óvalo a la derecha del óvalo de los datos del cliente.
+% \Firma{}{3mm}{\includegraphics[scale=0.165]{Firma.png}}% (Opcional): Incluye el archivo 'Firma.png' de la firma escaneada en el espacio donde firma el emisor; los dos primeros parámetros son los corrimientos en X, y en Y de la imagen.
+
+\begin{document}
+
+\begin{factura}
+ \Item{1}{ítem con IVA general}{1000}% así se declara un ítem con alícuota general.
+%  \Item{ítem con IVA general}{1000}% (Opción 'sincantidad')
+ \ItemR{1}{ítem con IVA reducido}{1000}% así se declara un ítem con alícuota reducida.
+%  \ItemR{ítem con IVA reducido}{1000}% (Opción 'sincantidad')
+ \ItemA{1}{ítem con IVA adicional}{1000}% así se declara un ítem con alícuota adicional.
+%  \ItemA{ítem con IVA adicional}{1000}% (Opción 'sincantidad')
+ \ItemE{1}{ítem exento}{1000}% así se declara un ítem exento.
+%  \ItemE{ítem exento}{1000}% (Opción 'sincantidad')
+ \ItemX{4}{ítem sin precio}% también se puede declara un ítem sin precio.
+%  \ItemX{ítem sin precio}% (Opción 'sincantidad')
+\end{factura}
+
+\desc{La descripción}% Descripción general, centrada verticalmente.
+% \desc[*]{La descripción} Descripción general, sin centrar verticalmente.
+
+\end{document}

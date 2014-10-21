@@ -1,0 +1,142 @@
+%%
+%% This is file `footnoterange-example.tex',
+%% generated with the docstrip utility.
+%%
+%% The original source files were:
+%%
+%% footnoterange.dtx  (with options: `example')
+%% 
+%% This is a generated file.
+%% 
+%% Project: footnoterange
+%% Version: 2012/02/17 v1.0a
+%% 
+%% Copyright (C) 2012 by
+%%     H.-Martin M"unch <Martin dot Muench at Uni-Bonn dot de>
+%% 
+%% The usual disclaimer applies:
+%% If it doesn't work right that's your problem.
+%% (Nevertheless, send an e-mail to the maintainer
+%%  when you find an error in this package.)
+%% 
+%% This work may be distributed and/or modified under the
+%% conditions of the LaTeX Project Public License, either
+%% version 1.3c of this license or (at your option) any later
+%% version. This version of this license is in
+%%    http://www.latex-project.org/lppl/lppl-1-3c.txt
+%% and the latest version of this license is in
+%%    http://www.latex-project.org/lppl.txt
+%% and version 1.3c or later is part of all distributions of
+%% LaTeX version 2005/12/01 or later.
+%% 
+%% This work has the LPPL maintenance status "maintained".
+%% 
+%% The Current Maintainer of this work is H.-Martin Muench.
+%% 
+%% This work consists of the main source file footnoterange.dtx,
+%% the README, and the derived files
+%%    footnoterange.sty, footnoterange.pdf,
+%%    footnoterange.ins, footnoterange.drv,
+%%    footnoterange-example.tex, footnoterange-example.pdf.
+%% 
+\documentclass[british]{article}[2007/10/19]% v1.4h
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\usepackage[%
+ extension=pdf,%
+ plainpages=false,%
+ pdfpagelabels=true,%
+ hyperindex=false,%
+ pdflang={en},%
+ pdftitle={footnoterange package example},%
+ pdfauthor={H.-Martin Muench},%
+ pdfsubject={Example for the footnoterange package},%
+ pdfkeywords={LaTeX, footnoterange, H.-Martin Muench},%
+ pdfview=FitH,%
+ pdfstartview=FitH,%
+ pdfpagelayout=OneColumn,%
+ hyperfootnotes=true%
+]{hyperref}[2012/02/06]% v6.82o
+
+\usepackage{footnoterange}[2012/02/17]% v1.0a
+
+\gdef\unit#1{\mathord{\thinspace\mathrm{#1}}}%
+\listfiles
+\begin{document}
+\pagenumbering{arabic}
+\section*{Example for footnoterange}
+
+This example demonstrates the use of package\newline
+\textsf{footnoterange}, v1.0a as of 2012/02/17 (HMM).\newline
+The package does not use options.\newline
+
+\noindent For more details please see the documentation!\newline
+
+\noindent Save per page about $200\unit{ml}$ water,
+$2\unit{g}$ CO$_{2}$ and $2\unit{g}$ wood:\newline
+Therefore please print only if this is really necessary.\newline
+
+This\footnote{Lorem} text bears a multiplicity of footnotes.
+Because the \texttt{hyperref} package is used with option
+\texttt{hyperfootnotes=true}, the footnotes%
+\begin{footnoterange}%
+\footnote{ipsum}%
+\footnote{dolor}%
+\footnote{sit}%
+\footnote{amet,}%
+\footnote{consectetur}%
+\footnote{adipisicing}%
+\footnote{elit,}%
+\footnote{sed}%
+\end{footnoterange}%
+ are hyperlinked.\footnote{do eiusmod\ldots} Using
+\texttt{hyperfootnotes=false} or not using \texttt{hyperref}
+will remove the hyperlinks to the footnotes.\newline
+
+This text also bears a multiplicity of footnotes,
+but due to the use of the starred%
+\begin{footnoterange*}%
+\footnote{Ut purus elit,}%
+\footnote{vestibulum ut,}%
+\footnote{placerat ac,}%
+\footnote{adipiscing vitae,}%
+\footnote{felis.}%
+\footnote{Curabitur}%
+\footnote{dictum}%
+\footnote{gravida}%
+\end{footnoterange*}%
+ form of the environment they are not
+hyperlinked.\footnote{mauris\ldots}\newline
+
+The use of the optional parameter for footnotes%
+\begin{footnoterange}%
+\footnote[101]{Nam arcu libero,}%
+\footnote[102]{nonummy eget,}%
+\footnote[103]{consectetuer id,}%
+\footnote[104]{vulputate a,}%
+\footnote[105]{magna.}
+\end{footnoterange}%
+ is also possible, but should be used consistently.
+
+\pagebreak
+
+When there is only one footnote%
+\begin{footnoterange}%
+\footnote{a single footnote}%
+\end{footnoterange}%
+ in the \texttt{footnoterange} environment, only one
+footnotemark is used and an info is written into the
+log-file.\newline
+
+The usage of other footnote-number-representations
+(e.\,g.~\verb|\Roman|, \verb|\roman|, \verb|\Alph|, \verb|\alph|,
+\verb|\fnsymbol|) is also possible, but two things must be taken
+into account: The number of footnote references is restricted (for
+example with \verb|\Alph| only references A to Z are possible), which
+can be fixed e.\,g. with the \texttt{alphalph} package, and references
+to footnote-symbol-ranges (\verb|\fnsymbol|) are probably
+not very clear.
+
+\end{document}
+\endinput
+%%
+%% End of file `footnoterange-example.tex'.

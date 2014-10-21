@@ -1,0 +1,24 @@
+eco fonts v1.3 -- CHANGES
+=========================
+
+v1.1 (1998/06/04): 
+-	Fixed a fairly nasty spacing error: 
+	fontinst doesn't use the \fontdimens from the .pl files it reads in,
+	but uses its own standard values instead; this can lead to inferior
+	typesetting quality in some cases. 
+	dostretch.mtx fixes this problem.
+	Thanks to Rowland <rebecca@astrid.u-net.com> for spotting this 
+	problem and to Alan Jeffrey <ajeffrey@cs.depaul.edu> for providing 
+	a fix.
+v1.2 (1998/07/19):
+-	Added INSTALL. Funny, I never really thought of writing an 
+	installation guide. 
+-	New command \newstylenums{} in eco.sty (analogous to \oldstylenums{}.)
+v1.3 (1999/06/4):
+-	I became a victim of copy&paste: The file T1cmoss.fd contained
+	substitution rules for cmor, which substituted cmor/m/sl for
+	cmor/m/it once T1cmoss.fd was loaded. This is one of those
+	errors that simply shout out "Hit me, I'm stupid!". 
+-	\newstylenums{} works now. (Nobody ever noticed this, so apparently 
+	nobody ever used this command, not even the person who requested it.)
+-	Fixed some bugs concerning logging in create.sh.

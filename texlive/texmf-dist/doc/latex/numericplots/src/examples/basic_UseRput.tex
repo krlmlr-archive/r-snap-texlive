@@ -1,0 +1,29 @@
+\begin{NumericDataPlot}
+   {\textwidth}{6.5cm}
+	\setxAxis
+	   {xMin=1, xMax=1.6, Dx=0.2}
+	\setyAxis
+	   {yMin=50, yMax=150, Dy=25}
+	
+	\plotxAxis{x-axis label}
+	\plotyAxis[NoLabel]{}
+	
+	\listplot[style=StdLineStyA]
+	   {\IdentI}
+	
+	% put text in the middle of the plot
+	\rput{45}(500,500){text}
+	% put a formula in the lower left corner
+	\rput[bl](0,0){$a^2+b^2=c^2$}
+	
+	% or put nodes...
+	\NDPput[x=1.2, y=125]{\pnode{A}}
+	\rput(750,900){\Rnode{B}{peak}}
+	% ...and draw a line between them
+	\ncline{<-}{A}{B}
+	
+	% or put the legend at a specific position
+	\rput{-45}(750,250){\LegendDefinition{
+		\LegLine{style=StdLineStyA} & IdentI
+	}}
+\end{NumericDataPlot}

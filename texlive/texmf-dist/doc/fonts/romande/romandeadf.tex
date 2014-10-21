@@ -1,0 +1,277 @@
+% !TEX TS-program = pdflatex
+% !TEX encoding = UTF-8 Unicode
+%% romandeadf.tex
+%% Copyright 2010 Clea F. Rees
+%
+% This work may be distributed and/or modified under the
+% conditions of the LaTeX Project Public License, either version 1.3
+% of this license or (at your option) any later version.
+% The latest version of this license is in
+%   http://www.latex-project.org/lppl.txt
+% and version 1.3 or later is part of all distributions of LaTeX
+% version 2005/12/01 or later.
+%
+% This work has the LPPL maintenance status `maintained'.
+% 
+% The Current Maintainer of this work is Clea F. Rees.
+%
+% This work consists of all files listed in manifest.txt.
+\listfiles
+\documentclass[11pt,british]{article}
+\usepackage{babel}
+\usepackage[T1]{fontenc}
+\usepackage{textcomp}
+\usepackage{lmodern}
+\renewcommand{\ttdefault}{lmvtt}
+\let\origrmdefault\rmdefault
+\DeclareRobustCommand{\origrmfamily}{%
+	\fontencoding{T1}%
+	\fontfamily{\origrmdefault}%
+	\selectfont}
+\DeclareTextFontCommand{\textorigrm}{\origrmfamily}
+\usepackage{romande}
+	\pdfmapfile{+yrd.map}	% not necessary for installed package
+\usepackage{fancyhdr,lastpage,fancyref}
+\usepackage{array,longtable,verbatim}
+\usepackage{booktabs}
+\usepackage{url}
+	\urlstyle{tt}
+\usepackage{hyperref}
+\usepackage{microtype}
+\usepackage[a4paper,headheight=14pt]{geometry}	% use 14pt for 11pt text, 15pt for 12pt text
+
+\title{romandeadf}
+\author{Clea F.\ Rees\footnote{cfrees <at> imapmail <dot> org}}
+\newcommand*{\dyddiad}{10\textsuperscript{th} July, 2010}
+\date{\dyddiad}
+\pagestyle{fancy}
+	\fancyhf[lh]{\itshape romandeadf}
+	\fancyhf[rh]{\itshape\dyddiad}
+	\fancyhf[ch]{}
+	\fancyhf[lf]{}
+	\fancyhf[rf]{}
+	\fancyhf[cf]{\itshape --- \thepage~\ofname~\pageref{LastPage} ---}
+	
+
+\begin{document}
+\maketitle\thispagestyle{empty}
+\pdfinfo{%
+	/Creator		(TeX)
+	/Producer		(pdfTeX)
+	/Author			(Clea F.\ Rees)
+	/Title				(romandeadf)
+	/Subject		(TeX)
+	/Keywords		(TeX,LaTeX,font,fonts,tex,latex,Romande,romande,romandeadf,RomandeADF,ADF,adf,Arkandis,Digital,Foundry,arkandis,digital,foundry,Hirwen,Harendal,Clea,Rees)}
+\pdfcatalog{%
+	/URL				()
+	/PageMode	/UseOutlines}	% other values: /UseNone, /UseOutlines, /UseThumbs, /FullScreen
+	%[openaction <actionspec>]
+%	\pagestyle{empty}	% if you want this, you probably want to comment out \maketitle as well...?
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{0.5em}
+	
+	
+\newcommand*{\adf}{\textsc{adf}}
+\newcommand*{\lpack}[1]{\textsf{#1}}
+\newcommand*{\fgroup}[1]{\textsf{#1}}
+\newcommand*{\fname}[1]{\textsf{#1}}
+
+\begin{abstract}
+	\hspace*{-\parindent}Hirwen Harendal, Arkandis Digital Foundry (\adf) has produced the Romande \adf\ font collection. This guide outlines the \emph{experimental} \TeX/\LaTeX\ support provided by \lpack{romandeadf} for version 1.008 of the fonts.
+\end{abstract}
+
+\tableofcontents
+
+\section{Introduction}
+
+This document explains how to use the \TeX/\LaTeX\ support provided for version 1.008 of the Romande \adf\ font collection developed by Hirwen Harendal of the Arkandis Digital Foundry (\adf). \lpack{romandeadf} includes copies of the fonts in postscript type 1 format. Further  information about the fonts themselves and alternative font formats for use with other programmes can be found at \url{http://arkandis.tuxfamily.org/adffonts.html}. The fonts are released under the \textsc{gnu} General Public License as published by the Free Software Foundation; either version 2 of the License, or any later version, with font exception. For details, see \textsc{notice}.txt and \textsc{copying}.
+
+The \TeX/\LaTeX\ support package consists of all files listed in \path{manifest.txt}\ and these files are released under the \LaTeX\ Project Public Licence as explained in the included licensing notices. Please let me know of any problems so that I can solve them if I can. If you can correct the problems and send me the fix, that would be even better. Unlike the fonts themselves, the \TeX/\LaTeX\ support is somewhat experimental.
+
+\section{The collection}
+
+Romande \adf\ is a serif family with oldstyle figures designed as a substitute for Times, Tiffany or Caslon. The family currently includes upright, italic and small-caps shapes in each of regular and demi-bold\footnote{As \fgroup{romande} does not include bold or bold extended fonts, \lpack{romadeadf} substitutes demi-bold so that the ordinary commands to select bold work as expected.} weights and an italic script in regular. The support package renames the fonts according to the Karl Berry fontname scheme and defines four families. Two of these primarily provide access to the ``standard'' or default characters while the ``alternate'' families support alternate characters, additional ligatures and the long s\footnote{\Fref{sec:encs} describes the encodings used to create these families. For further details see the encoding files \path{t1-romandeadf.etx} and \path{t1-romandeadf-alt.etx}.}. The included package files provide access to these features in \LaTeX\ as explained in \fref{sec:support} and \fref{sec:commands}.
+
+\clearpage
+
+\begin{longtable}{llll}
+	\toprule
+	\textbf{\TeX\ directory}	&	\textbf{font families}	&	\textbf{Original name}	& \textbf{\TeX\ name}\\\midrule\endhead
+		\bottomrule\endfoot
+	romande		&	yrdw, yrdaw	&	RomandeADFScriptStd-Italic			&	yrdriw8a\\\cline{2-4}
+						& yrd, yrda		&	RomandeADFStd-DemiBold				&	yrdd8a\\
+						& 							&	RomandeADFStd-DemiBoldItalic	&	yrddi8a\\
+						&							&	RomandeADFStd-Italic						&	yrdri8a\\
+						&							&	RomandeADFStd-Regular					&	yrdr8a\\
+						&							&	RomandeADFStyleStd-DemiBold	&	yrddc8a\\
+						&							&	RomandeADFStyleStd-Regular		&	yrdrc8a\\
+
+\end{longtable}
+
+\section{Requirements}
+
+Apart from such obvious requirements as \LaTeXe, the \LaTeX\ support provided by \path{romande.sty} requires \lpack{nfssext-cfr} and \lpack{xkeyval}. Without this, you will get errors complaining that the package cannot be found and you will not be able to use any of the additional font commands described in \fref{sec:commands}.
+
+The documentation requires in additional packages. These are all standard and available from \textsc{ctan} but you can always comment out the relevant lines in \path{romandeadf.tex} if you wish.
+
+\section{Installation}
+
+Installation varies with \TeX\ distribution so you should consult the documentation which came with your system for details. In most cases, you will need to perform three steps:
+		\begin{enumerate}
+			\item move or copy the package files to appropriate locations on your system;
+			\item refresh the \TeX\ database;
+			\item incorporate the included map file fragments for the different engines your distribution supports.
+		\end{enumerate}
+
+The following instructions assume you are using \TeX~Live\footnote{This includes Mac\TeX\ for OS X users.}. They should not be too difficult to adapt if you are using a different distribution.
+
+\subsection{Install the files}
+
+The files should be installed in one of two locations: \emph{either} the local system-wide \TeX\ tree \emph{or} your personal tree. If the package is installed system-wide, all users will have access to it. On the other hand, you may need privileges you do not have to do this in which case you must use your personal tree.
+
+For \TeX~Live, \verb|kpsewhich -var-value TEXMFLOCAL| will return the path to the local tree and \verb|kpsewhich -var-value TEXMFHOME| the path to your personal tree. The package already includes a hierarchy of files to help you install them correctly. Ignoring any symbolic link in the top directory, move or copy the files in \path{doc}, \path{fonts} and \path{tex} into the appropriate locations. If the tree is initially empty, you can simply move or copy the directories in as they are. If the tree already contains other packages, you may need to merge the package hierarchy with the pre-existing one. For example, if you already have a \path{doc/fonts} directory, move or copy \path{doc/fonts/romande} into \path{doc/fonts/}. If you have a \path{doc} directory but not a \path{doc/fonts}, move \path{doc/fonts} into \path{doc/}.
+
+\subsection{Refresh the database}
+
+Again, this depends on your distribution. For \TeX~Live, \verb|mktexlsr <path to directory>| for the directory you used in the first step should do the trick. Note that you \emph{may} be able to skip this step if you install into your personal tree. Whether this is so depends on the details of your set-up. As a test, move to a directory containing none of the package files and try \verb|kpsewhich romande.sty|. If the file is found, you don't need to refresh the database; otherwise use \verb|mktexlsr| and then try again.
+
+\subsection{Install the map fragments}
+
+For \TeX~Live, there are at least two ways of doing this. The second method varies according to the version of \TeX~Live and instructions are provided accordingly. Both methods depend on whether you installed into \verb|TEXMFLOCAL| or \verb|TEXMFHOME|. If you installed system-wide, the choice is relatively straightforward --- it obviously makes sense in that case to update the font maps system-wide as well. If, on the other hand, you installed into your personal tree, the matter is more complex. On the one hand, updating the system-wide maps may create difficulties or confusion for other users because while the map files will list the fonts as available, they will not be able to access them. On the other hand, maintaining personal font map files can produce difficulties and confusions of its own. Whether it is to be preferred or not is a complex issue and depends on the details of your \TeX\ distribution, local configuration and personal preference. The one clear case is that in which you install into your personal tree because you lack the privileges needed to install system-wide. In that case, you have no choice but to maintain personal font map files or forgo the use of all fonts not provided by your administrator. Other cases are thankfully beyond the scope of this document.
+
+\subsubsection{Method 1}
+
+If you installed the package system-wide, use the command:
+\begin{verbatim}
+	updmap-sys --enable Map=yrd.map
+\end{verbatim}
+If you installed the package in your personal tree, you \emph{may} prefer to use:
+\begin{verbatim}
+	updmap --enable Map=yrd.map
+\end{verbatim}
+
+Either way, \verb|updmap| will output a good deal of information after each incantation. This is normal. Just check that it does not end with an error and that it found the new map file.
+
+\subsubsection{Method 2: \TeX~Live 2008 (and probably earlier)}
+
+If you installed the package system-wide, use \verb|updmap-sys --edit|.
+
+If you installed into your personal tree, you \emph{may} prefer to use	\verb|updmap --edit|.
+
+Either way, a configuration file will be opened which you can edit. Move to the end of the file and add the following line:
+\begin{verbatim}
+	Map yrd.map
+\end{verbatim}
+When you are done, save the file. \verb|updmap| or \verb|updmap-sys| will produce a great deal of output if all is well. Just check that it does not end with an error and that \path{yrd.map} is found.
+
+\subsubsection{Method 2: \TeX~Live 2009 (and possibly later)}
+
+If you installed the package system-wide, edit or or create \path{TEXMFLOCAL/web2c/updmap-local.cfg} and add the following line to the end of the file:
+\begin{verbatim}
+	Map yrd.map
+\end{verbatim}
+Save the file and tell \verb|tlmgr| to merge in your addition using the command:
+\begin{verbatim}
+	tlmgr generate updmap
+\end{verbatim}
+\verb|tlmgr| will then tell you that you need to ensure the changes are propagated correctly by calling \verb|updmap-sys|. This should produce a great deal of output. Check that it finds the new map file and does not end with an error.
+
+If you installed into your personal tree, you \emph{may} prefer to use \verb|	updmap --edit| as described above for \TeX~Live 2008.
+
+To test your installation and that the package works on your system, latex this file (\path{romandeadf.tex}). The console output and/or log should tell you whether any fonts were not found. If you are careful not to overwrite it, you may also compare your output with \path{romandeadf.pdf}.
+
+\section{The support package}\label{sec:support}
+
+\subsection{Encodings}\label{sec:encs}
+
+The package supports modified \textsc{ec}/\textsc{t1} and Text Companion (\textsc{ts1}) encodings. Most characters in the \textsc{ec} encoding are available and the fonts provide a small number of characters from the \textsc{ts1} encoding as well, including the \texteuro. The regular version of the \textsc{ec}/\textsc{t1} encoding (\path{t1-romandeadf.enc}) reassigns one slot which would otherwise be empty due to missing glyphs which \path{fontinst} cannot fake. In the \textsc{t1} encoding, this slot is standardly used for the per thousand zero. \path{t1-romandeadf.enc} uses the slot for the slashed zero (0*). The fonts also lack the unfakable Sami Eng/eng characters (\textorigrm{\NG}/\textorigrm{\ng}). Although these slots remain in the regular version of the encoding, they are empty due to the lack of suitable glyphs.
+
+The ``alternative'' version of the \textsc{ec}/\textsc{t1} encoding (\path{t1-romandeadf-alt.enc}) provides access to the full range of ligatures available --- including `\textalt{ct}', `\textalt{sp}', `\textalt{st}' and `\textalt{s*t}' --- in addition to the alternate `Q' (\textalt{Q*}) and the long s (\textalt{s*}). The slots used by \textsc{t1} for the Sami characters and per thousand zero are reassigned first since these would otherwise be empty, but because further slots are required, a number of characters normally available in the \textsc{ec} encoding are unavailable. These are Ohungarumlaut (\u{O}), ohungarumlaut (\u{o}), Uhungarumlaut (\u{U}) and dbar (\dj). Attempting to access these characters while using the alternative versions of the fonts may result in errors of various kinds and will certainly produce unexpected output even though the characters are provided by the fonts, as the previous sentence demonstrates. To access these glyphs, ensure that the regular version of the fonts are active.
+
+\subsection{\LaTeX\ package}
+
+To use the fonts in a \LaTeX\ document, add \verb|\usepackage{romande}| to your document preamble. This will set the default serif/roman family to \fname{yrd} (\fgroup{romande}) and enable access to the various alternates and additional glyphs available in the other families. The package supports the single option \verb|alt|. Loading \lpack{romande} with this option will select the ``alternative'' version as the default serif/roman family. \textbf{\emph{This option is not recommended unless you are \emph{certain} you do not wish to access any of the characters described in \fref{sec:encs}.}} You should also note that this option will mean all of the additional ligatures will be active, which may not be what you want.
+
+Note that loading \path{romande.sty} will not affect the default sans-serif or typewriter families.
+	
+\section{Additional font selection commands}\label{sec:commands}
+
+	The \LaTeX\ package \lpack{romande}\ loads \lpack{nfssext-cfr}\ which is an extension of the package \lpack{nfssext}\ supplied by Philipp Lehman as part of The Font Installation Guide. The file extends the font selection commands to facilitate access to various font features. Both the original and the extension are designed for use with a wide range of fonts. For this reason, only a subset of the additional commands are relevant to any particular font support package. Those relevant to \lpack{romandeadf}\ are described below.
+	
+	I consider my additions to \lpack{nfssext-cfr}\ to be \emph{highly experimental}. If things don't work as advertised, apart from letting me know about the problem, you may be able to access the features you need by issuing a \verb|\normalfont| and then selecting features from there. This command will return you to the default document text font --- typically the relevant serif in regular weight, standard width and upright shape with oldstyle or lining figures etc.\ as determined by the packages and options loaded or your distribution's setup.
+	
+\subsection{nfssext-cfr}
+
+These commands are available when \lpack{romande} is loaded. If for some reason you wish to make them available when no relevant package is loaded, use \verb|\usepackage{nfssext-cfr}| in your document preamble.
+	
+\subsubsection{Styles}
+
+	\begin{longtable}{llll}
+		\toprule
+		\textbf{style}			&	\textbf{style command}	&	\textbf{text command}	&	\textbf{effect}\\\midrule\endhead
+		\bottomrule\endfoot
+		alternate					&	\verb|\altstyle|					&	\verb|\textalt{}|					&	``alternative''\\
+		script/swash				&	\verb|\swashstyle|				&	\verb|\textswash{}|			&	italic, regular script\\
+	\end{longtable}
+	
+	\verb|\swashstyle| and \verb|\textswash{}| switch to the script font (\fgroup{yrdw}/\fgroup{yrdaw}) regardless of the current shape and weight --- you do not need to select italic shape or regular weight.
+	
+	\verb|\altstyle| and \verb|\textalt{}| switch to the ``alternative'' families (\fgroup{yrda}/\fgroup{yrdaw}). Within the scope of these commands and except for small-caps:
+	\begin{itemize}
+		\item \verb|Q*| will typeset the alternate `Q' (\textalt{Q*});
+		\item \verb|s*| will typeset the long s (\textalt{s*});
+		\item \verb|ct|, \verb|sp|, \verb|st| and \verb|s*t| will typeset the corresponding ligature (\textalt{ct}/\textalt{sp}/\textalt{st}/\textalt{s*t});
+		\item attempting to typeset certain standard characters will produce unexpected results (see \fref{sec:encs}).
+	\end{itemize}
+	
+	To make things slightly more convenient, \verb|Q*| and \verb|s*| will not be typeset literally when the regular encoding (or small-caps) is active. Rather, these sequences will simply typeset the standard `Q' and `s'.
+	
+	For example, suppose that \lpack{romande}\ was loaded and the following commands set up:
+		\begin{verbatim}
+			\newcommand{\fytext}{%
+			Sphinx of black quartz, judge my vow.\\
+			Querulous sponges act last.\\
+			Q*uerulous s*ponges* act las*t.}
+			\newcommand{\fytest}{%
+			\fytext\\[1em]
+			\textit{\fytext}\\[1em]
+			\textsc{\fytext}\\[1em]
+			\textbf{\fytext\\[1em]
+			\textit{\fytext}\\[1em]
+			\textsc{\fytext}}\\[1em]
+			\textswash{\fytext}}
+		\end{verbatim}
+		\newcommand{\fytext}{%
+			Sphinx of black quartz, judge my vow.\\
+			Querulous sponges act last.\\
+			Q*uerulous s*ponges* act las*t.}
+		\newcommand{\fytest}{%
+			\fytext\\[1em]
+			\textit{\fytext}\\[1em]
+			\textsc{\fytext}\\[1em]
+			\textbf{\fytext\\[1em]
+			\textit{\fytext}\\[1em]
+			\textsc{\fytext}}\\[1em]
+			\textswash{\fytext}}
+		Then:
+		\begin{verbatim}
+			--- ``regular'' ---\\[1em]
+			\fytest\\\bigskip
+			--- ``alternate'' ---\\[1em]
+			\altstyle			
+			\fytest
+		\end{verbatim}
+		produces:
+		\begin{center}
+			--- ``regular'' ---\\[1em]
+			\fytest\\\bigskip
+			--- ``alternate'' ---\\[1em]
+			\altstyle			
+			\fytest
+		\end{center}
+		
+\subsubsection{The slashed zero (0*)}
+
+Both of the modified \textsc{t1} encodings used by \lpack{romandeadf} include a non-standard ligature to accommodate the slashed zero. Provided \lpack{romande} is loaded and the default serif/roman family is active, \verb|0*| will produce the slashed zero (0*). 
+	
+\end{document}  

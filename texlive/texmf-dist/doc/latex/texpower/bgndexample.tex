@@ -1,0 +1,410 @@
+%%
+%% This is file `bgndexample.tex',
+%% generated with the docstrip utility.
+%%
+%% The original source files were:
+%%
+%% texpower-doc.dtx  (with options: `bgndexample,bgndexample-src,end')
+%% 
+%% --------------------------------------------------------------
+%% TeXPower bundle - dynamic online presentations with LaTeX
+%% Copyright (C) 1999-2004 Stephan Lehmke
+%% Copyright (C) 2003-2005 Hans Fredrik Nordhaug
+%% 
+%% This program is free software; you can redistribute it and/or
+%% modify it under the terms of the GNU General Public License
+%% as published by the Free Software Foundation; either version 2
+%% of the License, or (at your option) any later version.
+%% 
+%% This program is distributed in the hope that it will be useful,
+%% but WITHOUT ANY WARRANTY; without even the implied warranty of
+%% MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+%% GNU General Public License for more details.
+%% --------------------------------------------------------------
+%% 
+%% The list of all files belonging to the TeXPower bundle is
+%% given in the file `00readme.txt'.
+%% 
+\ProvidesFile{bgndexample.tex}%
+      [2005/04/07 TeXPower example file]
+%-----------------------------------------------------------------------------------------------------------------
+%
+% Background style example for the package texpower.sty.
+%
+%-----------------------------------------------------------------------------------------------------------------
+% Use slifonts and a dark background.
+
+\PassOptionsToPackage{darkbackground,colorhighlight,verbose}{texpower}
+
+\RequirePackage{tpslifonts}
+
+% Input the generic preamble.
+
+\input{__TPpreamble}
+\hypersetup{pdftitle={texpower background style example}}
+
+\newcommand{\skipTo}[1]{\hyperlink{#1}{\present{\textsf{\textbf{Skip animation}}}}}
+
+\makeatletter
+\newcommand{\histogram}[1]
+{{%
+    \renewcommand{\vstripe@TP}[4]
+    {\rule{##2-2pt}{(##3)*\real{##1}}\hspace*{2pt}##4}%
+    #1%
+    }}
+\makeatother
+
+\newcommand{\totalbarwidth}{2cm}
+
+\newcommand{\mkbar}[2][100]
+{%
+  \ifthenelse{#1<#2}{\def\percentval{#1}}{\def\percentval{#2}}%
+  \mkfactor{\intensity}{\percentval/100}%
+  \colorbetween[\intensity]{ecolor}{green}{red}%
+  \hgradrule[\percentval]{red}{ecolor}{\totalbarwidth*\real{\intensity}}{1ex}
+  \textbf{\boldmath$\mathsf{\ifthenelse{\percentval<10}{\phantom{0}}{}\percentval\%}$}%
+  }
+
+\renewcommand{\bgndstripes}{100}
+
+\setlength{\fboxrule}{1pt}
+
+%-----------------------------------------------------------------------------------------------------------------
+% Finally, everything is set up. Here we go...
+%
+\begin{document}
+\begin{slide}
+
+\centerslidestrue
+\title{The \TeX Power bundle\\[2ex]{\normalfont Structured
+    rules, box and page backgrounds}}
+\author{Stephan Lehmke\\\url{mailto:Stephan.Lehmke@cs.uni-dortmund.de}}
+\maketitle
+
+\begin{small}
+  This example demonstrates \TeX Power's support for structured rules,
+  box and page backgrounds. The usage and parameterization of the
+  corresponding commands is documented in the manual. Here, we only
+  demonstrate the effects achievable with the parameters.
+\end{small}
+
+\pageDuration{0.01}
+
+\parstepwise*%
+{%
+  \multistep
+  {50}
+  {%
+    \mkfactor{\intensity}{(\value{substep}-1)/49}%
+    \colorbetween[\intensity]{stcolor}{pagecolor}{white}%
+    \backgroundstyle[startcolor=stcolor,endcolor=white]{vgradient}%
+  }%
+  \multistep
+  {3}
+  {%
+    \afterstep{\pageDuration{1}}%
+    \backgroundstyle[startcolor=pagecolor,endcolor=white,firstgradprogression=\value{substep}]{vgradient}%
+  }%
+  \multistep
+  {10}
+  {%
+    \afterstep{\pageDuration{0.01}}%
+    \mkfactor{\intensity}{(\value{substep}-1)/40}%
+    \colorbetween[\intensity]{ecolor}{pagecolor}{white}%
+    \backgroundstyle[startcolor=pagecolor,endcolor=ecolor,firstgradprogression=3]{vgradient}%
+  }%
+  \skipTo{eotitle}
+}
+
+\hypertarget{eotitle}{}
+
+\stopAdvancing
+
+\newslide
+
+\renewcommand{\rulestripes}{100}
+
+\newcounter{mstep}
+
+\section{Color Gradients}
+\liststepwise[\let\hidestepcontents=\hidesmartignore]
+{%
+  \concept{Horizontal} \step{or \concept{vertical}; \concept{single}} \step{or \concept{double}.}
+
+  \step
+  {%
+    Parameters:
+    \begin{itemize}
+    \item Gradient \concept{start} {\bstep[\value{step}=13]{(and
+          \concept{middle})}} and \concept{end} color.
+
+      \step[\value{step}=23]{\item Number of \concept{stripes}.}
+
+      \step[\value{step}=33]{\item \concept{Midpoint} of a double
+        gradient.}
+
+      \step[\value{step}=43]{\item Gradient \concept{Progression}}
+      \step[\value{step}=56]{\par(independent for double gradients).}
+    \end{itemize}
+  }
+  \vfill
+  \steponce[\value{step}=0]{\hgradrule{red}{green}{\linewidth}{5ex}}%
+  \steponce[\value{step}=1]{\vgradrule{red}{green}{\linewidth}{5ex}}%
+  \steponce[\value{step}=2]{\dblvgradrule{red}{yellow}{green}{\linewidth}{5ex}}%
+  \steponce[\value{step}>2\and\value{step}<13]
+  {%
+    \skipTo{eostartend}\\
+    \multistep(\setcounter{mstep}{\value{substep}+2}\ifthenelse{\value{step}=\value{mstep}}){10}
+    {%
+      \mkfactor{\intensity}{(\value{substep}-1)/9}%
+      \colorbetween[\intensity]{scolor}{blue}{red}%
+      \colorbetween[\intensity]{ecolor}{yellow}{green}%
+      \hgradrule{scolor}{ecolor}{\linewidth}{5ex}%
+      \ifthenelse{\value{substep}=10}
+      {\hypertarget{eostartend}{}\afterstep{\stopAdvancing}}
+      {\afterstep{\pageDuration{0.01}}}%
+    }%
+  }%
+  \steponce[\value{step}>12\and\value{step}<23]
+  {%
+    \skipTo{eomidcolor}\\
+    \multistep(\setcounter{mstep}{\value{substep}+12}\ifthenelse{\value{step}=\value{mstep}}){10}
+    {%
+      \colorbetween{scolor}{blue}{yellow}%
+      \mkfactor{\intensity}{(\value{substep}-1)/9}%
+      \colorbetween[\intensity]{ecolor}{red}{scolor}%
+      \dblhgradrule{blue}{ecolor}{yellow}{\linewidth}{5ex}%
+      \ifthenelse{\value{substep}=10}
+      {\hypertarget{eomidcolor}{}\afterstep{\stopAdvancing}}
+      {\afterstep{\pageDuration{0.01}}}%
+    }%
+  }%
+  \steponce[\value{step}>22\and\value{step}<33]
+  {%
+    \skipTo{eostripes}\\
+    \multistep(\setcounter{mstep}{\value{substep}+22}\ifthenelse{\value{step}=\value{mstep}}){10}
+    {%
+      \histogram{\dblhgradrule[][10*\value{substep}]{red}{yellow}{green}{\linewidth}{2.5ex}}\\%
+      \dblhgradrule[][10*\value{substep}]{red}{yellow}{green}{\linewidth}{2.5ex}%
+      \ifthenelse{\value{substep}=10}
+      {\hypertarget{eostripes}{}\afterstep{\stopAdvancing}}
+      {\afterstep{\pageDuration{0.5}}}%
+    }%
+  }%
+  \steponce[\value{step}>32\and\value{step}<43]
+  {%
+    \skipTo{eomidpoint}\\
+    \multistep(\setcounter{mstep}{\value{substep}+32}\ifthenelse{\value{step}=\value{mstep}}){10}
+    {%
+      \mkfactor{\midpoint}{(\value{substep}-1)/9}%
+      \histogram{\dblhgradrule[\midpoint]{blue}{red}{yellow}{\linewidth}{2.5ex}}\\%
+      \dblhgradrule[\midpoint]{red}{yellow}{green}{\linewidth}{2.5ex}%
+      \ifthenelse{\value{substep}=10}
+      {\hypertarget{eomidpoint}{}\afterstep{\stopAdvancing}}
+      {\afterstep{\pageDuration{0.5}}}%
+    }%
+  }%
+  \steponce[\value{step}>42\and\value{step}<56]
+  {%
+    \skipTo{eofirstprog}\\
+    \multistep(\setcounter{mstep}{\value{substep}+42}\ifthenelse{\value{step}=\value{mstep}}){13}
+    {%
+      \renewcommand{\rulefirstgradprogression}{\value{substep}-7}%
+      \histogram{\hgradrule{red}{green}{\linewidth}{2.5ex}}\\%
+      \hgradrule{red}{green}{\linewidth}{2.5ex}%
+      \ifthenelse{\value{substep}=13}
+      {\hypertarget{eofirstprog}{}\afterstep{\stopAdvancing}}
+      {\afterstep{\pageDuration{0.5}}}%
+    }%
+  }%
+  \steponce[\value{step}>55\and\value{step}<69]
+  {%
+    \skipTo{eosecondprog}\\
+    \multistep(\setcounter{mstep}{\value{substep}+55}\ifthenelse{\value{step}=\value{mstep}}){13}
+    {%
+      \renewcommand{\rulefirstgradprogression}{\value{substep}-7}%
+      \renewcommand{\rulesecondgradprogression}{7-\value{substep}}%
+      \histogram{\dblhgradrule{red}{green}{red}{\linewidth}{2.5ex}}\\%
+      \dblhgradrule{red}{green}{red}{\linewidth}{2.5ex}%
+      \ifthenelse{\value{substep}=13}
+      {\hypertarget{eosecondprog}{}\afterstep{\stopAdvancing}}
+      {\afterstep{\pageDuration{0.5}}}%
+    }%
+  }%
+}
+
+\newslide
+
+Applications of gradients:
+\centerslidesfalse
+\liststepwise*
+{%
+  \begin{itemize}
+  \item
+    \begin{tabular}[t]{@{}l@{}}
+      As rules:\\
+      \skipTo{eoruledemo}
+    \end{tabular}
+    \multistep{72}
+    {%
+      \present
+      {%
+        \small\renewcommand{\arraystretch}{.9}%
+        \begin{tabular}{rp{\totalbarwidth+2em}}
+          \multicolumn{2}{c}{\textbf{Compression rates}}\\[2ex]
+          \code{compress} & \mkbar[\thesubstep]{51}\\
+          \code{gzip -1} & \mkbar[\thesubstep]{62}\\
+          \code{gzip -9} & \mkbar[\thesubstep]{66}\\
+          \code{bzip2 -1} & \mkbar[\thesubstep]{65}\\
+          \code{bzip2 -9} & \mkbar[\thesubstep]{73}
+        \end{tabular}%
+        }%
+      \afterstep{\pageDuration{0.01}}%
+      }%
+    \step
+    {%
+      \present
+      {%
+        \small\renewcommand{\arraystretch}{.9}%
+        \begin{tabular}{rp{\totalbarwidth+2em}}
+          \multicolumn{2}{c}{\textbf{Compression rates}}\\[2ex]
+          \code{compress} & \mkbar{51}\\
+          \code{gzip -1} & \mkbar{62}\\
+          \code{gzip -9} & \mkbar{66}\\
+          \code{bzip2 -1} & \mkbar{65}\\
+          \code{bzip2 -9} & \mkbar{73}
+        \end{tabular}%
+        }%
+      \ifthenelse{\boolean{firstactivation}}{\AtShipout{\hypertarget{eoruledemo}{}}\afterstep{\stopAdvancing}}{}%
+      }%
+
+  \step
+  {%
+  \item
+    \begin{tabular}[t]{@{}l@{}}
+      As box backgrounds:\\
+      \skipTo{eoboxdemo}
+    \end{tabular}
+    \afterstep{\pageDuration{0.01}}%
+    \multistep{10}
+    {%
+      \mkfactor{\intensity}{(\value{substep}-1)/9}%
+      \colorbetween[\intensity]{ecolor}{green}{blue}%
+      \colorbetween[\intensity]{scolor}{yellow}{green}%
+      \colorbetween{mcolor}{scolor}{ecolor}%
+      \complementcolor{tcolor}{mcolor}%
+      \raisebox{-.5\height}{\hgradbox{scolor}{ecolor}{\Huge\textsf{\textbf{\mbox{{\textcolor{tcolor}{Groovy!}}}}}}}%
+      }%
+    \multistep{10}
+    {%
+      \mkfactor{\intensity}{(\value{substep}-1)/9}%
+      \colorbetween[\intensity]{ecolor}{yellow}{green}%
+      \colorbetween[\intensity]{scolor}{red}{yellow}%
+      \colorbetween{mcolor}{scolor}{ecolor}%
+      \complementcolor{tcolor}{mcolor}%
+      \raisebox{-.5\height}{\hgradbox{scolor}{ecolor}{\Huge\textsf{\textbf{\textcolor{tcolor}{Groovy!}}}}}%
+      }%
+    \multistep{10}
+    {%
+      \mkfactor{\intensity}{(\value{substep}-1)/9}%
+      \colorbetween[\intensity]{ecolor}{red}{yellow}%
+      \colorbetween[\intensity]{scolor}{blue}{red}%
+      \colorbetween{mcolor}{scolor}{ecolor}%
+      \complementcolor{tcolor}{mcolor}%
+      \raisebox{-.5\height}{\hgradbox{scolor}{ecolor}{\Huge\textsf{\textbf{\textcolor{tcolor}{Groovy!}}}}}%
+      }%
+    \multistep{10}
+    {%
+      \mkfactor{\intensity}{(\value{substep}-1)/9}%
+      \colorbetween[\intensity]{ecolor}{blue}{red}%
+      \colorbetween[\intensity]{scolor}{green}{blue}%
+      \colorbetween{mcolor}{scolor}{ecolor}%
+      \complementcolor{tcolor}{mcolor}%
+      \raisebox{-.5\height}{\hgradbox{scolor}{ecolor}{\Huge\textsf{\textbf{\textcolor{tcolor}{Groovy!}}}}}%
+      }%
+    \step
+    {%
+      \colorbetween{mcolor}{green}{blue}%
+      \complementcolor{tcolor}{mcolor}%
+      \raisebox{-.5\height}{\hgradbox{green}{blue}{\Huge\textsf{\textbf{\textcolor{tcolor}{Groovy!}}}}}%
+      \ifthenelse{\boolean{firstactivation}}{\AtShipout{\hypertarget{eoboxdemo}{}}\afterstep{\stopAdvancing}}{}%
+      }%
+    }
+
+  \step
+  {%
+  \item As page backgrounds.  \skipTo{eobgnddemo}
+    \colorbetween[.22]{ecolor}{pagecolor}{white}%
+    \afterstep{\pageDuration{0.01}}%
+    \multistep{20}
+    {%
+      \backgroundstyle
+      [%
+        startcolor=pagecolor,endcolor=ecolor,firstgradprogression=3,
+        rightpanelwidth=\TPpagewidth*\real{.025}*\value{substep},rightpanelcolor=pagecolor,
+        leftpanelwidth=\TPpagewidth*\real{.025}*\value{substep},leftpanelcolor=pagecolor,
+        toppanelheight=\TPpageheight*\real{.025}*\value{substep},toppanelcolor=pagecolor,
+        bottompanelheight=\TPpageheight*\real{.025}*\value{substep},bottompanelcolor=pagecolor%
+      ]{vgradient}%
+      }%
+    \multistep{20}
+    {%
+      \backgroundstyle
+      [%
+        startcolordef={rgb}{0.4,0,0},endcolordef={rgb}{0,0.4,0},firstgradprogression=3,
+        rightpanelwidth=\TPpagewidth*\real{.025}*(20-\value{substep}),rightpanelcolor=pagecolor,
+        leftpanelwidth=\TPpagewidth*\real{.025}*(20-\value{substep}),leftpanelcolor=pagecolor,
+        toppanelheight=\TPpageheight*\real{.025}*(20-\value{substep}),toppanelcolor=pagecolor,
+        bottompanelheight=\TPpageheight*\real{.025}*(20-\value{substep}),bottompanelcolor=pagecolor%
+      ]{vgradient}%
+      }%
+    }
+  \end{itemize}
+  }
+\hypertarget{eobgnddemo}{}
+\end{slide}
+
+
+
+\begin{slide}[\slidewidth-40mm,\slideheight-40mm]
+\renewcommand{\sliderightmargin}{45mm}%
+\renewcommand{\slidetopmargin}{25mm}%
+\renewcommand{\slidebottommargin}{25mm}%
+\colorbetween[.22]{ecolor}{pagecolor}{white}%
+\backgroundstyle[startcolor=pagecolor,endcolor=ecolor,firstgradprogression=3]{vgradient}%
+
+\liststepwise
+{%
+  Special parameters for page backgrounds:
+  \begin{itemize}
+  \item Leave space for panels, headers and footers.\\
+    \skipTo{eopaneldemo}
+    \afterstep{\pageDuration{0.01}}%
+    \multistep{20}
+    {%
+      \backgroundstyle
+      [%
+      startcolor=pagecolor,endcolor=ecolor,firstgradprogression=3,
+      toppanelheight=.1\semcm*\value{substep},toppanelcolor=black,
+      bottompanelheight=.1\semcm*\value{substep}%
+      ]{vgradient}%
+      }%
+    \multistep{20}
+    {%
+      \backgroundstyle
+      [%
+      startcolor=pagecolor,endcolor=ecolor,firstgradprogression=3,
+      rightpanelwidth=.2\semcm*\value{substep},rightpanelcolordef={rgb}{0,0.4,0.6},
+      toppanelheight=2\semcm,toppanelcolor=black,
+      bottompanelheight=2\semcm%
+      ]{vgradient}%
+      }%
+  \end{itemize}
+}
+
+\hypertarget{eopaneldemo}{}
+\end{slide}
+\end{document}
+\endinput
+%%
+%% End of file `bgndexample.tex'.

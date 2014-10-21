@@ -1,0 +1,1071 @@
+% \iffalse
+% $Id: jamtimes.dtx,v 1.35 2010-11-09 18:01:13 boris Exp $
+%
+% Copyright (c) 2010, Boris Veytsman
+%
+% All rights reserved.
+%
+% Redistribution and use in source and binary forms, with or without
+% modification, are permitted provided that the following conditions
+% are met: 
+%
+%    * Redistributions of source code must retain the above copyright
+%    notice, this list of conditions and the following disclaimer. 
+%    * Redistributions in binary form must reproduce the above
+%    copyright notice, this list of conditions and the following
+%    disclaimer in the documentation and/or other materials provided
+%    with the distribution. 
+%    * Neither the name of the original author nor the names of the
+%    contributors may be used to endorse or promote products derived
+%    from this software without specific prior written permission. 
+%
+% THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND
+% CONTRIBUTORS "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES,
+% INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF
+% MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+% DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS
+% BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL,
+% EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED
+% TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE,
+% DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON
+% ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
+% OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY
+% OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
+% POSSIBILITY OF SUCH DAMAGE.
+%
+% \fi 
+% \CheckSum{773}
+%
+%
+%% \CharacterTable
+%%  {Upper-case    \A\B\C\D\E\F\G\H\I\J\K\L\M\N\O\P\Q\R\S\T\U\V\W\X\Y\Z
+%%   Lower-case    \a\b\c\d\e\f\g\h\i\j\k\l\m\n\o\p\q\r\s\t\u\v\w\x\y\z
+%%   Digits        \0\1\2\3\4\5\6\7\8\9
+%%   Exclamation   \!     Double quote  \"     Hash (number) \#
+%%   Dollar        \$     Percent       \%     Ampersand     \&
+%%   Acute accent  \'     Left paren    \(     Right paren   \)
+%%   Asterisk      \*     Plus          \+     Comma         \,
+%%   Minus         \-     Point         \.     Solidus       \/
+%%   Colon         \:     Semicolon     \;     Less than     \<
+%%   Equals        \=     Greater than  \>     Question mark \?
+%%   Commercial at \@     Left bracket  \[     Backslash     \\
+%%   Right bracket \]     Circumflex    \^     Underscore    \_
+%%   Grave accent  \`     Left brace    \{     Vertical bar  \|
+%%   Right brace   \}     Tilde         \~} 
+%
+%\iffalse
+% Taken from xkeyval.dtx
+%\fi
+%\makeatletter
+%\def\DescribeOption#1{\leavevmode\@bsphack
+%              \marginpar{\raggedleft\PrintDescribeOption{#1}}%
+%              \SpecialOptionIndex{#1}\@esphack\ignorespaces}
+%\def\PrintDescribeOption#1{\strut\emph{option}\\\MacroFont #1\ }
+%\def\SpecialOptionIndex#1{\@bsphack
+%    \index{#1\actualchar{\protect\ttfamily#1}
+%           (option)\encapchar usage}%
+%    \index{options:\levelchar#1\actualchar{\protect\ttfamily#1}\encapchar
+%           usage}\@esphack}
+%\def\DescribeOptions#1{\leavevmode\@bsphack
+%  \marginpar{\raggedleft\strut\emph{options}%
+%  \@for\@tempa:=#1\do{%
+%    \\\strut\MacroFont\@tempa\SpecialOptionIndex\@tempa
+%  }}\@esphack\ignorespaces}
+%\makeatother
+%
+%
+% \MakeShortVerb{|}
+% \GetFileInfo{jamtimes.dtx}
+% \title{Expanded Times Roman Fonts As Used in 
+%   \emph{Journal d'Analyse Math\'ematique}}
+% \author{Boris Veytsman\thanks{%
+% \href{mailto:borisv@lk.net}{\texttt{borisv@lk.net}},
+% \href{mailto:boris@varphi.com}{\texttt{boris@varphi.com}}}} 
+% \date{\filedate, \fileversion}
+% \maketitle
+% \begin{abstract}
+%   This package provides \LaTeX{} support for expanded Times Roman
+%   font, which has been used by \emph{Journal d'Analyse
+%     Math\'ematique} for many years.  Mathematics support is based on
+%   \emph{Belleek} fonts.
+% \end{abstract}
+% \tableofcontents
+%
+% \changes{v1.0}{2009/10/12}{First fully functional version} 
+% \changes{v1.2a}{2010/04/22}{Documentation update} 
+% \changes{v1.3}{2010/05/07}{Corrected map entries} 
+% \changes{v1.5}{2010/05/31}{Added symbols missing from the Belleek
+% fonts} 
+% \changes{v1.6}{2010/06/22}{Documentation changes} 
+% \changes{v1.7}{2010/07/08}{Uppercase upright Greek} 
+% \changes{v1.7}{2010/07/28}{Documentation changes} 
+% \changes{v1.9}{2010/09/15}{Fixed a bug in installation script} 
+%
+% \section{Introduction}
+% \label{sec:intro}
+% 
+% For about a decade \emph{Journal d'Analyse Math\'ematique}
+% (\url{http://www.ma.huji.ac.il/jdm/}) used a set of fonts based on
+% the well known Times Roman family\footnote{It is now difficult to
+%   say who designed these fonts initially.  Dov Goldstein supported
+%   the fonts for a number of years.}.  The fonts were slightly
+% expanded in the $x$ direction.  This small change gave the journal
+% its unique look and feel.  The fonts worked for many years.
+% However, over this time a number of problems turned up:
+% \begin{enumerate}
+% \item The fonts were originally created for |dvips| and included
+% some PostScript trickery (for example, in dotless $\jmath$).  This
+% made their use with |pdftex| difficult.
+% \item The fonts included only |OT1| encoding.
+% \item The math was based on the combination of Times Roman
+% \emph{and} Computer Modern for the symbols absent in Times Roman.
+% These fonts do not mesh well.  Later the journal tried to use just
+% Computer Modern math throughout, which still contrasted with the
+% body text.
+% \item It was considered beneficial to give the authors the option of
+% prepare their papers with the journal fonts, and the package lacked
+% documentation and installation instruction.
+% \end{enumerate}
+% At last \emph{Magnes Press,} the publisher of \emph{Journal
+%   d'Analyse Math\'ematique,} commissioned the overhaul of the
+% journal \TeX{} styles.  This package is a part of the effort.
+%
+% We recreate the fonts from scratch.  The mathematics is based on
+% Belleek fonts~\cite{Kinch98:Belleek}, expanded to match the body.
+% The text fonts are provided in |OT1| and |T1| encoding.  
+%
+%
+% The package works both with the |pdflatex| route and the
+% |latex|$to$|dvips| route.  The files |textsample.pdf|,
+% |mathsample.pdf| and |textsample_ps.pdf|, |mathsample_ps.pdf|
+% provide the sample of output for these two routes.  
+%
+%\section{User Guide}
+%\label{sec:userguide}
+%
+%
+%\subsection{Installation}
+%\label{sec:install}
+%
+% You need Belleek fonts~\cite{Kinch98:Belleek} and (optionally) Math
+% Design fonts~\cite{Pichaureau05:MathDesign}.  They are now a part
+% of most modern distributions.  If you do not have them, just
+% download them from CTAN.  
+%
+% Download the file 
+% \url{http://ctan.tug.org/install/fonts/psfonts/public/jamstimes.tds.zip} 
+% and unzip it in the \path{$TEXMF} directory. For \TeX Live it is
+% probably \path{/usr/local/texlive/texmf-local}, or
+% \path{/usr/local/share/texmf-local}, or \path{~/texmf}, or
+% \path{C:\Program Files\texlive\texmf-local}, etc.  For Mik\TeX{} it
+% is probably \path{C:\miktex\texmf} or \path{C:\miktex\localtexmf}.
+% Run |texhash| to update the database of file names.  
+% 
+% Now you need to add the map file |jtm.map| to the configuration files
+% of |dvips| and |pdftex|.  This again depends on your
+% distribution. For \TeX Live you create a file
+% \path{$TEXMF/updmap.d/50jtm.cfg} with just the line
+% \begin{verbatim}
+% Map jtm.map
+% \end{verbatim}
+% and then run |texhash| and |updmap|.  If you use Debian or Ubuntu,
+% the system-wide |updmap.d| directory is located in |/etc|, and you
+% need to create the file |jtm.list| in
+% \path{/var/lib/tex-common/fontmap-cfg/whitnca.list} with the line
+% \begin{verbatim}
+% 50jtm
+% \end{verbatim}
+%
+%
+% If you use Mik\TeX2.6, run
+% \begin{verbatim}
+% initexmf --edit-config-file updmap  
+% \end{verbatim}
+% Add to the config file
+% \begin{verbatim}
+%  Map jtm.map
+% \end{verbatim}
+% save, exit and run |updmap|. 
+% 
+% If you use Mik\TeX2.5 or earlier, edit
+% \path{localtexmf\web2c\updmap.cfg}, adding the line
+% \begin{verbatim}
+% Map jtm.map
+% \end{verbatim}
+% and run |updmap|.
+%
+% Refer to your distribution documentation for the details.
+%
+%
+% An interesting question: it is possible to use the package with the
+% commercial MathTime\textsuperscript{\texttrademark} fonts from
+% PC\TeX{} (\url{http://www.pctex.com/})?  I think that the answer is
+% positive, but since I do not have these fonts, I have not tested
+% this setup.  If you have them, just change the lines in the file
+% |jtm.map| to refer to the proper fonts.  Note that these fonts have
+% some options (bold math, heavy math) not supported by the package.
+%
+%\subsection{Usage}
+%\label{sec:usage}
+%
+% If your installation have been successful, add  the line
+% \begin{quote}
+% |\usepackage|\oarg{options}\marg{jamtimes}  
+% \end{quote}
+% to the preamble of your document. Note that this package changes
+% both math and text fonts.
+%
+% The package provides a number of options.  The default values of the
+% options correspond to the practice of \emph{Journal d'Analyse
+%   Math\'ematique.}  You can try to change them to get a different
+%   look and feel.
+%
+%
+% \DescribeOption{scaled}
+% The package has the option |scaled=...|.  The fonts are uniformly
+% scaled  according to the numerical value of the option.  By default
+% the fonts are scaled 5\%, as if the setting |scaled=1.05| is in
+% effect.  If you do not want to scale 
+% the fonts at all, just call the package with the option |scaled=1|.
+% 
+%
+% \DescribeOptions{sffamily,ttfamily}
+% By default the package uses Helvetica as the sans serif font and
+% Courier as the monospaced font.  This default can be changed with
+% the options |sffamily=...| (the default value is |phv|) and
+% |ttfamily=...| (the default value is |pcr|).  
+%
+% \DescribeOption{sfscaled}
+% If the sans serif family is Helvetica, the package provides an
+% additional options |sfscaled=...|.  It sets the  scaling
+% of the sans serif fonts.  By default it is 0.94:  this provides a
+% good mesh with 5\% scaled Times fonts.
+%
+% \DescribeOption{amsfontsscaled}
+% The package automatically loads  amsfonts, including Euler Script,
+% and Euler Fraktur fonts.  The option |amsfontsscaled=...| provides a
+% way to change the scaling of these fonts.  By default they are
+% scaled 5\%, just as the body and main math fonts.
+%
+%
+% The package provides the fonts listed in Table~\ref{tab:fonts}.
+% Note that the expansion mentioned there always means expansion along
+% the horizontal axis \emph{in addition} to the scaling set by the
+% package options.
+%
+% \DescribeMacro{\bfdefault}
+% Another notable detail is that usually \LaTeX{} sets |\bfdefault| to
+% be |bx| (bold extended), and most font packages substitute it to |b|
+% (bold).  Our fonts have both bold and bold extended fonts, and by
+% default use bold extended fonts for |\bfdefault|.  If you want to
+% use bold extended fonts instead, just say
+% \begin{quote}
+%   |\renewcommand{\bdefault}{b}|
+% \end{quote}
+% 
+%
+% \begin{table}
+%   \begin{minipage}{\linewidth}
+%     \renewcommand{\thefootnote}{\thempfootnote}
+%     \centering
+%     \caption{Fonts Provided by the Package.  \texttt{EE} corresponds
+%       to font encoding (see~\cite{fontname}).}
+%     \label{tab:fonts}
+%     \begin{tabular}{llp{2.2in}}
+%       \toprule
+%       NFSS Code & Fontname Name  & Comments\\
+%       \midrule
+%       \emph{c, n} & |jtmrEEc| & Times Roman, compressed 20\%\\
+%       \emph{m, n} & |jtmrEEe| & Times Roman, expanded 5\%\\
+%       \emph{m, it} & |jtmriEEe| & Times Roman Italic, expanded 5\%\\
+%       \emph{m, sl} & |jtmroEEe| & (fake) Times Roman Oblique,
+%       expanded 5\%\\ 
+%       \emph{m, sc} & |jtmrcEEe| & (fake) Small Caps Times Roman,
+%       expanded 5\%\\ 
+%       \emph{b, n} & |ptmbEE|\footnote{These fonts coincide with the
+%       standard Times fonts} & Times Bold\\
+%       \emph{b, it} & |ptmbiEE|\footnotemark[1] & Times Bold Italic\\
+%       \emph{b, sl} & |ptmboEE|\footnotemark[1] & (fake) Times Bold Oblique\\
+%       \emph{b, sc} & |ptmbcEE|\footnotemark[1] & (fake) small caps Times Bold\\ 
+%       \emph{x, n} & |jtmrEEw| & Times Roman, expanded 25\%\\
+%       \emph{x, it} & |jtmriEEw| & Times Roman Italic, expanded 25\%\\
+%       \emph{x, sl} & |jtmroEEw| & (fake) Times Roman Oblique,
+%       expanded 25\%\\ 
+%       \emph{x, sc} & |jtmrcEEw| & (fake) Small Caps Times Roman,
+%       expanded 25\%\\ 
+%       \emph{bx, n} & |jtmbEEv| & Times Bold, expanded 15\%\\
+%       \emph{bx, it} & |jtmbiEEv| & Times Bold Italic, expanded 15\%\\
+%       \emph{bx, sl} & |jtmboEEv| & (fake) Times Bold Oblique, expanded
+%       15\%\\
+%       \emph{bx, sc} & |jtmbcEEv| & (fake) small caps Times Bold,
+%       expanded 15\%\\ 
+%       \bottomrule
+%     \end{tabular}
+%   \end{minipage}
+% \end{table}
+% 
+%
+%
+%
+% \StopEventually{
+%   \clearpage
+% \paragraph{Acknowledgements}
+%
+% This package was commissioned by \emph{Magnes Press,}
+% \url{http://www.magnespress.co.il}. I am greatly indebted to Eva
+% Goldman for the patient testing of the fonts.
+%
+%   \bibliography{jamtimes}
+%   \bibliographystyle{unsrt}}
+%
+% \clearpage
+%\section{Implementation}
+%\label{sec:impl}
+%
+%\subsection{Identification}
+%\label{sec:ident}
+%
+% We start with the declaration who we are.  Most |.dtx| files put
+% driver code in a separate driver file |.drv|.  We roll this code into the
+% main file, and use the pseudo-guard |<gobble>| for it.
+%    \begin{macrocode}
+%<style>\NeedsTeXFormat{LaTeX2e}
+%<*gobble>
+\ProvidesFile{jamtimes.dtx}
+%</gobble>
+%<style>\ProvidesClass{jamtimes}
+%<drv>\ProvidesFile{drv.tex}
+%<map>\ProvidesFile{map.tex}
+%<jamomlhax>\ProvidesMtxPackage{jamomlhax.mtx}
+%<*style|drv|map>
+[2010/11/09 v1.12 Expanded Times Fonts (Journal d'Analyse Mathematique)]
+%</style|drv|map>
+%    \end{macrocode}
+% And the driver code:
+%    \begin{macrocode}
+%<*gobble>
+\documentclass{ltxdoc}
+\usepackage{booktabs}
+\usepackage[tableposition=top]{caption}
+\usepackage{url}
+\usepackage[breaklinks,colorlinks,linkcolor=black,citecolor=black,
+            pagecolor=black,urlcolor=black,hyperindex=false]{hyperref}
+\PageIndex
+\CodelineIndex
+\RecordChanges
+\EnableCrossrefs
+\begin{document}
+  \DocInput{jamtimes.dtx}
+\end{document}
+%</gobble> 
+%    \end{macrocode}
+%
+%\subsection{Fontinst Driver}
+%\label{sec:pnb-drv}
+%
+% This follows~\cite{fontinstallationguide}.
+% 
+% First, the preamble
+%    \begin{macrocode}
+%<*drv>
+\input fontinst.sty
+%    \end{macrocode}
+%
+% Definition of the parameters
+%    \begin{macrocode}
+\setint{slant}{167}
+\setint{smallcapsscale}{750}
+\setint{compressedscale}{800}
+\setint{extendedscale}{1050}
+\setint{extraextendedscale}{1150}
+\setint{widescale}{1250}
+%    \end{macrocode}
+%
+% Starting recording transforms:
+%    \begin{macrocode}
+\recordtransforms{rec.tex}
+%    \end{macrocode}
+%
+% Scale all text fonts in the |8r| encoding.  Interesting enough, Dov
+% preferred medium fonts to be extended comparing to the bold ones.
+% We preserve this choice.
+%    \begin{macrocode}
+\transformfont{jtmr8rc}{\xscalefont{\int{compressedscale}}%
+  \reencodefont{8r}{\fromafm{ptmr8a}}}
+\transformfont{jtmr8re}{\xscalefont{\int{extendedscale}}%
+  \reencodefont{8r}{\fromafm{ptmr8a}}}
+\transformfont{jtmri8re}{\xscalefont{\int{extendedscale}}%
+  \reencodefont{8r}{\fromafm{ptmri8a}}}
+\transformfont{jtmro8re}{\slantfont{\int{slant}}%
+  \fromany{jtmr8re}}
+\transformfont{jtmr8rw}{\xscalefont{\int{widescale}}%
+  \reencodefont{8r}{\fromafm{ptmr8a}}}
+\transformfont{jtmri8rw}{\xscalefont{\int{widescale}}%
+  \reencodefont{8r}{\fromafm{ptmri8a}}}
+\transformfont{jtmro8rw}{\slantfont{\int{slant}}%
+  \fromany{jtmr8rw}}
+\transformfont{jtmb8rv}{\xscalefont{\int{extraextendedscale}}%
+  \reencodefont{8r}{\fromafm{ptmb8a}}}
+\transformfont{jtmbi8rv}{\xscalefont{\int{extraextendedscale}}%
+  \reencodefont{8r}{\fromafm{ptmbi8a}}}
+\transformfont{jtmbo8rv}{\slantfont{\int{slant}}%
+  \fromany{jtmb8rv}}
+%    \end{macrocode}
+% 
+% Same with math fonts.  Note that Dov wanted medium weight
+% mathematical fonts \emph{not} extended.  We reverse this decision.
+% Note that |rblmi| does not have non-Greek letters, so we call its
+% encoding |7z| instead of |7m|
+%    \begin{macrocode}
+%\transformfont{jtmr7voe}{\fromafm{blex}}
+\transformfont{jtmr7yoe}{\xscalefont{\int{extendedscale}}\fromafm{blsy}}
+\transformfont{jtmri7ze}{\xscalefont{\int{extendedscale}}\fromafm{rblmi}}
+%    \end{macrocode}
+% 
+%
+% There is no hook in |fontinst.sty| for writing our own preamble to
+% |.fd| file.  However, we need to add scaling commands to the
+% preamble. OK, we will patch fontinst:
+%    \begin{macrocode}
+\fontinstcc
+\def\fd_family#1#2#3{
+   \a_toks{#3}
+   \edef\lowercase_file{\lowercase{
+     \edef\noexpand\lowercase_file{#1#2.fd}}}
+   \lowercase_file
+   \open_out{\lowercase_file}
+   \out_line{\percent_char~Filename:~\lowercase_file}
+   \out_line{\percent_char~Created~by:~tex~\jobname}
+   \out_line{\percent_char~Created~using~fontinst~v\fontinstversion}
+   \out_line{}
+   \out_line{\percent_char~THIS~FILE~SHOULD~BE~PUT~IN~A~TEX~INPUTS~
+      DIRECTORY}
+   \out_line{}
+   \out_line{\string\ProvidesFile{\lowercase_file}}
+   \out_lline{[
+      \the\year/
+      \ifnum10>\month0\fi\the\month/
+      \ifnum10>\day0\fi\the\day\space
+      Fontinst~v\fontinstversion\space
+      font~definitions~for~#1/#2.
+   ]}
+   \out_line{}
+%    \end{macrocode}
+% Here is our patch:
+%    \begin{macrocode}
+   \out_line{\string\expandafter\string\ifx\string\csname\space
+     Jtms@scale\string\endcsname\string\relax}
+   \out_line{\space\string\let\string\Jtms@@scale\string\@empty}
+   \out_line{\string\else}
+   \out_line{\space\string\edef\string\Jtms@@scale\left_brace_char 
+       s*[\string\csname\space Jtms@scale\string\endcsname]
+       \right_brace_char\percent_char}
+   \out_line{\string\fi\percent_char}
+   \out_line{}
+%    \end{macrocode}
+% End of the patch.
+%    \begin{macrocode}
+   \out_line{\string\DeclareFontFamily{#1}{#2}{\the\a_toks}}
+   {
+      \csname #1-#2\endcsname
+      \out_line{}
+      \let\do_shape=\substitute_shape
+      \csname #1-#2\endcsname
+      \let\do_shape=\remove_shape
+      \csname #1-#2\endcsname
+   }
+   \x_cs\g_let{#1-#2}\x_relax
+   \out_line{}
+   \out_line{\string\endinput}
+   \close_out{Font~definitions}
+}
+\normalcc
+%    \end{macrocode}
+% 
+% Now we are ready to install fonts.  Note that bold fonts here are
+% not extended, so we use standard Times fonts for bold.
+% 
+% First, |OT1|:
+%    \begin{macrocode}
+\installfonts
+\installfamily{OT1}{jtm}{\skewchar\font=127}
+\installfont{jtmr7tc}{jtmr8rc,jtmri7ze,newlatin,jamot1hax}{ot1}{OT1}{jtm}{c}{n}{
+  <->\string\Jtms@@scale}
+\installfont{jtmr7te}{jtmr8re,jtmri7ze,newlatin,jamot1hax}{ot1}{OT1}{jtm}{m}{n}{
+  <->\string\Jtms@@scale}
+\installfont{jtmri7te}{jtmri8re,jtmri7ze,newlatin,jamot1hax}{ot1}{OT1}{jtm}{m}{it}{
+  <->\string\Jtms@@scale}
+\installfont{jtmro7te}{jtmro8re,jtmri7ze,newlatin,jamot1hax}{ot1}{OT1}{jtm}{m}{sl}{
+  <->\string\Jtms@@scale}
+\installfont{jtmrc7te}{jtmr8re,jtmri7ze,newlatin,jamot1hax}{ot1c}{OT1}{jtm}{m}{sc}{
+  <->\string\Jtms@@scale}
+\installfontas{ptmb7t}{OT1}{jtm}{b}{n}{
+  <->\string\Jtms@@scale}
+\installfontas{ptmbi7t}{OT1}{jtm}{b}{it}{
+  <->\string\Jtms@@scale}
+\installfontas{ptmbo7t}{OT1}{jtm}{b}{sl}{
+  <->\string\Jtms@@scale}
+\installfontas{ptmbc7t}{OT1}{jtm}{b}{sc}{
+  <->\string\Jtms@@scale}
+\installfont{jtmr7tw}{jtmr8rw,jtmri7ze,newlatin,jamot1hax}{ot1}{OT1}{jtm}{x}{n}{
+  <->\string\Jtms@@scale}
+\installfont{jtmri7tw}{jtmri8rw,jtmri7ze,newlatin,jamot1hax}{ot1}{OT1}{jtm}{x}{it}{
+  <->\string\Jtms@@scale}
+\installfont{jtmro7tw}{jtmro8rw,jtmri7ze,newlatin,jamot1hax}{ot1}{OT1}{jtm}{x}{sl}{
+  <->\string\Jtms@@scale}
+\installfont{jtmrc7tw}{jtmr8rw,jtmri7ze,newlatin,jamot1hax}{ot1c}{OT1}{jtm}{x}{sc}{
+  <->\string\Jtms@@scale}
+\installfont{jtmb7tv}{jtmb8rv,jtmri7ze,newlatin,jamot1hax}{ot1}{OT1}{jtm}{bx}{n}{
+  <->\string\Jtms@@scale}
+\installfont{jtmbi7tv}{jtmbi8rv,jtmri7ze,newlatin,jamot1hax}{ot1}{OT1}{jtm}{bx}{it}{
+  <->\string\Jtms@@scale}
+\installfont{jtmbo7tv}{jtmbo8rv,jtmri7ze,newlatin,jamot1hax}{ot1}{OT1}{jtm}{bx}{sl}{
+  <->\string\Jtms@@scale}
+\installfont{jtmbc7tv}{jtmb8rv,jtmri7ze,newlatin,jamot1hax}{ot1c}{OT1}{jtm}{bx}{sc}{
+  <->\string\Jtms@@scale}
+%    \end{macrocode}
+% 
+% Then |T1|
+%    \begin{macrocode}
+\installfamily{T1}{jtm}{}
+\installfont{jtmr8tc}{jtmr8rc,jtmri7ze,newlatin}{t1}{T1}{jtm}{c}{n}{
+  <->\string\Jtms@@scale}
+\installfont{jtmr8te}{jtmr8re,jtmri7ze,newlatin,jtmri7ze}{t1}{T1}{jtm}{m}{n}{
+  <->\string\Jtms@@scale}
+\installfont{jtmri8te}{jtmri8re,jtmri7ze,newlatin,jtmri7ze}{t1}{T1}{jtm}{m}{it}{
+  <->\string\Jtms@@scale}
+\installfont{jtmro8te}{jtmro8re,jtmri7ze,newlatin}{t1}{T1}{jtm}{m}{sl}{
+  <->\string\Jtms@@scale}
+\installfont{jtmrc8te}{jtmr8re,jtmri7ze,newlatin}{t1c}{T1}{jtm}{m}{sc}{
+  <->\string\Jtms@@scale}
+\installfontas{ptmb8t}{T1}{jtm}{b}{n}{
+  <->\string\Jtms@@scale}
+\installfontas{ptmbi8t}{T1}{jtm}{b}{it}{
+  <->\string\Jtms@@scale}
+\installfontas{ptmbo8t}{T1}{jtm}{b}{sl}{
+  <->\string\Jtms@@scale}
+\installfontas{ptmbc8t}{T1}{jtm}{b}{sc}{
+  <->\string\Jtms@@scale}
+\installfont{jtmr8tw}{jtmr8rw,jtmri7ze,newlatin}{t1}{T1}{jtm}{x}{n}{
+  <->\string\Jtms@@scale}
+\installfont{jtmri8tw}{jtmri8rw,jtmri7ze,newlatin}{t1}{T1}{jtm}{x}{it}{
+  <->\string\Jtms@@scale}
+\installfont{jtmro8tw}{jtmro8rw,jtmri7ze,newlatin}{t1}{T1}{jtm}{x}{sl}{
+  <->\string\Jtms@@scale}
+\installfont{jtmrc8tw}{jtmr8rw,jtmri7ze,newlatin}{t1c}{T1}{jtm}{x}{sc}{
+  <->\string\Jtms@@scale}
+\installfont{jtmb8tv}{jtmb8rv,jtmri7ze,newlatin}{t1}{T1}{jtm}{bx}{n}{
+  <->\string\Jtms@@scale}
+\installfont{jtmbi8tv}{jtmbi8rv,jtmri7ze,newlatin}{t1}{T1}{jtm}{bx}{it}{
+  <->\string\Jtms@@scale}
+\installfont{jtmbo8tv}{jtmbo8rv,jtmri7ze,newlatin}{t1}{T1}{jtm}{bx}{sl}{
+  <->\string\Jtms@@scale}
+\installfont{jtmbc8tv}{jtmb8rv,jtmri7ze,newlatin}{t1c}{T1}{jtm}{bx}{sc}{
+  <->\string\Jtms@@scale}
+%    \end{macrocode}
+%
+% Then |TS1|.  We do not fake small caps here, so |textcomp| can take
+% (faked) |\texteuro| from normal fonts.
+%    \begin{macrocode}
+\installfamily{TS1}{jtm}{}
+\installfont{jtmr8cc}{jtmr8rc,textcomp}{ts1}{TS1}{jtm}{c}{n}{
+  <->\string\Jtms@@scale}
+\installfont{jtmr8ce}{jtmr8re,textcomp,jtmri7ze}{ts1}{TS1}{jtm}{m}{n}{
+  <->\string\Jtms@@scale}
+\installfont{jtmri8ce}{jtmri8re,textcomp,jtmri7ze}{ts1}{TS1}{jtm}{m}{it}{
+  <->\string\Jtms@@scale}
+\installfont{jtmro8ce}{jtmro8re,textcomp}{ts1}{TS1}{jtm}{m}{sl}{
+  <->\string\Jtms@@scale}
+%\installfont{jtmrc8te}{TS1}{jtm}{m}{sc}{
+%  <->\string\Jtms@@scale}
+\installfontas{ptmb8c}{TS1}{jtm}{b}{n}{
+  <->\string\Jtms@@scale}
+\installfontas{ptmbi8c}{TS1}{jtm}{b}{it}{
+  <->\string\Jtms@@scale}
+\installfontas{ptmbo8c}{TS1}{jtm}{b}{sl}{
+  <->\string\Jtms@@scale}
+%\installfontas{ptmbc8t}{TS1}{jtm}{b}{sc}{
+%  <->\string\Jtms@@scale}
+\installfont{jtmr8cw}{jtmr8rw,textcomp}{ts1}{TS1}{jtm}{x}{n}{
+  <->\string\Jtms@@scale}
+\installfont{jtmri8cw}{jtmri8rw,textcomp}{ts1}{TS1}{jtm}{x}{it}{
+  <->\string\Jtms@@scale}
+\installfont{jtmro8cw}{jtmro8rw,textcomp}{ts1}{TS1}{jtm}{x}{sl}{
+  <->\string\Jtms@@scale}
+%\installfontas{jtmrc8tw}{TS1}{jtm}{x}{sc}{
+%  <->\string\Jtms@@scale}
+\installfont{jtmb8cv}{jtmb8rv,textcomp}{ts1}{TS1}{jtm}{bx}{n}{
+  <->\string\Jtms@@scale}
+\installfont{jtmbi8cv}{jtmbi8rv,textcomp}{ts1}{TS1}{jtm}{bx}{it}{
+  <->\string\Jtms@@scale}
+\installfont{jtmbo8cv}{jtmbo8rv,textcomp}{ts1}{TS1}{jtm}{bx}{sl}{
+  <->\string\Jtms@@scale}
+%\installfontas{jtmbc8tv}{TS1}{jtm}{bx}{sc}{
+%  <->\string\Jtms@@scale}
+%    \end{macrocode}
+%
+%
+% Now math fonts.  We add italics to the |OML| fonts.  Since there are
+% some fonts missing in the Beleek smybols fonts, we reset them and
+% take fake fonts from Computer Modern
+% \changes{v1.1}{2009/10/14}{Added skewchar parameters} 
+%    \begin{macrocode}
+\installfamily{OML}{jtm}{\skewchar\font=127}
+\installfont{jtmri7me}{jtmri7ze,jtmri7te,cmmi10,jamomlhax}{oml}{OML}{jtm}{m}{it}{
+  <->\string\Jtms@@scale}
+\installfont{jtmbi7me}{jtmbi7tv,jtmri7ze,cmmib10,jamomlhax}{oml}{OML}{jtm}{bx}{it}{
+  <->\string\Jtms@@scale}
+\installfamily{OMS}{jtm}{\skewchar\font=48}
+\installfont{jtmr7ye}{jtmr7yoe,cmsy10}{oms}{OMS}{jtm}{m}{n}{
+  <->\string\Jtms@@scale}
+%    \end{macrocode}
+% 
+%
+% And the end:
+%    \begin{macrocode}
+\endinstallfonts
+\endrecordtransforms
+\bye
+%</drv>
+%    \end{macrocode}
+% 
+%\subsection{Fontmap Generation}
+%\label{sec:fontmap}
+%
+% This is a standard procedure~\cite{fontinstallationguide}.  We
+% use URW Times files, because |pdftex| cannot extend fonts unless
+% they are embedded.  
+%    \begin{macrocode}
+%<*map>
+\input finstmsc.sty
+\resetstr{PSfontsuffix}{.pfb}
+\specifypsfont{Times-Roman}{\download{utmr8a.pfb}}
+\specifypsfont{Times-Italic}{\download{utmri8a.pfb}}
+\specifypsfont{Times-Bold}{\download{utmb8a.pfb}}
+\specifypsfont{Times-BoldItalic}{\download{utmbi8a.pfb}}
+%\etxtoenc{omx}{texmext}
+%\enctoetx{texmext}{omx}
+\adddriver{dvips}{jtm.map}
+\input rec.tex
+\donedrivers
+\bye
+%</map>
+%    \end{macrocode}
+%
+%\subsection{Style File}
+%\label{sec:style}
+%
+% First, define all options:
+%    \begin{macrocode}
+%<*style>
+\RequirePackage{xkeyval}
+\DeclareOptionX{scaled}{\gdef\Jtms@scale{#1}}
+\DeclareOptionX{sfscaled}{\gdef\Hv@scale{#1}}
+\DeclareOptionX{amsfontsscaled}{\gdef\AmsFonts@scale{#1}}
+\DeclareOptionX{sffamily}{\gdef\sfdefault{#1}}
+\DeclareOptionX{ttfamily}{\gdef\ttdefault{#1}}
+\ExecuteOptionsX{scaled=1.05,sfscaled=0.94,amsfontsscaled=1.05,sffamily=phv,%
+  ttfamily=pcr}
+\ProcessOptionsX
+\edef\AmsFonts@@scale{*[\csname AmsFonts@scale\endcsname]}
+%    \end{macrocode}
+%
+%   Now we make |jtm| the text default.
+%    \begin{macrocode}
+\def\rmdefault{jtm}
+%    \end{macrocode}
+%
+%
+% \changes{v1.1}{2009/10/14}{Used math design for large symbols} 
+% Math is more complex.  We follow mostly~\cite{Hoenig98:TeXUnbound}.
+% Note that |blex| font is broken, so we use math design font
+% |cmex| for large symbols.
+%    \begin{macrocode}
+\DeclareSymbolFont{operators}       {OT1}{jtm}{m}{n}
+\DeclareSymbolFont{letters}         {OML}{jtm}{m}{it}
+\DeclareSymbolFont{symbols}         {OMS}{jtm}{m}{n}
+\DeclareSymbolFont{largesymbols}    {OMX}{cmex}{m}{n}
+\SetSymbolFont{operators}{bold}     {OT1}{jtm}{bx}{n}
+\SetSymbolFont{letters}{bold}       {OML}{jtm}{bx}{it}
+\SetMathAlphabet{\mathrm}{normal}{OT1}{\rmdefault}{m}{n}
+\SetMathAlphabet{\mathbf}{normal}{OT1}{\rmdefault}{b}{n}
+\SetMathAlphabet{\mathit}{normal}{OT1}{\rmdefault}{m}{it}
+\SetMathAlphabet{\mathsf}{normal}{OT1}{\sfdefault}{m}{n}
+\SetMathAlphabet{\mathtt}{normal}{OT1}{\ttdefault}{m}{n}
+\DeclareMathAlphabet{\mathbold}   {OT1}{jtm}{bx}{it}
+\DeclareMathSymbol{\nabla}{\mathord}{symbols}{114}
+\DeclareMathSymbol{\Gamma}{\mathalpha}{operators}{0}
+\DeclareMathSymbol{\Delta}{\mathalpha}{operators}{1}
+\DeclareMathSymbol{\Theta}{\mathalpha}{operators}{2}
+\DeclareMathSymbol{\Lambda}{\mathalpha}{operators}{3}
+\DeclareMathSymbol{\Xi}{\mathalpha}{operators}{4}
+\DeclareMathSymbol{\Pi}{\mathalpha}{operators}{5}
+\DeclareMathSymbol{\Sigma}{\mathalpha}{operators}{6}
+\DeclareMathSymbol{\Upsilon}{\mathalpha}{operators}{7}
+\DeclareMathSymbol{\Phi}{\mathalpha}{operators}{8}
+\DeclareMathSymbol{\Psi}{\mathalpha}{operators}{9}
+\DeclareMathSymbol{\Omega}{\mathalpha}{operators}{10}
+%    \end{macrocode}
+% 
+%
+% We change the scale of amsfonts:
+%    \begin{macrocode}
+\RequirePackage{eucal,amsfonts}
+\DeclareFontFamily{U}{msa}{}
+\DeclareFontShape{U}{msa}{m}{n}{%
+  <5><6><7><8><9>  gen\AmsFonts@@scale msam%
+  <10><10.95><12><14.4><17.28><20.74><24.88> s\AmsFonts@@scale msam10%
+  }{}
+\DeclareFontFamily{U}{msb}{}
+\DeclareFontShape{U}{msb}{m}{n}{%
+  <5><6><7><8><9>gen\AmsFonts@@scale msbm%
+  <10><10.95><12><14.4><17.28><20.74><24.88>s\AmsFonts@@scale msbm10%
+  }{}
+\DeclareFontFamily{U}{euf}{}
+\DeclareFontShape{U}{euf}{m}{n}{%
+  <5><6><7><8><9>gen\AmsFonts@@scale eufm%
+  <10><10.95><12><14.4><17.28><20.74><24.88>s\AmsFonts@@scale eufm10%
+  }{}
+\DeclareFontShape{U}{euf}{b}{n}{%
+  <5><6><7><8><9>gen\AmsFonts@@scale eufb%
+  <10><10.95><12><14.4><17.28><20.74><24.88>s\AmsFonts@@scale eufb10%
+  }{}
+\DeclareFontFamily{U}{euex}{}
+\DeclareFontShape{U}{euex}{m}{n}{%
+  <5-8>sfixed\AmsFonts@@scale euex7<8><9>gen\AmsFonts@@scale euex%
+  <10><10.95><12><14.4><17.28><20.74><24.88>s\AmsFonts@@scale euex10%
+  }{}
+\DeclareFontFamily{U}{eus}{\skewchar\font'60}
+\DeclareFontShape{U}{eus}{m}{n}{%
+  <5><6><7><8><9>gen\AmsFonts@@scale eusm%
+  <10><10.95><12><14.4><17.28><20.74><24.88>s\AmsFonts@@scale eusm10%
+  }{}
+\DeclareFontShape{U}{eus}{b}{n}{%
+  <5><6><7><8><9>gen\AmsFonts@@scale eusb%
+  <10><10.95><12><14.4><17.28><20.74><24.88>s\AmsFonts@@scale eusb10%
+  }{}
+%    \end{macrocode}
+% 
+% \begin{macro}{\hbar}
+% \changes{v1.1}{2009/10/14}{Added macro} 
+% Redefine \verb|\hbar|, so it is like $h$ (\verb|amsmath| defines a
+% different shape).  The trick is
+% from~\cite{Schmidt04:PSNFSS9.2}
+%    \begin{macrocode}
+\DeclareRobustCommand\hbar{{%
+ \dimen@.04em%
+ \dimen@ii.06em%
+ \def\@tempa##1##2{{%
+   \lower##1\dimen@\rlap{\kern##1\dimen@ii\the##2 0\char22}}}%
+ \mathchoice\@tempa\@ne\textfont
+            \@tempa\@ne\textfont
+            \@tempa\defaultscriptratio\scriptfont
+            \@tempa\defaultscriptscriptratio\scriptscriptfont
+  h}}
+%    \end{macrocode}
+% \end{macro}
+% 
+%    \begin{macrocode}
+%</style>
+%    \end{macrocode}
+%
+%
+%\subsection{Some Auxiliary Files}
+%\label{sec:aux}
+%
+% \changes{v1.2}{2010/04/10}{Added jamot1hax.mtx}
+% \changes{v1.1}{2010/11/06}{Slightly moved equal sign}
+% 
+% In the OT1 encoding we want upcase Greek
+%    \begin{macrocode}
+%<*jamot1hax>
+\relax
+
+Upcase Greek for OT1
+
+\metrics
+
+% Moved equal sign
+\resetglyph{equal}
+\movert{130}
+\glyph{equal}{1000}
+\resetwidth{\add{\width{equal}}{120}}
+\endsetglyph
+
+
+\unsetglyph{Gamma}
+\setglyph{Gamma}
+\glyph{Gamma1}{1000}
+\endsetglyph
+\unsetglyph{Delta}
+\setglyph{Delta}
+\glyph{Delta1}{1000}
+\endsetglyph
+\unsetglyph{Theta}
+\setglyph{Theta}
+\glyph{Theta1}{1000}
+\endsetglyph
+\unsetglyph{Theta}
+\setglyph{Theta}
+\glyph{Theta1}{1000}
+\endsetglyph
+\unsetglyph{Lambda}
+\setglyph{Lambda}
+\glyph{Lambda1}{1000}
+\endsetglyph
+\unsetglyph{Xi}
+\setglyph{Xi}
+\glyph{Xi1}{1000}
+\endsetglyph
+\unsetglyph{Pi}
+\setglyph{Pi}
+\glyph{Pi1}{1000}
+\endsetglyph
+\unsetglyph{Sigma}
+\setglyph{Sigma}
+\glyph{Sigma1}{1000}
+\endsetglyph
+\unsetglyph{Upsilon}
+\setglyph{Upsilon}
+\glyph{Upsilon1}{1000}
+\endsetglyph
+\unsetglyph{Phi}
+\setglyph{Phi}
+\glyph{Phi1}{1000}
+\endsetglyph
+\unsetglyph{Psi}
+\setglyph{Psi}
+\glyph{Psi1}{1000}
+\endsetglyph
+\unsetglyph{Omega}
+\setglyph{Omega}
+\glyph{Omega1}{1000}
+\endsetglyph
+
+
+\endmetrics
+%</jamot1hax>
+%    \end{macrocode}
+%
+%
+% \changes{v1.2}{2010/04/10}{Added jamomlhax.mtx}
+% \changes{v1.10}{2010/10/28}{Slightly increased the spacing around f
+% in OML}
+% \changes{v1.10}{2010/10/28}{Changed italic correction for v in
+% OML} 
+% \changes{v1.11}{2010/11/07}{Changed many italic corrections on OML} 
+% \changes{v1.12}{2010/11/09}{Moved a little j and l} 
+% \changes{v1.12}{2010/11/09}{Moved J, a, D, r} 
+% This main idea is  taken from~\cite{Hoenig98:MathInst}.  We changed
+% the parameters, of course.  
+%    \begin{macrocode}
+%<*jamomlhax>
+\relax
+
+These hacks help adjust the positioning of accents on italic
+characters and some sidebearings
+
+\metrics
+
+% Expanding a little J
+\resetglyph{J}
+\movert{70}
+\glyph{J}{1000}
+\resetwidth{\add{\width{J}}{50}}
+\endsetglyph
+
+
+% Expanding a little j
+\resetglyph{j}
+\movert{170}
+\glyph{j}{1000}
+\resetwidth{\add{\width{j}}{200}}
+\endsetglyph
+
+
+% Expanding a little f
+\resetglyph{f}
+\movert{150}
+\glyph{f}{1000}
+\resetwidth{\add{\width{f}}{200}}
+\endsetglyph
+
+
+% Expanding a little l
+\resetglyph{l}
+\movert{50}
+\glyph{l}{1000}
+\resetwidth{\add{\width{l}}{50}}
+\endsetglyph
+
+
+% Expanding a little m
+\resetglyph{m}
+\glyph{m}{1000}
+\resetwidth{\add{\width{m}}{50}}
+\endsetglyph
+
+
+
+
+
+% Adding italic correction
+\setcommand\additalic#1#2{\resetglyph{#1}\glyph{#1}{1000}\resetitalic{\add{\italic{#1}}{#2}}\endsetglyph}
+
+\additalic{B}{75}
+\additalic{C}{50}
+\additalic{D}{75}
+\additalic{E}{75} 
+\additalic{F}{75} 
+\additalic{G}{50} 
+\additalic{H}{75} 
+\additalic{I}{50} 
+\additalic{J}{50} 
+\additalic{K}{75} 
+\additalic{M}{75} 
+\additalic{N}{75} 
+\additalic{O}{25} 
+\additalic{P}{25} 
+\additalic{Q}{25} 
+\additalic{R}{25} 
+\additalic{S}{50} 
+\additalic{T}{75} 
+\additalic{U}{50} 
+\additalic{V}{50} 
+\additalic{W}{50} 
+\additalic{X}{50} 
+\additalic{Y}{50} 
+\additalic{Z}{50} 
+
+\additalic{a}{25} 
+\additalic{d}{75} 
+\additalic{i}{75} 
+\additalic{j}{75} 
+\additalic{k}{25} 
+\additalic{l}{50} 
+\additalic{r}{50} 
+\additalic{v}{-300}
+
+\additalic{beta}{50}
+\additalic{delta}{75}
+\additalic{zeta}{50}
+\additalic{theta}{50}
+\additalic{xi}{50}
+\additalic{phi}{50}
+
+
+% \skewkern sets a skewchar kern, assuming that tie is the skewchar. 
+\setcommand\skewkern#1#2{\resetkern{#1}{tie}{#2}} 
+
+
+% We need to check that tie is defined
+\ifisglyph{tie}\then\else\setglyph{tie}\endsetglyph\fi
+
+
+\skewkern{A}{75} 
+\skewkern{B}{70} 
+\skewkern{C}{100} 
+\skewkern{D}{50} 
+\skewkern{E}{75} 
+\skewkern{F}{75} 
+\skewkern{G}{100} 
+\skewkern{H}{50} 
+\skewkern{I}{100} 
+\skewkern{J}{120} 
+\skewkern{K}{75} 
+\skewkern{M}{25} 
+\skewkern{N}{50} 
+\skewkern{O}{100} 
+\skewkern{P}{100} 
+\skewkern{Q}{100} 
+\skewkern{R}{100} 
+\skewkern{S}{100} 
+\skewkern{T}{50} 
+\skewkern{U}{50} 
+\skewkern{V}{50} 
+\skewkern{W}{50} 
+\skewkern{X}{50} 
+\skewkern{Y}{50} 
+\skewkern{Z}{50} 
+\skewkern{a}{75} 
+\skewkern{c}{75} 
+\skewkern{d}{100} 
+\skewkern{e}{75} 
+\skewkern{f}{140} 
+\skewkern{g}{75} 
+\skewkern{i}{75} 
+\skewkern{j}{120} 
+\skewkern{l}{100} 
+\skewkern{m}{40} 
+\skewkern{n}{50} 
+\skewkern{o}{75} 
+\skewkern{p}{75} 
+\skewkern{q}{75} 
+\skewkern{r}{50} 
+\skewkern{s}{80} 
+\skewkern{t}{50} 
+\skewkern{u}{75} 
+\skewkern{v}{-80} 
+\skewkern{w}{75} 
+\skewkern{x}{50} 
+\skewkern{y}{50} 
+\skewkern{z}{50} 
+\skewkern{dotlessi}{50} 
+\skewkern{dotlessj}{120}
+\skewkern{Gamma}{100}
+\skewkern{Delta}{200}
+\skewkern{Theta}{100}
+\skewkern{Lambda}{200}
+\skewkern{Xi}{125}
+\skewkern{Pi}{100}
+\skewkern{Sigma}{100}
+\skewkern{Upsilon}{100}
+\skewkern{Phi}{100}
+\skewkern{Psi}{50}
+\skewkern{Omega}{100}
+%\skewkern{alpha}{50}
+\skewkern{beta}{75}
+\skewkern{gamma}{25}
+\skewkern{delta}{100}
+\skewkern{epsilon1}{75}
+\skewkern{zeta}{50}
+\skewkern{eta}{25}
+\skewkern{theta}{50}
+%\skewkern{iota}{50}
+%\skewkern{kappa}{50}
+%\skewkern{lambda}{50}
+\skewkern{mu}{35}
+%\skewkern{nu}{50}
+\skewkern{xi}{75}
+%\skewkern{pi}{50}
+\skewkern{rho}{75}
+\skewkern{sigma}{25}
+\skewkern{tau}{25}
+% \skewkern{upsilon}{-25} 
+\skewkern{phi}{125}
+\skewkern{chi}{50}
+\skewkern{psi}{50}
+\skewkern{omega}{25}
+\skewkern{epsilon}{50}
+%\skewkern{theta1}{50}
+%\skewkern{omega1}{50}
+\skewkern{rho1}{50}
+%\skewkern{sigma1}{75}
+\skewkern{lscript}{75} 
+\skewkern{weierstrass}{60} 
+
+
+\endmetrics
+%</jamomlhax>
+%    \end{macrocode}
+%
+%
+% 
+%\Finale
+%\clearpage
+%
+%\PrintChanges
+%\clearpage
+%\PrintIndex
+%
+\endinput

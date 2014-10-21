@@ -1,0 +1,317 @@
+\immediate\write17{^^J%
++----------------------------------------------------------------------^^J%
+| WARNING (`scrlayer-notecolumn.tex'):^^J%
++----------------------------------------------------------------------^^J%
+| YOU SHOULD NOTE, THAT THIS IS NOT AN OFFICIAL RELEASE!^^J%
+| THIS VERSION IS INTENDED TO BE USED FOR TESTING ONLY!^^J%
+| USAGE FOR PURPOSES OTHER THAN INTENDED IS DANGEROUS!^^J%
+| DON'T EXPECT ANY SUPPORT FOR THIS VERSION!^^J%
++----------------------------------------------------------------------^^J%
+}
+%%
+%% This is file `scrlayer-notecolumn.tex',
+%% generated with the docstrip utility, extended by scrdocstrip.
+%%
+%% The original source files were:
+%%
+%% scrlayer-notecolumn.dtx  (with options: `doc')
+%% 
+%% Copyright (c) 1994-2013 Markus Kohm [komascript at gmx info]
+%% 
+%% This file was generated from file(s) of the KOMA-Script bundle.
+%% ---------------------------------------------------------------
+%% 
+%% It may be distributed under the conditions of the
+%% LaTeX Project Public License in the version distributed together
+%% with KOMA-Script, see file `lppl.txt' or `lppl-de.txt'.
+%% 
+%% This file may only be distributed together with a copy of the
+%% KOMA-Script bundle.  You may however distribute the
+%% KOMA-Script bundle without all such generated files.  See also
+%% `lppl.txt' or `lppl-de.txt' for additional information.
+%% 
+%% The list of files belonging to KOMA-Script distribution is given in
+%% the file `manifest.txt'.  See also `lppl.txt' or `lppl-de.txt' for
+%% additional information.
+%% 
+%% If this file is a beta version, you may not be allowed to distribute
+%% it.  Look at the comments below to see if this is the case.
+%% 
+%% English and German manuals are part of KOMA-Script bundle.
+%% ----------------------------------------------------------
+%% 
+%% See `README'.
+%% 
+%% The KOMA-Script bundle (but maybe not this file) was based upon the
+%% LaTeX 2.09 Script family created by Frank Neukam 1993 and the LaTeX2e
+%% standard classes created by The LaTeX3 Project 1994-1996.  You may
+%% find a complete unmodified copy of LaTeX2e at
+%% <http://www.ctan.org/pub/tex-archive/macros/latex/base/>.
+%% 
+\ProvidesFile{scrlayer-notecolumn.tex}[%
+  15/11/2013 v0.1.1514
+  (end user interface for scrlayer)]
+
+\chapter[{End User Interface \Package{scrlayer-notecolumn}}]{End User
+  Interface \Package{scrlayer-notecolumn}\footnote{This is not a translation
+  of the corresponding chapter of the German \KOMAScript{} manual but the
+  tentative and primary implementation manual of package
+  \Package{scrlayer-notecolumn}. As long as \Package{scrlayer-notecolumn} is
+  primary a proof of concept this doesn't matter. But nevertheless, a
+  German to English translator would still be welcome.}}
+\label{sec:scrlayer.notecolumn}
+\labelbase{scrlayer-notecolumn}
+
+Sometimes documents need an additional notes column beside the main text
+column and maybe beside the marginal note column. Problematicly may be
+having page breaks inside the notes column. This package provides a
+solution based on the layer interface of \Package{scrlayer}. You may
+define several notes columns, each of them with page breaks
+inside. It supports automatic page break inside of notes and recognises
+note collisions and solve them by moving notes.
+
+The idea of this package raised while an e-mail contact with Heiner
+Richter from FH~Stralsund, who told me of a book project, and asked
+whether or not such a functionality may be added to another package of
+mine easily. It couldn't, but design and implementation of a first test
+alpha of \Package{scrlayer-notecolumn} has been done in about three
+hours. So maybe it was a really good idea to ask me the question.
+
+\begin{Declaration}
+  \Macro{DeclareNoteColumn}%
+  \OParameter{option list}\Parameter{note column name}%
+  \\
+  \Macro{DeclareNewNoteColumn}%
+  \OParameter{option list}\Parameter{note column name}\\%^^A
+  \Macro{ProvideNoteColumn}%
+  \OParameter{option list}\Parameter{note column name}\\%^^A
+  \Macro{RedeclareNoteColumn}%
+  \OParameter{option list}\Parameter{note column name}%
+\end{Declaration}
+\BeginIndex{Cmd}{DeclareNoteColumn}%
+\BeginIndex{Cmd}{DeclareNewNoteColumn}%
+\BeginIndex{Cmd}{ProvideNoteColumn}%
+\BeginIndex{Cmd}{RedeclareNoteColumn}%
+Command \Macro{DeclareNoteColumn}
+may be used to declare a note column. Each note column is referenced by its
+name, defined by the obligatory argument \PName{note column name}. A note
+column vertically span the text area.
+
+By default its horizontal position is the current position of the marginal
+note column. It also regards \Macro{reversemarginpar} and
+\Macro{normalmarginpar}, while output of a note. Note that this is not the
+same like making a margin note. The default width is
+\Length{marginparwidth}. But you may use the optional argument \PName{option
+  list} to change this behaviour.
+
+The \PName{option list} is a comma-separated list of
+\texttt{\PName{key}=\PName{value}} options. Currently the following
+\PName{key}s are supported:
+\begin{labeling}[\ --]{\KOption{position}\PName{horizontal offset}}
+\item [\KOption{font}\PName{font declaration}] set the initial font attributes
+  to be used for the note column. Everything, that is allowed to be set by
+  \Macro{setkomafont} or \Macro{addtokomafont} can be used as
+  \PName{font declaration}. Note, that
+  \Macro{normalfont}\Macro{normalsize} will be used
+  before. So you don't need one of them at your own initialisation.
+\item [\Option{marginpar}] set up \Option{position} and \Option{width} to use
+  the marginal note column of \Macro{marginpar}.
+\item [\Option{normalmarginpar}] set up \Option{position} and \Option{width}
+  to use the normal marginal note column and ignore \Macro{reversemarginpar}
+  and \Macro{normalmarginpar}.
+\item [\KOption{position}\PName{horizontal offset}] set up the horizontal
+  offset of the note column from the left edge of the paper. The
+  \PName{horizontal offset} can be either a \LaTeX{} length, a \TeX{}
+  dimension, a \TeX{} skip, a length value, or a dimensional expression using
+  \texttt{+}, \texttt{-}, \texttt{*}, \texttt{/} and parenthesis (see
+  \cite[section~3.5]{manual:eTeX} for more information about dimensional
+  expressions). The value will be calculated at usage time not at definition
+  time. So you may even use more complex constructs like:
+\begin{lstcode}
+  \ifodd\value{page}
+    \oddsidemargin+1in
+    +\textwidth+\marginparsep
+  \else
+    \evensidemargin+1in
+    -\marginparsep
+    -\marginparwidth
+  \fi
+\end{lstcode}
+\item [\Option{reversemarginpar}] set up \Option{position} and \Option{width}
+  to use the reverse marginal note column and ignore \Macro{reversemarginpar}
+  and \Macro{normalmarginpar}.
+\item [\KOption{width}\PName{size}] set up the horizontal size of the note
+  column. You can use the same values for \PName{size} like for
+  \PName{horizontal offset} of option \Option{position}.
+\end{labeling}
+
+You may use as much note columns as \LaTeX{} provides free box registers,
+because every note column needs one box register. You may use package
+\Package{etex} to increase the normal amount of box registers from 256 to
+32768. This should be enough to avoid the ``\texttt{no room for
+  \Macro{newbox}}'' error.
+
+The implementation of note columns uses foreground layers from package
+\Package{scrlayer}. Every \Macro{DeclareNoteColumn} generates a layer and adds
+this layer to the pseudo page style \Pagestyle{@everystyle@}. Theoretically
+you may modify the generated layer, but it is recommended not to modify them.
+
+Overlapping of different note columns is allowed. There's one predefined note
+column named ``\texttt{marginpar}''.
+
+\BeginIndex{FontElement}{notecolumn.\PName{note column name}}%
+Note, that if you change the initial font using
+\begin{quote}
+  \Macro{setkomafont}\linebreak[1]\PParameter{marginnote.\PName{note column
+      name}}\Parameter{font declaration}
+\end{quote}
+or
+\begin{quote}
+  \Macro{addtokomafont}\linebreak[1]\PParameter{marginnote.\PName{note column
+      name}}\Parameter{font declaration}
+\end{quote}
+the font of all succeeding note column outputs would change. This could make it
+hard to find out, which notes will be affected by the change.
+See \autoref{sec:maincls.textmarkup},
+\autopageref{desc:maincls.cmd.setkomafont} for more information about
+\Macro{setkomafont} and \Macro{addtokomafont}.%
+\EndIndex{FontElement}{notecolumn.\PName{note column name}}%
+
+The difference between \Macro{DeclareNoteColumn} and the other commands is,
+that \Macro{DeclareNoteColumn} defines the note column independent whether a
+note column with the same name has already been defined or
+not. \Macro{DeclareNewNoteColumn} defined only note columns which names are
+not yet used for another note column. It's an error to use it with an already
+used \PName{note column name}. \Macro{ProvideNoteColumn} is like
+\Macro{DeclareNewNoteColumn}, but if the \PName{note column name} is already
+used for a note column nothing happens. \Macro{RedeclareNoteColumn} may be
+used to declare a note column with a name, that is already used. Using it with
+a new name is an error.
+\EndIndex{Cmd}{RedeclareNoteColumn}%^^A
+\EndIndex{Cmd}{ProvideNoteColumn}%^^A
+\EndIndex{Cmd}{DeclareNewNoteColumn}%^^A
+\EndIndex{Cmd}{DeclareNoteColumn}%^^A
+
+\begin{Declaration}
+  \Macro{makenote}%
+  \OParameter{note column name}\Parameter{note text}
+\end{Declaration}
+\BeginIndex{Cmd}{makenote}%
+This command
+may be used to make a new note. The note will be written to a helper file with
+extension \File{.slnc} in this run. In the next run, it will be
+typeset. Normally it will be typeset with the same vertical position, that
+would be used for a \Macro{parbox[t]}, but horizontally moved to the note
+column. Collisions at this position of this note column (but not of other note
+columns) will be recognised. In such a case the note may be moved down and
+even to another page. Automatic page breaks at the note columns are
+supported. This is something different to \Macro{marginpar},
+\Macro{marginline} (\KOMAScript{} classes), or \Macro{marginnote} (package
+\Package{marginnote}).
+
+Note, that after changing the document, at least two \LaTeX{} runs are needed
+to move the note to its final position.
+
+Note, that fragile commands should be protected to avoid error messages while
+writing or reading the helper file.
+
+Note, that \Package{scrlayer-notecolumn} needs only one helper file for all
+note columns together. You should not edit or change that helper file, because
+the syntax is fragile. It won't be read using \Macro{input} but
+\Macro{read}. Because of this, line breaks, empty lines and \Macro{par} should
+be avoided.
+
+Currently it is unknown where you may use \Macro{makenote} and where not. But
+you must not use \Macro{makenote} inside of \Macro{makenote}!
+
+The default for the optional argument \PName{makenote} is \PValue{marginpar},
+that is the \PName{note column name} of the pre-defined note column.
+\EndIndex{Cmd}{makenote}
+
+\begin{Declaration}
+  \KOption{autoclearnotecolumns}\PName{simple switch}\\
+  \Macro{clearnotecolumn}\OParameter{name of a note column}%
+  \\
+  \Macro{clearnotecolumns}\OParameter{list of note column names}
+\end{Declaration}
+\BeginIndex{Cmd}{clearnotcolumn}%
+\BeginIndex{Cmd}{clearnotcolumns}%
+The commands
+may be used to output all hanging notes for either one or several note
+columns. With \Macro{clearnotecolumn} only the notes of the note column with
+the given \PName{name of a note column} will be output. If you omit the
+optional argument (this is not the same like using an empty value!) note
+column \PValue{marginnote} will be used.
+
+With \Macro{clearnotecolumns} the notes of all note columns of the comma
+separated \PName{list of note column names} will be output. If you omit the
+optional Argument or if the optional Argument is empty (or start with
+\Macro{relax}) the notes of all note columns will be output.
+
+Macro \Macro{clearpage} will be used to output hanging notes and several
+\LaTeX{} runs may be needed to terminate with the correct number of
+\Macro{clearpage} for the whole document. You will get the message ``\LaTeX{}
+Warning: Label(s) may have changed. Rerun to get cross-references right.'' as
+long as the process hasn't been terminated.
+
+But normally you don't need to us \Macro{clearnotecolum} or
+\Macro{clearnotecolumns} yourself. Because by default option
+\Option{autoclearnotecolumns} is switched on, which means, that
+\Macro{clearnotecolumns} will be done at every \Macro{clearpage}. You may
+change this, switching off \Macro{autoclearnotecolumns} using one of the
+values for simple switches.
+
+Note, that it is not allowed to use \Macro{clearnotecolumn} or
+\Macro{clearnotecolumns} inside a note. You can use these commands only inside
+the main text of the document.%
+\EndIndex{Cmd}{clearnotcolumns}%
+\EndIndex{Cmd}{clearnotcolumn}%
+
+\begin{Declaration}
+  \Macro{syncwithnotecolumn}\OParameter{name of a note column}%
+  \\
+  \Macro{syncwithnotecolumns}\OParameter{list of note column names}%
+\end{Declaration}
+\BeginIndex{Cmd}{syncwithnotecolumn}%
+\BeginIndex{Cmd}{syncwithnotecolumns}%
+These commands
+may be used to synchronise the vertical position of the main text with one or
+several note columns. If you use the optional argument of
+\Macro{syncwithnotecolumn} it should be one \PName{name of a note column}. If
+you omit it, \PValue{marginpar} will be used as the \PName{name of a note
+  column}. Usage of \Macro{syncwithnotecolumn} is exactly the same like usage
+of \Macro{syncwithnotecolumns} with exactly one \PName{name of a note column}.
+
+The optional argument of \Macro{syncwithnotecolumns} is a comma-separated list
+of names of note columns. If you omit this optional argument or if you use an
+empty argument or if the argument starts with \Macro{relax} synchronisation
+will be done with all declared note columns.
+
+Synchronisation with a note column means, that the current position of the
+main text will be changed to be the current vertical position of the note
+column after cleaning the note column. This differs in several point from
+cleaning a note column:
+\begin{itemize}
+\item After cleaning a note column the text position would change to be at a
+  new page, even if the note column doesn't fill the whole page
+  before. Synchronisation will change the vertical position just after the
+  last vertical position of the note column.
+\item Cleaning a note column needs less \LaTeX{} runs than synchronising a
+  note column.
+\end{itemize}
+Both, cleaning an synchronising a note column, uses the label mechanism of
+\LaTeX{} without using \Macro{label}, \Macro{ref}, or \Macro{pageref} itself
+(but \Macro{newlabel}). So you should have a look at \LaTeX{} rerun messages,
+because of undefined or changed labels.
+
+Note, that it is not allowed to use \Macro{syncwithnotecolumn} or
+\Macro{syncwithnotecolumns} inside a note. If you do so, you need endless
+\LaTeX{} runs without reaching a final state. But synchronisation of several
+note columns in the main text of a document will also synchronise the notes
+columns with each others.%
+\EndIndex{Cmd}{syncwithnotecolumns}
+\EndIndex{Cmd}{syncwithnotecolumn}
+
+\endinput
+%%
+%% End of file `scrlayer-notecolumn.tex'.

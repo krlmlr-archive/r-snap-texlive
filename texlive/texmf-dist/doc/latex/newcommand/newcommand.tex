@@ -1,0 +1,742 @@
+\documentclass{ltxdoc}
+\usepackage[T1]{fontenc}
+\usepackage{tabularx}
+\usepackage{syntax}
+\usepackage{varioref}
+\usepackage{color}
+\usepackage{booktabs}
+\usepackage{alltt}
+\usepackage{textcomp}
+\usepackage[bookmarksopen=true]{hyperref}
+
+% Define this document's metadata.
+\def\ncfileversion{2.0}
+\def\ncfiledate{2010/06/01}
+
+\title{The \textsf{newcommand.py} utility\thanks{\textsf{newcommand.py}
+         has version number \ncfileversion, last revised \ncfiledate.}}
+\author{\href{mailto:scott+nc@pakin.org}{Scott Pakin} \\
+        \href{mailto:scott+nc@pakin.org}{scott+nc@pakin.org}}
+\date{\ncfiledate}
+\hypersetup{%
+  pdftitle={The newcommand.py utility},
+  pdfauthor={Scott Pakin <scott+nc@pakin.org>},
+  pdfsubject={Creating user-defined macros with more flexible argument
+    processing},
+  pdfkeywords={LaTeX macros, optional arguments, newcommand, parenthesized
+    arguments, starred commands, Python}
+}
+
+% Help prevent weird line breaks in URLs
+\def\UrlBreaks{}
+\def\UrlBigBreaks{\do/}
+
+% Define some useful shortcuts.
+\newcommand*{\ncpy}{\texttt{newcommand.py}}      % The name of the script
+\newcommand*{\usercmd}[1]{\textcolor{blue}{#1}}  % User command entry
+\newcommand{\prototype}[1]{{%                    % Prompt and user entry
+  \bigskip
+  \noindent
+  \ttfamily\small\raggedright
+  \hangafter=1\hangindent=4em
+  ~~~~\% Prototype:~\textcolor{blue}{#1}\strut\par
+  \vspace*{-0.5\baselineskip}%
+}}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{document}
+\maketitle
+\sloppy
+
+\begin{abstract}
+  \LaTeX's \cs{newcommand} is fairly limited in the way it processes
+  optional arguments, but the \TeX\ alternative, a batch of \cs{def}s
+  and \cs{futurelet}s, can be overwhelming to the casual \LaTeX\ user.
+  \ncpy\ is a Python program that automatically generates
+  \LaTeX\ macro definitions for macros that require more powerful
+  argument processing than \cs{newcommand} can handle.  \ncpy\ is
+  intended for \LaTeX\ advanced beginners (i.e., those who know how to
+  use \cs{newcommand} but not internal \LaTeXe\ macros like
+  |\@ifnextchar|) and for more advanced users who want to save some
+  typing when defining complex macros.
+\end{abstract}
+
+\section{Introduction}
+
+\LaTeX's \cs{newcommand} is a rather limited way to define new macros.
+Only one argument can be designated as optional, it must be the first
+argument, and it must appear within square brackets.  Defining macros
+that take multiple optional arguments or in which an optional argument
+appears in the middle of the argument list is possible but well beyond
+the capabilities of the casual \LaTeX\ user.  It requires using
+\TeX\ primitives such as \cs{def} and \cs{futurelet} and/or
+\LaTeXe\ internal macros such as \cs{@ifnextchar}.
+
+\ncpy\ is a Python program that reads a specification of an argument
+list and automatically produces \LaTeX\ code that processes the
+arguments appropriately.  \ncpy\ makes it easy to define
+\LaTeX\ macros with more complex parameter parsing than is possible
+with \cs{newcommand} alone.  Note that you do need to have Python
+installed on your system to run \ncpy.  Python is freely available for
+download from \url{http://www.python.org/}.
+
+To define a \LaTeX\ macro, one gives \ncpy\ a macro description
+written in a simple specification language.  The description
+essentially lists the required and optional arguments and, for each
+optional argument, the default value.  The next section of this
+document describes the syntax and provides some examples, but for now,
+let's look at how one would define the most trivial macro possible,
+one that takes no arguments.  Enter the following at your operating
+system's prompt:
+
+\begin{alltt}
+    \usercmd{newcommand.py "MACRO trivial"}
+\end{alltt}
+
+\noindent
+(Depending on your system, you may need to prefix that command with
+``|python|''.)  The program should output the following \LaTeX\ code
+in response:
+
+\begin{verbatim}
+    % Prototype: MACRO trivial
+    \newcommand{\trivial}{%
+      % Put your code here.
+    }
+\end{verbatim}
+
+\noindent
+Alternatively, you can run \ncpy\ interactively, entering macro
+descriptions at the ``|% Prototype:|'' prompt:
+
+\prototype{MACRO trivial}
+\begin{verbatim}
+    \newcommand{\trivial}{%
+      % Put your code here.
+    }
+    % Prototype:
+\end{verbatim}
+
+\noindent
+Enter your operating system's end-of-file character (Ctrl-D in Unix or
+Ctrl-Z in Windows) to exit the program.
+
+While you certainly don't need \ncpy\ to write macros that are as
+trivial as \cs{trivial}, the previous discussion shows how to run the
+program and the sort of output that you should expect.  There will
+always be a ``\texttt{Put your code here}'' comment indicating where
+you should fill in the actual macro code.  At that location, all of
+the macro's parameters---both optional and required---will be defined
+and can be referred to in the ordinary way: |#1|, |#2|, |#3|, etc.
+
+
+\section{Usage}
+
+As we saw in the previous section, macros are defined by the word
+``|MACRO|'' followed by the macro name, with no preceding backslash.
+In this section we examine how to specify increasingly sophisticated
+argument processing using \ncpy.
+
+
+\subsection{Required arguments}
+
+Required arguments are entered as~|#1|, |#2|, |#3|, \dots, with no
+surrounding braces:
+
+\prototype{MACRO required \#1 \#2 \#3 \#4 \#5}
+\begin{verbatim}
+    \newcommand{\required}[5]{%
+      % Put your code here.
+      % You can refer to the arguments as #1 through #5.
+    }
+\end{verbatim}
+
+Parameters must be numbered in monotonically increasing order,
+starting with~|#1|.  Incorrectly ordered parameters will produce an
+error message:
+
+\prototype{MACRO required \#1 \#3 \#4}
+\begin{verbatim}
+                                   ^
+    newcommand.py: Expected parameter 2 but saw parameter 3.
+\end{verbatim}
+
+
+\subsection{Optional arguments}
+
+Optional arguments\label{par:optional-args} are written as either
+``|OPT[|\meta{param}|=|\linebreak[1]|{|\meta{default}|}]|'' or
+``|OPT(|\meta{param}|=|\linebreak[1]|{|\meta{default}|})|''.  In the
+former case, square brackets are used to offset the optional argument;
+in the latter case, parentheses are used.  \meta{param} is the
+parameter number (|#1|, |#2|, |#3|, \dots), and \meta{default} is the
+default value for that parameter.  Note that curly braces are required
+around \meta{default}.
+
+\prototype{MACRO optional OPT[\#1=\{maybe\}]}
+\begin{verbatim}
+    \newcommand{\optional}[1][maybe]{%
+      % Put your code here.
+      % You can refer to the argument as #1.
+    }
+\end{verbatim}
+
+Up to this point, the examples have been so simple that \ncpy\ is
+overkill for entering them.  We can now begin specifying constructs
+that \LaTeX's \cs{newcommand} can't handle, such as a parenthesized
+optional argument, an optional argument that doesn't appear at the
+beginning of the argument list, and multiple optional arguments:
+
+\prototype{MACRO parenthesized OPT(\#1=\{abc\})}
+\begin{verbatim}
+    \makeatletter
+    \newcommand{\parenthesized}{%
+      \@ifnextchar({\parenthesized@i}{\parenthesized@i({abc})}%
+    }
+
+    \def\parenthesized@i(#1){%
+      % Put your code here.
+      % You can refer to the argument as #1.
+    }
+    \makeatother
+\end{verbatim}
+
+
+\prototype{MACRO nonbeginning \#1 OPT[\#2=\{abc\}]}
+\begin{verbatim}
+    \makeatletter
+    \newcommand{\nonbeginning}[1]{%
+      \@ifnextchar[{\nonbeginning@i{#1}}{\nonbeginning@i{#1}[{abc}]}%
+    }
+
+    \def\nonbeginning@i#1[#2]{%
+      % Put your code here.
+      % You can refer to the arguments as #1 and #2.
+    }
+    \makeatother
+\end{verbatim}
+
+\prototype{MACRO multiple OPT[\#1=\{abc\}] OPT[\#2=\{def\}]}
+\begin{verbatim}
+    \makeatletter
+    \newcommand{\multiple}[1][abc]{%
+      \@ifnextchar[{\multiple@i[{#1}]}{\multiple@i[{#1}][{def}]}%
+    }
+
+    \def\multiple@i[#1][#2]{%
+      % Put your code here.
+      % You can refer to the arguments as #1 and #2.
+    }
+    \makeatother
+\end{verbatim}
+
+The template for optional arguments that was
+shown~\vpageref[above]{par:optional-args} stated that optional
+arguments contain a ``\meta{param}|={|\meta{default}|}|''
+specification.  In fact, optional arguments can contain
+\emph{multiple} ``\meta{param}|={|\meta{default}|}|'' specifications,
+as long as they are separated by literal text:
+
+\prototype{MACRO multiopt OPT(\#1=\{0\},\#2=\{0\})}
+\begin{verbatim}
+    \makeatletter
+    \newcommand{\multiopt}{%
+      \@ifnextchar({\multiopt@i}{\multiopt@i({0},{0})}%
+    }
+
+    \def\multiopt@i(#1,#2){%
+      % Put your code here.
+      % You can refer to the arguments as #1 and #2.
+    }
+    \makeatother
+\end{verbatim}
+
+\noindent
+In that example, \cs{multiopt} takes an optional parenthesized
+argument.  If omitted, it defaults to |(0,0)|.  If provided, the
+argument must be of the form ``|(|\meta{x}|,|\meta{y}|)|''.  In either
+case, the comma-separated values within the parentheses are parsed
+into~|#1| and~|#2|.  Contrast that with the following:
+
+\prototype{MACRO multiopt OPT(\#1=\{0,0\})}
+\begin{verbatim}
+    \makeatletter
+    \newcommand{\multiopt}{%
+      \@ifnextchar({\multiopt@i}{\multiopt@i({0,0})}%
+    }
+
+    \def\multiopt@i(#1){%
+      % Put your code here.
+      % You can refer to the argument as #1.
+    }
+    \makeatother
+\end{verbatim}
+
+The optional argument still defaults to |(0,0)|, but |#1| receives
+\emph{all} of the text that lies between the parentheses;
+\cs{multiopt} does not parse it into two comma-separated values
+in~|#1| and~|#2|, as it did in the previous example.
+
+\bigskip
+
+The \meta{default} text in an |OPT| term can reference any macro
+parameter introduced before the |OPT|\@.  Hence, the following defines
+a macro that accepts a required argument followed by an optional
+argument.  The default value of the optional argument is the value
+provided for the required argument:
+
+\prototype{MACRO paramdefault \#1 OPT[\#2=\{\#1\}]}
+\begin{verbatim}
+    \makeatletter
+    \newcommand{\paramdefault}[1]{%
+      \@ifnextchar[{\paramdefault@i{#1}}{\paramdefault@i{#1}[{#1}]}%
+    }
+
+    \def\paramdefault@i#1[#2]{%
+      % Put your code here.
+      % You can refer to the arguments as #1 and #2.
+    }
+    \makeatother
+\end{verbatim}
+
+
+\subsection{Literal text}
+
+In addition to required and optional parameters, it is also possible
+to specify text that must appear literally in the macro call.  Merely
+specify it within curly braces:
+
+\prototype{MACRO textual \#1 \{ and \} \#2 \{.\}}
+\begin{verbatim}
+    \makeatletter
+    \newcommand{\textual}[1]{%
+      \textual@i{#1}%
+    }
+
+    \def\textual@i#1 and #2.{%
+      % Put your code here.
+      % You can refer to the arguments as #1 and #2.
+    }
+    \makeatother
+\end{verbatim}
+
+\noindent
+A macro such as \cs{textual} can be called like this:
+
+\begin{verbatim}
+    \textual {Milk} and {cookies}.
+\end{verbatim}
+
+\noindent
+Actually, in that example, because both |Milk| and |cookies| are
+delimited on the right by literal text, \TeX\ can figure out how to
+split \cs{textual}'s argument into~|#1| and~|#2| even if the curly
+braces are omitted:
+
+\begin{verbatim}
+    \textual Milk and cookies.
+\end{verbatim}
+
+\subsection{Starred macros}
+
+The names of some \LaTeX\ macros can be followed by an optional
+``|*|'' to indicate a variation on the normal processing.  For
+example, \cs{vspace}, which introduces a given amount of vertical
+space, discards the space if it appears at the top of the page.
+|\vspace*|, in contrast, typesets the space no matter where it
+appears.  \ncpy\ makes it easy for users to define their own starred
+commands:
+
+\prototype{MACRO starred * \#1 \#2}
+\begin{verbatim}
+    \makeatletter
+    \newif\ifstarred@star
+    \newcommand{\starred}{%
+      \@ifstar{\starred@startrue\starred@i*}{\starred@starfalse\starred@i*}%
+    }
+
+    \def\starred@i*#1#2{%
+      \ifstarred@star
+        % Put code for the "*" case here.
+      \else
+        % Put code for the non-"*" case here.
+      \fi
+      % Put code common to both cases here (and/or above the \ifstarred@star).
+      % You can refer to the arguments as #1 and #2.
+    }
+    \makeatother
+\end{verbatim}
+
+\noindent
+Note that unlike the generated code shown up to this point, the code
+for starred macros includes \emph{multiple} placeholders for user
+code.
+
+The ``|*|'' in a starred macro does not have to immediately follow the
+macro name; it can appear anywhere in the macro specification.
+However, \ncpy\ currently limits macros to at most one asterisk.
+
+Embedding an asterisk within curly braces causes it to be treated not
+as an optional character but as (required) literal text.  Contrast the
+preceding example with the following one:
+
+\prototype{MACRO starred \{*\} \#1 \#2}
+\begin{verbatim}
+    \makeatletter
+    \newcommand{\starred}{%
+      \starred@i%
+    }
+
+    \def\starred@i*#1#2{%
+      % Put your code here.
+      % You can refer to the arguments as #1 and #2.
+    }
+    \makeatother
+\end{verbatim}
+
+The asterisk in that definition of \cs{starred} must be included in
+every macro invocation or \TeX\ will abort with a ``\texttt{Use of
+  \string\starred@i doesn't match its definition}'' error.
+
+
+\subsection{More than nine arguments}
+
+\TeX\ imposes a limit of nine arguments per macro.  Internally,
+``|#|'' is expected to be followed by exactly one digit, which means
+that ``|#10|'' refers to argument~|#1| followed by the character~|0|.
+Fortunately, it's rare that a macro needs more than nine arguments and
+rarer still that those arguments are not better specified as a list of
+\meta{key}|=|\meta{value} pairs, as supported by the \textsf{keyval}
+package and many other \LaTeX\ packages.
+
+If large numbers of arguments are in fact necessary, \ncpy\ does let
+you specify them.  The trick that the generated code uses is to split
+the macro into multiple macros, each of which takes nine or fewer
+arguments and stores the value of each argument in a variable that can
+later be accessed.  Because digits are awkward to use in macro names,
+\ncpy\ uses roman numerals to name arguments in the case of more than
+nine arguments: |\|\meta{name}|@arg@i| for |#1|,
+|\|\meta{name}|@arg@ii| for |#2|, |\|\meta{name}|@arg@iii| for |#3|,
+|\|\meta{name}|@arg@iv| for |#4|, and so forth.  The following example
+takes 14 required arguments and one optional argument (which defaults
+to the string ``|etc|''):
+
+\prototype{MACRO manyargs \#1 \#2 \#3 \#4 \#5 \#6 \#7 \#8 \#9 \#10
+  \#11 \#12 \#13 \#14 OPT[\#15=\{etc\}]}
+\begin{verbatim}
+    \makeatletter
+    \newcommand{\manyargs}[9]{%
+      \def\manyargs@arg@i{#1}%
+      \def\manyargs@arg@ii{#2}%
+      \def\manyargs@arg@iii{#3}%
+      \def\manyargs@arg@iv{#4}%
+      \def\manyargs@arg@v{#5}%
+      \def\manyargs@arg@vi{#6}%
+      \def\manyargs@arg@vii{#7}%
+      \def\manyargs@arg@viii{#8}%
+      \def\manyargs@arg@ix{#9}%
+      \manyargs@i
+    }
+
+    \def\manyargs@i#1#2#3#4#5{%
+      \def\manyargs@arg@x{#1}%
+      \def\manyargs@arg@xi{#2}%
+      \def\manyargs@arg@xii{#3}%
+      \def\manyargs@arg@xiii{#4}%
+      \def\manyargs@arg@xiv{#5}%
+      \@ifnextchar[{\manyargs@ii}{\manyargs@ii[{etc}]}%
+    }
+
+    \def\manyargs@ii[#1]{%
+      \def\manyargs@arg@xv{#1}%
+      % Put your code here.
+      % You can refer to the arguments as \manyargs@arg@i through \manyargs@arg@xv.
+    }
+    \makeatother
+\end{verbatim}
+
+The current version of \ncpy\ is limited to 4000 arguments, which
+should be more than enough for most purposes.
+
+
+\subsection{Summary}
+
+A macro is defined in \ncpy\ with:
+
+\begin{center}
+  \texttt{MACRO} \meta{name} \meta{arguments}
+\end{center}
+
+\noindent
+in which \meta{name} is the name of the macro, and \meta{arguments} is
+zero or more of the following:
+
+\begin{center}
+\renewcommand{\arraystretch}{1.1}
+\begin{tabularx}{\linewidth}{@{}lXl@{}}
+  \toprule
+  \multicolumn{1}{@{}c}{Argument} &
+  \multicolumn{1}{c}{Meaning} &
+  \multicolumn{1}{c@{}}{Example} \\
+  \midrule
+
+  |#|\meta{number} & Parameter (required) & |#1| \\
+  \marg{text}      & Literal text (required)     & |{+}| \\
+  |OPT[#|\meta{number}|=|\marg{text}|]| & Parameter (optional, with default) &
+    |OPT[#1={tbp}]| \\
+  |OPT(#|\meta{number}|=|\marg{text}|)| & Same as the above, but with
+    parentheses instead of brackets & |OPT(#1={tbp})| \\
+  |*|              & Literal asterisk (optional) & |*| \\
+  \bottomrule
+\end{tabularx}
+\end{center}
+
+Within an |OPT| argument, |#|\meta{number}|=|\marg{text} can be
+repeated any number of times, as long as the various instances are
+separated by literal text.
+
+
+\section{Further examples}
+
+\subsection{Mimicking \LaTeX's \texttt{picture} environment}
+
+The \LaTeX\ |picture| environment takes two, parenthesized,
+coordinate-pair arguments, the second pair being optional.  Here's how
+to define a macro that takes the same arguments as the |picture|
+environment and parses them into $x_1$, $y_1$, $x_2$, and~$y_2$
+(i.e.,~|#1|--|#4|):
+
+\prototype{MACRO picturemacro \{(\}\#1\{,\}\#2\{)\} OPT(\#3=\{0\},\#4=\{0\})}
+\begin{verbatim}
+    \makeatletter
+    \newcommand{\picturemacro}{%
+      \picturemacro@i%
+    }
+
+    \def\picturemacro@i(#1,#2){%
+      \@ifnextchar({\picturemacro@ii({#1},{#2})}{\picturemacro@ii({#1},{#2})({0},{0})}%
+    }
+
+    \def\picturemacro@ii(#1,#2)(#3,#4){%
+      % Put your code here.
+      % You can refer to the arguments as #1 through #4.
+    }
+    \makeatother
+\end{verbatim}
+
+The first pair of parentheses and the comma are quoted because they
+represent required, literal text.
+
+
+\subsection{Mimicking \LaTeX's \texttt{\string\parbox} macro}
+
+\LaTeX's \cs{parbox} macro takes three optional arguments and two
+required arguments.  Furthermore, the third argument defaults to
+whatever value was specified for the first argument.  This is easy to
+express in \LaTeX\ with the help of \ncpy:
+
+\prototype{MACRO parboxlike OPT[\#1=\{s\}] OPT[\#2=\{\string\relax\}]
+  OPT[\#3=\{\#1\}] \#4 \#5}
+\begin{verbatim}
+    \makeatletter
+    \newcommand{\parboxlike}[1][s]{%
+      \@ifnextchar[{\parboxlike@i[{#1}]}{\parboxlike@i[{#1}][{\relax}]}%
+    }
+
+    \def\parboxlike@i[#1][#2]{%
+      \@ifnextchar[{\parboxlike@ii[{#1}][{#2}]}{\parboxlike@ii[{#1}][{#2}][{#1}]}%
+    }
+
+    \def\parboxlike@ii[#1][#2][#3]#4#5{%
+      % Put your code here.
+      % You can refer to the arguments as #1 through #5.
+    }
+    \makeatother
+\end{verbatim}
+
+
+\subsection{Dynamically changing argument formats}
+\label{sec:dynamic-args}
+
+With a little cleverness, it is possible for a macro to accept one of
+two completely different sets of arguments based on the values
+provided for earlier arguments.  For example, suppose we want to
+define a macro, \cs{differentargs} that can be called as either
+
+\begin{verbatim}
+    \differentargs*[optarg]{reqarg}
+\end{verbatim}
+
+\noindent
+or
+
+\begin{verbatim}
+    \differentargs{reqarg}(optarg)
+\end{verbatim}
+
+\noindent
+That is, the presence of an asterisk determines whether
+\cs{differentargs} should expect an optional argument in square
+brackets followed by a required argument or to expect a required
+argument followed by an optional argument in parentheses.
+
+The trick is to create two helper macros: one for the ``|*|'' case
+(\cs{withstar}) and the other for the non-``|*|'' case
+(\cs{withoutstar}).  \cs{differentargs} can then invoke one of
+\cs{withstar} or \cs{withoutstar} based on whether or not it sees an
+asterisk.  The following shows how to use \ncpy\ to define
+\cs{differentargs}, \cs{withstar}, and \cs{withoutstar} and how to
+edit \cs{differentargs} to invoke its helper macros:
+
+\prototype{MACRO differentargs *}
+\begin{verbatim}
+    \makeatletter
+    \newif\ifdifferentargs@star
+    \newcommand{\differentargs}{%
+      \@ifstar{\differentargs@startrue\differentargs@i*}
+              {\differentargs@starfalse\differentargs@i*}%
+    }
+\end{verbatim}
+\begingroup
+\small
+\begin{alltt}
+    \cs{def}\cs{differentargs@i}*\{%
+      \cs{ifdifferentargs@star}
+        % Put code for the "*" case here.
+        \colorbox{yellow}{\cs{let}\cs{next}=\cs{withstar}}
+      \cs{else}
+        % Put code for the non-"*" case here.
+        \colorbox{yellow}{\cs{let}\cs{next}=\cs{withoutstar}}
+      \cs{fi}
+      % Put code common to both cases here (and/or above the \cs{ifdifferentargs@star}).
+      \colorbox{yellow}{\cs{next}}
+    \}
+    \cs{makeatother}
+\end{alltt}
+\endgroup
+
+\prototype{MACRO withstar OPT[\#1=\{starry\}] \#2}
+\begin{verbatim}
+    \newcommand{\withstar}[2][starry]{%
+      % Put your code here.
+      % You can refer to the arguments as #1 and #2.
+    }
+\end{verbatim}
+
+\prototype{MACRO withoutstar \#1 OPT(\#2=\{dark\})}
+\begin{verbatim}
+    \makeatletter
+    \newcommand{\withoutstar}[1]{%
+      \@ifnextchar({\withoutstar@i{#1}}{\withoutstar@i{#1}({dark})}%
+    }
+
+    \def\withoutstar@i#1(#2){%
+      % Put your code here.
+      % You can refer to the arguments as #1 and #2.
+    }
+    \makeatother
+\end{verbatim}
+
+Note that we edited \cs{differentargs@i} to let \cs{next} be
+equivalent to either \cs{withstar} or \cs{withoutstar} based on
+whether an asterisk was encountered.  \cs{next} is evaluated outside
+of the \cs{ifdifferentargs@star}\dots\linebreak[0]\cs{fi} control
+structure.  This rigmarole is necessary because directly calling
+\cs{withstar} or \cs{withoutstar} would cause those macros to see
+\cs{ifdifferentargs@star}'s \cs{else} or \cs{fi} as their first
+argument when they ought to see the text following the
+\cs{differentargs} call.
+
+
+\section{Grammar}
+
+The following is the formal specification of \ncpy's grammar, written
+in a more-or-less top-down manner.  Literal values, shown in a
+typewriter font, are case-sensitive.  \meta{letter} refers to a letter
+of the (English) alphabet.  \meta{digit} refers to a digit.
+
+\setlength{\grammarindent}{7em}
+\begin{grammar}
+<decl> ::= \[[ "MACRO" <ident> <arglist> \]]
+
+<ident> ::= \[[ \begin{rep} <letter> \end{rep} \]]
+
+<arglist> ::= \[[ \begin{rep} \\ <arg> \end{rep} \]]
+
+<arg> ::= \[[
+              \begin{stack}
+                <formal> \\
+                <quoted> \\
+                <optarg> \\
+                "*"
+              \end{stack}
+          \]]
+
+<formal> ::= \[[ "#" \begin{rep} <digit> \end{rep} \]]
+
+<quoted> ::= \[[ "{" <rawtext> "}" \]]
+
+<rawtext> ::= \[[ \begin{rep} \tok{anything except a "{", "}", or "\#"} \end{rep} \]]
+
+<optarg> ::= \[[ "OPT" <delim> <defvals> <delim> \]]
+
+<delim> ::= \[[ \begin{stack} "[" \\ "]" \\ "(" \\ ")" \end{stack} \]]
+
+<defvals> ::= \[[
+                  \begin{rep}
+                    <defval> \\
+                    \begin{stack}
+                      <quoted> \\
+                      <rawtext>
+                    \end{stack}
+                  \end{rep}
+              \]]
+
+<defval> ::= \[[ <formal> "=" <quoted> \]]
+\end{grammar}
+
+
+\section{Acknowledgements}
+
+I'd like to say thank you to the following people:
+
+\begin{itemize}
+  \item John Aycock for writing the
+    \href{http://pages.cpsc.ucalgary.ca/~aycock/spark/}{Scanning,
+      Parsing, and Rewriting Kit (SPARK)}---the lexer and parser
+    underlying \ncpy---and making it freely available and
+    redistributable.
+
+  \item Hendri Adriaens for pointing out a bug in the code generated
+    by \ncpy.  Previously, bracketed text within a mandatory argument
+    could be mistaken for an optional argument.
+
+  \item Tom Potts for reporting a spurious error message caused by the
+    processing of |OPT|.  This bug has now been fixed.  Tom Potts also
+    proposed the example used in Section~\ref{sec:dynamic-args} in
+    which the starred and unstarred versions of a macro take different
+    arguments.
+\end{itemize}
+
+
+\section{Copyright and license}
+
+Copyright~\copyright{} 2010, Scott Pakin
+
+\bigskip
+
+This package may be distributed and/or modified under the conditions
+of the \LaTeX{} Project Public License, either version~1.3c of this
+license or (at your option) any later version.  The latest version of
+this license is in:
+
+\begin{center}
+  \url{http://www.latex-project.org/lppl.txt}
+\end{center}
+
+\noindent
+and version~1.3c or later is part of all distributions of \LaTeX{}
+version 2006/05/20 or later.
+
+\end{document}

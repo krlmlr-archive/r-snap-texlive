@@ -1,0 +1,78 @@
+\documentclass[12pt]{article}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\usepackage{barddoc}
+
+\title{The \bard package: documentation part 3
+       \thanks{This file has version number \barvers and describes \bard ver.\barvers}
+}
+
+\usepackage{xr}
+\externaldocument{bardiag}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{document}
+\maketitle
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+%#########################################
+\appendix \section*{\appendixname}
+
+\mysection{\label{app1}Source file for the example \figref{fig:9} from \texttt{bardiag.tex|.ps}}
+\lstinputlisting{figs/examp5.tex}
+
+%\section{\label{app2}Source of the \bard}
+%{\small
+%\verbatiminput{bardiag.sty}
+%}
+
+\clearpage
+\mysection{\label{app2}Examples of alternative shapes, 
+         defined in \texttt{bardiag.cfg}}
+As mentioned above, file \texttt{bardiag.cfg} is automatically loaded.
+One can define colors or parameters there, or, say, some new shapes.
+To demonstrate a couple of ``alternative'' shapes, we redraw the
+\figref{fig:8a} as shown below [\figref{fig:a2:1}].
+Use, e.g.,\\ 
+\verb+\renewcommand{\ActiveBarPrimitive}{\barArrowRect}+\\
+and the provided \texttt{bardiag.cfg} to draw \figref{fig:a2:1:a}.
+
+\renewcommand{\shownumbers}{0}
+\begin{figure}[!ht]
+\renewcommand{\betweenticks}{50}
+\renewcommand{\tdx}{0.4}
+\renewcommand{\tdy}{15}
+\subfigure[Using \texttt{barArrowRect}]{\label{fig:a2:1:a}
+  \centering
+  \renewcommand{\frameTD}{0}
+  \renewcommand{\ActiveBarPrimitive}{\barArrowRect}
+  \renewcommand{\arrowheight}{5\dbar}
+  \renewcommand{\placenumber}{\bottom}
+  \input{figs/examp4.tex}
+}
+\subfigure[Using \texttt{barGradRect}]{\label{fig:a2:1:b}
+ \renewcommand{\frameTD}{0}
+ \renewcommand{\ActiveBarPrimitive}{\barGradRect}
+ \input{figs/examp4.tex}
+}\\
+\subfigure[Using \texttt{barGradMidRect}]{\label{fig:a2:1:c}
+  \centering
+  \renewcommand{\frameTD}{0}
+  \renewcommand{\ActiveBarPrimitive}{\barGradMidRect}
+  \input{figs/examp4.tex}
+}
+\subfigure[Using \texttt{barGradCylinder}]{\label{fig:a2:1:d}
+ \renewcommand{\frameTD}{0}
+ \renewcommand{\ActiveBarPrimitive}{\barGradCylinder}
+ \renewcommand{\tdx}{0.5} % depth of 3d
+ \renewcommand{\tdy}{15}
+ \input{figs/examp4.tex}
+}
+\caption{\label{fig:a2:1}Alternative shapes}
+\end{figure}
+%----------------------------------------
+\printindex
+
+\end{document}

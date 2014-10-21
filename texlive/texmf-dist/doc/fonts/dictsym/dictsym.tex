@@ -1,0 +1,64 @@
+%% dictsym.tex
+%% Copyright 2004 Walter Schmidt
+%
+% This work may be distributed and/or modified under the
+% conditions of the LaTeX Project Public License, either version 1.3
+% of this license or (at your option) any later version.
+% The latest version of this license is in
+%   http://www.latex-project.org/lppl.txt
+% and version 1.3 or later is part of all distributions of LaTeX
+% version 2003/12/01 or later.
+%
+% This work has the LPPL maintenance status "maintained".
+%
+% This Current Maintainer of this work is Walter Schmidt <w.a.schmidt@gmx.net>
+%
+% This work consists of the files dictsym.sty and dictsym.tex
+% and the compiled file dictsym.pdf.
+%
+\documentclass[11pt]{ltxguide}[1995/11/28]
+\usepackage[scaled=1.5]{dictsym}
+
+% a bit of logical markup:
+\newcommand{\Lpack}[1]{\textsf{#1}}
+
+\title{The \Lpack{dictsym} package for \LaTeX}
+\author{Walter Schmidt}
+\date{version 2.0\,$\beta$ -- 2004-07-26}
+
+\begin{document}
+\maketitle\thispagestyle{empty}
+
+The PostScript font `DictSym' (designed by Georg Verweyen) provides a 
+number of symbols commonly found in dictionaries.  
+The macro package 
+\Lpack{dictsym} serves to use of this font with \LaTeX{}.  It provides
+the following commands to print the symbols of the font:
+
+\renewcommand{\arraystretch}{1.5}
+\begin{tabular}{ll@{\qquad}ll}
+ \dsarchitectural &|\dsarchitectural| &   \dsmathematical  &|\dsmathematical|  \\
+ \dsbiological    &|\dsbiological|    &   \dsrailways      &|\dsrailways|      \\
+ \dschemical      &|\dschemical|      &   \dstechnical     &|\dstechnical|     \\
+ \dsagricultural  &|\dsagricultural|  &   \dsmilitary      &|\dsmilitary|      \\
+ \dsheraldical    &|\dsheraldical|    &   \dsaeronautical  &|\dsaeronautical|  \\
+ \dsjuridical     &|\dsjuridical|     &   \dscommercial    &|\dscommercial|    \\
+ \dsliterary      &|\dsliterary|      &   \dsmedical       &|\dsmedical|       \\
+\end{tabular}
+
+By default, the symbols are typeset at the same nominal font size 
+as the surrounding text.  When the package is loaded with the option
+\texttt{[scaled=}\m{scale}\texttt{]},
+the DictSym font will be scaled by the indicated factor.  For instance,
+\begin{quote}
+  |\usepackage[scaled=1.1]{dictsym}|
+\end{quote}
+will enlarge the symbols by 10\%.
+Thus, you can make the `dictionary symbols' match exactly the optical 
+appearance of the surrounding typeface.  The above table shows the
+symbols at 150\% of their natural size.
+
+
+\end{document}
+
+

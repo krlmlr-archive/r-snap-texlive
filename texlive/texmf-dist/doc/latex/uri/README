@@ -1,0 +1,145 @@
+README for uri package, 2011/03/04, v1.0a
+
+
+TABLE OF CONTENTS
+=================
+
+1 Introduction
+2 Download
+3 Installation
+4 Additional Packages
+5 New Features
+6 Package Compatibility
+7 Authors/Maintainers
+8 Bug Reports
+9 Known Problems
+
+
+1 INTRODUCTION
+==============
+
+This package allows to automatically hyperlink uris of type arXiv, ASIN,
+DOI, HDL, NBN, PubMed, OID, TINY, TINY with preview, and XMPP in
+such a way that they are resolved to an address understood by web browsers
+without native support or add-ons for such types of uri and provides com-
+mands citeurl, mailto, ukoeln, and uref.
+
+Trademarks appear throughout this README without any trademark symbol;
+they are the property of their respective trademark owner.
+There is no intention of infringement; the usage is to the benefit of
+the trademark owner.
+
+2 DOWNLOAD
+==========
+
+`uri' is available on CTAN:
+  CTAN:macros/latex/contrib/uri/
+
+Also a ZIP file is provided that contains the files, already
+sorted in a TDS tree:
+  CTAN:install/macros/latex/contrib/uri.tds.zip
+
+`CTAN:' means one of the `Comprehensive TeX Archive Network'
+nodes or one of its mirrors. This is explained in
+  http://www.tex.ac.uk/cgi-bin/texfaq2html?label=archives
+
+The CTAN stuff will be mirrored automatically from the
+ftp server, so
+  ftp://ftp.tug.org/pub/tex/pagesLTS/
+corresponds to
+  CTAN:macros/latex/contrib/pagesLTS/
+
+
+3 INSTALLATION
+==============
+
+Installation with ZIP file in TDS format
+----------------------------------------
+The ZIP file `uri.tds.zip' contains the files sorted
+in a TDS tree. Thus you can directly unpack the ZIP file
+inside a TDS tree.
+(See CTAN:tds.zip for an explanation of TDS.)
+Example:
+  cd /...somewhere.../texmf
+  unzip /...downloadpath.../uri.tds.zip
+Do not forget to refresh the file name database of this
+TDS tree.
+Example:
+  texhash /...somewhere.../texmf
+
+Manual installation
+-------------------
+a) Download the uri files from CTAN or the TUG server.
+   If necessary, unpack them.
+b) Generate the package and driver files:
+     tex uri.ins
+c) Install the files `*.sty', and `*.cfg' in your TDS tree:
+     cp *.sty *.cfg TDS:tex/latex/uri/
+   Replace `TDS:' by the prefix of your TDS tree
+   (texmf directory).
+d) Copy the documentation files to
+   "TDS:doc/latex/uri/":
+   README, uri.pdf, uri-example.tex, uri-example.pdf.
+e) Update the databases if necessary, e. g. for teTeX:
+     mktexlsr .../texmf
+
+
+4 ADDITIONAL PACKAGES
+=====================
+
+Depending on the driver and option settings, uri loads
+other packages:
+* kvoptions.sty:
+    CTAN:macros/latex/contrib/oberdiek/kvoptions.pdf
+* url.sty:
+    CTAN:macros/latex/contrib/url/url.dtx
+which again load other packages
+(see the result of the \listfiles comman in the log-file
+ of the example).
+
+
+5 PACKAGE COMPATIBILITY
+=======================
+
+uri should be loaded
+AFTER package hyperref,if hyperlinks are wanted,
+and BEFORE package hyperref, if hyperlinks are not wanted.
+
+
+6 AUTHOR/MAINTAINER
+=====================
+
+* Hans-Martin Münch
+
+
+7 BUG REPORTS
+==============
+
+A bug report should contain:
+* Comprehensive problem description. This includes error or
+  warning messages.
+  * \errorcontextlines=\maxdimen can be added in the
+    TeX code to get more informations in TeX error messages.
+* Minimal test file that shows the problem, but does not
+  contain any unnecessary packages and code.
+* Used drivers/programs.
+* Version information about used packages and programs.
+  * If you are using LaTeX, then add "\listfiles". Then
+    a list of version informations is printed at the end
+    of the LaTeX run.
+* Please no other files than the minimal test file.
+  The other files .log, .dvi, .ps, .pdf are seldom
+  necessary, so send them only on request.
+* Please .zip or .tar.gz your file(s) before sending them!
+
+Bug address
+-----------
+Bug reports can be send to the maintainer:
+  Hans-Martin Münch
+  <Martin [dot] Muench [at] Uni-Bonn [dot] de>
+
+
+8 KNOWN PROBLEMS
+=================
+
+* as yet: none...

@@ -1,0 +1,77 @@
+\def\onecol{red}
+\def\onetopcol{blue}
+\def\twocol{red}
+\def\twotopcol{blue}
+\def\threecol{red}
+\def\threetopcol{blue}
+%-------------------------------------------------------
+%This is the way to redefine styles
+% \newpsstyle{mytickstyle}{linewidth=1pt,linecolor=blue}
+%
+% Style of the foreground frame
+\newpsstyle{diagframestyle}{linewidth=1pt,linecolor=black,fillcolor=white}
+% Style of the background frame
+\newpsstyle{diagbgframestyle}{linewidth=1pt,linecolor=black,fillcolor=yellow}
+
+% Use 3D bars
+\renewcommand{\ActiveBarPrimitive}{\barTDRect}
+% Make frame 3D
+\renewcommand{\frameTD}{1}
+
+% Put ticks and levellines each 10 yunits
+\renewcommand{\betweenticks}{10}
+
+% Color of the numbers on the bar-items 
+\renewcommand\numbercolor{\white\bf}
+% Where to put the number. Can be \bottom,\belowtop,\overtop
+\renewcommand{\placenumber}{\bottom}
+
+
+% override the default \tdx and \tdy
+\renewcommand{\tdx}{1.2} % depth of 3d
+\renewcommand{\tdy}{6}
+
+% Start the diagram
+\bardiagrambegin{14}{100}{3cm}{1}{5}{0.8cm}{0.1cm}
+% To draw ``years'' at 45 degrees 
+\renewcommand{\barlabelangle}{45}
+       \baritem{1990}{32}{\onecol}
+          \subtopbaritem{}{40}{\onetopcol}
+        \subbaritem{2000}{20}{\twocol}
+          \subtopbaritem{}{30}{\twotopcol}
+        \subbaritem{2010}{13}{\threecol}
+          \subtopbaritem{}{50}{\threetopcol}
+       %---
+       \baritem{1990}{21}{\onecol}
+          \subtopbaritem{}{60}{\onetopcol}
+        \subbaritem{2000}{25}{\twocol} 
+          \subtopbaritem{}{64}{\twotopcol}
+        \subbaritem{2010}{58}{\threecol}  
+          \subtopbaritem{}{32}{\threetopcol}
+       %---
+       \baritem{1990}{22}{\onecol}
+          \subtopbaritem{}{19}{\onetopcol}
+        \subbaritem{2000}{12}{\twocol}
+          \subtopbaritem{}{18}{\twotopcol}
+        \subbaritem{2010}{9}{\threecol} 
+          \subtopbaritem{}{12}{\threetopcol}
+\drawlevellines
+    % Legend
+    %  Let's make the background white
+    %  and gray frame-line of 0.5pt
+    \diagLegendoptions{white}{gray}{0.5pt}
+    % 
+    \renewcommand{\legendShadowColor}{darkyellow}
+    %
+    \diagLegendbegin{10.3}{89}{3}
+      \diagLegenditem{girls}{\onecol}
+      \diagLegenditem{boys}{\onetopcol}
+    \diagLegendend
+    % End of the legend
+\bardiagramend{\parbox{11cm}{\vspace{-1.5cm}\hspace{-1cm}
+   \begin{tabular}{p{3.2cm}p{4.0cm}p{3.2cm}}
+      \centering Alpha's & \centering Beta's & \centering Gamma's
+   \end{tabular}
+   \\[0.4cm]
+   \centering \large Year}}
+  {\large Graduated (\%)}

@@ -1,0 +1,95 @@
+
+                   This is the README file for pdfsync
+                          a LaTeX package for
+               synchronizing between source and pdf output
+
+* Presentation
+==============
+pdfsync.sty allows one to synchronize between LaTeX source and pdf output.
+When used with a text editor and a PDF viewer that both support pdfsync,
+you can navigate from the source to the output and vice versa.
+This is some kind of srcltx ported from dvi to pdf.
+
+When you typeset foo.tex with pdfsync.sty and either pdfetex or xetex,
+a foo.pdfsync auxiliary file is created. It only contains geometrical information
+used by text editors or PDF viewers for synchronization.
+You can delete this file when you are done.
+
+Actually, iTeXMac, iTeXMac2, TeXShop, AucTeX are
+text editors implementing pdfsync support at various level.
+iTeXMac, iTeXMac2, TeXShop, TeXniscope, PDFView are
+PDF viewers implementing pdfsync support at various level.
+
+This is most certainly the last update of this package,
+this technology will most certainly be embedded in pdftex and XeTeX engines and won't rely any longer on pdf techniques.
+As a matter of fact, synchronization will be available both for dvi, xdv and pdf.
+Also it will work the same for Plain, LaTeX, ConTeXt and whatsoever.
+Moreover, synchronization will not modify any package.
+
+* News
+======
+- 01/30/2007: version 1.1 is the second version officially available.
+Some internals were modified in order to provide a stronger \pdfsyncstart, \pdfsyncstop pair.
+Paul Taylor's diagram package now works with pdfsync. You may have to update.
+Anticipating over pdftex improvements, this package will load with option "off" if the \synchronize macro is defined
+
+* Installation
+==============
+If this package is not already included in your TeX distribution,
+just copy the pdfsync.sty file to the proper location.
+On Mac OS X, it can be
+
+     YOUR_HOME_DIRECTORY/Library/texmf/tex/latex/graphics/graphics.sty
+
+where you should replace YOUR_HOME_DIRECTORY by its actual value.
+
+* Usage
+=======
+Put \usepackage{pdfsync} in your LaTeX preamble.
+
+In case of severe conflicts with another package, try instead
+
+     \usepackage[novbox]{pdfsync}
+
+If pdfsync breaks only some part of your LaTeX code, you can try to
+enclose it in \pdfsyncstop \pdfsyncstart pair. If you want to add
+more control point add \pdfsync at sensible locations in your code.
+In that case, \usepackage[off]{pdfsync} will disable pdf synchronization
+and \relax the above commands.
+
+* Bugs
+======
+pdfsync uses extremely sensible code.
+You should not use pdfsync on final documents because
+it can change the layout rather significantly
+(different page/line breaks are the most obvious changes),
+despite this is rather rare,
+17th Murphy's law states that it will happen to you when it absolutely must not...
+
+The accuracy of pdf synchronization depends on the application used for that purpose.
+iTeXMac2 is actually the most accurate implementation because it combines pdfsync
+with pdf searching. The lack of accuracy, is not a bug in pdfsync a priori.
+
+You should report bugs and package conflicts to
+
+     jlaurens AT users DOT sourceforge DOT net.
+
+* Credits:
+==========
+The original idea of pdfsync was proposed by Piero D'Ancona in the summer of 2003.
+He and Jerome Laurens both created the first working package.
+Hans Hagen and David Kastrup made very significant enhancements to the original code.
+
+* License
+=========
+This program is free software; you can redistribute it and/or modify
+it under the terms of the The LaTeX Project Public License version 1.3c at least
+http://www.latex-project.org/lppl.txt
+
+* Home page
+===========
+The official site where you will find both the latest version and the .pdfsync file specifications is
+
+    http://itexmac.sourceforge.net/pdfsync.html
+
+copyright 2007, jlaurens AT users DOT sourceforge DOT net

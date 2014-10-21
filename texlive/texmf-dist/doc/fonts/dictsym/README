@@ -1,0 +1,165 @@
+============================================================
+  The DictSym font and the LaTeX macro package dictsym.sty
+                         2004-07-26
+============================================================
+                                              Walter Schmidt
+                                      w.a.schmidt(at)gmx.net
+                                               
+
+This directory contains the "DictSym" Type1 font designed by
+Georg Verweyen and all files required to use it with LaTeX
+on the Un*x or PC platform.
+
+The font provides a number of symbols commonly used in
+dictionaries.  The accompanying macro package, makes the
+symbols accessible as LaTeX commands.
+
+The below installation instructions assume a TDS-compliant
+TeX system, such as teTeX, MikTeX or VTeX/Free.  Yet they
+may not exactly fit your particular TeX system; please,
+consult its documentation, too!  The directory name "texmf"
+refers to the root directory of a TDS directory tree.  In
+case your TeX systems has more than one such directory tree,
+its documentation should tell you where to put new files.
+
+
+
+Installing the Type1 font file
+------------------------------
+Copy the files dictsym.pfb and dictsym.pfm to the directory
+
+  texmf/fonts/type1/public/dictsym
+
+of your TeX system.  (The .pfm file is needed only for
+applications other than TeX.)
+
+Copy the file dictsym.afm to:
+
+  texmf/fonts/afm/public/dictsym
+
+Create these directories, if they do not yet exist.
+
+
+
+Installing the TeX support files
+--------------------------------
+Unpack the ZIP archive dictsym.zip in the texmf directory 
+of your TeX system; thus, all files will be copied to the
+appropriate directories.
+
+
+
+Updating the filename database
+------------------------------
+Many TeX systems require manual updating of a "filename
+database" after adding of new files.  Please, consult the
+documentation of your TeX system!
+
+
+
+Configuring your TeX system
+---------------------------
+The present distribution comprises several font map files
+for the DictSym font.  You need to configure your TeX system
+so that these files are actually used.  The required steps
+depend on the particular TeX system.  Particular sets of
+instructions are provided below for the following systems:
+
+  * teTeX
+  * VTeX/Free
+
+With other TeX systems such as MikTeX, consult the related
+documentation how to install an additional font map file.
+The name of the map file to be used for the DictSym font is
+"dictsym.map".  Two copies of this file reside in the
+directories texmf/dvips/config and texmf/fonts/map/dvips.
+
+Configuring teTeX
+-----------------
+Additional font map files (here dictsym.map) are installed
+using the shell script "updmap".  With teTeX-2.0 and later
+(or teTeX-beta as of June 2002 and later) execute the
+following commands:
+
+  texhash
+  updmap --enable Map dictsym.map
+
+With earlier versions of teTeX, consult its documentation
+about how to add new map files to the system.
+
+Configuring VTeX/Free (v8.44 and above)
+---------------------------------------
+Make VTeX read the additional font map ("aliasing") file
+dictsym.ali.  This is usually accomplished by putting an
+appropriate record ito each of the configuration files
+
+  texmf/vtex/config/pdf.fm
+and
+  texmf/vtex/config/ps.fm
+
+The name "dictsym.ali" is to be added to the TYPE1 section
+of the above-mentioned files:
+
+TYPE1 {
+  ...
+  dictsym.ali
+  }
+  
+
+
+Using the DictSym font with LaTeX
+---------------------------------
+See the file dictsym.pdf.  (Unpacking of the archive, as
+described above, creates a further copy of this file in the
+the directory texmf/doc/latex/dictsym of your TeX system.)
+
+
+
+Legal notice
+------------
+The font "DictSym" is made up from the files dictsym.pfb,
+dictsym.afm and dictsym.pfm  These files are subject to the
+following conditions of use and distribution:
+
+  Copyright (c) 2004 Georg Verweyen
+
+  This work may be distributed and/or modified under the
+  conditions of the LaTeX Project Public License, either
+  version 1.3 of this license or (at your option) any later
+  version.  The latest version of this license is in
+  http://www.latex-project.org/lppl.txt and version 1.3 or
+  later is part of all distributions of LaTeX version
+  2003/12/01 or later.
+
+  This work has the LPPL maintenance status "maintained".
+
+  This Current Maintainer of this work is 
+  Georg Verweyen" <Georg.Verweyen(at)WEB.DE>
+
+The "dictsym" macro package and the related documentation
+file dictsym.tex are subject to the following conditions of
+use and distribution:
+ 
+  Copyright (c) 2004 Walter Schmidt
+  
+  This work may be distributed and/or modified under the
+  conditions of the LaTeX Project Public License, either
+  version 1.3 of this license or (at your option) any later
+  version.  The latest version of this license is in
+  http://www.latex-project.org/lppl.txt and version 1.3 or
+  later is part of all distributions of LaTeX version
+  2003/12/01 or later.
+
+  This work has the LPPL maintenance status "maintained".
+
+  This Current Maintainer of this work is 
+  Walter Schmidt <w.a.schmidt(at)gmx.net>
+
+
+
+Credits
+-------
+Special thanks to Rolf Niepraschk for his help with creating
+and testing the font.
+
+== finis

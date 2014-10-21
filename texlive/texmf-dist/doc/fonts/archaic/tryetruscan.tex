@@ -1,0 +1,136 @@
+% tryfont.tex    Test Etruscan fonts
+\documentclass{article}
+\usepackage{etruscan}
+
+
+
+%%\newcommand{\ABC}{ABGDEFZH\TTheta{}IKLMN\TXi{}OP\Tsade{}QRSTUX\TPhi\TPsi8}
+%%\newcommand{\abc}{abgdefzh\tTheta{}iklmn\tXi{}op\tsade{}qrstux\tPhi\tPsi8}
+%%\newcommand{\cba}{8\tPsi\tPhi{}xutsrq\tsade{}po\tXi{}nmlki\tTheta{}hzfedgba}
+%%\newcommand{\UCABC}{ABGDEFZH IKLMN OP QRSTUX  8}
+
+\newcommand{\abc}{a b g e F z h T i k l m n x o p S q r s t y X f P v}
+\newcommand{\Acomms}{%
+\Aalpha
+\Abeta
+\Agamma
+\Adelta
+\Aepsilon
+\Adigamma
+\Azeta
+\Aeta
+\Atheta
+\Aiota
+\Akappa
+\Alambda
+\Amu
+\Anu
+\Axi
+\Aomicron
+\Api
+\Aesade
+\Aqoph
+\Arho
+\Asigma
+\Atau
+\Aupsilon
+\Achi
+\Aphi
+\Apsi
+\Avau
+}
+
+\newcommand{\ARcomms}{%
+\ARalpha
+\ARbeta
+\ARgamma
+\ARdelta
+\ARepsilon
+\ARdigamma
+\ARzeta
+\AReta
+\ARtheta
+\ARiota
+\ARkappa
+\ARlambda
+\ARmu
+\ARnu
+\ARxi
+\ARomicron
+\ARpi
+\AResade
+\ARqoph
+\ARrho
+\ARsigma
+\ARtau
+\ARupsilon
+\ARchi
+\ARphi
+\ARpsi
+\ARvau
+}
+
+
+
+\title{Try Etruscan Fonts}
+%%\author{Peter Wilson \\ \texttt{peter.r.wilson@boeing.com}}
+\author{}
+\date{}
+\begin{document}
+\maketitle
+
+    This provides a short test of the characters in the Etruscan fonts
+--- the \verb|etr| font family.
+
+\begin{center}
+The Etruscan font in Large size \\
+{\etrfamily\Large \abc\\ \ARcomms \par}
+\end{center}
+
+\begin{center}
+The font in its normal size, with a transliteration for comparison \\
+\textetr{\Acomms} \\
+\translitetr{\Acomms}
+\end{center}
+
+    ETRUSCAN in Etruscan is: \textetr{etrysgan}, or as they would have 
+written it: \begin{flushright} 
+.\textetr{\ARnu\ARalpha\ARgamma\ARsigma\ARupsilon\ARrho\ARtau\ARepsilon} 
+\end{flushright}
+
+\begin{table}
+\centering
+\caption{Alphabet and commands}
+\begin{tabular}{|c|c|l||l|c||c|} \hline
+Glyph       & ASCII & Command (L-R) & Command (R-l) & Glyph & Transliteration \\ \hline
+\textetr{a} & a & \verb|\Aalpha|    & \verb|\ARalpha|   & \textetr{\ARalpha}   & \translitetr{\Aalpha} \\
+\textetr{b} & b & \verb|\Abeta|     & \verb|\ARbeta|    & \textetr{\Abeta}     & \translitetr{\Abeta} \\
+\textetr{g} & g & \verb|\Agamma|    & \verb|\ARgamma|   & \textetr{\Agamma}    & \translitetr{\Agamma} \\
+\textetr{d} & d & \verb|\Adelta|    & \verb|\ARdelta|   & \textetr{\ARdelta}   & \translitetr{\Adelta} \\
+\textetr{e} & e & \verb|\Aepsilon|  & \verb|\ARepsilon| & \textetr{\ARepsilon} & \translitetr{\Aepsilon} \\
+\textetr{F} & F & \verb|\Adigamma|  & \verb|\ARdigamma| & \textetr{\ARdigamma} & \translitetr{\Adigamma} \\
+\textetr{z} & z & \verb|\Azeta|     & \verb|\ARzeta|    & \textetr{\ARzeta}    & \translitetr{\Azeta} \\
+\textetr{h} & h & \verb|\Aeta|      & \verb|\AReta|     & \textetr{\AReta}     & \translitetr{\Aeta} \\
+\textetr{T} & T & \verb|\Atheta|    & \verb|\ARtheta|   & \textetr{\ARtheta}   & \translitetr{\Atheta} \\
+\textetr{i} & i & \verb|\Aiota|     & \verb|\ARiota|    & \textetr{\ARiota}    & \translitetr{\Aiota} \\
+\textetr{k} & k & \verb|\Akappa|    & \verb|\ARkappa|   & \textetr{\ARkappa}   & \translitetr{\Akappa} \\
+\textetr{l} & l & \verb|\Alambda|   & \verb|\ARlambda|  & \textetr{\ARlambda}  & \translitetr{\Alambda} \\
+\textetr{m} & m & \verb|\Amu|       & \verb|\ARmu|      & \textetr{\ARmu}      & \translitetr{\Amu} \\
+\textetr{n} & n & \verb|\Anu|       & \verb|\ARnu|      & \textetr{\ARnu}      & \translitetr{\Anu} \\
+\textetr{x} & x & \verb|\Axi|       & \verb|\ARxi|      & \textetr{\ARxi}      & \translitetr{\Axi} \\
+\textetr{o} & o & \verb|\Aomicron|  & \verb|\ARomicron| & \textetr{\ARomicron} & \translitetr{\Aomicron} \\
+\textetr{p} & p & \verb|\Api|       & \verb|\ARpi|      & \textetr{\ARpi}      & \translitetr{\Api} \\
+\textetr{S} & S & \verb|\Aesade|    & \verb|\AResade|   & \textetr{\AResade}   & \translitetr{\Aesade} \\
+\textetr{q} & q & \verb|\Aqoph|     & \verb|\ARqoph|    & \textetr{\ARqoph}    & \translitetr{\Aqoph} \\
+\textetr{r} & r & \verb|\Arho|      & \verb|\ARrho|     & \textetr{\ARrho}     & \translitetr{\Arho} \\
+\textetr{s} & s & \verb|\Asigma|    & \verb|\ARsigma|   & \textetr{\ARsigma}   & \translitetr{\Asigma} \\
+\textetr{t} & t & \verb|\Atau|      & \verb|\ARtau|     & \textetr{\ARtau}     & \translitetr{\Atau} \\
+\textetr{y} & y & \verb|\Aupsilon|  & \verb|\ARupsilon| & \textetr{\ARupsilon} & \translitetr{\Aupsilon} \\
+\textetr{X} & X & \verb|\Achi|      & \verb|\ARchi|     & \textetr{\ARchi}     & \translitetr{\Achi} \\
+\textetr{f} & f & \verb|\Aphi|      & \verb|\ARphi|     & \textetr{\ARphi}     & \translitetr{\Aphi} \\
+\textetr{P} & P & \verb|\Apsi|      & \verb|\ARpsi|     & \textetr{\ARpsi}     & \translitetr{\Apsi} \\
+\textetr{v} & v & \verb|\Avau|      & \verb|\ARvau|     & \textetr{\ARvau}     & \translitetr{\Avau} \\  \hline
+\end{tabular}
+\end{table}
+
+\end{document}

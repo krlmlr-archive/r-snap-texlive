@@ -1,0 +1,66 @@
+This is emulateapj.cls, version November 10, 2009
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+`emulateapj' is a LaTeX2e class to emulate the Astrophysical Journal
+(ApJ) page layout. The page length of the resulting document is very
+close to that in ApJ when Times fonts are used instead of the LaTeX
+default CM fonts.
+
+If a manuscript is prepared for ApJ submission using the standard
+American Astronomical Society LaTeX macros and the `aastex' style
+(see instructions for authors on the ApJ web site), the only thing
+required from the user should be to replace \documentclass{aastex}
+with \documentclass{emulateapj}, and perhaps resize figures as
+desired and replace {deluxetable} with {deluxetable*}. Possible minor
+problems are described below.
+
+emulateapj requires revtex4.cls. If you don't have it already, it can be
+downloaded from http://publish.aps.org/revtex4/ (it's a small package). 
+Other extrnal packages used are latexsym, graphicx, amssymb, longtable,
+epsf. They should already be present in the modern TeX distributions; if
+not, download them from www.ctan.org. 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+For the latest version check http://hea-www.harvard.edu/~alexey/emulateapj
+
+NOTE: ApJ has moved its publishing to IOP and they have slightly changed
+the formatting. To implement these changes, call emulateapj with the iop
+option, as in
+\usepackage[iop]{emulateapj}
+
+Other available options:
+
+[chicago] - (default) typeset as was done in the University of Chicago Press
+[twocolumn] - (default) two-column mode
+[onecolumn] - main text in one-column mode
+[apj]       - typeset as for main journal
+[apjl]      - (default) typeset as for ApJ Letters 
+[tighten]   - some adjustments to approximate grid typesetting
+[numberedappendix]   - number appendix sections as A, B, etc
+[appendixfloats]  - use separate numbering for floats within appendix
+[appendixfloats]  - use separate numbering for floats within appendix
+[twocolappendix]  - make appendix in two-col mode in a two-col paper
+[revtex4]   - force using revtex4
+
+NOTE 2: Starting from version 11/10/2009, emulateapj tries to load
+revtex4-1 if present on the system. This may cause small changes in
+typesetting for old documents. If you want full compatibility, please
+download the last version based on revtex4,
+http://hea-www.harvard.edu/~alexey/emulateapj/emulateapj-rtx4.cls
+and bundle it with your TeX source code
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+Copyright 2000-2009 Alexey Vikhlinin
+
+The first version of this package was written by Maxim Markevitch. 
+Pieces of AASTeX code are used for compatibility with aastex.cls.
+
+This program can be redistributed and/or modified under the terms of
+the LaTeX Project Public License available from CTAN archives in
+macros/latex/base/lppl.txt. This means you are free to use and
+distribute this package; however, if you modify anything, please
+change the file name and remove the author's email address.
+
+Alexey Vikhlinin <alexey@head.cfa.harvard.edu>
+
+
+%% For release notes and change log, read the bottom of emulateapj.cls

@@ -1,0 +1,255 @@
+This README is for version:
+      2012/10/13 v0.6 %
+----------------
+([de] unten - [eo] sube)
+----------------
+[en]
+LaTeX-package 'dateiliste' - include list of used files
+(like \listfiles) in the document, and related features.
+
+Author:  Paul Ebermann <Paul-Ebermann@gmx.de>
+License: LPPL 1.3b or later, author-maintained
+         (see http://www.latex-project.org/lppl/).
+
+All Documentation (other than this file) is in german.
+
+The typesetting of the documentation needs 'pauldoc' (from the
+same author).
+Additionally you'll need the packages 'ltxtable', 'tabularx',
+'longtable' and 'rcsinfo'.
+
+The package comes as .dtx + .ins.
+Run "latex dateiliste.ins" to create the style file and the
+README-files (and maybe put them to texmf/tex/latex/paul/, if
+your docstrip is configured accordingly), (after that and
+maybe updating your TeX hash) run "latex dateiliste.dtx"
+(some times) to create the documentation.
+
+ Usage
+-------
+The package has three main features, which can
+be used independently, but together are specially
+useful.
+
+(1) automatic version infos:
+
+  If you use a version control system like RCS, CVS, Subversion
+  for your LaTeX source files, you may use the Id tag to generate
+  the date and version number for the version string in \listfiles.
+  Use
+
+    \ProvideFileInfos{$<>Id$}{short description}
+
+  (without '<>' [0]) in your file, and do a 'cvs commit' (or
+  'svn commit'). In the svn case, use the package-option 'svn'
+  (or 'subversion') to indicate the parsing format to the
+  package, and tell Subversion to expand Id:
+     svn propset svn:keywords Id <filename>
+
+(2) include main file:
+
+  Normally the "main" file (given on the command
+  line to LaTeX) does not appear in the list given
+  by \listfiles. This is changed by the package for
+  the case that the file has the name \jobname.tex.
+
+  (More precisely, the package adds \jobname.tex
+   iff this file exists and it not can be determinded[1]
+   to be already in the file list [2].)
+
+  This is enabled by default and may be disabled
+  using the package option 'noaddmain'.
+  The macro
+    \mainFileToList
+  may also be invoked manually to add the main file.
+
+(3) include file list also in the (dvi) result
+
+  You can use the command
+
+    \printFileList[<section command>]
+
+  to include a pretty-printed version of the
+  file list as a section (by default \section*,
+  any sectioning command may be given as an
+  optional argument).
+
+  You also have to use \listfiles in the
+  document preamble (otherwise you'll only get
+  an error message).
+
+  The table only appears from the second LaTeX-run,
+  from the third one is complete, and may need some
+  more runs to align correctly.
+
+  The title, preamble and table headers may be localized
+  with babel - translations for 'english', 'german',
+  'ngerman' and 'esperanto' are included.
+  If you need something else or don't use babel, you have
+  to redefine the following macros:
+
+  \fileListName     - title ("List of Files")
+  \fileListPreamble - preamble (typeset before the table)
+  \fileNameName     - table header "file name"
+  \dateName         - table header "date"
+  \verName          - table header "version"
+  \descriptionName  - table header "description"
+
+-----
+[0] The <> are inserted here to avoid Subversion
+    expanding this line. If someone has an idea how
+    to have this in plain format in the README (maybe
+    with some complicated magic in the .dtx and/or .ins),
+    please contact me.
+[1] this determination can be configured with
+    the package options
+    nocat12 - does only work with eTeX, else
+       may give double entry
+    cat12 - works also without eTeX, but may
+       have some side effects to other macro
+       packages, since it converts \@filelist
+       to cat 12.
+    The default setting works like cat12 on non-eTeX
+    and like nocat12 on eTeX.
+
+[2] this may occur when you invoke
+    LaTeX with "\input{mainfile.tex}".
+----------------
+[de]
+LaTeX-Paket 'dateiliste' - Liste der verwendeten Dateien im Dokument
+und verwandte Funktionen.
+
+Autor:  Paul Ebermann (Paul-Ebermann@gmx.de).
+Lizenz: LPPL 1.3b oder später, mit Maintenance-Status
+        "author-maintained". Siehe http://www.latex-project.org/lppl/.
+
+Geschrieben für den eigenen Gebrauch
+(-> http://www.math.hu-berlin.de/~ebermann/alg-script/),
+aber  vielleicht ist es auch für andere von Nutzen.
+
+Zum Setzen der Dokumentation wird das Paket 'pauldoc'
+(vom selben Autor) benötigt.
+
+Das Paket kommt als .dtx + .ins.
+Mit "latex dateiliste.ins" wird die .sty-Datei erstellt (und
+eventuell gleich nach texmf/tex/latex/paul/ installiert,
+wenn docstrip entsprechend eingerichtet ist), mit
+latex dateiliste.dtx kann (danach und eventuell nach einer
+Aktualisierung der TeX-Dateidatenbank) die Dokumentation neu
+erstellt werden.
+
+Zur Verwendung siehe dateiliste.pdf.
+----------------
+[eo]
+LaTeX-pakaĵo 'dateiliste' - Variaĵo de \DeclareRobustCommand,
+kiu antaŭe elprovas, ĉu la nomo jam ekzistas.
+
+Aŭtoro:  Paŭlo Ebermann (Paul-Ebermann@gmx.de).
+Licenzo: LPPL 1.3, 'author-maintained'
+         (-> http://www.latex-project.org/lppl/).
+
+Kreitaj por propra uzo, sed eble iom de ĝi ankaŭ
+uzeblas por aliaj.
+
+La dokumentaro (escepte tiu ĉi dosiero) estas nur en la germana
+lingvo.
+
+La pakaĵo bezonas la pakaĵojn 'ltxtable', 'longtable',
+'tabularx' kaj 'rcsinfo'.
+Por krei la dokumentadon vi krome bezonas 'pauldoc' (de la sama aŭtoro).
+
+La pakaĵo venas en .dtx + .ins.
+Voku "latex dateiliste.ins" por krei la .sty-dosieron (kaj
+eble meti ĝin al texmf/tex/latex/paul/, se via docstrip estis
+konfigurita laŭe), voku "latex dateiliste.dtx" por rekrei
+la dokumentaron.
+
+ Uzado
+-------
+
+La pakaĵo konsistas el tri ĉefaj bonaĵoj, kiujn
+oni povas uzi sendepende, sed kune ili estas speciale
+utile.
+
+(1) Aŭtomataj versio-informoj.
+
+  Se vi uzas versio-kontrolan sistemon kiel Subversion aŭ
+  CVS/RCS, vi povas uzi tion por aŭtomate generi la daton
+  kaj versi-numeron por la listo kreita de \listfiles
+  (kaj la listo de (3).)
+  Uzu
+
+    \ProvideFileInfos{$<>Id$}{mallonga priskribo}
+
+  en via dosiero, forprenu la '<>', kaj faru 'svn commit' aŭ
+  'cvs commit'. (CVS aŭ SVN tiam enmetos informojn, kiun
+  \ProvideFileInfos uzos.)
+  En la Subversion-kazo necesas antaŭe informi Subversion
+  pri tio, ke vi volas anstataŭi 'Id' per alia afero:
+     svn propset svn:keywords Id <dosiernomo>
+  Ankaŭ necesas uzi la pakaĵ-opcion 'svn' aŭ 'subversion',
+  kiel tie:
+     \usepackage[svn]{dateiliste}
+
+(2) Aldono de ĉefa dosiero
+
+  Kutime la ĉefa dosiero (kiun vi donis en la
+  latex-voko) ne aperas en la listo kreita de
+  \listfiles. Tion la pakaĵo ŝanĝas, se tiu
+  dosiero havas la nomfinaĵon .tex
+
+  (Pli precize, la pakaĵo aldonas '\jobname.tex',
+   se tiu dosiero ekzistas, kaj se ne eblas eltrovi[1],
+   ke la dosiero estas jam en la listo[2].)
+
+  Tiu aldonado estas kutime ŝaltita, sed eblas
+  malŝalti ĝin per la pakaĵ-opcio 'noaddmain'.
+  Tiam ankaŭ eblas voki
+    \mainFileToList
+  por fari tion.
+
+(3) Enmetu la dosierliston en la rezulton
+
+  Vi povas uzi la komandon
+
+    \printFileList[<section command>]
+
+  por enmeti bele formatitan version de la
+  dosierlisto kiel sekcio (kutime '\section*',
+  sed vi povas uzi iun ajn sekci-komandon kiel
+  opcia argumento) en la dokumenton.
+
+  Vi krome devas uzi \listfiles en la komenca
+  parto de la dokumento (antaŭ \begin{document}),
+  alikaze vi nur ricevos erarmesaĝon.
+
+  La tabelo nur aperos ekde la dua LaTeX-voko, kaj
+  eble bezonos kelkajn pliajn por aspekti ĝuste.
+
+  Eblas traduki la titolon de la sekcio, la antaŭtekston
+  kaj la tabelkapoj helpe de la babel-pakaĵo - tradukojn
+  por 'english', 'german', 'ngerman' kaj 'esperanto' la
+  pakaĵo jam enhavas.
+  Se vi bezonas aliajn lingvojn aŭ ne uzas 'babel',
+  redifinu la sekvajn makroojn:
+
+  \fileListName     - titolo ("Listo de dosieroj")
+  \fileListPreamble - antaŭteksto (printita inter titolo
+                       kaj tabelo)
+  \fileNameName     - tabelkapo "dosiernomo"
+  \dateName         - tabelkapo "dato"
+  \verName          - tabelkapo "versio"
+  \descriptionName  - tabelkapo "priskribo"
+
+-----
+[1] Tiun determinadon vi povas konfiguri per la
+    pakaĵ-opcioj:
+     nocat12 - nur funkcias se vi uzas eTeX, alikaze
+       eble la cxef-dosiero aperos dufoje.
+     cat12 - funkcias kun aŭ sen eTeX, konvertante
+       la enhavon de \@filelist al kategorio 12.
+    Se vi neniun de tiuj opcioj donas, ĝi laboras
+    kiel 'nocat12' en eTeX kaj kiel 'cat12' en ne-eTeX.
+
+[2] Tio povas okazi ekzemple, se vi invokas
+    LaTeX kun "\input{mainfile.tex}".

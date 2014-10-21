@@ -1,0 +1,168 @@
+README for morefloats package, 2012/01/28, v1.0f
+
+
+TABLE OF CONTENTS
+=================
+
+1 Introduction
+2 Download
+3 Installation
+4 Additional Packages
+5 Package Compatibility
+6 Authors/Maintainer
+7 Bug Reports
+8 Known Problems
+
+
+1 INTRODUCTION
+==============
+
+The limit of unprocessed floats, 18, can be increased with this
+morefloats package. Otherwise, \clear(double)page, h(!), H from the
+float package, or \FloatBarrier from the picins package might help.
+
+Note: The main code of this package was invented by
+Don Hosek, Quixote, 1990/07/27 (Thanks!).
+Maintenance has been taken over in September 2010 by H.-Martin M\"{u}nch.
+
+This material is subject to the LaTeX Project Public License
+(LPPL). See http://www.ctan.org/tex-archive/help/Catalogue/
+licenses.lppl.html for the details of that license.
+
+
+2 DOWNLOAD
+==========
+
+'morefloats' is available on CTAN:
+  CTAN:macros/latex/contrib/morefloats/
+
+Running
+tex morefloats.dtx
+generates the files
+morefloats.ins, morefloats.drv, morefloats.sty,
+and morefloats-example.tex.
+
+Also a ZIP file is provided that contains these files,
+the manual (morefloats.pdf), the compiled example
+(morefloats-example.pdf), and this README, already
+sorted in a TDS tree:
+  CTAN:install/macros/latex/contrib/morefloats.tds.zip
+
+`CTAN:' means one of the `Comprehensive TeX Archive Network'
+nodes or one of its mirrors. This is explained in
+  http://www.tex.ac.uk/cgi-bin/texfaq2html?label=archives
+
+The CTAN stuff will be mirrored automatically from the
+ftp server, so
+  ftp://ftp.tug.org/pub/tex/morefloats/
+corresponds to
+  CTAN:macros/latex/contrib/morefloats/
+
+
+3 INSTALLATION
+==============
+
+Installation with ZIP file in TDS format
+----------------------------------------
+The ZIP file `morefloats.tds.zip' contains the files
+sorted in a TDS tree. Thus you can directly unpack the
+ZIP file inside a TDS tree.
+(See CTAN:tds.zip for an explanation of TDS.)
+Example:
+  cd /...somewhere.../texmf
+  unzip /...downloadpath.../morefloats.tds.zip
+Do not forget to refresh the file name database of this
+TDS tree.
+Example:
+  texhash /...somewhere.../texmf
+(and check for old morefloats.sty at other locations in your
+ TeX installation).
+
+Manual installation
+-------------------
+a) Download the morefloats files from CTAN.
+   If necessary, unpack them.
+b) Check for old morefloats.sty at other locations in your
+    TeX installation and delete them (or back them up,
+    but in a way TeX does NOT find them automatically).
+c) Generate the package and driver files:
+     tex morefloats.dtx
+d) Install the file `*.sty' in your TDS tree:
+     cp *.sty TDS:tex/latex/morefloats/
+   Replace `TDS:' by the prefix of your TDS tree
+   (texmf directory).
+e) Create the documentation (if necessary), e.g.
+     pdflatex morefloats.dtx
+     makeindex -s gind.ist morefloats.idx
+     pdflatex morefloats.dtx
+     makeindex -s gind.ist morefloats.idx
+     pdflatex morefloats.dtx
+f) Update the databases if necessary, e.g. for teTeX:
+     mktexlsr .../texmf
+g) Create the morefloats-example.pdf (if necessary), e.g.
+     pdflatex morefloats-example.tex
+     pdflatex morefloats-example.tex
+     pdflatex morefloats-example.tex
+h) Copy the documentation files to
+   "TDS:doc/latex/morefloats/":
+   README, morefloats.pdf, morefloats-example.tex,
+   morefloats-example.pdf.
+
+
+4 ADDITIONAL PACKAGES
+=====================
+
+morefloats itself loads the kvoptions package,
+    http://ctan.org/pkg/kvoptions
+which again loads other packages
+(see the result of the \listfiles command in the log-file
+ of the example).
+
+
+5 PACKAGE COMPATIBILITY
+=======================
+
+There are no known incompatibilities.
+
+
+6 AUTHOR/MAINTAINER
+=====================
+
+* Author of the original main code:
+   Don Hosek, Quixote, 1990/07/27 (Thanks!)
+* Author of the recent package and current maintainer:
+   H.-Martin Münch
+
+
+7 BUG REPORTS
+==============
+
+A bug report should contain:
+* Comprehensive problem description. This includes error or
+  warning messages.
+* \errorcontextlines=\maxdimen can be added in the
+  TeX code to get more information in TeX error messages.
+* Minimal test file that shows the problem, but does not
+  contain any unnecessary packages and code.
+* Used drivers/programs.
+* Version information about used packages and programs.
+* If you are using LaTeX, then add "\listfiles". Then
+  a list of version information is printed at the end
+  of the LaTeX run.
+* Please no other files than the minimal test file.
+  The other files .log, .dvi, .ps, .pdf are seldom
+  necessary, so send them only on request.
+* Please .zip or .tar.gz your file(s) before sending them!
+
+Bug address
+-----------
+Bug reports can be send to the maintainer:
+  H.-Martin Münch
+  <Martin [dot] Muench [at] Uni-Bonn [dot] de>
+
+
+8 KNOWN PROBLEMS
+=================
+
+* If you request too many floats, (La)TeX will run out of
+   dimensions, memory,...

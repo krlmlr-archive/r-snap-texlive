@@ -1,0 +1,69 @@
+%%
+%% This is file `apptools-test.tex',
+%% generated with the docstrip utility.
+%%
+%% The original source files were:
+%%
+%% apptools.dtx  (with options: `test')
+%% 
+%% This is a generated file.
+%% 
+%% Project: apptools
+%% Version: 2012/11/28 v1.0
+%% 
+%% Copyright (c) 2012 by Sebastian Kuhnert <mail at sebastian-kuhnert.de>
+%% 
+%% This work may be distributed and/or modified under the conditions of the LaTeX
+%% Project Public License, either version 1.3c of this license or (at your
+%% option) any later version. The latest version of this license is available at
+%% http://www.latex-project.org/lppl.txt and version 1.3c or later is part of all
+%% distributions of LaTeX version 2008/05/04 or later.
+%% 
+%% This work has the LPPL maintenance status `maintained', the Current Maintainer
+%% of this work is Sebastian Kuhnert.
+%% 
+%% This work consists of the main source file apptools.dtx and the derived files
+%%    apptools.sty, apptools.pdf, apptools.ins, apptools.drv, apptools-test.tex.
+%% 
+\NeedsTeXFormat{LaTeX2e}
+\nofiles
+\documentclass{article}
+\usepackage{apptools}[2012/11/28]
+\usepackage{qstest}
+\IncludeTests{*}
+\LogTests{log}{*}{*}
+
+\begin{document}
+\makeatletter
+
+\begin{qstest}{AtAppendix}{AtAppendix}
+  \def\defaulthook{\appendixtrue}
+  \Expect*{\meaning\defaulthook}*{\meaning\apptools@hook}
+  \g@addto@macro\defaulthook{\def\fooafterappendix{foo}}
+  \AtAppendix{\def\fooafterappendix{foo}}
+  \Expect*{\meaning\defaulthook}*{\meaning\apptools@hook}
+  \Expect*{\meaning\fooafterappendix}{undefined}
+\end{qstest}
+
+\begin{qstest}{ifbefore}{ifbefore}
+  \Expect{else}*{\ifappendix then\else else\fi}
+  \Expect{else}*{\IfAppendix{then}{else}}
+\end{qstest}
+
+\appendix
+
+\begin{qstest}{ifafter}{ifafter}
+  \Expect{then}*{\ifappendix then\else else\fi}
+  \Expect{then}*{\IfAppendix{then}{else}}
+\end{qstest}
+
+\begin{qstest}{hook}{hook}
+  \def\expected{foo}
+  \Expect*{\meaning\fooafterappendix}*{\meaning\expected}
+\end{qstest}
+
+\end{document}
+\@@end
+\endinput
+%%
+%% End of file `apptools-test.tex'.

@@ -1,0 +1,114 @@
+%% auncial.ins
+%%  Author: Peter Wilson (Herries Press) herries dot press at earthlink dot net
+%%  Copyright 1999--2005 Peter R. Wilson
+%%
+%%  This work may be distributed and/or modified under the
+%%  conditions of the Latex Project Public License, either
+%%  version 1.3 of this license or (at your option) any
+%%  later version.
+%%  The latest version of the license is in
+%%    http://www.latex-project.org/lppl.txt
+%%  and version 1.3 or later is part of all distributions of
+%%  LaTeX version 2003/06/01 or later.
+%%
+%%  This work has the LPPL maintenance status "author-maintained".
+%%
+%%  This work consists of the files listed in the README file.
+%%
+%%  This file will generate fast loadable files from the doc files
+%%  in this work when run through LaTeX
+%%
+%% --------------------- start of docstrip commands --------------
+%%
+\def\batchfile{auncial.ins}
+\input docstrip.tex
+\preamble
+------------------------------------------------------------------
+  Author: Peter Wilson (Herries Press) herries dot press at earthlink dot net
+  Copyright 1999--2005 Peter R. Wilson
+
+  This work may be distributed and/or modified under the
+  conditions of the Latex Project Public License, either
+  version 1.3 of this license or (at your option) any
+  later version.
+  The latest version of the license is in
+    http://www.latex-project.org/lppl.txt
+  and version 1.3 or later is part of all distributions of
+  LaTeX version 2003/06/01 or later.
+
+  This work has the LPPL maintenance status "author-maintained".
+
+  This work consists of the files listed in the README file.
+------------------------------------------------------------------
+\endpreamble
+
+\keepsilent
+
+%%%%%% Do not try to generate any driver file. This is only  here for
+%%%%%% historical purposes.
+%%% \Msg{*** Generating the driver file ***}
+%%% \generateFile{auncial.drv}{t}{\from{auncial.dtx}{driver}}
+
+\Msg{*** Generating the Metafont files ***}
+\usepostamble\empty
+
+%%\generateFile{auncl10.mf}{t}{\from{aunclmfb.dtx}{base10}}
+%%\generateFile{aunclb10.mf}{t}{\from{aunclmfb.dtx}{base10b}}
+%%\generateFile{auncltitle.mf}{t}{\from{aunclmft.dtx}{mfd}}
+%%\generateFile{auncllow.mf}{t}{\from{aunclmfc.dtx}{low}}
+%%\generateFile{aunclsci.mf}{t}{\from{aunclmfc.dtx}{ascii}}
+%%\generateFile{aunclmid.mf}{t}{\from{aunclmfc.dtx}{mid}}
+%%\generateFile{auncltop.mf}{t}{\from{aunclmfc.dtx}{top}}
+
+
+\Msg{*** Generating the Font Definition files ***}
+\usepostamble\defaultpostamble
+
+%%\generateFile{ot1auncl.fd}{t}{\from{auncial.dtx}{fdot1}}
+%%\generateFile{t1auncl.fd}{t}{\from{auncial.dtx}{fdt1}}
+\generateFile{b1auncl.fd}{t}{\from{auncial.dtx}{fdb1}}
+
+\Msg{*** Generating the LaTeX2e package files ***}
+
+\generateFile{auncial.sty}{t}{\from{auncial.dtx}{usc}}
+\generateFile{allauncl.sty}{t}{\from{auncial.dtx}{uscall}}
+
+\Msg{*** Generating the map files ***}
+\usepreamble\empty
+\usepostamble\empty
+
+\generateFile{auncial.map}{t}{\from{auncial.dtx}{map}}
+
+\Msg{***********************************************************}
+\Msg{*}
+\Msg{* To continue with the installation move these into the LaTeX macro area:}
+\Msg{* \space\space b1auncl.fd}
+\Msg{* \space\space auncial.sty}
+\Msg{* \space\space allauncl.sty}
+\Msg{*}
+\Msg{* Further instructions are in the README}
+\Msg{*}
+\Msg{* If you wish to install for MetaFont you have to move the following}
+\Msg{* files into directories searched by TeX, and make appropriate changes}
+\Msg{* to dvips' special.ps file:}
+\Msg{*}
+\Msg{* Move these into the font source area:}
+\Msg{* \space\space auncl10.mf}
+\Msg{* \space\space aunclb10.mf}
+\Msg{* \space\space auncltitle.mf}
+\Msg{* \space\space auncllow.mf}
+\Msg{* \space\space aunclsci.mf}
+\Msg{* \space\space aunclmid.mf}
+\Msg{* \space\space auncltop.mf}
+\Msg{*}
+\Msg{* To produce the documentation run the files ending with}
+\Msg{* `.dtx' through LaTeX.}
+\Msg{* Process any name.idx file by:}
+\Msg{* \space\space\space\space makeindex -s gind.ist name}
+\Msg{* Process any name.glo file by:}
+\Msg{* \space\space\space\space makeindex -s gglo.ist -o name.gls name.glo}
+\Msg{*}
+\Msg{* Happy TeXing}
+\Msg{***********************************************************}
+
+\endinput

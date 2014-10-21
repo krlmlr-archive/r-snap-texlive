@@ -1,0 +1,117 @@
+\documentclass[a4paper]{article}
+\usepackage{shortvrb}
+\pagestyle{plain}
+\MakeShortVerb{\|}
+
+\begin{document}
+\title{BrushScriptX-Italic PostScript\thanks{PostScript is a
+    registered trademark of Adobe Systems Inc.} \\
+  Type-1 Fonts}
+\author{\Large Maurizio Loreti}
+\date{Rev.\ 2.0 \\
+  September 21, 2001} \maketitle
+
+The files included in this package allow to use in your
+\LaTeX\ documents a PostScript Type-1 font named
+``BrushScriptX-Italic''; this font, similar to Adobe
+BrushScript, simulates hand-written characters.  In detail,
+these files are:
+\begin{enumerate}
+\item AAA\_readme.tex: this file.
+\item README: a shorter ASCII version of this file.
+\item Makefile: contains the commends needed, on my Unix
+  system, to generate all the auxiliary files needed in
+  order to use this fonts with \LaTeX\ and |dvips|.  In
+  particular, the included file generate.tex is used as
+  input to the \TeX\ package |fontinst|.
+\item config.pbsi and pbsi.map: the auxiliary files for
+  |dvips|.  pbsi.map maps BrushScript to the ASCII version
+  of the font (the BrushScriptX-Italic.pfa file).
+\item t1pbsi.fd: the \TeX\ font definition file, for the T1
+  encoding.
+\item pbsi8t.vf: the \TeX\ virtual font file, for the T1
+  encoding.
+\item pbsi8t.tfm: the \TeX\ font metric file, for the T1
+  encoding.
+\item BrushScriptX-Italic.pfa and BrushScriptX-Italic.afm:
+  the font, in ASCII format, and the corresponding font
+  metric file.  The afm file lacks the part about the
+  kerning, that has been separately tuned by hand and is
+  defined in another file, kern.txt (merged with
+  BrushScriptX-Italic.afm at the generation time from the
+  Makefile).
+\item sample.tex: a first example file (a real page printed
+  out in the past for my students; in Italian, sorry).
+\item pbsi.sty and example.tex: the style defines a command
+  |\textbsi|, that print its argument using the
+  BrushScriptX-Italic fonts; the second is another example
+  file showing how to use it.
+\end{enumerate}
+
+For the installation, you should copy
+BrushScriptX-Italic.pfa, pbsi.sty, config.pbsi, pbsi.map,
+and the .fd, .tfm and .vf files, in appropriate directories
+of the \TeX\ tree.  Some installations (e.g.\ teTeX) require
+to update the file database, running (as root) the command
+|texhash|; check your documentation.  Done that, use the
+fonts as shown in the sample.tex example (for long texts),
+or (as outlined in example.tex) with |\textbsi{...}| (for
+short texts); and \emph{remember} to run |dvips| \emph{with
+  the command option} |-P pbsi|.  Some historical notes:
+\begin{itemize}
+\item I have found the original BrushScriptX-Italic font (a
+  public domain NeXT screen font) on the web; and I have
+  heavily modified the original file on my Amiga personal
+  computer, with a commercial font drawing package named
+  TypeSmith.  This happened in the first years of 1990's.
+\item I then submitted to CTAN the modified font; my version
+  is also public domain: you are free to modify my files as
+  you want, as long as you don't make any profit from them.
+\item Later, when a new version of |dvips| appeared that
+  made more tight controls on the handled Type-1 fonts, the
+  modified BrushScript was refused by |dvips|.  At the time
+  I did not have any Amiga computer, nor any tool to use in
+  order to edit and/or modify a Type-1 font; Louis Vosloo of
+  Y\&Y has pointed to me that the original tool (TypeSmith)
+  did not generate a correct font, and (with enormous
+  courtesy) edited the font himself.  That modified font was
+  resubmitted to CTAN.
+\item Still later, Mr.\ Rolf Niepraschk of
+  Physikalisch-Technische Bundesanstalt Berlin (Germany) has
+  both contributed a file pbsi.sty and, in 2001, found that
+  the last |dvips| (5.86e) still refused to handle
+  BrushScript.  He has also contributed a fix for that,
+  using the ``type1fix'' script part of the \TeX{}trace
+  package by P\'eter Szab\'o
+  (|http://www.inf.bme.hu/~pts/textrace/|).
+\item A kind reader of comp.text.tex pointed to me the
+  existence of a free font editor for Unix
+  (|http://pfaedit.sourceforge.net|); so I decided to clean
+  up the font shapes, to specify better kernings and to
+  build a brand new release (v2.0, released at the end of
+  September 2001).  Mr.\ Thierry Bouche helped several times
+  with |fontinst|, whose documentation is, err, quite
+  obscure.
+\end{itemize}
+
+Be careful, do not use \TeX\ commands that use math
+characters, or that change the typeface (like |\bfseries| or
+|\sffamily|); Brush-Script-Italic has no defined variants!
+
+
+\par\vspace*{1cm}\noindent Thanks to:
+\begin{itemize}
+\item Louis Vosloo |<support@yandy.com>|, who helped with
+  the font.
+\item Rolf Niepraschk |<niepraschk@ptb.de>|, who helped with
+  the font.
+\item Thierry Bouche |<bouche@mozart.ujf-grenoble.Fr>|, who
+  helped with |fontinst|.
+\item George Williams, the author of |pfaedit|.
+\end{itemize}
+
+\par\vspace*{1cm}\noindent Happy \TeX{}ing!\hfill
+Maurizio Loreti\vspace*{2\baselineskip}
+\par\hfill EMail: |loreti@pd.infn.it|
+\par\hfill WWW: |http://www.pd.infn.it/~loreti/mlo.html|
+\end{document}

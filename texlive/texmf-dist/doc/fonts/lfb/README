@@ -1,0 +1,193 @@
+Note on distribution:
+
+This is a Greek font I wrote in METAFONT several years ago after being 
+inspired by the Bodoni typefaces I had seen in the old books in my school 
+library. It is stylistically a little more exotic than the standard 
+textbook greek fonts, particularly in glyphs like the lowercase rho and 
+kappa. It aims for a rather calligraphic feel, but I also think it blends 
+well with Computer Modern.
+
+I included a ligature scheme which automatically inserts the breathings 
+required for ancient texts, making the input text more readable than in 
+some schemes. Since it is now de rigueur to use outline fonts, I have 
+largely abandoned this project, but I hope someone finds it useful.
+
+I'd better give this a version number, say 1.0, although that does give 
+a false impression of continuous development, which most certainly is 
+not the case. I've put it under the LaTeX Project Public Licence,
+of which you can read the latest version at
+  http://www.latex-project.org/lppl.txt
+
+Laurie Field
+laurie [dot] field [at] gmail [dot] com
+June 2005
+
+-------------------------------
+
+LFB:
+
+A new greek font for TeX, in regular and bold variants. All classical 
+accents and diacritic marks are available and built into the ligature table 
+of the font; hence no TeX input file is necessary to use the diacritical 
+marks.
+
+
+Simple use in plain TeX:
+
+(sorry, I can't be bothered to make the relevant LaTeX fd files, etc.,
+although it wouldn't be hard.) Declare the font you want to use (eg.
+\font\greek=lfb10). Then simply switch to that font and start typing.
+The conventions for greek input are explained below.
+
+
+Contents:
+
+MF: metafont source files, in fairly amateurish code. Run mf on lfb*.mf or 
+lfbb*.mf to produce more tfm/pk files.
+
+TFM: ready-made font metric files, for those who can't produce their own.
+
+PK: ready-made bitmap files at 600dpi and standard magnification.
+
+lfbacc.tex: a few TeX definitions for more obscure accent combinations 
+(namely, alpha, iota, and upsilon with macron/breve AND accent and/or 
+breathing.) These are faked with TeX's accent mechanism, since there is no 
+room for them in the font.
+
+example.tex: sample text (to get an idea of the input conventions and of 
+the design of the glyphs). Taken from Xenophon's Anabasis, book 2, 
+I: 1-9.
+
+example.pdf: my output from example.tex (using pdftex with 600dpi fonts). Because the fonts are bitmapped, it'll look terrible in a pdf viewer so it's best to print it out - or better still, install the metafont files and let your installation produce the correct fonts for your printer setup.
+
+
+Input conventions:
+
+This font uses yet another greek input mapping, incompatible with existing 
+ones. (However, if you wanted to use Ibycus or GreekTeX mappings, for
+instance, it would be possible to create VF files to perform the conversion.) 
+I personally like this encoding because it is easy to type words in a 
+simple transliteration scheme and fewer nonletters are necessary than in 
+other schemes. This is done with a complex Metafont ligature table so that 
+none of the conversion is done by TeX macros (except when macron/breve are 
+necessary with other diacritical marks, as explained before.) The 
+advantage of this is that it is quick to process, no TeX input files
+are needed, and the input is legible with no backslashes etc.
+
+Ordinary letters are expressed thus:
+
+greek letter        ascii input (lowercase/capital)
+alpha               a/A
+beta                b/B
+gamma               g/G
+delta               d/D
+epsilon             e/E
+zeta                z/Z
+eta                 j/J
+theta               th or q/TH or Th or Q
+iota                i/I   (see below for iota subscript)
+kappa               k/K
+lambda              l/L
+mu                  m/M
+nu                  n/N
+xi                  x or ks/X or KS or Ks
+omikron             o/O
+pi                  p/P
+rho                 r/R
+sigma               s/S
+tau                 t/T
+upsilon             u/U
+phi                 ph or f/PH or Ph or F
+khi                 kh or ch or c/KH or Kh or CH or Ch or C
+psi                 ps or y/PS or Ps or Y
+omega               w/W
+
+Breaking ligatures: The vertical bar character | has been specially defined 
+so that it can be placed between any two characters which would otherwise 
+be joined; this includes letters like ks for xi (k|s will give kappa sigma) 
+and all ligatured diacritical marks (a' gives alpha-acute, a|' gives alpha 
+apostrophe). It can also be placed at the beginning of a word to prevent 
+the default smooth breathing (useful in all-capital titles) or at the end 
+of a word to prevent sigma adopting its final form.
+
+Breathings: Normally a smooth breathing is automatically placed on an 
+initial vowel (except rho which is rough by default). Place an h or H 
+before a vowel to give it a rough breathing (note that whether you use h 
+or H is immaterial to the result; hence Herakles must be input HJraklj=s
+or hJraklj=s since Hjraklj=s will give a lowercase eta). The font is 
+configured so that accents, breathings etc. automatically shift to the 
+second letter of a diphthong unless told otherwise (using |). To force a
+smooth breathing (for instance in crasis) use *; hence t*ou'noma for
+to` o'noma.
+NOTE: Words beginning with a capital which have a diphthong must be entered 
+quite clumsily, since the ligature scheme cannot detect an (implicit or 
+explicit) breathing character more than one place before the vowel it 
+should ligature with. The breathing must be cancelled with | and 
+reinserted later with * or h. Hence Eu'boia will insert the breathing 
+before the E and you should type |E*u'boia instead. If you wanted a 
+capitalised aorist of heuri'skw, you should not type HJu=ron but |Jhu=ron.
+(Sorry but at present I can't think of a way to fix this since metafont 
+ligature tables are quite rigid and poorly adapted to such obscure 
+situations.)
+
+Accents: Use apostrophe (') for acute, backquote (`) for grave and equals 
+sign (=) for circumflex. Insert these after the vowel.
+
+Diaeresis: Use double quotes (") immediately before the vowel. You can also 
+put it directly after the vowel (before any accents) but this doesn't work
+at the beginnings of words which look (to the computer) like they start with 
+diphthongs, since the ligature table tries to put a smooth breathing on 
+the second vowel before it sees the diaeresis, and there is no way to 
+bring the breathing back; hence you must use e"u'thronos, not eu"'thronos.
+(e|u"'thronos would work but is ugly.)
+
+Iota subscript: Use a slash (/) after the vowel and accents. (This is 
+implemented, as in Ibycus, as a character kerned underneath rather than 
+separately generated characters to save space; thus if it comes directly 
+after the vowel it will stop subsequent accents from ligaturing.)
+
+Macron and breve: Use colon (:) for macron and plus sign (+) for breve, in 
+the same place as you would put the accent. They can be put on any vowel, 
+even epsilon, eta, omikron and omega; perhaps this would be useful for 
+metrical reasons. All the same, I don't anticipate them being used very 
+often, and if you need to combine them with another accent or breathing or 
+both, you need to use TeX's accent mechanism, since I couldn't fit the 
+extra characters in the font (and even if I could, it would be boring to 
+add the extra code necessary). There is a small file included, lfbacc.tex, 
+which contains a few definitions:
+  \smo  smooth breathing              \rou  rough breathing
+  \acu  acute                         \gra  grave
+  \sma  smooth acute                  \smg  smooth grave
+  \roa  rough acute                   \rog  rough grave
+combined with any of:
+  \sha  alpha breve                   \lga  alpha macron
+  \shi  iota breve                    \lgi  iota macron
+  \shu  upsilon breve                 \lgu  upsilon macron
+will give a shaky rendition of these combinations. I realize this is 
+incredibly clumsy but it's not too bad for odds and ends; they are rarely 
+used in Greek texts anyway, so it shouldn't be too big a limitation. (There 
+would be other ways around this but, again, it's not worth the effort.)
+
+Punctuation marks: Use comma (,) and full stop (.) normally. A question 
+mark (?) gives a Greek question mark which looks like an English 
+semicolon; an ascii semicolon (;) gives the Greek equivalent which is like a 
+full stop but above the line. Don't use colon (:), as this is used for 
+macrons on vowels. I've also included some others for convenience: 
+apostrophe (') and backquote (`) when not ligatured to vowels will give the 
+traditional punctuation marks; two put together give open and close 
+quotation marks, as in plain TeX. Hyphen (-) is available, and two together 
+give an em-dash; I haven't included an en-dash (you can get it from 
+Computer Modern if really necessary.) There are also very crude 
+parentheses ( ( and ) ) and brackets ( [ and ] ) but again, you're better 
+off borrowing the better-looking ones from Computer Modern.
+
+
+Future wish list:
+- digamma, koppa and other rare characters
+- angle brackets, dagger and dots under letters
+- a better mechanism for macron/breve with other diacritics
+- fix capitalised diphthong with breathing problem
+
+
+Have fun
+- Laurie Field, April 2001

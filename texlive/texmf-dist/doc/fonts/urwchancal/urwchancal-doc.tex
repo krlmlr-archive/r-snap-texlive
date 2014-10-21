@@ -1,0 +1,40 @@
+\documentclass[11pt]{article}
+\usepackage[margin=1.25in]{geometry}
+\usepackage[parfill]{parskip}    % Activate to begin paragraphs with an empty line rather than an indent
+\usepackage{graphicx}
+\DeclareFontFamily{OT1}{pzc}{}
+\DeclareFontShape{OT1}{pzc}{m}{it}%
+              {<-> s * [1.15] pzcmi7t}{}
+\DeclareMathAlphabet{\mathpzc}{OT1}{pzc}{m}{it}
+\usepackage[scaled=1.15]{urwchancal}
+\title{A virtual font for URW Chancery Math}
+\author{Michael Sharpe\\msharpe at ucsd dot edu}
+%\date{}                                           % Activate to display a given date or no date
+
+\begin{document}
+\maketitle
+The URW clone of the universally available PostScript font Zapf Chancery may be used as a math calligraphic font by means of the following lines in the preamble:
+\begin{verbatim}
+\DeclareFontFamily{OT1}{pzc}{}
+\DeclareFontShape{OT1}{pzc}{m}{it}%
+              {<-> s * [1.15] pzcmi7t}{}
+\DeclareMathAlphabet{\mathpzc}{OT1}{pzc}{m}{it}
+\end{verbatim}
+
+The results are not always good if you attach math accents or sub-/super-scripts as the metrics are designed for a text font rather than a math font.
+
+This small package provides a virtual math font linked to \verb|uzcmi8r| with side-bearings, subscript position and accent position adjusted manually for each glyph. 
+Following 
+\begin{verbatim}
+\usepackage[scaled=1.15]{urwchancal}
+\end{verbatim}
+ which redefines \verb|\mathcal| to output URW Chancery glyphs, the input line 
+\begin{verbatim}
+\[A=\bar{\mathcal{M}}^2_k+\hat{\mathcal{Z}}.\]
+\end{verbatim}
+yields
+\[A=\bar{\mathcal{M}}^2_k+\hat{\mathcal{Z}}.\]
+In addition to \verb|scaled|, there is on option \verb|mathscr|, which enables \verb|\mathscr| rather than \verb|\mathcal| to point to URW Chancery.
+
+The long tails on some of the glyphs make this font problematic as a math font, but it has some virtues, not the least being its universal availability. For a font of similar appearance without the long-tail problems, consider the script font in Mathematica5.
+\end{document}  

@@ -1,0 +1,54 @@
+                +-------------------------------------+
+                |             EQPARBOX:               |
+                |     Create equal-widthed boxes      |
+                | By Scott Pakin, scott+eqp@pakin.org |
+                +-------------------------------------+
+
+
+Description
+-----------
+
+LaTeX users sometimes need to ensure that two or more blocks of text
+occupy the same horizontal space on the page.  To that end, the
+eqparbox package defines \eqparbox, \eqmakebox, \eqframebox, and
+\eqsavebox macros and an eqminipage environment.  These work,
+respectively, just like the \parbox, \makebox, \framebox, and \savebox
+macros and the minipage environment, except that instead of specifying
+a width, one specifies a tag.  All boxes with the same tag --
+regardless of where they are in the document -- will stretch to fit
+the widest box that uses that tag.  This simple, equal-width mechanism
+can be used for a variety of alignment purposes, as is evidenced by
+the examples in eqparbox's documentation.
+
+
+Installation
+------------
+
+There's nothing special about building eqparbox:
+
+    latex eqparbox.ins     <== Generate eqparbox.sty
+    latex eqparbox.dtx     <== Produce the documentation (eqparbox.dvi)
+    latex eqparbox.dtx     <== Again, to get labels and eqparboxes right
+    makeindex -s gind.ist eqparbox    <== Generate an index
+    makeindex -s gglo.ist eqparbox.glo -o eqparbox.gls    <== Generate a change list
+    latex eqparbox.dtx     <== Incorporate the index into the document
+
+If you're new to this, see
+http://www.tex.ac.uk/cgi-bin/texfaq2html?label=instpackages for more
+information on installing packages.
+
+
+Copyright and license
+---------------------
+
+Copyright (C) 2013 Scott Pakin, scott+eqp@pakin.org
+
+This package may be distributed and/or modified under the conditions
+of the LaTeX Project Public License, either version 1.3c of this
+license or (at your option) any later version.  The latest version of
+this license is in:
+
+    http://www.latex-project.org/lppl.txt
+
+and version 1.3c or later is part of all distributions of LaTeX version
+2008/05/04 or later.

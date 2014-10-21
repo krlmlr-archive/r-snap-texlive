@@ -1,0 +1,150 @@
+               +-----------------------------------------------+
+               |               MINORREVISION v1.1              |
+               |                                               |
+               |  Quoting and referring to modified documents  |
+               |                                               |
+               |            By Matthieu Guillaumin             |
+               |         guillaumin@vision.ee.ethz.ch          |
+               +-----------------------------------------------+
+
+
+Description and usage
+=====================
+
+minorrevision is intended for researchers who publish articles in peer-reviewed
+journals. In the final stages of the review process, the authors typically have
+to provide an additional document (such as a letter to the editors) where they
+want to provide a list of modifications that they made to the manuscript.  It
+is convenient for the editors to have line numbers and quotations from the
+manuscript in this letter. This package helps automatizing this task for the
+authors.
+
+This is a two-step process.
+
+Step 1) In the manuscript (say "manuscript.tex"), you need to declare the use
+of the package, by putting the following line in the preamble of your LaTeX
+source:
+
+	\usepackage{minorrevision}
+
+You should also add line numbers to your manuscript, also in the preamble:
+
+	\linenumbers
+
+Then, in the body of you manuscript, when you make a minor modification, you
+need to use the \revision macro. For instance, if the following sentence was in
+your manuscript:
+
+	In this paper, we show that $1+1=2$.
+
+And, following reviews, you want to modify it to:
+
+	In this paper, we hypothetize that $1+1=2$.
+
+Then, instead of replacing the text directly, you should use
+\revision{label}{new text}{old text}, like this:
+
+	In this paper, we \revision{mymod}{hypothetize}{show} that $1+1=2$.
+
+Here, we have used the label "mymod" for later reference. When compiling
+manuscript.tex with LaTeX, only the new version of the text will appear.
+
+For text that is simply removed, you can use: \revisionrm{label}{text}
+For text that is simply added: \revisionadd{label}{text}
+A call to \revision{label}{text1}{text2} is similar to
+\revisionrm{label}{text2}\revisionadd{label}{text1} but the latter wouldn't
+work because the label would be defined twice.
+
+Step 2) In the document where you want make reference to the manuscript, also
+add the minorrevision package, and specify that manuscript.tex is the
+reference:
+
+	\usepackage{minorrevision}
+	\mrvdocument{manuscript}
+
+Note how ".tex" should *not* be included in the \mrvdocument macro. As of
+v1.1, you can have multiple references:
+
+	\mrvdocument{manuscript}
+	\mrvdocument{manuscript2}
+	...
+
+You can now refer to the line numbers of modifications in the reference
+documents via their label names, by using \mrvref{reference}{label},
+\mrvold{reference}{label} and \mrvnew{reference}{label}. "reference" should
+correspond to the argument of \mrvreference.
+
+	On line~\mrvref{manuscript}{mymod}, we have replaced
+	``\mrvold{manuscript}{mymod}'' with ``\mrvnew{manuscript}{mymod}''.
+
+It's up to you to format that as you prefer. The quote environment is probably
+better for larger modifications.
+
+For the latest declared reference document, the simpler \revref{label},
+\revold{label} and \revnew{label} are available.
+
+	On line~\revref{mymod}, we have replaced ``\revold{mymod}'' with
+	``\revnew{mymod}''.
+
+This is particularly useful when there is no ambiguity, ie there is only one
+reference document.
+
+
+
+Implementation details
+======================
+
+This package automatically adds the following packages:
+- xkeyval: for passing options to the packages below
+- lineno: to get line numbers of labels
+- xr: to perform cross-reference between documents
+
+When using the minorrevision package, a new auxiliary file is created, with
+extention ``.mrv''.  In the case of manuscript.tex, the file will be
+manuscript.mrv. The \revision macro not only declares the label for lineno and
+prints the new text to the document, but also writes two macro definitions in
+manuscript.mrv with both the new and old text contents. The macro name depends
+on the name of the reference (here, ``manuscript''), and the label name (here,
+``mymod'').
+
+When making the call to \mrvdocument, those macro definitions are read (simply
+by inputting the file), and calls to \revref{mymod}, \revold{mymod} and
+\revnew{mymod} become available.
+
+See minorrevision.sty for the actual implementation with comments.
+
+
+
+File manifest
+=============
+
+README                          This file
+minorrevision.sty               The style file
+
+
+
+Bug report and questions
+========================
+
+Please use the official bitbucket repository for bug reports, patch proposal
+and question:
+
+https://bitbucket.org/mguillau/latex-minorrevision
+
+
+
+Copyright and License
+=====================
+
+Copyright 2013 Matthieu Guillaumin
+
+This work may be distributed and/or modified under the conditions of
+the LaTeX Project Public License, either version 1.3c of this license
+or (at your option) any later version.  The latest version of this
+license is in
+
+                http://www.latex-project.org/lppl.txt
+
+and version 1.3c or later is part of all distributions of LaTeX version
+2008/05/04 or later.
+

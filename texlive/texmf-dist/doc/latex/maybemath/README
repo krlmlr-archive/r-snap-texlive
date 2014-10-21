@@ -1,0 +1,34 @@
+maybemath LaTeX style, by Andy Buckley <andy@insectnation.org>
+--------------------------------------------------------------
+
+maybemath provides LaTeX macros for making math bold, upright, italic
+or sans-serif according to context.
+
+The \maybebm and \maybeit macros can be used in math expressions to make 
+the arguments typeset as bold or italic respectively if the surrounding 
+context is appropriate. They are useful for writing user macros for use 
+in general contexts.
+
+\maybebm is especially appropriate when section titles contain math 
+expressions, since the title will appear bold but the header and table 
+of contents usually replicate the title in normal width.
+
+\maybeit performs a similar role to \mathrm{} but the math expression will 
+be italicised if the surrounding text is. \maybeitsubscript is provided to 
+shift subscripts to the left if the expression is italicised.
+
+\maybesf makes the argument typeset with \mathsf{} if the surrounding text
+context is sans-serif. Note that there is no sans-serif italic math font, 
+so this command is not compatible with any italic-forcing commands.
+
+A convenience macro, \maybebmsf is available for handling boldness and
+sans-serif issues at the same time, as these are probably the most frequent
+problematic environments. Other combined handling is possible with nested 
+use of the above commands.
+
+Thanks to Viet-Trung Luu on comp.text.tex for providing the first steps
+to solving this problem.
+
+This material is subject to the LaTeX Project Public License. 
+See http://www.ctan.org/tex-archive/help/Catalogue/licenses.lppl.html for 
+the details of that license.

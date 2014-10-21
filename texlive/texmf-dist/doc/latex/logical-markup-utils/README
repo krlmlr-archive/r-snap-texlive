@@ -1,0 +1,86 @@
+Logical markup utility packages for LaTeX
+=========================================
+
+Written by Michał Masłowski.  Please report bugs to <mtjm@mtjm.eu>.
+
+This package is published under the GNU General Public License,
+version 3 or later with the following exception for LaTeX packages
+(based on the exception used in Texinfo's texinfo.tex file):
+
+    As a special exception, when this file is read by TeX when
+    processing a TeX source document, you may use the result without
+    restriction.
+
+Introduction
+------------
+
+Two packages are contained here -- ``quoted'' providing a single
+command to use inline quotes in a specific language, and ``onedash''
+to typeset dashes in a specific style and language.
+
+Unlike widely used alternatives, the exact appearance of the
+characters produced by these packages is specified only in their
+options.
+
+Getting this package
+--------------------
+
+This package has a website at
+``http://mtjm.eu/projects/logical-markup-utils''.
+
+It is currently available from a Mercurial repository at
+``http://hg.mtjm.eu/logical-markup-utils/''.
+
+Usage of quoted
+---------------
+
+\usepackage[options]{quoted}
+
+Supported options are:
+- ``american'' (default)
+- ``british''
+- ``german''
+- ``polish''
+Their meaning should be obvious.
+
+Four commands are defined to be used: ``\quoted'' formats its argument
+in correct quotes.  If it is used inside of the argument, the quotes
+are changed to the inner format.  If they are chosen incorrectly, the
+command ``\inquote'' will change the style to the other one.  The
+commands ``\lquote'' and ``\rquote'' just typeset the quote marks in
+the current style without changing it.
+
+When not using multi-paragraph quotes, most probably only the
+``\quoted'' command will be needed.
+
+No punctuation is moved in or out of the quotes.
+
+Usage of onedash
+----------------
+
+\usepackage[options]{onedash}
+
+Supported options are:
+- ``american'' (default)
+- ``british''
+- ``polish'' -- with endash
+- ``polish-emdash''
+
+The package declares the ``\dash'' command which typesets a dash using
+style selected by the option.
+
+Two more available commands are useful only in Polish texts:
+- ``\pdash'' typesets a dash beginning a line of dialogue (in English
+  it is not needed, since quotes are used to mark dialogue)
+- ``\hyph'' typesets a correct hyphenable hyphen for Polish words like
+  ``biało-czerwony'' (in English hyphens are hyphenated differently so
+  they do not need this command)
+
+License of this file
+--------------------
+
+Copyright (C) 2009  Michał Masłowski
+
+Copying and distribution of this file, with or without modification,
+are permitted in any medium without royalty provided the copyright
+notice and this notice are preserved.

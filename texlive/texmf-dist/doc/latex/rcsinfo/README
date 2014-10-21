@@ -1,0 +1,91 @@
+This directory contains the LaTeX2e package
+
+			`rcsinfo'
+
+		version 1.11, Feburary 25, 2005
+
+This package is used to extract the revision and file information provided
+by the RCS revision control system.
+A PERL-package supporting rcsinfo and LaTeX2HTML is provided too.
+
+Copyright (C) 1995 Dr. Jürgen Vollmer, all rights reserved.
+Dr. Juergen Vollmer, Viktoriastrasse 15, D-76133 Karlsruhe, Germany
+email: Juergen.Vollmer@informatik-vollmer.de
+
+License:
+   This program can be redistributed and/or modified under the terms
+   of the LaTeX Project Public License Distributed from CTAN
+   archives in directory macros/latex/base/lppl.txt; either
+   version 1 of the License, or any later version.
+
+If you find this software useful, please send me a postcard.
+
+You are allowed to distribute this file under the condition that it is
+distributed together with all the following files:
+   rcsinfo.sty      LaTeX package
+   rcsinfo.pdf      Documentation
+   rcsinfo.ins      Create script for all other files
+   rcsinfo.dtx      Source of all
+   rcsinfo.perl     use with latex2html
+   rcsinfo.init     use with latex2html
+   Makefile
+   README
+
+If you receive only some of these files from someone, complain!
+
+To install:
+  unpack and
+  `make'
+or execute the commands manualy:
+  latex rcsinfo.ins     // creates the file of this package
+  latex rcsinfo.dtx     // create the package documentation
+
+and if latex2html is installed on your system:
+  latex2html -dir html -init_file rcsinfo.init \
+	     -html_version 4.0,math rcsinfo2html.tex
+
+The following files are created by 'latex rcsinfo.ins'
+	- rcsinfo.cfg
+	- rcsinfo.sty
+	- rcsinfo.perl
+	- rcsinfo.init
+	- rcsinfo2html.tex
+
+then copy the files
+  rcsinfo.sty
+  rcsinfo.cfg
+to a place where LaTeX can find it
+  (e.g. under UNIX: $HOME/tex/inputs
+   and set the environment variable
+	TEXINPUTS=$HOME/tex/inputs//:$TEXINPUTS
+  )
+and
+  rcsinfo.perl
+to a place where latex2html will find it.
+
+
+============================================================================
+
+HISTORY
+1.11    : Added option datehyphen (file date may look like YYYY-MM-DD instead
+          of YYYY/MM/DD)
+1.10    : Added option scrpage2
+1.9     : The initial $ of $Id may be omitted.
+1.8     : rcsinfo.perl can deal now with latex2html version 99.1.
+	  Restructured package files.
+1.7.1   : Make does not abort, if laext2html is not found
+1.7     : Underscores in file names are now handeled correctly.
+1.6     : Fixed problems with the french-option of `babel'.
+	  (The `:' is made active when using the french language.
+	   Now rcsinfo can handle this situation).
+1.5     : - The Babel-package is not loaded automagically anymore.
+	    This avoids problems within the `babel'-package when other
+	    packages (like `ifthen' or `varioref') are loaded _and_ no
+	    language was given in the `documentclass'.
+	  - Fixed the `notoday' option.
+1.4     : Support fancyhdr-package, added rcsinfo.cfg configuration file.
+1.3	: Fixed documentation, new address, reimplemeted parts, added
+	  rcsinfo.perl.
+1.2	: New Makefile.
+1.1	: (internal changes).
+1.0	: Initial Version, submitted to CTAN.

@@ -1,0 +1,203 @@
+SKB-LaTeX
+---------
+
+*Create and maintain a repository for long-living documents*
+
+*Latest version: v0.52 2011/06/03*
+
+Introduction
+------------
+This package provides  macros that help  to build a  document repository for
+long living  documents. It  focuses on  structure and  re-use of text, code,
+figures etc. The basic concept  is to first separate structure  from content
+(i.e. text about  a topic from  the structure it  is presented by)  and then
+separating the  content from  the actual  published document,  thus enabling
+easy re-use  of text  blocks in  different publications  (i.e. text  about a
+protocol in a short article about this  protocol as well as in a book  about
+many protocols); all without constantly copying or changing text. As a  side
+effect, using the document  classes provided, it hides  a lot of LaTeX  from
+someone who just wants to write articles and books. 
+
+The following classes are supported
+
+- skbarticle: an article class using the memoir package
+- skbbook: a book class using the memoir package
+- skbbeamer: a class for presentations using the beamer package
+- skblncsbeamer: a class for annotated slides using the beamer package
+- skblncsppt: a class for annotated Powerpoint slides
+- skbmoderncv: a class integrating the moderncv package
+
+The documentation (current/doc) provides for a user guide, the documentation
+of  the  LaTeX  package  and  classes  and  a  few  documents  showing   the
+capabilities  of  the  skb  package  for  documents  and  presentations. All
+documentation of the  SKB is done  using the SKB  itself, so you  can have a
+look into the LaTeX code as well to see how it works.
+
+
+Status: Alpha, Experimental
+---------------------------
+This package, while being  used by me and  some early adaptors, is  still in
+alpha status, thus experimental. We are using it to maintain a large  amount
+of documents  (articles, lecture  notes, some  books, project documentation,
+open source  documentation) and  various different  platforms (Windows  with
+MikTeX, several Linux systems  and OSX). Since we  eat our own dog  food, we
+are fairly confident that the package  does it's job well. However, this  is
+not  written by a LaTeX expert, I am still  learning, and the package  might
+or  might  not  be usefull  for you  and might  or might  not work  on your
+machine.   We   are    very   interested   in   comments,   critic,  advice,
+recommendations, complaints; as long as you try to keep them contructive ;)
+
+
+Contents
+--------
+The repository  contains this  readme file,  a makefile  for generating  all
+required  files  from  the  source,  the  package  source  including licence
+information (`/source`)  and the  generated package  documentation and  user
+guide (`/doc`).
+
+ v
+ +-- makefile
+ +-- README
+ +-- [doc]
+ |    +-- [user-guide]      : lots of TeX and other files for documentation
+ |    +-- skb.pdf           : package documentation generated from skb.dtx
+ |    +-- user-guide.pdf    : SKB user guide
+ |
+ `-- [source]
+      +-- HISTORY.TXT       : history of the package documenting changes
+      +-- LICENSE.TXT       : licence for the package
+      +-- MANIFEST.TXT      : fiels to which the licence applies
+      +-- skb.dtx           : latex source
+      `-- skb.ins           : latex installer script
+
+
+Installation
+------------
+Your LaTeX  distribution might  have the  SKB package  already installed  or
+autmatically install it from CTAN or other sources when you use it the first
+time. If you need to install it manually, then the first step is to get  the
+archive and extract it a temporary folder of your choice. You should see the
+directory structure and content as described in the previous section.
+
+To build all parts of the package, you have two options: you can run  'make'
+(or  'gmake')  using  the provided  makefile.  This  will create  everything
+needed. Or you can create everything manually following the instructions  in
+the  following section.  In both  cases, the  final installation  is simply
+copying all files to their locations in your LaTeX distribution. 
+
+- copy [archive root]/source to $TEXMF/source/latex/skb
+- copy [archive root]/doc    to $TEXMF/doc/latex/skb
+- copy [archive root]/run    to $TEXMF/tex/latex/skb
+
+
+Generating Class and Style files from source
+--------------------------------------------
+You can use the provided makefile  to generate the class and style  files of
+the SKB package.  If you want  to do it  manually, simply use  the following
+commands (assuming that you create them in a filder called 'run'):
+
+  [archive root]#
+  [archive root]# mkdir run
+  [archive root]# cd run;latex ../source/skb.ins
+
+This will create the following files in the run folder:
+[archive root]
+ |
+ `-- run
+      +-- skb.cfg           : texmf/tex/latex/skb
+      +-- skb.sty           : texmf/tex/latex/skb
+      +-- skbarticle.cls    : texmf/tex/latex/skb
+      +-- skbbeamer.cls     : texmf/tex/latex/skb
+      +-- skbbook.cls       : texmf/tex/latex/skb
+      +-- skblncsbeamer.cls : texmf/tex/latex/skb
+      +-- skblncsppt.cls    : texmf/tex/latex/skb
+      `-- skbmoderncv.cls   : texmf/tex/latex/skb
+
+Now copy all files into your local LaTeX distribution ($TEXMF is the path to
+your distribution root):
+
+  [archive root]# mkdir $TEXMF/tex/latex/skb
+  [archive root]# cp run/* $TEXMF/tex/latex/skb
+
+
+Generating the documentation from source
+--------------------------------------------
+The  package  already   contains  the  documentation   of  the  SKB   source
+(doc/skb.pdf)  and the  user guide  (doc/user-guide.pdf). The  documentation
+also provides examples for slides (animated and not animated) and  annotated
+slides, which re-use parts of the user guide. To generate all  documentation
+you can either use the provided makefile or run latex manually. Start  doing
+it manually by going into the 'doc' folder of the package:
+
+  [archive root]# cd doc
+
+Then  run  the  following  command  three  times  to  generate  the  package
+documentation (skb.pdf):
+
+  [archive root]/doc# pdflatex ../skb.dtx
+
+Similar with  the user  guide, except  that we  also need  to run BibTeX for
+including all references
+
+  [archive root]/doc# pdflatex user-guide/user-guide
+  [archive root]/doc# bibtex user-guide
+  [archive root]/doc# pdflatex user-guide/user-guide
+  [archive root]/doc# pdflatex user-guide/user-guide
+
+Now  generate the  PDF files  for the  slides in  the following  order: not
+animated, animated, annotated. The order is important, since the  annotation
+uses the PDF file of the not animated slides:
+
+  [archive root]/doc# pdflatex doc/ug-slides-noanim
+  [archive root]/doc# bibtex ug-slides-noanim
+  [archive root]/doc# pdflatex doc/ug-slides-noanim
+  [archive root]/doc# pdflatex doc/ug-slides-noanim
+
+  [archive root]/doc# pdflatex doc/ug-slides-anim
+  [archive root]/doc# bibtex ug-slides-anim
+  [archive root]/doc# pdflatex doc/ug-slides-anim
+  [archive root]/doc# pdflatex doc/ug-slides-anim
+
+  [archive root]/doc# pdflatex doc/ug-slides-notes
+  [archive root]/doc# bibtex ug-slides-notes
+  [archive root]/doc# pdflatex doc/ug-slides-notes
+  [archive root]/doc# pdflatex doc/ug-slides-notes
+
+
+Configuration
+-------------
+The SKB comes with a  default  configuration in the package  (`skb.sty`) and
+an  external   configuration   file   (`skb.cfg`).   There   are    multiple
+options   to  configure   the  SKB    (changing   the   coniguration   file,
+using  a   local configuration  file  called  `skblocal.cfg` or  using   the
+provided  macro `\skbconfig`). Please refer to the user guide for details.
+
+
+Where do I get it?
+------------------
+- GitHub: https://github.com/vdmeer/skb-latex
+- CTAN: http://www.ctan.org/tex-archive/macros/latex/contrib/skb/
+
+
+License
+-------
+Copyright (c) 2010-2011 Sven van der Meer <sven@vandermeer.de>
+
+This work may be distributed  and/or modified under the conditions  of the
+LaTeX Project Public  License, either version  1.3 of this  license or (at
+your option) any later version.
+The latest version of this license is in
+   <http://www.latex-project.org/lppl.txt>
+and version 1.3  or later is  part of all  distributions of LaTeX  version
+2005/12/01 or later.
+
+This work has the LPPL maintenance status `author-maintained'.
+
+The Current Maintainer of this work is
+   Sven van der Meer <sven@vandermeer.de>
+
+This software is  provided 'as is',  without warranty of  any kind, either
+expressed  or  implied,  including,  but  not  limited  to,  the   implied
+warranties of merchantability and fitness for a particular purpose.
+
+This work consists of all files in source/MANIFEST.TXT.

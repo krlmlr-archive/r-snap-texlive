@@ -1,0 +1,117 @@
+\usetypescriptfile[t-type-semaf]
+\usetypescript[Semaf][ec]
+\usetypescript[Semaf-Empty][ec]
+\usetypescript[Semaf-Person][ec]
+%\setupbodyfont[Semaf,10pt,ss]
+
+\def\S[#1]{{\switchtobodyfont[Semaf]#1semafor}}
+\def\E[#1]{{\switchtobodyfont[Semaf-Empty]#1semafor}}
+\def\P[#1]{{\switchtobodyfont[Semaf-Person]#1semafor}}
+
+\setuplayout
+  [backspace=15mm,topspace=8mm,bottomspace=8mm,
+   header=0pt,footer=0pt,
+   width=fit,height=fit]
+\noheaderandfooterlines
+
+\starttext
+Text by semaphore:
+\blank
+{\switchtobodyfont[Semaf,10pt,ss]\input knuth \endgraf}
+
+\blank[3*big]
+
+Font variants:
+\blank
+\setuptables[distance=small,height=3]
+\starttable[|l|c|c|c|c|c|]
+\NC Pillar
+    \NC \bf Regular \NC \bf Bold \NC \bf Slanted \NC \bf Bold Slanted \NC \bf Mono    \NC\AR
+\HL
+\NC Base
+    \NC \S[]    \NC \S[\bf] \NC \S[\it] \NC \S[\bi]      \NC \S[\tt] \NC\AR 
+\NC Empty
+    \NC \E[]    \NC \E[\bf] \NC \E[\it] \NC \E[\bi]      \NC \E[\tt] \NC\AR 
+\NC Person
+    \NC \P[]    \NC \P[\bf] \NC \P[\it] \NC \P[\bi]      \NC \P[\tt] \NC\AR 
+\stoptable
+
+\blank[3*big]
+
+\def\semaf{\switchtobodyfont[Semaf,10pt,ss]}
+\newskip\hs \hs=1em
+\newskip\vs \vs=3mm plus1mm minus1mm
+\setbox1=\vbox to\hsize{\hsize=30mm
+  \hrule\vskip\vs
+  \centerline{{\bf The Code}}
+  \vskip\vs
+  \centerline{A\hskip\hs {\semaf A}}
+  \centerline{B\hskip\hs {\semaf B}}
+  \centerline{C\hskip\hs {\semaf C}}
+  \centerline{D\hskip\hs {\semaf D}}
+  \centerline{E\hskip\hs {\semaf E}}
+  \centerline{F\hskip\hs {\semaf F}}
+  \centerline{G\hskip\hs {\semaf G}}
+  \vskip\vs
+  \centerline{H\hskip\hs {\semaf H}}
+  \centerline{I\hskip\hs {\semaf I}}
+  \centerline{K\hskip\hs {\semaf K}}
+  \centerline{L\hskip\hs {\semaf L}}
+  \centerline{M\hskip\hs {\semaf M}}
+  \centerline{N\hskip\hs {\semaf N}}
+  \vskip\vs
+  \centerline{O\hskip\hs {\semaf O}}
+  \centerline{P\hskip\hs {\semaf P}}
+  \centerline{Q\hskip\hs {\semaf Q}}
+  \centerline{R\hskip\hs {\semaf R}}
+  \centerline{S\hskip\hs {\semaf S}}
+  \vskip\vs
+  \centerline{T\hskip\hs {\semaf T}}
+  \centerline{U\hskip\hs {\semaf U}}
+  \centerline{Y\hskip\hs {\semaf Y}}
+  \vskip\vs
+  \centerline{J\hskip\hs {\semaf J}}
+  \centerline{V\hskip\hs {\semaf V}}
+  \vskip\vs
+  \centerline{W\hskip\hs {\semaf W}}
+  \centerline{X\hskip\hs {\semaf X}}
+  \vskip\vs
+  \centerline{Z\hskip\hs {\semaf Z}}
+  \vfill\hrule}
+
+\setbox2=\vbox to\hsize{\hsize=30mm
+  \hrule\vskip\vs
+  \centerline{{\bf \vphantom{The Code}}}
+  \vskip\vs
+  \centerline{mistake\hskip\hs {\semaf \char`\~}}
+  \vskip\vs
+  \centerline{start digits\hskip\hs {\semaf \char`\$}}
+  \centerline{stop digits\hskip\hs {\semaf \char`\#}}
+  \vskip\vs
+  \centerline{1\hskip\hs {\semaf 1}}
+  \centerline{2\hskip\hs {\semaf 2}}
+  \centerline{3\hskip\hs {\semaf 3}}
+  \centerline{4\hskip\hs {\semaf 4}}
+  \centerline{5\hskip\hs {\semaf 5}}
+  \centerline{6\hskip\hs {\semaf 6}}
+  \centerline{7\hskip\hs {\semaf 7}}
+  \centerline{8\hskip\hs {\semaf 8}}
+  \centerline{9\hskip\hs {\semaf 9}}
+  \centerline{0\hskip\hs {\semaf 0}}
+  \vskip\vs
+  \centerline{fullstop\hskip\hs {\semaf.}}
+  \centerline{didactic\hskip\hs {\semaf*}}
+  \vfill\hrule}
+
+\setbox3=\hbox{\switchtobodyfont[5pt]\copyright{} V\'\i t Z\'yka, 2008, vit.zyka@seznam.cz}
+\dp3=0pt
+
+\hbox to\hsize{%
+  \vrule\copy1\vrule
+  \hskip1cm
+  \vrule\copy2\vrule
+  \hfill
+  \box3
+}
+
+\stoptext

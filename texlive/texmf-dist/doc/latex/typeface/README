@@ -1,0 +1,56 @@
+
+The Typeface Package v0.1 (2012/05/28) Prerelease - release for review
+======================================================================
+
+The typeface package provides a relatively easy-to-use facility for
+setting up default roman, sans serif, typewriter, math, symbols and
+lining/text figures Type1 fonts in LaTeX documents. Its purpose is to
+make it easy to choose, mix and match fonts from among the main Type1
+font sets available at CTAN. Other Type1 fonts can be readily
+incorporated into typeface package management by modifying the provided
+configuration file.
+
+Ignoring the typographic dubiousness of this example, the following code
+will initialise \rmdefault to the light, old style figures variant of KP
+Fonts, \sfdefault to Helvetica, and \ttdefault to Luxi Mono typewriter.
+Math fonts will be initialised to Math Design with Charter text. In the
+process, math fonts and Helvetica will be automatically scaled to the
+ex-height of KP Fonts. Luxi Mono will be scaled to 90% of its design
+size.
+
+  \useackage[typeface=kpfonts:light,
+             sanstypeface=helvetica,
+             monotypeface=luxi:scale:0.9,
+             textfigures=oldstylefigures,
+             mathtypeface=mathdesign:charter,
+            ]{typeface}
+
+The typeface package contains the following files:
+
+  - README - the package README file (this document)
+  - typeface.pdf - the package manual
+  - typeface.tex - the package manual source code
+  - typeface.sty - the typeface package
+  - typeface.cfg - installation customisation and reconfiguration file
+  - typeface-test.tex - typeface package test harness
+  - typeface-test-all-rm.pdf - a very large font exhibits file (~16MB)
+  - typeface-test-all-rm.bat - the MS-DOS script used to produce the file above
+
+See the documentation `typeface.pdf' for further details.
+
+Change history
+--------------
+  - v0.1 (2012/05/28)  Prerelease - release for review
+
+License
+-------
+
+Copyright 2012 Geoffrey Jones <geoffrey.jones@uqconnect.edu.au>
+
+Distributable under the LaTeX Project Public License, version 1.3c or
+higher (your choice). The latest version of this license is at:
+http://www.latex-project.org/lppl.txt
+
+This work is "maintained" (per LPPL maintenance status) by Geoffrey Jones. 
+
+

@@ -1,0 +1,43 @@
+    The iso class is for typesetting ISO International Standard documents
+according to the requirements specified in "ISO/IEC Directives, Part 2,
+Rules for the structure and drafting of International Standards.
+(Fourth edition, 2001)". Configuration files for TeX4ht are also provided.
+
+Changes in the 2002 release
+o Updated from ISO/IEC Directives, Third edition, 1997 to the 
+  Fourth edition, 2001.
+
+    The distribution is under the LPPL and consists of the following files:
+README (this file)
+isoe.dtx
+isoe.ins
+isoe.pdf
+iso4ht.dtx
+iso4ht.ins
+iso4ht.pdf
+isoman.tex
+isoman.pdf (user manual)
+
+  To install the class (and packages)
+o run: latex isoe.ins (which will generate *.cls, *.clo, *.sty and *.tex files)
+o Move the generated files to a location where LaTeX will find them
+  (if you don't know where this is, see the FAQ on CTAN in /help/uktug-faq)
+
+o To regenerate the commented source code
+  o run: latex isoe.dtx
+  o run: makeindex -s gind.ist isoe
+  o run: latex isoe.dtx
+  o print isoe.dvi for a hardcopy
+o For the User Manual, either latex isoman.tex or print isoman.pdf 
+
+o If you might use TeX4ht (and this might well not work):
+  o run: latex iso4ht.dtx (which will generate *.4ht file(s))
+  o To print the commented source code, follow instructions above on iso4ht.dtx
+  o Move the generated *.4ht file(s) to a location where TeX4ht will find them
+
+    Don't forget to update the (La)TeX file database if you have one.
+
+2002/09/04
+Peter Wilson
+peter.r.wilson@boeing.com
+

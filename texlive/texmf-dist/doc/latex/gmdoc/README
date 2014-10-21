@@ -1,0 +1,121 @@
+The gmdoc.zip package
+is a work of Grzegorz Murzynowski,
+<natror at o2 dot pl>
+
+   
+1. Copyright 2006, 2007, 2008, 2009, 2010 by Grzegorz `Natror' Murzynowski
+
+This program is subject to the LaTeX Project Public License. 
+See http://www.ctan.org/tex-archive/help/Catalogue/licenses.lppl.html
+for the details of that license.
+
+
+2. Introduction
+
+This package provides a tool for documenting of (La)TeX
+packages, classes etc., i.e., the .sty, .cls
+etc. The author just writes the code and adds the commentary 
+preceded with % sign (or another sign properly declared). No special
+environments are necessary.
+
+The package tends to be compatible with the standard doc.sty
+package, i.e., the .dtx files are also compilable with
+gmdoc (they may need very little adjustment, in some rather
+special cases).
+
+The tools are integrated with hyperref.sty's advantages such as
+hyperlinking of index entries, of contents entries and
+of cross-references.
+
+
+3. Installation
+
+Unpack the gmdoc-tds.zip archive in a texmf directory or put the
+gmdoc.sty, gmdocc.cls and gmoldcomm.sty somewhere in the
+texmf/tex/latex branch on your own and also the gmiflink.sty,
+gmverb.sty and gmiflink.sty files (available on CTAN in separate
+packages).  (Creating a /texmf/tex/latex/gm directory may be advisable
+if you consider using other packages written by me.)
+
+Moreover, you should put the gmglo.ist file, a MakeIndex style for the
+changes' history, into some texmf/makeindex directory.
+
+Then you should refresh your TeX distribution's files'
+database most probably.
+
+
+4. Contents
+
+The distribution of this package consists of the following five files.
+
+gmdoc.sty
+gmdocc.cls
+gmglo.ist
+README
+gmdoc.pdf
+gmdoc-tds.zip
+
+5. Documentation
+
+The last of the above files (the .pdf) is a documentation compiled
+from the .sty file by running LaTeX on the gmdocDoc.tex file twice:
+xelatex gmdoc.sty
+ in the directory you wish the documentation to be in, 
+you don't have copy the .sty file  there---TeX will find it,
+then MakeIndex on the gmdoc.idx and gmdoc.glo files, and then LaTeX
+on gmdocDoc.tex twice again.
+
+MakeIndex shell commands:
+  makeindex -r gmdocDoc
+  makeindex -r -s gmglo.ist -o gmdocDoc.gls gmdocDoc.glo 
+The -r switch is to forbid MakeIndex make implicit ranges since the
+(code line) numbers will be hyperlinks.
+The -s switch makes MakeIndex use the style file instead of the
+default settings and the -o switch declares the not-default name of
+the output file
+
+Compiling of the documentation requires the packages gmdoc.sty (with
+the gmdocc.cls class), gmiflink.sty, gmverb.sty, gmutils.sty and also
+some standard packages: hyperref.sty, xcolor.sty, geometry.sty,
+multicol.sty, lmodern.sty, fontenc.sty that should be installed on
+your computer by default.
+
+The gmglo.ist file, a MakeIndex style for the changes' history, is
+provided on CTAN in the gmdoc .zip archive and should 
+be put into some texmf/makeindex directory.
+
+If you have not installed the mwcls classes (available on CTAN and
+present in TeX Lives e.g.), the result of your compilation may differ
+a bit from the .pdf provided in this .zip archive in formattings: If
+you have not installed mwcls, the standard article.cls will be
+used.
+
+
+DEPENDS ON (only non-standard files listed):
+
+gmiflink.sty
+gmutils.sty
+gmverb.sty
+gmglo.ist
+
+*if you typeset The LaTeX 2e Source
+
+BONUS: Base drivers
+
+As a bonus and example of doc-compatibility 
+there are driver files included
+(cf. Palestrina, Missa papae Marcelli ;-):
+
+source2e_gmdoc.tex
+docstrip_gmdoc.tex
+doc_gmdoc.tex
+
+(gmsource2e.ist is generated from source2e_gmdoc.tex)
+gmoldcomm.sty
+
+These drivers typeset the respective files from the
+.../texmf-dist/source/latex/base
+directory of TeXLive2005 distribution.
+Probably you should redefine the \BasePath macro in them
+so that it points that directory on your computer.
+

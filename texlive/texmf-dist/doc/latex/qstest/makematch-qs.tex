@@ -1,0 +1,102 @@
+%%
+%% This is file `makematch-qs.tex',
+%% generated with the docstrip utility.
+%%
+%% The original source files were:
+%%
+%% makematch.dtx  (with options: `test,etex')
+%% 
+%% IMPORTANT NOTICE:
+%% 
+%% For the copyright see the source file.
+%% 
+%% Any modified versions of this file must be renamed
+%% with new filenames distinct from makematch-qs.tex.
+%% 
+%% For distribution of the original source see the terms
+%% for copying and modification in the file makematch.dtx.
+%% 
+%% This generated file may be distributed as long as the
+%% original source files, as listed above, are part of the
+%% same distribution. (The sources need not necessarily be
+%% in the same archive or directory.)
+%%
+%% Copyright (C) 2006, 2007 QuinScape GmbH
+%% http://www.quinscape.de
+\RequirePackage{makematch,qstest}
+\IncludeTests{*}
+\begin{qstest}{\MakeMatcher}{\MakeMatcher}
+  \MakeMatcher\stylefiles{*.sty}
+  \MakeMatcher\headbang{!*}
+  \MakeMatcher[,]\truestylefiles{*.sty,!.thumbnails/*,!*/.thumbnails/*}
+  \begin{qstest}{\Makematcher literal}{\MakeMatcher}
+    \begin{ExpectCallSequence}{\true{}\false{}`%
+        .#1{\Expect*{\CalledName#1}{true}}+'}
+      \stylefiles{{xxx/.thumbnails/blubb.sty}}{\true}{\false}
+      \truestylefiles{{xxx/.thumbnails/blubb.sty}}{\false}{\true}
+      \headbang{{xxx/.thumbnails/blubb.sty}}{\false}{\true}
+      \stylefiles{[ ]{x.sty.gz .thumbnails/x.sty !x}}{\true}{\false}
+      \truestylefiles{[ ]{x.sty.gz .thumbnails/x.sty !x}}{\false}{\true}
+      \headbang{[ ]{x.sty.gz .thumbnails/x.sty !x}}{\true}{\false}
+    \end{ExpectCallSequence}
+  \end{qstest}
+  \begin{qstest}{\Makematcher with \MakeMatchTarget}%
+                {\MakeMatcher,\MakeMatchTarget}
+    \MakeMatchTarget\single{xxx/.thumbnails/blubb.sty}
+    \MakeMatchTarget[ ]\multiple{x.sty.gz .thumbnails/x.sty !x}
+    \begin{ExpectCallSequence}{\true{}\false{}`%
+        .#1{\Expect*{\CalledName#1}{true}}+'}
+      \stylefiles{\single}{\true}{\false}
+      \truestylefiles\single{\false}{\true}
+      \headbang\single{\false}{\true}
+      \stylefiles{\multiple}{\true}{\false}
+      \truestylefiles\multiple{\false}{\true}
+      \headbang\multiple{\true}{\false}
+    \end{ExpectCallSequence}
+  \end{qstest}
+  \begin{qstest}{\MatchedTarget}
+                {\MakeMatcher,\MakeMatchTarget,\MatchedTarget}
+    \MakeMatchTarget\single{xxx/.thumbnails/blubb.sty}
+    \MakeMatchTarget[ ]\multiple{x.sty.gz .thumbnails/x.sty !x}
+    \begin{ExpectCallSequence}{\true{}\false{}`%
+        .#1{\Expect*{\CalledName#1}{true}}+'}
+      \stylefiles{\single}{\true}{\false}
+      \Expect*{\single}{xxx/.thumbnails/blubb.sty}
+      \Expect*{\meaning\MatchedTarget}*{\meaning\single}
+      \RemoveMatched\single
+      \Expect*{\meaning\single}{macro:->}
+      \truestylefiles\single{\false}{\true}
+      \headbang\single{\false}{\true}
+      \stylefiles{\multiple}{\true}{\false}
+      \Expect*{\MatchedTarget}{.thumbnails/x.sty}
+      \RemoveMatched\multiple
+      \Expect\expandafter{\multiple}{x.sty.gz\,!x}
+      \truestylefiles\multiple{\false}{\true}
+      \Expect*{\meaning\MatchedTarget}{undefined}
+      \headbang\multiple{\true}{\false}
+      \Expect*{\MatchedTarget}{!x}
+      \RemoveMatched\multiple
+      \Expect*{\multiple}{x.sty.gz}
+    \end{ExpectCallSequence}
+  \end{qstest}
+\end{qstest}
+\makeatletter
+\begin{qstest}{\MakeMatcher internals}{\MakeMatcher,internal}
+  \MakeMatcher\sometest{}
+  \Expect*{\meaning\sometest}{macro:#1->\qst@setup#1\qst@finish}
+  \MakeMatcher[,]\sometest{ a, bc*, !woozle**, !*#*woz***.*x, !!*ab}
+  \Expect*{\meaning\sometest}{macro:#1->%
+      \qst@setup#1%
+      \qst@checkname{a}\@firstoftwo
+      \qst@checkname{bc##2}\@firstoftwo
+      \qst@checkname{woozle##2}\@secondoftwo
+      \qst@checkname{##2####3woz##4.##5x}\@secondoftwo
+      \qst@checkname{##2ab}\@firstoftwo
+      \qst@finish}
+  \MakeMatcher[ ]\another{ a bc* ! woozle** ! *#*woz***.*x ! ! *ab}
+  \Expect*{\meaning\another}*{\meaning\sometest}
+\end{qstest}
+\stop
+\endinput
+%%
+%% End of file `makematch-qs.tex'.

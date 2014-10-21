@@ -1,0 +1,76 @@
+% define linestyles
+\newpsstyle{Database}{linecolor=LineColorA, linestyle=none, dotstyle=*,
+showpoints=true, dotsize=5pt}
+\newpsstyle{Result}{linecolor=LineColorB, linestyle=none, dotstyle=+,
+showpoints=true, dotsize=10pt}
+
+\begin{center}
+	\begin{NumericDataPlot}[xPicMin=0, xPicMax=1050,
+	yPicMin=0, yPicMax=1450]{\textwidth}{0.85\textheight}
+		
+		% --- definition of the axis and the grid ---
+		% set the axis of the lower left corner
+		\setxAxis{xMin=2, xMax=17, Dx=4, xCoordMin=0, xCoordMax=500}
+		\setyAxis{yMin=20, yMax=70, Dy=20, yCoordMin=0, yCoordMax=500}
+		
+		% plot the axis of the lower left corner
+		\plotxAxis{Stichnummer}
+		\plotyAxis{$F_{roll}$ in $\si{\mega\newton}$}
+
+
+
+
+
+		\listplot[style=Database]{\DataA}
+		\listplot[style=Result]{\DataB}
+		\listplot[style=StdLineStyC]{\DataC}
+		\listplot[style=StdLineStyD]{\DataD}
+		\listplot[style=StdLineStyE]{\DataE}
+		\listplot[style=StdLineStyF]{\DataF}
+		\listplot[style=StdLineStyG]{\DataG}
+		
+		% set the y-axis for the plot in the middle of the left side
+		% x-axis remains the same
+		\setyAxis{yMin=20, yMax=70, Dy=20, yCoordMin=550, yCoordMax=1050}
+		% plot the axis (x-axis without ticklabels)
+		\plotxAxis[NoTickLabel,LabelSep=1ex]{a) Ein plot}
+		\plotyAxis{$F_{roll}$ in $\si{\mega\newton}$}
+
+		\listplot[style=Database]{\DataA}
+		\listplot[style=Result]{\DataB}
+		
+		% set axis for the plot at the right side
+		\setxAxis{xMin=2, xMax=17, Dx=4, xCoordMin=600, xCoordMax=1050}
+		\setyAxis{yMin=20, yMax=70, Dy=10, yCoordMin=0, yCoordMax=1050}
+		
+		% plot the axis at the right side (y-axis without label)
+		\plotxAxis{Stichnummer}
+		\plotyAxis[NoLabel]{$F_{roll}$ in $\mega\newton$}
+
+		\listplot[style=Database]{\DataA}
+		\listplot[style=Result]{\DataB}
+		\listplot[style=StdLineStyC]{\DataC}
+		\listplot[style=StdLineStyD]{\DataD}
+		\listplot[style=StdLineStyE]{\DataE}
+		\listplot[style=StdLineStyF]{\DataF}
+		\listplot[style=StdLineStyG]{\DataG}
+		
+		% set the axis for the plot at the top
+		\setxAxis{xMin=8, xMax=17, Dx=1, xCoordMin=0, xCoordMax=1050}
+		\setyAxis{yMin=35, yMax=65, Dy=10, yO=40, yCoordMin=1150, yCoordMax=1450}
+		
+		% plot the axis for the plot at the top
+		\plotxAxis[NoLabel]{Stichnummer}
+		\plotyAxis[NoLabel]{$F_{roll}$ in $\mega\newton$}
+
+		% plot only part of the data
+		\listplot[style=Database, xStart=11, xEnd=17]{\DataA}
+		\listplot[style=Result, xStart=8, xEnd=13]{\DataB}
+		
+	\end{NumericDataPlot}
+	
+	% put legend outside of the plot
+	\LegendDefinition[nrCols=1, LabelOrientation=r]{
+		\LegLine{style=Database} & Werte aus der Datenbank \\
+		\LegLine{style=Result} & Modell}
+\end{center} 

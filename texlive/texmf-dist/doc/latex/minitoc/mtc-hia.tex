@@ -1,0 +1,83 @@
+%%
+%% This is file `mtc-hia.tex',
+%% generated with the docstrip utility.
+%%
+%% The original source files were:
+%%
+%% minitoc.dtx  (with options: `mtc-hia')
+%% This is a generated file.
+%% 
+%% 
+%% This file may be distributed and/or modified under the conditions of
+%% the LaTeX Project Public License, either version 1.3 of this license
+%% or (at your option) any later version.  The latest version of this
+%% license is in:
+%% 
+%%    http://www.latex-project.org/lppl.txt
+%% 
+%% and version 1.3 or later is part of all distributions of LaTeX version
+%% 2003/12/01 or later.
+%% 
+%% This work has the LPPL maintenance status "author-maintained".
+%% 
+%% This Current Maintainer of this work is Jean-Pierre F. Drucbert (JPFD).
+%% 
+%% This work consists of all the files listed in the file `minitoc.l'
+%% distributed with it.
+%% Copyright 1993 1994 1995 1996 1997 1998 1999 2000
+%%           2001 2002 2003 2004 2005 2006 2007 2008
+%% Jean-Pierre F. Drucbert
+%% <jean-pierre.drucbert@onera.fr>
+\documentclass%
+  [oneside,a4paper]{article}
+\ProvidesFile{mtc-hia.tex}%
+  [2007/01/04]
+\usepackage{lipsum}
+\usepackage%
+  [tight,insection]%
+           {minitoc}
+\dosectlot
+\begin{document}
+\listoftables
+\section{First section}
+\sectlot
+\lipsum[1]
+\begin{table}[hb]
+\caption{My first visible table}
+\end{table}
+\lipsum[2]
+\begin{table}[ht]
+\caption{A second visible table}
+\end{table}
+\lipsum[3]
+\begin{table}[hb]
+\mtchideinmainlot
+\caption{My first hidden table}
+\end{table}
+\lipsum[4-6]
+\begin{table}[ht]
+\caption{A second hidden table}
+\end{table}
+\lipsum[7]
+\section{Second section}
+\sectlot
+\lipsum[8]
+\begin{table}[hb]
+\caption{My last hidden table}
+\endmtchideinmainlot
+\end{table}
+\lipsum[9]
+\begin{table}[ht]
+\caption{A third visible table}
+\end{table}
+\lipsum[10]
+\begin{table}[hb]
+\caption{A fourth visible table}
+\end{table}
+\lipsum[11]
+\end{document}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%
+\endinput
+%%
+%% End of file `mtc-hia.tex'.

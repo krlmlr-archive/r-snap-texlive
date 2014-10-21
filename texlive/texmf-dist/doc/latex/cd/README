@@ -1,0 +1,47 @@
+A LaTeX CD cover class
+
+This class grew out of my frustration with software for CD covers. My list of
+requirements includes eternal durability of covers (I do not want to throw
+away my precious covers because of an upgrade), easy batch printing with crop
+marks, full typographical control, extended foreign language support, fully
+open text-based format for easy copy-and-modify operations, and so on.
+Since version 1.1, slim CD are supported.
+
+As usual, the package is provided by means of a .dtx source that a .ins
+driver will convert into a class (.cls) file. Of course, compiling the .dtx
+source will generate the documentation. For your convenience, the full
+archive contains the class file and the documentation.
+
+Normal usage requires creating a simple data file for each cover, much as in
+the following example:
+
+\covertext{
+The Artist\\
+\bfseries The Title
+}
+
+\leftspine{THE ARTIST}
+\centerspine{THE TITLE}
+
+\lefttracklist{
+\track Song 1
+\track Song 2
+\track Song 3
+}
+
+\leftinfo{Words and Music by The Artist}
+
+Then, by using the provided driver files you can easily generate one or more
+covers. Note that the class uses heavily the rotating package, so you must
+convert the resulting dvi file into PostScript®, or use directly pdflatex.
+
+If you're really lazy...
+
+...there is a Ruby script (parsecd.rb) that, provided with information from
+freedb.org, will generate automatically a data file. For instance,
+
+  wget -O- http://www.freedb.org/freedb/jazz/380a0a05 | ./parsecd.rb
+
+will generate a cover for Monk's "Brilliant Corners". You can search for your
+record on freedb.org, and then simply use the links provided under the label
+"ids".

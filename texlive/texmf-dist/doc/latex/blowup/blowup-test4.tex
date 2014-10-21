@@ -1,0 +1,61 @@
+
+%---------------------------
+% Rolf Niepraschk, Rolf.Niepraschk@gmx.de, 2008-12-09
+
+\listfiles
+\documentclass[a4paper,draft,twoside]{article}
+
+% Only for the test to show the page size.
+\usepackage{showframe}
+
+\usepackage{array,printlen,xcolor}
+\uselengthunit{mm}
+
+% Load "blowup" as last package!
+\usepackage{blowup}
+\blowUp{paper=a3,pos=outside,noscale}
+
+\renewcommand\familydefault{\sfdefault}
+\setlength\parindent{0pt}
+\pagestyle{empty}
+
+\begin{document}
+
+\null\vfill
+
+\huge\centering
+
+\setlength\extrarowheight{.5ex}
+\begin{tabular}{|>{\bfseries}l<{:}r<{\,mm}!{$\times$}r<{\,mm}|} \hline
+  letter    & 216 &  279 \\
+  legal     & 216 &  356 \\
+  executive & 184 &  267 \\
+  A8        &  52 &   74 \\
+  A7        &  74 &  105 \\
+  A6        & 105 &  148 \\
+  A5        & 148 &  210 \\
+  A4        & 210 &  297 \\
+  A3        & 297 &  420 \\
+  A2        & 420 &  594 \\
+  A1        & 594 &  841 \\
+  A0        & 841 & 1189 \\ \hline
+\end{tabular}
+
+\vfill
+
+\LARGE
+\begin{tabular}{>{\bfseries}lr!{$\times$}r}
+  Original Paper Size: & 
+    \rndprintlength{\paperwidth} & \rndprintlength{\paperheight} \\
+  Final Paper Size: &
+    \rndprintlength{\sPaperWidth} & \rndprintlength{\sPaperHeight}
+\end{tabular}
+
+\vfill
+
+\newpage
+
+More Text \dots
+
+\end{document}
+%---------------------------

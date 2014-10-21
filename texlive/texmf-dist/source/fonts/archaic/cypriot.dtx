@@ -1,0 +1,2114 @@
+% \iffalse meta-comment
+%
+% cypriot.dtx
+%
+%  Author: Peter Wilson (Herries Press) herries dot press at earthlink dot net
+%  Copyright 1999--2009 Peter R. Wilson
+%
+%  This work may be distributed and/or modified under the
+%  conditions of the Latex Project Public License, either
+%  version 1.3 of this license or (at your option) any
+%  later version.
+%  The latest version of the license is in
+%    http://www.latex-project.org/lppl.txt
+%  and version 1.3 or later is part of all distributions of
+%  LaTeX version 2003/06/01 or later.
+%
+%  This work has the LPPL maintenance status "author-maintained".
+%
+%  This work consists of the files listed in the README file.
+%
+% 
+% If you do not have the docmfp package (available from CTAN in
+% tex-archive/macros/latex/contrib/supported), comment out the
+% \usepackage{docmfp} line below and uncomment the line following it.
+% 
+%
+%<*driver>
+\documentclass[twoside]{ltxdoc}
+\usepackage{docmfp}
+%%%%% \providecommand{\DescribeVariable}[1]{} \newenvironment{routine}[1]{}{}
+\usepackage{url}
+\usepackage[draft=false,
+            plainpages=false,
+            pdfpagelabels,
+            bookmarksnumbered,
+            hyperindex=false
+           ]{hyperref}
+\providecommand{\phantomsection}{}
+\OnlyDescription %% comment this out for the full glory
+\EnableCrossrefs
+\CodelineIndex
+\setcounter{StandardModuleDepth}{1}
+\makeatletter
+  \@mparswitchfalse
+\makeatother
+\renewcommand{\MakeUppercase}[1]{#1}
+\pagestyle{headings}
+\newenvironment{addtomargins}[1]{%
+  \begin{list}{}{%
+    \topsep 0pt%
+    \addtolength{\leftmargin}{#1}%
+    \addtolength{\rightmargin}{#1}%
+    \listparindent \parindent
+    \itemindent \parindent
+    \parsep \parskip}%
+  \item[]}{\end{list}}
+\begin{document}
+  \raggedbottom
+  \DocInput{cypriot.dtx}
+\end{document}
+%</driver>
+%
+% \fi
+%
+% \CheckSum{279}
+%
+% \DoNotIndex{\',\.,\@M,\@@input,\@addtoreset,\@arabic,\@badmath}
+% \DoNotIndex{\@centercr,\@cite}
+% \DoNotIndex{\@dotsep,\@empty,\@float,\@gobble,\@gobbletwo,\@ignoretrue}
+% \DoNotIndex{\@input,\@ixpt,\@m}
+% \DoNotIndex{\@minus,\@mkboth,\@ne,\@nil,\@nomath,\@plus,\@set@topoint}
+% \DoNotIndex{\@tempboxa,\@tempcnta,\@tempdima,\@tempdimb}
+% \DoNotIndex{\@tempswafalse,\@tempswatrue,\@viipt,\@viiipt,\@vipt}
+% \DoNotIndex{\@vpt,\@warning,\@xiipt,\@xipt,\@xivpt,\@xpt,\@xviipt}
+% \DoNotIndex{\@xxpt,\@xxvpt,\\,\ ,\addpenalty,\addtolength,\addvspace}
+% \DoNotIndex{\advance,\Alph,\alph}
+% \DoNotIndex{\arabic,\ast,\begin,\begingroup,\bfseries,\bgroup,\box}
+% \DoNotIndex{\bullet}
+% \DoNotIndex{\cdot,\cite,\CodelineIndex,\cr,\day,\DeclareOption}
+% \DoNotIndex{\def,\DisableCrossrefs,\divide,\DocInput,\documentclass}
+% \DoNotIndex{\DoNotIndex,\egroup,\ifdim,\else,\fi,\em,\endtrivlist}
+% \DoNotIndex{\EnableCrossrefs,\end,\end@dblfloat,\end@float,\endgroup}
+% \DoNotIndex{\endlist,\everycr,\everypar,\ExecuteOptions,\expandafter}
+% \DoNotIndex{\fbox}
+% \DoNotIndex{\filedate,\filename,\fileversion,\fontsize,\framebox,\gdef}
+% \DoNotIndex{\global,\halign,\hangindent,\hbox,\hfil,\hfill,\hrule}
+% \DoNotIndex{\hsize,\hskip,\hspace,\hss,\if@tempswa,\ifcase,\or,\fi,\fi}
+% \DoNotIndex{\ifhmode,\ifvmode,\ifnum,\iftrue,\ifx,\fi,\fi,\fi,\fi,\fi}
+% \DoNotIndex{\input}
+% \DoNotIndex{\jobname,\kern,\leavevmode,\let,\leftmark}
+% \DoNotIndex{\list,\llap,\long,\m@ne,\m@th,\mark,\markboth,\markright}
+% \DoNotIndex{\month,\newcommand,\newcounter,\newenvironment}
+% \DoNotIndex{\NeedsTeXFormat,\newdimen}
+% \DoNotIndex{\newlength,\newpage,\nobreak,\noindent,\null,\number}
+% \DoNotIndex{\numberline,\OldMakeindex,\OnlyDescription,\p@}
+% \DoNotIndex{\pagestyle,\par,\paragraph,\paragraphmark,\parfillskip}
+% \DoNotIndex{\penalty,\PrintChanges,\PrintIndex,\ProcessOptions}
+% \DoNotIndex{\protect,\ProvidesClass,\raggedbottom,\raggedright}
+% \DoNotIndex{\refstepcounter,\relax,\renewcommand,\reset@font}
+% \DoNotIndex{\rightmargin,\rightmark,\rightskip,\rlap,\rmfamily,\roman}
+% \DoNotIndex{\roman,\secdef,\selectfont,\setbox,\setcounter,\setlength}
+% \DoNotIndex{\settowidth,\sfcode,\skip,\sloppy,\slshape,\space}
+% \DoNotIndex{\symbol,\the,\trivlist,\typeout,\tw@,\undefined,\uppercase}
+% \DoNotIndex{\usecounter,\usefont,\usepackage,\vfil,\vfill,\viiipt}
+% \DoNotIndex{\viipt,\vipt,\vskip,\vspace}
+% \DoNotIndex{\wd,\xiipt,\year,\z@}
+%
+% \changes{v1.0}{1999/06/20}{First public release}
+% \changes{v1.1}{2005/04/17}{Contact changed, Type1 map file}
+% \changes{v1.1}{2005/04/17}{Merged the three metafont files into one}
+% \changes{v1.2}{2009/05/22}{Corrected some glyph codings}
+%
+% \def\fileversion{v1.0} \def\filedate{1999/06/20}
+% \def\fileversion{v1.1} \def\filedate{2005/06/13}
+% \def\fileversion{v1.2} \def\filedate{2009/05/22}
+% \newcommand*{\Lpack}[1]{\textsf {#1}}           ^^A typeset a package
+% \newcommand*{\Lopt}[1]{\textsf {#1}}            ^^A typeset an option
+% \newcommand*{\file}[1]{\texttt {#1}}            ^^A typeset a file
+% \newcommand*{\Lcount}[1]{\textsl {\small#1}}    ^^A typeset a counter
+% \newcommand*{\pstyle}[1]{\textsl {#1}}          ^^A typeset a pagestyle
+% \newcommand*{\Lenv}[1]{\texttt {#1}}            ^^A typeset an environment
+% \newcommand{\BC}{\textsc{bc}}
+% \newcommand{\AD}{\textsc{ad}}
+%
+% \title{The \Lpack{Cypriot} font\thanks{This
+%        file has version number \fileversion, last revised
+%        \filedate.}}
+%
+% \author{%
+% Peter Wilson\thanks{\texttt{herries dot press at earthlink dot net}}\\
+% Herries Press
+% }
+% \date{\filedate}
+% \maketitle
+% \begin{abstract}
+%    The \Lpack{cypriot} bundle provides a rendition of the Cypriot
+% syllabary which was a script used in Cyprus for writing Greek. The script
+% was in use between about 1000 and 200~\BC.
+% \end{abstract}
+% \tableofcontents
+% \listoftables
+%
+% 
+%
+% \section{Introduction}
+%
+%    The font presented here is a rendition of the Cypriot script
+% that was used from about 1000 to 200~\BC, particularly on Cyprus.
+% It is one of a series of fonts that was initially intended
+% to show how the Latin alphabet has evolved from its original Phoenician form
+% to its present day appearance.
+%
+% This manual is typeset according to the conventions of the
+% \LaTeX{} \textsc{docstrip} utility which enables the automatic
+% extraction of the \LaTeX{} macro source files~\cite{COMPANION}.
+%
+%    Section~\ref{sec:usc} describes the usage of the package.
+% Commented code for the fonts and source code for the package is in 
+% later sections.
+%
+% \subsection{An alphabetic tree}
+%
+%    Scholars are reasonably agreed that all the world's alphabets are descended
+% from a Semitic alphabet invented about 1600~\BC{} in the Middle 
+% East~\cite{DRUCKER95}. The word `Semitic' refers
+% to the family of languages used in the geographical area from
+% Sinai in the south, up the Mediterranean coast to Asia Minor in the north and
+% west to the valley of the Euphrates.
+%
+%    The Phoenician alphabet was stable by about 1100~\BC{} and the script was
+% written right to left. In earlier times the writing direction was variable, 
+% and so were
+% the shapes and orientation of the characters. The alphabet consisted of
+% 22 letters and they were named after things. For example, their first two 
+% letters were called \textit{aleph} (ox), and \textit{beth} (house). 
+% The Phoenician script had
+% only one case --- unlike our modern fonts which have both upper- and 
+% lower-cases. In modern day terms the Phoenician abecedary was: \\
+% A B G D E Y Z H $\Theta$ I K L M N X O P ts Q R S T \\
+% where the `Y' (\textit{vau}) character was sometimes written as `F' and
+% `ts' stands for the \textit{tsade} character.
+%
+%    The Greek alphabet is one of the descendants of the Phoenician alphabet;
+% another was Aramaic which is the ancestor of the Arabic, Persian and Indian 
+% scripts.
+% Initially Greek was written right to left but around the 6th C~\BC{} became 
+% \textit{boustrophedron}, meaning that the lines 
+% alternated in direction. At about 500~\BC{} the writing direction stabilised 
+% as left to 
+% right. The Greeks modified the Phoenician alphabet to match the vocalisation
+% of their language. They kept the Phoenician names of the letters, suitably
+% `greekified', so \textit{aleph} became the familar \textit{alpha} and 
+% \textit{beth} became \textit{beta}. At this
+% point the names of the letters had no meaning. Their were several variants
+% of the Greek character glyphs until they were finally fixed in Athens in
+% 403~\BC.
+% The Greeks did not develop a lower-case 
+% script until about 600--700~\AD.
+%
+%    The Etruscans based their alphabet on the Greek one, and again modified it.
+% However, the Etruscans wrote right to left, so their borrowed characters are 
+% mirror images of the original Greek ones. Like the Phoenicians, the Etruscan
+% script consisted of only one case; they died out before ever needing a
+% lower-case script. The Etruscan script was used up until the first century 
+% \AD, even though the Etruscans themselves had dissapeared by that time.
+% 
+%
+%    In turn, the Romans based their alphabet on the Etruscan one, but as they 
+% wrote left to right, the characters were again mirrored (although the early
+% Roman inscriptions are boustrophedron). 
+%
+%    As the English alphabet is descended from the Roman alphabet
+% it has a pedigree of some three and a half thousand years.
+%
+% \section{The \Lpack{cypriot} package} \label{sec:usc}
+%
+%    The Cypriot script was used in Cyprus for almost a thousand years, 
+% from about 1000--200~\BC.
+%
+%    Cypriot is a syllabary, where there is a sign for each 
+% syllable. There are 55 signs in the Cypriot syllabary.
+% The script was used for record keeping, not for literary purposes. 
+% It was used in Cyprus until about the third century \BC, although by
+% this time few could read or write it. At this late date its use was 
+% principally for recording
+% inscriptions on votive offerings and public works, and in many cases
+% the Cypriot script was accompanied by a Greek alphabetic version of
+% the same text. These bilinguals were a great aid in deciphering the
+% script, a task that was completed in the 1870's.
+%
+%    Apart from the specialised literature, the story of the Cypriot script
+% can be found in~\cite{CHADWICK87} and~\cite{GORDON87}, among others.
+%
+%    Cypriot was used to write Greek centuries before the Greek alphabet
+% was invented. Perhaps surprisingly, Cypriot has no other relationship
+% to the Greek alphabet except that they can both be used to write the
+% same language. There is, however, a relationship between the Cypriot syllabary
+% and the earlier Linear~B syllabary,  which was principally used in Crete, as
+% some of the signs are the same.
+%
+%    The font presented here is based on the signs illustrated by 
+% Chadwick~\cite{CHADWICK87}, and consists of 55 signs.\footnote{I am grateful
+% to J\"{u}rgen Kraus (\texttt{jkraus@uni-goettingen.de}) for reviewing
+% my interpretation of the symbols.}
+%
+%
+%
+% \DescribeMacro{\cyprfamily}
+%    This command selects the Cypriot font family. 
+% The family name is |cypr|.
+%
+% \DescribeMacro{\textcypr}
+% The command |\textcypr{|\meta{text}|}| typesets \meta{text} in the
+% Cypriot font.
+%
+%    The commands (and their ASCII equivalents) for the 55 signs
+% are given in Table~\ref{tab:basic}; you can use either the command or
+% its ASCII keyboard equivalent. There are 5 signs for the 5 vowels and
+% the remaining 50 signs are two-character syllables.
+% The apparently odd mapping to the ASCII characters is so that a
+% companion Linear~B font~\cite{LINEARB} can use the same ASCII characters
+% for the syllables that are common to both scripts.
+% \changes{v1.2}{2009/05/22}{Added \cs{Cxa} and \cs{Cxe} to encoding table}
+% \begin{table}
+% \centering
+% \caption{Commands and encoding for the signs}\label{tab:basic}
+% \begin{tabular}{cccccc} \hline
+%    & a        & e        & i        & o        & u        \\ \hline
+%    & |\Ca|  a & |\Ce|  e & |\Ci|  i & |\Co|  o & |\Cu|  u \\
+% g  & |\Cga| g &          &          &          &          \\
+% j  & |\Cja| j &          &          & |\Cjo| b &          \\
+% k  & |\Cka| k & |\Cke| K & |\Cki| c & |\Cko| h & |\Cku| v \\
+% l  & |\Cla| l & |\Cle| L & |\Cli| d & |\Clo| f & |\Clu| q \\
+% m  & |\Cma| m & |\Cme| M & |\Cmi| y & |\Cmo| A & |\Cmu| B \\
+% n  & |\Cna| n & |\Cne| N & |\Cni| C & |\Cno| E & |\Cnu| F \\
+% p  & |\Cpa| p & |\Cpe| P & |\Cpi| G & |\Cpo| H & |\Cpu| I \\
+% r  & |\Cra| r & |\Cre| R & |\Cri| O & |\Cro| U & |\Cru| V \\
+% s  & |\Csa| s & |\Cse| S & |\Csi| Y & |\Cso| 1 & |\Csu| 2 \\
+% t  & |\Cta| t & |\Cte| T & |\Cti| 3 & |\Cto| 4 & |\Ctu| 5 \\
+% w  & |\Cwa| w & |\Cwe| W & |\Cwi| 6 & |\Cwo| 7 &          \\
+% x  & |\Cxa| x & |\Cxe| X &          &          &          \\
+% z  &          &          &          & |\Czo| 9 &          \\
+% \hline
+% \end{tabular}
+% \end{table}
+%
+%    There appears to be some flexibility in the interpretation of three
+% of the signs, namely the \textit{ga}, \textit{ja} and \textit{jo}. Some
+% write these as \textit{za}, \textit{ya} and \textit{yo}, respectively.
+% I have provided the commands |\Cza|, |\Cya| and |\Cyo|, in addition to
+% those listed in Table~\ref{tab:basic}, for those who prefer the alternate
+% interpretation. These typeset the same sign as the corresponding
+% |\Cga|, |\Cja| and
+% |\Cjo| commands, the difference between the interpretations only being
+% manifest within transliterated text.
+%
+%     The Cypriot script includes a word divider, which is a short vertical
+% line. In this font, there are three synonomous dividers which are produced
+% by the ASCII keyboard characters |: , /| (i.e., colon or comma or slash).
+% Using any of these when typesetting the script produce the same word divider
+% sign. 
+%
+% \DescribeMacro{\translitcypr}
+%  The command |\translitcypr{|\meta{char-commands}|}|, where \meta{char-commands}
+% are the Cypriot character commands, will typeset a transliteration of the
+% signs. For example,\\
+% |\translitcypr{\Cti\Cme:\Cto/\Cre\Cti\Cre}| will generate \\
+% \textit{ti-me-:to-/re-ti-re-} \\
+% Note that in the transliterated form the word dividers 
+% (|:| and |/| in this example) are printed as themselves. This is because
+% only the character commands are modified while any other text is printed as is.
+% It is a feature of the command that all transliterated commands have a trailing
+% |-| sign.
+%
+% \DescribeMacro{\translitcyprfont}
+% The transliterated Cypriot is typeset with the font declarations specified by
+% |\translitcyprfont|, which defaults to |\itshape| thus printing the
+% transliteration in an italic font. The font can be changed by redefining
+% the command. For example, if you wanted to use a bold sans font you
+% would do: \\
+% |\renewcommand{\translitcyprfont}{\sffamily\bfseries}|
+%
+%
+% \section{The font definition files} \label{sec:fd}
+%
+%    \begin{macrocode}
+%<*fdot1>
+\ProvidesFile{ot1cypr.fd}[1999/06/20 v1.0 Cypriot font definitions]
+\DeclareFontFamily{OT1}{cypr}{}
+  \DeclareFontShape{OT1}{cypr}{m}{n}{ <-> cypr10 }{}
+  \DeclareFontShape{OT1}{cypr}{bx}{n}{ <-> sub cypr/m/n }{}
+  \DeclareFontShape{OT1}{cypr}{b}{n}{ <-> sub cypr/m/n }{}
+  \DeclareFontShape{OT1}{cypr}{m}{sl}{ <-> sub cypr/m/n }{}
+  \DeclareFontShape{OT1}{cypr}{m}{it}{ <-> sub cypr/m/n }{}
+%</fdot1>
+%    \end{macrocode}
+%
+%
+%    \begin{macrocode}
+%<*fdt1>
+\ProvidesFile{t1cypr.fd}[1999/06/20 v1.0 Cypriot font definitions]
+\DeclareFontFamily{T1}{cypr}{}
+  \DeclareFontShape{T1}{cypr}{m}{n}{ <-> cypr10 }{}
+  \DeclareFontShape{T1}{cypr}{bx}{n}{ <-> sub cypr/m/n }{}
+  \DeclareFontShape{T1}{cypr}{b}{n}{ <-> sub cypr/m/n }{}
+  \DeclareFontShape{T1}{cypr}{m}{sl}{ <-> sub cypr/m/n }{}
+  \DeclareFontShape{T1}{cypr}{m}{it}{ <-> sub cypr/m/n }{}
+%</fdt1>
+%    \end{macrocode}
+%
+% \section{The \Lpack{cypriot} package code} \label{sec:code}
+%
+%    Announce the name and version of the package, which requires
+% \LaTeXe{}.
+%    \begin{macrocode}
+%<*usc>
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{cypriot}[2009/05/22 v1.2 package for Cypriot font]
+%    \end{macrocode}
+%
+%   We need to check the encoding default for the document.
+% \begin{macro}{\Tienc}
+%    \begin{macrocode}
+\providecommand{\Tienc}{T1}
+%    \end{macrocode}
+% \end{macro}
+%
+%
+% \begin{macro}{\cyprfamily}
+%    Selects the Cypriot font family in the T1 encoding if this
+% is the document's default encoding, otherwise make it the OT1 encoding.
+%    \begin{macrocode}
+\ifx\Tienc\encodingdefault
+  \newcommand{\cyprfamily}{\usefont{T1}{cypr}{m}{n}}
+\else
+  \newcommand{\cyprfamily}{\usefont{OT1}{cypr}{m}{n}}
+\fi
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{\textcypr}
+%    Text command for the Cypriot font family.
+%    \begin{macrocode}
+\DeclareTextFontCommand{\textcypr}{\cyprfamily}
+%    \end{macrocode}
+% \end{macro}
+%
+%    The commands for the basic signs.
+% \begin{macro}{\Ca}
+% \begin{macro}{\Ce}
+% \begin{macro}{\Ci}
+% \begin{macro}{\Co}
+% \begin{macro}{\Cu}
+% The 5 vowels.
+%    \begin{macrocode}
+\chardef\Ca=`a
+\chardef\Ce=`e
+\chardef\Ci=`i
+\chardef\Co=`o
+\chardef\Cu=`u
+%    \end{macrocode}
+% \end{macro}
+% \end{macro}
+% \end{macro}
+% \end{macro}
+% \end{macro}
+%
+% \begin{macro}{\Cga}
+% The 1 G syllables.
+%    \begin{macrocode}
+\chardef\Cga=`g
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{\Cja}
+% \begin{macro}{\Cjo}
+% The 2 J syllables.
+%    \begin{macrocode}
+\chardef\Cja=`j
+\chardef\Cjo=`b
+%    \end{macrocode}
+% \end{macro}
+% \end{macro}
+%
+%
+% \begin{macro}{\Cka}
+% \begin{macro}{\Cke}
+% \begin{macro}{\Cki}
+% \begin{macro}{\Cko}
+% \begin{macro}{\Cku}
+% The 5 K syllables.
+%    \begin{macrocode}
+\chardef\Cka=`k
+\chardef\Cke=`K
+\chardef\Cki=`c
+\chardef\Cko=`h
+\chardef\Cku=`v
+%    \end{macrocode}
+% \end{macro}
+% \end{macro}
+% \end{macro}
+% \end{macro}
+% \end{macro}
+%
+% \begin{macro}{\Cla}
+% \begin{macro}{\Cle}
+% \begin{macro}{\Cli}
+% \begin{macro}{\Clo}
+% \begin{macro}{\Clu}
+% The 5 L syllables.
+%    \begin{macrocode}
+\chardef\Cla=`l
+\chardef\Cle=`L
+\chardef\Cli=`d
+\chardef\Clo=`f
+\chardef\Clu=`q
+%    \end{macrocode}
+% \end{macro}
+% \end{macro}
+% \end{macro}
+% \end{macro}
+% \end{macro}
+%
+%
+% \begin{macro}{\Cma}
+% \begin{macro}{\Cme}
+% \begin{macro}{\Cmi}
+% \begin{macro}{\Cmo}
+% \begin{macro}{\Cmu}
+% The 5 M syllables.
+%    \begin{macrocode}
+\chardef\Cma=`m
+\chardef\Cme=`M
+\chardef\Cmi=`y
+\chardef\Cmo=`A
+\chardef\Cmu=`B
+%    \end{macrocode}
+% \end{macro}
+% \end{macro}
+% \end{macro}
+% \end{macro}
+% \end{macro}
+%
+%
+% \begin{macro}{\Cna}
+% \begin{macro}{\Cne}
+% \begin{macro}{\Cni}
+% \begin{macro}{\Cno}
+% \begin{macro}{\Cnu}
+% The 5 N syllables.
+%    \begin{macrocode}
+\chardef\Cna=`n
+\chardef\Cne=`N
+\chardef\Cni=`C
+\chardef\Cno=`E
+\chardef\Cnu=`F
+%    \end{macrocode}
+% \end{macro}
+% \end{macro}
+% \end{macro}
+% \end{macro}
+% \end{macro}
+%
+% \begin{macro}{\Cpa}
+% \begin{macro}{\Cpe}
+% \begin{macro}{\Cpi}
+% \begin{macro}{\Cpo}
+% \begin{macro}{\Cpu}
+% The 5 P syllables.
+%    \begin{macrocode}
+\chardef\Cpa=`p
+\chardef\Cpe=`P
+\chardef\Cpi=`G
+\chardef\Cpo=`H
+\chardef\Cpu=`I
+%    \end{macrocode}
+% \end{macro}
+% \end{macro}
+% \end{macro}
+% \end{macro}
+% \end{macro}
+%
+%
+% \begin{macro}{\Cra}
+% \begin{macro}{\Cre}
+% \begin{macro}{\Cri}
+% \begin{macro}{\Cro}
+% \begin{macro}{\Cru}
+% The 5 R syllables.
+%    \begin{macrocode}
+\chardef\Cra=`r
+\chardef\Cre=`R
+\chardef\Cri=`O
+\chardef\Cro=`U
+\chardef\Cru=`V
+%    \end{macrocode}
+% \end{macro}
+% \end{macro}
+% \end{macro}
+% \end{macro}
+% \end{macro}
+%
+% \begin{macro}{\Csa}
+% \begin{macro}{\Cse}
+% \begin{macro}{\Csi}
+% \begin{macro}{\Cso}
+% \begin{macro}{\Csu}
+% The 5 S syllables.
+%    \begin{macrocode}%
+\chardef\Csa=`s
+\chardef\Cse=`S
+\chardef\Csi=`Y
+\chardef\Cso=`1
+\chardef\Csu=`2
+%    \end{macrocode}
+% \end{macro}
+% \end{macro}
+% \end{macro}
+% \end{macro}
+% \end{macro}
+%
+% \begin{macro}{\Cta}
+% \begin{macro}{\Cte}
+% \begin{macro}{\Cti}
+% \begin{macro}{\Cto}
+% \begin{macro}{\Ctu}
+% The 5 T syllables.
+%    \begin{macrocode}
+\chardef\Cta=`t
+\chardef\Cte=`T
+\chardef\Cti=`3
+\chardef\Cto=`4
+\chardef\Ctu=`5
+%    \end{macrocode}
+% \end{macro}
+% \end{macro}
+% \end{macro}
+% \end{macro}
+% \end{macro}
+%
+% \begin{macro}{\Cwa}
+% \begin{macro}{\Cwe}
+% \begin{macro}{\Cwi}
+% \begin{macro}{\Cwo}
+% The 4 W syllables.
+%    \begin{macrocode}
+\chardef\Cwa=`w
+\chardef\Cwe=`W
+\chardef\Cwi=`6
+\chardef\Cwo=`7
+%    \end{macrocode}
+% \end{macro}
+% \end{macro}
+% \end{macro}
+% \end{macro}
+%
+% \begin{macro}{\Cxa}
+% \begin{macro}{\Cxe}
+% The 2 X syllables.
+% \changes{v1.2}{2009/05/22}{There are only 2, not 3, X syllables}
+%    \begin{macrocode}
+\chardef\Cxa=`x
+\chardef\Cxe=`X
+%    \end{macrocode}
+% \end{macro}
+% \end{macro}
+%
+% \begin{macro}{\Czo}
+% The 1 Z syllables.
+%    \begin{macrocode}
+\chardef\Czo=`9
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{\Cza}
+% \begin{macro}{\Cya}
+% \begin{macro}{\Cya}
+% The 3 arguable syllables.
+%    \begin{macrocode}
+\chardef\Cza=`g
+\chardef\Cya=`j
+\chardef\Cyo=`b
+%    \end{macrocode}
+% \end{macro}
+% \end{macro}
+% \end{macro}
+%
+%
+% \begin{macro}{\translitcyprfont}
+% \begin{macro}{\translitcypr}
+%    |\translitcypr{|\meta{char-commands}|}| transliterates Cypriot character
+% commands into distinguished syllables; these are typeset using the 
+% |\translitcyprfont| font specification.
+%    \begin{macrocode}
+\newcommand{\translitcyprfont}{\itshape}
+\newcommand{\translitcypr}[1]{{%
+  \@translitC\translitcyprfont #1}}
+%    \end{macrocode}
+% \end{macro}
+% \end{macro}
+%
+% \begin{macro}{\@translitC}
+%    This macro redefines all the character producing commands for use
+% in |\translitcypr|.
+%
+% Start with the 5 vowels. We have to make sure that there are no extraneous
+% spaces within the command.
+%    \begin{macrocode}
+\newcommand{\@translitC}{%
+\def\Ca{a-}\def\Ce{e-}\def\Ci{i-}\def\Co{o-}\def\Cu{u-}%
+%    \end{macrocode}    
+%
+% The 1 G syllables.
+%    \begin{macrocode}
+\def\Cga{ga-}%
+%    \end{macrocode}
+%
+% The 2 J syllables.
+%    \begin{macrocode}
+\def\Cja{ja-}\def\Cjo{jo-}%
+%    \end{macrocode}
+%
+% The 5 K syllables.
+%    \begin{macrocode}
+\def\Cka{ka-}\def\Cke{ke-}\def\Cki{ki-}\def\Cko{ko-}\def\Cku{ku-}%
+%    \end{macrocode}
+%
+% The 5 L syllables.
+%    \begin{macrocode}
+\def\Cda{da-}\def\Cde{de-}\def\Cdi{di-}\def\Cdo{do-}\def\Cdu{du-}%
+%    \end{macrocode}
+%
+% The 5 M syllables.
+%    \begin{macrocode}
+\def\Cma{ma-}\def\Cme{me-}\def\Cmi{mi-}\def\Cmo{mo-}\def\Cmu{mu-}%
+%    \end{macrocode}
+%
+% The 5 N syllables.
+%    \begin{macrocode}
+\def\Cna{na-}\def\Cne{ne-}\def\Cni{ni-}\def\Cno{no-}\def\Cnu{nu-}%
+%    \end{macrocode}
+%
+% The 5 P syllables.
+%    \begin{macrocode}
+\def\Cpa{pa-}\def\Cpe{pe-}\def\Cpi{pi-}\def\Cpo{po-}\def\Cpu{pu-}%
+%    \end{macrocode}
+%
+%
+% The 5 R syllables.
+%    \begin{macrocode}
+\def\Cra{ra-}\def\Cre{re-}\def\Cri{ri-}\def\Cro{ro-}\def\Cru{ru-}%
+%    \end{macrocode}
+%
+% The 5 S syllables.
+%    \begin{macrocode}
+\def\Csa{sa-}\def\Cse{se-}\def\Csi{si-}\def\Cso{so-}\def\Csu{su-}%
+%    \end{macrocode}
+%
+% The 5 T syllables.
+%    \begin{macrocode}
+\def\Cta{ta-}\def\Cte{te-}\def\Cti{ti-}\def\Cto{to-}\def\Ctu{tu-}%
+%    \end{macrocode}
+%
+% The 4 W syllables.
+%    \begin{macrocode}
+\def\Cwa{wa-}\def\Cwe{we-}\def\Cwi{wi-}\def\Cwo{wo-}%
+%    \end{macrocode}
+%
+% The 2 X syllables.
+% \changes{v1.2}{2009/05/22}{There is no \cs{Cxo} syllable}
+%    \begin{macrocode}
+\def\Cxa{xa-}\def\Cxe{xe-}%
+%    \end{macrocode}
+%
+% The 1 Z syllables.
+%    \begin{macrocode}
+\def\Czo{zo-}%
+%    \end{macrocode}
+%
+% The 3 arguable syllables
+%    \begin{macrocode}
+\def\Cza{za-}\def\Cya{ya-}\def\Cyo{yo-}%
+%    \end{macrocode}
+%
+% Close the macro definition.
+%    \begin{macrocode}
+} % end of \@translitC
+%    \end{macrocode}
+% \end{macro}
+%
+%
+%    The end of this package.
+%    \begin{macrocode}
+%</usc>
+%    \end{macrocode}
+%
+% \section{The map file}
+%
+% This is pretty short.
+% \changes{v1.1}{2005/04/17}{Added the map file}
+%    \begin{macrocode}
+%<*map>
+cypr10   Archaic-Cypriot  <cypr10.pfb
+%</map>
+%    \end{macrocode}
+%
+% 
+% \StopEventually{
+% \bibliographystyle{alpha}
+% \begin{thebibliography}{GMS94}
+%
+% \bibitem[Cha87]{CHADWICK87}
+% John Chadwick.
+% \newblock \emph{Linear B and Related Scripts}.
+% \newblock University of California Press/British Museum, 1987.
+% (ISBN 0-520-06019-9)
+%
+% \bibitem[Dru95]{DRUCKER95}
+% Johanna Drucker.
+% \newblock \emph{The Alphabetic Labyrinth}.
+% \newblock Thames and Hudson, 1995.
+%
+% \bibitem[Fir93]{FIRMAGE93}
+% Richard A.~Firmage.
+% \newblock \emph{The Alphabet Abecedarium}.
+% \newblock David R.~Goodine, 1993.
+%
+% \bibitem[MG04]{COMPANION}
+% Frank Mittelbach and Michel Goossens.
+% \newblock \emph{The LaTeX Companion}.
+% \newblock Addison-Wesley Publishing Company, second edition, 2004.
+%
+% \bibitem[Gor87]{GORDON87}
+% Cyrus H.~Gordon.
+% \newblock \emph{Forgotten Scripts}.
+% \newblock Dorset Press, (Revised and enlarged edition) 1987.
+%
+% \bibitem[Wil99]{LINEARB}
+% Peter R.~Wilson.
+% \newblock \emph{The Linear~B Package}.
+% \newblock 1999. (Available from CTAN in \texttt{fonts/archaic}).
+%
+% \end{thebibliography}
+% \PrintIndex
+% }
+%
+%
+%     
+%
+% \section{The Metafont code} \label{sec:mf}
+%
+% \subsection{The parameters}
+%
+%    We deal with the parameters first, and start by announcing
+% what it is for.
+% \changes{v1.1}{2005/04/17}{Merged all the metafont files into one.}
+%    \begin{macrocode}
+%<*up>
+%%% CYPR10.MF  Cypriot Bronze Age script 10 point design size.
+
+%    \end{macrocode}
+%    Specify the font size.
+%    \begin{macrocode}
+
+font_identifier:="Cypriot"; font_size 10pt#;
+
+%    \end{macrocode}
+%
+%
+% \DescribeVariable{penfudge}
+%  Increase (decrease) this to get bolder (lighter) characters.
+%    \begin{macrocode}
+penfudge:=1.0;
+%    \end{macrocode}
+%  
+%
+% \DescribeVariable{heightfudge}
+%  Increase (decrease) this to get taller (shorter) characters.
+%    \begin{macrocode}
+heightfudge:=1.0;
+%    \end{macrocode}
+%  
+%
+%    Define the very simple font values.
+% \DescribeVariable{u} 
+% The unit width.
+%    \begin{macrocode}
+u#:=.2pt#;                 % unit width
+%    \end{macrocode}
+%
+% \DescribeVariable{ht} 
+% The height of the characters. Computer Modern cap height is approximately
+% |6.8pt|.
+%    \begin{macrocode}
+ht#:=heightfudge*10pt#;    % height of characters (CM cap-height is approx 6.8pt)
+%    \end{macrocode}
+%
+% \DescribeVariable{s} 
+%  Extra space at the left and right of a character.
+%    \begin{macrocode}
+s#:=1.5pt#;                % width correction (right and left)
+%    \end{macrocode}
+%
+% \DescribeVariable{o} 
+% Overshoot correction.
+%    \begin{macrocode}
+o#:=1/20pt#;               % overshoot
+%    \end{macrocode}
+%
+% \DescribeVariable{px} 
+% The horizontal width of the pen.
+%    \begin{macrocode}
+px#:=penfudge*0.7pt#;      % horizontal width of pen
+%    \end{macrocode}
+%
+% \DescribeVariable{font-normal-space} 
+% The width of a blank space.
+%    \begin{macrocode}
+font_normal_space:=7pt#;   % width of a blank space
+%    \end{macrocode}
+%
+% \DescribeVariable{font-normal-shrink} 
+% Possible width correction for a blank space.
+%    \begin{macrocode}
+font_normal_shrink:=.9pt#; % width correction for blank space
+%    \end{macrocode}
+%
+% \DescribeVariable{font-x-height} 
+% Just for completness, the height of |1ex|.
+%    \begin{macrocode}
+font_x_height:=4.5pt#;     % height of one ex
+%    \end{macrocode}
+%
+% \DescribeVariable{font-quad}
+% The width of |1em|.
+%    \begin{macrocode}
+font_quad:=10pt#;          % an em
+
+%    \end{macrocode}
+%
+%    Now move on to the `driver' data for the font.
+%
+% \subsection{The driver data}
+%
+%    Switch into Metafont mode
+%
+%    \begin{macrocode}
+font_coding_scheme:="Cypriot glyphs";
+mode_setup;
+
+%    \end{macrocode}
+%
+% \DescribeVariable{ho}
+% \DescribeVariable{leftloc}
+% \DescribeVariable{py}
+%  Perform additional setup.
+%    \begin{macrocode}
+ho#:=o#;                   % horizontal overshoot
+leftloc#:=s#;        % leftmost xcoord of character
+py#:=.9px#;                % vertical thickness of the pen
+
+define_pixels(s,u);
+define_blacker_pixels(px,py);
+define_good_x_pixels(leftloc);
+define_corrected_pixels(o);             % turn on overshoot correction
+define_horizontal_corrected_pixels(ho);  
+
+%    \end{macrocode}
+%  
+%
+% \DescribeVariable{midloc}
+% \DescribeVariable{rightloc}
+%    Variables for the middle xcoord and rightmost xcoord of a character.
+%    \begin{macrocode}
+numeric midloc, rightloc;
+%    \end{macrocode}
+%  
+%
+% \DescribeVariable{tiny}
+% \DescribeVariable{small}
+% \DescribeVariable{medium}
+% \DescribeVariable{large}
+% \DescribeVariable{huge}
+%   Some lengths.
+%    \begin{macrocode}
+tiny#:=px#;
+small#:=2px#;
+medium#:=3px#;
+large#:=4px#;
+huge#:=5px#;
+define_pixels(tiny,small,medium,large,huge);
+%    \end{macrocode}
+%  
+% \DescribeVariable{NE} 
+% \DescribeVariable{NW} 
+% \DescribeVariable{SW} 
+% \DescribeVariable{SE} 
+% Shorthand for direction vectors corresponding to the designated compass point.
+%    \begin{macrocode}
+pair NE,NW,SW,SE;
+NE:=(1,1);
+NW:=(-1,1);
+SW:=(-1,-1);
+SE:=(1,-1);
+%    \end{macrocode}
+%  
+%
+% \DescribeVariable{stylus}
+%    Define the pen.
+%    \begin{macrocode}
+pickup pencircle xscaled px yscaled py;
+stylus:=savepen;
+
+%    \end{macrocode}
+%  
+%
+% \begin{routine}{draw_hdash}
+%    |draw_hdash(1,len)| draws a horizontal line, length |len|, with its
+% midpoint at |z1|.
+%    \begin{macrocode}
+def draw_hdash(suffix $)(expr len)=
+  x$l=x$-len/2; x$r=x$+len/2; y$l=y$r=y$;
+  draw z$l--z$r;
+enddef;
+
+%    \end{macrocode}
+% \end{routine}
+%
+% \begin{routine}{draw_vdash}
+%    |draw_vdash(1,len)| draws a vertical line, length |len|, with its
+% midpoint at |z1|.
+%    \begin{macrocode}
+def draw_vdash(suffix $)(expr len)=
+  x$t=x$b=x$; y$t=y$+len/2; y$b=y$-len/2;
+  draw z$t--z$b;
+enddef;
+
+%    \end{macrocode}
+% \end{routine}
+%
+% \begin{routine}{beginglyph}
+%    A macro to save some typing of beginchar arguments.
+%    \begin{macrocode}
+def beginglyph(expr code, unit_width) =
+  beginchar(code, unit_width*ht#+2s#, ht#, 0);
+  midloc:=1/2w; rightloc:=(w-s);
+  pickup stylus enddef;
+
+%    \end{macrocode}
+% \end{routine}
+%
+% \begin{routine}{cmchar}
+%    |cmchar| should precede each character
+%    \begin{macrocode}
+let cmchar=\;
+
+%    \end{macrocode}
+% \end{routine}
+% 
+%
+% \subsection{The glyph code}
+%
+%    The following code generates the glyphs for the Cypriot font. 
+%    \begin{macrocode}
+%%%% Glyph code for the Cypriot font.
+
+%    \end{macrocode}
+%
+% \subsubsection{The glyphs}
+%
+% There are 55 glyphs. These are composed of the five vowels 
+% (a e i o u), and 50 syllables. First I define the vowels,
+% then the remaining characters in syllable order 
+% (e.g. \ldots nu, pa, pe, pi, po, pu, qa \ldots). The glyphs
+% are encoded as roman upper and lower case characters and the digits.
+%
+%    The somewhat peculiar mapping to the alphanumerics is so that a
+% companion Linear B syllabary can use an identical encoding for the
+% syllables that are common between Linear B and Cypriot.
+%
+%    The vowels are mapped to their lowercase ASCII equivalents.
+% A syllable "xa" is mapped to ASCII x and "xe" is mapped to X.
+% Otherwise, the mapping appears random, although there is an 
+% underlying methodology.
+%
+% \begin{routine}{a}
+%    The sign \textit{a}. Like an asterisk.
+%    \begin{macrocode}
+cmchar "Cypriot sign a";
+beginglyph("a",1.0);
+x1=x6=leftloc; y1=0; y6=h;                % left points
+x3=x4=midloc; y3=0; y4=h; z0=0.5[z3,z4];  % middle points
+x5=x2=rightloc; y5=0; y2=h;               % right points
+draw z1--z2;                % bl to tr diagonal
+draw z3--z4;                % vertical
+draw z5--z6;                % br to tl diagonal
+labels(0,1,2,3,4,5,6,7,8);
+endchar;
+
+%    \end{macrocode}
+% \end{routine}
+%
+% \begin{routine}{e}
+%    The sign \textit{e}. Like the `a' but with an extra horizontal half stroke.
+% crossbar.
+%    \begin{macrocode}
+cmchar "Cypriot sign e";
+beginglyph("e",1.0);
+x1=x6=leftloc; y1=0; y6=h;                % left points
+x3=x4=midloc; y3=0; y4=h; z0=0.5[z3,z4];  % middle points
+x5=x2=rightloc; y5=0; y2=h;               % right points
+x7=x2; y7=y0;
+draw z1--z2;                % bl to tr diagonal
+draw z3--z4;                % vertical
+draw z5--z6;                % br to tl diagonal
+draw z0--z7;                % short horizontal
+labels(0,1,2,3,4,5,6,7,8);
+endchar;
+
+%    \end{macrocode}
+% \end{routine}
+%
+% \begin{routine}{i}
+%    The sign \textit{i}. Like the `a' but short vertical.
+%    \begin{macrocode}
+cmchar "Cypriot sign i";
+beginglyph("i",1.0);
+x1=x6=leftloc; y1=0; y6=h;                % left points
+x3=x4=midloc; y3=0; y4=h; z0=0.5[z3,z4];  % middle points
+x5=x2=rightloc; y5=0; y2=h;               % right points
+draw z1--z2;                % bl to tr diagonal
+draw z0--z4;                % vertical
+draw z5--z6;                % br to tl diagonal
+labels(0,1,2,3,4,5,6,7,8);
+endchar;
+
+%    \end{macrocode}
+% \end{routine}
+%
+% \begin{routine}{o}
+%    The sign \textit{o}. Corporal's stripes on a horizontal base.
+%    \begin{macrocode}
+cmchar "Cypriot sign o";
+beginglyph("o",1.0);
+x1=x6=leftloc; y1=0; y6=h;                % left points
+x3=x4=midloc; y3=0; y4=h; z0=0.5[z3,z4];  % middle points
+x5=x2=rightloc; y5=0; y2=h;               % right points
+x7=x1; x8=x5; y7=y8=y0;
+draw z6--z0--z2;            % top stripe
+draw z7--z3--z8;            % bottom stripe
+draw z1--z5;                % base
+labels(0,1,2,3,4,5,6,7,8);
+endchar;
+
+%    \end{macrocode}
+% \end{routine}
+%
+% \begin{routine}{u}
+%    The sign \textit{u}. A Y with the top arms bent.
+%    \begin{macrocode}
+cmchar "Cypriot sign u";
+beginglyph("u",1.0);
+numeric alpha, wid; alpha:=1/6;
+wid:=(rightloc-leftloc);
+x1=x2=midloc; y1=0; y2=h*(1-2alpha);    % stem
+x3=leftloc; x6=rightloc;                % arms
+y4=y5=h;
+y3=y6=0.5[y2,y4];
+x4=alpha[x3,x6]; x5=alpha[x6,x3];
+draw z1--z2;                    % stem
+draw z3--z4--z2--z5--z6;        % arms
+labels(1,2,3,4,5,6,7,8);
+endchar;
+
+%    \end{macrocode}
+% \end{routine}
+%
+% \begin{routine}{ga}
+%    The sign \textit{ga}. Like |> <| with two dashes.
+%    \begin{macrocode}
+cmchar "Cypriot sign ga";
+beginglyph("g",1.0);
+numeric alpha, wid; alpha:=1/6;
+wid:=(rightloc-leftloc);
+numeric beta; beta:=small;
+x1=x3=leftloc; x4=x6=rightloc; y1=y4=0; y3=y6=h;  % minmax points
+x2=midloc-beta; x5=midloc+beta; y2=y5=h/2;        % chevron centers
+z11'=1/3[z5,z6]; z13'=2/3[z5,z6];                 % the dashes
+z11=z11' shifted (tiny*NW); z13=z13' shifted (tiny*NW);
+z12=z11 shifted (small*NW); z14=z13 shifted (small*NW);
+draw z1--z2--z3; draw z4--z5--z6;            % chevrons
+draw z11--z12; draw z13--z14;                % dashes
+labels(1,2,3,4,5,6,7,8,11,12,13,14);
+endchar;
+
+%    \end{macrocode}
+% \end{routine}
+%
+%
+% \begin{routine}{ja}
+% The sign \textit{ja}. A teardrop. (A rectangle with two interior lines.)
+%    \begin{macrocode}
+cmchar "Cypriot sign ja";
+beginglyph("j",0.4);
+x1=x3=midloc; y1=0; y3=h;
+x2=leftloc; x4=rightloc; y2=y4=0.75[y1,y3];
+draw z1..z2{up}..{right}z3;          % left half
+draw z1..z4{up}..{left}z3;           % right half
+labels(1,2,3,4); 
+endchar;
+
+%    \end{macrocode}
+% \end{routine}
+%
+% \begin{routine}{jo}
+% The sign \textit{jo}. A W with a line under the bottom right point.
+%    \begin{macrocode}
+cmchar "Cypriot sign jo";
+beginglyph("b",1.0);
+x1=leftloc; x3=midloc; x5=rightloc;        % the W
+x2=1/2[x1,x3]; x4=1/2[x5,x3]; y2=y4=0;
+y1=y3=y5=0.5h;
+x6=0.2[x3,x4]; x7=0.2[x5,x4]; y6=y7=0;     % horizontal
+draw z1--z2--z3--z4--z5;                   % the W
+draw z6--z7;                               % horizontal
+labels(1,2,3,4,5,6,7,8); endchar;
+
+%    \end{macrocode}
+% \end{routine}
+%
+%
+% \begin{routine}{ka}
+% The sign \textit{ka}. Upward arrow on a base.
+%    \begin{macrocode}
+cmchar "Cypriot sign ka";
+beginglyph("k",0.6);
+x1=leftloc; x2=rightloc; y1=y2=0;    % base
+x3=x4=midloc; y3=0; y4=h;            % stem
+x5=leftloc; x6=rightloc; y5=y6=0.7h; % arrowhead
+draw z1--z2;        % base
+draw z3--z4;        % stem
+draw z5--z4--z6;    % arrowhead
+labels(1,2,3,4,5,6); endchar;
+
+%    \end{macrocode}
+% \end{routine}
+%
+%
+% \begin{routine}{ke}
+%    The sign \textit{ke}. An E rotated 135 degrees with bottom arm and upright
+% extended.
+%    \begin{macrocode}
+cmchar "Cypriot sign ke";
+beginglyph("K",1.0);
+numeric alpha, beta; alpha=medium;
+x0ll=leftloc+alpha; x0lr=rightloc; y0ll=y0lr=alpha;    % E box
+x0ul=x0ll; x0ur=x0lr; y0ul=y0ur=h;
+%%zll=(xll,yll); zur=(xur,yur);
+z1=z0ll shifted (alpha*right);
+z4=z0ll shifted (alpha*up);
+z1-z3=whatever*(z0ll-z0ur);        % lines parallel to box diagonal
+z4-z5=whatever*(z0ll-z0ur);
+x3=x0lr; y6=h;
+z2=0.5[z1,z3]; z5=0.5[z4,z6];        % center of parallel lines
+z7-z1=whatever*(z1-z3); y7=0;        % upright extension
+z8-z1=whatever*(z1-z4); y8=0;        % arm extension
+draw z1--z3;                               % E upright
+draw z1--z4; draw z2--z5; draw z3--z6;     % E arms
+draw z1--z7; draw z1--z8;                  % extensions
+labels(0ll,0lr,0ul,0ur,1,2,3,4,5,6,7,8); endchar;
+
+%    \end{macrocode}
+% \end{routine}
+%
+% \begin{routine}{ki}
+%    The sign \textit{ki}. Like a Y with bent arms. (J\"{u}rgen Kraus
+% adds a top bar to the Y).
+%    \begin{macrocode}
+cmchar "Cypriot sign ki";
+beginglyph("c",1.0);
+numeric alpha, wid; alpha:=1/6;
+numeric beta; beta:=0.25;
+wid:=(rightloc-leftloc);
+x1=x2=midloc; y1=0; y2=h*(1-2alpha);    % stem
+x3=leftloc; x6=rightloc;                % arms
+y4=y5=h;
+y3=y6=0.5[y2,y4];
+x4=alpha[x3,x6]; x5=alpha[x6,x3];
+x14=x4; x15=x5; y14=y15=0;              % base
+z16=beta[z4,z5]; z17=beta[z5,z4];       % top bar
+draw z1--z2;                    % stem
+draw z3--z4--z2--z5--z6;        % arms
+draw z14--z15;                  % base
+draw z16--z17;                  % top bar
+labels(1,2,3,4,5,6,7,8,14,15,16,17);
+endchar;
+
+%    \end{macrocode}
+% \end{routine}
+%
+% \begin{routine}{ko}
+%    The sign \textit{ko}.
+%    \begin{macrocode}
+cmchar "Cypriot sign ko";
+beginglyph("h",0.8);
+numeric beta; beta:=0.2;
+x1=leftloc; x4=rightloc; y1=y4=0;    % bottom points
+x2=beta[x1,x4]; x3=beta[x4,x1]; y2=y3=h;  % top points
+draw z1--z2--z3--z4;
+labels(1,2,3,4); endchar;
+ 
+%    \end{macrocode}
+% \end{routine}
+%
+% \begin{routine}{ku}
+%    The sign \textit{ku}.
+%    \begin{macrocode}
+cmchar "Cypriot sign ku";
+beginglyph("v",0.8);
+numeric beta; beta:=small;
+x1=x6=leftloc; y6=h; y1=0.4h;  % left points
+x3=x4=midloc; y3=0;            % center points
+x5=x2=rightloc; y5=y1; y2=y6;  % right points
+z0=whatever[z1,z2]=whatever[z5,z6];
+y4=y0+beta;
+z4-z8=whatever*(z0-z2); y8=h;
+z4-z7=whatever*(z0-z6); y7=h;
+draw z3--z0;                  % stem
+draw z1--z2; draw z5--z6;     % the X
+draw z7--z4--z8;              % upper angle
+labels(0,1,2,3,4,5,6,7,8); endchar;
+ 
+%    \end{macrocode}
+% \end{routine}
+%
+% \begin{routine}{la}
+%    The sign \textit{la}. Like a V on a base.
+%    \begin{macrocode}
+cmchar "Cypriot sign la";
+beginglyph("l",0.8);
+numeric beta; beta:=medium;
+x1=leftloc; x2=rightloc-beta; y1=y2=0;    % base
+x3=x1; x4=0.5[x1,x2]; x5=x2; x6=rightloc; % V
+y3=y5=h; y4=y1; y6=y5-beta;
+draw z1--z2;           % base
+draw z3--z4--z5--z6;   % V
+labels(1,2,3,4,5,6); endchar;
+
+%    \end{macrocode}
+% \end{routine}
+%
+%
+% \begin{routine}{le}
+%    The sign \textit{le}. Like an 8.
+%    \begin{macrocode}
+cmchar "Cypriot sign le";
+beginglyph("L",0.6);
+x1=x2=leftloc; y1=1/4h; y2=3/4h;  % left points
+x3=x4=midloc; y3=0; y4=h;         % middle points
+x5=x6=rightloc; y5=y1; y6=y2;     % right points
+draw z3..z1..z6..z4..z2..z5..cycle;   % the 8
+labels(1,2,3,4,5,6); endchar;
+
+%    \end{macrocode}
+% \end{routine}
+%
+%
+% \begin{routine}{li}
+%    The sign \textit{li}. Like a $\leq$ symbol.
+%    \begin{macrocode}
+cmchar "Cypriot sign li";
+beginglyph("d",0.6);
+numeric beta; beta:=medium;
+x1=leftloc; x2=rightloc; y1=y2=beta;  % base
+x3=x5=x2; x4=x1; y3=y4=x1+beta; y5=h-beta;
+draw z1--z2;     % base
+draw z3--z4--z5; % < symbol
+labels(1,2,3,4,5); endchar;
+
+%    \end{macrocode}
+% \end{routine}
+%
+%
+% \begin{routine}{lo}
+%    The sign \textit{lo}. A cross.
+%    \begin{macrocode}
+cmchar "Cypriot sign lo";
+beginglyph("f",0.5);
+x0=midloc; y0=h/2;
+x1=leftloc; x2=rightloc; y1=y2=y0;  % horizontal
+x3=x4=x0; y3-y0=x2-x0; y0-y4=x2-x0; % vertical
+draw z1--z2; draw z3--z4;
+labels(1,2,3,4); endchar;
+
+%    \end{macrocode}
+% \end{routine}
+%
+%
+% \begin{routine}{lu}
+%    The sign \textit{lu}. Like a dome over a U.
+%    \begin{macrocode}
+cmchar "Cypriot sign lu";
+beginglyph("q",0.8);
+numeric radb, rads; 
+x1=leftloc; x2=rightloc; y1=y2=0;   % dome base points
+radb:=0.5(x2-x1);
+x3=x1; x4=x2; y3=y4=h-radb;         % dome mid points
+x5=midloc; y5=h;                    % dome top point
+rads:=1/2radb;
+x15=x5; y15=y1;                     % U bottom point
+x13=x15-rads; x14=x15+rads; y13=y14=y15+rads;   % U mid points
+x11=x13; x12=x14; y11=y12=y13+2rads;            % U top points
+draw z1---z3..z5..z4---z2;           % the Dome
+draw z11---z13..z15..z14---z12;      % the U
+labels(1,2,3,4,5,11,12,13,14,15); endchar;
+
+%    \end{macrocode}
+% \end{routine}
+%
+%
+% \begin{routine}{ma}
+%    The sign \textit{ma}. Like |> <| with an upside down |^| at the top.
+%    \begin{macrocode}
+cmchar "Cypriot sign ma";
+beginglyph("m",0.8);
+numeric beta; beta:=small;
+x1=x3=leftloc; x4=x6=rightloc; y1=y4=0; y3=y6=h;  % minmax points
+x2=midloc-beta; x5=midloc+beta; y2=y5=h/2;
+x8=midloc; y8=y5+beta;
+z7-z8=whatever*(z3-z2); z9-z8=whatever*(z6-z5); y7=y9=h;
+draw z1--z2--z3;      % left angle
+draw z4--z5--z6;      % right angle
+draw z7--z8--z9;      % top angle
+labels(1,2,3,4,5,6,7,8,9); endchar;
+ 
+%    \end{macrocode}
+% \end{routine}
+%
+% \begin{routine}{me}
+%    The sign \textit{me}. An X with an i at the bottom.
+%    \begin{macrocode}
+cmchar "Cypriot sign me";
+beginglyph("M",0.8);
+numeric beta; beta:=tiny; %% beta:=small;
+x0=midloc; y0=h/2;
+x1=x3=leftloc; x4=x6=rightloc; y1=y4=0; y3=y6=h;  % minmax points
+x11=x12=midloc; x13=x11+beta; x14=x13+beta;
+y12=beta; y13=0; y14=beta/2; y11=0.5[y12,y0];
+draw z1--z6; draw z4--z3;              % the X
+draw z11--z12{down}..z13{right}..z14;  % the i
+labels(1,2,3,4,5,6,7,8,9,11,12,13,14); endchar;
+ 
+%    \end{macrocode}
+% \end{routine}
+%
+% \begin{routine}{mi}
+%    The sign \textit{mi}. A bit like a V with arms on a base.
+%    \begin{macrocode}
+cmchar "Cypriot sign mi";
+beginglyph("y",0.8);
+numeric beta; beta:=small;
+x0=midloc; y0=h/2;
+x1=leftloc; x5=rightloc;                        % V points
+x2=0.15[x1,x5]; x3=0.5[x1,x5]; x4=0.15[x5,x1];
+y2=y4=h; y3=0; y1=y5=y2-(x2-x1); 
+x6=0.25[x1,x5]; x7=0.25[x5,x1]; y6=y7=y3;       % base points
+draw z1--z2--z3--z4--z5;                        % V
+draw z6--z7;                                    % base
+labels(1,2,3,4,5,6,7,8,9); endchar;
+
+%    \end{macrocode}
+% \end{routine}
+%
+% \begin{routine}{mo}
+%    The sign \textit{mo}. An ellipse split by a vertical line.
+%    \begin{macrocode}
+cmchar "Cypriot sign mo";
+beginglyph("A",0.8);
+numeric beta; beta:=0.2h;
+x0=midloc; y0=h/2;
+x1=leftloc; x2=x4=midloc; x3=rightloc;
+y1=y3=y0;  y2=h-beta; y4=beta;
+draw z1..z2..z3..z4..cycle;          % ellipse
+draw z2--z4;                         % vertical line
+labels(1,2,3,4); endchar;
+ 
+%    \end{macrocode}
+% \end{routine}
+%
+% \begin{routine}{mu}
+%    The sign \textit{mu}. An X with vertical dashes at either side.
+%    \begin{macrocode}
+cmchar "Cypriot sign mu";
+beginglyph("B",0.8);
+numeric beta; beta:=0.2;
+numeric gamma;
+x0=midloc; y0=h/2;
+x1=x3=leftloc; x4=x6=rightloc; y1=y4=0; y3=y6=h;  % minmax points
+x11=beta[x1,x0]; x12=beta[x4,x0];                   % for dashes
+y11=y12=y0;
+z10'=beta[z1,z0]; z30'=beta[z3,z0];
+gamma:=0.5(y30'-y10');
+draw z1--z6; draw z4--z3;              % the X
+draw_vdash(11,gamma); draw_vdash(12,gamma);
+labels(1,2,3,4,5,6,7,8,9,11,12); endchar;
+ 
+%    \end{macrocode}
+% \end{routine}
+%
+% \begin{routine}{na}
+% The sign \textit{na}. A T, but with 2 crossbars.
+%    \begin{macrocode}
+cmchar "Cypriot sign na";
+beginglyph("n",0.4);
+numeric beta; beta:=0.1h;
+x1=leftloc; x2=rightloc; y1=y2=h;
+x3=leftloc; x4=rightloc; y3=y4=y1-beta;
+x5=x6=midloc; y5=0; y6=y3;
+draw z1--z2; draw z3--z4;       % bars
+draw z5--z6;                    % stem
+labels(1,2,3,4,5,6); endchar;
+
+%    \end{macrocode}
+% \end{routine}
+%
+% \begin{routine}{ne}
+%    The sign \textit{ne}. A lightning flash between two dashes.
+%    \begin{macrocode}
+cmchar "Cypriot sign ne";
+beginglyph("N",0.6);
+numeric beta; 
+beta:=0.1*(rightloc-leftloc);  
+x0=midloc; y0=h/2;
+x1=x0+beta; x4=x0-beta; y1=h; y4=0;      % lightning top and bottom
+x2=x0-beta; x3=x0+beta;   % lightning middle points
+y2=y0+0.5beta; y3=y0-0.5beta;
+x11=x12=leftloc; y11=0.2h; y12=0.8h;    % left dash
+x13=x14=rightloc; y13=y11; y14=y12;     % right dash
+draw z11--z12; draw z13--z14;         % dashes
+draw z1--z2--z3--z4;              % lightning
+labels(1,2,3,4,11,12,13,14); endchar;
+
+%    \end{macrocode}
+% \end{routine}
+%
+% \begin{routine}{ni}
+%    The sign \textit{ni}. An E rotated 135 degrees on a base.
+%    \begin{macrocode}
+cmchar "Cypriot sign ni";
+beginglyph("C",1.0);
+numeric alpha, beta; alpha=medium;
+x0ll=leftloc; x0lr=rightloc; y0ll=y0lr=0;    % E box
+x0ul=x0ll; x0ur=x0lr; y0ul=y0ur=h;
+%%zll=(xll,yll); zur=(xur,yur);
+z1=z0ll shifted (alpha*right);
+z4=z0ll shifted (alpha*up);
+z1-z3=whatever*(z0ll-z0ur);        % lines parallel to box diagonal
+z4-z5=whatever*(z0ll-z0ur);
+x3=x0lr; y6=h;
+z2=0.5[z1,z3]; z5=0.5[z4,z6];    % center of parallel lines
+z7=z0ll; x8=0.5[x2,x3]; y8=0;    % base
+draw z1--z3;                               % E upright
+draw z1--z4; draw z2--z5; draw z3--z6;     % E arms
+draw z7--z8;                               % base
+labels(0ll,0lr,0ul,0ur,1,2,3,4,5,6,7,8); endchar;
+
+%    \end{macrocode}
+% \end{routine}
+%
+% \begin{routine}{no}
+%    The sign \textit{no}.  
+%    \begin{macrocode}
+cmchar "Cypriot sign no";
+beginglyph("E",1.0);
+numeric alpha, beta; 
+alpha=medium; %% alpha=0.5medium;
+x0ll=leftloc; x0lr=rightloc; y0ll=y0lr=0;    % E box
+x0ul=x0ll; x0ur=x0lr; y0ul=y0ur=h;
+z1=z0ll shifted (alpha*right);
+z4=z0ll shifted (alpha*up);
+z1-z3'=whatever*(z0ll-z0ur);        % lines parallel to box diagonal
+z4-z6'=whatever*(z0ll-z0ur);
+x3'=x0lr; y6'=h;
+x11=x0ur; y11=y0ur-2alpha;          % the top ends
+x12=x0ur-2alpha; y12=y0ur;
+z3=whatever[z1,z3']=whatever[z11,z12];
+z6=whatever[z4,z6']=whatever[z11,z12];
+draw z1--z3--z11;
+draw z4--z6--z12;
+labels(0ll,0lr,0ul,0ur,1,2,3,3',4,5,6,6',11,12); endchar;
+
+%    \end{macrocode}
+% \end{routine}
+%
+% \begin{routine}{nu}
+%    The sign \textit{nu}. Like |>| with dashes at the right.
+%    \begin{macrocode}
+cmchar "Cypriot sign nu";
+beginglyph("F",0.4);
+numeric beta; beta:=small;
+numeric gamma; gamma:=1/4h;        % dash length
+x1=x3=leftloc; y1=0; y3=h;         % left points
+x4=x6=rightloc; y4=1/4h; y6=3/4h;  % dash points
+x2=x4-beta; y2=h/2;                % point of the <
+draw z1--z2--z3;      % left angle
+draw_vdash(4,gamma); draw_vdash(6,gamma);  % dashes
+labels(1,2,3,4,5,6); endchar;
+ 
+%    \end{macrocode}
+% \end{routine}
+%
+% \begin{routine}{pa}
+%    The sign \textit{pa}. Like a Lorraine cross.
+%    \begin{macrocode}
+cmchar "Cypriot sign pa";
+beginglyph("p",0.4);
+x1=x2=midloc; y1=0; y2=h;  % stem
+x3=x5=leftloc; y3=0.7h; y5=0.4h; 
+x4=x6=rightloc; y4=y3; y6=y5;
+draw z1--z2;               % stem
+draw z3--z4; draw z5--z6;  % cross bars
+labels(1,2,3,4,5,6,7,8,9); endchar;
+ 
+%    \end{macrocode}
+% \end{routine}
+%
+% \begin{routine}{pe}
+%    The sign \textit{pe}. A lightning flash.
+%    \begin{macrocode}
+cmchar "Cypriot sign pe";
+beginglyph("P",0.3);
+numeric beta; 
+beta:=0.5*(rightloc-leftloc);  
+x0=midloc; y0=h/2;
+x1=x0+beta; x4=x0-beta; y1=h; y4=0;      % lightning top and bottom
+x2=x0-beta; x3=x0+beta;   % lightning middle points
+y2=y0+0.5beta; y3=y0-0.5beta;
+draw z1--z2--z3--z4;              % lightning
+labels(1,2,3,4,11,12,13,14); endchar;
+ 
+%    \end{macrocode}
+% \end{routine}
+%
+% \begin{routine}{pi}
+%    The sign \textit{pi}. Corporal's stripes.
+%    \begin{macrocode}
+cmchar "Cypriot sign pi"; 
+beginglyph("G",1.0);
+x1=x6=leftloc; y1=0; y6=h;                % left points
+x3=x4=midloc; y3=0; y4=h; z0=0.5[z3,z4];  % middle points
+x5=x2=rightloc; y5=0; y2=h;               % right points
+x7=x1; x8=x5; y7=y8=y0;
+draw z6--z0--z2;            % top stripe
+draw z7--z3--z8;            % bottom stripe
+labels(0,1,2,3,4,5,6,7,8);
+endchar;
+
+%    \end{macrocode}
+% \end{routine}
+%
+% \begin{routine}{po}
+%    The sign \textit{po}. A bit like a sickle.
+%    \begin{macrocode}
+cmchar "Cypriot sign po";
+beginglyph("H",1.0);
+numeric rad; 
+x0=midloc; y0=h/2;
+x1=leftloc; y1=0;
+x5=rightloc; rad:=0.2(x5-x1); y5=h-rad;
+x4=x5-rad; y4=h;
+x3=x4-rad; y3=y5;
+x2=x4; y2=y3-rad;
+draw z1--z2;
+draw z2..z3{up}..z4{right}..{down}z5;
+labels(1,2,3,4,5); endchar;
+
+%    \end{macrocode}
+% \end{routine}
+%
+% \begin{routine}{pu}
+%    The sign \textit{pu}.  A bit like |<!>| on a base.
+%    \begin{macrocode}
+cmchar "Cypriot sign pu";
+beginglyph("I",1.0);
+x0=midloc; y0=h/2;
+x1=x0; y1=0; x2=leftloc; y2=2/3h;    % left angle
+x3=0.5[x2,x0]; y3=h;
+z4=z1; x5=rightloc; y5=y2;           % right angle
+x6=0.5[x5,x0]; y6=y3;
+z7=z0;                               % vertical dash
+x8=leftloc; x9=rightloc; y8=y9=0;    % base
+draw z1--z2--z3; draw z4--z5--z6;    % angles
+draw z4--z7;                         % dash
+draw z8--z9;                         % base
+labels(1,2,3,4,5,6,7,8,9); endchar;
+ 
+%    \end{macrocode}
+% \end{routine}
+%
+%
+% \begin{routine}{ra}
+%    The sign \textit{ra}. A dome on a base.
+%    \begin{macrocode}
+cmchar "Cypriot sign ra";
+beginglyph("r",0.6);
+numeric rad, beta;
+x1=leftloc; x2=rightloc; y1=y2=0;      % base
+z3=0.2[z1,z2]; z4=0.2[z2,z1];          % dome
+rad:= 0.5*(x4-x3);
+x7=midloc; y7=h;
+x5=x3; x6=x4; y5=y6=y7-rad;
+beta:=1.5;                 % for tension
+draw z1--z2;               % base
+%%draw z3--z5..z7..z6--z4;   % dome
+draw z3{up}..tension beta..z7..tension beta..{down}z4;      % curve
+labels(1,2,3,4,5,6,7,8,9); endchar;
+ 
+%    \end{macrocode}
+% \end{routine}
+%
+% \begin{routine}{re}
+%    The sign \textit{re}. Two verticals with a roof.
+%    \begin{macrocode}
+cmchar "Cypriot sign re";
+beginglyph("R",0.8); 
+numeric beta; beta:=small;
+x1=leftloc; x2=midloc; x3=rightloc; y2=h; y1=y3=2/3h; % roof
+x4=x5=2/3[x1,x2]; x6=x7=2/3[x3,x2]; y4=y6=0;
+y5=y7=2/3[y1,y2] - beta;
+draw z1--z2--z3;            % roof
+draw z4--z5; draw z6--z7;   % supports
+labels(1,2,3,4,5,6,7); endchar;
+ 
+%    \end{macrocode}
+% \end{routine}
+%
+% \begin{routine}{ri}
+%    The sign \textit{ri}. Like an E rotated 135 degrees.
+%    \begin{macrocode}
+cmchar "Cypriot sign ri";
+beginglyph("O",1.0);
+numeric alpha, beta; alpha=medium;
+x0ll=leftloc; x0lr=rightloc; y0ll=y0lr=0;    % E box
+x0ul=x0ll; x0ur=x0lr; y0ul=y0ur=h;
+%%zll=(xll,yll); zur=(xur,yur);
+z1=z0ll shifted (alpha*right);
+z4=z0ll shifted (alpha*up);
+z1-z3=whatever*(z0ll-z0ur);        % lines parallel to box diagonal
+z4-z5=whatever*(z0ll-z0ur);
+x3=x0lr; y6=h;
+z2=0.5[z1,z3]; z5=0.5[z4,z6];    % center of parallel lines
+draw z1--z3;                               % E upright
+draw z1--z4; draw z2--z5; draw z3--z6;     % E arms
+labels(0ll,0lr,0ul,0ur,1,2,3,4,5,6); endchar;
+
+%    \end{macrocode}
+% \end{routine}
+%
+% \begin{routine}{ro}
+%    The sign \textit{ro}. Like $\alpha$ rotated 90 degrees.
+%    \begin{macrocode}
+cmchar "Cypriot sign ro";
+beginglyph("U",0.6);
+numeric rad, beta;
+x0=midloc; y0=h/2;
+x1=leftloc; x2=rightloc; y1=y2=0;  % base points
+rad:=0.25*(x2-x1);
+x3=x0-rad; x4=x0+rad; y3=y4=h-rad;
+x5=x0; y5=h;
+beta:=1.5;     % tension
+draw z1..tension beta..z4{up}..z5{left}..z3{down}..tension beta..z2;
+labels(1,2,3,4,5); endchar;
+ 
+%    \end{macrocode}
+% \end{routine}
+%
+% \begin{routine}{ru}
+%    The sign \textit{ru}. Like |)\(|, but the slash is short.
+%    \begin{macrocode}
+cmchar "Cypriot sign ru"; 
+beginglyph("V",0.6);
+numeric beta; beta:=small;
+x0=midloc; y0=h/2;
+x1=x3=leftloc; x4=x6=rightloc; y1=y4=0; y3=y6=h; % the parens
+y2=y5=y0; x2=x1+beta; x5=x4-beta;
+z7=3/4[z1,z4]; x8=x0; y8=(x4-x7);   % dash
+draw z1...z2{up}...z3;    % left half
+draw z4...z5{up}...z6;    % right half
+draw z7--z8;              % dash
+labels(1,2,3,4,5,6,7,8); endchar;
+ 
+%    \end{macrocode}
+% \end{routine}
+%
+% \begin{routine}{sa}
+%    The sign \textit{sa}. Like a V.
+%    \begin{macrocode}
+cmchar "Cypriot sign sa";
+beginglyph("s",0.6);
+x1=leftloc; x2=midloc; x3=rightloc; 
+y1=y3=h; y2=0;
+draw z1--z2--z3;
+labels(1,2,3); endchar;
+
+%    \end{macrocode}
+% \end{routine}
+%
+% \begin{routine}{se}
+%    The sign \textit{se}. 
+%    \begin{macrocode}
+cmchar "Cypriot sign se";
+beginglyph("S",0.6);
+x1=x3=x2=leftloc; y1=0; y2=h; y3=2/3[y1,y2];
+x4=x5=midloc; x6=x7=rightloc;
+y4=y6=y3; y5=y7=y2;
+draw z1--z2;               % upright
+draw z3--z6;               % horizontal
+draw z4--z5; draw z6--z7;  % short uprights
+labels(1,2,3,4,5,6,7); endchar;
+ 
+%    \end{macrocode}
+% \end{routine}
+%
+% \begin{routine}{si}
+%    The sign \textit{si}. A roof over an L over a base.
+%    \begin{macrocode}
+cmchar "Cypriot sign si";
+beginglyph("Y",0.6);
+x1=leftloc; x2=midloc; x3=rightloc; y1=y3=2/3h; y2=h;  % roof
+x4=leftloc; x5=rightloc; y4=y5=0;       % base
+x6=x7=midloc; x8=rightloc; y7=y8=1/4h;  % stem
+y6=0.5[y1,y2];
+draw z1--z2--z3;  % roof 
+draw z4--z5;      % base
+draw z6--z7--z8;  % stem
+labels(1,2,3,4,5,6,7,8); endchar;
+
+%    \end{macrocode}
+% \end{routine}
+%
+% \begin{routine}{so}
+%    The sign \textit{so}.  Corporal's stripes over two bases.
+%    \begin{macrocode}
+cmchar "Cypriot sign so";
+beginglyph("1",1.0);
+x1=x2=x3=x4=leftloc; x5=x6=midloc; x7=x8=x9=x10=rightloc;
+y1=y7=0; y4=y10=h;
+y2=y5=y8=0.2h;
+y3=y9=0.5[y2,y4];
+y6-y5=y4-y3;
+draw z1--z7;      % lower base
+draw z2--z8;      % upper base
+draw z3--z5--z9;  % lower stripe
+draw z4--z6--z10; % upper stripe
+labels(1,2,3,4,5,6,7,8,9); endchar;
+ 
+%    \end{macrocode}
+% \end{routine}
+%
+% \begin{routine}{su}
+%    The sign \textit{su}. Like an upside down |)Y|.
+%    \begin{macrocode}
+cmchar "Cypriot sign su";
+beginglyph("2",1.0);
+numeric beta; beta:=small;
+x0=midloc; y0=h/2;
+x1=x3=leftloc; y1=0; y3=h; x2=x1+beta; y2=h/2;   % the parens
+x4=x2; x5=rightloc; y4=y5=y1;          % bottom of Y
+x6=x7=0.5[x4,x5]; y6=1/3h; y7=y3;      % stem of Y
+x9=0.5[x6,x5]; y9=0.5[y6,y7];          % horizontal right
+x8'=leftloc; y8'=y9;
+path p; 
+p=z1..z2..z3;
+z8 = (z9--z8') intersectionpoint p;
+draw p;                        % paren
+draw z4--z6--z5; draw z6--z7;  % Y
+draw z9--z8;                   % horizontal
+labels(1,2,3,4,5,6,7,8,9); endchar;
+ 
+%    \end{macrocode}
+% \end{routine}
+%
+% \begin{routine}{ta}
+%    The sign \textit{ta}. 
+%    \begin{macrocode}
+cmchar "Cypriot sign ta";
+beginglyph("t",0.4);
+x1=x2=leftloc; y1=0; y2=h;            % left vertical
+z3=0.5[z1,z2];                        % horizontal
+x4=rightloc; y4=y3;
+draw z1--z2; draw z3--z4;
+labels(1,2,3,4);
+endchar;
+
+%    \end{macrocode}
+% \end{routine}
+%
+% \begin{routine}{te}
+%    The sign \textit{te}. A downward arrow on a base.
+%    \begin{macrocode}
+cmchar "Cypriot sign te";
+beginglyph("T",0.6);
+x1=leftloc; x2=midloc; x3=rightloc; y1=y3=1/3h; y2=0;  % arrowhead
+x4=leftloc; x5=rightloc; y4=y5=0;       % base
+x6=midloc; y6=h;                        % stem
+draw z1--z2--z3;  % arrowhead
+draw z4--z5;      % base
+draw z6--z2;      % stem
+labels(1,2,3,4,5,6,7,8); endchar;
+ 
+%    \end{macrocode}
+% \end{routine}
+%
+% \begin{routine}{ti}
+%    The sign \textit{ti}. An upward arrow.
+%    \begin{macrocode}
+cmchar "Cypriot sign ti";
+beginglyph("3",0.6);
+x1=leftloc; x2=midloc; x3=rightloc; y1=y3=2/3h; y2=h;  % roof
+x4=midloc; y4=0;  % stem
+draw z1--z2--z3;  % roof 
+draw z4--z2;  % stem
+labels(1,2,3,4,5,6,7,8); endchar;
+
+%    \end{macrocode}
+% \end{routine}
+%
+% \begin{routine}{to}
+%    The sign \textit{to}. Like an F.
+%    \begin{macrocode}
+cmchar "Cypriot sign to";
+beginglyph("4",0.6);
+numeric alpha; alpha:=0.25;
+x1=leftloc; x2=rightloc; y1=y2=h;     % top bar
+x3=x4=alpha[x1,x2]; y3=0; y4=y1;       % stem
+z5=2/3[z3,z4]; x6=x2; y6=y5;          % short arm
+draw z1--z2;    % top
+draw z3--z4;    % stem
+draw z5--z6;    % short
+labels(1,2,3,4,5,6); endchar;
+ 
+%    \end{macrocode}
+% \end{routine}
+%
+% \begin{routine}{tu}
+%    The sign \textit{tu}. Like an slanted F with dashes under lower arm.
+%    \begin{macrocode}
+cmchar "Cypriot sign tu";
+beginglyph("5",0.6);
+numeric alpha, beta; alpha:=0.2;  % slant
+x3=leftloc; x2=rightloc; y3=0; y2=h;  % minmax points
+x1=alpha[x3,x2]; y1=y2;               % top bar
+x7-x3=x2-x1; y7=0; 
+z5=2/3[z3,z1]; z6=2/3[z7,z2];         % short arm
+%%z8=0.7[z3,z7];
+z8=z7 shifted (small*left);
+beta=0.5*(y6-y3);     % dash size
+z9=z7 shifted (beta*up);
+z10=z8 shifted (beta*up);
+draw z1--z2;                % top
+draw z3--z1;                % stem
+draw z5--z6;                % short
+draw z7--z9; draw z8--z10;  % dashes
+labels(1,2,3,4,5,6,8,9,10); endchar;
+ 
+%    \end{macrocode}
+% \end{routine}
+%
+% \begin{routine}{wa}
+%    The sign \textit{wa}. Like |> <| with a |^| at the bottom.
+%    \begin{macrocode}
+cmchar "Cypriot sign wa";
+beginglyph("w",0.8);
+numeric beta; beta:=small;
+x1=x3=leftloc; x4=x6=rightloc; y1=y4=0; y3=y6=h;  % minmax points
+x2=midloc-beta; x5=midloc+beta; y2=y5=h/2;
+x8=midloc; y8=y5-beta;
+z7-z8=whatever*(z1-z2); z9-z8=whatever*(z4-z5); y7=y9=0;
+draw z1--z2--z3;      % left angle
+draw z4--z5--z6;      % right angle
+draw z7--z8--z9;      % bottom angle
+labels(1,2,3,4,5,6,7,8,9); endchar;
+ 
+%    \end{macrocode}
+% \end{routine}
+%
+% \begin{routine}{we}
+%    The sign \textit{we}. A capital I.
+%    \begin{macrocode}
+cmchar "Cypriot sign we";
+beginglyph("W",0.4);
+x1=x2=midloc; y1=0; y2=h;
+x3=x4=leftloc; x5=x6=rightloc; 
+y3=y5=0; y4=y6=h;
+draw z1--z2;   % stem
+draw z3--z5; draw z4--z6;
+labels(1,2,3,4,5,6); endchar;
+
+%    \end{macrocode}
+% \end{routine}
+%
+% \begin{routine}{wi}
+%    The sign \textit{wi}. Like |>`<|.
+%    \begin{macrocode}
+cmchar "Cypriot sign wi";
+beginglyph("6",0.8);
+numeric beta; beta:=small;
+x1=x3=leftloc; x4=x6=rightloc; y1=y4=0; y3=y6=h;  % minmax points
+x2=midloc-beta; x5=midloc+beta; y2=y5=h/2;
+x8=midloc; y8=y5+beta;
+%%z7-z8=whatever*(z1-z2); z9-z8=whatever*(z4-z5); y7=y9=0;
+x9=x8; y9=h;
+draw z1--z2--z3;      % left angle
+draw z4--z5--z6;      % right angle
+draw z8--z9;          % top line
+labels(0,1,2,3,4,5,6,7,8,9); endchar;
+
+%    \end{macrocode}
+% \end{routine}
+%
+% \begin{routine}{wo}
+%    The sign \textit{wo}. Like a left turn arrow.
+%    \begin{macrocode}
+cmchar "Cypriot sign wo";
+beginglyph("7",0.6);
+numeric rad;
+x1=leftloc; x2=midloc; x3=rightloc; y1=y3=2/3h; y2=h;  % head
+x4=x1; x5=0.5[x4,x2]; y4=y5=0;  % bottom points
+rad:=(x2-x5);
+x6=x2; y6=y5+rad;
+draw z1--z2--z3;         % arrow head
+draw z4--z5..z6--z2;     % stem
+labels(1,2,3,4,5,6,7,8); endchar;
+ 
+%    \end{macrocode}
+% \end{routine}
+%
+% \begin{routine}{xa}
+%    The sign \textit{xa}. Like |)(|.
+%    \begin{macrocode}
+cmchar "Cypriot sign xa";
+beginglyph("x",0.6);
+numeric beta; beta:=small;
+x0=midloc; y0=h/2;
+x1=x3=leftloc; x4=x6=rightloc; y1=y4=0; y3=y6=h;
+y2=y5=y0; x2=x1+beta; x5=x4-beta;
+draw z1...z2{up}...z3;    % left half
+draw z4...z5{up}...z6;    % right half
+labels(0,1,2,3,4,5,6); endchar;
+
+%    \end{macrocode}
+% \end{routine}
+%
+% \begin{routine}{xe}
+%    The sign \textit{xe}. Like |(-!|.
+%    \begin{macrocode}
+cmchar "Cypriot sign xe";
+beginglyph("X",0.6);
+numeric beta; beta:=small;
+x0=midloc; y0=h/2;
+x2=leftloc; x1=x3=x2+beta; y1=0; y2=y0; y3=h; % the parenthesis
+x4=x1+beta; y4=y5=y0;
+x5=x6=x7=rightloc; y6=beta; y7=h-beta;
+draw z1...z2{up}...z3;    % the paren
+draw z4--z5; draw z6--z7; % righr half
+labels(0,1,2,3,4,5,6); endchar;
+
+%    \end{macrocode}
+% \end{routine}
+%
+%
+% \begin{routine}{zo}
+%    The sign \textit{zo}. Two lightning flashes.
+%    \begin{macrocode}
+cmchar "Cypriot sign zo";
+beginglyph("9",0.6);
+%%beginglyph("P",0.3);
+numeric beta; 
+beta:=0.25*(rightloc-leftloc);  
+xl=leftloc; xr=rightloc;
+x0=0.25[xl,xr]; y0=h/2;      % left flash
+%%x0=midloc; y0=h/2;
+x1=x0+beta; x4=x0-beta; y1=h; y4=0;      % lightning top and bottom
+x2=x0-beta; x3=x0+beta;                  % lightning middle points
+y2=y0+0.5beta; y3=y0-0.5beta;
+x0'=0.75[xl,xr]; y0'=y0;     % right flash
+x11=x0'+beta; x14=x0'-beta; y11=h; y14=0;      % lightning top and bottom
+x12=x0'-beta; x13=x0'+beta;                    % lightning middle points
+y12=y0'+0.5beta; y13=y0'-0.5beta;
+draw z1--z2--z3--z4;              % left flash
+draw z11--z12--z13--z14;          % right flash
+labels(0,0',1,2,3,4,11,12,13,14); endchar;
+ 
+%    \end{macrocode}
+% \end{routine}
+%
+% \subsubsection{The word divider}
+%
+%    There is a word divider.
+% Hyphenation was, of course, unknown but it might be useful to
+% leave the normal character position for the hyphen (i.e., octal 055)
+% empty allowing, perhaps, \TeX{} to perform hyphenation but without
+% marking it.
+%
+% \begin{routine}{,}
+%    A word divider coded as a comma. It is a short vertical line above the
+% text baseline.
+%    \begin{macrocode}
+cmchar "Cypriot word divider (1)";
+beginglyph(",",0.1);
+x1=x2=midloc; y1=0.2h; y2=0.4h;
+draw z1--z2;
+labels(1,2); endchar;
+
+%    \end{macrocode}
+% \end{routine}
+%
+% \begin{routine}{:}
+%    A word divider coded as a colon. It is a short vertical line above the
+% text baseline.
+%    \begin{macrocode}
+cmchar "Cypriot word divider (2)";
+beginglyph(":",0.1);
+x1=x2=midloc; y1=0.2h; y2=0.4h;
+draw z1--z2;
+labels(1,2); endchar;
+
+%    \end{macrocode}
+% \end{routine}
+%
+% \begin{routine}{/}
+%    A word divider coded as a forward slash. It is a short vertical line above the
+% text baseline.
+%    \begin{macrocode}
+cmchar "Cypriot word divider (3)";
+beginglyph("/",0.1);
+x1=x2=midloc; y1=0.2h; y2=0.4h;
+draw z1--z2;
+labels(1,2); endchar;
+
+%    \end{macrocode}
+% \end{routine}
+%
+%
+%    The end of this file
+%    \begin{macrocode} 
+end
+
+%</up> 
+%    \end{macrocode}
+%
+%
+%
+% \Finale
+%
+\endinput
+
+%% \CharacterTable
+%%  {Upper-case    \A\B\C\D\E\F\G\H\I\J\K\L\M\N\O\P\Q\R\S\T\U\V\W\X\Y\Z
+%%   Lower-case    \a\b\c\d\e\f\g\h\i\j\k\l\m\n\o\p\q\r\s\t\u\v\w\x\y\z
+%%   Digits        \0\1\2\3\4\5\6\7\8\9
+%%   Exclamation   \!     Double quote  \"     Hash (number) \#
+%%   Dollar        \$     Percent       \%     Ampersand     \&
+%%   Acute accent  \'     Left paren    \(     Right paren   \)
+%%   Asterisk      \*     Plus          \+     Comma         \,
+%%   Minus         \-     Point         \.     Solidus       \/
+%%   Colon         \:     Semicolon     \;     Less than     \<
+%%   Equals        \=     Greater than  \>     Question mark \?
+%%   Commercial at \@     Left bracket  \[     Backslash     \\
+%%   Right bracket \]     Circumflex    \^     Underscore    \_
+%%   Grave accent  \`     Left brace    \{     Vertical bar  \|
+%%   Right brace   \}     Tilde         \~}
+
+

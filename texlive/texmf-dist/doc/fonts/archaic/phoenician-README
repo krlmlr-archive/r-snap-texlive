@@ -1,0 +1,87 @@
+    The phoenician bundle provides Postscript Type1 fonts for the semitic 
+script in use from about 1600 BC, and which formed the basis for all the 
+world's alphabets. Mirrored forms are provided for typesetting either 
+left-to-right or right-to-left (as the Phoenicians did). This is one of a 
+series for archaic scripts.
+
+Changes in version 2.2 (2006/02/05)
+o Changes to the glyphs for aleph, lamed and yod.
+
+Changes in version 2.1 (2005/04/04)
+o Font supplied as Postscript Type1 instead of MetaFont
+
+Changes in version 2.0 (2000/10/01)
+o Changes to practically everything
+
+Changes in version 1.0 (1999/03/14)
+o First public release
+
+    If you need to ask questions, please ask them on the comp.text.tex 
+newsgroup.
+
+------------------------------------------------------------------
+  Author: Peter Wilson (Herries Press) herries dot press at earthlink dot net
+  Copyright 1999--2006 Peter R. Wilson
+
+  This work may be distributed and/or modified under the
+  conditions of the Latex Project Public License, either
+  version 1.3 of this license or (at your option) any
+  later version.
+  The latest version of the license is in
+    http://www.latex-project.org/lppl.txt
+  and version 1.3 or later is part of all distributions of
+  LaTeX version 2003/06/01 or later.
+
+  This work has the LPPL maintenance status "author-maintained".
+
+  This work consists of the files:
+    README (this file)
+    phoenician.dtx
+    phoenician.ins
+    phoenician.pdf
+  and the derived files
+    phoenician.sty
+    ot1phnc.fd
+    t1phnc.fd
+    phoenician.map
+    and possibly phnc10.mf
+
+------------------------------------------------------------------
+     The distribution consists of the following files:
+README (this file)
+phoenician.dtx
+phoenician.ins
+phoenician.pdf     (user manual)
+tryphnc.tex  (example usage)
+tryphnc.pdf
+phnc10.afm
+phnc10.pfb
+phnc10.tfm
+
+    To install the package:
+o run: latex phoenician.ins, which will generate:
+       phoenician.sty
+       *.fd files
+       phoenician.map
+o Move *.sty and *.fd files to a location where LaTeX will find them
+    e.g., .../texmf-local/tex/latex/phoenician
+o Move *.afm, *.pfb and *.tfm files to where LaTeX looks for font information
+    e.g., .../texmf-var/fonts/afm/public/archaic/*.afm
+          .../texmf-var/fonts/type1/public/archaic/*.pfb
+          .../texmf-var/fonts/tfm/public/archaic/*.tfm
+o Add the *.map information to the dvips/pdftex font maps
+o Refresh the database
+ (for more information on the above see the FAQ).
+
+o run: (pdf)latex tryphnc for a test of the font
+
+    To generate a second copy of the manual (which is already supplied as a PDF file):
+o run: latex phoenician.dtx
+o (for an index run: makeindex -s gind.ist *.idx)
+o run: latex *.dtx
+o Print *.dvi for a hardcopy of the package manual
+
+2005/02/05
+Peter Wilson
+herries dot press at earthlink dot net
+

@@ -1,0 +1,42 @@
+Copyright (c) 2011 Mike Kaufmann
+m.km@gmx.de
+Licence: LPPL
+<http://www.ctan.org/tex-archive/help/Catalogue/licenses.lppl.html>
+
+
+1. What is it
+The Beamer SubFrame package provides a method to reorder frames in the
+PDF file without reordering the source. Mainly, it is meant to embed or
+append frames with details on some subject.
+
+This package is in an early state of development (it's version 0.2).
+It is already useful, but there are some restrictions. And although
+it's not planned, the user interface may change in the future.
+
+
+2. Generating beamersubframe.sty
+Simply run:    tex beamersubframe.ins
+
+The file beamersubframe.dtx also contains a small example. You will be asked,
+if you want to generate it.
+
+
+3. Making the Documentation
+To get contents, cross references and index right, run TeX and makeindex
+as follows:
+
+pdflatex beamersubframe.dtx
+makeindex -s gind.ist beamersubframe.idx
+pdflatex beamersubframe.dtx
+pdflatex beamersubframe.dtx
+
+
+4. Files
+README                      this file
+beamersubframe.dtx
+beamersubframe.ins          the package
+beamersubframe.pdf          the manual
+beamersubframe-append.pdf
+beamersubframe-embed.pdf    pictures used in manual
+beamersubframe-append.svg
+beamersubframe-embed.svg    source of pictures (inkscape)

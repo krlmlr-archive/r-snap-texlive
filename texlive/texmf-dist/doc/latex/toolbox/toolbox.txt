@@ -1,0 +1,790 @@
+
+%%#
+%%# Author:
+%%#
+%%# M. V\"ath      martin@mvath.de
+%%#
+%%# The author thanks
+%%#     David Kastrup <David.Kastrup@neuroinformatik.ruhr-uni-bochum.de>
+%%#
+
+%%# The package may be distributed and/or modified under the conditions of
+%%# the LaTeX Project Public License (version 1.3c or later).
+
+%%#############################################################################
+%%#
+%%#  The TeX programmer's toolbox; enhanced version.
+%%#  This (La)TeX package provides some macros which are convenient for
+%%#  writing indices, glossaries, or other macros.
+%%#  It contains macros which support
+%%#
+%%#    - implicit macros - a useful supplement to \index or varindex for
+%%#      writing glossaries or indices
+%%#    - fancy optional arguments
+%%#    - loops over tokenlists and itemlists
+%%#    - searching, splitting, and replacing
+%%#    - controlled expansion
+%%#    - redefinition of macros
+%%#    - concatenated macro names
+%%#
+%%#############################################################################
+
+%%#
+%%# This package was tested with plain TeX, LaTeX 2.09, and LaTeX 2e,
+%%# and it should actually run with all TeX formats.
+%%#
+
+
+%%# To use toolbox, you have to put `toolbox.sty' in a path where TeX looks
+%%# for its input files. The TeX documents using toolbox need the
+%%# following modifications in their header:
+%%#
+%%# a) If you use LaTeX2.09, use toolbox as a style option, e.g.
+%%#      \documentstyle[toolbox]{article}
+%%#    or
+%%#      \documentstyle[toolbox,12pt]{article}
+%%# b) If you use LaTeX2e, put in the preamble the command
+%%#      \usepackage{toolbox}
+%%# c) If you use some other (non-LaTeX) format, you will probably have to
+%%#    insert a line like
+%%#          \catcode`\@=11\input toolbox.sty\catcode`\@=12\relax
+%%#
+%%# The only LaTeX-specific commands used in `toolbox.sty' are:
+%%#
+%%#   \newcommand (only in the form \newcommand{\command}{} to ensure that
+%%#                 \command was not defined before)
+%%#   \ProvidesPackage
+%%#   \typeout
+%%#
+%%#   The above commands are used only if they are defined.
+%%#
+
+%%#
+%%# Description of the provided macros:
+%%#
+
+%%# General remark: Many macros could appear in several sections.
+%%# For example, \toolboxMakeDef and \toolboxSourround might be considered
+%%# as macros which support redefinitions of macros. However, we put them
+%%# in different sections which perhaps explain better their nature.
+
+%%#
+%%# Implicit macro definitions
+%%# --------------------------
+
+%%# What we mean by implicit macro definitions is probably best explained by
+%%# the following examples which show the intended usage:
+%%#
+%%# (In the following examples, we always refer to the \index command. Note
+%%# that it may be more convenient to use for indices the varindex package in
+%%# addition - the documentation of varindex (release 2.3 or newer) gives
+%%# additional hints and examples how these two (essentially independent)
+%%# approaches can be combined in practice).
+%%#
+%%# Assume that you want to write an index for a book which has rather
+%%# long and complicated \index entries. The first idea that one might have in
+%%# this connection is to put the various \index commands at the beginning of
+%%# the document into several macros (one for each \index entry), and to use
+%%# just these macros in the main text. For example, one might want to write
+%%# near the beginning of the document commands like
+%%#   \newcommand{\Start}{\index{finish or end}}
+%%#   \newcommand{\End}{\index{finish or end}}
+%%# and then to use in the main text \Start and \End whenever a reference
+%%# in the corresponding index to the current place is desired.
+%%# However, this has two major disadvantages:
+%%#  1. Unless you are very disciplinary with your macro names, it is easy to
+%%#     forget that \End writes an index entry. So the \End in the main text
+%%#     might be very confusing.
+%%#  2. You cannot choose short and intuitive macro names for common phrases,
+%%#     because they are usually already reserved by TeX, LaTeX, or some
+%%#     packages.
+%%#
+%%# To avoid these problems, one may be very disciplinary and call the
+%%# involved macros systematically e.g. \GlossaryStart \GlossaryEnd etc.
+%%# However, this produces terrible long and unreadable macro names in the
+%%# main text.
+%%#
+%%# The implicit macro definitions of "toolbox" provide a more convenient
+%%# solution. The idea is that you do not use the corresponding macros directly
+%%# but only implicitly by a call of other macros where your "macro name" is
+%%# just an argument.
+%%# Moreover, "toolbox" assists you in writing the corresponding definitions.
+%%# For example, if you know that you want a set of macros which all expand
+%%# into something of the form \index{...}, you can give a ``mask'' which
+%%# contains this form, and you only have to fill in the changing content
+%%# (similarly as for usual TeX macros with arguments, but the level of
+%%# abstraction is one step higher).
+%%# For the above task, you might use the command:
+%%#
+%%#    \toolboxMakeDef{Glossary}{\index{#1}}
+%%#
+%%# The argument `Glossary' serves to distinguish independent definitions
+%%# (this will become clear later). Its effect visible now is that it
+%%# determines the name of the following macros which you can use after
+%%# the above call:
+%%#
+%%#    \NewGlossary{start-1}{start}
+%%#    \NewGlossary{start-2}{start or beginning}
+%%#    \NewGlossary{end}{finish or end}
+%%#
+%%# These command are now similar to the \newcommand definitions explained
+%%# above. However, there is no name collision with the TeX-internal command
+%%# \end. Of course, this means that you cannot just write \end in the main
+%%# text to get the desired index entry. Instead, you have to write the more
+%%# intuitive commands
+%%#
+%%#    \Glossary{start-1}
+%%#    \Glossary{start-2}
+%%#    \Glossary{end}
+%%#
+%%# (again, the name \Glossary stems from our first call of \toolboxMakeDef).
+%%# Note that e.g. \Glossary{start-1} expands not only to `start' but
+%%# actually to \index{start} (because of our first call of \toolboxMakeDef).
+%%# Note also that you can use symbols like - or numbers which are usually
+%%# not allowed in TeX macro names.
+%%#
+%%# Of course, similarly as for \newcommand, you can also do other things with
+%%# the macros. For example,
+%%#
+%%#    \LetGlossary\tempname{end}
+%%#    \NewGlossary*{finish}\tempname
+%%#
+%%# will first define \tempname to expand to the same text as \Glossary{end},
+%%# and then defines a new entry \Glossary{finish} to expand to the same text
+%%# as \tempname. Hence, the above new lines make the calls \Glossary{end} and
+%%# \Glossary{finish} equivalent.
+%%#
+%%# At the end of your list of \NewGlossary commands, you might want to put
+%%#
+%%#    \toolboxFreeDef*{Glossary}
+%%#
+%%# The purpose of this command is that \NewGlossary cannot be used anymore
+%%# (unless, of course, you define it again). So you cannot unintentionally
+%%# add new entries to your glossary list (but you still can use \Glossary{...}
+%%# to reference to the already produced entries).
+%%# Moreover, the above command frees some memory which was needed for
+%%# \NewGlossary to work.
+%%#
+%%# If you additionally want to free the memory used by \Glossary, you can use
+%%#
+%%#    \toolboxFreeDef{Glossary}
+%%#
+%%# (without the `*'). This may be necessary, if you want to call again e.g.
+%%#
+%%#    \toolboxMakeDef{Glossary}{\emph{#1}\index{#1}}
+%%#
+%%# (if you have not freed the memory for \Glossary before this repeated call,
+%%# TeX will complain that \Glossary is already defined).
+%%#
+%%# Of course, it is possible to call \toolboxMakeDef with several different
+%%# names, for example, for \Glossary, \SymbolList etc. Another application
+%%# might be to use a different command to mark e.g.\ the main occurrence of
+%%# some index entry or to output additionally the entry into the running text.
+%%# We do this in the following example which simultaneously
+%%# demonstrates that the names can also be constructed in another way:
+%%#
+%%#   \toolboxMakeDef[Ind]{}{\index{#1}}
+%%#   \toolboxMakeDef[Ind]{Main}{\index{#1|textbf}}
+%%#   \toolboxMakeDef{OutInd}{#1}
+%%#
+%%#   \IndNew{A}{A is a letter}
+%%#   \IndNewMain{A}{A is a letter}
+%%#   \NewOutInd{A}{\textbf{The letter A}\Ind{A}}
+%%#
+%%# After the above commands, you can use \Ind{A}, \IndMain{A}, and
+%%# \OutInd{A} to produce the corresponding \index entry, the "main" \index
+%%# entry (with a boldface page number), and the text \textbf{The letter A}
+%%# with an additional entry into the index, respectively.
+%%# Of course, it might usually be more convenient to define the \Ind and
+%%# \IndMain" entries simultaneously, e.g. as follows
+%%#
+%%#    \toolboxMakeDef[Ind]{}{#1}
+%%#    \toolboxMakeDef[Ind]{Main}{#1}
+%%#    \newcommand{\NewStandardInd}[2]{%
+%%#       \IndNew{#1}{\index{#2}}%
+%%#       \IndNewMain{#1}{\index{#2|textbf}}}
+%%#
+%%#    \NewStandardInd{A}{A is a letter}
+%%#
+%%# This approach has the additional advantage that you can define exceptional
+%%# cases "by hand" (e.g. if you want that for certain "main" index
+%%# entries the page number is printed with "\textsl" instead of "\textbf").
+
+%%# Since the motivation for implicit definitions now is hopefully clear,
+%%# let us now describe in detail which commands are provided by "toolbox"
+%%# for this purpose.
+%%# As explained in the example, the main generic macro provided to this
+%%# purpose is \toolboxMakeDef. Its call syntax is as follows:
+%%#
+%%# \toolboxMakeDef[Prefix]{Name}{ReplacementMask}
+%%#
+%%# (the argument [Prefix] is optional and by default empty).
+%%# The above command generates new macros
+%%#
+%%# \PrefixNewName
+%%# \PrefixRenewName
+%%# \PrefixProvideName
+%%# \PrefixDefName
+%%# \PrefixLetName
+%%# \PrefixName
+%%#
+%%# which in turn can be called as follows
+%%#
+%%# \PrefixNewName{something}{RememberText}
+%%# \PrefixRenewName{something}{RememberText}
+%%# \PrefixProvideName{something}{RememberText}
+%%# \PrefixDefName{something}{RememberText}
+%%# \PrefixNewName*{something}{\SomeMacro}
+%%# \PrefixRenewName*{something}{\SomeMacro}
+%%# \PrefixProvideName*{something}{\SomeMacro}
+%%# \PrefixDefName*{something}{\SomeMacro}
+%%# \PrefixLetName{\SomeMacro}{something}
+%%# \PrefixName{something}
+%%# \PrefixName*{something}
+%%#
+%%# These calls are in a sense similar to the respective commands
+%%#
+%%# \newcommand{\something}{RememberText}
+%%# \renewcommand{\something}{RememberText}
+%%# \providecommand{\something}{RememberText}
+%%# \def\something{RememberText}
+%%# \newcommand{\something}{}\let\something\SomeMacro
+%%# \renewcommand{\something}{}\let\something\SomeMacro
+%%# \@ifundefined\something{\let\something\SomeMacro}{}
+%%# \let\something\SomeMacro
+%%# \let\SomeMacro{\something}
+%%# \something
+%%# \something (but without error if \something is undefined).
+%%#
+%%# with the differences already pointed out before:
+%%# 1. The macro name actually used is not \something. Instead, it is a name
+%%#    which does not conflict with any existing macro (except one
+%%#    generated previously by another \PrefixNewName, but in this case a
+%%#    descriptive error is reported). For this reason, it is not possible to
+%%#    use this macro directly but only indirectly by the call
+%%#    \PrefixName{something} (or with \PrefixLetName).
+%%# 2. The replacement text is not `RememberText' but determined by
+%%#    ReplacementMask where every occurrence of #1 in ReplacementMask is
+%%#    replaced by RememberText (recall the examples). If you want to have the
+%%#    plain RememberText, use {#1} as ReplacementMask.
+%%#
+%%# Since toolbox 4.2 there is another slight difference: The symbol '#'
+%%# is treated as usual and not as in a macro definition.
+%%#
+%%# \toolboxMakeDef gives an error message if the commands
+%%# \Prefix... are already defined. If you intentionally want to
+%%# change a previous definition, you have to call the command
+%%#
+%%#    \toolboxFreeDef[Prefix]{Name}
+%%#
+%%# before. The latter not only lets all of the macros \Prefix... be
+%%# \undefined, but also frees all other memory internally used by the
+%%# corresponding call of \toolboxMakeDef
+%%# (note, however, that the above command does not free the
+%%# memory allocated before by calls of \PrefixNew... - to free the latter,
+%%# you have to call subsequently e.g.
+%%#
+%%#    \PrefixNewName*{...}{\undefined}
+%%#
+%%% before). There is also the command
+%%#
+%%#    \toolboxFreeDef*[Prefix]{Name}
+%%#
+%%# which acts similarly as \toolboxFreeDef but which does not undefine the
+%%# two macros \PrefixName and \PrefixLetName.
+%%#
+
+%%#
+%%# Fancy optional argument parsing
+%%# -------------------------------
+
+%%# This section contains macros which are convenient if you e.g. write a
+%%# package that contains macros which contain a lot of optional arguments
+%%# and flags (like "*").
+%%# Typically, to read such an optional argument or flag, you save
+%%# the next token with \futurelet and then call a macro which decides what to
+%%# do with the token read. Thus, a typical use of \futurelet looks like
+%%#
+%%#    \def\MacroWithOptionalFlag{\futurelet\tokread\myscan}
+%%#
+%%# which will define \tokread to be the token *following* the macro
+%%# \MacroWithOptionalFlag in the token stream and then execute \myscan.
+%%# In this context, it is not very convenient that you are *forced*
+%%# to define a macro \myscan: It could be more convenient if you could just
+%%# write the *content* of \tokread (in braces) into the above definition.
+%%# You can indeed do this if you replace \futurelet by \toolboxFuturelet:
+%%#
+%%# \toolboxFuturelet\token{argument}
+%%#
+%%# The call \toolboxFuturelet\token{\command} has precisely the same effect as
+%%# \futurelet\token\command. The advantage of \toolboxFuturelet is that
+%%# instead of a single \command one may use also a sequence of commands.
+
+%%# Let us consider \MacroWithOptionalFlag as above. Assume that the user
+%%# has called this macro in the form "\MacroWithOptionalFlag*" where the
+%%# "*" is a flag which should cause your macro to do something slightly
+%%# different. On some place in your macro definition you will have recognized
+%%# (e.g. with \futurelet or \toolboxFuturelet) that a "*" is following
+%%# in the calling sequence. So you now want to execute your action
+%%# (whatever \MacroWithOptionalFlag is supposed to do).
+%%# However, if you do not take special care, after this action, TeX will
+%%# print a "*", because this is the next token on the token stream: \futurelet
+%%# does not delete any tokens. So you have to "gobble" this token away.
+%%# A rude way to do this is by using the macro \gobblenext as the last token
+%%# in you macro which can be defined by
+%%# \begin{verbatim}
+%%# \def\gobblenext#1{}\end{verbatim}
+%%# However, this has two major drawbacks:
+%%#
+%%# 1. This works for "*", but not for "{" or space tokens.
+%%#    For space tokens the situation is even worse, since TeX eats spaces
+%%#    around arguments, so sometimes space tokens might unexpectedly
+%%#    disappear.
+%%# 2. It is not possible in this way to read another argument following
+%%#    the "*": Recall that \gobblenext must be the *last* token in your
+%%#    macro expansion, i.e. you have "lost control" after this call.
+%%#
+%%# The solution to these problems is instead of calling \gobblenext to use
+%%# \toolboxGobbleNext as the last command in your call:
+%%# You can pass it an argument which describes the action that
+%%# you want to do *after* gobbling the next token ("*" in the above example)
+%%# from the token stream. Thus
+%%#
+%%# \toolboxGobbleNext{cmd}
+%%#
+%%# erases the token following that command from the token stream and
+%%# then executes cmd. This is similar to
+%%#   \def\toolboxGobbleNext#1#2{#1}
+%%# with the difference that #2 is considered as a token and that no spaces
+%%# are eaten.
+%%# The effect is that e.g. the call
+%%#
+%%# Example:
+%%#  \toolboxGobbleNext{\foo}{{arg}
+%%# is the same as \foo{arg} (the brace "{" is eaten in this example).
+
+%%# As described earlier, the commands "\futurelet" or "\toolboxFuturelet" can
+%%# be used to check for optional flags. Frequently you will only want
+%%# to test for one particular flag and decide the next action on this flag.
+%%# Of course, you can test the token found with \ifx...\f", but this has the
+%%# disadvantage that some tokens (e.g. \fi) follow your action, which might
+%%# be bad (recall that e.g. \toolboxGobbleNext must be the last command of
+%%# your action, i.e. it would in the above examples not gobble the "*" but
+%%# the "\fi" which is probably not what you want).
+%%# The simplest solution is to use the command \toolboxIfNextToken which
+%%# already has the test included. For example, to test for an optional "[",
+%%# you can simply write
+%%#
+%%# \def\MacroWithOptionalBrace{\toolboxIfNextToken[{\yes}{\no}}
+%%#
+%%# and then the call "\MacroWithOptionalBrace[...]" will expand to "\yes[...]"
+%%# while "\MacroWithOptionalBrace x" will expand to "\no x"
+%%# (note that the brace is not gobbled - if you want the latter,
+%%# use "\toolboxIfNextGobbling" described below).
+
+%%# More precisely, the calling syntax of "\toolboxIfNextToken" is
+%%#
+%%# \toolboxIfNextToken{token}{IfPart}{ElsePart}
+%%#
+%%# The semantic is the following:
+%%# If the token following this command is `token', then IfPart is executed,
+%%# otherwise ElsePart. It is explicitly admissible that `token' is a space.
+%%# To support further tests, \toolboxToken is \let to the token which follows
+%%# the command. \toolboxToken is only a temporary token, i.e.
+%%# it may also be modified by other commands of this package; in particular,
+%%# you may also freely to modify \toolboxToken.
+%%# The token \toolboxSpaceToken which is described later may be handy
+%%# in connection with this command.
+%%#
+%%# In contrast to similar LaTeX2e macros much care has been taken
+%%# that spaces are not eaten. This solves the following problem:
+%%#
+%%# Assume that you want to write a macro which should have the calling syntax
+%%# "\mymacro{arg1}" or "\mymacro{arg1}[arg2]". You will probably implement
+%%# \mymacro to read the first argument and then to look whether the next
+%%# token is a "[". If you use the LaTeX2e macro to test for "[",
+%%# then all spaces until the next non-space token would be gobbled which means
+%%# that if you would use the LaTeX2e macros for the test, then the call
+%%# "\mymacro{arg1} Text" would behave like "\mymacro{arg1}Text",
+%%# i.e. the space is `mysteriously' lost. With the "toolbox" macros this
+%%# does not happen. The `disadvantage' is that "\mymacro{arg1} [arg2]"
+%%# is not the same as "\mymacro{arg1}[arg2]" (which is reasonable IMHO).
+%%#
+%%# Example:
+%%#
+%%# \def\mycmd#1{\toolboxIfNextToken[{\ParseOpt{#1}}{\NoOpt{#1}}}
+%%#    \def\ParseOpt#1[#2]{\OptAtEnd{#1}{#2}}
+%%#
+%%# After the above definition, \mycmd{arg} executes \NoOpt{arg} while
+%%# \mycmd{arg}[optional]  executes \OptAtEnd{arg}{optional}
+%%# We point out once more that in the first call a space following
+%%# \mycmd{arg} does not vanish (as would be the case if the LaTeX 2e macros
+%%# would have been used).
+
+%%# If \toolboxIfNextToken has found the required token, it does *not*
+%%# gobble that token from the token stream. Of course, you can do this by
+%%# yourself using the earlier described macro \toolboxGobbleNext. However,
+%%# it is simpler to use
+%%#
+%%# \toolboxIfNextGobbling{token}{IfPart}{ElsePart}
+%%#
+%%# This command is analogous to \toolboxIfNextToken with the difference that
+%%# in the case that the next token is the desired token, it is gobbled before
+%%# IfPart is executed.
+%%#
+%%# Example:
+%%#
+%%# \def\myloop{\toolboxIfNextGobbling*\toolboxTokenLoop\toolboxLoop}
+%%#
+%%# This makes \myloop*... behave like \toolboxTokenLoop, and
+%%# \myloop... (without *) behave like \toolboxLoop.
+
+%%# The following macro is one which you may want to use in connection with
+%%# LaTeX 2e optional arguments:
+%%#
+%%# \toolboxIfEmpty{arg}{IfPart}{ElsePart}
+%%#
+%%# The argument is not expand; it is only used to decide whether the
+%%# {IfPart} or the {ElsePart} will be expanded.
+%%# For further tests there are more involved macros:
+%%#
+%%# \toolboxIfx{arg}\macro{IfPart}{ElsePart}
+%%#
+%%# This tests via \ifx whether \def\Macro{arg} would give the definition
+%%# of \macro.
+%%#
+%%# \toolboxIfX{arga}{argb}{IfPart}{ElsePart}
+%%#
+%%# This tests whether "arga" and "argb" are the same token sequences.
+%%# If you want to avoid the \else and \fi commands to avoid certain side
+%%# effects, you can use instead:
+%%#
+%%# \toolboxIfElse{ifcmd}{IfPart}{ElsePart}
+%%#
+%%# This is rather analogous to "ifcmd" IfPart \else ElsePart \fi
+%%# but has everything in this line already eliminated from the tokenlist
+%%# when IfPart resp. ElsePart are expanded.
+
+%%#
+%%# Loops over tokenlists and itemlists
+%%# -----------------------------------
+
+%%# \toolboxLoop{items}{action}
+%%#
+%%# This calls iteratively "action{#1}", where #1 runs over each item in the
+%%# argument items. Here, an item is either a token or a group braced by {...}.
+%%# In the latter case, the braces are lost. Spaces in items are ignored
+%%# (unless they are braced). It is admissible that \action is not a single
+%%# macro but instead a sequence of tokens.
+%%# Examples follow below.
+%%#
+%%# The counterintuitive order of arguments is explained by the fact that the
+%%# typical usage is
+%%# \expandafter\toolboxLoop\expandafter{\MacroExpandingToItems}{action}
+%%# which for swapped order of arguments could hardly be written.
+
+%%# \toolboxLoop is not reentrant i.e. "action" may not expand
+%%# to something which contains a call to \toolboxLoop. To enable such calls
+%%# anyway, the command
+%%#
+%%# \toolboxLoopName{name}{items}{\action}
+%%#
+%%# is provided which is analogous to \toolboxLoop. This is also not reentrant,
+%%# but in contrast to \toolboxLoop, calls with different `name' arguments can
+%%# be used independently of each other, i.e. in the `action' part of a
+%%# \toolboxLoop (or \toolboxLoopName) can be a call to \toolboxLoopName with
+%%# a *different* `name'.
+%%# In particular, using a counter in `name' one could easily implement
+%%# even recursive calls. In this connection, it should be noted that
+%%# `name' is expanded via \csname ... \endcsname, and so you may use
+%%# constructs like \the\namecounter there.
+
+%%# \toolboxTokenLoop{tokens}{\action}
+%%#
+%%# This is similar to \toolboxLoop: The command \action\toolboxToken
+%%# is executed iteratively where \toolboxToken runs over each token in tokens.
+%%# The important difference is that \toolboxToken is a token (instead of an
+%%# item). In particular, \toolboxToken runs through every single token
+%%# including spaces and braces.
+%%# The token \toolboxSpaceToken which is described later may be handy
+%%# in connection with this command.
+%%#
+%%# Example:
+%%#
+%%# \toolboxTokenLoop{Some text}{\kern0.1em}
+%%#
+%%# is the similar to "\kern0.1em S\kern0.1em o\kern0.1em m...", i.e. you
+%%# get wider spacing between the letters of "Some text" (I do not claim that
+%%# this is typographically a good idea).
+%%#
+%%# Note that you do not have to take special care about the space.
+%%# With \toolboxLoop, you would have to mask the space e.g. with
+%%#
+%%# \toolboxLoop{Some{ }text}{\kern0.1em}  or
+%%# \toolboxLoop{Some\toolboxSpace text}{\kern0.1em}
+%%#
+%%# In contrast, \toolboxTokenLoop would behave differently here:
+%%#
+%%# \toolboxTokenLoop{Some{ }text}{\kern0.1em}
+%%#
+%%# would produce \kern0.1em S...\kern0.1em{\kern0.1em <space>\kern0.1em}...
+%%# because the braces are simply considered as tokens.
+
+%%# \toolboxTokenLoop is not reentrant. Analogously to \toolboxLoopName,
+%%# independent versions can be generated by
+%%#
+%%# \toolboxTokenName{name}{tokens}{\action}
+
+%%#
+%%# Controlled expansion
+%%# --------------------
+
+%%# There are some occasions when you want more control over the expansion.
+%%# E.g. you might want to concatenate the contents of two macros to a
+%%# further macro or you want to expand a macro by one level but no full
+%%# expansion. Usually you can get this effects with \expandafter, but if
+%%# you expand several concatenated tokens in this way you either have to
+%%# write a lot of \expandafter's or you have to define subsidiary macros
+%%# that help you to \expandafter certain parts of macros. The macros in
+%%# this section allow you to do this in the most generic way that I could
+%%# implement.
+
+%%# \toolboxDef\macrotodefine{argumentlist}
+%%#
+%%# This call is similar to
+%%#    \def\macrotodefine{argumentlist}
+%%# with two important differences:
+%%#
+%%# For \toolboxDef, the argumentlist is expanded precisely by one level.
+%%# argumentlist may not contain macros with parameters, and spaces on the
+%%# highest level are ignored. If you want to force a space on a particular
+%%# place, use the macro \toolboxSpace at this place
+%%# (which is described later). Contrary to the usual \def, the symbol # is
+%%# treated as a usual symbol.
+%%#
+%%# Example of usage:
+%%#    \toolboxDef\chain{\chain\toolboxSpace\after}
+%%# This modifies the macro \chain such that a space and the content of the
+%%# macro \after is appended at the end.
+
+%%# \toolboxAppend\macrotodefine{arglist}
+%%#
+%%# This is equivalent to \toolboxDef\macrotodefine{\macrotodefine arglist}
+%%#
+
+%%# \toolboxSurround{ContentBefore}{ContentAfter}\macro
+%%#
+%%# This redefines \macro such that ContentBefore is put at the beginning
+%%# and ContentAfter after the definition of \macro. So this is equivalent to
+%%# \def\macro{ContentBefore * ContentAfter}
+%%# where * is the old content of \macro. It is required that \macro is a
+%%# usual macro without any arguments. If you want to patch more complicated
+%%# macros, use the patch.doc package instead.
+%%# The order of the arguments may appear strange, but it is convenient if
+%%# ContentBefore or ContentAfter are macros which should be expanded with
+%%# \expandafter.
+
+%%# There is some subsidiary macro used in the implementation of the above
+%%# macros which might be useful also in some other situations:
+%%#
+%%# \toolboxTokDef{argumentlist}\macrotodefine
+%%#
+%%# This call is similar to
+%%#    \def\macrotodefine{argumentlist}
+%%# with the difference that the symbol # is stored as such.
+%%# The order of the arguments has been swapped in order to simplify the
+%%# application of \expandafter to the argumentlist.
+
+%%#
+%%# Searching, splitting, and replacing
+%%# ----------------------------------
+
+%%# \toolboxSplitAt{argument}{search}{\beforestring}{\afterstring}
+%%#
+%%# Here, \beforestring and \afterstring are arbitrary macro names,
+%%# and search and argument are any sequences of tokens (which are in
+%%# the following considered as `strings').
+%%#
+%%# This call scans the string `argument' for the first occurrence of `search'.
+%%# The macros \beforestring and \afterstring are defined correspondingly
+%%# such that \beforestring expands to the part before the first occurrence,
+%%# and \afterstring to the part following the first occurrence.
+%%# If `search' does not occur in `argument', \beforestring is defined to
+%%# `argument', and \afterstring is \let \undefined.
+%%#
+%%# If \beforestring or \afterstring had already been defined before the
+%%# call, the previous definition is tacitly overridden.
+%%# It is explicitly allowed that \beforestring and \afterstring are the
+%%# same names. In this case, the result has the meaning of \afterstring.
+%%#
+%%# It is guaranteed that braces {...} are *not* lost in `argument'.
+%%# However, `search' may not contain any braces, and `argument' may contain
+%%# only matching pairs of braces. Moreover, occurrences of `search' within a
+%%# pair of braces in `argument' are not recognized.
+%%#
+%%# (The order of the arguments has been chosen in order to simplify the
+%%# use of \expandafter).
+%%#
+%%# There are some restrictions for the strings in search. For example,
+%%# the symbol '#' is not allowed.
+%%#
+%%# In the above call, the arguments may not run over several paragraphs.
+%%# If you want the latter, you have to use the alternative call
+%%#
+%%# \toolboxSplitAt*{argument}{search}{\beforestring}{\afterstring}
+%%#
+%%# Example of usage:
+%%#
+%%# \def\examplemacro#1{\toolboxSplitAt{#1}{@}\testme\testme
+%%#   \ifx\testme\undefined
+%%#      ... (do this when #1 contains no `@' token)
+%%#   \fi}
+%%#
+
+%%# \toolboxMakeSplit{search}{command}
+%%#
+%%# If \toolboxSplitAt should be used several times with the same search
+%%# string, it is much more effective to use the above call: This call
+%%# defines a new macro \command (the name is determined by the second argument
+%%# of \toolboxMakeSplit) which can be called in the form
+%%#
+%%#    \command{argument}{\beforestring}{\afterstring}
+%%#
+%%# and which has the analogous meaning as \toolboxSplitAt (the argument
+%%# {search} is implicitly fixed and taken from the call of
+%%# \toolboxMakeSplit).
+%%# It is explicitly admissible that the above macro \toolboxMakeSplit is
+%%# used with an already existing command name. In this case, the previous
+%%# definition of \command is tacitly overridden.
+%%#
+%%# The command created by \toolboxMakeSplit does not accept arguments which
+%%# run over several paragraphs. If you want the latter, you have to create
+%%# this command by the alternative call
+%%#
+%%# \toolboxMakeSplit*{search}{command}
+
+%%#
+%%# The command
+%%#    \toolboxFreeSplit{command}
+%%# frees the memory used by a previous \toolboxMakeSplit (and lets \command
+%%# again be undefined).
+
+%%# The command
+%%#    \toolboxReplace{search}{replace}\macro
+%%# replaces in \macro all occurences of {search} by {replace}.
+%%# The same matches are found as in \toolboxSplitAt.
+%%# If you need to search for the same text several times, it is faster
+%%# to use the command
+%%#    \toolboxReplaceSplit{replace}\SplitCmd\macro
+%%# where \SplitCmd is a command previously generated with \toolboxMakeSplit*
+%%# according to your search string. (You could also use \toolboxMakeSplit
+%%# to generate \SplitCmd, but then \macro should not contain any \par's).
+
+%%#
+%%# Redefinition of macros
+%%# ----------------------
+
+%%# \toolboxMakeHarmless{\macro}
+%%#
+%%# The above call redefines \macro such that it expands to an ASCII text
+%%# containing the previous definition of \macro (i.e. the catcodes of \macro
+%%# are changed).
+
+%%# \toolboxDropBrace\variable
+%%#
+%%# drops possible outer braces in \variable. More precisely,
+%%# if \variable expands to {content}, then \variable is redefined to
+%%# content (without braces). Otherwise, nothing happens.
+
+%%#
+%%# \toolboxIf\comparison{DefinitionCommand}{\macro}...
+%%#
+%%# The above command allows conditional definitions.
+%%# Here, {DefinitionCommand} is either \def, {\long\def}, \let, or some
+%%# similar command like the LaTeX \newcommand. If the test
+%%# \ifx\comparison\macro evaluates positive, then \macro is defined
+%%# correspondingly. Otherwise, \macro is not changed.
+%%#
+%%# Examples:
+%%#
+%%# \toolboxIf\undefined\def\macro{....}
+%%# \toolboxIf\undefined\let\macro...
+%%# \toolboxIf\undefined{\long\def}\macro{....}
+%%# \toolboxIf\undefined\newcommand{\macro}{....}
+%%#
+%%# are similar to \def\macro{...} resp. \let\macro... resp.
+%%# \long\def\macro{...} resp. \newcommand{\macro}{...} with the difference
+%%# that \macro is not changed if it was already defined.
+%%# In this sense, \toolboxIf is a more flexible variant of \providecommand.
+%%#
+
+%%# \toolboxNewiftrue{name} or \toolboxNewiffalse{name}
+%%#
+%%# If the command \ifname was already introduced with \newif, then
+%%# nothing happens. Otherwise \ifname is introduced similarly to
+%%# \newif\ifname and set to `true' respectively `false'.
+%%# In contrast to the corresponding command in TeX or LaTeX 2.09, this macro
+%%# is not \outer!
+
+%%# \toolboxNewifTrue{name} or \toolboxNewifFalse{name}
+%%#
+%%# are similar to \toolboxNewiftrue{name} and \toolboxNewiffalse{name},
+%%# respectively, with the difference that \ifname is set unconditionally
+%%# to `true' respectively `false'.
+
+%%#
+%%# Concatenated macro names
+%%# ------------------------
+
+%%# \toolboxLet\variable{macroname}
+%%#
+%%# The above command is analogous to \let\variable\macroname with the
+%%# difference that macroname can also contain other tokens like numbers
+%%# (it is obtained via \csname). Some converse to this command is
+%%#
+%%# \toolboxWithNr {number}\cmd{macro}
+%%#
+%%# which translates into \cmd\macronumber (here, `macro' and `number'
+%%# are just concatenated and evaluated via \csname).
+%%# Examples:
+%%#   \toolboxWithNr 1\let{name}\toolboxEmpty
+%%#        This is the same as \let\name1\toolboxEmpty
+%%#            (but such that \name1 is considered as a name, not as \name 1)
+%%#   \toolboxWithNr {10}\def{name}{Foo}
+%%#        This corresponds analogously to \def\name10{Foo}.
+%%#   \toolboxLet \mymacro{name\the\mycount}
+%%#        This is similar to \let\mymacro\namexx where xx is the content
+%%#        of the counter \mycount.
+
+%%#
+%%# Various
+%%# -------
+
+%%# The following macros have equivalents in most formats (like LaTeX2e).
+%%# However, we do not want to rely too much on these formats, so we provide
+%%# our own definitions.
+%%# The macro
+%%#    \toolboxEmpty
+%%# expands to nothing (usually, this is the same as \empty).
+%%# Similarly, the macro
+%%#    \toolboxSpace
+%%# expands to a space symbol (usually, this is the same as \space).
+%%# The token
+%%#    \toolboxSpaceToken
+%%# is \let a space token (usually, this is the same as \@sptoken).
+%%# This token is convenient in tests of tokens
+%%# (because it is hard to get a space there which is not eaten by the TeX
+%%#  parser, although sometimes also constructions like
+%%#  \expandafter\ifx\toolboxSpace\token can be used).
+%%# Also the macros
+%%#    \toolboxFirstOfTwo
+%%#    \toolboxSecondOfTwo
+%%# are provided which read two arguments and return only the first
+%%# respectively second argument (usually, this is the same as
+%%# \@firstoftwo respectively \@secondoftwo). Similarly,
+%%#    \toolboxGobbleArg{argument}
+%%# just reads its argument and expands to nothing.
+
+\endinput
+%%
+%% End of file `toolbox.txt'.

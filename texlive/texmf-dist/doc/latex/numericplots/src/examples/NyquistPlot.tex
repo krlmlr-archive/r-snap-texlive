@@ -1,0 +1,76 @@
+	
+	\newlength{\GRheight}
+	\newlength{\GRwidth}
+	
+	% desired width of the graphic
+	\setlength{\GRwidth}{0.5\textwidth}
+	% calculate height:
+        % first intermediate step
+        % axis width: GRwidth - (llx+urx) 
+	\setlength{\GRheight}%
+		{\GRwidth-7ex-\baselineskip-2pt-2ex}
+        % sec. intermediate step
+        % scale with data range ration        
+	% factor 0.7692 = (yMax-yMin)/(xMax-xMin)
+                \setlength{\GRheight}{0.7692\GRheight}
+        % third intermediate step
+        % add padding values to axis height to obtain total height.
+	\begin{NumericDataPlot}%
+		{\GRwidth}{\GRheight+2\baselineskip+1ex+2pt+0.5em}
+		
+		\setxAxis{xMin=-1.1, xMax=1.5, Dx=0.5, xO=0}
+		\setyAxis{yMin=-1, yMax=1, Dy=0.5, yO=0}
+		
+		\plotxAxis{$Real\left(G\left(I\omega\right)\right)$}
+		\plotyAxis{$Imag\left(G\left(I\omega\right)\right)$}
+				
+		\listplot[style=StdLineStyA]{\DataNyquistNeg}
+		\listplot[style=StdLineStyA]{\DataNyquistPos}
+		
+		% Pfeile
+		\listplot%
+			[style=StdLineStyA, arrows=->, linestyle=none]{\DataNyquistArrowPos}
+		\listplot%
+			[style=StdLineStyA, arrows=<-, linestyle=none]{\DataNyquistArrowNeg}
+		
+		% Beschriftung
+% 		1.00000 -0.00000
+% 		0.80000 0.40000
+% 		0.00000 0.00000
+		\NDPput[x=1.0, y=0.0]{\pnode{Pa1}}
+		\NDPput[x=0.8, y=-0.4]{\pnode{Pa2}}
+		\NDPput[x=0.0, y=0.0]{\pnode{Pa3}}
+		\NDPput[x=1.1, y=0.1, RefPoint=l]%
+			{\Rnode{Pb1}{
+			\psframebox[fillstyle=solid,fillcolor=white,linestyle=none]{%
+			$\omega=0$}}}
+		\ncline{-}{Pb1}{Pa1}
+		\NDPput[x=0.9, y=-0.6, RefPoint=l]%
+			{\Rnode{Pb2}{
+			\psframebox[fillstyle=solid,fillcolor=white,linestyle=none]{%
+			$\omega=0.5$}}}
+		\ncline{-}{Pb2}{Pa2}
+		\NDPput[x=-0.1, y=-0.15, RefPoint=r]%
+			{\Rnode{Pb3}{
+			\psframebox[fillstyle=solid,fillcolor=white,linestyle=none]{%
+			$\omega=\infty$}}}
+		\ncline{-}{Pb3}{Pa3}
+		\NDPput[x=-0.1, y=0.15, RefPoint=r]%
+			{\Rnode{Pc3}{
+			\psframebox[fillstyle=solid,fillcolor=white,linestyle=none]{%
+			$\omega=-\infty$}}}
+		\ncline{-}{Pc3}{Pa3}
+		
+		% Pfeil
+		\ncline{->}{Pa3}{Pa2}
+		
+		% Marker
+		\listplot[style=StdLineStyC, plotstyle=dots]{\DataNyquistMarkPos}
+		\listplot[style=StdLineStyC, plotstyle=dots, dotstyle=x, dotsize=10pt]{-1 0}
+		
+	\end{NumericDataPlot}
+
+%%% Local Variables: 
+%%% mode: latex
+%%% TeX-master: "../NumericPlotsDoc"
+%%% End: 

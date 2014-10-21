@@ -1,0 +1,83 @@
+ifthenx.sty Copyright (C) 2012 Geoffrey Jones 2012/04/01 (v0.1a)
+<geoffrey stop jones snailshell uqconnect stop edu stop au>
+
+Package ifthenx.sty -- this little package extends David Carlisle's
+ifthen package, adding a few extra tests. These include:
+    \isinteger
+    \ispositiveinteger
+    \isrealnumber           (synonym: \isnumber)
+    \ispositiverealnumber   (synonym: \ispositivenumber)
+    \classloaded
+    \packageloaded
+    \fileexists
+
+Example:
+  \ifthenelse{\ispositiveinteger{\foo}\AND\fileexists{\foo.log}}
+    { commands to execute if true  }
+    { commands to execute if false }
+
+  The production rules for numbers are quite straightforward:
+    \ispositiveinteger    (string of one or more digits)
+    \isinteger            (ditto, with optional leading minus sign)
+    \isrealnumber         (ditto, with optional decimal point)
+    \ispositiverealnumber (ditto, with no leading minus sign)
+
+  Note that well-formed numbers are considered negative if they
+  possess a leading minus sign. Accordingly, while 0, 0.0, -0 and
+  -0.0 are all well-formed numbers, only 0 and 0.0 test positive.
+  Consider this a feature.
+
+Motivation:
+  While nowadays the ifthen package is sometimes deprecated (e.g., see the
+  March 2011 stackexchange.com conversation on this topic), it has several
+  useful attributes that make it attractive in certain situations.
+  Setting aside its downsides (particularly, the care needed when using it
+  inside fragile contexts), positives include:
+  1. it provides a simple mechanism for assembling complex logical
+     expressions, i.e., those employing \AND, \OR, \NOT and \( ... \)
+  2. its syntax, while always subject to preference, may be somewhat
+     easier for LaTeX novices to read, write and understand. (To my
+     eye, it presents a more approachable and certainly more uniform
+     grammar than etoolbox's syntax. E.g., compare
+       \ifboolexpr{ test {\ifnumcomp{\value{mycounter}}{>}{3}}}...
+     with
+       \ifthenelse{\value{mycounter} > 3}...
+     )
+  3. string expansion semantics (cf., etoolbox that does not)
+  4. it is relatively lightweight compared to, say, the might of etoolbox
+     (although note that we use etoolbox's \patchcmd if already loaded).
+
+Required Packages:
+  ifthen.sty (that's all)
+
+  However, note that ifthenx uses \patchcmd if etoolbox.sty is already
+  loaded.
+
+Related Packages:
+  xifthen.sty provides an alternative set of ifthen package extension
+  tests, several of which are based around capabilities drawn from
+  the calc package.
+
+  xifthen and ifthenx are compatible, but only if xifthen is loaded
+  before ifthenx (xifthen doesn't patch \ifthenelse but rewrites its
+  own modified version instead). If loaded in the recommended order,
+  users can ``mix and match'' the tests.
+  For example:
+      \newcommand*\foo{3}
+      \newcommand*\baz{98}
+      \ifthenelse{
+        \isnumber{\foo}                   % ifthenx pkg command
+        \AND\isodd{\foo}                  % ifthen pkg command
+        \AND\cnttest{\foo + \baz}{>}{100} % xifthen pkg command
+      }{true}{false}
+    evaluates true.
+
+Version: v0.1a *** release for comments ***
+   The author would welcome bug reports, comments, suggestions,
+   extensions and so forth at this early stage.
+
+Acknowledgements:
+  Gracious thanks David Carlisle for the ifthen package and for
+  teaching me a new technique for run-time patching macro code.
+
+-------------------------- End README ------------------------------------

@@ -1,0 +1,104 @@
+%%
+%% This is file `example.tex',
+%% generated with the docstrip utility.
+%%
+%% The original source files were:
+%%
+%% mcaption.dtx  (with options: `example')
+%% 
+%% This is a generated file.
+%% 
+%% Copyright (C) 2005 by Stephan Hennig <stephanhennig@arcor.de>
+%% 
+%% This file may be distributed and/or modified under the conditions of
+%% the LaTeX Project Public License, either version 1.2 of this license
+%% or (at your option) any later version.  The latest version of this
+%% license is in:
+%% 
+%%    http://www.latex-project.org/lppl.txt
+%% 
+%% and version 1.2 or later is part of all distributions of LaTeX version
+%% 1999/12/01 or later.
+%% 
+\listfiles
+\documentclass{book}
+\usepackage{wrapfig}
+\usepackage[top]{mcaption}
+\usepackage[
+font={footnotesize,it},
+labelfont=bf,
+justification=raggedright]
+{caption}[2005/06/28]
+\usepackage[english]{babel}
+\usepackage{blindtext}
+\begin{document}
+\setlength{\margincapsep}{3\columnsep}
+
+\author{Stephan Hennig}
+\title{mcaption test file}
+\maketitle
+\listoffigures
+\listoftables
+
+\chapter{Demonstration of the mcaption package}
+\section{This is one-column mode}
+\blindtext[1]
+
+\begin{wrapfigure}{o}{5cm}
+  \begin{margincap}
+    \rule{5cm}{2cm}
+    \caption{A wrapfigure caption in the outer margin.}
+    \label{fig:wrapOneCol}
+  \end{margincap}
+\end{wrapfigure}
+\blindtext[1]
+\begin{table}
+  \begin{margincap}
+    \centering
+    \begin{tabular}{@{}lr@{}}
+      foo & 7\\
+      bar & 21 \\
+      baz & 23 \\
+    \end{tabular}
+    \caption{A table caption in the outer margin.}
+    \label{tab:shorttab}
+  \end{margincap}
+\end{table}
+
+\twocolumn
+\section{This is two-column mode}
+\blindtext[1]
+
+\begin{wrapfigure}{o}{2cm}
+  \begin{margincap}
+    \rule{2cm}{1cm}
+    \caption[A hanging wrapfigure caption.]{Another wrapfigure caption
+      in the outer margin.  Note, we are in the outer column.  And we're
+      hanging!}
+    \label{fig:wrapTwoCol}
+  \end{margincap}
+\end{wrapfigure}
+\blindtext[5]
+\begin{figure*}
+  \begin{margincap}
+    \centering
+    \rule{10cm}{2cm}
+    \caption{A figure caption in the outer margin.}
+    \label{fig:figure*}
+  \end{margincap}
+\end{figure*}
+
+Let's reference all figures and tables:
+
+\newcommand*{\pref}[1]{\ref{#1} & \pageref{#1}}
+\begin{tabular}{ll}
+  float & page\\\hline
+  figure~\pref{fig:wrapOneCol}\\
+  table~\pref{tab:shorttab}\\
+  figure~\pref{fig:wrapTwoCol}\\
+  figure~\pref{fig:figure*}\\
+\end{tabular}
+\end{document}
+\endinput
+%%
+%% End of file `example.tex'.

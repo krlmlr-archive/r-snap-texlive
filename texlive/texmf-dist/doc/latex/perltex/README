@@ -1,0 +1,55 @@
+                +------------------------------------+
+                |              PERLTEX               |
+                | By Scott Pakin, scott+pt@pakin.org |
+                +------------------------------------+
+
+
+Description
+-----------
+
+PerlTeX is a combination Perl script (perltex.pl) and LaTeX2e style
+file (perltex.sty) that, together, give the user the ability to define
+LaTeX macros in terms of Perl code.  Once defined, a Perl macro becomes
+indistinguishable from any other LaTeX macro.  PerlTeX thereby combines
+LaTeX's typesetting power with Perl's programmability.
+
+
+Installation
+------------
+
+In case it's not obvious, you'll need a Perl installation.  Perl is
+freely available and runs on dozens of platforms.  See the list of Perl
+binary distributions on CPAN (http://www.cpan.org/ports/index.html).
+
+Execute "latex perltex.ins" to generate perltex.sty and perltex.pl.
+Install perltex.sty in an appropriate directory (e.g.,
+/usr/local/share/texmf/tex/latex/misc or C:\localtexmf\tex\latex\misc).
+perltex.pl is a Perl script.  On Unix, you may want to rename it to
+just "perltex" and set execute permissions ("chmod +x perltex").  On
+Windows, you may want to create a batch-file wrapper for it ("pl2bat
+perltex.pl").  In either case, perltex should be installed somewhere in
+your executable path (e.g., /usr/local/bin).
+
+It's not necessary to produce the documentation as PerlTeX comes with
+prebuilt documentation in PDF format (perltex.pdf).  However, if you
+want to build the documentation yourself (e.g., to use A4 paper instead
+of U.S. Letter), run "latex perltex.dtx" twice, then "makeindex -s
+gind.ist perltex.idx" and "makeindex -s gglo.ist perltex.glo -o
+perltex.gls", then "latex perltex.dtx" again, then "dvips perltex.dvi
+-o perltex.ps" if you want to produce PostScript.
+
+
+License
+-------
+
+Copyright (C) 2010 Scott Pakin
+
+These files may be distributed and/or modified under the conditions of
+the LaTeX Project Public License, either version 1.3c of this license or
+(at your option) any later version.  The latest version of this license
+is in:
+
+    http://www.latex-project.org/lppl.txt
+
+and version 1.3c or later is part of all distributions of LaTeX version
+2006/05/20 or later.

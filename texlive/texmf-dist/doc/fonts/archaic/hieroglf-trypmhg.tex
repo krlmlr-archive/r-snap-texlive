@@ -1,0 +1,349 @@
+% trypmhg.tex    Test Poor mans Hieroglyph fonts
+\documentclass{article}
+\usepackage{hieroglf}
+
+\newcommand{\UC}{A B C D E F G H I J K L M N O P Q R S T U V W X Y Z}
+\newcommand{\LC}{a b c d e f g h i j k l m n o p q r s t u v w x y z}
+\newcommand{\SY}{+ ? / |}
+\newcommand{\ST}{\Hms\ \Hibp\ \Hibw\ \Hibs\ \Hibl\ \Hsv\ 
+                 \Hman\ \Htongue\ \Hscribe\ \Hplural\ \Hdual}
+\newcommand{\SN}{\Hone\ \Hten\ \Hhundred\ \Hthousand\ \HXthousand
+                 \HCthousand\ \Hmillion}
+\newcommand{\Caesar}{\pmvglyph{\Hk:\Hy:\HS:\Hl:\HS}}
+
+\setlength{\parskip}{5pt}
+\newlength{\mylen}
+
+\title{The Poor Man's Hieroglyphic Font}
+\author{}
+\date{}
+\begin{document}
+\maketitle
+\tableofcontents
+\clearpage
+
+\renewcommand{\baselinestretch}{1.1}
+
+\section{Introduction}
+
+    This provides a short test of the characters in the Poor Man's Hieroglyph 
+fonts
+--- the \verb|pmhg| font family. 
+Table~\ref{tab:coded} on page~\pageref{tab:coded} 
+shows the `numeric' coded commands and the corresponding
+glyphs. 
+Table~\ref{tab:alpha} on page~\pageref{tab:alpha} 
+shows the alphabetic coding (in both single
+character and command form) and the corresponding glyphs together with their
+transliterations. Note that not every glyph has a transliteration.
+
+\section{The glyphs}
+
+
+As a single stream of glyphs:
+\begin{verbatim}
+\textpmhg{ABCDEFGHIJKLMNOPQRSTUVWXYZ \\
+          abcdefghijklmnopqrstuvwxyz \\
+          +?/| \\
+          \Hms\Hibp\Hibw\Hibs\Hibl\Hsv\Hman\Htongue\Hscribe\Hplural\Hdual \\
+          \Hone 234567}
+\end{verbatim}
+\textpmhg{ABCDEFGHIJKLMNOPQRSTUVWXYZ \\
+          abcdefghijklmnopqrstuvwxyz \\
+          +?/| \\
+          \Hms\Hibp\Hibw\Hibs\Hibl\Hsv\Hman\Htongue\Hscribe\Hplural\Hdual \\
+          \Hone 234567}
+
+{\Huge And in the Huge size: \\
+\textpmhg{\UC \\ \LC \\ \SY \\ \ST \\ \SN}
+\par
+}
+
+    Using single characters: \\
+\verb|\pmglyph{{A-i:w-a}}| \pmglyph{{A-i:w-a}} \\
+\verb|\pmglyph{A}| \pmglyph{A} \\
+\verb|\pmglyph{i}| \pmglyph{i} \\
+\verb|\pmglyph{A-i}| \pmglyph{A-i} \\
+\verb|\pmglyph{A-i-a:w-a}| \pmglyph{A-i-a:w-a} 
+
+    Using character commands: \\
+\verb|\pmglyph{\HA}| \pmglyph{\HA} \\
+\verb|\pmglyph{\Hi}| \pmglyph{\Hi} \\
+\verb|\pmglyph{\HA-\Hi}| \pmglyph{\HA-\Hi} \\
+\verb|\pmglyph{\HA-\Hi-\Ha:\Hw-\Hl}| \pmglyph{\HA-\Hi-\Ha:\Hw-\Hl} \\
+\verb|\pmglyph{\HA-\Hi-\Hw:\Ha-\Hl}| \pmglyph{\HA-\Hi-\Hw:\Ha-\Hl}
+
+\section{Some cartouches}
+
+    This illustrates several ways in which glyphs can be assembled.
+
+\verb|\pmglyph{\HA-\Hi-\Ha-\Hp-\Hx-\HH}| \\
+\verb|\cartouche{\pmglyph{\HA-\Hi-\Ha-\Hp-\Hx-\HH}}| \\
+\verb|\Cartouche{\pmglyph{\HA-\Hi-\Ha-\Hp-\Hx-\HH}}| \\
+\pmglyph{\HA-\Hi-\Ha-\Hp-\Hx-\HH}
+\cartouche{\pmglyph{\HA-\Hi-\Ha-\Hp-\Hx-\HH}}
+\Cartouche{\pmglyph{\HA-\Hi-\Ha-\Hp-\Hx-\HH}}
+
+\verb|\pmglyph{\HA:\Hi:\Ha:\Hp:\Hx:\HH}| \\
+\verb|\Cartouche{\pmglyph{\HA:\Hi:\Ha:\Hp:\Hx:\HH}}| \\
+\pmglyph{\HA:\Hi:\Ha:\Hp:\Hx:\HH}
+\Cartouche{\pmglyph{\HA:\Hi:\Ha:\Hp:\Hx:\HH}}
+
+\verb|\pmglyph{\HA-\Hi-\Ha:{\Hp-\Hx}-\HH}| \\
+\verb|\Cartouche{\pmglyph{\HA-\Hi-\Ha:{\Hp-\Hx}-\HH}}| \\
+\pmglyph{\HA-\Hi-\Ha:{\Hp-\Hx}-\HH}
+\Cartouche{\pmglyph{\HA-\Hi-\Ha:{\Hp-\Hx}-\HH}}
+
+
+\verb|\pmglyph{\HA-\Hi-{\Hp-\Hx}:\Ha-\HH}| \\
+\verb|\Cartouche{\pmglyph{\HA-\Hi-{\Hp-\Hx}:\Ha-\HH}}| \\
+\pmglyph{\HA-\Hi-{\Hp-\Hx}:\Ha-\HH}
+\Cartouche{\pmglyph{\HA-\Hi-{\Hp-\Hx}:\Ha-\HH}}
+
+\verb|\pmglyph{\HA\Hi{\Hp\Hx}:\Ha\HH}| \\
+\verb|\Cartouche{\pmglyph{\HA\Hi{\Hp\Hx}:\Ha\HH}}| \\
+\pmglyph{\HA\Hi{\Hp\Hx}:\Ha\HH}
+\Cartouche{\pmglyph{\HA\Hi{\Hp\Hx}:\Ha\HH}}
+
+\verb|\pmglyph{\HA \Hi {\Hp \Hx}:\Ha \HH}| \\
+\verb|\Cartouche{\pmglyph{\HA \Hi {\Hp \Hx}:\Ha \HH}}| \\
+\pmglyph{\HA \Hi {\Hp \Hx}:\Ha \HH}
+\Cartouche{\pmglyph{\HA \Hi {\Hp \Hx}:\Ha \HH}}
+
+\verb|\pmglyph{\HA-\Hp-{\Hi-\HH}:\Ha-\Hx}| \\
+\verb|\Cartouche{\pmglyph{\HA-\Hp-{\Hi-\HH}:\Ha-\Hx}}| \\
+\pmglyph{\HA-\Hp-{\Hi-\HH}:\Ha-\Hx}
+\Cartouche{\pmglyph{\HA-\Hp-{\Hi-\HH}:\Ha-\Hx}}
+
+\verb|\pmglyph{\HA-\Hp-{\Hi-\ \HH}:\Ha-\Hx}| \\
+\verb|\Cartouche{\pmglyph{\HA-\Hp-{\Hi\ -\HH}:\Ha-\Hx}}| \\
+\pmglyph{\HA-\Hp-{\Hi-\ \HH}:\Ha-\Hx}
+\Cartouche{\pmglyph{\HA-\Hp-{\Hi\ -\HH}:\Ha-\Hx}}
+
+\verb|\pmglyph{\HA-\ \Hi-\ {\Hp-\Hx}:\Ha-\ \HH}| \\
+\verb|\Cartouche{\pmglyph{\HA-\Hi-{\Hp-\ -\Hx}:\Ha-{}\HH}}| \\
+\verb|\Cartouche{\pmglyph{\HA-\Hi-{\Hp-{} -\Hx}:\Ha-{}\HH}}| \\
+\pmglyph{\HA-\ \Hi-\ {\Hp-\Hx}:\Ha-\ \HH}
+\Cartouche{\pmglyph{\HA-\Hi-{\Hp-\ -\Hx}:\Ha-{}\HH}}
+\Cartouche{\pmglyph{\HA-\Hi-{\Hp-{} -\Hx}:\Ha-{}\HH}}
+
+\verb|\Cartouche{\pmglyph{\HA-\Hi-{\Hp-\ -\Hx}:\Ha-\HH}}| 
+      \Cartouche{\pmglyph{\HA-\Hi-{\Hp-\ -\Hx}:\Ha-\HH}} 
+
+\verb|\Cartouche{\pmglyph{A-i-{p-\ -x}:a-H}}| 
+      \Cartouche{\pmglyph{A-i-{p-\ -x}:a-H}} 
+
+\section{Some Cleopatras}
+
+    This section uses the glyphs forming the name of the person we know
+as Cleopatra, and displays them in a variety of ways.
+
+Cleopatra \verb|\pmglyph{K:l-i-o-p-a-d:r-a}| 
+                \pmglyph{K:l-i-o-p-a-d:r-a} 
+
+Cleopatra \verb|\pmglyph{K:liopat:ra}| 
+                \pmglyph{K:liopat:ra} 
+
+Cleopatra \verb|\pmglyph{\HK:\HExxiii-\Hi-\HViv-\Hp-\Ha-\Hd:\Hr-\Ha}| 
+                \pmglyph{\HK:\HExxiii-\Hi-\HViv-\Hp-\Ha-\Hd:\Hr-\Ha} 
+
+Cleopatra \verb|\pmglyph{\HK:\HExxiii\Hi\HViv\Hp\Ha\Hd:\Hr\Ha}| 
+                \pmglyph{\HK:\HExxiii\Hi\HViv\Hp\Ha\Hd:\Hr\Ha} 
+
+Cleopatra \verb|\pmglyph{\HNxxix:\HExxiii-\HMxvii-\HViv-\HQiii-\HGi-\HXi:\HDxxi-\HGi}| 
+                \pmglyph{\HNxxix:\HExxiii-\HMxvii-\HViv-\HQiii-\HGi-\HXi:\HDxxi-\HGi} 
+
+Cleopatra \verb|\pmglyph{\HNxxix:\HExxiii\HMxvii\HViv\HQiii\HGi\HXi:\HDxxi\HGi}| 
+                \pmglyph{\HNxxix:\HExxiii\HMxvii\HViv\HQiii\HGi\HXi:\HDxxi\HGi} 
+
+
+
+Internal cartouche \verb|\pmglyph{K-l-i-\cartouche{o-p-a}-d-r-a}| \\
+         \pmglyph{K-l-i-\cartouche{o-p-a}-d-r-a}
+
+Internal cartouche \verb|\textpmhg{K-l-i-\cartouche{o-p-a}-d-r-a}| \\
+         \textpmhg{K-l-i-\cartouche{o-p-a}-d-r-a}
+
+External cartouche \verb|\pmglyph{K-l-i} \cartouche{\pmglyph{o-p-a}} \pmglyph{d-r-a}| \\
+         \pmglyph{K-l-i} \cartouche{\pmglyph{o-p-a}} \pmglyph{d-r-a}
+
+\section{Odd cartouching}
+
+    Cartouches can be used for other things than hieroglyphs.
+
+Latin cartouche \verb|\cartouche{A Latin cartouche}|
+                      \cartouche{A Latin cartouche} example.
+
+Math cartouche \verb|\cartouche{$sin^{2} x + cos^{2} x = 1$}|
+                     \cartouche{$sin^{2} x + cos^{2} x = 1$}
+
+Multiline cartouche \verb|\cartouche{$sin^{2} x + cos^{2} x = 1$ \\ Next line}|
+                          \cartouche{$sin^{2} x + cos^{2} x = 1$ \\ Next line}
+
+\section{Famous people}
+
+    The hieroglyphic forms of the names of some famous people are
+displayed.
+
+Cleopatra \verb|\cartouche{\pmglyph{K:l-i-o-p-a-d:r-a}}| \\
+\verb|\translitpmhg{\HK\Hl\Hi\Ho\Hp\Ha\Hd\Hr\Ha}| \\
+\cartouche{\pmglyph{K:l-i-o-p-a-d:r-a}}
+\translitpmhg{\HK\Hl\Hi\Ho\Hp\Ha\Hd\Hr\Ha}
+
+Huge Cleopatra \verb|\cartouche{\pmglyph{K:l-i-o-p-a-d:r-a}}| \\
+\verb|\translitpmhg{\HK\Hl\Hi\Ho\Hp\Ha\Hd\Hr\Ha}| \\
+
+\noindent{\Huge\cartouche{\pmglyph{K:l-i-o-p-a-d:r-a}}
+\translitpmhg{\HK\Hl\Hi\Ho\Hp\Ha\Hd\Hr\Ha}
+\par
+}
+
+Ptolemy \verb|\cartouche{\pmglyph{\Hp:\Ht-\Ho-\Hl:\HM-\Hy-\Hs}}| \\
+\verb|\translitpmhg{\Hp\Ht\Ho\Hl\HM\Hy\Hs}| \\
+\cartouche{\pmglyph{\Hp:\Ht-\Ho-\Hl:\HM-\Hy-\Hs}}
+\translitpmhg{\Hp\Ht\Ho\Hl\HM\Hy\Hs}
+
+Berenice \verb|\cartouche{\pmglyph{\HB:\Hr-\Hn:\Hy-\Hg-\Ha-\Ht:\HO}}| \\
+\verb|\translitpmhg{\HB\Hr\Hn\Hy\Hg\Ha}| \\
+\cartouche{\pmglyph{\HB:\Hr-\Hn:\Hy-\Hg-\Ha-\Ht:\HO}}
+\translitpmhg{\HB\Hr\Hn\Hy\Hg\Ha}
+
+Alexander \verb|\cartouche{\pmglyph{\Ha-\Hl:\Hk-\Hs-\Hi-\Hn:\Hd-\Hr:\HS}}| \\
+\verb|\translitpmhg{\Ha\Hl\Hk\Hs\Hi\Hn\Hd\Hr\HS}| \\
+\cartouche{\pmglyph{\Ha-\Hl:\Hk-\Hs-\Hi-\Hn:\Hd-\Hr:\HS}}
+\translitpmhg{\Ha\Hl\Hk\Hs\Hi\Hn\Hd\Hr\HS}
+
+Caesar \verb|\pmvglyph{\Hk:\Hy:\HS:\Hl:\HS}| \\
+\pmvglyph{\Hk:\Hy:\HS:\Hl:\HS}
+
+Caesar \verb|\vertouche{\pmvglyph{\Hk:\Hy:\HS:\Hl:\HS}}| \\
+\vertouche{\pmvglyph{\Hk:\Hy:\HS:\Hl:\HS}}
+
+Autocrator \verb|\pmvglyph{{\Ha-\HW}:{\Ht-\HK}:\Hd:\Hr}| \\
+\pmvglyph{{\Ha-\HW}:{\Ht-\HK}:\Hd:\Hr}
+
+Autocrator \verb|\Vertouche{\pmvglyph{{\Ha-\HW}:{\Ht-\HK}:\Hd:\Hr}}| \\
+\Vertouche{\pmvglyph{{\Ha-\HW}:{\Ht-\HK}:\Hd:\Hr}}
+
+Thothemes \verb|\cartouche{\pmglyph{\Hibp-\Hms-\Hs}}| \\
+\cartouche{\pmglyph{\Hibp-\Hms-\Hs}} \\
+
+
+\section{A sentence}
+
+
+\pmglyph{\HU\Hw\HL\HJ\Hf-\Hq:\Hvbar-\HR:{\Hr:\Hr}-\Hy-\Ht:\HN-\Hf-\Hn:\Ht-\Hc\Hm\Hv-\HG:\Hvbar-\Hf\HZ\Hw\HV} \\
+transliterates into (noting that not every glyph is transliterated as some are determinitives, etc)\\
+\translitpmhg{\HU\ \HJ.\Hf\ \Hq\ \HR\Hr\Hy\Ht.\Hf\ \Hn\Ht\ \Hc\ \HG.\Hf\ \HZ} \\
+which, when translated means \\
+`His Majesty departed upon his chariot of electrum, his heart joyful.'
+
+
+\section{Code tables}
+
+Table~\ref{tab:coded} 
+shows the `numeric' coded commands and the corresponding
+glyphs. 
+
+Table~\ref{tab:alpha} 
+shows the alphabetic coding (in both single
+character and command form) and the corresponding glyphs together with their
+transliterations. Note that not every glyph has a transliteration.
+
+
+
+\begin{table}
+\centering
+\caption{Coded coding} \label{tab:coded}
+\begin{tabular}{|l|c||l|c||l|c|} \hline
+\verb|\HAii| (A2)     & \textpmhg{\HAii}      & \verb|\HNxxix| (N31)   & \textpmhg{\HNxxix}   & \verb|\HAai| (Aa1)    & \textpmhg{\HAai} \\
+\verb|\HAxxviii| (A28) & \textpmhg{\HAxxviii} & \verb|\HNxxxv| (N35)   & \textpmhg{\HNxxxv}   & \verb|\HAaxii| (Aa12) & \textpmhg{\HAaxii} \\
+\verb|\HDi| (D1)      & \textpmhg{\HDi}       & \verb|\HNxxxvii| (N37) & \textpmhg{\HNxxxvii} & \verb|\HPWi| (PW1)    & \textpmhg{\HPWi} \\
+\verb|\HDii| (D2)     & \textpmhg{\HDii}      & \verb|\HOi| (O1)       & \textpmhg{\HOi}      & \verb|\HPWii| (PW2)   & \textpmhg{\HPWii} \\
+\verb|\HDiv| (D4)     & \textpmhg{\HDiv}      & \verb|\HOiv| (O4)      & \textpmhg{\HOiv}     & \verb|\HFxxxi| (F31)  & \textpmhg{\HFxxxi} \\
+\verb|\HDxxi| (D21)   & \textpmhg{\HDxxi}     & \verb|\HOxxxiv| (O34)  & \textpmhg{\HOxxxiv}  & \verb|\HGxxvi| (G26)  & \textpmhg{\HGxxvi} \\
+\verb|\HDxxxvi| (D36) & \textpmhg{\HDxxxvi}   & \verb|\HQiii| (Q3)     & \textpmhg{\HQiii}    & \verb|\HGxxvis| (G26*) & \textpmhg{\HGxxvis} \\
+\verb|\HDxlvi| (D46)  & \textpmhg{\HDxlvi}    & \verb|\HRvii| (R7)     & \textpmhg{\HRvii}    & \verb|\HGxxvii| (G27) & \textpmhg{\HGxxvii} \\
+\verb|\HDxlvii| (D47) & \textpmhg{\HDxlvii}   & \verb|\HSxii| (S12)    & \textpmhg{\HSxii}    & \verb|\HGxxviii| (G28) & \textpmhg{\HGxxviii} \\
+\verb|\HDliv| (D54)   & \textpmhg{\HDliv}     & \verb|\HSxxix| (S29)   & \textpmhg{\HSxxix}   & \verb|\HZvi| (Z6)     & \textpmhg{\HZvi} \\
+\verb|\HDlviii| (D58) & \textpmhg{\HDlviii}   & \verb|\HSxxxix| (S39)  & \textpmhg{\HSxxxix}  & \verb|\HAi| (A1)      & \textpmhg{\HAi} \\
+\verb|\HExxiii| (E23) & \textpmhg{\HExxiii}   & \verb|\HSxli| (S41)    & \textpmhg{\HSxli}    & \verb|\HFxx| (F20)    & \textpmhg{\HFxx} \\
+\verb|\HFi| (F1)      & \textpmhg{\HFi}       & \verb|\HTiii| (T3)     & \textpmhg{\HTiii}    & \verb|\HYiv| (Y4)     & \textpmhg{\HYiv} \\
+\verb|\HFxxxiv| (F34) & \textpmhg{\HFxxxiv}   & \verb|\HTxiv| (T14)    & \textpmhg{\HTxiv}    & \verb|\HZii| (Z2)     & \textpmhg{\HZii}  \\
+\verb|\HFxl| (F40)    & \textpmhg{\HFxl}      & \verb|\HUxxxvi| (U36)  & \textpmhg{\HUxxxvi}  & \verb|\HZiv| (Z4)     & \textpmhg{\HZiv} \\
+\verb|\HGi| (G1)      & \textpmhg{\HGi}       & \verb|\HViv| (V4)      & \textpmhg{\HViv}     & \verb|\HCxi| (C11)    & \textpmhg{\HCxi} \\
+\verb|\HGxvii| (G17)  & \textpmhg{\HGxvii}    & \verb|\HVxiii| (V13)   & \textpmhg{\HVxiii}   & \verb|\HDl| (D50)     & \textpmhg{\HDl} \\
+\verb|\HGxxxvi| (G36) & \textpmhg{\HGxxxvi}   & \verb|\HVxxiv| (V24)   & \textpmhg{\HVxxiv}   & \verb|\HIviii| (I8)   & \textpmhg{\HIviii} \\
+\verb|\HGxliii| (G43) & \textpmhg{\HGxliii}   & \verb|\HVxxviii| (V28) & \textpmhg{\HVxxviii} & \verb|\HMxii| (M12)   & \textpmhg{\HMxii} \\
+\verb|\HHviii| (H8)   & \textpmhg{\HHviii}    & \verb|\HVxxxi| (V31)   & \textpmhg{\HVxxxi}   & \verb|\HVi| (V1)      & \textpmhg{\HVi} \\
+\verb|\HIix| (I9)     & \textpmhg{\HIix}      & \verb|\HWxi| (W11)     & \textpmhg{\HWxi}     & \verb|\HVxx| (V20)    & \textpmhg{\HVxx} \\
+\verb|\HIx| (I10)     & \textpmhg{\HIx}       & \verb|\HXi| (X1)       & \textpmhg{\HXi} &  &  \\
+\verb|\HKi| (K1)      & \textpmhg{\HKi}       & \verb|\HYiV| (Y1v)     & \textpmhg{\HYiV} &  &  \\
+\verb|\HMiii| (M3)    & \textpmhg{\HMiii}     & \verb|\HZi| (Z1)       & \textpmhg{\HZi} &  &  \\
+\verb|\HMviii| (M8)   & \textpmhg{\HMviii}    & \verb|\HZvii| (Z7)     & \textpmhg{\HZvii} &  &  \\
+\verb|\HMxvii| (M17)  & \textpmhg{\HMxvii}    & \verb|\HZxi| (Z11)     & \textpmhg{\HZxi} &  &  \\
+\hline
+\end{tabular}
+\end{table}
+
+\begin{table}
+\centering
+\caption{Alphabetic coding} \label{tab:alpha}
+\begin{tabular}{|cl|c|l||cl|c|l||cl|c|l|} \hline
+A & \verb|\HA| & \textpmhg{A} & \translitpmhg{\HA} & a & \verb|\Ha| & \textpmhg{a} & \translitpmhg{\Ha} 
+  & + & \verb|\Hplus| & \textpmhg{+} & \translitpmhg{\Hplus} \\
+B & \verb|\HB| & \textpmhg{B} & \translitpmhg{\HB} & b & \verb|\Hb| & \textpmhg{b} & \translitpmhg{\Hb} 
+  & ? & \verb|\Hquery| & \textpmhg{?} & \translitpmhg{\Hquery} \\
+C & \verb|\HC| & \textpmhg{C} & \translitpmhg{\HC} & c & \verb|\Hc| & \textpmhg{c} & \translitpmhg{\Hc} 
+  & / & \verb|\Hslash| & \textpmhg{/} & \translitpmhg{\Hslash} \\
+D & \verb|\HD| & \textpmhg{D} & \translitpmhg{\HD} & d & \verb|\Hd| & \textpmhg{d} & \translitpmhg{\Hd} 
+  & \verb?|? & \verb|\Hvbar| & \textpmhg{|} & \translitpmhg{\Hvbar} \\
+E & \verb|\HE| & \textpmhg{E} & \translitpmhg{\HE} & e & \verb|\He| & \textpmhg{e} & \translitpmhg{\He} 
+  &          & \verb|\Hms|   & \textpmhg{\Hms} & \translitpmhg{\Hms} \\
+F & \verb|\HF| & \textpmhg{F} & \translitpmhg{\HF} & f & \verb|\Hf| & \textpmhg{f} & \translitpmhg{\Hf} 
+  &          & \verb|\Hibp|   & \textpmhg{\Hibp} & \translitpmhg{\Hibp} \\
+G & \verb|\HG| & \textpmhg{G} & \translitpmhg{\HG} & g & \verb|\Hg| & \textpmhg{g} & \translitpmhg{\Hg} 
+  &          & \verb|\Hibw|   & \textpmhg{\Hibw} & \translitpmhg{\Hibw} \\
+H & \verb|\HH| & \textpmhg{H} & \translitpmhg{\HH} & h & \verb|\Hh| & \textpmhg{h} & \translitpmhg{\Hh} 
+  &          & \verb|\Hibs|   & \textpmhg{\Hibs} & \translitpmhg{\Hibs} \\
+I & \verb|\HI| & \textpmhg{I} & \translitpmhg{\HI} & i & \verb|\Hi| & \textpmhg{i} & \translitpmhg{\Hi} 
+  &          & \verb|\Hibl|   & \textpmhg{\Hibl} & \translitpmhg{\Hibl} \\
+J & \verb|\HJ| & \textpmhg{J} & \translitpmhg{\HJ} & j & \verb|\Hj| & \textpmhg{j} & \translitpmhg{\Hj} 
+  &          & \verb|\Hsv|   & \textpmhg{\Hsv} & \translitpmhg{\Hsv} \\
+K & \verb|\HK| & \textpmhg{K} & \translitpmhg{\HK} & k & \verb|\Hk| & \textpmhg{k} & \translitpmhg{\Hk} 
+  &          & \verb|\Hman|  & \textpmhg{\Hman} & \translitpmhg{\Hman} \\
+L & \verb|\HL| & \textpmhg{L} & \translitpmhg{\HL} & l & \verb|\Hl| & \textpmhg{l} & \translitpmhg{\Hl} 
+  &          & \verb|\Htongue|  & \textpmhg{\Htongue} & \translitpmhg{\Htongue} \\
+M & \verb|\HM| & \textpmhg{M} & \translitpmhg{\HM} & m & \verb|\Hm| & \textpmhg{m} & \translitpmhg{\Hm} 
+  &          & \verb|\Hscribe|  & \textpmhg{\Hscribe} & \translitpmhg{\Hscribe} \\
+N & \verb|\HN| & \textpmhg{N} & \translitpmhg{\HN} & n & \verb|\Hn| & \textpmhg{n} & \translitpmhg{\Hn} 
+  &          & \verb|\Hplural|  & \textpmhg{\Hplural} & \translitpmhg{\Hplural} \\
+O & \verb|\HO| & \textpmhg{O} & \translitpmhg{\HO} & o & \verb|\Ho| & \textpmhg{o} & \translitpmhg{\Ho} 
+  &          & \verb|\Hdual|  & \textpmhg{\Hdual} & \translitpmhg{\Hdual} \\
+P & \verb|\HP| & \textpmhg{P} & \translitpmhg{\HP} & p & \verb|\Hp| & \textpmhg{p} & \translitpmhg{\Hp} 
+  & \verb?|?  & \verb|\Hone| & \textpmhg{|} & \translitpmhg{\Hone}  \\
+Q & \verb|\HQ| & \textpmhg{Q} & \translitpmhg{\HQ} & q & \verb|\Hq| & \textpmhg{q} & \translitpmhg{\Hq} 
+  & 2 & \verb|\Hten| & \textpmhg{2} & \translitpmhg{\Hten}  \\
+R & \verb|\HR| & \textpmhg{R} & \translitpmhg{\HR} & r & \verb|\Hr| & \textpmhg{r} & \translitpmhg{\Hr} 
+  & 3 & \verb|\Hhundred| & \textpmhg{3} & \translitpmhg{\Hhundred}  \\
+S & \verb|\HS| & \textpmhg{S} & \translitpmhg{\HS} & s & \verb|\Hs| & \textpmhg{s} & \translitpmhg{\Hs} 
+  & 4 & \verb|\Hthousand| & \textpmhg{4} & \translitpmhg{\Hthousand}  \\
+T & \verb|\HT| & \textpmhg{T} & \translitpmhg{\HT} & t & \verb|\Ht| & \textpmhg{t} & \translitpmhg{\Ht} 
+  & 5 & \verb|\HXthousand| & \textpmhg{5} & \translitpmhg{\HXthousand}  \\
+U & \verb|\HU| & \textpmhg{U} & \translitpmhg{\HU} & u & \verb|\Hu| & \textpmhg{u} & \translitpmhg{\Hu} 
+  & 6 & \verb|\HCthousand| & \textpmhg{6} & \translitpmhg{\HCthousand}  \\
+V & \verb|\HV| & \textpmhg{V} & \translitpmhg{\HV} & v & \verb|\Hv| & \textpmhg{v} & \translitpmhg{\Hv} 
+  & 7 & \verb|\Hmillion| & \textpmhg{7} & \translitpmhg{\Hmillion}  \\
+W & \verb|\HW| & \textpmhg{W} & \translitpmhg{\HW} & w & \verb|\Hw| & \textpmhg{w} & \translitpmhg{\Hw} & & &  &  \\
+X & \verb|\HX| & \textpmhg{X} & \translitpmhg{\HX} & x & \verb|\Hx| & \textpmhg{x} & \translitpmhg{\Hx} & & &  &  \\
+Y & \verb|\HY| & \textpmhg{Y} & \translitpmhg{\HY} & y & \verb|\Hy| & \textpmhg{y} & \translitpmhg{\Hy} & & &  &  \\
+Z & \verb|\HZ| & \textpmhg{Z} & \translitpmhg{\HZ} & z & \verb|\Hz| & \textpmhg{z} & \translitpmhg{\Hz} & & &  &  \\
+\hline
+\end{tabular}
+\end{table}
+
+
+%%%%%%%%%%%%%%%
+\end{document}
+%%%%%%%%%%%%%%%
+

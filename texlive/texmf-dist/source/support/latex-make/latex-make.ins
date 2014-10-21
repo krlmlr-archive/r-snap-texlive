@@ -1,0 +1,68 @@
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesFile{latex-make.ins}[2005/03/28 v1.1 Installation script for latex-make package]
+
+\def\batchfile{latex-make.ins}
+\input docstrip
+
+\ifx\generate\undefined
+  \Msg{**********************************************}
+  \Msg{* This installation requires docstrip}
+  \Msg{* version 2.4 or later.}
+  \Msg{* An older version of docstrip has been input}
+  \Msg{**********************************************}
+  \errhelp{Move or rename old docstrip.tex and get a newer one.}
+  \errmessage{Old docstrip in input path}
+  \batchmode
+  \csname @@end\endcsname\end
+\fi
+
+\askforoverwritefalse
+\keepsilent
+
+\catcode`\^^I=12
+\generate{
+  \file{figlatex.sty}{\from{figlatex.dtx}{package}}
+  \file{figlatex.cfg}{\from{figlatex.dtx}{config}}
+  \file{texgraphicx.sty}{\from{figlatex.dtx}{compat}}
+  \file{pdfswitch.sty}{\from{pdfswitch.dtx}{package}}
+  \file{texdepends.sty}{\from{texdepends.dtx}{package}}
+  \nopreamble
+  \nopostamble
+  \file{LaTeX.mk}{\from{latex-make.dtx}{makefile}}
+  \file{LaTeX.mk.conf}{\from{latex-make.dtx}{makefile-config}}
+  \file{figdepth.py}{\from{latex-make.dtx}{figdepth}}
+  \file{gensubfig.py}{\from{latex-make.dtx}{gensubfig}}
+  \file{latexfilter.py}{\from{latex-make.dtx}{latexfilter}}
+  \file{svg2dev.py}{\from{latex-make.dtx}{svg2dev}}
+  \file{svgdepth.py}{\from{latex-make.dtx}{svgdepth}}
+}
+\catcode`\^^I=10
+
+\Msg{***************************************************************}
+\Msg{*}
+\Msg{* \space Copy the files listed below into a TeX searchable directory.}
+\Msg{* \@spaces figlatex.sty}
+\Msg{* \@spaces figlatex.cfg}
+\Msg{* \@spaces texgraphicx.sty}
+\Msg{* \@spaces pdfswitch.sty}
+\Msg{* \@spaces texdepends.sty}
+\Msg{* \space Copy the files listed below into a Make searchable directory}
+\Msg{* \space (as /usr/include or current directory)}
+\Msg{* \@spaces LaTeX.mk}
+\Msg{* \space Make executable the files listed below and install them in the current}
+\Msg{* \space directory, in a 'bin' subdirectory, in a scripts directory of a searchable}
+\Msg{* \space TeX Directory Structure, or in your PATH}
+\Msg{* \@spaces figdepth.py}
+\Msg{* \@spaces gensubfig.py}
+\Msg{* \@spaces latexfilter.py}
+\Msg{* \@spaces svg2dev.py}
+\Msg{* \@spaces svgdepth.py}
+\Msg{*}
+\Msg{* \space To get latex-make documentation,}
+\Msg{* \@spaces make doc (for A4 PDF) or}
+\Msg{* \@spaces make dvi.}
+\Msg{*}
+\Msg{***************************************************************}
+
+\endinput
+

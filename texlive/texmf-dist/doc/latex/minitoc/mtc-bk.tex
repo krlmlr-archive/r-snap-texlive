@@ -1,0 +1,241 @@
+%%
+%% This is file `mtc-bk.tex',
+%% generated with the docstrip utility.
+%%
+%% The original source files were:
+%%
+%% minitoc.dtx  (with options: `mtc-bk')
+%% This is a generated file.
+%% 
+%% 
+%% This file may be distributed and/or modified under the conditions of
+%% the LaTeX Project Public License, either version 1.3 of this license
+%% or (at your option) any later version.  The latest version of this
+%% license is in:
+%% 
+%%    http://www.latex-project.org/lppl.txt
+%% 
+%% and version 1.3 or later is part of all distributions of LaTeX version
+%% 2003/12/01 or later.
+%% 
+%% This work has the LPPL maintenance status "author-maintained".
+%% 
+%% This Current Maintainer of this work is Jean-Pierre F. Drucbert (JPFD).
+%% 
+%% This work consists of all the files listed in the file `minitoc.l'
+%% distributed with it.
+%% Copyright 1993 1994 1995 1996 1997 1998 1999 2000
+%%           2001 2002 2003 2004 2005 2006 2007 2008
+%% Jean-Pierre F. Drucbert
+%% <jean-pierre.drucbert@onera.fr>
+%%%%%%%%%%%%%%%%%%%%% A example file (differs from previous versions)
+%% mtc-bk.tex
+%% This file contains a set of tests for the minitoc.sty version #60 package file.
+%% You can alter most of parameters to test.
+%% Class: book/report (\chapter must be defined).
+%% You can use a copy of this file to play with minitoc commands and parameters.
+\documentclass[12pt,a4paper]{report} % the report class uses less pages
+%% \documentclass[12pt,a4paper]{book}
+\ProvidesFile{mtc-bk.tex}%
+  [2007/06/06]
+\usepackage{lipsum} % provides filling text
+%% \usepackage{hyperref} % if used, load it BEFORE minitoc
+%% \usepackage{mtcoff}
+\usepackage[tight]{minitoc} % tight option make shorter mini-tables
+\setcounter{secnumdepth}{5} % depth of numbering of sectionning commands
+\setcounter{tocdepth}{3}               % depth of table of contents
+\setlength{\mtcindent}{24pt}           % indentation of minitocs, default
+\renewcommand{\mtcfont}{\small\rm}     % font for minitocs, default
+\renewcommand{\mtcSfont}{\small\bf}    % font for minitocs, sections, default
+%% \renewcommand{\mtcSSfont}{\small\sf} % font for minitocs, subsections
+%% you can make experiments with \mtcSSSfont, \mtcPfont and \mtcSPfont
+%% but it is ``fontomania''...
+\raggedbottom                   % or \flushbottom, at your choice
+%%% TEST: uncomment the next line to test resetting chapter number in each part
+%% \makeatletter \@addtoreset{chapter}{part} \makeatother
+%%% END TEST
+\begin{document}
+\mtcpagenumbers
+\noptcrule
+%% \nomtcrule                    % suppresses minitoc rules
+%% \nomtcpagenumbers             % suppresses minitoc page numbers
+%% \nomlfpagenumbers             % ---------- minilof ---- -------
+%% \nomltpagenumbers             % ---------- minilot ---- -------
+\dominitoc
+\dominilof[c]                   % centers title of minilof's
+\dominilot
+\doparttoc                      % test of parttoc/partlof stuff
+\dopartlof                      % added in version #15
+\dopartlot                      % added in version #15
+\tableofcontents            % or \faketableofcontents
+\listoffigures              % or \fakelistoffigures
+\fakelistoftables           % or \listoftables
+%% \addtocounter{chapter}{-1} % to begin with Chapter 0
+\part{First Part}
+\parttoc \partlof[r] \partlot[r]
+\twocolumn\sloppy               % the minitoc in twocolumn layout is ugly,
+\chapter{AAAAA}                 % a chapter with a lot of sections
+\minitoc[r]                     % minitoc title on the right
+\lipsum[1]
+\section{S1} \lipsum[2]
+\section{S2} \lipsum[3]
+\section{S3} \lipsum[4]
+\section*{S4}
+\addcontentsline{toc}{section}{\protect\numberline{}{S4}}
+\lipsum[5]
+\section{S5} \lipsum[6]
+\section{S6} \lipsum[6]
+\section{S7} \lipsum[7]
+\section{S8} \lipsum[9]
+\section{S9} \lipsum[10]
+\section{S10} \lipsum[11]
+\section{S11} \lipsum[12]
+\section{S12} \lipsum[13]
+\section{S13} \lipsum[14]
+\section{S14} \lipsum[15]
+\section{S15} \lipsum[16]
+\section{S16} \lipsum[17]
+\section{S17} \lipsum[18]
+\section{S18} \lipsum[19]
+\section{S19} \lipsum[20]
+\section{S20} \lipsum[21]
+\section{S21} \lipsum[22]
+\section{S22} \lipsum[23]
+\section{S23} \lipsum[24]
+\section{S24} \lipsum[25]
+\section{S25} \lipsum[26]
+\section{S26} \lipsum[27]
+\section{S27} \lipsum[28]
+\section{S28} \lipsum[29]
+\section{S29} \lipsum[30]
+\section{S30} \lipsum[31]
+\subsection{SS1} \lipsum[32]
+\section{S31} \lipsum[33]
+\onecolumn\fussy        % back to one column
+\chapter{BBBBB}
+\minitoc
+\mtcskip                % put some skip here
+\minilof                % a minilof
+\mtcskip                % put some skip here
+\minilot                % a minilot
+\lipsum[34]
+\section{T1} \lipsum[35]
+\begin{figure}[t]       % tests compatibility with floating bodies
+\setlength{\unitlength}{1mm}
+\begin{picture}(100,50)
+\end{picture}
+\caption{F1}            % (tables are similar)
+\end{figure}
+\begin{table}[b]        % tests compatibility with floating bodies
+\setlength{\unitlength}{1mm}
+\begin{picture}(100,50)
+\end{picture}
+\caption{T1}            % (tables are similar)
+\end{table}
+\clearpage
+\subsection[tt1]{TT1}   % tests optional arg. of a sectionning command
+\lipsum[36]
+\subsubsection{TTT1} \lipsum[37]
+\paragraph{TTTT1} \lipsum[38]
+\begin{figure}
+\setlength{\unitlength}{1mm}
+\begin{picture}(100,50)
+\end{picture}
+\caption[f2]{F2}        % tests optional arg. of a caption
+\end{figure}
+\section{T2} \lipsum[39]
+\chapter*{CCCCC}        % tests a pseudo-chapter; could have a minitoc.
+\addstarredchapter{CCCCC}
+\lipsum[40]
+\section*{U1}
+\addcontentsline{toc}{section}{U1}
+\lipsum[41]
+\subsection*{UU1}
+\addcontentsline{toc}{subsection}{UU1}
+\lipsum[42]
+\subsubsection*{UUU1}
+\addcontentsline{toc}{subsubsection}{UUU1}
+\lipsum[43]
+\paragraph*{UUUU1}
+\addcontentsline{toc}{paragraph}{UUUU1}
+\lipsum[44]
+\section*{U2}
+\addcontentsline{toc}{section}{U2}
+\lipsum[45]
+\part{Second Part}
+\parttoc
+\partlof[c]
+%%                       % the following chapter should have no minitoc,
+\chapter{DDDDD}          % but if you uncomment \minitoc,
+%% \minitoc              % the minitoc appears
+\lipsum[46]
+\section{V1} \lipsum[47]
+\subsection{VV1} \lipsum[48]
+\subsubsection{VVV1} \lipsum[49]
+\paragraph{VVVV1} \lipsum[50]
+\begin{figure}[t]        % tests compatibility with floating bodies
+\setlength{\unitlength}{1mm}
+\begin{picture}(100,50)
+\end{picture}
+\caption{F3}             % (I have not tested tables, but it is similar)
+\end{figure}
+\lipsum[51]
+\section{V2} \lipsum[52]
+\chapter{EEEEE}                 % this chapter should have a minitoc
+{%                              % left brace, see below
+\setcounter{minitocdepth}{3}    % depth of mini table of contents;
+                                % try with different values.
+\minitoc
+}                               % right brace
+%% this pair of braces is used to keep local the change
+%% on minitocdepth.
+\lipsum[53]
+\section{W1}                    % with the given depth
+\lipsum[54]
+\subsection{WW1} \lipsum[55]
+\subsubsection{WWW1} \lipsum[56]
+\begin{figure}[t]        % tests compatibility with floating bodies
+\setlength{\unitlength}{1mm}
+\begin{picture}(100,50)
+\end{picture}
+\caption{F4}             % (I have not tested tables here, but it is similar)
+\end{figure}
+\lipsum[57]
+\paragraph{WWWW1} \lipsum[58]
+\subparagraph{WWWWW1} \lipsum[59]
+\section{W2} \lipsum[60]
+\appendix
+\part{Appendices}
+\parttoc
+\begin{mtchideinmaintoc}[-1]
+\chapter{Comments}
+\minitoc
+\section{C1} \lipsum[61]
+\section{C2} \lipsum[62]
+\section{C3} \lipsum[63]
+\begin{figure}[t]        % tests compatibility with floating bodies
+\setlength{\unitlength}{1mm}
+\begin{picture}(100,50)
+\end{picture}
+\caption{F5}             % (I have not tested tables, but it is similar)
+\end{figure}
+\section{C4}
+\chapter{Evolution}
+\minitoc
+\minilof %Empty => invisible
+\minilot %Empty => invisible
+\section{D1} \lipsum[64]
+\section{D2} \lipsum[65]
+\section{D3} \lipsum[66]
+\section{D4} \lipsum[67]
+%% this line closes the omitted part
+\addtocontents{toc}{\protect\partbegin}
+%% this line restore the depth in the main TOC
+\end{mtchideinmaintoc}
+\lipsum[68]
+\end{document}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%
+\endinput
+%%
+%% End of file `mtc-bk.tex'.

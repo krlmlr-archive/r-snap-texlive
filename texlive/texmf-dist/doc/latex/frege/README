@@ -1,0 +1,131 @@
+frege.sty - a LaTeX2e package for typesetting begriffsschrift
+
+This package is based on begriff.sty released under the GNU General Public License. 
+Copyright (C) 2003 by Josh Parsons
+
+Since version 1.3 this package also makes use of the bguq package by J.J. Green.
+
+Changes with respect to begriff.sty
+
+correct relative lengths of the content stroke with respect to other strokes 
+attached to it;
+content strokes point at the middle of the following symbols, rather than the bottom;
+greater width for the assertion stroke as compared to the content stroke;
+a more intuitive structure for the conditional (arguments are now given in the same 
+order as they appear on the left of a completed formula);
+the command for the conditional with empty arguments now results in a vertical line 
+(conditional stroke) on it's own the other strokes are added as the arguments;
+the linewidth is properly accounted for so that things remain properly centered when 
+scaled;
+
+frege.sty defines the following basic commands:
+\Fcontent[1]       - plain content stroke
+\Fncontent[1]      - negated content stroke
+\Fnncontent[1]     - twice negated content stroke
+\Faconten[1]       - asserted content stroke
+\Fancontent[1]     - asserted negated content stroke
+\Fanncontent[1]    - asserted twice negated content stroke
+\Fquant[1]{a}      - content stroke with quantifier
+\Fnquant[1]{a}     - negated quantifier
+\Fnnquant[1]{a}    - twice negated quantifier
+\Fquantn[1]{a}     - quantifier with negated content
+\Fquantnn[1]{a}    - quantifier with twice negated content
+\Fnquantn[1]{a}    - negated quantifier with negated content
+\Fnquantnn[1]{a}   - negated quantifier with twice negated content
+\Fnnquantn[1]{a}   - twice negated quantifier with negated content
+\Fnnquantnn[1]{a}  - twice negated quantifier with twice negated content
+\Faquant[1]{a}     - asserted content stroke with quantifier
+\Fanquant[1]{a}    - asserted negated quantifier
+\Fannquant[1]{a}   - asserted twice negated quantifier
+\Faquantn[1]{a}    - asserted quantifier with negated content
+\Faquantnn[1]{a}   - asserted quantifier with twice negated content
+\Fanquantn[1]{a}   - asserted negated quantifier with negated content
+\Fanquantnn[1]{a}  - asserted negated quantifier with twice negated content
+\Fannquantn[1]{a}  - asserted twice negated quantifier with negated content
+\Fannquantnn[1]{a} - asserted twice negated quantifier with twice negated content
+
+while this may look like a daunting list think of it as just two commands:
+\Fcontent[1]       - generates a content stroke
+\Fquant[1]{a}      - generates a quantifier with variable a
+
+Adding an "a" after the "\F" adds an assertion stroke to the front of the command, 
+this may be followed by one two or no "n" to add one two or no negations to the 
+stroke. Next comes the name of the command either "content" or "quant". "quant" may 
+then be followed by another one two or no "n" which will add one two or no negations 
+after the quantifier to it's content stroke. All commands may be used in either text 
+or math mode. All the above commands produce output of the same length and may be 
+arbitrarly combined to produce longer composite formulas. Since version 1.1 each of 
+the basic strokes also has an optional argument with default value one, that scales 
+the total length of the stroke (\Fbaselength), so that an optional argument of [.5] 
+will produce a stroke half as long. Warning: setting a length shorter than what is 
+needed to fit all the options of a stroke leads to negative lengths and hence 
+unpredictable results.
+
+Since version 1.3 it is also possible to call all the above commands without the 
+word "content" for the content strokes and with just "q" instead of the word "quant" 
+for the quantifiers.
+
+frege.sty defines the following more complex commands:
+\Fconditional[<option>]{<consequent>}{<antecedent>}
+\Fbox{<begriffsschrift formula with at least one conditional>}
+\Fbracket{<begriffsschrift formula with at least one conditional>}
+\Fargument[<premise 0>]{<premise 1>}{<premise 2>}{<conclusion>}
+\Fstrut[1]
+
+The final two have been added in version 1.2.
+
+The following shorthands for the above commands have been introduced in version 1.3: 
+\Fcdt, \Fb, \Fbb, \Farg, \Fs;
+
+The "Fconditional" command requires a mixture of the commands defined by frege.sty 
+and normal mathmode input to produce begriffsschrift. A implies B would be written 
+like this: 
+
+\Fconditional[\Facontent]{\Fcontent B}{\Fcontent A}
+
+This produces the two dimensional fregean conditional symbol with B lined up above 
+A. In addition the "Fconditional" command may be arbitrarily nested to produce any 
+begriffsschrift formula possible. All begriffsschrift symbol can be made without 
+the use of the optional argument, it exists only for convenience.
+
+"Fbracket" is just the same as "\left(\Fbox\right)" everything said about "Fbox" 
+applies equally to "Fbracket". A completed formula of begriffsschrift that includes 
+at least one conditional, should always be placed in an "Fbox" this ensures it is 
+given enough space in the output behaves correctly with respect to the text around 
+it and works correctly within environments such as align*.
+
+"Fargument" arranges two begriffsschrift formulas above each other and seperates 
+them from a third by a horizontal line. The option is for the name of a premise 
+written elsewhere and will outout (name): to the left of the horizontal line.
+
+"Fstrut" is like a invisible content stroke. Like all other basic strokes, it may be 
+scaled using it's optional argument. Fstrut is to be used in conjunction with 
+Fargument to ensure the formulas line up properly.
+
+The final result may also be modified by changing the following lengths using the 
+\setlength{<lengthname>}{<value>} command. The lengths and there default values are 
+given as follows:
+
+length:         default value:  description:
+\Fbaselength    20pt            the length of a single basic stroke
+\Flinewidth     0.5pt           the width of all lines other than the assert stroke
+\Fspace         2pt             seperation between begriffsschrift and text/formula
+\Fassertwidth   3\Flinewidth    the width of the assert stroke
+\Fraiseheight   1ex-\Flinewidth the height of content strokes above the baseline
+\Fnegsep        3\Flinewidth    the sepparation between a double negation
+\Fnegshort      2\Flinewidth    the space between negation stroke and baseline
+\Fquantwidth    6pt             width of the semi circular quantifier depression
+
+Since version 1.3 it is possible to load this package using the "bguq" option: 
+\usepackage[bguq]{frege}
+
+if the bguq option is enabled all quantifiers will use the bguq character provided 
+by the bguq package by J.J. Green rather than the qbezier used by this package. 
+This means the bguq package must be installed to use the option. (It can be found 
+on ctan: http://www.ctan.org/pkg/bguq).
+Warning: as it stands the bguq character scales with font while the rest of the 
+symbols provided by this package do not. Also, the bguq character will not respond 
+to a change in Flinewidth.
+
+For more examples and info see accompanying manual (frege.pdf or frege.tex)
+Everything released under GNU General Public License.

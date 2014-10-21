@@ -1,0 +1,3192 @@
+% \iffalse meta-comment
+%
+% File: AnonymousPro.dtx
+% Copyright (C) 2013-2014 Arash Esbati <esbati'at'gmx.de>
+%
+% This work may be distributed and/or modified under the conditions
+% of the LaTeX Project Public License (LPPL), either version 1.3c of
+% this license or (at your option) any later version.  The latest
+% version of this license is in the file:
+%
+%    http://www.latex-project.org/lppl.txt
+%
+% \fi
+%
+% \iffalse
+%<package>\NeedsTeXFormat{LaTeX2e}[1999/12/01]
+%<package>\ProvidesPackage{AnonymousPro}
+%<package>  [2014/03/22 v2.1 Support for AnonymousPro Fonts (AE)]
+%
+%<*driver>
+\documentclass[a4paper]{ltxdoc}
+\renewcommand\rmdefault{bch}
+\renewcommand\sfdefault{lmss}
+\usepackage[scale=0.95,ttdefault]{AnonymousPro}
+\usepackage[T1]{fontenc}
+\usepackage{textcomp,longtable,fonttable}
+\newcommand*\pkg[1]{\textsf{#1}}
+\usepackage{hypdoc}
+\DisableCrossrefs         
+\RecordChanges
+\setlength\hfuzz{15pt}
+\hbadness=7000
+\frenchspacing
+\raggedbottom
+\makeatletter
+\renewcommand\@makefntext[1]{%
+  \@setpar{%
+    \@@par \@tempdima=\hsize
+    \advance\@tempdima by -1.5em\relax
+    \parshape \@ne 1.5em \@tempdima
+  }%
+  \par \parindent=\z@ \noindent %
+  \hb@xt@ \z@{\hss \hb@xt@ 1.5em{\@thefnmark.\hss}}%
+  #1%
+}
+\makeatother
+\newcommand\anpspecimen{%
+  {\small LATIN CAPITALS}    \\
+  ABCDEFGHIJKLMNOPQRSTUVWXYZ \\
+  \'A\`A\^A\~A\"A\r{A}\=A\u{A}\capitalogonek{A}\AE\'\AE %
+  \.B%
+  \c{C}\'C\^C\.C\v{C}%
+  \v{D}\DH\.D%
+  \'E\`E\^E\"E\=E\u{E}\.E\capitalogonek{E}%
+  \.F                        \\
+  \ANPHbar%
+  I\'I\`I\^I\"I\~I\=I\u{I}\capitalogonek{I}IJ\^J%
+  \L\'L\v{L}%
+  \.M%
+  \r{N}\'N\v{N}\NG%
+  \'O\`O\^O\~O\"O\O\'{\O}\=O\u{O}\H{O}\OE%
+  \.P                        \\%
+  \'R\v{R}%
+  \SS\v{S}\'S\^S\c{S}\.S%
+  \v{T}\.T%
+  \'U\`U\^U\"U\~U\=U\u{U}\r{U}\H{U}\capitalogonek{U}%
+  \DH\TH                     \\[\smallskipamount]
+%
+  {\small LATIN LOWERCASE}   \\
+  abcdefghijklmnopqrstuvwxyz \\
+  \'a\`a\^a\~a\"a\r{a}\=a\u{a}\capitalogonek{a}\ae\'\ae %
+  \.b%
+  \c{c}\'c\^c\.c\v{c}%
+  \v{d}\.d%
+  \'e\`e\^e\"e\=e\u{e}\.e\capitalogonek{e}%
+  \.f                        \\
+  \ANPhbar%
+  i\'i\`i\^i\"i\~i\=i\u{i}\capitalogonek{i}ij\^j%
+  \l\'l\v{l}%
+  \.m%
+  \r{n}\'n\v{n}\ng%
+  \'o\`o\^o\~o\"o\o\'{\o}\=o\u{o}\H{o}\oe%
+  \.p                        \\%
+  \'r\v{r}%
+  \ss\v{s}\'s\^s\c{s}\.s%
+  \v{t}\.t%
+  \'u\`u\^u\"u\~u\=u\u{u}\r{u}\H{u}\capitalogonek{u}%
+  \dh\th                    \\[\smallskipamount]
+%
+  {\small LIGATURES} \\
+  fi ff fl ffi ij IJ ffl \\[\smallskipamount]
+%
+  {\small FIGURES, FRACTIONS, SUPERSCRIPT} \\
+  1234567890       \space 
+  \textonehalf     \textonequarter    \textthreequarters \space 
+  \textonesuperior \textthreesuperior \texttwosuperior   \space
+  \textfractionsolidus \\[\smallskipamount]
+%
+  {\small CURRENCY AND FIGURE-RELATED CHARACTERS} \\
+  \#\$\textcent \textsterling \textyen \textflorin \texteuro
+  \%\textperthousand \textdegree \textcopyright \textregistered
+  \texttrademark \ANPNumeroSign \textasciicircum \textasciitilde
+  \textless \textgreater =+%
+  \texttimes \textminus \textdiv \textlnot \textsurd \ANPinfinity
+  \ANPintegral \ANPapproxequal \ANPnotequal \ANPlessequal
+  \ANPgreaterequal \textmu \textohm \ANPDelta \ANPproduct
+  \ANPpartialdiff \ANPPi \ANPpi
+  \ANPsummation \ANPsigma \ANPsigmaone \\
+%
+  {\small PUNCTUATION AND MISCELLANEOUS CHARACTERS} \\
+  \{[(\ANPellipsis
+  .,:;!?\textexclamdown \textquestiondown \&\textquotesingle %
+  "`'``''\guillemotleft \guillemotright \guilsinglleft \guilsinglright
+  @*\textdagger \textdaggerdbl \textsection \textparagraph
+  /\textbackslash \textbar \textbrokenbar \textendash \textemdash 
+  \textunderscore \textperiodcentered \textbullet )]\} \\
+  \ANPapplelogo \ANPappleopen \ANPUpArrowHead \ANPUpArrowHeadBars
+  \ANPback \ANPblackdiamond \ANPcheckmark \ANPellipsis \ANPendtab
+  \ANPerasetotheright \ANPinsert \ANPInsertSign \ANPlozenge
+  \ANPoptionkey  \ANPproduct \ANPshift \ANPshiftlock \ANPtab 
+  \ANPReturnSign \ANPShoulderedOpenBox \ANPHelm \ANPOpenBox
+  \ANPverticaltab
+}
+%
+\newcommand*{\printanpspecimen}[1]{%
+  \begin{center}%
+    \ttfamily#1\anpspecimen
+  \end{center}%
+}
+\begin{document}
+  \DocInput{\jobname.dtx}
+\end{document}
+%</driver>
+% \fi
+% 
+% \CheckSum{1880}
+%
+% \CharacterTable
+%  {Upper-case    \A\B\C\D\E\F\G\H\I\J\K\L\M\N\O\P\Q\R\S\T\U\V\W\X\Y\Z
+%   Lower-case    \a\b\c\d\e\f\g\h\i\j\k\l\m\n\o\p\q\r\s\t\u\v\w\x\y\z
+%   Digits        \0\1\2\3\4\5\6\7\8\9
+%   Exclamation   \!     Double quote  \"     Hash (number) \#
+%   Dollar        \$     Percent       \%     Ampersand     \&
+%   Acute accent  \'     Left paren    \(     Right paren   \)
+%   Asterisk      \*     Plus          \+     Comma         \,
+%   Minus         \-     Point         \.     Solidus       \/
+%   Colon         \:     Semicolon     \;     Less than     \<
+%   Equals        \=     Greater than  \>     Question mark \?
+%   Commercial at \@     Left bracket  \[     Backslash     \\
+%   Right bracket \]     Circumflex    \^     Underscore    \_
+%   Grave accent  \`     Left brace    \{     Vertical bar  \|
+%   Right brace   \}     Tilde         \~}
+%
+%
+% \GetFileInfo{\jobname.sty}
+%
+% \MakeShortVerb{\|}
+% 
+% \DoNotIndex{\newcommand,\renewcommand,\newenvironment}
+%
+% \changes{v2.1}{2014/03/22}{Remapped `visiblespace' to Anonymous Pro
+% glyph `openbox' (uni2423) in `anonymouspro-fixlatin.mtx' which looks
+% less heavy}
+%
+% \changes{v2.1}{2014/03/22}{Minor documentation updates}
+%
+% \changes{v2.0}{2013/12/29}{Reorganized the \pkg{fontinst} driver file
+% so that all glyphs are available from the fonts}
+%
+% \changes{v2.0}{2013/12/29}{Updated documentation and added a font
+% table}
+%
+% \changes{v1.1}{2013/12/12}{Regenerated .afm and .pfb from .ttf with
+% FontForge (was ttftopt1) after a comment from Karl Berry, now the
+% fonts pass `t1lint' without warnings}
+%
+% \changes{v1.0}{2013/12/06}{Initial version}
+%
+% \title{Using \texttt{Anonymous Pro} fonts with LaTeX^^A
+% \thanks{This file has version number \fileversion, last revised
+% \filedate.}} 
+% \author{Arash Esbati}
+% \date{\filedate}
+% \maketitle
+%
+% \begin{abstract}
+%   \noindent 
+%   This package provides the necessary files to use the monowidth
+%   \texttt{Anonymous Pro} fonts with LaTeX.  Anonymous Pro is a set
+%   of four fonts provided by Mark Simonson under the Open Font
+%   License (OFL).
+% \end{abstract}
+%
+% \tableofcontents\clearpage
+%
+% \section{Introduction}
+% \label{sec:introduction}
+% 
+% Anonymous Pro\footnote{Copyright \textcopyright\ 2009, Mark Simonson
+% (http://www.ms-studio.com, mark@marksimonson.com), with Reserved
+% Font Name Anonymous Pro} is a set of fonts provided by Mark
+% Simonson\footnote{\url{http://www.marksimonson.com/fonts/view/anonymous-pro}}
+% under the Open Font License (OFL).  From his
+% README.txt: 
+% \begin{quotation}
+%   ``Anonymous Pro is a family of four fixed-width fonts designed
+%   especially with coding in mind.  Characters that could be mistaken
+%   for one another (\texttt{O}, \texttt{0}, \texttt{I}, \texttt{l},
+%   \texttt{1}, etc.) have distinct shapes to make them easier to tell
+%   apart in the context of source code.
+%
+%   Anonymous Pro also features an international, Unicode-based
+%   character set, with support for most Western and European
+%   Latin-based languages, Greek, and Cyrillic.  It also includes
+%   special ``box drawing'' characters for those who need them.
+%
+%   Anonymous Pro is based on an earlier font,
+%   Anonymous\texttrademark, which was my TrueType version of
+%   Anonymous 9, a freeware Macintosh bitmap font developed in the
+%   mid-'90s by Susan Lesch and David Lamkins. The bitmap version was
+%   intended as a more legible alternative to Monaco, the fixed-width
+%   Macintosh system font.''
+% \end{quotation}
+% 
+% This bundle was mainly formed as ``I needed something to play with''
+% while I was reading through the fantastic \textit{``The Font
+% Installation Guide''}\footnote{^^A
+% \url{http://www.ctan.org/tex-archive/info/Type1fonts/fontinstallationguide}}
+% by Philipp Lehman.  Therefore, this bundle is not aiming to provide
+% a complete access to the fonts~-- Greek and Cyrillic characters are
+% not supported, neither the ``box drawing'' characters.  Only T1 and
+% TS1-encodings are supported, OT1 and LY1 are not.
+%
+% \section{Installation}
+% \label{sec:installation}
+%
+% The installation of fonts for TeX/LaTeX is not fun.  The best way is
+% to use MikTeX or TeXlive (my system) and wait until the fonts are
+% distributed for your TeX-installation.
+%
+% \section{Usage}
+% \label{sec:usage}
+%
+% The usage is LaTeX-standard, the behaviour not.  Having this in your
+% preamble:
+% \begin{verbatim}
+%   \usepackage{AnonymousPro}\end{verbatim}
+% does not change the monowidth-font of the document.
+% 
+% \DescribeMacro{ttdefault}
+% You have to activate the Anonymous Pro font explicitly with the
+% option |`ttdefault'| or |`ttdefault=true'|.  This is the
+% intended behaviour.
+%
+% \DescribeMacro{scale}
+% You can |`scale'| the font with this option.  In this document, I
+% used: 
+% \begin{verbatim}
+%   \usepackage[scale=0.95,ttdefault]{AnonymousPro} \end{verbatim}
+%
+% This package does not try to be too smart, and relies only on
+% \pkg{kvoptions}.  You have to load \pkg{fontenc} and \pkg{textcomp}
+% yourself, e.g.:
+% \begin{verbatim}
+%   \usepackage[T1]{fontenc}
+%   \usepackage{textcomp}
+%   \usepackage[scale=0.98,ttdefault]{AnonymousPro} \end{verbatim}
+%
+%
+% \section{Glyph Coverage}
+% \label{sec:glyph-coverage}
+% 
+% A comprehensive Anonymous Pro
+% specimen\footnote{\url{http://www.marksimonson.com/assets/content/fonts/AnonymousProSpecimen.pdf}}
+% is available with complete showings of all the fonts.
+%
+% The characters accessible with LaTeX are shown below and in
+% section~\ref{sec:t1-font-table}.  Note that some characters are not
+% correct, e.g. the misplaced Ogonek diacritical sign
+% (\texttt{\capitalogonek{I}}, \texttt{\capitalogonek{U}}).  They are
+% not coverd by T1-encoding; \texttt{\capitalogonek{A}} and
+% \texttt{\capitalogonek{E}} on the other hand are covered and
+% correct.
+%
+% Fake-Smallcaps of {\ttfamily\scshape Anonymous Pro} are also
+% provided (the only reason is that \pkg{fontinst} can generate them!)
+%
+% \subsection{Regular Font}
+% \label{sec:regular}
+%
+% \printanpspecimen{\Large}
+% \clearpage
+%
+% \subsection{Italic Font}
+% \label{sec:italic}
+%
+% \printanpspecimen{\Large\itshape}
+% \clearpage
+%
+% \subsection{Bold Font}
+% \label{sec:bold}
+%
+% \printanpspecimen{\Large\bfseries}
+% \clearpage
+%
+% \subsection{Bold-Italic Font}
+% \label{sec:bold-italic}
+%
+% \printanpspecimen{\Large\bfseries\itshape}
+% \clearpage
+%
+% \subsection{T1 Font Table}
+% \label{sec:t1-font-table}
+% 
+% The only character missing is |`perthousandzero'| in slot 24;
+% |`compwordmark'| in slot 23 is an invisible glyph.  Ligatures like
+% \texttt{fi}, \texttt{fl} or \texttt{IJ} are available in the font
+% but disabled.
+%
+% {\small\xfonttable{T1}{AnonymousPro}{m}{n}}
+%
+% \subsection{Text Companion Symbols}
+% \label{sec:textcomp-symb}
+%
+% The next table shows the symbols available through \pkg{textcomp}.
+% They are available in \textbf{Bold}, \textit{Italic} and
+% \textbf{\itshape Bold-Italic}.
+% \begingroup\ttfamily
+% \begin{longtable}[l]{@{}p{0.4\linewidth}@{}p{0.1\linewidth}@{}p{0.4\linewidth}@{}p{0.1\linewidth}@{}}
+% |\textacutedbl|                 & \textacutedbl &
+% |\textasciiacute|               & \textasciiacute \\
+% |\textasciibreve|               & \textasciibreve &
+% |\textasciicaron|               & \textasciicaron \\
+% |\textasciidieresis|            & \textasciidieresis &
+% |\textasciigrave|               & \textasciigrave \\
+% |\textasciimacron|              & \textasciimacron &
+% |\textasteriskcentered|         & \textasteriskcentered \\
+% |\textbardbl|                   & \textbardbl &
+% |\textbrokenbar|                & \textbrokenbar \\
+% |\textbullet|                   & \textbullet &
+% |\textcelsius|                  & \textcelsius \\
+% |\textcent|                     & \textcent &
+% |\textcopyright|                & \textcopyright \\
+% |\textcurrency|                 & \textcurrency &
+% |\textdaggerdbl|                & \textdaggerdbl \\
+% |\textdagger|                   & \textdagger &
+% |\textdegree|                   & \textdegree \\
+% |\textdiv|                      & \textdiv &
+% |\textdollar|                   & \textdollar \\
+% |\texteuro|                     & \texteuro &
+% |\textflorin|                   & \textflorin \\
+% |\textfractionsolidus|          & \textfractionsolidus &
+% |\textgravedbl|                 & \textgravedbl \\
+% |\textinterrobangdown|          & \textinterrobangdown &
+% |\textinterrobang|              & \textinterrobang \\
+% |\textlbrackdbl|                & \textlbrackdbl &
+% |\textlnot|                     & \textlnot \\
+% |\textminus|                    & \textminus &
+% |\textmu|                       & \textmu \\
+% |\textnumero|                   & \textnumero &
+% |\textonehalf|                  & \textonehalf \\
+% |\textonequarter|               & \textonequarter &
+% |\textonesuperior|              & \textonesuperior \\
+% |\textordfeminine|              & \textordfeminine &
+% |\textordmasculine|             & \textordmasculine \\
+% |\textparagraph|                & \textparagraph &
+% |\textperiodcentered|           & \textperiodcentered \\
+% |\textperthousand|              & \textperthousand &
+% |\textpm|                       & \textpm \\
+% |\textquotesingle|              & \textquotesingle &
+% |\textrbrackdbl|                & \textrbrackdbl \\
+% |\textregistered|               & \textregistered &
+% |\textsection|                  & \textsection \\
+% |\textsterling|                 & \textsterling &
+% |\textsurd|                     & \textsurd \\
+% |\textthreequartersemdash|      & \textthreequartersemdash &
+% |\textthreequarters|            & \textthreequarters \\
+% |\textthreesuperior|            & \textthreesuperior &
+% |\texttildelow|                 & \texttildelow \\
+% |\texttimes|                    & \texttimes &
+% |\texttrademark|                & \texttrademark \\
+% |\texttwelveudash|              & \texttwelveudash &
+% |\texttwosuperior|              & \texttwosuperior \\
+% |\textyen|                      & \textyen 
+% \end{longtable}
+% \endgroup
+%
+% \clearpage
+% 
+% \subsection{Miscellaneous Symbols}
+% \label{sec:misc-symb}
+% 
+% Other symbols provided by this package are shown in next table.
+% They are available in \textbf{Bold}, \textit{Italic} and
+% \textbf{\itshape Bold-Italic}.
+% \begingroup\ttfamily
+% \begin{longtable}[l]{@{}p{0.4\linewidth}@{}p{0.1\linewidth}@{}p{0.4\linewidth}@{}p{0.1\linewidth}@{}}
+% |\ANPapplelogo|         & \ANPapplelogo         &
+% |\ANPappleopen|         & \ANPappleopen         \\
+% |\ANPapproxequal|       & \ANPapproxequal       & 
+% |\ANPback|              & \ANPback              \\
+% |\ANPblackdiamond|      & \ANPblackdiamond      & 
+% |\ANPcheckmark|         & \ANPcheckmark         \\ 
+% |\ANPDelta|             & \ANPDelta             & 
+% |\ANPellipsis|          & \ANPellipsis          \\
+% |\ANPendtab|            & \ANPendtab            & 
+% |\ANPerasetotheright|   & \ANPerasetotheright   \\
+% |\ANPgreaterequal|      & \ANPgreaterequal      & 
+% |\ANPHelm|              & \ANPHelm              \\
+% |\ANPinsert|            & \ANPinsert            &
+% |\ANPInsertSign|        & \ANPInsertSign        \\ 
+% |\ANPintegral|          & \ANPintegral          &
+% |\ANPlessequal|         & \ANPlessequal         \\ 
+% |\ANPlozenge|           & \ANPlozenge           &
+% |\ANPnotequal|          & \ANPnotequal          \\ 
+% |\ANPOpenBox|           & \ANPOpenBox           &
+% |\ANPoptionkey|         & \ANPoptionkey         \\
+% |\ANPpartialdiff|       & \ANPpartialdiff       & 
+% |\ANPPi|                & \ANPPi                \\
+% |\ANPpi|                & \ANPpi                & 
+% |\ANPproduct|           & \ANPproduct           \\
+% |\ANPReturnSign|        & \ANPReturnSign        & 
+% |\ANPshift|             & \ANPshift             \\
+% |\ANPshiftlock|         & \ANPshiftlock         &
+% |\ANPShoulderedOpenBox| & \ANPShoulderedOpenBox \\
+% |\ANPsigma|             & \ANPsigma             & 
+% |\ANPsigmaone|          & \ANPsigmaone          \\
+% |\ANPsummation|         & \ANPsummation         & 
+% |\ANPtab|               & \ANPtab               \\
+% |\ANPUpArrowHead|       & \ANPUpArrowHead       &
+% |\ANPUpArrowHeadBars|   & \ANPUpArrowHeadBars   \\ 
+% |\ANPverticaltab|       & \ANPverticaltab       
+% \end{longtable}
+% \endgroup
+%
+% \subsection{Credits}
+% \label{sec:credits}
+%
+% \begin{description}
+% \item[Mark Simonson] for making the fonts in the first place and
+% giving me the OK to release the pfb-files
+% \item[Philipp Lehmann] for his \textit{``The Font Installation Guide''}
+% \item[Fontinst-Team] for \pkg{fontinst}
+% \end{description}
+%
+%
+% \StopEventually{^^A
+%   \PrintChanges
+% }
+%
+%
+% \section{Implementation}
+% \label{sec:implementation}
+% 
+% \subsection{General Notes}
+% \label{sec:gen-notes}
+%
+% These files were produced while playing around with \pkg{fontinst};
+% I do not use Anonymous Pro.  But making fonts available for LaTeX is
+% a messy job, and I hope these files are useful to somebody else.
+%
+% The original font-files are distributed as \meta{.ttf}.  I wanted to
+% play with \meta{.afm}, so I used
+% |FontForge|\footnote{\url{http://www.fontforge.org/}; I switched
+% from \texttt{ttf2pt1} (\url{http://ttf2pt1.sourceforge.net/}) after
+% a comment from Karl Berry.} to generate the \meta{.pfb} and
+% \meta{.afm} files.  After running LaTeX on \texttt{\jobname.ins} and
+% having the generated files at hand, I used a trivial |Makefile| to
+% run \pkg{fontinst}:
+% \begin{verbatim}
+%  .PHONY: fonts
+%  fonts:
+%          tex AnonymousPro-drv.tex 
+%          tex AnonymousPro-map.tex 
+%          for filename in *.pl; do pltotf $$filename; done
+%          for filename in *.vpl; do vptovf $$filename; done
+%          rm *.pl *.vpl *.mtx \end{verbatim}
+% 
+% I also used |t1testpage|\footnote{\url{http://www.lcdf.org/type/}}
+% to generate an overview of characters per font; mostly to have a
+% match on characters in \meta{.afm} files.
+%
+% \subsection{Fontinst-Driver file}
+% \label{sec:fontins-drv}
+% 
+% We follow Philipp Lehman's \textit{The Font Installation Guide}.
+%
+% We start as follows:
+%    \begin{macrocode}
+%<*anp-drv>
+%    \end{macrocode}
+%    \begin{macrocode}
+\input fontinst.sty
+\needsfontinstversion{1.926}
+%    \end{macrocode}
+% 
+% We are installing a monowidth-font.  `Anonymous Pro' has liguatures
+% but we will not use them and set \meta{ligaturing} to `0'.  Note
+% that we also will not set |`\hyphenchar\font=-1'|.
+%    \begin{macrocode}
+\setint{monowidth}{1}
+\setint{ligaturing}{0}
+\substitutesilent{bx}{b}
+\substitutesilent{sl}{it}
+%    \end{macrocode}
+%
+% For the sake of completeness we produce `fake-smallcaps'.
+%    \begin{macrocode}
+\setint{smallcapsscale}{800}
+%    \end{macrocode}
+%
+% Record our transformation:
+%    \begin{macrocode}
+\recordtransforms{anonymouspro-rec.tex}
+%    \end{macrocode}
+%
+% We have to patch \pkg{fontinst}'s |\fd_family| in order to use the \oarg{scale}
+% option.  The patch is taken from Boris Veytman's
+% \pkg{divine.dtx}\footnote{\url{http://www.ctan.org/pkg/divine}}.
+%    \begin{macrocode}
+\fontinstcc
+\def\fd_family#1#2#3{
+   \a_toks{#3}
+   \edef\lowercase_file{\lowercase{
+     \edef\noexpand\lowercase_file{#1#2.fd}}}
+   \lowercase_file
+   \open_out{\lowercase_file}
+   \out_line{\percent_char~Filename:~\lowercase_file}
+   \out_line{\percent_char~Created~by:~tex~\jobname}
+   \out_line{\percent_char~Created~using~fontinst~v\fontinstversion}
+   \out_line{}
+   \out_line{\percent_char~THIS~FILE~SHOULD~BE~PUT~IN~A~TEX~INPUTS~
+      DIRECTORY}
+   \out_line{}
+   \out_line{\string\ProvidesFile{\lowercase_file}}
+   \out_lline{[
+      \the\year/
+      \ifnum10>\month0\fi\the\month/
+      \ifnum10>\day0\fi\the\day\space
+      Fontinst~v\fontinstversion\space
+      font~definitions~for~#1/#2.
+   ]}
+   \out_line{}
+%% Start Patch
+   \out_line{\string\expandafter\string\ifx\string\csname\space
+     ANP@scale\string\endcsname\string\relax}
+   \out_lline{\string\let\string\ANP@@scale\string\@empty}
+   \out_line{\string\else}
+   \out_lline{\string\edef\string\ANP@@scale\left_brace_char
+       s*[\string\csname\space ANP@scale\string\endcsname]
+       \right_brace_char\percent_char}
+   \out_line{\string\fi}
+   \out_line{}
+%% End Patch
+   \out_line{\string\DeclareFontFamily{#1}{#2}{\the\a_toks}}
+   {
+      \csname #1-#2\endcsname
+      \out_line{}
+      \let\do_shape=\substitute_shape
+      \csname #1-#2\endcsname
+      \let\do_shape=\remove_shape
+      \csname #1-#2\endcsname
+   }
+   \x_cs\g_let{#1-#2}\x_relax
+   \out_line{}
+   \out_line{\string\endinput}
+   \close_out{Font~definitions}
+}
+\normalcc
+%    \end{macrocode}
+%
+% As for v2.0, we load all glyphs from .afm into \pkg{fontinst} memory
+% by using custom encoding files \verb+AnonymousPro-0[1|2|3].etx+.
+% Each .etx has 256 slots.  The idea is to have access to more than
+% 600 glyphs provided by the fonts.  Having the metrics at hand, we
+% let |t1.etx| and |ts1.etx| grab the right glyphs as we create the
+% virtual fonts.  \pkg{fontinst} has a nice |\foreach| facility for
+% this loop.  We use long names for the fonts.
+%    \begin{macrocode}
+\foreach(i){01,02,03}
+  \transformfont
+    {AnonymousPro-Regular-\str{i}}%
+    {\reencodefont{AnonymousPro-\str{i}}{\fromafm{AnonymousPro-Regular}}}
+  \transformfont
+    {AnonymousPro-Italic-\str{i}}%
+    {\reencodefont{AnonymousPro-\str{i}}{\fromafm{AnonymousPro-Italic}}}
+  \transformfont
+    {AnonymousPro-Bold-\str{i}}%
+    {\reencodefont{AnonymousPro-\str{i}}{\fromafm{AnonymousPro-Bold}}}
+  \transformfont
+    {AnonymousPro-BoldItalic-\str{i}}%
+    {\reencodefont{AnonymousPro-\str{i}}{\fromafm{AnonymousPro-BoldItalic}}}
+\endfor(i)
+%    \end{macrocode}
+% Symbols are loaded via |anonymouspro-symbols.etx|.
+%    \begin{macrocode}
+\transformfont
+  {AnonymousPro-Regular-Symbols-base}%
+  {\reencodefont{AnonymousPro-symbols}{\fromafm{AnonymousPro-Regular}}}
+\transformfont
+  {AnonymousPro-Italic-Symbols-base}%
+  {\reencodefont{AnonymousPro-symbols}{\fromafm{AnonymousPro-Italic}}}
+\transformfont
+  {AnonymousPro-Bold-Symbols-base}%
+  {\reencodefont{AnonymousPro-symbols}{\fromafm{AnonymousPro-Bold}}}
+\transformfont
+  {AnonymousPro-BoldItalic-Symbols-base}%
+  {\reencodefont{AnonymousPro-symbols}{\fromafm{AnonymousPro-BoldItalic}}}
+%    \end{macrocode}
+%
+% We offer only `T1' encoding.  We feed \pkg{fontinst} with our custom
+% .mtx generated during the reencoding.  We also adapt some glyph
+% names by loading |anonymouspro-fixlatin.mtx|.
+% |`<->\string\ANP@@scale'| is necessary for the \pkg{fontinst}-patch
+% above.
+%    \begin{macrocode}
+\installfonts
+\installfamily{T1}{AnonymousPro}{}
+\installfont
+  {AnonymousPro-Regular-t1}%
+  {AnonymousPro-Regular-01,AnonymousPro-Regular-02,AnonymousPro-Regular-03,%
+    anonymouspro-fixlatin,newlatin}%
+  {t1}{T1}{AnonymousPro}{m}{n}{<->\string\ANP@@scale}
+
+\installfont
+  {AnonymousPro-RegularSC-t1}%
+  {AnonymousPro-Regular-01,AnonymousPro-Regular-02,AnonymousPro-Regular-03,%
+    anonymouspro-fixlatin,newlatin}%
+  {t1c}{T1}{AnonymousPro}{m}{sc}{<->\string\ANP@@scale}
+
+\installfont
+  {AnonymousPro-Italic-t1}%
+  {AnonymousPro-Italic-01,AnonymousPro-Italic-02,AnonymousPro-Italic-03,%
+    anonymouspro-fixlatin,newlatin}%
+  {t1}{T1}{AnonymousPro}{m}{it}{<->\string\ANP@@scale}
+
+\installfont
+  {AnonymousPro-Bold-t1}%
+  {AnonymousPro-Bold-01,AnonymousPro-Bold-02,AnonymousPro-Bold-03,%
+    anonymouspro-fixlatin,newlatin}%
+  {t1}{T1}{AnonymousPro}{b}{n}{<->\string\ANP@@scale}
+
+\installfont
+  {AnonymousPro-BoldSC-t1}%
+  {AnonymousPro-Bold-01,AnonymousPro-Bold-02,AnonymousPro-Bold-03,%
+    anonymouspro-fixlatin,newlatin}%
+  {t1c}{T1}{AnonymousPro}{b}{sc}{<->\string\ANP@@scale}
+
+\installfont
+  {AnonymousPro-BoldItalic-t1}%
+  {AnonymousPro-BoldItalic-01,AnonymousPro-BoldItalic-02,%
+    AnonymousPro-BoldItalic-03,anonymouspro-fixlatin,newlatin}%
+  {t1}{T1}{AnonymousPro}{b}{it}{<->\string\ANP@@scale}
+\endinstallfonts
+%    \end{macrocode}
+%
+% Now `TS1'-encoding.  We load also |anonymouspro-fixtextcomp.mtx|.
+% For the `fake-smallcaps' we use the |`\installfontas'|-command.
+%    \begin{macrocode}
+\installfonts
+\installfamily{TS1}{AnonymousPro}{}
+\installfont
+  {AnonymousPro-Regular-ts1}%
+  {AnonymousPro-Regular-01,AnonymousPro-Regular-02,AnonymousPro-Regular-03,%
+    anonymouspro-fixtextcomp,textcomp}%
+  {ts1}{TS1}{AnonymousPro}{m}{n}{<->\string\ANP@@scale}
+
+\installfontas
+  {AnonymousPro-Regular-ts1}%
+  {TS1}{AnonymousPro}{m}{sc}{<->\string\ANP@@scale}
+
+\installfont
+  {AnonymousPro-Italic-ts1}%
+  {AnonymousPro-Italic-01,AnonymousPro-Italic-02,AnonymousPro-Italic-03,%
+    anonymouspro-fixtextcomp,textcomp}%
+  {ts1}{TS1}{AnonymousPro}{m}{it}{<->\string\ANP@@scale}
+
+\installfont
+  {AnonymousPro-Bold-ts1}%
+  {AnonymousPro-Bold-01,AnonymousPro-Bold-02,AnonymousPro-Bold-03,%
+    anonymouspro-fixtextcomp,textcomp}%
+  {ts1}{TS1}{AnonymousPro}{b}{n}{<->\string\ANP@@scale}
+
+\installfontas
+  {AnonymousPro-Bold-ts1}%
+  {TS1}{AnonymousPro}{b}{sc}{<->\string\ANP@@scale}
+
+\installfont
+  {AnonymousPro-BoldItalic-ts1}%
+  {AnonymousPro-BoldItalic-01,AnonymousPro-BoldItalic-02,%
+    AnonymousPro-BoldItalic-03,anonymouspro-fixtextcomp,textcomp}%
+  {ts1}{TS1}{AnonymousPro}{b}{it}{<->\string\ANP@@scale}
+\endinstallfonts
+%    \end{macrocode}
+%
+% For the symbols, we have to use a font-specific encoding
+% |`AnonymousPro-symbols.etx'|, hence `U'.  We also load
+% \pkg{fontinst}'s |txtfdmns.etx| for the symbol fonts.
+%    \begin{macrocode}
+\installfonts
+\installfamily{U}{AnonymousPro}{}
+\installfont
+  {AnonymousPro-Regular-Symbols-u}%
+  {AnonymousPro-Regular-Symbols-base}%
+  {txtfdmns,AnonymousPro-symbols}{U}{AnonymousPro}{m}{n}{<->\string\ANP@@scale}
+
+\installfont
+  {AnonymousPro-Italic-Symbols-u}%
+  {AnonymousPro-Italic-Symbols-base}%
+  {txtfdmns,AnonymousPro-symbols}{U}{AnonymousPro}{m}{it}{<->\string\ANP@@scale}
+
+\installfont
+  {AnonymousPro-Bold-Symbols-u}%
+  {AnonymousPro-Bold-Symbols-base}%
+  {txtfdmns,AnonymousPro-symbols}{U}{AnonymousPro}{b}{n}{<->\string\ANP@@scale}
+
+\installfont
+  {AnonymousPro-BoldItalic-Symbols-u}%
+  {AnonymousPro-BoldItalic-Symbols-base}%
+  {txtfdmns,AnonymousPro-symbols}{U}{AnonymousPro}{b}{it}{<->\string\ANP@@scale}
+\endinstallfonts
+%    \end{macrocode}
+%
+% Close recording and the process:
+%    \begin{macrocode}
+\endrecordtransforms
+\bye
+%    \end{macrocode}
+%
+%    \begin{macrocode}
+%</anp-drv>
+%    \end{macrocode}
+%
+%
+% \subsection{Fontinst-Map file}
+% \label{sec:fontinst-map-file}
+%
+% Again, straightforward from P. Lehmann:
+%    \begin{macrocode}
+%<*anp-map>
+\input finstmsc.sty
+\resetstr{PSfontsuffix}{.pfb}
+\adddriver{dvips}{AnonymousPro.map}
+\input anonymouspro-rec.tex
+\donedrivers
+\bye
+%</anp-map>
+%    \end{macrocode}
+%
+%
+% \subsection{Fontinst-Encoding files for the Fonts}
+% \label{sec:font-encod-files}
+%
+% Anonymous Pro has more than 600 glyphs.  In order to make them
+% available to \pkg{fontinst}, we have to define several encoding files
+% with 256 glyphs each.
+%
+%    \begin{macrocode}
+%<*anp-enc01>
+%    \end{macrocode}
+%
+%    \begin{macrocode}
+%%% ====================================================================
+%%%  @TeX-font-encoding-file{
+%%%     author          = "Arash Esbati",
+%%%     version         = "1.0",
+%%%     date            = "2013-12-29",
+%%%     time            = "15:24:42 +01:00",
+%%%     filename        = "AnonymousPro-01.etx",
+%%%     email           = "esbati'at'gmx.de",
+%%%     URL             = "",
+%%%     checksum        = "",
+%%%     codetable       = "ISO/ASCII",
+%%%     keywords        = "encoding, TeX, PostScript",
+%%%     supported       = "yes",
+%%%     abstract        = "This is a custom encoding as a TeX font 
+%%%                        encoding file to access all glyphs in 
+%%%                        the AnonymousPro, for use with the fontinst
+%%%                        utility.
+%%%     package         = "AnonymousPro for LaTeX",
+%%%     dependencies    = "fontinst.sty",
+%%%  }
+%%% ====================================================================
+
+\relax
+
+\encoding
+
+\setslot{space}
+\endsetslot
+
+\setslot{exclam}
+\endsetslot
+
+\setslot{quotedbl}
+\endsetslot
+
+\setslot{numbersign}
+\endsetslot
+
+\setslot{dollar}
+\endsetslot
+
+\setslot{percent}
+\endsetslot
+
+\setslot{ampersand}
+\endsetslot
+
+\setslot{quotesingle}
+\endsetslot
+
+\setslot{parenleft}
+\endsetslot
+
+\setslot{parenright}
+\endsetslot
+
+\setslot{asterisk}
+\endsetslot
+
+\setslot{plus}
+\endsetslot
+
+\setslot{comma}
+\endsetslot
+
+\setslot{hyphen}
+\endsetslot
+
+\setslot{period}
+\endsetslot
+
+\setslot{slash}
+\endsetslot
+
+\setslot{zero}
+\endsetslot
+
+\setslot{one}
+\endsetslot
+
+\setslot{two}
+\endsetslot
+
+\setslot{three}
+\endsetslot
+
+\setslot{four}
+\endsetslot
+
+\setslot{five}
+\endsetslot
+
+\setslot{six}
+\endsetslot
+
+\setslot{seven}
+\endsetslot
+
+\setslot{eight}
+\endsetslot
+
+\setslot{nine}
+\endsetslot
+
+\setslot{colon}
+\endsetslot
+
+\setslot{semicolon}
+\endsetslot
+
+\setslot{less}
+\endsetslot
+
+\setslot{equal}
+\endsetslot
+
+\setslot{greater}
+\endsetslot
+
+\setslot{question}
+\endsetslot
+
+\setslot{at}
+\endsetslot
+
+\setslot{A}
+\endsetslot
+
+\setslot{B}
+\endsetslot
+
+\setslot{C}
+\endsetslot
+
+\setslot{D}
+\endsetslot
+
+\setslot{E}
+\endsetslot
+
+\setslot{F}
+\endsetslot
+
+\setslot{G}
+\endsetslot
+
+\setslot{H}
+\endsetslot
+
+\setslot{I}
+\endsetslot
+
+\setslot{J}
+\endsetslot
+
+\setslot{K}
+\endsetslot
+
+\setslot{L}
+\endsetslot
+
+\setslot{M}
+\endsetslot
+
+\setslot{N}
+\endsetslot
+
+\setslot{O}
+\endsetslot
+
+\setslot{P}
+\endsetslot
+
+\setslot{Q}
+\endsetslot
+
+\setslot{R}
+\endsetslot
+
+\setslot{S}
+\endsetslot
+
+\setslot{T}
+\endsetslot
+
+\setslot{U}
+\endsetslot
+
+\setslot{V}
+\endsetslot
+
+\setslot{W}
+\endsetslot
+
+\setslot{X}
+\endsetslot
+
+\setslot{Y}
+\endsetslot
+
+\setslot{Z}
+\endsetslot
+
+\setslot{bracketleft}
+\endsetslot
+
+\setslot{backslash}
+\endsetslot
+
+\setslot{bracketright}
+\endsetslot
+
+\setslot{asciicircum}
+\endsetslot
+
+\setslot{underscore}
+\endsetslot
+
+\setslot{grave}
+\endsetslot
+
+\setslot{a}
+\endsetslot
+
+\setslot{b}
+\endsetslot
+
+\setslot{c}
+\endsetslot
+
+\setslot{d}
+\endsetslot
+
+\setslot{e}
+\endsetslot
+
+\setslot{f}
+\endsetslot
+
+\setslot{g}
+\endsetslot
+
+\setslot{h}
+\endsetslot
+
+\setslot{i}
+\endsetslot
+
+\setslot{j}
+\endsetslot
+
+\setslot{k}
+\endsetslot
+
+\setslot{l}
+\endsetslot
+
+\setslot{m}
+\endsetslot
+
+\setslot{n}
+\endsetslot
+
+\setslot{o}
+\endsetslot
+
+\setslot{p}
+\endsetslot
+
+\setslot{q}
+\endsetslot
+
+\setslot{r}
+\endsetslot
+
+\setslot{s}
+\endsetslot
+
+\setslot{t}
+\endsetslot
+
+\setslot{u}
+\endsetslot
+
+\setslot{v}
+\endsetslot
+
+\setslot{w}
+\endsetslot
+
+\setslot{x}
+\endsetslot
+
+\setslot{y}
+\endsetslot
+
+\setslot{z}
+\endsetslot
+
+\setslot{braceleft}
+\endsetslot
+
+\setslot{bar}
+\endsetslot
+
+\setslot{braceright}
+\endsetslot
+
+\setslot{asciitilde}
+\endsetslot
+
+\setslot{uni00A0}
+\endsetslot
+
+\setslot{exclamdown}
+\endsetslot
+
+\setslot{cent}
+\endsetslot
+
+\setslot{sterling}
+\endsetslot
+
+\setslot{currency}
+\endsetslot
+
+\setslot{yen}
+\endsetslot
+
+\setslot{brokenbar}
+\endsetslot
+
+\setslot{section}
+\endsetslot
+
+\setslot{dieresis}
+\endsetslot
+
+\setslot{copyright}
+\endsetslot
+
+\setslot{ordfeminine}
+\endsetslot
+
+\setslot{guillemotleft}
+\endsetslot
+
+\setslot{logicalnot}
+\endsetslot
+
+\setslot{uni00AD}
+\endsetslot
+
+\setslot{registered}
+\endsetslot
+
+\setslot{macron}
+\endsetslot
+
+\setslot{degree}
+\endsetslot
+
+\setslot{plusminus}
+\endsetslot
+
+\setslot{twosuperior}
+\endsetslot
+
+\setslot{threesuperior}
+\endsetslot
+
+\setslot{acute}
+\endsetslot
+
+\setslot{mu}
+\endsetslot
+
+\setslot{paragraph}
+\endsetslot
+
+\setslot{periodcentered}
+\endsetslot
+
+\setslot{cedilla}
+\endsetslot
+
+\setslot{onesuperior}
+\endsetslot
+
+\setslot{ordmasculine}
+\endsetslot
+
+\setslot{guillemotright}
+\endsetslot
+
+\setslot{onequarter}
+\endsetslot
+
+\setslot{onehalf}
+\endsetslot
+
+\setslot{threequarters}
+\endsetslot
+
+\setslot{questiondown}
+\endsetslot
+
+\setslot{Agrave}
+\endsetslot
+
+\setslot{Aacute}
+\endsetslot
+
+\setslot{Acircumflex}
+\endsetslot
+
+\setslot{Atilde}
+\endsetslot
+
+\setslot{Adieresis}
+\endsetslot
+
+\setslot{Aring}
+\endsetslot
+
+\setslot{AE}
+\endsetslot
+
+\setslot{Ccedilla}
+\endsetslot
+
+\setslot{Egrave}
+\endsetslot
+
+\setslot{Eacute}
+\endsetslot
+
+\setslot{Ecircumflex}
+\endsetslot
+
+\setslot{Edieresis}
+\endsetslot
+
+\setslot{Igrave}
+\endsetslot
+
+\setslot{Iacute}
+\endsetslot
+
+\setslot{Icircumflex}
+\endsetslot
+
+\setslot{Idieresis}
+\endsetslot
+
+\setslot{Eth}
+\endsetslot
+
+\setslot{Ntilde}
+\endsetslot
+
+\setslot{Ograve}
+\endsetslot
+
+\setslot{Oacute}
+\endsetslot
+
+\setslot{Ocircumflex}
+\endsetslot
+
+\setslot{Otilde}
+\endsetslot
+
+\setslot{Odieresis}
+\endsetslot
+
+\setslot{multiply}
+\endsetslot
+
+\setslot{Oslash}
+\endsetslot
+
+\setslot{Ugrave}
+\endsetslot
+
+\setslot{Uacute}
+\endsetslot
+
+\setslot{Ucircumflex}
+\endsetslot
+
+\setslot{Udieresis}
+\endsetslot
+
+\setslot{Yacute}
+\endsetslot
+
+\setslot{Thorn}
+\endsetslot
+
+\setslot{germandbls}
+\endsetslot
+
+\setslot{agrave}
+\endsetslot
+
+\setslot{aacute}
+\endsetslot
+
+\setslot{acircumflex}
+\endsetslot
+
+\setslot{atilde}
+\endsetslot
+
+\setslot{adieresis}
+\endsetslot
+
+\setslot{aring}
+\endsetslot
+
+\setslot{ae}
+\endsetslot
+
+\setslot{ccedilla}
+\endsetslot
+
+\setslot{egrave}
+\endsetslot
+
+\setslot{eacute}
+\endsetslot
+
+\setslot{ecircumflex}
+\endsetslot
+
+\setslot{edieresis}
+\endsetslot
+
+\setslot{igrave}
+\endsetslot
+
+\setslot{iacute}
+\endsetslot
+
+\setslot{icircumflex}
+\endsetslot
+
+\setslot{idieresis}
+\endsetslot
+
+\setslot{eth}
+\endsetslot
+
+\setslot{ntilde}
+\endsetslot
+
+\setslot{ograve}
+\endsetslot
+
+\setslot{oacute}
+\endsetslot
+
+\setslot{ocircumflex}
+\endsetslot
+
+\setslot{otilde}
+\endsetslot
+
+\setslot{odieresis}
+\endsetslot
+
+\setslot{divide}
+\endsetslot
+
+\setslot{oslash}
+\endsetslot
+
+\setslot{ugrave}
+\endsetslot
+
+\setslot{uacute}
+\endsetslot
+
+\setslot{ucircumflex}
+\endsetslot
+
+\setslot{udieresis}
+\endsetslot
+
+\setslot{yacute}
+\endsetslot
+
+\setslot{thorn}
+\endsetslot
+
+\setslot{ydieresis}
+\endsetslot
+
+\setslot{Amacron}
+\endsetslot
+
+\setslot{amacron}
+\endsetslot
+
+\setslot{Abreve}
+\endsetslot
+
+\setslot{abreve}
+\endsetslot
+
+\setslot{Aogonek}
+\endsetslot
+
+\setslot{aogonek}
+\endsetslot
+
+\setslot{Cacute}
+\endsetslot
+
+\setslot{cacute}
+\endsetslot
+
+\setslot{Ccircumflex}
+\endsetslot
+
+\setslot{ccircumflex}
+\endsetslot
+
+\setslot{Cdotaccent}
+\endsetslot
+
+\setslot{cdotaccent}
+\endsetslot
+
+\setslot{Ccaron}
+\endsetslot
+
+\setslot{ccaron}
+\endsetslot
+
+\setslot{Dcaron}
+\endsetslot
+
+\setslot{dcaron}
+\endsetslot
+
+\setslot{Dcroat}
+\endsetslot
+
+\setslot{dcroat}
+\endsetslot
+
+\setslot{Emacron}
+\endsetslot
+
+\setslot{emacron}
+\endsetslot
+
+\setslot{Ebreve}
+\endsetslot
+
+\setslot{ebreve}
+\endsetslot
+
+\setslot{Edotaccent}
+\endsetslot
+
+\setslot{edotaccent}
+\endsetslot
+
+\setslot{Eogonek}
+\endsetslot
+
+\setslot{eogonek}
+\endsetslot
+
+\setslot{Ecaron}
+\endsetslot
+
+\setslot{ecaron}
+\endsetslot
+
+\setslot{Gcircumflex}
+\endsetslot
+
+\setslot{gcircumflex}
+\endsetslot
+
+\setslot{Gbreve}
+\endsetslot
+
+\setslot{gbreve}
+\endsetslot
+
+\setslot{Gdotaccent}
+\endsetslot
+
+\setslot{gdotaccent}
+\endsetslot
+
+\setslot{Gcommaaccent}
+\endsetslot
+
+\setslot{gcommaaccent}
+\endsetslot
+
+\setslot{Hcircumflex}
+\endsetslot
+
+\setslot{hcircumflex}
+\endsetslot
+
+\setslot{Hbar}
+\endsetslot
+
+\setslot{hbar}
+\endsetslot
+
+\setslot{Itilde}
+\endsetslot
+
+\setslot{itilde}
+\endsetslot
+
+\setslot{Imacron}
+\endsetslot
+
+\setslot{imacron}
+\endsetslot
+
+\setslot{Ibreve}
+\endsetslot
+
+\setslot{ibreve}
+\endsetslot
+
+\setslot{Iogonek}
+\endsetslot
+
+\setslot{iogonek}
+\endsetslot
+
+\setslot{Idotaccent}
+\endsetslot
+
+\setslot{dotlessi}
+\endsetslot
+
+\setslot{IJ}
+\endsetslot
+
+\setslot{ij}
+\endsetslot
+
+\setslot{Jcircumflex}
+\endsetslot
+
+\setslot{jcircumflex}
+\endsetslot
+
+\setslot{Kcommaaccent}
+\endsetslot
+
+\setslot{kcommaaccent}
+\endsetslot
+
+\setslot{kgreenlandic}
+\endsetslot
+
+\setslot{Lacute}
+\endsetslot
+
+\setslot{lacute}
+\endsetslot
+
+\setslot{Lcommaaccent}
+\endsetslot
+
+\setslot{lcommaaccent}
+\endsetslot
+
+\setslot{Lcaron}
+\endsetslot
+
+\setslot{lcaron}
+\endsetslot
+
+\setslot{Ldot}
+\endsetslot
+
+\setslot{ldot}
+\endsetslot
+
+\endencoding
+%    \end{macrocode}
+%
+%    \begin{macrocode}
+%</anp-enc01>
+%    \end{macrocode}
+%
+%    \begin{macrocode}
+%<*anp-enc02>
+%    \end{macrocode}
+%
+%    \begin{macrocode}
+%%% ====================================================================
+%%%  @TeX-font-encoding-file{
+%%%     author          = "Arash Esbati",
+%%%     version         = "1.0",
+%%%     date            = "2013-12-29",
+%%%     time            = "15:24:42 +01:00",
+%%%     filename        = "AnonymousPro-02.etx",
+%%%     email           = "esbati'at'gmx.de",
+%%%     URL             = "",
+%%%     checksum        = "",
+%%%     codetable       = "ISO/ASCII",
+%%%     keywords        = "encoding, TeX, PostScript",
+%%%     supported       = "yes",
+%%%     abstract        = "This is a custom encoding as a TeX font 
+%%%                        encoding file to access all glyphs in 
+%%%                        the AnonymousPro, for use with the fontinst
+%%%                        utility.
+%%%     package         = "AnonymousPro for LaTeX",
+%%%     dependencies    = "fontinst.sty",
+%%%  }
+%%% ====================================================================
+
+\relax
+
+\encoding
+
+\setslot{Lslash}
+\endsetslot
+
+\setslot{lslash}
+\endsetslot
+
+\setslot{Nacute}
+\endsetslot
+
+\setslot{nacute}
+\endsetslot
+
+\setslot{Ncommaaccent}
+\endsetslot
+
+\setslot{ncommaaccent}
+\endsetslot
+
+\setslot{Ncaron}
+\endsetslot
+
+\setslot{ncaron}
+\endsetslot
+
+\setslot{napostrophe}
+\endsetslot
+
+\setslot{Eng}
+\endsetslot
+
+\setslot{eng}
+\endsetslot
+
+\setslot{Omacron}
+\endsetslot
+
+\setslot{omacron}
+\endsetslot
+
+\setslot{Obreve}
+\endsetslot
+
+\setslot{obreve}
+\endsetslot
+
+\setslot{Ohungarumlaut}
+\endsetslot
+
+\setslot{ohungarumlaut}
+\endsetslot
+
+\setslot{OE}
+\endsetslot
+
+\setslot{oe}
+\endsetslot
+
+\setslot{Racute}
+\endsetslot
+
+\setslot{racute}
+\endsetslot
+
+\setslot{Rcommaaccent}
+\endsetslot
+
+\setslot{rcommaaccent}
+\endsetslot
+
+\setslot{Rcaron}
+\endsetslot
+
+\setslot{rcaron}
+\endsetslot
+
+\setslot{Sacute}
+\endsetslot
+
+\setslot{sacute}
+\endsetslot
+
+\setslot{Scircumflex}
+\endsetslot
+
+\setslot{scircumflex}
+\endsetslot
+
+\setslot{Scedilla}
+\endsetslot
+
+\setslot{scedilla}
+\endsetslot
+
+\setslot{Scaron}
+\endsetslot
+
+\setslot{scaron}
+\endsetslot
+
+\setslot{Tcommaaccent}
+\endsetslot
+
+\setslot{tcommaaccent}
+\endsetslot
+
+\setslot{Tcaron}
+\endsetslot
+
+\setslot{tcaron}
+\endsetslot
+
+\setslot{Tbar}
+\endsetslot
+
+\setslot{tbar}
+\endsetslot
+
+\setslot{Utilde}
+\endsetslot
+
+\setslot{utilde}
+\endsetslot
+
+\setslot{Umacron}
+\endsetslot
+
+\setslot{umacron}
+\endsetslot
+
+\setslot{Ubreve}
+\endsetslot
+
+\setslot{ubreve}
+\endsetslot
+
+\setslot{Uring}
+\endsetslot
+
+\setslot{uring}
+\endsetslot
+
+\setslot{Uhungarumlaut}
+\endsetslot
+
+\setslot{uhungarumlaut}
+\endsetslot
+
+\setslot{Uogonek}
+\endsetslot
+
+\setslot{uogonek}
+\endsetslot
+
+\setslot{Wcircumflex}
+\endsetslot
+
+\setslot{wcircumflex}
+\endsetslot
+
+\setslot{Ycircumflex}
+\endsetslot
+
+\setslot{ycircumflex}
+\endsetslot
+
+\setslot{Ydieresis}
+\endsetslot
+
+\setslot{Zacute}
+\endsetslot
+
+\setslot{zacute}
+\endsetslot
+
+\setslot{Zdotaccent}
+\endsetslot
+
+\setslot{zdotaccent}
+\endsetslot
+
+\setslot{Zcaron}
+\endsetslot
+
+\setslot{zcaron}
+\endsetslot
+
+\setslot{longs}
+\endsetslot
+
+\setslot{florin}
+\endsetslot
+
+\setslot{AEacute}
+\endsetslot
+
+\setslot{aeacute}
+\endsetslot
+
+\setslot{Oslashacute}
+\endsetslot
+
+\setslot{oslashacute}
+\endsetslot
+
+\setslot{Scommaaccent}
+\endsetslot
+
+\setslot{scommaaccent}
+\endsetslot
+
+\setslot{uni021A}
+\endsetslot
+
+\setslot{uni021B}
+\endsetslot
+
+\setslot{circumflex}
+\endsetslot
+
+\setslot{caron}
+\endsetslot
+
+\setslot{breve}
+\endsetslot
+
+\setslot{dotaccent}
+\endsetslot
+
+\setslot{ring}
+\endsetslot
+
+\setslot{ogonek}
+\endsetslot
+
+\setslot{tilde}
+\endsetslot
+
+\setslot{hungarumlaut}
+\endsetslot
+
+\setslot{tonos}
+\endsetslot
+
+\setslot{dieresistonos}
+\endsetslot
+
+\setslot{Alphatonos}
+\endsetslot
+
+\setslot{Epsilontonos}
+\endsetslot
+
+\setslot{Etatonos}
+\endsetslot
+
+\setslot{Iotatonos}
+\endsetslot
+
+\setslot{Omicrontonos}
+\endsetslot
+
+\setslot{Upsilontonos}
+\endsetslot
+
+\setslot{Omegatonos}
+\endsetslot
+
+\setslot{iotadieresistonos}
+\endsetslot
+
+\setslot{Alpha}
+\endsetslot
+
+\setslot{Beta}
+\endsetslot
+
+\setslot{Gamma}
+\endsetslot
+
+\setslot{uni0394}
+\endsetslot
+
+\setslot{Epsilon}
+\endsetslot
+
+\setslot{Zeta}
+\endsetslot
+
+\setslot{Eta}
+\endsetslot
+
+\setslot{Theta}
+\endsetslot
+
+\setslot{Iota}
+\endsetslot
+
+\setslot{Kappa}
+\endsetslot
+
+\setslot{Lambda}
+\endsetslot
+
+\setslot{Mu}
+\endsetslot
+
+\setslot{Nu}
+\endsetslot
+
+\setslot{Xi}
+\endsetslot
+
+\setslot{Omicron}
+\endsetslot
+
+\setslot{Pi}
+\endsetslot
+
+\setslot{Rho}
+\endsetslot
+
+\setslot{Sigma}
+\endsetslot
+
+\setslot{Tau}
+\endsetslot
+
+\setslot{Upsilon}
+\endsetslot
+
+\setslot{Phi}
+\endsetslot
+
+\setslot{Chi}
+\endsetslot
+
+\setslot{Psi}
+\endsetslot
+
+\setslot{uni03A9}
+\endsetslot
+
+\setslot{Iotadieresis}
+\endsetslot
+
+\setslot{Upsilondieresis}
+\endsetslot
+
+\setslot{alphatonos}
+\endsetslot
+
+\setslot{epsilontonos}
+\endsetslot
+
+\setslot{etatonos}
+\endsetslot
+
+\setslot{iotatonos}
+\endsetslot
+
+\setslot{upsilondieresistonos}
+\endsetslot
+
+\setslot{alpha}
+\endsetslot
+
+\setslot{beta}
+\endsetslot
+
+\setslot{gamma}
+\endsetslot
+
+\setslot{delta}
+\endsetslot
+
+\setslot{epsilon}
+\endsetslot
+
+\setslot{zeta}
+\endsetslot
+
+\setslot{eta}
+\endsetslot
+
+\setslot{theta}
+\endsetslot
+
+\setslot{iota}
+\endsetslot
+
+\setslot{kappa}
+\endsetslot
+
+\setslot{lambda}
+\endsetslot
+
+\setslot{uni03BC}
+\endsetslot
+
+\setslot{nu}
+\endsetslot
+
+\setslot{xi}
+\endsetslot
+
+\setslot{omicron}
+\endsetslot
+
+\setslot{pi}
+\endsetslot
+
+\setslot{rho}
+\endsetslot
+
+\setslot{sigma1}
+\endsetslot
+
+\setslot{sigma}
+\endsetslot
+
+\setslot{tau}
+\endsetslot
+
+\setslot{upsilon}
+\endsetslot
+
+\setslot{phi}
+\endsetslot
+
+\setslot{chi}
+\endsetslot
+
+\setslot{psi}
+\endsetslot
+
+\setslot{omega}
+\endsetslot
+
+\setslot{iotadieresis}
+\endsetslot
+
+\setslot{upsilondieresis}
+\endsetslot
+
+\setslot{omicrontonos}
+\endsetslot
+
+\setslot{upsilontonos}
+\endsetslot
+
+\setslot{omegatonos}
+\endsetslot
+
+\setslot{afii10023}
+\endsetslot
+
+\setslot{afii10051}
+\endsetslot
+
+\setslot{afii10052}
+\endsetslot
+
+\setslot{afii10053}
+\endsetslot
+
+\setslot{afii10054}
+\endsetslot
+
+\setslot{afii10055}
+\endsetslot
+
+\setslot{afii10056}
+\endsetslot
+
+\setslot{afii10057}
+\endsetslot
+
+\setslot{afii10058}
+\endsetslot
+
+\setslot{afii10059}
+\endsetslot
+
+\setslot{afii10060}
+\endsetslot
+
+\setslot{afii10061}
+\endsetslot
+
+\setslot{afii10062}
+\endsetslot
+
+\setslot{afii10145}
+\endsetslot
+
+\setslot{afii10017}
+\endsetslot
+
+\setslot{afii10018}
+\endsetslot
+
+\setslot{afii10019}
+\endsetslot
+
+\setslot{afii10020}
+\endsetslot
+
+\setslot{afii10021}
+\endsetslot
+
+\setslot{afii10022}
+\endsetslot
+
+\setslot{afii10024}
+\endsetslot
+
+\setslot{afii10025}
+\endsetslot
+
+\setslot{afii10026}
+\endsetslot
+
+\setslot{afii10027}
+\endsetslot
+
+\setslot{afii10028}
+\endsetslot
+
+\setslot{afii10029}
+\endsetslot
+
+\setslot{afii10030}
+\endsetslot
+
+\setslot{afii10031}
+\endsetslot
+
+\setslot{afii10032}
+\endsetslot
+
+\setslot{afii10033}
+\endsetslot
+
+\setslot{afii10034}
+\endsetslot
+
+\setslot{afii10035}
+\endsetslot
+
+\setslot{afii10036}
+\endsetslot
+
+\setslot{afii10037}
+\endsetslot
+
+\setslot{afii10038}
+\endsetslot
+
+\setslot{afii10039}
+\endsetslot
+
+\setslot{afii10040}
+\endsetslot
+
+\setslot{afii10041}
+\endsetslot
+
+\setslot{afii10042}
+\endsetslot
+
+\setslot{afii10043}
+\endsetslot
+
+\setslot{afii10044}
+\endsetslot
+
+\setslot{afii10045}
+\endsetslot
+
+\setslot{afii10046}
+\endsetslot
+
+\setslot{afii10047}
+\endsetslot
+
+\setslot{afii10048}
+\endsetslot
+
+\setslot{afii10049}
+\endsetslot
+
+\setslot{afii10065}
+\endsetslot
+
+\setslot{afii10066}
+\endsetslot
+
+\setslot{afii10067}
+\endsetslot
+
+\setslot{afii10068}
+\endsetslot
+
+\setslot{afii10069}
+\endsetslot
+
+\setslot{afii10070}
+\endsetslot
+
+\setslot{afii10072}
+\endsetslot
+
+\setslot{afii10073}
+\endsetslot
+
+\setslot{afii10074}
+\endsetslot
+
+\setslot{afii10075}
+\endsetslot
+
+\setslot{afii10076}
+\endsetslot
+
+\setslot{afii10077}
+\endsetslot
+
+\setslot{afii10078}
+\endsetslot
+
+\setslot{afii10079}
+\endsetslot
+
+\setslot{afii10080}
+\endsetslot
+
+\setslot{afii10081}
+\endsetslot
+
+\setslot{afii10082}
+\endsetslot
+
+\setslot{afii10083}
+\endsetslot
+
+\setslot{afii10084}
+\endsetslot
+
+\setslot{afii10085}
+\endsetslot
+
+\setslot{afii10086}
+\endsetslot
+
+\setslot{afii10087}
+\endsetslot
+
+\setslot{afii10088}
+\endsetslot
+
+\setslot{afii10089}
+\endsetslot
+
+\setslot{afii10090}
+\endsetslot
+
+\setslot{afii10091}
+\endsetslot
+
+\setslot{afii10092}
+\endsetslot
+
+\setslot{afii10093}
+\endsetslot
+
+\setslot{afii10094}
+\endsetslot
+
+\setslot{afii10095}
+\endsetslot
+
+\setslot{afii10096}
+\endsetslot
+
+\setslot{afii10097}
+\endsetslot
+
+\setslot{afii10071}
+\endsetslot
+
+\setslot{afii10099}
+\endsetslot
+
+\setslot{afii10100}
+\endsetslot
+
+\setslot{afii10101}
+\endsetslot
+
+\setslot{afii10102}
+\endsetslot
+
+\setslot{afii10103}
+\endsetslot
+
+\setslot{afii10104}
+\endsetslot
+
+\setslot{afii10105}
+\endsetslot
+
+\setslot{afii10106}
+\endsetslot
+
+\setslot{afii10107}
+\endsetslot
+
+\setslot{afii10108}
+\endsetslot
+
+\setslot{afii10109}
+\endsetslot
+
+\setslot{afii10110}
+\endsetslot
+
+\setslot{afii10193}
+\endsetslot
+
+\setslot{afii10050}
+\endsetslot
+
+\setslot{afii10098}
+\endsetslot
+
+\setslot{uni1E02}
+\endsetslot
+
+\setslot{uni1E03}
+\endsetslot
+
+\setslot{uni1E0A}
+\endsetslot
+
+\setslot{uni1E0B}
+\endsetslot
+
+\setslot{uni1E1E}
+\endsetslot
+
+\setslot{uni1E1F}
+\endsetslot
+
+\setslot{uni1E40}
+\endsetslot
+
+\setslot{uni1E41}
+\endsetslot
+
+\setslot{uni1E56}
+\endsetslot
+
+\setslot{uni1E57}
+\endsetslot
+
+\setslot{uni1E60}
+\endsetslot
+
+\endencoding
+%    \end{macrocode}
+%
+%    \begin{macrocode}
+%</anp-enc02>
+%    \end{macrocode}
+%
+%    \begin{macrocode}
+%<*anp-enc03>
+%    \end{macrocode}
+%
+%    \begin{macrocode}
+%%% ====================================================================
+%%%  @TeX-font-encoding-file{
+%%%     author          = "Arash Esbati",
+%%%     version         = "1.0",
+%%%     date            = "2013-12-29",
+%%%     time            = "15:24:42 +01:00",
+%%%     filename        = "AnonymousPro-03.etx",
+%%%     email           = "esbati'at'gmx.de",
+%%%     URL             = "",
+%%%     checksum        = "",
+%%%     codetable       = "ISO/ASCII",
+%%%     keywords        = "encoding, TeX, PostScript",
+%%%     supported       = "yes",
+%%%     abstract        = "This is a custom encoding as a TeX font 
+%%%                        encoding file to access all glyphs in 
+%%%                        the AnonymousPro, for use with the fontinst
+%%%                        utility.
+%%%     package         = "AnonymousPro for LaTeX",
+%%%     dependencies    = "fontinst.sty",
+%%%  }
+%%% ====================================================================
+
+\relax
+
+\encoding
+
+\setslot{uni1E61}
+\endsetslot
+
+\setslot{uni1E6A}
+\endsetslot
+
+\setslot{uni1E6B}
+\endsetslot
+
+\setslot{Wgrave}
+\endsetslot
+
+\setslot{wgrave}
+\endsetslot
+
+\setslot{Wacute}
+\endsetslot
+
+\setslot{wacute}
+\endsetslot
+
+\setslot{Wdieresis}
+\endsetslot
+
+\setslot{wdieresis}
+\endsetslot
+
+\setslot{Ygrave}
+\endsetslot
+
+\setslot{ygrave}
+\endsetslot
+
+\setslot{endash}
+\endsetslot
+
+\setslot{emdash}
+\endsetslot
+
+\setslot{afii00208}
+\endsetslot
+
+\setslot{quoteleft}
+\endsetslot
+
+\setslot{quoteright}
+\endsetslot
+
+\setslot{quotesinglbase}
+\endsetslot
+
+\setslot{quotedblleft}
+\endsetslot
+
+\setslot{quotedblright}
+\endsetslot
+
+\setslot{quotedblbase}
+\endsetslot
+
+\setslot{dagger}
+\endsetslot
+
+\setslot{daggerdbl}
+\endsetslot
+
+\setslot{bullet}
+\endsetslot
+
+\setslot{ellipsis}
+\endsetslot
+
+\setslot{perthousand}
+\endsetslot
+
+\setslot{guilsinglleft}
+\endsetslot
+
+\setslot{guilsinglright}
+\endsetslot
+
+\setslot{fraction}
+\endsetslot
+
+\setslot{Euro}
+\endsetslot
+
+\setslot{afii61352}
+\endsetslot
+
+\setslot{trademark}
+\endsetslot
+
+\setslot{Omega}
+\endsetslot
+
+\setslot{partialdiff}
+\endsetslot
+
+\setslot{Delta}
+\endsetslot
+
+\setslot{product}
+\endsetslot
+
+\setslot{summation}
+\endsetslot
+
+\setslot{minus}
+\endsetslot
+
+\setslot{radical}
+\endsetslot
+
+\setslot{infinity}
+\endsetslot
+
+\setslot{integral}
+\endsetslot
+
+\setslot{approxequal}
+\endsetslot
+
+\setslot{notequal}
+\endsetslot
+
+\setslot{lessequal}
+\endsetslot
+
+\setslot{greaterequal}
+\endsetslot
+
+\setslot{uni2303}
+\endsetslot
+
+\setslot{uni2318}
+\endsetslot
+
+\setslot{uni2324}
+\endsetslot
+
+\setslot{optionkey}
+\endsetslot
+
+\setslot{erasetotheright}
+\endsetslot
+
+\setslot{uni237d}
+\endsetslot
+
+\setslot{uni2388}
+\endsetslot
+
+\setslot{uni23ce}
+\endsetslot
+
+\setslot{uni2423}
+\endsetslot
+
+\setslot{SF100000}
+\endsetslot
+
+\setslot{SF110000}
+\endsetslot
+
+\setslot{SF010000}
+\endsetslot
+
+\setslot{SF030000}
+\endsetslot
+
+\setslot{SF020000}
+\endsetslot
+
+\setslot{SF040000}
+\endsetslot
+
+\setslot{SF080000}
+\endsetslot
+
+\setslot{SF090000}
+\endsetslot
+
+\setslot{SF060000}
+\endsetslot
+
+\setslot{SF070000}
+\endsetslot
+
+\setslot{SF050000}
+\endsetslot
+
+\setslot{SF430000}
+\endsetslot
+
+\setslot{SF240000}
+\endsetslot
+
+\setslot{SF510000}
+\endsetslot
+
+\setslot{SF520000}
+\endsetslot
+
+\setslot{SF390000}
+\endsetslot
+
+\setslot{SF220000}
+\endsetslot
+
+\setslot{SF210000}
+\endsetslot
+
+\setslot{SF250000}
+\endsetslot
+
+\setslot{SF500000}
+\endsetslot
+
+\setslot{SF490000}
+\endsetslot
+
+\setslot{SF380000}
+\endsetslot
+
+\setslot{SF280000}
+\endsetslot
+
+\setslot{SF270000}
+\endsetslot
+
+\setslot{SF260000}
+\endsetslot
+
+\setslot{SF360000}
+\endsetslot
+
+\setslot{SF370000}
+\endsetslot
+
+\setslot{SF420000}
+\endsetslot
+
+\setslot{SF190000}
+\endsetslot
+
+\setslot{SF200000}
+\endsetslot
+
+\setslot{SF230000}
+\endsetslot
+
+\setslot{SF470000}
+\endsetslot
+
+\setslot{SF480000}
+\endsetslot
+
+\setslot{SF410000}
+\endsetslot
+
+\setslot{SF450000}
+\endsetslot
+
+\setslot{SF460000}
+\endsetslot
+
+\setslot{SF400000}
+\endsetslot
+
+\setslot{SF540000}
+\endsetslot
+
+\setslot{SF530000}
+\endsetslot
+
+\setslot{SF440000}
+\endsetslot
+
+\setslot{blackdiamond}
+\endsetslot
+
+\setslot{lozenge}
+\endsetslot
+
+\setslot{checkmark}
+\endsetslot
+
+\setslot{shift}
+\endsetslot
+
+\setslot{shiftlock}
+\endsetslot
+
+\setslot{verticaltab}
+\endsetslot
+
+\setslot{copy}
+\endsetslot
+
+\setslot{back}
+\endsetslot
+
+\setslot{endtab}
+\endsetslot
+
+\setslot{insert}
+\endsetslot
+
+\setslot{tab}
+\endsetslot
+
+\setslot{commaaccent}
+\endsetslot
+
+\setslot{apple}
+\endsetslot
+
+\setslot{appleopen}
+\endsetslot
+
+\setslot{fi}
+\endsetslot
+
+\setslot{fl}
+\endsetslot
+
+\setslot{.notdef}
+\endsetslot
+
+\endencoding
+%    \end{macrocode}
+%
+%    \begin{macrocode}
+%</anp-enc03>
+%    \end{macrocode}
+%
+% \subsection{Fontinst-Encoding file for the Symbols}
+% \label{sec:font-encod-file}
+%
+% This is the fun part when making symbols available for LaTeX: one
+% has to make a distinctive encoding file.  With
+% \cmd\setslot\marg{char-name}, one tells \pkg{fontinst} which
+% character to use -- the char-name must correspond to the name in the
+% .afm-file.  With \cmd\nextslot\marg{number}, one can use the
+% character by saying
+% \begin{verbatim}
+%   \fontencoding{U}\fontfamily{name}\selectfont \char number \end{verbatim}
+% 
+%    \begin{macrocode}
+%<*anp-sym>
+%    \end{macrocode}
+%    \begin{macrocode}
+%%% ====================================================================
+%%%  @TeX-font-encoding-file{
+%%%     author          = "Arash Esbati",
+%%%     version         = "1.0",
+%%%     date            = "2013-11-29",
+%%%     time            = "16:45:46 +01:00",
+%%%     filename        = "AnonymousPro-symbols.etx",
+%%%     email           = "esbati'at'gmx.de",
+%%%     URL             = "",
+%%%     checksum        = "",
+%%%     codetable       = "ISO/ASCII",
+%%%     keywords        = "encoding, TeX, PostScript",
+%%%     supported       = "yes",
+%%%     abstract        = "This is a custom encoding as a TeX font 
+%%%                        encoding file to access various symbols in 
+%%%                        the AnonymousPro, for use with the fontinst
+%%%                        utility.
+%%%     package         = "AnonymousPro for LaTeX",
+%%%     dependencies    = "fontinst.sty",
+%%%  }
+%%% ====================================================================
+
+\relax
+
+\encoding
+
+\nextslot{0}
+\setslot{apple}
+   \comment{Intended for use with `\ANPapplelogo{}'.}
+\endsetslot
+
+%\nextslot{1}
+\setslot{appleopen}
+   \comment{Intended for use with `\ANPappleopen{}'.}
+\endsetslot
+
+%\nextslot{2}
+\setslot{approxequal}
+   \comment{Intended for use with `\ANPapproxequal{}'.}
+\endsetslot
+
+%\nextslot{3}
+\setslot{back}
+   \comment{Intended for use with `\ANPback{}'.}
+\endsetslot
+
+%\nextslot{4}
+\setslot{blackdiamond}
+   \comment{Intended for use with `\ANPblackdiamond{}'.}
+\endsetslot
+
+%\nextslot{5}
+\setslot{checkmark}
+   \comment{Intended for use with `\ANPcheckmark{}'.}
+\endsetslot
+
+%\nextslot{6}
+\setslot{copy}
+   \comment{Intended for use with `\ANPcopy{}'.}
+\endsetslot
+
+%\nextslot{7}
+\setslot{ellipsis}
+   \comment{Intended for use with `\ANPellipsis{}'.}
+\endsetslot
+
+%\nextslot{8}
+\setslot{endtab}
+   \comment{Intended for use with `\ANPendtab{}'.}
+\endsetslot
+
+%\nextslot{9}
+\setslot{erasetotheright}
+   \comment{Intended for use with `\ANPerasetotheright{}'.}
+\endsetslot
+
+%\nextslot{10}
+\setslot{greaterequal}
+   \comment{Intended for use with `\ANPgreaterequal{}'.}
+\endsetslot
+
+%\nextslot{11}
+\setslot{Hbar}
+   \comment{Intended for use with `\ANPHbar{}'.}
+\endsetslot
+
+%\nextslot{12}
+\setslot{hbar}
+   \comment{Intended for use with `\ANPhbar{}'.}
+\endsetslot
+
+%\nextslot{13}
+\setslot{infinity}
+   \comment{Intended for use with `\ANPinfinity{}'.}
+\endsetslot
+
+%\nextslot{14}
+\setslot{insert}
+   \comment{Intended for use with `\ANPinsert{}'.}
+\endsetslot
+
+%\nextslot{15}
+\setslot{integral}
+   \comment{Intended for use with `\ANPintegral{}'.}
+\endsetslot
+
+%\nextslot{16}
+\setslot{lessequal}
+   \comment{Intended for use with `\ANPlessequal{}'.}
+\endsetslot
+
+%\nextslot{17}
+\setslot{lozenge}
+   \comment{Intended for use with `\ANPlozenge{}'.}
+\endsetslot
+
+%\nextslot{18}
+\setslot{notequal}
+   \comment{Intended for use with `\ANPnotequal{}'.}
+\endsetslot
+
+%\nextslot{19}
+\setslot{optionkey}
+   \comment{Intended for use with `\ANPoptionkey{}'.}
+\endsetslot
+
+%\nextslot{20}
+\setslot{partialdiff}
+   \comment{Intended for use with `\ANPpartialdiff{}'.}
+\endsetslot
+
+%\nextslot{21}
+\setslot{Pi}
+   \comment{Intended for use with `\ANPPi{}'.}
+\endsetslot
+
+%\nextslot{22}
+\setslot{pi}
+   \comment{Intended for use with `\ANPpi{}'.}
+\endsetslot
+
+%\nextslot{23}
+\setslot{product}
+   \comment{Intended for use with `\ANPproduct{}'.}
+\endsetslot
+
+%\nextslot{24}
+\setslot{shift}
+   \comment{Intended for use with `\ANPshift{}'.}
+\endsetslot
+
+%\nextslot{25}
+\setslot{shiftlock}
+   \comment{Intended for use with `\ANPshiftlock{}'.}
+\endsetslot
+
+%\nextslot{26}
+\setslot{Sigma}
+   \comment{Intended for use with `\ANPSigma{}'.}
+\endsetslot
+
+%\nextslot{27}
+\setslot{sigma}
+   \comment{Intended for use with `\ANPsigma{}'.}
+\endsetslot
+
+%\nextslot{28}
+\setslot{sigma1}
+   \comment{Intended for use with `\ANPsigmaone{}'.}
+\endsetslot
+
+%\nextslot{29}
+\setslot{summation}
+   \comment{Intended for use with `\ANPsummation{}'.}
+\endsetslot
+
+%\nextslot{30}
+\setslot{tab}
+   \comment{Intended for use with `\ANPtab{}'.}
+\endsetslot
+
+%\nextslot{31}
+\setslot{uni23ce}
+   \comment{Intended for use with `\ANPReturnSign{}'.}
+\endsetslot
+
+%\nextslot{32}
+\setslot{uni237d}
+   \comment{Intended for use with `\ANPShoulderedOpenBox{}'.}
+\endsetslot
+
+%\nextslot{33}
+\setslot{uni2303}
+   \comment{Intended for use with `\ANPUpArrowHead{}'.}
+\endsetslot
+
+%\nextslot{34}
+\setslot{uni2318}
+   \comment{Intended for use with `\ANPInsertSign{}'.}
+\endsetslot
+
+%\nextslot{35}
+\setslot{uni2324}
+   \comment{Intended for use with `\ANPUpArrowHeadBars{}'.}
+\endsetslot
+
+%\nextslot{36}
+\setslot{uni2388}
+   \comment{Intended for use with `\ANPHelm{}'.}
+\endsetslot
+
+%\nextslot{37}
+\setslot{uni2423}
+   \comment{Intended for use with `\ANPOpenBox{}'.}
+\endsetslot
+
+%\nextslot{38}
+\setslot{uni0394}
+   \comment{Intended for use with `\ANPDelta{}'.}
+\endsetslot
+
+%\nextslot{39}
+\setslot{verticaltab}
+   \comment{Intended for use with `\ANPverticaltab{}'.}
+\endsetslot
+
+%\nextslot{40}
+\setslot{afii61352}
+   \comment{Intended for use with `\ANPNumeroSign{}'.}
+\endsetslot
+
+\endencoding
+%    \end{macrocode}
+%    \begin{macrocode}
+%</anp-sym>
+%    \end{macrocode}
+%
+%    \begin{macrocode}
+%<*anp-fixlatin>
+%    \end{macrocode}
+%
+%    \begin{macrocode}
+%%% ====================================================================
+%%%  @TeX-font-metrics-file{
+%%%     author          = "Arash Esbati",
+%%%     version         = "1.0",
+%%%     date            = "2013-12-29",
+%%%     time            = "15:24:42 +01:00",
+%%%     filename        = "anonymouspro-fixlatin.mtx",
+%%%     email           = "esbati'at'gmx.de",
+%%%     URL             = "",
+%%%     checksum        = "",
+%%%     codetable       = "ISO/ASCII",
+%%%     keywords        = "metrics, TeX, PostScript",
+%%%     supported       = "yes",
+%%%     abstract        = "This is a custom metrics file to adapt the
+%%%                        glyph names in Anonymous Pro .afm and
+%%%                        fontinst t1.etx."
+%%%     package         = "AnonymousPro for LaTeX",
+%%%     dependencies    = "fontinst.sty",
+%%%  }
+%%% ====================================================================
+
+\relax
+
+\metrics
+
+\resetglyph{visiblespace}
+  \glyph{uni2423}{1000}
+\endresetglyph
+
+\resetglyph{Ng}
+  \glyph{Eng}{1000}
+\endresetglyph
+
+\resetglyph{ng}
+  \glyph{eng}{1000}
+\endresetglyph
+
+\resetglyph{dbar}
+  \glyph{dcroat}{1000}
+\endresetglyph
+
+\endmetrics
+%    \end{macrocode}
+%
+%    \begin{macrocode}
+%</anp-fixlatin>
+%    \end{macrocode}
+%
+%    \begin{macrocode}
+%<*anp-fixtextcomp>
+%    \end{macrocode}
+%
+%    \begin{macrocode}
+%%% ====================================================================
+%%%  @TeX-font-metrics-file{
+%%%     author          = "Arash Esbati",
+%%%     version         = "1.0",
+%%%     date            = "2013-12-29",
+%%%     time            = "15:24:42 +01:00",
+%%%     filename        = "anonymouspro-fixtextcomp.mtx",
+%%%     email           = "esbati'at'gmx.de",
+%%%     URL             = "",
+%%%     checksum        = "",
+%%%     codetable       = "ISO/ASCII",
+%%%     keywords        = "metrics, TeX, PostScript",
+%%%     supported       = "yes",
+%%%     abstract        = "This is a custom metrics file to adapt the
+%%%                        glyphs names in Anonymous Pro .afm and
+%%%                        fontinst ts1.etx."
+%%%     package         = "AnonymousPro for LaTeX",
+%%%     dependencies    = "fontinst.sty",
+%%%  }
+%%% ====================================================================
+
+\relax
+
+\metrics
+
+\resetglyph{numero}
+  \glyph{afii61352}{1000}
+\endresetglyph
+
+\endmetrics
+%    \end{macrocode}
+%
+%    \begin{macrocode}
+%</anp-fixtextcomp>
+%    \end{macrocode}
+% \subsection{LaTeX-Package}
+% \label{sec:package}
+%
+%    \begin{macrocode}
+%<*package>
+%    \end{macrocode}
+%
+% We use Heiko Oberdiek's
+% \pkg{kvoptions}\footnote{\url{http://www.ctan.org/pkg/kvoptions}}
+% for our purposes:
+%    \begin{macrocode}
+\RequirePackage{kvoptions}
+%    \end{macrocode}
+%
+% We use |ANP| for name-space:
+%    \begin{macrocode}
+\SetupKeyvalOptions{%
+  family = ANP, %
+  prefix = ANP@ %
+}
+%    \end{macrocode}
+%
+% Define the option |`scale'| and init it to `1.0'
+%    \begin{macrocode}
+\DeclareStringOption[1.0]{scale}
+%    \end{macrocode}
+%
+% Define the option |`ttdefault'|.  We default it to |`false'|.
+% The user must activate the font explicitly with |`ttdefault'| or
+% |`ttdefault=true'|.  The idea is to have the flexibility to play
+% with other fonts as well.
+%    \begin{macrocode}
+\DeclareBoolOption[false]{ttdefault}
+%    \end{macrocode}
+%
+% Process the keyvals:
+%    \begin{macrocode}
+\ProcessKeyvalOptions*
+%    \end{macrocode}
+%
+% \begin{macro}{\ANP@ttdefault}
+% This macro is defined by \pkg{kvoptions} for the
+% |`ttdefault'|-option.  This is the effect when activited.
+%    \begin{macrocode}
+\ifANP@ttdefault 
+  \renewcommand{\ttdefault}{AnonymousPro}%
+\fi
+%    \end{macrocode}
+% \end{macro}
+%    
+% \begin{macro}{\ANP@family}
+% Define our command for the family:
+%    \begin{macrocode}
+\newcommand\ANP@family{%
+  \fontencoding{U}\fontfamily{AnonymousPro}\selectfont}
+%    \end{macrocode}
+% \end{macro}
+%
+% The symbols follow:
+%    \begin{macrocode}
+\newcommand\ANPapplelogo         {{\ANP@family\char0}}
+\newcommand\ANPappleopen         {{\ANP@family\char1}}
+\newcommand\ANPapproxequal       {{\ANP@family\char2}}
+\newcommand\ANPback              {{\ANP@family\char3}}
+\newcommand\ANPblackdiamond      {{\ANP@family\char4}}
+\newcommand\ANPcheckmark         {{\ANP@family\char5}}
+\newcommand\ANPcopy              {{\ANP@family\char6}}
+\newcommand\ANPellipsis          {{\ANP@family\char7}}
+\newcommand\ANPendtab            {{\ANP@family\char8}}
+\newcommand\ANPerasetotheright   {{\ANP@family\char9}}
+\newcommand\ANPgreaterequal      {{\ANP@family\char10}}
+\newcommand\ANPHbar              {{\ANP@family\char11}}
+\newcommand\ANPhbar              {{\ANP@family\char12}}
+\newcommand\ANPinfinity          {{\ANP@family\char13}}
+\newcommand\ANPinsert            {{\ANP@family\char14}}
+\newcommand\ANPintegral          {{\ANP@family\char15}}
+\newcommand\ANPlessequal         {{\ANP@family\char16}}
+\newcommand\ANPlozenge           {{\ANP@family\char17}}
+\newcommand\ANPnotequal          {{\ANP@family\char18}}
+\newcommand\ANPoptionkey         {{\ANP@family\char19}}
+\newcommand\ANPpartialdiff       {{\ANP@family\char20}}
+\newcommand\ANPPi                {{\ANP@family\char21}}
+\newcommand\ANPpi                {{\ANP@family\char22}}
+\newcommand\ANPproduct           {{\ANP@family\char23}}
+\newcommand\ANPshift             {{\ANP@family\char24}}
+\newcommand\ANPshiftlock         {{\ANP@family\char25}}
+\newcommand\ANPSigma             {{\ANP@family\char26}}
+\newcommand\ANPsigma             {{\ANP@family\char27}}
+\newcommand\ANPsigmaone          {{\ANP@family\char28}}
+\newcommand\ANPsummation         {{\ANP@family\char29}}
+\newcommand\ANPtab               {{\ANP@family\char30}}
+\newcommand\ANPReturnSign        {{\ANP@family\char31}}
+\newcommand\ANPShoulderedOpenBox {{\ANP@family\char32}}
+\newcommand\ANPUpArrowHead       {{\ANP@family\char33}}
+\newcommand\ANPInsertSign        {{\ANP@family\char34}}
+\newcommand\ANPUpArrowHeadBars   {{\ANP@family\char35}}
+\newcommand\ANPHelm              {{\ANP@family\char36}}
+\newcommand\ANPOpenBox           {{\ANP@family\char37}}
+\newcommand\ANPDelta             {{\ANP@family\char38}}
+\newcommand\ANPverticaltab       {{\ANP@family\char39}}
+\newcommand\ANPNumeroSign        {{\ANP@family\char40}}
+%    \end{macrocode}
+%
+%    \begin{macrocode}
+%</package>
+%    \end{macrocode}
+%
+% \Finale
+\endinput

@@ -1,0 +1,33 @@
+#!/usr/bin/fontforge -lang=ff
+
+#LoadNamelist("ybd-t1.nam")
+LoadNamelist("ybd.nam")
+
+#dlig="'dlig' Discretionary Ligatures in Latin lookup 36"
+#liga="'liga' Standard Ligatures in Latin lookup 33"
+#liga2="'liga' Standard Ligatures in Latin lookup 34"
+#ligas="'liga' Standard Ligatures in Latin lookup 33 subtable"
+#liga2s="'liga' Standard Ligatures in Latin lookup 34 subtable"
+
+i = 1
+
+while ( i < $argc )
+	
+	Open($argv[i])
+	RenameGlyphs("ybd")
+
+#	looks=GetLookups("GSUB")
+
+#	MergeLookups(liga,liga2)
+#	MergeLookupSubtables(ligas,liga2s)
+
+#	LookupStoreLigatureInAfm(liga,1)
+#	LookupStoreLigatureInAfm(dlig,1)
+
+	Generate($argv[i]:r + ".pfb","",-1)
+#	Generate($argv[i]:r + ".pfb","",0x10000)
+	i = i+1
+
+endloop
+
+# vim: set nospell: 

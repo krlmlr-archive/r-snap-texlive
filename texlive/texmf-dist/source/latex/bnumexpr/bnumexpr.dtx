@@ -1,0 +1,1220 @@
+% -*- coding: iso-latin-1; time-stamp-format: "%02d-%02m-%:y at %02H:%02M:%02S %Z" -*-
+%<*drv>
+\def\bnedocdate {2014/09/22} % package bnumexpr documentation date
+\def\bnepackdate{2014/09/22} % package bnumexpr date
+\def\bneversion {1.1a}       % package bnumexpr version
+%</drv>
+%<*dtx>
+\def\bnedtxtimestamp  {Time-stamp: <22-09-2014 at 23:21:33 CEST>}
+\iffalse 
+%</dtx>
+%%----------------------------------------------------------------
+%% The bnumexpr package: Expressions with big integers
+%% Copyright (C) 2014 by Jean-Francois Burnol 
+%%----------------------------------------------------------------
+%<*readme>--------------------------------------------------------
+Source:  bnumexpr.dtx
+Version: v1.1a, 2014/09/22
+Author:  Jean-Francois Burnol
+Info:    Expressions with big integers
+License: LPPL 1.3c or later
+
+This README file: Usage, Installation, License
+
+Usage
+=====
+
+\usepackage{bnumexpr}
+
+Then \thebnumexpr <expression with +,-,*,/,(,)> \relax is like 
+     \the\numexpr <expression with +,-,*,/,(,)> \relax
+with the difference of accepting or producing arbitrarily big
+integers.
+
+Example:
+     \thebnumexpr 30*(21-43*(512-67*(6133-812*2897)))\relax
+outputs:
+     -202785405180
+which would create an arithmetic overflow in \numexpr.
+
+\bnumexpr...\relax is a scaled down version of \xintiiexpr...\relax
+from package xintexpr. 
+
+By default, bnumexpr.sty loads xint.sty for its arithmetic macros
+doing addition, subtraction, multiplication, division. 
+
+- with option custom, xint.sty is not loaded and it is up to the
+user to define \bnumexprAdd, \bnumexprSub, \bnumexprMul, \bnumexprDiv
+ 
+- option bigintcalc loads the package of the same name and uses
+its arithmetic macros,
+
+- option l3bigint similarly with package l3bigint, which is
+downloadable from the development repository of the on-going
+LaTeX3 project.
+
+Option allowpower enables ^ as power operator (only for xint and
+bigintcalc currently).
+
+Installation
+============
+
+Obtain bnumexpr.dtx (and possibly, bnumexpr.ins and the README) 
+from CTAN: 
+                 http://www.ctan.org/pkg/bnumexpr
+
+To generate files from the source bnumexpr.dtx:
+
+ - with bnumexpr.ins: "tex bnumexpr.ins" in the same repertory as
+   bnumexpr.dtx will create (or overwrite) the files in this repertory.
+
+ - without bnumexpr.ins: "tex bnumexpr.dtx" also extracts the files.
+
+ * bnumexpr.sty is the style file
+
+ * bnumexpr.readme reconstitutes this README.
+
+ * bnumexpr.changes lists changes since last version.
+
+ * bnumexpr.tex is used for generating the documentation: 
+
+ - with latex+dvipdfmx: 
+   "latex bnumexpr.tex" (thrice) then "dvipdfmx bnumexpr.dvi"
+   Ignore dvipdfmx warnings, but if the pdf file has problems with
+   fonts (possibly from an old dvipdfmx), use then rather pdflatex.
+
+ - with pdflatex: 
+   set the suitable toggle in bnumexpr.tex to disable dvipdfmx
+   settings and compile it with pdflatex (thrice).
+
+ * without bnumexpr.tex: 
+
+ pdflatex bnumexpr.dtx (thrice) generates simultaneously the style
+ file and the pdf documentation.
+
+Finishing the installation:
+
+           bnumexpr.sty   --> TDS:tex/latex/bnumexpr/ 
+
+           bnumexpr.dtx   --> TDS:source/latex/bnumexpr/
+           bnumexpr.ins   --> TDS:source/latex/bnumexpr/
+
+           bnumexpr.pdf   --> TDS:doc/latex/bnumexpr/
+                 README   --> TDS:doc/latex/bnumexpr/
+
+Files bnumexpr.tex, bnumexpr.changes, bnumexpr.readme may be discarded.
+
+License
+=======
+
+Copyright (C) 2014 by Jean-Francois Burnol (jfbu at free dot fr)
+
+This Work may be distributed and/or modified under the
+conditions of the LaTeX Project Public License, either
+version 1.3c of this license or (at your option) any later
+version. This version of this license is in
+   http://www.latex-project.org/lppl/lppl-1-3c.txt
+and the latest version of this license is in
+   http://www.latex-project.org/lppl.txt
+and version 1.3 or later is part of all distributions of
+LaTeX version 2005/12/01 or later.
+
+This Work has the LPPL maintenance status "maintained".
+
+The Current Maintainer of this Work is Jean-Francois Burnol.
+
+This Work consists of the main source file bnumexpr.dtx
+and the derived files
+   bnumexpr.sty, bnumexpr.pdf, bnumexpr.ins, bnumexpr.tex, 
+   bnumexpr.changes, bnumexpr.readme
+
+End of README file.
+%</readme>--------------------------------------------------------
+%<*changes>-------------------------------------------------------
+%% This is a generated file.
+%% 
+%% For distribution see the terms in the source file bnumexpr.dtx.
+%%
+\item[1.1a (2014/09/22)] \begin{itemize}
+  \item added |l3bigint| option to use experimental \LaTeX3
+    package of the same name.
+
+  \item added Changes and Readme sections to the documentation.
+
+  \item better |\BNE_protect| mechanism for use of
+  |\bnumexpr...\relax| inside an |\edef| (without |\bnethe|). Previous one,
+  inherited from |xintexpr.sty 1.09n|, assumed that the |\.=<digits>| dummy
+  control sequence encapsulating the computation result had |\relax|
+  meaning. But removing this assumption was only a matter of letting
+  |\BNE_protect| protect two, not one, tokens. This will be backported to
+  next version of |xintexpr.sty|, naturally.
+  \end{itemize}
+\item[1.1 (2014/09/21)] First release. This is down-scaled from the
+  (development version of) |xintexpr.sty|. Motivation came the previous day
+  from a chat with \textsc{Joseph Wright} over big int status in \LaTeX3.
+  The |\bnumexpr...\relax| parser can be used on top of big int macros of
+  one's choice. Functionalities limited to the basic operations. I leave
+  the power operator |^| as an option.
+%</changes>-------------------------------------------------------
+%<*drv>-----------------------------------------------------------
+%% This is a generated file. 
+%%
+%% latex bnumexpr.tex (thrice) && dvipdfmx bnumexpr.dvi --> bnumexpr.dtx
+%% for pdflatex, set the \Withdvipdfmx toggle below to 0
+%%
+%% For distribution see the terms in the source file bnumexpr.dtx.
+%%
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesFile{bnumexpr.tex}%
+[\bnepackdate\space v\bneversion\space driver file for %
+  bnumexpr documentation (jfB)]%
+\PassOptionsToClass{a4paper,fontsize=11pt}{scrdoc}
+\chardef\Withdvipdfmx 1 % replace 1 by 0 for using pdflatex
+\chardef\NoSourceCode 0 % replace 0 by 1 for not including source code
+\input bnumexpr.dtx
+%%% Local Variables:
+%%% mode: latex
+%%% End:
+%</drv>-----------------------------------------------------------
+%<*ins>-----------------------------------------------------------
+%% This is a generated file.
+%% 
+%% tex bnumexpr.ins will extract bnumexpr.sty from bnumexpr.dtx
+%%
+%% For distribution see the terms in the source file bnumexpr.dtx.
+%%
+\input docstrip.tex
+\askforoverwritefalse
+\generate{\nopreamble\nopostamble
+\file{bnumexpr.changes}{\from{bnumexpr.dtx}{changes}}
+\file{bnumexpr.readme}{\from{bnumexpr.dtx}{readme}}
+\usepostamble\defaultpostamble
+\file{bnumexpr.tex}{\from{bnumexpr.dtx}{drv}}
+\usepreamble\defaultpreamble
+\file{bnumexpr.sty}{\from{bnumexpr.dtx}{package}}}
+\catcode32=13\relax% active space
+\let =\space%
+\Msg{************************************************************************}
+\Msg{*}
+\Msg{* To finish the installation you have to move the following}
+\Msg{* files into a directory searched by TeX:}
+\Msg{*}
+\Msg{*     bnumexpr.sty} 
+\Msg{*}
+\Msg{* To produce the documentation run latex thrice on bnumexpr.tex}
+\Msg{* then dvipdfmx on bnumexpr.dvi. (ignore the dvipdfmx warnings)}
+\Msg{*}
+\Msg{* Happy TeXing!}
+\Msg{*}
+\Msg{************************************************************************}
+\endbatchfile
+%</ins>-----------------------------------------------------------
+%<*dtx>
+\fi % end of \iffalse block around generated files
+\chardef\noetex 0
+\expandafter\ifx\csname numexpr\endcsname\relax \chardef\noetex 1 \fi
+\ifnum\noetex=1 \chardef\extractfiles 0 % extract files, then stop
+\else
+    \expandafter\ifx\csname ProvidesFile\endcsname\relax
+      \chardef\extractfiles 0 % etex etc.. on bnumexpr.dtx
+    \else % latex/pdflatex on bnumexpr.tex or on bnumexpr.dtx
+      \expandafter\ifx\csname Withdvipdfmx\endcsname\relax
+        % latex run is on bnumexpr.dtx, we will extract all files
+        \chardef\extractfiles 1 % 1 = extract and typeset, 2=only typeset
+        \chardef\Withdvipdfmx 0 % 1 = use dvipdfmx, 0 = use pdflatex
+        \chardef\NoSourceCode 0 % 1 = do not include source code
+        \NeedsTeXFormat{LaTeX2e}%
+        \PassOptionsToClass{a4paper,fontsize=11pt}{scrdoc}% 
+      \else % latex run is on bnumexpr.tex, 
+        \chardef\extractfiles 2 % no extractions
+      \fi
+      \ProvidesFile{bnumexpr.dtx}[bundle source (\bnedtxtimestamp)]%
+    \fi
+\fi
+\ifnum\extractfiles<2 % extract files
+\def\MessageDeFin{\newlinechar10 \let\Msg\message
+\Msg{^^J}%
+\Msg{********************************************************************^^J}%
+\Msg{*^^J}%
+\Msg{* To finish the installation you have to move the following^^J}%
+\Msg{* files into a directory searched by TeX:^^J}%
+\Msg{*^^J}%
+\Msg{*\space\space\space\space bnumexpr.sty^^J}%
+\Msg{*^^J}%
+\Msg{* To produce the documentation run latex thrice on bnumexpr.tex^^J}%
+\Msg{* then dvipdfmx on bnumexpr.dvi. (ignore the dvipdfmx warnings)^^J}%
+\Msg{*^^J}%
+\Msg{* Happy TeXing!^^J}%
+\Msg{*^^J}%
+\Msg{********************************************************************^^J}%
+}%
+\begingroup
+    \input docstrip.tex
+    \askforoverwritefalse
+    \generate{\nopreamble\nopostamble
+    \file{bnumexpr.changes}{\from{bnumexpr.dtx}{changes}}
+    \file{bnumexpr.readme}{\from{bnumexpr.dtx}{readme}}
+    \usepostamble\defaultpostamble
+    \file{bnumexpr.ins}{\from{bnumexpr.dtx}{ins}}
+    \file{bnumexpr.tex}{\from{bnumexpr.dtx}{drv}}
+    \usepreamble\defaultpreamble
+    \file{bnumexpr.sty}{\from{bnumexpr.dtx}{package}}}
+\endgroup
+\fi % end of file extraction
+\ifnum\extractfiles=0 
+% direct tex/etex/xetex on bnumexpr.dtx, files now extracted, stop
+  \MessageDeFin\expandafter\end
+\fi
+% no use of docstrip to extract files if latex compilation was on bnumexpr.tex
+\ifdefined\MessageDeFin\AtEndDocument{\MessageDeFin}\fi
+%-------------------------------------------------------------------------------
+\documentclass {scrdoc}
+\ifnum\NoSourceCode=1 \OnlyDescription\fi
+\makeatletter
+\ifnum\Withdvipdfmx=1
+   \@for\@tempa:=hyperref,bookmark,graphicx,xcolor,pict2e\do
+            {\PassOptionsToPackage{dvipdfmx}\@tempa}
+   %
+   \PassOptionsToPackage{dvipdfm}{geometry}
+   \PassOptionsToPackage{bookmarks=true}{hyperref}
+   \PassOptionsToPackage{dvipdfmx-outline-open}{hyperref}
+   \PassOptionsToPackage{dvipdfmx-outline-open}{bookmark}
+   %
+   \def\pgfsysdriver{pgfsys-dvipdfm.def}
+\else
+   \PassOptionsToPackage{bookmarks=true}{hyperref}
+\fi
+\makeatother
+
+\pagestyle{headings}
+\makeatletter
+\def\buggysectionmark #1{% KOMA 3.12 as released to CTAN December 2013
+    \if@twoside\expandafter\markboth\else\expandafter\markright\fi
+    {\MakeMarkcase{\ifnumbered{section}{\sectionmarkformat\fi}{}#1}}{}}
+\ifx\buggysectionmark\sectionmark
+\def\sectionmark #1{%
+    \if@twoside\expandafter\markboth\else\expandafter\markright\fi
+    {\MakeMarkcase{\ifnumbered{section}{\sectionmarkformat}{}#1}}{}}
+\fi
+\makeatother
+
+\usepackage[T1]{fontenc}
+\usepackage[latin1]{inputenc}
+
+\usepackage[hscale=0.66,vscale=0.75]{geometry}
+
+\usepackage[zerostyle=a,scaled=0.95]{newtxtt}
+\renewcommand\familydefault\ttdefault
+\usepackage[noendash]{mathastext}
+\renewcommand\familydefault\sfdefault
+
+\usepackage{graphicx}
+\usepackage[dvipsnames]{xcolor}
+\definecolor{joli}{RGB}{225,95,0}
+\definecolor{JOLI}{RGB}{225,95,0}
+\definecolor{BLUE}{RGB}{0,0,255}
+\definecolor{niceone}{RGB}{38,128,192}
+\colorlet{jfverbcolor}{yellow!5}
+
+\usepackage[english]{babel}
+
+\usepackage[pdfencoding=pdfdoc]{hyperref}
+\hypersetup{%
+%linktoc=all,%
+breaklinks=true,%
+colorlinks=true,%
+urlcolor=niceone,%
+linkcolor=blue,%
+pdfauthor={Jean-Fran\c cois Burnol},%
+pdftitle={The bnumexpr package},%
+pdfsubject={Arithmetic with TeX},%
+pdfkeywords={Expansion, arithmetic, TeX},%
+pdfstartview=FitH,%
+pdfpagemode=UseOutlines}
+\usepackage{bookmark} 
+
+%---- \verb, and verbatim like `environments'. \MicroFont et \MacroFont
+\def\MicroFont {\ttfamily }
+\def\MacroFont {\ttfamily\baselineskip12pt\relax}
+\makeatletter
+
+\def\lowast{\raisebox{-.25\height}{*}}
+\begingroup
+   \catcode`* 13
+   \gdef\makestarlowast {\let*\lowast\catcode`\*\active}%
+\endgroup
+
+% modif de \do@noligs: \char`#1} --> \char`#1 } 
+\def\do@noligs #1%
+{%
+    \catcode `#1\active 
+    \begingroup \lccode `\~=`#1\relax 
+    \lowercase {\endgroup \def ~{\leavevmode \kern \z@ \char `#1 }}%
+}% 
+% Tentative, Mardi 09 septembre 2014 à 22:41:28
+\def\verb 
+% on pourrait mettre le #1 ici et économiser \@@jfverb
+{%
+  \relax\leavevmode\null
+  \begingroup\MicroFont
+  \let\do\do@noligs  \verbatim@nolig@list % voir plus tard si vraiment
+                                % nécessaire maintenant
+  \let\do\@makeother \dospecials 
+                \makestarlowast
+  \@vobeyspaces \fboxsep0pt
+  \@@jfverb 
+}% 
+
+\def\@@jfverb #1{\catcode`#1 3 \@@@jfverb }
+
+\def\@@@jfverb #1{\ifcat\noexpand#1$% $
+                      \endgroup\else 
+      \penalty\z@
+      \colorbox{jfverbcolor}{\strut #1}%
+      \expandafter\@@@jfverb\fi }
+
+\makeatother
+\catcode`\_=11
+
+\def\csa_aux #1{\ttfamily\hyphenchar\font45 \char`\\%
+                \scantokens{#1}\endgroup }
+
+\DeclareRobustCommand\csa {\begingroup\catcode`\_=11
+                           \everyeof{\noexpand}\endlinechar -1
+                           \makeatother
+                           \makestarlowast
+                           \csa_aux }
+\newcommand\csh[1]{\texorpdfstring{\csa{#1}}{\textbackslash #1}}
+\catcode`\_=8
+
+\usepackage{xspace}
+
+\def\bnename
+   {\texorpdfstring
+          {\hyperref[sec:bnumexpr]%
+             {{\color{joli}\bfseries\ttfamily bnumexpr}}}
+          {bnumexpr}%
+     \xspace }%
+\def\bnenameimp
+   {\texorpdfstring
+              {\hyperref[sec:bnumexprcode]%
+                {{\color[named]{RoyalPurple}%
+                 \bfseries\ttfamily bnumexpr}}}
+              {bnumexpr}%
+    \xspace }%
+
+
+\frenchspacing
+% possible options: custom, bigintcalc, l3bigint, nocsv, notacitmul, allowpower
+\usepackage[allowpower]{bnumexpr}
+
+\usepackage{etoc}
+
+\begin{document}
+\thispagestyle{empty}
+\ttzfamily
+\pdfbookmark[1]{Title page}{TOP}
+
+{%
+\normalfont\Large\parindent0pt \parfillskip 0pt\relax 
+ \leftskip 2cm plus 1fil \rightskip 2cm plus 1fil
+ The \bnename package\par
+}
+
+{\centering
+  \textsc{Jean-François Burnol}\par
+  \footnotesize 
+  jfbu (at) free (dot) fr\par
+  Package version: \bneversion\ (\bnepackdate); 
+            documentation date: \bnedocdate.\par
+  {From source file \texttt{bnumexpr.dtx}. \bnedtxtimestamp.}\par
+}
+
+\etocsetnexttocdepth{section}
+\tableofcontents
+
+\section{Readme}
+\begingroup
+\makeatletter\def\x{\baselineskip10pt
+                    \ttfamily\settowidth\dimen@{X}%
+                    %\parindent \dimexpr.5\linewidth-33\dimen@\relax
+                    \let\do\do@noligs\verbatim@nolig@list
+                    \let\do\@makeother\dospecials
+                    \def\par{\leavevmode \null\@@par\penalty\interlinepenalty}%
+                    \makestarlowast
+                    \@vobeyspaces\obeylines
+                    \noindent\kern\parindent\input bnumexpr.readme
+\endgroup }\x
+
+
+\section{Introduction}
+\label{sec:bnumexpr}
+
+Package \bnename provides |\bnumexpr...\relax| which is analogous to
+|\numexpr...\relax|, while allowing arbitrarily big
+integers. Important items:
+\begin{enumerate}
+\item the |\relax| token ending the expression is mandatory,
+\item one must use either |\thebnumexpr| or |\bnethe\bnumexpr| to get a
+  printable result, as |\bnumexpr...\relax| expands to a private format;
+  however one may embed directly one |\bnumexpr...\relax| in another
+  |\bnumexpr...\relax|,
+\item one may do |\edef\tmp{\bnumexpr 1+2\relax}|, and then either use |\tmp| in
+  another |\bnumexpr...\relax|, or print it via |\bnethe\tmp|. The computation
+  is done at the time of the |\edef| (and two expansion steps suffice),
+\item tacit multiplication applies in front of parenthesized sub-expressions, or
+  sub |\bnumexpr...\relax| (or |\numexpr...\relax|), or in front of a |\count|
+  or |\dimen| register. This may be de-activated by option |notacitmul|,
+\item expressions may be comma separated. On input, spaces are ignored,
+  naturally, and on output the values are comma separated with a space after
+  each comma. This functionality may be turned off via option |nocsv|,
+\item even with options |notacitmul| and |nocsv| the syntax is more flexible
+  than with |\numexpr|: things such as 
+  |\bnumexpr -(1+1)\relax| are legal.
+\end{enumerate}
+
+The parser |\bnumexpr| is a scaled-down version of parser |\xintiiexpr| from
+package \href{http://www.ctan.org/pkg/xint}{xintexpr}: support for boolean
+operators, functions such as |abs|, |max|, |lcm|, the |!| as factorial,
+handling of hexadecimal numbers, etc\dots has
+been removed. The goal here is to extend |\numexpr| only to the extent of
+accepting big integers. Thus by default, the syntax allows |+,-,*,/|,
+parentheses, and also |\count| or |\dimen| registers or variables. Option
+|allowpower| enables |^| as power operator.
+
+Of course, one
+needs some underlying big integer engine to provide the macros doing the
+actual computations. By default, \bnename uses package |xint| and its
+|\xintiiAdd|, |\xintiiSub|, and |\xintiiMul| macros (also |\xintiiPow| if
+option |allowpower| is made use of). As we want here |/| to do
+rounded division while |xint|'s |\xintiiQuo| does Euclidean division,
+\bnename contains a few extra code lines on top of the underlying
+division macros from |xint.sty|.
+
+See the discussion of options |bigintcalc|, |l3bigint| and |custom| in
+\autoref{sec:options} for alternatives.
+
+The starting point for the |\bnumexpr| parser was not the |\xintiiexpr| version
+|1.09n| as available (at the time of writing) on CTAN, but a development
+version for future release |1.1|. This is why the version number of package
+|bnumexpr| is |1.1|.
+It may well be that the code of the parser is in some places quite sub-optimal
+from the fact that it was derived from code handling much more stuff.
+
+The |\xintNewExpr| construct has been left out.
+
+I recall from documentation of |xintexpr| that there is a potential impact on
+the memory of \TeX{} (the hash table) because each arithmetic operation is
+done inside a dummy |\csname...\endcsname| used as single token to move
+around in one-go the possibly hundreds of digits composing a number.
+
+\section{Options}\label{sec:options}
+
+The package does by default:
+\begin{verbatim}
+\RequirePackage{xint}
+\let\bnumexprAdd\xintiiAdd
+\let\bnumexprSub\xintiiSub
+\let\bnumexprMul\xintiiMul
+%% \bnumexprDiv has custom definition on top of macros from xint.sty
+\let\bnumexprPow\xintiiPow % only if option allowpower
+\end{verbatim}
+% To let |/| do euclidean division (like currently in |\xintiiexpr|) it is
+% thus sufficient to do |\let\bnumexprDiv\xintiiQuo| after loading the package.
+
+Option |bigintcalc| says to not load \href{http://www.ctan.org/pkg/xint}{xint}
+but to use rather the macros from package
+\href{http://www.ctan.org/pkg/bigintcalc}{bigintcalc} 
+by \textsc{Heiko Oberdiek}. Note though that |/| is mapped to |\bigintcalcDiv|
+which does \emph{truncated} (not rounded) division.
+
+Option |l3bigint| similarly says to use the macros which are provided with the
+eponym package, a part of the development work of the
+\href{http://latex-project.org/code.html}{\LaTeX3 project}. There is no power
+operation available with this option.
+
+Option |custom| does not load any package and leaves it up to the user to
+specify the macros to be used, i.e. provide definitions for |\bnumexprAdd|,
+|\bnumexprSub|, |\bnumexprMul|, |\bnumexprDiv| (and possibly |\bnumexprPow|).
+
+If using option |custom|: the four arithmetic macros |\bnumexprAdd|,
+|\bnumexprSub|, |\bnumexprMul|, |\bnumexprDiv| (and possibly |\bnumexprPow|)
+must be expandable, and they must allow arguments in need to be first (`f'-)
+expanded. They should produce on output (big) integers with no leading zeros, at
+most one minus sign and no plus sign (else the \bnename macro used for
+handling the |-| prefix operator may need to be modified). They will be
+expanded inside |\csname...\endcsname|. The macros from |xint.sty| (as well as
+those of |bigintcalc.sty|) are expandable in a stronger sense (only two
+expansion steps suffice). Perhaps speed gains are achievable from dropping
+these stronger requirements.
+
+Option |nocsv| makes comma separated expressions illegal. 
+
+Option |notacitmul| removes the possibility of tacit multiplication in front of
+parentheses, \string\count\space registers, sub-expressions.
+
+Option |allowpower| enables the |^| as power operator (left associative).
+
+\section{Further commands}
+
+The package provides |\bnumexprUsesxint|, |\bnumexprUsesbigintcalc| and
+|\bnumexprUsesliiibigint| which allow to use in the same document more than one
+of the available big integer mathematical engines. 
+
+It is up to the user to have issued the necessary |\usepackage| or
+|\RequirePackage| in the preamble, and this may be done after having loaded
+|bnumexpr.sty|. Recall that |xint| is loaded by default, but is not loaded in
+case of one of the options |custom|, |bigintcalc|, |l3bigint|.
+
+
+\section{Examples}
+
+\begin{flushleft}\parindent0pt \obeylines
+|\thebnumexpr 128637867168*2187917891279\relax| %
+\thebnumexpr 128637867168*2187917891279\relax
+
+|\thebnumexpr 30*(21-43*(512-67*(6133-812*2897)))\relax| %
+\thebnumexpr 30*(21-43*(512-67*(6133-812*2897)))\relax
+
+\newcount\cnta\cnta 123
+\newcount\cntb \cntb 188
+
+|\newcount\cnta \cnta 123 \newcount\cntb \cntb 188|
+% |\the\numexpr \cnta*\cnta*\cnta\relax|  %
+% \the\numexpr \cnta*\cnta*\cnta\relax {}
+% |\the\bnumexpr \cnta*\cnta*\cnta\relax| %
+% \thebnumexpr \cnta*\cnta*\cnta\relax {}
+|\the\numexpr \cnta*\cnta*\cnta/\cntb+\cntb*\cntb*\cntb/\cnta\relax| %
+\the\numexpr \cnta*\cnta*\cnta/\cntb+\cntb*\cntb*\cntb/\cnta\relax {}
+|\thebnumexpr \cnta*\cnta*\cnta/\cntb+\cntb*\cntb*\cntb/\cnta\relax|  %
+\thebnumexpr \cnta*\cnta*\cnta/\cntb+\cntb*\cntb*\cntb/\cnta\relax   {}
+
+% |\the\numexpr \cnta*\cnta*(\cnta/\cntb)+\cntb*\cntb*(\cntb/\cnta)\relax| 
+% \the\numexpr \cnta*\cnta*(\cnta/\cntb)+\cntb*\cntb*(\cntb/\cnta)\relax  {}
+% |\thebnumexpr \cnta*\cnta*(\cnta/\cntb)+\cntb*\cntb*(\cntb/\cnta)\relax| 
+% \thebnumexpr \cnta*\cnta*(\cnta/\cntb)+\cntb*\cntb*(\cntb/\cnta)\relax {}
+|\the\numexpr 123/188*188\relax|, |\the\numexpr 123/(188*188)\relax|, %
+|\thebnumexpr 123/188*188\relax|, |\thebnumexpr 123/(188*188)\relax|. 
+\the\numexpr 123/188*188\relax, \the\numexpr 123/(188*188)\relax, %
+\thebnumexpr 123/188*188\relax, \thebnumexpr 123/(188*188)\relax.
+
+\edef\tmp {\bnumexpr 121873197*123-218137917*188\relax}
+|\edef\tmp {\bnumexpr 121873197*123-218137917*188\relax}\bnethe\tmp|
+\bnethe\tmp {}
+|\meaning\tmp| 
+\meaning\tmp {} 
+|\thebnumexpr \tmp*(173197129797-\tmp)*(2179171982-\tmp)\relax|
+\thebnumexpr \tmp*(173197129797-\tmp)*(2179171982-\tmp)\relax
+
+|\cnta \thebnumexpr 2152966419779999/987654321\relax\space|
+|\the\cnta| %
+\cnta \thebnumexpr 2152966419779999/987654321\relax\space \the\cnta
+
+|\thebnumexpr 2179878*987654321-2152966419779999, 2179879*987654321-2152966419779999\relax| %
+\thebnumexpr  2179878*987654321-2152966419779999,2179879*987654321-2152966419779999\relax\ \ \ (there was indeed rounding of the exact quotient.)
+
+An example with the power operator |^| (option |allowpower|, not compatible with
+|l3bigint|): %
+|\thebnumexpr (1^10+2^10+3^10+4^10+5^10+6^10)^3\relax| %
+\thebnumexpr (1^10+2^10+3^10+4^10+5^10+6^10)^3\relax
+
+\end{flushleft}
+
+\StopEventually{\end{document}\endinput}
+
+\newgeometry{hscale=0.75,vscale=0.75}% ATTENTION \newgeometry fait
+                                % un reset de vscale si on ne le
+                                % précise pas ici !!!
+
+\MakePercentIgnore
+% 
+% \catcode`\<=0 \catcode`\>=11 \catcode`\*=11 \catcode`\/=11
+% \let</dtx>\relax
+% \def<*package>{\catcode`\<=12 \catcode`\>=12 \catcode`\*=12 \catcode`\/=12 }
+%</dtx>
+%<*package>
+%
+% \section{Package \bnenameimp implementation}
+% \label{sec:bnumexprcode}
+%
+% \localtableofcontents \bigskip 
+%
+% Comments are sparse. Error handling by the parser is kept to a minimum; if
+% something goes wrong, the offensive token gets discarded, and some undefined
+% control sequence attempts to trigger writing to the log of some sort of
+% informative message. It is recommended to set |\errorcontextlines| to at
+% least |2| for more meaningful context.
+% \subsection{Package identification and catcode setup}
+%    \begin{macrocode}
+\NeedsTeXFormat{LaTeX2e}%
+\ProvidesPackage{bnumexpr}[2014/09/22 v1.1a Expressions with big integers (jfB)]%
+\edef\BNErestorecatcodes {\catcode`\noexpand\!\the\catcode`\!
+                   \catcode`\noexpand\?\the\catcode`\?
+                   \catcode`\noexpand\_\the\catcode`\_
+                   \catcode`\noexpand\:\the\catcode`\:\relax }%
+\catcode`\! 11 % some other catcodes will be manipulated: comma, (, ),
+\catcode`\? 11 % but we reset them to their standard values, thus 
+\catcode`\_ 11 % \BNErestorecatcodes is a bit pedantic here.
+\catcode`\: 11
+%    \end{macrocode}
+% \subsection{Package options}
+%    \begin{macrocode}
+\def\BNE_tmpa {0}%
+\DeclareOption {custom}{\def\BNE_tmpa {1}%
+    \PackageWarningNoLine{bnumexpr}{^^J
+  Option custom: package xint not loaded. Definitions are needed for:^^J 
+  \protect\bnumexprAdd, \protect\bnumexprSub,
+  \protect\bnumexprMul\space and \protect\bnumexprDiv }%
+}%
+\DeclareOption {bigintcalc}{\def\BNE_tmpa {2}%
+    \PackageWarningNoLine{bnumexpr}{^^J
+    Option bigintcalc: the macros from package bigintcalc are used.^^J
+    Notice that / is mapped to \protect\bigintcalcDiv\space which does truncated division}%
+}%
+\DeclareOption {l3bigint}{\def\BNE_tmpa {3}%
+    \PackageWarningNoLine{bnumexpr}{^^J
+    Option l3bigint: the macros from package l3bigint are used.^^J
+    There is no power operation, currently}%
+}%
+\DeclareOption {nocsv}{%
+    \PackageInfo{bnumexpr}{Comma separated expressions disabled}%
+    \AtEndOfPackage{\expandafter\let\csname BNE_precedence_,\endcsname 
+                                    \undefined }%
+}%
+\DeclareOption {notacitmul}{%
+    \PackageInfo{bnumexpr}{Tacit multiplication disabled}%
+    \AtEndOfPackage{\BNE_notacitmultiplication}%
+}%
+\def\BNE_allowpower {0}%
+\DeclareOption {allowpower}{%
+    \PackageInfo{bnumexpr}{Power operator ^ authorized}%
+    \def\BNE_allowpower {1}%
+}%
+\ProcessOptions\relax
+%    \end{macrocode}
+% \subsection{Mapping to an underlying big integer engine.}
+% In case option |bigintcalc| is used, notice that |/| is mapped to the macro
+% |\bigintcalcDiv| which does truncated division. We did not add the extra code
+% for rounded division in that case.
+% 
+% With option |l3bigint|, there is no power operation available currently.
+% Furthermore the package is part of the experimental trunk of the \LaTeX3
+% project hence the names of its macros could change.
+%    \begin{macrocode}
+\def\bnumexprUsesxint {%
+    \let\bnumexprAdd\xintiiAdd
+    \let\bnumexprSub\xintiiSub
+    \let\bnumexprMul\xintiiMul
+    \let\bnumexprDiv\BNE_xintiiDivRound 
+    \let\bnumexprPow\xintiiPow
+}%
+\def\bnumexprUsesbigintcalc {%
+    \let\bnumexprAdd\bigintcalcAdd
+    \let\bnumexprSub\bigintcalcSub
+    \let\bnumexprMul\bigintcalcMul
+    \let\bnumexprDiv\bigintcalcDiv % NOTE: THIS DOES TRUNCATED DIVISION
+    \let\bnumexprPow\bigintcalcPow
+}%
+\def\bnumexprUsesliiibigint {%
+    \let\bnumexprAdd\bigint_add:nn
+    \let\bnumexprSub\bigint_sub:nn
+    \let\bnumexprMul\bigint_mul:nn
+    \let\bnumexprDiv\bigint_div_round:nn
+    \let\bnumexprPow\bigint_pow:nn % does not exist!
+}%
+%    \end{macrocode}
+% The |\xintiiQuo| macro from |xint.sty| does Euclidean division. Rounded
+% division is available from |xintfrac.sty|, but rather than loading it, we
+% define directly here |\bnumexprDiv| as a suitable wrapper to the |xint.sty|
+% division macros. This, or something similar, should be incorporated in next
+% release of |xint|.
+%
+% Current CTAN version of |xint| (1.09n) has some sub-optimal code for dealing
+% with the signs of the divisor and dividend, this has been improved in
+% development version 1.1, which we follow here.
+%    \begin{macrocode}
+\def\BNE_xintiiDivRound      {\romannumeral0\BNE_xintiidivround }%
+\def\BNE_xintiidivround    #1{\expandafter\BNE_div \romannumeral-`0#1\Z }%
+\def\BNE_div #1#2\Z #3{\expandafter\BNE_div_a\expandafter #1%
+                             \romannumeral-`0#3\Z #2\Z }%
+\def\BNE_div_a #1#2% #1 de A, #2 de B.
+{%
+    \if0#2\xint_dothis\BNE_div_divbyzero\fi
+    \if0#1\xint_dothis\BNE_div_aiszero\fi
+    \if-#2\xint_dothis{\BNE_div_bneg #1}\fi
+          \xint_orthat{\BNE_div_bpos #1#2}%
+}%
+\def\BNE_div_divbyzero #1\Z #2\Z {\BNE:DivisionByZero\space 0}%
+\def\BNE_div_aiszero   #1\Z #2\Z { 0}%
+\def\BNE_div_bpos #1%
+{%
+    \xint_UDsignfork
+            #1{\xintiiopp\BNE_div_pos {}}%
+             -{\BNE_div_pos #1}%
+    \krof
+}%
+\def\BNE_div_bneg #1%
+{%
+    \xint_UDsignfork
+            #1{\BNE_div_pos {}}%
+             -{\xintiiopp\BNE_div_pos #1}%
+    \krof
+}%
+\def\BNE_div_pos #1#2\Z #3\Z{\expandafter\BNE_div_pos_a
+                          \romannumeral0\XINT_div_prepare {#2}{#1#30}}%
+\def\BNE_div_pos_a #1#2{\xintReverseOrder {#1\BNE_div_pos_b}\Z }%
+\def\BNE_div_pos_b #1#2{\xint_gob_til_Z #2\BNE_div_pos_small\Z 
+                        \BNE_div_pos_c #1#2}%
+\def\BNE_div_pos_c #1#2\Z {\ifnum #1>\xint_c_iv 
+                              \expandafter\BNE_div_pos_up
+                      \else   \expandafter\xintreverseorder
+                      \fi {#2}}%
+\def\BNE_div_pos_up #1{\xintinc {\xintReverseOrder{#1}}}% 
+\def\BNE_div_pos_small\Z\BNE_div_pos_c #1#2{\ifnum #1>\xint_c_iv\expandafter
+                                  \xint_secondoftwo\else\expandafter
+                                  \xint_firstoftwo\fi { 0}{ 1}}%
+\if0\BNE_tmpa % Toggle to load xint.sty (and also xinttools.sty)
+    \RequirePackage{xint}%
+    \bnumexprUsesxint
+\fi
+\if2\BNE_tmpa % Toggle to load bigintcalc.sty
+    \RequirePackage{bigintcalc}%
+    \bnumexprUsesbigintcalc
+\fi
+\if3\BNE_tmpa % Toggle to load l3bigint.sty
+    \RequirePackage{l3bigint}%
+    \bnumexprUsesliiibigint
+\fi
+%    \end{macrocode}
+% \subsection{Some helper macros and constants from xint}
+% These macros from xint should not change, hence overwriting them here should
+% not be cause for alarm. I opted against renaming everything with |\BNE_|
+% prefix rather than |\xint_|. The |\xint_dothis|/|\xint_orthat| thing is a new
+% style I have adopted for expandably forking. The least probable branches
+% should be specified first, for better efficiency. See examples of uses in the
+% present code.
+%    \begin{macrocode}
+\chardef\xint_c_     0
+\chardef\xint_c_i    1
+\chardef\xint_c_ii   2
+% \chardef\xint_c_iii  3
+% \chardef\xint_c_iv   4
+% \chardef\xint_c_v    5
+\chardef\xint_c_vi   6
+\chardef\xint_c_vii  7
+\chardef\xint_c_viii 8
+\chardef\xint_c_ix   9
+% \chardef\xint_c_x     10
+% \chardef\xint_c_xviii 18
+\long\def\xint_gobble_i      #1{}%
+\long\def\xint_gobble_iii    #1#2#3{}%
+\long\def\xint_firstofone    #1{#1}%
+\long\def\xint_firstoftwo    #1#2{#1}%
+\long\def\xint_secondoftwo   #1#2{#2}%
+\long\def\xint_firstofthree  #1#2#3{#1}%
+\long\def\xint_secondofthree #1#2#3{#2}%
+\long\def\xint_thirdofthree  #1#2#3{#3}%
+\def\xint_gob_til_!   #1!{}% this ! has catcode 11
+\def\xint_UDsignfork  #1-#2#3\krof {#2}%
+\long\def\xint_afterfi       #1#2\fi {\fi #1}%
+\long\def\xint_dothis        #1#2\xint_orthat #3{\fi #1}% new in v1.1
+\let\xint_orthat             \xint_firstofone
+%    \end{macrocode}
+% \subsection{Encapsulation of numbers in pseudo cs names}
+% We define here a |\BNE_num| to not have to invoke |\xintNum|; hence
+% dependency on |xint.sty| is kept to the actual arithmetic operations. We
+% only need to get rid of leading zeros as plus and minus signs have already
+% been stripped off; generally speaking user input will have no leading zeros
+% thus the macro is designed to go fast when it is not needed... and as
+% everything happens inside a |\csname...\endcsname|, we can leave some
+% trailing |\fi|'s.
+%
+% Note: the |1.09n| |\xintiiexpr| currently on CTAN has a
+% bug related to leading zeros, |\xinttheiiexpr 001+1\relax| does not return
+% |2|. This bug is absent from |\xintexpr|, |\xintfloatexpr|, |\xintiexpr| and
+% only present in |\xintiiexpr|.
+%    \begin{macrocode}
+\edef\BNE_lock #1!{\noexpand\expandafter\space\noexpand
+                            \csname .=\noexpand\BNE_num #1\endcsname }%
+\def\BNE_num #1{\if #10\expandafter\BNE_num\else
+                \ifcat #1\relax 0\expandafter\expandafter\expandafter #1\else
+                #1\fi\fi }%
+\def\BNE_unlock   {\expandafter\BNE_unlock_a\string }%
+\def\BNE_unlock_a #1.={}%
+%    \end{macrocode}
+% \subsection{\csh{bnumexpr}, \csh{bnethe}, \csh{thebnumexpr}, \dots}
+% In the full |\xintexpr|, the final unlocking may involve post-treatment of
+% the comma separated values, hence there are |_print| macros to handle the
+% possibly comma separated values. Here we may just identify |_print| with
+% |_unlock|.
+%    \begin{macrocode}
+\def\bnumexpr {\romannumeral0\bnumeval }%
+\def\bnumeval {\expandafter\BNE_wrap\romannumeral0\BNE_eval }%
+\def\BNE_eval {\expandafter\BNE_until_end_a\romannumeral-`0\BNE_getnext }%
+\def\BNE_wrap { !\BNE_usethe\BNE_protect\BNE_unlock }%
+\protected\def\BNE_usethe\BNE_protect {\BNE:missing_bnethe!}%
+\def\BNE_protect\BNE_unlock {\noexpand\BNE_protect\noexpand\BNE_unlock\noexpand }%
+\let\BNE_done\space
+\def\thebnumexpr 
+              {\romannumeral-`0\expandafter\BNE_unlock\romannumeral0\BNE_eval }%
+\def\bnethe #1{\romannumeral-`0\expandafter\xint_gobble_iii\romannumeral-`0#1}%
+%    \end{macrocode}
+% \subsection{\csh{BNE\_getnext}}
+% The getnext scans forward to find a number: after expansion of what comes
+% next, an opening parenthesis signals a parenthesized sub-expression, a |!|
+% with catcode 11 signals there was there a sub |\bnumexpr...\relax| (now
+% evaluated), a minus sign is treated as a prefix operator inheriting its
+% precedence level from the previous operator, a plus sign is swallowed, a
+% |\count| or |\dimen| will get fetched to |\number| (in case of a count
+% variable, this provides a full locked number but |\count0 1| for example is
+% like |1231| if |\count0|'s value is |123|); a digit triggers the
+% number scanner. After the digit scanner finishes the integer is trimmed of
+% leading zeros and locked as a single token into a |\csname .=...\endcsname|.
+% The flow then proceeds with |\BNE_getop| which looks for the next operator
+% or possibly the end of the expression. Note: |\bnumexpr\relax| is illegal.
+%    \begin{macrocode}
+\def\BNE_getnext #1%
+{%
+    \expandafter\BNE_getnext_a\romannumeral-`0#1%
+}%
+\def\BNE_getnext_a #1%
+{%
+    \xint_gob_til_! #1\BNE_gn_foundexpr !% this ! has catcode 11
+    \ifcat\relax#1% \count or \numexpr etc... token or count, dimen, skip cs
+       \expandafter\BNE_gn_countetc
+    \else
+       \expandafter\expandafter\expandafter\BNE_gn_fork\expandafter\string
+    \fi
+    #1%
+}%
+\def\BNE_gn_foundexpr !#1\fi !{\expandafter\BNE_getop\xint_gobble_iii }%
+\def\BNE_gn_countetc #1%
+{%
+    \ifx\count#1\else\ifx#1\dimen\else\ifx#1\numexpr\else\ifx#1\dimexpr\else
+    \ifx\skip#1\else\ifx\glueexpr#1\else\ifx\fontdimen#1\else
+      \BNE_gn_unpackvar
+    \fi\fi\fi\fi\fi\fi\fi
+    \expandafter\BNE_getnext\number #1%
+}%
+\def\BNE_gn_unpackvar\fi\fi\fi\fi\fi\fi\fi\expandafter
+                            \BNE_getnext\number #1%
+{%
+  \fi\fi\fi\fi\fi\fi\fi
+  \expandafter\BNE_getop\csname .=\number#1\endcsname 
+}%
+%    \end{macrocode}
+% This is quite simplified here compared to |\xintexpr|, for various reasons: we
+% have dropped the |\xintNewExpr| thing, and we can treat the |(| directly as we
+% don't have to get back to check if we are in an |\xintexpr|,
+% |\xintfloatexpr|, etc.. 
+%    \begin{macrocode}
+\def\BNE_gn_fork #1{%
+    \if#1+\xint_dothis \BNE_getnext\fi
+    \if#1-\xint_dothis -\fi
+    \if#1(\xint_dothis \BNE_oparen \fi
+    \xint_orthat       {\BNE_scan_number #1}%
+}%
+%    \end{macrocode}
+% \subsection{Parsing an integer}
+% We gather a string of digits, plus and minus prefixes have already been
+% swallowed. There might be some leading string of zeros which will have to be
+% removed. In the full |\xintexpr| the situation is more involved as it has to
+% recognize and accept decimal numbers, numbers in scientific notation, also
+% hexadecimal numbers, function names, etc... and variable names in current
+% development version |1.1| (not yet finished).
+%    \begin{macrocode}
+\def\BNE_scan_number #1% this #1 has necessarily here catcode 12
+{%
+    \ifnum \xint_c_ix<1#1 \expandafter \BNE_scan_nbr\else
+                          \expandafter \BNE_notadigit\fi #1%
+}%
+\def\BNE_notadigit #1{\BNE:not_a_digit! \xint_gobble_i {#1}}%
+%    \end{macrocode}
+% Scanning for a number. Once gathered, lock it and do |_getop|. If we hit
+% against some catcode eleven |!|, this means there was a sub |\bnumexpr..\relax|.
+% We then apply tacit multiplication.
+%    \begin{macrocode}
+\def\BNE_scan_nbr
+{%
+    \expandafter\BNE_getop\romannumeral-`0\expandafter
+    \BNE_lock\romannumeral-`0\BNE_scan_nbr_c
+}%
+\def\BNE_scan_nbr_a #1%
+{% careful that ! has catcode letter here
+    \ifcat \relax #1\xint_dothis{!#1}\fi % stops the scan
+    \ifx         !#1\xint_dothis{!*!}\fi % tacit multiplication before subexpr
+    \xint_orthat {\expandafter\BNE_scan_nbr_b\string #1}%
+}%
+\def\BNE_scan_nbr_b #1% #1 with catcode 12
+{%
+    \ifnum \xint_c_ix<1#1 \expandafter\BNE_scan_nbr_c
+    \else\expandafter !\fi #1%
+}%
+\def\BNE_scan_nbr_c #1#2%
+{%
+    \expandafter #1\romannumeral-`0\expandafter
+                   \BNE_scan_nbr_a\romannumeral-`0#2%
+}%
+%    \end{macrocode}
+%    \begin{macrocode}
+%    \end{macrocode}
+% \subsection{\csh{BNE\_getop}}
+% This finds the next infix operator or closing parenthesis or expression end.
+% It then leaves in the token flow <precedence> <operator> <locked number>. The
+% <precedence> stops expansion and ultimately gives back
+% control to a |\BNE_until_<op>| command. The code here is derived from more
+% involved context where the actual macro associated to the operator may vary,
+% depending if we are in |\xintexpr|, |\xintfloatexpr| or |\xintiiexpr|. Here
+% things are simpler but I have kept the general scheme, thus the actual macro
+% to be used for the <operator> is not decided immediately (development version
+% of |xintexpr.sty| has extra things to allow multi-characters operators like 
+% |&&|).  
+%    \begin{macrocode}
+\def\BNE_getop #1#2% this #1 is the current locked computed value
+{%
+    \expandafter\BNE_getop_a\expandafter #1\romannumeral-`0#2%
+}%
+\catcode`* 11
+\def\BNE_getop_a #1#2%
+{%  if a control sequence is found, must be \relax, or possibly register or
+ %  variable if tacit multiplication is allowed
+    \ifx \relax #2\xint_dothis\xint_firstofthree\fi
+    % tacit multiplications:
+    \ifcat \relax #2\xint_dothis\xint_secondofthree\fi
+    \if    (#2\xint_dothis      \xint_secondofthree\fi
+    \ifx   !#2\xint_dothis      \xint_secondofthree\fi
+    \xint_orthat \xint_thirdofthree
+    {\BNE_foundend #1}%
+    {\BNE_precedence_* *#1#2}% tacit multiplication
+    {\BNE_foundop #2#1}%
+}%
+\catcode`* 12
+\def\BNE_foundend {\xint_c_ \relax }% \relax is only a place-holder here.
+\def\BNE_foundop #1% 
+{%
+    \ifcsname BNE_precedence_#1\endcsname
+        \csname BNE_precedence_#1\expandafter\endcsname
+        \expandafter #1%
+    \else
+        \BNE_notanoperator {#1}\expandafter\BNE_getop
+    \fi
+}%
+\def\BNE_notanoperator #1{\BNE:not_an_operator! \xint_gobble_i {#1}}%
+%    \end{macrocode}
+% \subsection{Until macros for global expression and parenthesized sub-ones}
+% The minus sign as prefix is treated here. 
+%    \begin{macrocode}
+\catcode`) 11
+\def\BNE_tmpa #1{%  #1=\BNE_op_-vi token
+    \def\BNE_until_end_a ##1%
+    {%
+        \xint_UDsignfork
+            ##1{\expandafter\BNE_until_end_a\romannumeral-`0#1}%
+              -{\BNE_until_end_b ##1}%
+        \krof 
+    }%
+}\expandafter\BNE_tmpa\csname BNE_op_-vi\endcsname
+\def\BNE_until_end_b #1#2%
+    {%
+        \ifcase #1\expandafter\BNE_done 
+        \or
+        \xint_afterfi{\BNE:extra_)_?\expandafter
+                      \BNE_until_end_a\romannumeral-`0\BNE_getop }%
+        \else 
+        \xint_afterfi{\expandafter\BNE_until_end_a
+                      \romannumeral-`0\csname BNE_op_#2\endcsname }%
+        \fi
+    }%
+\catcode`( 11
+\def\BNE_op_( {\expandafter\BNE_until_)_a\romannumeral-`0\BNE_getnext }%
+\let\BNE_oparen\BNE_op_(
+\catcode`( 12
+\def\BNE_tmpa #1{% #1=\BNE_op_-vi
+    \def\BNE_until_)_a ##1{\xint_UDsignfork
+                           ##1{\expandafter \BNE_until_)_a\romannumeral-`0#1}%
+                             -{\BNE_until_)_b ##1}%
+                      \krof }%
+}\expandafter\BNE_tmpa\csname BNE_op_-vi\endcsname
+\def \BNE_until_)_b #1#2%
+    {%
+     \ifcase  #1\expandafter    \BNE_missing_)_? % missing ) ?
+                \or\expandafter \BNE_getop       % found closing )
+                \else \xint_afterfi 
+      {\expandafter \BNE_until_)_a\romannumeral-`0\csname BNE_op_#2\endcsname }%
+        \fi
+    }%
+\def\BNE_missing_)_? {\BNE:missing_)_inserted \xint_c_ \BNE_done }%
+\let\BNE_precedence_) \xint_c_i
+\let\BNE_op_)   \BNE_getop 
+\catcode`) 12 
+%    \end{macrocode}
+% \subsection{The arithmetic operators.}
+% This is where the infix operators are mapped to actual macros. These macros
+% must ``f-expand'' their arguments, and know how to handle then big integers
+% having no leading zeros and at most a minus sign.
+%    \begin{macrocode}
+\def\BNE_tmpc #1#2#3#4#5#6#7%
+{%
+  \def #1##1% \BNE_op_<op>
+  {% keep value, get next number and operator, then do until
+    \expandafter #2\expandafter ##1\romannumeral-`0\expandafter\BNE_getnext }%
+  \def #2##1##2% \BNE_until_<op>_a
+  {\xint_UDsignfork 
+    ##2{\expandafter #2\expandafter ##1\romannumeral-`0#4}%
+      -{#3##1##2}%
+   \krof }%
+  \def #3##1##2##3##4% \BNE_until_<op>_b 
+  {% either execute next operation now, or first do next (possibly unary)
+    \ifnum ##2>#5%
+    \xint_afterfi {\expandafter #2\expandafter ##1\romannumeral-`0%
+      \csname BNE_op_##3\endcsname {##4}}%
+    \else \xint_afterfi {\expandafter ##2\expandafter ##3%
+      \csname .=#6{\BNE_unlock ##1}{\BNE_unlock ##4}\endcsname }%
+    \fi }%
+  \let #7#5%
+}%
+\def\BNE_tmpb #1#2#3%
+{%
+  \expandafter\BNE_tmpc 
+  \csname BNE_op_#1\expandafter\endcsname
+  \csname BNE_until_#1_a\expandafter\endcsname 
+  \csname BNE_until_#1_b\expandafter\endcsname 
+  \csname BNE_op_-#2\expandafter\endcsname 
+  \csname xint_c_#2\expandafter\endcsname 
+  \csname #3\expandafter\endcsname
+  \csname BNE_precedence_#1\endcsname
+}%
+\BNE_tmpb  +{vi}{bnumexprAdd}%
+\BNE_tmpb  -{vi}{bnumexprSub}%
+\BNE_tmpb  *{vii}{bnumexprMul}%
+\BNE_tmpb  /{vii}{bnumexprDiv}%
+\if1\BNE_allowpower\BNE_tmpb ^{viii}{bnumexprPow}\fi
+%    \end{macrocode}
+% \subsection{The minus as prefix operator of variable precedence level}
+% We only need here two levels of precedence, |vi| and |vii|. If the power |^|
+% operation is authorized, then one further level |viii| is needed.
+%    \begin{macrocode}
+\def\BNE_tmpa #1% #1=vi or vii
+{%
+\expandafter\BNE_tmpb
+    \csname BNE_op_-#1\expandafter\endcsname
+    \csname BNE_until_-#1_a\expandafter\endcsname
+    \csname BNE_until_-#1_b\expandafter\endcsname
+    \csname xint_c_#1\endcsname
+}%
+\def\BNE_tmpb #1#2#3#4%
+{%
+    \def #1% \BNE_op_-<level> 
+    {%  get next number+operator then switch to _until macro
+        \expandafter #2\romannumeral-`0\BNE_getnext 
+    }%
+    \def #2##1% \BNE_until_-<level>_a
+    {\xint_UDsignfork
+        ##1{\expandafter #2\romannumeral-`0#1}%
+          -{#3##1}%
+     \krof }%
+    \def #3##1##2##3% \BNE_until_-<level>_b
+    {%
+        \ifnum ##1>#4%
+         \xint_afterfi {\expandafter #2\romannumeral-`0%
+                        \csname BNE_op_##2\endcsname {##3}}%
+        \else
+         \xint_afterfi {\expandafter ##1\expandafter ##2%
+                        \csname .=\expandafter\BNE_Opp
+                                  \romannumeral-`0\BNE_unlock ##3\endcsname }%
+        \fi
+    }%
+}%
+\BNE_tmpa {vi}%
+\BNE_tmpa {vii}%
+\if1\BNE_allowpower\BNE_tmpa {viii}\fi
+\def\BNE_Opp #1{\if-#1\else\if0#10\else-#1\fi\fi }%
+%    \end{macrocode}
+% \subsection{The comma may separate expressions.}
+% It suffices to treat the comma as a binary operator of precedence |ii|. We
+% insert a space after the comma. The current code in |\xintexpr| does not do
+% it at this stage, but only later during the final unlocking, as there is
+% anyhow need for some processing for final formatting and was considered to
+% be as well the opportunity to insert the space. Here, let's do it
+% immediately. These spaces are not an issue when |\bnumexpr| is
+% identified as a sub-expression in |\xintexpr|, for example in:
+% |\xinttheiiexpr lcm(\bnumexpr 175-12,123+34,56*31\relax)\relax| (this
+% example requires package |xintgcd|).
+%    \begin{macrocode}
+\catcode`, 11
+\def\BNE_op_, #1%
+{%
+    \expandafter \BNE_until_,_a\expandafter #1\romannumeral-`0\BNE_getnext 
+}%
+\def\BNE_tmpa #1{% #1 = \BNE_op_-vi
+  \def\BNE_until_,_a ##1##2%
+  {%
+    \xint_UDsignfork
+        ##2{\expandafter \BNE_until_,_a\expandafter ##1\romannumeral-`0#1}%
+          -{\BNE_until_,_b ##1##2}%
+     \krof }%
+}\expandafter\BNE_tmpa\csname BNE_op_-vi\endcsname
+\def\BNE_until_,_b #1#2#3#4%
+{%
+    \ifnum #2>\xint_c_ii
+        \xint_afterfi {\expandafter \BNE_until_,_a
+                   \expandafter #1\romannumeral-`0%
+                   \csname BNE_op_#3\endcsname {#4}}%
+    \else
+        \xint_afterfi {\expandafter #2\expandafter #3%
+                       \csname .=\BNE_unlock #1, \BNE_unlock #4\endcsname }%
+    \fi
+}%
+\let \BNE_precedence_, \xint_c_ii
+\catcode`, 12
+%    \end{macrocode}
+% \subsection{Disabling tacit multiplication}
+%    \begin{macrocode}
+\def\BNE_notacitmultiplication{%
+  \def\BNE_getop_a ##1##2{%
+    \ifx \relax ##2\expandafter\xint_firstoftwo\else
+                   \expandafter\xint_secondoftwo\fi
+    {\BNE_foundend ##1}%
+    {\BNE_foundop  ##2##1}%
+  }%
+  \def\BNE_scan_nbr_a ##1{%
+    \ifcat \relax ##1\expandafter\xint_firstoftwo\else
+                     \expandafter\xint_secondoftwo\fi
+    {!##1}{\expandafter\BNE_scan_nbr_b\string ##1}%
+  }%
+}%
+%    \end{macrocode}
+% \subsection{Cleanup}
+%    \begin{macrocode}
+\let\BNE_tmpa\relax \let\BNE_tmpb\relax \let\BNE_tmpc\relax 
+\BNErestorecatcodes
+%    \end{macrocode}
+% \MakePercentComment
+%</package>
+%<*dtx>
+\section{Changes}
+\small
+\begin{description}
+\input bnumexpr.changes
+\end{description}
+
+\DeleteShortVerb{\|}
+\CharacterTable
+ {Upper-case    \A\B\C\D\E\F\G\H\I\J\K\L\M\N\O\P\Q\R\S\T\U\V\W\X\Y\Z
+  Lower-case    \a\b\c\d\e\f\g\h\i\j\k\l\m\n\o\p\q\r\s\t\u\v\w\x\y\z
+  Digits        \0\1\2\3\4\5\6\7\8\9
+  Exclamation   \!     Double quote  \"     Hash (number) \#
+  Dollar        \$     Percent       \%     Ampersand     \&
+  Acute accent  \'     Left paren    \(     Right paren   \)
+  Asterisk      \*     Plus          \+     Comma         \,
+  Minus         \-     Point         \.     Solidus       \/
+  Colon         \:     Semicolon     \;     Less than     \<
+  Equals        \=     Greater than  \>     Question mark \?
+  Commercial at \@     Left bracket  \[     Backslash     \\
+  Right bracket \]     Circumflex    \^     Underscore    \_
+  Grave accent  \`     Left brace    \{     Vertical bar  \|
+  Right brace   \}     Tilde         \~}
+\CheckSum {915}
+\makeatletter\check@checksum\makeatother
+\Finale
+%% End of file xint.dtx

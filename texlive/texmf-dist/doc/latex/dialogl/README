@@ -1,0 +1,158 @@
+Copyright 1994 Michael John Downes
+Copyright 2013 TeX Users Group
+
+This file is part of the dialogl package, released under the LPPL;
+see dialogl.ins for details.
+
+This package was written by Michael Downes, who passed away in 2003.  He
+released it under a custom license, now considered nonfree.  In October
+2012, his heirs (his children Zoe, Elizabeth, and Mia Downes) have all
+agreed to re-releasing his work under any version of the LaTeX Public
+Project License.  Therefore, the package is now released under the LPPL,
+version 1 or (at your option) any later version.
+
+The only changes in this release are to the license, to remove examples
+lacking known-free licenses, and to remove the .stp files for plain TeX
+(which were apparently manually created by editing the .sty's).
+The actual code is the same as Michael's last release.
+
+
+The `dialogl' collection                     Michael Downes, 10-Nov-1994
+
+The purpose of the `dialogl' collection is to gather together in one
+place a lot of information and examples---probably more than you really
+wanted---about how to write TeX macros to carry on dialog with the user.
+The centerpiece of the package is the file `dialog.sty', which makes it
+easy to add bits of dialog to a LaTeX document; it can also be used with
+non-LaTeX macro packages, if they are plain.tex compatible. Another
+file, listout.tex, has a menu system built with the functions defined in
+menus.sty, which you may enjoy trying out. listout.tex was originally
+written to work with plain TeX; my later attempts to retrofit LaTeX
+compatibility may have some gaps, but it seems to work in the simple
+tests that I have done.
+
+The total size of the dialogl collection is approximately 580K.
+
+INSTALLATION:
+
+LATEX: The .sty files and listout.tex should go into your
+LaTeX input files area, wherever that may be on your system. The
+remaining files can go wherever you want.
+
+
+Suggested usage:
+
+(1) Try using listout.tex to print out some e-mail or program source
+files (e.g. TeX macros), eight or ten pages: Give the command
+
+  tex listout
+
+Navigate through the menu system, try to break it by giving bizarre
+answers, look for other kinds of deficiencies.  Find and try out the
+`tiny tabs' option. Find out how to make Control-L characters produce a
+`newpage' effect in the printout.
+
+(2) Print pages 1--5 of the documentation for dialog.sty (dia-driv.tex,
+~25 pages total, see below). You will need doc.sty to do this. Look at
+the user functions described in the documentation to see which ones you
+might want to use.
+
+(4) If you are interested, print out codialog.tex (29 pages): it gives
+a technical overview of TeX's capabilities for dialog, with various
+examples. Further technical discussion is found in the .dtx files, which
+can be printed out individually or using the driver file dia-driv.tex.
+
+  dialogl.dtx   11 pages
+  menus.dtx      9 pages
+  grabhedr.dtx   4 pages
+  listout.dtx   40 pages (includes a full listing of menus at the end)
+
+FUTURE ENHANCEMENTS NEEDED
+
+---Add \nmenu, \nxmenu.
+
+---Adapt further for LaTeX2e. `menus' might perhaps better be done as a
+package option of the dialog package:
+
+  \usepackage[menus]{dialog}
+
+to cut down on the number of different files required.
+
+---Add support for reading menus from disk to cut down on memory
+consumption (currently latex2e+listout.tex uses more than 65K,
+producing `TeX capacity exceeded' error for small TeXs).
+
+---Provide better documentation about what is available for use in the
+running heads/feet (\todaysdate, \nowtime, (\TeXdate \TeXtime?),
+\thisfilename, \dirprefix, etc. Also \folio should be separated into
+\columnfolio and \pagefolio or maybe \pagefolio and \sheetfolio so that
+they can be put in different places separately.
+
+---Provide better support for printing characters in the range 0-31,
+127-255 if suitable fonts are available. (Where the meaning of
+`suitable' is system-dependent and language-dependent.)
+
+---Provide support for embedding `listout' fragments in parent
+documents. Output routine complications make this difficult for
+fragments more than one page long, unless they are restricted to single
+column format. But even that much would be useful.
+
+---Add an index for listout.dtx.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+File list:
+
+INSTALLATION
+
+  README
+  dialogl.ins (for LaTeX2e)
+  diatest.tex (test file)
+
+UTILITIES
+
+  dialog.sty
+  menus.sty
+  grabhedr.sty
+
+  listout.tex
+
+DOCUMENTATION
+
+  Main File      Subfiles
+  ---------------------------
+  dia-driv.tex   dialogl.dtx
+                 menus.dtx
+                 grabhedr.dtx
+
+  listout.dtx    default.los
+
+  codialog.tex   cnvunits.tex
+                 fontmenu.tex
+                 fontmenu.lg
+
+  dialogl-doc.sty
+
+DIA-DRIV.TEX
+
+This is the driver file for printing out the documentation of
+dialog.sty, menus.sty, and grabhedr.sty. Run it through standard
+LaTeX.
+
+CODIALOG.TEX
+
+This is a substantially revised and augmented version of the paper
+`Dialog with TeX' that appeared in the Proceedings of the 1991 TUG
+Conference at Dedham, Massachusetts (TUGboat vol 12 no 3, December
+1991, Part 2). [In other words: I was dissatisfied with the first
+published version, so I am `publishing' here a better organized
+version with some nice added examples.]
+
+The following files that are printed in the appendixes of the paper are
+included in electronic form in case any finds some use for them.
+
+---fontmenu.tex shows how the token-deletion option of TeX's
+error recovery mechanism can be used to implement a crude menu
+facility.
+
+---cnvunits.tex contains some routines that demonstrate conversion of
+point units to inch units.

@@ -1,0 +1,723 @@
+% $Id: manDCPiC.tex 12 2013-04-21 15:22:57Z pedro $
+\documentclass[11pt]{article}
+\usepackage{dcpic,pictex}
+\usepackage{verbatim}
+\usepackage{url}
+\usepackage{svn-multi}
+\usepackage{listings}
+\usepackage{a4wide}
+
+\svnidlong
+{$HeadURL: svn+ssh://gentzen.mat.uc.pt/var/lib/svn/DCPiC/CTAN5.0/manDCPiC.tex $}
+{$LastChangedDate: 2013-05-01 19:49:49 +0100 (Qua, 01 Mai 2013) $}
+{$LastChangedRevision: 15 $}
+{$LastChangedBy: pedro $}
+
+\svnid{$Id: manDCPiC.tex 12 2013-04-21 15:22:57Z pedro $}
+
+\newcommand{\docversion}{\svnyear/\svnmonth/\svnday\ (v\svnrev)}
+
+\def\dcpicversion{v5.0.0}
+
+\lstset{language=TeX,
+  frame = single,
+  morekeywords={begindc,enddc,cmor,pup,commdiag,undigraph,digraph,cdigraph,cundigraph,obj,mor,pleft,pup,pdown,pright,north,northeast,east,southeast,south,southwest,west,northwest,atright,atleft,solidarrow,dashArrow,dotArrow,solidline,dashline,dotline,injectionarrow,aplicationarrow,surjectivearrow,equalline,doublearrow,doubleopposite,nullarrow},
+  basicstyle=\scriptsize}
+
+
+\begin{document}
+
+\title{DCpic \dcpicversion\\
+\docversion}
+\author{Pedro Quaresma\\ CISUC/Mathematics Department,
+  University of Coimbra\\ 3001-454 COIMBRA, PORTUGAL\\ {\tt
+    pedro@mat.uc.pt}\quad phone: +351-239~791~170\quad fax:
+  +351-239~832~568}  
+\date{2013/05/01}
+
+% Esta defini\c c\~ao \'e \'util para a convers\~ao LaTeX2HTML
+%\def\PiCTeX{PiC\TeX}
+
+\maketitle
+
+\vfill
+\begin{quotation}
+This work may be distributed and/or modified under the
+conditions of the LaTeX Project Public License, either version 1.3
+of this license or (at your option) any later version.
+The latest version of this license is in
+  http://www.latex-project.org/lppl.txt
+and version 1.3 or later is part of all distributions of LaTeX
+version 2005/12/01 or later.
+This work has the LPPL maintenance status `maintained'.
+
+The Current Maintainer of this work is Pedro Quaresma (pedro@mat.uc.pt).
+
+This work consists of the files dcpic.sty, examples.tex,
+manDCPiC.tex, manDCPiCpt.tex
+\end{quotation}
+
+\vspace*{2cm}
+\noindent Coimbra, 2013/05/01\\
+Pedro Quaresma
+
+\pagebreak
+\section{History}
+
+
+\begin{description}
+\item[11/1990 - Version 1.0]
+\item[10/1991 - Version 1.1]
+\item[9/1993  - Version 1.2:] the distance from the arrow end
+  points and the objects became a fixed number (10units), the distance
+  arguments became optional.  A new option for the arrows was introduced.
+\item[3/1995  - Version 1.3:] the distance from the arrow to its
+  label became fixed in 10units. A new option for the arrows was introduced.
+\item[7/1996  - Version 2.1:] a new syntax for the ``{\tt mor}''
+  command was introduced. 
+\item[5/2001 - Version 3.0:] implementation of the command {\tt cmor}
+  for curved arrows.
+\item[11/2001 - Version{\~a}o 3.1:] the arrow's tips became more \TeX-like.
+\item[1/2002  - Version 3.2:] introduction of the ``Logical
+  specification of diagrams'', the commands ``{\tt obj}'' and
+  ``{\tt mor}'' were modified accordingly.
+\item[5/2002 - Version 4.0:] {\bf new syntax, non-compatible with past
+    versions}. The commands  {\tt begindc},  {\tt obj}, and {\tt mor}
+  were modified.
+\item[3/2003 - Version 4.1:] new kind of arrows, ``surjective
+  arrows'', was added. The drawing of the double tip only works well
+  in the vertical, or horizontal case.
+\item[12/2004 - Version 4.1.1:] new version for the drawing of
+  surjective arrows, it solves the previous problem with it.
+\item[3/2007 - version 4.2:] adds the ``providespackage'' directive
+  that was missing.  Adds dashed lines, and dotted lines.
+\item[5/2008 - version 4.2.1:] deleting some counters, trying to
+  avoid the problem ``running out of counters'', that occurs because of
+  the use of PiCTeX and DCpic (only two...)
+\item[8/2008 - version 4.3:] thanks to Ruben Debeerst
+  (\url{debeerst@mathematik.uni-kassel.de}), he added a new arrow
+  ``equalline''. After that I decided to add: the doublearrow; the
+  doublearrow with opposite directions; the null arrow. This last can
+  be used as a simple form of adding new labels.
+\item[12/2008 - version 4.3.1:] the comand ``id'' is internalised
+  (``!id''), it should be that way from the begining because it is not
+  to be used from the outside.  The comand ``dasharrow'' was changed
+  to ``dashArrow'' to avoid a clash with the AMS command with the same
+  name.
+\item[12/2009 - version 4.3.2:] there was a conflict between dcpic.sty
+  and hyperref in current texlive-2009 due to the one letter macro
+  ``$\backslash$d'' (thanks to Thorsten S
+  \url{<thorsten.schwander@gmail.com>}).  The ``d'' changed to
+  ``deuc'' (Euclidian Distance). The ``x'' and ``y'' changed to ``xO''
+  ``yO''
+\item[4/2013 - version 4.4.0:] thanks to Xingliang Liang
+  \url{<jkl9543@gmail.com>}. He added a new arrow ``dotarrow''.
+\item[5/2013 - version 5.0:] {\bf new unit for the coordinate system},
+  1/10th of the previous one. This allow a better implementation of
+  the double line arrows and also a more fine specification of the
+  diagrams/graphs (Thanks to Antonio de Nicola
+  \url{<adenicola@mat.uc.pt>}).
+\end{description}
+
+
+\section{Introduction}
+
+DCpic is a package of \TeX~\cite{Knuth86} macros for graph modelling
+in a (La)\TeX~\cite{Lamport94} or Con\TeX t~\cite{Otten99}
+document. Its distinguishing features are: the use of
+\PiCTeX~\cite{Wichura92} a powerful graphical engine, and a simple
+specification syntax. A graph is described in terms of its objects and
+its edges. The objects are textual elements and the edges can have
+various straight or curved forms.
+
+A graph~\cite{Harary72} in DCpic is a ``picture'' in \PiCTeX, in which
+we place our {\em objects} and {\em morphisms} (edges). The user's
+commands in DCpic are: {\tt begindc} and {\tt enddc} which establish
+the coordinate system where the objects will by placed; {\tt obj}, the
+command which defines the place and the contents of each object; {\tt
+mor}, and {\tt cmor}, the commands which define the morphisms, linear
+and curved edges, and its labels.
+
+Until version 3.2 DCpic ``Commutative Diagrams in \PiCTeX'' was
+dedicated to commutative diagrams~\cite{Pierce98} (``{\bf D}iagramas
+{\bf C}omutativos'' in Portuguese) drawing, that is the reason for the
+name ``obj'' (objects) and ``mor'' (morphism) for the nodes and edges.
+
+%\pagebreak[3]
+Example:
+\begin{lstlisting}
+  \begindc{\commdiag}
+    \obj(10,10){$A$}
+    \obj(30,10){$B$}
+    \obj(30,30){$C$}
+    \mor{$A$}{$B$}{$f$}[\atright,\solidarrow]
+    \mor{$B$}{$C$}{$g$}[\atright,\solidarrow]
+    \mor{$A$}{$C$}{$h$}
+  \enddc
+\end{lstlisting}
+
+$$
+  \begindc{\commdiag}
+    \obj(10,10){$A$}
+    \obj(30,10){$B$}
+    \obj(30,30){$C$}
+    \mor{$A$}{$B$}{$f$}[\atright,\solidarrow]
+    \mor{$B$}{$C$}{$g$}[\atright,\solidarrow]
+    \mor{$A$}{$C$}{$h$}
+  \enddc
+$$
+
+{\bf Note:} all the numeric values should be integer values.
+ 
+
+\section{Description}
+
+
+\subsection{Available Commands}
+
+
+\begin{description}
+\item[The environment:] {\ } 
+
+\begin{verbatim}
+   \begindc{#1}[#2]
+        #1 - Graph type
+          0 = "commdiag", commutative diagram
+          1 = "digraph", direct graph
+          2 = "undigraph", undirect graph
+          3 = "cdigraph", direct graph with incircled objects
+          4 = "cundigraph", undirect graph  with incircled objects            
+        (optional) #2 - magnification factor (default value, 300)
+   \enddc
+\end{verbatim}
+
+\item[Objects:] {\ }
+
+\begin{verbatim}
+   \obj(#1,#2)[#3]{#4}[#5]
+            #1 and #2 - coordinates
+ (optional) #3 - Label, to be used in the morphims command, if not
+                 present the #4 will be used for that purpose
+            #4 - Object contents
+ (optional) #5 - placement of the object (default value \north)
+                   0="\pcent", center
+                   1="\north", north
+                   2="\northeast", northeast
+                   3="\east", east
+                   4="\southeast", southeast
+                   5="\south", south
+                   6="\southwest", southwest
+                   7="\west", west
+                   8="\northwest", northwest
+\end{verbatim}
+
+  {\bf Note:} if you omit the \#3 argument (label), and the \#4 argument
+  is a complex (and long) \LaTeX\ command, then this command can
+  crash. In this case you must specify a label (the empty label [], if
+  you do not intend to use the label).
+
+\item[Morphism (linear edges).] This commando has two major
+  variants:
+  \begin{enumerate}
+  \item Starting and Ending objects specification
+\begin{verbatim}
+   \mor{#1}{#2}[#5,#6]{#7}[#8,#9]
+\end{verbatim}
+
+    As you can see this first form is (intentionally) badly formed, the
+    arguments \#3 and \#4 are missing (the actual command is correctly
+    formed). 
+ 
+    \#1 - The starting object reference
+
+    \#2 - The ending object reference
+
+    from this two we will obtain the objects coordinates, and also the
+    dimensions of the enclosing box. 
+
+    The objects box dimensions are used to do an automatic adjustment of
+    the edge width.
+
+    from \#1 we obtain $(x,y)$, (\#1,\#2) in the second form
+
+    from \#2 we obtain $(x^\prime,y^\prime)$, (\#3,\#4) in the second form
+
+    this values will be passed to the command second form
+
+  \item Two points coordinates specification
+\begin{verbatim}
+   \mor(#1,#2)(#3,#4)[#5,#6]{#7}[#8,#9]
+\end{verbatim}
+  \end{enumerate}
+
+  Now we can describe all the arguments
+\begin{verbatim}
+          #1 and #2 - coordinates (beginning)
+          #3 and #4 - coordinates (ending)
+(optional)#5,#6 - correction factors (defaul values, 10 and 10)
+          #5 - actual beginning of the edge 
+          #6 - actual ending of the edge 
+          #7 - text (morphism label)
+(optional)#8,#9
+          #8 - label placement
+               1 = \atright, at right, default value
+              -1 = \atleft, at left
+          #9 - edge type
+               0 = "\solidarrow", default value
+               1 = "\dashArrow"
+               2 = "\dotArrow
+               3 = "\solidline"
+               4 = "\dashline"
+               5 = "\dotline"
+               6 = "\injectionarrow"  
+               7 = "\aplicationarrow" 
+               8 = "\surjectivearrow" 
+               9 = "\equalline"
+              10 = "\doublearrow" 
+              11 = "\doubleopposite" 
+              12 = "\nullarrow" (to allow adding labels to existing arrows)
+\end{verbatim}
+
+ {\bf Note:} insert a space after the command.
+
+
+\item[Curved Morphisms (quadratic edges):] {\ }\\
+\begin{verbatim}
+   \cmor(#1) #2(#3,#4){#5}[#6]
+           #1 - list of points (odd number)
+           #2 - tip direction
+              0 = "\pup", pointing up
+              1 = "\pdown", pointing down
+              2 = "\pright", pointing right
+              3 = "\pleft",  pointing left
+           #3 and #4 - coordenates of the label
+           #5 - morphism label
+(optional) #6 - edge type
+              0 ="\solidarrow", default value
+              1 = "\dashArrow"
+              2 = "\solidline"
+\end{verbatim}
+
+ {\bf Notes:} Insert a space after the command. The space after the
+ list of points is mandatory.
+
+\end{description}
+
+
+\section{Examples}
+
+
+\subsection{Different Types of Lines/Arrows}
+
+\begin{lstlisting}
+\begindc{\commdiag}[250]
+\obj(10,10)[A]{$OOOOOO$}
+\obj(15,10)[A0]{$A_0$}
+\obj(14,11)[A1]{$A_1$}
+\obj(13,12)[A2]{$A_2$}
+\obj(12,13)[A3]{$A_3$}
+\obj(10,14)[A4]{$A_4$}
+\obj(9,13)[A5]{$A_5$}
+\obj(8,12)[A6]{$A_6$}
+\obj(7,11)[A7]{$A_7$}
+\obj(6,10)[A8]{$A_8$}
+\obj(7,9)[A9]{$A_9$}
+\obj(9,8)[A10]{$A_{10}$}
+\obj(12,8)[A11]{$A_{11}$}
+\mor{A}{A0}{$a_0$}[\atright,\solidarrow]
+\mor{A}{A1}{$a_1$}[\atright,\dashArrow]
+\mor{A}{A2}{$a_2$}[\atright,\dotArrow]
+\mor{A}{A3}{$a_3$}[\atright,\solidline]
+\mor{A}{A4}{$a_4$}[\atright,\dashline]
+\mor{A}{A5}{$a_5$}[\atleft,\dotline]
+\mor{A}{A6}{$a_6$}[\atleft,\injectionarrow]
+\mor{A}{A7}{$a_7$}[\atleft,\aplicationarrow]
+\mor{A}{A8}{$a_8$}[\atleft,\surjectivearrow]
+\mor{A}{A9}{$a_9$}[\atleft,\equalline]
+\mor{A}{A10}{$a_{10}$}[\atleft,\doublearrow]
+\mor{A}{A11}{$a_{11}$}[\atleft,\doubleopposite]
+\mor{A}{A11}{$a_{12}$}[\atright,\nullarrow]
+\enddc
+\end{lstlisting}
+
+$$
+\begindc{\commdiag}[250]
+\obj(10,10)[A]{$OOOOOO$}
+\obj(15,10)[A0]{$A_0$}
+\obj(14,11)[A1]{$A_1$}
+\obj(13,12)[A2]{$A_2$}
+\obj(12,13)[A3]{$A_3$}
+\obj(10,14)[A4]{$A_4$}
+\obj(9,13)[A5]{$A_5$}
+\obj(8,12)[A6]{$A_6$}
+\obj(7,11)[A7]{$A_7$}
+\obj(6,10)[A8]{$A_8$}
+\obj(7,9)[A9]{$A_9$}
+\obj(9,8)[A10]{$A_{10}$}
+\obj(12,8)[A11]{$A_{11}$}
+\mor{A}{A0}{$a_0$}[\atright,\solidarrow]
+\mor{A}{A1}{$a_1$}[\atright,\dashArrow]
+\mor{A}{A2}{$a_2$}[\atright,\dotArrow]
+\mor{A}{A3}{$a_3$}[\atright,\solidline]
+\mor{A}{A4}{$a_4$}[\atright,\dashline]
+\mor{A}{A5}{$a_5$}[\atleft,\dotline]
+\mor{A}{A6}{$a_6$}[\atleft,\injectionarrow]
+\mor{A}{A7}{$a_7$}[\atleft,\aplicationarrow]
+\mor{A}{A8}{$a_8$}[\atleft,\surjectivearrow]
+\mor{A}{A9}{$a_9$}[\atleft,\equalline]
+\mor{A}{A10}{$a_{10}$}[\atleft,\doublearrow]
+\mor{A}{A11}{$a_{11}$}[\atleft,\doubleopposite]
+\mor{A}{A11}{$a_{12}$}[\atright,\nullarrow]
+\enddc
+$$
+
+
+\subsection{Diagrams with Curved Edges, Double Arrows, \ldots }
+
+
+\paragraph{Curved edges} {\ }
+
+
+\begin{lstlisting}
+\begindc{0}
+\obj(14,11){$A$}
+\obj(39,11){$B$}
+\mor(14,12)(39,12){$f$}
+\mor(39,10)(14,10){$g$}
+\cmor((10,10)(6,11)(5,15)(6,19)(10,20)(14,19)(15,15)) 
+  \pdown(2,20){$id_A$}
+\cmor((40,7)(41,3)(45,2)(49,3)(50,7)(49,11)(45,12)) 
+  \pleft(54,3){$id_B$}
+\enddc
+
+\begindc{\commdiag}
+\obj(10,15)[A]{$A$}
+\obj(40,15)[Aa]{$A$}
+\obj(25,15)[B]{$B$}
+\mor{A}{B}{$f$}
+\mor{B}{Aa}{$g$}
+\cmor((10,11)(11,7)(15,6)(25,6)(35,6)(39,7)(40,11)) 
+  \pup(25,3){$id_A$}
+\enddc
+\end{lstlisting}
+
+
+$$
+\begindc{0}
+\obj(14,11){$A$}
+\obj(39,11){$B$}
+\mor(14,12)(39,12){$f$}%[\atright,\solidarrow]
+\mor(39,10)(14,10){$g$}%[\atright,\solidarrow]
+\cmor((10,10)(6,11)(5,15)(6,19)(10,20)(14,19)(15,15)) 
+  \pdown(2,20){$id_A$}
+\cmor((40,7)(41,3)(45,2)(49,3)(50,7)(49,11)(45,12)) 
+  \pleft(54,3){$id_B$}
+\enddc
+\qquad
+\begindc{\commdiag}
+\obj(10,15)[A]{$A$}
+\obj(40,15)[Aa]{$A$}
+\obj(25,15)[B]{$B$}
+\mor{A}{B}{$f$}%[\atright,\solidarrow]
+\mor{B}{Aa}{$g$}%[\atright,\solidarrow]
+\cmor((10,11)(11,7)(15,6)(25,6)(35,6)(39,7)(40,11)) 
+  \pup(25,3){$id_A$}
+\enddc
+$$
+
+\paragraph{Double Arrows and Natural Transformations} {\ }
+
+\begin{lstlisting}
+\begindc{\commdiag}
+\obj(5,5){$A$}
+\obj(20,5){$B$}
+\mor(5,4)(20,4){$f$}[\atright,\solidarrow]
+\mor(5,6)(20,6){$g$}
+\enddc
+
+\begindc{\commdiag}
+\obj(5,5){$A$}
+\obj(9,5){$B$}
+\mor(5,6)(9,6){$\downarrow\sigma$}[\atright,\solidarrow]
+\mor{$A$}{$B$}{}
+\mor(5,4)(9,4){$\downarrow\tau$}
+\enddc
+\end{lstlisting}
+
+
+
+$$
+\begindc{\commdiag}
+\obj(5,5){$A$}
+\obj(20,5){$B$}
+\mor(5,4)(20,4){$f$}[\atright,\solidarrow]
+\mor(5,6)(20,6){$g$}
+\enddc
+\qquad\qquad\qquad
+\begindc{\commdiag}[140]
+\obj(5,5){$A$}
+\obj(9,5){$B$}
+\mor(5,6)(9,6){$\downarrow\sigma$}[\atright,\solidarrow]
+\mor{$A$}{$B$}{}
+\mor(5,4)(9,4){$\downarrow\tau$}
+\enddc
+$$
+
+
+
+
+
+
+\subsection{A Complex Diagram}
+
+The following diagram is one of the test-diagrams used by
+Feruglio~\cite{Feruglio94}, as we can see DCpic performs very well,
+drawing the complete diagram based on a very simple specification.
+
+\begin{lstlisting}
+\newcommand{\barraA}{\vrule height2em width0em depth0em}
+\newcommand{\barraB}{\vrule height1.6em width0em depth0em}
+\begindc{\commdiag}[350]
+\obj(1,1)[Gr]{$G$}
+\obj(3,1)[Grstar]{$G_{r^*}$}
+\obj(5,1)[H]{$H$}
+\obj(2,2)[SigmaG]{$\Sigma^G$}
+\obj(6,2)[SigmaH]{$\Sigma^H$}
+\obj(1,3)[Lm]{$L_m$}
+\obj(3,3)[Krm]{$K_{r,m}$}
+\obj(5,3)[Rmstar]{$R_{m^*}$}
+\obj(1,5)[L]{$L$}
+\obj(3,5)[Lr]{$L_r$}
+\obj(5,5)[R]{$R$}
+\obj(2,6)[SigmaL]{$\Sigma^L$}
+\obj(6,6)[SigmaR]{$\Sigma^R$}
+\mor{Gr}{SigmaG}{$\lambda^G$}
+\mor{Grstar}{Gr}{$i_5$}[\atleft,\aplicationarrow]
+\mor{Grstar}{H}{$r^*$}[\atright,\solidarrow]
+\mor{H}{SigmaH}{$\lambda^H$}[\atright,\dashArrow]
+\mor{SigmaG}{SigmaH}{$\varphi^{r^*}$}[\atleft,\solidarrow]
+\mor{Lm}{Gr}{$m$}[\atright,\solidarrow]
+\mor{Lm}{L}{$i_2$}[\atleft,\aplicationarrow]
+\mor{Krm}{Lm}{$i_3\quad$}[\atright,\aplicationarrow]
+\mor{Krm}{Rmstar}{$r$}
+\mor{Krm}{Lr}{$i_4$}[\atright,\aplicationarrow]
+\mor{Krm}{Grstar}{\barraA$m$}
+\mor{Rmstar}{R}{$i_6$}[\atright,\aplicationarrow]
+\mor{Rmstar}{H}{\barraB$m^*$}
+\mor{L}{SigmaL}{$\lambda^L$}
+\mor{Lr}{L}{$i_1\quad$}[\atright,\aplicationarrow]
+\mor{Lr}{R}{$r$}
+\mor{R}{SigmaR}{$\lambda^R$}[\atright,\solidarrow]
+\mor{SigmaL}{SigmaG}{$\varphi^m$}[\atright,\solidarrow]
+\mor{SigmaL}{SigmaR}{$\varphi^r$}
+\mor{SigmaR}{SigmaH}{$\varphi^{m^*}$}
+\enddc
+\end{lstlisting}
+
+\newcommand{\barraA}{\vrule height2em width0em depth0em}
+\newcommand{\barraB}{\vrule height1.6em width0em depth0em}
+$$\begindc{\commdiag}[350]
+\obj(1,1)[Gr]{$G$}
+\obj(3,1)[Grstar]{$G_{r^*}$}
+\obj(5,1)[H]{$H$}
+\obj(2,2)[SigmaG]{$\Sigma^G$}
+\obj(6,2)[SigmaH]{$\Sigma^H$}
+\obj(1,3)[Lm]{$L_m$}
+\obj(3,3)[Krm]{$K_{r,m}$}
+\obj(5,3)[Rmstar]{$R_{m^*}$}
+\obj(1,5)[L]{$L$}
+\obj(3,5)[Lr]{$L_r$}
+\obj(5,5)[R]{$R$}
+\obj(2,6)[SigmaL]{$\Sigma^L$}
+\obj(6,6)[SigmaR]{$\Sigma^R$}
+\mor{Gr}{SigmaG}{$\lambda^G$}
+\mor{Grstar}{Gr}{$i_5$}[\atleft,\aplicationarrow]
+\mor{Grstar}{H}{$r^*$}[\atright,\solidarrow]
+\mor{H}{SigmaH}{$\lambda^H$}[\atright,\dashArrow]
+\mor{SigmaG}{SigmaH}{$\varphi^{r^*}$}[\atleft,\solidarrow]
+\mor{Lm}{Gr}{$m$}[\atright,\solidarrow]
+\mor{Lm}{L}{$i_2$}[\atleft,\aplicationarrow]
+\mor{Krm}{Lm}{$i_3\quad$}[\atright,\aplicationarrow]
+\mor{Krm}{Rmstar}{$r$}
+\mor{Krm}{Lr}{$i_4$}[\atright,\aplicationarrow]
+\mor{Krm}{Grstar}{\barraA$m$}
+\mor{Rmstar}{R}{$i_6$}[\atright,\aplicationarrow]
+\mor{Rmstar}{H}{\barraB$m^*$}
+\mor{L}{SigmaL}{$\lambda^L$}
+\mor{Lr}{L}{$i_1\quad$}[\atright,\aplicationarrow]
+\mor{Lr}{R}{$r$}
+\mor{R}{SigmaR}{$\lambda^R$}[\atright,\solidarrow]
+\mor{SigmaL}{SigmaG}{$\varphi^m$}[\atright,\solidarrow]
+\mor{SigmaL}{SigmaR}{$\varphi^r$}
+\mor{SigmaR}{SigmaH}{$\varphi^{m^*}$}
+\enddc
+$$
+
+
+
+\subsection{``Around the Word''~\cite{Harary72}}
+
+\begin{lstlisting}
+\begindc{\undigraph}[70]
+\obj(6,4){18}[\south]
+\obj(18,4){17}[\south]
+\obj(8,7){11}[\west]
+\obj(12,8){12}[\south]
+\obj(16,7){13}[\east]
+\obj(8,11){10}[\west]
+\obj(10,12){6}[\northwest]
+\obj(12,10){5}
+\obj(14,12){4}[\northeast]
+\obj(16,11){14}[\east]
+\obj(2,16){19}
+\obj(6,15){9}
+\obj(9,16){8}
+\obj(11,14){7}
+\obj(13,14){3}
+\obj(15,16){2}
+\obj(18,15){15}
+\obj(22,16){16}
+\obj(12,19){1}[\northeast]
+\obj(12,22){20}
+\mor{18}{17}{}\mor{18}{11}{}\mor{18}{19}{}
+\mor{11}{12}{}\mor{11}{10}{}\mor{12}{13}{}
+\mor{12}{5}{}\mor{10}{6}{}\mor{10}{9}{}
+\mor{5}{6}{}\mor{5}{4}{}\mor{13}{17}{}
+\mor{13}{14}{}\mor{9}{19}{}\mor{9}{8}{}
+\mor{6}{7}{}\mor{4}{3}{}\mor{4}{14}{}
+\mor{19}{20}{}\mor{8}{1}{}\mor{8}{7}{}
+\mor{7}{3}{}\mor{3}{2}{}\mor{2}{1}{}
+\mor{2}{15}{}\mor{14}{15}{}\mor{17}{16}{}
+\mor{16}{20}{}\mor{1}{20}{}\mor{15}{16}{}
+\enddc
+\end{lstlisting}
+
+
+$$
+\begindc{\undigraph}[70]
+\obj(6,4){18}[\south]
+\obj(18,4){17}[\south]
+\obj(8,7){11}[\west]
+\obj(12,8){12}[\south]
+\obj(16,7){13}[\east]
+\obj(8,11){10}[\west]
+\obj(10,12){6}[\northwest]
+\obj(12,10){5}
+\obj(14,12){4}[\northeast]
+\obj(16,11){14}[\east]
+\obj(2,16){19}
+\obj(6,15){9}
+\obj(9,16){8}
+\obj(11,14){7}
+\obj(13,14){3}
+\obj(15,16){2}
+\obj(18,15){15}
+\obj(22,16){16}
+\obj(12,19){1}[\northeast]
+\obj(12,22){20}
+\mor{18}{17}{}\mor{18}{11}{}\mor{18}{19}{}
+\mor{11}{12}{}\mor{11}{10}{}\mor{12}{13}{}
+\mor{12}{5}{}\mor{10}{6}{}\mor{10}{9}{}
+\mor{5}{6}{}\mor{5}{4}{}\mor{13}{17}{}
+\mor{13}{14}{}\mor{9}{19}{}\mor{9}{8}{}
+\mor{6}{7}{}\mor{4}{3}{}\mor{4}{14}{}
+\mor{19}{20}{}\mor{8}{1}{}\mor{8}{7}{}
+\mor{7}{3}{}\mor{3}{2}{}\mor{2}{1}{}
+\mor{2}{15}{}\mor{14}{15}{}\mor{17}{16}{}
+\mor{16}{20}{}\mor{1}{20}{}\mor{15}{16}{}
+\enddc
+$$
+
+\subsection{Incircled Objects}
+
+
+\begin{lstlisting}
+\begindc{\cdigraph}[250]
+\obj(1,5){A}
+\obj(1,4){B}
+\obj(1,1){C}
+\obj(5,5){E}
+\obj(5,3){F}
+\obj(5,1){G}
+\mor{A}{E}[80,80]{5}
+\mor{A}{F}[80,80]{3}
+\mor{B}{F}[80,80]{6}[\atright,\solidarrow]
+\mor{B}{E}[80,80]{1}
+\mor{C}{F}[80,80]{5}
+\mor{C}{G}[80,80]{7}
+\enddc
+\end{lstlisting}
+
+
+$$
+\begindc{\cdigraph}[250]
+\obj(1,5){A}
+\obj(1,4){B}
+\obj(1,1){C}
+\obj(5,5){E}
+\obj(5,3){F}
+\obj(5,1){G}
+\mor{A}{E}[80,80]{5}
+\mor{A}{F}[80,80]{3}
+\mor{B}{F}[80,80]{6}[\atright,\solidarrow]
+\mor{B}{E}[80,80]{1}
+\mor{C}{F}[80,80]{5}
+\mor{C}{G}[80,80]{7}
+\enddc
+$$
+
+\newcommand{\noopsort}[1]{} \newcommand{\singleletter}[1]{#1}
+\begin{thebibliography}{10}
+
+\bibitem{Feruglio94}
+Feruglio, {Gabriel Valiente}.
+\newblock Typesetting commutative diagrams.
+\newblock {\em TUGboat}, 15(4):466--484, 1994.
+
+\bibitem{Harary72} 
+Harary, Frank. 1972. 
+\newblock {\em Graph Theory}. 
+\newblock Reading, Massachusetts: Addison-Wesley. 
+
+\bibitem{Knuth86}
+Knuth, Donald~E.
+\newblock {\em The TeXbook}.
+\newblock Addison-Wesley Publishing Company, Reading,Massachusetts, 1986.
+
+\bibitem{Lamport94}
+ Lamport, Leslie.
+\newblock {\em {\LaTeX}: A Document Preparation System}.
+\newblock Addison-Wesley Publishing Company, Reading, Massachusetts, 2nd
+  edition, 1994.
+
+\bibitem{Otten99}
+Otten, Ton  and Hagen, Hans .
+\newblock {\em Con\TeX t an excursion}.
+\newblock Pragma ADE, Hasselt, 1999.
+
+\bibitem{Pierce98}
+ Pierce, Benjamin.
+\newblock {\em Basic Category Theory for Computer Scientists}.
+\newblock Foundations of Computing. The MIT Press, London, England, 1998.
+
+\bibitem{Wichura92}
+ Wichura, Michael.
+\newblock {\em The {\PiCTeX} Manual}.
+\newblock Personal \TeX\ Inc, 12 Madrona Avenue, Mill Valley, CA
+94941 - USA, 3rd edition, March 1992
+
+\end{thebibliography}
+
+
+\section{The Code}
+
+{\scriptsize
+\verbatiminput{dcpic.sty}
+}
+
+\end{document}
+
+%%% Local Variables: 
+%%% mode: latex
+%%% TeX-master: t
+%%% End: 

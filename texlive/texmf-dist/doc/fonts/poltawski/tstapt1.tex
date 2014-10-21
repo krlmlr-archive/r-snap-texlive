@@ -1,0 +1,62 @@
+% -*- coding: ISO-8859-2 -*-
+% This file belongs to the Antykwa Poltawskiego package. The work is released under
+% the GUST Font License. See the MANIFEST-Antykwa-Poltawskiego.txt and
+% README-Antykwa-Poltawskiego.txt files for the details. For the most recent version
+% of this license see http://www.gust.org.pl/fonts/licenses/GUST-FONT-LICENSE.txt
+% or http://tug.org/fonts/licenses/GUST-FONT-LICENSE.txt
+
+\documentclass{article}
+\usepackage[T1]{fontenc}
+\usepackage[latin2]{inputenc}
+\usepackage{antpolt}
+
+\newcommand*{\tekst}{Za¿ó³æ gê¶l± ja¼ñ}
+\makeatletter
+\newcommand*{\test}[3]{{%
+  #1\fontseries{#2}\fontshape{#3}\selectfont
+  \edef\opis{\f@encoding/\f@family/\f@series/\f@shape/\f@size:}%
+  \noindent\hskip-5mm
+  \hbox to40mm{\small\usefont{OT1}{lmtt}{m}{n}\opis\hfil}%
+  \tekst\kern-10mm\null\par
+}}
+
+\newcommand*{\testsize}{%
+  \test{\rmfamily}{l}{n}
+  \test{\rmfamily}{l}{it}
+  \test{\rmfamily}{m}{n}
+  \test{\rmfamily}{m}{it}
+  \test{\rmfamily}{sb}{n}
+  \test{\rmfamily}{sb}{it}
+  \test{\rmfamily}{b}{n}
+  \test{\rmfamily}{b}{it}
+  \test{\rmfamily}{l}{sc}
+  \test{\rmfamily}{l}{scit}
+  \test{\rmfamily}{m}{sc}
+  \test{\rmfamily}{m}{scit}
+  \test{\rmfamily}{sb}{sc}
+  \test{\rmfamily}{sb}{scit}
+  \test{\rmfamily}{b}{sc}
+  \test{\rmfamily}{b}{scit}
+  \medskip
+}
+
+
+\begin{document}
+
+\tiny\testsize
+\scriptsize\testsize
+\footnotesize\testsize
+\small\testsize
+\normalsize\testsize
+\large\testsize
+\Large\testsize
+\LARGE\testsize
+\huge\testsize
+\Huge\testsize
+
+\end{document}
+
+%%% Local Variables: 
+%%% mode: latex
+%%% TeX-master: t
+%%% End: 

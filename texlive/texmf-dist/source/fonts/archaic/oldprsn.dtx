@@ -1,0 +1,2167 @@
+% \iffalse meta-comment
+%
+% oldprsn.dtx
+%  Author: Peter Wilson (Herries Press) herries dot press at earthlink dot net
+%  Copyright 1999--2005 Peter R. Wilson
+%
+%  This work may be distributed and/or modified under the
+%  conditions of the Latex Project Public License, either
+%  version 1.3 of this license or (at your option) any
+%  later version.
+%  The latest version of the license is in
+%    http://www.latex-project.org/lppl.txt
+%  and version 1.3 or later is part of all distributions of
+%  LaTeX version 2003/06/01 or later.
+%
+%  This work has the LPPL maintenance status "author-maintained".
+%
+%  This work consists of the files listed in the README file.
+% 
+%
+%<*driver>
+\documentclass[twoside]{ltxdoc}
+\usepackage{url}
+\usepackage[draft=false,
+            plainpages=false,
+            pdfpagelabels,
+            bookmarksnumbered,
+            hyperindex=false
+           ]{hyperref}
+\providecommand{\phantomsection}{}
+\OnlyDescription %% comment this out for the full glory
+\EnableCrossrefs
+\CodelineIndex
+\setcounter{StandardModuleDepth}{1}
+\makeatletter
+  \@mparswitchfalse
+\makeatother
+\renewcommand{\MakeUppercase}[1]{#1}
+\pagestyle{headings}
+\newenvironment{addtomargins}[1]{%
+  \begin{list}{}{%
+    \topsep 0pt%
+    \addtolength{\leftmargin}{#1}%
+    \addtolength{\rightmargin}{#1}%
+    \listparindent \parindent
+    \itemindent \parindent
+    \parsep \parskip}%
+  \item[]}{\end{list}}
+\begin{document}
+  \raggedbottom
+  \DocInput{oldprsn.dtx}
+\end{document}
+%</driver>
+%
+% \fi
+%
+% \CheckSum{250}
+%
+% \DoNotIndex{\',\.,\@M,\@@input,\@addtoreset,\@arabic,\@badmath}
+% \DoNotIndex{\@centercr,\@cite}
+% \DoNotIndex{\@dotsep,\@empty,\@float,\@gobble,\@gobbletwo,\@ignoretrue}
+% \DoNotIndex{\@input,\@ixpt,\@m}
+% \DoNotIndex{\@minus,\@mkboth,\@ne,\@nil,\@nomath,\@plus,\@set@topoint}
+% \DoNotIndex{\@tempboxa,\@tempcnta,\@tempdima,\@tempdimb}
+% \DoNotIndex{\@tempswafalse,\@tempswatrue,\@viipt,\@viiipt,\@vipt}
+% \DoNotIndex{\@vpt,\@warning,\@xiipt,\@xipt,\@xivpt,\@xpt,\@xviipt}
+% \DoNotIndex{\@xxpt,\@xxvpt,\\,\ ,\addpenalty,\addtolength,\addvspace}
+% \DoNotIndex{\advance,\Alph,\alph}
+% \DoNotIndex{\arabic,\ast,\begin,\begingroup,\bfseries,\bgroup,\box}
+% \DoNotIndex{\bullet}
+% \DoNotIndex{\cdot,\cite,\CodelineIndex,\cr,\day,\DeclareOption}
+% \DoNotIndex{\def,\DisableCrossrefs,\divide,\DocInput,\documentclass}
+% \DoNotIndex{\DoNotIndex,\egroup,\ifdim,\else,\fi,\em,\endtrivlist}
+% \DoNotIndex{\EnableCrossrefs,\end,\end@dblfloat,\end@float,\endgroup}
+% \DoNotIndex{\endlist,\everycr,\everypar,\ExecuteOptions,\expandafter}
+% \DoNotIndex{\fbox}
+% \DoNotIndex{\filedate,\filename,\fileversion,\fontsize,\framebox,\gdef}
+% \DoNotIndex{\global,\halign,\hangindent,\hbox,\hfil,\hfill,\hrule}
+% \DoNotIndex{\hsize,\hskip,\hspace,\hss,\if@tempswa,\ifcase,\or,\fi,\fi}
+% \DoNotIndex{\ifhmode,\ifvmode,\ifnum,\iftrue,\ifx,\fi,\fi,\fi,\fi,\fi}
+% \DoNotIndex{\input}
+% \DoNotIndex{\jobname,\kern,\leavevmode,\let,\leftmark}
+% \DoNotIndex{\list,\llap,\long,\m@ne,\m@th,\mark,\markboth,\markright}
+% \DoNotIndex{\month,\newcommand,\newcounter,\newenvironment}
+% \DoNotIndex{\NeedsTeXFormat,\newdimen}
+% \DoNotIndex{\newlength,\newpage,\nobreak,\noindent,\null,\number}
+% \DoNotIndex{\numberline,\OldMakeindex,\OnlyDescription,\p@}
+% \DoNotIndex{\pagestyle,\par,\paragraph,\paragraphmark,\parfillskip}
+% \DoNotIndex{\penalty,\PrintChanges,\PrintIndex,\ProcessOptions}
+% \DoNotIndex{\protect,\ProvidesClass,\raggedbottom,\raggedright}
+% \DoNotIndex{\refstepcounter,\relax,\renewcommand,\reset@font}
+% \DoNotIndex{\rightmargin,\rightmark,\rightskip,\rlap,\rmfamily,\roman}
+% \DoNotIndex{\roman,\secdef,\selectfont,\setbox,\setcounter,\setlength}
+% \DoNotIndex{\settowidth,\sfcode,\skip,\sloppy,\slshape,\space}
+% \DoNotIndex{\symbol,\the,\trivlist,\typeout,\tw@,\undefined,\uppercase}
+% \DoNotIndex{\usecounter,\usefont,\usepackage,\vfil,\vfill,\viiipt}
+% \DoNotIndex{\viipt,\vipt,\vskip,\vspace}
+% \DoNotIndex{\wd,\xiipt,\year,\z@}
+%
+% \changes{v1.0}{1999/03/14}{First public release}
+% \changes{v1.1}{2000/09/24}{Added numerals}
+% \changes{v1.2}{2005/06/17}{Added map file}
+%
+% \def\fileversion{v1.0} \def\filedate{1999/03/14}
+% \def\fileversion{v1.1} \def\filedate{2000/09/24}
+% \def\fileversion{v1.2} \def\filedate{2005/06/17}
+% \newcommand*{\Lpack}[1]{\textsf {#1}}           ^^A typeset a package
+% \newcommand*{\Lopt}[1]{\textsf {#1}}            ^^A typeset an option
+% \newcommand*{\file}[1]{\texttt {#1}}            ^^A typeset a file
+% \newcommand*{\Lcount}[1]{\textsl {\small#1}}    ^^A typeset a counter
+% \newcommand*{\pstyle}[1]{\textsl {#1}}          ^^A typeset a pagestyle
+% \newcommand*{\Lenv}[1]{\texttt {#1}}            ^^A typeset an environment
+% \newcommand{\BC}{\textsc{bc}}
+% \newcommand{\AD}{\textsc{ad}}
+% \newcommand{\thisfont}{Old Persian}
+%
+%
+% \title{The \Lpack{Old Persian} font\thanks{This
+%        file has version number \fileversion, last revised
+%        \filedate.}}
+%
+% \author{%
+% Peter Wilson\thanks{\texttt{herries dot press at earthlink dot net}}\\
+% Herries Press }
+% \date{\filedate}
+% \maketitle
+% \begin{abstract}
+%    The \Lpack{oldprsn} bundle provides a set of fonts for the 
+% \thisfont{} cuneiform script which was used between about 500 and 350~\BC{}
+% in Persia. This is one in a series for archaic scripts.
+% \end{abstract}
+% \tableofcontents
+%
+%
+% \section{Introduction}
+%
+% The Phoenician alphabet and characters is a direct ancestor of our modern day
+% Latin alphabet and fonts. 
+% The font presented here is one of a series of fonts intended to show how
+% the modern Latin alphabet has evolved from its original Phoenician form
+% to its present day appearance.
+% 
+% This manual is typeset according to the conventions of the
+% \LaTeX{} \textsc{docstrip} utility which enables the automatic
+% extraction of the \LaTeX{} macro source files~\cite{GOOSSENS94}.
+%
+%    Section~\ref{sec:usc} describes the usage of the package.
+% Commented code for the fonts and 
+% source code for the package is in later sections.
+%
+% \subsection{An alphabetic tree}
+%
+%    Scholars are reasonably agreed that all the world's alphabets are descended
+% from a Semitic alphabet invented about 1600~\BC{} in the Middle 
+% East~\cite{DRUCKER95}. The word `Semitic' refers
+% to the family of languages used in the geographical area from
+% Sinai in the south, up the Mediterranean coast to Asia Minor in the north and
+% west to the valley of the Euphrates.
+%
+%    The Phoenician alphabet was stable by about 1100~\BC{} and the script was
+% written right to left. In earlier times the writing direction was variable, 
+% and so were
+% the shapes and orientation of the characters. The alphabet consisted of
+% 22 letters and they were named after things. For example, their first two 
+% letters were called \textit{aleph} (ox), and \textit{beth} (house). 
+% The Phoenician script had
+% only one case --- unlike our modern fonts which have both upper- and 
+% lower-cases. In modern terms the Phoenician abecedary was: \\
+% A B G D E Y Z H $\Theta$ I K L M N X O P ts Q R S T \\
+% where the `Y' (\textit{vau}) character was sometimes written as `F', and
+% `ts' stands for the \textit{tsade} character.
+%
+%    The Greek alphabet is one of the descendants of the Phoenician alphabet;
+% another was Aramaic which is the ancestor of the Arabic, Persian and Indian 
+% scripts.
+% Initially Greek was written right to left but around the 6th C~\BC{} became 
+% \textit{boustrophedron}, meaning that the lines 
+% alternated in direction. At about 500~\BC{} the writing direction stabilised 
+% as left to 
+% right. The Greeks modified the Phoenician alphabet to match the vocalisation
+% of their language. They kept the Phoenician names of the letters, suitably
+% `greekified', so \textit{aleph} became the familar \textit{alpha} and 
+% \textit{beth} became \textit{beta}. At this
+% point the names of the letters had no meaning. Their were several variants
+% of the Greek character glyphs until they were finally fixed in Athens in
+% 403~\BC.
+% The Greeks did not develop a lower-case 
+% script until about 600--700~\AD.
+%
+%    The Etruscans based their alphabet on the Greek one, and again modified it.
+% However, the Etruscans wrote right to left, so their borrowed characters are 
+% mirror images of the original Greek ones. Like the Phoenicians, the Etruscan
+% script consisted of only one case; they died out before ever needing a
+% lower-case script. The Etruscan script was used up until the first century 
+% \AD, even though the Etruscans themselves had dissapeared by that time.
+% 
+%
+%    In turn, the Romans based their alphabet on the Etruscan one, but as they 
+% wrote left to right, the characters were again mirrored (although the early
+% Roman inscriptions are boustrophedron). 
+%
+%    As the English alphabet is descended from the Roman alphabet
+% it has a pedigree of some three and a half thousand years.
+%
+% \section{The \Lpack{oldprsn} package} \label{sec:usc}
+%
+%    The earliest cuneiform writing, about 2800~\BC, was used by
+% the Sumerians in the Middle East~\cite{WALKER87,HEALEY90}. 
+% Other cuneiform scripts were used for Akkadian (2300~\BC) and
+% Babylonian (2000~\BC). These were partly ideographic and partly
+% syllabic scripts. The last dated use of a cuneiform script was
+% in 75~\AD.
+%
+%     It is claimed that the \thisfont{} cuneiform script was invented by order
+% of the Achaemenid Persian king Darius~I (521--486~\BC)
+% for inscriptions on royal monuments. In everday use the Persian scribes
+% used the Elamite cuneiform or Aramaic scripts. \thisfont{} was
+% abandoned after Ataxerxes~III (358--338~\BC).
+%
+%    The script is a syllabary, with 3 vowels and 33 syllabic glyphs.
+% There are also 5 ideograms, some in multiple forms, for \textit{king},
+% \textit{country}, \textit{earth}, \textit{god}, and \textit{Ahuramazda}.
+% The last of these is the name of the Persian god. There are also glyphs for
+% numbers and a word divider. Walker~\cite{WALKER87} gives general information 
+% on how cuneiform numerals
+% were used to form numbers; for detailed information
+%  consult Ifrah's magnificent work~\cite{IFRAH00}. Basically, the
+% writers used a system like the Romans where large numbers were formed
+% by adding smaller numbers.
+%
+%    Table~\ref{tab1} lists the 
+% translitered values of the script and Table~\ref{tab2} lists the
+% ideographs, numerals, and the word divider. 
+%
+% \DescribeMacro{\copsnfamily}
+%    This command selects the \thisfont{} font family. 
+% The family name is |copsn|.
+%
+% \DescribeMacro{\textcopsn}
+% The command |\textcopsn{|\meta{ASCII/commands}|}| 
+% typesets \meta{ASCII/commands} in the
+% \thisfont{} font.
+%
+%    I have provided two means of accessing the \thisfont{} glyphs: 
+% (a)~by ASCII characters, and (b)~via commands. 
+% These are shown in Tables~\ref{tab1} and~\ref{tab2}. 
+%
+%
+% \begin{table}
+% \centering
+% \caption{The Old Persian syllabary}\label{tab1}
+% \begin{tabular}{ccl} \hline
+% Old Persian   & ASCII & Command \\ \hline
+% \textit{a}      & a & |\Oa| \\
+% \textit{i}      & i & |\Oi| \\
+% \textit{u}      & u & |\Ou| \\
+% \textit{ka}     & k & |\Oka| \\
+% \textit{ku}     & K & |\Oku| \\
+% \textit{xa}     & x & |\Oxa| \\
+% \textit{ga}     & g & |\Oga| \\
+% \textit{gu}     & G & |\Ogu| \\
+% \textit{ca}     & c & |\Oca| \\
+% \textit{ja}     & j & |\Oja| \\
+% \textit{ji}     & J & |\Oji| \\
+% \textit{ta}     & t & |\Ota| \\
+% \textit{tu}     & T & |\Otu| \\
+% \textit{tha}    & o & |\Otha| \\
+% \textit{\c{c}a} & C & |\Occa| \\
+% \textit{da}     & d & |\Oda| \\
+% \textit{di}     & P & |\Odi| \\
+% \textit{du}     & D & |\Odu| \\
+% \textit{na}     & n & |\Ona| \\
+% \textit{nu}     & N & |\Onu| \\
+% \textit{pa}     & p & |\Opa| \\
+% \textit{fa}     & f & |\Ofa| \\
+% \textit{ba}     & b & |\Oba| \\
+% \textit{ma}     & m & |\Oma| \\
+% \textit{mi}     & w & |\Omi| \\
+% \textit{mu}     & M & |\Omu| \\
+% \textit{ya}     & y & |\Oya| \\
+% \textit{ra}     & r & |\Ora| \\
+% \textit{ru}     & R & |\Oru| \\
+% \textit{la}     & l & |\Ola| \\
+% \textit{va}     & v & |\Ova| \\
+% \textit{vi}     & V & |\Ovi| \\
+% \textit{sa}     & s & |\Osa| \\
+% \textit{\v{s}a} & S & |\Osva| \\
+% \textit{za}     & z & |\Oza| \\
+% \textit{ha}     & h & |\Oha| \\
+% \hline
+% \end{tabular}
+% \end{table}
+%
+% \begin{table}
+% \centering
+% \caption{The Old Persian ideographs}\label{tab2}
+% \begin{tabular}{ccl} \hline
+% Old Persian                 & ASCII & Command \\ \hline
+% \textit{x\v{s}\={a}yathiya} & X & |\Oking| \\
+% \textit{dahy\={a}u\v{s}}    & q & |\Ocountrya| \\
+% \textit{dahy\={a}u\v{s}}    & Q & |\Ocountryb| \\
+% \textit{b\={u}mi\v{s}}      & L & |\Oearth| \\
+% \textit{baga}               & B & |\Ogod| \\
+% \textit{Auramazd\={a}}      & e & |\OAura| \\
+% \textit{Ahuramazda}         & E & |\OAurb| \\
+% \textit{Ahuramazda}         & F & |\OAurc| \\
+% \textit{1}                  & 1 & |\Oone| \\
+% \textit{2}                  & 2 & |\Otwo| \\
+% \textit{10}                 & 3 & |\Oten| \\
+% \textit{20}                 & 4 & |\Otwenty| \\
+% \textit{100}                & 5 & |\Ohundred| \\
+% \DeleteShortVerb{\|}\texttt{|}\MakeShortVerb{\|} & : & |\Owd| \\
+% \hline
+% \end{tabular}
+% \end{table}
+%
+% \DescribeMacro{\translitcopsn}
+% The command |\translitcopsn{|\meta{commands}|}| will typeset the
+% transliteration of the \thisfont{} character commands (those in the
+% third column of the Tables).
+%
+% \DescribeMacro{\translitcopsnfont}
+%    The font used for the transliteration is defined by this macro,
+% which is initialised to an italic font (i.e., |\itshape|).
+%
+% \StopEventually{
+% \bibliographystyle{alpha}
+% \begin{thebibliography}{GMS94}
+%
+% \bibitem[Dav97]{DAVIES97}
+% W. V. Davies.
+% \newblock \emph{Reading the Past: Egyptian Hieroglyphs}.
+% \newblock University of California Press/British Museum, 1997.
+% \newblock (ISBN 0-520-06287-6)
+%
+% \bibitem[Dru95]{DRUCKER95}
+% Johanna Drucker.
+% \newblock \emph{The Alphabetic Labyrinth}.
+% \newblock Thames and Hudson, 1995.
+%
+% \bibitem[Fir93]{FIRMAGE93}
+% Richard A.~Firmage.
+% \newblock \emph{The Alphabet Abecedarium}.
+% \newblock David R.~Goodine, 1993.
+%
+%
+% \bibitem[GMS94]{GOOSSENS94}
+% Michel Goossens, Frank Mittelbach, and Alexander Samarin.
+% \newblock \emph{The LaTeX Companion}.
+% \newblock Addison-Wesley Publishing Company, 1994.
+%
+% \bibitem[Hea90]{HEALEY90}
+% John F.~Healey.
+% \newblock \emph{Reading the Past: The Early Alphabet}.
+% \newblock University of California Press/British Museum, 1990.
+% \newblock (ISBN 0-520-07309-6)
+%
+% \bibitem[Ifr00]{IFRAH00}
+% Georges Ifrah.
+% \newblock \emph{The Universal History of Numbers}.
+% \newblock John Wiley \& Sons, 2000 (ISBN 0-471-37568-3).
+% \newblock (Originally published as \textit{Histoire universelle des chiffres}.
+%            Robert Laffort, Paris, 1994.)
+%
+% \bibitem[Wal87]{WALKER87}
+% C.~B.~F.~Walker.
+% \newblock \emph{Reading the Past: Cuneiform}.
+% \newblock University of California Press/British Museum, 1987.
+% \newblock (ISBN 0-520-06115-2)
+%
+% \end{thebibliography}
+% \PrintIndex
+%
+% }
+%
+% 
+%
+% \section{The Metafont code} \label{sec:mf}
+%
+% \subsection{The parameter file}
+%
+%    We deal with the parameter file first, and start by announcing
+% what it is for.
+%    \begin{macrocode}
+%<*up>
+%%% COPSN10.MF  Computer Old Persian Cuneiform font 10 point design size.
+
+%    \end{macrocode}
+%    Specify the font size.
+%    \begin{macrocode}
+
+font_identifier:="oldprsn"; font_size 10pt#;
+
+%    \end{macrocode}
+%
+%
+% \begin{macro}{u} 
+% \begin{macro}{ht} 
+% \begin{macro}{s} 
+% \begin{macro}{o} 
+% \begin{macro}{px} 
+% \begin{macro}{font-normal-space} 
+% \begin{macro}{font-normal-shrink} 
+% \begin{macro}{font-x-height} 
+% \begin{macro}{font-quad}
+%    Define the very simple font parameters.
+%    \begin{macrocode}
+u#:=.2pt#;                 % unit width
+ht#:=8pt#;                 % height of characters (CM cap-height is approx 6.8pt)
+s#:=1.5pt#;                % width correction (right and left)
+o#:=1/20pt#;               % overshoot
+px#:=.4pt#;                % horizontal width of pen
+font_normal_space:=7pt#;   % width of a blank space
+font_normal_shrink:=.9pt#; % width correction for blank space
+font_x_height:=4.5pt#;     % height of one ex
+font_quad:=10pt#;          % an em
+
+%    \end{macrocode}
+% \end{macro}
+% \end{macro}
+% \end{macro}
+% \end{macro}
+% \end{macro}
+% \end{macro}
+% \end{macro}
+% \end{macro}
+% \end{macro}
+%
+%    Now for the driver (file) for the font.
+%
+% \subsection{The driver file}
+%
+%    In a more complex font this would be in a separate driver file.
+%
+%    \begin{macrocode}
+font_coding_scheme:="Old Persian glyphs";
+mode_setup;
+
+%    \end{macrocode}
+%
+% \begin{macro}{ho}
+% \begin{macro}{leftloc}
+% \begin{macro}{py}
+%  Perform additional setup.
+%    \begin{macrocode}
+ho#:=o#;                   % horizontal overshoot
+leftloc#:=s#;              % leftmost xcoord of character
+py#:=px#;                % vertical thickness of the pen
+
+define_pixels(s,u);
+define_blacker_pixels(px,py);
+define_good_x_pixels(leftloc);
+define_corrected_pixels(o);             % turn on overshoot correction
+define_horizontal_corrected_pixels(ho);  
+
+%    \end{macrocode}
+% \end{macro}
+% \end{macro}
+% \end{macro}
+%
+% \begin{macro}{midloc}
+% \begin{macro}{rightloc}
+% \begin{macro}{aw}
+%    Variables for the middldle and rightmost xcoord of a character, and
+% the actual width of a character.
+%    \begin{macrocode}
+numeric midloc, rightloc, aw;
+%    \end{macrocode}
+% \end{macro}
+% \end{macro}
+% \end{macro}
+%
+% \begin{macro}{stylus}
+%    Define the pen.
+%    \begin{macrocode}
+pickup pencircle xscaled px yscaled py;
+stylus:=savepen;
+
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{trht}
+% \begin{macro}{trbs}
+%    The normal height and base of a triangle.
+%    \begin{macrocode}
+numeric trht, trbs;
+%    \end{macrocode}
+% \end{macro}
+% \end{macro}
+%
+% \begin{macro}{th}
+% \begin{macro}{tb}
+%    The ratio of the normal height and base of a triangle with respect to
+% the character height.
+%    \begin{macrocode}
+numeric th, tb;
+th = 6/24; tb = 8/24;
+%    \end{macrocode}
+% \end{macro}
+% \end{macro}
+%
+% \begin{macro}{wiht}
+% \begin{macro}{wibs}
+%    The normal height and base of a wing.
+%    \begin{macrocode}
+numeric wiht, wibs;
+%    \end{macrocode}
+% \end{macro}
+% \end{macro}
+%
+% \begin{macro}{wh}
+% \begin{macro}{wb}
+%    The ratio of the normal height and base of a wing with respect to
+% the character height.
+%    \begin{macrocode}
+numeric wh, wb;
+wh = 10/24; wb = 20/24;
+%    \end{macrocode}
+% \end{macro}
+% \end{macro}
+%
+%
+% \begin{macro}{beginglyph}
+%    A macro to save some typing of beginchar arguments, and also assigns
+% values to various variables.
+% 
+%    \begin{macrocode}
+def beginglyph(expr code, unit_width) =
+  beginchar(code, unit_width*ht#+2s#, ht#, 0);
+  midloc:=1/2w; rightloc:=(w-s); aw := rightloc-leftloc;
+  trht := th*h; trbs := tb*h;
+  wiht := wh*h; wibs := wb*h;
+  pickup stylus enddef;
+
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{cmchar}
+%    |cmchar| should precede each character
+%    \begin{macrocode}
+let cmchar=\;
+
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{triangle}
+% |triangle($, ht, base, angle)| calculates the points on a triangle
+% whose apex is at |z$|, of height |ht| and base width |base| rotated
+% at |angle| from pointing along the positive |x| axis.
+%    \begin{macrocode}
+
+def triangle(suffix $)(expr ht, bs, ang) =
+  path pth[];
+  pair pr[];
+  pr1 := (x$-ht,y$);  % midpoint of base in default position
+  pr2 := pr1 shifted (1/2bs*up);   % base points
+  pr3 := pr1 shifted (1/2bs*down);
+  z$trl = pr2 rotatedaround(z$, ang);
+  z$trr = pr3 rotatedaround(z$, ang);
+  z$trc = 1/2[z$trl,z$trr];
+  z$tic = 1/2[z$,z$trc];
+  pth$ := z$--z$trl--z$trr--cycle;
+enddef;
+
+%    \end{macrocode}
+% \end{macro}
+% 
+% \begin{macro}{trir}
+% |trir($, ht, base)| calculates the points on a triangle
+% whose apex is at |z$|, of height |ht| and base width |base|
+% pointing in the positive |x| direction (i.e., Right).
+%    \begin{macrocode}
+
+def trir(suffix $)(expr ht, bs) =
+  path pth[];
+  z$trc = (x$-ht, y$);              % midpoint of base 
+  z$trl = (x$trc, y$trc+1/2bs);     % base points
+  z$trr = (x$trc, y$trc-1/2bs);
+  z$tic = 1/2[z$,z$trc];
+  pth$ := z$--z$trl--z$trr--cycle;
+enddef;
+
+%    \end{macrocode}
+% \end{macro}
+% 
+% \begin{macro}{triu}
+% |triu($, ht, base)| calculates the points on a triangle
+% whose apex is at |z$|, of height |ht| and base width |base|
+% pointing in the positive |y| direction (i.e. Up).
+%    \begin{macrocode}
+
+def triu(suffix $)(expr ht, bs) =
+  path pth[];
+  z$trc = (x$, y$-ht);         % midpoint of base 
+  z$trl = (x$-1/2bs, y$trc);   % base points
+  z$trr = (x$+1/2bs, y$trc);   % base points
+  z$tic = 1/2[z$,z$trc];
+  pth$ := z$--z$trl--z$trr--cycle;
+enddef;
+
+%    \end{macrocode}
+% \end{macro}
+% 
+% \begin{macro}{tril}
+% |tril($, ht, base)| calculates the points on a triangle
+% whose apex is at |z$|, of height |ht| and base width |base|
+% pointing in the negative |x| direction (i.e., Left).
+%    \begin{macrocode}
+
+def tril(suffix $)(expr ht, bs) =
+  path pth[];
+  z$trc = (x$+ht, y$);              % midpoint of base 
+  z$trl = (x$trc, y$trc-1/2bs);     % base points
+  z$trr = (x$trc, y$trc+1/2bs);
+  z$tic = 1/2[z$,z$trc];
+  pth$ := z$--z$trl--z$trr--cycle;
+enddef;
+
+%    \end{macrocode}
+% \end{macro}
+% 
+% \begin{macro}{trid}
+% |tril($, ht, base)| calculates the points on a triangle
+% whose apex is at |z$|, of height |ht| and base width |base|
+% pointing in the negative |x| direction (i.e., Left).
+%    \begin{macrocode}
+
+def tril(suffix $)(expr ht, bs) =
+  path pth[];
+  z$trc = (x$+ht, y$);              % midpoint of base 
+  z$trl = (x$trc, y$trc-1/2bs);     % base points
+  z$trr = (x$trc, y$trc+1/2bs);
+  z$tic = 1/2[z$,z$trc];
+  pth$ := z$--z$trl--z$trr--cycle;
+enddef;
+
+%    \end{macrocode}
+% \end{macro}
+% 
+% \begin{macro}{trid}
+% |trid($, ht, base)| calculates the points on a triangle
+% whose apex is at |z$|, of height |ht| and base width |base|
+% pointing in the negative |y| direction (i.e. Down).
+%    \begin{macrocode}
+
+def trid(suffix $)(expr ht, bs) =
+  path pth[];
+  z$trc = (x$, y$+ht);         % midpoint of base 
+  z$trl = (x$+1/2bs, y$trc);   % base points
+  z$trr = (x$-1/2bs, y$trc);   % base points
+  z$tic = 1/2[z$,z$trc];
+  pth$ := z$--z$trl--z$trr--cycle;
+enddef;
+
+%    \end{macrocode}
+% \end{macro}
+% 
+% \begin{macro}{wing}
+% |wing($, ht, base, angle)| calculates the points on a `flying wing'
+% whose apex is at |z$|, of height |ht| and base width |base| rotated
+% at |angle| from pointing along the negative |x| axis.
+%    \begin{macrocode}
+
+def wing(suffix $)(expr ht, bs, ang) =
+  path pth[];
+  pair pr[];
+  pr1 := (x$+ht,y$);  % midpoint of base in default position
+  pr2 := pr1 shifted (1/2bs*down);   % base points
+  pr3 := pr1 shifted (1/2bs*up);
+  pr4 := pr1 rotatedaround(z$, ang);
+  z$wil = pr2 rotatedaround(z$, ang);
+  z$wir = pr3 rotatedaround(z$, ang);
+  z$wic = 1/2[z$,pr4];
+  pth$ := z$--z$wil{(z$wic-z$wil)}..z$wic..{(z$wir-z$wic)}z$wir--cycle;
+enddef;
+
+%    \end{macrocode}
+% \end{macro}
+% 
+% \begin{macro}{wingl}
+% |wingl($, ht, base)| calculates the points on a `flying wing'
+% whose apex is at |z$|, of height |ht| and base width |base| 
+% pointing in the negative |x| direction (i.e., Left).
+%    \begin{macrocode}
+
+def wingl(suffix $)(expr ht, bs) =
+  path pth[];
+  z$wil = (x$+ht, y$-1/2bs);      % base points
+  z$wir = (x$wil, y$+1/2bs);
+  z$wic = (1/2[x$,x$wil], y$);    % midpoint of base curve
+  pth$ := z$--z$wil{(z$wic-z$wil)}..z$wic..{(z$wir-z$wic)}z$wir--cycle;
+enddef;
+
+%    \end{macrocode}
+% \end{macro}
+% 
+% \begin{macro}{wingd}
+% |wingd($, ht, base)| calculates the points on a `flying wing'
+% whose apex is at |z$|, of height |ht| and base width |base| 
+% pointing in the negative |y| direction (i.e., Down).
+%    \begin{macrocode}
+
+def wingd(suffix $)(expr ht, bs) =
+  path pth[];
+  z$wil = (x$+1/2bs, y$+ht);      % base points
+  z$wir = (x$-1/2bs, y$wil);
+  z$wic = (x$, 1/2[y$,y$wil]);    % midpoint of base curve
+  pth$ := z$--z$wil{(z$wic-z$wil)}..z$wic..{(z$wir-z$wic)}z$wir--cycle;
+enddef;
+
+%    \end{macrocode}
+% \end{macro}
+% 
+% \begin{macro}{wingr}
+% |wingr($, ht, base)| calculates the points on a `flying wing'
+% whose apex is at |z$|, of height |ht| and base width |base| 
+% pointing in the positive |x| direction (i.e., Right).
+%    \begin{macrocode}
+
+def wingr(suffix $)(expr ht, bs) =
+  path pth[];
+  z$wil = (x$-ht, y$+1/2bs);      % base points
+  z$wir = (x$wil, y$-1/2bs);
+  z$wic = (1/2[x$,x$wil], y$);    % midpoint of base curve
+  pth$ := z$--z$wil{(z$wic-z$wil)}..z$wic..{(z$wir-z$wic)}z$wir--cycle;
+enddef;
+
+%    \end{macrocode}
+% \end{macro}
+% 
+% \begin{macro}{wingu}
+% |wingu($, ht, base)| calculates the points on a `flying wing'
+% whose apex is at |z$|, of height |ht| and base width |base| 
+% pointing in the positive |y| direction (i.e., Up).
+%    \begin{macrocode}
+
+def wingu(suffix $)(expr ht, bs) =
+  path pth[];
+  z$wil = (x$-1/2bs, y$-ht);      % base points
+  z$wir = (x$+1/2bs, y$wil);
+  z$wic = (x$, 1/2[y$,y$wil]);    % midpoint of base curve
+  pth$ := z$--z$wil{(z$wic-z$wil)}..z$wic..{(z$wir-z$wic)}z$wir--cycle;
+enddef;
+
+%    \end{macrocode}
+% \end{macro}
+% 
+%    Finally the code (file) that does all the work.
+%
+% \subsection{The glyph code}
+%
+%    The following code generates the glyphs for the \thisfont{} font. 
+% The characters
+% are defined in the original alphabetic ordering.
+%
+%
+% \begin{macro}{a}
+% The \thisfont{} A.
+%    \begin{macrocode}
+cmchar "Old Persian letter a";
+beginglyph("a", (3tb+2th));
+  z1trl=(leftloc,h);                   % top pin
+  trir(1, trht, trbs); fill pth1;
+  z1'=(rightloc,y1); draw z1tic--z1';
+  z12trc=(midloc,y1trr);               % middle pin
+  trid(12, trht, trbs); fill pth12;
+  z12'=(x12,0); draw z12tic--z12';
+  z11trl=z12trr;                       % left pin
+  trid(11, trht, trbs); fill pth11;
+  z11'=(x11,0); draw z11tic--z11';
+  z13trr=z12trl;                       % right pin
+  trid(13, trht, trbs); fill pth13;
+  z13'=(x13,0); draw z13tic--z13';
+  labels(1,11,12,13);
+endchar;
+
+%    \end{macrocode}
+% \end{macro}
+%
+%
+% \begin{macro}{i}
+% The \thisfont{} I.
+%    \begin{macrocode}
+cmchar "Old Persian letter i";
+beginglyph("i", (2tb));        %% 3tb too large
+  z1trl=(leftloc,h);                   % top pin
+  trir(1, trht, trbs); fill pth1;
+  z1'=(rightloc,y1); draw z1tic--z1';
+  z11trr=z1trr;                        % left pin
+  trid(11, trht, trbs); fill pth11;
+  z11'=(x11,0); draw z11tic--z11';
+  z12trr=z11trl;                       % middle pin
+  trid(12, trht, trbs); fill pth12;
+  z12'=(x12,0); draw z12tic--z12';
+  z2trc=(x11trl,y1);                   % second top head
+  trir(2, trht, trbs); fill pth2;
+  labels(1,2,11,12,13);
+endchar;
+
+%    \end{macrocode}
+% \end{macro}
+%
+%
+% \begin{macro}{u}
+% The \thisfont{} U.
+%    \begin{macrocode}
+cmchar "Old Persian letter u";
+beginglyph("u", (2tb+wh));     %% 3tb+wh too large
+  z31=(leftloc,1/2h);                  % left wing
+  wingl(31, wiht, wibs); fill pth31;
+  z1trl=(x31wil,h);                   % top pin
+  trir(1, trht, trbs); fill pth1;
+  z1'=(rightloc,y1); draw z1tic--z1';
+  z11trr=z1trr;                        % left pin
+  trid(11, trht, trbs); fill pth11;
+  z11'=(x11,0); draw z11tic--z11';
+  z12trr=z11trl;                       % middle pin
+  trid(12, trht, trbs); fill pth12;
+  z12'=(x12,0); draw z12tic--z12';
+  labels(1,2,11,12,13);
+endchar;
+
+%    \end{macrocode}
+% \end{macro}
+%
+%
+% \begin{macro}{k}
+% The \thisfont{} KA.
+%    \begin{macrocode}
+cmchar "Old Persian syllable ka (k)";
+beginglyph("k", (3tb));         %% 4tb too large
+  z1trr=(leftloc,h);                       % left pin
+  trid(1, trht, trbs); fill pth1;
+  z1'=(x1,0); draw z1tic--z1';
+  z11trr=(x1trl,1/2h);                     % top pin
+  trir(11, trht, trbs); fill pth11;
+  z11'=(rightloc,y11); draw z11tic--z11';
+  z12trl=z11trr;                           % bottom pin
+  trir(12, trht, trbs); fill pth12;
+  z12'=(rightloc,y12); draw z12tic--z12';
+  labels(1,11,12);
+endchar;
+ 
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{K}
+% The \thisfont{} KU.
+%    \begin{macrocode}
+cmchar "Old Persian syllable ku (K)";
+beginglyph("K", (tb+wh));  
+  z1=(leftloc,1/2h);                       % wing
+  wingl(1, wiht, wibs); fill pth1;
+  z2trr=(x1wil,h);                         % pin
+  trid(2, trht, trbs); fill pth2;
+  z2'=(x2,0); draw z2tic--z2';
+  labels(1,2);
+endchar;
+ 
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{x}
+% The \thisfont{} XA.
+%    \begin{macrocode}
+cmchar "Old Persian syllable xa (x)";
+beginglyph("x", (2tb+2wh));
+  z1=(leftloc,1/2h);                       % left wing
+  wingl(1, wiht, wibs); fill pth1;
+  z2=(x1wil,y1);                           % right wing
+  wingl(2, wiht, wibs); fill pth2;
+  z11trr=(x2wil,h);                       % left pin
+  trid(11, trht, trbs); fill pth11;
+  z11'=(x11,0); draw z11tic--z11';
+  z12trr=z11trl;                           % right pin
+  trid(12, trht, trbs); fill pth12;
+  z12'=(x12,0); draw z12tic--z12';
+  labels(1,2,11,12);
+endchar;
+ 
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{g}
+%    The \thisfont{} GA. 
+%    \begin{macrocode}
+cmchar "Old Persian syllable ga (g)";
+beginglyph("g", (3tb+wh));
+  z1=(leftloc,1/2h);                      % wing
+  wingl(1, wiht, wibs); fill pth1;
+  z11trr=(x1wil,h);                       % left pin
+  trid(11, trht, trbs); fill pth11;
+  z11'=(x11,0); draw z11tic--z11';
+  z12trr=z11trl;                           % right pin
+  trid(12, trht, trbs); fill pth12;
+  z12'=(x12,0); draw z12tic--z12';
+  z21trc=(x12trl,y1);                      % small pin
+  trir(21, trht, trbs); fill pth21;
+  z21'=(rightloc,y21); draw z21tic--z21';
+  labels(1,2,11,12,21);
+endchar;
+ 
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{G}
+% The \thisfont{} syllable GU.
+%    \begin{macrocode}
+cmchar "Old Persian syllable gu (G)";
+beginglyph("G", (2tb+th+wh));  %% 3tb+wh too large
+  z1=(leftloc,1/2h);                      % wing
+  wingl(1, wiht, wibs); fill pth1;
+  z12trc=(x1wil, 1/2h);                   % middle pin
+  trir(12, trht, trbs); fill pth12;
+  z12'=(rightloc,y12); draw z12tic--z12';
+  z13trl=z12trr;                          % bottom pin
+  trir(13, trht, trbs); fill pth13;
+  z13'=(rightloc,y13); draw z13tic--z13';
+  z11trr=z12trl;                          % top pin
+  trir(11, trht, trbs); fill pth11;
+  z11'=(rightloc,y11); draw z11tic--z11';
+  z111trc=1/2[z11trc,z11'];
+  trir(111, trht, trbs); fill pth111;
+  labels(1,2,3,4,5,6,11,12,13,111); 
+endchar;
+ 
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{c}
+% The \thisfont{} syllable CA.
+%    \begin{macrocode}
+cmchar "Old Persian syllable ca (c)";
+beginglyph("c", (4tb));
+  z1trl=(leftloc,h);                      % top pin
+  trir(1, trht, trbs); fill pth1;
+  z11trr=(x1, y1trr);                     % left pin
+  trid(11, trht, trbs); fill pth11;
+  z11'=(x11,0); draw z11tic--z11';
+  z12trr=z11trl;                          % middle pin
+  trid(12, trht, trbs); fill pth12;
+  z12'=(x12,0); draw z12tic--z12';
+  z2trl=z12trl;                           % bottom pin
+  trir(2, trht, trbs); fill pth2;
+  z2'=(rightloc,y2); draw z2tic--z2';
+  z1'=(x2trl,y1); draw z1tic--z1';        % body of top pin
+  labels(1,2,3,4,5,6,11,12,13); 
+endchar;
+ 
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{j}
+% The \thisfont{} syllable JA.
+%    \begin{macrocode}
+cmchar "Old Persian syllable ja (j)";
+beginglyph("j", (th+tb+wh));
+  z1trc=(leftloc,1/2h);                   % hor pin
+  trir(1, trht, trbs); fill pth1;         
+  z2=(rightloc-wiht,y1);                  % wing
+  wingl(2, wiht, wibs); fill pth2;
+  draw z1tic--z2;
+  z11trc=(1/2[x1,x2], h);                 % vert pin
+  trid(11, trht, trbs); fill pth11;         
+  z11'=(x11,0); draw z11tic--z11';
+  labels(1,2,3,4,11,12,13); 
+endchar;
+ 
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{J}
+% The \thisfont{} syllable JI.
+%    \begin{macrocode}
+cmchar "Old Persian syllable ji (J)";
+beginglyph("J",(7/2tb+wh));        %% 4tb+wh too large
+  z1trc=(leftloc, 1/2h);            % left pin
+  trir(1, trht, trbs); fill pth1;
+  z2=(x1+trbs, y1);                 % wing
+  draw z1tic--z2;
+  wingl(2, wiht, wibs); fill pth2;
+  z12trc=(x2wil,y1);                % middle pin
+  trir(12, trht, trbs); fill pth12;
+  z12'=(rightloc, y12); draw z12tic--z12';
+  z11trr=z12trl;                    % top pin
+  trir(11, trht, trbs); fill pth11;
+  z11'=(rightloc, y11); draw z11tic--z11';
+  z13trl=z12trr;                    % bottom pin
+  trir(13, trht, trbs); fill pth13;
+  z13'=(rightloc, y13); draw z13tic--z13';
+  labels(1,2,3,4,5,6,7,8,9,10,11,12,13); 
+endchar;
+ 
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{t}
+% The \thisfont{} syllable TA.
+%    \begin{macrocode}
+cmchar "Old Persian syllable ta (t)";
+beginglyph("t", (4tb+th));    %% 5tb too large
+  z3trl=(rightloc,h);               % right pin
+  trid(3, trht, trbs); fill pth3;
+  z3'=(x3,0); draw z3tic--z3';
+  z1trl=(x3trr-trbs,h);            % left pin
+  trid(1, trht, trbs); fill pth1;
+  z1'=(x1,0); draw z1tic--z1';
+  z11trr=(leftloc,1/2h);            % top pin
+  trir(11, trht, trbs); fill pth11;
+  z11'=(x1,y11); draw z11tic--z11';
+  z12trl=z11trr;                    % bottom pin
+  trir(12, trht, trbs); fill pth12;
+  z12'=(x1,y12); draw z12tic--z12';
+  z2trc=(1/2[x1,x3], y11trl);       % middle pin
+  trid(2, trht, trbs); fill pth2;
+  z2'=(x2,0); draw z2tic--z2';
+  labels(1,2,3,4,5,6,7,8,9,10,11,12); 
+endchar;
+ 
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{T}
+% The \thisfont{} syllable TU.
+%    \begin{macrocode}
+cmchar "Old Persian syllable tu (T)";
+beginglyph("T", (4tb+th));   %% 5tb too large
+  z1trr=(leftloc,h);                 % left pin
+  trid(1, trht, trbs); fill pth1;
+  z1'=(x1,0); draw z1tic--z1';
+  z2trr=z1trl;                       % center pin
+  trid(2, trht, trbs); fill pth2;
+  z2'=(x2,0); draw z2tic--z2';
+  z3trr=z2trl;                       % right pin
+  trid(3, trht, trbs); fill pth3;
+  z3'=(x3,0); draw z3tic--z3';
+  z11trl=(x3trl, 1/2h);              % short hor pin
+  trir(11, trht, trbs); fill pth11;
+  z11'=(rightloc,y11); draw z11tic--z11';
+  labels(1,2,3,11);
+endchar;
+
+%    \end{macrocode}
+% \end{macro}
+%
+%
+% \begin{macro}{o}
+% The \thisfont{} syllable THA.
+%    \begin{macrocode}
+cmchar "Old Persian syllable tha (o)";
+beginglyph("o", (2tb+wh));
+  z1trr=(leftloc,h);                     % left pin
+  trid(1, trht, trbs); fill pth1;
+  z1'=(x1,0); draw z1tic--z1';
+  z2=(x1,1/2h);                          % wing
+  wingl(2, wiht, wibs); fill pth2;
+  z3trr=(x2wil,h);                       % right pin
+  trid(3, trht, trbs); fill pth3;
+  z3'=(x3,0); draw z3tic--z3';
+  labels(1,2,3);
+endchar;
+
+%    \end{macrocode}
+% \end{macro}
+%
+%
+% \begin{macro}{C}
+% The \thisfont{} syllable C(cedilla)A.
+%    \begin{macrocode}
+cmchar "Old Persian syllable c(cedilla)a (C)";
+beginglyph("C", (2tb));
+  z1trl=(leftloc,h);                   % top pin
+  trir(1, trht, trbs); fill pth1;
+  z1'=(rightloc,y1); draw z1tic--z1';
+  z2trl=z1trr;                         % center pin
+  trir(2, trht, trbs); fill pth2;
+  z2'=(rightloc,y2); draw z2tic--z2';
+  z11trr=z2trr;                        % left pin
+  trid(11, trht, trbs); fill pth11;
+  z11'=(x11,0); draw z11tic--z11';
+  z12trr=z11trl;                       % right pin
+  trid(12, trht, trbs); fill pth12;
+  z12'=(x12,0); draw z12tic--z12';
+  labels(1,2,11,12);
+endchar;
+
+%    \end{macrocode}
+% \end{macro}
+%
+%
+% \begin{macro}{d}
+% The \thisfont{} syllable DA.
+%    \begin{macrocode}
+cmchar "Old Persian syllable da (d)";
+beginglyph("d", (2tb));
+  z1trl=(leftloc,h);                   % top pin
+  trir(1, trht, trbs); fill pth1;
+  z1'=(rightloc,y1); draw z1tic--z1';
+  z11trr=z1trr;                        % left pin
+  trid(11, trht, trbs); fill pth11;
+  z11'=(x11,0); draw z11tic--z11';
+  z12trr=z11trl;                       % right pin
+  trid(12, trht, trbs); fill pth12;
+  z12'=(x12,0); draw z12tic--z12';
+  labels(1,2,11,12);
+endchar;
+
+%    \end{macrocode}
+% \end{macro}
+%
+%
+% \begin{macro}{P}
+% The \thisfont{} syllable DI.
+%    \begin{macrocode}
+cmchar "Old Persian syllable di (P)";
+beginglyph("P", (3tb+th));   %% 4tb too large
+  z2trl=(rightloc,h);                  % right pin
+  trid(2, trht, trbs); fill pth2;
+  z2'=(x2,0); draw z2tic--z2';
+  z1trl=z2trr;                         % left pin
+  trid(1, trht, trbs); fill pth1;
+  z1'=(x1,0); draw z1tic--z1';
+  z12trc=(leftloc,1/2h);               % center pin
+  trir(12, trht, trbs); fill pth12;
+  z12'=(x1,y12); draw z12tic--z12';
+  z11trr=z12trl;                       % top pin
+  trir(11, trht, trbs); fill pth11;
+  z11'=(x1,y11); draw z11tic--z11';
+  z13trl=z12trr;                       % bottom pin
+  trir(13, trht, trbs); fill pth13;
+  z13'=(x1,y13); draw z13tic--z13';
+  labels(1,2,11,12,13);
+endchar;
+
+%    \end{macrocode}
+% \end{macro}
+%
+%
+% \begin{macro}{D}
+% The \thisfont{} syllable DU.
+%    \begin{macrocode}
+cmchar "Old Persian syllable du (D)";
+beginglyph("D", (2tb+th+wh));   %% 3tb+wh too large
+  z1=(leftloc,h/2);                     % wing
+  wingl(1, wiht, wibs); fill pth1;
+  z2trl=(rightloc,h);                   % right pin
+  trid(2, trht, trbs); fill pth2;
+  z2'=(x2,0); draw z2tic--z2';
+  z12trc=(x1wil,h/2);                   % center pin
+  trir(12, trht, trbs); fill pth12;
+  z12'=(x2,y12); draw z12tic--z12';
+  z11trr=z12trl;                       % top pin
+  trir(11, trht, trbs); fill pth11;
+  z11'=(x2,y11); draw z11tic--z11';
+  z13trl=z12trr;                       % bottom pin
+  trir(13, trht, trbs); fill pth13;
+  z13'=(x2,y13); draw z13tic--z13';
+  labels(1,2,11,12,13);
+endchar;
+
+%    \end{macrocode}
+% \end{macro}
+%
+%
+%
+% \begin{macro}{n}
+% The \thisfont{} syllable NA.
+%    \begin{macrocode}
+cmchar "Old Persian syllable na (n)";
+beginglyph("n", (2tb+wh));
+  z1=(rightloc-wiht, h/2);                  % wing
+  wingl(1, wiht, wibs); fill pth1;
+  z11trr=(leftloc,h/2);                     % top pin
+  trir(11, trht, trbs); fill pth11;
+  z11'=(x1,y11); draw z11tic--z11';
+  z12trl=z11trr;                            % bottom pin
+  trir(12, trht, trbs); fill pth12;
+  z12'=(x1,y12); draw z12tic--z12';
+  labels(1,11,12);
+endchar;
+
+%    \end{macrocode}
+% \end{macro}
+%
+%
+%
+% \begin{macro}{N}
+% The \thisfont{} syllable NU.
+%    \begin{macrocode}
+cmchar "Old Persian syllable nu (N)";
+beginglyph("N", (2tb+2wh));
+  z1=(leftloc, h/2);                        % left wing
+  wingl(1, wiht, wibs); fill pth1;
+  z2=(x1wil, y1);                           % right wing
+  wingl(2, wiht, wibs); fill pth2;
+  z11trr=(x2wil,h/2);                       % top pin
+  trir(11, trht, trbs); fill pth11;
+  z11'=(rightloc,y11); draw z11tic--z11';
+  z12trl=z11trr;                            % bottom pin
+  trir(12, trht, trbs); fill pth12;
+  z12'=(rightloc,y12); draw z12tic--z12';
+  labels(1,2,11,12);
+endchar;
+
+%    \end{macrocode}
+% \end{macro}
+%
+%
+%
+% \begin{macro}{p}
+% The \thisfont{} syllable PA.
+%    \begin{macrocode}
+cmchar "Old Persian syllable pa (p)";
+beginglyph("p", (2tb));
+  z1trc=(leftloc,h);                       % top pin
+  trir(1, trht, trbs); fill pth1;
+  z1'=(rightloc,y1); draw z1tic--z1';
+  z2trl=(x1,y1);                        % middle pin
+  trir(2, trht, trbs); fill pth2;
+  z2'=(rightloc,y2); draw z2tic--z2';
+  z3trl=(x1trc,y2);                     % bottom pin
+  trir(3, trht, trbs); fill pth3;
+  z3'=(rightloc,y3); draw z3tic--z3';
+  z11trr=z3trr;                      % left pin
+  trid(11, trht, trbs); fill pth11;
+  z11'=(x11,0); draw z11tic--z11';
+  z12trr=z11trl;                           % right pin
+  trid(12, trht, trbs); fill pth12;
+  z12'=(x12,0); draw z12tic--z12';
+  labels(1,2,3,11,12);
+endchar;
+
+%    \end{macrocode}
+% \end{macro}
+%
+%
+%
+% \begin{macro}{f}
+% The \thisfont{} syllable FA.
+%    \begin{macrocode}
+cmchar "Old Persian syllable fa (f)";
+beginglyph("f", (tb+2wh));
+  z1trr=(leftloc,h);                      % left pin
+  trid(1, trht, trbs); fill pth1;
+  z1'=(x1,0); draw z1tic--z1';
+  z11=(x1,h/2);                           % left wing
+  wingl(11, wiht, wibs); fill pth11;  
+  z12=(x11wil,y11);                       % right wing
+  wingl(12, wiht, wibs); fill pth12;  
+  labels(1,11,12);
+endchar;
+
+%    \end{macrocode}
+% \end{macro}
+%
+%
+%
+% \begin{macro}{b}
+% The \thisfont{} syllable BA.
+%    \begin{macrocode}
+cmchar "Old Persian syllable ba (b)";
+beginglyph("b", (3tb));
+  z1trl=(rightloc,h);                   % right pin
+  trid(1, trht, trbs); fill pth1;
+  z1'=(x1,0); draw z1tic--z1';
+  z11trr=(leftloc,h/2);                 % top pin
+  trir(11, trht, trbs); fill pth11;
+  z11'=(x1,y11); draw z11tic--z11';
+  z12trl=z11trr;                        % bottom pin
+  trir(12, trht, trbs); fill pth12;
+  z12'=(x1,y12); draw z12tic--z12';
+  labels(1,11,12);
+endchar;
+
+%    \end{macrocode}
+% \end{macro}
+%
+%
+% \begin{macro}{m}
+% The \thisfont{} syllable MA.
+%    \begin{macrocode}
+cmchar "Old Persian syllable ma (m)";
+beginglyph("m", (4tb+th));   %% 5tb too large
+  z3trl=(rightloc,h);                  % right pin
+  trid(3, trht, trbs); fill pth3;
+  z3'=(x3,0); draw z3tic--z3';
+  z2trl=(x3trr,y3);                    % center pin
+  trid(2, trht, trbs); fill pth2;
+  z2'=(x2,0); draw z2tic--z2';
+  z1trl=(x2trr,h);                     % left pin
+  trid(1, trht, trbs); fill pth1;
+  z1'=(x1,0); draw z1tic--z1';
+  z11trc=(leftloc, h/2);               % hor pin
+  trir(11, trht, trbs); fill pth11;
+  z11'=(x1,y11); draw z11tic--z11';
+  labels(1,2,3,11);
+endchar;
+
+%    \end{macrocode}
+% \end{macro}
+%
+%
+% \begin{macro}{w}
+% The \thisfont{} syllable MI.
+%    \begin{macrocode}
+cmchar "Old Persian syllable mi (w)";
+beginglyph("w", (2tb+wh));
+  z1trr=(leftloc,h);                 % left pin
+  trid(1, trht, trbs); fill pth1;
+  z1'=(x1,0); draw z1tic--z1';
+  z2=(x1,h/2);                       % wing
+  wingl(2, wiht, wibs); fill pth2;
+  z11trr=(x2wil, h/2);               % top pin
+  trir(11, trht, trbs); fill pth11;
+  z11'=(rightloc,y11); draw z11tic--z11';
+  z12trl=z11trr;                     % bottom pin
+  trir(12, trht, trbs); fill pth12;
+  z12'=(rightloc,y12); draw z12tic--z12';
+  labels(1,2,11,12);
+endchar;
+
+%    \end{macrocode}
+% \end{macro}
+%
+%
+% \begin{macro}{M}
+% The \thisfont{} syllable MU.
+%    \begin{macrocode}
+cmchar "Old Persian syllable mu (M)";
+beginglyph("M", (5tb+wh));
+  z5trc=(rightloc-2trbs, h/2);          % right pin
+  trir(5, trht, trbs); fill pth5;
+  z5'=(rightloc,y5); draw z5tic--z5';
+  z4=(x5trc-wiht,y5);                   % wing
+  wingl(4, wiht, wibs); fill pth4;
+  z2trc=(leftloc+trht,y5);              % middle pin
+  trir(2, trht, trbs); fill pth2;
+  z2'=z4; draw z2tic--z2';
+  z1trr=(leftloc,y2trl);                % top pin
+  trir(1, trht, trbs); fill pth1;
+  z1'=(3/4[x1,x2'],y1); draw z1tic--z1';
+  z3trl=(leftloc,y2trr);                % bottom pin
+  trir(3, trht, trbs); fill pth3;
+  z3'=(x1',y3); draw z3tic--z3';
+  labels(1,2,3,4);
+endchar;
+
+%    \end{macrocode}
+% \end{macro}
+%
+%
+% \begin{macro}{y}
+% The \thisfont{} syllable YA.
+%    \begin{macrocode}
+cmchar "Old Persian syllable ya (y)";
+beginglyph("y", (2tb+wh));
+  z1trr=(leftloc,h);                 % left pin
+  trid(1, trht, trbs); fill pth1;
+  z1'=(x1,0); draw z1tic--z1';
+  z2=(x1,h/2);                       % wing
+  wingl(2, wiht, wibs); fill pth2;
+  z11trc=(x2wil, h/2);               % right pin
+  trir(11, trht, trbs); fill pth11;
+  z11'=(rightloc,y11); draw z11tic--z11';
+  labels(1,2,11,12);
+endchar;
+
+%    \end{macrocode}
+% \end{macro}
+%
+%
+% \begin{macro}{r}
+% The \thisfont{} syllable RA.
+%    \begin{macrocode}
+cmchar "Old Persian syllable ra (r)";
+beginglyph("r", (3tb+th));   %% 4tb too large
+  z11trl=(rightloc, h);                 % right pin
+  trid(11, trht, trbs); fill pth11;
+  z11'=(x11,0); draw z11tic--z11';
+  z2trc=(leftloc+trht,h/2);              % middle pin
+  trir(2, trht, trbs); fill pth2;
+  z2'=(x11,y2); draw z2tic--z2';
+  z1trr=(leftloc,y2trl);                % top pin
+  trir(1, trht, trbs); fill pth1;
+  z1'=(x2',y1); draw z1tic--z1';
+  z3trl=(leftloc,y2trr);                % bottom pin
+  trir(3, trht, trbs); fill pth3;
+  z3'=(x2',y3); draw z3tic--z3';
+  labels(1,2,3,4);
+endchar;
+
+%    \end{macrocode}
+% \end{macro}
+%
+%
+%
+% \begin{macro}{R}
+% The \thisfont{} syllable RU.
+%    \begin{macrocode}
+cmchar "Old Persian syllable ru (R)";
+beginglyph("R", (tb+th+2wh));  %% 2tb+2wh too large
+  z3=(rightloc-wiht,h/2);               % right wing
+  wingl(3, wiht, wibs); fill pth3;
+  z2=(x3-wiht,y3);                      % left wing
+  wingl(2, wiht, wibs); fill pth2;
+  z1trc=(leftloc,y3);                   % pin
+  trir(1, trht, trbs); fill pth1;
+  z1'=z2; draw z1tic--z1';
+  labels(1,2,3);
+endchar;
+
+%    \end{macrocode}
+% \end{macro}
+%
+%
+%
+% \begin{macro}{l}
+% The \thisfont{} syllable LA.
+%    \begin{macrocode}
+cmchar "Old Persian syllable la (l)";
+beginglyph("l", (3tb+th));  %% 4tb too large
+  z11trl=(rightloc,h);                    % right pin
+  trid(11, trht, trbs); fill pth11;
+  z11'=(x11,0); draw z11tic--z11';
+  z2trc=(leftloc,h/2);                  % middle pin
+  trir(2, trht, trbs); fill pth2;
+  z2'=(x11,y2); draw z2tic--z2';
+  z1trr=(x2,y2trl);                % top pin
+  trir(1, trht, trbs); fill pth1;
+  z1'=(x2',y1); draw z1tic--z1';
+  z3trl=(x1trr,y2trr);                % bottom pin
+  trir(3, trht, trbs); fill pth3;
+  z3'=(x2',y3); draw z3tic--z3';
+  labels(1,2,3,11);
+endchar;
+
+%    \end{macrocode}
+% \end{macro}
+%
+%
+% \begin{macro}{v}
+% The \thisfont{} syllable VA.
+%    \begin{macrocode}
+cmchar "Old Persian syllable va (v)";
+beginglyph("v", (5tb));
+  z11trc=(leftloc,h/2);                    % left hor pin
+  trir(11, trht, trbs); fill pth11;
+  z11'=(x11+trbs,y11); draw z11tic--z11';
+  z12trc=(x11',h);                         % vert pin
+  trid(12, trht, trbs); fill pth12;
+  z12'=(x12,0); draw z12tic--z12';
+  z2=(x12+1/2trbs+2trht, h/2);             % middle pin
+  trir(2, trht, trbs); fill pth2;
+  z2'=(rightloc,y2); draw z2tic--z2';
+  z1trr=(x2trc-trht,y2trl);                % top pin
+  trir(1, trht, trbs); fill pth1;
+  z1'=(x2',y1); draw z1tic--z1';
+  z3trl=(x1trr,y2trr);                % bottom pin
+  trir(3, trht, trbs); fill pth3;
+  z3'=(x2',y3); draw z3tic--z3';
+  labels(1,2,3,11);
+endchar;
+
+%    \end{macrocode}
+% \end{macro}
+%
+%
+%
+% \begin{macro}{V}
+% The \thisfont{} syllable VI.
+%    \begin{macrocode}
+cmchar "Old Persian syllable vi (V)";
+beginglyph("V", (2tb));
+  z1trl=(midloc,1/3h);               % left pin
+  trid(1, trht, trbs); fill pth1;
+  z1'=(x1,0); draw z1tic--z1';
+  z2trr=z1trl;                       % right pin
+  trid(2, trht, trbs); fill pth2;
+  z2'=(x2,0); draw z2tic--z2';
+  z3trc=(x1trl,h);                   % top pin
+  trid(3, trht, trbs); fill pth3;
+  z3'=(x3,y1trl); draw z3tic--z3';
+  z11trc=(leftloc, 1/2[y1trl,y3trl]);  % hor pin
+  trir(11, trht, trbs); fill pth11;
+  z11'=(rightloc,y11); draw z11tic--z11';
+  labels(1,2,3,4,11);
+endchar;
+
+%    \end{macrocode}
+% \end{macro}
+%
+%
+%
+% \begin{macro}{s}
+% The \thisfont{} syllable SA.
+%    \begin{macrocode}
+cmchar "Old Persian syllable sa (s)";
+beginglyph("s", (3tb+th));  %% 4tb too large
+  z12trr=(leftloc,h);                         % vert pin
+  trid(12, trht, trbs); fill pth12;
+  z12'=(x12,0); draw z12tic--z12';
+  z2=(x12+1/2trbs+2trht, h/2);             % middle pin
+  trir(2, trht, trbs); fill pth2;
+  z2'=(rightloc,y2); draw z2tic--z2';
+  z1trr=(x2trc-trht,y2trl);                % top pin
+  trir(1, trht, trbs); fill pth1;
+  z1'=(x2',y1); draw z1tic--z1';
+  z3trl=(x1trr,y2trr);                % bottom pin
+  trir(3, trht, trbs); fill pth3;
+  z3'=(x2',y3); draw z3tic--z3';
+  labels(1,2,3,11,12);
+endchar;
+
+%    \end{macrocode}
+% \end{macro}
+%
+%
+%
+% \begin{macro}{S}
+% The \thisfont{} syllable SvA.
+%    \begin{macrocode}
+cmchar "Old Persian syllable sva (S)";
+beginglyph("S", (2wh));
+  z1=(leftloc,1/2wibs);                 % left wing
+  wingl(1, wiht, wibs); fill pth1;
+  z2=(x1+wiht,y1);                      % right wing
+  wingl(2, wiht, wibs); fill pth2;
+  z3trl=(leftloc,h);                    % pin
+  trir(3, trht, trbs); fill pth3;
+  z3'=(rightloc,y3); draw z3tic--z3';
+  labels(1,2,3);
+endchar;
+
+%    \end{macrocode}
+% \end{macro}
+%
+%
+%
+% \begin{macro}{z}
+% The \thisfont{} syllable ZA.
+%    \begin{macrocode}
+cmchar "Old Persian syllable za (z)";
+beginglyph("z", (4tb));
+  z1trr=(leftloc,h);                    % left pin
+  trid(1, trht, trbs); fill pth1;
+  z1'=(x1,0); draw z1tic--z1';
+  z2trl=(rightloc,h);                    % right pin
+  trid(2, trht, trbs); fill pth2;
+  z2'=(x2,0); draw z2tic--z2';
+  z11trc=(x1trl,h/2);                    % hor pins
+  trir(11, trht, trbs); fill pth11;
+  z11'=(x2trr,y11); draw z11tic--z11';
+  z12trc=1/2[z11trc,z11'];
+  trir(12, trht, trbs); fill pth12;
+  labels(1,2,11);
+endchar;
+
+%    \end{macrocode}
+% \end{macro}
+%
+%
+%
+% \begin{macro}{h}
+% The \thisfont{} syllable HA.
+%    \begin{macrocode}
+cmchar "Old Persian syllable ha (h)";
+beginglyph("h", (2tb+2wh));
+  z1=(leftloc,h/2);                % left wing
+  wingl(1, wiht, wibs); fill pth1;
+  z2=(rightloc-wiht,y1);            % right wing
+  wingl(2, wiht, wibs); fill pth2;
+  z11trr=(x1wil,y1);                % top pin
+  trir(11, trht, trbs); fill pth11;
+  z11'=(x2,y11); draw z11tic--z11';
+  z12trl=z11trr;                    % bottom pin
+  trir(12, trht, trbs); fill pth12;
+  z12'=(x2,y12); draw z12tic--z12';
+  labels(1,2,11,12);
+endchar;
+
+%    \end{macrocode}
+% \end{macro}
+%
+%
+%
+% \begin{macro}{X}
+% The \thisfont{} word: king.
+%    \begin{macrocode}
+cmchar "Old Persian word: king (X)";
+beginglyph("X", (3tb+2wh));
+  z4=(rightloc-wiht, h/2);                  % right wing
+  wingl(4, wiht, wibs); fill pth4;
+  z11trc=(x4,h);                           % center vert pin
+  trid(11, trht, trbs); fill pth11;
+  z11'=(x11,0); draw z11tic--z11';
+  z3wir=(x11trr,y4wir);                    % left wing
+  wingl(3, wiht, wibs); fill pth3;
+  z1trr=(leftloc,y4);                      % top pin
+  trir(1, trht, trbs); fill pth1;
+  z1'=(x3,y1); draw z1tic--z1';
+  z2trl=z1trr;                             % bottom pin
+  trir(2, trht, trbs); fill pth2;
+  z2'=(x1',y2); draw z2tic--z2';
+  labels(1,2,3,4,11);
+endchar;
+
+%    \end{macrocode}
+% \end{macro}
+%
+%
+%
+% \begin{macro}{q}
+% The \thisfont{} word: country (version a).
+%    \begin{macrocode}
+cmchar "Old Persian word: country (version a) (q)";
+beginglyph("q", (9/4tb+wh));  %% 5/2tb+wh too large
+  numeric n[];
+  n1 := 1/2wiht;  
+  n2 := 1/2wibs;
+  z12trl=(rightloc,h);                    % right pin
+  trid(12, trht, trbs); fill pth12;
+  z12'=(x12,0); draw z12tic--z12';
+  z11trl=z12trr;                          % left pin
+  trid(11, trht, trbs); fill pth11;
+  z11'=(x11,0); draw z11tic--z11';
+  z1=(leftloc, h-1/2n2);                  % top left wing
+  wingl(1, n1, n2); fill pth1;
+  z2=(x1wil, y1);                         % top right wing
+  wingl(2, n1, n2); fill pth2;
+  z3=(x1, 1/2n2);                         % bottom left wing
+  wingl(3, n1, n2); fill pth3;
+  z4=(x2, y3);                            % bottom right wing
+  wingl(4, n1, n2); fill pth4;
+  labels(1,2,3,4,11,12);
+endchar;
+
+%    \end{macrocode}
+% \end{macro}
+%
+%
+%
+% \begin{macro}{Q}
+% The \thisfont{} word: country (version b).
+%    \begin{macrocode}
+cmchar "Old Persian word: country (version b) (Q)";
+beginglyph("Q", (5/4tb+wh));  %% 3/2tb+wh too large
+  numeric n[];
+  n1 := 1/2wiht;  
+  n2 := 1/2wibs;
+  z11trl=(rightloc,h);                    % right pin
+  trid(11, trht, trbs); fill pth11;
+  z11'=(x11,0); draw z11tic--z11';
+  z1=(leftloc, h-1/2n2);                  % top left wing
+  wingl(1, n1, n2); fill pth1;
+  z2=(x1wil, y1);                         % top right wing
+  wingl(2, n1, n2); fill pth2;
+  z3=(x1, 1/2n2);                         % bottom left wing
+  wingl(3, n1, n2); fill pth3;
+  z4=(x2, y3);                            % bottom right wing
+  wingl(4, n1, n2); fill pth4;
+  labels(1,2,3,4,11,12);
+endchar;
+
+%    \end{macrocode}
+% \end{macro}
+%
+%
+%
+% \begin{macro}{L}
+% The \thisfont{} word: earth.
+%    \begin{macrocode}
+cmchar "Old Persian word: earth (L)";
+beginglyph("L", (3wh));
+  z1=(leftloc, wiht);              % left wing
+  wingl(1, wiht, wibs); fill pth1;
+  z2=(x1wil, y1);                  % center wing
+  wingl(2, wiht, wibs); fill pth2;
+  z3=(x2wil, y1);                  % right wing
+  wingl(3, wiht, wibs); fill pth3;
+  z11trr=(x1,y1wir);               % top pin
+  trir(11, trht, trbs); fill pth11;
+  z11'=(rightloc,y11); draw z11tic--z11';
+  z12trc=(x2,y11);
+  trir(12, trht, trbs); fill pth12;
+  z13trc=(x3,y11);
+  trir(13, trht, trbs); fill pth13;
+  labels(1,2,3,11,12,13);
+endchar;
+
+%    \end{macrocode}
+% \end{macro}
+%
+%
+%
+% \begin{macro}{B}
+% The \thisfont{} word: god.
+%    \begin{macrocode}
+cmchar "Old Persian word: god (B)";
+beginglyph("B", (2tb+2wh));
+  z4=(rightloc-wiht, h/2);       % right wing
+  wingl(4, wiht, wibs); fill pth4;
+  z3=(x4-wiht, y4);              % left wing
+  wingl(3, wiht, wibs); fill pth3;
+  z1trc=(leftloc,y4);            % pin
+  trir(1, trht, trbs); fill pth1;
+  z1'=z3; draw z1tic--z1';
+  z2trc=1/2[z1trc,z1'];
+  trir(2, trht, trbs); fill pth2;
+  labels(1,2,3,4);
+endchar;
+
+%    \end{macrocode}
+% \end{macro}
+%
+%
+% \begin{macro}{e}
+% The \thisfont{} word: Auramazda (verion a).
+%    \begin{macrocode}
+cmchar "Old Persian word: Auramazda (version a) (e)";
+beginglyph("e", (3tb+wh));
+  z43=(rightloc-wiht, h/2);       % wing
+  wingl(43, wiht, wibs); fill pth43;
+  z46trc=(x43,h);                 % vert pin
+  trid(46, trht, trbs); fill pth46;
+  z46'=(x46,0); draw z46tic--z46';
+  z14trr=(leftloc,h/2);           % pin 3
+  trir(14, trht, trbs); fill pth14;
+  z14'=(x46,y14); draw z14tic--z14';
+  z24trc=1/2[z14trc,z14']; z34trc=2/3[z14trc,z14'];
+  trir(24, trht, trbs); fill pth24;
+%  trir(34, trht, trbs); fill pth34;
+
+  z12trl=z14trr;                  % pin 2
+  trir(12, trht, trbs); fill pth12;
+  z12'=(x46,y12); draw z12tic--z12';
+  z22=(x24,y12); z32=(x34,y12);
+  trir(22, trht, trbs); fill pth22;
+%  trir(32, trht, trbs); fill pth32;
+
+%  z21trl=(x24trc, y12trr);        % pin 1
+%  trir(21, trht, trbs); fill pth21;
+%  z21'=(x46,y21); draw z21tic--z21';
+%  z31=(x34,y21);
+%  trir(31, trht, trbs); fill pth31;
+%
+%  z25trr=(x24trc, y14trl);        % pin 4
+%  trir(25, trht, trbs); fill pth25;
+%  z25'=(x46,y25); draw z25tic--z25';
+%  z35=(x34,y25);
+%  trir(35, trht, trbs); fill pth35;
+  labels(12,14,21,22,23,24,25,31,32,33,34,35,41,42,43,44,45,46);
+endchar;
+
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{E}
+% The \thisfont{} word: Auramazda (verion b).
+%    \begin{macrocode}
+cmchar "Old Persian word: Auramazda (version b) (E)";
+beginglyph("E", (4tb));
+%%  z43=(rightloc-wiht, h/2);       % wing
+%%  wingl(43, wiht, wibs); fill pth43;
+  z46trc=(rightloc,h+trht);                 % vert pin
+  trid(46, trht, trbs); fill pth46;
+  z46'=(x46,-1/2trbs); draw z46tic--z46';
+  z14trr=(leftloc,h/2);           % pin 3
+  trir(14, trht, trbs); fill pth14;
+  z14'=(x46,y14); draw z14tic--z14';
+  z24trc=1/3[z14trc,z14']; z34trc=2/3[z14trc,z14'];
+  trir(24, trht, trbs); fill pth24;
+  trir(34, trht, trbs); fill pth34;
+
+  z12trl=z14trr;                  % pin 2
+  trir(12, trht, trbs); fill pth12;
+  z12'=(x46,y12); draw z12tic--z12';
+  z22=(x24,y12); z32=(x34,y12);
+  trir(22, trht, trbs); fill pth22;
+  trir(32, trht, trbs); fill pth32;
+
+  z21trl=(x24trc, y12trr);        % pin 1
+  trir(21, trht, trbs); fill pth21;
+  z21'=(x46,y21); draw z21tic--z21';
+  z31=(x34,y21);
+  trir(31, trht, trbs); fill pth31;
+
+  z25trr=(x24trc, y14trl);        % pin 4
+  trir(25, trht, trbs); fill pth25;
+  z25'=(x46,y25); draw z25tic--z25';
+  z35=(x34,y25);
+  trir(35, trht, trbs); fill pth35;
+  labels(12,14,21,22,23,24,25,31,32,33,34,35,41,42,43,44,45,46);
+endchar;
+
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{F}
+% The \thisfont{} word: Auramazda (verion c).
+%    \begin{macrocode}
+cmchar "Old Persian word: Auramazda (version c) (F)";
+beginglyph("F", (4tb+wh));
+  z43=(rightloc-wiht, h/2);       % wing
+  wingl(43, wiht, wibs); fill pth43;
+  z46trc=(x43,h+trht);                 % vert pin
+  trid(46, trht, trbs); fill pth46;
+  z46'=(x46,-1/2trbs); draw z46tic--z46';
+  z14trr=(leftloc,y43);           % pin 3
+  trir(14, trht, trbs); fill pth14;
+  z14'=(x46,y14); draw z14tic--z14';
+  z24trc=1/3[z14trc,z14']; z34trc=2/3[z14trc,z14'];
+  trir(24, trht, trbs); fill pth24;
+  trir(34, trht, trbs); fill pth34;
+
+  z12trl=z14trr;                  % pin 2
+  trir(12, trht, trbs); fill pth12;
+  z12'=(x46,y12); draw z12tic--z12';
+  z22=(x24,y12); z32=(x34,y12);
+  trir(22, trht, trbs); fill pth22;
+  trir(32, trht, trbs); fill pth32;
+
+  z21trl=(x24trc, y12trr);        % pin 1
+  trir(21, trht, trbs); fill pth21;
+  z21'=(x46,y21); draw z21tic--z21';
+  z31=(x34,y21);
+  trir(31, trht, trbs); fill pth31;
+
+  z25trr=(x24trc, y14trl);        % pin 4
+  trir(25, trht, trbs); fill pth25;
+  z25'=(x46,y25); draw z25tic--z25';
+  z35=(x34,y25);
+  trir(35, trht, trbs); fill pth35;
+  labels(12,14,21,22,23,24,25,31,32,33,34,35,41,42,43,44,45,46);
+endchar;
+
+%    \end{macrocode}
+% \end{macro}
+%
+%
+%
+%
+% \begin{macro}{1}
+% The \thisfont{} numeral 1
+%    \begin{macrocode}
+cmchar "Old Persian numeral 1 (1)";
+beginglyph("1", (tb));
+  z1trc=(midloc,h);
+  trid(1, trht, trbs); fill pth1;
+  z1'=(x1,0); draw z1tic--z1';
+  labels(1,2);
+endchar;
+
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{2}
+% The \thisfont{} numeral 2
+%    \begin{macrocode}
+cmchar "Old Persian numeral 2 (2)";
+beginglyph("2", (tb));
+  z1trc=(midloc,h);
+  trid(1, trht, trbs); fill pth1;
+  z1'=(x1,0); draw z1tic--z1';
+  z2trc=1/2[z1trc,z1'];
+  trid(2, trht, trbs); fill pth2;
+  labels(1,2);
+endchar;
+
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{3}
+% The \thisfont{} numeral 10
+%    \begin{macrocode}
+cmchar "Old Persian numeral 10 (3)";
+beginglyph("3", (wh));
+  z1=(leftloc,h/2);
+  wingl(1, wiht, wibs); fill pth1;
+  labels(1,2);
+endchar;
+
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{4}
+% The \thisfont{} numeral 20
+%    \begin{macrocode}
+cmchar "Old Persian numeral 20 (4)";
+beginglyph("4", (1/2wh));
+  z1=(leftloc,3/4h);
+  wingl(1, 1/2wiht, 1/2wibs); fill pth1;
+  z2=(leftloc,1/4h);
+  wingl(2, 1/2wiht, 1/2wibs); fill pth2;
+  labels(1,2);
+endchar;
+
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{5}
+% The \thisfont{} numeral 100
+%    \begin{macrocode}
+cmchar "Old Persian numeral 100 (5)";
+beginglyph("5", (tb+2th));
+  z1trl=(leftloc,h);                   % top pins
+  trir(1, trht, trbs); fill pth1;
+  z2trr=(rightloc,h);
+  tril(2, trht, trbs); fill pth2;
+  draw z1tic--z2tic;
+  z11trc=(1/2[x1,x2],y1trr);           % vertical pin
+  trid(11, trht, trbs); fill pth11;
+  z11'=(x11,0); draw z11tic--z11';
+  labels(1,2,11);
+endchar;
+
+%    \end{macrocode}
+% \end{macro}
+%
+%
+%
+%
+%
+% \begin{macro}{:}
+% The \thisfont{} word divider.
+%    \begin{macrocode}
+cmchar "Old Persian word divider (:)";
+beginglyph(":", (3tb));
+  numeric alpha; 
+  alpha := trbs;
+  z1=(leftloc+alpha, h-alpha);
+  z2=(rightloc-alpha, alpha);
+  triangle(1, trht, trbs, angle((z2-z1)));
+  fill pth1; draw z1tic--z2;
+  labels(1,2);
+endchar;
+
+%    \end{macrocode}
+% \end{macro}
+%
+%  The end of the glyphs.
+%
+%    \begin{macrocode} 
+end
+
+%</up>
+%    \end{macrocode}
+%
+%
+%
+% \section{The font definition files} \label{sec:fd}
+%
+%    \begin{macrocode}
+%<*fdot1>
+\DeclareFontFamily{OT1}{copsn}{}
+  \DeclareFontShape{OT1}{copsn}{m}{n}{ <-> copsn10 }{}
+  \DeclareFontShape{OT1}{copsn}{bx}{n}{ <-> sub copsn/m/n }{}
+  \DeclareFontShape{OT1}{copsn}{b}{n}{ <-> sub copsn/m/n }{}
+  \DeclareFontShape{OT1}{copsn}{m}{sl}{ <-> sub copsn/m/n }{}
+  \DeclareFontShape{OT1}{copsn}{m}{it}{ <-> sub copsn/m/n }{}
+%</fdot1>
+%    \end{macrocode}
+%
+%
+%    \begin{macrocode}
+%<*fdt1>
+\DeclareFontFamily{T1}{copsn}{}
+  \DeclareFontShape{T1}{copsn}{m}{n}{ <-> copsn10 }{}
+  \DeclareFontShape{T1}{copsn}{bx}{n}{ <-> sub copsn/m/n }{}
+  \DeclareFontShape{T1}{copsn}{b}{n}{ <-> sub copsn/m/n }{}
+  \DeclareFontShape{T1}{copsn}{m}{sl}{ <-> sub copsn/m/n }{}
+  \DeclareFontShape{T1}{copsn}{m}{it}{ <-> sub copsn/m/n }{}
+%</fdt1>
+%    \end{macrocode}
+%
+% \section{The \Lpack{oldprsn} package code} \label{sec:code}
+%
+%    Announce the name and version of the package, which requires
+% \LaTeXe{}.
+%    \begin{macrocode}
+%<*usc>
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{oldprsn}[2000/09/24 v1.1 package for Old Persian font]
+%    \end{macrocode}
+%
+%
+% \begin{macro}{\copsnfamily}
+%    Selects the font family in the OT1 encoding.
+%    \begin{macrocode}
+\newcommand{\copsnfamily}{\usefont{OT1}{copsn}{m}{n}}
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{\textcopsn}
+%    Text command for the font family.
+%    \begin{macrocode}
+\DeclareTextFontCommand{\textcopsn}{\copsnfamily}
+
+%    \end{macrocode}
+% \end{macro}
+%
+% The commands for the signs.
+%    \begin{macrocode}
+\chardef\Oa=`a
+\chardef\Oi=`i
+\chardef\Ou=`u
+\chardef\Oka=`k
+\chardef\Oku=`K
+\chardef\Oxa=`x
+\chardef\Oga=`g
+\chardef\Ogu=`G
+\chardef\Oca=`c
+\chardef\Oja=`j
+\chardef\Oji=`J
+\chardef\Ota=`t
+\chardef\Otu=`T
+\chardef\Otha=`o
+\chardef\Occa=`C
+\chardef\Oda=`d
+\chardef\Odi=`P
+\chardef\Odu=`D
+\chardef\Ona=`n
+\chardef\Onu=`N
+\chardef\Opa=`p
+\chardef\Ofa=`f
+\chardef\Oba=`b
+\chardef\Oma=`m
+\chardef\Omi=`w
+\chardef\Omu=`M
+\chardef\Oya=`y
+\chardef\Ora=`r
+\chardef\Oru=`R
+\chardef\Ola=`l
+\chardef\Ova=`v
+\chardef\Ovi=`V
+\chardef\Osa=`s
+\chardef\Osva=`S
+\chardef\Oza=`z
+\chardef\Oha=`h
+\chardef\Oking=`X
+\chardef\Ocountrya=`q
+\chardef\Ocountryb=`Q
+\chardef\Oearth=`L
+\chardef\Ogod=`B
+\chardef\OAura=`e
+\chardef\OAurb=`E
+\chardef\OAurc=`F
+\chardef\Owd=`:
+\chardef\Oone=`1
+\chardef\Otwo=`2
+\chardef\Oten=`3
+\chardef\Otwenty=`4
+\chardef\Ohundred=`5
+
+%    \end{macrocode}
+%
+% \begin{macro}{\translitcopsn}
+% \begin{macro}{\translitcopsnfont}
+% |\translitcopsn{|\meta{char-commands}|}| typesets a transliteration of
+% the \thisfont{} character commands. These are typeset with the
+% |\translitcopsnfont|.
+%    \begin{macrocode}
+\newcommand{\translitcopsn}[1]{{%
+  \@translitO\translitcopsnfont #1}}
+\newcommand{\translitcopsnfont}{\itshape}
+
+%    \end{macrocode}
+% \end{macro}
+% \end{macro}
+%
+% \begin{macro}{\@translitO}
+% This macro redefines all the character producing commands for use within
+% |\translitcopsn|. It is important not to have any spaces in the definition.
+%    \begin{macrocode}
+\newcommand{\@translitO}{%
+\def\Oa{a-}%
+\def\Oi{i-}%
+\def\Ou{u-}%
+\def\Oka{ka-}%
+\def\Oku{ku-}%
+\def\Oxa{xa-}%
+\def\Oga{ga-}%
+\def\Ogu{gu-}%
+\def\Oca{ca-}%
+\def\Oja{ja-}%
+\def\Oji{ji-}%
+\def\Ota{ta-}%
+\def\Otu{tu-}%
+\def\Otha{tha-}%
+\def\Occa{\c{c}a-}%
+\def\Oda{da-}%
+\def\Odi{di-}%
+\def\Odu{du-}%
+\def\Ona{na-}%
+\def\Onu{nu-}%
+\def\Opa{pa-}%
+\def\Ofa{fa-}%
+\def\Oba{ba-}%
+\def\Oma{ma-}%
+\def\Omi{mi-}%
+\def\Omu{mu-}%
+\def\Oya{ya-}%
+\def\Ora{ra-}%
+\def\Oru{ru-}
+\def\Ola{la-}%
+\def\Ova{va-}%
+\def\Ovi{vi-}%
+\def\Osa{sa-}%
+\def\Osva{\v{s}a-}%
+\def\Oza{za-}%
+\def\Oha{ha-}%
+\def\Oking{x\v{s}\={a}yathiya\space}%
+\def\Ocountrya{dahy\={a}u\v{s}\space}%
+\def\Ocountryb{dahy\={a}u\v{s}\space}%
+\def\Oearth{b\={u}mi\v{s}\space}%
+\def\Ogod{baga\space}%
+\def\OAura{Auramazd\={a}\space}%
+\def\OAurb{Ahuramazda\space}%
+\def\OAurc{Ahuramazda\space}%
+\def\Owd{:\space}%
+\def\Oone{1+}%
+\def\Otwo{2+}%
+\def\Oten{10+}%
+\def\Otwenty{20+}%
+\def\Ohundred{100+}%
+}
+
+%    \end{macrocode}
+% \end{macro}
+%
+%    The end of this package.
+%    \begin{macrocode}
+%</usc>
+%    \end{macrocode}
+%
+% \section{The map file}
+%
+% Just a short map file.
+% \changes{v1.2}{2005/06/17}{Added the map file}
+%
+%    \begin{macrocode}
+%<*map>
+copsn10     Archaic-Old-Persian    <copsn10.pfb
+%</map>
+%    \end{macrocode}
+%
+%
+% \Finale
+%
+\endinput
+
+%% \CharacterTable
+%%  {Upper-case    \A\B\C\D\E\F\G\H\I\J\K\L\M\N\O\P\Q\R\S\T\U\V\W\X\Y\Z
+%%   Lower-case    \a\b\c\d\e\f\g\h\i\j\k\l\m\n\o\p\q\r\s\t\u\v\w\x\y\z
+%%   Digits        \0\1\2\3\4\5\6\7\8\9
+%%   Exclamation   \!     Double quote  \"     Hash (number) \#
+%%   Dollar        \$     Percent       \%     Ampersand     \&
+%%   Acute accent  \'     Left paren    \(     Right paren   \)
+%%   Asterisk      \*     Plus          \+     Comma         \,
+%%   Minus         \-     Point         \.     Solidus       \/
+%%   Colon         \:     Semicolon     \;     Less than     \<
+%%   Equals        \=     Greater than  \>     Question mark \?
+%%   Commercial at \@     Left bracket  \[     Backslash     \\
+%%   Right bracket \]     Circumflex    \^     Underscore    \_
+%%   Grave accent  \`     Left brace    \{     Vertical bar  \|
+%%   Right brace   \}     Tilde         \~}
+
+

@@ -1,0 +1,1187 @@
+% \iffalse meta-comment
+%
+% greek6cbc.dtx
+%
+%  Author: Peter Wilson (Herries Press) herries dot press at earthlink dot net
+%  Copyright 1999--2005 Peter R. Wilson
+%
+%  This work may be distributed and/or modified under the
+%  conditions of the Latex Project Public License, either
+%  version 1.3 of this license or (at your option) any
+%  later version.
+%  The latest version of the license is in
+%    http://www.latex-project.org/lppl.txt
+%  and version 1.3 or later is part of all distributions of
+%  LaTeX version 2003/06/01 or later.
+%
+%  This work has the LPPL maintenance status "author-maintained".
+%
+%  This work consists of the files listed in the README file.
+%
+%<*driver>
+\documentclass[twoside]{ltxdoc}
+\usepackage{url}
+\usepackage[draft=false,
+            plainpages=false,
+            pdfpagelabels,
+            bookmarksnumbered,
+            hyperindex=false
+           ]{hyperref}
+\providecommand{\phantomsection}{}
+\OnlyDescription %% comment this out for the full glory
+\EnableCrossrefs
+\CodelineIndex
+\setcounter{StandardModuleDepth}{1}
+\makeatletter
+  \@mparswitchfalse
+\makeatother
+\renewcommand{\MakeUppercase}[1]{#1}
+\pagestyle{headings}
+\newenvironment{addtomargins}[1]{%
+  \begin{list}{}{%
+    \topsep 0pt%
+    \addtolength{\leftmargin}{#1}%
+    \addtolength{\rightmargin}{#1}%
+    \listparindent \parindent
+    \itemindent \parindent
+    \parsep \parskip}%
+  \item[]}{\end{list}}
+\begin{document}
+  \raggedbottom
+  \DocInput{greek6cbc.dtx}
+\end{document}
+%</driver>
+%
+% \fi
+%
+% \CheckSum{196}
+%
+% \DoNotIndex{\',\.,\@M,\@@input,\@addtoreset,\@arabic,\@badmath}
+% \DoNotIndex{\@centercr,\@cite}
+% \DoNotIndex{\@dotsep,\@empty,\@float,\@gobble,\@gobbletwo,\@ignoretrue}
+% \DoNotIndex{\@input,\@ixpt,\@m}
+% \DoNotIndex{\@minus,\@mkboth,\@ne,\@nil,\@nomath,\@plus,\@set@topoint}
+% \DoNotIndex{\@tempboxa,\@tempcnta,\@tempdima,\@tempdimb}
+% \DoNotIndex{\@tempswafalse,\@tempswatrue,\@viipt,\@viiipt,\@vipt}
+% \DoNotIndex{\@vpt,\@warning,\@xiipt,\@xipt,\@xivpt,\@xpt,\@xviipt}
+% \DoNotIndex{\@xxpt,\@xxvpt,\\,\ ,\addpenalty,\addtolength,\addvspace}
+% \DoNotIndex{\advance,\Alph,\alph}
+% \DoNotIndex{\arabic,\ast,\begin,\begingroup,\bfseries,\bgroup,\box}
+% \DoNotIndex{\bullet}
+% \DoNotIndex{\cdot,\cite,\CodelineIndex,\cr,\day,\DeclareOption}
+% \DoNotIndex{\def,\DisableCrossrefs,\divide,\DocInput,\documentclass}
+% \DoNotIndex{\DoNotIndex,\egroup,\ifdim,\else,\fi,\em,\endtrivlist}
+% \DoNotIndex{\EnableCrossrefs,\end,\end@dblfloat,\end@float,\endgroup}
+% \DoNotIndex{\endlist,\everycr,\everypar,\ExecuteOptions,\expandafter}
+% \DoNotIndex{\fbox}
+% \DoNotIndex{\filedate,\filename,\fileversion,\fontsize,\framebox,\gdef}
+% \DoNotIndex{\global,\halign,\hangindent,\hbox,\hfil,\hfill,\hrule}
+% \DoNotIndex{\hsize,\hskip,\hspace,\hss,\if@tempswa,\ifcase,\or,\fi,\fi}
+% \DoNotIndex{\ifhmode,\ifvmode,\ifnum,\iftrue,\ifx,\fi,\fi,\fi,\fi,\fi}
+% \DoNotIndex{\input}
+% \DoNotIndex{\jobname,\kern,\leavevmode,\let,\leftmark}
+% \DoNotIndex{\list,\llap,\long,\m@ne,\m@th,\mark,\markboth,\markright}
+% \DoNotIndex{\month,\newcommand,\newcounter,\newenvironment}
+% \DoNotIndex{\NeedsTeXFormat,\newdimen}
+% \DoNotIndex{\newlength,\newpage,\nobreak,\noindent,\null,\number}
+% \DoNotIndex{\numberline,\OldMakeindex,\OnlyDescription,\p@}
+% \DoNotIndex{\pagestyle,\par,\paragraph,\paragraphmark,\parfillskip}
+% \DoNotIndex{\penalty,\PrintChanges,\PrintIndex,\ProcessOptions}
+% \DoNotIndex{\protect,\ProvidesClass,\raggedbottom,\raggedright}
+% \DoNotIndex{\refstepcounter,\relax,\renewcommand,\reset@font}
+% \DoNotIndex{\rightmargin,\rightmark,\rightskip,\rlap,\rmfamily,\roman}
+% \DoNotIndex{\roman,\secdef,\selectfont,\setbox,\setcounter,\setlength}
+% \DoNotIndex{\settowidth,\sfcode,\skip,\sloppy,\slshape,\space}
+% \DoNotIndex{\symbol,\the,\trivlist,\typeout,\tw@,\undefined,\uppercase}
+% \DoNotIndex{\usecounter,\usefont,\usepackage,\vfil,\vfill,\viiipt}
+% \DoNotIndex{\viipt,\vipt,\vskip,\vspace}
+% \DoNotIndex{\wd,\xiipt,\year,\z@}
+%
+% \changes{v1.0}{1999/03/14}{First public release}
+% \changes{v2.0}{2000/10/01}{Changed practically everything}
+% \changes{v2.1}{2005/04/06}{Changed contact info and Postscript Type1}
+%
+% \def\fileversion{v1.0}\def\filedate{1999/03/14}
+% \def\fileversion{v2.0} \def\filedate{2000/10/01}
+% \def\fileversion{v2.1} \def\filedate{2005/04/06}
+% \newcommand*{\Lpack}[1]{\textsf {#1}}           ^^A typeset a package
+% \newcommand*{\Lopt}[1]{\textsf {#1}}            ^^A typeset an option
+% \newcommand*{\file}[1]{\texttt {#1}}            ^^A typeset a file
+% \newcommand*{\Lcount}[1]{\textsl {\small#1}}    ^^A typeset a counter
+% \newcommand*{\pstyle}[1]{\textsl {#1}}          ^^A typeset a pagestyle
+% \newcommand*{\Lenv}[1]{\texttt {#1}}            ^^A typeset an environment
+% \newcommand{\BC}{\textsc{bc}}
+% \newcommand{\AD}{\textsc{ad}}
+% \newcommand{\thisfont}{Greek}
+%
+% \title{The \Lpack{Greek6cbc} font\thanks{This
+%        file has version number \fileversion, last revised
+%        \filedate.}}
+%
+% \author{%
+% Peter Wilson\thanks{\texttt{herries dot press at earthlink dot net}}\\
+% Herries Press
+% }
+% \date{\filedate}
+% \maketitle
+% \begin{abstract}
+%    The \Lpack{greek6cbc} bundle provides a rendition of the kind of
+% Greek characters used about the 6th century~\BC.
+% \end{abstract}
+% \tableofcontents
+%
+% \section{Introduction}
+%
+%    The font presented here is meant to be typical of the Greek characters
+% in use about the 6th century~\BC. It is one of a series of fonts intended
+% to show how the Latin alphabet has evolved from its original Phoenician form
+% to its present day appearance.
+%
+% This manual is typeset according to the conventions of the
+% \LaTeX{} \textsc{docstrip} utility which enables the automatic
+% extraction of the \LaTeX{} macro source files~\cite{MITTELBACH04}.
+%
+%    Section~\ref{sec:usc} describes the usage of the package.
+% Commented code for the fonts and source code for the package 
+% may be in later sections.
+%
+% \subsection{An alphabetic tree}
+%
+%    Scholars are reasonably agreed that all the world's alphabets are descended
+% from a Semitic alphabet invented about 1600~\BC{} in the Middle 
+% East~\cite{DRUCKER95}. The word `Semitic' refers
+% to the family of languages used in the geographical area from
+% Sinai in the south, up the Mediterranean coast to Asia Minor in the north and
+% west to the valley of the Euphrates.
+%
+%    The Phoenician alphabet was stable by about 1100~\BC{} and the script was
+% written right to left. In earlier times the writing direction was variable, 
+% and so were
+% the shapes and orientation of the characters. The alphabet consisted of
+% 22 letters and they were named after things. For example, their first two 
+% letters were called \textit{aleph} (ox), and \textit{beth} (house). 
+% The Phoenician script had
+% only one case --- unlike our modern fonts which have both upper- and 
+% lower-cases. In modern day terms the Phoenician abecedary was: \\
+% A B G D E Y Z H $\Theta$ I K L M N X O P ts Q R S T \\
+% where the `Y' (\textit{vau}) character was sometimes written as `F' and
+% `ts' stands for the \textit{tsade} character.
+%
+%    The Greek alphabet is one of the descendants of the Phoenician alphabet;
+% another was Aramaic which is the ancestor of the Arabic, Persian and Indian 
+% scripts.
+% Initially Greek was written right to left but around the 6th C~\BC{} became 
+% \textit{boustrophedron}, meaning that the lines 
+% alternated in direction. At about 500~\BC{} the writing direction stabilised 
+% as left to 
+% right. The Greeks modified the Phoenician alphabet to match the vocalisation
+% of their language. They kept the Phoenician names of the letters, suitably
+% `greekified', so \textit{aleph} became the familar \textit{alpha} and 
+% \textit{beth} became \textit{beta}. At this
+% point the names of the letters had no meaning. Their were several variants
+% of the Greek character glyphs until they were finally fixed in Athens in
+% 403~\BC.
+% The Greeks did not develop a lower-case 
+% script until about 600--700~\AD.
+%
+%    The Etruscans based their alphabet on the Greek one, and again modified it.
+% However, the Etruscans wrote right to left, so their borrowed characters are 
+% mirror images of the original Greek ones. Like the Phoenicians, the Etruscan
+% script consisted of only one case; they died out before ever needing a
+% lower-case script. The Etruscan script was used up until the first century 
+% \AD, even though the Etruscans themselves had dissapeared by that time.
+% 
+%
+%    In turn, the Romans based their alphabet on the Etruscan one, but as they 
+% wrote left to right, the characters were again mirrored (although the early
+% Roman inscriptions are boustrophedron). 
+%
+%    As the English alphabet is descended from the Roman alphabet
+% it has a pedigree of some three and a half thousand years.
+%
+% \section{The \Lpack{greek6cbc} package} \label{sec:usc}
+%
+%    In the 6th century~\BC{} the Greek alphabet was settling down, but
+% there were several different glyphs used for the characters depending
+% both on the date and on the geographical area. The alphabet retained
+% the Phoenician F form of \textit{vau}, which the Greeks called
+% \textit{digamma}, and also used the Phoenician \textit{qoph} (from
+% which we get our Q). It had added the $\Psi$, $\Phi$, and $\Omega$
+% characters. Thus, the abecedary consisted of 26 characters compared
+% with the 24 characters for modern Greek.
+%
+%    The font presented here is meant to be typical of the time, but
+% does not accurately represent any particular glyph set. The font is based
+% on an amalgm of archaic Greek fonts illustrated in~\cite{DRUCKER95}.
+% I have also used information from the
+% \textit{Encyclopedia Brittanica}.
+%
+%    Table~\ref{tab} lists, in the \thisfont{} alphabetical order, the
+% transliterated value of the characters and the
+% modern and Phoenician names (in parentheses) of the character.
+%
+% \begin{table}
+% \centering
+% \caption{The \thisfont{} script and alphabet}\label{tab}
+% \begin{tabular}{clcl} \hline
+% Value & Name & ASCII & Command \\ \hline
+% $A$ &
+% alpha (aleph) &
+%  a & 
+% |\Aalpha| 
+% \\
+% $B$ &
+% beta (beth) &
+% b & 
+% |\Abeta|
+% \\
+% $\Gamma$ &
+% gamma (gimel) &
+% g & 
+% |\Agamma|
+% \\
+% $\Delta$ &
+% delta (daleth) &
+% d & 
+% |\Adelta|
+% \\
+% $E$ &
+% epsilon (he) &
+% e & 
+% |\Aepsilon|
+% \\
+% $F$ &
+% digamma (vav) &
+% F & 
+% |\Adigamma|
+% \\
+% $Z$ &
+% zeta (zayin) &
+% z & 
+% |\Azeta|
+% \\
+% $H$ &
+% eta (heth) &
+% h & 
+% |\Aeta|
+% \\
+% $\Theta$ &
+% theta (teth) &
+% T & 
+% |\Atheta|
+% \\
+% $I$ &
+% iota (yod) &
+% i & 
+% |\Aiota|
+% \\
+% $K$ &
+% kappa (kaph) &
+% k & 
+% |\Akappa|
+% \\
+% $\Lambda$ &
+% lambda (lamed) &
+% l & 
+% |\Alambda|
+% \\
+% $M$ &
+% mu (mem) &
+% m & 
+% |\Amu|
+% \\
+% $N$  &
+% nu (nun) &
+% n & 
+% |\Anu|
+% \\
+% $\Xi$ &
+% xi (samekh) &
+% x & 
+% |\Axi|
+% \\
+% $O$ &
+% omicron (ayin) &
+% o & 
+% |\Aomicrom|
+% \\
+% $\Pi$ &
+% pi (pe) &
+% p & 
+% |\Api|
+% \\
+% $Q$ &
+% koppa (qoph) &
+% q & 
+% |\Akoppa|
+% \\
+% $R$ &
+% rho (resh) &
+% r & 
+% |\Arho|
+% \\
+% $\Sigma$ &
+% sigma (shin) &
+% s & 
+% |\Asigma|
+% \\
+% $T$ &
+% tau (tav) &
+% t & 
+% |\Atau|
+% \\
+% $\Upsilon$ &
+% upsilon &
+% y & 
+% |\Aupsilon|
+% \\
+% $X$ &
+% chi &
+% X & 
+% |\Achi|
+% \\
+% $\Phi$ &
+% phi &
+% f & 
+% |\Aphi|
+% \\
+% $\Psi$ &
+% psi &
+% P & 
+% |\Apsi|
+% \\
+% $\Omega$ &
+% omega &
+% O & 
+% |\Aomega|
+% \\
+% \hline
+% \end{tabular}
+% \end{table}
+%
+%
+% \DescribeMacro{\gvibcfamily}
+%    This command selects the 6th century~\BC{} Greek font family. 
+% The family name is |gvibc|, standing for Greek VI century BC.
+%
+% \DescribeMacro{\textgvibc}
+% The command |\textgvibc{|\meta{text}|}| typesets \meta{text} in the
+% Greek font.
+%     
+%    I have provided two ways of accessing the \thisfont{} glyphs: 
+% (a) by ASCII characters,
+% (b) by commands whose names are based on the (modern) name of the
+%     character.
+% These are shown in Table~\ref{tab}.
+%
+% \DescribeMacro{\translitgvibc}
+%  |\translitgvibc{|\meta{commands}|}| will typeset \meta{commands}
+% (those in the last column of Table~\ref{tab}) as modern glyphs
+% instead of the archaic ones.
+%
+% \DescribeMacro{\translitgvibcfont}
+%    The transliterated text is set in the |\translitgvibcfont| font,
+% which is initialised to a math roman form (i.e., |\mathrm|).
+%
+%
+% \StopEventually{
+% \bibliographystyle{alpha}
+% \begin{thebibliography}{GMS94}
+%
+% \bibitem[Dru95]{DRUCKER95}
+% Johanna Drucker.
+% \newblock \emph{The Alphabetic Labyrinth}.
+% \newblock Thames and Hudson, 1995.
+%
+% \bibitem[Fir93]{FIRMAGE93}
+% Richard A.~Firmage.
+% \newblock \emph{The Alphabet Abecedarium}.
+% \newblock David R.~Goodine, 1993.
+%
+% \bibitem[MG04]{MITTELBACH04}
+% Frank Mittelbach and Michel Goossens.
+% \newblock \emph{The LaTeX Companion}.
+% \newblock Addison-Wesley Publishing Company, second edition, 2004.
+%
+% \end{thebibliography}
+% \PrintIndex
+% }
+%
+% 
+%
+%
+% \section{The Metafont code} \label{sec:mf}
+%
+% \subsection{The parameter file}
+%
+%    We deal with the parameter file first, and start by announcing
+% what it is for.
+%    \begin{macrocode}
+%<*up>
+%%% GVIBC10.MF  Computer Greek font (6th century BC) 10 point design size.
+
+%    \end{macrocode}
+%    Specify the font size.
+%    \begin{macrocode}
+
+font_identifier:="Greek"; font_size 10pt#;
+
+%    \end{macrocode}
+%
+%
+% \begin{macro}{u} 
+% \begin{macro}{ht} 
+% \begin{macro}{s} 
+% \begin{macro}{o} 
+% \begin{macro}{px} 
+% \begin{macro}{font-normal-space} 
+% \begin{macro}{font-normal-shrink} 
+% \begin{macro}{font-x-height} 
+% \begin{macro}{font-quad}
+%    Define the very simple font parameters.
+%    \begin{macrocode}
+u#:=.2pt#;                 % unit width
+ht#:=7pt#;                 % height of characters (CM cap-height is approx 6.8pt)
+s#:=1.5pt#;                % width correction (right and left)
+o#:=1/20pt#;               % overshoot
+px#:=.7pt#;                % horizontal width of pen
+font_normal_space:=7pt#;   % width of a blank space
+font_normal_shrink:=.9pt#; % width correction for blank space
+font_x_height:=4.5pt#;     % height of one ex
+font_quad:=10pt#;          % an em
+
+%    \end{macrocode}
+% \end{macro}
+% \end{macro}
+% \end{macro}
+% \end{macro}
+% \end{macro}
+% \end{macro}
+% \end{macro}
+% \end{macro}
+% \end{macro}
+%
+%    The driver file would normally be called here.
+%
+%
+% \subsection{The driver file}
+%
+%    If there was a driver file, this would be it.
+%
+%    \begin{macrocode}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% end of parameters
+% start of driver code
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+font_coding_scheme:="Greek glyphs";
+mode_setup;
+
+%    \end{macrocode}
+%
+% \begin{macro}{ho}
+% \begin{macro}{leftloc}
+% \begin{macro}{py}
+%  Perform additional setup.
+%    \begin{macrocode}
+ho#:=o#;                   % horizontal overshoot
+leftloc#:=s#;        % leftmost xcoord of character
+py#:=.9px#;                % vertical thickness of the pen
+
+define_pixels(s,u);
+define_blacker_pixels(px,py);
+define_good_x_pixels(leftloc);
+define_corrected_pixels(o);             % turn on overshoot correction
+define_horizontal_corrected_pixels(ho);  
+
+%    \end{macrocode}
+% \end{macro}
+% \end{macro}
+% \end{macro}
+%
+% \begin{macro}{midloc}
+% \begin{macro}{rightloc}
+%    Variables for the middle xcoord and rightmost xcoord of a character.
+%    \begin{macrocode}
+numeric midloc, rightloc;
+%    \end{macrocode}
+% \end{macro}
+% \end{macro}
+%
+% \begin{macro}{stylus}
+%    Define the pen.
+%    \begin{macrocode}
+pickup pencircle xscaled px yscaled py;
+stylus:=savepen;
+
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{beginglyph}
+%    A macro to save some typing of beginchar arguments.
+%    \begin{macrocode}
+def beginglyph(expr code, unit_width) =
+  beginchar(code, unit_width*ht#+2s#, ht#, 0);
+  midloc:=1/2w; rightloc:=(w-s);
+  pickup stylus enddef;
+
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{cmchar}
+%    |cmchar| should precede each character
+%    \begin{macrocode}
+let cmchar=\;
+
+%    \end{macrocode}
+% \end{macro}
+% 
+%
+% \subsection{The glyph code}
+%
+%    The following code generates the glyphs for the Greek font. The characters
+% are defined in the Greek alphabetic ordering.
+%
+%    \begin{macrocode}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% end of driver code
+% start of glyph code
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%    \end{macrocode}
+%
+% \begin{macro}{a}
+%    The letter \textit{alpha}. Much like our modern A but not quite symmetrical. 
+%    \begin{macrocode}
+ 
+cmchar "Greek letter alpha (a)";
+beginglyph("a",0.6);
+x1=leftloc; x3=rightloc;    % base points
+bot y1 = bot y3 = -o;
+x2 = midloc; top y2 = h;    % apex
+draw z1--z2--z3; % draw the legs
+z4 = 0.4[z1, z2];
+draw z3--z4; % draw the bar
+labels(1,2,3,4);
+endchar;
+
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{b}
+%    The letter \textit{beta}, which is similar to our modern B.
+%    \begin{macrocode}
+ 
+cmchar "Greek letter beta (b)";
+beginglyph("b",0.6);
+x1=x3=x5=leftloc;
+x2=x4=rightloc; 
+bot y1=-o; top y5=h;
+y2=1/4h; y3=1/2h; y4=3/4h;
+draw z1--z5;      % the upright
+draw z1{right}..z2..z3{left};  % lower bowl
+draw z3{right}..z4..z5{left};  % upper bowl
+labels(1,2,3,4,5); endchar;
+ 
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{g}
+%    The letter \textit{gamma}. It is like the Phoenician \textit{gimel} but
+% only has half of the top bar (an upside down L).
+%    \begin{macrocode}
+ 
+cmchar "Greek letter gamma (g)";
+beginglyph("g", 0.4);
+x1=x2=leftloc; x3=rightloc;
+bot y1=-o; top y2 = top y3= h;
+draw z1--z2--z3;
+labels(1,2,3); endchar;
+ 
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{d}
+%    The letter \textit{delta}, like the modern form.
+%    \begin{macrocode}
+ 
+cmchar "Greek letter delta (d)";
+beginglyph("d",0.6);
+x1=leftloc; x2=midloc; x3=rightloc;
+bot y1 = bot y3= 0;
+top y2=h;
+draw z1--z2--z3--cycle;
+labels(1,2,3); endchar;
+ 
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{e}
+%    The letter \textit{epsilon}, like an E.
+%    \begin{macrocode}
+ 
+cmchar "Greek letter epsilon (e)";
+beginglyph("e",0.6);
+x1=x3=leftloc; x4=x6=rightloc;
+bot y1= bot y4= -o; top y3= top y6= h;
+z2=0.5[z1,z3]; z5=0.5[z4,z6];
+draw z4--z1--z3--z6;
+draw z2--z5;
+labels(1,2,3,4,5,6); endchar;
+ 
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{F}
+%    The letter \textit{digamma}. This is like an F.
+%    \begin{macrocode}
+ 
+cmchar "Greek letter digamma (F)";
+beginglyph("F",0.6);
+x1=x3=leftloc; x4=x6=rightloc;
+bot y1= bot y4= -o; top y3= top y6= h;
+z2=0.65[z1,z3]; z5=0.65[z4,z6];
+draw z1--z3--z6;
+draw z2--z5;
+labels(1,2,3,4,5,6); endchar;
+ 
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{z}
+%    The letter \textit{zeta}. This looks like our uppercase letter I.
+%    \begin{macrocode}
+ 
+cmchar "Greek letter zeta (z)";
+beginglyph("z",0.2);
+x1=x2=midloc;
+bot y1=-o; top y2=h;
+draw z1--z2;         % the upright
+x3=x5=leftloc; x4=x6=rightloc;
+y3=y4=y1;  y5=y6=y2;
+draw z3--z4;         % lower bar
+draw z5--z6;         % upper bar
+labels(1,2); endchar;
+
+%    \end{macrocode}
+% \end{macro}
+%
+%
+% \begin{macro}{h}
+%    The letter \textit{eta}. It looks like a rectangle with a horizontal 
+% internal bar.
+%    \begin{macrocode}
+ 
+cmchar "Greek letter eta (h)";
+beginglyph("h", 0.6);
+numeric alpha;
+x1=x3=leftloc; x4=x6=rightloc;
+bot y1 = bot y4= -o; top y3= top y6= h;
+z2=0.5[z1,z3]; z5=0.5[z4,z6];
+draw z1--z3--z6--z4--cycle; % rectangle
+draw z2--z5;                % bar
+labels(1,2,3,4,5,6); endchar;
+ 
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{T}
+% The letter \textit{theta}. It is a circle with horizontal and vertical diameters.
+%    \begin{macrocode}
+ 
+cmchar "Greek letter theta (T)";
+beginglyph("T",1.0);
+path p;
+x1=leftloc; x3=rightloc;
+y2=h; y4=0;
+x2=x4=midloc;
+y1=y3=h/2;
+z100=(x2,y3);  % circle center
+p = z1..z2..z3..z4..cycle;  % the circle
+draw p;
+draw z1--z3; draw z2--z4;   % the cross
+labels(1,2,3,4); endchar;
+
+%    \end{macrocode}
+% \end{macro}
+%
+%
+% \begin{macro}{i}
+%    The letter \textit{iota}. It is a vertical line.
+%    \begin{macrocode}
+ 
+cmchar "Greek letter iota (i)";
+beginglyph("i",0.2);
+x1=x2=midloc;
+bot y1=-o; top y2=h;
+draw z1--z2;
+labels(1,2); endchar;
+
+%    \end{macrocode}
+% \end{macro}
+%
+%
+% \begin{macro}{k}
+%    The letter \textit{kappa}. It looks like a K.
+%    \begin{macrocode}
+ 
+cmchar "Greek letter kappa (k)";
+beginglyph("k",0.6);
+numeric alpha;
+alpha:=0.1;
+x1=rightloc; 
+x2=x1+alpha*(w-s); 
+x3=x4=x5=leftloc;
+bot y1= bot y3=-o; 
+y2=y5=h; y4=1/2h;
+draw z3--z5;                           % the upright
+draw z1--z4; draw z4--z2;              % the arms
+labels(1,2,3,4,5); endchar;
+ 
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{l}
+%    The letter \textit{lambda}. It is an upside down version of the
+% Phoenician \textit{lamed}.
+%    \begin{macrocode}
+ 
+cmchar "Greek letter lambda (l)";
+beginglyph("l",0.4);
+x1=x2=leftloc; x3=rightloc;
+bot y1=-o; y2=h;
+y3=.7h;
+draw z1--z2--z3;
+labels(1,2,3); endchar;
+ 
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{m}
+%    The letter \textit{mu}. It is like the Phoenician \textit{mem}.
+%    \begin{macrocode}
+ 
+cmchar"Greek letter mu (m)";
+beginglyph("m",1.0);
+x1=rightloc;
+x5=x6=leftloc;
+x2=3/4[x5,x1]; x3=1/2[x5,x1]; x4=1/4[x5,x1]; 
+bot y6= -o;
+top y5= top y3 = h;
+top y1=.8h;
+y2=.6h;
+y4=.7h;
+draw z6--z5;
+draw z1--z2--z3--z4--z5;
+labels(1,2,3,4,5,6); endchar;
+ 
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{n}
+%    The letter \textit{nu}. It is a transition between the Phoenician \textit{nun}
+% and a modern N.
+%    \begin{macrocode}
+ 
+cmchar "Greek letter nu (n)";
+beginglyph("n",0.6);
+x1=x2=leftloc; x3=x4=rightloc;
+y1=0; y2=0.8h; y3=0.3h; y4=h;
+draw z1--z2--z3--z4;
+labels(1,2,3,4); endchar;
+ 
+%    \end{macrocode}
+% \end{macro}
+%
+%
+% \begin{macro}{x}
+%    The letter \textit{xi}. It has three horizontal bars with a vertical line
+% in the middle.
+%    \begin{macrocode}
+ 
+cmchar "Greek letter xi (x)";
+beginglyph("x", 0.6);
+x1=x3=leftloc; x4=x6=rightloc;
+bot y1= bot y4= -o; top y3= top y6= h;
+z2=0.5[z1,z3]; z5=0.5[z4,z6];
+z7=0.5[z1,z4]; z8=0.5[z3,z6];
+draw z1--z4; draw z2--z5; draw z3--z6;  % horizontals
+draw z7--z8;                            % vertical
+labels(1,2,3,4,5,6,7,8); endchar;
+ 
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{o}
+%    The letter \textit{omicron}. An O.
+%    \begin{macrocode}
+ 
+cmchar "Greek letter omicron (o)";
+beginglyph("o",1.0);
+x1=leftloc; x3=rightloc;
+y2=h; y4=0;
+x2=x4=midloc;
+y1=y3=h/2;
+draw z1..z2..z3..z4..cycle;
+labels(1,2,3,4); endchar;
+ 
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{p}
+%    The letter \textit{pi}. Looks like a gibbet.
+%    \begin{macrocode}
+ 
+cmchar "Greek letter pi (p)";
+beginglyph("p", 0.4);
+x1=x2=leftloc; x3=x4=rightloc;
+bot y1=-o; top y2= top y3= h; y4=0.6h;
+draw z1--z2--z3--z4;
+labels(1,2,3,4); endchar;
+ 
+%    \end{macrocode}
+% \end{macro}
+%
+%
+% \begin{macro}{q}
+%    The letter Q. 
+% It corresponds to the Phoenician \textit{qoph}.
+%    \begin{macrocode}
+ 
+cmchar "Greek letter (koppa) q";
+beginglyph("q",0.6);
+numeric alpha;
+x1=leftloc;
+x3=rightloc;
+alpha=0.5(x3-x1);  % circle radius
+y2=h;
+y4=y2-2alpha;
+bot y5=-o;
+x2=x4=x5=midloc;
+y1=y3=h-alpha;
+draw z1..z2..z3..z4..cycle;  % the circle
+draw z5--z4;                 % the upright
+labels(1,2,3,4,5); endchar;
+ 
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{r}
+%    The letter \textit{rho}. It looks somewhat like a modern R but with a short
+% tail.
+%    \begin{macrocode}
+ 
+cmchar "Greek letter rho (r)";
+beginglyph("r", 0.4);
+x1=x2=x3=leftloc; x4=rightloc;
+bot y1=-o; top y2=h;
+y3=y4=0.5h; 
+draw z1--z2--z4--z3; % the P shape
+x5=midloc; y5=0.2h;
+draw z3--z5;         % a little leg
+labels(1,2,3,4); endchar;
+ 
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{s}
+%    The letter \textit{sigma}. Like an M on its side.
+%    \begin{macrocode}
+ 
+cmchar "Greek letter sigma (s)";
+beginglyph("s", 0.8);
+x2=x4=leftloc; x1=x5=rightloc;
+y1=0; y5=h;
+y2=0.1h; y4=0.9h;
+z3=(midloc,0.5h);
+draw z1--z2--z3--z4--z5;
+labels(1,2,3,4,5); endchar;
+ 
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{t}
+%    The letter \textit{tau}. A T.
+%    \begin{macrocode}
+ 
+cmchar "Greek letter tau (t)";
+beginglyph("t", 0.6);
+x1=midloc; x2=leftloc; x4=rightloc;
+bot y1=-o; top y2= top y4= h;
+z3=0.5[z2,z4];
+draw z1--z3;  % upright
+draw z2--z4;  % bar
+labels(1,2,3,4); endchar;
+ 
+ 
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{y}
+%    The letter \textit{upsilon}, looking like a Y.
+%    \begin{macrocode}
+ 
+cmchar "Greek letter upsilon (y)";
+beginglyph("y", 0.6);
+x1=x3=midloc; x2=leftloc; x4=rightloc;
+bot y1=-o; top y2= top y4= h;
+y3=0.6h;
+draw z1--z3;  % upright
+draw z2--z3--z4;  % V
+labels(1,2,3,4); endchar;
+ 
+ 
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{X}
+%    The letter \textit{chi}, looking like an X.
+%    \begin{macrocode}
+ 
+cmchar "Greek letter chi (X)";
+beginglyph("X", 0.6);
+x1=x2=leftloc; x3=x4=rightloc;
+bot y1= bot y3=-o; top y2= top y4=h;
+draw z1--z4; draw z2--z3;
+labels(1,2,3,4); endchar;
+ 
+ 
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{f}
+%    The leter \textit{phi}. Oval with a vertical diameter.
+%    \begin{macrocode}
+ 
+cmchar "Greek letter phi (f)";
+beginglyph("f",0.6);
+x1=leftloc; x3=rightloc;
+x2=x4=midloc;
+y1=y3=0.5h;
+y2=h; y4=0;
+draw z1..z2..z3..z4..cycle;  % the oval
+draw z4--z2;                 % the upright
+labels(1,2,3,4,5); endchar;
+ 
+ 
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{Psi}
+%    The letter \textit{psi}. An angular form of the modern letter.
+%    \begin{macrocode}
+ 
+cmchar "Greek letter psi (P)";
+beginglyph("P", 0.6);
+x1=x3=midloc; x2=leftloc; x4=rightloc;
+bot y1=-o; top y2= top y4= h;
+y3=0.5h;
+z5=0.5[z2,z4];
+draw z1--z5;  % upright
+draw z2--z3--z4;  % V
+labels(1,2,3,4,5); endchar;
+ 
+ 
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{O}
+%    The letter \textit{omega}.
+%    \begin{macrocode}
+ 
+cmchar "Greek letter omega (O)";
+beginglyph("O", 1.0);
+x1=leftloc; x4=rightloc;
+y1=y4=0;
+z2=0.35[z1,z4]; z3=0.35[z4,z1];
+x7=midloc; y7=h;
+x5=0.1[x1,x4]; x6=0.1[x4,x1];
+y5=y6=0.5h;
+draw z1--z2..z5..z7..z6..z3--z4;
+labels(1,2,3,4,5,6,7); endchar;
+ 
+%    \end{macrocode}
+% \end{macro}
+%
+%    The end of the glyphs, and the file.
+%    \begin{macrocode}
+
+end
+
+%</up>
+%    \end{macrocode}
+%
+%
+%
+% \section{The font definition files} \label{sec:fd}
+%
+%    \begin{macrocode}
+%<*fdot1>
+\DeclareFontFamily{OT1}{gvibc}{}
+  \DeclareFontShape{OT1}{gvibc}{m}{n}{ <-> gvibc10 }{}
+  \DeclareFontShape{OT1}{gvibc}{bx}{n}{ <-> sub gvibc/m/n }{}
+  \DeclareFontShape{OT1}{gvibc}{b}{n}{ <-> sub gvibc/m/n }{}
+  \DeclareFontShape{OT1}{gvibc}{m}{sl}{ <-> sub gvibc/m/n }{}
+  \DeclareFontShape{OT1}{gvibc}{m}{it}{ <-> sub gvibc/m/n }{}
+%</fdot1>
+%    \end{macrocode}
+%
+%
+%    \begin{macrocode}
+%<*fdt1>
+\DeclareFontFamily{T1}{gvibc}{}
+  \DeclareFontShape{T1}{gvibc}{m}{n}{ <-> gvibc10 }{}
+  \DeclareFontShape{T1}{gvibc}{bx}{n}{ <-> sub gvibc/m/n }{}
+  \DeclareFontShape{T1}{gvibc}{b}{n}{ <-> sub gvibc/m/n }{}
+  \DeclareFontShape{T1}{gvibc}{m}{sl}{ <-> sub gvibc/m/n }{}
+  \DeclareFontShape{T1}{gvibc}{m}{it}{ <-> sub gvibc/m/n }{}
+%</fdt1>
+%    \end{macrocode}
+%
+% \section{The \Lpack{greek6cbc} package code} \label{sec:code}
+%
+%    Announce the name and version of the package, which requires
+% \LaTeXe{}.
+%    \begin{macrocode}
+%<*usc>
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{greek6cbc}[2000/10/01 v2.0 package for 6th century BC Greek font]
+%    \end{macrocode}
+%
+%
+% \begin{macro}{\gvibcfamily}
+%    Selects the Greek font family in the T1 encoding.
+%    \begin{macrocode}
+\newcommand{\gvibcfamily}{\usefont{T1}{gvibc}{m}{n}}
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{\textgvibc}
+%    Text command for the Greek font family.
+%    \begin{macrocode}
+\DeclareTextFontCommand{\textgvibc}{\gvibcfamily}
+%    \end{macrocode}
+% \end{macro}
+%
+%    The commands for the signs.
+%    \begin{macrocode}
+
+\chardef\Aalpha=`a
+\chardef\Abeta=`b
+\chardef\Agamma=`g
+\chardef\Adelta=`d
+\chardef\Aepsilon=`e
+\chardef\Adigamma=`F
+\chardef\Azeta=`z
+\chardef\Aeta=`h
+\chardef\Atheta=`T
+\chardef\Aiota=`i
+\chardef\Akappa=`k
+\chardef\Alambda=`l
+\chardef\Amu=`m
+\chardef\Anu=`n
+\chardef\Axi=`x
+\chardef\Aomicron=`o
+\chardef\Api=`p
+\chardef\Akoppa=`q
+\chardef\Arho=`r
+\chardef\Asigma=`s
+\chardef\Atau=`t
+\chardef\Aupsilon=`y
+\chardef\Achi=`X
+\chardef\Aphi=`f
+\chardef\Apsi=`P
+\chardef\Aomega=`O
+
+%    \end{macrocode}
+%
+% \begin{macro}{\translitgvibc}
+% \begin{macro}{\translitgvibcfont}
+%  |\translitgvibc{|\meta{commands}|}| transliterates \meta{commands}
+% using the |\translitgvibc| font.
+%    \begin{macrocode}
+\newcommand{\translitgvibc}[1]{{%
+  \@translitGvi #1}}
+\newcommand{\translitgvibcfont}{\mathrm}
+
+%    \end{macrocode}
+% \end{macro}
+% \end{macro}
+%
+% \begin{macro}{\@translitGvi}
+% This macro redefines all character commands to produce the transliterated
+% version instaed of the glyph. There must be no spaces
+% in the definition.
+%    \begin{macrocode}
+\newcommand{\@translitGvi}{%
+\def\Aalpha{\ensuremath{\translitgvibcfont{A}}}%
+\def\Abeta{\ensuremath{\translitgvibcfont{B}}}%
+\def\Agamma{\ensuremath{\translitgvibcfont{\Gamma}}}%
+\def\Adelta{\ensuremath{\translitgvibcfont{\Delta}}}%
+\def\Aepsilon{\ensuremath{\translitgvibcfont{E}}}%
+\def\Adigamma{\ensuremath{\translitgvibcfont{F}}}%
+\def\Azeta{\ensuremath{\translitgvibcfont{Z}}}%
+\def\Aeta{\ensuremath{\translitgvibcfont{H}}}%
+\def\Atheta{\ensuremath{\translitgvibcfont{\Theta}}}%
+\def\Aiota{\ensuremath{\translitgvibcfont{I}}}%
+\def\Akappa{\ensuremath{\translitgvibcfont{K}}}%
+\def\Alambda{\ensuremath{\translitgvibcfont{\Lambda}}}%
+\def\Amu{\ensuremath{\translitgvibcfont{M}}}%
+\def\Anu{\ensuremath{\translitgvibcfont{N}}}%
+\def\Axi{\ensuremath{\translitgvibcfont{\Xi}}}%
+\def\Aomicron{\ensuremath{\translitgvibcfont{O}}}%
+\def\Api{\ensuremath{\translitgvibcfont{\Pi}}}%
+\def\Akoppa{\ensuremath{\translitgvibcfont{Q}}}%
+\def\Arho{\ensuremath{\translitgvibcfont{R}}}%
+\def\Asigma{\ensuremath{\translitgvibcfont{\Sigma}}}%
+\def\Atau{\ensuremath{\translitgvibcfont{T}}}%
+\def\Aupsilon{\ensuremath{\translitgvibcfont{\Upsilon}}}%
+\def\Achi{\ensuremath{\translitgvibcfont{X}}}%
+\def\Aphi{\ensuremath{\translitgvibcfont{\Phi}}}%
+\def\Apsi{\ensuremath{\translitgvibcfont{\Psi}}}%
+\def\Aomega{\ensuremath{\translitgvibcfont{\Omega}}}%
+}
+
+%    \end{macrocode}
+% \end{macro}
+%
+%
+%    The end of this package.
+%    \begin{macrocode}
+%</usc>
+%    \end{macrocode}
+%
+% \section{The Type1 map file}
+%
+% Just a line.
+% \changes{v2.1}{2005/04/06}{Added map file}
+%    \begin{macrocode}
+%<*map>
+gvibc10  Archaic-Greek-6th-Century-BC <gvibc10.pfb
+%</map>
+%    \end{macrocode}
+%
+%
+% \Finale
+%
+\endinput
+
+%% \CharacterTable
+%%  {Upper-case    \A\B\C\D\E\F\G\H\I\J\K\L\M\N\O\P\Q\R\S\T\U\V\W\X\Y\Z
+%%   Lower-case    \a\b\c\d\e\f\g\h\i\j\k\l\m\n\o\p\q\r\s\t\u\v\w\x\y\z
+%%   Digits        \0\1\2\3\4\5\6\7\8\9
+%%   Exclamation   \!     Double quote  \"     Hash (number) \#
+%%   Dollar        \$     Percent       \%     Ampersand     \&
+%%   Acute accent  \'     Left paren    \(     Right paren   \)
+%%   Asterisk      \*     Plus          \+     Comma         \,
+%%   Minus         \-     Point         \.     Solidus       \/
+%%   Colon         \:     Semicolon     \;     Less than     \<
+%%   Equals        \=     Greater than  \>     Question mark \?
+%%   Commercial at \@     Left bracket  \[     Backslash     \\
+%%   Right bracket \]     Circumflex    \^     Underscore    \_
+%%   Grave accent  \`     Left brace    \{     Vertical bar  \|
+%%   Right brace   \}     Tilde         \~}
+
+

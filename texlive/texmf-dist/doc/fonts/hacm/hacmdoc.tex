@@ -1,0 +1,110 @@
+\documentclass{article}
+\usepackage{fourier,hacm,color,graphicx}
+\title{hacm.sty --- typesetting \textalblant{hacm}.}
+\author{Kazuaki Miyatani\footnote{For any comments, discussions or invitations for a drink (especially japanese sake),
+        please feel free to contact me at: \texttt{miyatanium[at]gmail[dot]com}}}
+\date{\today}
+\renewcommand{\thesection}{\arabic{section} (\textalblant{\arabic{section}}).}
+\renewcommand{\thepage}{\textalblant{\arabic{page}}}
+\renewcommand{\theenumi}{\textlantia{\arabic{enumi}}}
+\begin{document}
+    \maketitle
+
+    \section{Introduction}
+
+    The Arka\footnote{Official website in Japanese: \texttt{http://constructed-language.org/arka/} and in English:
+    \texttt{http://constructed-language.org/arka/e\_index.html}} is a constructed language,
+    which is extraordinarily elaborate, made largely by Seren Arbazard.
+    One of the key points of this language is that we have an (also elaborately constructed) imaginary world, Kaldia,
+    in which it is spoken, and by which it is affected.
+
+    This package supports your typesetting hacm, the Arka alphabet.
+    The following nine official fonts\footnote{The information on the official fonts are available on the official website above.
+        You can also find some funny official/non-official fonts in \texttt{http://www9.atwiki.jp/hrain/} (Japanese).}
+    are available in this package:
+
+    \begin{center}
+    \renewcommand{\arraystretch}{1.5}
+        \begin{tabular}{ll}
+            kardinal & \textkardinal{tu et kardinal.}\\
+            alblant & \textalblant{tu et alblant.}\\
+            fenlil & \textfenlil{tu et fenlil.}\\
+            nalnia & \textnalnia{tu et nalnia.}\\
+            olivia & \textolivia{tu et olivia.}\\
+            lantia & \textlantia{tu et lantia.}\\
+            inje & \textinje{tu et inje.}\\
+            defans & \textdefans{tu et defans.}\\
+            fialis & \textfialis{tu et fialis.}
+        \end{tabular}
+    \end{center}
+
+    \section{License}
+
+    This package is subject to the \LaTeX{} Project Public Licence\footnote{\texttt{http://www.latex-project.org/lppl/lppl-1-3c.pdf}}.
+    In particular, you can freely use, copy, distribute this package and/or works made by using this package.
+    If you want to distribute this package after some modifications, you must do it in a way that
+    users do not confuse your work and the original one, e.g. by changing the name of the package.
+
+    \section{Usage}
+    
+    In order to use this package, just write \texttt{\textbackslash usepackage\{hacm\}} in the preamble.
+
+    With this package, you have two ways to typewrite Arka words with the font $X$ ( $X = $ kardinal, alblant,... ).
+    The first one is to use \textbackslash\texttt{textX} command;
+
+    \begin{center}
+    \renewcommand{\arraystretch}{1.5}
+        \begin{tabular}{lll}
+            \small \textbackslash\texttt{textkardinal\{tu et to?\}} & $\Longrightarrow$ & \textkardinal{tu et to?}\\
+            \small \texttt{\textbackslash textalblant\{an axt\} \textbackslash textfenlil\{fenlil.\}} & $\Longrightarrow$ &
+            \small \textalblant{an axt} \textfenlil{fenlil.}
+        \end{tabular}
+    \end{center}
+
+    The second one is to use \textbackslash\texttt{X} command.
+    This command changes the font of all letters in the group, after the command;
+    for example, \texttt{\textbackslash textalblant\{12345\}} and \texttt{\{\textbackslash alblant 12345\}} both result in
+    {\alblant 12345}.
+
+    The default commands for enlarging/shrinking letters , like \texttt{\textbackslash Huge} and \texttt{\textbackslash{tiny}},
+    also work for hecm's.
+
+    \begin{center}
+    \renewcommand{\arraystretch}{1.5}
+        \begin{tabular}{lll}
+            \small \texttt{\{\textbackslash Huge  \textbackslash lantia kai tiina\}} & $\Longrightarrow$ & 
+            {\Huge \lantia kai tiina}\\
+            \small \texttt{\{\textbackslash tiny  \textbackslash fialis  lis tiina\}} & $\Longrightarrow$ &
+            {\tiny \fialis lis tiina}
+        \end{tabular}
+    \end{center}
+
+    Of course, we can rotate \rotatebox{90}{\inje hacm} (with \texttt{graphicx.sty}), or color \textcolor{red}{\defans hacm} (with \texttt{color.sty}).
+
+    \texttt{\textbackslash textit}, \texttt{\textbackslash itshape} is only supported for alblant; it makes nalnia.
+    Examples are:
+
+    \begin{center}
+    \renewcommand{\arraystretch}{1.5}
+        \begin{tabular}{lll}
+            \small \texttt{\{\textbackslash alblant skol!\}} & $\Longrightarrow$ & \alblant skol!\\
+            \small \texttt{\{\textbackslash alblant \textbackslash itshape tik!\}} & $\Longrightarrow$ & \alblant \itshape tik!\\
+       \end{tabular}
+    \end{center}
+
+    \section{Things to be considered.}
+        \begin{enumerate}
+            \item This package should include Lunar Letter, and some special commands to indicate single letters.
+            \item This package should support writing boards of xelt.
+            \item Is it useful to provide separate commands to write the page number, chapter number etc. with the digits in Arka
+                (just as in this list) ?
+            \item On using dvipdfm(x), we get too many warnings ``invalid glyph name in ..."
+                I have no idea how to fix it.
+        \end{enumerate}
+
+    \section{History}
+        \begin{tabular}{lll}
+            Ver 0.1 &  Sep. 6, 2012, & The first version.
+        \end{tabular}
+
+\end{document}

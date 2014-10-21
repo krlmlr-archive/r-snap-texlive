@@ -1,0 +1,80 @@
+\ifx\pdfoutput\undefined % We're running regular LaTeX (not pdftex)
+\documentclass[dvips,12pt]{article}
+\RequirePackage[plainpages=false]{hyperref}
+\usepackage{color}
+\typeout{Use 'fig4latex -l' then 'make' to format graphics for regular latex}
+\else % We're running PdfTeX
+\documentclass[pdftex,12pt]{article}
+\RequirePackage[pdftex]{hyperref}
+\hypersetup{colorlinks=true, %
+  plainpages=false, %
+  %pdfpagelabels, %
+  %hyperindex=true, %
+  %backref=true, %
+  %bookmarks=true, %
+  pdftitle={Using fig4latex}, %
+  pdfauthor={Joseph E. Fields}, %
+  pdfsubject={silly examples}, %
+  %pdfpagelayout=SinglePage, %
+  %pdfpagetransition=Dissolve, %
+  pdfstartview={XYZ 0 0 1.25}, %
+  pdfstartpage=2, %
+  pdffitwindow=true}
+\pdfcompresslevel=9
+\typeout{Use 'fig4latex -p' then 'make' to format graphics for pdflatex.}
+
+\fi
+
+\usepackage{graphicx}
+
+\begin{document}
+
+\title{Using fig4latex}
+
+\author{Joseph Fields\thanks{Department of Mathematics, 
+Southern Connecticut State University, New Haven CT 06515, USA; 
+e-mail: fields@southernct.edu}}
+
+\date{\today}
+
+\maketitle
+
+{\em Never raise your hand to your kids. It leaves your groin unprotected. --Red Buttons}
+
+
+\section{Algorithms}
+\label{sec:alg}
+
+ This section contains two figures.  The first is Figure~\ref{fig:if-then}
+which illustrates an excerpt from a computer program both in pseudocode and as a flowchart. 
+
+\begin{figure}[!hbt] 
+\begin{tabular}{ccc} 
+\input{figs/if-then_flowchart.tex} 
+ & \hspace{1in} &
+\begin{minipage}[b]{.3\textwidth}
+\tt If $x=y$ then \\
+\rule{15pt}{0pt}  $x=x+1$ \\
+End If \\
+\rule{30pt}{0pt} \vdots\\
+\\
+\\
+\end{minipage} \\
+\end{tabular}
+\caption{A small example in pseudocode and as a flowchart}
+\label{fig:if-then}
+\end{figure}
+
+Next, we illustrate the division algorithm using a flowchart
+in Figure~\ref{fig:div_alg}.
+
+\begin{figure}[!hbt]
+\begin{center}
+\input{figs/div_alg_flowchart.tex}
+\end{center}
+\caption{The division algorithm in flowchart form.}
+\label{fig:div_alg}
+\end{figure}
+
+That's all folks!
+\end{document}

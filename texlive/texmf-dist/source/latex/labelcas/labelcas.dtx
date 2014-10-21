@@ -1,0 +1,1908 @@
+% \iffalse meta-comment
+%
+% Copyright (C) 2006 by Ulrich Diez <ulrich.diez@alumni.uni-tuebingen.de>
+%
+% This Work may be distributed and/or modified under the conditions of
+% the LaTeX Project Public License, either version 1.3 of this license
+% or (at your option) any later version.  The latest version of this
+% license is in:
+%
+%    http://www.latex-project.org/lppl.txt
+%
+% and version 1.3 or later is part of all distributions of LaTeX version
+% 2003/12/01 or later.
+%
+% This Work has the LPPL maintenance status `author-maintained'.
+%
+% The Current Maintainer of this work is Ulrich Diez.
+%
+% This Work consists of the files labelcas.dtx, labelcas.ins, README and
+% the derived files labelcas.sty and labelcas.pdf.
+%
+% \fi
+%
+% \iffalse
+%<labelcas>\NeedsTeXFormat{LaTeX2e}
+%<labelcas>\ProvidesPackage{labelcas}
+%<labelcas>   [2006/08/14 v1.12 check label-existence and fork accordingly]
+%<*driver>
+\documentclass[a4paper]{ltxdoc}
+\makeatletter
+\@ifdefinable\saved@wrindex{\global\let\saved@wrindex\@wrindex}
+\makeatother
+\usepackage[colorlinks, linkcolor=linkcolour, urlcolor=linkcolour
+%, draft%
+]{hyperref}
+\usepackage{color}
+\definecolor{linkcolour}{cmyk}{0.64,0,0.95,0.40}% <-Olive Green
+\usepackage[DefineLabelcase]{labelcas}
+\EnableCrossrefs
+\CodelineIndex
+\RecordChanges
+%\OnlyDescription
+\pagestyle{plain}%
+\setlength{\textheight}{52\baselineskip}
+\setlength{\topmargin}{\paperheight}
+\addtolength{\topmargin}{-\textheight}
+\setlength{\topmargin}{.5\topmargin}
+\addtolength{\topmargin}{-1in}
+\addtolength{\topmargin}{-\voffset}
+\addtolength{\topmargin}{-\headheight}
+\addtolength{\topmargin}{-\headsep}
+\setlength{\footskip}{\paperheight}
+\addtolength{\footskip}{-\textheight}
+\setlength{\footskip}{.15\footskip}
+\addtolength{\footskip}{\baselineskip}
+\makeatletter
+\@settopoint{\textheight}
+\@settopoint{\topmargin}
+\@settopoint{\footskip}
+\makeatother
+\begin{document}
+  \DocInput{labelcas.dtx}
+\end{document}
+%</driver>
+% \fi
+%
+% \CheckSum{375}
+%
+% \CharacterTable
+%  {Upper-case    \A\B\C\D\E\F\G\H\I\J\K\L\M\N\O\P\Q\R\S\T\U\V\W\X\Y\Z
+%   Lower-case    \a\b\c\d\e\f\g\h\i\j\k\l\m\n\o\p\q\r\s\t\u\v\w\x\y\z
+%   Digits        \0\1\2\3\4\5\6\7\8\9
+%   Exclamation   \!     Double quote  \"     Hash (number) \#
+%   Dollar        \$     Percent       \%     Ampersand     \&
+%   Acute accent  \'     Left paren    \(     Right paren   \)
+%   Asterisk      \*     Plus          \+     Comma         \,
+%   Minus         \-     Point         \.     Solidus       \/
+%   Colon         \:     Semicolon     \;     Less than     \<
+%   Equals        \=     Greater than  \>     Question mark \?
+%   Commercial at \@     Left bracket  \[     Backslash     \\
+%   Right bracket \]     Circumflex    \^     Underscore    \_
+%   Grave accent  \`     Left brace    \{     Vertical bar  \|
+%   Right brace   \}     Tilde         \~}
+%
+% \iffalse meta-comment
+% !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+% !                                                                      !
+% !  !!!  In this TeX-input-file henceforth alignment-tab "&" is    !!!  !
+% !  !!!  used for commenting- and line-breaking-purposes.          !!!  !
+% !                                                                      !
+% !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+% \fi
+% \catcode`\&=14\relax
+%
+% \makeatletter
+%
+% & increase \MacroIndent so that 3-digit line-numbers don't stick out:
+%
+% \setlength\MacroIndent{1.5\MacroIndent}&
+%
+% & Add toc-entries and bookmarks to change-history and index, also put
+% & an 's' behind the word 'italic' in the index-prologue:
+%
+% \renewcommand\tableofcontents{&
+%   \section*{&
+%     \phantomsection
+%     \Hy@raisedlink{\pdfbookmark[1]{\contentsname}{section.0}}&
+%     \contentsname
+%     \@mkboth{\MakeUppercase\contentsname}&
+%             {\MakeUppercase\contentsname}&
+%   }&
+%   \@starttoc{toc}&
+% }&
+%
+% \renewcommand*\glossary@prologue{&
+%   \section*{&
+%     \phantomsection
+%     \customaddcontentsline{toc}&
+%                           {section}&
+%                           {Change History}&
+%                           {\protect\numberline{\protect\null}}&
+%     Change History&
+%     \@mkboth{\MakeUppercase{Change History}}&
+%             {\MakeUppercase{Change History}}&
+%   }&
+% }&
+%
+% \renewcommand*\index@prologue{&
+%   \section*{&
+%     \phantomsection
+%     \customaddcontentsline{toc}&
+%                           {section}&
+%                           {Index}&
+%                           {\protect\numberline{\protect\null}}&
+%     Index&
+%     \@mkboth{\MakeUppercase{Index}}&
+%             {\MakeUppercase{Index}}&
+%   }&
+%   Numbers written in italics refer to the page where the
+%   corresponding entry is described; numbers underlined refer to the
+%   \ifcodeline@index code line of the \fi definition; numbers in roman
+%   refer to the \ifcodeline@index code lines \else pages \fi where the
+%   entry is used.&
+% }&
+%
+% \newcommand*\customaddcontentsline[4]{&
+%   \begingroup
+%   \let\label\@gobble
+%   \let\textlatin\@firstofone
+%   \ifx\@currentHref\@empty
+%     \Hy@Warning{No destination for bookmark of
+%                 \string\customaddcontentsline,&
+%                 \MessageBreak destination is added}&
+%     \phantomsection
+%   \fi
+%   \expandafter\ifx csname toclevel@#2\endcsname\relax
+%     \begingroup
+%       \def\Hy@tempa{#1}&
+%       \ifx\Hy@tempa\Hy@bookmarkstype
+%         \Hy@WarningNoLine{bookmark level for unknown #2 defaults to 0}&
+%       \else
+%         \Hy@Info{bookmark level for unknown #2 defaults to 0}&
+%       \fi
+%     \endgroup
+%     \expandafter\gdef\csname toclevel@#2\endcsname{0}&
+%   \fi
+%   \edef\Hy@toclevel{\csname toclevel@#2\endcsname}&
+%   \Hy@writebookmark{\csname the#2\endcsname}{#4#3}{\@currentHref}&
+%                    {\Hy@toclevel}{#1}&
+%   \ifHy@verbose
+%     \typeout{&
+%       pdftex: bookmark at \the\inputlineno:
+%       {\csname the#2\endcsname}{#4#3}{\@currentHref}{\Hy@toclevel}{#1}&
+%     }&
+%   \fi
+%   \addtocontents{#1}&
+%                 {\protect
+%                  \customcontentsline{#2}{#3}&
+%                  {\thepage}{\@currentHref}{#4}}&
+%   \endgroup
+% }&
+%
+% \newcommand*\customcontentsline[5]{&
+%   \ifx\\#4\\
+%     \csname l@#1\endcsname{#5#2}{#3}&
+%   \else
+%     \ifHy@linktocpage
+%       \csname l@#1\endcsname{{#5#2}}&
+%                             {\hyper@linkstart
+%                              {link}{#4}{#3}&
+%                              \hyper@linkend
+%                             }&
+%     \else
+%       \csname l@#1\endcsname{#5&
+%                              \hyper@linkstart
+%                              {link}{#4}{#2}&
+%                              \hyper@linkend
+%                             }{#3}&
+%     \fi
+%  \fi
+% }&
+%
+% & Write the word '\if' from the tocs:
+% \DeclareRobustCommand\Outif{\string\if}&
+%
+% & Write the equal-sign in change-history:
+% \DeclareRobustCommand\ChgEq{$=$}&
+%
+% & Write macro-names with <prefix> into the margin:
+% \renewcommand*\PrintMacroName[1]{&
+%   \strut
+%   \ifx\pref\empty
+%   \else
+%     {\MacroFont\char`\\}&
+%     {\footnotesize\meta{\pref}}&
+%   \fi
+%   \MacroFont\string #1&
+% }&
+%
+% & Write index-entries in main-text:
+% \newcommand*\MacroIndexEntry[1]{&
+%   \@bsphack
+%   {&
+%     \let\special@index\index
+%     \ifx\pref\empty
+%       \SpecialIndex@{#1}{\encapchar usage}&
+%     \else
+%        \expandafter\SpecialIndex@
+%        \expandafter{&
+%      \expandafter<&
+%        \pref!>#1}{\encapchar usage}&
+%     \fi
+%   }&
+%   \@esphack
+% }&
+%
+% & Write macro-names with <prefix> into the index in macro-description:
+% \renewcommand*\SpecialMainIndex[1]{&
+%   \@bsphack
+%   \ifx\pref\empty
+%     \SpecialIndex@{#1}{\encapchar main}&
+%   \else
+%      \expandafter\SpecialIndex@
+%      \expandafter{&
+%      \expandafter<&
+%      \pref!>#1}{\encapchar main}&
+%   \fi
+%   \@esphack
+% }&
+%
+% & Write macro-names with <prefix> into the index in implementation:
+% \newcommand*\InsertPrefixedUsageToIndex[2]{&
+%   \@bsphack
+%   {&
+%     \expandafter\edef
+%     \expandafter\@tempa
+%     \expandafter{&
+%     \expandafter\string
+%     \csname<#1!>#2\endcsname}&
+%     \codeline@indextrue
+%     \let\special@index\codeline@wrindex
+%     \expandafter\SpecialIndex\expandafter{\@tempa}&
+%   }&
+%   \@esphack
+% }&
+%
+% & Compensate gap between macrocode-environments if no visible/
+% & printable material is between:
+% \newcommand*\macrocodeitemsep{0pt}&
+% \newcommand*\compensategap{&
+%   \ifvmode\unskip\vskip\macrocodeitemsep\fi\@inlabeltrue
+% }&
+%
+% & Write macro-names with <prefix> into change-history:
+% \newcommand*\Patchsavedatmacroname{&
+%   \ifx\pref\empty
+%   \else
+%     \expandafter\edef
+%     \expandafter\saved@macroname
+%     \expandafter{&
+%     \expandafter\string
+%     \csname<\pref!>\saved@macroname\endcsname}&
+%   \fi
+% }&
+%
+% & The <prefix>-placeholder:
+% \newcommand*\pref{}&
+%
+% & Type stuff between angles in meta-format in index and change-history
+% & (\anglechange patches \dospecials which is called by \verb to make
+% &  angle active also in verbatim-mode):
+% {&
+%   \catcode`\<=13\relax
+%   \catcode`\>=12\relax
+%   \gdef\anglechange{&
+%     \let\olddospecials\dospecials
+%     \def\dospecials{&
+%       \olddospecials
+%       \catcode`\>=12
+%       \catcode`\<=13
+%       \def<####1>{\textrm{\meta{####1}}}&
+%     }&
+%   }&
+% }&
+%
+% & create document-title-date from package-filedate
+% \newcommand*\filedatetodate{%
+%   \expandafter\@filedatetodate\filedate\@nil
+% }%
+% \@ifdefinable\@filedatetodate{&
+%   \def\@filedatetodate#1/#2/#3\@nil{&
+%     {&
+%       \edef\@tempa{%
+%         \ifcase#2\or January\or February\or March\or April\or May&
+%                \or June\or July\or August\or September\or October&
+%                \or November\or December&
+%         \fi
+%         \space\number#3, \number#1&
+%       }&
+%     \expandafter}\expandafter\date\expandafter{\@tempa}&
+%   }&
+% }&
+%
+% & hyperref-support for index etc:
+%
+% \renewcommand*\SpecialIndex[1]{&
+%   \@bsphack
+%   \special@index{&
+%     \expandafter\@gobble
+%     \string #1\actualchar
+%     \string\verb\quotechar*\verbatimchar\string#1\verbatimchar
+%     \encapchar sourceusage&
+%   }&
+%   \@esphack
+% }&
+%
+% \newcommand*\@DefineIndexEntryFormat[4]{&
+%   \expandafter\gdef\csname #4\endcsname##1{&
+%     \csname @#4\endcsname##1,\@nnil,\@nnil,&
+%   }&
+%   \toks@{#1{#2{#3}}}&
+%   \expandafter\xdef\csname @#4\endcsname##1,##2,{&
+%     \noexpand\ifx\noexpand\@nnil##1&
+%       \noexpand\expandafter\noexpand\@gobble
+%     \noexpand\else
+%       \noexpand\expandafter\noexpand\@firstofone
+%     \noexpand\fi
+%     {&
+%       \noexpand\ifx\noexpand\@nnil##2&
+%         \noexpand\expandafter\noexpand\@firstoftwo
+%       \noexpand\else
+%         \noexpand\expandafter\noexpand\@secondoftwo
+%       \noexpand\fi
+%       {&
+%         \noexpand\bgroup
+%         \the\toks@
+%         \noexpand\lc@remleadspace,##1, ,,&
+%         \csname @#4\endcsname##2,&
+%       }&
+%       {&
+%         \noexpand\bgroup
+%         \the\toks@
+%         \noexpand\lc@remleadspace,##1, ,,&
+%         , \csname @#4\endcsname##2,&
+%       }&
+%     }&
+%   }&
+% }&
+%
+% \newcommand*\DefineIndexEntryFormat[3]{&
+%    {&
+%      \toks@{{\def\@tempa,##1,}}&
+%      \edef\@tempa{\the\toks@}&
+%      \toks@{{\egroup\link@sanitize##1-\@nil{#2}}}&
+%      \edef\@tempb{\the\toks@}&
+%      \expandafter\expandafter
+%      \expandafter            \@DefineIndexEntryFormat
+%      \expandafter\@tempa
+%      \@tempb{#3}{#1}&
+%    }&
+% }&
+%
+% \@ifdefinable\link@sanitize{&
+%   \def\link@sanitize#1-#2\@nil#3{\link@@sanitize#1,\@nil{#3}}&
+% }&
+% \@ifdefinable\link@@sanitize{&
+%   \def\link@@sanitize#1,#2\@nil#3{\hyperlink{#3.#1}}&
+% }&
+% \global\let\@wrindex\saved@wrindex
+%
+% \DefineIndexEntryFormat{sourceusage}{line}{#1}&
+% \DefineIndexEntryFormat{main}{line}{\underline{#1}}&
+% \DefineIndexEntryFormat{usage}{page}{\textit{#1}}&
+% \DefineIndexEntryFormat{glossaryusage}{page}{#1}&
+%
+% \let\oldtheCodelineNo\theCodelineNo
+% \renewcommand*\theCodelineNo{&
+%   \Hy@raisedlink{&
+%     \hypertarget{line.\arabic{CodelineNo}}{}&
+%   }&
+%   \oldtheCodelineNo
+% }&
+%
+% \renewcommand*\changes@[3]{&
+%   \protected@edef\@tempa{&
+%     \noexpand\glossary{&
+%       #1\levelchar
+%       \ifx\saved@macroname\@empty
+%         \space\actualchar\generalname
+%       \else
+%         \expandafter\@gobble\saved@macroname
+%         \actualchar\string\verb\quotechar*\verbatimchar
+%         \saved@macroname\verbatimchar
+%       \fi
+%       :\levelchar #3&
+%       \noexpand\encapchar glossaryusage&
+%     }&
+%   }&
+%   \@tempa\endgroup
+%   \@esphack
+% }&
+%
+% \let\oldtheindex\theindex
+% \def\theindex{&
+%   \oldtheindex
+%   \let\oldbfseries\bfseries
+%   \def\bfseries\hfil##1\hfil{&
+%     \phantomsection
+%     \oldbfseries\hfil##1\hfil
+%     \Hy@raisedlink{\pdfbookmark[2]{##1}{index.##1}}&
+%   }&
+% }&
+%
+% & suppress page-number of change-history-item:
+% \@ifdefinable\suppresspage{&
+%   \DeclareRobustCommand\suppresspage[3]{\efill}%
+% }&
+%
+% & \nameref without hyperlink (to be used within \hyperref etc):
+% \@ifdefinable\nolinknameref{&
+%   \DeclareRobustCommand*\nolinknameref[1]{&
+%     \@safe@activestrue
+%     \expandafter\real@setref
+%     \csname r@#1\endcsname\@thirdoffive{#1}&
+%     \@safe@activesfalse
+%   }&
+% }&
+%
+% & end of hyperref-support-section
+%
+% \makeatother
+%
+% \changes{v1.0}{2006/01/04}%
+%         {Initial public release.\suppresspage}
+% \changes{v1.01}{2006/01/06}%
+%         {Fixed documentation-inaccuracies.\suppresspage}
+% \changes{v1.02}{2006/01/29}%
+%         {Fixed documentation-inaccuracies.\suppresspage}
+% \changes{v1.04, v1.05}{2006/03/04 2006/03/09}%
+%         {Fixed documentation-inaccuracies.\suppresspage}
+% \changes{v1.08}{2006/07/10}%
+%         {DefineLabelcase-option declared within group for
+%          \textsf{\mbox{hyperref}}-compatibility.\suppresspage}
+% \changes{v1.09}{2006/07/16}{Hyperlinks in documentation.\suppresspage}
+% \changes{v1.12}{2006/08/14}%
+%         {Fixed documentation-inaccuracies.\suppresspage}
+% \DoNotIndex{\@empty,\@firstofone,\@firstoftwo,\@gobble,\@ifdefinable,&
+%             \@nil,\@secondoftwo,\@sptoken,\@temptokena,\toks@,&
+%             \begingroup,\csname,\DeclareOption,\DeclareRobustCommand,&
+%             \def,\edef,\else,\endcsname,\endgroup,\expandafter,\fi,&
+%             \futurelet,\global,\ifx,\let,\long,\newcommand,&
+%             \ProcessOptions,\relax,\the}&
+%
+% \GetFileInfo{labelcas.sty}
+% \filedatetodate
+% \title{&
+%   The \textsf{\mbox{labelcas}} package&
+%   \thanks{&
+%     \vtop{\noindent This document corresponds to
+%       \mbox{\textsf{labelcas}~\fileversion}, dated \filedate.\newline
+%       Usage and distribution under \textsf{\mbox{LPPL}}-conditions. See
+%       \hyperref[sec6]{\emph{\ref*{sec6}~\nolinknameref{sec6}}} for more
+%       details.&
+%     }&
+%   }&
+% }&
+% \author{Ulrich Diez}&
+% \maketitle
+%
+% \begin{abstract}
+% \noindent This \LaTeXe-package provides macros |\eachlabelcase| and
+% |\lotlabelcase| as a means of forking depending on whether specific
+% labels are defined in the current document.
+% \end{abstract}
+%
+% \tableofcontents
+%
+% \newpage
+% \section{Introduction}\label{sec1}
+%
+% The package's name \textsf{\mbox{labelcas}} is an eight-letter
+% abbreviation for the phrases ``label'' and ``case''.
+%
+% There are rare occasions where the author of a document would like to
+% have detected whether specific labels are defined/in use within the
+% document so that proper forking/referencing can take place.
+% This package provides the macros |\eachlabelcase| and |\lotlabelcase|
+% which might facilitate this task.
+%
+% A mechanism for branching depending on whether referencing-labels exist,
+% might be handy, e.g., when extracting a ``snippet'' from a large
+% document: In case that within the snippet a label/document-part is
+% referenced which is outside the snippet's scope, ugly `{\makeatletter
+% \nfss@text{\reset@font\bfseries??}}' will intersperse the resulting
+% output-file and warnings about undefined references will accumulate
+% within the log-file.
+%
+% By testing the label's existence, you can catch up the error and either
+% change the way of referencing (e.g., refer to the snippet's bibliography
+% instead) or completely suppress referencing for those cases. (By using
+% \textsf{\mbox{David Carlisle's}} \textsf{xr}- or
+% \textsf{\mbox{xr-hyper}}-package, you can make available labels of the
+% large document to the snippet also. A label not defined in the snippet
+% can be picked up from the large document\dots)
+%
+% \subsection{Space notation}
+%
+% When listing some piece of \TeX-source-code, you may need to visibly
+% distinguish word-separation from single space-characters. The symbol
+% \verb*+ + is chosen whenever it is important to give a visible
+% impression of a space-character in a (possibly ASCII-encoded) \TeX-&
+% input-file. {\verb*+ +}\nobreak\(_{x}\) does not represent a character
+% of an input-file but a token which occurs after tokenizing the input.
+% The token's category-code is \(x\), the character-number usually is
+% \(32\), which is the ASCII-number of the space-character.
+%
+% \section{Package-loading}\label{sec2}
+%
+% The package is to be loaded in the document-preamble by |\usepackage|.
+% \medskip
+%
+% |\usepackage{labelcas}|~~~or
+%
+% |\usepackage[DefineLabelcase]{labelcas}|.
+% \medskip
+%
+% The only package-option is |DefineLabelcase|. Its usage is described in
+% section~\hyperref[sec4]{\emph{\ref*{sec4}~\nolinknameref{sec4}}}.
+%
+% \newpage
+% \section{The macros}\label{sec3}
+%
+% \subsection{Basic usage}\label{sec3-1}
+%
+% \DescribeMacro{\eachlabelcase}
+% The macro |\eachlabelcase| iterates on a comma-separated list of
+% ``argument-triplets'', whereby each triplet specifies:~~\nobreak
+% {&
+%   \makeatletter
+%   \setbox\@tempboxa\hbox{3. Action if the label is undefined.}&
+%   \@tempdima\dp\@tempboxa
+%   \vtop{&
+%     \noindent
+%     1. a label,\\
+%     2. action if the label is defined,\\
+%     3. action if the label is undefined.&
+%   }&
+%   \par\prevdepth\@tempdima
+% }&
+% \noindent
+% During the iteration, an ``action-queue'' is gathered up from these
+% specifications. After iterating, the ``action-queue'' will be executed.
+% You can also specify a new macro-name within an optional argument. If
+% you do so, the ``action-queue'' will not be executed but the macro will
+% be defined to perform the actions specified in the queue:
+% \bigskip
+%
+% \noindent
+% {&
+%   \footnotesize
+%   |\eachlabelcase[|\emph{\textbackslash macro}|]{|~~~\nobreak
+%   \vtop{&
+%     \noindent
+%     \marg{label 1}\marg{action if label 1 defined}&
+%     \marg{action if label 1 undefined}|,|\\
+%     \marg{label 2}\marg{action if label 2 defined}&
+%     \marg{action if label 2 undefined}| ,|\\
+%     \hspace*{.275\hsize}\texttt{\dots}\\
+%     \marg{label n}\marg{action if label n defined}&
+%     \marg{action if label n undefined}\ \ \ |}|&
+%   }&
+% }&
+% \bigskip
+%
+% \noindent Space-tokens which might surround the comma-separated triplets
+%  will be gobbled.
+% \medskip
+%
+% \noindent
+% \DescribeMacro{\lotlabelcase}
+% The macro |\lotlabelcase| iterates on a comma-separated list of label-&
+% names and tests for each name if the corresponding label is defined.
+% Within the arguments you can specify actions for the cases:~~\nobreak
+% {&
+%   \makeatletter
+%   \setbox\@tempboxa\hbox{4. the list does not contain any label.}&
+%   \@tempdima\dp\@tempboxa
+%   \vtop{&
+%     \noindent
+%     1. all labels are defined,\\
+%     2. none of the labels is defined,\\
+%     3. some labels are defined/some are undefined,\\
+%     4. the list does not contain any label.&
+%   }&
+%   \par\prevdepth\@tempdima
+% }&
+% \noindent
+% Like in |\eachlabelcase|, you can also specify a new macro-name within
+% an optional argument. If you do so, the action will not be executed but
+% the macro will be defined to perform the action:
+% \bigskip
+%
+% \noindent
+% {&
+%   \footnotesize
+%   |\lotlabelcase[|\emph{\textbackslash macro}|]|\nobreak
+%   \vtop{&
+%     \noindent
+%     |{|\meta{label 1}|,|\meta{label 2}|,|\texttt{\dots}&
+%     |,|\meta{label n}|}|\\
+%     \marg{actions if all labels are defined}\\
+%     \marg{actions if all labels are undefined}\\
+%     \marg{actions if some labels are defined and
+%           some labels are undefined}\\
+%     \marg{actions if list is empty}&
+%   }&
+% }&
+% \bigskip
+%
+% \noindent Space-tokens which might surround the label-names will be
+% gobbled. One level of braces will also be gobbled so that you can also
+% test for labels the names of which start or end by a space or contain
+% some comma.
+%
+% \subsubsection{Possible problems}\label{sec3-1-1}
+%
+% \begin{itemize}
+% \item Testing for labels which are \textbf{not definable} according to
+%       the syntax-rules will lead to \TeX-internal error-messages and
+%       deliver unexpected/unwanted results!
+% \item ``Label- and referencing management'' in \LaTeXe\ is done by
+%       means of the aux-file, the content of  which is gathered and
+%       corrected during several \LaTeX-runs, and which does not yet
+%       exist in the first run. So, in the first run, all labels from the
+%       current document are undefined---when applying |\...labelcase| to
+%       labels of the current document, it will in any case take at least
+%       two \LaTeX-runs until everything matches out correctly.
+% \item It was mentioned that, in the macros |\eachlabelcase| and
+%       |\lotlabelcase|, space-tokens which surround the argument-&
+%       triplets/label-names, will be gobbled. There are situations where
+%       the category-code of the input-character \verb*+ + is changed---&
+%       e.g., due to a preceding |\obeyspaces| or when using some package
+%       where the encoding of \TeX-input-files is played around with.
+%       In such cases, the input-character \verb*+ + does not get
+%       tokenized as space-token any more but as some \verb*+ +\nobreak&
+%       \(_{\neq10}\)-token, so that in such cases, triplets/labels in
+%       these macros may, in the input-file, not be surrounded by
+%       \verb*+ +\nobreak-\nobreak characters.\\
+%       If you want to have these \verb*+ +\nobreak\(_{\neq10}\)-tokens
+%       gobbled anyway, you can easily achieve this by defining another
+%       set of these macros where the appropriate token, e.g.,
+%       \verb*+ +\nobreak\(_{13}\)~(active-space) instead of
+%       \verb*+ +\nobreak\(_{10}\)~(space-token), is taken into account.
+%       How this is done, is described in
+%       section~\hyperref[sec4]{\emph{\ref*{sec4}~\nolinknameref{sec4}}}.
+% \item In the very unlikely case{\makeatletter\footnote{The case is very
+%       unlikely because it is a convention in \LaTeXe\ to leave
+%       {\verbatim@font\string\@nil} undefined. If labels are defined in
+%       terms of macros, these macros are to expand to something that can
+%       be evaluated by a {\verbatim@font\string\csname\dots\string&
+%       \endcsname}-construct. If they are to expand to something, they
+%       must be defined\dots}} that you wish |\lotlabelcase| (or variants
+%       thereof\thinspace\footnote{\(\rightarrow\)&
+%       \hyperref[sec4]{\emph{\ref*{sec4}~\nolinknameref{sec4}}}.})&
+%       to scan for the label |\@nil|, |\@nil|
+%       has to be put in  braces and/or has to be surrounded by space-&
+%       tokens. This is because the internal iterator-macros terminate on
+%       |\@nil|.
+% \item Internally token-registers are used and temporary-macros get
+%       defined. So the macros |\eachlabelcase| and |\lotlabelcase| (and
+%       all variants&
+%       \addtocounter{footnote}{-1}\addtocounter{Hfootnote}{-1}&
+%       \footnotemark) are not ``full-expandable''. This means, |\edef| or
+%       |\write| or control-sequences the like which evaluate their
+%       arguments fully, cannot be applied to them.\footnote{In any case it
+%       cannot be ensured that all arguments supplied are
+%       ``full-expandable''\dots} Therefore they are declared robust.
+% \item |\lotlabelcase| and |\eachlabelcase| can be nested. Inner
+%       instances will be gathered into the action-queues of outer
+%       instances.
+% \item If the optional argument for defining a \meta{macro} rather than
+%       having the action(s) executed immediately, is used, \meta{macro}
+%       will only be defined within the group where the |\...labelcase|-&
+%       command occurred.\\
+%       |\@ifdefinable| is involved into the assignment-process, so that
+%       an ``already-defined''-error is forced whenever an existing macro
+%       is about to be overridden.\\
+%       If you need it global, you can achieve this---after having
+%       \meta{macro} defined---by something like
+%       |\global\let\macro=\macro|.\\
+%       If you need a ``long''-macro, you can achieve this---after having
+%       \meta{macro} defined---by something like:\\
+%       |\expandafter\renewcommand\expandafter\macro\expandafter{\macro}|&
+%       .\\
+%       But think about it. These macros don't take arguments!
+% \item If you use the arguments of |\lotlabelcase|/|\eachlabelcase| for
+%       defining other referencing-labels, things can easily get very
+%       confusing\dots
+% \end{itemize}
+%
+% \newpage
+% \subsubsection{Examples}\label{sec3-1-2}
+% \smallskip
+%
+% Within this document, only the labels |sec1|, |sec2|, |sec3|, |sec4|,
+% |sec5| and |sec6| are defined.\bigskip
+%
+% \noindent
+% \begin{minipage}{\linewidth}
+%   \noindent
+%   |\lotlabelcase{sec1, sec2 , {sec3} ,sec4}|\\
+%   |             {All labels are defined.}|\\
+%   |             {None of the labels is defined.}|\\
+%   |             {Some labels are defined, some not.}|\\
+%   |             {The list is empty.}|\medskip\\
+%   yields:
+%   \lotlabelcase{sec1, sec2 , {sec3} ,sec4}
+%                {All labels are defined.}
+%                {None of the labels is defined.}
+%                {Some labels are defined, some not.}
+%                {The list is empty.}&
+% \end{minipage}
+% \bigskip
+%
+% \noindent
+% \begin{minipage}{\linewidth}
+%   \noindent
+%   |\lotlabelcase{sec1, sec2 , UNDEFINED ,sec3}|\\
+%   |             {All labels are defined.}|\\
+%   |             {None of the labels is defined.}|\\
+%   |             {Some labels are defined, some not.}|\\
+%   |             {The list is empty.}|\medskip\\
+%   yields:
+%   \lotlabelcase{sec1, sec2 , UNDEFINED ,sec3}
+%                {All labels are defined.}
+%                {None of the labels is defined.}
+%                {Some labels are defined, some not.}
+%                {The list is empty.}&
+% \end{minipage}
+% \bigskip
+%
+% \noindent
+% \begin{minipage}{\linewidth}
+%   \noindent
+%   |\lotlabelcase{UNDEF1, UNDEF2 , {UNDEF3} ,UNDEF4}|\\
+%   |             {All labels are defined.}|\\
+%   |             {None of the labels is defined.}|\\
+%   |             {Some labels are defined, some not.}|\\
+%   |             {The list is empty.}|\medskip\\
+%   yields:
+%   \lotlabelcase{UNDEF1, UNDEF2 , {UNDEF2-1} ,UNDEF2-2}
+%                {All labels are defined.}
+%                {None of the labels is defined.}
+%                {Some labels are defined, some not.}
+%                {The list is empty.}&
+% \end{minipage}
+% \bigskip
+%
+% \noindent
+% \begin{minipage}{\linewidth}
+%   \noindent
+%   |\lotlabelcase{ ,,  ,}|\\
+%   |             {All labels are defined.}|\\
+%   |             {None of the labels is defined.}|\\
+%   |             {Some labels are defined, some not.}|\\
+%   |             {The list is empty.}|\medskip\\
+%   yields:
+%   \lotlabelcase{ ,,  ,}
+%                {All labels are defined.}
+%                {None of the labels is defined.}
+%                {Some labels are defined, some not.}
+%                {The list is empty.}&
+% \end{minipage}
+% \bigskip
+%
+% \noindent
+% \begin{minipage}{\linewidth}
+%   \noindent
+%   |\lotlabelcase[\test]{sec1, sec2 , UNDEFINED ,sec3}|\\
+%   |                    {All labels are defined.}|\\
+%   |                    {None of the labels is defined.}|\\
+%   |                    {Some labels are defined, some not.}|\\
+%   |                    {The list is empty.}|\medskip\\
+%   defines: |\test|:{
+%   \lotlabelcase[\test]{sec1, sec2 , UNDEFINED ,sec3}
+%                       {All labels are defined.}
+%                       {None of the labels is defined.}
+%                       {Some labels are defined, some not.}
+%                       {The list is empty.}&
+%   {\makeatletter\verbatim@font\meaning\test}}
+% \end{minipage}
+% \bigskip
+%
+% \noindent
+% \begin{minipage}{\linewidth}
+%   \noindent
+%   |\eachlabelcase{ {sec1}{sec1 defined/}{sec1 undefined/},|\\
+%   |                {sec2}{sec2 defined/}{sec2 undefined/} ,|\\
+%   |                {UNDEF}{UNDEF defined/}{UNDEF undefined/} ,|\\
+%   |                {sec3}{sec3 defined.}{sec3 undefined.}  }|&
+%   \medskip\\
+%   yields:
+%   \eachlabelcase{ {sec1}{sec1 defined/}{sec1 undefined/},
+%                   {sec2}{sec2 defined/}{sec2 undefined/} ,
+%                   {UNDEF}{UNDEF defined/}{UNDEF undefined/} ,
+%                   {sec3}{sec3 defined.}{sec3 undefined.}  }&
+% \end{minipage}
+% \bigskip
+%
+% \noindent
+% \begin{minipage}{\linewidth}
+%   \noindent
+%   |\eachlabelcase[\test]{ {sec1}{sec1 defined/}{sec1 undefined/},|\\
+%   |                       {sec2}{sec2 defined/}{sec2 undefined/} ,|\\
+%   |                       {UNDEF}{UNDEF defined/}{UNDEF undefined/} ,|&
+%   \\
+%   |                       {sec3}{sec3 defined.}{sec3 undefined.}  }|&
+%   \medskip\\
+%   {&
+%      \eachlabelcase[\test]{ {sec1}{sec1 defined/}{sec1 undefined/},
+%                             {sec2}{sec2 defined/}{sec2 undefined/} ,
+%                             {UNDEF}{UNDEF defined/}{UNDEF undefined/} ,
+%                             {sec3}{sec3 defined.}{sec3 undefined.}  }&
+%      defines: |\test|:
+%
+%     \hskip\leftmargini
+%     \vtop{{\makeatletter\verbatim@font\meaning\test}}&
+%   }&
+% \end{minipage}
+%
+% \newpage
+% \subsection{&
+%   \texorpdfstring
+%   {&
+%     Advanced usage (brace-matching, {\ttfamily\selectfont\Outif&
+%     \dots\thinspace}, defining macros)&
+%   }&
+%   {&
+%     Advanced usage (brace-matching, {\textbackslash if\dots}, defining
+%     macros)&
+%   }&
+% }
+%
+% \begin{itemize}
+%   \item Braces within the arguments/comma-separated items must be
+%         balanced.
+%   \item Within the ``action-parts'' of |\eachlabelcase|'s argument-&
+%         triplets from which the action-queue is formed, balancing
+%         {\makeatletter\verbatim@font\mbox{\string\if\dots\string\else
+%         \dots\string\fi}}-constructs is not required. But ensured must
+%         be, that in the resulting action-queue everything is balanced
+%         correctly in any case.
+%         \bigskip
+%
+%         \noindent
+%         \begin{minipage}{\linewidth}
+%           \noindent
+%           |\eachlabelcase{  {sec1}     {\if aa}       {\if ab},|\\
+%           |                 {sec2}  {a is a\else}   {a is b\else} ,|\\
+%           |                 {sec3}{a is not a\fi.}{a is not b\fi.}   }|&
+%           \smallskip\\
+%           is gathered to: |\if aaa is a\else a is not a\fi.|\\
+%           Executing the queue yields:
+%           \eachlabelcase{ {sec1}    {\if aa}       {\if aa},
+%                           {sec2}  {a is a\else}   {a is b\else} ,
+%                           {sec3}{a is not a\fi.}{a is not b\fi.},   }&
+%         \end{minipage}
+%         \bigskip
+%
+%         \noindent
+%         \begin{minipage}{\linewidth}
+%           \noindent
+%           |\eachlabelcase{  {sec1}     {\if aa}       {\if ab},|\\
+%           |                 {UNDEF}  {a is a\else}  {a is b\else} ,|\\
+%           |                 {sec3} {a is not a\fi.}{a is not b\fi.}   }|&
+%           \smallskip\\
+%           is gathered to: |\if aaa is b\else a is not a\fi.|\\
+%           Executing the queue yields:
+%           \eachlabelcase{ {sec1}     {\if aa}       {\if aa},
+%                           {UNDEF}  {a is a\else}  {a is b\else} ,
+%                           {sec3} {a is not a\fi.}{a is not b\fi.},   }&
+%         \end{minipage}
+%         \medskip
+%
+%         When trying such obscure things, you must be aware that brace/&
+%         group-nesting is independent from conditional-nesting! You might
+%         easily end up with a ``forgotten-endgroup''-error or some
+%         ``extra |\else|\dots''-error when placing such things into other
+%         {\makeatletter\verbatim@font\mbox{\string\if\dots\string\else
+%         \dots\string\fi}}-constructs!
+%
+%   \item If you wish to use the arguments/comma-separated items for
+%         defining macros, no extra |#|-level is needed as everything is
+%         accumulated within/pro\-ces\-sed by means of token-registers.
+%         \bigskip
+%
+%         \noindent
+%         \begin{minipage}{\linewidth}
+%           \noindent
+%           |\eachlabelcase{ {sec1}{\def\testA#1#2#3}{\def\testB#1#2#3},|\\
+%           |                {sec2}   {{#1,#2,#3}}      {{#3,#2,#1}}     }|&
+%           \smallskip\\
+%           is gathered to: |\def\testA#1#2#3{#1,#2,#3}|~~~.\\
+%           Executing the queue defines:&
+%           {&
+%             \eachlabelcase{ {sec1}{\def\testA#1#2#3}{\def\testB#1#2#3},
+%                             {sec2}   {{#1,#2,#3}}     {{#3,#2,#1}}   }
+%             \vtop{&
+%               |\testA|: {\makeatletter\verbatim@font\meaning\testA}\\
+%               |\testB|: {\makeatletter\verbatim@font\meaning\testB}~~~.&
+%             }&
+%           }&
+%         \end{minipage}
+%         \bigskip
+%
+%         \noindent
+%         \begin{minipage}{\linewidth}
+%           |\eachlabelcase{ {sec1}{\def\testA#1#2#3}{\def\testB#1#2#3},|\\
+%           |               {UNDEF}   {{#1,#2,#3}}      {{#3,#2,#1}}     }|&
+%           \smallskip\\
+%           is gathered to: |\def\testA#1#2#3{#3,#2,#1}|~~~.\\
+%           Executing the queue defines:&
+%           {&
+%             \eachlabelcase{ {sec1}{\def\testA#1#2#3}{\def\testB#1#2#3},
+%                          {UNDEF}   {{#1,#2,#3}}     {{#3,#2,#1}}   }
+%             \vtop{&
+%               |\testA|: {\makeatletter\verbatim@font\meaning\testA}\\
+%               |\testB|: {\makeatletter\verbatim@font\meaning\testB}~~~.&
+%             }&
+%           }&
+%         \end{minipage}
+%         \medskip
+% \end{itemize}
+%
+% \newpage
+% \section{&
+%   \texorpdfstring
+%   {Package option---Different spaces, different se\-pa\-ra\-tors}&
+%   {Package option\textemdash Different spaces, different separators}&
+% }&
+% \label{sec4}
+%
+% Above was said that space-tokens (\verb*+ +\nobreak\(_{10}\)-tokens)
+% which surround the comma-list-arguments of |\eachlabelcase| and
+% |\lotlabelcase| are gobbled.
+%
+% There are circumstances where the category-code which gets assigned to
+% the input-character \verb*+ + during the tokenizing-process is changed,
+% and thus the gobbling-mechanism is broken for these input-characters.
+% E.g., due to a preceding |\obeyspaces| or when using some package where
+% the encoding of \TeX-input-files is played around with.
+% This is because space-gobbling internally is implemented by means of
+% macros with \verb*+ +\nobreak\(_{10}\)-token-delimited arguments.
+%
+% In normal circumstances, \verb*+ +\nobreak-characters in the input-file
+% which trail a control-word do not get tokenized when \TeX\ ``reads'' an
+% input. So it's kind of a problem to get space-tokens right behind the
+% name of a control-word, e.g., as first items of the parameter-text when
+% defining macros. A space within braces \verb*+{ }+ does get tokenized as
+% it is not preceded by a control-word, but by a brace-character. So a
+% solution to the problem is: Define a macro which takes an (en-braced)
+% argument and use this macro for defining the desired control-word
+% whereby the argument is placed right behind the name of the control-&
+% word which is about to be defined. (Henceforth the term \emph{definer&
+% -macro} is applied in order to call special attention to the fact that
+% defining other control-sequences is the only purpose of such a macro.)
+% A \verb*+ + as the definer-macro's argument gets tokenized while this
+% argument is used as the first item of the desired control-word's
+% parameter-text \(\rightarrow\) the first item of the desired control-&
+% word's parameter-text will be a space-token.
+%
+% \DescribeMacro{\DefineLabelcase}
+% In case of the \textsf{\mbox{labelcas}}-package, the problem of getting
+% space-tokens as delimiters right behind control-words, is also solved by
+% implementing such a definer-macro. It is called |\DefineLabelcase| and
+% used for defining both the user-level-macros |\eachlabelcase| and
+% |\lotlabelcase| and the internal-macros |\lc@iterate|,
+% |\lc@remtrailspace| and |\lc@remleadspace|.
+% Usually it is discarded/destroyed when defining these macros has taken
+% place. But you can specify the package-option |DefineLabelcase|. When
+% you do so, |\DefineLabelcase| does not get destroyed, and you can use it
+% for creating ``new variants'' of |\eachlabelcase| and |\lotlabelcase|
+% plus internals while specifying proper space-tokens and separators.
+% |\DefineLabelcase| takes four mandatory arguments:
+% \bigskip
+%
+% \noindent
+% |\DefineLabelcase|\marg{space}\marg{delimiter}\marg{prefix}&
+% \marg{global-indicator}
+%
+% \begin{description}
+% \item[\textnormal{\meta{space}}] specifies the argument-surrounding
+%      token that is to be removed. Usually surrounding space-tokens
+%      shall be discarded. Usually:~\verb*+ +\nobreak\(_{10}\)~(space).
+% \item[\textnormal{\meta{delimiter}}] specifies the delimiter/separator.
+%      Usually the argument-triplets or label-lists are comma-separated.
+%      Usually:~\verb*+,+\nobreak\(_{12}\)~(comma).
+% \item[\textnormal{\meta{prefix}}] specifies the macro-name-prefix. You
+%      cannot assign the same name at the same time to different
+%      control-sequences. Therefore, when creating new variants of
+%      |\eachlabelcase| and |\lotlabelcase|, you have to specify a prefix
+%      which gets inserted at the beginning of the macro-name. E.g.,
+%      specifying the prefix |FOO| leads to defining the macro-set:\\
+%      |\FOOeachlabelcase|\MacroIndexEntry{\<prefix!>eachlabelcase},
+%      |\FOOlotlabelcase|\MacroIndexEntry{\<prefix!>lotlabelcase}
+%      (user-macros) and\\
+%      |\FOOlc@iterate|\MacroIndexEntry{\<prefix!>lc@iterate},
+%      |\FOOlc@remtrailspace|\MacroIndexEntry{\<prefix!>lc@remtrailspace},
+%      |\FOOlc@remleadspace|\MacroIndexEntry{\<prefix!>lc@remleadspace}
+%      (internal).\\
+%      The original versions are just called |\eachlabelcase|,
+%      |\lotlabelcase|, |\lc@iterate|\dots (without a prefix in the
+%      macro-name). Usually:~(empty).
+% \item[\textnormal{\meta{global-indicator}:}] In case that this argument
+%      contains only the token |\global|, defining the new macro-set takes
+%      place in terms of |\global|. Otherwise the scope is restricted to
+%      the current grouping-level. Usually:~\verb*+\global+.
+% \end{description}
+%
+% Don't try weird things like specifying the same token both for
+% \meta{space} and \meta{delimiter}, or leaving any of those empty, or
+% specifying any of those to |\@nil| (,~which is reserved for terminating
+% the recursion)---unless you like error-messages! Please only specify
+% tokens which may be used for separating parameters from each other
+% within the parameter-text of a definition! Also please specify the
+% \meta{prefix} only in terms of letter-character-tokens! \textbf{There is
+% no extra error-checking implemented on these things!}
+% \bigskip
+%
+% \noindent
+% \begin{minipage}{\linewidth}
+%   \noindent
+%   |\begingroup|\\
+%   |\obeyspaces|\\
+%   |\endlinechar=-1\relax%|\\
+%   \verb*|\DefineLabelcase{ }{/}{SPACEOBEYED}{local}%|\\
+%   \verb*|\SPACEOBEYEDlotlabelcase[\test]{sec1/ sec2   /   UNDEF     /sec3}%|\\
+%   \verb*|{All   labels   are   defined.}%|\\
+%   \verb*|{None   of   the   labels   is   defined.}%|\\
+%   \verb*|{Some   labels   are   defined,   some not.}%|\\
+%   \verb*|{The   list   is   empty.}%|\\
+%   |\global\let\test\test%|\\
+%   |\endgroup|\medskip\\
+%   defines: |\test|:
+%\begingroup
+%\obeyspaces
+%\endlinechar=-1\relax&
+%\DefineLabelcase{ }{/}{SPACEOBEYED}{local}&
+%\SPACEOBEYEDlotlabelcase[\test]{sec1/ sec2   /   UNDEF     /sec3}&
+%{All   labels   are   defined.}&
+%{None   of   the   labels   is   defined.}&
+%{Some   labels   are   defined,   some not.}&
+%{The   list   is   empty.}&
+%\global\let\test\test&
+%\endgroup
+%   {&
+%     \makeatletter
+%     \def\spacereplace#1 #2\@nil{&
+%       #1&
+%       \def\@tempa{#2}&
+%       \ifx\@tempa\@empty
+%         \expandafter\@gobble
+%       \else
+%         \expandafter\@firstofone
+%       \fi
+%       {\char32\spacereplace#2\@nil}&
+%     }&
+%     \verbatim@font
+%     \expandafter\expandafter
+%     \expandafter\spacereplace
+%     \expandafter\meaning
+%     \expandafter\test
+%     \space\@nil
+%   }&
+%   \global\let\test\undefined
+% \end{minipage}
+% \bigskip
+%
+% \noindent
+% \begin{minipage}{\linewidth}
+%   \noindent
+%   |\begingroup|\\
+%   |\endlinechar=-1\relax|\\
+%   |\DefineLabelcase{-}{/}{BAR}{local}%|\\
+%   |\BARlotlabelcase[\test]{sec1/-sec2----/--%|\\
+%   |                              ---/sec3}%|\\
+%   |{All   labels   are   defined.}%|\\
+%   |{None   of   the   labels   is   defined.}%|\\
+%   |{Some   labels   are   defined,   some not.}%|\\
+%   |{The   list   is   empty.}%|\\
+%   |\global\let\test\test|\\
+%   |\endgroup|\medskip\\
+%   defines: |\test|:
+%   \begingroup
+%     \endlinechar=-1\relax
+%     \DefineLabelcase{-}{/}{BAR}{local}&
+%     \BARlotlabelcase[\test]{sec1/-sec2----/--&
+%                                   ---/sec3}&
+%                            {All   labels   are   defined.}&
+%                            {None   of   the   labels   is   defined.}&
+%                            {Some   labels   are   defined,   some not.}&
+%                            {The   list   is   empty.}&
+%     \global\let\test\test
+%   \endgroup
+%   {\makeatletter\verbatim@font\meaning\test}&
+%   \global\let\test\undefined
+% \end{minipage}
+% \bigskip
+%
+% \noindent
+% \begin{minipage}{\linewidth}
+%   \noindent
+%   |\begingroup|\\
+%   |\endlinechar=-1\relax|\\
+%   |\DefineLabelcase{.}{/}{DOT}{local}%|\\
+%   |\DOTeachlabelcase{.{sec1}..{sec1 defined/}{sec1 undefined/}/%|\\
+%   |..................{sec2}...{sec2 defined/}...{sec2 undefined/}./..%|\\
+%   |..................{UNDEF}{UNDEF defined/}...{UNDEF undefined/}./%|\\
+%   |..................{sec3}{sec3 defined.}{sec3 undefined.}..}|\\
+%   |\endgroup|\medskip\\
+%   yields:
+%   \begingroup
+%     \endlinechar=-1\relax
+%     \DefineLabelcase{.}{/}{DOT}{local}&
+%     \DOTeachlabelcase{.{sec1}..{sec1 defined/}{sec1 undefined/}/&
+%...................{sec2}...{sec2 defined/}...{sec2 undefined/}./..&
+%...................{UNDEF}{UNDEF defined/}...{UNDEF undefined/}./&
+%...................{sec3}{sec3 defined.}{sec3 undefined.}..}&
+%   \endgroup
+% \end{minipage}
+%
+% \newpage
+% \section{Thanks, Acknowledgements}\label{sec5}
+% \begin{itemize}
+% \item Many thanks to all who encouraged me in making the attempt of
+%       getting things in this package less error-prone.
+% \item Thanks to everybody who took the macro-writing challenges
+%       presented in the \textsf{\mbox{INFO-\TeX}-`Around the bend'}-&
+%       department which was initiated back in the early 90's by
+%       \textsf{\mbox{Michael Downes}} and regularly took place under his
+%       guidance. His summaries of the solutions are archived and online
+%       available at \href{http://www.tug.org/tex-archive/info/aro-bend/}&
+%       {\textsf{http://www.tug.org/tex-archive/info/aro-bend/}}. The
+%       information therein helps a great deal in understanding \TeX\ in
+%       general and in learning about basic problem-solving-strategies---&
+%       e.g., the removal of leading- and trailing spaces from an (almost)
+%       arbitrary token-sequence (exercise.015/answer.015).
+% \item Thanks to everybody who provides valuable information at the
+%       \TeX-news-groups and mailing-lists. I received great help
+%       especially at \textsf{\mbox{comp.text.tex}}, where my---often
+%       trivial---questions were answered patiently again and again.
+% \item Thanks to the \LaTeX-package authors, not only for providing means
+%       of achieving special typesetting-goals, but also for hereby
+%       delivering informative programming-examples.
+%       \textsf{\mbox{labelcas}} actually was inspired by
+%       \textsf{\mbox{David Carlisle's}} \textsf{xr}- and
+%       \textsf{\mbox{xr-hyper}}-packages which make available the labels
+%       of other \LaTeX-documents to the current one.
+% \end{itemize}
+%
+% \section{Legal Notes}\label{sec6}
+%
+% \textsf{\mbox{labelcas}}---Copyright (C) 2006 by \mbox{Ulrich Diez}
+% (\href{mailto:ulrich.diez@alumni.uni-tuebingen.de}&
+%       {\textsf{ulrich.diez@alumni.uni-tuebingen.de}})
+% \medskip
+%
+% \textsf{\mbox{labelcas}} may be distributed and/or modified under the
+% conditions of the \textsf{\LaTeX\ Project Public Licence (LPPL)}, either
+% version 1.3 of this license or (at your option) any later version.&
+% \footnote{The latest version of this license is in
+% \href{http://www.latex-project.org/lppl.txt}&
+%      {\textsf{http://www.latex-project.org/lppl.txt}}
+% and version 1.3 or later is part of all distributions of \LaTeX\ version
+% 2003/12/01 or later.}
+% The author and Current Maintainer of this Work is \mbox{Ulrich Diez}.
+% This Work has the LPPL maintenance status `author-maintained' and
+% consists of the files \textsf{\mbox{labelcas.dtx}},
+% \textsf{\mbox{labelcas.ins}}, \textsf{\mbox{README}} and the derived
+% files \textsf{\mbox{labelcas.sty}} and \textsf{\mbox{labelcas.pdf}}.
+% \medskip
+%
+% Usage of the \textsf{\mbox{labelcas}}-package is at your own risk. There
+% is no warranty---neither for the documentation nor for any other part of
+% the \textsf{\mbox{labelcas}}-package. If something breaks, you usually
+% may keep the pieces.
+%
+% \StopEventually{&
+%   \let\PrintChanges\relax
+%   \PrintIndex
+% }
+%
+% \newpage
+% \section{Implementation}
+%
+% \subsection{A note about removing leading and trailing spaces}
+%
+% The matter of removing trailing spaces from an (almost) arbitrary
+% token-sequence is elaborated in detail by \textsf{\mbox{Michael Downes},
+% `Around the Bend \#15, answers'}, a summary of internet-discussion which
+% took place under his guidance primarily at the \textsf{\mbox{INFO-\TeX}
+% list}, but also at \textsf{\mbox{comp.text.tex}} (usenet) and via
+% private e-mail; December 1993. Online archived at
+% \href{http://www.tug.org/tex-archive/info/aro-bend/answer.015}&
+%      {\textsf{http://www.tug.org/tex-archive/info/aro-bend/answer.015}}.
+%
+% One basic approach suggested therein is using \TeX's scanning of
+% delimited parameters in order to detect and discard the ending space of
+% an argument:
+% \begin{quote}
+%   \dots scan for a pair of tokens: a space-token and some well-chosen
+%   bizarre token that can't possibly occur in the scanned text. If you
+%   put the bizarre token at the end of the text, and if the text has a
+%   trailing space, then \TeX's delimiter matching will match at that
+%   point and not before, because the earlier occurrences of space don't
+%   have the requisite other member of the pair.
+%
+%   Next consider the possibility that the trailing space is absent:
+%   \TeX\ will keep on scanning ahead for the pair \meta{space}&
+%   \meta{bizarre} until either it finds them or it decides to give up and
+%   signal a `Runaway argument?' error. So you must add a stop pair to
+%   catch the runaway argument possibility: a second instance of the
+%   bizarre token, preceded by a space. If \TeX\ doesn't find a match at
+%   the first bizarre token, it will at the second one.
+% \end{quote}
+%
+% (Look up the macros |\KV@@sp@def|, |\KV@@sp@b|, |\KV@@sp@c| and
+% |\KV@@sp@d| in \textsf{\mbox{David Carlisle's} \mbox{keyval}-package}
+% for an interesting variation on this approach.)
+% \medskip
+%
+% When scanning for parameters ~~~|##1|\meta{space}\meta{bizarre}|##2|&
+% \meta{B1}~~~ the sequence:
+% \\
+% \meta{stuff where to remove trail-space}\meta{bizarre}\meta{space}&
+% \meta{bizarre}\meta{B1}&
+% \\
+% , you can fork two cases:
+% \begin{enumerate}
+%   \parskip=0ex\relax
+%   \item Trailing-space:\\
+%         |##1|=\meta{stuff where to remove trail-space}, but with removed
+%         space. (And possibly one removed brace-level!)\\
+%         |##2| = \meta{space}\meta{bizarre}.
+%   \item No trailing-space:\\
+%         |##1|=\meta{stuff where to remove trail-space}\meta{bizarre}.\\
+%         |##2| is empty.
+% \end{enumerate}
+%
+% So forking can be implemented depending on the emptiness of |##2|.
+%
+% You can easily prevent the brace-removal in the first case, e.g., by
+% adding (and later removing) something (e.g., a space-token) in front of
+% the \meta{stuff where to remove trail-space}.
+%
+% You can choose \meta{B1}=\meta{bizarre}\meta{space}.
+% \medskip
+%
+% \textsf{`Around the Bend \#15, answers'} also presents a similar way for
+% the removal of leading spaces from an (almost) arbitrary token-sequence:
+% \begin{quote}
+%   The latter method is perhaps most straightforwardly done as a mirror-&
+%   image of the method for removing a trailing space: make the delimiter
+%   \meta{bizarre}\meta{space}, and call the macro [\dots] by putting
+%   \meta{bizarre} before the scanned text and a stop pair \meta{bizarre}&
+%   \meta{space} after it, in case a leading space is not present
+% \end{quote}
+%
+% When scanning for parameters ~~~|##1|\meta{bizarre}\meta{space}|##2|&
+% \meta{B2}~~~ the sequence:
+% \\
+% \meta{bizarre}\meta{stuff where to remove lead-space}\meta{bizarre}&
+% \meta{space}\meta{B2}&
+% \\
+% , you can fork two cases:
+% \begin{enumerate}\parskip=0ex\relax
+%   \item Leading space:\\
+%         |##1|= is empty.\\
+%         |##2| = \meta{stuff where to remove lead-space}\meta{bizarre}&
+%                 \meta{space} (but with a leading-space removed from
+%                 \meta{stuff where to remove lead-space}).
+%   \item No leading space:\\
+%         |##1|=\meta{bizarre}\meta{stuff where to remove lead-space}.\\
+%         |##2| is empty.
+% \end{enumerate}
+%
+% Thus forking can be implemented depending on the emptiness of either of
+% the two arguments.
+%
+% You can choose \meta{B2}=\meta{bizarre}\meta{bizarre}.
+%
+% \subsection{Flow of work}
+%
+% \begin{sloppypar}
+% Both |\|\meta{prefix}|eachlabelcase| and |\|\meta{prefix}|lotlabelcase|
+% iterate on (e.g., comma-) separated lists:
+% \settowidth\labelwidth{5.}&
+% \leftmargini=\labelwidth\relax
+% \advance\leftmargini\labelsep\relax
+% \advance\leftmargini\parindent\relax
+% \begin{enumerate}
+%   \parskip=0ex\relax\itemsep=.25\baselineskip\relax
+% \item The list is passed as an argument to the user-macro.
+% \item The list is passed from the user-macro to
+%       |\|\meta{prefix}|lc@iterate|\MacroIndexEntry{\<prefix!>lc@iterate}
+%       whereby a leading \meta{space} is added for brace-removal-&
+%       protection.
+% \item |\|\meta{prefix}|lc@iterate|\MacroIndexEntry{\<prefix!>lc@iterate}
+%       recursively iterates on the list-items until the item
+%      \meta{space}|\@nil| occurs:&
+% {\def\labelenumii{\theenumii)}&
+%  \settowidth\labelwidth{a)}&
+%  \leftmarginii=\labelwidth\relax
+%  \advance\leftmarginii\labelsep\relax
+% \begin{enumerate}
+%   \parskip=0ex\relax\itemsep=0ex\relax
+%   \makeatletter\@topsep=0ex\relax\makeatother
+%   \item The item will be passed to |\|\meta{prefix}|lc@remtrailspace|&
+%         \MacroIndexEntry{\<prefix!>lc@remtrailspace}. Here trailing
+%         \meta{space} is removed recursively. If after removing
+%         trailing-space the result is empty, you can conclude that
+%         everything (incl the previously inserted ``brace-removal-&
+%         protection-\meta{space}'' was removed as either the item was
+%         empty or consisted of a sequence of \meta{space}. If the
+%         result does not imply an empty item, it will be passed to
+%   \item |\|\meta{prefix}|lc@remleadspace|&
+%         \MacroIndexEntry{\<prefix!>lc@remleadspace} where leading
+%         \meta{space} (also the previously inserted one) is removed
+%         recursively. After that |\|\meta{prefix}|lc@remleadspace|&
+%         \MacroIndexEntry{\<prefix!>lc@remleadspace} passes the item to
+%         the macro
+%   \item |\@tempa| for further processing. |\@tempa| at this stage will
+%         be locally defined within the user-macro. |\@tempa| initiates
+%         the actual work which (hopefully!) results in adding the
+%         appropriate action-sequence to the queue which is represented by
+%         |\@temptokena|.
+%   \item Before processing the next item in the next iteration-round, a
+%         leading \meta{space} for brace-removal-protection will be added
+%         in front of the remaining list by |\|\meta{prefix}|lc@iterate|&
+%         \MacroIndexEntry{\<prefix!>lc@iterate}.
+% \end{enumerate}\unskip}&
+% \item After iterating the list within the user-macro, the routine
+%       |\lc@macrodefiner|\MacroIndexEntry{\lc@macrodefiner} will check
+%       for the user-macro's optional argument and, in case that it is
+%       present, modify the action-queue-register, so that, when
+%       ``flushing'' it, a macro will be produced instead of queue-&
+%       execution.
+% \item The final step within the user-macro is ``flushing'' the action-&
+%       queue-register.
+% \end{enumerate}
+% \end{sloppypar}
+%
+% \newpage
+% \subsection{Code}
+%
+% \begin{macro}{\DefineLabelcase}
+%   |\DefineLabelcase| is used for providing parameters during the
+%   definition of the macros~\nobreak
+%   {&
+%     \makeatletter
+%     \setbox\@tempboxa\hbox{|\|\meta{prefix}|lc@remleadspace|
+%                            (internal).}&
+%     \@tempdima\dp\@tempboxa
+%     \vtop{&
+%       \noindent
+%       |\|\meta{prefix}|eachlabelcase|,
+%       |\|\meta{prefix}|lotlabelcase| (user),\\
+%       |\|\meta{prefix}|lc@iterate|,
+%       |\|\meta{prefix}|lc@remtrailspace|,\\
+%       |\|\meta{prefix}|lc@remleadspace| (internal).&
+%     }&
+%     \par\prevdepth\@tempdima
+%   }&
+%   \noindent
+%   Parameters are:
+%   |#1|\(=\)\meta{space}; |#2|\(=\)\meta{delimiter};
+%   |#3|\(=\)\meta{prefix}; |#4|\(=\)\meta{global-indicator}.
+%
+%   Defining of |\DefineLabelcase| takes place within a group, so that
+%   after closing the group it gets discarded. Package-options will also
+%   be evaluated within that group, right after defining
+%   |\DefineLabelcase|. By the option |DefineLabelcase|,
+%   |\DefineLabelcase| can be ``globalized'' before closing the group:
+% \iffalse
+%<*labelcas>
+% \fi
+%    \begin{macrocode}
+\begingroup
+\DeclareOption{DefineLabelcase}%
+              {\global\let\DefineLabelcase\DefineLabelcase}%
+\newcommand\DefineLabelcase[4]{%
+%    \end{macrocode}
+% \end{macro}
+% \def\pref{prefix}
+% \begin{macro}{lc@remtrailspace}
+% \Patchsavedatmacroname
+% \changes{v1.01}{2006/01/06}{\meta{B1}\ChgEq\meta{bizarre}\nobreak
+%   \meta{space}.}
+% \changes{v1.03}{2006/02/21}{Chan\-ged forking-mechanism to \string
+%   \verb+\string\@firstoftwo+/\string\verb+\string\@secondoftwo+.}
+% \changes{v1.06}{2006/04/20}{\string\verb*+\string\@ifdefinable+ instead
+%   of \string\verb*+\string\newcommand+.}
+% \changes{v1.10}{2006/07/21}{Empty-argument-check added.}
+%   It is assured that \meta{delimiter} does not occur in the top-level of
+%   the \meta{stuff where to remove trail-space}, for \meta{delimiter} is
+%   used in the list for separating the single items of \meta{stuff where
+%   to remove trail-space} from each other. Therefore you can choose
+%   \meta{bizarre}=\meta{delimiter} and \meta{B1}=\meta{bizarre}&
+%   \meta{space}=\meta{delimiter}\meta{space}:
+%    \begin{macrocode}
+  \expandafter\@ifdefinable\csname#3lc@remtrailspace\endcsname{%
+    \expandafter\long
+    \expandafter\def
+    \csname#3lc@remtrailspace\endcsname##1#1#2##2#2#1{%
+%    \end{macrocode}
+%   \InsertPrefixedUsageToIndex{prefix}{lc@remtrailspace}&
+%   Above was said that forking can take place depending on emptiness of
+%   the second argument. The arguments come from the items of the comma-&
+%   separated list---thus they might contain macro-definitions and/or
+%   unbalanced {\makeatletter\verbatim@font\mbox{\string\if\dots\string
+%   \else\dots\string\fi}}-constructs. So put the second argument into a
+%   macro |\@tempa| by means of a token-register in order to prevent
+%   errors related to parameter-numbering:
+%    \begin{macrocode}
+      \begingroup
+      \toks@{##2}%
+      \edef\@tempa{\the\toks@}%
+%    \end{macrocode}
+%   When forking takes place, the content of the arguments might---when
+%   placed into the corresponding |\if|- or |\else|-branches directly---&
+%   erroneously match up those constructs. In order to prevent this, the
+%   action related to the different branches is handled by means of
+%   |\@firstoftwo| and |\@secondoftwo| which get expanded when
+%   ``choosing the forking-route'' is already accomplished:
+%    \begin{macrocode}
+      \expandafter\endgroup
+      \ifx\@tempa\@empty
+        \expandafter\@firstoftwo
+      \else
+        \expandafter\@secondoftwo
+      \fi
+%    \end{macrocode}
+%   The appropriate action in case of no more trailing \meta{space} is
+%   checking if the item is not empty and if so, initiating the removal
+%   of leading \meta{space}. In this case |##1| is terminated by
+%   \meta{bizarre}. If the item is empty, the leading \meta{space}
+%   inserted by the iterator for brace-protection is also removed so that
+%   |##1| equals \meta{bizarre}. If the item is not empty, start leading-&
+%   \meta{space}-removal, but add only \meta{space}\meta{B2} at the end
+%   instead of \meta{bizarre}\meta{space}\meta{B2}---above was said that
+%   \meta{B2}=\meta{bizarre}\meta{bizarre}=&
+%   \meta{delimiter}\meta{delimiter} in |\|\meta{prefix}|lc@remleadspace|:
+%    \begin{macrocode}
+      {%
+        {\toks@{##1}\edef\@tempa{\the\toks@}%
+         \toks@{#2}\edef\@tempb{\the\toks@}%
+         \expandafter}%
+        \ifx\@tempa\@tempb
+          \expandafter\@gobble
+        \else
+          \expandafter\@firstofone
+        \fi
+        {\csname#3lc@remleadspace\endcsname#2##1#1#2#2}%
+%    \end{macrocode}
+%    \compensategap
+%    \InsertPrefixedUsageToIndex{prefix}{lc@remleadspace}&
+%    \begin{macrocode}
+      }%
+%    \end{macrocode}
+%   The appropriate action in case of trailing \meta{space} is checking
+%   and possibly removing more thereof:
+%    \begin{macrocode}
+      {\csname#3lc@remtrailspace\endcsname##1#2#1#2#2#1}%
+%    \end{macrocode}
+%    \compensategap
+%    \InsertPrefixedUsageToIndex{prefix}{lc@remtrailspace}&
+%    \begin{macrocode}
+    }%
+  }%
+%    \end{macrocode}
+% \end{macro}
+% \begin{macro}{lc@remleadspace}
+% \Patchsavedatmacroname
+% \changes{v1.01}{2006/01/06}{\meta{B2}\ChgEq\meta{bizarre}\meta{bizarre}.}
+% \changes{v1.03}{2006/02/21}{Chan\-ged forking-mechanism to
+%   \string\verb+\string\@firstoftwo+/\string\verb+\string\@secondoftwo+.}
+% \changes{v1.06}{2006/04/20}{\string\verb*+\string\@ifdefinable+
+%   instead of \string\verb*+\string\newcommand+.}
+%   |\|\meta{prefix}|lc@remleadspace| is similar to
+%   |\|\meta{prefix}|lc@remtrailspace|, but with \meta{B2}=\meta{bizarre}&
+%   \meta{bizarre}=\meta{delimiter}\meta{delimiter}:
+%    \begin{macrocode}
+  \expandafter\@ifdefinable\csname#3lc@remleadspace\endcsname{%
+    \expandafter\long
+    \expandafter\def
+    \csname#3lc@remleadspace\endcsname##1#2#1##2#2#2{%
+%    \end{macrocode}
+%    \InsertPrefixedUsageToIndex{prefix}{lc@remleadspace}&
+%   Above was said that forking can take place e.g., depending on
+%   emptiness of the first argument. Arguments still come from the list-&
+%   items, so let's use token-registers for the same reasons as in
+%   |\|\meta{prefix}|lc@remtrailspace|:
+%    \begin{macrocode}
+      \begingroup
+      \toks@{##1}%
+      \edef\@tempa{\the\toks@}%
+%    \end{macrocode}
+%   The single list-items might still contain macro-definitions, |\if|-&
+%   forking and the like, therefore again choose the forking-route in
+%   terms of |\@firstoftwo| and |\@secondoftwo|:
+%    \begin{macrocode}
+      \expandafter\endgroup
+      \ifx\@tempa\@empty
+        \expandafter\@firstoftwo
+      \else
+        \expandafter\@secondoftwo
+      \fi
+%    \end{macrocode}
+%   The appropriate action in case of leading \meta{space} is checking
+%   and possibly removing more thereof:
+%    \begin{macrocode}
+      {\csname#3lc@remleadspace\endcsname#2##2#2#2}%
+%    \end{macrocode}
+%    \InsertPrefixedUsageToIndex{prefix}{lc@remleadspace}&
+%   In case of no more leading \meta{space}, the actual work, which is
+%   defined in user-macro's |\@tempa|, can be done:
+%    \begin{macrocode}
+      {\@tempa##1#2}%
+    }%
+  }%
+%    \end{macrocode}
+% \end{macro}
+% \begin{macro}{lc@iterate}
+% \Patchsavedatmacroname
+% \changes{v1.06}{2006/04/20}{\string\verb*+\string\@ifdefinable+
+%   instead of \string\verb*+\string\newcommand+.}
+% \changes{v1.07}{2006/04/27}{Define \string\verb*+\string\@tempa+
+%   in terms of \string\verb*+\string\long+.}
+% \changes{v1.08}{2006/07/10}{Chan\-ged forking-mechanism to
+%   \string\verb+\string\@firstoftwo+/\string\verb+\string\@secondoftwo+.}
+% \changes{v1.09}{2006/07/16}{Chan\-ged forking-mechanism so that
+%   two temporary macros suffice.}
+% \changes{v1.10}{2006/07/21}{Empty-argument-check removed.}
+%   |\|\meta{prefix}|lc@iterate| iterates on arguments which are
+%   delimited by \meta{delimiter}.
+%    \begin{macrocode}
+  \expandafter\@ifdefinable\csname#3lc@iterate\endcsname{%
+    \expandafter\long
+    \expandafter\def
+    \csname#3lc@iterate\endcsname##1#2{%
+%    \end{macrocode}
+%    \InsertPrefixedUsageToIndex{prefix}{lc@iterate}&
+%   Make locally available the arguments as macros:\\
+%   |\@tempa|\(=\)current argument\\
+%   |\@tempb|\(=\)recursion-stop-item:
+%    \begin{macrocode}
+      \begingroup
+      \toks@{##1}%
+      \edef\@tempa{\the\toks@}%
+      \toks@{#1\@nil}%
+      \edef\@tempb{\the\toks@}%
+%    \end{macrocode}
+%   End the group and test if the current argument equals the
+%   recursion-stop-item:
+%    \begin{macrocode}
+      \expandafter\endgroup\ifx\@tempa\@tempb
+        \expandafter\@gobble
+      \else
+        \expandafter\@firstofone
+      \fi
+%    \end{macrocode}
+%   If not: Start trailing-space-removal\dots, then continue iterating the
+%   list and hereby add a preceding \meta{space} to the next item for
+%   brace-protection during trailing-\meta{space}-removal in the next run:
+%    \begin{macrocode}
+      {%
+        \csname#3lc@remtrailspace\endcsname##1#2#1#2#2#1%
+%    \end{macrocode}
+%    \compensategap
+%    \InsertPrefixedUsageToIndex{prefix}{lc@remtrailspace}&
+%    \begin{macrocode}
+        \csname#3lc@iterate\endcsname#1%
+%    \end{macrocode}
+%    \compensategap
+%    \InsertPrefixedUsageToIndex{prefix}{lc@iterate}&
+%    \begin{macrocode}
+      }%
+    }%
+  }%
+%    \end{macrocode}
+% \end{macro}
+% \begin{macro}{eachlabelcase}
+% \Patchsavedatmacroname
+% \changes{v1.03}{2006/02/21}{Chan\-ged forking-mechanism to
+%   \string\verb+\string\@firstoftwo+/\string\verb+\string\@secondoftwo+.}
+% \changes{v1.06}{2006/04/20}{\string\verb*+\string\@ifdefinable+
+%    instead of \string\verb*+\string\newcommand+.}
+%   |\|\meta{prefix}|eachlabelcase|'s optional argument is the possibly-&
+%   to-be-defined control-sequence. The mandatory-argument contains the
+%   argument-triplet-list.
+%    \begin{macrocode}
+  \expandafter\@ifdefinable\csname#3eachlabelcase\endcsname{%
+    \expandafter\DeclareRobustCommand
+    \csname#3eachlabelcase\endcsname[2][]{%
+%    \end{macrocode}
+%   \InsertPrefixedUsageToIndex{prefix}{eachlabelcase}&
+%   Locally define |\@tempa|---it is called by
+%   |\|\meta{prefix}|lc@remleadspace| for working on a list-item when all
+%   surrounding \meta{space} has been removed:
+%    \begin{macrocode}
+      {%
+%    \end{macrocode}
+%   The stuff that results from \meta{space}-removing is surrounded by
+%   \meta{delimiter}. It cannot be processed at this place, as first the
+%   triplet needs to be split into its components by |\@tempb|:
+%    \begin{macrocode}
+        \long\def\@tempa#2####1#2{%
+          \@tempb####1#2#1#2#2%
+        }%
+%    \end{macrocode}
+%   |\@tempb| is used for splitting the triplet and removing \meta{space}
+%   between the triplet's components. In this process it redefines itself
+%   several times. In case that no label is defined the name thereof
+%   corresponds to the first component, add the third  component to
+%   |\@temptokena|, otherwise add the second:
+%    \begin{macrocode}
+        \long\def\@tempb####1{%
+          \begingroup
+          \long\def\@tempb########1########2########3{%
+            \expandafter\expandafter
+            \expandafter\endgroup
+            \expandafter\ifx
+            \csname r@########1\endcsname\relax
+              \expandafter\@firstoftwo
+            \else
+              \expandafter\@secondoftwo
+            \fi
+            {\@temptokena\expandafter{\the\@temptokena########3}}%
+            {\@temptokena\expandafter{\the\@temptokena########2}}%
+          }%
+          \begingroup
+          \toks@{}%
+          \long\def\@tempb########1{%
+            \long\def\@tempa#2################1#2{%
+              \toks@\expandafter{\the\toks@{################1}}%
+              \expandafter\endgroup\expandafter\@tempb\the\toks@
+            }%
+            \toks@\expandafter{\the\toks@{########1}}%
+            \csname#3lc@remleadspace\endcsname#2%
+%    \end{macrocode}
+%    \compensategap
+%    \InsertPrefixedUsageToIndex{prefix}{lc@remleadspace}&
+%    \begin{macrocode}
+          }%
+          \toks@{{####1}}\csname#3lc@remleadspace\endcsname#2%
+%    \end{macrocode}
+%    \compensategap
+%    \InsertPrefixedUsageToIndex{prefix}{lc@remleadspace}&
+%    \begin{macrocode}
+        }%
+%    \end{macrocode}
+%   Let's clear the register where the action-queue is accumulated:
+%    \begin{macrocode}
+        \@temptokena{}%
+%    \end{macrocode}
+%   Let's iterate on the list:
+%    \begin{macrocode}
+        \csname#3lc@iterate\endcsname#1##2#2\@nil#2%
+%    \end{macrocode}
+%    \InsertPrefixedUsageToIndex{prefix}{lc@iterate}&
+%   In case that the optional argument is specified, the routine
+%   |\lc@macrodefiner| will modify the register to define a macro:
+%    \begin{macrocode}
+        \lc@macrodefiner{##1}%
+%    \end{macrocode}
+%   Close the group and ``flush'' the register:
+%    \begin{macrocode}
+      \expandafter}\the\@temptokena
+    }%
+  }%
+%    \end{macrocode}
+% \end{macro}
+% \begin{macro}{lotlabelcase}
+% \Patchsavedatmacroname
+% \changes{v1.06}{2006/04/20}{\string\verb*+\string\@ifdefinable+
+%    instead of \string\verb*+\string\newcommand+.}
+%   |\|\meta{prefix}|lotlabelcase|'s optional argument is the possibly-&
+%   to-be-defined control-sequence. The five mandatory-arguments contain
+%   the label-list and the actions that shall take place in the cases: All
+%   of the labels are defined~/ none are defined~/ just some are defined~/
+%   list is empty:
+%    \begin{macrocode}
+  \expandafter\@ifdefinable\csname#3lotlabelcase\endcsname{%
+    \expandafter\DeclareRobustCommand
+    \csname#3lotlabelcase\endcsname[6][]{%
+%    \end{macrocode}
+%    \InsertPrefixedUsageToIndex{prefix}{lotlabelcase}&
+%   Locally define |\@tempa|---it is called by
+%   |\|\meta{prefix}|lc@remleadspace| for working on a list-item when all
+%   surrounding \meta{space} has been removed:
+%    \begin{macrocode}
+      {%
+        \long\def\@tempa#2####1#2{%
+%    \end{macrocode}
+%   The list item is a label. In case that it is undefined, have the
+%   helper-macro |\@tempb| defined/switched to |\relax|, otherwise do the
+%   same but use |\@tempc| instead:
+%    \begin{macrocode}
+          {\expandafter\expandafter\expandafter}\expandafter
+          \ifx\csname r@####1\endcsname\relax
+            \let\@tempb\relax
+          \else
+            \let\@tempc\relax
+          \fi
+        }%
+%    \end{macrocode}
+%   Define |\@tempb| and |\@tempc| to empty. They may be ``switched'' to
+%   |\relax| when |\@tempa| is called during iteration.
+%    \begin{macrocode}
+        \def\@tempb{}%
+        \def\@tempc{}%
+%    \end{macrocode}
+%   Let's iterate on the list:
+%    \begin{macrocode}
+        \csname#3lc@iterate\endcsname#1##2#2\@nil#2%
+%    \end{macrocode}
+%    \InsertPrefixedUsageToIndex{prefix}{lc@iterate}&
+%   Assign the register according to the label-defining-cases which are
+%   now represented by the definitions of |\@tempb| and |\@tempc| which
+%   are defined either |\relax| or |empty|:
+%    \begin{macrocode}
+        \ifx\@tempb\@empty
+          \ifx\@tempc\@empty
+            \@temptokena{##6}%
+          \else
+            \@temptokena{##3}%
+          \fi
+        \else
+          \ifx\@tempc\@empty
+            \@temptokena{##4}%
+          \else
+            \@temptokena{##5}%
+          \fi
+        \fi
+%    \end{macrocode}
+%   In case that the optional argument is specified, the routine
+%   |\lc@macrodefiner| will modify the register to define a macro:
+%    \begin{macrocode}
+        \lc@macrodefiner{##1}%
+%    \end{macrocode}
+%   Close the group and ``flush'' the register:
+%    \begin{macrocode}
+      \expandafter}\the\@temptokena
+    }%
+  }%
+%    \end{macrocode}
+% \end{macro}
+% If the \meta{global-indicator}-argument equals |\global|, the above
+% definitions need to be made |\global|:
+%    \begin{macrocode}
+  {\toks@{#4}\edef\@tempa{\the\toks@}\def\@tempb{\global}\expandafter}%
+  \ifx\@tempa\@tempb
+    \expandafter\global\expandafter\let
+      \csname#3lc@remtrailspace\expandafter\endcsname
+%    \end{macrocode}
+%    \compensategap
+%    \InsertPrefixedUsageToIndex{prefix}{lc@remtrailspace}&
+%    \begin{macrocode}
+      \csname#3lc@remtrailspace\endcsname
+%    \end{macrocode}
+%    \compensategap
+%    \InsertPrefixedUsageToIndex{prefix}{lc@remtrailspace}&
+%    \begin{macrocode}
+    \expandafter\global\expandafter\let
+      \csname#3lc@remleadspace\expandafter\endcsname
+%    \end{macrocode}
+%    \compensategap
+%    \InsertPrefixedUsageToIndex{prefix}{lc@remleadspace}&
+%    \begin{macrocode}
+      \csname#3lc@remleadspace\endcsname
+%    \end{macrocode}
+%    \compensategap
+%    \InsertPrefixedUsageToIndex{prefix}{lc@remleadspace}&
+%    \begin{macrocode}
+    \expandafter\global\expandafter\let
+      \csname#3lc@iterate\expandafter\endcsname
+%    \end{macrocode}
+%    \compensategap
+%    \InsertPrefixedUsageToIndex{prefix}{lc@iterate}&
+%    \begin{macrocode}
+      \csname#3lc@iterate\endcsname
+%    \end{macrocode}
+%    \compensategap
+%    \InsertPrefixedUsageToIndex{prefix}{lc@iterate}&
+%    \begin{macrocode}
+    \expandafter\global\expandafter\let
+      \csname#3eachlabelcase\expandafter\endcsname
+%    \end{macrocode}
+%    \compensategap
+%    \InsertPrefixedUsageToIndex{prefix}{eachlabelcase}&
+%    \begin{macrocode}
+      \csname#3eachlabelcase\endcsname
+%    \end{macrocode}
+%    \compensategap
+%    \InsertPrefixedUsageToIndex{prefix}{eachlabelcase}&
+%    \begin{macrocode}
+    \expandafter\global\expandafter\let
+      \csname#3lotlabelase\expandafter\endcsname
+%    \end{macrocode}
+%    \compensategap
+%    \InsertPrefixedUsageToIndex{prefix}{lotlabelcase}&
+%    \begin{macrocode}
+      \csname#3lotlabelcase\endcsname
+%    \end{macrocode}
+%    \compensategap
+%    \InsertPrefixedUsageToIndex{prefix}{lotlabelcase}&
+%    \begin{macrocode}
+  \fi
+%    \end{macrocode}
+% Now the definition of |\DefineLabelcase| is complete:
+%    \begin{macrocode}
+}%
+%    \end{macrocode}
+% Remember that a group was started for performing |\DefineLabelcase|'s
+% definition and that |\DefineLabelcase| will be gone when that group gets
+% closed---unless some ``globalizing'' takes place before. So this is the
+% time for checking if |\DefineLabelcase| shall be available to the user
+% and in this case for making it global:
+%    \begin{macrocode}
+\ProcessOptions\relax
+%    \end{macrocode}
+% Now the group which was started for defining |\DefineLabelcase| can be
+% closed---right after using it for defining the basic-usage-macros:
+%    \begin{macrocode*}
+\expandafter\endgroup\DefineLabelcase{ }{,}{}{\global}%
+%    \end{macrocode*}
+% \let\pref\empty
+% \begin{macro}{\lc@macrodefiner}
+% \changes{v1.06}{2006/04/20}{\string\verb*+\string\@ifdefinable+
+%    instead of \string\verb*+\string\newcommand+.}
+% \changes{v1.11}{2006/08/04}{Unnecessary
+%   \string\verb*+\string\expandafter+ removed.}
+%   There is still the routine left which is applied by the user-macros
+%   for having the action-queue-register modified, so that when
+%   ``flushing'' it, a macro will be produced instead of queue-execution.
+%   |\lc@macrodefiner| takes as its argument the optional argument of a
+%   user-macro. In case that the argument is not empty, the action-queue-&
+%   register is modified, so that ``flushing'' it yields the attempt of
+%   defining a macro from the argument which expands to the former content
+%   of the register:
+%    \begin{macrocode}
+\newcommand\lc@macrodefiner[1]{%
+  {\def\@tempa{#1}\expandafter}%
+  \ifx\@tempa\@empty
+  \else
+    \@temptokena\expandafter{%
+                \expandafter\begingroup
+                \expandafter\toks@
+                \expandafter\expandafter
+                \expandafter            {%
+                \expandafter\expandafter
+                \expandafter            \@temptokena
+                \expandafter\expandafter
+                \expandafter            {%
+                \expandafter\the
+                \expandafter\@temptokena
+                \expandafter}%
+                \expandafter}%
+                \expandafter\@temptokena
+                \expandafter{%
+                \expandafter\@temptokena
+                \expandafter{%
+                \the\@temptokena}%
+                \@ifdefinable#1{\edef#1{\the\@temptokena}}}%
+                \expandafter\endgroup
+                \the\expandafter\@temptokena
+                \the\toks@
+    }%
+  \fi
+}%
+%    \end{macrocode}
+% \end{macro}
+% \iffalse
+%</labelcas>
+% \fi
+% \newpage\anglechange\PrintChanges
+% \Finale
+\endinput

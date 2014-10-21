@@ -1,0 +1,150 @@
+%%
+%% This is file `bsf-example.tex',
+%% generated with the docstrip utility.
+%%
+%% The original source files were:
+%%
+%% beamersubframe.dtx  (with options: `example')
+%% 
+%% Copyright (c) 2011 Mike Kaufmann, all rights reserved
+%% 
+%% This program is provided under the terms of the
+%% LaTeX Project Public License distributed from CTAN
+%% archives in directory macros/latex/base/lppl.txt.
+%% 
+%% Author: Mike Kaufmann
+%%         m.km@gmx.de
+%% 
+%% \CharacterTable
+%%  {Upper-case    \A\B\C\D\E\F\G\H\I\J\K\L\M\N\O\P\Q\R\S\T\U\V\W\X\Y\Z
+%%   Lower-case    \a\b\c\d\e\f\g\h\i\j\k\l\m\n\o\p\q\r\s\t\u\v\w\x\y\z
+%%   Digits        \0\1\2\3\4\5\6\7\8\9
+%%   Exclamation   \!     Double quote  \"     Hash (number) \#
+%%   Dollar        \$     Percent       \%     Ampersand     \&
+%%   Acute accent  \'     Left paren    \(     Right paren   \)
+%%   Asterisk      \*     Plus          \+     Comma         \,
+%%   Minus         \-     Point         \.     Solidus       \/
+%%   Colon         \:     Semicolon     \;     Less than     \<
+%%   Equals        \=     Greater than  \>     Question mark \?
+%%   Commercial at \@     Left bracket  \[     Backslash     \\
+%%   Right bracket \]     Circumflex    \^     Underscore    \_
+%%   Grave accent  \`     Left brace    \{     Vertical bar  \|
+%%   Right brace   \}     Tilde         \~}
+%%
+\documentclass{beamer}
+\usepackage{lmodern}
+\usepackage[T1]{fontenc}
+
+\usepackage[append]{beamersubframe}
+
+\newcommand<>{\linkdetail}[4]{%
+    \ifappend{\uncover#5{\hyperlink{#3}{\beamergotobutton{#4}}}}%
+             {\uncover#5{\hyperlink{#1}{\beamerskipbutton{#2}}}}
+}
+\newcommand<>{\returndetail}[2]{%
+\ifappend{\uncover#3{\hyperlink{#1}{\beamerreturnbutton{#2}}}}%
+         {\visible<0>{\beamerreturnbutton{#2}}}
+}
+\newcommand<>{\linkdifftext}[3]{%
+    \ifappend{\uncover#4{\hyperlink{#1}{\beamergotobutton{#3}}}}%
+             {\uncover#4{\hyperlink{#1}{\beamerskipbutton{#2}}}}
+}
+
+\defbeamertemplate*{sidebar left}{bsf test}[1][50]
+{
+  \vfill%
+  \rlap{\hskip0.1cm\hbox{\color{fg!#1!bg}\tiny{\ifsubframe{detail}{main part}}}}%
+  \vskip2pt%
+}
+
+\begin{document}
+\begin{frame}{some frame}
+\begin{itemize}[<+->]
+\item there is foo
+\item foo is good
+\item and there is bar
+\item bar is good too
+\end{itemize}
+\end{frame}
+
+\begin{frame}<1-2>[label=lfoo]{frame on foo}
+\begin{itemize}[<+->]
+\item item a
+\item item b \linkdetail<2>{lfoo<3>}{Skip Details}{ldfoob}{Goto Details}
+\item item c
+\item item d
+\end{itemize}
+\end{frame}
+
+\begin{subframe}[label=ldfoob]{details on foo item b}
+\begin{itemize}[<+->]
+\item item b.1
+\item item b.2
+\item item b.3
+\item item b.4
+\end{itemize}
+\end{subframe}
+
+\begin{subframe}
+\frametitle{more details on foo item b}
+\begin{itemize}[<+->]
+\item item b.5
+\item item b.6
+\item item b.7
+\item item b.8
+\end{itemize}
+
+\vspace{2ex}
+\returndetail<4>{lfoo<3>}{Return from Details}
+\end{subframe}
+
+\againframe<3->{lfoo}
+
+\begin{frame}{frame on bar}
+\begin{itemize}[<+->]
+\item item w
+\item item x
+\item item y
+\item item z \linkdetail<4>{lother}{Skip Details}{ldbarz}{Goto Details}
+\end{itemize}
+\end{frame}
+
+\begin{subframe}[label=ldbarz]
+\frametitle{details on bar item z}
+\begin{itemize}[<+->]
+\item item z.1
+\item item z.2
+\item item z.3
+\item item z.4
+\end{itemize}
+
+\vspace{2ex}
+\linkdifftext<4>{lother}{Skip further Details}{Return from Details}
+\end{subframe}
+
+\begin{subframe}{more details on bar item z}
+\begin{itemize}[<+->]
+\item item z.5
+\item item z.6
+\item item z.7
+\item item z.8
+\end{itemize}
+
+\vspace{2ex}
+\returndetail<4>{lother}{Return from Details}
+\end{subframe}
+
+\begin{frame}[label=lother]{another frame}
+\begin{itemize}[<+->]
+\item conclusion 1
+\item conclusion 2
+\item conclusion 3
+\item conclusion 4
+\end{itemize}
+\end{frame}
+
+\appendsubframes
+\end{document}
+\endinput
+%%
+%% End of file `bsf-example.tex'.

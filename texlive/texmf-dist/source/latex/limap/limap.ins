@@ -1,0 +1,46 @@
+%%------------------------------------------------------------------
+%% Driver file to extract the dtx style and class files.
+%%
+%% Copyright (C) 1999-2000 Gerd Neugebauer
+%%
+%% limap.ins may be  distributed under the terms of  the LaTeX Project
+%% Public  License,  as  described  in  lppl.txt  in  the  base  LaTeX
+%% distribution.   Either version 1.0  or, at  your option,  any later
+%% version.
+%% 
+%%------------------------------------------------------------------
+%%
+%% Run this file through TeX or LaTeX to extract the files.
+%% You need the docstrip package as distributed with LaTeX2e.
+%% It is also available as seperate package from any CTAN site.
+%%
+%%------------------------------------------------------------------
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% $Id: limap.ins 1.2 2000/03/01 20:11:42 gene Exp gene $
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\input docstrip.tex
+\keepsilent
+\askonceonly
+
+\generate{\file{limap.sty}{\from{limap.dtx}{package}}
+	  \file{limap.cls}{\from{limap.dtx}{class}}
+         }
+%\usedir{tex/latex/limap}
+
+\ifToplevel{
+\Msg{****************************************************************}
+\Msg{*}
+\Msg{* To finish the installation you have to move the following}
+\Msg{* files into a directory searched by (La)TeX:}
+\Msg{*}
+\Msg{* \space\space limap.cls limap.sty}
+\Msg{*}
+\Msg{* To produce the documentation run limap.tex through LaTeX,}
+\Msg{* makeindex, and LaTeX again.}
+\Msg{*}
+\Msg{* Happy TeXing}
+\Msg{****************************************************************}
+}
+
+\endbatchfile
+\endinput

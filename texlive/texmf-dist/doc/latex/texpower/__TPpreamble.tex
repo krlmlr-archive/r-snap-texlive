@@ -1,0 +1,158 @@
+%%
+%% This is file `__TPpreamble.tex',
+%% generated with the docstrip utility.
+%%
+%% The original source files were:
+%%
+%% texpower-doc.dtx  (with options: `preamble')
+%% 
+%% --------------------------------------------------------------
+%% TeXPower bundle - dynamic online presentations with LaTeX
+%% Copyright (C) 1999-2004 Stephan Lehmke
+%% Copyright (C) 2003-2005 Hans Fredrik Nordhaug
+%% 
+%% This program is free software; you can redistribute it and/or
+%% modify it under the terms of the GNU General Public License
+%% as published by the Free Software Foundation; either version 2
+%% of the License, or (at your option) any later version.
+%% 
+%% This program is distributed in the hope that it will be useful,
+%% but WITHOUT ANY WARRANTY; without even the implied warranty of
+%% MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+%% GNU General Public License for more details.
+%% --------------------------------------------------------------
+%% 
+%% The list of all files belonging to the TeXPower bundle is
+%% given in the file `00readme.txt'.
+%% 
+%
+\documentclass
+[%
+%-----------------------------------------------------------------------------------------------------------------
+% Document class options:
+% -----------------------
+%
+% Landscape slides formatted for letter paper fit most screen resolutions (more or less).
+%
+  letterpaper,%
+  landscape,%
+%
+% The KOMA option makes powersem load scrartcl.cls instead of article.cls.
+%
+  KOMA,%
+% KOMA document class options are accepted.
+  smallheadings,%
+%
+% The calcdimensions option makes powersem calculate the slide dimensions automatically from paper size and margins.
+  calcdimensions,%
+%
+% The display option sets everything up for producing slides to be displayed interactively.
+% This option is also recognized by the texpower package.
+%
+  display%
+%-----------------------------------------------------------------------------------------------------------------
+]
+%-----------------------------------------------------------------------------------------------------------------
+% Document class powersem, based on seminar.cls for simulating ppower via latex+distiller (instead of pdflatex).
+%
+{powersem}
+
+%-----------------------------------------------------------------------------------------------------------------
+% Set slide margins rather small for maximum use of space. This is a demo, remember.
+%
+\renewcommand{\slidetopmargin}{5mm}
+\renewcommand{\slidebottommargin}{5mm}
+
+\renewcommand{\slideleftmargin}{5mm}
+\renewcommand{\sliderightmargin}{5mm}
+
+
+%-----------------------------------------------------------------------------------------------------------------
+% Some setup for more reasonable spacing.
+%
+
+\makeatletter
+
+\renewcommand\section{\@startsection{section}{1}{\z@}%
+  {-1.5ex\@plus -1ex \@minus -.5ex}%
+  {.5ex \@plus .2ex}%
+  {\raggedsection\normalfont\size@section\sectfont}}
+
+\renewcommand\subsection{\@startsection{subsection}{2}{\z@}%
+  {-1.25ex\@plus -1ex \@minus -.2ex}%
+  {.5ex \@plus .2ex}%
+  {\raggedsection\normalfont\size@subsection\sectfont}}
+
+\renewcommand\subsubsection{\@startsection{subsubsection}{3}{\z@}%
+  {-1.25ex\@plus -1ex \@minus -.2ex}%
+  {.5ex \@plus .2ex}%
+  {\raggedsection\normalfont\size@subsubsection\sectfont}}
+
+\renewcommand\paragraph{\@startsection{paragraph}{4}{\z@}%
+  {1.25ex \@plus1ex \@minus.2ex}%
+  {-1em}%
+  {\raggedsection\normalfont\size@paragraph\sectfont}}
+
+\def\slideitemsep{.5ex plus .3ex minus .2ex}
+
+\makeatother
+
+%-----------------------------------------------------------------------------------------------------------------
+% We need some more packages...
+%
+
+\usepackage{url}
+
+\usepackage[latin1]{inputenc}
+
+% One more Text emphasis command...
+
+\let\name=\textsc
+
+%-----------------------------------------------------------------------------------------------------------------
+% We load hyperref and fixseminar which fixes some problems with seminar.
+%
+\usepackage[ps2pdf,plainpages=false,bookmarksopen,colorlinks,urlcolor=red,pdfpagemode=FullScreen]{hyperref}
+\usepackage{fixseminar}
+
+%-----------------------------------------------------------------------------------------------------------------
+% Finally, the texpower package is loaded.
+%
+\usepackage{texpower}
+
+%% The configuration file allows user-specific settings.
+
+\input{__TPcfg}
+
+%-----------------------------------------------------------------------------------------------------------------
+% Some more parameters...
+%
+\slidesmag{5}
+\slideframe{none}
+\pagestyle{empty}
+\setcounter{tocdepth}{2}
+\renewcommand{\currentpagevalue}{\value{slide}}
+
+%-----------------------------------------------------------------------------------------------------------------
+% The following command produces a title page for every example and documentation file.
+
+\newcommand{\makeslidetitle}[1]
+{%
+  \title{The \TeX Power bundle\\[2ex]{\normalfont #1}}
+  \author
+  {%
+    Stephan Lehmke\\
+    \mdseries
+    University of Dortmund\\
+    \mdseries
+    Department of Computer Science I\\
+    \url{mailto:Stephan.Lehmke@udo.edu}%
+  }
+  {\centerslidestrue
+  \maketitle
+  \newslide}
+  \setcounter{firststep}{1}% This way, the first step of all examples is displayed.
+}
+\endinput
+%%
+%% End of file `__TPpreamble.tex'.

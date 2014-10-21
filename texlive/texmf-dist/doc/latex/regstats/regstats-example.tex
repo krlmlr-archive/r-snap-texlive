@@ -1,0 +1,106 @@
+%%
+%% This is file `regstats-example.tex',
+%% generated with the docstrip utility.
+%%
+%% The original source files were:
+%%
+%% regstats.dtx  (with options: `example')
+%% 
+%% This is a generated file.
+%% 
+%% Project: regstats
+%% Version: 2012/01/07 v1.0h
+%% 
+%% Copyright (C) 2011 - 2012 by
+%%     H.-Martin M"unch <Martin dot Muench at Uni-Bonn dot de>
+%% 
+%% The usual disclaimer applies:
+%% If it doesn't work right that's your problem.
+%% (Nevertheless, send an e-mail to the maintainer
+%%  when you find an error in this package.)
+%% 
+%% This work may be distributed and/or modified under the
+%% conditions of the LaTeX Project Public License, either
+%% version 1.3c of this license or (at your option) any later
+%% version. This version of this license is in
+%%    http://www.latex-project.org/lppl/lppl-1-3c.txt
+%% and the latest version of this license is in
+%%    http://www.latex-project.org/lppl.txt
+%% and version 1.3c or later is part of all distributions of
+%% LaTeX version 2005/12/01 or later.
+%% 
+%% This work has the LPPL maintenance status "maintained".
+%% 
+%% The Current Maintainer of this work is H.-Martin Muench.
+%% 
+%% This work consists of the main source file regstats.dtx,
+%% the README, and the derived files
+%%    regstats.sty, regstats.pdf,
+%%    regstats.ins, regstats.drv,
+%%    regstats-example.tex, regstats-example.pdf,
+%%    regstats-example.log.
+%% 
+%% When compiling with lua(la)tex (and wanting to use option timer=true,
+%% the following line must be uncommented (i.e. remove the "%% ").
+%% \directlua{starttime = os.clock()}
+\documentclass[british]{article}[2007/10/19]% v1.4h
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% \usepackage{etex}[1998/03/26]% v2.0
+%% Uncomment the preceding line, if you want to use the eTeX-package
+%% (which requires eTeX, of course).
+\usepackage[%
+ extension=pdf,%
+ plainpages=false,%
+ pdfpagelabels=true,%
+ hyperindex=false,%
+ pdflang={en},%
+ pdftitle={regstats package example},%
+ pdfauthor={H.-Martin Muench},%
+ pdfsubject={Example for the regstats package},%
+ pdfkeywords={LaTeX, registers, read, write, language, box, dimen,%
+ count, toks, muskip, skip, counter, regstats, H.-Martin Muench},%
+ pdfview=Fit,%
+ pdfstartview=Fit,%
+ pdfpagelayout=SinglePage%
+]{hyperref}[2011/12/04]% v6.82m
+\usepackage[proof=false,left=true,timer=true]{regstats}[2012/01/07]%
+%%                                                              v1.0h
+\gdef\unit#1{\mathord{\thinspace\mathrm{#1}}}%
+\makeatletter
+\@ifundefined{eTeX}{\gdef\eTeX{$\m@th \varepsilon $-\TeX }}{%
+%% else \relax
+}
+\makeatother
+\listfiles
+\begin{document}
+\pagenumbering{arabic}
+\section*{Example for regstats}
+
+This example demonstrates the use of package\newline
+\textsf{regstats}, v1.0h as of 2012/01/07 (HMM).\newline
+The used options were \texttt{proof=false,left=true,timer=true}.\newline
+\texttt{proof=false} is the default, but neither \texttt{left=true}
+nor \texttt{timer=true} are defaults (\texttt{left=false,timer=false}
+would be the defaults).\newline
+
+If \eTeX{} is available with your \LaTeX{}-distribution
+and you want to use it, uncomment the\newline
+\verb|%% \usepackage{etex}[1998/03/26]% v2.0|\newline
+line in the preamble of this document.\newline
+
+For more details please see the documentation!\newline
+
+\noindent Save per page about $200\unit{ml}$ water,
+$2\unit{g}$ CO$_{2}$ and $2\unit{g}$ wood:\newline
+Therefore please print only if this is really necessary.\newline
+
+For the resulting message, please compile regstats-example.tex and
+have a look at the end of the log-file.
+
+Because the compilation time for this example is usually quite short,
+option \texttt{timer} is not demonstrated very spectacular.
+
+\end{document}
+\endinput
+%%
+%% End of file `regstats-example.tex'.

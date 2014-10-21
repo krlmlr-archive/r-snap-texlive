@@ -1,0 +1,60 @@
+%%
+%% This is file `EANControlDigit.tex',
+%% generated with the docstrip utility.
+%%
+%% The original source files were:
+%%
+%% GS1.dtx  (with options: `test,EANControlDigit')
+%% 
+%% EXPERIMENTAL CODE
+%% 
+%% This Work depends on the correct version of expl3 release.  If
+%% you'll update expl3 you may need a update of this this Work too.
+%% 
+%% Do not distribute this file without also distributing the
+%% source files specified above.
+%% 
+%% Do not distribute modified version of this file.
+%% 
+%% File: GS1.dtx Copyright (C) 2012 Markus Kohm
+%%
+%% It may be distributed and/or modified under the conditions of the
+%% LaTeX Project Public License (LPPL), either version 1.3c of this
+%% license or (at your option) any later version.  The latest version
+%% of this license is in the file
+%%
+%%    http://www.latex-project.org/lppl.txt
+%%
+%% This file is part of the "GS1 bundle" (The Work in LPPL)
+%% and all files in that bundle must be distributed together.
+%%
+%% The released version of this bundle is available from CTAN.
+%%
+%% -------------------------------------------------------------------------
+\RequirePackage{expl3}
+\GetIdInfo$Id: GS1.dtx 15 2012-08-27 10:25:03Z mjk $
+  {GS1 code handler and barcode generator}
+\documentclass{article}
+\usepackage{GS1}
+\ExplSyntaxOn
+\msg_new:nnn { GS1/test } { function }
+  {
+    Something~is~wrong~with~function~#1
+    \msg_line_context:~~of~\c_job_name_tl.tex.
+  }
+\ExplSyntaxOff
+\begin{document}
+\begin{tabular}{ll}
+  \hline
+  Calculated & Known \\
+  \hline
+  501234567890-\EANControlDigit{501234567890} & 501234567890-0 \\
+  ISBN 978-3-86541-459-\EANControlDigit{ISBN 978-3-86541-459} & ISBN
+  978-3-86541-459-5 \\
+  EAN-8: 2012345\EANControlDigit{2012345} & EAN-8: 20123451 \\
+  \hline
+\end{tabular}
+\end{document}
+%% 
+%%
+%% End of file `EANControlDigit.tex'.

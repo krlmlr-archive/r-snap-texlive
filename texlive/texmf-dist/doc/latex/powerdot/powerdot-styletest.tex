@@ -1,0 +1,145 @@
+%%
+%% This is file `powerdot-styletest.tex',
+%% generated with the docstrip utility.
+%%
+%% The original source files were:
+%%
+%% powerdot.dtx  (with options: `pdstyletest')
+%% 
+%% ---------------------------------------------------------------
+%% Copyright (C) 2005-2014 Hendri Adriaens
+%% ---------------------------------------------------------------
+%%
+%% This work may be distributed and/or modified under the
+%% conditions of the LaTeX Project Public License, either version 1.3
+%% of this license or (at your option) any later version.
+%% The latest version of this license is in
+%%   http://www.latex-project.org/lppl.txt
+%% and version 1.3 or later is part of all distributions of LaTeX
+%% version 2003/12/01 or later.
+%%
+%% This work has the LPPL maintenance status "maintained".
+%%
+%% This Current Maintainer of this work is Hendri Adriaens.
+%%
+%% This work consists of all files listed in manifest.txt.
+%%
+%%
+%% For testing, enter your style below.
+%% Switch on only one paper/orient option at a time.
+\documentclass[
+  style=your style,
+  paper=screen,
+%%  paper=a4paper,
+%%  paper=letterpaper,
+  orient=landscape,
+%%  orient=portrait,
+  size=11pt,
+%%  hlsections,
+  clock
+]{powerdot}
+
+\pdsetup{
+  lf=left footer,
+  cf=center footer,
+  rf=right footer,
+  randomdots,dprop={dotstyle=ocircle}
+}
+
+%% For testing text height.
+\makeatletter
+\def\textheightrule{%
+  \raisebox\baselineskip{\rule{1cm}\pd@@textheight}%
+}
+\makeatother
+
+\title{This is a test file to test new styles with --
+this title is very long on purpose.\thanks{Adjust textheight
+to position this footnote.}}
+\author{Hendri Adriaens \and Christopher Ellison}
+\date{August 16, 2005}
+
+\begin{document}
+
+\maketitle
+
+\begin{slide}{Test normal slide}
+  Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Ut purus
+  elit, vestibulum ut, placerat ac, adipiscing vitae, felis. Curabitur
+  dictum gravida mauris. Nam arcu libero, nonummy eget, consectetuer
+  id, vulputate a, magna. Donec vehicula augue eu neque. Pellentesque
+  habitant morbi tristique senectus et netus et malesuada fames ac
+  turpis egestas. Mauris ut leo. Cras viverra metus rhoncus sem.
+
+  Notice the color of the equation number!
+  \begin{equation}
+    (a+b)^n=\sum_{k=0}^n{n\choose k}a^{n-k}b^k
+  \end{equation}
+\end{slide}
+
+\begin{slide}{Test itemize}
+  Some text.\pause
+  \begin{itemize}
+    \item level 1\pause
+    \begin{itemize}
+      \item level 2\pause
+      \begin{itemize}
+        \item level 3\pause
+        \begin{itemize}
+          \item level 4
+        \end{itemize}
+      \end{itemize}
+    \end{itemize}
+  \end{itemize}
+  Some text.\footnote{Adjust textheight
+  to position this footnote.}
+\end{slide}
+
+\section{Normal section}
+
+\begin{slide}{Test enumerate and inactive color}
+  Some text.\pause
+  \begin{enumerate}[type=1]
+    \item level 1\pause
+    \begin{enumerate}
+      \item level 2\pause
+      \begin{enumerate}
+        \item level 3\pause
+        \begin{enumerate}
+          \item level 4
+        \end{enumerate}
+      \end{enumerate}
+    \end{enumerate}
+  \end{enumerate}
+  Some text.
+\end{slide}
+
+\begin{slide}{The rule has height \texttt{textheight}}
+  \textheightrule
+\end{slide}
+
+\section[template=wideslide]{Wide slide section}
+
+\begin{wideslide}{Test wideslide}
+  Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Ut purus
+  elit, vestibulum ut, placerat ac, adipiscing vitae, felis. Curabitur
+  dictum gravida mauris. Nam arcu libero, nonummy eget, consectetuer
+  id, vulputate a, magna. Donec vehicula augue eu neque. Pellentesque
+  habitant morbi tristique senectus et netus et malesuada fames ac
+  turpis egestas. Mauris ut leo. Cras viverra metus rhoncus
+  sem.\footnote{Adjust textheight to position this footnote.}
+
+  Notice the color of the equation number!
+  \begin{equation}
+    (a+b)^n=\sum_{k=0}^n{n\choose k}a^{n-k}b^k
+  \end{equation}
+\end{wideslide}
+
+\begin{wideslide}{The rule has height \texttt{textheight}}
+  \textheightrule
+\end{wideslide}
+
+\end{document}
+\endinput
+%%
+%% End of file `powerdot-styletest.tex'.

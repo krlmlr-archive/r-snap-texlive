@@ -1,0 +1,76 @@
+This is the README for colourchange.sty.
+
+Changes colour of beamer structural elements (e.g. the bars of outerthemes).
+This is done either manually or automatically.
+
+Don't use a colour theme or full theme (which sometimes call colour themes).
+You should be OK calling inner themes and outer themes separately (although some look better than others at the moment: see bottom of readme).
+You need to compile twice for it to work.
+
+Requires packages etoolbox and calc.
+Also needs some other stuff that is loaded by beamer.
+Use with other classes at your own risk.
+
+%------------------------------
+% Summary of commands
+%------------------------------
+
+\selectcolourchanges{first}{second} takes two arguments: the starting colour and the final colour of the presentation.
+These should be colours already understood by beamer.
+Beamer uses xcolor, so you can define colours with xcolor commands and then use them in \selectcolourchanges.
+That's what I do for the defaults.
+
+\selectmanualcolour{colour}
+Changes the structure colour.
+Use between frames.
+Can't guarantee this won't do weird stuff if you also have slidechange or framechange on.
+
+Both commands also come with an american spelling version.
+\selectcolorchanges and \selectmanualcolor are defined to be the same as the above two commands.
+%------------------------------
+% Summary of options
+%------------------------------
+
+defaultstyle
+Turns on default inner and outerthemes.
+Or rather, it will do soon.
+That is, it turns on my favourite version of the theme, not the "beamer default" ones.
+This is just a shortcut for:
+\useoutertheme[footline=authorinstitutetitle]{miniframes}
+\useinnertheme{rectangles}
+Simple.
+
+draft
+The draft option turns off colour changing.
+Good for speeding up compilation when drafting.
+
+slidechange
+Colour changes every slide.
+
+framechange
+Colour changes every frame.
+
+%------------------------------
+% To do list
+%------------------------------
+
+Make sure it works with all base inner/outer themes.
+ - smoothbars, smoothtree do some shading-fu that breaks colourchange.sty's basic approach.
+Check it doesn't hopelessly break article or handout modes
+Make a .dtx
+
+%------------------------------
+% Other stuff
+%------------------------------
+
+Currently licensed under GPL v3. http://www.gnu.org/licenses/gpl-3.0.html
+
+Original author and current maintainer: Seamus Bradley
+tex@seamusbradley.net
+
+Many thanks to the tex.stackexchange.com community for their help.
+In particular, TH's answer to this question:
+http://tex.stackexchange.com/q/7126/215
+
+And Herbert's answer to this question:
+http://tex.stackexchange.com/q/7427/215

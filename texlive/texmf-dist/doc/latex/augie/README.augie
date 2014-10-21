@@ -1,0 +1,193 @@
+============================================================
+
+            The "Augie" font for use with LaTeX
+
+============================================================
+                                                  2000-10-19
+                                              Walter Schmidt
+                               <walter.schmidt@arcormail.de>
+
+
+Augie is a Type1 (PostScript) font simulating informal
+American style handwriting.
+
+The distribution includes the Type1 font and all required
+files for using it with (La)TeX.  Font map files for dvips,
+pdfTeX and VTeX/Free are provided.
+
+The below installation instructions may not exactly fit your
+particular TeX system; please, check also its documentation
+as to installing additional fonts and macros.
+
+
+Installing the files
+--------------------
+A TDS-compliant TeX system, e.g., teTeX, fpTeX, MikTeX,
+emTeX/TDS, VTeX/Free is assumed.  Target directories which
+do not yet exist are to be created first.
+
+Copy the file augie___.pfb from the subdirectory type1 of
+the distribution to the directory
+  texmf/fonts/type1/public/misc
+of your TeX system.  
+  
+Copy the file augie___.afm from the subdirectory afm to
+  texmf/fonts/afm/public/misc
+
+Copy the files from the subdirectory tfm to
+  texmf/fonts/tfm/public/misc
+
+Copy the files from the subdirectory vf to
+  texmf/fonts/vf/public/misc
+
+Copy the files from the subdirectory tex to
+  texmf/tex/latex/public/misc
+  
+Copy the file doc/augie.txt to
+  texmf/doc/latex/misc
+
+In case you are using dvips:  
+Copy the dvips font map file dvips/augie.map to
+  texmf/dvips/config
+or
+  texmf\dvips\local
+
+In case you are using pdfTeX:
+Copy the file dvips/augie.map also to
+  texmf/pdftex/config
+
+In case you are using VTeX/Free (v7.00 or later):
+Copy the VTeX font map file file vtex/augie.ali to
+  texmf/vtex/config
+
+
+Configuring dvips
+-----------------
+Make dvips read the additional font map file augie.map.
+This is usually accomplished by adding the line
+
+p +augie.map
+
+to the dvips configuration file.  With teTeX, fpTeX or
+MikTeX this is texmf/dvips/config/config.ps; with emTeX/TDS
+additions should go to texmf\dvips\local\dvips.ini.
+
+
+Configuring pdfTeX
+------------------
+Make pdfTeX read the additional font map file augie.map.
+This is usually accomplished by adding the line
+
+map +augie.map
+
+to the pdfTeX configuration file.  With teTeX, fpTeX or
+MikTeX this is texmf/pdftex/config/pdftex.cfg.
+
+
+Configuring VTeX/Free (v7.00 and above)
+---------------------------------------
+Make VTeX read the additional font map ("aliasing") file
+augie.ali.  This is usually accomplished by putting a record
+for augie.ali into each of the configuration files
+
+  texmf/vtex/config/pdf.fm 
+and
+  texmf/vtex/config/ps.fm
+
+The name "augie.ali" is to be added to the TYPE1 section of
+the above-mentioned files:
+
+TYPE1 {
+  ...
+  augie.ali
+  }
+
+
+
+Updating the filename database
+------------------------------
+Certain TeX systems require updating a "filename database"
+manually after adding new files.  Consult the documentation
+of your TeX system!
+
+
+Using the Augie font with LaTeX
+-------------------------------
+See the file augie.txt, which should have been copied to the
+directory texmf/doc/latex/misc.
+
+
+Legal notice
+------------
+The Augie Type1 font is freeware; see below.
+
+The TeX support and documentation files are subject to
+
+  Copyright (c) 2000 Walter Schmidt
+  
+and are published under the conditions of the LaTeX Project
+Public License, either version 1.2 of this license or (at
+your option) any later version.
+
+
+
+============================================================
+
+ The original documentation that accompanied the Augie font
+
+============================================================
+
+thank you for downloading "augie," 
+a handwritten casual based on the fall 1982 classnotes 
+of a solid B-minus college student.
+
+"augie" is a truetype and postscript type 1 font, 
+designed in the emerald city, seattle, washington, usa,
+by steven j. lundeen,
+emerald city fontwerks,
+copyright 1997.
+
+please note, 
+"augie" is a freeware font.
+
+the author places no conditions or restrictions on the use
+of this font.
+
+permission is granted to freely distribute and/or post this
+font, providing that all files in the original archive are
+attached, including this one.
+
+
+please support the art of fontography.
+
+------------------------------------------------------------
+
+if you find this font useful, 
+you may wish to contact the designer, 
+or any member of the staff at ecf 
+via one of the following email addresses:
+
+ecf@speakeasy.org
+
+all comments, critiques, raves, rages, 
+flames and offers of seattle mariner tickets invited.
+
+--------------------------------------------------
+
+oh yeah,
+we'd also like to let you know that...
+
+ecf offers a complete line of fonts in three speeds:
+shareware, freeware and graphic art clipfonts.
+
+you can look for us at:
+
+http://www.speakeasy.org/~ecf
+
+hope you'll stop by for a visit sometime.
+coffee's always on,
+and the fridge is stocked, too ...
+
+
+== finis
+

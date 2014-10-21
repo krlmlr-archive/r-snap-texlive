@@ -1,0 +1,49 @@
+
+This is the README for the librecaslon package, version 2013-10-15.
+
+This package provides LaTeX, pdfLaTeX, XeLaTeX and LuaLaTeX support for
+the Libre Caslon family of fonts, designed by Pablo Impallari.
+
+To install this package on a TDS-compliant TeX system download the file
+tex-archive/install/fonts/librecaslon.tds.zip and unzip at the
+root of an appropriate texmf tree, likely a personal or local tree. If
+necessary, update the file-name database (e.g., texhash). Update the
+font-map files by enabling the Map file LibreCaslon.map.
+
+To use, add
+
+\usepackage{librecaslon}
+
+to the preamble of your document. This will activate Libre Caslon
+Text as the main (serifed) text font. A bold italic variant of Libre
+Caslon is not currently available; as a stopgap, an artificially
+slanted version has been generated and treated as if it were italic.
+
+LuaLaTeX and xeLaTeX users who might prefer type1 fonts or who wish to
+avoid fontspec may use the type1 option.
+
+Options scaled=<number> or scale=<number> may be used to scale the
+fonts.
+
+The default figure style is lining but option osf (or oldstyle)
+allows for use of oldstyle figures.
+
+Font encodings supported are OT1, T1, LY1 and TS1.
+
+Macro \librecaslon selects the Libre Caslon Text family. Macros
+\librecaslonLF and \librecaslonOsF allow for local use of lining
+or oldstyle figures. \textsu{...} can be used for superior
+(superscript) figures. Command \useosf switches the default figure
+style to old-style figures; this is primarily for use after calling
+a math package with lining figures as the default.
+
+The original fonts (version 1.0) were obtained from
+
+http://www.impallari.com/projects/overview/libre-caslon-display-and-text 
+
+and are licensed under the SIL Open Font License (version 1.1);
+the text may be found in the doc directory. The opentype and type1
+versions were created using fontforge. The support files were
+created using autoinst and are licensed under the terms of the
+LaTeX Project Public License. The maintainer of this package is Bob
+Tennent (rdt at cs.queensu.ca)

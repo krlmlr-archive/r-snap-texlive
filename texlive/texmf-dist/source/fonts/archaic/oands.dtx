@@ -1,0 +1,776 @@
+% \iffalse meta-comment
+%
+% oands.dtx
+%
+%  Author: Peter Wilson (Herries Press) herries dot press at earthlink dot net
+%  Copyright 2000--2005 Peter R. Wilson
+%
+%  This work may be distributed and/or modified under the
+%  conditions of the Latex Project Public License, either
+%  version 1.3 of this license or (at your option) any
+%  later version.
+%  The latest version of the license is in
+%    http://www.latex-project.org/lppl.txt
+%  and version 1.3 or later is part of all distributions of
+%  LaTeX version 2003/06/01 or later.
+%
+%  This work has the LPPL maintenance status "author-maintained".
+%
+%  This work consists of the files listed in the README file.
+%
+% 
+% If you do not have the docmfp package (available from CTAN in
+% tex-archive/macros/latex/contrib), comment out the
+% \usepackage{docmfp} line below and uncomment the line following it. 
+%
+%<*driver>
+\documentclass[twoside]{ltxdoc}
+\usepackage{docmfp}
+%%%%%% \providecommand{\DescribeVariable}[1]{} \newenvironment{routine}[1]{}{}
+\usepackage{url}
+\usepackage[draft=false,
+            plainpages=false,
+            pdfpagelabels,
+            bookmarksnumbered,
+            hyperindex=false
+           ]{hyperref}
+\providecommand{\phantomsection}{}
+\OnlyDescription %% comment this out for the full glory
+\EnableCrossrefs
+\CodelineIndex
+\setcounter{StandardModuleDepth}{1}
+\makeatletter
+  \@mparswitchfalse
+\makeatother
+\renewcommand{\MakeUppercase}[1]{#1}
+\pagestyle{headings}
+\newenvironment{addtomargins}[1]{%
+  \begin{list}{}{%
+    \topsep 0pt%
+    \addtolength{\leftmargin}{#1}%
+    \addtolength{\rightmargin}{#1}%
+    \listparindent \parindent
+    \itemindent \parindent
+    \parsep \parskip}%
+  \item[]}{\end{list}}
+\begin{document}
+  \raggedbottom
+  \DocInput{oands.dtx}
+\end{document}
+%</driver>
+%
+% \fi
+%
+% \CheckSum{34}
+%
+% \DoNotIndex{\',\.,\@M,\@@input,\@addtoreset,\@arabic,\@badmath}
+% \DoNotIndex{\@centercr,\@cite}
+% \DoNotIndex{\@dotsep,\@empty,\@float,\@gobble,\@gobbletwo,\@ignoretrue}
+% \DoNotIndex{\@input,\@ixpt,\@m}
+% \DoNotIndex{\@minus,\@mkboth,\@ne,\@nil,\@nomath,\@plus,\@set@topoint}
+% \DoNotIndex{\@tempboxa,\@tempcnta,\@tempdima,\@tempdimb}
+% \DoNotIndex{\@tempswafalse,\@tempswatrue,\@viipt,\@viiipt,\@vipt}
+% \DoNotIndex{\@vpt,\@warning,\@xiipt,\@xipt,\@xivpt,\@xpt,\@xviipt}
+% \DoNotIndex{\@xxpt,\@xxvpt,\\,\ ,\addpenalty,\addtolength,\addvspace}
+% \DoNotIndex{\advance,\Alph,\alph}
+% \DoNotIndex{\arabic,\ast,\begin,\begingroup,\bfseries,\bgroup,\box}
+% \DoNotIndex{\bullet}
+% \DoNotIndex{\cdot,\cite,\CodelineIndex,\cr,\day,\DeclareOption}
+% \DoNotIndex{\def,\DisableCrossrefs,\divide,\DocInput,\documentclass}
+% \DoNotIndex{\DoNotIndex,\egroup,\ifdim,\else,\fi,\em,\endtrivlist}
+% \DoNotIndex{\EnableCrossrefs,\end,\end@dblfloat,\end@float,\endgroup}
+% \DoNotIndex{\endlist,\everycr,\everypar,\ExecuteOptions,\expandafter}
+% \DoNotIndex{\fbox}
+% \DoNotIndex{\filedate,\filename,\fileversion,\fontsize,\framebox,\gdef}
+% \DoNotIndex{\global,\halign,\hangindent,\hbox,\hfil,\hfill,\hrule}
+% \DoNotIndex{\hsize,\hskip,\hspace,\hss,\if@tempswa,\ifcase,\or,\fi,\fi}
+% \DoNotIndex{\ifhmode,\ifvmode,\ifnum,\iftrue,\ifx,\fi,\fi,\fi,\fi,\fi}
+% \DoNotIndex{\input}
+% \DoNotIndex{\jobname,\kern,\leavevmode,\let,\leftmark}
+% \DoNotIndex{\list,\llap,\long,\m@ne,\m@th,\mark,\markboth,\markright}
+% \DoNotIndex{\month,\newcommand,\newcounter,\newenvironment}
+% \DoNotIndex{\NeedsTeXFormat,\newdimen}
+% \DoNotIndex{\newlength,\newpage,\nobreak,\noindent,\null,\number}
+% \DoNotIndex{\numberline,\OldMakeindex,\OnlyDescription,\p@}
+% \DoNotIndex{\pagestyle,\par,\paragraph,\paragraphmark,\parfillskip}
+% \DoNotIndex{\penalty,\PrintChanges,\PrintIndex,\ProcessOptions}
+% \DoNotIndex{\protect,\ProvidesClass,\raggedbottom,\raggedright}
+% \DoNotIndex{\refstepcounter,\relax,\renewcommand,\reset@font}
+% \DoNotIndex{\rightmargin,\rightmark,\rightskip,\rlap,\rmfamily,\roman}
+% \DoNotIndex{\roman,\secdef,\selectfont,\setbox,\setcounter,\setlength}
+% \DoNotIndex{\settowidth,\sfcode,\skip,\sloppy,\slshape,\space}
+% \DoNotIndex{\symbol,\the,\trivlist,\typeout,\tw@,\undefined,\uppercase}
+% \DoNotIndex{\usecounter,\usefont,\usepackage,\vfil,\vfill,\viiipt}
+% \DoNotIndex{\viipt,\vipt,\vskip,\vspace}
+% \DoNotIndex{\wd,\xiipt,\year,\z@}
+%
+% \changes{v1.0}{2000/08/19}{First public release}
+% \changes{v1.1}{2005/04/02}{Minor circumstantial changes and for Postscript}
+%
+% \def\fileversion{v1.0} \def\filedate{2000/08/19}
+% \def\fileversion{v1.1} \def\filedate{2005/04/02}
+% \newcommand*{\Lpack}[1]{\textsf {#1}}           ^^A typeset a package
+% \newcommand*{\Lopt}[1]{\textsf {#1}}            ^^A typeset an option
+% \newcommand*{\file}[1]{\texttt {#1}}            ^^A typeset a file
+% \newcommand*{\Lcount}[1]{\textsl {\small#1}}    ^^A typeset a counter
+% \newcommand*{\pstyle}[1]{\textsl {#1}}          ^^A typeset a pagestyle
+% \newcommand*{\Lenv}[1]{\texttt {#1}}            ^^A typeset an environment
+% \newcommand*{\AD}{\textsc{ad}}
+% \newcommand*{\thisfont}{OandS}
+%
+% \title{The \Lpack{OandS} fonts\thanks{This
+%        file has version number \fileversion, last revised
+%        \filedate.}}
+%
+% \author{%
+% Peter Wilson\thanks{\texttt{herries dot press at earthlink dot net}}\\
+% Herries Press
+% }
+% \date{\filedate}
+% \maketitle
+% \begin{abstract}
+%    The \Lpack{oands} bundle provides a set of 
+% miscellaneous characters for use when transliterating ancient scripts.
+% This is one in a series for archaic scripts.
+% \end{abstract}
+% \tableofcontents
+%
+% \section{Introduction}
+%
+%    The \Lpack{oands} bundle provides a Postscript Type1 version of an 
+% original Metafont~\cite{METAFONT} design 
+% of the \thisfont{} fonts. These are odd characters used in transliterating
+% archaic scripts, like Hieroglyphic, into a modern alphabet. The font is
+% part of a project to provide fonts showing the development of the
+% modern Latin alphabet from ancient times.
+%
+% This manual is typeset according to the conventions of the
+% \LaTeX{} \textsc{docstrip} utility which enables the automatic
+% extraction of the \LaTeX{} macro source files~\cite{GOOSSENS94}.
+% The \Lpack{docmfp} package is used for documenting the Metafont portions
+% of the distribution~\cite{DOCMFP}.
+%
+%    Section~\ref{sec:usc} describes the usage of the package.
+% Commented code for the fonts and package may be in later sections.
+%
+%
+% \subsection{The \thisfont{} script}
+%
+%    The \thisfont{} font currently consists of just two characters. One is
+% a `mirrored apostrophe' accessed via the single left quote character.
+% The other is a sign representing a glottal stop; it looks like the numeral 3
+% with a flat top and is accessed via the lowercase z character.
+%
+% \section{The \Lpack{oands} package} \label{sec:usc}
+%
+%     The \thisfont{} font family is called |oands|. The font is supplied 
+% both upright and italic forms and in both
+% OT1 and T1 encodings.
+%
+%
+% \DescribeMacro{\oandsfamily}
+%    The |\oandsfamily| declaration starts typesetting with the \thisfont{} fonts.
+% Use of the \thisfont{} font will continue until either there is another |\...family|
+% declaration or the current group (e.g., environment) is closed.
+%
+% \DescribeMacro{\textoands}
+%    The command |\textoands{|\meta{text}|}| will typeset \meta{text} using the
+% \thisfont{} fonts.
+%
+% The complete font may be printed by |\textoands{` z}|.
+%
+%
+% \StopEventually{
+% \bibliographystyle{alpha}
+% \renewcommand{\refname}{Bibliography}
+% \begin{thebibliography}{GMS94}
+% \addcontentsline{toc}{section}{\refname}
+%
+% \bibitem[Knu92]{METAFONT}
+% Donald E.~Knuth.
+% \newblock \emph{The METAFONTbook}.
+% \newblock Addison-Wesley, 1992.
+%
+% \bibitem[Knu87]{CM}
+% Donald E.~Knuth.
+% \newblock \emph{Computer Modern Typefaces}.
+% \newblock Addison-Wesley, 1987.
+%
+% \bibitem[GMS94]{GOOSSENS94}
+% Michel Goossens, Frank Mittelbach, and Alexander Samarin.
+% \newblock \emph{The LaTeX Companion}.
+% \newblock Addison-Wesley Publishing Company, 1994.
+%
+% \bibitem[Wil99]{DOCMFP}
+% Peter R.~Wilson.
+% \newblock \emph{The DOCMFP Package}.
+% \newblock (Available from CTAN in \texttt{macros/latex/contrib}). 
+% \newblock 1999.
+%
+% \end{thebibliography}
+%
+% \PrintIndex
+%
+% }
+%
+%
+%
+% \section{The Metafont code} \label{sec:mf}
+%
+%
+% \subsection{The parameter file}
+%
+%    We deal with the parameter files first, and start by announcing
+% what they are for. The \thisfont{} font comes in one size as a normal
+% and italic font.
+% 
+%    \begin{macrocode}
+%<*base10|base10i>
+%<base10>%%% OANDSU10.MF  oands upright font at 10 point design size.
+%<base10i>%%% OANDSI10.MF  oands italic font at 10 point design size.
+%
+%    \end{macrocode}
+%    The parameters from CMR are used~\cite{CM}. We also
+% make sure that \Lpack{cmbase} is loaded as well 
+% as plain Metafont.
+%    \begin{macrocode}
+if unknown cmbase: input cmbase fi
+
+%    \end{macrocode}
+%
+% \begin{routine}{mirror_comma}
+%    We need an additional routine for a `mirrored' comma. It might
+% just as well go here as the number of families is very limited and it
+% will save on a file. The code is based on Knuth's \file{cmbase.mf}.
+%    \begin{macrocode}
+def mirror_comma(suffix $, @)(expr dot_size, jut, depth) =
+  pickup fine.nib;
+  pos$(dot_size,90);
+  if square_dots:
+    pos$'(dot_size,0);
+    z$'=z$;
+    dot($',$);                         % squarish dot
+    comma_join_ := max(fine.breadth, floor .7dot_size);
+    comma_bot_ := max(fine.breadth, floor .5dot_size);
+    pos@0(comma_join_, 0); pos@1(comma_join_, 0); pos@2(comma_bot_, 0);
+    y@0=y$; y@1=y$1; y@2=y@1-depth;
+    x@0r=x@1r=x$'r;
+    rt x@2r=good.x(x$-eps);
+    filldraw stroke z@0e--z@1e..z@2e;  % tail
+  else:
+    pos@1(vair,-90); pos@2(vair,0); pos@3(vair,45);
+    z@1r=z$r; lft x@2l=hround(x$-.5dot_size-jut)-2eps; x@3=x$+.5u;
+    y@2=1/3[y@1,y@3]; bot y@3r=vround(y$-.5dot_size-depth);
+    y_ := ypart((z@1{left}...z@2{down}...z@3)
+          intersectiontimes (z$r{left}..{right}z$l));
+    if y_ < 0: y_ :=1; fi
+    filldraw z$l{right}..subpath (0,y_) of (z$r{left}..{right}z$l)--cycle; % dot
+    filldraw stroke z@1e{left}...z@2e{down}...z@3e; % tail
+  fi
+  penlabels(@1,@2,@3);
+enddef;
+
+%    \end{macrocode}
+% \end{routine}
+%
+% Now for the parameters.
+%    \begin{macrocode}
+%<base10>font_identifier:="OANDSU"; font_size 10pt#;
+%<base10i>font_identifier:="OANDSI"; font_size 10pt#;
+
+%    \end{macrocode}
+%
+% \DescribeVariable{u}
+%    The unit width.
+%    \begin{macrocode}
+%<base10> u# := 20/36pt#;        % unit width
+%<base10i> u# := 18.4/36pt#;     % unit width
+%    \end{macrocode}
+%
+% \DescribeVariable{width_adj}
+% \DescribeVariable{serif_fit}
+% \DescribeVariable{cap_serif_fit}
+% \DescribeVariable{letter_fit}
+%    The majority of these parameters and values are constant.
+% They are for fine adjustements of characters. 
+%    \begin{macrocode}
+ width_adj#:=0pt#;         % width adjustment for certain characters
+ serif_fit#:=0pt#;         % extra sidebar near lowercase serifs
+ cap_serif_fit#:=3.5/36pt#;  % extra sidebar near uppercase serifs
+%<base10> letter_fit#:=9.2/36pt#;        % extra space added to all sidebars
+%<base10i> letter_fit#:=0pt#;        % extra space added to all sidebars
+
+%    \end{macrocode}
+%
+% \DescribeVariable{body_height}
+% \DescribeVariable{asc_height}
+% \DescribeVariable{cap_height}
+% \DescribeVariable{fig_height}
+% \DescribeVariable{x_height} 
+% \DescribeVariable{math_axis} 
+% \DescribeVariable{bar_height} 
+% \DescribeVariable{comma_depth} 
+% \DescribeVariable{desc_depth} 
+%    This set of parameters defines the upper and lower limits
+% on the characters.
+%    \begin{macrocode}
+ body_height# := 270/36pt#;  % Height of tallest character
+ asc_height# := 250/36pt#;  % Height of lowercase ascenders
+ cap_height# := 246/36pt#;  % Height of caps
+ fig_height# := 232/36pt#;  % Height of numerals
+ x_height# := 155/36pt#;  % Height of lowercase without ascenders
+ math_axis# := 90/36pt#;  % axis of symmetry for math symbols
+ bar_height# := 87/36pt#; % height of crossbar in lowercase e
+ comma_depth# := 70/36pt#; % depth of comma below baseline
+ desc_depth# := 70/36pt#; % depth of lowercase descenders
+
+%    \end{macrocode}
+%
+% \DescribeVariable{crisp}
+% \DescribeVariable{tiny}
+% \DescribeVariable{fine}
+% \DescribeVariable{thin_join}
+% \DescribeVariable{hair}
+%    \begin{macrocode}
+ crisp# := 0pt#;  % diameter of serif corners
+ tiny# := 8/36pt#;  % diameter of rounded corners
+ fine# := 7/36pt#;  % diameter of sharply rounded corners
+ thin_join# := 7/36pt#;  % width of extrafine details
+ hair# := 9/36pt#;  % lowercase hairline breadth
+%    \end{macrocode}
+%
+% \DescribeVariable{stem}
+% \DescribeVariable{curve}
+% \DescribeVariable{ess}
+% \DescribeVariable{flare}
+% \DescribeVariable{dot_size}
+%    \begin{macrocode}
+ stem# := 25/36pt#;  % lowercase stem breadth
+ curve# := 30/36pt#;    % lowercase curve breadth
+ ess# := 27/36pt#;  % breadth in middle of lowercase s
+ flare# := 33/36pt#;  % diameter of bulbs or breadth of terminals
+ dot_size# := 38/36pt#;  % diameter of dots
+%    \end{macrocode}
+%
+% \DescribeVariable{cap_hair}
+% \DescribeVariable{cap_stem}
+% \DescribeVariable{cap_curve}
+% \DescribeVariable{cap_ess}
+% \DescribeVariable{rule_thickness}
+%    \begin{macrocode}
+ cap_hair# := 11/36pt#;  % uppercase hairline breadth
+ cap_stem# := 32/36pt#;  % uppercase stem breadth
+ cap_curve# := 37/36pt#;  % uppercase curve breadth
+ cap_ess# := 35/36pt#;  % breadth in middle of uppercase S
+ rule_thickness# := 0.4pt#;  % thickness of lines in math symbols
+%    \end{macrocode}
+%
+% \DescribeVariable{dish}
+% \DescribeVariable{bracket}
+% \DescribeVariable{jut}
+% \DescribeVariable{cap_jut}
+% \DescribeVariable{beak_jut}
+%    \begin{macrocode}
+ dish# := 1/36pt#;  % amount erased at top or bottom of serifs
+ bracket# := 20/36pt#;  % vertical distance from serif base to tangent
+ jut# := 28/36pt#;  % protrusion of lowercase serifs
+ cap_jut# := 37/36pt#;  % protrusion of uppercase serifs
+ beak_jut# := 10/36pt#;  % horizontal protrusion of beak serifs
+%    \end{macrocode}
+%
+% \DescribeVariable{beak}
+% \DescribeVariable{vair}
+% \DescribeVariable{notch_cut}
+% \DescribeVariable{bar}
+% \DescribeVariable{slab}
+%    \begin{macrocode}
+ beak# := 70/36pt#;  % vertical protrusion of beak serifs
+ vair# := 8/36pt#;  % vertical diameter of hairlines
+ notch_cut# := 10pt#;  % max breadth above/below notches
+ bar# := 11/36pt#;  % lowercase bar thickness
+ slab# := 11/36pt#;  % serif and arm thickness
+%    \end{macrocode}
+%
+% \DescribeVariable{cap_bar}
+% \DescribeVariable{cap_band}
+% \DescribeVariable{cap_notch_cut}
+% \DescribeVariable{serif_drop}
+% \DescribeVariable{stem_corr}
+%    \begin{macrocode}
+ cap_bar# := 11/36pt#;  % uppercase bar thickness
+ cap_band# := 11/36pt#;  % uppercase thickness above/below lobes
+ cap_notch_cut# := 10pt#;  % max breadth above/below uppercase notches
+ serif_drop# := 4/36pt#;  % vertical drop of sloped serifs
+ stem_corr# := 1/36pt#;  % small refinement of stem breadth
+%    \end{macrocode}
+%
+% \DescribeVariable{vair_corr}
+% \DescribeVariable{apex_corr}
+% \DescribeVariable{o}
+% \DescribeVariable{apex_o}
+% \DescribeVariable{slant}
+%    \begin{macrocode}
+ vair_corr# := 1/36pt#;  % small refinement of hairline height
+ apex_corr# := 0pt#;  % extra width at diagonal junctions
+ o# := 8/36pt#;  % amount of overshoot for curves
+ apex_o# := 8/36pt#;  %  amount of overshoot for diagonal junctions
+%<base10> slant := 0;  % tilt ratio (\Delta x / \Delta y)
+%<base10i> slant := 0.25;  % tilt ratio (\Delta x / \Delta y)
+%    \end{macrocode}
+%
+% \DescribeVariable{fudge}
+% \DescribeVariable{math_spread}
+% \DescribeVariable{superness}
+% \DescribeVariable{superpull}
+% \DescribeVariable{beak_darkness}
+%    \begin{macrocode}
+ fudge := 1;  % facto applied to weights of heavy characters
+ math_spread := 0;  % extra openness of math symbols
+ superness := 1/sqrt2;  % parameter for superellipses
+ superpull := 1/6;  % extra openness inside bowls
+ beak_drakness := 11/30;  % fraction of triangle inside beak serifs
+%    \end{macrocode}
+%
+% \DescribeVariable{ligs}
+% \DescribeVariable{square_dots}
+% \DescribeVariable{hefty}
+% \DescribeVariable{serifs}
+% \DescribeVariable{monospace}
+%    \begin{macrocode}
+ ligs := 2;  % level of ligatures to be included
+ square_dots := false;  % should dots be square?
+ hefty := false;  % should we try hard not to be overweight?
+ serifs := true;  % should serifs and bulbs be attached?
+ monospace := false;  % should all characyers have the same width?
+%    \end{macrocode}
+%
+% \DescribeVariable{variant_g}
+% \DescribeVariable{low_asterisk}
+% \DescribeVariable{math_fitting}
+%    \begin{macrocode}
+%<base10> variant_g := false;  % should an italic-style g be used?
+%<base10i> variant_g := true;  % should an italic-style g be used?
+ low_asterisk := false;  % should the asterisk be centered at the axis?
+ math_fitting := false;  % should math-mode spacing be used?
+
+%    \end{macrocode}
+%
+%
+%    Finally, call the driver file for the font.
+%    \begin{macrocode} 
+%<base10> generate oandsup    %% switch to the driver file
+%<base10i> generate oandsit    %% switch to the driver file
+
+%    \end{macrocode}
+%
+%    The end of this code section.
+%    \begin{macrocode}
+%</base10|base10i>
+%    \end{macrocode}
+%
+%
+% \subsection{The driver files}
+%
+%    The driver file sets up the font parameters and also contains
+% the macros used in the definition of the characters.
+%
+%    \begin{macrocode}
+%<*mfdu>
+% OANDSUP.MF setup for the upright OANDS font.
+
+%    \end{macrocode}
+% This file is based on Knuth's \file{roman.mf}.
+%
+%    \begin{macrocode}
+
+if ligs>1: font_coding_scheme:="TeX text";
+else: font_coding_scheme:=if ligs=0: "TeX typewriter text"
+                          else: "TeX text without f-ligatures" 
+                          fi;
+fi
+
+mode_setup; font_setup;
+
+input oandsym;
+
+font_slant slant; font_x_height x_height#;
+if monospace: font_normal_space 9u#; % no stretching or shrinking
+ font_quad 18u#;
+ font_extra_space 9u#;
+else: font_normal_space 6u#+2letter_fit#;
+ font_normal_stretch 3u#; font_normal_shrink 2u#;
+ font_quad 18u#+4letter_fit#;
+ font_extra_space 2u#;
+ k#:=-.5u#; kk#:=-1.5u#; kkk#:=-2u#; % three degrees of kerning
+%    \end{macrocode}
+% There are no ligatures at this time.
+%    \begin{macrocode}
+fi
+
+bye.
+
+%</mfdu>
+%    \end{macrocode}
+%
+% Now the italic driver file, which is based on Knuth's \file{textit.mf}.
+%
+%    \begin{macrocode}
+%<*mfdi>
+% file OANDSIT.MF Italic setup for OANDS font
+
+mode_setup; font_setup;
+
+if ligs>1: font_coding_scheme:="TeX text";
+else: font_coding_scheme:=if ligs=0: "TeX typewriter text"
+                          else: "TeX text without f-ligatures" 
+                          fi;
+fi
+
+font_slant slant; font_x_height x_height#;
+if monospace: font_normal_space 9u#; % no stretching or shrinking
+ font_quad 18u#;
+ font_extra_space 9u#;
+ letter_fit#:=letter_fit:=0;
+else: font_normal_space 6u#+2letter_fit#;
+ font_normal_stretch 3u#; font_normal_shrink 2u#;
+ font_quad 18u#+4letter_fit#;
+ font_extra_space 2u#; fi
+
+input oandsym;
+
+if not monospace:
+ k#:=-.5u#; kk#:=-1.5u#; kkk#:=-2u#; % three degrees of kerning
+%    \end{macrocode}
+% There are no ligatures at this time.
+%    \begin{macrocode}
+fi
+
+bye.
+
+%</mfdi>
+%    \end{macrocode}
+%
+%
+% \subsection{The code for the characters}
+%
+%    The following code is for the characters making up the font.
+%
+%    \begin{macrocode}
+%<*min>
+% OANDSYM.MF Program file for oands characters
+%
+
+%    \end{macrocode}
+%
+%
+% \begin{routine}{`}
+% A mirrored apostrophe, based on Knuth's apostrophe from \file{punct.mf}.
+%    \begin{macrocode}
+cmchar "Mirrored apostrophe";
+beginchar("`",5u#,asc_height#,0);
+italcorr asc_height#*slant+.5dot_size#-2u#;
+adjust_fit(0,0);
+x1-.5dot_size=hround(.5w-.5dot_size); y1+.5dot_size=h;
+if monospace: 
+  mirror_comma(1,a,dot_size,.28u,vround 1.5comma_depth);  % large one
+else: 
+  mirror_comma(1,a,dot_size,.25u,comma_depth);  % normal one
+fi
+penlabels(1); 
+endchar;
+
+%    \end{macrocode}
+% \end{routine}
+%
+% \begin{routine}{z}
+% A representation of a glottal stop. It looks somewhat like an oldstyle
+% digit 3 with a flat top, or the way I handwrite a lowercase z with a tail.
+% It is based on a combination of 3 and 7 from Knuth's \file{olddig.mf} file.
+% \changes{v1.1}{2005/04/02}{Slimmed down the glottal stop}
+%    \begin{macrocode}
+cmchar "The glottal stop z";
+beginchar("z",9u#,x_height#,desc_depth#);
+italcorr .8x_height#*slant-.4u#;
+adjust_fit(0,0);
+numeric top_thickness,mid_thickness,bot_thickness;
+top_thickness=max(fine.breadth,vround(slab-2vair_corr));
+mid_thickness=max(fine.breadth,vround 2/3vair);
+bot_thickness=max(fine.breadth,vround(slab-vair_corr));
+pickup fine.nib; 
+%    \end{macrocode}
+% The lower bowl from the 3 character.
+%    \begin{macrocode}
+pos5(vair,-90);
+pos6(mid_thickness,90); 
+x6=x8=.5[1.5u,x7];
+pos7(cap_curve,0); rt x7r=hround(w-.75u); 
+lft x5=min(hround 3u,lft x6);
+pos8(bot_thickness,-90); bot y8r=-d-o;
+y7=.5[bot y6l,top y8l];
+top y5l=vround(.54[-d,h]+.5vair); y5r=y6l;
+filldraw z5r--z6l--z6r--z5l---cycle;  % middle tip
+filldraw stroke pulled_super_arc.e(6,7)(.5superpull)
+ & pulled_super_arc.e(7,8)(.5superpull);  % lower bowl
+if serifs: 
+ numeric bulb_diam[];
+ bulb_diam2=flare+cap_stem-stem;
+ pos10(bulb_diam2,-180); 
+ pos9(cap_hair,-180);
+ lft x10r=hround .75u; y10=max(.1[-d,h]+.5bulb_diam2,.3[-d,h]-.5bulb_diam2);
+ bulb(8,9,10);  % lower bulb
+else: 
+ pos9(bot_thickness,angle(-2u,-h-d));
+ lft x9r=hround .75u; top y9l=(vround .25[-d,h])-o;
+ y9r:=good.y y9r-eps; x9l:=good.x x9l;
+ filldraw stroke term.e(8,9,left,1,4);  % lower terminal
+fi 
+%    \end{macrocode}
+% The top half of the 7 character.
+%    \begin{macrocode}
+numeric arm_thickness, bot_width, top_shift, top_hair;
+%%%if hefty: arm_thickness=Vround(slab+2stem_corr); top_shift=0;
+%%% bot_width=hround .51[curve,cap_curve]; top_hair=.4[thin_join,bot_width];
+%%%else: arm_thickness=Vround .4[stem,cap_stem]; top_shift=.5u;
+%%% bot_width=flare; top_hair=cap_hair; fi
+if hefty: arm_thickness=Vround(vair-vair_corr); top_shift=0;
+  bot_width=hround .51[curve,cap_curve]; top_hair=.4[thin_join,bot_width];
+else: arm_thickness=vair; top_shift=.5u;
+   bot_width=flare; top_hair=cap_hair; fi
+if top_hair<tiny.breadth: top_hair:=tiny.breadth; fi
+pickup crisp.nib; 
+pos2(arm_thickness,90); 
+pos1(hair,180);
+top y2r=h; rt x2=hround(w-.75u+top_shift);
+lft x1r=hround(.75u+.5top_shift); y1=good.y(y2l-beak/2)-eps;
+arm(2,1,a,.3beak_darkness,-beak_jut);  % arm and beak
+pos3(hair,180); y3=good.y(y2r+beak/6)+eps; z3r=whatever[z1r,z.a0];
+penpos2'(2epsilon,-90); z2'=z2r;
+arm(2',3,b,beak_darkness,x3r-x.a0);  % upward extension of beak
+pickup tiny.nib; 
+pos4(top_hair,0); 
+bot y4=max(h-arm_thickness,h-slab,bot y2l); rt x4r=crisp.rt x2;
+if hefty: 
+else: 
+   erase fill rt z4r--z4r--z5r--(rt x4r,y5)--cycle;  % erase excess at top
+   filldraw stroke z4e---z5e; % stroke
+fi  
+penlabels(0,1,2,3,4,5,6,7,8,9,10); 
+endchar;
+
+%    \end{macrocode}
+% \end{routine}
+%
+%
+%    The end of this file
+%    \begin{macrocode} 
+%</min>
+%    \end{macrocode}
+%
+%
+% \section{The font definition files} \label{sec:fd}
+%
+%    The font comes in normal and italic only.
+%
+%    \begin{macrocode}
+%<*fdot1>
+\DeclareFontFamily{OT1}{oands}{}
+  \DeclareFontShape{OT1}{oands}{m}{n}{ <-> oandsu10 }{} 
+  \DeclareFontShape{OT1}{oands}{bx}{n}{ <-> sub oands/m/n }{} 
+  \DeclareFontShape{OT1}{oands}{b}{n}{ <-> sub oands/m/n }{} 
+  \DeclareFontShape{OT1}{oands}{m}{it}{ <-> oandsi10 }{}
+  \DeclareFontShape{OT1}{oands}{m}{sl}{ <-> sub oands/m/it }{}
+%</fdot1>
+%    \end{macrocode}
+%
+%
+%    \begin{macrocode}
+%<*fdt1>
+\DeclareFontFamily{T1}{oands}{}
+  \DeclareFontShape{T1}{oands}{m}{n}{ <-> oandsu10 }{} 
+  \DeclareFontShape{T1}{oands}{bx}{n}{ <-> sub oands/m/n }{} 
+  \DeclareFontShape{T1}{oands}{b}{n}{ <-> sub oands/m/n }{} 
+  \DeclareFontShape{T1}{oands}{m}{it}{ <-> oandsi10 }{}
+  \DeclareFontShape{T1}{oands}{m}{sl}{ <-> sub oands/m/it }{}
+%</fdt1>
+%    \end{macrocode}
+%
+% \section{The package code} \label{sec:code}
+%
+% \subsection{The \Lpack{oands} package}
+%
+%    The \Lpack{oands} package is for typesetting short pieces of text
+% in the \thisfont{} fonts.
+%
+%    Announce the name and version of the package, which requires
+% \LaTeXe{}.
+%    \begin{macrocode}
+%<*usc>
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{oands}[2000/08/19 v1.0 package for OandS fonts]
+%    \end{macrocode}
+%
+% \begin{macro}{\Tienc}
+%  A  macro for testing the value of |\encodingdefault|.
+%    \begin{macrocode}
+\providecommand{\Tienc}{T1}
+%    \end{macrocode}
+% \end{macro}
+%
+%
+% \begin{macro}{\oandsfamily}
+%    Selects the \thisfont{} font family in the OT1 or T1 encoding.
+%    \begin{macrocode}
+\ifx\Tienc\encodingdefault
+  \newcommand{\oandsfamily}{\usefont{T1}{oands}{m}{n}}
+\else
+  \newcommand{\oandsfamily}{\usefont{OT1}{oands}{m}{n}}
+\fi
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{\textoands}
+%    Text command for the \thisfont{} font family.
+%    \begin{macrocode}
+\DeclareTextFontCommand{\textoands}{\oandsfamily}
+%    \end{macrocode}
+% \end{macro}
+%
+%    The end of this package.
+%    \begin{macrocode}
+%</usc>
+%    \end{macrocode}
+%
+% \section{Postscript Type1 map file}
+%
+% Just a line or two.
+% \changes{v1.1}{2005/04/02}{Added map file}
+%    \begin{macrocode}
+%<*map>
+oandsu10 Archaic-OandS        <oandsu10.pfb
+oandsi10 Archaic-OandS-Italic <oandsi10.pfb
+%</map>
+%    \end{macrocode}
+%
+%
+% \Finale
+% ^^A \PrintIndex
+%
+\endinput
+
+%% \CharacterTable
+%%  {Upper-case    \A\B\C\D\E\F\G\H\I\J\K\L\M\N\O\P\Q\R\S\T\U\V\W\X\Y\Z
+%%   Lower-case    \a\b\c\d\e\f\g\h\i\j\k\l\m\n\o\p\q\r\s\t\u\v\w\x\y\z
+%%   Digits        \0\1\2\3\4\5\6\7\8\9
+%%   Exclamation   \!     Double quote  \"     Hash (number) \#
+%%   Dollar        \$     Percent       \%     Ampersand     \&
+%%   Acute accent  \'     Left paren    \(     Right paren   \)
+%%   Asterisk      \*     Plus          \+     Comma         \,
+%%   Minus         \-     Point         \.     Solidus       \/
+%%   Colon         \:     Semicolon     \;     Less than     \<
+%%   Equals        \=     Greater than  \>     Question mark \?
+%%   Commercial at \@     Left bracket  \[     Backslash     \\
+%%   Right bracket \]     Circumflex    \^     Underscore    \_
+%%   Grave accent  \`     Left brace    \{     Vertical bar  \|
+%%   Right brace   \}     Tilde         \~}
+
+

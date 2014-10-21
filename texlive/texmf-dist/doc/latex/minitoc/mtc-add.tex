@@ -1,0 +1,168 @@
+%%
+%% This is file `mtc-add.tex',
+%% generated with the docstrip utility.
+%%
+%% The original source files were:
+%%
+%% minitoc.dtx  (with options: `mtc-add')
+%% This is a generated file.
+%% 
+%% 
+%% This file may be distributed and/or modified under the conditions of
+%% the LaTeX Project Public License, either version 1.3 of this license
+%% or (at your option) any later version.  The latest version of this
+%% license is in:
+%% 
+%%    http://www.latex-project.org/lppl.txt
+%% 
+%% and version 1.3 or later is part of all distributions of LaTeX version
+%% 2003/12/01 or later.
+%% 
+%% This work has the LPPL maintenance status "author-maintained".
+%% 
+%% This Current Maintainer of this work is Jean-Pierre F. Drucbert (JPFD).
+%% 
+%% This work consists of all the files listed in the file `minitoc.l'
+%% distributed with it.
+%% Copyright 1993 1994 1995 1996 1997 1998 1999 2000
+%%           2001 2002 2003 2004 2005 2006 2007 2008
+%% Jean-Pierre F. Drucbert
+%% <jean-pierre.drucbert@onera.fr>
+\documentclass[12pt,a4paper]{report}
+%% \documentclass[12pt,a4paper]{book}
+\ProvidesFile{mtc-add.tex}%
+  [2007/01/04]
+\usepackage{url}
+\usepackage{tocbibind}
+\usepackage{makeidx}
+\makeatletter
+\newif\ifscan@allowed
+\scan@allowedtrue
+\makeatother
+\def\dotfil{\leaders\hbox to.6em{\hss .\hss}\hfil}%
+\def\pfill{\unskip~\dotfill\penalty500\strut\nobreak
+           \dotfil~\ignorespaces}%
+\usepackage[tight,hints,listfiles]{minitoc}
+%% \usepackage{mtcoff}
+\makeindex
+\begin{document}
+\dominitoc \dominilof \dominilot
+\tableofcontents \mtcaddchapter
+\listoffigures \mtcaddchapter
+\listoftables \mtcaddchapter
+\chapter{First chapter}\index{chapter!normal}
+\minitoc \mtcskip
+\minilof \mtcskip
+\minilot
+\section{First section}
+
+\begin{figure}[tp] \caption{First figure} \end{figure}
+\begin{table}[tp] \caption{First table} \end{table}
+
+\section{Second section}
+A small nice citation from~\cite{dark}:\\
+\index{small}\index{citation}\index{nice}\index{A}\index{a}%
+\index{and}\index{bird}\index{But}\index{cannot}%
+\index{claim}\index{great}\index{he}\index{I}%
+\index{imagine}\index{it}\index{know}\index{land}%
+\index{on}\index{once}\index{that}\index{to}\index{tree}%
+\index{would}\index{yes}%
+\textsf{A bird cannot land once on a great tree and claim to know it.
+But I imagine that he would, yes.}\\
+\hbox{}\hfill
+Iain~M.~\textsc{Banks}~(1993),~\textsl{Against~a~dark~background.}%
+\index{Iain}\index{Banks}\index{Against}\index{dark}\index{background}
+
+\begin{figure}[tp] \caption{Second figure} \end{figure}
+\begin{table} \caption{Second table} \end{table}
+\chapter*{Second chapter, starred}
+\index{chapter!starred}
+%% UNCOMMENT ONE AND ONLY ONE OF THE 3 FOLLOWING LINES
+\mtcaddchapter[Second chapter, starred] % OK
+%% \mtcaddchapter[~]    % produces a (strange) correct result. OK
+%% \addcontentsline{toc}{xchapter}{}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% \mtcaddchapter[]     % BAD SOLUTION
+%% \mtcaddchapter       % BAD SOLUTION
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\index{tests}
+
+This is a starred chapter; you can test here variations on
+the \verb|\mtcaddchapter| command. Just uncomment one (and
+only one) of the \verb|\mtcaddchapter| commands after
+\verb|\chapter*| in the source code of \texttt{mtc-add.tex}.
+For each case, look at the \index{Table of Contents}Table of Contents
+and at this chapter.
+\index{a}\index{added}\index{after}\index{also}\index{and}%
+\index{at}\index{can}\index{case}\index{chapter}\index{code}%
+\index{command}\index{commands}\index{Contents}\index{each}%
+\index{entries}\index{For}\index{here}\index{I}\index{in}%
+\index{index}\index{is}\index{Just}\index{just}\index{look}%
+\index{lot}\index{of}\index{on}\index{one}\index{only}%
+\index{source}\index{starred}\index{Table}\index{test}%
+\index{the}\index{This}\index{this}\index{to}\index{uncomment}%
+\index{variations}\index{you}%
+I also added a lot of index entries, just to test.
+
+\chapter{Third chapter}
+\index{chapter!normal}
+\minitoc \mtcskip
+\minilof \mtcskip
+\minilot
+\section{Third section}
+
+\begin{figure} \caption{Third figure} \end{figure}
+\begin{table} \caption{Third table} \end{table}
+
+\section{Fourth section}
+
+\begin{figure} \caption{Fourth figure} \end{figure}
+\begin{table} \caption{Fourth table} \end{table}
+\nocite*
+\def\noopsort#1{\relax}
+\bibliographystyle{plain}
+\bibliography{mtc-add}
+\adjustmtc
+\printindex
+\mtcfixindex % use this OR the 3 following lines
+%% \addcontentsline{lof}{xchapter}{}
+%% \addcontentsline{lot}{xchapter}{}
+%% \mtcaddchapter
+%%
+
+\appendix
+\chapter{App.~1}
+\index{chapter!appendix}
+\minitoc \mtcskip
+\minilof \mtcskip
+\minilot
+\section{Fifth section}
+
+\begin{figure} \caption{Fifth figure} \end{figure}
+\begin{table} \caption{Fifth table} \end{table}
+
+\section{Sixth section}
+
+\begin{figure} \caption{Sixth figure} \end{figure}
+\begin{table} \caption{Sixth table} \end{table}
+\chapter{App.~2}
+\index{chapter!appendix}
+%% contains no tables but asks for a minilot! No minilot printed.
+\minitoc \mtcskip
+\minilof \mtcskip
+\minilot
+\section{Seventh section}
+\begin{figure} \caption{Seventh figure} \end{figure}
+\begin{figure} \caption{Eighth figure} \end{figure}
+
+\section{Eighth section}
+
+\begin{figure} \caption{Ninth figure} \end{figure}
+\begin{figure} \caption{Eleventh figure} \end{figure}
+
+\end{document}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%
+\endinput
+%%
+%% End of file `mtc-add.tex'.

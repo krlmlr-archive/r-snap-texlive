@@ -1,0 +1,259 @@
+% !TEX TS-program = pdflatexmk
+\documentclass{article}
+\usepackage[margin=1in]{geometry} 
+\usepackage[parfill]{parskip}% Begin paragraphs with an empty line, no indent
+\usepackage{enumitem}
+\setlist[description]{style=sameline,font=\mdseries\scshape}
+\setlength\unitlength{1pt}% for picture
+\usepackage{booktabs}
+\usepackage{graphicx}
+\usepackage{xcolor}
+\usepackage{upquote}
+\usepackage{fancyvrb}
+\def\yellow#1{\setlength{\fboxrule}{0pt}%
+\setlength{\fboxsep}{0pt}%
+\colorbox{yellow}{#1}}
+%SetFonts
+%fbb plus newtxmath
+\usepackage[full]{textcomp} % to get the right copyright, etc.
+\usepackage[sups]{fbb}
+\usepackage[scaled=.95,type1]{cabin}
+\usepackage[varqu,varl]{zi4}% typewriter
+\usepackage[libertine,bigdelims]{newtxmath}
+\usepackage[bb=boondox,frak=boondox]{mathalfa}
+%\renewcommand*{\rmdefault}{zgmj}
+\usepackage[T1]{fontenc}
+\useosf
+\usepackage{fonttable}
+\title{The \textbf{fbb} package---a Bembo--like font}
+\author{Michael Sharpe}
+\date{}
+\begin{document}
+\maketitle
+\section{The Package}
+The {\tt fbb} package offers a family of Bembo--like fonts derived from Cardo in the usual four styles. Text figures may be selected from four types:
+\begin{itemize}
+\item
+Proportional lining (LF), selected by option {\tt lining};
+\item
+Tabular lining (TLF), selected by options {\tt lining, tabular};
+\item
+Proportional oldstyle (OsF), selected by option {\tt oldstyle};
+\item
+Tabular oldstyle (TOsF), selected by options {\tt oldstyle, tabular}.
+\end{itemize}
+The package also defines five macros that allow you use alternate figure styles locally:
+\begin{verbatim}
+\textlf{97} % print 97 in proportional lining figures
+\texttlf{97} % print 97 in tabular lining figures
+\textosf{97} % print 97 in proportional oldstyle figures
+\texttosf{97} % print 97 in tabular oldstyle figures
+\textsu{97} % print 97 in superior figures
+\end{verbatim}
+Option {\tt sups} changes the form of footnote markers to use {\tt fbb}'s superior figures, unless you have redefined the meaning of \verb|\thefootnote| prior to loading {\tt fbb}. For more control over size, spacing and position of footnote markers, use the \textsf{superiors} package: Eg,
+\begin{verbatim}
+\usepackage[supstfm=fbb-Regular-sup-t1]{superiors}
+\end{verbatim}
+
+
+There is a {\tt scaled} option (\emph{e.g.}, {\tt scaled=.97}) that allow you to adjust the text size against, say, a math package. This text package works well with {\tt newtxmath} with the {\tt libertine} option, because the latter has italics of the same italic angle as {\tt fbb} and of very similar xheight and weight. The suggested invocation is:
+\begin{verbatim}
+\usepackage[full]{textcomp} % to get the right copyright, etc.
+\usepackage[lining,tabular]{fbb} % so math uses tabular lining figures
+\usepackage[scaled=.95,type1]{cabin} % sans serif in style of Gill Sans
+\usepackage[varqu,varl]{zi4}% inconsolata typewriter
+\usepackage[T1]{fontenc} % LY1 also works
+\usepackage[libertine,bigdelims]{newtxmath}
+\usepackage[cal=boondoxo,bb=boondox,frak=boondox]{mathalfa}
+\useosf % change normal text to use proportional oldstyle figures
+%\usetosf would provide tabular oldstyle figures in text
+\end{verbatim}
+Here is a short sample based on this preamble:\\[4pt]
+\def\Pr{\ensuremath{\mathbb{P}}}
+\def\rmd{\mathrm{d}}
+The typeset math below follows the ISO recommendations that only variables
+be set in italic. Note the use of upright shapes for $\rmd$, $\mathrm{e}$
+and $\uppi$. (The first two are entered as \verb|\mathrm{d}| and
+\verb|\mathrm{e}|, and in fonts derived from {\tt newtxmath} or {\tt mtpro2},
+ the latter is entered as \verb|\uppi|.)
+
+\textbf{Simplest form of the \textit{Central Limit Theorem}:} \textit{Let
+$X_1$, $X_2,\cdots$ be a sequence of iid random variables with mean $0$ 
+and variance $1$ on a probability space $(\Omega,\mathcal{F},\Pr)$. Then}
+\[\Pr\left(\frac{X_1+\cdots+X_n}{\sqrt{n}}\le y\right)\to\mathfrak{N}(y)\coloneq
+\int_{-\infty}^y \frac{\mathrm{e}^{-t^2/2}}{\sqrt{2\uppi}}\,
+\mathrm{d}t\quad\mbox{as $n\to\infty$,}\]
+\textit{or, equivalently, letting} $S_n\coloneq\sum_1^n X_k$,
+\[\mathbb{E} f(S_n/\sqrt{n})\to \int_{-\infty}^\infty f(t)
+\frac{\mathrm{e}^{-t^2/2}}{\sqrt{2\uppi}}\,\mathrm{d}t
+\quad\mbox{as $n\to\infty$, for every $f\in\mathrm{b}
+\mathcal{C}(\mathbb{R})$.}\]
+
+\section{Text effects under \texttt{fontaxes}}
+This package loads the {\tt fontaxes} package in order to access italic small caps. You should pay attention to the fact that {\tt fontaxes} modifies the behavior of some basic \LaTeX\ text macros such as \verb|\textsc| and \verb|\textup|. Under normal \LaTeX, some text effects are combined, so that, for example, \verb|\textbf{\textit{a}}| produces bold italic {\tt a}, while other effects are not, eg, \verb|\textsc{\textup{a}}| has the same effect as \verb|\textup{a}|, producing the letter {\tt a} in upright, not small cap, style. With {\tt fontaxes}, \verb|\textsc{\textup{a}}| produces instead upright small cap {\tt a}. It offers a macro \verb|\textulc| that undoes small caps, so that, eg, \verb|\textsc{\textulc{a}}| produces {\tt a} in non-small cap mode, with whatever other style choices were in force, such as bold or italics.
+
+%\section{Superior figures}
+%The TrueType versions of GaramondNo8 have a full set of superior figures, unlike their PostScript counterparts. The superior figure glyphs in regular weight only have been copied to \texttt{NewG8-sups.pfb} and \texttt{NewG8-sups.afm} and provided with a tfm named \texttt{NewG8-sups.tfm} that can be used by the \textsf{superiors} package to provide adjustable footnote markers. See \textsf{superiors-doc.pdf} (you can find it in \TeX Live by typing \texttt{texdoc superiors} in a Terminal window.) The simplest invocation is
+%\begin{verbatim}
+%\usepackage[supstfm=NewG8-sups]{superiors}
+%\end{verbatim}
+\section{Glyphs in TS\textlf{1} encoding}
+The layout of the TS\textlf{1} encoded Text Companion font, which is fully rendered \emph{in regular style only}, is as follows. See below for the macros that invoke these glyphs. Though shown in regular weight, upright shape only, a reduced set of  glyphs are available in all other weights and shapes.
+
+\fonttable{fbb-Regular-tosf-ts1}
+
+\textsc{List of macros to access the TS\textlf{1} symbols in text mode:}\\
+(Note that slots 0--12 and 26--29 are accents, used like \verb|\t{a}| for a tie accent over the letter a. Slots 23 and 31 do not contain visible glyphs, but have heights indicated by their names.)
+\begin{verbatim}
+  0 \capitalgrave
+  1 \capitalacute
+  2 \capitalcircumflex
+  3 \capitaltilde
+  4 \capitaldieresis
+  5 \capitalhungarumlaut
+  6 \capitalring
+  7 \capitalcaron
+  8 \capitalbreve
+  9 \capitalmacron
+ 10 \capitaldotaccent
+ 11 \capitalcedilla
+ 12 \capitalogonek
+ 13 \textquotestraightbase
+ 18 \textquotestraightdblbase
+ 21 \texttwelveudash
+ 22 \textthreequartersemdash
+ 23 \textcapitalcompwordmark
+ 24 \textleftarrow
+ 25 \textrightarrow
+ 26 \t % tie accent, skewed right
+ 27 \capitaltie % skewed right
+ 28 \newtie % tie accent centered
+ 29 \capitalnewtie % ditto
+ 31 \textascendercompwordmark
+ 32 \textblank
+ 36 \textdollar
+ 39 \textquotesingle
+ 42 \textasteriskcentered
+ 45 \textdblhyphen
+ 47 \textfractionsolidus
+ 48 \textzerooldstyle
+ 49 \textoneoldstyle
+ 50 \texttwooldstyle
+ 49 \textthreeoldstyle
+ 50 \textfouroldstyle
+ 51 \textfiveoldstyle
+ 52 \textsixoldstyle
+ 53 \textsevenoldstyle
+ 54 \texteightoldstyle
+ 55 \textnineoldstyle
+ 60 \textlangle
+ 61 \textminus
+ 62 \textrangle
+ 77 \textmho
+ 79 \textbigcircle
+ 87 \textohm
+ 91 \textlbrackdbl
+ 93 \textrbrackdbl
+ 94 \textuparrow
+ 95 \textdownarrow
+ 96 \textasciigrave
+ 98 \textborn
+ 99 \textdivorced
+100 \textdied
+108 \textleaf
+109 \textmarried
+110 \textmusicalnote
+126 \texttildelow
+127 \textdblhyphenchar
+128 \textasciibreve
+129 \textasciicaron
+130 \textacutedbl
+131 \textgravedbl
+132 \textdagger
+133 \textdaggerdbl
+134 \textbardbl
+135 \textperthousand
+136 \textbullet
+137 \textcelsius
+138 \textdollaroldstyle
+139 \textcentoldstyle
+140 \textflorin
+141 \textcolonmonetary
+142 \textwon
+143 \textnaira
+144 \textguarani
+145 \textpeso
+146 \textlira
+147 \textrecipe
+148 \textinterrobang
+149 \textinterrobangdown
+150 \textdong
+151 \texttrademark
+152 \textpertenthousand
+153 \textpilcrow
+154 \textbaht
+155 \textnumero
+156 \textdiscount
+157 \textestimated
+158 \textopenbullet
+159 \textservicemark
+160 \textlquill
+161 \textrquill
+162 \textcent
+163 \textsterling
+164 \textcurrency
+165 \textyen
+166 \textbrokenbar
+167 \textsection
+168 \textasciidieresis
+169 \textcopyright
+170 \textordfeminine
+171 \textcopyleft
+172 \textlnot
+173 \textcircledP
+174 \textregistered
+175 \textasciimacron
+176 \textdegree
+177 \textpm
+178 \texttwosuperior
+179 \textthreesuperior
+180 \textasciiacute
+181 \textmu
+182 \textparagraph
+183 \textperiodcentered
+184 \textreferencemark
+185 \textonesuperior
+186 \textordmasculine
+187 \textsurd
+188 \textonequarter
+189 \textonehalf
+190 \textthreequarters
+191 \texteuro
+214 \texttimes
+246 \textdiv
+\end{verbatim}
+There is a macro \verb|\textcircled| that may be used to construct a circled version of a single letter using \verb|\textbigcircle|. The letter is always constructed from the small cap version, so, in effect, you can only construct circled uppercase letters: \verb|\textcircled{M}| and \verb|\textcircled{m}| have the same effect, namely \textcircled{M}.
+
+\section{Historical Background}
+Humanist scholar Pietro Bembo, a seminal figure in literature and music of the Italian Renaissance, who later became Cardinal Bembo, wrote an essay in the last decade of the 15th century about his travels to Mt.\ Aetna, which work was published by the Venetian printer Aldus Manutius (whose name gave us \emph{Aldine}) using a new Roman font designed by his punch-cutter, Francesco Griffo that improved on the earlier efforts of Jenson, another printer in Venice. That font seems to have played a similarly seminal r\^ole in  typography. It was the direct progenitor of the many Garamond fonts, and has seen numerous modern revivals whose names make use of every known historical connection to the figures named above, such as those of Bembo's  lover for a time, Lucrezia Borgia.
+
+The metal form of the Bembo font developed by Stanley Morison for English Monotype in the 1920's was widely used in book printing due to its handsome appearance and readability. Commercial digital versions have not had much love from critics until recently.  Adobe's MinionPro and WarnockPro arguably deserve the prizes for the best modern revivals of oldstyle fonts not too distant from Bembo. (Both lack Bembo's tall ascenders and its characteristic overarching f.)
+
+To my knowledge, there is currently only one free source for a Bembo--like font family, that being David Perry's \emph{Cardo} (a contraction of \emph{Cardinal Bembo}), which is not readily accessible to 
+\LaTeX\ users and which lacks Bold Italic as well as a full range of Small Caps and figure styles.
+
+This package is named for its Berry form {\tt fbb}, with {\tt f} denoting free (\emph{i.e.}, public) and {\tt bb} the Berry abbreviation for Bembo. It is derived from Cardo, with significant  modifications. Where Cardo is intended primarily  for scholars of ancient languages, those features are removed from {\tt fbb} and issues of more modern concern are added. The package contains the usual four styles (regular, italic, bold, bold italic), each with small caps and figures in tabular lining, proportional lining, tabular oldstyle and proportional oldstyle, as well as superior and inferior figures. The f-ligatures have been  revised/added  so as to function better with \LaTeX, and other glyphs have been changed as necessary to suit the demands of \emph{FontForge}. A kerning table was added to Regular upright weight---a serious omission in the original.  The Bold Italic weight was created algorithmically from Italic, but the result required much intervention by human hand. Small Caps were created for all styles other than regular, which was already present in Cardo. 
+
+On screen and paper, {\tt fbb} appears close in weight to Libertine, though of larger xheight, a bit softer and slightly less plain.  The following two sentences are written in {\tt fbb} and Libertine respectively. The third example sentence is written using {\tt garamondx}, whose natural xheight is comparable to Libertine, but which should normally be scaled down to resemble more familiar Garamonds. Perhaps {\tt fbb} will be prove to be more suitable for older eyes.
+
+\textit{\textsc{Comparison between fbb and Libertine}}: 
+
+Both fbb and Libertine are highly readable fonts in their standard Roman forms, each has a wide range of figures and small caps, but Libertine has the advantage in the number of supported scripts and the variety of weights.
+
+{\fontfamily{LinuxLibertineT-LF}\selectfont Both fbb and Libertine are highly readable fonts in their standard Roman forms, each has a wide range of figures and small caps, but Libertine has the advantage in the number of supported scripts and the variety of weights.}
+
+\textit{\textsc{Same sentence in garamondx}}: 
+
+{\fontfamily{zgmx}\selectfont Both fbb and Libertine are highly readable fonts in their standard Roman forms, each has a wide range of figures and small caps, but Libertine has the advantage in the number of supported scripts and the variety of weights.}
+
+\end{document}

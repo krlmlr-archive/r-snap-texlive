@@ -1,0 +1,564 @@
+#!/bin/sh -
+#set -x
+PATH=/usr/local/bin:/usr/local/sbin:/usr/bin
+export PATH
+
+allan=0
+directory=./
+vendor=arkandis
+cfrtop=$(xdg-user-dir DOCUMENTS)/src/fonts/_cfr
+existencs=0
+docdir="doc"
+afmdir="fonts/afm"
+encdir="fonts/enc"
+mapdir="fonts/map"
+tfmdir="fonts/tfm"
+truetypedir="fonts/truetype"
+type1dir="fonts/type1"
+vfdir="fonts/vf"
+sourcedir="source"
+texdir="tex"
+
+usage="Usage: $0 [OPTION] [FILES]
+Prepare a flattened file hierarchy and install fonts and support files in it in preparation for the creation of an archive for upload to CTAN.
+Options:
+	-h --help	print this message and exit
+	-a --adf	file listing ADF files			[after cd: ./adf or ../cfr/adf or hard-coded list]
+	-c --directory	directory to switch to			[current working directory]
+	-d --derived	file listing derived files		[after cd: ./der or ../cfr/der or hard-coded list]
+        -f --font	specify font package name             	[truncated name of directory]
+	-m --manual	specify manual name			[font package name w/ or w/o adf appended]
+	-n --nonderived	file listing nonderived files		[after cd: ./nonder or ../cfr/nonder or hard-coded list]
+	-o --original	file listing font vendor's files	[after cd: ./ovend or ../cfr/ovend or hard-coded list]
+	-t --tool	primary creation tool			[after cd: guess fontinst or afm2pl or empty]
+        -v --vendor	specify font vendor name	      	[arkandis]
+If no files are specified, a list is constructed from the lists of derived, nonderived and ADF or other original vendor files."	
+error () {
+	echo "$@" 1>&2
+	allan=$((allan+1))
+	usage_and_exit $allan
+}
+usage () {
+	printf %b "$usage\n"
+}
+usage_and_exit () {
+	usage
+	exit $1
+}
+
+ctaninst () {
+	ctaninstallan=0
+	while [ $# != 0 ]
+	do
+		if [ -e "$1" ]
+		then
+			grep -w "$1" $nonder > /dev/null
+			if [ $? == 0 ]
+			then
+				if [ -e "../cfr/$1" ]
+				then
+					diff "$1" "../cfr/$1" > /dev/null
+					if [ $? != 0 ]
+					then
+						printf %b "A non-duplicate copy of $1 already exists in ../cfr.\nUsing ../cfr.$$ for new versions.\nPlease examine manually.\n"
+						mkdir -p ../cfr.$$
+						cp -pR "$1" ../cfr.$$/
+					fi
+				else
+					cp -pR "$1" ../cfr/
+				fi
+				if [ -e "../cfr.$$/$1" ]
+				then
+					diff "./$1" "../cfr.$$/$1" > /dev/null
+					if [ $? != 0 ]
+					then
+						printf %b "A problem occurred when copying $1. This file will not be installed.\n"
+						problem=1
+					else
+						problem=0
+					fi
+				else
+					diff "./$1" "../cfr/$1" > /dev/null
+					if [ $? != 0 ]
+					then
+						printf %b "A problem occurred when copying $1. This file will not be installed.\n"
+						problem=1
+					else
+						problem=0
+					fi
+				fi
+				if [ $problem != 0 ]
+				then
+					allan=$((allan+1))
+					ctaninstallan=1
+					shift
+					continue
+				fi
+			else
+				grep -w "$1" $der > /dev/null
+				if [ $? != 0 ]
+				then
+					grep -w "$1" $adf $ovend > /dev/null
+					if [ $? != 0 ]
+					then
+						printf %b "$1 is not listed as a derived, non-derived or ADF/original vendor's file and will be ignored.\n"
+						allan=$((allan+1))
+						ctaninstallan=1
+						shift
+						continue
+					fi
+				fi
+			fi		
+			ctansort "$1"
+			if [ $? != 0 ]
+			then
+				printf %b "A problem occurred sorting $1.\n"
+				allan=$((allan+1))
+				ctaninstallan=1
+			fi
+		else
+			printf %b "Cannot find $1. Skipping.\n"
+			allan=$((allan+1))
+		fi
+		shift
+	done
+	return $ctaninstallan
+}
+
+mvsubs () {
+	mvsubsallan=0
+	filestocopy=""
+	filestomove=""
+	while [ $# -gt 1 ]
+	do
+		file "$1" | grep "symbolic link" > /dev/null
+		if [ $? == 0 ]
+		then
+			filestocopy="$filestocopy $1"
+		else
+			filestomove="$filestomove $1"
+		fi
+		shift
+	done
+	if [ "$filestomove" != "" ]
+	then
+		mv $filestomove "$1"
+		if [ $? != 0 ]
+		then
+			printf %b "There was a problem moving $filestomove to $1.\n"
+			allan=$((allan+1))
+			mvsubsallan=1
+		fi
+	fi
+	if [ "$filestocopy" != "" ]
+	then
+		cp -p $filestocopy "$1"
+		if [ $? != 0 ]
+		then
+			printf %b "There was a problem copying $filestocopy to $1.\n"
+			allan=$((allan+1))
+			mvsubsallan=1
+		fi
+	fi
+	return $mvsubsallan
+}
+
+ctansort () {
+	if [ $# != 1 ]
+	then
+		printf %b "ctansort takes exactly one argument.\n"
+		return 1
+	else
+		if [ "$@" = "Makefile" ] || [ "$@" = "com" ] || [ "$@" = "cfr.gwneud.cyhoeddus" ]
+		then
+			mvsubs "$@" "$sourcedir/"
+			return $?
+		fi
+		j="${@##*\-}"
+		if [ "$j" = "drv.tex" ] || [ "$j" = "map.tex" ]
+		then
+			mvsubs "$@" "$sourcedir/"
+			return $?
+		fi
+		j="${@##*\.}"
+		case "$j" in
+			"afm")		
+				mvsubs "$@" "$afmdir/"
+				return $?
+				;;
+			"enc")	
+				mvsubs "$@" "$encdir/"
+				return $?
+				;;
+			"map")	
+				mvsubs "$@" "$mapdir/"
+				return $?
+				;;
+			"tfm")	
+				mvsubs "$@" "$tfmdir/"
+				return $?
+				;;
+			"pfb" | "pfm")	
+				mvsubs "$@" "$type1dir/"
+				return $?
+				;;
+			"ttf")
+				mvsubs "$@" "$truetypedir/"
+				return $?
+				;;
+			"vf")		
+				mvsubs "$@" "$vfdir/"
+				return $?
+				;;
+			"fd" | "sty")	
+				mvsubs "$@" "$texdir/"
+				return $?
+				;;
+			"etx" | "lig" | "nam" | "pe" | "sfd" | "otf")	
+				mvsubs "$@" "$sourcedir/"
+				return $?
+				;;
+			"txt")
+				mvsubs "$@" "$docdir/"
+				return $?
+				;;
+			*)	
+				;;
+		esac
+		j="${@%\.*}"
+		case "$j" in
+			COPYING | NOTICE | README | manifest | "$manual")
+				mvsubs "$@" "$docdir/"
+				return $?
+				;;
+			*)
+				;;
+		esac
+		j="${@%%\-*}"
+		case "$j" in
+			reglyph | reset | build)
+				mvsubs "$@" "$sourcedir/"
+				return $?
+				;;
+			*)
+				;;
+		esac
+		printf %b "ctansort does not recognise $@. This file will not be installed.\n"
+		return 1
+	fi
+}
+		
+trymkdir () {
+	while [ $# != 0 ]
+	do
+		mkdir -p "$1"
+		if [ $? != 0 ]
+		then
+			error Could not create "$1".
+		fi
+		shift
+	done
+	return 0
+}
+
+tempargs=$(getopt -o a:c:d:f:hm:n:o:t:v: --long adf:,directory:,derived:,font:,help,manual:,nonderived:,original:,tool:,vendor: -- "$@")
+if [ $? != 0 ];
+then
+	usage_and_exit
+fi
+eval set -- "$tempargs"
+
+while true
+do
+	case "$1"
+	in
+		-a | --adf)
+			if [ -f "$2" ]
+			then
+				adf="$2"
+			else
+				error "$2" is not a regular file.
+			fi
+			shift;
+			shift;;
+		-c | --directory)	
+			directory="$2";
+			shift;
+			shift;;
+		-d | --der | --derive | --derived)
+			if [ -f "$2" ]
+			then
+				der="$2"
+			else
+				error "$2" is not a regular file.
+			fi
+			shift;
+			shift;;
+		-f | --font)
+			font="$2"
+			shift;
+			shift;;
+		-h | --help)	
+			usage;
+			exit $allan;;
+		-m | --manual)	
+			manual="${2%%\.*}";
+			shift;
+			shift;;
+		-n | --nonder | --nonderive | --nonderived)
+			if [ -f "$2" ]
+			then
+				nonder="$2"
+			else
+				error "$2" is not a regular file.
+			fi
+			shift;
+			shift;;
+		-o | --orig | --original)
+			if [ -f "$2" ]
+			then
+				ovend="$2"
+			else
+				error "$2" is not a regular file.
+			fi
+			shift;
+			shift;;
+		-t | --tool)
+			tool="$2"
+			shift;
+			shift;;
+               -v | --vendor)       
+	                vendor="$2";
+			shift;
+			shift;;
+		--)	
+			shift;
+			break;;
+		*)
+			error Unrecognised option "$1".
+	esac
+done
+
+args="$@"
+
+
+
+cd "$directory"
+if [ $? != 0 ]
+then
+	error Could not switch to "$directory".
+fi
+
+if [ "$font" = "" ]
+then 
+	thisdir=$(gbasename $(pwd)) 
+	font=${thisdir%%\-*}
+	echo Setting font directory to "$font".
+fi
+
+if [ "$manual" = "" ]
+then
+	if [ -f "./${font}.tex" ]
+	then
+		manual="${font}"
+		echo Setting manual to "$manual".
+	elif [ -f "./${font}adf.tex" ]
+	then
+		manual="${font}adf"
+		echo Setting manual to "$manual".
+	else
+		printf %b "Warning! No manual found.\n"
+		allan=$((allan+1))
+	fi
+fi
+
+if [ "$(ls manifest* 2> /dev/null)" = "" ]
+then
+	printf %b "Creating manifest.\n"
+	touch manifest.txt
+	if [ -f $cfrtop/manifest.top ]
+	then
+		cat $cfrtop/manifest.top >> manifest.txt
+		createmanifest=1
+	else
+		printf %b "Cannot create manifest.txt. No manifest.top found.\n"
+		rm manifest.txt
+		allan=$((allan+1))
+		createmanifest=0
+	fi
+else
+	createmanifest=0
+fi
+
+if [ "$tool" = "" ]
+then
+	if [ "$(ls *-drv.tex 2> /dev/null)" != "" ] || [ "$(ls *-map.tex 2> /dev/null)" != "" ]
+	then
+		tool="fontinst"
+		printf %b "Guessing you used fontinst for this one.\n"
+	elif [ "$(ls *.lig 2> /dev/null)" != "" ] || [ "$(ls Makefile 2> /dev/null)" != "" ] || [ "$(ls com 2> /dev/null)" != "" ]
+	then
+		tool="afm2pl"
+		printf %b "Guessing you used afm2pl for this one.\n"
+	else
+		printf %b "Cannot guess the tool used. Please specify.\n"
+		allan=$((allan+1))
+	fi
+fi
+
+
+if [ "$der" = "" ]
+then
+	if [ -e "./der" ]
+	then
+		der=./der
+	elif [ -e "../cfr/der" ]
+	then
+		der=../cfr/der
+	else
+		printf %b "Using default list for derived files.\nPlease check ./der.\n"
+		if [ "$tool" = "fontinst" ]
+		then
+			ls *.enc *.tfm *.vf *.fd *.map >> ./der 2> /dev/null
+		elif [ "$tool" = "afm2pl" ]
+		then
+			ls *.tfm *.vf *.map >> ./der 2> /dev/null
+		else
+			printf %b "Creation tool is either unrecognised or unguessable. If the former, please populate der manually - the file I create will certainly be radically incomplete. If the latter, please specify the tool.\n"
+		fi
+		if [ -f "$manual.pdf" ]
+		then
+			echo "$manual.pdf" >> ./der
+		fi
+		der=./der
+	fi
+fi
+
+if [ "$nonder" = "" ]
+then
+	if [ -e "./nonder" ]
+	then
+		nonder=./nonder
+	elif [ -e "../cfr/nonder" ]
+	then
+		nonder=../cfr/nonder
+	else
+		printf %b "Using default list for non-derived files.\nPlease check ./nonder.\n"
+		if [ "$tool" = "fontinst" ]
+		then
+			ls *[^~]*.etx reglyph*.tex reset*.mtx build*.mtx *-drv.tex *-drv.map >> ./nonder 2> /dev/null
+		elif [ "$tool" = "afm2pl" ]
+		then
+			ls *[^~]*.enc *[^~]*.fd *[^~]*.lig Makefile com >> ./nonder 2> /dev/null
+		else
+			printf %b "Creation tool is either unrecognised or unguessable. If the former, please populate nonder manually - the file I create will certainly be radically incomplete. If the latter, please specify the tool.\n"
+		fi
+		ls *[^~]*.nam *.pe manifest* README *.sty >> ./nonder 2> /dev/null
+		if [ -f "$manual.tex" ]
+		then
+			echo "$manual.tex" >> ./nonder
+		fi
+		nonder=./nonder
+	fi
+fi
+
+if [ "$adf" = "" ] && [ "$ovend" = "" ]
+then
+	if [ -e "./adf" ]
+	then
+		adf=./adf
+	elif [ -e "../cfr/adf" ]
+	then
+		adf=../cfr/adf
+	elif [ -e "./ovend" ]
+	then
+		ovend=./ovend
+	elif [ -e "../cfr/ovend" ]
+	then
+		ovend=../cfr/ovend
+	elif [ "$vendor" = "arkandis" ]
+	then
+		printf %b "Using default list for ADF files.\nPlease check ./adf.\n"
+		ls COPYING* NOTICE* *.afm *.pfb *.pfm *.otf *.sfd >> ./adf 2> /dev/null
+		adf=./adf
+	else
+		printf %b "Using default list for original vendor's files.\nPlease check ./ovend.\n"
+		ls COPYING* NOTICE*  [A-Z][A-Z\-]*[A-Z].txt *.afm *.pfb *.pfm *.otf *.ttf *.sfd >> ./ovend 2> /dev/null
+		ovend=./ovend
+	fi
+fi
+
+if [ $createmanifest == 1 ]
+then
+	grep manifest.txt $nonder > /dev/null
+	if [ $? != 0 ]
+	then
+		printf %b "Adding manifest to list of nonderived files.\n"
+		echo manifest.txt >> $nonder
+	fi
+	cat $nonder >> manifest.txt
+	if [ -f $cfrtop/manifest.mid ]
+	then
+		cat $cfrtop/manifest.mid >> manifest.txt
+	else
+		printf %b "\nDerived files:\n" >> manifest.txt
+	fi
+	cat $der >> manifest.txt
+fi
+
+if [ $# == 0 ]
+then
+	files=$(cat $der $nonder $adf $ovend)
+	if [ "$files" = "" ]
+	then
+		error Could not determine any files to install.
+	fi
+else
+	files=$args
+fi
+
+trymkdir $docdir $texdir $afmdir $mapdir $tfmdir ../cfr
+if [ "$(echo "$files" | grep '\.pfb' 2> /dev/null)" != "" ] 
+then
+	trymkdir $type1dir 
+fi
+if [ "$(echo "$files" | grep '\.ttf' 2> /dev/null)" != "" ] 
+then
+	trymkdir $truetypedir 
+fi
+for i in "\.etx" "\-drv\.tex" "\-map\.tex" "reglyph.*\.tex" "reset.*\.mtx" "build*\.mtx" "Makefile" "^com$" "^com " " com$" " com " "\.lig" "\.nam" "\.pe" "\.sfd" "\.otf"
+do
+	if [ "$(echo "$files" | grep "$i" 2> /dev/null)" != "" ]
+	then
+		trymkdir $sourcedir 
+		break
+	fi
+done
+if [ "$(echo "$files" | grep '\.enc' 2> /dev/null)" != "" ] 
+then
+	existencs=1
+	trymkdir $encdir
+fi
+if [ "$(echo "$files" | grep '\.vf' 2> /dev/null)" != "" ] 
+then
+	trymkdir $vfdir
+fi
+
+ctaninst $@ $files
+
+if [ -e "$docdir/README" ]
+then
+	ln -s "$docdir/"README ./
+else
+	printf %b "Warning! No README found.\n"
+	allan=$((allan+1))
+fi
+
+if [ $existencs==1 ]
+then
+	printf %b "Did you uniquify the .enc files?\nDid you add the .enc files to finstmsc.rc?\n"
+fi
+
+exit $allan
+
+# vim: set nospell: 

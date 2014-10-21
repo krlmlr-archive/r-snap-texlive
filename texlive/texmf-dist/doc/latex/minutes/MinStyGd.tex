@@ -1,0 +1,95 @@
+\def\minfileversion{V1.8d}     %^^Aof minutes.sty
+\def\minfiledate{2009/12/04}   %^^Aof minutes.sty
+%%
+%% \CharacterTable
+%%  {Upper-case    \A\B\C\D\E\F\G\H\I\J\K\L\M\N\O\P\Q\R\S\T\U\V\W\X\Y\Z
+%%   Lower-case    \a\b\c\d\e\f\g\h\i\j\k\l\m\n\o\p\q\r\s\t\u\v\w\x\y\z
+%%   Digits        \0\1\2\3\4\5\6\7\8\9
+%%   Exclamation   \!     Double quote  \"     Hash (number) \#
+%%   Dollar        \$     Percent       \%     Ampersand     \&
+%%   Acute accent  \'     Left paren    \(     Right paren   \)
+%%   Asterisk      \*     Plus          \+     Comma         \,
+%%   Minus         \-     Point         \.     Solidus       \/
+%%   Colon         \:     Semicolon     \;     Less than     \<
+%%   Equals        \=     Greater than  \>     Question mark \?
+%%   Commercial at \@     Left bracket  \[     Backslash     \\
+%%   Right bracket \]     Circumflex    \^     Underscore    \_
+%%   Grave accent  \`     Left brace    \{     Vertical bar  \|
+%%   Right brace   \}     Tilde         \~}
+%%
+\documentclass[10pt,german]{report}
+%%\documentclass[10pt,german]{scrreprt}
+%%\documentclass[10pt,german]{refrep}
+%% This document can be used to check the look of different
+%% minutes-styles.
+%% To see the effects of other classes and the cooperation with
+%% different classes and styles, just add them to this document.
+%%
+%% Dieses Dokument kann genutzt werden einen Ueberblick ueber
+%% die verschiedenen Protokollstile zu bekommen.
+%%
+\usepackage{babel}%blindtext mag kein german.sty
+\usepackage{minutes}
+\usepackage{blindtext}
+\newcommand{\Lpack}[1]{\texttt{#1}}
+\newcommand{\minutes}{\Lpack{minutes.sty}}
+
+\makeatletter
+\newcommand{\minexample}[1]{
+\begin{Protokoll}{Beispiel eines Protokolls mit #1}
+\untertitel{Dieses Protokoll ist mit \minutes\ erzeugt}
+\moderation{Knut Lickert}
+\protokollant{Knut Lickert}
+\teilnehmer{Alle Anwesenden}
+\gaeste{G\"aste}
+\sitzungsdatum{\today}
+\sitzungsbeginn{20:00}
+\sitzungsende{23:00}
+\sitzungsort{Vereinsgastst{\"a}tte}
+\verteiler{alle Interessierten}
+\fehlend[alle Analphabeten]{Vereinsm{\"u}ller}
+\protokollKopf
+\topic{Tagesordnung 1}
+\subtopic{Unterpunkt zu Tagesordnung 1}\blindtext
+\subtopic{Noch ein Unterpunkt zu Tagesordnung 1}\blindtext
+\addtopic{Einschub in die Tagesordnung}\blindtext
+\topic{Tagesordnung 2}\blindtext
+\end{Protokoll}
+}%\minexample
+
+\begin{document}
+\title{Styleguide \minutes:\\~\\
+Test for the different options\\ Test der verschiedenen Optionen}
+\author{\minutes}
+\maketitle
+
+\tableofcontents
+
+\minutesstyle{header={list},columns={1}}
+\minexample{Listenkopf}
+
+\minutesstyle{header={table},columns={1}}
+\minexample{Tabellenkopf}
+
+\minutesstyle{header={list},columns={1},contents={false}}
+\minexample{Listenkopf ohne Topicliste}
+
+\minutesstyle{header={table},columns={1},contents={false}}
+\minexample{Tabellenkopf ohne Topicliste}
+
+\minutesstyle{header={list},columns={2},contents={true}}
+\minexample{Listenkopf/zweispaltig}
+
+\minutesstyle{header={table},columns={2}}
+\minexample{Tabellenkopf/zweispaltig}
+
+\minutesstyle{header={list},columns={3}}
+\minexample{Listenkopf/dreispaltig}
+
+\minutesstyle{header={table},columns={3}}
+\minexample{Tabellenkopf/dreispaltig}
+
+\end{document}
+\endinput
+%%
+%% End of file `MinStyGd.tex'.

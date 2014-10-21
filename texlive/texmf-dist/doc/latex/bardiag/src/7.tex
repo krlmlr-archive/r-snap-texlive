@@ -1,0 +1,30 @@
+\def\onecol{red}
+\def\twocol{green}
+\def\threecol{lightblue}
+
+\renewcommand{\tdx}{0.5} % depth of 3d
+\renewcommand{\tdy}{4}
+%------------------------------------------------------------------
+    %this is the way to redefine styles
+    % \newpsstyle{mytickstyle}{linewidth=1pt,linecolor=blue}
+    %
+    \newpsstyle{diagframestyle}{linewidth=1pt,linecolor=black,fillcolor=white}
+    \bardiagrambegin{13}{100}{3cm}{2}{7}{1cm}{0.1cm}
+       \baritem{1990}{72}{\onecol}
+        \subbaritem{2000}{50}{\twocol}
+        \subbaritem{2010}{63}{\threecol}
+       \baritem{1990}{81}{\onecol}
+         \subbaritem{2000}{99}{\twocol} 
+         \subbaritem{2010}{50}{\threecol}  
+%        \baritemCYL{1990}{41}{\onecol}
+%         \subbaritemTD{2000}{30}{\twocol}
+%         \subbaritemTD{2010}{21}{\threecol}
+    %\drawlevellines 
+    \bardiagramend
+      {\parbox{14cm}{\vspace{-1.5cm}\hspace{-0.7cm}
+          \begin{tabular}{p{7cm}p{6cm}}
+            \centering Alpha's & \centering Beta's 
+          \end{tabular}
+          \\[0.6cm]
+          \centering \large Year}}
+      {\large Graduated (\%)}

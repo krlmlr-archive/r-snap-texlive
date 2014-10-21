@@ -1,0 +1,89 @@
+SHORT DESCRIPTION
+=================
+
+This package provides the environment |fullminipage|, which generates a
+|minipage| spanning a new, complete page with page style |empty|.
+The environment provides options to set margins around the |minipage| and
+configure the background.
+
+BUILDING
+========
+
+If you do not want to use any pre-build `fullminipage.sty' and `fullminipage.pdf'
+files, you will have to choose one of the following two ways for building them.
+Otherwise you can skip this section.
+
+1) Building with make
+---------------------
+
+Running `make' will create the LaTeX package, the documentation and the test
+file:
+  $ make
+
+2) Building manually
+--------------------
+
+a) Generation of package (.sty file):
+
+Run `fullminipage.ins' through LaTeX:
+  $ pdflatex -interaction=nonstopmode fullminipage.ins
+
+b) Generation of documentation:
+
+Run `fullminipage.dtx' through LaTeX:
+  $ pdflatex -interaction=nonstopmode fullminipage.dtx
+
+Then create the index and change history:
+  $ makeindex -s gind.ist -o fullminipage.ind fullminipage.idx
+  $ makeindex -s gglo.ist -o fullminipage.gls fullminipage.glo
+
+Finally, run `fullminipage.dtx' three time through LaTeX:
+  $ pdflatex -interaction=nonstopmode fullminipage.dtx
+  $ pdflatex -interaction=nonstopmode fullminipage.dtx
+  $ pdflatex -interaction=nonstopmode fullminipage.dtx
+
+Optionally you can compile the test file:
+  $ pdflatex -interaction=nonstopmode fullminipage_test.tex
+  $ pdflatex -interaction=nonstopmode fullminipage_text.tex
+  $ pdflatex -interaction=nonstopmode fullminipage_text.tex
+
+INSTALLATION
+============
+
+1) Installing with make
+-----------------------
+
+To install the package into a TDS (= TeX directory structure; typically its base
+directory is named `texmf' or something similar), run the following command:
+  $ make DESTDIR=<your TDS> install
+
+Note: `$(DESTDIR)' defaults to `$(HOME)/.texmf'.
+
+2) Installing manually
+----------------------
+
+In principle, you will only habe to copy the file `fullminipage.sty' into a
+directory, where LaTeX can find it.  If you copy it into a TDS (TeX directory
+structure), you will most probably have to run the following command afterwards:
+  $ mktexlsr <your TDS>
+
+LICENSE
+=======
+
+Copyright 2012,2014 Christian Schneider <software(at)chschneider(dot)eu>
+
+This file is part of fullminipage.
+
+fullminipage is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License version 3 as
+published by the Free Software Foundation, not any later version.
+
+fullminipage is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with fullminipage.  If not, see <http://www.gnu.org/licenses/>.
+
+WARNING: THIS IS ALPHA SOFTWARE AND MAY CONTAIN SERIOUS BUGS!

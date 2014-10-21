@@ -1,0 +1,260 @@
+%% comfortaa-drv.tex
+%% Copyright 2011 Mohamed El Morabity
+%
+% This work may be distributed and/or modified under the conditions of the LaTeX
+% Project Public License, either version 1.3 of this license or (at your option)
+% any later version. The latest version of this license is in
+% http://www.latex-project.org/lppl.txt and version 1.3 or later is part of all
+% distributions of LaTeX version 2005/12/01 or later.
+%
+% This work has the LPPL maintenance status `maintained'.
+%
+% The Current Maintainer of this work is Mohamed El Morabity
+%
+% This work consists of all files listed in manifest.txt.
+
+\input fontinst.sty
+
+
+\setint{slant}{167}
+\setint{smallcapsscale}{800}
+
+\substitutesilent{scit}{scsl}
+\substitutesilent{l}{l}
+
+
+\recordtransforms{comfortaa-rec.tex}
+
+
+\foreach(e){01,02,03}
+  \transformfont{Comfortaa-Light-\str{e}}{\reencodefont{comfortaa-\str{e}}{\fromafm{Comfortaa-Light}}}
+  \transformfont{Comfortaa-Light-Slanted-\str{e}}{\slantfont{\int{slant}}\reencodefont{comfortaa-\str{e}}{\fromafm{Comfortaa-Light}}}
+  \transformfont{Comfortaa-Regular-\str{e}}{\reencodefont{comfortaa-\str{e}}{\fromafm{Comfortaa-Regular}}}
+  \transformfont{Comfortaa-Regular-Slanted-\str{e}}{\slantfont{\int{slant}}\reencodefont{comfortaa-\str{e}}{\fromafm{Comfortaa-Regular}}}
+  \transformfont{Comfortaa-Bold-\str{e}}{\reencodefont{comfortaa-\str{e}}{\fromafm{Comfortaa-Bold}}}
+  \transformfont{Comfortaa-Bold-Slanted-\str{e}}{\slantfont{\int{slant}}\reencodefont{comfortaa-\str{e}}{\fromafm{Comfortaa-Bold}}}
+\endfor(e)
+\transformfont{Comfortaa-Light-dotlessj}{\reencodefont{comfortaa-dotlessj}{\fromafm{Comfortaa-Light-LCDFJ}}}
+\transformfont{Comfortaa-Light-Slanted-dotlessj}{\slantfont{\int{slant}}\reencodefont{comfortaa-dotlessj}{\fromafm{Comfortaa-Light-LCDFJ}}}
+\transformfont{Comfortaa-Regular-dotlessj}{\reencodefont{comfortaa-dotlessj}{\fromafm{Comfortaa-Regular-LCDFJ}}}
+\transformfont{Comfortaa-Regular-Slanted-dotlessj}{\slantfont{\int{slant}}\reencodefont{comfortaa-dotlessj}{\fromafm{Comfortaa-Regular-LCDFJ}}}
+\transformfont{Comfortaa-Bold-dotlessj}{\reencodefont{comfortaa-dotlessj}{\fromafm{Comfortaa-Bold-LCDFJ}}}
+\transformfont{Comfortaa-Bold-Slanted-dotlessj}{\slantfont{\int{slant}}\reencodefont{comfortaa-dotlessj}{\fromafm{Comfortaa-Bold-LCDFJ}}}
+
+
+\fontinstcc
+\def\fd_family#1#2#3{
+   \a_toks{#3}
+   \edef\lowercase_file{\lowercase{
+     \edef\noexpand\lowercase_file{#1#2.fd}}}
+   \lowercase_file
+   \open_out{\lowercase_file}
+   \out_line{\percent_char~Filename:~\lowercase_file}
+   \out_line{\percent_char~Created~by:~tex~\jobname}
+   \out_line{\percent_char~Created~using~fontinst~v\fontinstversion}
+   \out_line{}
+   \out_line{\percent_char~THIS~FILE~SHOULD~BE~PUT~IN~A~TEX~INPUTS~
+      DIRECTORY}
+   \out_line{}
+   \out_line{\string\ProvidesFile{\lowercase_file}}
+   \out_lline{[
+      \the\year/
+      \ifnum10>\month0\fi\the\month/
+      \ifnum10>\day0\fi\the\day\space
+      Fontinst~v\fontinstversion\space
+      font~definitions~for~#1/#2.
+   ]}
+   \out_line{}
+   %%%
+   \out_line{\string\expandafter\string\ifx\string\csname\space comfortaa@scale\string\endcsname\string\relax}
+   \out_line{\space\space\string\let\string\comfortaa@scale\string\@empty}
+   \out_line{\string\fi}
+   \out_line{}
+   %%%
+   \out_line{\string\DeclareFontFamily{#1}{#2}{\the\a_toks}}
+   {
+      \csname #1-#2\endcsname
+      \out_line{}
+      \let\do_shape=\substitute_shape
+      \csname #1-#2\endcsname
+      \let\do_shape=\remove_shape
+      \csname #1-#2\endcsname
+   }
+   \x_cs\g_let{#1-#2}\x_relax
+   \out_line{}
+   \out_line{\string\endinput}
+   \close_out{Font~definitions}
+}
+\normalcc
+
+
+\installfonts
+\installfamily{OT1}{fco}{}
+
+\installfont{Comfortaa-Light-ot1}{Comfortaa-Light-01,Comfortaa-Light-02,Comfortaa-Light-03,Comfortaa-Light-dotlessj,comfortaa-fixlatin,comfortaa-diacritics,newlatin}{ot1}{OT1}{fco}{l}{n}{<->\string\comfortaa@scale}
+\installfont{Comfortaa-Light-Slanted-ot1}{Comfortaa-Light-Slanted-01,Comfortaa-Light-Slanted-02,Comfortaa-Light-Slanted-03,Comfortaa-Light-Slanted-dotlessj,comfortaa-fixlatin,comfortaa-diacritics,newlatin}{ot1}{OT1}{fco}{l}{sl}{<->\string\comfortaa@scale}
+\installfont{Comfortaa-Light-SmallCaps-ot1}{Comfortaa-Light-01,Comfortaa-Light-02,Comfortaa-Light-03,Comfortaa-Light-dotlessj,comfortaa-fixlatin,comfortaa-diacritics,newlatin}{ot1c}{OT1}{fco}{l}{sc}{<->\string\comfortaa@scale}
+\installfont{Comfortaa-Light-Slanted-SmallCaps-ot1}{Comfortaa-Light-Slanted-01,Comfortaa-Light-Slanted-02,Comfortaa-Light-Slanted-03,Comfortaa-Light-Slanted-dotlessj,comfortaa-fixlatin,comfortaa-diacritics,newlatin}{ot1c}{OT1}{fco}{l}{scsl}{<->\string\comfortaa@scale}
+
+\installfont{Comfortaa-Regular-ot1}{Comfortaa-Regular-01,Comfortaa-Regular-02,Comfortaa-Regular-03,Comfortaa-Regular-dotlessj,comfortaa-fixlatin,comfortaa-diacritics,newlatin}{ot1}{OT1}{fco}{m}{n}{<->\string\comfortaa@scale}
+\installfont{Comfortaa-Regular-Slanted-ot1}{Comfortaa-Regular-Slanted-01,Comfortaa-Regular-Slanted-02,Comfortaa-Regular-Slanted-03,Comfortaa-Regular-Slanted-dotlessj,comfortaa-fixlatin,comfortaa-diacritics,newlatin}{ot1}{OT1}{fco}{m}{sl}{<->\string\comfortaa@scale}
+\installfont{Comfortaa-Regular-SmallCaps-ot1}{Comfortaa-Regular-01,Comfortaa-Regular-02,Comfortaa-Regular-03,Comfortaa-Regular-dotlessj,comfortaa-fixlatin,comfortaa-diacritics,newlatin}{ot1c}{OT1}{fco}{m}{sc}{<->\string\comfortaa@scale}
+\installfont{Comfortaa-Regular-Slanted-SmallCaps-ot1}{Comfortaa-Regular-Slanted-01,Comfortaa-Regular-Slanted-02,Comfortaa-Regular-Slanted-03,Comfortaa-Regular-Slanted-dotlessj,comfortaa-fixlatin,comfortaa-diacritics,newlatin}{ot1c}{OT1}{fco}{m}{scsl}{<->\string\comfortaa@scale}
+
+\installfont{Comfortaa-Bold-ot1}{Comfortaa-Bold-01,Comfortaa-Bold-02,Comfortaa-Bold-03,Comfortaa-Bold-dotlessj,comfortaa-fixlatin,comfortaa-diacritics,newlatin}{ot1}{OT1}{fco}{b}{n}{<->\string\comfortaa@scale}
+\installfont{Comfortaa-Bold-Slanted-ot1}{Comfortaa-Bold-Slanted-01,Comfortaa-Bold-Slanted-02,Comfortaa-Bold-Slanted-03,Comfortaa-Bold-Slanted-dotlessj,comfortaa-fixlatin,comfortaa-diacritics,newlatin}{ot1}{OT1}{fco}{b}{sl}{<->\string\comfortaa@scale}
+\installfont{Comfortaa-Bold-SmallCaps-ot1}{Comfortaa-Bold-01,Comfortaa-Bold-02,Comfortaa-Bold-03,Comfortaa-Bold-dotlessj,comfortaa-fixlatin,comfortaa-diacritics,newlatin}{ot1c}{OT1}{fco}{b}{sc}{<->\string\comfortaa@scale}
+\installfont{Comfortaa-Bold-Slanted-SmallCaps-ot1}{Comfortaa-Bold-Slanted-01,Comfortaa-Bold-Slanted-02,Comfortaa-Bold-Slanted-03,Comfortaa-Bold-Slanted-dotlessj,comfortaa-fixlatin,comfortaa-diacritics,newlatin}{ot1c}{OT1}{fco}{b}{scsl}{<->\string\comfortaa@scale}
+
+\endinstallfonts
+
+
+\installfonts
+\installfamily{T1}{fco}{}
+
+\installfont{Comfortaa-Light-t1}{Comfortaa-Light-01,Comfortaa-Light-02,Comfortaa-Light-03,Comfortaa-Light-dotlessj,comfortaa-fixlatin,comfortaa-diacritics,newlatin}{t1}{T1}{fco}{l}{n}{<->\string\comfortaa@scale}
+\installfont{Comfortaa-Light-Slanted-t1}{Comfortaa-Light-Slanted-01,Comfortaa-Light-Slanted-02,Comfortaa-Light-Slanted-03,Comfortaa-Light-Slanted-dotlessj,comfortaa-fixlatin,comfortaa-diacritics,newlatin}{t1}{T1}{fco}{l}{sl}{<->\string\comfortaa@scale}
+\installfont{Comfortaa-Light-SmallCaps-t1}{Comfortaa-Light-01,Comfortaa-Light-02,Comfortaa-Light-03,Comfortaa-Light-dotlessj,comfortaa-fixlatin,comfortaa-diacritics,newlatin}{t1c}{T1}{fco}{l}{sc}{<->\string\comfortaa@scale}
+\installfont{Comfortaa-Light-Slanted-SmallCaps-t1}{Comfortaa-Light-Slanted-01,Comfortaa-Light-Slanted-02,Comfortaa-Light-Slanted-03,Comfortaa-Light-Slanted-dotlessj,comfortaa-fixlatin,comfortaa-diacritics,newlatin}{t1c}{T1}{fco}{l}{scsl}{<->\string\comfortaa@scale}
+
+\installfont{Comfortaa-Regular-t1}{Comfortaa-Regular-01,Comfortaa-Regular-02,Comfortaa-Regular-03,Comfortaa-Regular-dotlessj,comfortaa-fixlatin,comfortaa-diacritics,newlatin}{t1}{T1}{fco}{m}{n}{<->\string\comfortaa@scale}
+\installfont{Comfortaa-Regular-Slanted-t1}{Comfortaa-Regular-Slanted-01,Comfortaa-Regular-Slanted-02,Comfortaa-Regular-Slanted-03,Comfortaa-Regular-Slanted-dotlessj,comfortaa-fixlatin,comfortaa-diacritics,newlatin}{t1}{T1}{fco}{m}{sl}{<->\string\comfortaa@scale}
+\installfont{Comfortaa-Regular-SmallCaps-t1}{Comfortaa-Regular-01,Comfortaa-Regular-02,Comfortaa-Regular-03,Comfortaa-Regular-dotlessj,comfortaa-fixlatin,comfortaa-diacritics,newlatin}{t1c}{T1}{fco}{m}{sc}{<->\string\comfortaa@scale}
+\installfont{Comfortaa-Regular-Slanted-SmallCaps-t1}{Comfortaa-Regular-Slanted-01,Comfortaa-Regular-Slanted-02,Comfortaa-Regular-Slanted-03,Comfortaa-Regular-Slanted-dotlessj,comfortaa-fixlatin,comfortaa-diacritics,newlatin}{t1c}{T1}{fco}{m}{scsl}{<->\string\comfortaa@scale}
+
+\installfont{Comfortaa-Bold-t1}{Comfortaa-Bold-01,Comfortaa-Bold-02,Comfortaa-Bold-03,Comfortaa-Bold-dotlessj,comfortaa-fixlatin,comfortaa-diacritics,newlatin}{t1}{T1}{fco}{b}{n}{<->\string\comfortaa@scale}
+\installfont{Comfortaa-Bold-Slanted-t1}{Comfortaa-Bold-Slanted-01,Comfortaa-Bold-Slanted-02,Comfortaa-Bold-Slanted-03,Comfortaa-Bold-Slanted-dotlessj,comfortaa-fixlatin,comfortaa-diacritics,newlatin}{t1}{T1}{fco}{b}{sl}{<->\string\comfortaa@scale}
+\installfont{Comfortaa-Bold-SmallCaps-t1}{Comfortaa-Bold-01,Comfortaa-Bold-02,Comfortaa-Bold-03,Comfortaa-Bold-dotlessj,comfortaa-fixlatin,comfortaa-diacritics,newlatin}{t1c}{T1}{fco}{b}{sc}{<->\string\comfortaa@scale}
+\installfont{Comfortaa-Bold-Slanted-SmallCaps-t1}{Comfortaa-Bold-Slanted-01,Comfortaa-Bold-Slanted-02,Comfortaa-Bold-Slanted-03,Comfortaa-Bold-Slanted-dotlessj,comfortaa-fixlatin,comfortaa-diacritics,newlatin}{t1c}{T1}{fco}{b}{scsl}{<->\string\comfortaa@scale}
+
+\endinstallfonts
+
+
+\installfonts
+\installfamily{TS1}{fco}{}
+
+\installfont{Comfortaa-Light-ts1}{Comfortaa-Light-01,Comfortaa-Light-02,Comfortaa-Light-03,comfortaa-fixtextcomp,comfortaa-diacritics,textcomp}{ts1}{TS1}{fco}{l}{n}{<->\string\comfortaa@scale}
+\installfont{Comfortaa-Light-Slanted-ts1}{Comfortaa-Light-Slanted-01,Comfortaa-Light-Slanted-02,Comfortaa-Light-Slanted-03,comfortaa-fixtextcomp,comfortaa-diacritics,textcomp}{ts1}{TS1}{fco}{l}{sl}{<->\string\comfortaa@scale}
+\installfontas{Comfortaa-Light-ts1}{TS1}{fco}{l}{sc}{<->\string\comfortaa@scale}
+\installfontas{Comfortaa-Light-Slanted-ts1}{TS1}{fco}{l}{scsl}{<->\string\comfortaa@scale}
+
+\installfont{Comfortaa-Regular-ts1}{Comfortaa-Regular-01,Comfortaa-Regular-02,Comfortaa-Regular-03,comfortaa-fixtextcomp,comfortaa-diacritics,textcomp}{ts1}{TS1}{fco}{m}{n}{<->\string\comfortaa@scale}
+\installfont{Comfortaa-Regular-Slanted-ts1}{Comfortaa-Regular-Slanted-01,Comfortaa-Regular-Slanted-02,Comfortaa-Regular-Slanted-03,comfortaa-fixtextcomp,comfortaa-diacritics,textcomp}{ts1}{TS1}{fco}{m}{sl}{<->\string\comfortaa@scale}
+\installfontas{Comfortaa-Regular-ts1}{TS1}{fco}{m}{sc}{<->\string\comfortaa@scale}
+\installfontas{Comfortaa-Regular-Slanted-ts1}{TS1}{fco}{m}{scsl}{<->\string\comfortaa@scale}
+
+\installfont{Comfortaa-Bold-ts1}{Comfortaa-Bold-01,Comfortaa-Bold-02,Comfortaa-Bold-03,comfortaa-fixtextcomp,comfortaa-diacritics,textcomp}{ts1}{TS1}{fco}{b}{n}{<->\string\comfortaa@scale}
+\installfont{Comfortaa-Bold-Slanted-ts1}{Comfortaa-Bold-Slanted-01,Comfortaa-Bold-Slanted-02,Comfortaa-Bold-Slanted-03,comfortaa-fixtextcomp,comfortaa-diacritics,textcomp}{ts1}{TS1}{fco}{b}{sl}{<->\string\comfortaa@scale}
+\installfontas{Comfortaa-Bold-ts1}{TS1}{fco}{b}{sc}{<->\string\comfortaa@scale}
+\installfontas{Comfortaa-Bold-Slanted-ts1}{TS1}{fco}{b}{scsl}{<->\string\comfortaa@scale}
+
+\endinstallfonts
+
+
+\installfonts
+\installfamily{T2A}{fco}{}
+
+\installfont{Comfortaa-Light-t2a}{Comfortaa-Light-01,Comfortaa-Light-02,Comfortaa-Light-03,Comfortaa-Light-dotlessj,comfortaa-fixcyrillic,comfortaa-diacritics,newlatin,cyrillic}{t2a}{T2A}{fco}{l}{n}{<->\string\comfortaa@scale}
+\installfont{Comfortaa-Light-Slanted-t2a}{Comfortaa-Light-Slanted-01,Comfortaa-Light-Slanted-02,Comfortaa-Light-Slanted-03,Comfortaa-Light-Slanted-dotlessj,comfortaa-fixcyrillic,comfortaa-diacritics,newlatin,cyrillic}{t2a}{T2A}{fco}{l}{sl}{<->\string\comfortaa@scale}
+\installfont{Comfortaa-Light-SmallCaps-t2a}{Comfortaa-Light-01,Comfortaa-Light-02,Comfortaa-Light-03,Comfortaa-Light-dotlessj,comfortaa-fixcyrillic,comfortaa-diacritics,newlatin,cyrillic}{t2ac}{T2A}{fco}{l}{sc}{<->\string\comfortaa@scale}
+\installfont{Comfortaa-Light-Slanted-SmallCaps-t2a}{Comfortaa-Light-Slanted-01,Comfortaa-Light-Slanted-02,Comfortaa-Light-Slanted-03,Comfortaa-Light-Slanted-dotlessj,comfortaa-fixcyrillic,comfortaa-diacritics,newlatin,cyrillic}{t2ac}{T2A}{fco}{l}{scsl}{<->\string\comfortaa@scale}
+
+\installfont{Comfortaa-Regular-t2a}{Comfortaa-Regular-01,Comfortaa-Regular-02,Comfortaa-Regular-03,Comfortaa-Regular-dotlessj,comfortaa-fixcyrillic,comfortaa-diacritics,newlatin,cyrillic}{t2a}{T2A}{fco}{m}{n}{<->\string\comfortaa@scale}
+\installfont{Comfortaa-Regular-Slanted-t2a}{Comfortaa-Regular-Slanted-01,Comfortaa-Regular-Slanted-02,Comfortaa-Regular-Slanted-03,Comfortaa-Regular-Slanted-dotlessj,comfortaa-fixcyrillic,comfortaa-diacritics,newlatin,cyrillic}{t2a}{T2A}{fco}{m}{sl}{<->\string\comfortaa@scale}
+\installfont{Comfortaa-Regular-SmallCaps-t2a}{Comfortaa-Regular-01,Comfortaa-Regular-02,Comfortaa-Regular-03,Comfortaa-Regular-dotlessj,comfortaa-fixcyrillic,comfortaa-diacritics,newlatin,cyrillic}{t2ac}{T2A}{fco}{m}{sc}{<->\string\comfortaa@scale}
+\installfont{Comfortaa-Regular-Slanted-SmallCaps-t2a}{Comfortaa-Regular-Slanted-01,Comfortaa-Regular-Slanted-02,Comfortaa-Regular-Slanted-03,Comfortaa-Regular-Slanted-dotlessj,comfortaa-fixcyrillic,comfortaa-diacritics,newlatin,cyrillic}{t2ac}{T2A}{fco}{m}{scsl}{<->\string\comfortaa@scale}
+
+\installfont{Comfortaa-Bold-t2a}{Comfortaa-Bold-01,Comfortaa-Bold-02,Comfortaa-Bold-03,Comfortaa-Bold-dotlessj,comfortaa-fixcyrillic,comfortaa-diacritics,newlatin,cyrillic}{t2a}{T2A}{fco}{b}{n}{<->\string\comfortaa@scale}
+\installfont{Comfortaa-Bold-Slanted-t2a}{Comfortaa-Bold-Slanted-01,Comfortaa-Bold-Slanted-02,Comfortaa-Bold-Slanted-03,Comfortaa-Bold-Slanted-dotlessj,comfortaa-fixcyrillic,comfortaa-diacritics,newlatin,cyrillic}{t2a}{T2A}{fco}{b}{sl}{<->\string\comfortaa@scale}
+\installfont{Comfortaa-Bold-SmallCaps-t2a}{Comfortaa-Bold-01,Comfortaa-Bold-02,Comfortaa-Bold-03,Comfortaa-Bold-dotlessj,comfortaa-fixcyrillic,comfortaa-diacritics,newlatin,cyrillic}{t2ac}{T2A}{fco}{b}{sc}{<->\string\comfortaa@scale}
+\installfont{Comfortaa-Bold-Slanted-SmallCaps-t2a}{Comfortaa-Bold-Slanted-01,Comfortaa-Bold-Slanted-02,Comfortaa-Bold-Slanted-03,Comfortaa-Bold-Slanted-dotlessj,comfortaa-fixcyrillic,comfortaa-diacritics,newlatin,cyrillic}{t2ac}{T2A}{fco}{b}{scsl}{<->\string\comfortaa@scale}
+
+\endinstallfonts
+
+
+\installfonts
+\installfamily{T2B}{fco}{}
+
+\installfont{Comfortaa-Light-t2b}{Comfortaa-Light-01,Comfortaa-Light-02,Comfortaa-Light-03,Comfortaa-Light-dotlessj,comfortaa-fixcyrillic,comfortaa-diacritics,newlatin,cyrillic}{t2b}{T2B}{fco}{l}{n}{<->\string\comfortaa@scale}
+\installfont{Comfortaa-Light-Slanted-t2b}{Comfortaa-Light-Slanted-01,Comfortaa-Light-Slanted-02,Comfortaa-Light-Slanted-03,Comfortaa-Light-Slanted-dotlessj,comfortaa-fixcyrillic,comfortaa-diacritics,newlatin,cyrillic}{t2b}{T2B}{fco}{l}{sl}{<->\string\comfortaa@scale}
+\installfont{Comfortaa-Light-SmallCaps-t2b}{Comfortaa-Light-01,Comfortaa-Light-02,Comfortaa-Light-03,Comfortaa-Light-dotlessj,comfortaa-fixcyrillic,comfortaa-diacritics,newlatin,cyrillic}{t2bc}{T2B}{fco}{l}{sc}{<->\string\comfortaa@scale}
+\installfont{Comfortaa-Light-Slanted-SmallCaps-t2b}{Comfortaa-Light-Slanted-01,Comfortaa-Light-Slanted-02,Comfortaa-Light-Slanted-03,Comfortaa-Light-Slanted-dotlessj,comfortaa-fixcyrillic,comfortaa-diacritics,newlatin,cyrillic}{t2bc}{T2B}{fco}{l}{scsl}{<->\string\comfortaa@scale}
+
+\installfont{Comfortaa-Regular-t2b}{Comfortaa-Regular-01,Comfortaa-Regular-02,Comfortaa-Regular-03,Comfortaa-Regular-dotlessj,comfortaa-fixcyrillic,comfortaa-diacritics,newlatin,cyrillic}{t2b}{T2B}{fco}{m}{n}{<->\string\comfortaa@scale}
+\installfont{Comfortaa-Regular-Slanted-t2b}{Comfortaa-Regular-Slanted-01,Comfortaa-Regular-Slanted-02,Comfortaa-Regular-Slanted-03,Comfortaa-Regular-Slanted-dotlessj,comfortaa-fixcyrillic,comfortaa-diacritics,newlatin,cyrillic}{t2b}{T2B}{fco}{m}{sl}{<->\string\comfortaa@scale}
+\installfont{Comfortaa-Regular-SmallCaps-t2b}{Comfortaa-Regular-01,Comfortaa-Regular-02,Comfortaa-Regular-03,Comfortaa-Regular-dotlessj,comfortaa-fixcyrillic,comfortaa-diacritics,newlatin,cyrillic}{t2bc}{T2B}{fco}{m}{sc}{<->\string\comfortaa@scale}
+\installfont{Comfortaa-Regular-Slanted-SmallCaps-t2b}{Comfortaa-Regular-Slanted-01,Comfortaa-Regular-Slanted-02,Comfortaa-Regular-Slanted-03,Comfortaa-Regular-Slanted-dotlessj,comfortaa-fixcyrillic,comfortaa-diacritics,newlatin,cyrillic}{t2bc}{T2B}{fco}{m}{scsl}{<->\string\comfortaa@scale}
+
+\installfont{Comfortaa-Bold-t2b}{Comfortaa-Bold-01,Comfortaa-Bold-02,Comfortaa-Bold-03,Comfortaa-Bold-dotlessj,comfortaa-fixcyrillic,comfortaa-diacritics,newlatin,cyrillic}{t2b}{T2B}{fco}{b}{n}{<->\string\comfortaa@scale}
+\installfont{Comfortaa-Bold-Slanted-t2b}{Comfortaa-Bold-Slanted-01,Comfortaa-Bold-Slanted-02,Comfortaa-Bold-Slanted-03,Comfortaa-Bold-Slanted-dotlessj,comfortaa-fixcyrillic,comfortaa-diacritics,newlatin,cyrillic}{t2b}{T2B}{fco}{b}{sl}{<->\string\comfortaa@scale}
+\installfont{Comfortaa-Bold-SmallCaps-t2b}{Comfortaa-Bold-01,Comfortaa-Bold-02,Comfortaa-Bold-03,Comfortaa-Bold-dotlessj,comfortaa-fixcyrillic,comfortaa-diacritics,newlatin,cyrillic}{t2bc}{T2B}{fco}{b}{sc}{<->\string\comfortaa@scale}
+\installfont{Comfortaa-Bold-Slanted-SmallCaps-t2b}{Comfortaa-Bold-Slanted-01,Comfortaa-Bold-Slanted-02,Comfortaa-Bold-Slanted-03,Comfortaa-Bold-Slanted-dotlessj,comfortaa-fixcyrillic,comfortaa-diacritics,newlatin,cyrillic}{t2bc}{T2B}{fco}{b}{scsl}{<->\string\comfortaa@scale}
+
+\endinstallfonts
+
+
+\installfonts
+\installfamily{T2C}{fco}{}
+
+\installfont{Comfortaa-Light-t2c}{Comfortaa-Light-01,Comfortaa-Light-02,Comfortaa-Light-03,Comfortaa-Light-dotlessj,comfortaa-fixcyrillic,comfortaa-diacritics,newlatin,cyrillic}{t2c}{T2C}{fco}{l}{n}{<->\string\comfortaa@scale}
+\installfont{Comfortaa-Light-Slanted-t2c}{Comfortaa-Light-Slanted-01,Comfortaa-Light-Slanted-02,Comfortaa-Light-Slanted-03,Comfortaa-Light-Slanted-dotlessj,comfortaa-fixcyrillic,comfortaa-diacritics,newlatin,cyrillic}{t2c}{T2C}{fco}{l}{sl}{<->\string\comfortaa@scale}
+\installfont{Comfortaa-Light-SmallCaps-t2c}{Comfortaa-Light-01,Comfortaa-Light-02,Comfortaa-Light-03,Comfortaa-Light-dotlessj,comfortaa-fixcyrillic,comfortaa-diacritics,newlatin,cyrillic}{t2cc}{T2C}{fco}{l}{sc}{<->\string\comfortaa@scale}
+\installfont{Comfortaa-Light-Slanted-SmallCaps-t2c}{Comfortaa-Light-Slanted-01,Comfortaa-Light-Slanted-02,Comfortaa-Light-Slanted-03,Comfortaa-Light-Slanted-dotlessj,comfortaa-fixcyrillic,comfortaa-diacritics,newlatin,cyrillic}{t2cc}{T2C}{fco}{l}{scsl}{<->\string\comfortaa@scale}
+
+\installfont{Comfortaa-Regular-t2c}{Comfortaa-Regular-01,Comfortaa-Regular-02,Comfortaa-Regular-03,Comfortaa-Regular-dotlessj,comfortaa-fixcyrillic,comfortaa-diacritics,newlatin,cyrillic}{t2c}{T2C}{fco}{m}{n}{<->\string\comfortaa@scale}
+\installfont{Comfortaa-Regular-Slanted-t2c}{Comfortaa-Regular-Slanted-01,Comfortaa-Regular-Slanted-02,Comfortaa-Regular-Slanted-03,Comfortaa-Regular-Slanted-dotlessj,comfortaa-fixcyrillic,comfortaa-diacritics,newlatin,cyrillic}{t2c}{T2C}{fco}{m}{sl}{<->\string\comfortaa@scale}
+\installfont{Comfortaa-Regular-SmallCaps-t2c}{Comfortaa-Regular-01,Comfortaa-Regular-02,Comfortaa-Regular-03,Comfortaa-Regular-dotlessj,comfortaa-fixcyrillic,comfortaa-diacritics,newlatin,cyrillic}{t2cc}{T2C}{fco}{m}{sc}{<->\string\comfortaa@scale}
+\installfont{Comfortaa-Regular-Slanted-SmallCaps-t2c}{Comfortaa-Regular-Slanted-01,Comfortaa-Regular-Slanted-02,Comfortaa-Regular-Slanted-03,Comfortaa-Regular-Slanted-dotlessj,comfortaa-fixcyrillic,comfortaa-diacritics,newlatin,cyrillic}{t2cc}{T2C}{fco}{m}{scsl}{<->\string\comfortaa@scale}
+
+\installfont{Comfortaa-Bold-t2c}{Comfortaa-Bold-01,Comfortaa-Bold-02,Comfortaa-Bold-03,Comfortaa-Bold-dotlessj,comfortaa-fixcyrillic,comfortaa-diacritics,newlatin,cyrillic}{t2c}{T2C}{fco}{b}{n}{<->\string\comfortaa@scale}
+\installfont{Comfortaa-Bold-Slanted-t2c}{Comfortaa-Bold-Slanted-01,Comfortaa-Bold-Slanted-02,Comfortaa-Bold-Slanted-03,Comfortaa-Bold-Slanted-dotlessj,comfortaa-fixcyrillic,comfortaa-diacritics,newlatin,cyrillic}{t2c}{T2C}{fco}{b}{sl}{<->\string\comfortaa@scale}
+\installfont{Comfortaa-Bold-SmallCaps-t2c}{Comfortaa-Bold-01,Comfortaa-Bold-02,Comfortaa-Bold-03,Comfortaa-Bold-dotlessj,comfortaa-fixcyrillic,comfortaa-diacritics,newlatin,cyrillic}{t2cc}{T2C}{fco}{b}{sc}{<->\string\comfortaa@scale}
+\installfont{Comfortaa-Bold-Slanted-SmallCaps-t2c}{Comfortaa-Bold-Slanted-01,Comfortaa-Bold-Slanted-02,Comfortaa-Bold-Slanted-03,Comfortaa-Bold-Slanted-dotlessj,comfortaa-fixcyrillic,comfortaa-diacritics,newlatin,cyrillic}{t2cc}{T2C}{fco}{b}{scsl}{<->\string\comfortaa@scale}
+
+\endinstallfonts
+
+
+\installfonts
+\installfamily{X2}{fco}{}
+
+\installfont{Comfortaa-Light-x2}{Comfortaa-Light-01,Comfortaa-Light-02,Comfortaa-Light-03,comfortaa-fixcyrillic,comfortaa-diacritics,newlatin,cyrillic}{x2}{X2}{fco}{l}{n}{<->\string\comfortaa@scale}
+\installfont{Comfortaa-Light-Slanted-x2}{Comfortaa-Light-Slanted-01,Comfortaa-Light-Slanted-02,Comfortaa-Light-Slanted-03,comfortaa-fixcyrillic,comfortaa-diacritics,newlatin,cyrillic}{x2}{X2}{fco}{l}{sl}{<->\string\comfortaa@scale}
+\installfont{Comfortaa-Light-SmallCaps-x2}{Comfortaa-Light-01,Comfortaa-Light-02,Comfortaa-Light-03,comfortaa-fixcyrillic,comfortaa-diacritics,newlatin,cyrillic}{x2c}{X2}{fco}{l}{sc}{<->\string\comfortaa@scale}
+\installfont{Comfortaa-Light-Slanted-SmallCaps-x2}{Comfortaa-Light-Slanted-01,Comfortaa-Light-Slanted-02,Comfortaa-Light-Slanted-03,comfortaa-fixcyrillic,comfortaa-diacritics,newlatin,cyrillic}{x2c}{X2}{fco}{l}{scsl}{<->\string\comfortaa@scale}
+
+\installfont{Comfortaa-Regular-x2}{Comfortaa-Regular-01,Comfortaa-Regular-02,Comfortaa-Regular-03,comfortaa-fixcyrillic,comfortaa-diacritics,newlatin,cyrillic}{x2}{X2}{fco}{m}{n}{<->\string\comfortaa@scale}
+\installfont{Comfortaa-Regular-Slanted-x2}{Comfortaa-Regular-Slanted-01,Comfortaa-Regular-Slanted-02,Comfortaa-Regular-Slanted-03,comfortaa-fixcyrillic,comfortaa-diacritics,newlatin,cyrillic}{x2}{X2}{fco}{m}{sl}{<->\string\comfortaa@scale}
+\installfont{Comfortaa-Regular-SmallCaps-x2}{Comfortaa-Regular-01,Comfortaa-Regular-02,Comfortaa-Regular-03,comfortaa-fixcyrillic,comfortaa-diacritics,newlatin,cyrillic}{x2c}{X2}{fco}{m}{sc}{<->\string\comfortaa@scale}
+\installfont{Comfortaa-Regular-Slanted-SmallCaps-x2}{Comfortaa-Regular-Slanted-01,Comfortaa-Regular-Slanted-02,Comfortaa-Regular-Slanted-03,comfortaa-fixcyrillic,comfortaa-diacritics,newlatin,cyrillic}{x2c}{X2}{fco}{m}{scsl}{<->\string\comfortaa@scale}
+
+\installfont{Comfortaa-Bold-x2}{Comfortaa-Bold-01,Comfortaa-Bold-02,Comfortaa-Bold-03,comfortaa-fixcyrillic,comfortaa-diacritics,newlatin,cyrillic}{x2}{X2}{fco}{b}{n}{<->\string\comfortaa@scale}
+\installfont{Comfortaa-Bold-Slanted-x2}{Comfortaa-Bold-Slanted-01,Comfortaa-Bold-Slanted-02,Comfortaa-Bold-Slanted-03,comfortaa-fixcyrillic,comfortaa-diacritics,newlatin,cyrillic}{x2}{X2}{fco}{b}{sl}{<->\string\comfortaa@scale}
+\installfont{Comfortaa-Bold-SmallCaps-x2}{Comfortaa-Bold-01,Comfortaa-Bold-02,Comfortaa-Bold-03,comfortaa-fixcyrillic,comfortaa-diacritics,newlatin,cyrillic}{x2c}{X2}{fco}{b}{sc}{<->\string\comfortaa@scale}
+\installfont{Comfortaa-Bold-Slanted-SmallCaps-x2}{Comfortaa-Bold-Slanted-01,Comfortaa-Bold-Slanted-02,Comfortaa-Bold-Slanted-03,comfortaa-fixcyrillic,comfortaa-diacritics,newlatin,cyrillic}{x2c}{X2}{fco}{b}{scsl}{<->\string\comfortaa@scale}
+
+\endinstallfonts
+
+
+\installfonts
+\installfamily{LGR}{fco}{}
+
+\installfont{Comfortaa-Light-lgr}{Comfortaa-Light-01,Comfortaa-Light-02,Comfortaa-Light-03,comfortaa-fixgreek,newlatin,greek}{lgr-lig}{LGR}{fco}{l}{n}{<->\string\comfortaa@scale}
+\installfont{Comfortaa-Light-Slanted-lgr}{Comfortaa-Light-Slanted-01,Comfortaa-Light-Slanted-02,Comfortaa-Light-Slanted-03,comfortaa-fixgreek,newlatin,greek}{lgr-lig}{LGR}{fco}{l}{sl}{<->\string\comfortaa@scale}
+\installfont{Comfortaa-Light-SmallCaps-lgr}{Comfortaa-Light-01,Comfortaa-Light-02,Comfortaa-Light-03,comfortaa-fixgreek,newlatin,greek}{lgr-ligc}{LGR}{fco}{l}{sc}{<->\string\comfortaa@scale}
+\installfont{Comfortaa-Light-Slanted-SmallCaps-lgr}{Comfortaa-Light-Slanted-01,Comfortaa-Light-Slanted-02,Comfortaa-Light-Slanted-03,comfortaa-fixgreek,newlatin,greek}{lgr-ligc}{LGR}{fco}{l}{scsl}{<->\string\comfortaa@scale}
+
+\installfont{Comfortaa-Regular-lgr}{Comfortaa-Regular-01,Comfortaa-Regular-02,Comfortaa-Regular-03,comfortaa-fixgreek,newlatin,greek}{lgr-lig}{LGR}{fco}{m}{n}{<->\string\comfortaa@scale}
+\installfont{Comfortaa-Regular-Slanted-lgr}{Comfortaa-Regular-Slanted-01,Comfortaa-Regular-Slanted-02,Comfortaa-Regular-Slanted-03,comfortaa-fixgreek,newlatin,greek}{lgr-lig}{LGR}{fco}{m}{sl}{<->\string\comfortaa@scale}
+\installfont{Comfortaa-Regular-SmallCaps-lgr}{Comfortaa-Regular-01,Comfortaa-Regular-02,Comfortaa-Regular-03,comfortaa-fixgreek,newlatin,greek}{lgr-ligc}{LGR}{fco}{m}{sc}{<->\string\comfortaa@scale}
+\installfont{Comfortaa-Regular-Slanted-SmallCaps-lgr}{Comfortaa-Regular-Slanted-01,Comfortaa-Regular-Slanted-02,Comfortaa-Regular-Slanted-03,comfortaa-fixgreek,newlatin,greek}{lgr-ligc}{LGR}{fco}{m}{scsl}{<->\string\comfortaa@scale}
+
+\installfont{Comfortaa-Bold-lgr}{Comfortaa-Bold-01,Comfortaa-Bold-02,Comfortaa-Bold-03,comfortaa-fixgreek,newlatin,greek}{lgr-lig}{LGR}{fco}{b}{n}{<->\string\comfortaa@scale}
+\installfont{Comfortaa-Bold-Slanted-lgr}{Comfortaa-Bold-Slanted-01,Comfortaa-Bold-Slanted-02,Comfortaa-Bold-Slanted-03,comfortaa-fixgreek,newlatin,greek}{lgr-lig}{LGR}{fco}{b}{sl}{<->\string\comfortaa@scale}
+\installfont{Comfortaa-Bold-SmallCaps-lgr}{Comfortaa-Bold-01,Comfortaa-Bold-02,Comfortaa-Bold-03,comfortaa-fixgreek,newlatin,greek}{lgr-ligc}{LGR}{fco}{b}{sc}{<->\string\comfortaa@scale}
+\installfont{Comfortaa-Bold-Slanted-SmallCaps-lgr}{Comfortaa-Bold-Slanted-01,Comfortaa-Bold-Slanted-02,Comfortaa-Bold-Slanted-03,comfortaa-fixgreek,newlatin,greek}{lgr-ligc}{LGR}{fco}{b}{scsl}{<->\string\comfortaa@scale}
+
+\endinstallfonts
+
+
+\endrecordtransforms
+\bye

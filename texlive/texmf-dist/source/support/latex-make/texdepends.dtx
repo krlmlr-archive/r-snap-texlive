@@ -1,0 +1,1037 @@
+%    \iffalse meta-comment
+%%
+%% File: texdepends.dtx Copyright (C) 2004--2011 V. Danjean
+%%    Vincent.Danjean@ens-lyon.org
+%% Modified by Matthieu Gallet
+%%    Matthieu.Gallet@ens-lyon.org
+%%
+%% This program is free software; you can redistribute it and/or
+%% modify it under the terms of the GNU General Public License
+%% as published by the Free Software Foundation; either version 2
+%% of the License, or (at your option) any later version.
+%% 
+%% This program is distributed in the hope that it will be useful,
+%% but WITHOUT ANY WARRANTY; without even the implied warranty of
+%% MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+%% GNU General Public License for more details.
+%% 
+%% You should have received a copy of the GNU General Public License
+%% along with this program; if not, write to the Free Software
+%% Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
+%%
+%
+%<*dtx>
+          \ProvidesFile{texdepends.dtx}
+%</dtx>
+%<package>\NeedsTeXFormat{LaTeX2e}%
+%<package>\ProvidesPackage{texdepends}%
+%    \fi
+%         \ProvidesFile{texdepends.dtx}
+[2008/01/28\space Automatic depends generation. v1.2.0]
+% \iffalse
+%<*driver>
+\documentclass{ltxdoc}
+\usepackage[latin1]{inputenc}
+\usepackage[french,english]{babel}
+\usepackage{pdfswitch}
+\NoAutoSpaceBeforeFDP
+\EnableCrossrefs
+\CodelineIndex
+\RecordChanges
+\setcounter{IndexColumns}{2}    % make a twocolumn index
+\setlength{\columnseprule}{0pt} % no rules between columns ...
+\setlength{\columnsep}{2em}     % ... but more spacing instead.
+\setcounter{unbalance}{4}
+\setlength{\IndexMin}{100pt}
+%%%%\OnlyDescription  % uncomment this line to suppress printing the source code
+\makeatletter
+% don't show underfull hboxes in index/glossary:
+\g@addto@macro{\IndexParms}{\hbadness=10000}
+\g@addto@macro{\GlossaryParms}{\hbadness=10000}
+\makeatother
+\begin{document}
+  \DocInput{texdepends.dtx}
+  \PrintIndex
+  \PrintChanges
+\end{document}
+%</driver>
+% \fi
+%
+% \GetFileInfo{texdepends.dtx}
+%
+% \DoNotIndex{\#,\$,\%,\&,\@,\\,\{,\},\^,\_,\~,\ }
+% \DoNotIndex{\def,\long,\edef,\xdef,\gdef,\let,\global}
+% \DoNotIndex{\if,\ifnum,\ifdim,\ifcat,\ifmmode,\ifvmode,\ifhmode,%
+%             \iftrue,\iffalse,\ifvoid,\ifx,\ifeof,\ifcase,\else,\or,\fi,\loop,\do}
+% \DoNotIndex{\box,\copy,\setbox,\unvbox,\unhbox,\hbox,%
+%             \vbox,\vtop,\vcenter}
+% \DoNotIndex{\@empty,\immediate,\write}
+% \DoNotIndex{\egroup,\bgroup,\expandafter,\begingroup,\endgroup}
+% \DoNotIndex{\divide,\advance,\multiply,\count,\dimen}
+% \DoNotIndex{\relax,\space,\string}
+% \DoNotIndex{\csname,\endcsname,\@spaces,\openin,\openout,%
+%             \closein,\closeout}
+% \DoNotIndex{\catcode,\endinput}
+% \DoNotIndex{\jobname,\message,\read,\the,\noexpand}
+% \DoNotIndex{\hsize,\vsize,\hskip,\vskip,\kern,\hfil,\hfill,\hss}
+% \DoNotIndex{\m@ne,\z@,\@m,\z@skip,\@ne,\tw@,\p@}
+% \DoNotIndex{\DeclareRobustCommand,\DeclareOption,\newcommand,\newcommand*}
+% \DoNotIndex{\newcount,\newif,\newlinechar,\newread,\newtoks,\newwrite}
+% \DoNotIndex{\dp,\wd,\ht,\vss,\unskip,\ifthenelse}
+%
+% \DoNotIndex{\@filef@und,\@nameddef,\@tempa}
+% \DoNotIndex{\define@key,\equal,\ExecuteOptions}
+% \DoNotIndex{\filename@area,\filename@base,\filename@ext,\filename@parse}
+% \DoNotIndex{\Gin@exclamation,\Gin@getbase,\Gin@scalex,\Gin@scaley}
+% \DoNotIndex{\Gread@eps,\Gread@pdf,\Gscale@box}
+% \DoNotIndex{\IfFileExists,\ifpdf,\input,\InputIfFileExists}
+% \DoNotIndex{\MessageBreak,\PackageWarning,\PackageWarningNoLine}
+% \DoNotIndex{\ProcessOptions,\RequirePackage,\typeout}
+% \DoNotIndex{}
+% \DoNotIndex{}
+%
+% \title{The \textsf{texdepends} package\thanks{This file
+%        has version number \fileversion, last
+%        revised \filedate.}}
+% \author{Vincent \textsc{Danjean}}
+% \date{\filedate}
+% \maketitle
+% \begin{abstract}
+%   This package allows \LaTeX\space to automatically generate
+%   dependencies while compiling documents.
+% \end{abstract}
+% \CheckSum{785}
+%
+% \changes{v1.0.1}{2005/03/22}{Version 1.0.1 at last}
+% \changes{v1.0.2}{2005/10/22}{Add support for package index.sty}
+% \changes{v1.1.0}{2005/11/05}{Manage index/glossary}
+% \changes{v1.1.0}{2005/11/05}{Rewrite of the package}
+% \changes{v1.2.0}{2008/01/28}{Better management of subfig files}
+% \changes{v1.3.0}{2011/09/25}{Management of svg files}
+%
+% \makeatletter
+% \def\SpecialOptionIndex#1{\@bsphack
+%     \index{#1\actualchar{\protect\ttfamily#1}
+%            (option)\encapchar usage}%
+%     \index{options:\levelchar{\protect\ttfamily#1}\encapchar
+%            usage}\@esphack}
+% \def\SpecialFileIndex#1{\@bsphack
+%     \index{#1\actualchar{\protect\ttfamily#1}
+%            (file)\encapchar usage}%
+%     \index{files:\levelchar{\protect\ttfamily#1}\encapchar
+%            usage}\@esphack}
+% \def\SpecialMainOptionIndex#1{\@bsphack\special@index{#1\actualchar
+%                                       {\string\ttfamily\space#1}
+%                                          (option)\encapchar main}%
+%     \special@index{options:\levelchar{%
+%                    \string\ttfamily\space#1}\encapchar
+%            main}\@esphack}
+% \def\option{\begingroup
+%    \catcode`\\12
+%    \MakePrivateLetters \mym@cro@ \iffalse}
+% \long\def\mym@cro@#1#2{\endgroup \topsep\MacroTopsep \trivlist
+%    \edef\saved@macroname{\string#2}%
+%   \def\makelabel##1{\llap{##1}}%
+%   \if@inlabel
+%     \let\@tempa\@empty \count@\macro@cnt
+%     \loop \ifnum\count@>\z@
+%       \edef\@tempa{\@tempa\hbox{\strut}}\advance\count@\m@ne \repeat
+%     \edef\makelabel##1{\llap{\vtop to\baselineskip
+%                                {\@tempa\hbox{##1}\vss}}}%
+%     \advance \macro@cnt \@ne
+%   \else  \macro@cnt\@ne  \fi
+%   \edef\@tempa{\noexpand\item[%
+%      #1%
+%        \noexpand\PrintMacroName
+%      \else
+%        \noexpand\PrintEnvName
+%      \fi
+%      {\string#2}]}%
+%   \@tempa
+%   \global\advance\c@CodelineNo\@ne
+%    #1%
+%       \SpecialMainIndex{#2}\nobreak
+%       \DoNotIndex{#2}%
+%    \else
+%       \SpecialMainOptionIndex{#2}\nobreak
+%    \fi
+%   \global\advance\c@CodelineNo\m@ne
+%   \ignorespaces}
+% \let\endoption \endtrivlist
+% \def\DescribeOption{\leavevmode\@bsphack\begingroup\MakePrivateLetters
+%   \Describe@Option}
+% \def\Describe@Option#1{\endgroup
+%               \marginpar{\raggedleft\PrintDescribeEnv{#1}}%
+%               \SpecialOptionIndex{#1}\@esphack\ignorespaces}
+% \def\DescribeFile{\leavevmode\@bsphack\begingroup\MakePrivateLetters
+%   \Describe@Option}
+% \def\Describe@File#1{\endgroup
+%               \marginpar{\raggedleft\PrintDescribeEnv{#1}}%
+%               \SpecialFileIndex{#1}\@esphack\ignorespaces}
+% \makeatother
+% \MakeShortVerb{\|}
+%
+% \tableofcontents
+% \section{Introduction}
+% This package automatically generates dependancies on \LaTeX\ files and
+% packages, figures, bibliography files, glossary and index files. The
+% generated file is then used by a Makefile to handle dependancies.
+% \StopEventually{
+% }
+% \section{Implementation of texdepends}
+% \subsection{Options}
+%    \begin{macrocode}
+%<*package>
+%    \end{macrocode}
+% |texdepends| is easier to write with the |ifthen| package.
+%    \begin{macrocode}
+\RequirePackage{ifthen}
+%    \end{macrocode}
+% \begin{option}{debug}
+% The debug option (enable debug messages, useful for debuging)
+%    \begin{macrocode}
+\newboolean{TD@debug}
+\newcommand{\TD@option@debug}[1][true]{%
+  %\PackageWarningNoLine{texdepends}{Setting debug to #1}
+  \setboolean{TD@debug}{#1}%
+}%
+%    \end{macrocode}
+% \end{option}
+% \begin{option}{extension}
+% The extension option. We can use it to let |texdepends|
+% know whether we compile a dvi or a pdf file.
+%    \begin{macrocode}
+\def\TD@option@extension[#1]{%
+  %\PackageWarningNoLine{texdepends}{Using extention #1}
+  \def\TD@extention{#1}%
+}%
+%    \end{macrocode}
+% \end{option}
+% Managing options with specific code. Using the |keyval|
+% package could be a solution, but this would add one more dependency.
+%    \begin{macrocode}
+\def\TD@option@split#1=#2=#3\relax{%
+  \def\TD@option@name{#1}%
+  \ifx\TD@option@name\@empty\else
+    \expandafter\let\expandafter\TD@option@cmd
+      \csname TD@option@\TD@option@name\endcsname
+    %\PackageWarningNoLine{texdepends}{1: '#1', 2: '#2', 3: '#3'}
+    \ifx\TD@option@cmd\relax
+      \@unknownoptionerror%
+    \else
+      \ifx\@empty#3\@empty
+         \TD@option@cmd\relax%
+      \else
+        \def\TD@option@value{#2}%
+        \TD@option@cmd[\TD@option@value]%
+      \fi
+    \fi
+  \fi
+}%
+%    \end{macrocode}
+% All option are managed by the same code.
+%    \begin{macrocode}
+\DeclareOption*{%
+  %\PackageWarningNoLine{texdepends}{Option \CurrentOption}%
+  \expandafter\TD@option@split\CurrentOption==\relax%
+}%
+%    \end{macrocode}
+% So lets process options
+%    \begin{macrocode}
+\ProcessOptions
+%    \end{macrocode}
+% If the |extension| option is not used, we try to find ourselves
+% the good extension based on TeX engine or mode.
+%    \begin{macrocode}
+\ifthenelse{\isundefined{\TD@extention}}{%
+  \PackageWarningNoLine{texdepends}{No extension given: detecting it}%
+  \RequirePackage{ifxetex,ifpdf}%
+  \ifxetex%
+    \PackageWarningNoLine{textdepends}{Detected XeTeX: using .pdf}%
+    \def\TD@extention{.pdf}%
+  \else\ifpdf%
+    \PackageWarningNoLine{texdepends}{Detected PDF mode: using .pdf}%
+    \def\TD@extention{.pdf}%
+  \else%
+    \PackageWarningNoLine{texdepends}{Detected DVI mode. Using .dvi}%
+    \def\TD@extention{.dvi}%
+  \fi\fi%
+}{}%
+%    \end{macrocode}
+%
+% \subsection{Tools}
+%    Some macros to help development
+% \subsubsection{Debug/info wrapper}
+% \begin{macro}{\TD@warning}
+% To write a warning
+%    \begin{macrocode}
+\newcommand{\TD@warning}[1]{%
+  \PackageWarningNoLine{texdepends}{#1}%
+}%
+%    \end{macrocode}
+% \end{macro}
+% \begin{macro}{\TD@warningLine}
+% To write a warning with line info
+%    \begin{macrocode}
+\newcommand{\TD@warningLine}[1]{%
+  \PackageWarning{texdepends}{#1}%
+}%
+%    \end{macrocode}
+% \end{macro}
+% \begin{macro}{\TD@info}
+% To write an info (as a warning if the |debug| option is set
+%    \begin{macrocode}
+\newcommand{\TD@info}[1]{%
+  \ifthenelse{\boolean{TD@debug}}{%
+    \PackageWarningNoLine{texdepends}{#1}%
+  }{%
+    \PackageInfo{texdepends}{#1}%
+  }%
+}%
+%    \end{macrocode}
+% \end{macro}
+% \begin{macro}{\TD@debug}
+% To write a message if the |debug| option is set
+%    \begin{macrocode}
+\newcommand{\TD@debug}[1]{%
+  \ifthenelse{\boolean{TD@debug}}{%
+    \PackageWarningNoLine{texdepends}{#1}%
+  }{%
+  }%
+}%
+%    \end{macrocode}
+% \end{macro}
+% \subsubsection{Writing dependencies} 
+% We open the file where we will write dependencies and other infos.
+%    \begin{macrocode}
+\newwrite\TD@write
+\TD@info{Writing info in '\jobname\TD@extention.mk'}
+\immediate\openout\TD@write\jobname\TD@extention.mk%
+%    \end{macrocode}
+% And we define a few macro to write in this file
+% 
+% \begin{macro}{\TD@print}
+%   We write something in the file
+%    \begin{macrocode}
+\def\TD@print#1{%
+  \immediate\write\TD@write{#1}%
+}%
+%    \end{macrocode}
+% \end{macro}
+% \begin{macro}{\TD@printClass}
+% We need a class
+%    \begin{macrocode}
+\def\TD@printClass#1{%
+  \TD@print{TD_\jobname\TD@extention _INPUTS\space += #1.cls}%
+}%
+%    \end{macrocode}
+% \end{macro}
+% \begin{macro}{\TD@printPackage}
+% We need a package
+%    \begin{macrocode}
+\def\TD@printPackage#1{%
+  \TD@print{TD_\jobname\TD@extention _INPUTS\space += #1.sty}%
+}%
+%    \end{macrocode}
+% \end{macro}
+% \begin{macro}{\TD@printInput}
+% We need a (\LaTeX) file
+%    \begin{macrocode}
+\def\TD@printInput#1{%
+  \TD@print{TD_\jobname\TD@extention _INPUTS\space += #1}%
+}%
+%    \end{macrocode}
+% \end{macro}
+% \begin{macro}{\TD@printFig}
+% We need an |XFig| file
+%    \begin{macrocode}
+\def\TD@printFig#1{%
+  \TD@print{TD_\jobname\TD@extention _FIGURES\space += #1}%
+}%
+%    \end{macrocode}
+% \end{macro}
+% \begin{macro}{\TD@printSubfig}
+% Web need a subfig file (see figlatex.dtx)
+%    \begin{macrocode}
+\def\TD@printSubfig#1{%
+  \TD@print{TD_\jobname\TD@extention _SUBFIGS\space += #1}%
+}%
+%    \end{macrocode}
+% \end{macro}
+% \begin{macro}{\TD@printRequiredFile}
+% A file is missing. |texdepend| will try to skip it this time,
+%   but it will be needed at the next compilation
+%    \begin{macrocode}
+\def\TD@printRequiredFile#1{%
+  \TD@print{TD_\jobname\TD@extention _REQUIRED\space += #1}%
+}%
+%    \end{macrocode}
+% \end{macro}
+% \begin{macro}{\RequireFile}
+% LaTeX users can directly declare a dependencie
+%    \begin{macrocode}
+\let\RequireFile\TD@printRequiredFile
+%    \end{macrocode}
+% \end{macro}
+% \begin{macro}{\TD@printOut}
+% We write in a file
+%    \begin{macrocode}
+\def\TD@printOut#1{%
+  \TD@print{TD_\jobname\TD@extention _OUTPUTS\space += #1}%
+}%
+%    \end{macrocode}
+% \end{macro}
+% \begin{macro}{\TD@printGraphicspath}
+% We modify the graphicspath
+%    \begin{macrocode}
+\def\TD@printGraphicspath#1{%
+  \TD@print{TD_\jobname\TD@extention _GRAPHICSPATH\space := #1}%
+}%
+%    \end{macrocode}
+% \end{macro}
+% \begin{macro}{\TD@printBibfile}
+% We use a bibfile (|*.bib|)
+%    \begin{macrocode}
+\def\TD@printBibfile#1{%
+  \TD@print{TD_\jobname\TD@extention _BIBFILES\space += #1.bib}%
+}%
+%    \end{macrocode}
+% \end{macro}
+% \begin{macro}{\TD@printBibstyle}
+% We use a bibstyle file (|*.bst|)
+%    \begin{macrocode}
+\def\TD@printBibstyle#1{%
+  \TD@print{TD_\jobname\TD@extention _BIBSTYLES\space += #1.bst}%
+}%
+%    \end{macrocode}
+% \end{macro}
+% \begin{macro}{\TD@printBblfile}
+% We use a bibliography file (|*.bbl|)
+%    \begin{macrocode}
+\def\TD@printBblfile#1{%
+  \TD@print{TD_\jobname\TD@extention _BBLFILES\space += #1.bbl}%
+}%
+%    \end{macrocode}
+% \end{macro}
+% \begin{macro}{\TD@printRebuildRule}
+% We need a specific rule in the |Makefile| to check if a
+% rebuild is needed
+%    \begin{macrocode}
+\def\TD@printRebuildRule#1{%
+  \TD@print{TD_\jobname\TD@extention _REBUILD_RULES\space += #1}%
+}%
+%    \end{macrocode}
+% \end{macro}
+% \begin{macro}{\TD@printIndex}
+% We use a new index
+%    \begin{macrocode}
+\def\TD@printIndex#1{%
+  \TD@print{TD_\jobname\TD@extention _INDEXES\space += INDEX}%
+  \TD@print{TD_\jobname\TD@extention _INDEXES_INDEX\space += #1}%
+}%
+%    \end{macrocode}
+% \end{macro}
+% \begin{macro}{\TD@printIndexSource}
+% The index file filled by \LaTeX
+%    \begin{macrocode}
+\def\TD@printIndexSource#1#2{%
+  \TD@print{TD_\jobname\TD@extention _INDEX_#1_SRC\space = #2}%
+}%
+%    \end{macrocode}
+% \end{macro}
+% \begin{macro}{\TD@printIndexTarget}
+% And the index file read by \LaTeX{} after |makeindex|
+% processing
+%    \begin{macrocode}
+\def\TD@printIndexTarget#1#2{%
+  \TD@print{TD_\jobname\TD@extention _INDEX_#1_TARGET\space = #2}%
+}%
+%    \end{macrocode}
+% \end{macro}
+% \begin{macro}{\TD@printIndexStyle}
+% The index style to be used with |makeindex| (never
+% called for now)
+%    \begin{macrocode}
+\def\TD@printIndexStyle#1#2{%
+  \TD@print{TD_\jobname\TD@extention _INDEX_#1_STYLE\space = #2}%
+}%
+%    \end{macrocode}
+% \end{macro}
+% \begin{macro}{\TD@printGlossary}
+% And the same things for glossary. Its name
+%    \begin{macrocode}
+\def\TD@printGlossary#1{%
+  \TD@print{TD_\jobname\TD@extention _INDEXES += GLOSS}%
+  \TD@print{TD_\jobname\TD@extention _INDEXES_GLOSS\space += #1}%
+}%
+%    \end{macrocode}
+% \end{macro}
+% \begin{macro}{\TD@printGlossarySource}
+% The glossary file filled by \LaTeX
+%    \begin{macrocode}
+\def\TD@printGlossarySource#1#2{%
+  \TD@print{TD_\jobname\TD@extention _GLOSS_#1_SRC\space = #2}%
+}%
+%    \end{macrocode}
+% \end{macro}
+% \begin{macro}{\TD@printGlossaryTarget}
+% And the glossary file read by \LaTeX{} after |makeindex|
+% processing
+%    \begin{macrocode}
+\def\TD@printGlossaryTarget#1#2{%
+  \TD@print{TD_\jobname\TD@extention _GLOSS_#1_TARGET\space = #2}%
+}%
+%    \end{macrocode}
+% \end{macro}
+% \begin{macro}{\TD@printGlossaryStyle}
+% The glossary style to be used with |makeindex| (never
+% called for now)
+%    \begin{macrocode}
+\def\TD@printGlossaryStyle#1#2{%
+  \TD@print{TD_\jobname\TD@extention _GLOSS_#1_STYLE\space = #2}%
+}%
+%    \end{macrocode}
+% \end{macro}
+% 
+% \subsubsection{Diverting a macro}
+% \begin{macro}{\TD@switch}
+% |\TD@switch| replace the macro |\#1| by the macro |\TD@#1|. The
+% original macro is stored in the |\TD@orig@#1| macro. Nothing is done
+% if |\#1| is already |\TD@#1| (that is if |\TD@switch| is called
+% severall times with the same argument)
+%    \begin{macrocode}
+\def\TD@switch#1{%
+  \expandafter\let\expandafter\TD@local@old\csname#1\endcsname%
+  \expandafter\let\expandafter\TD@local@new\csname TD@#1\endcsname%
+  \ifx\TD@local@old\TD@local@new
+    \PackageWarning{texdepends}{#1 already redefined. Skipping it.}%
+  \else
+    \ifx\TD@local@old\relax
+      \TD@warning{Diverting empty macro '#1' \MessageBreak%
+        Probably a bug in texdepends.sty}%
+    \else
+      \TD@info{Diverting macro '#1'}%
+    \fi
+    \expandafter\let\csname TD@orig@#1\endcsname\TD@local@old%
+    \expandafter\let\csname#1\endcsname\TD@local@new%
+  \fi
+}%
+%    \end{macrocode}
+% \end{macro}
+% \begin{macro}{\TD@docswitch}
+% Sometimes, we want the diversion to be delayed until the start of
+% the document.
+%    \begin{macrocode}
+\def\TD@docswitchlist{}%
+\def\TD@docswitch#1{%
+  \TD@info{Registering macro '#1' for diversion}%  
+  \ifx\TD@docswitchlist\@empty%
+    \xdef\TD@docswitchlist{#1}%
+  \else%
+    \xdef\TD@docswitchlist{\TD@docswitchlist,#1}%
+  \fi%
+}%
+\AtBeginDocument{%
+  \TD@info{Diverting registered macros...}%  
+  \@for\TD@cmd:=\TD@docswitchlist\do{%
+    \TD@switch{\TD@cmd}%
+  }%
+  \TD@info{Divertions done}%  
+}%
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{\TD@PackagePreDivert}
+% \begin{macro}{\TD@PackagePostDivert}
+%   And then, two macros to insert command just before or after
+%   loading a package. The first argument is the name of the package
+%   we want to add an hook before or after, and then there is the
+%   definition of the hook that will be called. Four parameters (|#1|,
+%   \ldots, |#4|) are available (the same as the |@onefilewithoptions|
+%   \LaTeX{} macro, ie package name, options, and the two remaining ;-)).
+%    \begin{macrocode}
+\def\TD@PackagePreDivert#1{%
+  \expandafter\def\csname TD@PackageStart@#1\endcsname ##1##2##3##4%
+}%
+\def\TD@PackagePostDivert#1{%
+  \expandafter\def\csname TD@PackageEnd@#1\endcsname ##1##2##3##4%
+}%
+%    \end{macrocode}
+% \end{macro}
+% \end{macro}
+%
+% \subsubsection{Initialisation}
+% We need to be loaded \emph{before} \string\documentclass
+%    \begin{macrocode}
+\ifx\documentclass\@twoclasseserror
+  \PackageError{texdepends}{texdepends needs to be loaded BEFORE
+	\string\documentclass \MessageBreak 
+	Use \string\RequirePackage\space instead of \string\usepackage
+	\MessageBreak as the later is not allowed before
+	\string\documentclass}
+\fi
+%    \end{macrocode}
+% And we write the first dependency (upon ourself)
+%    \begin{macrocode}
+\TD@printPackage{texdepends}
+%    \end{macrocode}
+% We write default graphicspath (is this really needed ?)
+%    \begin{macrocode}
+\TD@printGraphicspath{{.}}
+%    \end{macrocode}
+%
+% \subsubsection{Warning upon missing figures}
+% \begin{macro}{\TD@depends}
+% \begin{macro}{\TD@dependsWarning}
+% \begin{macro}{\TD@missingDepends}
+% If some figures are missing, |\TD@missingDepends| will be called so
+% that a warning will be displayed at the end of the
+% compilation. Figures should be generated before the next run.
+%    \begin{macrocode}
+\def\TD@depends{}%
+\def\TD@dependsWarning{%
+  \PackageWarningNoLine{texdepends}{Figure(s) missing. Check
+    dependencies again}%
+}%
+\def\TD@missingDepends{%
+  \global\let\TD@depends\TD@dependsWarning%
+}%
+\AtEndDocument{%
+  \TD@depends%
+}%
+%    \end{macrocode}
+% \end{macro}
+% \end{macro}
+% \end{macro}
+% \subsection{Diversion of \LaTeX{} macros}
+% 
+% \subsubsection{Class and package loading}
+% \begin{macro}{\TD@@fileswith@pti@ns}
+% \begin{macro}{\TD@@@fileswith@pti@ns}
+% Diverting |\@fileswith@pti@ns| and |@@fileswith@pti@ns| so that we
+% can track class loading. Package are tracked with an other macro
+% (see just after).
+%    \begin{macrocode}
+\def\TD@@fileswith@pti@ns#1[#2]#3[#4]{%
+  \ifx#1\@clsextension
+    \TD@printClass{#3}
+  \fi
+  \TD@orig@@fileswith@pti@ns{#1}[#2]{#3}[#4]%
+}%
+\let\TD@@@fileswith@pti@ns\TD@@fileswith@pti@ns
+\TD@switch{@fileswith@pti@ns}%
+\TD@switch{@@fileswith@pti@ns}%
+%    \end{macrocode}
+% \end{macro}
+% \end{macro}
+% 
+% \begin{macro}{\TD@@onefilewithoptions}
+% By diverting |\@onefilewithoptions|, we can track all loaded
+% packages. We write the dependency, and we look at the loaded package
+% to see if we need some special requirements
+%    \begin{macrocode}
+\def\TD@@onefilewithoptions#1[#2][#3]#4{%
+  \TD@printPackage{#1}%
+  \ifthenelse{\equal{#1}{texdepends}}{%
+%    \end{macrocode}
+% The |texdepends| package is special : we know it has already been
+% loaded (we are running code in it) but perhaps \LaTeX{} does not
+% know it. So we try to honor the |debug| option.
+%    \begin{macrocode}
+    \TD@debug{Package '#1' detected}
+    \@for\TD@package@option:=#2\do{%
+      \ifthenelse{\expandafter\isundefined\csname TD@option@\TD@package@option\endcsname}{
+        \TD@warningLine{Ignoring unknown option '\TD@package@option'}
+      }{
+        \ifthenelse{%
+          \equal{\TD@package@option}{debug}%
+          %\OR\equal{\TD@package@option}{debug}%
+        }{
+          \csname TD@option@\TD@package@option\endcsname%
+        }{
+          \TD@warningLine{Ignoring option '\TD@package@option'
+            \MessageBreak #1 already loaded
+          }
+        }
+      }
+    }
+  }{%
+    \expandafter\let\expandafter\TD@divert
+    \csname TD@PackageStart@#1\endcsname
+    \ifx\TD@divert\relax
+      \TD@debug{No preamble for package #1}
+    \else
+      \TD@info{Preamble for package #1}
+      \TD@divert{#1}{#2}{#3}{#4}%
+    \fi
+    \TD@orig@@onefilewithoptions{#1}[#2][#3]{#4}%
+    \expandafter\let\expandafter\TD@divert
+    \csname TD@PackageEnd@#1\endcsname
+    \ifx\TD@divert\relax
+      \TD@debug{No postamble for package #1}
+    \else
+      \TD@info{Postamble for package #1}
+      \TD@divert{#1}{#2}{#3}{#4}%
+    \fi
+  }%
+}%
+\TD@switch{@onefilewithoptions}%
+%    \end{macrocode}
+% \end{macro}
+%
+% \subsubsection{Tracking input files}
+% \begin{macro}{\TD@@iinput}
+% \begin{macro}{\TD@@input@}
+% |\@iinput| and |\@input@| are diverted to track loaded files
+%    \begin{macrocode}
+\def\TD@@iinput#1{%
+  \TD@printInput{#1}%
+  \TD@orig@@iinput{#1}}%
+\def\TD@@input@#1{%
+  \IfFileExists{#1}{%
+    \TD@printInput{#1}%
+  }{}%
+  \TD@orig@@input@{#1}}%
+\TD@switch{@iinput}%
+\TD@switch{@input@}%
+\def\TD@verbatiminput#1{%
+  \TD@printInput{#1}%
+  \TD@orig@verbatiminput{#1}}%
+\TD@PackagePostDivert{verbatim}{%
+  \TD@switch{verbatiminput}}%
+%    \end{macrocode}
+% \end{macro}
+% \end{macro}
+%
+% \subsubsection{Tracking output files}
+% \begin{macro}{\TD@openout}
+% \begin{macro}{\TD@poenout@eq}
+% \begin{macro}{\TD@poenout@noeq}
+% Note: that does not work. Currently, we parse the log file instead
+% of using this. If someone has ideas\ldots
+%    \begin{macrocode}
+\let\TD@orig@openout\openout
+\def\TD@openout#1{%
+  \@ifnextchar={\TD@openout@eq#1}{\TD@openout@noeq#1}}
+\def\TD@openout@eq#1=#2.#3{%
+  \TD@printOut{#2.#3}%
+  \TD@orig@openout#1=#2.#3%
+}%
+\def\TD@openout@noeq#1#2.#3{%
+  \TD@printOut{#2.#3}%
+  \TD@orig@openout#1#2.#3%
+}%
+ %\TD@switch{openout}
+%    \end{macrocode}
+% \end{macro}
+% \end{macro}
+% \end{macro}
+% \subsubsection{Tracking bibliography files}
+%    \begin{macrocode}
+\def\TD@bibli@bbl{%
+    \TD@printBblfile{\jobname}%
+    \global\let\TD@bibli@bbl\relax%
+}%
+\def\TD@bibli@files#1{%
+  \TD@bibli@bbl%
+  \@for\TD@bibfile:=#1\do{%
+    \TD@printBibfile{\TD@bibfile}%
+  }%
+} 
+\def\TD@bibli@style#1{%
+  \TD@bibli@bbl%
+  %\@for\TD@bibstyle:=#1\do{%
+  %  \TD@printBibstyle{\TD@bibstyle}%
+  %}
+  \TD@printBibstyle{#1}%
+} 
+\def\TD@bibliography#1{%
+  \TD@bibli@files{#1}%
+  \TD@orig@bibliography{#1}%
+}%
+\def\TD@bibliographystyle#1{%
+  \TD@bibli@style{#1}%
+  \TD@orig@bibliographystyle{#1}%
+}%
+\TD@docswitch{bibliography}%
+\TD@switch{bibliographystyle}%
+%    \end{macrocode}
+% \subsubsection{Glossary and index files}
+%    \begin{macrocode}
+\def\TD@makeindex{%
+  \TD@printIndex{\jobname}%
+  \TD@printIndexSource{\jobname}{\jobname.idx}%
+  \TD@orig@makeindex%
+}%
+\def\TD@makeglossary{%
+  \TD@printGlossary{\jobname}%
+  \TD@printGlossarySource{\jobname}{\jobname.glo}%
+  \TD@orig@makeglossary%
+}%
+\TD@switch{makeindex}%
+\TD@switch{makeglossary}%
+%    \end{macrocode}
+% \subsection{Diversion of package's macros}
+% \subsubsection{Package graphics}
+%    \begin{macrocode}
+\def\TD@Gin@getbase#1{%
+  \TD@orig@Gin@getbase{#1}%
+  \ifx\Gin@ext\relax%
+  \else%
+  \TD@printFig{\Gin@base\Gin@ext}%
+  \fi%
+}%
+\def\TD@Ginclude@eps#1{%
+  \IfFileExists{#1}{%
+    \TD@orig@Ginclude@eps{#1}%
+  }{%
+    \PackageWarning{texdepends}{Figure '#1' needed\MessageBreak 
+      Skipping it this time (the last one however)\MessageBreak}%
+    \TD@missingDepends%
+    \TD@printRequiredFile{#1}%
+  }%
+}%
+\def\TD@Ginclude@pdf#1{%
+  \IfFileExists{#1}{%
+    \TD@orig@Ginclude@pdf{#1}%
+  }{%
+    \PackageWarning{texdepends}{Figure '#1' needed\MessageBreak 
+      Skipping it this time (the last one however)\MessageBreak}%
+    \TD@missingDepends%
+    \TD@printRequiredFile{#1}%
+  }%
+}%
+\def\TD@graphicspath#1{%
+  \TD@printGraphicspath{#1}%
+  \TD@orig@graphicspath{#1}%
+}%
+\def\TD@Gread@eps#1{%
+  \IfFileExists{#1}{%
+    %\PackageWarning{texdepends}{Gread File '#1' exists}%
+    \TD@orig@Gread@eps{#1}%
+  }{%
+    \PackageWarning{texdepends}{No '#1' file \MessageBreak
+      using 1 for graphic dimensions}%
+    \setbox\@tempboxa\hbox{\relax}%
+    \def\Gin@llx{1}\let\Gin@lly\Gin@llx
+    \Gin@defaultbp\Gin@urx{\wd\@tempboxa}%
+    \Gin@defaultbp\Gin@ury{\ht\@tempboxa}%
+  }%
+}%
+\def\TD@Gread@pdf#1{%
+  \IfFileExists{#1}{%
+    %\PackageWarning{texdepends}{Gread File '#1' exists}%
+    \TD@orig@Gread@pdf{#1}%
+  }{%
+    \PackageWarning{texdepends}{No '#1' file \MessageBreak
+      using 1 for graphic dimensions}%
+    \setbox\@tempboxa\hbox{\relax}%
+    \def\Gin@llx{1}\let\Gin@lly\Gin@llx
+    \Gin@defaultbp\Gin@urx{\wd\@tempboxa}%
+    \Gin@defaultbp\Gin@ury{\ht\@tempboxa}%
+  }%
+}%
+\TD@PackagePostDivert{graphics}{%
+  \TD@switch{graphicspath}%
+  \TD@docswitch{Gin@getbase}%
+  \TD@docswitch{Ginclude@eps}%
+  \TD@docswitch{Ginclude@pdf}%
+  \TD@docswitch{Gread@eps}%
+  \TD@docswitch{Gread@pdf}%
+}%
+%    \end{macrocode}
+% \subsubsection{Package figlatex}
+%    \begin{macrocode}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% We do not want to fail when trying to load a missing subfig.
+% \@Ginclude@rawtex
+\def\TD@FL@includerawtexgraphics[#1]#2{%
+  \IfFileExists{#2}{%
+    \TD@orig@FL@includerawtexgraphics[#1]{#2}%
+  }{%
+    \PackageWarning{texdepends}{Figure '#2' needed\MessageBreak 
+      Skipping it this time (the last one however)\MessageBreak}%
+    \TD@missingDepends%
+    \TD@printRequiredFile{#2}%
+  }%
+}%
+
+\def\TD@Ginclude@rawtex#1{%
+  \IfFileExists{#1}{%
+    \TD@orig@Ginclude@rawtex{#1}%
+  }{%
+    \PackageWarning{texdepends}{Figure '#1' needed\MessageBreak 
+      Skipping it this time (the last one however)\MessageBreak}%
+    \TD@missingDepends%
+    \TD@printRequiredFile{#1}%
+  }%
+}%
+
+% \@Ginclude@figtex
+\def\TD@Ginclude@figtex#1{%
+  \IfFileExists{#1}{%
+    %\PackageWarning{texdepends}{Ginclude File '#1' exists}%
+    \TD@orig@Ginclude@figtex{#1}%
+  }{%
+    \ifthenelse{\isundefined{\FL@subfig@mainfigname}}{%
+      \PackageWarning{texdepends}{Figure '#1' needed\MessageBreak 
+        Skipping it this time (the last one however)\MessageBreak}%
+    }{%
+      \PackageWarning{texdepends}{SubFigure '#1' from
+        \FL@subfig@mainfigname needed\MessageBreak 
+        Skipping it this time (the last one however)\MessageBreak}%
+    }
+    \TD@missingDepends%
+    \TD@printRequiredFile{#1}%
+  }%
+}%
+% \@Ginclude@svgtex
+\def\TD@Ginclude@svgtex#1{%
+  \IfFileExists{#1}{%
+    %\PackageWarning{texdepends}{Ginclude File '#1' exists}%
+    \TD@orig@Ginclude@svgtex{#1}%
+  }{%
+    \ifthenelse{\isundefined{\FL@subfig@mainfigname}}{%
+      \PackageWarning{texdepends}{Figure '#1' needed\MessageBreak
+        Skipping it this time (the last one however)\MessageBreak}%
+    }{%
+      \PackageWarning{texdepends}{SubFigure '#1' from
+        \FL@subfig@mainfigname needed\MessageBreak
+        Skipping it this time (the last one however)\MessageBreak}%
+    }
+    \TD@missingDepends%
+    \TD@printRequiredFile{#1}%
+  }%
+}%
+
+
+% \@Gread@figtex
+\def\TD@Gread@figtex#1{%
+  \IfFileExists{#1}{%
+    %\PackageWarning{texdepends}{Gread File '#1' exists}%
+    \TD@orig@Gread@figtex{#1}%
+  }{%
+    \PackageWarning{texdepends}{No '#1' file \MessageBreak 
+      using 1 for graphic dimensions}%
+    \setbox\@tempboxa\hbox{\relax}%
+    \def\Gin@llx{1}\let\Gin@lly\Gin@llx
+    \Gin@defaultbp\Gin@urx{\wd\@tempboxa}%
+    \Gin@defaultbp\Gin@ury{\ht\@tempboxa}%
+  }%
+}%
+
+% \@Gread@svgtex
+\def\TD@Gread@svgtex#1{%
+  \IfFileExists{#1}{%
+    %\PackageWarning{texdepends}{Gread File '#1' exists}%
+    \TD@orig@Gread@svgtex{#1}%
+  }{%
+    \PackageWarning{texdepends}{No '#1' file \MessageBreak
+      using 1 for graphic dimensions}%
+    \setbox\@tempboxa\hbox{\relax}%
+    \def\Gin@llx{1}\let\Gin@lly\Gin@llx
+    \Gin@defaultbp\Gin@urx{\wd\@tempboxa}%
+    \Gin@defaultbp\Gin@ury{\ht\@tempboxa}%
+  }%
+}%
+% \FL@subfig@check
+\def\TD@FL@subfig@check#1{%
+  \TD@printRequiredFile{#1}%
+  \TD@printSubfig{#1}%
+}%
+%
+\TD@PackagePostDivert{figlatex}{%
+  \TD@docswitch{FL@includerawtexgraphics}%
+  \TD@docswitch{Ginclude@rawtex}%
+  \TD@docswitch{Ginclude@figtex}%
+  \TD@docswitch{Ginclude@svgtex}%
+  \TD@docswitch{Gread@figtex}%
+  \TD@docswitch{Gread@svgtex}%
+  \TD@docswitch{FL@subfig@check}%
+}%
+%    \end{macrocode}
+% \subsubsection{Package doc}
+%    \begin{macrocode}
+\def\TD@PrintIndex{%
+  \TD@printIndexStyle{\jobname}{gind.ist}
+  \TD@printIndexTarget{\jobname}{\jobname.ind}
+  \TD@orig@PrintIndex%
+}%
+\def\TD@PrintChanges{%
+  \TD@printGlossaryStyle{\jobname}{gglo.ist}
+  \TD@printGlossaryTarget{\jobname}{\jobname.gls}
+  \TD@orig@PrintChanges%
+}%
+\TD@PackagePostDivert{doc}{%
+  \TD@docswitch{PrintIndex}%
+  \TD@docswitch{PrintChanges}%
+}%
+%    \end{macrocode}
+% \subsubsection{Package index}
+%    \begin{macrocode}
+\def\TD@def@index#1#2#3#4{%
+  \TD@printIndex{#2}%
+  \TD@printIndexSource{#2}{\jobname.#3}%  
+  \TD@printIndexTarget{#2}{\jobname.#4}
+  \TD@orig@def@index{#1}{#2}{#3}{#4}%
+}%
+\TD@PackagePostDivert{index}{%
+  \TD@switch{def@index}%
+}%
+%    \end{macrocode}
+% \subsubsection{Package makeidx}
+%    \begin{macrocode}
+\def\TD@printindex{%
+  \TD@printIndexTarget{\jobname}{\jobname.ind}
+  \TD@orig@printindex%
+}%
+\TD@PackagePostDivert{makeidx}{%
+  \TD@docswitch{printindex}%
+}%
+%    \end{macrocode}
+% \subsubsection{Package nomencl}
+% We divert |makeglossary| again after loading this package as its
+% redefines this macro (loosing our divertion). We also setup the
+% glossary style for this package.
+%    \begin{macrocode}
+\def\TD@printglossary{%
+  \TD@printGlossaryTarget{\jobname}{\jobname.gls}
+  \TD@orig@printglossary%
+}%
+\TD@PackagePostDivert{nomencl}{%
+  \TD@docswitch{printglossary}%
+  \TD@switch{makeglossary}%
+  \TD@printGlossaryStyle{\jobname}{nomencl.ist}
+}%
+%    \end{macrocode}
+% \subsubsection{Package bibtopic}
+%    \begin{macrocode}
+% Pour le package bibtopic
+\def\TD@btSect{%
+  \@ifnextchar[{\TD@btSect@opt}{\TD@btSect@noopt}}
+\def\TD@btSect@opt[#1]#2{%
+  \TD@bibli@files{#2}%
+  \TD@bibli@style{#1}%
+  \TD@orig@btSect[#1]{#2}}
+\def\TD@btSect@noopt#1{%
+  \TD@bibli@files{#1}%
+  \TD@orig@btSect{#1}}
+
+\def\TD@@bt@write@auxfile{%
+  \TD@printBblfile{\thebtauxfile}%
+  \TD@orig@@bt@write@auxfile%
+}%
+\TD@PackagePostDivert{bibtopic}{%
+  \global\let\TD@bibli@bbl\relax%
+  \global\let\TD@biblio@rules@package\TD@biblio@rules@package@bibtopic%
+  \TD@switch{@bt@write@auxfile}%
+  \TD@printOut{btbbl.aux}%
+  \TD@printRebuildRule{bibtopic}%
+  \TD@docswitch{btSect}%
+}%
+%    \end{macrocode}
+%    \begin{macrocode}
+%</package>
+%    \end{macrocode}
+% \Finale
+\endinput

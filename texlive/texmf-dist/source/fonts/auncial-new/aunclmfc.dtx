@@ -1,0 +1,4563 @@
+% \iffalse meta-comment
+%
+% aunclmfc.dtx
+%
+%  Author: Peter Wilson (Herries Press) herries dot press at earthlink dot net
+%  Copyright 1999--2005 Peter R. Wilson
+%
+%  This work may be distributed and/or modified under the
+%  conditions of the Latex Project Public License, either
+%  version 1.3 of this license or (at your option) any
+%  later version.
+%  The latest version of the license is in
+%    http://www.latex-project.org/lppl.txt
+%  and version 1.3 or later is part of all distributions of
+%  LaTeX version 2003/06/01 or later.
+%
+%  This work has the LPPL maintenance status "author-maintained".
+%
+%  This work consists of the files listed in the README file.
+%
+% If you do not have the docmfp package (available from CTAN in
+% tex-archive/macros/latex/contrib/supported), comment out the
+% \usepackage{docmfp} line below and uncomment the line following it. 
+%
+%<*driver>
+\documentclass[twoside]{ltxdoc}
+\usepackage{docmfp}
+%%%%%% \providecommand{\DescribeVariable}[1]{} \newenvironment{routine}[1]{}{}
+\usepackage{url}
+\usepackage[draft=false,
+            plainpages=false,
+            pdfpagelabels,
+            bookmarksnumbered,
+            hyperindex=false
+           ]{hyperref}
+\providecommand{\phantomsection}{}
+\OnlyDescription %% comment this out for the full glory
+\EnableCrossrefs
+\CodelineIndex
+\setcounter{StandardModuleDepth}{1}
+\makeatletter
+  \@mparswitchfalse
+\makeatother
+\renewcommand{\MakeUppercase}[1]{#1}
+\pagestyle{headings}
+\newenvironment{addtomargins}[1]{%
+  \begin{list}{}{%
+    \topsep 0pt%
+    \addtolength{\leftmargin}{#1}%
+    \addtolength{\rightmargin}{#1}%
+    \listparindent \parindent
+    \itemindent \parindent
+    \parsep \parskip}%
+  \item[]}{\end{list}}
+\begin{document}
+  \raggedbottom
+  \DocInput{aunclmfc.dtx}
+\end{document}
+%</driver>
+%
+% \fi
+%
+% \CheckSum{132}
+%
+% \DoNotIndex{\',\.,\@M,\@@input,\@addtoreset,\@arabic,\@badmath}
+% \DoNotIndex{\@centercr,\@cite}
+% \DoNotIndex{\@dotsep,\@empty,\@float,\@gobble,\@gobbletwo,\@ignoretrue}
+% \DoNotIndex{\@input,\@ixpt,\@m}
+% \DoNotIndex{\@minus,\@mkboth,\@ne,\@nil,\@nomath,\@plus,\@set@topoint}
+% \DoNotIndex{\@tempboxa,\@tempcnta,\@tempdima,\@tempdimb}
+% \DoNotIndex{\@tempswafalse,\@tempswatrue,\@viipt,\@viiipt,\@vipt}
+% \DoNotIndex{\@vpt,\@warning,\@xiipt,\@xipt,\@xivpt,\@xpt,\@xviipt}
+% \DoNotIndex{\@xxpt,\@xxvpt,\\,\ ,\addpenalty,\addtolength,\addvspace}
+% \DoNotIndex{\advance,\Alph,\alph}
+% \DoNotIndex{\arabic,\ast,\begin,\begingroup,\bfseries,\bgroup,\box}
+% \DoNotIndex{\bullet}
+% \DoNotIndex{\cdot,\cite,\CodelineIndex,\cr,\day,\DeclareOption}
+% \DoNotIndex{\def,\DisableCrossrefs,\divide,\DocInput,\documentclass}
+% \DoNotIndex{\DoNotIndex,\egroup,\ifdim,\else,\fi,\em,\endtrivlist}
+% \DoNotIndex{\EnableCrossrefs,\end,\end@dblfloat,\end@float,\endgroup}
+% \DoNotIndex{\endlist,\everycr,\everypar,\ExecuteOptions,\expandafter}
+% \DoNotIndex{\fbox}
+% \DoNotIndex{\filedate,\filename,\fileversion,\fontsize,\framebox,\gdef}
+% \DoNotIndex{\global,\halign,\hangindent,\hbox,\hfil,\hfill,\hrule}
+% \DoNotIndex{\hsize,\hskip,\hspace,\hss,\if@tempswa,\ifcase,\or,\fi,\fi}
+% \DoNotIndex{\ifhmode,\ifvmode,\ifnum,\iftrue,\ifx,\fi,\fi,\fi,\fi,\fi}
+% \DoNotIndex{\input}
+% \DoNotIndex{\jobname,\kern,\leavevmode,\let,\leftmark}
+% \DoNotIndex{\list,\llap,\long,\m@ne,\m@th,\mark,\markboth,\markright}
+% \DoNotIndex{\month,\newcommand,\newcounter,\newenvironment}
+% \DoNotIndex{\NeedsTeXFormat,\newdimen}
+% \DoNotIndex{\newlength,\newpage,\nobreak,\noindent,\null,\number}
+% \DoNotIndex{\numberline,\OldMakeindex,\OnlyDescription,\p@}
+% \DoNotIndex{\pagestyle,\par,\paragraph,\paragraphmark,\parfillskip}
+% \DoNotIndex{\penalty,\PrintChanges,\PrintIndex,\ProcessOptions}
+% \DoNotIndex{\protect,\ProvidesClass,\raggedbottom,\raggedright}
+% \DoNotIndex{\refstepcounter,\relax,\renewcommand,\reset@font}
+% \DoNotIndex{\rightmargin,\rightmark,\rightskip,\rlap,\rmfamily,\roman}
+% \DoNotIndex{\roman,\secdef,\selectfont,\setbox,\setcounter,\setlength}
+% \DoNotIndex{\settowidth,\sfcode,\skip,\sloppy,\slshape,\space}
+% \DoNotIndex{\symbol,\the,\trivlist,\typeout,\tw@,\undefined,\uppercase}
+% \DoNotIndex{\usecounter,\usefont,\usepackage,\vfil,\vfill,\viiipt}
+% \DoNotIndex{\viipt,\vipt,\vskip,\vspace}
+% \DoNotIndex{\wd,\xiipt,\year,\z@}
+%
+% \changes{v1.0}{2005/11/27}{First public release}
+% \changes{v1.0}{2005/11/27}{Major rewrite from auncial.dtx}
+%
+% \def\fileversion{v1.0} \def\filedate{2005/11/27}
+% \newcommand*{\Lpack}[1]{\textsf {#1}}           ^^A typeset a package
+% \newcommand*{\Lopt}[1]{\textsf {#1}}            ^^A typeset an option
+% \newcommand*{\file}[1]{\texttt {#1}}            ^^A typeset a file
+% \newcommand*{\Lcount}[1]{\textsl {\small#1}}    ^^A typeset a counter
+% \newcommand*{\pstyle}[1]{\textsl {#1}}          ^^A typeset a pagestyle
+% \newcommand*{\Lenv}[1]{\texttt {#1}}            ^^A typeset an environment
+% \newcommand*{\AD}{\textsc{ad}}
+% \newcommand*{\thisfont}{Artificial Uncial}
+%
+% \title{\Lpack{Artificial Uncial}: MetaFont code for the characters\thanks{This
+%        file has version number \fileversion, last revised
+%        \filedate.}}
+%
+% \author{%
+% Peter Wilson\footnote{\texttt{herries dot press at earthlink dot net}}\\
+% Herries Press }
+% \date{\filedate}
+% \maketitle
+% \begin{abstract}
+%    The \Lpack{auncial} bundle provides a PostScript Type1 set of 
+% \thisfont{} bookhands 
+% as used
+% for manuscripts in the 6th to the 10th century. This is one in a series
+% of manuscript fonts. This document contains the MetaFont code for the
+% characters.
+% \end{abstract}
+% \tableofcontents
+% \listoftables
+%
+% 
+%
+% \section{Introduction}
+%
+%    The \Lpack{auncial} bundle provides a PostScript Type1 version of a 
+% Metafont~\cite{METAFONT} rendition 
+% of the \thisfont{} manuscript book-hand that was in use between about the
+% sixth and tenth centuries~\AD. It is part of a project to provide fonts
+% covering the major manuscript hands between the first century~\AD{} and
+% the invention of printing. 
+%
+%     The font is supplied in only the special bookhands B1 encoding. 
+%
+% This manual is typeset according to the conventions of the
+% \LaTeX{} \textsc{docstrip} utility which enables the automatic
+% extraction of the \LaTeX{} macro source files~\cite{GOOSSENS94}.
+% The \Lpack{docmfp} package is used for documenting the Metafont portions
+% of the distribution~\cite{DOCMFP}.
+%
+%
+%
+% \section{The Metafont code} \label{sec:mf}
+%
+%
+%    As previously noted, this work is part of a larger project to provide
+% fonts covering the main manuscript book-hands. As such, one of the
+% aims is to produce a coordinated set of fonts, especially as multiple
+% hands might be used in a single document. 
+%
+%    Noting that the hands tend to be somewhat larger than the typical 10pt
+% size (where the x-height is approximately 1.5mm) used for modern books, 
+% I have also designed the fonts
+% at a larger than normal size, then applied some non-linear factors when reducing
+% them down to a 10pt size.
+%    Further, I have used the height of the Carolingian minuscule as a 
+% normalising factor when deciding on the absolute height of any particular
+% script. The x-height of the Carolingian font is made equal to the
+% x-height of the Computer Modern Roman (CMR) font.
+%
+%    Modern fonts are effectively drawn. That is, the outline of the letter is
+% drawn carefully and the center is filled with ink. This is shown to good
+% effect in the Metafont code for the Computer Modern fonts~\cite{CM}.
+% In contrast, the manuscript letters were inked by single pen strokes in
+% a calligraphic manner. I have tried to repeat this calligraphic style
+% in the Metafont code.
+%
+%    As much as possible I have tried to use parameter values from the
+% Computer Modern Roman (CMR) fonts in order to reduce possible
+% infelicities if the CM and manuscript fonts are used together. However,
+% few of the CMR parameters are applicable to the calligraphic style.
+%
+%
+% \StopEventually{
+% \bibliographystyle{alpha}
+% \renewcommand{\refname}{Bibliography}
+% \begin{thebibliography}{GMS94}
+% \addcontentsline{toc}{section}{\refname}
+%
+% \bibitem[And69]{ANDERSON69}
+% Donald M.~Anderson.
+% \newblock \emph{The Art of Written Forms: The Theory and Practice of Calligraphy}.
+% \newblock Holt, Rinehart and Winston, 1969.
+%
+% \bibitem[Bol95]{BOLOGNA95}
+% Giulia Bologna.
+% \newblock \emph{Illuminated Manuscripts: The Book before Gutenberg}.
+% \newblock Crescent Books, 1995.
+%
+% \bibitem[Day95]{DAY95}
+% Lewis F.~Day.
+% \newblock \emph{Alphabets Old \& New}.
+% \newblock (3rd edition originally published by B.~T.~Batsford, 1910) 
+% \newblock Senate, 1995.
+%
+% \bibitem[Dro80]{DROGIN80}
+% Marc Drogin.
+% \newblock \emph{Medieval Calligraphy: Its History and Technique}.
+% \newblock Allenheld, Osmun \& Co., 1980.
+%
+% \bibitem[Dru95]{DRUCKER95}
+% Johanna Drucker.
+% \newblock \emph{The Alphabetic Labyrinth}.
+% \newblock Thames \& Hudson, 1995.
+%
+% \bibitem[Fir93]{FIRMAGE93}
+% Richard A.~Firmage.
+% \newblock \emph{The Alphabet Abecedarium}.
+% \newblock David R~Goodine, 1993.
+%
+% \bibitem[Fli98]{LETTRINE}
+% Daniel Flipo.
+% \newblock \emph{The LETTRINE package}.
+% \newblock (Available from CTAN in \texttt{macros/latex/contrib/supported}). 
+% \newblock 1998.
+%
+% \bibitem[Har95]{HARRIS95}
+% David Harris.
+% \newblock \emph{The Art of Calligraphy}.
+% \newblock DK Publishing, 1995.
+%
+% \bibitem[Jen95]{BETON}
+% Frank Jensen.
+% \newblock \emph{The BETON package}.
+% \newblock (Available from CTAN in \texttt{macros/latex/contrib/supported}). 
+% \newblock 1995.
+%
+% \bibitem[Joh71]{JOHNSTON75}
+% Edward Johnston (ed. Heather Child).
+% \newblock \emph{Formal Penship and Other Papers}.
+% \newblock Penthalic, 1971.
+%
+% \bibitem[Knu87]{CM}
+% Donald E.~Knuth.
+% \newblock \emph{Computer Modern Typefaces}.
+% \newblock Addison-Wesley, 1987.
+%
+% \bibitem[Knu92]{METAFONT}
+% Donald E.~Knuth.
+% \newblock \emph{The METAFONTbook}.
+% \newblock Addison-Wesley, 1992.
+%
+% \bibitem[GMS94]{GOOSSENS94}
+% Michel Goossens, Frank Mittelbach, and Alexander Samarin.
+% \newblock \emph{The LaTeX Companion}.
+% \newblock Addison-Wesley Publishing Company, 1994.
+%
+% \bibitem[Tho75]{THOMAS75}
+% Alan G.~Thomas.
+% \newblock \emph{Great Books and Book Collectors}.
+% \newblock Weidenfield and Nichoson, 1975.
+%
+% \bibitem[Wil99]{DOCMFP}
+% Peter R.~Wilson.
+% \newblock \emph{The DOCMFP Package}.
+% \newblock (Available from CTAN in \texttt{macros/latex/contrib/supported}). 
+% \newblock 1999.
+%
+% \bibitem[Wil99b]{ROMANNUM}
+% Peter R.~Wilson.
+% \newblock \emph{The ROMANNUM Package}.
+% \newblock (Available from CTAN in \texttt{macros/latex/contrib/supported}). 
+% \newblock 1999.
+%
+% \end{thebibliography}
+% \PrintIndex
+% }
+%
+%
+% \section{The code for characters 0 through 31}
+%
+% The following code is for characters in slots below the ASCII set which
+% starts in slot 32.
+%
+%    \begin{macrocode}
+%<*low>
+%%%% AUNCLLOW.MF Program file for Artificial Uncial below-ASCII characters.
+
+%    \end{macrocode}
+%
+% I'm leaving slots (o000/h00/d0), (o012,h0A,d10), and (o015/h0D/d13) empty.
+%
+% \begin{routine}{acute}
+% The acute accent. (o001/h01/d1)
+%    \begin{macrocode}
+cmchar "acute";
+beginchar(oct "001", 2u#+hstretch*(2cos_accent_angle*accent_ysize#), asc_height#, 0);
+adjust_fit(0,0); pcshiftx := u; pickup accentpen;
+rt x1=w-pcshiftx; top y1=h;
+draw_acute(1);
+penlabels(1);
+endchar; % end "acute accent"
+
+%    \end{macrocode}
+% \end{routine}
+%
+%
+% \begin{routine}{circumflex}
+% The circumflex accent. (o002/h02/d2)
+%    \begin{macrocode}
+cmchar "circumflex";
+beginchar(oct "002", 2u#+hstretch*(2cos_accent_angle*accent_ysize#), asc_height#, 0);
+adjust_fit(0,0); pcshiftx := u; pickup accentpen;
+x1=1/2w; top y1catm=h;
+draw_circumflex(1);
+penlabels(1);
+endchar; % end "circumflex accent"
+
+%    \end{macrocode}
+% \end{routine}
+%
+% \begin{routine}{tilde}
+% The tilde accent. (o003/h03/d3)
+%    \begin{macrocode}
+cmchar "tilde";
+beginchar(oct "003", 2u#+hstretch*(4cos_accent_angle*accent_ysize#), asc_height#, 0);
+adjust_fit(0,0); pcshiftx := u; pickup accentpen;
+x1=1/2w; y1=h-1/2accent_ysize;
+draw_tildea(1);
+penlabels(1);
+endchar; % end "tilde accent"
+
+%    \end{macrocode}
+% \end{routine}
+%
+%
+% \begin{routine}{dieresis}
+% The dieresis (double dot) accent. (o004/h04/d4)
+%    \begin{macrocode}
+cmchar "dieresis";
+beginchar(oct "004", 2u#+hstretch*(4cos_accent_angle*accent_ysize#), asc_height#, 0);
+adjust_fit(0,0); pcshiftx := u; pickup accentpen;
+x1=1/2w; y1ddab=h-accent_ysize;
+draw_dieresis(1);
+penlabels(1);
+endchar; % end "double dot accent"
+
+%    \end{macrocode}
+% \end{routine}
+%
+% \begin{routine}{hungarumlaut}
+% The long umlaut accent. (o005/h05/d5)
+%    \begin{macrocode}
+cmchar "hungarumlaut";
+beginchar(oct "005", 2u#+hstretch*(4cos_accent_angle*accent_ysize#), asc_height#, 0);
+adjust_fit(0,0); pcshiftx := u; pickup accentpen;
+x1=1/2w; y1=h;
+draw_lumlaut(1);
+penlabels(1);
+endchar; % end "long umlaut"
+
+%    \end{macrocode}
+% \end{routine}
+%
+% \begin{routine}{ring}
+% The ring accent. (o006/h06/d6)
+%    \begin{macrocode}
+cmchar "ring";
+beginchar(oct "006", 2u#+hstretch*(2cos_accent_angle*accent_ysize#), asc_height#, 0);
+adjust_fit(0,0); pcshiftx := u; pickup accentpen;
+x1=1/2w; top y1=h;
+draw_ring(1);
+penlabels(1);
+endchar; % end "ring accent"
+
+%    \end{macrocode}
+% \end{routine}
+%
+% \begin{routine}{caron}
+% The caron/hachek accent. (o007/h07/d7)
+%    \begin{macrocode}
+cmchar "caron";
+beginchar(oct "007", 2u#+hstretch*(2cos_accent_angle*accent_ysize#), asc_height#, 0);
+adjust_fit(0,0); pcshiftx := u; pickup accentpen;
+x1=1/2w; top y1hatl=h;
+draw_hachek(1);
+penlabels(1);
+endchar; % end "hachek accent"
+
+%    \end{macrocode}
+% \end{routine}
+%
+% \begin{routine}{breve}
+% The breve accent. (o010/h08/d8)
+%    \begin{macrocode}
+cmchar "breve";
+beginchar(oct "010", 2u#+hstretch*(2cos_accent_angle*accent_ysize#), asc_height#, 0);
+adjust_fit(0,0); pcshiftx := u; pickup accentpen;
+x1=1/2w; top y1batl=h;
+draw_breve(1);
+penlabels(1);
+endchar; % end "breve accent"
+
+%    \end{macrocode}
+% \end{routine}
+%
+% \begin{routine}{macron}
+% The macron accent. (o011/h08/d9)
+%    \begin{macrocode}
+cmchar "macron";
+beginchar(oct "011", 2u#+hstretch*(4cos_accent_angle*accent_ysize#), asc_height#, 0);
+adjust_fit(0,0); pcshiftx := u; pickup accentpen;
+x1=1/2w; y1=h-1/2accent_ysize;
+draw_macron(1);
+penlabels(1);
+endchar; % end "macron accent"
+
+%    \end{macrocode}
+% \end{routine}
+%
+%
+% \begin{routine}{cedilla}
+% The cedilla. (o013/h0B/d11)
+%    \begin{macrocode}
+cmchar "cedilla";
+beginchar(oct "013", 2u#+hstretch*(1/2accent_ysize#), 0, desc_depth#);
+adjust_fit(0,0); pcshiftx := u; pickup accentpen;
+x1=1/2w; y1=0;
+draw_cedilla(1);
+penlabels(1);
+endchar; % end "cedilla"
+
+%    \end{macrocode}
+% \end{routine}
+%
+%
+%
+% \begin{routine}{ogonek}
+% The ogonek. (o014/h0C/d12)
+%    \begin{macrocode}
+cmchar "ogonek";
+beginchar(oct "014", 2u#+hstretch*(1/2accent_ysize#), 0, desc_depth#);
+adjust_fit(0,0); pcshiftx := u; pickup accentpen;
+x1=1/2w; y1=0;
+draw_ogonek(1);
+penlabels(1);
+endchar; % end "ogonek"
+
+%    \end{macrocode}
+% \end{routine}
+%
+% \begin{routine}{guilsinglleft}
+% The left guillemot. (o016/h0E/d14)
+%    \begin{macrocode}
+cmchar "guilsinglleft";
+beginchar(oct "016", 2u#+hstretch*(accent_ysize#), x_height#, 0);
+adjust_fit(0,0); pcshiftx := u; pickup accentpen;
+x1=w-pcshiftx; y1lgqm=1/2h;
+draw_leftguill(1, 3/4h, (w-2pcshiftx));
+penlabels(1);
+endchar; % end "left guillemot"
+
+%    \end{macrocode}
+% \end{routine}
+%
+% \begin{routine}{guilsinglright}
+% The right guillemot. (o017/h0F/d15)
+%    \begin{macrocode}
+cmchar "guilsinglright";
+beginchar(oct "017", 2u#+hstretch*(accent_ysize#), x_height#, 0);
+adjust_fit(0,0); pcshiftx := u; pickup accentpen;
+x1=pcshiftx; y1rgqm=1/2h;
+draw_rightguill(1, 3/4h, (w-2pcshiftx));
+penlabels(1);
+endchar; % end "right guillemot"
+
+%    \end{macrocode}
+% \end{routine}
+%
+% \begin{routine}{quotedblleft}
+%   The ```' ligature. (o020/h10/d16)
+%    \begin{macrocode}
+cmchar "quotedblleft";
+beginchar(oct "020",2u#+hstretch*(comma_width#+3dot_size#),4/3x_height#,0);
+adjust_fit(0,0); pcshiftx:=u;
+x1=pcshiftx+(0.5hstretch*dot_size); y1=y2=h;
+x2=x1+(2hstretch*dot_size);
+draw_plq(1,dot_size,comma_width); % left
+draw_plq(2,dot_size,comma_width); % right
+penlabels(1,2); 
+endchar; % end of "``"
+
+%    \end{macrocode}
+% \end{routine}
+%
+% \begin{routine}{quotedblright}
+%   The `''' ligature. (o021/h11/d17)
+%    \begin{macrocode}
+cmchar "quotedblright";
+beginchar(oct "021",2u#+hstretch*(comma_width#+3dot_size#),4/3x_height#,0);
+adjust_fit(0,0); pcshiftx:=u;
+x1=w-pcshiftx-(0.5hstretch*dot_size); y1=y2=h;
+x2=x1-(2hstretch*dot_size);
+draw_pcomma(1,dot_size,comma_width);  % right
+draw_pcomma(2,dot_size,comma_width);  % left
+penlabels(1,2); 
+endchar; % end of "''"
+
+%    \end{macrocode}
+% \end{routine}
+%
+% \begin{routine}{quotedblbase}
+%   The double quote at the baseline. (o022/h12/d18)
+%    \begin{macrocode}
+cmchar "quotedblbase";
+beginchar(oct "022",2u#+hstretch*(comma_width#+3dot_size#),x_height#,0);
+adjust_fit(0,0); pcshiftx:=u;
+x1=w-pcshiftx-(0.5hstretch*dot_size); y1=y2=h/2;
+x2=x1-(2hstretch*dot_size);
+draw_pcomma(1,dot_size,comma_width);  % right
+draw_pcomma(2,dot_size,comma_width);  % left
+penlabels(1,2); 
+endchar; % end of "''"
+
+%    \end{macrocode}
+% \end{routine}
+%
+% \begin{routine}{guillemotleft}
+% The double left guillemot. (o023/h13/d19)
+%    \begin{macrocode}
+cmchar "guillemotleft";
+beginchar(oct "023", 2u#+hstretch*(2accent_ysize#), x_height#, 0);
+adjust_fit(0,0); pcshiftx := u; pickup accentpen;
+x1=w-pcshiftx; y1lgqm=1/2h;
+x2lgqm=pcshiftx; y2lgqm=y1lgqm;
+draw_leftguill(1, 3/4h, (1/2w-pcshiftx));
+draw_leftguill(2, 3/4h, (1/2w-pcshiftx));
+penlabels(1,2);
+endchar; % end "double left guillemot"
+
+%    \end{macrocode}
+% \end{routine}
+%
+% \begin{routine}{guillemotright}
+% The double right guillemot. (o024/h14/d20)
+%    \begin{macrocode}
+cmchar "guillemotright";
+beginchar(oct "024", 2u#+hstretch*(2accent_ysize#), x_height#, 0);
+adjust_fit(0,0); pcshiftx := u; pickup accentpen;
+x1=pcshiftx; y1rgqm=1/2h;
+x2rgqm=w-pcshiftx; y2rgqm=y1rgqm;
+draw_rightguill(1, 3/4h, (1/2w-pcshiftx));
+draw_rightguill(2, 3/4h, (1/2w-pcshiftx));
+penlabels(1,2);
+endchar; % end "double right guillemot"
+
+%    \end{macrocode}
+% \end{routine}
+%
+% \begin{routine}{endash}
+%   The en dash (o025/h15/d21)
+%    \begin{macrocode}
+cmchar "endash";
+beginchar(oct "025",u#+hstretch*(x_height#),x_height#,0);
+adjust_fit(0,0); pcshiftx:=u/2; pickup quill;
+numeric alpha; alpha:=w/8;
+lft x1 = pcshiftx; rt x2=w-pcshiftx; y1=y2=h/2;
+x11=lft x1+alpha/2; y11=top y1-0.5thin;
+x12=rt x2; y12=bot y1+0.5thin;
+draw z1--z2;  % bar
+draw_triangle(11,alpha);
+draw_rutriangle(12,alpha);
+penlabels(1,2); 
+endchar; % end of "en dash"
+
+%    \end{macrocode}
+% \end{routine}
+%
+% \begin{routine}{emdash}
+%   The em dash is twice the width of the en dash. (o026/h16/d22)
+%    \begin{macrocode}
+cmchar "emdash";
+beginchar(oct "026",u#+hstretch*(2x_height#),x_height#,0);
+adjust_fit(0,0); pcshiftx:=u/2; pickup quill;
+numeric alpha; alpha:=w/8;
+lft x1 = pcshiftx; rt x2=w-pcshiftx; y1=y2=h/2;
+x11=lft x1+alpha/2; y11=top y1-0.5thin;
+x12=rt x2; y12=bot y1+0.5thin;
+draw z1--z2;  % bar
+draw_triangle(11,alpha);
+draw_rutriangle(12,alpha);
+penlabels(1,2); 
+endchar; % end of "em dash"
+
+%    \end{macrocode}
+% \end{routine}
+%
+% \begin{routine}{nought}
+% Zero sized character. (o027/h17/d23) (move to 000 before killing it)
+%    \begin{macrocode}
+%%%cmchar "AUncial zero sized character (nought)";
+%%%beginchar(oct "000", 0,0,0);
+%%%endchar; % end "nought"
+
+%    \end{macrocode}
+% \end{routine}
+%
+% \begin{routine}{grave}
+% The grave accent (moved from o000 to o027). (o027/h17/d23)
+%    \begin{macrocode}
+cmchar "grave";
+beginchar(oct "027", 2u#+hstretch*(2cos_accent_angle*accent_ysize#), asc_height#, 0);
+adjust_fit(0,0); pcshiftx := u; pickup accentpen;
+lft x1=pcshiftx; top y1=h;
+draw_grave(1);
+penlabels(1);
+endchar; % end "grave accent"
+
+%    \end{macrocode}
+% \end{routine}
+%
+%
+% \begin{routine}{small_zero}
+% The small zero for adding to the percent sign. (o030/h18/d24)
+% (move to 000 before killing it)
+%    \begin{macrocode}
+%%%cmchar "AUncial small zero sign";
+%%%beginchar(oct "000", 2u#+hstretch*(1/2x_height#)-1/2thick#, 1/2asc_height#, 0);
+%%%adjust_fit(0,0); pcshiftx := u; pickup accentpen;
+%%%x11=pcshiftx; y11=0; rt x12=w-pcshiftx; y12=h;
+%%%draw_small_zero(11,12);
+%%%ductus:=false;
+%%%penlabels(1,2,11,12,21,22);
+%%%endchar; % end "small zero"
+
+%    \end{macrocode}
+% \end{routine}
+%
+% \begin{routine}{dotaccent}
+% The dot  accent (moved from o012 to o030). (o030/h18/d24) 
+%    \begin{macrocode}
+cmchar "dotaccent";
+beginchar(oct "030", 2u#+hstretch*(2cos_accent_angle*accent_ysize#), asc_height#, 0);
+adjust_fit(0,0); pcshiftx := u; pickup accentpen;
+x1=1/2w; y1dab=h-accent_ysize;
+draw_dota(1);
+penlabels(1);
+endchar; % end "dot accent"
+
+%    \end{macrocode}
+% \end{routine}
+%
+%
+% \begin{routine}{dotlessi}
+% The dotless i (which is the same as the regular i). (o031/h19/d25)
+%    \begin{macrocode}
+cmchar "dotlessi";
+beginchar(oct "031", 2u#+hstretch*(thick#+jut#), x_height#, 0);
+adjust_fit(0,0); pcshiftx := u; pickup quill;
+x555=pcshiftx+jut = x666; y666=h; y555=0;
+draw_i(555,666);
+penlabels(555,666);
+endchar; % end "dotless i"
+
+%    \end{macrocode}
+% \end{routine}
+%
+% \begin{routine}{dotlessj}
+% The dotless j (which is the same as the regular j). (o032/h1A/d26)
+%    \begin{macrocode}
+cmchar "dotlessj";
+beginchar(oct "032", 2u#+hstretch*(thick#+jut#), x_height#, desc_depth#);
+adjust_fit(0,0); pcshiftx := u; pickup quill;
+x555=pcshiftx+jut = x666; y666=h; y555=-1/2d;
+draw_j(555,666);
+penlabels(555,666);
+endchar; % end "dotless j"
+
+%    \end{macrocode}
+% \end{routine}
+%
+% \begin{routine}{ff}
+% ff pair (o033/h1B/d27)
+%    \begin{macrocode}
+cmchar "ff";
+beginchar(oct "033", 3u#+hstretch*(16/8x_height#), x_height#, desc_depth#);
+adjust_fit(0,0); pcshiftx := u; pickup quill;
+x555=pcshiftx+jut; x888=w-pcshiftx; x666=1/2w-1/2pcshiftx; x444=x555; 
+x888-x777 = x666-x555; y555=y777=0; y666=y888=h;
+y444=y333=-d/2;
+draw_f(555,666,444);
+draw_f(777,888,333);
+penlabels(555,666,444,777,888,333);
+endchar; % end "fi"
+
+%    \end{macrocode}
+% \end{routine}
+%
+% \begin{routine}{fi}
+% fi pair (o034/h1C/d28)
+%    \begin{macrocode}
+cmchar "fi";
+beginchar(oct "034", 3u#+hstretch*(x_height#+thick#+jut#), x_height#, desc_depth#);
+adjust_fit(0,0); pcshiftx := u; pickup quill;
+x555=pcshiftx+jut; x888=x777=w-pcshiftx-thick; x666=x777-jut-pcshiftx; x444=x555; 
+y555=y777=0; y666=y888=h;
+y444=y333=-d/2;
+draw_f(555,666,444);
+draw_i(777,888);
+penlabels(555,666,444,777,888,333);
+endchar; % end "fi"
+
+%    \end{macrocode}
+% \end{routine}
+%
+%
+% \begin{routine}{fl}
+% fl pair (o035/h1D/d29)
+%    \begin{macrocode}
+cmchar "fl";
+beginchar(oct "035", 3u#+hstretch*(16/8x_height#), x_height#, desc_depth#);
+adjust_fit(0,0); pcshiftx := u; pickup quill;
+x555=pcshiftx+jut; x888=w-pcshiftx; x666=1/2w-1/2pcshiftx; x444=x555; 
+x888-x777 = x666-x555; y555=y777=0; y666=y888=h;
+y444=y333=-d/2;
+draw_f(555,666,444);
+draw_l(777,888);
+penlabels(555,666,444,777,888,333);
+endchar; % end "fl"
+
+%    \end{macrocode}
+% \end{routine}
+%
+% \begin{routine}{ffi}
+% ffi triple (o036/h1E/d30)
+%    \begin{macrocode}
+cmchar "ffi";
+beginchar(oct "036", 4u#+hstretch*(16/8x_height#+thick#+jut#), x_height#, desc_depth#);
+adjust_fit(0,0); pcshiftx := u; pickup quill;
+x555=pcshiftx+jut; x888=x777=w-pcshiftx-thick; 
+x669=x777-pcshiftx-jut; 
+x559-x666=pcshiftx+jut; x666-x555 = x669-x559;
+y555=y559=y777=0; y666=y669=y888=h;
+y444=y333=-d/2;
+draw_f(555,666,444);
+draw_f(559,669,333);
+draw_i(777,888);
+penlabels(555,666,444,777,888,333,559,569);
+endchar; % end "ffi"
+
+%    \end{macrocode}
+% \end{routine}
+%
+% \begin{routine}{ffl}
+% ffl triple (o037/h1F/d31)
+%    \begin{macrocode}
+cmchar "ffl";
+beginchar(oct "037", 4u#+hstretch*(24/8x_height#), x_height#, desc_depth#);
+adjust_fit(0,0); pcshiftx := u; pickup quill;
+x555=pcshiftx+jut; x888=w-pcshiftx; 
+x669=x777-pcshiftx-jut; x559-x666=x777-x669;
+x666-x555 = x669-x559 = x888-x777;
+y555=y559=y777=0; y666=y669=y888=h;
+y444=y333=-d/2;
+draw_f(555,666,444);
+draw_f(559,669,333);
+draw_l(777,888);
+penlabels(555,666,444,777,888,333,559,569);
+endchar; % end "ffl"
+
+%    \end{macrocode}
+% \end{routine}
+%
+% The end of this file.
+%
+%    \begin{macrocode}
+%</low>
+%    \end{macrocode}
+%
+% \section{The ASCII characters}
+%
+% Here we implement the ASCII character set.
+%
+%    \begin{macrocode}
+%<*ascii>
+%%%% AUNCLSCI.MF Program file for Artificial Uncial ASCII character set
+
+%    \end{macrocode}
+%
+% \subsection{Space through slash}
+%
+% \begin{routine}{visible_space}
+% A denoted space.
+%    \begin{macrocode}
+cmchar "space";
+beginchar(oct "040", 2u#+9u#, x_height#, 0);
+adjust_fit(0,0); pcshiftx := u; pickup accentpen;
+lft x1=pcshiftx; rt x4=w-pcshiftx; y1=y4=2/3h;
+x2=x1; x3=x4; bot y2= bot y3 =0;
+%%draw z1--z2--z3--z4;
+penlabels(1,2,3,4);
+endchar; % end "visible space"
+
+%    \end{macrocode}
+% \end{routine}
+%
+% \begin{routine}{exclam}
+% Exclamation mark. (o041/h21/d33)
+%    \begin{macrocode}
+cmchar "exclam";
+beginchar(oct "041", 2u#+hstretch*(thick#), asc_height#, 0);
+adjust_fit(0,0); pcshiftx := u; pickup quill;
+lft x1=pcshiftx; top y1=h;
+x2=x3=x1; y3=1/2thick; y2=1/3h;
+draw z1--z2; draw_pdot(3, thick);
+penlabels(1,2,3,4);
+endchar; % end "exclamation"
+
+%    \end{macrocode}
+% \end{routine}
+%
+% \begin{routine}{quotedbl}
+% The ASCII \verb?"? character. (o042/h22/d34)
+%    \begin{macrocode}
+cmchar "quotedbl";
+beginchar(oct "042",2u#+hstretch*(comma_width#+3dot_size#),4/3x_height#,0);
+adjust_fit(0,0); pcshiftx:=u;
+x1=w-pcshiftx-(0.5hstretch*dot_size); y1=y2=h;
+x2=x1-(2hstretch*dot_size);
+draw_pcomma(1,dot_size,comma_width);  % right
+draw_pcomma(2,dot_size,comma_width);  % left
+penlabels(1,2); 
+endchar; % end of "
+
+%    \end{macrocode}
+% \end{routine}
+%
+% \begin{routine}{numbersign}
+% Hash mark (octothorpe). (o043/h23/d35)
+%    \begin{macrocode}
+cmchar "numbersign";
+beginchar(oct "043", 2u#+hstretch*(6thick#), asc_height#, 1/2desc_depth#);
+adjust_fit(0,0); pcshiftx := u; pickup quill;
+lft x1=pcshiftx; rt x2=w-pcshiftx; top y5=h; bot y6 = -d;
+x3=x1; x4=x2; y7=y5; y8=y6;
+x6=4/16w; x8=8/16w; x5=8/16w; x7=12/16w;
+y3=y4=1/2[h,-d]-thick; y1=y2=1/2[h,-d]+thick;
+pickup quill;
+draw z1--z2; draw z3--z4; 
+pickup accentpen;
+draw z5--z6; draw z7--z8;
+penlabels(1,2,3,4,5,6,7,8);
+endchar; % end "hash"
+
+%    \end{macrocode}
+% \end{routine}
+%
+% \begin{routine}{dollar}
+% The dollar sign. (o044/h24/d37)
+%    \begin{macrocode}
+cmchar "dollar";
+beginchar(oct "044", 2u#+hstretch*caprat*(x_height#), caprat*(x_height#), 0);
+adjust_fit(0,0); pcshiftx := u; pickup quill;
+x555=pcshiftx; y555=0; x666=w-pcshiftx; y666=h;
+draw_s(555,666);
+x222=x223=1/2w; y222=h+1/2desc_depth; y223=-1/2desc_depth;
+pickup accentpen;
+draw z222--z223;
+penlabels(555,666,444);
+endchar; % end "dollar"
+
+%    \end{macrocode}
+% \end{routine}
+%
+% \begin{routine}{percent}
+% The percent sign.  (o045/h25/d37)
+%    \begin{macrocode}
+cmchar "percent";
+beginchar(oct "045", 2u#+hstretch*(x_height#), asc_height#, 0);
+adjust_fit(0,0); pcshiftx := u; pickup accentpen;
+% left 0
+lft x11=pcshiftx; y11=1/2h; x12=1/2w-1/2thick; y12=h;
+draw_small_zero(11,12);
+% right 0
+x21=1/2w+1/2thick; y21=0; rt x22=w-pcshiftx; y22=1/2h;
+draw_small_zero(21,22);
+x1=1/2[x11,x12]; y1=0; x2=1/2[x21,x22]; y2=h;
+draw z1--z2;
+penlabels(1,2,11,12,21,22);
+endchar; % end "percent"
+
+%    \end{macrocode}
+% \end{routine}
+%
+% \begin{routine}{ampersand}
+% The ampersand (which is really an `et' ligature).  (o046/h26/d38)
+%    \begin{macrocode}
+cmchar "ampersand";
+beginchar("&", 2u#+hstretch*(7/4x_height#), x_height#, 0.5desc_depth#);
+adjust_fit(0,0); pcshiftx:=u; pickup quill;
+numeric alpha; alpha:=4/7w-u;
+% for the e part
+lft x1=pcshiftx; rt x3= alpha; y1=y3=h/2;
+x2=x4=alpha/2; top y2=h; bot y4=0;
+x5=x6=x3; y5=0.1h;
+top y6=0.95h; y6'=top y6; y6''=bot y6; x6''=lft x6;
+pickup stylus;
+rt x16=alpha; top y16=y6';
+x17=x6; y17=y16-jut;
+lft x18=x6''; bot y18=y6'';
+pickup quill;
+% the bar
+x7=x1; y7=y1; x8=w-pcshiftx; y8=y7;
+% the t part
+lft x31=alpha+2thin; y31=y8;
+x32=x31; bot y32=-d;
+x33=rt x8-0.5thin; y33=top y31-0.5thin;
+if ductus:
+  pickup stylus;
+fi
+draw z5{-pdir}..{left}z4..z1..z2..z6;     % the bowl
+draw_tstem(31,32,srad);                   % t stem
+draw z7--z8;                              % the (top) bar
+draw_rtriangle(33,jut);                   % t bar serif
+pickup stylus;
+filldraw z17..z18--z16--cycle;            % e serif
+penlabels(1,2,3,4,5,6,7,8,9,10,16,17,18,31,32,33);
+endchar; % end of "&"
+
+%    \end{macrocode}
+% \end{routine}
+%
+% \begin{routine}{quoteright}
+%    The closing quote character. (o047/h27/d39)
+%    \begin{macrocode}
+cmchar "quoteright";
+beginchar(oct "047",2u#+hstretch*(comma_width#+dot_size#),x_height#,0);
+adjust_fit(0,0); pcshiftx:=u;
+x1=w-pcshiftx-(0.5hstretch*dot_size); y1=h;
+draw_pcomma(1,dot_size,comma_width);
+penlabels(1); 
+endchar; % end of "'"
+
+%    \end{macrocode}
+% \end{routine}
+%
+%
+% \begin{routine}{parenleft}
+% The left parenthesis.  (o050/h28/d40)
+%    \begin{macrocode}
+cmchar "parenleft";
+beginchar(oct "050", 3/2u#+hstretch*(6/8x_height#), body_height#, desc_depth#);
+adjust_fit(0,0); pcshiftx := u; pickup accentpen;
+x1=x3=w-1/2pcshiftx; lft x2=pcshiftx; y1=h; y3=-d; y2=1/2[y1,y3];
+draw z1..z2..z3;
+penlabels(1,2,3);
+endchar; % end "left parenthesis"
+
+%    \end{macrocode}
+% \end{routine}
+%
+% \begin{routine}{parenright}
+% The right parenthesis.  (o051/h29/d41)
+%    \begin{macrocode}
+cmchar "parenright";
+beginchar(oct "051", 3/2u#+hstretch*(6/8x_height#), body_height#, desc_depth#);
+adjust_fit(0,0); pcshiftx := u; pickup accentpen;
+x1=x3=1/2pcshiftx; rt x2=w-pcshiftx; y1=h; y3=-d; y2=1/2[y1,y3];
+draw z1..z2..z3;
+penlabels(1,2,3);
+endchar; % end "right parenthesis"
+
+%    \end{macrocode}
+% \end{routine}
+%
+% \begin{routine}{asterisk}
+% The asterisk (o052/h2A/d42)
+%    \begin{macrocode}
+cmchar "asterisk";
+beginchar(oct "052", 2u#+hstretch*(7/8x_height#), body_height#, 0);
+adjust_fit(0,0); pcshiftx := u; pickup accentpen;
+x1=x2=1/2w; top y1=h; y1-y2=w-2pcshiftx; z0=1/2[z1,z2];
+z3=z1 rotatedaround (z0,60); z5=z1 rotatedaround (z0,120);
+z4=z3 rotatedaround (z0,180); z6=z5 rotatedaround(z0,180);
+draw z1--z2; draw z3--z4; draw z5--z6;
+penlabels(1,2,3,4,5,6);
+endchar; % end "asterisk"
+
+%    \end{macrocode}
+% \end{routine}
+%
+% \begin{routine}{plus}
+% The plus sign (o053/h2B/d43)
+%    \begin{macrocode}
+cmchar "plus";
+beginchar(oct "053", 2u#+hstretch*(4thick#), fig_height#, 0);
+adjust_fit(0,0); pcshiftx := u; pickup accentpen;
+x1=x2=1/2w; y3=y4=1/2h;
+lft x3=pcshiftx; rt x4=w-pcshiftx;
+z0=1/2[z3,z4]; y1-y0 = x3-x0 = y0-y2;
+draw z1--z2; draw z3--z4; 
+penlabels(1,2,3,4,5,6);
+endchar; % end "plus"
+
+%    \end{macrocode}
+% \end{routine}
+%
+% \begin{routine}{comma}
+%    The `,' character. (o054/h2C/d44)
+%    \begin{macrocode}
+cmchar "comma";
+beginchar(",",2u#+hstretch*(comma_width#+dot_size#),x_height#,0);
+adjust_fit(0,0); pcshiftx:=u;
+x1=w-pcshiftx-(0.5hstretch*dot_size); y1=h/2;
+draw_pcomma(1,dot_size,comma_width);
+penlabels(1); 
+endchar; % end of ","
+
+%    \end{macrocode}
+% \end{routine}
+%
+% \begin{routine}{hyphen}
+%   The `-' character. (o055/h2D/d45)
+%    \begin{macrocode}
+cmchar "hyphen";
+beginchar(oct "055",u#+hstretch*(0.8x_height#),x_height#,0);
+adjust_fit(0,0); pcshiftx:=u/2; pickup quill;
+numeric alpha; alpha:=w/8;
+lft x1 = pcshiftx; rt x2=w-pcshiftx; y1=y2=h/2;
+x11=lft x1+alpha/2; y11=top y1-0.5thin;
+x12=rt x2; y12=bot y1+0.5thin;
+draw z1--z2;  % bar
+draw_triangle(11,alpha);
+draw_rutriangle(12,alpha);
+penlabels(1,2); 
+endchar; % end of "hyphen"
+
+%    \end{macrocode}
+% \end{routine}
+%
+% \begin{routine}{period}
+%    The `.' character. (o056/h2E/d46)
+%    \begin{macrocode}
+cmchar "period";
+beginchar(".",2u#+hstretch*(dot_size#),x_height#,0);
+pcshiftx:=u; x1=w/2; y1=h/2;
+draw_pdot(1,dot_size);
+penlabels(1); 
+endchar; % end of "."
+
+%    \end{macrocode}
+% \end{routine}
+%
+% \begin{routine}{slash}
+% The slash (virgule). (o057/h2F/d47)
+%    \begin{macrocode}
+cmchar "slash";
+beginchar(oct "057", 2u#+hstretch*(7/8x_height#), body_height#, desc_depth#);
+adjust_fit(0,0); pcshiftx := u; pickup accentpen;
+x1=pcshiftx; x2=w-pcshiftx; y1=-d; y2=h;
+draw z1--z2;
+penlabels(1,2,3);
+endchar; % end "virgule"
+
+%    \end{macrocode}
+% \end{routine}
+%
+%
+% \subsection{The digits}
+%
+%    These are arabic digits in the style of the book-hand. They are a
+% modern invention.
+%
+% \begin{routine}{zero}
+% The digit `0'. (o060/h30/d48)
+%    \begin{macrocode}
+cmchar "zero";
+beginchar("0", 2u#+fig_width#, fig_height#, 0);
+adjust_fit(0,0); pcshiftx := u; pickup quill;
+y100 = h/2; x100 = pcshiftx+y100;  % square center
+lft x1=pcshiftx; rt x3=w-pcshiftx; y1=y3=h/2;
+x2=x4=w/2; top y2=h+o; bot y4=-o;
+draw z1..z2..z3..z4..cycle;
+penlabels(1,2,3,4,100);
+endchar; % end "0"
+
+%    \end{macrocode}
+% \end{routine}
+%
+% \begin{routine}{one}
+% The digit `1'. (o061/h31/d49)
+%    \begin{macrocode}
+cmchar "one";
+beginchar("1", 2u#+fig_width#, fig_height#, 0);
+adjust_fit(0,0); pcshiftx := u; pickup quill;
+x1=x2=w/2+1/2jut; y1=h; bot y2=0;
+draw_tlserif(1,2,srad);
+draw_tail(2,jut);
+penlabels(1,2,100);
+endchar; % end "1"
+
+%    \end{macrocode}
+% \end{routine}
+%
+%
+% \begin{routine}{two}
+% The digit `2'.  (o062/h32/d50)
+%    \begin{macrocode}
+cmchar "two";
+beginchar("2", 2u#+fig_width#, fig_height#, 0);
+adjust_fit(0,0); pcshiftx := u; pickup quill;
+% stem
+lft x1=pcshiftx; y1=3/4h;
+x2=1/2w; top y2= h+o;
+rt x3=w-pcshiftx; y3=3/4h;
+% foot
+lft x5=pcshiftx; bot y5=0; x6=w-pcshiftx; y6=y5;
+draw_fork(5,6,jut);                          % foot
+draw z1{up}..z2{right}..z3{down}..{down}z5;    % curve
+penlabels(1,2,3,4,5,6,100);
+endchar; % end "2"
+
+%    \end{macrocode}
+% \end{routine}
+%
+%
+% \begin{routine}{three}
+% The digit `3'.  (o063/h33/d51)
+%    \begin{macrocode}
+cmchar "three";
+beginchar("3", 2u#+fig_width#, fig_height#, 0);
+adjust_fit(0,0); pcshiftx := u; pickup quill;
+% x values
+lft x3=pcshiftx; x10=x3; rt x5=w-pcshiftx; x8=x5-3thin;
+x4=0.5[x3,x5]; x9=0.5[x10,x8]; lft x6=pcshiftx; x7=x6;
+% y values
+y3=1/4h; y10=3/4h; y6=0.5[y3,y10]; y7=y6;
+bot y4=-thin; top y9=h+thin;
+y5=0.5[y4,y6]; y8=0.5[y7,y9];
+draw z3{down}..z4{right}..z5{up}...{left}z6;                 % bottom bowl
+draw z7{right}...z8{up}..z9{left}..{down}z10;                   % top bowl
+penlabels(1,2,3,4,5,6,7,8,9,10,100);
+endchar; % end "3"
+
+%    \end{macrocode}
+% \end{routine}
+%
+% \begin{routine}{four}
+% The digit `4'. (o064/h34/d52)
+%    \begin{macrocode}
+cmchar "four";
+beginchar("4", 2u#+fig_width#, fig_height#, 0);
+adjust_fit(0,0); pcshiftx := u; pickup quill;
+% the stem
+x1=x2=w-pcshiftx-jut; y1=h; bot y2=0;
+% the crossbar
+lft x3=pcshiftx; y3=0.33h; rt x4=w-pcshiftx; y4=y3;
+draw_tstem(1,2,srad);              % main stem
+draw_wave(3,4,thin);               % crossbar
+draw z3wl--z1;                     % diagonal
+penlabels(1,2,3,4,100);
+endchar; % end "4"
+
+%    \end{macrocode}
+% \end{routine}
+%
+%
+%
+% \begin{routine}{five}
+% The digit `5'. (o065/h35/d53)
+%    \begin{macrocode}
+cmchar "five";
+beginchar("5", 2u#+fig_width#, fig_height#, 0);
+adjust_fit(0,0); pcshiftx := u; pickup quill;
+% for the top
+rt x1=w-pcshiftx; top y1=h; lft x2=pcshiftx; y2=y1;
+% the S curve
+x3=x2; y3=0.5h+thin; x4=0.5[x1,x3]; y4=0.5[y3,y5];
+rt x5=w-pcshiftx; y5=0.3h; x6=w/2; bot y6=0;
+lft x7=pcshiftx; bot y7=2thin; x8=w-pcshiftx; y8=h-0.5thin;
+draw z2--z1;                              % top bar
+draw_rtriangle(8,3/4jut);
+draw z3{pdir}..z5{down}..z6{left}..z7;    % curve
+draw z2--z3;                            % vertical
+penlabels(1,2,3,4,5,6,7,100);
+endchar; % end "5"
+
+%    \end{macrocode}
+% \end{routine}
+%
+% \begin{routine}{six}
+% The digit `6'. (o066/h36/d54)
+%    \begin{macrocode}
+cmchar "six";
+beginchar("6", 2u#+fig_width#, fig_height#, 0);
+adjust_fit(0,0); pcshiftx := u; pickup quill;
+rt x1=w-pcshiftx; top y1=h;
+x2=1/2w; top y2= h; lft x3=pcshiftx; y3=1/2h;
+x4=x2; bot y4=0; rt x5=w-pcshiftx; y5=1/4h;
+lft x6=rt x3; bot y6=y3; x8=w-pcshiftx; y8=h-0.5thin;
+draw z1{left}..z3{down}..z4{right}..z5{up}..{-pdir}z6;
+draw_rtriangle(8,3/4jut);
+penlabels(1,2,3,4,5,6,8,100);
+endchar; % end "6"
+
+%    \end{macrocode}
+% \end{routine}
+%
+%
+% \begin{routine}{seven}
+% The digit `7'. (o067/h37/d55)
+%    \begin{macrocode}
+cmchar "seven";
+beginchar("7", 2u#+fig_width#, fig_height#, 0);
+adjust_fit(0,0); pcshiftx := u; pickup quill;
+% top bar
+lft x1=pcshiftx; rt x2=w-pcshiftx; top y1=top y2=h;
+x8=pcshiftx+3/8jut; y8=h-0.5thin;
+% bowed leg
+x4=w/2; bot y4=0; x3=0.5[x2,x4]-3thin; y3=0.5[y2,y4];
+draw z1--z2;                 % top bar
+draw_triangle(8,3/4jut);
+draw z2..z3..z4;             % leg
+penlabels(1,2,3,4,5,6,7,8,100);
+endchar; % end "7"
+
+%    \end{macrocode}
+% \end{routine}
+%
+% \begin{routine}{eight}
+% The digit `8'. (o070/h38/d56)
+%    \begin{macrocode}
+cmchar "eight";
+beginchar("8", 2u#+fig_width#, fig_height#, 0);
+adjust_fit(0,0); pcshiftx := u; pickup quill;
+numeric alpha; alpha:=1;
+lft x1=alpha*pcshiftx+o; rt x3=w-alpha*pcshiftx-o; y1=y3=3/4h;
+x2=x4=w/2; top y2=h+o; bot y4=-o; x5=x2; y5=h/2+2o;
+lft x11=pcshiftx; rt x13=w-pcshiftx; y11=y13=1/4h;
+draw z1..z2..z3..z5..z11..z4..z13..z5..cycle;
+penlabels(1,2,3,4,5,11,13,100);
+endchar; % end "8"
+
+%    \end{macrocode}
+% \end{routine}
+%
+% \begin{routine}{nine}
+% The digit `9'. (o071/h39/d57)
+%    \begin{macrocode}
+cmchar "nine";
+beginchar("9", 2u#+fig_width#, fig_height#, 0);
+adjust_fit(0,0); pcshiftx := u; pickup quill;
+lft x1=pcshiftx; bot y1=2thin; x2=1/2w; bot y2= 0;
+rt x3=w-pcshiftx; y3=1/2h; x4=x2; top y4=h;
+lft x5=pcshiftx; y5=3/4h; rt x6=lft x3; top y6=y3;
+draw z1..z2{right}..z3{up}..z4{left}..z5{down}..{pdir}z6;
+penlabels(1,2,3,4,5,6,100);
+endchar; % end "9"
+
+%    \end{macrocode}
+% \end{routine}
+%
+% \subsection{Colon through commercial at}
+%
+%
+% \begin{routine}{colon}
+%    The `:' character. (o072/h3A/d58)
+%    \begin{macrocode}
+cmchar "colon";
+beginchar(":",2u#+hstretch*(dot_size#),x_height#,0);
+pcshiftx:=u;
+x1=x2=w/2; y1=2/3h; y2=1/3h;
+draw_pdot(1,dot_size);
+draw_pdot(2,dot_size);
+penlabels(1,2); 
+endchar; % end ":"
+
+%    \end{macrocode}
+% \end{routine}
+%
+% \begin{routine}{semicolon}
+%    The `;' character. (o073/h3B/d59)
+%    \begin{macrocode}
+cmchar "semicolon";
+beginchar(";",2u#+hstretch*(comma_width#+dot_size#),x_height#,0);
+adjust_fit(0,0); pcshiftx:=u;
+x1=x2=w-pcshiftx-(0.5hstretch*dot_size); y1=2/3h; y2=1/3h;
+draw_pdot(1,dot_size);
+draw_pcomma(2,dot_size,comma_width);
+penlabels(1,2); 
+endchar; % end of ";"
+
+%    \end{macrocode}
+% \end{routine}
+%
+% \begin{routine}{less}
+% The less than sign (o074/h3C/d60)
+%    \begin{macrocode}
+cmchar "less";
+beginchar(oct "074", 2u#+hstretch*(4thick#), fig_height#, 0);
+adjust_fit(0,0); pcshiftx := u; pickup accentpen;
+rt x1= rt x3=w-pcshiftx; lft x2 = pcshiftx;
+y2=1/2h; y1-y2=y2-y3; y1=y2+3/2thick;
+draw z1--z2--z3;
+penlabels(1,2,3,4,5,6);
+endchar; % end "less than"
+
+%    \end{macrocode}
+% \end{routine}
+%
+% \begin{routine}{equal}
+% The equals sign (o075/h3D/d61)
+%    \begin{macrocode}
+cmchar "equal";
+beginchar(oct "075", 2u#+hstretch*(4thick#), fig_height#, 0);
+adjust_fit(0,0); pcshiftx := u; pickup accentpen;
+lft x1 = lft x3=pcshiftx; rt x2 = rt x4=w-pcshiftx;
+y1=y2=1/2h+1/2thick; y3=y4=1/2h-1/2thick;
+draw z1--z2; draw z3--z4; 
+penlabels(1,2,3,4,5,6);
+endchar; % end "equals"
+
+%    \end{macrocode}
+% \end{routine}
+%
+% \begin{routine}{greater}
+% The greater than sign (o076/h3E/d62)
+%    \begin{macrocode}
+cmchar "greater";
+beginchar(oct "076", 2u#+hstretch*(4thick#), fig_height#, 0);
+adjust_fit(0,0); pcshiftx := u; pickup accentpen;
+lft x1= lft x3=pcshiftx; rt x2 = w-pcshiftx;
+y2=1/2h; y1-y2=y2-y3; y1=y2+3/2thick;
+draw z1--z2--z3;
+penlabels(1,2,3,4,5,6);
+endchar; % end "greater than"
+
+%    \end{macrocode}
+% \end{routine}
+%
+% \begin{routine}{question}
+% The `?' character. (o077/h3F/d63)
+%    \begin{macrocode}
+cmchar "question";
+beginchar(oct "077", 2u#+hstretch*(x_height#),asc_height#, 0);
+adjust_fit(0,0); pcshiftx:=u; pickup quill;
+lft x1=pcshiftx; rt x3=w-pcshiftx; x2=x4=1/2w;
+top y2=h; y4=1/2h; top y1=h-thin; y3=1/2[y4,y2];
+x5=x4; y5=1/4h;
+path p[];
+p1=z1..z2{right}..z3{down}..{left}z4--z5;
+x9=x5; bot y9=0;
+  pair vec[];
+  vec1= direction 0 of p1;
+  z11=z1 shifted vec1;
+  x81=lft x1; y81=bot y1;
+  x82=x1; y82=y1-0.75jut;
+  draw p1;                          % the curve
+  pickup stylus;
+  filldraw z81--z82--z11--cycle;    % the serif
+  draw_pdot(9,thick);
+  penlabels(1,2,3,4,5,6,7,9,11,17,26,27,28,81,82,100);
+endchar; % end of "query"
+
+%    \end{macrocode}
+% \end{routine}
+%
+% \begin{routine}{at}
+% The commercial at sign. (o100/h40/d64)
+%    \begin{macrocode}
+cmchar "at";
+beginchar(oct "100", 2u#+hstretch*(3/2x_height#+jut#), x_height#, 1/2desc_depth#);
+adjust_fit(0,0); pcshiftx := u; pickup quill;
+x666=w-pcshiftx-jut; y666=h; x555=pcshiftx; y555=0; 
+draw_at(555,666);
+penlabels(555,666);
+endchar; % end "commercial at"
+
+%    \end{macrocode}
+% \end{routine}
+%
+% \subsection{Upper case characters}
+%
+%    \thisfont{} `capitals' were drawn with the same pen as for the minuscules,
+% and the letters were merely larger versions of the minuscules.
+%
+% \begin{routine}{A}
+% The letter `A'. (o101/h41/d65)
+%    \begin{macrocode}
+cmchar "A";
+beginchar("A", 2u#+hstretch*caprat*(x_height#+jut#), caprat*(x_height#), 0);
+adjust_fit(0,0); pcshiftx := u; pickup quill;
+x555=pcshiftx; y555=0; x666=w-u-jut; y666=h;
+draw_a(555,666);
+penlabels(555,666);
+endchar; % end "A"
+
+%    \end{macrocode}
+% \end{routine}
+%
+% \begin{routine}{B}
+% The letter `B'.  (o102/h42/d66)
+%    \begin{macrocode}
+cmchar "B";
+beginchar("B", 2u#+hstretch*caprat*(x_height#+jut#), caprat*(x_height#), 0);
+adjust_fit(0,0); pcshiftx := u; pickup quill;
+x555=pcshiftx+jut; y555=0; x666=w-pcshiftx; y666=h;
+draw_b(555,666);
+penlabels(555,666);
+endchar; % end "B"
+
+%    \end{macrocode}
+% \end{routine}
+%
+%
+% \begin{routine}{C}
+% The letter `C'. (o103/h43/d67)
+%    \begin{macrocode}
+cmchar "C";
+beginchar("C", 2u#+hstretch*caprat*(x_height#), caprat*(x_height#), 0);
+adjust_fit(0,0); pcshiftx := u; pickup quill;
+x555=pcshiftx; y555=0; x666=w-pcshiftx; y666=h;
+draw_c(555,666);
+penlabels(555,666);
+endchar; % end "C"
+
+%    \end{macrocode}
+% \end{routine}
+%
+% \begin{routine}{D}
+% The letter `D'. (o104/h44/d68)
+%    \begin{macrocode}
+cmchar "D";
+beginchar("D", 2u#+hstretch*caprat*(4/3x_height#), caprat*(4/3x_height#), 0);
+adjust_fit(0,0); pcshiftx := u; pickup quill;
+x555=pcshiftx; x666=w-pcshiftx; y555=0; y666=h;
+draw_d(555,666);
+penlabels(555,666);
+endchar; % end "D"
+
+%    \end{macrocode}
+% \end{routine}
+%
+% \begin{routine}{E}
+% The letter `E'. (o105/h45/d69)
+%    \begin{macrocode}
+cmchar "E";
+beginchar("E", 2u#+hstretch*caprat*(x_height#), caprat*(x_height#), 0);
+adjust_fit(0,0); pcshiftx := u; pickup quill;
+x555=pcshiftx; x666=w-pcshiftx; y555=0; y666=h;
+draw_e(555,666);
+penlabels(555,666);
+endchar; % end "E"
+
+%    \end{macrocode}
+% \end{routine}
+%
+% \begin{routine}{F}
+% The letter `F'.  (o106/h46/d70)
+%    \begin{macrocode}
+cmchar "F";
+beginchar("F", 2u#+hstretch*caprat*(x_height#), caprat*(x_height#), 
+           caprat*(desc_depth#));
+adjust_fit(0,0); pcshiftx := u; pickup quill;
+x555=pcshiftx+jut; x666=w-pcshiftx; x444=x555; y444=-d/2; y555=0; y666=h;
+draw_f(555,666,444);
+penlabels(555,666,444);
+endchar; % end "F"
+
+%    \end{macrocode}
+% \end{routine}
+%
+% \begin{routine}{G}
+% The letter `G'.  (o107/h47/d71)
+%    \begin{macrocode}
+cmchar "G";
+beginchar("G", 2u#+hstretch*caprat*(x_height#), caprat*(x_height#), 
+          caprat*(desc_depth#));
+adjust_fit(0,0); pcshiftx := u; pickup quill;
+x555=pcshiftx; x666=w-pcshiftx; x444=x555; y444=-d; y555=0; y666=h;
+draw_g(555,666,444);
+penlabels(555,666,444);
+endchar; % end "G"
+
+%    \end{macrocode}
+% \end{routine}
+%
+% \begin{routine}{H}
+% The letter `H'. (o110/h48/d72)
+%    \begin{macrocode}
+cmchar "H";
+beginchar("H", 2u#+hstretch*caprat*(x_height#+jut#), caprat*(asc_height#), 0);
+adjust_fit(0,0); pcshiftx := u; pickup quill;
+x555=pcshiftx+jut; x666=w-pcshiftx; y555=0; y666=h;
+draw_h(555,666);
+penlabels(555,666);
+endchar; % end "H"
+
+%    \end{macrocode}
+% \end{routine}
+%
+% \begin{routine}{I}
+% The letter I. (o111/h49/d73)
+%    \begin{macrocode}
+cmchar "I";
+beginchar("I", 2u#+hstretch*(thick#+jut#), caprat*(x_height#), 0);
+adjust_fit(0,0); pcshiftx := u; pickup quill;
+x555=pcshiftx+jut = x666; y666=h; y555=0;
+draw_i(555,666);
+penlabels(555,666);
+endchar; % end "I"
+
+%    \end{macrocode}
+% \end{routine}
+%
+% \begin{routine}{J}
+% The letter `J'. This letter was not in the script, it being a later 
+% invention. (o112/h4A/d74)
+%    \begin{macrocode}
+cmchar "J";
+beginchar("J", 2u#+hstretch*(thick#+jut#), caprat*(x_height#), 
+          caprat*(desc_depth#));
+adjust_fit(0,0); pcshiftx := u; pickup quill;
+x555=pcshiftx+jut = x666; y666=h; y555=-1/2d;
+draw_j(555,666);
+penlabels(555,666);
+endchar; % end "J"
+
+%    \end{macrocode}
+% \end{routine}
+%
+% \begin{routine}{K}
+% The letter `K'. (o113/h4B/d75)
+%    \begin{macrocode}
+cmchar "K";
+beginchar("K", 2u#+hstretch*caprat*(4/3x_height#), caprat*(asc_height#), 0);
+adjust_fit(0,0); pcshiftx := u; pickup quill;
+x555=pcshiftx+jut; y555=0; x666=w-pcshiftx-jut; y666=h;
+draw_k(555,666);
+penlabels(555,666);
+endchar; % end "K"
+
+%    \end{macrocode}
+% \end{routine}
+%
+% \begin{routine}{L}
+% The letter `L'.  (o114/h4C/d76)
+%    \begin{macrocode}
+cmchar "L";
+beginchar("L", 2u#+hstretch*caprat*(x_height#), caprat*(asc_height#), 0);
+adjust_fit(0,0); pcshiftx := u; pickup quill;
+x555=pcshiftx+jut; y555=0; x666=w-pcshiftx; y666=h;
+draw_l(555,666);
+penlabels(555,666);
+endchar; % end "L"
+
+%    \end{macrocode}
+% \end{routine}
+%
+% \begin{routine}{M}
+% The letter `M'.  (o115/h4D/d77)
+%    \begin{macrocode}
+cmchar "M";
+beginchar("M", 2u#+hstretch*caprat*(2x_height#), caprat*(x_height#), 0);
+adjust_fit(0,0); pcshiftx := u; pickup quill;
+x555=pcshiftx; y555=0; x666=w-pcshiftx; y666=h;
+draw_m(555,666);
+penlabels(555,666);
+endchar; % end "M"
+
+%    \end{macrocode}
+% \end{routine}
+%
+% \begin{routine}{N}
+% The letter `N'.  (o116/h4E/d78)
+%    \begin{macrocode}
+cmchar "N";
+beginchar("N", 2u#+hstretch*caprat*(2jut#+x_height#), caprat*(x_height#), 
+          caprat*(0.5desc_depth#));
+adjust_fit(0,0); pcshiftx := u; pickup quill;
+x555=pcshiftx+jut; y555=0; x666=w-pcshiftx-jut; y666=h;
+draw_n(555,666);
+penlabels(555,666);
+endchar; % end "N"
+
+%    \end{macrocode}
+% \end{routine}
+%
+% \begin{routine}{O}
+% The letter `O'. (o117/h4F/d79)
+%    \begin{macrocode}
+cmchar "O";
+beginchar("O", 2u#+hstretch*caprat*(7/6x_height#), caprat*(x_height#), 0);
+adjust_fit(0,0); pcshiftx := u; pickup quill;
+x555=pcshiftx; y555=-o; x666=w-pcshiftx; y666=h+o;
+draw_o(555,666);
+penlabels(555,666);
+endchar; % end "O"
+
+%    \end{macrocode}
+% \end{routine}
+%
+% \begin{routine}{P}
+% The letter `P'. (o120/h50/d80)
+%    \begin{macrocode}
+cmchar "P";
+beginchar("P", 2u#+hstretch*caprat*(7/6x_height#), caprat*(x_height#), 
+          caprat*(desc_depth#));
+adjust_fit(0,0); pcshiftx := u; pickup quill;
+x555=pcshiftx+jut; y555=0; x666=w-pcshiftx; y666=h; x444=x555; y444=-1/2d;
+draw_p(555,666,444);
+penlabels(555,666,444);
+endchar; % end "P"
+
+%    \end{macrocode}
+% \end{routine}
+%
+% \begin{routine}{Q}
+% The letter `Q'.  (o121/h51/d81)
+%    \begin{macrocode}
+cmchar "Q";
+beginchar("Q", 2u#+hstretch*caprat*(7/6x_height#), caprat*(x_height#), 
+          caprat*(desc_depth#));
+adjust_fit(0,0); pcshiftx := u; pickup quill;
+x555=pcshiftx; y555=0; x666=w-pcshiftx; y666=h; x444=x555; y444=-1/2d;
+draw_q(555,666,444);
+penlabels(555,666,444);
+endchar; % end "Q"
+
+%    \end{macrocode}
+% \end{routine}
+%
+% \begin{routine}{R}
+% The letter `R'. (o122/h52/d82)
+%    \begin{macrocode}
+cmchar "R";
+beginchar("R", 2u#+hstretch*caprat*(4/3x_height#), caprat*(x_height#), 
+          caprat*(1/2desc_depth#));
+adjust_fit(0,0); pcshiftx := u; pickup quill;
+x555=pcshiftx+jut; y555=0; x666=w-pcshiftx; y666=h;
+draw_r(555,666);
+penlabels(555,666,444);
+endchar; % end "R"
+
+%    \end{macrocode}
+% \end{routine}
+%
+% \begin{routine}{S}
+% The letter `S'. (o123/h53/d83)
+%    \begin{macrocode}
+cmchar "S";
+beginchar("S", 2u#+hstretch*caprat*(x_height#), caprat*(x_height#), 0);
+adjust_fit(0,0); pcshiftx := u; pickup quill;
+x555=pcshiftx; y555=0; x666=w-pcshiftx; y666=h;
+draw_s(555,666);
+penlabels(555,666,444);
+endchar; % end "S"
+
+%    \end{macrocode}
+% \end{routine}
+%
+% \begin{routine}{T}
+% The letter `T'. (o124/h54/d84)
+%    \begin{macrocode}
+cmchar "T";
+beginchar("T", 2u#+hstretch*caprat*(4/3x_height#), caprat*(x_height#), 0);
+adjust_fit(0,0); pcshiftx := u; pickup quill;
+x555=pcshiftx; y555=0; x666=w-pcshiftx; y666=h;
+draw_t(555,666);
+penlabels(555,666,444);
+endchar; % end "T"
+
+%    \end{macrocode}
+% \end{routine}
+%
+% \begin{routine}{U}
+% The letter `U'.  (o125/h55/d85)
+%    \begin{macrocode}
+cmchar "U";
+beginchar("U", 2u#+hstretch*caprat*(4/3x_height#+jut#), caprat*(x_height#), 0);
+adjust_fit(0,0); pcshiftx := u; pickup quill;
+x555=pcshiftx; y555=0; x666=w-pcshiftx-jut; y666=h;
+draw_u(555,666);
+penlabels(555,666,444);
+endchar; % end "U"
+
+%    \end{macrocode}
+% \end{routine}
+%
+% \begin{routine}{V}
+% The letter `V'. The right half of the `w' is used for the `v' (or vice-versa
+% if you prefer). (o126/h56/d86)
+%    \begin{macrocode}
+cmchar "V";
+beginchar("V", 2u#+hstretch*caprat*(7/6x_height#+jut#), caprat*(x_height#), 0);
+adjust_fit(0,0); pcshiftx := u; pickup quill;
+x555=pcshiftx+jut; y555=0; x666=w-pcshiftx; y666=h;
+draw_v(555,666);
+penlabels(555,666,444);
+endchar; % end "V"
+
+%    \end{macrocode}
+% \end{routine}
+%
+% \begin{routine}{W}
+% The letter `W'. This is a modern version as the font did not 
+% have a W. (o127/h57/d87)
+%    \begin{macrocode}
+cmchar "W";
+beginchar("W", 2u#+hstretch*caprat*(2x_height#), caprat*(x_height#), 0);
+adjust_fit(0,0); pcshiftx := u; pickup quill;
+x555=pcshiftx; y555=0; x666=w-pcshiftx; y666=h;
+draw_w(555,666);
+penlabels(555,666,444);
+endchar; % end "W"
+
+%    \end{macrocode}
+% \end{routine}
+%
+% \begin{routine}{X}
+% The letter `X'. (o130/h58/d88)
+%    \begin{macrocode}
+cmchar "X";
+beginchar("X", 2u#+hstretch*caprat*(4/3x_height#+jut#), caprat*(x_height#), 
+          caprat*(1/2desc_depth#));
+adjust_fit(0,0); pcshiftx := u; pickup quill;
+x555=pcshiftx; y555=0; x666=w-pcshiftx; y666=h; x444=x555; y444=-d;
+draw_x(555,666,444);
+penlabels(555,666,444);
+endchar; % end "X"
+
+%    \end{macrocode}
+% \end{routine}
+%
+% \begin{routine}{Y}
+% The letter `Y'. This has a dot on top! (o131/h59/d89)
+%    \begin{macrocode}
+cmchar "Y";
+beginchar("Y", 2u#+hstretch*caprat*(4/3x_height#), caprat*(x_height#), 
+          caprat*(desc_depth#));
+adjust_fit(0,0); pcshiftx := u; pickup quill;
+x555=pcshiftx; y555=0; x666=w-pcshiftx; y666=h; x444=x555; y444=-d;
+draw_y(555,666,444);
+penlabels(555,666,444);
+endchar; % end "Y"
+
+%    \end{macrocode}
+% \end{routine}
+%
+%
+% \begin{routine}{Z}
+% The letter `Z'. (o132/h5A/d90)
+%    \begin{macrocode}
+cmchar "Z";
+beginchar("Z", 2u#+hstretch*caprat*(7/6x_height#), caprat*(x_height#), 0);
+adjust_fit(0,0); pcshiftx := u; pickup quill;
+x555=pcshiftx; y555=0; x666=w-pcshiftx; y666=h;
+draw_z(555,666);
+penlabels(555,666,444);
+endchar; % end "Z"
+
+%    \end{macrocode}
+% \end{routine}
+%
+% \subsection{Left bracket through grave}
+%
+% \begin{routine}{hyphen_char}
+%   The hyphen char character.
+%    \begin{macrocode}
+cmchar "Uncial hyphen char";
+beginchar(oct "177",u#+hstretch*(0.8x_height#),x_height#,0);
+adjust_fit(0,0); pcshiftx:=u/2; pickup quill;
+numeric alpha; alpha:=w/8;
+lft x1 = pcshiftx; rt x2=w-pcshiftx; y1=y2=h/2;
+x11=lft x1+alpha/2; y11=top y1-0.5thin;
+x12=rt x2; y12=bot y1+0.5thin;
+draw z1--z2;  % bar
+draw_triangle(11,alpha);
+draw_rutriangle(12,alpha);
+penlabels(1,2); 
+endchar; % end of "hyphen char"
+
+%    \end{macrocode}
+% \end{routine}
+%
+% \begin{routine}{bracketleft}
+% The left bracket. (o133/h5B/d91)
+%    \begin{macrocode}
+cmchar "bracketleft";
+beginchar(oct "133", 3/2u#+hstretch*(4/8x_height#), body_height#, desc_depth#);
+adjust_fit(0,0); pcshiftx := u; pickup accentpen;
+lft x1= lft x2=pcshiftx; top y1=h; bot y2=-d;
+x11=x22=w-1/2pcshiftx; y11=y1; y22=y2;
+draw z11--z1--z2--z22;
+penlabels(1,2,11,22);
+endchar; % end "left bracket"
+
+%    \end{macrocode}
+% \end{routine}
+%
+% \begin{routine}{backslash}
+% The backslash. (o134/h5C/d92)
+%    \begin{macrocode}
+cmchar "backslash";
+beginchar(oct "134", 2u#+hstretch*(7/8x_height#), body_height#, desc_depth#);
+adjust_fit(0,0); pcshiftx := u; pickup accentpen;
+x1=w-pcshiftx; x2=pcshiftx; y1=-d; y2=h;
+draw z1--z2;
+penlabels(1,2,3);
+endchar; % end "backslash"
+
+%    \end{macrocode}
+% \end{routine}
+%
+% \begin{routine}{bracketright}
+% The right bracket. (o135/h5D/d93)
+%    \begin{macrocode}
+cmchar "bracketright";
+beginchar(oct "135", 3/2u#+hstretch*(4/8x_height#), body_height#, desc_depth#);
+adjust_fit(0,0); pcshiftx := u; pickup accentpen;
+rt x1= rt x2=w-pcshiftx; top y1=h; bot y2=-d;
+x11=x22=1/2pcshiftx; y11=y1; y22=y2;
+draw z11--z1--z2--z22;
+penlabels(1,2,11,22);
+endchar; % end "right bracket"
+
+%    \end{macrocode}
+% \end{routine}
+%
+%
+% \begin{routine}{asciicircum}
+% The circumflex accent. (o136/h5E/d94)
+%    \begin{macrocode}
+cmchar "asciicircum";
+beginchar(oct "136", 2u#+hstretch*(2cos_accent_angle*accent_ysize#), asc_height#, 0);
+adjust_fit(0,0); pcshiftx := u; pickup accentpen;
+x1=1/2w; top y1catm=h;
+draw_circumflex(1);
+penlabels(1);
+endchar; % end "circumflex accent"
+
+%    \end{macrocode}
+% \end{routine}
+%
+% \begin{routine}{underscore}
+% The underscore. (o137/h5F/d95)
+%    \begin{macrocode}
+cmchar "underscore";
+beginchar(oct "137", 2u#+hstretch*(4thick#), x_height#, 0);
+adjust_fit(0,0); pcshiftx := u; pickup quill;
+lft x1 = pcshiftx; rt x2 = w-pcshiftx; bot y1= bot y2= 0;
+draw z1--z2; 
+penlabels(1,2,3,4,5,6);
+endchar; % end "underscore"
+
+%    \end{macrocode}
+% \end{routine}
+%
+% \begin{routine}{quoteleft}
+% The opening quote. (o140/h60/d96)
+%    \begin{macrocode}
+cmchar "quoteleft";
+beginchar(oct "140", 2u#+hstretch*(comma_width#+dot_size#), 4/3x_height#, 0);
+adjust_fit(0,0); pcshiftx := u;
+x1=pcshiftx+(0.5hstretch*dot_size); y1=h;
+draw_plq(1,dot_size,comma_width);
+penlabels(1);
+endchar; % end "left quote"
+
+%    \end{macrocode}
+% \end{routine}
+%
+%
+% \subsection{Lower case letters}
+%
+% \begin{routine}{a}
+% The letter `a'. (o141/h61/d97)
+%    \begin{macrocode}
+cmchar "a";
+beginchar("a", 2u#+hstretch*(x_height#+jut#), x_height#, 0);
+adjust_fit(0,0); pcshiftx := u; pickup quill;
+x555=pcshiftx; y555=0; x666=w-u-jut; y666=h;
+draw_a(555,666);
+penlabels(555,666);
+endchar; % end "a"
+
+%    \end{macrocode}
+% \end{routine}
+%
+% \begin{routine}{b}
+% The letter `b'.  (o142/h62/d98)
+%    \begin{macrocode}
+cmchar "b";
+beginchar("b", 2u#+hstretch*(x_height#+jut#), x_height#, 0);
+adjust_fit(0,0); pcshiftx := u; pickup quill;
+x555=pcshiftx+jut; y555=0; x666=w-pcshiftx; y666=h;
+draw_b(555,666);
+penlabels(555,666);
+endchar; % end "b"
+
+%    \end{macrocode}
+% \end{routine}
+%
+%
+% \begin{routine}{c}
+% The letter `c'. (o143/h63/d99)
+%    \begin{macrocode}
+cmchar "c";
+beginchar("c", 2u#+hstretch*(x_height#), x_height#, 0);
+adjust_fit(0,0); pcshiftx := u; pickup quill;
+x555=pcshiftx; y555=0; x666=w-pcshiftx; y666=h;
+draw_c(555,666);
+penlabels(555,666);
+endchar; % end "c"
+
+%    \end{macrocode}
+% \end{routine}
+%
+% \begin{routine}{d}
+% The letter `d'. (o144/h64/d100)
+%    \begin{macrocode}
+cmchar "d";
+beginchar("d", 2u#+hstretch*(4/3x_height#), 4/3x_height#, 0);
+adjust_fit(0,0); pcshiftx := u; pickup quill;
+x555=pcshiftx; x666=w-pcshiftx; y555=0; y666=h;
+draw_d(555,666);
+penlabels(555,666);
+endchar; % end "d"
+
+%    \end{macrocode}
+% \end{routine}
+%
+% \begin{routine}{e}
+% The letter `e'. (o145/h65/d101)
+%    \begin{macrocode}
+cmchar "e";
+beginchar("e", 2u#+hstretch*(x_height#), x_height#, 0);
+adjust_fit(0,0); pcshiftx := u; pickup quill;
+x555=pcshiftx; x666=w-pcshiftx; y555=0; y666=h;
+draw_e(555,666);
+penlabels(555,666);
+endchar; % end "e"
+
+%    \end{macrocode}
+% \end{routine}
+%
+% \begin{routine}{f}
+% The letter `f'.  (o146/h66/d102)
+%    \begin{macrocode}
+cmchar "f";
+beginchar("f", 2u#+hstretch*(x_height#), x_height#, desc_depth#);
+adjust_fit(0,0); pcshiftx := u; pickup quill;
+x555=pcshiftx+jut; x666=w-pcshiftx; x444=x555; y444=-d/2; y555=0; y666=h;
+draw_f(555,666,444);
+penlabels(555,666,444);
+endchar; % end "f"
+
+%    \end{macrocode}
+% \end{routine}
+%
+% \begin{routine}{g}
+% The letter `g'.  (o147/h67/d103)
+%    \begin{macrocode}
+cmchar "g";
+beginchar("g", 2u#+hstretch*(x_height#), x_height#, desc_depth#);
+adjust_fit(0,0); pcshiftx := u; pickup quill;
+x555=pcshiftx; x666=w-pcshiftx; x444=x555; y444=-d; y555=0; y666=h;
+draw_g(555,666,444);
+penlabels(555,666,444);
+endchar; % end "g"
+
+%    \end{macrocode}
+% \end{routine}
+%
+% \begin{routine}{h}
+% The letter `h'. (o150/h68/d104)
+%    \begin{macrocode}
+cmchar "h";
+beginchar("h", 2u#+hstretch*(x_height#+jut#), asc_height#, 0);
+adjust_fit(0,0); pcshiftx := u; pickup quill;
+x555=pcshiftx+jut; x666=w-pcshiftx; y555=0; y666=h;
+draw_h(555,666);
+penlabels(555,666);
+endchar; % end "h"
+
+%    \end{macrocode}
+% \end{routine}
+%
+% \begin{routine}{i}
+% The letter i. (o151/h69/d105)
+%    \begin{macrocode}
+cmchar "i";
+beginchar("i", 2u#+hstretch*(thick#+jut#), x_height#, 0);
+adjust_fit(0,0); pcshiftx := u; pickup quill;
+x555=pcshiftx+jut = x666; y666=h; y555=0;
+draw_i(555,666);
+penlabels(555,666);
+endchar; % end "i"
+
+%    \end{macrocode}
+% \end{routine}
+%
+% \begin{routine}{j}
+% The letter `j'. This letter was not in the script, it being a later 
+% invention. (o152/h6A/d106)
+%    \begin{macrocode}
+cmchar "j";
+beginchar("j", 2u#+hstretch*(thick#+jut#), x_height#, desc_depth#);
+adjust_fit(0,0); pcshiftx := u; pickup quill;
+x555=pcshiftx+jut = x666; y666=h; y555=-1/2d;
+draw_j(555,666);
+penlabels(555,666);
+endchar; % end "j"
+
+%    \end{macrocode}
+% \end{routine}
+%
+% \begin{routine}{k}
+% The letter `k'. (o153/h6B/d107)
+%    \begin{macrocode}
+cmchar "k";
+beginchar("k", 2u#+hstretch*(4/3x_height#), asc_height#, 0);
+adjust_fit(0,0); pcshiftx := u; pickup quill;
+x555=pcshiftx+jut; y555=0; x666=w-pcshiftx-jut; y666=h;
+draw_k(555,666);
+penlabels(555,666);
+endchar; % end "k"
+
+%    \end{macrocode}
+% \end{routine}
+%
+% \begin{routine}{l}
+% The letter `l'.  (o154/h6C/d108)
+%    \begin{macrocode}
+cmchar "l";
+beginchar("l", 2u#+hstretch*(x_height#), asc_height#, 0);
+adjust_fit(0,0); pcshiftx := u; pickup quill;
+x555=pcshiftx+jut; y555=0; x666=w-pcshiftx; y666=h;
+draw_l(555,666);
+penlabels(555,666);
+endchar; % end "l"
+
+%    \end{macrocode}
+% \end{routine}
+%
+% \begin{routine}{m}
+% The letter `m'.  (o155/h6D/d109)
+%    \begin{macrocode}
+cmchar "m";
+beginchar("m", 2u#+hstretch*(2x_height#), x_height#, 0);
+adjust_fit(0,0); pcshiftx := u; pickup quill;
+x555=pcshiftx; y555=0; x666=w-pcshiftx; y666=h;
+draw_m(555,666);
+penlabels(555,666);
+endchar; % end "m"
+
+%    \end{macrocode}
+% \end{routine}
+%
+% \begin{routine}{n}
+% The letter `n'.  (o156/h6E/d110)
+%    \begin{macrocode}
+cmchar "n";
+beginchar("n", 2u#+hstretch*(2jut#+x_height#), x_height#, 0.5desc_depth#);
+adjust_fit(0,0); pcshiftx := u; pickup quill;
+x555=pcshiftx+jut; y555=0; x666=w-pcshiftx-jut; y666=h;
+draw_n(555,666);
+penlabels(555,666);
+endchar; % end "n"
+
+%    \end{macrocode}
+% \end{routine}
+%
+% \begin{routine}{o}
+% The letter `o'. (o157/h6F/d111)
+%    \begin{macrocode}
+cmchar "o";
+beginchar("o", 2u#+hstretch*(7/6x_height#), x_height#, 0);
+adjust_fit(0,0); pcshiftx := u; pickup quill;
+x555=pcshiftx; y555=-o; x666=w-pcshiftx; y666=h+o;
+draw_o(555,666);
+penlabels(555,666);
+endchar; % end "o"
+
+%    \end{macrocode}
+% \end{routine}
+%
+% \begin{routine}{p}
+% The letter `p'. (o160/h70/d112)
+%    \begin{macrocode}
+cmchar "p";
+beginchar("p", 2u#+hstretch*(7/6x_height#), x_height#, desc_depth#);
+adjust_fit(0,0); pcshiftx := u; pickup quill;
+x555=pcshiftx+jut; y555=0; x666=w-pcshiftx; y666=h; x444=x555; y444=-1/2d;
+draw_p(555,666,444);
+penlabels(555,666,444);
+endchar; % end "p"
+
+%    \end{macrocode}
+% \end{routine}
+%
+% \begin{routine}{q}
+% The letter `q'.  (o161/h71/d113)
+%    \begin{macrocode}
+cmchar "q";
+beginchar("q", 2u#+hstretch*(7/6x_height#), x_height#, desc_depth#);
+adjust_fit(0,0); pcshiftx := u; pickup quill;
+x555=pcshiftx; y555=0; x666=w-pcshiftx; y666=h; x444=x555; y444=-1/2d;
+draw_q(555,666,444);
+penlabels(555,666,444);
+endchar; % end "q"
+
+%    \end{macrocode}
+% \end{routine}
+%
+% \begin{routine}{r}
+% The letter `r'. (o162/h72/d114)
+%    \begin{macrocode}
+cmchar "r";
+beginchar("r", 2u#+hstretch*(4/3x_height#), x_height#, 1/2desc_depth#);
+adjust_fit(0,0); pcshiftx := u; pickup quill;
+x555=pcshiftx+jut; y555=0; x666=w-pcshiftx; y666=h;
+draw_r(555,666);
+penlabels(555,666,444);
+endchar; % end "r"
+
+%    \end{macrocode}
+% \end{routine}
+%
+% \begin{routine}{s}
+% The letter `s'. (o163/h73/d115)
+%    \begin{macrocode}
+cmchar "s";
+beginchar("s", 2u#+hstretch*(x_height#), x_height#, 0);
+adjust_fit(0,0); pcshiftx := u; pickup quill;
+x555=pcshiftx; y555=0; x666=w-pcshiftx; y666=h;
+draw_s(555,666);
+penlabels(555,666,444);
+endchar; % end "s"
+
+%    \end{macrocode}
+% \end{routine}
+%
+% \begin{routine}{t}
+% The letter `t'. (o164/h74/d116)
+%    \begin{macrocode}
+cmchar "t";
+beginchar("t", 2u#+hstretch*(4/3x_height#), x_height#, 0);
+adjust_fit(0,0); pcshiftx := u; pickup quill;
+x555=pcshiftx; y555=0; x666=w-pcshiftx; y666=h;
+draw_t(555,666);
+penlabels(555,666,444);
+endchar; % end "t"
+
+%    \end{macrocode}
+% \end{routine}
+%
+% \begin{routine}{u}
+% The letter `u'.  (o165/h75/d117)
+%    \begin{macrocode}
+cmchar "u";
+beginchar("u", 2u#+hstretch*(4/3x_height#+jut#), x_height#, 0);
+adjust_fit(0,0); pcshiftx := u; pickup quill;
+x555=pcshiftx; y555=0; x666=w-pcshiftx-jut; y666=h;
+draw_u(555,666);
+penlabels(555,666,444);
+endchar; % end "u"
+
+%    \end{macrocode}
+% \end{routine}
+%
+% \begin{routine}{v}
+% The letter `v'. The right half of the `w' is used for the `v' (or vice-versa
+% if you prefer). (o166/h76/d118)
+%    \begin{macrocode}
+cmchar "v";
+beginchar("v", 2u#+hstretch*(7/6x_height#+jut#), x_height#, 0);
+adjust_fit(0,0); pcshiftx := u; pickup quill;
+x555=pcshiftx+jut; y555=0; x666=w-pcshiftx; y666=h;
+draw_v(555,666);
+penlabels(555,666,444);
+endchar; % end "v"
+
+%    \end{macrocode}
+% \end{routine}
+%
+% \begin{routine}{w}
+% The letter `w'. This is a modern version as the font did not 
+% have a W. (o167/h77/d119)
+%    \begin{macrocode}
+cmchar "w";
+beginchar("w", 2u#+hstretch*(2x_height#), x_height#, 0);
+adjust_fit(0,0); pcshiftx := u; pickup quill;
+x555=pcshiftx; y555=0; x666=w-pcshiftx; y666=h;
+draw_w(555,666);
+penlabels(555,666,444);
+endchar; % end "w"
+
+%    \end{macrocode}
+% \end{routine}
+%
+% \begin{routine}{x}
+% The letter `x'. (o170/h78/d120)
+%    \begin{macrocode}
+cmchar "x";
+beginchar("x", 2u#+hstretch*(4/3x_height#+jut#), x_height#, 1/2desc_depth#);
+adjust_fit(0,0); pcshiftx := u; pickup quill;
+x555=pcshiftx; y555=0; x666=w-pcshiftx; y666=h; x444=x555; y444=-d;
+draw_x(555,666,444);
+penlabels(555,666,444);
+endchar; % end "x"
+
+%    \end{macrocode}
+% \end{routine}
+%
+% \begin{routine}{y}
+% The letter `y'. This has a dot on top! (o171/h79/d121)
+%    \begin{macrocode}
+cmchar "y";
+beginchar("y", 2u#+hstretch*(4/3x_height#), x_height#, desc_depth#);
+adjust_fit(0,0); pcshiftx := u; pickup quill;
+x555=pcshiftx; y555=0; x666=w-pcshiftx; y666=h; x444=x555; y444=-d;
+draw_y(555,666,444);
+penlabels(555,666,444);
+endchar; % end "y"
+
+%    \end{macrocode}
+% \end{routine}
+%
+%
+% \begin{routine}{z}
+% The letter `z'. (o172/h7A/d122)
+%    \begin{macrocode}
+cmchar "z";
+beginchar("z", 2u#+hstretch*(7/6x_height#), x_height#, 0);
+adjust_fit(0,0); pcshiftx := u; pickup quill;
+x555=pcshiftx; y555=0; x666=w-pcshiftx; y666=h;
+draw_z(555,666);
+penlabels(555,666,444);
+endchar; % end "z"
+
+%    \end{macrocode}
+% \end{routine}
+%
+% \subsection{Left brace through tilde}
+%
+% \begin{routine}{braceleft}
+% The left brace. (o173/h7B/d123)
+%    \begin{macrocode}
+cmchar "braceleft";
+beginchar(oct "173", 3/2u#+hstretch*(7/8x_height#), body_height#, desc_depth#);
+adjust_fit(0,0); pcshiftx := u; pickup accentpen;
+rt x1= rt x7 = w-1/2pcshiftx; top y1=h; bot y7=-d;
+lft x4= pcshiftx; y4=1/2[y1,y7];
+x2=x3=x5=x6=1/2[x4,x1];
+y1-y2 = y3-y4 = y4-y5 = y6-y7 = 1/8(h+d);
+pair v[];
+path p[];
+v1=(-2,-1); v2=(2,-1);
+p1=z1{v1}..{down}z2--z3{down}..{v1}z4;
+p2=z4{v2}..{down}z5--z6{down}..{v2}z7;
+draw p1; draw p2;
+penlabels(1,2,3,4,5,6,7);
+endchar; % end "left brace"
+
+%    \end{macrocode}
+% \end{routine}
+%
+% \begin{routine}{bar}
+% The bar (caesura). (o174/h7C/d124)
+%    \begin{macrocode}
+cmchar "bar";
+beginchar(oct "174", 2u#+hstretch*(1/2thick#), body_height#, desc_depth#);
+adjust_fit(0,0); pcshiftx := u; pickup accentpen;
+x1=x2=1/2w; top y1=h; bot y2=-d;
+draw z1--z2;
+penlabels(1,2,3,4,5,6,7);
+endchar; % end "bar"
+
+%    \end{macrocode}
+% \end{routine}
+%
+% \begin{routine}{braceright}
+% The right brace. (o175/h7D/d125)
+%    \begin{macrocode}
+cmchar "braceright";
+beginchar(oct "175", 3/2u#+hstretch*(7/8x_height#), body_height#, desc_depth#);
+adjust_fit(0,0); pcshiftx := u; pickup accentpen;
+lft x1= lft x7 = 1/2pcshiftx; top y1=h; bot y7=-d;
+rt x4= w-pcshiftx; y4=1/2[y1,y7];
+x2=x3=x5=x6=1/2[x4,x1];
+y1-y2 = y3-y4 = y4-y5 = y6-y7 = 1/8(h+d);
+pair v[];
+path p[];
+v1=(-2,-1); v2=(2,-1);
+p1=z1{v2}..{down}z2--z3{down}..{v2}z4;
+p2=z4{v1}..{down}z5--z6{down}..{v1}z7;
+draw p1; draw p2;
+penlabels(1,2,3,4,5,6,7);
+endchar; % end "right brace"
+
+%    \end{macrocode}
+% \end{routine}
+%
+% \begin{routine}{asciitilde}
+% The tilde. (o176/h7E/d126)
+%    \begin{macrocode}
+cmchar "asciitilde";
+beginchar(oct "176", 2u#+hstretch*(4cos_accent_angle*accent_ysize#), asc_height#, 0);
+adjust_fit(0,0); pcshiftx := u; pickup accentpen;
+lft x1=pcshiftx; rt x3=w-pcshiftx; x2=1/2[x1,x3]; 
+y1=y2=y3=h-1/2accent_ysize;
+draw z1{dir accent_angle}..z2..{dir accent_angle}z3;
+penlabels(1,2,3);
+endchar; % end "asciitilde"
+
+%    \end{macrocode}
+% \end{routine}
+%
+%    The end of this file
+%    \begin{macrocode} 
+%</ascii>
+%    \end{macrocode}
+%
+%
+% \section{Bottom of the top half of the table}
+%
+%    \begin{macrocode}
+%<*mid>
+%%% AUNCLMID.MF  AUncl bottom half of the top of the code table 
+
+%    \end{macrocode}
+%
+% Some slots have been left empty to accomodate ligatures. 
+% In the T1 encoding these contained the upper and lowercase characters 
+% Abreve, Scedilla, Tcedilla, and Gbreve which as far as I know are only
+% used for Rumanian.
+%
+% \begin{routine}{Abreve}
+% The letter `A breve'. 
+% (move to 000 before killing it)
+%    \begin{macrocode}
+%%%cmchar "Abreve";
+%%%beginchar(oct "000", 2u#+hstretch*caprat*(x_height#+jut#), caprat*(x_height#), 0);
+%%%adjust_fit(0,0); pcshiftx := u; pickup quill;
+%%%x555=pcshiftx; y555=0; x666=w-u-jut; y666=h;
+%%%draw_a(555,666);
+%%%x777=x1; y777=y666+1/4accent_ysize;
+%%%draw_breve(777);
+%%%penlabels(555,666,777);
+%%%endchar; % end "A breve"
+
+%    \end{macrocode}
+% \end{routine}
+%
+% \begin{routine}{quotesinglbase}
+%    The `single quote on baseline' character (moved from o015 to 0200). (o200/h80/d128)
+%    \begin{macrocode}
+cmchar "quotesinglbase";
+beginchar(oct "200",2u#+hstretch*(comma_width#+dot_size#),x_height#,0);
+adjust_fit(0,0); pcshiftx:=u;
+x1=w-pcshiftx-(0.5hstretch*dot_size); y1=h/2;
+draw_pcomma(1,dot_size,comma_width);
+penlabels(1); 
+endchar; % end of ","
+
+%    \end{macrocode}
+% \end{routine}
+%
+%
+% \begin{routine}{Aogonek}
+% The letter `A ogonek'. (o201/h81/d129)
+%    \begin{macrocode}
+cmchar "Aogonek";
+beginchar(oct "201", 2u#+hstretch*caprat*(x_height#+jut#), caprat*(x_height#), 0);
+adjust_fit(0,0); pcshiftx := u; pickup quill;
+x555=pcshiftx; y555=0; x666=w-u-jut; y666=h;
+draw_a(555,666);
+z777=lft z2a;
+draw_ogonek(777);
+penlabels(555,666,777);
+endchar; % end "A ogonek"
+
+%    \end{macrocode}
+% \end{routine}
+%
+% \begin{routine}{Cacute}
+% The letter `C acute'. (o202/h82/d130)
+%    \begin{macrocode}
+cmchar "Cacute";
+beginchar(oct "202", 2u#+hstretch*caprat*(x_height#), caprat*(x_height#), 0);
+adjust_fit(0,0); pcshiftx := u; pickup quill;
+x555=pcshiftx; y555=0; x666=w-pcshiftx; y666=h;
+draw_c(555,666);
+x777aab=x2; y777aab=y666+1/4accent_ysize;
+draw_acute(777);
+penlabels(555,666);
+endchar; % end "C acute"
+
+%    \end{macrocode}
+% \end{routine}
+%
+% \begin{routine}{Ccaron}
+% The letter `C caron/hachek'. (o203/h83/d131)
+%    \begin{macrocode}
+cmchar "Ccaron";
+beginchar(oct "203", 2u#+hstretch*caprat*(x_height#), caprat*(x_height#), 0);
+adjust_fit(0,0); pcshiftx := u; pickup quill;
+x555=pcshiftx; y555=0; x666=w-pcshiftx; y666=h;
+draw_c(555,666);
+x777=x2; y777=y666+1/4accent_ysize;
+draw_hachek(777);
+penlabels(555,666);
+endchar; % end "C caron/hachek"
+
+%    \end{macrocode}
+% \end{routine}
+%
+% \begin{routine}{Dcaron}
+% The letter `D caron/hachek'. (o204/h84/d132)
+%    \begin{macrocode}
+cmchar "Dcaron";
+beginchar(oct "204", 2u#+hstretch*caprat*(4/3x_height#), caprat*(4/3x_height#), 0);
+adjust_fit(0,0); pcshiftx := u; pickup quill;
+x555=pcshiftx; x666=w-pcshiftx; y555=0; y666=h;
+draw_d(555,666);
+x777=x4; y777=y666+accent_gap;
+draw_hachek(777);
+penlabels(555,666);
+endchar; % end "D caron/hachek"
+
+%    \end{macrocode}
+% \end{routine}
+%
+% \begin{routine}{Ecaron}
+% The letter `E caron/hachek'. (o205/h85/d133)
+%    \begin{macrocode}
+cmchar "Ecaron";
+beginchar(oct "205", 2u#+hstretch*caprat*(x_height#), caprat*(x_height#), 0);
+adjust_fit(0,0); pcshiftx := u; pickup quill;
+x555=pcshiftx; x666=w-pcshiftx; y555=0; y666=h;
+draw_e(555,666);
+x777=x2; y777=y666+accent_gap;
+draw_hachek(777);
+penlabels(555,666);
+endchar; % end "E caron/hachek"
+
+%    \end{macrocode}
+% \end{routine}
+%
+% \begin{routine}{Eogonek}
+% The letter `E ogonek'. (o206/h86/d134)
+%    \begin{macrocode}
+cmchar "Eogonek";
+beginchar(oct "206", 2u#+hstretch*caprat*(x_height#), caprat*(x_height#), 0);
+adjust_fit(0,0); pcshiftx := u; pickup quill;
+x555=pcshiftx; x666=w-pcshiftx; y555=0; y666=h;
+draw_e(555,666);
+x777=x4; y777=y555;
+draw_ogonek(777);
+penlabels(555,666);
+endchar; % end "E ogonek"
+
+%    \end{macrocode}
+% \end{routine}
+%
+% \begin{routine}{Gbreve}
+% The letter `G breve'.  (o207/h87/d135)
+% (move to 000 before killing it)
+%    \begin{macrocode}
+%%%cmchar "Gbreve";
+%%%beginchar(oct "000", 2u#+hstretch*caprat*(x_height#), caprat*(x_height#), 
+%%%          caprat*(desc_depth#));
+%%%adjust_fit(0,0); pcshiftx := u; %%%pickup quill;
+%%%x555=pcshiftx; x666=w-pcshiftx; x444=x555; y444=-d; y555=0; y666=h;
+%%%draw_g(555,666,444);
+%%%x777=x2; y777=y666+accent_gap;
+%%%draw_breve(777);
+%%%penlabels(555,666,444);
+%%%endchar; % end "G breve"
+
+%    \end{macrocode}
+% \end{routine}
+%
+% \begin{routine}{paragraph}
+% The paragraph/pilcrow symbol. (o207/h87/d135)
+%    \begin{macrocode}
+cmchar "paragraph";
+beginchar(oct "207", 2u#+hstretch*caprat*(7/6x_height#), caprat*(x_height#), 
+          caprat*(desc_depth#));
+adjust_fit(0,0); pcshiftx := u; pickup quill;
+x555=pcshiftx; y555=0; x666=w-pcshiftx; y666=h; x444=x555; y444=-1/2d;
+draw_pilcrow(555,666,444);
+penlabels(555,666,444);
+endchar; % end "paragraph/pilcrow"
+
+%    \end{macrocode}
+% \end{routine}
+%
+%
+% \begin{routine}{Lacute}
+% The letter `L acute'. (o210/h88/d136) 
+%    \begin{macrocode}
+cmchar "Lacute";
+beginchar(oct "210", 2u#+hstretch*caprat*(x_height#), caprat*(asc_height#), 0);
+adjust_fit(0,0); pcshiftx := u; pickup quill;
+x555=pcshiftx+jut; y555=0; x666=w-pcshiftx; y666=h;
+draw_l(555,666);
+x777aab=x555Lt; y777aab=y666+accent_gap;
+draw_acute(777);
+penlabels(555,666);
+endchar; % end "L acute"
+
+%    \end{macrocode}
+% \end{routine}
+%
+% \begin{routine}{Lquote}
+% The letter `L quote/apostrophe'.  (o211/h89/d137) 
+%    \begin{macrocode}
+cmchar "Lquote";
+beginchar(oct "211", 2u#+hstretch*caprat*(x_height#), caprat*(asc_height#), 0);
+adjust_fit(0,0); pcshiftx := u; pickup quill;
+x555=pcshiftx+jut; y555=0; x666=w-pcshiftx; y666=h;
+draw_l(555,666);
+x777=x555Lt+1/2thick + accent_ysize; y777=y666;
+draw_pcomma(777,accent_thickness,accent_ysize);
+penlabels(555,666);
+endchar; % end "L apostrophe"
+
+%    \end{macrocode}
+% \end{routine}
+%
+% \begin{routine}{Lslash}
+% The letter `L slash/barred'.  (o212/h8A/d138) 
+%    \begin{macrocode}
+cmchar "Lslash";
+beginchar(oct "212", 2u#+hstretch*caprat*(x_height#), caprat*(asc_height#), 0);
+adjust_fit(0,0); pcshiftx := u; pickup quill;
+x555=pcshiftx+jut; y555=0; x666=w-pcshiftx; y666=h;
+draw_l(555,666);
+x777=x555Lt; y777=1/2[y555Lb,y555Lt];
+z777ll=(x777-15/16accent_ysize, y777-1/2thick); 
+z777ur=(x777+15/16accent_ysize, y777+1/2thick);
+pickup accentpen;
+draw z777ll--z777ur;
+penlabels(555,666,777,777ll,777ur);
+endchar; % end "L slash/barred"
+
+%    \end{macrocode}
+% \end{routine}
+%
+% \begin{routine}{Nacute}
+% The letter `N acute'.  (o213/h8B/d139) 
+%    \begin{macrocode}
+cmchar "Nacute";
+beginchar(oct "213", 2u#+hstretch*caprat*(2jut#+x_height#), caprat*(x_height#), 
+          caprat*(0.5desc_depth#));
+adjust_fit(0,0); pcshiftx := u; pickup quill;
+x555=pcshiftx+jut; y555=0; x666=w-pcshiftx-jut; y666=h;
+draw_n(555,666);
+x777aam=1/2[x555nlt,x555nrt]; y777aab=y666+accent_gap;
+draw_acute(777);
+penlabels(555,666);
+endchar; % end "N acute"
+
+%    \end{macrocode}
+% \end{routine}
+%
+% \begin{routine}{Ncaron}
+% The letter `N caron/hachek'.  (o214/h8C/d140) 
+%    \begin{macrocode}
+cmchar "Ncaron";
+beginchar(oct "214", 2u#+hstretch*caprat*(2jut#+x_height#), caprat*(x_height#), 
+          caprat*(0.5desc_depth#));
+adjust_fit(0,0); pcshiftx := u; pickup quill;
+x555=pcshiftx+jut; y555=0; x666=w-pcshiftx-jut; y666=h;
+draw_n(555,666);
+x777=1/2[x555nlt,x555nrt]; y777=y666+accent_gap;
+draw_hachek(777);
+penlabels(555,666);
+endchar; % end "N hachek"
+
+%    \end{macrocode}
+% \end{routine}
+%
+% \begin{routine}{Eng}
+% The letter `Eng'.  (o215/h8D/d141) 
+%    \begin{macrocode}
+cmchar "Eng";
+beginchar(oct "215", 2u#+hstretch*caprat*(jut#+x_height#), caprat*(x_height#), 
+          caprat*(0.5desc_depth#));
+adjust_fit(0,0); pcshiftx := u; pickup quill;
+x555=pcshiftx+jut; y555=0; x666=w-pcshiftx; y666=h;
+x444=x555; y444=-d;
+draw_eng(555,666,444);
+penlabels(555,666,444);
+endchar; % end "Eng"
+
+%    \end{macrocode}
+% \end{routine}
+%
+% \begin{routine}{Ohungarumlaut}
+% The letter `O long umlaut'. (o216/h8E/d142) 
+%    \begin{macrocode}
+cmchar "Ohungarumlaut";
+beginchar(oct "216", 2u#+hstretch*caprat*(7/6x_height#), caprat*(x_height#), 0);
+adjust_fit(0,0); pcshiftx := u; pickup quill;
+x555=pcshiftx; y555=-o; x666=w-pcshiftx; y666=h+o;
+draw_o(555,666);
+x777luam=x2; y777luab=y666+accent_gap;
+draw_lumlaut(777);
+penlabels(555,666);
+endchar; % end "O long umlaut"
+
+%    \end{macrocode}
+% \end{routine}
+%
+% \begin{routine}{Racute}
+% The letter `R acute'. (o217/h8F/d143) 
+%    \begin{macrocode}
+cmchar "Racute";
+beginchar(oct "217", 2u#+hstretch*caprat*(4/3x_height#), caprat*(x_height#), 
+          caprat*(1/2desc_depth#));
+adjust_fit(0,0); pcshiftx := u; pickup quill;
+x555=pcshiftx+jut; y555=0; x666=w-pcshiftx; y666=h;
+draw_r(555,666);
+x777aam=1/2[x1,x5]; y777aab=y666+accent_gap;
+draw_acute(777);
+penlabels(555,666,444);
+endchar; % end "R acute"
+
+%    \end{macrocode}
+% \end{routine}
+%
+% \begin{routine}{Rcaron}
+% The letter `R caron/hachek'. (o220/h90/d144) 
+%    \begin{macrocode}
+cmchar "Rcaron";
+beginchar(oct "220", 2u#+hstretch*caprat*(4/3x_height#), caprat*(x_height#), 
+          caprat*(1/2desc_depth#));
+adjust_fit(0,0); pcshiftx := u; pickup quill;
+x555=pcshiftx+jut; y555=0; x666=w-pcshiftx; y666=h;
+draw_r(555,666);
+x777=1/2[x1,x5]; y777=y666+accent_gap;
+draw_hachek(777);
+penlabels(555,666,444);
+endchar; % end "R hachek"
+
+%    \end{macrocode}
+% \end{routine}
+%
+% \begin{routine}{Sacute}
+% The letter `S acute'. (o221/h91/d145) 
+%    \begin{macrocode}
+cmchar "Sacute";
+beginchar(oct "221", 2u#+hstretch*caprat*(x_height#), caprat*(x_height#), 0);
+adjust_fit(0,0); pcshiftx := u; pickup quill;
+x555=pcshiftx; y555=0; x666=w-pcshiftx; y666=h;
+draw_s(555,666);
+x777aam=x555Sb; y777aab=y666+accent_gap;
+draw_acute(777);
+penlabels(555,666,444);
+endchar; % end "S acute"
+
+%    \end{macrocode}
+% \end{routine}
+%
+% \begin{routine}{Scaron}
+% The letter `S caron/hachek'. (o222/h92/d146)
+%    \begin{macrocode}
+cmchar "Scaron";
+beginchar(oct "222", 2u#+hstretch*caprat*(x_height#), caprat*(x_height#), 0);
+adjust_fit(0,0); pcshiftx := u; pickup quill;
+x555=pcshiftx; y555=0; x666=w-pcshiftx; y666=h;
+draw_s(555,666);
+x777=x555Sb; y777=y666+accent_gap;
+draw_hachek(777);
+penlabels(555,666,444);
+endchar; % end "S caron/hachek"
+
+%    \end{macrocode}
+% \end{routine}
+%
+% \begin{routine}{Scedilla}
+% The letter `S cedilla'. (o223/h93/d147) 
+% (move to 000 before killing it)
+%    \begin{macrocode}
+%%%cmchar "Scedilla";
+%%%beginchar(oct "000", 2u#+hstretch*caprat*(x_height#), caprat*(x_height#), 0);
+%%%adjust_fit(0,0); pcshiftx := u; pickup quill;
+%%%x555=pcshiftx; y555=0; x666=w-pcshiftx; y666=h;
+%%%draw_s(555,666);
+%%%x777=x555Sf; top y777=y555;
+%%%draw_cedilla(777);
+%%%penlabels(555,666,444);
+%%%endchar; % end "S cedilla"
+
+%    \end{macrocode}
+% \end{routine}
+%
+% \begin{routine}{longs-t}
+% The longs-t `ligature'. (o223/h93/d147) 
+%    \begin{macrocode}
+%%beginchar("s", 2u#+hstretch*(x_height#), x_height#, 0);
+%%beginchar("t", 2u#+hstretch*(4/3x_height#), x_height#, 0);
+cmchar "longs-t";
+beginchar(oct "223", 4u#+hstretch*(7/3x_height#), x_height#, 0);
+adjust_fit(0,0); pcshiftx := u; pickup quill;
+x555=pcshiftx; y555=0; x666=3/7w-pcshiftx; y666=h;
+draw_s(555,666);
+pickup quill;
+x559=x666+2pcshiftx; y559=y555; x669=w-pcshiftx; y669=y666;
+draw_t(559,669);
+penlabels(555,666,559,669);
+endchar; % end longs-t
+
+%    \end{macrocode}
+% \end{routine}
+%
+% \begin{routine}{Tcaron}
+% The letter `T caron/hachek'. (o224/h94/d148) 
+%    \begin{macrocode}
+cmchar "Tcaron";
+beginchar(oct "224", 2u#+hstretch*caprat*(4/3x_height#), caprat*(x_height#), 0);
+adjust_fit(0,0); pcshiftx := u; pickup quill;
+x555=pcshiftx; y555=0; x666=w-pcshiftx; y666=h;
+draw_t(555,666);
+x777=x184; y777=y666+accent_gap;
+draw_hachek(777);
+penlabels(555,666,444);
+endchar; % end "T hachek"
+
+%    \end{macrocode}
+% \end{routine}
+%
+% \begin{routine}{r-half}
+% The letter `r-half', which in this case is a regular `r'. (o225/h95/d149) 
+%    \begin{macrocode}
+cmchar "r-half";
+beginchar(oct "225", 2u#+hstretch*(4/3x_height#), x_height#, 1/2desc_depth#);
+adjust_fit(0,0); pcshiftx := u; pickup quill;
+x555=pcshiftx+jut; y555=0; x666=w-pcshiftx; y666=h;
+draw_r(555,666);
+penlabels(555,666,444);
+endchar; % end "r-half"
+
+%    \end{macrocode}
+% \end{routine}
+%
+%
+% \begin{routine}{Uhungarumlaut}
+% The letter `U long umlaut'.  (o226/h96/d150) 
+%    \begin{macrocode}
+cmchar "Uhungarumlaut";
+beginchar(oct "226", 2u#+hstretch*caprat*(4/3x_height#+jut#), caprat*(x_height#), 0);
+adjust_fit(0,0); pcshiftx := u; pickup quill;
+x555=pcshiftx; y555=0; x666=w-pcshiftx-jut; y666=h;
+draw_u(555,666);
+x777=x8; y777luab=y666+accent_gap;
+draw_lumlaut(777);
+penlabels(555,666,444);
+endchar; % end "U long umlaut"
+
+%    \end{macrocode}
+% \end{routine}
+%
+% \begin{routine}{Uring}
+% The letter `U ring'.  (o227/h97/d151) 
+%    \begin{macrocode}
+cmchar "Uring";
+beginchar(oct "227", 2u#+hstretch*caprat*(4/3x_height#+jut#), caprat*(x_height#), 0);
+adjust_fit(0,0); pcshiftx := u; pickup quill;
+x555=pcshiftx; y555=0; x666=w-pcshiftx-jut; y666=h;
+draw_u(555,666);
+x777=x8; y777rab=y666+accent_gap;
+draw_ring(777);
+penlabels(555,666,444);
+endchar; % end "U ring"
+
+%    \end{macrocode}
+% \end{routine}
+%
+% \begin{routine}{Ydieresis}
+% The letter `Y dieresis'.  (o230/h98/d152) 
+%    \begin{macrocode}
+cmchar "Ydieresis";
+beginchar(oct "230", 2u#+hstretch*caprat*(4/3x_height#), caprat*(x_height#), 
+          caprat*(desc_depth#));
+adjust_fit(0,0); pcshiftx := u; pickup quill;
+x555=pcshiftx; y555=0; x666=w-pcshiftx; y666=h; x444=x555; y444=-d;
+draw_y_base(555,666,444);
+x777=1/2[x1,x666]; y777ddab=y666+accent_gap;
+draw_dieresis(777);
+penlabels(555,666,444);
+endchar; % end "Y dieresis"
+
+%    \end{macrocode}
+% \end{routine}
+%
+% \begin{routine}{Zacute}
+% The letter `Z acute'. (o231/h99/d153) 
+%    \begin{macrocode}
+cmchar "Zacute";
+beginchar(oct "231", 2u#+hstretch*caprat*(7/6x_height#), caprat*(x_height#), 0);
+adjust_fit(0,0); pcshiftx := u; pickup quill;
+x555=pcshiftx; y555=0; x666=w-pcshiftx; y666=h;
+draw_z(555,666);
+x777aam=1/2[x1,x3]; y777aab=y666+accent_gap;
+draw_acute(777);
+penlabels(555,666,444);
+endchar; % end "Z acute"
+
+%    \end{macrocode}
+% \end{routine}
+%
+% \begin{routine}{Zcaron}
+% The letter `Z caron/hachek'. (o232/h9A/d154) 
+%    \begin{macrocode}
+cmchar "Zcaron";
+beginchar(oct "232", 2u#+hstretch*caprat*(7/6x_height#), caprat*(x_height#), 0);
+adjust_fit(0,0); pcshiftx := u; pickup quill;
+x555=pcshiftx; y555=0; x666=w-pcshiftx; y666=h;
+draw_z(555,666);
+x777=1/2[x1,x3]; y777=y666+accent_gap;
+draw_hachek(777);
+penlabels(555,666,444);
+endchar; % end "Z caron/hachek"
+
+%    \end{macrocode}
+% \end{routine}
+%
+% \begin{routine}{Zdot}
+% The letter `Z dot'. (o233/h9B/d155) 
+%    \begin{macrocode}
+cmchar "Zdot";
+beginchar(oct "233", 2u#+hstretch*caprat*(7/6x_height#), caprat*(x_height#), 0);
+adjust_fit(0,0); pcshiftx := u; pickup quill;
+x555=pcshiftx; y555=0; x666=w-pcshiftx; y666=h;
+draw_z(555,666);
+x777=1/2[x1,x3]; y777dab=y666+accent_gap;
+draw_dota(777);
+penlabels(555,666,444);
+endchar; % end "Z dot"
+
+%    \end{macrocode}
+% \end{routine}
+%
+% \begin{routine}{IJ}
+% The letter pair IJ. (o234/h9C/d156) 
+%    \begin{macrocode}
+cmchar "IJ";
+beginchar(oct "234", 2u#+hstretch*(2thick#+2jut#), caprat*(x_height#), caprat*(desc_depth#));
+adjust_fit(0,0); pcshiftx := u; pickup quill;
+x555=pcshiftx+jut = x666; y666=h; y555=0;
+draw_i(555,666);
+x577=x677=x555+thick+jut; y577=-1/2d; y677=y666;
+draw_j(577,677);
+penlabels(555,666);
+endchar; % end "IJ"
+
+%    \end{macrocode}
+% \end{routine}
+%
+% \begin{routine}{Idot}
+% Dotted I. (o235/h9D/d157) 
+%    \begin{macrocode}
+cmchar "Idot";
+beginchar(oct "235", 2u#+hstretch*(thick#+jut#), caprat*(x_height#), 0);
+adjust_fit(0,0); pcshiftx := u; pickup quill;
+x555=pcshiftx+jut = x666; y666=h; y555=0;
+draw_i(555,666);
+x777=x555It.a; y777dab=y666+accent_gap;
+pickup accentpen;
+draw_dota(777);
+penlabels(555,666);
+endchar; % end "I dotted"
+
+%    \end{macrocode}
+% \end{routine}
+%
+% \begin{routine}{dyet}
+% The letter `dyet'. (o236/h9E/d158) 
+%    \begin{macrocode}
+cmchar "dyet";
+beginchar(oct "236", 2u#+hstretch*(4/3x_height#), (4/3x_height#), 0);
+adjust_fit(0,0); pcshiftx := u; pickup quill;
+x555=pcshiftx; x666=w-pcshiftx; y555=0; y666=h;
+draw_dyet(555,666);
+penlabels(555,666);
+endchar; % end "dyet"
+
+%    \end{macrocode}
+% \end{routine}
+%
+% \begin{routine}{section}
+% The section symbol. (o237/h9F/d159)
+%    \begin{macrocode}
+cmchar "section";
+beginchar(oct "237", 2u#+hstretch*(7/6x_height#), (asc_height#), 
+          (desc_depth#));
+adjust_fit(0,0); pcshiftx := u; pickup quill;
+x555=pcshiftx; y555=0; x666=w-pcshiftx; y666=h; x444=x555; y444=-1/2d;
+draw_section(555,666,444);
+penlabels(555,666,444);
+endchar; % end "section"
+
+%    \end{macrocode}
+% \end{routine}
+%
+% \begin{routine}{abreve}
+% The letter `a breve'. (o240/hA0/d160)
+% (move to 000 before killing it)
+%    \begin{macrocode}
+%%%cmchar "abreve";
+%%%beginchar(oct "000", 2u#+hstretch*(x_height#+jut#), x_height#, 0);
+%%%adjust_fit(0,0); pcshiftx := u; pickup quill;
+%%%x555=pcshiftx; y555=0; x666=w-u-jut; y666=h;
+%%%draw_a(555,666);
+%%%x777=x1; y777=y666+1/4accent_ysize;
+%%%draw_breve(777);
+%%%penlabels(555,666);
+%%%endchar; % end "a breve"
+
+%    \end{macrocode}
+% \end{routine}
+%
+% \begin{routine}{slong}
+% The letter `s long'. (o240/hA0/d160)
+%    \begin{macrocode}
+cmchar "salternate";
+beginchar(oct "240", 2u#+hstretch*(x_height#), x_height#, 0);
+adjust_fit(0,0); pcshiftx := u; pickup quill;
+x555=pcshiftx; y555=0; x666=w-pcshiftx; y666=h;
+draw_s(555,666);
+penlabels(555,666,444);
+endchar; % end "s alternate"
+
+%    \end{macrocode}
+% \end{routine}
+%
+% \begin{routine}{aogonek}
+% The letter `a ogonek'. (o241/hA1/d161)
+%    \begin{macrocode}
+cmchar "aogonek";
+beginchar(oct "241", 2u#+hstretch*(x_height#+jut#), (x_height#), 0);
+adjust_fit(0,0); pcshiftx := u; pickup quill;
+x555=pcshiftx; y555=0; x666=w-u-jut; y666=h;
+draw_a(555,666);
+z777=lft z2a;
+draw_ogonek(777);
+penlabels(555,666,777);
+endchar; % end "a ogonek"
+
+%    \end{macrocode}
+% \end{routine}
+%
+% \begin{routine}{cacute}
+% The letter `c acute'. (o242/hA2/d162)
+%    \begin{macrocode}
+cmchar "cacute";
+beginchar(oct "242", 2u#+hstretch*(x_height#), (x_height#), 0);
+adjust_fit(0,0); pcshiftx := u; pickup quill;
+x555=pcshiftx; y555=0; x666=w-pcshiftx; y666=h;
+draw_c(555,666);
+x777aab=x2; y777aab=y666+1/4accent_ysize;
+draw_acute(777);
+penlabels(555,666);
+endchar; % end "c acute"
+
+%    \end{macrocode}
+% \end{routine}
+%
+% \begin{routine}{ccaron}
+% The letter `c caron/hachek'. (o243/hA3/d163)
+%    \begin{macrocode}
+cmchar "ccaron";
+beginchar(oct "243", 2u#+hstretch*(x_height#), (x_height#), 0);
+adjust_fit(0,0); pcshiftx := u; pickup quill;
+x555=pcshiftx; y555=0; x666=w-pcshiftx; y666=h;
+draw_c(555,666);
+x777=x2; y777=y666+1/4accent_ysize;
+draw_hachek(777);
+penlabels(555,666);
+endchar; % end "c hachek"
+
+%    \end{macrocode}
+% \end{routine}
+%
+% \begin{routine}{dcaron}
+% The letter `d caron/hachek' (with an upright `d' this is done with a quote
+% not a caron). (o244/hA4/d164)
+%    \begin{macrocode}
+cmchar "dcaron";
+beginchar(oct "244", 2u#+hstretch*(4/3x_height#), (4/3x_height#), 0);
+adjust_fit(0,0); pcshiftx := u; pickup quill;
+x555=pcshiftx; x666=w-pcshiftx; y555=0; y666=h;
+draw_d(555,666);
+x777=x4; y777=y666+accent_gap;
+draw_hachek(777);
+penlabels(555,666);
+endchar; % end "d hachek"
+
+%    \end{macrocode}
+% \end{routine}
+%
+% \begin{routine}{ecaron}
+% The letter `e caron/hachek'. (o245/hA5/d165)
+%    \begin{macrocode}
+cmchar "ecaron";
+beginchar(oct "245", 2u#+hstretch*(x_height#), (x_height#), 0);
+adjust_fit(0,0); pcshiftx := u; pickup quill;
+x555=pcshiftx; x666=w-pcshiftx; y555=0; y666=h;
+draw_e(555,666);
+x777=x2; y777=y666+accent_gap;
+draw_hachek(777);
+penlabels(555,666);
+endchar; % end "e caron/hachek"
+
+%    \end{macrocode}
+% \end{routine}
+%
+% \begin{routine}{eogonek}
+% The letter `e ogonek'. (o246/hA6/d166)
+%    \begin{macrocode}
+cmchar "eogonek";
+beginchar(oct "246", 2u#+hstretch*(x_height#), (x_height#), 0);
+adjust_fit(0,0); pcshiftx := u; pickup quill;
+x555=pcshiftx; x666=w-pcshiftx; y555=0; y666=h;
+draw_e(555,666);
+x777=x4; y777=y555;
+draw_ogonek(777);
+penlabels(555,666);
+endchar; % end "e ogonek"
+
+%    \end{macrocode}
+% \end{routine}
+%
+% \begin{routine}{e-t}
+% The `e-t' `ligature', which is not the \&. (o247/hA7/d167)
+%    \begin{macrocode}
+cmchar "e-t";
+beginchar(oct "247", 4u#+hstretch*(7/3x_height#), x_height#, 0);
+adjust_fit(0,0); pcshiftx := u; pickup quill;
+x555=pcshiftx; y555=0; x666=3/7w-pcshiftx; y666=h;
+draw_e(555,666);
+pickup quill;
+x559=x666+2pcshiftx; y559=y555; x669=w-pcshiftx; y669=y666;
+draw_t(559,669);
+penlabels(555,666,444,559,669);
+endchar; % end "e-t"
+
+%    \end{macrocode}
+% \end{routine}
+%
+% \begin{routine}{lacute}
+% The letter `l acute'.  (o250/hA8/d168)
+%    \begin{macrocode}
+cmchar "lacute";
+beginchar(oct "250", 2u#+hstretch*(x_height#), (asc_height#), 0);
+adjust_fit(0,0); pcshiftx := u; pickup quill;
+x555=pcshiftx+jut; y555=0; x666=w-pcshiftx; y666=h;
+draw_l(555,666);
+x777aab=x555Lt; y777aab=y666+accent_gap;
+draw_acute(777);
+penlabels(555,666);
+endchar; % end "l acute"
+
+%    \end{macrocode}
+% \end{routine}
+%
+% \begin{routine}{lquote}
+% The letter `l apostrophe'.  (o251/hA9/d169)
+%    \begin{macrocode}
+cmchar "lquote";
+beginchar(oct "251", 2u#+hstretch*(x_height#), (asc_height#), 0);
+adjust_fit(0,0); pcshiftx := u; pickup quill;
+x555=pcshiftx+jut; y555=0; x666=w-pcshiftx; y666=h;
+draw_l(555,666);
+x777=x555Lt+1/2thick + accent_ysize; y777=y666;
+draw_pcomma(777,accent_thickness,accent_ysize);
+penlabels(555,666);
+endchar; % end "l apostrophe"
+
+%    \end{macrocode}
+% \end{routine}
+%
+% \begin{routine}{lslash}
+% The letter `l barred'.  (o252/hAA/170)
+%    \begin{macrocode}
+cmchar "lslash";
+beginchar(oct "252", 2u#+hstretch*(x_height#), (asc_height#), 0);
+adjust_fit(0,0); pcshiftx := u; pickup quill;
+x555=pcshiftx+jut; y555=0; x666=w-pcshiftx; y666=h;
+draw_l(555,666);
+x777=x555Lt; y777=1/2[y555Lb,y555Lt];
+z777ll=(x777-15/16accent_ysize, y777-1/2thick); 
+z777ur=(x777+15/16accent_ysize, y777+1/2thick);
+pickup accentpen;
+draw z777ll--z777ur;
+penlabels(555,666,777,777ll,777ur);
+endchar; % end "l barred"
+
+%    \end{macrocode}
+% \end{routine}
+%
+% \begin{routine}{nacute}
+% The letter `n acute'.  (o253/hAB/d171)
+%    \begin{macrocode}
+cmchar "nacute";
+beginchar(oct "253", 2u#+hstretch*(2jut#+x_height#), (x_height#), 
+          caprat*(0.5desc_depth#));
+adjust_fit(0,0); pcshiftx := u; pickup quill;
+x555=pcshiftx+jut; y555=0; x666=w-pcshiftx-jut; y666=h;
+draw_n(555,666);
+x777aam=1/2[x555nlt,x555nrt]; y777aab=y666+accent_gap;
+draw_acute(777);
+penlabels(555,666);
+endchar; % end "n acute"
+
+%    \end{macrocode}
+% \end{routine}
+%
+% \begin{routine}{ncaron}
+% The letter `n caron/hachek'.  (o254/hAC/d172)
+%    \begin{macrocode}
+cmchar "ncaron";
+beginchar(oct "254", 2u#+hstretch*(2jut#+x_height#), (x_height#), 
+          caprat*(0.5desc_depth#));
+adjust_fit(0,0); pcshiftx := u; pickup quill;
+x555=pcshiftx+jut; y555=0; x666=w-pcshiftx-jut; y666=h;
+draw_n(555,666);
+x777=1/2[x555nlt,x555nrt]; y777=y666+accent_gap;
+draw_hachek(777);
+penlabels(555,666);
+endchar; % end "n hachek"
+
+%    \end{macrocode}
+% \end{routine}
+%
+% \begin{routine}{eng}
+% The letter `eng'.  (o255/hAD/d173)
+%    \begin{macrocode}
+cmchar "eng";
+beginchar(oct "255", 2u#+hstretch*(jut#+x_height#), (x_height#), 
+          (0.5desc_depth#));
+adjust_fit(0,0); pcshiftx := u; pickup quill;
+x555=pcshiftx+jut; y555=0; x666=w-pcshiftx; y666=h;
+x444=x555; y444=-d;
+draw_eng(555,666,444);
+penlabels(555,666,444);
+endchar; % end "eng"
+
+%    \end{macrocode}
+% \end{routine}
+%
+%
+% \begin{routine}{ohungarumlaut}
+% The letter `o long umlaut'. (o256/hAE/d174)
+%    \begin{macrocode}
+cmchar "ohungarumlaut";
+beginchar(oct "256", 2u#+hstretch*(7/6x_height#), (x_height#), 0);
+adjust_fit(0,0); pcshiftx := u; pickup quill;
+x555=pcshiftx; y555=-o; x666=w-pcshiftx; y666=h+o;
+draw_o(555,666);
+x777luam=x2; y777luab=y666+accent_gap;
+draw_lumlaut(777);
+penlabels(555,666);
+endchar; % end "o long umlaut"
+
+%    \end{macrocode}
+% \end{routine}
+%
+% \begin{routine}{racute}
+% The letter `r acute'. (o257/hAF/d175)
+%    \begin{macrocode}
+cmchar "racute";
+beginchar(oct "257", 2u#+hstretch*(4/3x_height#), (x_height#), 
+          (1/2desc_depth#));
+adjust_fit(0,0); pcshiftx := u; pickup quill;
+x555=pcshiftx+jut; y555=0; x666=w-pcshiftx; y666=h;
+draw_r(555,666);
+x777aam=1/2[x1,x5]; y777aab=y666+accent_gap;
+draw_acute(777);
+penlabels(555,666,444);
+endchar; % end "r acute"
+
+%    \end{macrocode}
+% \end{routine}
+%
+% \begin{routine}{rcaron}
+% The letter `r caron/hachek'. (o260/hB0/d176)
+%    \begin{macrocode}
+cmchar "rcaron";
+beginchar(oct "260", 2u#+hstretch*(4/3x_height#), (x_height#), 
+          (1/2desc_depth#));
+adjust_fit(0,0); pcshiftx := u; pickup quill;
+x555=pcshiftx+jut; y555=0; x666=w-pcshiftx; y666=h;
+draw_r(555,666);
+x777=1/2[x1,x5]; y777=y666+accent_gap;
+draw_hachek(777);
+penlabels(555,666,444);
+endchar; % end "r hachek"
+
+%    \end{macrocode}
+% \end{routine}
+%
+% \begin{routine}{sacute}
+% The letter `s acute'. (o261/hB1/d177)
+%    \begin{macrocode}
+cmchar "sacute";
+beginchar(oct "261", 2u#+hstretch*(x_height#), (x_height#), 0);
+adjust_fit(0,0); pcshiftx := u; pickup quill;
+x555=pcshiftx; y555=0; x666=w-pcshiftx; y666=h;
+draw_s(555,666);
+x777aam=x555Sb; y777aab=y666+accent_gap;
+draw_acute(777);
+penlabels(555,666,444);
+endchar; % end "s acute"
+
+%    \end{macrocode}
+% \end{routine}
+%
+% \begin{routine}{scaron}
+% The letter `s caron/hachek'. (o262/hB2/d178)
+%    \begin{macrocode}
+cmchar "scaron";
+beginchar(oct "262", 2u#+hstretch*(x_height#), (x_height#), 0);
+adjust_fit(0,0); pcshiftx := u; pickup quill;
+x555=pcshiftx; y555=0; x666=w-pcshiftx; y666=h;
+draw_s(555,666);
+x777=x555Sb; y777=y666+accent_gap;
+draw_hachek(777);
+penlabels(555,666,444);
+endchar; % end "s hachek"
+
+%    \end{macrocode}
+% \end{routine}
+%
+% \begin{routine}{s-t}
+% The s-t `ligature'.  (o263/hB3/d179)
+%    \begin{macrocode}
+%%beginchar("s", 2u#+hstretch*(x_height#), x_height#, 0);
+%%beginchar("t", 2u#+hstretch*(4/3x_height#), x_height#, 0);
+cmchar "s-t";
+beginchar(oct "263", 4u#+hstretch*(7/3x_height#), x_height#, 0);
+adjust_fit(0,0); pcshiftx := u; pickup quill;
+x555=pcshiftx; y555=0; x666=3/7w-pcshiftx; y666=h;
+draw_s(555,666);
+pickup quill;
+x559=x666+2pcshiftx; y559=y555; x669=w-pcshiftx; y669=y666;
+draw_t(559,669);
+penlabels(555,666,559,669);
+endchar; % end s-t
+
+%    \end{macrocode}
+% \end{routine}
+%
+%
+% \begin{routine}{tcaron}
+% The letter `t caron/hachek'. (The lowercase roman uses a quote instead of a 
+% caron) (o264/hB4/d180)
+%    \begin{macrocode}
+cmchar "tcaron";
+beginchar(oct "264", 2u#+hstretch*(4/3x_height#), (x_height#), 0);
+adjust_fit(0,0); pcshiftx := u; pickup quill;
+x555=pcshiftx; y555=0; x666=w-pcshiftx; y666=h;
+draw_t(555,666);
+x777=x184; y777=y666+accent_gap;
+draw_hachek(777);
+penlabels(555,666,444);
+endchar; % end "t caron/hachek"
+
+%    \end{macrocode}
+% \end{routine}
+%
+% \begin{routine}{c-t}
+% The `c-t' `ligature'. (o265/hB5/d181)
+%    \begin{macrocode}
+cmchar "c-t";
+beginchar(oct "265", 4u#+hstretch*(7/3x_height#), x_height#, 0);
+adjust_fit(0,0); pcshiftx := u; pickup quill;
+x555=pcshiftx; y555=0; x666=3/7w-pcshiftx; y666=h;
+draw_c(555,666);
+pickup quill;
+x559=x666+2pcshiftx; y559=y555; x669=w-pcshiftx; y669=y666;
+draw_t(559,669);
+%x555=pcshiftx; y555=0; x666=3/7w-pcshiftx; y666=h;
+%draw_c(555,666);
+%pickup quill;
+%x759=x666+2pcshiftx; y759=y555; x769=w-pcshiftx; y769=y666;
+%draw_t(759,769);
+penlabels(555,666,444,559,669);
+endchar; % end "c-t"
+
+%    \end{macrocode}
+% \end{routine}
+%
+%
+% \begin{routine}{uhungarumlaut}
+% The letter `u long umlaut'.  (o266/hB6/d182)
+%    \begin{macrocode}
+cmchar "uhungarumlaut";
+beginchar(oct "266", 2u#+hstretch*(4/3x_height#+jut#), (x_height#), 0);
+adjust_fit(0,0); pcshiftx := u; pickup quill;
+x555=pcshiftx; y555=0; x666=w-pcshiftx-jut; y666=h;
+draw_u(555,666);
+x777=x8; y777luab=y666+accent_gap;
+draw_lumlaut(777);
+penlabels(555,666,444);
+endchar; % end "u long umlaut"
+
+%    \end{macrocode}
+% \end{routine}
+%
+% \begin{routine}{uring}
+% The letter `u ring'.  (o267/hB7/d183)
+%    \begin{macrocode}
+cmchar "uring";
+beginchar(oct "267", 2u#+hstretch*(4/3x_height#+jut#), (x_height#), 0);
+adjust_fit(0,0); pcshiftx := u; pickup quill;
+x555=pcshiftx; y555=0; x666=w-pcshiftx-jut; y666=h;
+draw_u(555,666);
+x777=x8; y777rab=y666+accent_gap;
+draw_ring(777);
+penlabels(555,666,444);
+endchar; % end "u ring"
+
+%    \end{macrocode}
+% \end{routine}
+%
+% \begin{routine}{ydieresis}
+% The letter `y dieresis'.  (o270/hB7/d184)
+%    \begin{macrocode}
+cmchar "AUncial letter y dieresis";
+beginchar(oct "270", 2u#+hstretch*(4/3x_height#), (x_height#), 
+          (desc_depth#));
+adjust_fit(0,0); pcshiftx := u; pickup quill;
+x555=pcshiftx; y555=0; x666=w-pcshiftx; y666=h; x444=x555; y444=-d;
+draw_y_base(555,666,444);
+x777=1/2[x1,x666]; y777ddab=y666+accent_gap;
+draw_dieresis(777);
+penlabels(555,666,444);
+endchar; % end "y dieresis"
+
+%    \end{macrocode}
+% \end{routine}
+%
+% \begin{routine}{zacute}
+% The letter `z acute'. (o271/hB8/d185)
+%    \begin{macrocode}
+cmchar "zacute";
+beginchar(oct "271", 2u#+hstretch*(7/6x_height#), (x_height#), 0);
+adjust_fit(0,0); pcshiftx := u; pickup quill;
+x555=pcshiftx; y555=0; x666=w-pcshiftx; y666=h;
+draw_z(555,666);
+x777aam=1/2[x1,x3]; y777aab=y666+accent_gap;
+draw_acute(777);
+penlabels(555,666,444);
+endchar; % end "z acute"
+
+%    \end{macrocode}
+% \end{routine}
+%
+% \begin{routine}{zcaron}
+% The letter `z caron/hachek'. (o272/hBA/d186)
+%    \begin{macrocode}
+cmchar "zcaron";
+beginchar(oct "272", 2u#+hstretch*(7/6x_height#), (x_height#), 0);
+adjust_fit(0,0); pcshiftx := u; pickup quill;
+x555=pcshiftx; y555=0; x666=w-pcshiftx; y666=h;
+draw_z(555,666);
+x777=1/2[x1,x3]; y777=y666+accent_gap;
+draw_hachek(777);
+penlabels(555,666,444);
+endchar; % end "z caron/hachek"
+
+%    \end{macrocode}
+% \end{routine}
+%
+% \begin{routine}{zdot}
+% The letter `z dot'. (o273/hBB/d187)
+%    \begin{macrocode}
+cmchar "AUncial letter z dot";
+beginchar(oct "273", 2u#+hstretch*(7/6x_height#), (x_height#), 0);
+adjust_fit(0,0); pcshiftx := u; pickup quill;
+x555=pcshiftx; y555=0; x666=w-pcshiftx; y666=h;
+draw_z(555,666);
+x777=1/2[x1,x3]; y777dab=y666+accent_gap;
+draw_dota(777);
+penlabels(555,666,444);
+endchar; % end "z dot"
+
+%    \end{macrocode}
+% \end{routine}
+%
+% \begin{routine}{ij}
+% The letter pair ij. (o274/hBC/d188)
+%    \begin{macrocode}
+cmchar "AUncial letter pair ij";
+beginchar(oct "274", 2u#+hstretch*(2thick#+2jut#), (x_height#), (desc_depth#));
+adjust_fit(0,0); pcshiftx := u; pickup quill;
+x555=pcshiftx+jut = x666; y666=h; y555=0;
+draw_i(555,666);
+x577=x677=x555+thick+jut; y577=-1/2d; y677=y666;
+draw_j(577,677);
+penlabels(555,666);
+endchar; % end "ij"
+
+%    \end{macrocode}
+% \end{routine}
+%
+% \begin{routine}{exclamdown}
+% Exclamation mark upside-down. (o275/hBD/d189)
+%    \begin{macrocode}
+cmchar "exclamdown";
+beginchar(oct "275", 2u#+hstretch*(thick#), asc_height#, 0);
+adjust_fit(0,0); pcshiftx := u; pickup quill;
+lft x1=pcshiftx; bot y1=0;
+x2=x3=x1; y3=h-1/2thick; y2=2/3h;
+draw z1--z2; draw_pdot(3, thick);
+penlabels(1,2,3,4);
+endchar; % end "exclamation down"
+
+%    \end{macrocode}
+% \end{routine}
+%
+% \begin{routine}{questiondown}
+% The `?' character upside-down. (o276/hBE/d190)
+%    \begin{macrocode}
+cmchar "questiondown";
+beginchar(oct "276", 2u#+hstretch*(x_height#),asc_height#, 0);
+adjust_fit(0,0); pcshiftx:=u; pickup quill;
+rt x1=w-pcshiftx; lft x3=pcshiftx; x2=x4=1/2w;
+bot y2=0; y4=1/2h; bot y1=thin; y3=1/2[y4,y2];
+x5=x4; y5=3/4h;
+path p[];
+p1=z1..z2{left}..z3{up}..{right}z4--z5;
+x9=x5; top y9=h;
+  pair vec[];
+  vec1= direction 0 of p1;
+  z11=z1 shifted vec1;
+  x81=rt x1; y81=top y1;
+  x82=x1; y82=y1+0.75jut;
+  draw p1;                          % the curve
+  pickup stylus;
+  filldraw z81--z82--z11--cycle;    % the serif
+  draw_pdot(9,thick);
+  penlabels(1,2,3,4,5,6,7,9,11,17,26,27,28,81,82,100);
+endchar; % end of "query upside-down"
+
+%    \end{macrocode}
+% \end{routine}
+%
+% \begin{routine}{sterling}
+% The pound sterling symbol. (o277/hBF/d191)
+%    \begin{macrocode}
+cmchar "sterling";
+beginchar(oct "277", 2u#+hstretch*caprat*(x_height#), caprat*(asc_height#), 0);
+adjust_fit(0,0); pcshiftx := u; pickup quill;
+x555=pcshiftx+jut; y555=0; x666=w-pcshiftx; y666=h;
+draw_pound(555,666);
+penlabels(555,666);
+endchar; % end "pound"
+
+%    \end{macrocode}
+% \end{routine}
+%
+%
+% The end of this file.
+%
+%    \begin{macrocode}
+%</mid>
+%    \end{macrocode}
+%
+%
+%
+% \section{Upper half}
+%
+% Positions octal 300 through 377 (hex C0 through FF, decimal 192 through 255).
+%
+%    \begin{macrocode}
+%<*top>
+%%% AUNCLTOP.MF  AUncl Top of the code table 
+
+%    \end{macrocode}
+%
+% \begin{routine}{Agrave}
+% The letter `A grave'. (o300/hC0/d192)
+%    \begin{macrocode}
+cmchar "Agrave";
+beginchar(oct "300", 2u#+hstretch*caprat*(x_height#+jut#), caprat*(x_height#), 0);
+adjust_fit(0,0); pcshiftx := u; pickup quill;
+x555=pcshiftx; y555=0; x666=w-u-jut; y666=h;
+draw_a(555,666);
+x777gam=x1; y777gab=y666+1/4accent_ysize;
+draw_grave(777);
+penlabels(555,666,777);
+endchar; % end "A grave"
+
+%    \end{macrocode}
+% \end{routine}
+%
+%
+% \begin{routine}{Aacute}
+% The letter `A acute'. (o301/hC1/d193)
+%    \begin{macrocode}
+cmchar "Aacute";
+beginchar(oct "301", 2u#+hstretch*caprat*(x_height#+jut#), caprat*(x_height#), 0);
+adjust_fit(0,0); pcshiftx := u; pickup quill;
+x555=pcshiftx; y555=0; x666=w-u-jut; y666=h;
+draw_a(555,666);
+x777aam=x1; y777aab=y666+1/4accent_ysize;
+draw_acute(777);
+penlabels(555,666,777);
+endchar; % end "A acute"
+
+%    \end{macrocode}
+% \end{routine}
+%
+%
+% \begin{routine}{Acircumflex}
+% The letter `A circumflex'. (o302/hC2/d194)
+%    \begin{macrocode}
+cmchar "Acircumflex";
+beginchar(oct "302", 2u#+hstretch*caprat*(x_height#+jut#), caprat*(x_height#), 0);
+adjust_fit(0,0); pcshiftx := u; pickup quill;
+x555=pcshiftx; y555=0; x666=w-u-jut; y666=h;
+draw_a(555,666);
+x777=x1; y777=y666+1/4accent_ysize;
+draw_circumflex(777);
+penlabels(555,666,777);
+endchar; % end "A circumflex"
+
+%    \end{macrocode}
+% \end{routine}
+%
+%
+% \begin{routine}{Atilde}
+% The letter `A tilde'. (o303/hC3/d195)
+%    \begin{macrocode}
+cmchar "Atilde";
+beginchar(oct "303", 2u#+hstretch*caprat*(x_height#+jut#), caprat*(x_height#), 0);
+adjust_fit(0,0); pcshiftx := u; pickup quill;
+x555=pcshiftx; y555=0; x666=w-u-jut; y666=h;
+draw_a(555,666);
+x777=x1; y777=y666+1/4accent_ysize;
+draw_tildea(777);
+penlabels(555,666,777);
+endchar; % end "A tilde"
+
+%    \end{macrocode}
+% \end{routine}
+%
+%
+% \begin{routine}{Adieresis}
+% The letter `A umlaut'. (o304/hC4/d196)
+%    \begin{macrocode}
+cmchar "Adieresis";
+beginchar(oct "304", 2u#+hstretch*caprat*(x_height#+jut#), caprat*(x_height#), 0);
+adjust_fit(0,0); pcshiftx := u; pickup quill;
+x555=pcshiftx; y555=0; x666=w-u-jut; y666=h;
+draw_a(555,666);
+x777=x1; y777ddab=y666+1/4accent_ysize;
+draw_dieresis(777);
+penlabels(555,666,777);
+endchar; % end "A umlaut"
+
+%    \end{macrocode}
+% \end{routine}
+%
+%
+% \begin{routine}{Aring}
+% The letter `A ring'. (o305/hC5/d197)
+%    \begin{macrocode}
+cmchar "Aring";
+beginchar(oct "305", 2u#+hstretch*caprat*(x_height#+jut#), caprat*(x_height#), 0);
+adjust_fit(0,0); pcshiftx := u; pickup quill;
+x555=pcshiftx; y555=0; x666=w-u-jut; y666=h;
+draw_a(555,666);
+x777=x1; y777rab=y666;
+draw_ring(777);
+penlabels(555,666,777);
+endchar; % end "A ring"
+
+%    \end{macrocode}
+% \end{routine}
+%
+% \begin{routine}{AE}
+% The letter `Aesc'. (o306/hC6/d198)
+%    \begin{macrocode}
+cmchar "AE";
+beginchar(oct "306", 2u#+hstretch*caprat*(14/8x_height#), caprat*(x_height#), 0);
+adjust_fit(0,0); pcshiftx := u; pickup quill;
+x555=pcshiftx; y555=0; x666=w-pcshiftx; y666=h;
+draw_aesc(555,666);
+penlabels(555,666,777);
+endchar; % end "Aesc"
+
+%    \end{macrocode}
+% \end{routine}
+%
+% \begin{routine}{Ccedilla}
+% The letter `C cedilla'. (o307/hC7/d199)
+%    \begin{macrocode}
+cmchar "Ccedilla";
+beginchar(oct "307", 2u#+hstretch*caprat*(x_height#), caprat*(x_height#), 0);
+adjust_fit(0,0); pcshiftx := u; pickup quill;
+x555=pcshiftx; y555=0; x666=w-pcshiftx; y666=h;
+draw_c(555,666);
+x777=x4; top y777=y4-thin;
+draw_cedilla(777);
+penlabels(555,666);
+endchar; % end "C cedilla"
+
+%    \end{macrocode}
+% \end{routine}
+%
+% \begin{routine}{Egrave}
+% The letter `E grave'. (o310/hC8/d200)
+%    \begin{macrocode}
+cmchar "Egrave";
+beginchar(oct "310", 2u#+hstretch*caprat*(x_height#), caprat*(x_height#), 0);
+adjust_fit(0,0); pcshiftx := u; pickup quill;
+x555=pcshiftx; x666=w-pcshiftx; y555=0; y666=h;
+draw_e(555,666);
+x777gam=x2; y777gab=y666+accent_gap;
+draw_grave(777);
+penlabels(555,666);
+endchar; % end "E grave"
+
+%    \end{macrocode}
+% \end{routine}
+%
+% \begin{routine}{Eacute}
+% The letter `E acute'. (o311/hC9/d201)
+%    \begin{macrocode}
+cmchar "Eacute";
+beginchar(oct "311", 2u#+hstretch*caprat*(x_height#), caprat*(x_height#), 0);
+adjust_fit(0,0); pcshiftx := u; pickup quill;
+x555=pcshiftx; x666=w-pcshiftx; y555=0; y666=h;
+draw_e(555,666);
+x777aam=x2; y777aab=y666+accent_gap;
+draw_acute(777);
+penlabels(555,666);
+endchar; % end "E acute"
+
+%    \end{macrocode}
+% \end{routine}
+%
+% \begin{routine}{Ecircumflex}
+% The letter `E circumflex'. (o312/hCA/d202)
+%    \begin{macrocode}
+cmchar "Ecircumflex";
+beginchar(oct "312", 2u#+hstretch*caprat*(x_height#), caprat*(x_height#), 0);
+adjust_fit(0,0); pcshiftx := u; pickup quill;
+x555=pcshiftx; x666=w-pcshiftx; y555=0; y666=h;
+draw_e(555,666);
+x777=x2; y777=y666+accent_gap;
+draw_circumflex(777);
+penlabels(555,666);
+endchar; % end "E circumflex"
+
+%    \end{macrocode}
+% \end{routine}
+%
+% \begin{routine}{Edieresis}
+% The letter `E umlaut'. (o313/hCB/d203)
+%    \begin{macrocode}
+cmchar "Edieresis";
+beginchar(oct "313", 2u#+hstretch*caprat*(x_height#), caprat*(x_height#), 0);
+adjust_fit(0,0); pcshiftx := u; pickup quill;
+x555=pcshiftx; x666=w-pcshiftx; y555=0; y666=h;
+draw_e(555,666);
+x777=x2; y777ddab=y666+accent_gap;
+draw_dieresis(777);
+penlabels(555,666);
+endchar; % end "E umlaut"
+
+%    \end{macrocode}
+% \end{routine}
+%
+% \begin{routine}{Igrave}
+% I with grave accent. (o314/hCC/d204)
+%    \begin{macrocode}
+cmchar "Igrave";
+beginchar(oct "314", 2u#+hstretch*(thick#+jut#), caprat*(x_height#), 0);
+adjust_fit(0,0); pcshiftx := u; pickup quill;
+x555=pcshiftx+jut = x666; y666=h; y555=0;
+draw_i(555,666);
+x777gam=x555It.a; y777gab=y666+accent_gap;
+pickup accentpen;
+draw_grave(777);
+penlabels(555,666);
+endchar; % end "I grave"
+
+%    \end{macrocode}
+% \end{routine}
+%
+% \begin{routine}{Iacute}
+% I with acute accent. (o315/hCD/d205)
+%    \begin{macrocode}
+cmchar "Iacute";
+beginchar(oct "315", 2u#+hstretch*(thick#+jut#), caprat*(x_height#), 0);
+adjust_fit(0,0); pcshiftx := u; pickup quill;
+x555=pcshiftx+jut = x666; y666=h; y555=0;
+draw_i(555,666);
+x777aam=x555It.a; y777aab=y666+accent_gap;
+pickup accentpen;
+draw_acute(777);
+penlabels(555,666);
+endchar; % end "I acute"
+
+%    \end{macrocode}
+% \end{routine}
+%
+% \begin{routine}{Icircumflex}
+% I with circumflex accent. (o316/hCE/d206)
+%    \begin{macrocode}
+cmchar "Icircumflex";
+beginchar(oct "316", 2u#+hstretch*(thick#+jut#), caprat*(x_height#), 0);
+adjust_fit(0,0); pcshiftx := u; pickup quill;
+x555=pcshiftx+jut = x666; y666=h; y555=0;
+draw_i(555,666);
+x777=x555It.a; y777=y666+accent_gap;
+pickup accentpen;
+draw_circumflex(777);
+penlabels(555,666);
+endchar; % end "I circumflex"
+
+%    \end{macrocode}
+% \end{routine}
+%
+% \begin{routine}{Idieresis}
+% I with umlaut. (o317/hCF/d207)
+%    \begin{macrocode}
+cmchar "Idieresis";
+beginchar(oct "317", 2u#+hstretch*(thick#+jut#), caprat*(x_height#), 0);
+adjust_fit(0,0); pcshiftx := u; pickup quill;
+x555=pcshiftx+jut = x666; y666=h; y555=0;
+draw_i(555,666);
+x777=x555It.a; y777ddab=y666+accent_gap;
+pickup accentpen;
+draw_dieresis(777);
+penlabels(555,666);
+endchar; % end "I umlaut"
+
+%    \end{macrocode}
+% \end{routine}
+%
+% \begin{routine}{Eth}
+% The letter `Eth' or `Dyet'. (o320/hD0/d208)
+%    \begin{macrocode}
+cmchar "Eth";
+beginchar(oct "320", 2u#+hstretch*caprat*(4/3x_height#), caprat*(4/3x_height#), 0);
+adjust_fit(0,0); pcshiftx := u; pickup quill;
+x555=pcshiftx; x666=w-pcshiftx; y555=0; y666=h;
+draw_dyet(555,666);
+penlabels(555,666);
+endchar; % end "Eth"
+
+%    \end{macrocode}
+% \end{routine}
+%
+% \begin{routine}{Ntilde}
+% The letter `N tilde'.  (o321/hD1/d209)
+%    \begin{macrocode}
+cmchar "Ntilde";
+beginchar(oct "321", 2u#+hstretch*caprat*(2jut#+x_height#), caprat*(x_height#), 
+          caprat*(0.5desc_depth#));
+adjust_fit(0,0); pcshiftx := u; pickup quill;
+x555=pcshiftx+jut; y555=0; x666=w-pcshiftx-jut; y666=h;
+draw_n(555,666);
+x777=1/2[x555nlt,x555nrt]; y777=y666+accent_gap;
+draw_tildea(777);
+penlabels(555,666);
+endchar; % end "N tilde"
+
+%    \end{macrocode}
+% \end{routine}
+%
+% \begin{routine}{Ograve}
+% The letter `O grave'. (o322/hD2/d210)
+%    \begin{macrocode}
+cmchar "Ograve";
+beginchar(oct "322", 2u#+hstretch*caprat*(7/6x_height#), caprat*(x_height#), 0);
+adjust_fit(0,0); pcshiftx := u; pickup quill;
+x555=pcshiftx; y555=-o; x666=w-pcshiftx; y666=h+o;
+draw_o(555,666);
+x777gam=x2; y777gab=y666+accent_gap;
+draw_grave(777);
+penlabels(555,666);
+endchar; % end "O grave"
+
+%    \end{macrocode}
+% \end{routine}
+%
+% \begin{routine}{Oacute}
+% The letter `O acute'. (o323/hD3/d211)
+%    \begin{macrocode}
+cmchar "Oacute";
+beginchar(oct "323", 2u#+hstretch*caprat*(7/6x_height#), caprat*(x_height#), 0);
+adjust_fit(0,0); pcshiftx := u; pickup quill;
+x555=pcshiftx; y555=-o; x666=w-pcshiftx; y666=h+o;
+draw_o(555,666);
+x777aam=x2; y777aab=y666+accent_gap;
+draw_acute(777);
+penlabels(555,666);
+endchar; % end "O acute"
+
+%    \end{macrocode}
+% \end{routine}
+%
+% \begin{routine}{Ocircumflex}
+% The letter `O circumflex'. (o324/hD4/d212)
+%    \begin{macrocode}
+cmchar "Ocircumflex";
+beginchar(oct "324", 2u#+hstretch*caprat*(7/6x_height#), caprat*(x_height#), 0);
+adjust_fit(0,0); pcshiftx := u; pickup quill;
+x555=pcshiftx; y555=-o; x666=w-pcshiftx; y666=h+o;
+draw_o(555,666);
+x777=x2; y777=y666+accent_gap;
+draw_circumflex(777);
+penlabels(555,666);
+endchar; % end "O circumflex"
+
+%    \end{macrocode}
+% \end{routine}
+%
+% \begin{routine}{Otilde}
+% The letter `O tilde'. (o325/hD5/d213)
+%    \begin{macrocode}
+cmchar "Otilde";
+beginchar(oct "325", 2u#+hstretch*caprat*(7/6x_height#), caprat*(x_height#), 0);
+adjust_fit(0,0); pcshiftx := u; pickup quill;
+x555=pcshiftx; y555=-o; x666=w-pcshiftx; y666=h+o;
+draw_o(555,666);
+x777=x2; y777=y666+accent_gap;
+draw_tildea(777);
+penlabels(555,666);
+endchar; % end "O tilde"
+
+%    \end{macrocode}
+% \end{routine}
+%
+% \begin{routine}{Odieresis}
+% The letter `O dieresis'. (o326/hD6/d214)
+%    \begin{macrocode}
+cmchar "Odieresis";
+beginchar(oct "326", 2u#+hstretch*caprat*(7/6x_height#), caprat*(x_height#), 0);
+adjust_fit(0,0); pcshiftx := u; pickup quill;
+x555=pcshiftx; y555=-o; x666=w-pcshiftx; y666=h+o;
+draw_o(555,666);
+x777=x2; y777ddab=y666+accent_gap;
+draw_dieresis(777);
+penlabels(555,666);
+endchar; % end "O dieresis"
+
+%    \end{macrocode}
+% \end{routine}
+%
+% \begin{routine}{OE}
+% The letter `Ethel'.  (o327/hD7/d215)
+%    \begin{macrocode}
+cmchar "OE";
+beginchar(oct "327", 2u#+hstretch*caprat*(2x_height#-jut#), caprat*(x_height#), 0);
+adjust_fit(0,0); pcshiftx := u; pickup quill;
+x555=pcshiftx; y555=-o; x666=w-pcshiftx; y666=h+o;
+draw_ethel(555,666);
+penlabels(555,666);
+endchar; % end "Ethel"
+
+%    \end{macrocode}
+% \end{routine}
+%
+% \begin{routine}{Oslash}
+% The letter `O slash'. (o330/hD8/d216)
+%    \begin{macrocode}
+cmchar "Oslash";
+beginchar(oct "330", 2u#+hstretch*caprat*(7/6x_height#), caprat*(x_height#), 0);
+adjust_fit(0,0); pcshiftx := u; pickup quill;
+x555=pcshiftx; y555=-o; x666=w-pcshiftx; y666=h+o;
+draw_o(555,666);
+pickup stylus;
+x777=x2; y777=y666+accent_gap; z771=(x555,y4); z772=(x666,y2);
+draw z771--z772;
+penlabels(555,666,771,772);
+endchar; % end "O slash"
+
+%    \end{macrocode}
+% \end{routine}
+%
+% \begin{routine}{Ugrave}
+% The letter `U grave'.  (o331/hD9/d217)
+%    \begin{macrocode}
+cmchar "Ugrave";
+beginchar(oct "331", 2u#+hstretch*caprat*(4/3x_height#+jut#), caprat*(x_height#), 0);
+adjust_fit(0,0); pcshiftx := u; pickup quill;
+x555=pcshiftx; y555=0; x666=w-pcshiftx-jut; y666=h;
+draw_u(555,666);
+x777gam=x8; y777gab=y666+accent_gap;
+draw_grave(777);
+penlabels(555,666,444);
+endchar; % end "U grave"
+
+%    \end{macrocode}
+% \end{routine}
+%
+% \begin{routine}{Uacute}
+% The letter `U acute'.  (o332/hDA/d218)
+%    \begin{macrocode}
+cmchar "Uacute";
+beginchar(oct "332", 2u#+hstretch*caprat*(4/3x_height#+jut#), caprat*(x_height#), 0);
+adjust_fit(0,0); pcshiftx := u; pickup quill;
+x555=pcshiftx; y555=0; x666=w-pcshiftx-jut; y666=h;
+draw_u(555,666);
+x777aam=x8; y777aab=y666+accent_gap;
+draw_acute(777);
+penlabels(555,666,444);
+endchar; % end "U acute"
+
+%    \end{macrocode}
+% \end{routine}
+%
+% \begin{routine}{Ucircumflex}
+% The letter `U circumflex'.  (o333/hDB/d219)
+%    \begin{macrocode}
+cmchar "Ucircumflex";
+beginchar(oct "333", 2u#+hstretch*caprat*(4/3x_height#+jut#), caprat*(x_height#), 0);
+adjust_fit(0,0); pcshiftx := u; pickup quill;
+x555=pcshiftx; y555=0; x666=w-pcshiftx-jut; y666=h;
+draw_u(555,666);
+x777=x8; y777=y666+accent_gap;
+draw_circumflex(777);
+penlabels(555,666,444);
+endchar; % end "U circumflex"
+
+%    \end{macrocode}
+% \end{routine}
+%
+% \begin{routine}{Udieresis}
+% The letter `U dieresis'.  (o334/hDC/d220)
+%    \begin{macrocode}
+cmchar "Udieresis";
+beginchar(oct "334", 2u#+hstretch*caprat*(4/3x_height#+jut#), caprat*(x_height#), 0);
+adjust_fit(0,0); pcshiftx := u; pickup quill;
+x555=pcshiftx; y555=0; x666=w-pcshiftx-jut; y666=h;
+draw_u(555,666);
+x777=x8; y777ddab=y666+accent_gap;
+draw_dieresis(777);
+penlabels(555,666,444);
+endchar; % end "U dieresis"
+
+%    \end{macrocode}
+% \end{routine}
+%
+% \begin{routine}{Yacute}
+% The letter `Y acute'.  (o335/hDD/d221)
+%    \begin{macrocode}
+cmchar "Yacute";
+beginchar(oct "335", 2u#+hstretch*caprat*(4/3x_height#), caprat*(x_height#), 
+          caprat*(desc_depth#));
+adjust_fit(0,0); pcshiftx := u; pickup quill;
+x555=pcshiftx; y555=0; x666=w-pcshiftx; y666=h; x444=x555; y444=-d;
+draw_y_base(555,666,444);
+x777aam=1/2[x1,x666]; y777aab=y666+accent_gap;
+draw_acute(777);
+penlabels(555,666,444);
+endchar; % end "Y acute"
+
+%    \end{macrocode}
+% \end{routine}
+%
+% \begin{routine}{Thorn}
+% The letter `Thorn'. (o336/hDE/d222)
+%    \begin{macrocode}
+cmchar "Thorn";
+beginchar(oct "336", 2u#+hstretch*caprat*(7/6x_height#), caprat*(x_height#), 
+          caprat*(desc_depth#));
+adjust_fit(0,0); pcshiftx := u; pickup quill;
+x555=pcshiftx+jut; y555=0; x666=w-pcshiftx; y666=h;
+x444=x555; y444=-1/2d;
+draw_thorn(555,666,444);
+penlabels(555,666,444);
+endchar; % end "Thorn"
+
+%    \end{macrocode}
+% \end{routine}
+%
+% \begin{routine}{Germandbls}
+% The letter Eszett. (o337/hDF/d223)
+%    \begin{macrocode}
+cmchar "Germandbls";
+beginchar(oct "337", 3u#+hstretch*caprat*(14/8x_height#), caprat*(x_height#), 0);
+adjust_fit(0,0); pcshiftx := u; pickup quill;
+x555=pcshiftx; y555=0; x666=1/2w-1/2pcshiftx; y666=h;
+x755=1/2w+1/2pcshiftx; x866=w-pcshiftx; y755=y555; y866=y666;
+draw_s(555,666);
+pickup quill;
+draw_s(755,866);
+penlabels(555,666,755,866,444);
+endchar; % end "Eszett"
+
+%    \end{macrocode}
+% \end{routine}
+%
+%
+%
+%
+% \begin{routine}{agrave}
+% The letter `a grave'. (o340/hE0/d224)
+%    \begin{macrocode}
+cmchar "agrave";
+beginchar(oct "340", 2u#+hstretch*(x_height#+jut#), (x_height#), 0);
+adjust_fit(0,0); pcshiftx := u; pickup quill;
+x555=pcshiftx; y555=0; x666=w-u-jut; y666=h;
+draw_a(555,666);
+x777gam=x1; y777gab=y666+1/4accent_ysize;
+draw_grave(777);
+penlabels(555,666,777);
+endchar; % end "a grave"
+
+%    \end{macrocode}
+% \end{routine}
+%
+%
+% \begin{routine}{aacute}
+% The letter `a acute'. (o341/hE1/d225)
+%    \begin{macrocode}
+cmchar "aacute";
+beginchar(oct "341", 2u#+hstretch*(x_height#+jut#), (x_height#), 0);
+adjust_fit(0,0); pcshiftx := u; pickup quill;
+x555=pcshiftx; y555=0; x666=w-u-jut; y666=h;
+draw_a(555,666);
+x777aam=x1; y777aab=y666+1/4accent_ysize;
+draw_acute(777);
+penlabels(555,666,777);
+endchar; % end "a acute"
+
+%    \end{macrocode}
+% \end{routine}
+%
+%
+% \begin{routine}{acircumflex}
+% The letter `a circumflex'. (o342/hE2/d226)
+%    \begin{macrocode}
+cmchar "acircumflex";
+beginchar(oct "342", 2u#+hstretch*(x_height#+jut#), (x_height#), 0);
+adjust_fit(0,0); pcshiftx := u; pickup quill;
+x555=pcshiftx; y555=0; x666=w-u-jut; y666=h;
+draw_a(555,666);
+x777=x1; y777=y666+1/4accent_ysize;
+draw_circumflex(777);
+penlabels(555,666,777);
+endchar; % end "a circumflex"
+
+%    \end{macrocode}
+% \end{routine}
+%
+%
+% \begin{routine}{atilde}
+% The letter `a tilde'. (o343/hE3/d227)
+%    \begin{macrocode}
+cmchar "atilde";
+beginchar(oct "343", 2u#+hstretch*(x_height#+jut#), (x_height#), 0);
+adjust_fit(0,0); pcshiftx := u; pickup quill;
+x555=pcshiftx; y555=0; x666=w-u-jut; y666=h;
+draw_a(555,666);
+x777=x1; y777=y666+1/4accent_ysize;
+draw_tildea(777);
+penlabels(555,666,777);
+endchar; % end "a tilde"
+
+%    \end{macrocode}
+% \end{routine}
+%
+%
+% \begin{routine}{adieresis}
+% The letter `a umlaut'. (o344/hE4/d228)
+%    \begin{macrocode}
+cmchar "adieresis";
+beginchar(oct "344", 2u#+hstretch*(x_height#+jut#), (x_height#), 0);
+adjust_fit(0,0); pcshiftx := u; pickup quill;
+x555=pcshiftx; y555=0; x666=w-u-jut; y666=h;
+draw_a(555,666);
+x777=x1; y777ddab=y666+1/4accent_ysize;
+draw_dieresis(777);
+penlabels(555,666,777);
+endchar; % end "a umlaut"
+
+%    \end{macrocode}
+% \end{routine}
+%
+%
+% \begin{routine}{aring}
+% The letter `a ring'. (o345/hE5/d229)
+%    \begin{macrocode}
+cmchar "aring";
+beginchar(oct "345", 2u#+hstretch*(x_height#+jut#), (x_height#), 0);
+adjust_fit(0,0); pcshiftx := u; pickup quill;
+x555=pcshiftx; y555=0; x666=w-u-jut; y666=h;
+draw_a(555,666);
+x777=x1; y777rab=y666;
+draw_ring(777);
+penlabels(555,666,777);
+endchar; % end "a ring"
+
+%    \end{macrocode}
+% \end{routine}
+%
+% \begin{routine}{ae}
+% The letter `aesc'. (o346/hE6/d230)
+%    \begin{macrocode}
+cmchar "ae";
+beginchar(oct "346", 2u#+hstretch*(12/8x_height#), (x_height#), 0);
+adjust_fit(0,0); pcshiftx := u; pickup quill;
+x555=pcshiftx; y555=0; x666=w-pcshiftx; y666=h;
+draw_aesc(555,666);
+penlabels(555,666,777);
+endchar; % end "aesc"
+
+%    \end{macrocode}
+% \end{routine}
+%
+%
+% \begin{routine}{ccedilla}
+% The letter `c cedilla'. (o347/hE7/d231)
+%    \begin{macrocode}
+cmchar "ccedilla";
+beginchar(oct "347", 2u#+hstretch*(x_height#), (x_height#), 0);
+adjust_fit(0,0); pcshiftx := u; pickup quill;
+x555=pcshiftx; y555=0; x666=w-pcshiftx; y666=h;
+draw_c(555,666);
+x777=x4; top y777=y555;
+draw_cedilla(777);
+penlabels(555,666);
+endchar; % end "c cedilla"
+
+%    \end{macrocode}
+% \end{routine}
+%
+% \begin{routine}{egrave}
+% The letter `e grave'. (o350/hE8/d232)
+%    \begin{macrocode}
+cmchar "egrave";
+beginchar(oct "350", 2u#+hstretch*(x_height#), (x_height#), 0);
+adjust_fit(0,0); pcshiftx := u; pickup quill;
+x555=pcshiftx; x666=w-pcshiftx; y555=0; y666=h;
+draw_e(555,666);
+x777gam=x2; y777gab=y666+accent_gap;
+draw_grave(777);
+penlabels(555,666);
+endchar; % end "e grave"
+
+%    \end{macrocode}
+% \end{routine}
+%
+% \begin{routine}{eacute}
+% The letter `e acute'. (o351/hE9/d233)
+%    \begin{macrocode}
+cmchar "AUncial letter e acute";
+beginchar(oct "351", 2u#+hstretch*(x_height#), (x_height#), 0);
+adjust_fit(0,0); pcshiftx := u; pickup quill;
+x555=pcshiftx; x666=w-pcshiftx; y555=0; y666=h;
+draw_e(555,666);
+x777aam=x2; y777aab=y666+accent_gap;
+draw_acute(777);
+penlabels(555,666);
+endchar; % end "e acute"
+
+%    \end{macrocode}
+% \end{routine}
+%
+% \begin{routine}{ecircumflex}
+% The letter `e circumflex'. (o352/hEA/d234)
+%    \begin{macrocode}
+cmchar "ecircumflex";
+beginchar(oct "352", 2u#+hstretch*(x_height#), (x_height#), 0);
+adjust_fit(0,0); pcshiftx := u; pickup quill;
+x555=pcshiftx; x666=w-pcshiftx; y555=0; y666=h;
+draw_e(555,666);
+x777=x2; y777=y666+accent_gap;
+draw_circumflex(777);
+penlabels(555,666);
+endchar; % end "e circumflex"
+
+%    \end{macrocode}
+% \end{routine}
+%
+% \begin{routine}{edieresis}
+% The letter `e umlaut'. (o353/hEB/d235)
+%    \begin{macrocode}
+cmchar "AUncial letter e umlaut";
+beginchar(oct "353", 2u#+hstretch*(x_height#), (x_height#), 0);
+adjust_fit(0,0); pcshiftx := u; pickup quill;
+x555=pcshiftx; x666=w-pcshiftx; y555=0; y666=h;
+draw_e(555,666);
+x777=x2; y777ddab=y666+accent_gap;
+draw_dieresis(777);
+penlabels(555,666);
+endchar; % end "e umlaut"
+
+%    \end{macrocode}
+% \end{routine}
+%
+% \begin{routine}{igrave}
+% i with grave accent. (o354/hEC/d236)
+%    \begin{macrocode}
+cmchar "igrave";
+beginchar(oct "354", 2u#+hstretch*(thick#+jut#), (x_height#), 0);
+adjust_fit(0,0); pcshiftx := u; pickup quill;
+x555=pcshiftx+jut = x666; y666=h; y555=0;
+draw_i(555,666);
+x777gam=x555It.a; y777gab=y666+accent_gap;
+pickup accentpen;
+draw_grave(777);
+penlabels(555,666);
+endchar; % end "i grave"
+
+%    \end{macrocode}
+% \end{routine}
+%
+% \begin{routine}{iacute}
+% i with acute accent. (o355/hED/d237)
+%    \begin{macrocode}
+cmchar "iacute";
+beginchar(oct "355", 2u#+hstretch*(thick#+jut#), (x_height#), 0);
+adjust_fit(0,0); pcshiftx := u; pickup quill;
+x555=pcshiftx+jut = x666; y666=h; y555=0;
+draw_i(555,666);
+x777aam=x555It.a; y777aab=y666+accent_gap;
+pickup accentpen;
+draw_acute(777);
+penlabels(555,666);
+endchar; % end "i acute"
+
+%    \end{macrocode}
+% \end{routine}
+%
+% \begin{routine}{icircumflex}
+% i with circumflex accent. (o356/hEE/d238)
+%    \begin{macrocode}
+cmchar "icircumflex";
+beginchar(oct "356", 2u#+hstretch*(thick#+jut#), (x_height#), 0);
+adjust_fit(0,0); pcshiftx := u; pickup quill;
+x555=pcshiftx+jut = x666; y666=h; y555=0;
+draw_i(555,666);
+x777=x555It.a; y777=y666+accent_gap;
+pickup accentpen;
+draw_circumflex(777);
+penlabels(555,666);
+endchar; % end "i circumflex"
+
+%    \end{macrocode}
+% \end{routine}
+%
+% \begin{routine}{idieresis}
+% i with umlaut. (o357/hEF/d239)
+%    \begin{macrocode}
+cmchar "idieresis";
+beginchar(oct "357", 2u#+hstretch*(thick#+jut#), (x_height#), 0);
+adjust_fit(0,0); pcshiftx := u; pickup quill;
+x555=pcshiftx+jut = x666; y666=h; y555=0;
+draw_i(555,666);
+x777=x555It.a; y777ddab=y666+accent_gap;
+pickup accentpen;
+draw_dieresis(777);
+penlabels(555,666);
+endchar; % end "i umlaut"
+
+%    \end{macrocode}
+% \end{routine}
+%
+%
+% \begin{routine}{eth}
+% The letter `eth'. (o360/hF0/d240)
+%    \begin{macrocode}
+cmchar "eth";
+beginchar(oct "360", 2u#+hstretch*(4/3x_height#), (4/3x_height#), 0);
+adjust_fit(0,0); pcshiftx := u; pickup quill;
+x555=pcshiftx; x666=w-pcshiftx; y555=0; y666=h;
+draw_dyet(555,666);
+penlabels(555,666);
+endchar; % end "dyet"
+
+%    \end{macrocode}
+% \end{routine}
+%
+% \begin{routine}{ntilde}
+% The letter `n tilde'.  (o361/hF1/d241)
+%    \begin{macrocode}
+cmchar "ntilde";
+beginchar(oct "361", 2u#+hstretch*(2jut#+x_height#), (x_height#), 
+          caprat*(0.5desc_depth#));
+adjust_fit(0,0); pcshiftx := u; pickup quill;
+x555=pcshiftx+jut; y555=0; x666=w-pcshiftx-jut; y666=h;
+draw_n(555,666);
+x777=1/2[x555nlt,x555nrt]; y777=y666+accent_gap;
+draw_tildea(777);
+penlabels(555,666);
+endchar; % end "n tilde"
+
+%    \end{macrocode}
+% \end{routine}
+%
+% \begin{routine}{ograve}
+% The letter `o grave'. (o362/hF2/d242)
+%    \begin{macrocode}
+cmchar "ograve";
+beginchar(oct "362", 2u#+hstretch*(7/6x_height#), (x_height#), 0);
+adjust_fit(0,0); pcshiftx := u; pickup quill;
+x555=pcshiftx; y555=-o; x666=w-pcshiftx; y666=h+o;
+draw_o(555,666);
+x777gam=x2; y777gab=y666+accent_gap;
+draw_grave(777);
+penlabels(555,666);
+endchar; % end "o grave"
+
+%    \end{macrocode}
+% \end{routine}
+%
+% \begin{routine}{oacute}
+% The letter `o acute'. (o363/hF3/d243)
+%    \begin{macrocode}
+cmchar "oacute";
+beginchar(oct "363", 2u#+hstretch*(7/6x_height#), (x_height#), 0);
+adjust_fit(0,0); pcshiftx := u; pickup quill;
+x555=pcshiftx; y555=-o; x666=w-pcshiftx; y666=h+o;
+draw_o(555,666);
+x777aam=x2; y777aab=y666+accent_gap;
+draw_acute(777);
+penlabels(555,666);
+endchar; % end "o acute"
+
+%    \end{macrocode}
+% \end{routine}
+%
+% \begin{routine}{ocircumflex}
+% The letter `o circumflex'. (o364/hF4/d244)
+%    \begin{macrocode}
+cmchar "ocircumflex";
+beginchar(oct "364", 2u#+hstretch*(7/6x_height#), (x_height#), 0);
+adjust_fit(0,0); pcshiftx := u; pickup quill;
+x555=pcshiftx; y555=-o; x666=w-pcshiftx; y666=h+o;
+draw_o(555,666);
+x777=x2; y777=y666+accent_gap;
+draw_circumflex(777);
+penlabels(555,666);
+endchar; % end "o circumflex"
+
+%    \end{macrocode}
+% \end{routine}
+%
+% \begin{routine}{otilde}
+% The letter `o tilde'. (o365/hF5/d245)
+%    \begin{macrocode}
+cmchar "otilde";
+beginchar(oct "365", 2u#+hstretch*(7/6x_height#), (x_height#), 0);
+adjust_fit(0,0); pcshiftx := u; pickup quill;
+x555=pcshiftx; y555=-o; x666=w-pcshiftx; y666=h+o;
+draw_o(555,666);
+x777=x2; y777=y666+accent_gap;
+draw_tildea(777);
+penlabels(555,666);
+endchar; % end "o tilde"
+
+%    \end{macrocode}
+% \end{routine}
+%
+% \begin{routine}{odieresis}
+% The letter `o dieresis'. (o366/hF6/d246)
+%    \begin{macrocode}
+cmchar "odieresis";
+beginchar(oct "366", 2u#+hstretch*(7/6x_height#), (x_height#), 0);
+adjust_fit(0,0); pcshiftx := u; pickup quill;
+x555=pcshiftx; y555=-o; x666=w-pcshiftx; y666=h+o;
+draw_o(555,666);
+x777=x2; y777ddab=y666+accent_gap;
+draw_dieresis(777);
+penlabels(555,666);
+endchar; % end "o dieresis"
+
+%    \end{macrocode}
+% \end{routine}
+%
+% \begin{routine}{oe}
+% The letter `ethel'. (o367/hF7/d247)
+%    \begin{macrocode}
+cmchar "oe";
+beginchar(oct "367", 2u#+hstretch*(2x_height#-jut#), (x_height#), 0);
+adjust_fit(0,0); pcshiftx := u; pickup quill;
+x555=pcshiftx; y555=-o; x666=w-pcshiftx; y666=h+o;
+draw_ethel(555,666);
+penlabels(555,666);
+endchar; % end "ethel"
+
+%    \end{macrocode}
+% \end{routine}
+%
+% \begin{routine}{oslash}
+% The letter `o slash'. (o370/hF8/d248)
+%    \begin{macrocode}
+cmchar "oslash";
+beginchar(oct "370", 2u#+hstretch*(7/6x_height#), (x_height#), 0);
+adjust_fit(0,0); pcshiftx := u; pickup quill;
+x555=pcshiftx; y555=-o; x666=w-pcshiftx; y666=h+o;
+draw_o(555,666);
+pickup stylus;
+x777=x2; y777=y666+accent_gap; z771=(x555,y4); z772=(x666,y2);
+draw z771--z772;
+penlabels(555,666,771,772);
+endchar; % end "o slash"
+
+%    \end{macrocode}
+% \end{routine}
+%
+% \begin{routine}{ugrave}
+% The letter `u grave'.  (o371/hF9/d249)
+%    \begin{macrocode}
+cmchar "ugrave";
+beginchar(oct "371", 2u#+hstretch*(4/3x_height#+jut#), (x_height#), 0);
+adjust_fit(0,0); pcshiftx := u; pickup quill;
+x555=pcshiftx; y555=0; x666=w-pcshiftx-jut; y666=h;
+draw_u(555,666);
+x777gam=x8; y777gab=y666+accent_gap;
+draw_grave(777);
+penlabels(555,666,444);
+endchar; % end "u grave"
+
+%    \end{macrocode}
+% \end{routine}
+%
+% \begin{routine}{uacute}
+% The letter `u acute'.  (o372/hFA/d250)
+%    \begin{macrocode}
+cmchar "uacute";
+beginchar(oct "372", 2u#+hstretch*(4/3x_height#+jut#), (x_height#), 0);
+adjust_fit(0,0); pcshiftx := u; pickup quill;
+x555=pcshiftx; y555=0; x666=w-pcshiftx-jut; y666=h;
+draw_u(555,666);
+x777aam=x8; y777aab=y666+accent_gap;
+draw_acute(777);
+penlabels(555,666,444);
+endchar; % end "u acute"
+
+%    \end{macrocode}
+% \end{routine}
+%
+% \begin{routine}{ucircumflex}
+% The letter `u circumflex'.  (o373/hFB/d251)
+%    \begin{macrocode}
+cmchar "ucircumflex";
+beginchar(oct "373", 2u#+hstretch*(4/3x_height#+jut#), (x_height#), 0);
+adjust_fit(0,0); pcshiftx := u; pickup quill;
+x555=pcshiftx; y555=0; x666=w-pcshiftx-jut; y666=h;
+draw_u(555,666);
+x777=x8; y777=y666+accent_gap;
+draw_circumflex(777);
+penlabels(555,666,444);
+endchar; % end "u circumflex"
+
+%    \end{macrocode}
+% \end{routine}
+%
+% \begin{routine}{udieresis}
+% The letter `u dieresis'.  (o374/hFC/d252)
+%    \begin{macrocode}
+cmchar "udieresis";
+beginchar(oct "374", 2u#+hstretch*(4/3x_height#+jut#), (x_height#), 0);
+adjust_fit(0,0); pcshiftx := u; pickup quill;
+x555=pcshiftx; y555=0; x666=w-pcshiftx-jut; y666=h;
+draw_u(555,666);
+x777=x8; y777ddab=y666+accent_gap;
+draw_dieresis(777);
+penlabels(555,666,444);
+endchar; % end "u dieresis"
+
+%    \end{macrocode}
+% \end{routine}
+%
+% \begin{routine}{yacute}
+% The letter `y acute'.  (o375/hFD/d253)
+%    \begin{macrocode}
+cmchar "yacute";
+beginchar(oct "375", 2u#+hstretch*(4/3x_height#), (x_height#), 
+          (desc_depth#));
+adjust_fit(0,0); pcshiftx := u; pickup quill;
+x555=pcshiftx; y555=0; x666=w-pcshiftx; y666=h; x444=x555; y444=-d;
+draw_y_base(555,666,444);
+x777aam=1/2[x1,x666]; y777aab=y666+accent_gap;
+draw_acute(777);
+penlabels(555,666,444);
+endchar; % end "y acute"
+
+%    \end{macrocode}
+% \end{routine}
+%
+% \begin{routine}{thorn}
+% The letter `thorn'. (o376/hFE/d254)
+%    \begin{macrocode}
+cmchar "thorn";
+beginchar(oct "376", 2u#+hstretch*(7/6x_height#), (x_height#), 
+          caprat*(desc_depth#));
+adjust_fit(0,0); pcshiftx := u; pickup quill;
+x555=pcshiftx+jut; y555=0; x666=w-pcshiftx; y666=h; x444=x555; y444=-1/2d;
+draw_thorn(555,666,444);
+penlabels(555,666,444);
+endchar; % end "thorn"
+
+%    \end{macrocode}
+% \end{routine}
+%
+% \begin{routine}{germandbls}
+% The letter eszett. (o377/hFF/d255)
+%    \begin{macrocode}
+cmchar "germandbls";
+beginchar(oct "377", 2u#+hstretch*(x_height#+jut#), (asc_height#), 1/2desc_depth#);
+adjust_fit(0,0); pcshiftx := u; pickup quill;
+x555=pcshiftx+jut; y555=0; x666=w-pcshiftx; y666=h; x444=x555; y444=-d;
+draw_eszett(555,666,444);
+penlabels(555,666,444);
+endchar; % end "eszett"
+
+%    \end{macrocode}
+% \end{routine}
+%
+%
+%
+% The end of the file
+%
+%    \begin{macrocode}
+%</top>
+%    \end{macrocode}
+%
+%
+%
+% \Finale
+%
+\endinput
+
+%% \CharacterTable
+%%  {Upper-case    \A\B\C\D\E\F\G\H\I\J\K\L\M\N\O\P\Q\R\S\T\U\V\W\X\Y\Z
+%%   Lower-case    \a\b\c\d\e\f\g\h\i\j\k\l\m\n\o\p\q\r\s\t\u\v\w\x\y\z
+%%   Digits        \0\1\2\3\4\5\6\7\8\9
+%%   Exclamation   \!     Double quote  \"     Hash (number) \#
+%%   Dollar        \$     Percent       \%     Ampersand     \&
+%%   Acute accent  \'     Left paren    \(     Right paren   \)
+%%   Asterisk      \*     Plus          \+     Comma         \,
+%%   Minus         \-     Point         \.     Solidus       \/
+%%   Colon         \:     Semicolon     \;     Less than     \<
+%%   Equals        \=     Greater than  \>     Question mark \?
+%%   Commercial at \@     Left bracket  \[     Backslash     \\
+%%   Right bracket \]     Circumflex    \^     Underscore    \_
+%%   Grave accent  \`     Left brace    \{     Vertical bar  \|
+%%   Right brace   \}     Tilde         \~}
+
+

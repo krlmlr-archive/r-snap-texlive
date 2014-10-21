@@ -1,0 +1,652 @@
+% \iffalse meta-comment
+%
+% fetamont.dtx --- LaTeX package for logos related to METAFONT written 
+% with the typeface Fetamont.
+%
+% Copyright (C) 2014 by Linus Romer
+%
+% This work may be distributed and/or modified under the
+% conditions of the LaTeX Project Public License, either version 1.3
+% of this license or (at your option) any later version.
+% The latest version of this license is in
+% http://www.latex-project.org/lppl.txt
+% and version 1.3 or later is part of all distributions of LaTeX
+% version 2011/06/27 or later.
+%
+% This work has the LPPL maintenance status `maintained'.
+% 
+% The Current Maintainer of this work is Linus Romer.
+%
+% \fi
+%
+% \iffalse
+%<package>\NeedsTeXFormat{LaTeX2e}[1994/06/01]
+%<package>\ProvidesPackage{fetamont}
+%<package>[2014/06/03 v1.4 class to use the fetamont font]
+%<T1ffm>\ProvidesFile{T1ffm.fd}
+%<T1ffmw>\ProvidesFile{T1ffmw.fd}
+%
+%<*driver>
+\documentclass{ltxdoc}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{fetamont,lmodern,array,url}
+
+\providecommand{\textttc}[1]{\texttt{\fontseries{lc}\selectfont #1}}
+
+\GetFileInfo{fetamont.sty}
+
+\begin{document}
+ \DocInput{fetamont.dtx}
+\end{document}
+%</driver>
+% \fi
+%
+% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+% \changes{1.0} {2014/01/02}{initial version}
+% \changes{1.1} {2014/01/03}{changed the filename ffmchar_ij.mf to 
+%  ffmchar_ijlower.mf}
+% \changes{1.2} {2014/01/09}{refined the paths and the outline 
+%  production slightly; solved the BlueValues zones overlap problem; 
+%  separated the map file from the dtx file; added a list of files to 
+%  the README; improved the documentations}
+% \changes{1.3} {2014/03/18}{refined the paths again slightly; added a 
+%  randomize feature to the OpenType versions of the script faces; 
+%  improved the typeface documentation}
+% \changes{1.4} {2014/06/03}{reduced the number of files drastically, 
+%  this has changed the shape of letters like IJ in the script faces; 
+%  improved the English of the typeface documentation; added a compiled 
+%  version of the package documentation}
+%
+% \title{The Fetamont Package}
+% \author{Linus Romer}
+% \date{\today{} --- v1.4}
+%
+% \maketitle
+% \tableofcontents
+%
+% \section{Introduction}
+% The logo font, known from logos like \MF{} or \MP{}, has been very 
+% limited in its collection of glyphs. The new typeface \emph{Fetamont} 
+% extends the logo typeface in two ways:
+% \begin{itemize}
+%  \item Fetamont consists of 256 glyphs, such that the T1 (a.k.a.\ EC, 
+%   a.k.a.\ Cork) encoding table is complete now.
+%  \item Fetamont has additional faces like ``light ultracondensed'' or 
+%   ``script''.
+% \end{itemize}
+% The \verb|fetamont| package provides \LaTeX{} support for the 
+% Fetamont typeface. Both the package and the typeface are distributed 
+% on {\small CTAN} under the terms of the \emph{\LaTeX{} Project Public 
+% License} ({\small LPPL}).
+%
+% This document describes the \LaTeX{} support for the Fetamont 
+% typeface. The design and the constructions of the typeface itself are 
+% described in \cite{romer14}. 
+%
+% The OpenType versions of the script faces support the Randomize 
+% feature, which can be used with Con\TeX t/Lua\TeX. It is \emph{not} 
+% possible to use this feature with the package described here.
+% \section{Usage}
+% The package is loaded by |\usepackage{fetamont}|. There are no 
+% options provided yet for the |fetamont| package. 
+%
+% If you use the \texttt{fetamont} package as a replacement for the 
+% \texttt{mflogo} package you will probably only need the control 
+% sequences |\MF|, |\MP| and |\MT| which produce the well known logos 
+% \MF, \MP{} and \MT.
+%
+% When you need other words written in the Fetamont typeface, you may 
+% use |\textffm| and |\textffmw|. E.~g. |\textffm{My Logo}| will 
+% produce \textffm{My Logo} and |\textffmw{Script}| will produce 
+% \textffmw{Script}.
+%
+% To gain access to all faces of Fetamont you may sometimes 
+% additionally need |\ffmfamily| or |\ffmwfamily| 
+% (see subsection~\ref{sec:accesstoallfaces}).
+% \section{The many faces of Fetamont} 
+% \subsection{Bold and heavy faces}
+% The bold face of the original logo font family clearly fits better 
+% with \emph{Computer Modern Sans Bold}, whereas the demibold face is 
+% the better choice for a combination with \emph{Computer Modern 
+% Extended Bold}:
+% \begin{center} 
+% \begin{tabular}{rl}
+%  {\ffmfamily\fontseries{b}\selectfont \huge  META} 
+%  & \textbf{\huge Serif}\\
+%  \textsf{\textbf{\huge Sans}} 
+%  & {\ffmfamily\fontseries{eb}\selectfont \huge  META}
+%  \end{tabular}
+% \end{center}
+% Ulrik Vieth has already mentioned this unsatisfactory situation in 
+% \cite{vieth99}. He has assumed that \emph{Computer Modern Roman} will 
+% be used in boldface series much more frequently than \emph{Computer 
+% Modern Sans Serif}. So he assigned the demibold faces to the bold 
+% series in his |mflogo| package (see~\cite{vieth99}).
+% 
+% In order to be compatible to Ulrik Vieths assignment I have chosen 
+% the following naming scheme for weights:
+% \begin{center} 
+% \begin{tabular}{lll}
+%  original name & Fetamont name & symbol\\\hline
+%  -- & light & l\\
+%  medium & medium & r\\
+%  demibold & bold & b\\
+%  bold & heavy & h
+% \end{tabular}
+% \end{center}
+% \subsection{Script faces}
+% The ``crazy shapes'' by D.~E.~Knuth  show impressively the 
+% randomization power of \MF. The Fetamont typeface has also the 
+% ability to use randomized paths. The results are the Fetamont script 
+% faces. They are drawn by a rotated ellipse pen to make it look more 
+% handwritten. The script faces may be used for comics or childish 
+% texts:
+% \begin{center} 
+% {\ffmwfamily\fontseries{l}\selectfont \huge ¿Donde?}
+% {\ffmwfamily\fontseries{m}\selectfont \huge \quad --- \quad}
+% {\ffmwfamily\fontseries{eb}\selectfont\huge ¡Aqui!}
+% \end{center}
+% \subsection{Condensed Faces}
+% The titles in Knuth's books use a variant of the logo typeface that 
+% matches \emph{Computer Modern Sans Serif Demibold Condensed 40}. So I 
+% decided to add this variant as \emph{Fetamont Bold Condensed 40} and 
+% let also a light and medium variant benefit from the condensation.
+% \begin{center} 
+% {\ffmfamily\fontseries{lc}\selectfont \huge Light Condensed 10}\\[2ex]
+% {\ffmfamily\fontseries{c}\selectfont \huge Medium Condensed 10}\\[2ex]
+% {\ffmfamily\fontseries{bc}\selectfont\huge Bold Condensed 40}
+% \end{center}
+% \subsection{Ultracondensed Face}
+% The credits written on movie posters are often typeset in an 
+% ultracondensed face. Also fetamont provides such a face:
+% \begin{center} 
+% {\ffmfamily\fontseries{lec}\selectfont \Huge Light Ultracondensed 10}
+% \end{center}
+% \subsection{Naming Scheme For The Fetamont Faces}
+% The file name of every face begins with the prefix \verb|ffm|, which 
+% stands for «\emph{f}ree typeface \emph{f}eta\emph{m}ont». The 
+% suffixes normally contain a symbol for the weight: \verb|l| for 
+% light, \verb|r| for regular, \verb|b| for bold and \verb|h| for 
+% heavy. The number at the end stands for the optical size 
+% (e.~g. 10~pt). Depending on the face, the suffix is made of 
+% additional symbols:
+% \begin{center} 
+% \begin{tabular}{|cccc|cccc|}
+%  \hline
+%  \multicolumn{4}{|c|}{Upright} & \multicolumn{4}{c|}{Oblique}\\\hline
+%  & r8 & b8 & h8 & & o8 & bo8 & ho8\\
+%  & r9 & b9 & h9 & & o9 & bo9 & ho9\\
+%  l10 & r10 & b10 & h10 & lo10 & o10 & bo10 & ho10\\
+%  \hline
+%  \multicolumn{4}{|c|}{Condensed Upright} 
+%  & \multicolumn{4}{c|}{Condensed Oblique}\\\hline
+%  lc10 & c10 & & & lco10 & co10 &  & \\
+%  & & bc40 &  &  &  & bco40 & \\
+%  \hline
+%  \multicolumn{4}{|c|}{Ultracondensed Upright} 
+%  & \multicolumn{4}{c|}{Ultracondensed Oblique}\\\hline
+%  lq10 & & & &  lqo10 &  &  & \\
+%  \hline
+%  \multicolumn{4}{|c|}{Script Upright} 
+%  & \multicolumn{4}{c|}{Script Oblique}\\\hline
+%  lw10 & w10 & bw10 & hw10 & lwo10 & wo10 & bwo10 & hwo10\\\hline
+% \end{tabular}
+% \end{center}
+% \subsection{NFSS--Access To All Faces}\label{sec:accesstoallfaces}
+% The following tabular shows the NFSS--access for every Fetamont face.
+% \begin{center}
+% \begin{tabular}{lll}
+%  MF-name & low level access & sample
+%  \\\hline\hline
+%  ffml10
+%  & 
+%  \textttc{\textbackslash ffmfamily\textbackslash fontseries\{l\}
+%  \textbackslash selectfont}
+%  &
+%  {\ffmfamily\fontseries{l}\selectfont Gauß}
+%  \\
+%  ffmr10, ffmr9, ffmr8
+%  & 
+%  \textttc{\textbackslash ffmfamily\textbackslash fontseries\{m\}
+%  \textbackslash selectfont}
+%  &
+%  {\ffmfamily\fontseries{m}\selectfont Gauß \footnotesize{Gauß}
+%  \tiny{Gauß}}
+%  \\
+%  ffmb10, ffmb9, ffmb8
+%  & 
+%  \textttc{\textbackslash ffmfamily\textbackslash fontseries\{b\}
+%  \textbackslash selectfont}
+%  &
+%  {\ffmfamily\fontseries{b}\selectfont Gauß \footnotesize{Gauß} 
+%  \tiny{Gauß}}
+%  \\
+%  ffmh10, ffmh9, ffmh8
+%  & 
+%  \textttc{\textbackslash ffmfamily\textbackslash fontseries\{eb\}
+%  \textbackslash selectfont}
+%  &
+%  {\ffmfamily\fontseries{eb}\selectfont Gauß \footnotesize{Gauß}
+%  \tiny{Gauß}}
+%  \\
+%  ffmlo10
+%  & 
+%  \textttc{\textbackslash ffmfamily\textbackslash fontseries\{l\}
+%  \textbackslash slshape}
+%  &
+%  {\ffmfamily\fontseries{l}\slshape Gauß}
+%  \\
+%  ffmo10, ffmo9, ffmo8
+%  & 
+%  \textttc{\textbackslash ffmfamily\textbackslash fontseries\{m\}
+%  \textbackslash slshape}
+%  &
+%  {\ffmfamily\fontseries{m}\slshape Gauß \footnotesize{Gauß}
+%  \tiny{Gauß}}
+%  \\
+%  ffmbo10, ffmbo9, ffmbo8
+%  & 
+%  \textttc{\textbackslash ffmfamily\textbackslash fontseries\{b\}
+%  \textbackslash slshape}
+%  &
+%  {\ffmfamily\fontseries{b}\slshape Gauß \footnotesize{Gauß}
+%  \tiny{Gauß}}
+%  \\
+%  ffmho10, ffmho9, ffmho8
+%  & 
+%  \textttc{\textbackslash ffmfamily\textbackslash fontseries\{eb\}
+%  \textbackslash slshape}
+%  &
+%  {\ffmfamily\fontseries{eb}\slshape Gauß \footnotesize{Gauß}
+%  \tiny{Gauß}}
+%  \\\hline
+%  ffmlc10
+%  & 
+%  \textttc{\textbackslash ffmfamily\textbackslash fontseries\{lc\}
+%  \textbackslash selectfont}
+%  &
+%  {\ffmfamily\fontseries{lc}\selectfont Gauß}
+%  \\
+%  ffmc10
+%  & 
+%  \textttc{\textbackslash ffmfamily\textbackslash fontseries\{c\}
+%  \textbackslash selectfont}
+%  &
+%  {\ffmfamily\fontseries{c}\selectfont Gauß}
+%  \\
+%  ffmbc40
+%  & 
+%  \textttc{\textbackslash ffmfamily\textbackslash fontseries\{bc\}
+%  \textbackslash selectfont}
+%  &
+%  {\ffmfamily\fontseries{bc}\selectfont Gauß}
+%  \\
+%  ffmlco10
+%  & 
+%  \textttc{\textbackslash ffmfamily\textbackslash fontseries\{lc\}
+%  \textbackslash slshape}
+%  &
+%  {\ffmfamily\fontseries{lc}\slshape Gauß}
+%  \\
+%  ffmco10
+%  & 
+%  \textttc{\textbackslash ffmfamily\textbackslash fontseries\{c\}
+%  \textbackslash slshape}
+%  &
+%  {\ffmfamily\fontseries{c}\slshape Gauß}
+%  \\
+%  ffmbco40
+%  & 
+%  \textttc{\textbackslash ffmfamily\textbackslash fontseries\{bc\}
+%  \textbackslash slshape}
+%  &
+%  {\ffmfamily\fontseries{bc}\slshape Gauß}
+%  \\\hline
+%  ffmlq10
+%  & 
+%  \textttc{\textbackslash ffmfamily\textbackslash fontseries\{lec\}
+%  \textbackslash selectfont}
+%  &
+%  {\ffmfamily\fontseries{lec}\selectfont Gauß}
+%  \\
+%  ffmlqo10
+%  & 
+%  \textttc{\textbackslash ffmfamily\textbackslash fontseries\{lec\}
+%  \textbackslash slshape}
+%  &
+%  {\ffmfamily\fontseries{lec}\slshape Gauß}
+%  \\\hline
+%  ffmlw10
+%  & 
+%  \textttc{\textbackslash ffmwfamily\textbackslash fontseries\{l\}
+%  \textbackslash selectfont}
+%  &
+%  {\ffmwfamily\fontseries{l}\selectfont Gauß}
+%  \\
+%  ffmw10
+%  & 
+%  \textttc{\textbackslash ffmwfamily\textbackslash fontseries\{m\}
+%  \textbackslash selectfont}
+%  &
+%  {\ffmwfamily\fontseries{m}\selectfont Gauß}
+%  \\
+%  ffmbw10
+%  & 
+%  \textttc{\textbackslash ffmwfamily\textbackslash fontseries\{b\}
+%  \textbackslash selectfont}
+%  &
+%  {\ffmwfamily\fontseries{b}\selectfont Gauß}
+%  \\
+%  ffmhw10
+%  & 
+%  \textttc{\textbackslash ffmwfamily\textbackslash fontseries\{eb\}
+%  \textbackslash selectfont}
+%  &
+%  {\ffmwfamily\fontseries{eb}\selectfont Gauß}
+%  \\
+%  ffmlwo10
+%  & 
+%  \textttc{\textbackslash ffmwfamily\textbackslash fontseries\{l\}
+%  \textbackslash slshape}
+%  &
+%  {\ffmwfamily\fontseries{l}\slshape Gauß}
+%  \\
+%  ffmwo10
+%  & 
+%  \textttc{\textbackslash ffmwfamily\textbackslash fontseries\{m\}
+%  \textbackslash slshape}
+%  &
+%  {\ffmwfamily\fontseries{m}\slshape Gauß}
+%  \\
+%  ffmbwo10
+%  & 
+%  \textttc{\textbackslash ffmwfamily\textbackslash fontseries\{b\}
+%  \textbackslash slshape}
+%  &
+%  {\ffmwfamily\fontseries{b}\slshape Gauß}
+%  \\
+%  ffmhwo10
+%  & 
+%  \textttc{\textbackslash ffmwfamily\textbackslash fontseries\{eb\}
+%  \textbackslash slshape}
+%  &
+%  {\ffmwfamily\fontseries{eb}\slshape Gauß}
+%  \\
+% \end{tabular}
+% \end{center}
+%
+% \StopEventually{\PrintIndex}
+%
+% \section{Package Implementation}
+%
+% \subsection{The font definition files}
+%    
+% As the \emph{T1} encoding is used for the \emph{f}ree typeface 
+% \emph{f}eta\emph{m}ont, the font definition file is named |T1ffm.fd|. 
+% This is the default font family of Fetamont. Additionally, there is 
+% also a script font family (|T1ffmw.fd|).
+%
+% The italic faces are always silently substituted by oblique faces.
+%
+%     \begin{macrocode}
+%<*T1ffm>
+\DeclareFontFamily{T1}{ffm}{}
+%    \end{macrocode}
+%
+%    Light faces:
+%
+%    \begin{macrocode}
+\DeclareFontShape{T1}{ffm}{l}{n}{<-> ffml10}{}
+\DeclareFontShape{T1}{ffm}{l}{sl}{<-> ffmlo10}{}
+\DeclareFontShape{T1}{ffm}{l}{it}{<-> ssub * ffm/l/sl}{}
+%    \end{macrocode}
+%
+%    Regular/medium faces (three different optical sizes):
+%
+%    \begin{macrocode}
+\DeclareFontShape{T1}{ffm}{m}{n}{
+  <-8> ffmr8
+  <9> ffmr9
+  <10-> ffmr10
+}{}
+\DeclareFontShape{T1}{ffm}{m}{sl}{
+  <-8> ffmo8
+  <9> ffmo9
+  <10-> ffmo10
+}{}
+\DeclareFontShape{T1}{ffm}{m}{it}{
+  <-> ssub * ffm/m/sl
+}{}
+%    \end{macrocode}
+%
+%    Bold faces (three different optical sizes, bold extended faces 
+%    are silently substituted):
+%
+%    \begin{macrocode}
+\DeclareFontShape{T1}{ffm}{b}{n}{
+  <-8> ffmb8
+  <9> ffmb9
+  <10-> ffmb10
+}{}
+\DeclareFontShape{T1}{ffm}{b}{sl}{
+  <-8> ffmbo8
+  <9> ffmbo9
+  <10-> ffmbo10
+}{}
+\DeclareFontShape{T1}{ffm}{b}{it}{
+  <-> ssub * ffm/b/sl
+}{}
+\DeclareFontShape{T1}{ffm}{bx}{n}{
+  <-> ssub * ffm/b/n
+}{}
+\DeclareFontShape{T1}{ffm}{bx}{sl}{
+  <-> ssub * ffm/b/sl
+}{}
+\DeclareFontShape{T1}{ffm}{bx}{it}{
+  <-> ssub * ffm/b/sl
+}{}
+%    \end{macrocode}
+%
+%    Heavy/extra bold faces (three different optical sizes):
+%
+%    \begin{macrocode}
+\DeclareFontShape{T1}{ffm}{eb}{n}{
+  <-8> ffmh8
+  <9> ffmh9
+  <10-> ffmh10
+}{}
+\DeclareFontShape{T1}{ffm}{eb}{sl}{
+  <-8> ffmho8
+  <9> ffmho9
+  <10-> ffmho10
+}{}
+\DeclareFontShape{T1}{ffm}{eb}{it}{
+  <-> ssub * ffm/h/sl
+}{}
+%    \end{macrocode}
+%
+%    Light condensed faces:
+%
+%    \begin{macrocode}
+\DeclareFontShape{T1}{ffm}{lc}{n}{<-> ffmlc10}{}
+\DeclareFontShape{T1}{ffm}{lc}{sl}{<-> ffmlco10}{}
+\DeclareFontShape{T1}{ffm}{lc}{it}{<-> ssub * ffm/lc/sl}{}
+%    \end{macrocode}
+%
+%    Condensed faces:
+%
+%    \begin{macrocode}
+\DeclareFontShape{T1}{ffm}{c}{n}{<-> ffmc10}{}
+\DeclareFontShape{T1}{ffm}{c}{sl}{<-> ffmco10}{}
+\DeclareFontShape{T1}{ffm}{c}{it}{<-> ssub * ffm/c/sl}{}
+%    \end{macrocode}
+%
+%    Bold condensed faces:
+%
+%    \begin{macrocode}
+\DeclareFontShape{T1}{ffm}{bc}{n}{<-> ffmbc40}{}
+\DeclareFontShape{T1}{ffm}{bc}{sl}{<-> ffmbco40}{}
+\DeclareFontShape{T1}{ffm}{bc}{it}{<-> ssub * ffm/bc/sl}{}
+%    \end{macrocode}
+%
+%    Light ultra condensed faces:
+%
+%    \begin{macrocode}
+\DeclareFontShape{T1}{ffm}{lec}{n}{<-> ffmlq10}{}
+\DeclareFontShape{T1}{ffm}{lec}{sl}{<-> ffmlqo10}{}
+\DeclareFontShape{T1}{ffm}{lec}{it}{<-> ssub * ffm/lec/sl}{}
+%</T1ffm>
+%    \end{macrocode}
+%
+%    The script faces need an own family for a proper NFSS--access:
+%
+%    \begin{macrocode}
+%<*T1ffmw>
+\DeclareFontFamily{T1}{ffmw}{}
+%    \end{macrocode}
+%
+%    Light faces:
+%
+%    \begin{macrocode}
+\DeclareFontShape{T1}{ffmw}{l}{n}{<-> ffmlw10}{}
+\DeclareFontShape{T1}{ffmw}{l}{sl}{<-> ffmlwo10}{}
+\DeclareFontShape{T1}{ffmw}{l}{it}{<-> ssub * ffmw/l/sl}{}
+%    \end{macrocode}
+%
+%    Medium/regular faces:
+%
+%    \begin{macrocode}
+\DeclareFontShape{T1}{ffmw}{m}{n}{
+  <-> ffmw10
+}{}
+\DeclareFontShape{T1}{ffmw}{m}{sl}{
+  <-> ffmwo10
+}{}
+\DeclareFontShape{T1}{ffmw}{m}{it}{
+  <-> ssub * ffmw/m/sl
+}{}
+%    \end{macrocode}
+%
+%    Bold faces (bold extended faces are silently substituted):
+%
+%    \begin{macrocode}
+\DeclareFontShape{T1}{ffmw}{b}{n}{
+  <-> ffmbw10
+}{}
+\DeclareFontShape{T1}{ffmw}{b}{sl}{
+  <-> ffmbwo10
+}{}
+\DeclareFontShape{T1}{ffmw}{b}{it}{
+  <-> ssub * ffmw/b/sl
+}{}
+\DeclareFontShape{T1}{ffmw}{bx}{n}{
+  <-> ssub * ffmw/b/n
+}{}
+\DeclareFontShape{T1}{ffmw}{bx}{sl}{
+  <-> ssub * ffmw/b/sl
+}{}
+\DeclareFontShape{T1}{ffmw}{bx}{it}{
+  <-> ssub * ffmw/b/sl
+}{}
+%    \end{macrocode}
+%
+%    Heavy/extra bold faces (three different optical sizes):
+%
+%    \begin{macrocode}
+\DeclareFontShape{T1}{ffmw}{eb}{n}{
+  <-> ffmhw10
+}{}
+\DeclareFontShape{T1}{ffmw}{eb}{sl}{
+  <-> ffmhwo10
+}{}
+\DeclareFontShape{T1}{ffmw}{eb}{it}{
+  <-> ssub * ffmw/h/sl
+}{}
+%</T1ffmw>
+%    \end{macrocode}
+%
+% \subsection{The style file: \texttt{fetamont.sty}}
+%
+%    The following macros are adapted from the |mflogo| package 
+%    by \cite{vieth99}.
+%
+% \begin{macro}{\ffmfamily}
+%    This is the declarative font changing command for the ``normal'' 
+%    font family. 
+%    \begin{macrocode}
+%<*package>
+\DeclareRobustCommand\ffmfamily{%
+  \not@math@alphabet\ffmfamily\relax
+  \fontencoding{T1}\fontfamily{ffm}\selectfont}
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{\ffmwfamily}
+%    This is the declarative font changing command for the script font 
+%    family. 
+%    \begin{macrocode}
+\DeclareRobustCommand\ffmwfamily{%
+  \not@math@alphabet\ffmwfamily\relax
+  \fontencoding{T1}\fontfamily{ffmw}\selectfont}
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{\textffm}
+%    This is basically the same as |\ffmfamily| but takes one argument.
+%    \begin{macrocode}
+\DeclareTextFontCommand{\textffm}{\ffmfamily}
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{\textffmw}
+%    This is basically the same as |\ffmwfamily| but takes one argument.
+%    \begin{macrocode}
+\DeclareTextFontCommand{\textffmw}{\ffmwfamily}
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{\MF}
+% \begin{macro}{\MP}
+% \begin{macro}{\MT}
+%    These are the definitions of the  \MF, \MP{} and \MT{} logos.  
+%    \begin{macrocode}
+\def\MF{\textffm{META}\@dischyph\textffm{FONT}\@}
+\def\MP{\textffm{META}\@dischyph\textffm{POST}\@}
+\def\MT{\textffm{META}\@dischyph\textffm{TYPE1}\@}
+%</package>
+%    \end{macrocode}
+% \end{macro}
+% \end{macro}
+% \end{macro}
+%
+% \Finale
+%
+% \begin{thebibliography}{Romer14}
+% \bibitem[Romer14]{romer14}
+%  Linus Romer.
+%  \emph{The Fetamont Typeface}.
+%  2014
+% \bibitem[Vieth99]{vieth99}
+%  Ulrik Vieth.
+%  \emph{The |mflogo| package}.
+%  \url{mirrors.ctan.org/macros/latex/contrib/mflogo/mflogo.pdf}, 1999
+% \end{thebibliography}
+\endinput
+%
+% \CharacterTable
+% {Upper-case \A\B\C\D\E\F\G\H\I\J\K\L\M\N\O\P\Q\R\S\T\U\V\W\X\Y\Z
+% Lower-case \a\b\c\d\e\f\g\h\i\j\k\l\m\n\o\p\q\r\s\t\u\v\w\x\y\z
+% Digits \0\1\2\3\4\5\6\7\8\9
+% Exclamation \! Double quote \" Hash (number) \#
+% Dollar \$ Percent \% Ampersand \&
+% Acute accent \’ Left paren \( Right paren \)
+% Asterisk \* Plus \+ Comma \,
+% Minus \- Point \. Solidus \/
+% Colon \: Semicolon \; Less than \<
+% Equals \= Greater than \> Question mark \?
+% Commercial at \@ Left bracket \[ Backslash \\
+% Right bracket \] Circumflex \^ Underscore \_
+% Grave accent \‘ Left brace \{ Vertical bar \|
+% Right brace \} Tilde \~}

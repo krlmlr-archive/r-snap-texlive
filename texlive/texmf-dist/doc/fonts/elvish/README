@@ -1,0 +1,85 @@
+(README changed 09/06/99; conditions relaxed)
+
+28/06/91  As a concession to those who for some reason don't have Metafont,
+the following files are now included: teng10.tfm and cirth.tfm (the font
+metric files), and {teng10,cirth}.pk{300,360} (the pk files generated
+with mode imagen (i.e. Laserwriter) at normal size and at magstep 1).
+
+
+(README changed 13/06/90; conditions relaxed)
+
+*** Important Note ***
+
+These files are copyright (c) 1987 J.C. Bradfield.
+They are distributed on the following conditions:
+ (a) You may use the source and generated fonts for any purpose,
+     and may distribute the files, provided that all files including
+     this copyright notice remain intact.
+ (b) You may make modifications for your own use. You may distribute
+     modified versions of these files PROVIDED that this copyright
+     notice remains intact AND that you include the original files
+     clearly labelled as such.
+     If you produce modifications that seem useful, you are asked to
+     send them to me, so that they can be incorporated into the master
+     files.
+
+There are still things I would like to do with these fonts, in
+particular, to provide virtual fonts for Quenya etc. If you have
+suggestions or comments, please contact me.
+
+******************************************
+
+The only file that needs to be input is teng10.mf ; all the other
+files are called by it. Hence, on a Unix system, the following 
+should generate a tengwar font at magnification \magstep1 for
+the Apple Laserwriter:
+mf '\mode:=imagen; mag := magstep1; input teng10'
+
+If you have difficulties, contact your local Metafont guru in
+the first instance.
+
+*****************************************
+
+The cirth font is rather hastily put together, and is not properly
+organized as yet. It is therefore distributed as a single stand-alone
+file, so again all you have to do is:
+mf '\mode:=imagen; mag := magstep1; input cirth'
+
+*****************************************
+
+The file teng.tex contains the macros I use for setting tenwar
+when using TeX. I'm afraid they're not commented---tough! The general
+idea is that the ^ character is used to put a vowel over its consonant,
+so for example to print 
+ Ai! laurie lantar lassi s\'urinen
+in tengwar, I would type
+{\quenya ^Ia l^Ua^ri^@e ^la^DaR ^la^Zi s^*u^ri^nen}
+
+You'll have to note which ASCII character corresponds to which
+tengwa for yourself; I don't have a table prepared. A point to watch
+out for is that in Quenya, 'v' usually transcribes vilya, which is 
+represented by the ASCII character  w ;  v  represents the tengwa
+amba  (i.e. the encoding is basically set up for use with English).
+
+*****************************************
+
+Contacting me:
+
+I can be contacted by post at:
+ J.C. Bradfield
+ Dept of Computer Science
+ The King's Buildings
+ Mayfield Road
+ EDINBURGH
+ U.K.          EH9  3JZ
+
+I can be contacted by electronic mail as:
+  jcb@dcs.ed.ac.uk   (in Internet domain ordering)
+
+If that doesn't work, you should kick your postmaster, and then
+get him/her to tell you how to reach that address. (Well, maybe
+you kick after you get the info!)
+
+
+Happy typesetting,
+Julian Bradfield.

@@ -1,0 +1,778 @@
+% \iffalse meta comment
+% File: hfoldsty.dtx Copyright (C) 2003--2005, 2012 Harald Harders
+% \fi
+%
+% \iffalse
+%
+%<*driver>
+\documentclass[ngerman,english]{ltxdoc}
+\usepackage[T1]{fontenc}
+\IfFileExists{fix-cm.sty}{\usepackage{fix-cm}}{}
+\IfFileExists{hfoldsty.sty}{\usepackage{hfoldsty}}{%
+  \GenericWarning{hfoldsty.dtx}{Package file hfoldsty.sty not found
+    (Documentation will be messed up!^^J^^A
+    Generate hfoldsty.sty by (La)TeXing hfoldsty.ins, process
+    hfoldsty.dtx again)^^J}\stop}
+\usepackage{textcomp}
+\usepackage{longtable}
+\usepackage{array}
+\usepackage{babel}
+\usepackage{ragged2e}
+\GetFileInfo{hfoldsty.sty}
+\title{European Computer Modern font with oldstyle digits}
+\author{Harald Harders\\\texttt{harald.harders@gmx.de}}
+\date{Version \fileversion, \filedate; printed \today}
+\newlength{\tempdima}%
+\makeatletter
+\renewenvironment{table}[1][]{%
+  \@float{table}[#1]%
+  \centering%
+  \setlength{\tempdima}{\abovecaptionskip}%
+  \setlength{\abovecaptionskip}{\belowcaptionskip}%
+  \setlength{\belowcaptionskip}{\tempdima}%
+  }{%
+\end@float
+}
+\def\meta@font@select{\normalfont\itshape}
+\makeatother
+\newcommand*\Tone{\textsc{t}1}
+\newcommand*\TSone{\textsc{ts}1}
+\EnableCrossrefs
+\CodelineIndex
+\DoNotIndex{\def,\edef,\let,\newcommand,\newenvironment,\newcounter}
+\DoNotIndex{\setcounter,\space,\if,\else,\fi,\empty,\@empty,\ifx,\fi}
+\DoNotIndex{\ifnum,\fi,\expandafter,\csname,\endcsname,\the}
+\DoNotIndex{\MessageBreak,\message,\newlength,\newif,\xdef,\newcount}
+\CodelineNumbered
+\RecordChanges
+\CheckSum{476}
+\begin{document}
+ \DocInput{hfoldsty.dtx}
+\end{document}
+%</driver>
+% \fi
+%
+% \changes{1.15}{2012/01/01}{Update documentation with regards to
+%   \texttt{microtype.sty}}%
+% \changes{1.15}{2012/01/01}{Update e-mail address}%
+% \changes{1.15}{2012/01/01}{Clean up Makefiles and zip files}%
+% \changes{1.13}{2004/11/19}{Fix errors in \cs{ProvidesFile} lines in
+%   \texttt{fd} files}%
+% \changes{1.11}{2004/08/21}{Detect already loaded \texttt{fix-cm.sty}}%
+% \changes{1.11}{2004/08/21}{Add more fd files and generate them by
+%   the dtx file}%
+% \changes{1.10}{2004/08/19}{New option \texttt{fix-cm} similar to
+%   \texttt{fix-cm} package}%
+% \changes{1.00}{2003/10/12}{Total new implementation}%
+%
+% \maketitle
+% \begin{abstract}
+%   \noindent
+%   The |hfoldsty| package provides virtual fonts for using oldstyle
+%   (0123456789) figures with the European Computer Modern fonts.
+%   It does a similar job as the |eco| package by Sebastian Kirsch
+%   <skirsch@t-online.de> but includes a couple of
+%   improvements, e.g., better kerning with guillemets, support for
+%   character protruding using the |pdfcprot| package, using the
+%   pdfcprot package, arbitrary font sizes in conjunction with
+%   |fix-cm.sty| (see section~\ref{sec:vergleich}).
+% \end{abstract}
+%
+% \tableofcontents
+%
+% \section*{Copyright}
+% \changes{1.01}{2003/10/15}{Changed copyright to GPL since I don't
+%   know if I am permitted to use LPPL}
+%
+% Copyright \textcopyright\ 2003--2005, 2012 Harald Harders <harald.harders@gmx.de>
+% 
+% This program is free software; you can redistribute it and/or modify
+% it under the terms of the GNU General Public License as published by
+% the Free Software Foundation; either version 2 of the License, or
+% (at your option) any later version.
+% 
+% This program is distributed in the hope that it will be useful,
+% but WITHOUT ANY WARRANTY; without even the implied warranty of
+% MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+% GNU General Public License for more details.
+% 
+% You should have received a copy of the GNU General Public License
+% along with this program; if not, write to the Free Software
+% Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
+%
+%
+% \section{The user interface}
+%
+% \subsection{Using this package}
+%
+% To use this package place
+% \begin{verbatim}
+%\usepackage{hfoldsty}\end{verbatim}
+% in the preamble of your document.
+%
+% \DescribeMacro{newstylett}
+% By default, the roman and the sans-serif font families are changed
+% to use oldstyle figures while the typewriter family stays unchanged.
+% This is done because the typewriter font mostly is used for source
+% code where oldstyle figures look strange. Equivalent to use no package
+% option is to use the |newstylett| package option.
+%
+% \DescribeMacro{oldstylett}
+% \changes{1.14}{2005/01/01}{Fix documenation about package options
+%   (Thanks to Rainer Thiel)}%
+% If you want to use oldstyle figures also with typewriter fonts
+% specify the |oldstylett| package option when loading the |hfoldsty|
+% package.
+% As side effect, the typewriter font then uses ligatures instead of
+% single characters for ``fi'', ``fl'', ``ff'', ``ffi'', and ``ffl''.
+% Have a look at the two examples:
+% \begin{verbatim}
+%int main()
+%{
+%  int var1=123, var2=345;
+%  FILE *file1;
+%  file1=fopen("test.out","w");
+%  fprintf(file1,"%d + %d = %d\n",var1,var2,var1+var2);
+%  return 0;
+%} // main\end{verbatim}
+% and
+% \begingroup
+% \renewcommand\ttdefault{hfott}
+% \begin{verbatim}
+%int main()
+%{
+%  int var1=123, var2=345;
+%  FILE *file1;
+%  file1=fopen("test.out","w");
+%  fprintf(file1,"%d + %d = %d\n",var1,var2,var1+var2);
+%  return 0;
+%} // main\end{verbatim}
+% \endgroup\noindent
+% Look at the variable \texttt{file1} which is
+% \texttt{\oldstylenums{file1}} in the second example.
+% \oldstylenums{\texttt{file1}} in the second example.
+%
+% \DescribeMacro{\oldstylenums}
+% The \cs{oldstylenums} command is redefined in order to allow
+% arbitrary text in the argument.
+%
+% \DescribeMacro{\newstylenums}
+% The \cs{newstylenums} command is the analogous command to
+% \cs{oldstylenums} to switch to lining figures.
+%
+% Even font switching commands are possible in the argument of the
+% \cs{oldstylenums} and \cs{newstylenums} commands, e.g.,
+% \begin{verbatim}
+% Hello 1234, \textsf{Hello 1234},
+% \newstylenums{Hello 1234, \textsf{Hello 1234}.}\end{verbatim}
+% leads to
+% ``Hello 1234, \textsf{Hello 1234},
+% \newstylenums{Hello 1234, \textsf{Hello 1234}.}''
+%
+%
+% \subsection{Slanted small capitals}
+%
+% \DescribeMacro{slantsc.sty}
+% The font definition files of the |hfoldsty| package provide
+% additional shapes for small capitals, an italic and slanted version.
+% You may access them using the |slantsc| package.
+%
+%
+% \subsection{Allow arbitrary font sizes and reduce number of design
+% sizes}
+%
+% \DescribeMacro{fix-cm}
+% The default \Tone\ encoded fonts use a large number of different
+% design sizes, and they do not allow to use arbitrary font sizes.
+% For normal European Computer Modern fonts, this is fixed by using
+% |fix-cm.sty|.
+% With this package, you can reach it by either including the |fix-cm|
+% option when loading |hfoldsty|,
+% \begin{verbatim}
+%\usepackage[fix-cm]{hfoldsty}\end{verbatim}
+% or by loading |fix-cm.sty| before |hfoldsty.sty|.
+% According to the documentation for the |fix-cm| package, you shall
+% load the |fix-cm| package even before the \cs{documentclass}
+% command, using \cs{RequirePackage}:
+% \begin{verbatim}
+%\RequirePackage{fix-cm}
+%\documentclass{article}
+%\usepackage{hfoldsty}\end{verbatim}
+%
+% \subsection{Character protruding}
+%
+% \DescribeMacro{pdfcprot.sty}
+% The |hfoldsty| package does not produde any characters into the
+% margin by itself.
+% It, however, provides the produsion information for the |pdfcprot|
+% package with the extension |.cpa|.
+%
+% \DescribeMacro{microtype.sty}
+% The |microtype| package has build-in support of the fonts provided
+% by |hfoldsty| so that no separate code is required.
+%
+% I recommend to use |microtype| rather than |pdfcprot|.
+%
+%
+% \section{Differences between the \textmd{\texttt{eco}} and the
+%   \textmd{\texttt{hfoldsty}} packages}%
+% \label{sec:vergleich}%
+%
+% \begin{longtable}[l]%
+%     {@{}>{\RaggedRight}p{0.25\linewidth}%
+%      >{\RaggedRight}p{0.33\linewidth}>{\RaggedRight}p{0.33\linewidth}@{}}
+%   Item& \texttt{eco}& \texttt{hfoldsty} \\*[\medskipamount]
+%   Typewriter font& oldstyle figures and ligatures& lining figures,
+%   no ligatures by default, can be switched.\\
+%   slanted small caps& not available& Access using the package
+%   \texttt{slantsc} \\
+%   character protruding& protrudes the hyphen char into the right
+%   margin& by default no protruding, provides files for the
+%   |pdfcprot| package, supported by |microtype| package \\
+%   kerning& same kerning as European Computer Modern fonts& Improved
+%   kerning for guillemets (\flqq, \frqq) \\
+%   TS1 encoding& ---& Includes necessary fd files \\
+%   font sizes& restricted as European Computer Modern with \Tone\
+%   encoding& adjustable: as \texttt{eco} or arbitrary \\
+%   design sizes& many, as European Computer Modern with \Tone\
+%   encoding& adjustable: as \texttt{eco} or reduced by
+%   \texttt{fix-cm.sty}
+% \end{longtable} 
+%
+%
+% \section{To Do}
+%
+% \begin{itemize}
+% \item
+%   Add kerning information for English and German quotation marks.
+% \end{itemize}
+%
+% \StopEventually{\PrintChanges\clearpage \PrintIndex}
+%
+%
+% \section{The implementation}
+%
+% Heading of the package:
+%    \begin{macrocode}
+%<package>\NeedsTeXFormat{LaTeX2e}
+%<hformnT1>\ProvidesFile{hformnT1.cpa}
+%<hformitT1>\ProvidesFile{hformitT1.cpa}
+%<hformslT1>\ProvidesFile{hformslT1.cpa}
+%<hforbxnT1>\ProvidesFile{hforbxnT1.cpa}
+%<hforbxitT1>\ProvidesFile{hforbxitT1.cpa}
+%<hforbxslT1>\ProvidesFile{hforbxslT1.cpa}
+%<hfossmnT1>\ProvidesFile{hfossmnT1.cpa}
+%<hfossmitT1>\ProvidesFile{hfossmitT1.cpa}
+%<hfossmslT1>\ProvidesFile{hfossmslT1.cpa}
+%<hfossbxnT1>\ProvidesFile{hfossbxnT1.cpa}
+%<hfossbxitT1>\ProvidesFile{hfossbxitT1.cpa}
+%<hfossbxslT1>\ProvidesFile{hfossbxslT1.cpa}
+%<hformnTS1>\ProvidesFile{hformnTS1.cpa}
+%<hformitTS1>\ProvidesFile{hformitTS1.cpa}
+%<hformslTS1>\ProvidesFile{hformslTS1.cpa}
+%<hforbxnTS1>\ProvidesFile{hforbxnTS1.cpa}
+%<hforbxitTS1>\ProvidesFile{hforbxitTS1.cpa}
+%<hforbxslTS1>\ProvidesFile{hforbxslTS1.cpa}
+%<hfossmnTS1>\ProvidesFile{hfossmnTS1.cpa}
+%<hfossmitTS1>\ProvidesFile{hfossmitTS1.cpa}
+%<hfossmslTS1>\ProvidesFile{hfossmslTS1.cpa}
+%<hfossbxnTS1>\ProvidesFile{hfossbxnTS1.cpa}
+%<hfossbxitTS1>\ProvidesFile{hfossbxitTS1.cpa}
+%<hfossbxslTS1>\ProvidesFile{hfossbxslTS1.cpa}
+%<omlhfor>\ProvidesFile{omlhfor.fd}
+%<omshfor>\ProvidesFile{omshfor.fd}
+%<ts1hfor>\ProvidesFile{ts1hfor.fd}
+%<ts1hfoss>\ProvidesFile{ts1hfoss.fd}
+%<ts1hfott>\ProvidesFile{ts1hfott.fd}
+%<ts1hfovtt>\ProvidesFile{ts1hfovtt.fd}
+%<package>\ProvidesPackage{hfoldsty}
+%<package|cpaT1|cpaTS1|fd>  [2012/01/01  v1.15  European Computer Modern with oldstyle digits]
+%    \end{macrocode}
+% Boolean to decide which typewriter font is used.
+%    \begin{macrocode}
+%<*package>
+\newif\ifhfo@oldstylett
+%    \end{macrocode}
+% Boolean to decide if reduced design sizes are to be used.
+%    \begin{macrocode}
+\newif\ifhfofixcm
+%    \end{macrocode}
+% Package options for type of typewriter font.
+%    \begin{macrocode}
+\DeclareOption{oldstylett}{\hfo@oldstyletttrue}
+\DeclareOption{newstylett}{\hfo@oldstylettfalse}
+\DeclareOption{origtt}{\hfo@oldstylettfalse}
+%    \end{macrocode}
+% Option |fix-cm| reduces the design sizes and alows to use arbitrary
+% fonts sizes.
+%    \begin{macrocode}
+\DeclareOption{fix-cm}{\hfofixcmtrue}
+%    \end{macrocode}
+% Pass all unknown options to the package |fontenc|.
+%    \begin{macrocode}
+\DeclareOption*{\PassOptionsToPackage{\CurrentOption}{fontenc}}
+%    \end{macrocode}
+% By default, use the original typewriter font with lining figures and
+% without ligatures.
+%    \begin{macrocode}
+\ExecuteOptions{origtt}
+\ProcessOptions\relax
+%    \end{macrocode}
+% If the package |fix-cm.sty| is loaded, switch on the reduced design
+% size set, too.
+%    \begin{macrocode}
+\@ifpackageloaded{fix-cm}{\hfofixcmtrue}{}
+%    \end{macrocode}
+% This package needs the Cork encoding, \Tone.
+%    \begin{macrocode}
+\RequirePackage[T1]{fontenc}
+%    \end{macrocode}
+% If |fix-cm| has been used, load |fix-cm.sty| for consistence.
+%    \begin{macrocode}
+\ifhfofixcm
+  \typeout{hfoldsty: Using fewer design sizes (fix-cm)}%
+  \RequirePackage{fix-cm}
+\else
+  \typeout{hfoldsty: Using all design sizes}%
+\fi
+%    \end{macrocode}
+% More robust if decisions.
+%    \begin{macrocode}
+\RequirePackage{ifthen}
+%    \end{macrocode}
+% \begin{macro}{\rmdefault}
+% \begin{macro}{\sfdefault}
+% \begin{macro}{\ttdefault}
+% Do the main task of this package, switch the three font families
+% from lining figures to the virtual fonts using oldstyle figures and
+% improved kerning with guillemets.
+%    \begin{macrocode}
+\renewcommand\rmdefault{hfor}
+\renewcommand\sfdefault{hfoss}
+\ifhfo@oldstylett
+  \renewcommand\ttdefault{hfott}
+\fi
+%    \end{macrocode}
+% \end{macro}
+% \end{macro}
+% \end{macro}
+% \begin{macro}{\oldstylenums}
+% Redeclare the \cs{oldstylenums} command.
+% This version is more useful than the original one because it allows
+% to use ordinary text in its argument.
+% In ordinary text with oldstyle figures, it has only one effect
+% because it switches on oldstyle figures for the typewriter font,
+% too.
+%    \begin{macrocode}
+\newcommand\hfo@oldstylenums{}
+\let\hfo@oldstylenums=\oldstylenums
+\DeclareRobustCommand{\oldstylenums}[1]{%
+  \begingroup
+%    \end{macrocode}
+% Redefine the family defaults in order to be available to change the
+% font family inside the argument.
+%    \begin{macrocode}
+  \renewcommand{\rmdefault}{hfor}%
+  \renewcommand{\sfdefault}{hfoss}%
+  \renewcommand{\ttdefault}{hfott}%
+  \newif\ifhfo@knownfamily
+  \hfo@knownfamilytrue
+%    \end{macrocode}
+% If the font family is known switch to the corresponding font family
+% with oldstyle figures.
+% Some switches, e.g., \texttt{hfor}$\to$\texttt{hfor}, are performed
+% to avoid the fall-back call of the original \cs{oldstylenums}
+% command.
+%    \begin{macrocode}
+  \ifthenelse{\equal{\f@family}{cmr}\or\equal{\f@family}{hfor}}{%
+    \fontfamily{\rmdefault}%
+  }{%
+    \ifthenelse{\equal{\f@family}{cmss}\or\equal{\f@family}{hfoss}}{%
+      \fontfamily{\sfdefault}%
+    }{%
+      \ifthenelse{\equal{\f@family}{cmtt}\or\equal{\f@family}{hfott}}{%
+        \fontfamily{\ttdefault}%
+      }{%
+%    \end{macrocode}
+% If the font family is unknown, call the original \cs{oldstylenums}
+% command that has been copied before.
+%    \begin{macrocode}
+        \hfo@oldstylenums{#1}\hfo@knownfamilyfalse
+      }%
+    }%
+  }%
+%    \end{macrocode}
+% Only select the modified font if the font family has been known.
+%    \begin{macrocode}
+  \ifhfo@knownfamily
+    \selectfont
+    #1%
+  \fi
+  \endgroup
+}
+%    \end{macrocode}
+% \end{macro}
+% \begin{macro}{\newstylenums}
+% Declare an analogous \cs{newstylenums} command that switches back to
+% lining figures.
+% If the font family is unknown, do nothing before typesetting the
+% argument.
+%    \begin{macrocode}
+\DeclareRobustCommand{\newstylenums}[1]{%
+  \begingroup
+%    \end{macrocode}
+% Redefine the family defaults in order to be available to change the
+% font family inside the argument.
+%    \begin{macrocode}
+  \renewcommand{\rmdefault}{cmr}%
+  \renewcommand{\sfdefault}{cmss}%
+  \renewcommand{\ttdefault}{cmtt}%
+  \ifthenelse{\equal{\f@family}{hfor}}{%
+    \fontfamily{\rmdefault}%
+  }{%
+    \ifthenelse{\equal{\f@family}{hfoss}}{%
+      \fontfamily{\sfdefault}%
+    }{%
+      \ifthenelse{\equal{\f@family}{hfott}}{%
+        \fontfamily{\ttdefault}%
+      }{}%
+    }%
+  }%
+  \selectfont
+  #1%
+  \endgroup
+}
+%</package>
+%    \end{macrocode}
+% \end{macro}
+%
+% \section{Character protruding file for pdfcprot package}
+%
+% \subsection{Cork (\Tone) encoding}
+%
+% Roman medium upright.
+%    \begin{macrocode}
+%<hformnT1>\expandafter\gdef\csname hformnT1\endcsname{%
+%    \end{macrocode}
+%
+% Roman medium italics.
+%    \begin{macrocode}
+%<hformitT1>\expandafter\gdef\csname hformitT1\endcsname{%
+%    \end{macrocode}
+%
+% Roman medium slanted.
+%    \begin{macrocode}
+%<hformslT1>\expandafter\gdef\csname hformslT1\endcsname{%
+%    \end{macrocode}
+%
+% Roman bold-extended upright.
+%    \begin{macrocode}
+%<hforbxnT1>\expandafter\gdef\csname hforbxnT1\endcsname{%
+%    \end{macrocode}
+%
+% Roman bold-extended italics.
+%    \begin{macrocode}
+%<hforbxitT1>\expandafter\gdef\csname hforbxitT1\endcsname{%
+%    \end{macrocode}
+%
+% Roman bold-extended slanted.
+%    \begin{macrocode}
+%<hforbxslT1>\expandafter\gdef\csname hforbxslT1\endcsname{%
+%    \end{macrocode}
+%
+% Sans-serif medium upright.
+%    \begin{macrocode}
+%<hfossmnT1>\expandafter\gdef\csname hfossmnT1\endcsname{%
+%    \end{macrocode}
+%
+% Sans-serif medium italics.
+%    \begin{macrocode}
+%<hfossmitT1>\expandafter\gdef\csname hfossmitT1\endcsname{%
+%    \end{macrocode}
+%
+% Sans-serif medium slanted.
+%    \begin{macrocode}
+%<hfossmslT1>\expandafter\gdef\csname hfossmslT1\endcsname{%
+%    \end{macrocode}
+%
+% Sans-serif bold-extended upright.
+%    \begin{macrocode}
+%<hfossbxnT1>\expandafter\gdef\csname hfossbxnT1\endcsname{%
+%    \end{macrocode}
+%
+% Sans-serif bold-extended italics.
+%    \begin{macrocode}
+%<hfossbxitT1>\expandafter\gdef\csname hfossbxitT1\endcsname{%
+%    \end{macrocode}
+%
+% Sans-serif bold-extended slanted.
+%    \begin{macrocode}
+%<hfossbxslT1>\expandafter\gdef\csname hfossbxslT1\endcsname{%
+%    \end{macrocode}
+%
+% Common settings for all \Tone\ cpa files.
+%    \begin{macrocode}
+%<*cpaT1>
+  \lpcode\font 16=400  % ``
+  \rpcode\font 17=400  % ''
+  \rpcode\font 21=300 % --
+  \rpcode\font 22=200 % ---
+  % german quotation marks
+  \lpcode\font\quotedblbase=500
+  \rpcode\font\textquotedblleft=500
+  % set the protrusion of ",","-" and "." a bit smaller
+  % than originally suggested by Han The Than
+  \rpcode\font`\,=550
+  \rpcode\font`\-=550
+  \rpcode\font`\.=550
+  % originial Setting from Han The Thans protcode.tex
+  \rpcode\font`\!=200
+  \rpcode\font`\;=500
+  \rpcode\font`\:=500
+  \rpcode\font`\?=200
+  \lpcode\font`\`=600
+  \rpcode\font`\'=600
+  \rpcode\font`\)=50
+  \rpcode\font`\A=\rpcode\font`\A
+  \rpcode\font 196=50 % A umlaut
+  \rpcode\font`\F=50
+  \rpcode\font`\K=50
+  \rpcode\font`\L=50
+  \rpcode\font`\T=50
+  \rpcode\font`\V=50
+  \rpcode\font`\W=50
+  \rpcode\font`\X=50
+  \rpcode\font`\Y=50
+  \rpcode\font`\k=50
+  \rpcode\font`\r=50
+  \rpcode\font`\t=50
+  \rpcode\font`\v=50
+  \rpcode\font`\w=50
+  \rpcode\font`\x=50
+  \rpcode\font`\y=50
+  \lpcode\font`\(=50
+  \lpcode\font`\A=50
+  \lpcode\font 196=\lpcode\font`\A % A umlaut
+  \lpcode\font`\J=50
+  \lpcode\font`\T=50
+  \lpcode\font`\V=50
+  \lpcode\font`\W=50
+  \lpcode\font`\X=50
+  \lpcode\font`\Y=50
+  \lpcode\font`\v=50
+  \lpcode\font`\w=50
+  \lpcode\font`\x=50
+  \lpcode\font`\y=50
+}%
+%</cpaT1>
+%    \end{macrocode}
+%
+% \subsection{Text Companion (\TSone) encoding}
+%
+% Roman medium upright.
+%    \begin{macrocode}
+%<hformnTS1>\expandafter\gdef\csname hformnTS1\endcsname{%
+%    \end{macrocode}
+%
+% Roman medium italics.
+%    \begin{macrocode}
+%<hformitTS1>\expandafter\gdef\csname hformitTS1\endcsname{%
+%    \end{macrocode}
+%
+% Roman medium slanted.
+%    \begin{macrocode}
+%<hformslTS1>\expandafter\gdef\csname hformslTS1\endcsname{%
+%    \end{macrocode}
+%
+% Roman bold-extended upright.
+%    \begin{macrocode}
+%<hforbxnTS1>\expandafter\gdef\csname hforbxnTS1\endcsname{%
+%    \end{macrocode}
+%
+% Roman bold-extended italics.
+%    \begin{macrocode}
+%<hforbxitTS1>\expandafter\gdef\csname hforbxitTS1\endcsname{%
+%    \end{macrocode}
+%
+% Roman bold-extended slanted.
+%    \begin{macrocode}
+%<hforbxslTS1>\expandafter\gdef\csname hforbxslTS1\endcsname{%
+%    \end{macrocode}
+%
+% Sans-serif medium upright.
+%    \begin{macrocode}
+%<hfossmnTS1>\expandafter\gdef\csname hfossmnTS1\endcsname{%
+%    \end{macrocode}
+%
+% Sans-serif medium italics.
+%    \begin{macrocode}
+%<hfossmitTS1>\expandafter\gdef\csname hfossmitTS1\endcsname{%
+%    \end{macrocode}
+%
+% Sans-serif medium slanted.
+%    \begin{macrocode}
+%<hfossmslTS1>\expandafter\gdef\csname hfossmslTS1\endcsname{%
+%    \end{macrocode}
+%
+% Sans-serif bold-extended upright.
+%    \begin{macrocode}
+%<hfossbxnTS1>\expandafter\gdef\csname hfossbxnTS1\endcsname{%
+%    \end{macrocode}
+%
+% Sans-serif bold-extended italics.
+%    \begin{macrocode}
+%<hfossbxitTS1>\expandafter\gdef\csname hfossbxitTS1\endcsname{%
+%    \end{macrocode}
+%
+% Sans-serif bold-extended slanted.
+%    \begin{macrocode}
+%<hfossbxslTS1>\expandafter\gdef\csname hfossbxslTS1\endcsname{%
+%    \end{macrocode}
+%
+% Common settings for all \TSone\ cpa files.
+%    \begin{macrocode}
+%<*cpaTS1>
+  \rpcode\font 176=500 % \textdegree
+}%
+%</cpaTS1>
+%    \end{macrocode}
+%
+% \section{fd files}
+%
+%    \begin{macrocode}
+%<*omlhfor>
+\DeclareFontFamily{OML}{hfor}{\skewchar\font127 }
+\DeclareFontShape{OML}{hfor}{m}{n}%
+   {<->ssub*cmm/m/it}{}
+\DeclareFontShape{OML}{hfor}{m}{it}%
+   {<->ssub*cmm/m/it}{}
+\DeclareFontShape{OML}{hfor}{m}{sl}%
+   {<->ssub*cmm/m/it}{}
+\DeclareFontShape{OML}{hfor}{m}{sc}%
+   {<->ssub*cmm/m/it}{}
+\DeclareFontShape{OML}{hfor}{bx}{n}%
+   {<->ssub*cmm/b/it}{}
+\DeclareFontShape{OML}{hfor}{bx}{it}%
+   {<->ssub*cmm/b/it}{}
+\DeclareFontShape{OML}{hfor}{bx}{sl}%
+   {<->ssub*cmm/b/it}{}
+\DeclareFontShape{OML}{hfor}{bx}{sc}%
+   {<->ssub*cmm/b/it}{}
+%</omlhfor>
+%    \end{macrocode}
+%
+%    \begin{macrocode}
+%<*omshfor>
+\DeclareFontFamily{OMS}{hfor}{\skewchar\font48 }
+\DeclareFontShape{OMS}{hfor}{m}{n}%
+   {<->ssub*cmsy/m/n}{}
+\DeclareFontShape{OMS}{hfor}{m}{it}%
+   {<->ssub*cmsy/m/n}{}
+\DeclareFontShape{OMS}{hfor}{m}{sl}%
+   {<->ssub*cmsy/m/n}{}
+\DeclareFontShape{OMS}{hfor}{m}{sc}%
+   {<->ssub*cmsy/m/n}{}
+\DeclareFontShape{OMS}{hfor}{bx}{n}%
+   {<->ssub*cmsy/b/n}{}
+\DeclareFontShape{OMS}{hfor}{bx}{it}%
+   {<->ssub*cmsy/b/n}{}
+\DeclareFontShape{OMS}{hfor}{bx}{sl}%
+   {<->ssub*cmsy/b/n}{}
+\DeclareFontShape{OMS}{hfor}{bx}{sc}%
+   {<->ssub*cmsy/b/n}{}
+%</omshfor>
+%    \end{macrocode}
+%
+%    \begin{macrocode}
+%<*ts1hfor>
+\ifhfofixcm
+  \typeout{ts1hfor.fd: Using fewer design sizes (fix-cm)}%
+  \providecommand{\HFO@family}[5]{%
+    \DeclareFontShape{#1}{#2}{#3}{#4}%
+    {<-6><6-7><7-8><8-9><9-10><10-12><12-17><17->genb*#5}{}}
+\else
+  \typeout{ts1hfor.fd: Using all design sizes}%
+  \providecommand{\HFO@family}[5]{%
+    \DeclareFontShape{#1}{#2}{#3}{#4}%
+    {<5><6><7><8><9><10><10.95><12><14.4>%
+     <17.28><20.74><24.88><29.86><35.83>genb*#5}{}}
+\fi
+\DeclareFontFamily{TS1}{hfor}{\hyphenchar\font\m@ne}
+\HFO@family{TS1}{hfor}{m}{n}{tcrm}
+\HFO@family{TS1}{hfor}{m}{sl}{tcsl}
+\HFO@family{TS1}{hfor}{m}{it}{tcti}
+\HFO@family{TS1}{hfor}{bx}{n}{tcbx}
+\HFO@family{TS1}{hfor}{b}{n}{tcrb}
+\HFO@family{TS1}{hfor}{bx}{it}{tcbi}
+\HFO@family{TS1}{hfor}{bx}{sl}{tcbl}
+\HFO@family{TS1}{hfor}{m}{ui}{tcui}
+%</ts1hfor>
+%    \end{macrocode}
+%
+%    \begin{macrocode}
+%<*ts1hfoss>
+\ifhfofixcm
+  \typeout{ts1hfor.fd: Using fewer design sizes (fix-cm)}%
+  \providecommand{\HFO@family}[5]{%
+    \DeclareFontShape{#1}{#2}{#3}{#4}%
+    {<-6><6-7><7-8><8-9><9-10><10-12><12-17><17->genb*#5}{}}
+\else
+  \typeout{ts1hfor.fd: Using all design sizes}%
+  \providecommand{\HFO@family}[5]{%
+    \DeclareFontShape{#1}{#2}{#3}{#4}%
+    {<5><6><7><8><9><10><10.95><12><14.4>%
+     <17.28><20.74><24.88><29.86><35.83>genb*#5}{}}
+\fi
+\DeclareFontFamily{TS1}{hfoss}{\hyphenchar\font\m@ne}
+\HFO@family{TS1}{hfoss}{m}{n}{tcss}
+\HFO@family{TS1}{hfoss}{m}{sl}{tcsi}
+\HFO@family{TS1}{hfoss}{m}{it}{tcsi}
+\HFO@family{TS1}{hfoss}{bx}{n}{tcsx}
+\HFO@family{TS1}{hfoss}{bx}{it}{tcso}
+\HFO@family{TS1}{hfoss}{bx}{sl}{tcso}
+%</ts1hfoss>
+%    \end{macrocode}
+%
+%    \begin{macrocode}
+%<*ts1hfott>
+\ifhfofixcm
+  \typeout{ts1hfor.fd: Using fewer design sizes (fix-cm)}%
+  \providecommand{\HFO@family}[5]{%
+    \DeclareFontShape{#1}{#2}{#3}{#4}%
+    {<-6><6-7><7-8><8-9><9-10><10-12><12-17><17->genb*#5}{}}
+\else
+  \typeout{ts1hfor.fd: Using all design sizes}%
+  \providecommand{\HFO@family}[5]{%
+    \DeclareFontShape{#1}{#2}{#3}{#4}%
+    {<5><6><7><8><9><10><10.95><12><14.4>%
+     <17.28><20.74><24.88><29.86><35.83>genb*#5}{}}
+\fi
+\DeclareFontFamily{TS1}{hfott}{\hyphenchar\font\m@ne}
+\HFO@ttfamily{TS1}{hfott}{m}{n}{tctt}
+\HFO@ttfamily{TS1}{hfott}{m}{sl}{tcst}
+\HFO@ttfamily{TS1}{hfott}{m}{it}{tcit}
+%</ts1hfott>
+%    \end{macrocode}
+%
+%    \begin{macrocode}
+%<*ts1hfovtt>
+\ifhfofixcm
+  \typeout{ts1hfor.fd: Using fewer design sizes (fix-cm)}%
+  \providecommand{\HFO@family}[5]{%
+    \DeclareFontShape{#1}{#2}{#3}{#4}%
+    {<-6><6-7><7-8><8-9><9-10><10-12><12-17><17->genb*#5}{}}
+\else
+  \typeout{ts1hfor.fd: Using all design sizes}%
+  \providecommand{\HFO@family}[5]{%
+    \DeclareFontShape{#1}{#2}{#3}{#4}%
+    {<5><6><7><8><9><10><10.95><12><14.4>%
+     <17.28><20.74><24.88><29.86><35.83>genb*#5}{}}
+\fi
+\DeclareFontFamily{TS1}{hfovtt}{}
+\HFO@ttfamily{TS1}{hfovtt}{m}{n}{tcvt}
+\HFO@ttfamily{TS1}{hfovtt}{m}{it}{tcvi}
+%</ts1hfovtt>
+%    \end{macrocode}
+%
+%
+% \Finale

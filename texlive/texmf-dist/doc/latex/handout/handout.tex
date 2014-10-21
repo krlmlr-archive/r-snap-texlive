@@ -1,0 +1,179 @@
+\documentclass{ltxdockit}[2011/03/25]
+\usepackage{btxdockit}
+\usepackage{fontspec}
+\usepackage[mono=false]{libertine}
+\usepackage{microtype}
+\usepackage[american]{babel}
+\usepackage[strict]{csquotes}
+\setmonofont[Scale=MatchLowercase]{DejaVu Sans Mono}
+\usepackage{shortvrb}
+\usepackage{pifont}
+\usepackage{minted}
+\usepackage{bidi}
+% Meta-datas
+\titlepage{%
+  title={Handout's making},
+  subtitle={to prepare your speech},
+  email={maieul <at> maieul <dot> net},
+  author={Maïeul Rouquette},
+  revision={1.0.0},
+  date={20/03/2014},
+  url={https://github.com/maieul/handout}}
+
+
+\begin{document}
+
+\printtitlepage
+\tableofcontents
+
+\section{Introduction}
+\subsection{Goal}
+
+In some fields of schol­ar­ship, a beamer does not of­fer good sup­port when giv­ing a talk in a pro­ceed­ing. For ex­am­ple, in clas­si­cal philol­ogy, the main sources are text, and it will be bet­ter to dis­tribute a hand­out to the au­di­ence with ex­tracts of the texts about which we will talk.
+
+The pack­age sup­ports prepa­ra­tion of such hand­outs when writ­ing the talk.
+
+\subsection{Credits}
+
+This package was created for Maïeul Rouquette's PHD\footnote{\url{http://apocryphes.hypothese.org}.} in 2014. It is licenced on the \emph{\LaTeX\ Project Public Licence}\footnote{\url{http://latex-project.org/lppl/lppl-1-3c.html}.}.
+
+All issues can be submitted, in French or English, in the GitHub issues page\footnote{\url{https://github.com/maieul/handout/issues}.}.
+
+\subsection{French tutorial}
+
+As the idea of the package behavior was send by French \LaTeX\ users\footnote{\url{http://fr.comp.text.tex.narkive.com/pXMop2kE/fabrication-d-un-exemplier}.}, and as the package's author has French as native language, a French tutorial is available in \url{http://geekographie.maieul.net/136}. 
+
+All files in the examples' folder are in French, but that should not have consequence for the meaning of their behaviors. They  have to be run with \XeLaTeX.
+
+
+\section{Basis}
+
+The package can be loaded very quickly with the standard command \cs{usepackage}
+
+\begin{minted}{tex}
+\usepackage{handout}
+\end{minted}
+The idea of the this package is to prepare handout during the writing of the paper. When you want to add something in your handout, just write it on an external file, and call this external file with the command \cs{handout} :
+
+\begin{minted}{tex}
+Your text
+\handout{folder/example}
+Your text
+\end{minted}
+
+The PDF output will contain two parts:
+\begin{enumerate}
+  \item Your paper.
+  \item The handout.
+\end{enumerate}
+
+You have just to split your pdf in two parts to obtain your handout for auditors.
+See example~1.
+
+\section{Code to be run at the beginning of the handout}
+
+You can execute any code at the beginning of the handout by defining a command \cmd{beforehandout}. For example, to suppress extra margins of the \env{quotation} environment:
+\begin{minted}{tex}
+\newcommand{\beforehandout}{%
+  \renewenvironment{quotation}{}{}
+}
+\end{minted}
+See example~2.
+
+Note that the package always do some action before the handout:
+\begin{itemize}
+  \item Start a new page.
+  \item Reset page and footnote.
+  \item Disable \cmd{index} and \cmd{label} command.
+\end{itemize}
+\section{Putting all the example's files in a same folder}
+
+In most cases, your file will be put in the same folder. So you can fix this folder with the package's option \opt{dir}:
+\begin{minted}{tex}
+\usepackage[dir=folder]{handout}
+...
+Your text
+\handout{example}
+Your text
+\end{minted}
+
+See example~3.
+
+\section{Recopying the sectioning commands in the handout}
+
+If you want your handout be organized with the same sectioning commands as your main paper, you can use the option \opt{sectioning} when loading the package. See example~4.
+
+\section{Numbering the examples}
+
+The package option \opt{numbering} automatically numbers the examples. The example's number is by default printed in margin, in a frame. See example~5. 
+
+To customize number's presentation, you can redefine three commands:
+\begin{enumerate}  
+  \item \cmd{thehandoutnumber} to redefine the way the number is displayed. Standard is:
+\begin{minted}{tex}
+\renewcommand{\thehandoutnumber}{\fbox{\arabic{handoutnumber}}}
+\end{minted}  
+See \LaTeX\ documentation on counter's appearance. 
+  \item \cmd{handoutnumber} to redefine the position of the number. Standard is :
+\begin{minted}{tex}
+\newcommand{\handoutnumber}[1]{\marginpar{#1}}
+\end{minted}
+  \item \cmd{handoutnumberintxt}, to redefine the position of the number in the main text. Standard is:
+\begin{minted}{tex}
+\newcommand{\handoutnumberintxt}[1]{\handoutnumber{#1}}
+\end{minted}
+\end{enumerate}
+
+\section{Temporarily disabling the handout generation}
+
+The package's option \opt{disabled} allows to disable the handout generation. 
+
+\section{Advanced use}
+\subsection{Conditional code}
+
+The argument of a  \cmd{onlyhandout} command will be printed only in the handout. Conversely, the argument of a command \cmd{nothandout} will printed only in the main text. See example~6.
+
+\subsection{Insert code in the handout}
+
+The argument of the  \cmd{forhandout} command will be add in the handout, even if called outside a included file. 
+
+\emph{Be careful} : if the content of the argument start by a command, this command won't be run before the handout. 
+
+The \cmd{forhandout} command is quite complexe to manage, but can be useful if you want to insert automatically bibliographic reference in your handout. If you use \emph{biblatex} to manage bibliography, you can define a \cmd{citehandout} command  this code  :
+
+\begin{minted}{tex}
+\newcommand{\citehandout}{%
+  \AtNextCitekey{%
+    \forhandout{%
+      \beforehandoutref%
+    }%
+    \forhandout{%
+      \cite[\strfield{postnote}]{\strfield{entrykey}}%
+      }%
+            \forhandout{%
+      \afterhandoutref%
+    }%
+  }%
+}
+\newcommand{\beforehandoutref}{\par\noindent\hspace{-2\parindent}}
+\newcommand{\afterhandoutref}{\par\vskip0.25\baselineskip}
+\end{minted}
+
+You can call \cmd{citehandout} command before citation commands that you want reference be copied in the handout. See example~7 and the \emph{biblatex} handbook.
+
+Note that the citation tracker is automatically reset at the beginning of the handout.
+
+\section{Change history}
+
+\begin{changelog}
+
+
+\begin{release}{1.0.1}{2014-05-23}
+\item Disable indexing in handout also when using multiple index.
+\end{release}
+
+\begin{release}{1.0.0}{2014-03-20}
+\item First public release.
+\end{release}
+\end{changelog}
+\end{document}

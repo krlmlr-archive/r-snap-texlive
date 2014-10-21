@@ -1,0 +1,125 @@
+%%
+%% This is file `spanelexample.tex',
+%% generated with the docstrip utility.
+%%
+%% The original source files were:
+%%
+%% texpower-doc.dtx  (with options: `spanelexample')
+%% 
+%% --------------------------------------------------------------
+%% TeXPower bundle - dynamic online presentations with LaTeX
+%% Copyright (C) 1999-2004 Stephan Lehmke
+%% Copyright (C) 2003-2005 Hans Fredrik Nordhaug
+%% 
+%% This program is free software; you can redistribute it and/or
+%% modify it under the terms of the GNU General Public License
+%% as published by the Free Software Foundation; either version 2
+%% of the License, or (at your option) any later version.
+%% 
+%% This program is distributed in the hope that it will be useful,
+%% but WITHOUT ANY WARRANTY; without even the implied warranty of
+%% MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+%% GNU General Public License for more details.
+%% --------------------------------------------------------------
+%% 
+%% The list of all files belonging to the TeXPower bundle is
+%% given in the file `00readme.txt'.
+%% 
+\ProvidesFile{spanelexample.tex}%
+      [2005/04/07 TeXPower example file]
+%-----------------------------------------------------------------------------------------------------------------
+%
+% Very simple panel example - compare with panelexample.tex
+
+\documentclass[calcdimensions,landscape,letterpaper,KOMA]{powersem}
+
+\usepackage[ps2pdf,colorlinks,pdfpagemode=FullScreen,plainpages=false]{hyperref}
+
+\usepackage[lightbackground,display]{texpower}
+\renewcommand{\currentpagevalue}{\value{slide}}
+\usepackage{fixseminar}
+\usepackage{tpslifonts}
+
+\newlength{\buttonwidth}
+\renewcommand{\buttonsep}{0.2\fboxsep}
+\renewcommand{\buttonshadowhshift}{0.1\fboxsep}
+\renewcommand{\buttonshadowvshift}{-0.1\fboxsep}
+
+\DeclarePanel{left}
+{%
+  \textsf{\textbf{\footnotesize
+      \begin{tabular}[b]{@{}l@{}}
+        Your Logo\\
+        Your Name\\
+        Your Company\\
+      \end{tabular}%
+      }}%
+  \vfill
+
+  \setlength{\buttonwidth}{.5\linewidth-.5ex}
+  \button[\buttonwidth]{\Acrobatmenu{FirstPage}}{Start}
+  \button[\buttonwidth]{\Acrobatmenu{LastPage}}{End}
+  \button[\buttonwidth]{\Acrobatmenu{PrevPage}}{Back}
+  \button[\buttonwidth]{\Acrobatmenu{NextPage}}{Next}
+}%
+
+\newcommand{\MyHeader}{}
+
+\newcommand{\myheader}[1]{\renewcommand{\MyHeader}{#1}}
+
+\DeclarePanel{top}{\Large\strut\MyHeader}
+
+\backgroundstyle{vgradient}
+
+\slideframe{none}
+\centerslidesfalse
+\pagestyle{empty}
+
+\mklength{\slideleftmargin}{\leftpanelwidth*\ratio{1cm}{\semcm}+.5cm}
+\renewcommand{\sliderightmargin}{.5cm}
+\mklength{\slidetopmargin}{\toppanelheight*\ratio{1cm}{\semcm}+.5cm}
+\renewcommand{\slidebottommargin}{.5cm}
+
+\begin{document}
+
+\begin{slide}
+
+\myheader{Just some info about panels}
+
+If you're using a package that has it's own panel and/or naviagtion buttons (as
+\href{ftp://ftp.dante.de/tex-archive/help/Catalogue/entries/pdfscreen.html}%
+{\code{pdfscreen}}) don't even consider using the preliminary support for this
+in \concept{\TeX Power}.
+
+Using it for \code{seminar} / \code{powersem} as we are doing here is OK \dots
+
+Things to remember:
+\begin{itemize}
+\item If you want to declare your own panels, you have to call
+\macroname{backgroundstyle} after the panel declaration.
+\item The font color used in the panels are controlled by \code{\carg{pos}paneltextcolor}.
+\end{itemize}
+
+\newslide
+
+\myheader{Some examples for \macroname{pause}}
+
+\pageTransitionDissolve
+With dissolve page transition
+\begin{itemize}
+\item foo\pause
+\item bar\pause
+\end{itemize}
+\pageTransitionReplace
+and with plain replace page transition
+\begin{itemize}
+\item foo\pause
+\item bar\pause
+\end{itemize}
+
+\end{slide}
+
+\end{document}
+\endinput
+%%
+%% End of file `spanelexample.tex'.

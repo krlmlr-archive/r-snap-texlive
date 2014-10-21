@@ -1,0 +1,20 @@
+Nota : this packages requires pdfTeX.
+
+The linegoal package provides a macro \linegoal
+to be used with \setlength :
+   \setlength<some dimen>\linegoal
+
+will assign to <some dimen> the horizontal length
+of the remainder of the line.
+
+This is achieved using the \pdfsavepos primitive
+and the zref-savepos package.
+
+-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+Typical usage :
+
+Some text: \begin{tabularx}\linegoal{|l|X|} \hline
+            one & two                       \\
+            three & four                    \\\hline
+           \end{tabularx}
+

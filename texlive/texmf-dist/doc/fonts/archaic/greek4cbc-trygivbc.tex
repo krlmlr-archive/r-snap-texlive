@@ -1,0 +1,130 @@
+% trygivbc.tex    Test 4thC BC Greek font
+\documentclass{article}
+\usepackage{greek4cbc}
+
+\newcommand{\abc}{a b g d e z h T i k l m n x o p r s t y X f P O}
+\newcommand{\Acomms}{\Aalpha%\
+                     \Abeta%\
+                     \Agamma%\
+                     \Adelta%\
+                     \Aepsilon%\
+                     \Azeta%\
+                     \Aeta%\
+                     \Atheta%\
+                     \Aiota%\
+                     \Akappa%\
+                     \Alambda%\
+                     \Amu%\
+                     \Anu%\
+                     \Axi%\
+                     \Aomicron%\
+                     \Api%\
+                     \Arho%\
+                     \Asigma%\
+                     \Atau%\
+                     \Aupsilon%\
+                     \Achi%\
+                     \Aphi%\
+                     \Apsi%\
+                     \Aomega}
+
+\newcommand{\ARcomms}{\ARalpha%\
+                     \ARbeta%\
+                     \ARgamma%\
+                     \ARdelta%\
+                     \ARepsilon%\
+                     \ARzeta%\
+                     \AReta%\
+                     \ARtheta%\
+                     \ARiota%\
+                     \ARkappa%\
+                     \ARlambda%\
+                     \ARmu%\
+                     \ARnu%\
+                     \ARxi%\
+                     \ARomicron%\
+                     \ARpi%\
+                     \ARrho%\
+                     \ARsigma%\
+                     \ARtau%\
+                     \ARupsilon%\
+                     \ARchi%\
+                     \ARphi%\
+                     \ARpsi%\
+                     \ARomega}
+
+
+\title{Try 4th Century BC Greek Font}
+%%\author{Peter Wilson \\ \texttt{herries dot press at earthlink dot net}}
+\author{}
+\date{}
+\begin{document}
+\maketitle
+
+    This provides a short test of the characters in the 4th century \textsc{bc} Greek 
+font
+--- the \verb|givbc| font family.
+
+\begin{center}
+The smooth font in Large size \\
+{\givbcfamily\Large \abc \par
+}
+\end{center}
+
+\begin{center}
+The font in its normal size, both smooth and rough, and for comparison, transliterated into 
+Modern Greek. \\
+\textgivbc{\Acomms} \\ \textgivbc{\ARcomms} \\
+\translitgivbc{\Acomms} \\
+\end{center}
+
+    GREEK in Greek is: \textgivbc{greek}.
+
+The next lines of `Greek' are produced by the following code (note that
+the Greeks had no punctuation marks): 
+\begin{verbatim}
+{\givbcfamily this font gomes in both a rough and a smooT 
+form \quad
+Tis is Te smooT form \quad at Tis time Te
+greeks no longer used boustrofedron riting}
+\end{verbatim}
+
+{\givbcfamily this font gomes in both a rough and a smooT 
+form \quad
+Tis is Te smooT form \quad at Tis time Te
+greeks no longer used boustrofedron riting}
+
+\begin{table}
+\centering
+\caption{Alphabet and commands}
+\begin{tabular}{|c|c||l|l|} \hline
+Glyph         & ASCII & Smooth & Rough \\ \hline
+\textgivbc{a} & a      & \verb|\Aalpha|   & \verb|\ARalpha|      \\
+\textgivbc{b} & b      & \verb|\Abeta|    & \verb|\ARbeta|      \\
+\textgivbc{g} & g      & \verb|\Agamma|   & \verb|\ARgamma|      \\
+\textgivbc{d} & d      & \verb|\Adelta|   & \verb|\ARdelta|      \\
+\textgivbc{e} & e      & \verb|\Aepsilon| & \verb|\ARepsilon|      \\
+\textgivbc{z} & z      & \verb|\Azeta|    & \verb|\ARzeta|      \\
+\textgivbc{h} & h      & \verb|\Aeta|     & \verb|\AReta|      \\
+\textgivbc{T} & T      & \verb|\Atheta|   & \verb|\ARtheta| \\
+\textgivbc{i} & i      & \verb|\Aiota|    & \verb|\ARiota|      \\
+\textgivbc{k} & k      & \verb|\Akappa|   & \verb|\ARkappa|      \\
+\textgivbc{l} & l      & \verb|\Alambda|  & \verb|\ARlambda|      \\
+\textgivbc{m} & m      & \verb|\Amu|      & \verb|\ARmu|      \\
+\textgivbc{n} & n      & \verb|\Anu|      & \verb|\ARnu|      \\
+\textgivbc{x} & x      & \verb|\Axi|      & \verb|\ARxi| \\
+\textgivbc{o} & o      & \verb|\Aomicron| & \verb|\ARomicron|      \\
+\textgivbc{p} & p      & \verb|\Api|      & \verb|\ARpi|      \\
+\textgivbc{r} & r      & \verb|\Arho|     & \verb|\ARrho|      \\
+\textgivbc{s} & s      & \verb|\Asigma|   & \verb|\ARsigma|      \\
+\textgivbc{t} & t      & \verb|\Atau|     & \verb|\ARtau|      \\
+\textgivbc{y} & y      & \verb|\Aupsilon| & \verb|\ARupsilon|      \\
+\textgivbc{X} & X      & \verb|\Achi|     & \verb|\ARchi|      \\
+\textgivbc{f} & f      & \verb|\Aphi|     & \verb|\ARphi| \\
+\textgivbc{P} & P      & \verb|\Apsi|     & \verb|\ARpsi| \\
+\textgivbc{O} & O      & \verb|\Aomega|   & \verb|\ARomega| \\
+\hline
+\end{tabular}
+\end{table}
+
+\end{document}

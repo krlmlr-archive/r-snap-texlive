@@ -1,0 +1,685 @@
+%%
+%% This is file `testsample.tex',
+%% generated with the docstrip utility.
+%%
+%% The original source files were:
+%%
+%% ontesting.dtx  (with options: `testbed')
+%% 
+%% Copyright (C) 2013 by Adrian P Robson
+%%    adrian.robson@nepsweb.co.uk
+%% 
+%% This work may be distributed and/or modified under the
+%% conditions of the LaTeX Project Public License, either
+%% version 1.3c of this license or (at your option) any later
+%% version. The latest version of this license is in
+%%    http://www.latex-project.org/lppl.txt
+%% 
+%% This work has the LPPL maintenance status `maintained'.
+%% The Current Maintainer of this work is Adrian Robson.
+%% 
+%% This work consists of the files makeshape.ins
+%%                                 makeshape.dtx and
+%%                                 ontesting.dtx
+%% and the derived files           makeshape.sty
+%%                                 makeshape.pdf
+%%                                 sampleshape.tex
+%%                                 ontesting.pdf
+%%                                 testsample.tex and
+%%                                 testsample.pdf
+%% 
+%%--------------------------------------------------------
+%%
+%% This is a test bed for the makeshape package's
+%% sampleshape in sampleshape.tex
+%%
+%% It can be easily adapted for other shapes.
+%%
+%% 22 January 2013
+
+\documentclass[10pt,a4paper]{article}
+
+\usepackage{enumitem}
+\usepackage{tikz}
+\usetikzlibrary{backgrounds}
+\usetikzlibrary{arrows}
+
+%%-------------------------------------------------
+%% file and shape being tested
+\def\filename{sampleshape}   % file being tested
+\input{\filename}            % It is a .tex
+%%\usepackage{\filename}     % It is a .sty
+\def\testshape{sample}       % shape being tested
+%%-------------------------------------------------
+
+%%--------------------------------------------------------
+%%    Utility macros
+%%--------------------------------------------------------
+
+%% \spot{x}{y}
+\newcommand{\spot}[2]{
+   \draw[help lines,red] (#1,#2) circle (1pt);
+}
+
+%% \markOrig
+\def\mrksz{4pt}
+\def\mrkcol{yellow}
+\newcommand{\markOrig}{
+   \draw[help lines,\mrkcol] (0,0) circle (\mrksz);
+   \draw[help lines,\mrkcol] (-\mrksz,0) -- (\mrksz,0);
+   \draw[help lines,\mrkcol] (0,-\mrksz) -- (0,\mrksz);
+}
+
+%% \markOrigC{colour}
+\def\mrksz{4pt}
+\newcommand{\markOrigC}[1]{
+   \draw[help lines,#1] (0,0) circle (\mrksz);
+   \draw[help lines,#1] (-\mrksz,0) -- (\mrksz,0);
+   \draw[help lines,#1] (0,-\mrksz) -- (0,\mrksz);
+}
+
+%% Anchors ...
+%%    \***{node}{size}{colour}
+
+\def\centeranchor#1#2#3{
+   \draw[help lines,#3] (#1.center) circle (#2);
+}
+
+\def\textanchor#1#2#3{
+   \draw[help lines,#3] (#1.text) circle (#2);
+}
+
+\def\cardinalanchors#1#2#3{
+   \draw[help lines,#3] (#1.north) circle (#2);
+   \draw[help lines,#3] (#1.west) circle (#2);
+   \draw[help lines,#3] (#1.south) circle (#2);
+   \draw[help lines,#3] (#1.east) circle (#2);
+}
+
+\def\corneranchors#1#2#3{
+   \draw[help lines,#3] (#1.north west) circle (#2);
+   \draw[help lines,#3] (#1.south west) circle (#2);
+   \draw[help lines,#3] (#1.south east) circle (#2);
+   \draw[help lines,#3] (#1.north east) circle (#2);
+}
+
+\def\allanchors#1#2#3{
+   \corneranchors{#1}{#2}{#3}
+   \cardinalanchors{#1}{#2}{#3}
+}
+
+%%--------------------------------------------------------
+
+\title{The {\sf makeshape} package\\
+       Shape Test Bed
+       \vspace{-3ex} }
+\author{}
+\date{
+\begin{tabular}{rl}
+       File  & {\tt \filename}\\
+       Shape & {\tt \testshape}
+\end{tabular}
+\\[2ex]
+\today}
+
+\begin{document}
+
+\maketitle
+
+%%--------------------------------------------------------
+\section*{Basic Shape}
+
+\begin{center}
+\begin{tikzpicture}
+
+\node at (0,0)
+   [\testshape, draw
+   ] (test) {\verb|x         x|} ;
+
+\allanchors{test}{2pt}{red}
+\textanchor{test}{2pt}{green}
+\draw[help lines,green] (test.text) -- ++(7pt,0);
+\draw[help lines,green] (test.text) -- ++(0,5pt);
+\centeranchor{test}{2pt}{blue}
+
+%% mark the anchors with arrows from enclosing rectangle
+\node at (0,0)
+   [rectangle, red,
+    minimum width=4cm,
+    minimum height=2cm
+   ] (outer) {} ;
+\begin{scope}[>=latex']
+\draw[->,help lines,red] (outer.north) -- (test.north);
+\draw[->,help lines,red] (outer.east) -- (test.east);
+\draw[->,help lines,red] (outer.south) -- (test.south);
+\draw[->,help lines,red] (outer.west) -- (test.west);
+\draw[->,help lines,red] (outer.north east) -- (test.north east);
+\draw[->,help lines,red] (outer.south east) -- (test.south east);
+\draw[->,help lines,red] (outer.south west) -- (test.south west);
+\draw[->,help lines,red] (outer.north west) -- (test.north west);
+\end{scope}
+
+\begin{scope}[on background layer]
+\node at (4cm,0)
+   [rectangle, draw
+   ] (rectRmin) {\verb|x         x|};
+
+\node at (0,-1.7cm)
+   [rectangle, draw
+   ] (rectBmin) {\verb|x         x|};
+
+\draw[help lines,green] (rectRmin.north west) -- ++(-4.5cm,0);
+\draw[help lines,green] (rectRmin.south west) -- ++(-4.5cm,0);
+\draw[help lines,green] (rectBmin.north west) -- ++(0,2.3cm);
+\draw[help lines,green] (rectBmin.north east) -- ++(0,2.3cm);
+\markOrig
+\end{scope}
+
+\end{tikzpicture}
+
+\end{center}
+
+\vfill
+%%--------------------------------------------------------
+\section*{Minimum Dimensions}
+
+\def\minh{30pt}
+\def\minw{80pt}
+
+{\tt minimum width = \minw}\\
+{\tt minimum height = \minh}
+
+\begin{center}
+\begin{tikzpicture}
+
+%% The test shape
+\node at (0,0)
+   [\testshape, draw,
+    minimum width=\minw,
+    minimum height=\minh,
+   ] (test) {\verb|x   x|} ;
+
+\allanchors{test}{1pt}{red}
+
+%% Guide lines
+\begin{scope}[on background layer]
+\node at (4.5cm+\minw,0)
+   [rectangle, draw
+   ] (rectRmin) {\verb|x   x|};
+
+\node at (1.5cm+\minw,0)
+   [rectangle, draw,
+    minimum width=\minw,
+    minimum height=\minh
+   ] (rectR) {\verb|x   x|};
+
+\node at (0,-1cm-\minh)
+   [rectangle, draw,
+    minimum width=\minw,
+    minimum height=\minh
+   ] (rectB) {\verb|x   x|};
+
+\node at (0,-2.5cm-\minh)
+   [rectangle, draw,
+   ] (rectBmin) {\verb|x   x|};
+
+\markOrig
+\draw[help lines,yellow] (rectR.north west) -- ++(-1.7cm-\minw,0);
+\draw[help lines,yellow] (rectR.south west) -- ++(-1.7cm-\minw,0);
+\draw[help lines,yellow] (rectR.west) -- ++(-1.7cm-\minw,0);
+\draw[help lines,yellow] (rectR.west) -- ++(\minw+0.2cm,0);
+\draw[help lines,yellow] (rectB.north west) -- ++(0,1.2cm+\minh);
+\draw[help lines,yellow] (rectB.north east) -- ++(0,1.2cm+\minh);
+\draw[help lines,yellow] (rectB.north) -- ++(0,1.2cm+\minh);
+\draw[help lines,yellow] (rectB.north) -- ++(0,-\minh-0.2cm);
+
+\draw[help lines,green] (rectRmin.north west) -- ++(-4.6cm-\minw,0);
+\draw[help lines,green] (rectBmin.north west) -- ++(0,2.6cm+\minh);
+\end{scope}
+
+\end{tikzpicture}
+\end{center}
+\vfill
+
+\newpage
+%%--------------------------------------------------------
+\section*{Inner Separation}
+
+\def\insepx{20pt}
+\def\insepy{10pt}
+
+{\tt inner x seperation = \insepx}\\
+{\tt inner y seperation = \insepy}
+
+\begin{center}
+\begin{tikzpicture}
+
+%% The test shape
+\node at (0,0)
+   [\testshape, draw,
+    inner xsep=\insepx, inner ysep=\insepy
+   ] (test) {\verb|x   x|} ;
+
+\allanchors{test}{1pt}{red}
+
+%% Guide lines
+\begin{scope}[on background layer]
+\markOrig
+
+\node at (2.5cm,0)
+   [rectangle, draw
+   ] (rectRmin) {\verb|x   x|};
+
+\node at (0,-1.5cm)
+   [rectangle, draw
+   ] (rectBmin) {\verb|x   x|};
+
+\node at (4cm,0)
+   [rectangle, draw,
+    inner ysep=\insepy
+   ] (rectRwithSep) {\verb|x   x|};
+
+\node at (0,-2.2cm)
+   [rectangle, draw,
+    inner xsep=\insepx
+   ] (rectBwithSep) {\verb|x   x|};
+
+\draw[help lines,green] (rectRmin.north west) -- ++(-3.4cm,0);
+\draw[help lines,green] (rectBmin.north west) -- ++(0,2cm);
+\draw[help lines,blue] (rectRwithSep.north west) -- ++(-4.9cm,0);
+\draw[help lines,blue] (rectBwithSep.north west) -- ++(0,2.7cm);
+\end{scope}
+
+\end{tikzpicture}
+\end{center}
+
+%%--------------------------------------------------------
+\section*{Outer Separation}
+
+\def\minh{20pt}
+\def\minw{60pt}
+\def\outerx{20pt}
+\def\outery{10pt}
+
+{\tt outer x separation = \outerx}\\
+{\tt outer y separation = \outery}
+
+\begin{center}
+\begin{tikzpicture}
+
+\markOrig
+
+%% the shape with outer separation
+\node at (0,0)
+   [\testshape, draw,
+    minimum width=\minw,
+    minimum height=\minh,
+    outer xsep=\outerx, outer ysep=\outery
+   ] (test) {\verb|x   x|} ;
+
+%% shape expanded to outer separation boundary
+\node at (0,0)
+   [\testshape, draw, help lines, green,
+    minimum width=\minw+2*\outerx,
+    minimum height=\minh+2*\outery,
+   ] (bigger) {} ;
+
+%% mark the anchors with arrows from enclosing rectangle
+\node at (0,0)
+   [rectangle,
+    minimum width=\minw+1cm,
+    minimum height=\minh+1cm,
+    outer xsep=\outerx, outer ysep=\outery
+   ] (outer) {} ;
+
+\begin{scope}[>=latex']
+\draw[->,help lines,red] (outer.north) -- (test.north);
+\draw[->,help lines,red] (outer.east) -- (test.east);
+\draw[->,help lines,red] (outer.south) -- (test.south);
+\draw[->,help lines,red] (outer.west) -- (test.west);
+\draw[->,help lines,red] (outer.north east) -- (test.north east);
+\draw[->,help lines,red] (outer.south east) -- (test.south east);
+\draw[->,help lines,red] (outer.south west) -- (test.south west);
+\draw[->,help lines,red] (outer.north west) -- (test.north west);
+\end{scope}
+
+%% mark anchors with circles
+\allanchors{test}{2pt}{red}
+
+%% mark text and centre anchors
+\textanchor{test}{2pt}{green}
+\draw[help lines,green] (test.text) -- ++(7pt,0);
+\draw[help lines,green] (test.text) -- ++(0,5pt);
+\centeranchor{test}{2pt}{blue}
+
+\end{tikzpicture}
+\end{center}
+
+%%--------------------------------------------------------
+\section*{Anchorborder }
+
+%%--------------------------------------------------------
+\subsection*{External Points with Outer Separation and\\Minimum Dimensions}
+
+\def\width{2cm}
+\def\height{1cm}
+\def\testouter{10pt}
+
+{\tt outer sep = \testouter}\\
+{\tt minimum height = \height}\\
+{\tt minimum width = \width}
+
+\begin{center}
+\begin{tikzpicture}
+
+\markOrig
+
+%% The test shape
+\node at (0,0) [\testshape, draw, font={\sf \small},
+                minimum width=\width,
+                minimum height=\height,
+                outer sep=\testouter
+               ] (test) {Test};
+
+%% green path where anchors should be
+\node at (0,0) [\testshape, draw, help lines, green,
+                minimum width=\width+2*\testouter,
+                minimum height=\height+2*\testouter,
+               ] (bigger) {} ;
+
+\def\n{20}
+\def\radius{3cm}
+\draw[dotted] (0,0) circle (\radius);
+\foreach \s in {1,...,\n}
+{
+  \draw[->, >=latex']  ({360/\n * (\s - 1)}:\radius) -- (test);
+}
+\end{tikzpicture}
+\end{center}
+
+%%--------------------------------------------------------
+\subsection*{Internal Points with Minimum Dimensions}
+
+\def\width{3cm}
+\def\height{3cm}
+
+{\tt minimum height = \height}\\
+{\tt minimum width = \width}
+
+\vspace{-3ex}
+\begin{center}
+\begin{tikzpicture}
+
+\markOrig
+
+%% The test shape
+\node at (0,0) [\testshape, draw, font={\sf \small},
+                minimum width=\width,
+                minimum height=\height,
+               ] (test) {};
+
+\def\n{20}
+\def\radius{1cm}
+\draw[dotted] (0,0) circle (\radius);
+\foreach \s in {1,...,\n}
+{
+  \draw[->, >=latex', red]  ({360/\n * (\s - 1)}:\radius) -- (test);
+}
+\end{tikzpicture}
+\end{center}
+
+
+%%--------------------------------------------------------
+\subsection*{Angles with Outer Separation and Minimum Dimensions}
+
+\def\angle{120}
+\def\width{2cm}
+\def\height{1cm}
+\def\testouterx{20pt}
+\def\testoutery{10pt}
+
+Marked angle = \angle\\
+{\tt outer xsep = \testouterx}\\
+{\tt outer ysep = \testoutery}\\
+{\tt minimum height = \height}\\
+{\tt minimum width = \width}
+
+\vspace{-5ex}
+\begin{center}
+\begin{tikzpicture}
+
+\markOrig
+
+%% red path where anchors should be ?
+\node at (0,0) [\testshape, draw, help lines, red,
+                minimum width=\width+2*\testouterx,
+                minimum height=\height+2*\testoutery,
+               ] (bigger) {};
+
+\node at (0,0) [\testshape, draw,
+                minimum width=\width,
+                minimum height=\height,
+                outer xsep=\testouterx,
+                outer ysep=\testoutery
+               ] (test) {};
+
+\foreach \angle in {0,5,...,355} {
+  \fill[blue] (test.\angle) circle[radius=1pt];
+}
+
+%% single angle test
+\def\angle{120}
+\draw [help lines] (test.center) -- ++(\angle:1.5cm);
+\draw[green] (test.\angle) circle[radius=2pt];
+\draw[green] (test.\angle) -- ++(3pt,3pt);
+\draw[green] (test.\angle) -- ++(-3pt,-3pt);
+\draw[green] (test.\angle) -- ++(-3pt,3pt);
+\draw[green] (test.\angle) -- ++(3pt,-3pt);
+
+\end{tikzpicture}
+\end{center}
+
+%%--------------------------------------------------------
+\section*{Simple Node Connections}
+
+\begin{center}
+\begin{tikzpicture}
+\def\ra{0} \def\rb{60pt} \def\rc{120pt}
+\def\ca{0} \def\cb{100pt} \def\cc{200pt}
+
+\draw[help lines,step=20pt,dotted] (0pt,0pt) grid (\cc,\rc);
+
+\tikzset{node style/.style={ minimum width=40pt,minimum height=20pt}}
+
+\markOrig
+
+\node at (\ca,\ra) [draw, \testshape, node style] (A) {A};
+\node at (\cb,\ra) [draw, \testshape, node style] (B) {B};
+\node at (\cc,\ra) [draw, \testshape, node style] (C) {C};
+%%
+\node at (\ca,\rb) [draw, \testshape, node style] (D) {D};
+\node at (\cb,\rb) [draw, \testshape, node style] (E) {E};
+\node at (\cc,\rb) [draw, \testshape, node style] (F) {F};
+%%
+\node at (\ca,\rc) [draw, \testshape, node style] (G) {G};
+\node at (\cb,\rc) [draw, \testshape, node style] (H) {H};
+\node at (\cc,\rc) [draw, \testshape, node style] (I) {I};
+
+\draw (E) -- (F);
+\draw (E) -- (D);
+\draw (E) -- (B);
+\draw (E) -- (H);
+\draw (E) -- (G);
+\draw (E) -- (A);
+\draw (E) -- (I);
+\draw (E) -- (C);
+
+\end{tikzpicture}
+\end{center}
+
+%%--------------------------------------------------------
+\section*{Scaling}
+
+\def\minh{20pt}
+\def\minw{80pt}
+\def\exd{5pt}
+
+\begin{center}
+\begin{tikzpicture}
+
+\node at (0,0)
+   [\testshape, draw,
+    minimum width=\minw,
+    minimum height=\minh,
+   ] (test1) {} ;
+
+\node at (0,0)
+   [\testshape, draw, blue,
+    minimum width=\minw+1cm,
+    minimum height=\minh+1cm,
+   ] (test2) {} ;
+
+\node at (0,0)
+   [\testshape, draw, red,
+    minimum width=\minw+2cm,
+    minimum height=\minh+2cm,
+   ] (test3) {} ;
+
+\def\tgridA#1#2{
+\draw[help lines] ({0.5*(\minw+#1)+\exd},{0.5*(\minh+#1)}) -- ({-0.5*(\minw+#1)-\exd},{0.5*(\minh+#1)});
+\draw[help lines] ({0.5*(\minw+#1)+\exd},{-0.5*(\minh+#1)}) -- ({-0.5*(\minw+#1)-\exd},{-0.5*(\minh+#1)});
+\draw[help lines] ({0.5*(\minw+#1)},{0.5*(\minh+#1)+\exd}) -- ({0.5*(\minw+#1)},{-0.5*(\minh+#1)-\exd});
+\draw[help lines] ({-0.5*(\minw+#1)},{0.5*(\minh+#1)+\exd}) -- ({-0.5*(\minw+#1)},{-0.5*(\minh+#1)-\exd});
+}
+
+\begin{scope}[on background layer]
+\tgridA{0pt}{0pt}
+\tgridA{1cm}{1cm}
+\tgridA{2cm}{2cm}
+\markOrig
+\end{scope}
+
+\end{tikzpicture}
+\end{center}
+
+%%--------------------------------------------------------
+\section*{Package Tests}
+
+%%--------------------------------------------------------
+\subsection*{Text Alignment and the Text Box}
+
+\begin{center}
+\begin{tikzpicture}
+
+\node at (0,0)
+     [\testshape, draw
+     ] (test1) {\verb|x         x|} ;
+
+\node[ \testshape, draw,
+       below of=test1,
+       node distance=1cm
+     ] (test2) {\verb|x        dx|} ;
+
+\node[ \testshape, draw,
+       below of=test2, node distance=1cm
+     ] (test3) {\verb|xp        x|} ;
+
+\node[ \testshape, draw,
+       below of=test3, node distance=1cm
+     ] (test4) {\verb|xp       dx|} ;
+
+\allanchors{test1}{1pt}{red}
+\corneranchors{test2}{1pt}{red}
+\corneranchors{test3}{1pt}{red}
+\corneranchors{test4}{1pt}{red}
+\centeranchor{test1}{2pt}{blue}
+\centeranchor{test2}{2pt}{blue}
+\centeranchor{test3}{2pt}{blue}
+\centeranchor{test4}{2pt}{blue}
+\textanchor{test1}{1pt}{green}
+\draw[help lines,green] (test1.text) -- ++(7pt,0);
+\draw[help lines,green] (test1.text) -- ++(0,5pt);
+\textanchor{test2}{1pt}{green}
+\textanchor{test3}{1pt}{green}
+\textanchor{test4}{1pt}{green}
+
+\begin{scope}[on background layer]
+
+\markOrig
+
+\node at(4cm,0) [ rectangle, draw
+     ] (ref1) {\verb|x         x|} ;
+\draw[green] (ref1.north west) -- ++(-5cm,0);
+\draw[green] (ref1.south west) -- ++(-5cm,0);
+
+\node[rectangle, draw,
+      below of=ref1, node distance=1cm
+     ] (ref2) {\verb|x        dx|} ;
+\draw[green] (ref2.north west) -- ++(-5cm,0);
+\draw[green] (ref2.south west) -- ++(-5cm,0);
+
+\node[rectangle, draw,
+      below of=ref2, node distance=1cm
+     ] (ref3) {\verb|xp        x|} ;
+\draw[green] (ref3.north west) -- ++(-5cm,0);
+\draw[green] (ref3.south west) -- ++(-5cm,0);
+
+\node[rectangle, draw,
+      below of=ref3, node distance=1cm
+     ] (ref4) {\verb|xp       dx|} ;
+\draw[green] (ref4.north west) -- ++(-5cm,0);
+\draw[green] (ref4.south west) -- ++(-5cm,0);
+
+\end{scope}
+
+\end{tikzpicture}
+\end{center}
+
+%%--------------------------------------------------------
+\subsection*{Inner, Outer and Angle for Shape Off Origin}
+
+The box should closely contain picture if {\tt anchorborder} is working correctly.
+\bigskip
+
+\begin{center}
+\begin{tikzpicture}[framed]
+
+\markOrigC{black}
+\draw (2pt,0) node[anchor=west]{\tt \tiny origin};
+
+%% The test shape
+\node at (70pt,40pt)
+   [\testshape, draw,
+    red, minimum width=60pt, minimum height=40pt
+   ] (node) {};
+
+%% outer test line
+\path (node);
+\pgfgetlastxy{\macrox}{\macroy}
+\coordinate (Xout) at (\macrox+20pt,\macroy+40pt);
+
+\draw (Xout) circle(3pt);
+\draw [help lines] (node.center) -- (Xout);
+\draw [->, >=latex',green] (Xout) -- (node); % <<<
+
+%% inner test line
+\path (node);
+\pgfgetlastxy{\macrox}{\macroy}
+\coordinate (Xin) at (\macrox-5pt,\macroy-5pt);
+
+\draw (Xin) circle(3pt);
+\draw [help lines,shorten >=-1cm] (node.center) -- (Xin);
+\draw [->, >=latex',green] (Xin) -- (node); % <<<
+
+%% test angle
+\def\angle{120}
+\draw [help lines] (node.center) -- ++(\angle:1.5cm);
+\draw[green] (node.\angle) circle[radius=2pt]; % <<<
+
+\end{tikzpicture}
+\end{center}
+
+\end{document}
+\endinput
+%%
+%% End of file `testsample.tex'.

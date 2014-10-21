@@ -1,0 +1,218 @@
+\section{Jouons avec TikZ\label{tikzz}}
+%=======================================
+
+
+
+	\subsection{TikZ dans le diagramme FAST}\label{tikzpartout}
+	%------------------------------------------------
+
+		L'environnement FAST est un environnement \emph{TikZ}.
+		Il est donc possible d'y ajouter n'importe quelle fonction de dessin de \emph{TikZ}.
+		Il en est de même pour les descendances des fonctions.
+%##########################################
+\begin{code}
+\begin{fast}{Fonction de Service}
+	\FT{FT1}{\draw [shift={(4,-1)},rotate=45,scale=0.5,ball color=blue]
+		(0,0) .. controls +(0,2) and +(0,3) .. (3,0)
+		.. controls +(0,-2) and +(0,2) .. (0,-4)
+		.. controls +(0,2) and +(0,-2) .. (-3,0)
+		.. controls +(0,2) and +(0,2) .. (0,0);
+		}		%Exemple pris dans ``TikZ pour l'impatient''
+	\FT{FT2}{}
+\end{fast}
+\end{code}
+%##########################################
+		\cqd
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{exemple}
+\begin{fast}{Fonction de Service}
+	\FT{FT1}{\draw [shift={(4,-1)},rotate=45,scale=0.5,ball color=blue]
+			(0,0) .. controls +(0,2) and +(0,3) .. (3,0)
+			.. controls +(0,-2) and +(0,2) .. (0,-4)
+			.. controls +(0,2) and +(0,-2) .. (-3,0)
+			.. controls +(0,2) and +(0,2) .. (0,0);}
+			%Exemple pris dans ``TikZ pour l'impatient''
+	\FT{FT2}{}
+\end{fast}
+\end{exemple}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+		Il est à noter que dans l'exemple précédent, la seconde ligne du diagramme ne tient pas compte de la ``place'' que prend notre dessin.
+		Pour que ce soit le cas, il faut que la descendance (c'est à dire le dessin) ``marque'' sa place en créant une coordonnée correspondant au point le plus bas du dessin.
+		C'est sur ce point que la seconde ligne va se baser.
+
+		Ce point doit être enregistré dans la variable {\color{blue}\verb'BoiteMinimums'} de la manière suivante :
+%##########################################
+\begin{code}
+\coordinate (BoiteMinimums) at (X,Y);
+\end{code}
+%##########################################
+		où le couple $(X, Y)$ est la coordonnées du minimum.
+
+		Par exemple :
+%##########################################
+\begin{code}
+\begin{fast}{Fonction de Service}
+	\FT{FT1}{\draw [shift={(4,-1)},rotate=45,scale=0.5,ball color=blue]
+		(0,0) .. controls +(0,2) and +(0,3) .. (3,0)
+		.. controls +(0,-2) and +(0,2) .. (0,-4)
+		.. controls +(0,2) and +(0,-2) .. (-3,0)
+		.. controls +(0,2) and +(0,2) .. (0,0);
+		\coordinate (BoiteMinimums) at (0,-2.5);
+		}	%Exemple pris dans ``TikZ pour l'impatient''
+	\FT{FT2}{}
+\end{fast}
+\end{code}
+%##########################################
+		\cqd
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{exemple}
+\begin{fast}{Fonction de Service}
+	\FT{FT1}{\draw [shift={(4,-1)},rotate=45,scale=0.5,ball color=blue]
+		(0,0) .. controls +(0,2) and +(0,3) .. (3,0)
+		.. controls +(0,-2) and +(0,2) .. (0,-4)
+		.. controls +(0,2) and +(0,-2) .. (-3,0)
+		.. controls +(0,2) and +(0,2) .. (0,0);
+		\coordinate (BoiteMinimums) at (0,-2.5);}
+		%Exemple pris dans ``TikZ pour l'impatient''
+	\FT{FT2}{}
+\end{fast}
+\end{exemple}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+	\subsection{Gestion des boîtes}\label{boites}
+	%-----------------------------------------
+
+	Les boites créées dans le diagramme FAST sont réalisées par la fonction {\color{blue}\verb'\node'} de \emph{TikZ}.
+	Ces boîtes sont nommées sous la forme suivante : {\color{blue}\verb'\fastBoiteX'} où {\color{blue}\verb'X'} est remplacé par le numéro de la boite.
+	Ce numéro est défini par ordre de création des boites : de gauche à droite, de haut en bas.
+	Voici un exemple faisant apparaître le nom des boites :
+	\begin{center}
+		\begin{fast}{fastBoite0}
+			\FT{fastBoite1}{\FT{fastBoite2}{}
+					\FT{fastBoite3}{\FT{fastBoite4}{}}}
+			\FT{fastBoite5}{\FT{fastBoite6}{}
+					\FT{fastBoite7}{}}
+		\end{fast}
+	\end{center}
+
+	Partant de là, il est alors possible de réaliser des modifications manuelles sur le diagramme.
+	Par exemple, pour avoir une solution technique commune à deux fonctions techniques :
+%##########################################
+\begin{code}
+\begin{fast}{Fonction de service}
+	\fastFT{FT1}{\fastST{ST}}
+	\fastFT{FT2}{}
+	\draw[line width=\fastEpaisseurTraits]
+		(fastBoite3.east) -| ($0.5*(fastBoite2.north west)
+		+0.5*(fastBoite1.north east)+(0,\fastDecalageTrait)$);
+\end{fast}
+\end{code}
+%##########################################
+	\cqd
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{exemple}
+\begin{fast}{Fonction de service}
+	\fastFT{FT1}{\fastST{ST}}
+	\fastFT{FT2}{}
+	\draw[line width=\fastEpaisseurTraits](fastBoite3.east)	-| ($0.5*(fastBoite2.north west)+0.5*(fastBoite1.north east)+(0,\fastDecalageTrait)$);
+\end{fast}
+\end{exemple}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+	\subsection{Créer sa propre boite}\label{perso}
+	%--------------------------------------
+
+	Les boites sont à peu prés toutes créées sur le même modèle et il est possible d'en créer d'autres :
+%##########################################
+\begin{code}
+\newcommand*{\maBoite}[2]{
+	\fastAvanceColonne		%On avance d'une colonne
+	\addtocounter{cptBoite}{1}	%On incremente le numero de la boite
+	%%%%%%%%%%%%%%%%%%%%%%%
+	%Créer votre boite ici :
+	\node [anchor=north west] (noeud \thecptAbscisse) at
+		($(\posX,0)+(BoiteMinimums)$) {#1};
+	%%%%%%%%%%%%%%%%%%%%%%
+	\node[inner sep=0,fit=(noeud \thecptAbscisse.north west)
+		(noeud \thecptAbscisse.south east)]
+		(fastBoite\thecptBoite) {};%Boite de nommage
+	\fastTraceConnecteurs
+	%%%%%%%%%%%%%%%%%%%%%%%%%
+	%Votre descendance :
+	#2
+	%%%%%%%%%%%%%%%%%%%%%%%%%
+	\fastEnregistreMinimum		%Enregistre le minimum de la boite
+	\fastReculeColonne		%Recule d'une colonne
+}
+\end{code}
+%##########################################
+
+
+	Le n\oe ud créé sous la ligne ``{\color{blue}\verb'Créer votre boite ici'}'' est la boite que vous allez afficher.
+	C'est elle que vous allez pouvoir modifier pour l'adapter à vos besoins.
+	Ce n\oe ud doit obligatoirement porter le nom {\color{blue}\verb'(noeud \thecptAbscisse)'}.
+	Les autres commandes ne doivent pas être changées.
+
+	Voici un exemple :
+%##########################################
+\begin{code}
+  \newcommand*{\maBoite}[2]{
+	\fastAvanceColonne		%On avance d'une colonne
+	\addtocounter{cptBoite}{1}	%On incremente le numero de la boite
+	%%%%%%%%%%%%%%%%%%%%%%%
+	%Créer votre boite ici
+	\node [anchor=north west,draw,rounded corners=3pt,
+		aspect=2.5,text=red](noeud \thecptAbscisse)
+		at ($(\posX,0)+(BoiteMinimums)$) {#1};
+	%%%%%%%%%%%%%%%%%%%%%%
+	\node[inner sep=0,fit=(noeud \thecptAbscisse.north west)
+		(noeud \thecptAbscisse.south east)]
+		(fastBoite\thecptBoite) {};
+	\fastTraceConnecteurs
+	%%%%%%%%%%%%%%%%%%%%%%%%%
+	%Votre descendance
+	#2
+	%%%%%%%%%%%%%%%%%%%%%%%%%
+	\fastEnregistreMinimum		%Enregistre le minimum de la boite
+	\fastReculeColonne		%Recule d'une colonne
+}
+
+\begin{fast}{Fonction de Service}
+	\maBoite{Ma boite}
+		{\fastST{Solution}}
+	\FT{Fonction}{\maBoite{Ma boite bis}{}
+			\fastFT{Fonction}{}}
+\end{fast}
+\end{code}
+%##########################################
+\cqd
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{exemple}
+  \newcommand*{\maBoite}[2]{
+	\fastAvanceColonne		%On avance d'une colonne
+	\addtocounter{cptBoite}{1}	%On incremente le numero de la boite
+	%%%%%%%%%%%%%%%%%%%%%%%
+	%Créer votre boite ici
+	\node [anchor=north west,draw,rounded corners=3pt,aspect=2.5,text=red](noeud \thecptAbscisse) at ($(\posX,0)+(BoiteMinimums)$) {#1};
+	%%%%%%%%%%%%%%%%%%%%%%
+	\node[inner sep=0,fit=(noeud \thecptAbscisse.north west)
+		(noeud \thecptAbscisse.south east)]
+		(fastBoite\thecptBoite) {};%Boite vide par dessus, aux bonne dimension, afin de lui donner un nom
+	\fastTraceConnecteurs
+	%%%%%%%%%%%%%%%%%%%%%%%%%
+	%Votre descendance
+	#2
+	%%%%%%%%%%%%%%%%%%%%%%%%%
+	\fastEnregistreMinimum		%Enregistre le minimum de la boite
+	\fastReculeColonne		%Recule d'une colonne
+}
+
+\begin{fast}{Fonction de Service}
+	\maBoite{Ma boite}
+		{\fastST{Solution}}
+	\FT{Fonction}{\maBoite{Ma boite bis}{}
+			\fastFT{Fonction}{}}
+\end{fast}
+\end{exemple}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%

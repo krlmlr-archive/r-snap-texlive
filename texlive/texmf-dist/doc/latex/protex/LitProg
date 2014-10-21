@@ -1,0 +1,596 @@
+  \ifx\documentstyle\UnDef\else\documentstyle{report}\begin{document}\fi
+  \input ProTex.sty \def\CodeDel{{<<<-}{->>>}}
+  \AlProTex{tex,<<<>>>,|,title,ClearCode} \<\><<<-
+
+FILES
+=====
+
+ProTex.sty   -- Basic environment for literate programming
+AlProTex.sty -- Adjustments for ProTeX
+Examples.tex -- Code from the manual 
+LitProg      -- Introduction and examples for main features 
+                of (Al)ProTeX (this file)
+
+MANUAL
+======
+Eitan Gurari, TeX and LaTeX: Drawing and Literate Programming. 
+   McGraw-Hill, 1994. ISBN 0-07-025208-4 / 0-07-911616-7
+
+MAIN FEATURES
+=============
+
+  Table of Contents
+  :=:=:=:=:=:=:=:=:
+  A. A Basic Literate Programming Environment
+  B. Other Basic Literate Programming Environments
+  C. Environments for Multi-Module Programs
+  D. Code and Documentation Produced from Same Specification
+  E. Examples B, C, D
+
+     Note: The code for the examples can be extracted from this file
+           by renaming this file to LitProg.tex and compiling the 
+           file with TeX or LaTeX (the make files for Example C, however,
+           must be extracted mannually).  The compilation puts the code
+           in files progA.tex, progB.tex, progC.tex, main.tex, 
+           aux.tex, macros.tex, progC.sty, and progD.tex.
+
+A. A Basic Literate Programming Environment
+:=:=:=:=:=:=:=:=:=:=:=:=:=:=:=:=:=:=:=:=:=:
+
+   \input ProTex.sty 
+   \AlProTex{EXT,<<<>>>,title,list,[],`}
+
+This environment adds to (La)TeX the following commands for handling code.
+
+a. Definitions of code fragments         \<code title\><<<
+                                         code fragment>>>
+
+b. References to code segments           `<code title`>
+
+c. Output files of code                  \OutputCode[EXTENSION]\<code title\> 
+     `[EXTENSION]' is optional 
+      when EXTENSION = EXT            
+
+d. References to the character `
+   within code fragments                 ``
+
+Warning: Do not include 2 or more consecutive blank characters
+         in `<code title`>
+
+------- Example A: Single-Module C Program ----------------------------------
+------- Put in file progA.tex and compile with LaTeX ------%->>>\<progA\><<<-
+
+\documentstyle{book}
+
+\input ProTex.sty 
+\AlProTex{c,<<<>>>,title,list,[],`}
+
+\begin{document}
+
+\<body\><<<
+printf("\n ``hello everybody``");
+>>>
+
+\<prog A\><<<
+`<include`>
+main()
+{
+  `<body`>
+}
+>>>
+
+\<include\><<<
+#include <stdio.h>
+>>>
+
+\<body\><<<
+printf("\n");
+>>>             
+
+\OutputCode\<prog A\>      \end{document} 
+
+------------ End Example A -----------------%->>>\OutputCode\<progA\>\<\><<<-
+
+
+B. Other Basic Literate Programming Environments
+:=:=:=:=:=:=:=:=:=:=:=:=:=:=:=:=:=:=:=:=:=:=:=:=
+
+a. Framing of code fragments can be requested with the option [[]]
+   in \AlProTex, e.g.,
+     
+         \AlProTex{EXT,<<<>>>,title,list,[],`,[[]]}
+
+b. Framing of code titles can be avoided by removing the option []
+   from \AlProTex, e.g,
+
+        \AlProTex{EXT,<<<>>>,title,list,`}
+
+c. The characters @, |, and ? can also act as escape characters within
+   code fragments (e.g., replace all appearances of ` with @ in Example A).
+
+d. Line breaks within listing of code can be obtained with the command `NL%
+
+e. Comments within listing of code can be obtained with commands of
+   the form `%...`%
+
+f. The choice of code-delimiters <<< and >>> can be changed by placing
+   a command of the form \def\CodeDel{{open delimiter}{close delimiter}} 
+   before \AlProTex.
+
+g. The following command requests that future \OutputCode commands identify
+   the titles of the different code fragments.  (Other information, like 
+   page numbers in documents and line numbers in source files, can also 
+   be incorporated.)
+
+      \Comment{open-comment delimiter}{close-comment delimiter}
+
+PLEASE EXAMINE AND RUN EXAMPLE B
+
+
+C. Environments for Multi-Module Programs
+:=:=:=:=:=:=:=:=:=:=:=:=:=:=:=:=:=:=:=:=:
+
+Multi-module programs can be divided into independent (La)TeX files 
+that can be compiled either separately or together.  For instance,
+in Example C
+
+1. Three modules (main, aux, and macros) are defined independently
+   (in main.tex, aux.tex, macros.tex) and are connected through a
+   joint root file (progC.tex).  The different files import a
+   common style file (progC.sty). 
+
+      progC.tex        Root file 
+      main.tex         LaTeX file for first module
+      aux.tex          LaTeX file for second Module
+      macros.tex       LaTeX file for third module
+      progC.sty        Style file (imported by each of the above files)
+      make files       Unix management programs
+
+2. The files can be compiled separately (latex main.tex, latex aux.main,
+   latex macros.tex) or jointly (latex progC.tex). 
+
+3. To allow quick generation, compilation, and linkage of C-code files
+   (see, e.g., the make files), joint compilations do not revise code
+   files.
+
+4. Separate compilations use chapter/section/subsection/subsubsection/page
+   numbers that are collected in joint compilations.
+
+5. In joint compilations, each module ends with an index to its code titles.
+
+6. To allow nonrelated identical titles in different modules, and to
+   save on memory, previous definitions of code fragments are deleted at
+   the start of each module.  
+
+PLEASE RUN AND EXAMINE EXAMPLE C 
+
+D. Code and Documentation Produced from Same Specification
+:=:=:=:=:=:=:=:=:=:=:=:=:=:=:=:=:=:=:=:=:=:=:=:=:=:=:=:===
+
+Example D demonstrates how math formulas and their code can be generated
+from joint specifications.
+
+PLEASE EXAMINE AND RUN EXAMPLE D
+
+
+
+E. Examples B, C, D
+:=:=:=:=:=:=:=:=:=:
+
+------- Example B: Variant of Example A -------------------------------------
+------- Put in file progB.tex and compile with LaTeX ------%->>>\<progB\><<<-
+
+\documentstyle{book}
+
+                          \input ProTex.sty            
+\def\CodeDel{{}{////}}
+\Comment{
+/*}{*/
+}
+                          \AlProTex{c,<<<>>>,title,list,[],`}
+
+\begin{document}
+
+\<body\>
+printf("\n ``hello everybody`` within a           long`NL% line of text");
+////
+
+\<prog B\>
+`<include`>   
+main()
+{
+  `<body`>   `%a comment`%
+}
+////
+
+\<include\>
+#include <stdio.h>
+////
+
+\<body\>
+printf("\n");
+////             
+
+\OutputCode\<prog B\>      \end{document} 
+------------ End Example B -----------------%->>>\OutputCode\<progB\>\<\><<<-
+
+
+
+------------ Example C: Multi-Module C Program ------------------------------
+............ File progC.tex ...............................%->>>\<progC\><<<-
+
+\def\Root{}  
+\input progC.sty
+
+\INPUT{main}         % import first module
+
+\INPUT{aux}          % import second module
+
+\INPUT{macros}       % import third module
+
+\end{document}
+............ End file progC.tex .............%->>>\OutputCode\<progC\>\<\><<<-
+
+............ File main.tex ..................................%->>>\<main\><<<-
+\input progC.sty
+
+\<include files\><<<
+#include "aux.h"
+#include "macros.h"
+#include <stdio.h>
+>>>
+
+\chapter{Outline}
+
+All the code in this module is included in file main.c.
+
+\section{The Main Program}
+
+This program does not handle the case in which the input consists just
+of one 0. 
+
+\<main.c\><<<
+int main()
+{
+  `<main's vars`>
+  `<read input values, count them, and record their sum`>
+  `<compute and output the average of the input values`>
+  exit(0);
+}  
+>>>
+
+\chapter{The Actual Actions}
+
+\section{Process the Input Values}
+
+The input must end with 0.
+
+\<read input values, count them, and record their sum\><<<
+initialize_sum_count();
+WHILE  TRUE  DO
+  printf("\n Value (0 to stop)?  ");
+  scanf("%d", &value);
+  IF  value == 0 THEN  break;  FI
+  add_value(value);
+END
+>>>
+
+\<main's vars\><<<
+int value;
+>>>
+
+\section{Find the Result and Print It Out}
+
+\<compute and output the average of the input values\><<<
+result = get_average();
+printf("\n Average = %f\n", result);
+>>>
+
+\<main's vars\><<<
+double result;
+>>>
+
+\BYE{ \OutputCodE\<main.c\> }
+............ End file main.tex ..............%->>>\OutputCode\<main\>\<\><<<-
+
+............ File aux.tex ...................................%->>>\<aux\><<<-
+\input progC.sty 
+
+\chapter{Reusable Functions}
+
+\section{Shared Variable}
+
+The following code is included in reusable.c.
+
+\<vars\><<<
+int count;
+double sum;
+>>>
+
+\section{Setting Initial Conditions}
+
+The following code is included in reusable.h.
+
+\<export functions\><<<
+void initialize_sum_count();
+>>>
+
+The following code is included in reusable.c.
+
+\<functions\><<<
+void initialize_sum_count()
+{
+  count = 0; 
+  sum   = 0.0;
+}
+>>>
+
+\section{Processing New Values}
+
+\<export functions\><<<
+void  add_value();
+>>>
+
+
+\<functions\><<<
+void  add_value(value)
+{
+  count++;
+  sum += value;
+}
+>>>
+
+
+\section{Computing the Average}
+
+\<export functions\><<<
+double  get_average();
+>>>
+
+\<functions\><<<
+double  get_average()
+{
+  return  sum / count;
+}
+>>>
+
+Old files reusable.h and reusable.c are replaced when this
+file (i.e., reusable.tex) is compiled, but not when progC.tex is compiled.
+
+\BYE{ \OutputCodE\<aux.h\>
+      \OutputCodE\<aux.c\>  }
+............ End file aux.tex ................%->>>\OutputCode\<aux\>\<\><<<-
+
+............ File macros.tex .............................%->>>\<macros\><<<-
+\input progC.sty
+
+\chapter{C Macros}
+
+Algol-oriented  flavor.
+
+\<macros.h\><<<
+#define TRUE   1
+#define IF     if (
+#define THEN   ) {
+#define ELSE   }else{
+#define ELSEIF }else if(
+#define FI     }
+#define WHILE  while(
+#define FOR    for(
+#define WITH   ;
+#define STEP   ;
+#define DO     ){
+#define BEGIN  {
+#define END    }
+#define CASE   switch(
+#define OF     ){
+>>>
+
+\BYE{ \OutputCodE\<macros.h\> }
+............ End file macros.tex ..........%->>>\OutputCode\<macros\>\<\><<<-
+
+............ File progC.sty .....................%->>>\ClearCode\<progC\><<<-
+\ifx\Code\undefined
+
+  \hbadness=10000     \vbadness=10000  \hfuzz=99in \vfuzz=99in
+  \ifx \documentstyle\UnDef
+     %load private style
+  \else
+     \documentstyle{book}
+     \let\cleardoublepage=\clearpage
+     \begin{document}
+  \fi
+  \input ProTex.sty
+
+  \ifx \Root\UnDef
+     \AlProTex{c,<<<>>>,[],list,title,`,_^,ClearCode}       
+  \else
+     \AlProTex{c,<<<>>>,[],list,title,`,_^,ClearCode,ShowIndex}
+     \let\SvShowIndex=\ShowIndex
+     \def\ShowIndex{\let\ShowIndex=\SvShowIndex}
+  \fi
+  \def\CodeId#1#2{#1.#2-pg:\the\pageno-ln:\the\inputlineno}
+
+  \let\FileName=\jobname
+  \def\INPUT#1{
+    \def\FileName{#1}
+    \immediate\openout15=#1.pg
+    \immediate\write15{%
+      \string \pageno=\the\pageno\string \relax     
+      \string \csname\space c@page\string \endcsname =
+          \expandafter\the\csname c@page\endcsname\string \relax     
+      \string \csname\space c@chapter\string \endcsname =
+          \expandafter\the\csname c@chapter\endcsname\string \relax  
+      \string \csname\space c@section\string \endcsname =
+          \expandafter\the\csname c@section\endcsname\string \relax  
+      \string \csname\space c@subsection\string \endcsname =
+          \expandafter\the\csname c@subsection\endcsname\noexpand\relax
+      \string \csname\space c@subsubsection\string \endcsname =
+          \expandafter\the\csname c@subsubsection\endcsname\noexpand\relax
+    }
+    \immediate\closeout15
+    \input #1
+  }
+
+  \ifx \documentstyle\UnDef \errmessage{--- This is a LaTeX file ---}\fi
+  \title{Averaging Numbers}
+  \date{2 October 1994}
+  \maketitle
+  \tableofcontents
+
+  \openin15=\jobname.pg
+  \ifeof15 \else \input \jobname.pg \fi
+  \closein15
+  \def\OutputCodE\<#1.#2\>{%
+    \csname :DoName\endcsname\def{#1}{\<#1.#2\>}%
+    \OutputCode[#2]\<#1\>}
+  \let\xxxOutputCode=\OutputCodE
+  \def\xxOutputCode\<#1.#2\>{%
+    \openin15=#1.#2
+    \ifeof15 \xxxOutputCode\<#1.#2\>\fi
+    \closein15 }
+\fi
+
+\ifx \BYE\undefined  \def\BYE#1{#1\end{document}}
+\else                \def\BYE#1{{\let\OutputCodE=\xxOutputCode #1}%
+                                 \ShowIndex\ClearCode}\fi
+
+                                             \ifx\Root\NotDef 
+\vfill\break\noindent\hfil\underbar{\bf INPUT FILE: \FileName .tex}
+
+\<\FileName.h\><<<
+`<export define`>
+`<export types`>
+`<export vars`>
+`<export functions`>
+>>>
+
+\<\FileName.c\><<<
+`<include files`>
+`<define`>
+`<types`>
+`<header functions`>
+`<vars`>
+`<functions`>
+>>>
+
+                                             \else \let\Root=\NotDef \fi
+
+\Comment{
+/*}{*/
+}
+
+............ End file progC.sty ........%->>>\OutputCode[sty]\<progC\>\<\><<<-
+
+............ Make file 1 .....................................................
+# make -fS  make.1
+# call LaTeX and C for revised files 
+
+all :	progC
+	progC
+
+main.c:   main.tex
+	  rm -f main.llog
+	  latex main > main.llog
+
+aux.c:    aux.tex
+	  rm -f aux.llog
+	  latex aux > aux.llog
+
+aux.h:    aux.tex
+	  rm -f aux.llog
+	  latex aux > aux.llog 
+
+macros.h:   macros.tex
+	    rm -f macros.llog
+	    latex macros > macros.llog
+
+aux.o:  aux.c aux.h macros.h
+	cc -c aux.c
+
+main.o: main.c aux.h macros.h
+	cc -c main.c
+
+progC :  main.o aux.o
+	   cc -o progC main.o aux.o 
+
+............ End make file 1 ................................................
+............ Make file 2 ....................................................
+# make -fS  make.2
+# call LaTeX in background for revised files 
+
+all :	main.c aux.c macros.h
+
+main.c:   main.tex
+	  rm -f main.llog
+	  latex main > main.llog &
+
+aux.c:    aux.tex
+	  rm -f aux.llog
+	  latex aux > aux.llog &
+
+macros.h:   macros.tex
+	    rm -f macros.llog
+	    latex macros > macros.llog &
+
+............ End make file 2 .................................................
+------------ End Example C -------------------------------------------------
+
+
+
+------------ Example D: Joint Specification --------------%->>>\<progD\><<<-
+\documentstyle{report}
+\input ProTex.sty
+\AlProTex{code,<<<>>>,[],title,list}
+%......................................................................
+\def\Formula#1#2{\ifx#1\UnDefined\else\immediate\write16
+      {--- warning --- Redefine equation for \string#1 ---}\fi
+  \gdef#1{%
+          \expandafter\ifx \csname :Tb\endcsname\relax
+             \ifmmode \InMath #2
+             \else \vskip\smallskipamount\noindent\hfil 
+                   $ \let\InText=\relax  \InMath #2 $%
+                   \vskip\smallskipamount 
+             \fi
+          \else #2\fi}%
+}
+\let\PrevModifyShowCode=\ModifyShowCode
+\def\ModifyShowCode{\InCode \PrevModifyShowCode  }
+\let\PrevModifyOutputCode=\ModifyOutputCode
+\def\ModifyOutputCode{\InCode  \PrevModifyOutputCode  }
+\def\InCode{%
+  \def\divide##1##2{((##1) / (##2))}%
+  \def\sqrt##1{SQRT(##1)}%
+  \def\cdot{ * }%
+  \def\sin##1{(sin(##1))}%
+  \def\power##1##2{(##1)**(##2)}%
+  \def\NewLn{\csname :Ln\endcsname}%
+  }
+\def\InMath{%
+  \def\divide##1##2{\ifx\LaTeX\undefined{##1\over##2}\else
+                                        {\frac{##1}{##2}}\fi}%
+  \def\power##1##2{##1^{##2}}%
+  \def\NewLn{\ifinner
+                \ifx\InText\realx \else  \hfil\break\null\hfil \fi
+             \else $$$$\InMath \fi}%
+  }
+%......................................................................
+\begin{document}
+
+Metalanguage: {\tt\string\divide}, {\tt\string\sqrt},  {\tt\string\cdot},
+{\tt\string\sin}, {\tt\string\power}, {\tt\string\NewLn}.
+
+\Formula\f{\divide{x}{\sqrt{1+\power{x}{2}}}\cdot
+              \NewLn             \sin{\divide{y}{x}}}
+
+Formula \f{} and its code
+
+\<formula\><<<
+w = \f
+>>>
+
+Same formula in math modes $\f$ and $$\f$$.
+
+\OutputCode\<formula\>      \end{document} 
+
+------------ End Example D -----------%->>>\OutputCode\<progD\>\end{document}

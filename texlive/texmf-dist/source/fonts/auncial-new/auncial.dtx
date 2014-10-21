@@ -1,0 +1,739 @@
+% \iffalse meta-comment
+%
+% auncial.dtx
+%
+%  Author: Peter Wilson (Herries Press) herries dot press at earthlink dot net
+%  Copyright 1999--2005 Peter R. Wilson
+%
+%  This work may be distributed and/or modified under the
+%  conditions of the Latex Project Public License, either
+%  version 1.3 of this license or (at your option) any
+%  later version.
+%  The latest version of the license is in
+%    http://www.latex-project.org/lppl.txt
+%  and version 1.3 or later is part of all distributions of
+%  LaTeX version 2003/06/01 or later.
+%
+%  This work has the LPPL maintenance status "author-maintained".
+%
+%  This work consists of the files listed in the README file.
+%
+% If you do not have the docmfp package (available from CTAN in
+% tex-archive/macros/latex/contrib/supported), comment out the
+% \usepackage{docmfp} line below and uncomment the line following it. 
+%
+%<*driver>
+\documentclass[twoside]{ltxdoc}
+%%%%\usepackage{docmfp}
+%%%%%% \providecommand{\DescribeVariable}[1]{} \newenvironment{routine}[1]{}{}
+\usepackage{url}
+\usepackage[draft=false,
+            plainpages=false,
+            pdfpagelabels,
+            bookmarksnumbered,
+            hyperindex=false
+           ]{hyperref}
+\providecommand{\phantomsection}{}
+\OnlyDescription %% comment this out for the full glory
+\EnableCrossrefs
+\CodelineIndex
+\setcounter{StandardModuleDepth}{1}
+\makeatletter
+  \@mparswitchfalse
+\makeatother
+\renewcommand{\MakeUppercase}[1]{#1}
+\pagestyle{headings}
+\newenvironment{addtomargins}[1]{%
+  \begin{list}{}{%
+    \topsep 0pt%
+    \addtolength{\leftmargin}{#1}%
+    \addtolength{\rightmargin}{#1}%
+    \listparindent \parindent
+    \itemindent \parindent
+    \parsep \parskip}%
+  \item[]}{\end{list}}
+\begin{document}
+  \raggedbottom
+  \DocInput{auncial.dtx}
+\end{document}
+%</driver>
+%
+% \fi
+%
+% \CheckSum{132}
+%
+% \DoNotIndex{\',\.,\@M,\@@input,\@addtoreset,\@arabic,\@badmath}
+% \DoNotIndex{\@centercr,\@cite}
+% \DoNotIndex{\@dotsep,\@empty,\@float,\@gobble,\@gobbletwo,\@ignoretrue}
+% \DoNotIndex{\@input,\@ixpt,\@m}
+% \DoNotIndex{\@minus,\@mkboth,\@ne,\@nil,\@nomath,\@plus,\@set@topoint}
+% \DoNotIndex{\@tempboxa,\@tempcnta,\@tempdima,\@tempdimb}
+% \DoNotIndex{\@tempswafalse,\@tempswatrue,\@viipt,\@viiipt,\@vipt}
+% \DoNotIndex{\@vpt,\@warning,\@xiipt,\@xipt,\@xivpt,\@xpt,\@xviipt}
+% \DoNotIndex{\@xxpt,\@xxvpt,\\,\ ,\addpenalty,\addtolength,\addvspace}
+% \DoNotIndex{\advance,\Alph,\alph}
+% \DoNotIndex{\arabic,\ast,\begin,\begingroup,\bfseries,\bgroup,\box}
+% \DoNotIndex{\bullet}
+% \DoNotIndex{\cdot,\cite,\CodelineIndex,\cr,\day,\DeclareOption}
+% \DoNotIndex{\def,\DisableCrossrefs,\divide,\DocInput,\documentclass}
+% \DoNotIndex{\DoNotIndex,\egroup,\ifdim,\else,\fi,\em,\endtrivlist}
+% \DoNotIndex{\EnableCrossrefs,\end,\end@dblfloat,\end@float,\endgroup}
+% \DoNotIndex{\endlist,\everycr,\everypar,\ExecuteOptions,\expandafter}
+% \DoNotIndex{\fbox}
+% \DoNotIndex{\filedate,\filename,\fileversion,\fontsize,\framebox,\gdef}
+% \DoNotIndex{\global,\halign,\hangindent,\hbox,\hfil,\hfill,\hrule}
+% \DoNotIndex{\hsize,\hskip,\hspace,\hss,\if@tempswa,\ifcase,\or,\fi,\fi}
+% \DoNotIndex{\ifhmode,\ifvmode,\ifnum,\iftrue,\ifx,\fi,\fi,\fi,\fi,\fi}
+% \DoNotIndex{\input}
+% \DoNotIndex{\jobname,\kern,\leavevmode,\let,\leftmark}
+% \DoNotIndex{\list,\llap,\long,\m@ne,\m@th,\mark,\markboth,\markright}
+% \DoNotIndex{\month,\newcommand,\newcounter,\newenvironment}
+% \DoNotIndex{\NeedsTeXFormat,\newdimen}
+% \DoNotIndex{\newlength,\newpage,\nobreak,\noindent,\null,\number}
+% \DoNotIndex{\numberline,\OldMakeindex,\OnlyDescription,\p@}
+% \DoNotIndex{\pagestyle,\par,\paragraph,\paragraphmark,\parfillskip}
+% \DoNotIndex{\penalty,\PrintChanges,\PrintIndex,\ProcessOptions}
+% \DoNotIndex{\protect,\ProvidesClass,\raggedbottom,\raggedright}
+% \DoNotIndex{\refstepcounter,\relax,\renewcommand,\reset@font}
+% \DoNotIndex{\rightmargin,\rightmark,\rightskip,\rlap,\rmfamily,\roman}
+% \DoNotIndex{\roman,\secdef,\selectfont,\setbox,\setcounter,\setlength}
+% \DoNotIndex{\settowidth,\sfcode,\skip,\sloppy,\slshape,\space}
+% \DoNotIndex{\symbol,\the,\trivlist,\typeout,\tw@,\undefined,\uppercase}
+% \DoNotIndex{\usecounter,\usefont,\usepackage,\vfil,\vfill,\viiipt}
+% \DoNotIndex{\viipt,\vipt,\vskip,\vspace}
+% \DoNotIndex{\wd,\xiipt,\year,\z@}
+%
+% \changes{v1.0}{1999/05/22}{First public release}
+% \changes{v1.0a}{2001/01/02}{Fixed missing * in fd files}
+% \changes{v2.0}{2005/11/27}{Major rewrite, 'full' T1 encoding, PostScript Type 1}
+%
+% \def\fileversion{v1.0} \def\filedate{1999/05/22}
+% \def\fileversion{v1.0a} \def\filedate{2001/01/02}
+% \def\fileversion{v2.0} \def\filedate{2005/11/27}
+% \newcommand*{\Lpack}[1]{\textsf {#1}}           ^^A typeset a package
+% \newcommand*{\Lopt}[1]{\textsf {#1}}            ^^A typeset an option
+% \newcommand*{\file}[1]{\texttt {#1}}            ^^A typeset a file
+% \newcommand*{\Lcount}[1]{\textsl {\small#1}}    ^^A typeset a counter
+% \newcommand*{\pstyle}[1]{\textsl {#1}}          ^^A typeset a pagestyle
+% \newcommand*{\Lenv}[1]{\texttt {#1}}            ^^A typeset an environment
+% \newcommand*{\AD}{\textsc{ad}}
+% \newcommand*{\thisfont}{Artificial Uncial}
+%
+% \title{The \Lpack{Artificial Uncial} fonts\thanks{This
+%        file has version number \fileversion, last revised
+%        \filedate.}}
+%
+% \author{%
+% Peter Wilson\footnote{\texttt{herries dot press at earthlink dot net}}\\
+% Herries Press }
+% \date{\filedate}
+% \maketitle
+% \begin{abstract}
+%    The \Lpack{auncial} bundle provides a PostScript Type1 set of 
+% \thisfont{} bookhands 
+% as used
+% for manuscripts in the 6th to the 10th century. This is one in a series
+% of manuscript fonts.
+%
+%  The font is only supplied in the special bookhands B1 encoding.
+% \end{abstract}
+% \tableofcontents
+% \listoftables
+%
+% 
+%
+% \section{Introduction}
+%
+%    The \Lpack{auncial} bundle provides a PostScript Type1 version of a 
+% Metafont~\cite{METAFONT} rendition 
+% of the \thisfont{} manuscript book-hand that was in use between about the
+% sixth and tenth centuries~\AD. It is part of a project to provide fonts
+% covering the major manuscript hands between the first century~\AD{} and
+% the invention of printing. The principal resources used in this project
+% are listed in the Bibliography.
+%
+%  The font is only supplied in the special bookhands B1 encoding.
+%
+% This manual is typeset according to the conventions of the
+% \LaTeX{} \textsc{docstrip} utility which enables the automatic
+% extraction of the \LaTeX{} macro source files~\cite{GOOSSENS94}.
+% The \Lpack{docmfp} package is used for documenting the Metafont portions
+% of the distribution~\cite{DOCMFP}.
+%
+%    Section~\ref{sec:usc} describes the usage of the package.
+%
+% \subsection{Manuscript book-hands}
+%
+% Before the invention of printing all books were written by hand. The book-hands
+% used by the scribes and copyists for the manuscripts changed as time 
+% went on. Table~\ref{tab:1} lists some of the common book-hands which were used
+% between the 1st and 15th centuries. The later book-hands formed the basis of the
+% fonts used by the early printers, which in turn form the basis of the printing
+% fonts in use today.
+%
+%    The manuscript book-hands were written with a broad nibbed reed or quill
+% pen. Among the distinguishing characteristics of a hand, apart from the 
+% actual shape of the letters, are the angle of the pen (which controls the
+% variation between thick and thin strokes) and the height of a letter compared
+% to the width of the nib. The lower the ratio of the letter height to nib
+% width, the more condensed is the script. The scripts also varied in their
+% typical height. 
+%
+%    Table~\ref{tab:1} gives an `average' x-height for each
+% script, which I obtained by measuring a sample of photographs of
+% manuscripts written in the various hands. About a dozen examples
+% of each book-hand were measured. This figure should not be taken too
+% seriously.
+%
+%    There was not a sharp division between the use of one hand and another.
+% Many manuscripts exhibit a variety of hands in the same document. For example,
+% the scribe writing in an Uncial hand may have used Roman Rustic letters
+% for capitals. Usually the same pen was used for the two different scripts.
+%
+%    Generally speaking, as a hand got older it became more embelished, and 
+% therefore took longer to write. As this happened a new hand would appear that
+% was faster, and which would eventually make the earlier one obsolete.
+%
+%    Many of the book-hands were single-cased; that is, they did not have an
+% upper- and lower-case as we do nowadays in Western scripts. On the other
+% hand, a script might be majuscule or minuscule. A \textit{majuscule} script
+% is one, like our upper-case, where the letters are drawn between two lines
+% and are of a uniform height with no ascenders or descenders. 
+% A \textit{minuscule} script, like our lower-case, is drawn between four lines 
+% and has ascenders and  descenders.
+%
+% \begin{table}
+% \centering
+% \caption{The main manuscript book-hands} \label{tab:1}
+% \begin{tabular}{lccccc} \hline
+% Name                  & Century  & x-height & Height     & Pen  & Normalised \\
+%                       &          & (mm)   & (nib widths) & angle & height  \\ \hline
+% Roman Rustic          & 1--6     & 5.7    & 4--6         & 45     & 1.90 \\
+% Uncial                & 3--6     & 4.1    & 4--5         & 30     & 1.37 \\
+% Half Uncial           & 3--9     & 3.2    & 3--6         & 20--30 & 1.07 \\
+% Artificial Uncial     & 6--10    & 4.2    & 3--6         & 10     & 1.40 \\
+% Insular majuscule     & 6--9     & 4.2    & 5            & 0--20  & 1.40 \\
+% Insular minuscule     & 6 onward & 4.1    & 5--6         & 45--70 & 1.37 \\
+% Carolingian minuscule & 8--12    & 3.0    & 3--5         & 45     & 1.00 \\
+% Early Gothic          & 11--12   & 3.8    & 4--6         & 20--45 & 1.27 \\
+% Gothic Textura        & 13--15   & 3.9    & 3--5         & 30--45 & 1.30 \\
+% Gothic Prescius       & 13 onward & 3.3   & 4--5         & 45     & 1.10 \\
+% Rotunda               & 13--15   & 3.2    & 4--6         & 30     & 1.07 \\
+% Humanist minuscule    & 14 onward & 3.0   & 4--5         & 30--40 & 1.00 \\ \hline
+% \end{tabular}
+% \end{table}
+%
+%    During the period under consideration arabic numerals were effectively
+% not used. At the beginning they were unknown and even though some knew
+% of them towards the end, the glyphs used for them are not recognisable ---
+% to me they look somewhat like cryllic letters --- and each locality
+% and time had its own highly individualistic rendering. The general rule
+% when using one of these book-hands is to write all numbers using
+% roman numerals.
+%
+%    The Roman alphabet consisted of 23 capital letters --- the J, U and W 
+% were absent. The book-hands initially used both a `u' and a `v' interchangeably
+% but by the 10th century the practice had become to use the `v' before a vowel 
+% and the `u' otherwise. The letter corresponding to the W sound appeared 
+% in England around the 7th century in
+% the form of the runic \textit{wen} character and by about the 11th century
+% the `w' chacter was generally used. The `J' is the newest letter of all, not
+% appearing until about the mid 16th century.
+%
+%    In the first century punctuation was virtually unknown, and typically
+% would not even be any additional space between individual words, never
+% mind denoting ends of sentences. Sometimes a dot at mid-height would be
+% used as a word seperator, or to mark off the end of a paragraph. Effectively
+% a text was a continuous stream of letters. By the time that printing was
+% invented, though, all of our modern punctuation marks were being used.
+%
+%    Among all these manuscript hands, the Carolingian minuscule is the
+% most important as our modern fonts are based on its letter shapes, and it is
+% also at this point in time where the division occured between the black letter
+% scripts as used even today in Germany, and the lighter fonts used elesewhere.
+% The Rotunda and Humanist minuscule hands were developed in Italy and were
+% essentially a rediscovery of the Carolingian minusucle. Guthenberg took the
+% Gothic scripts as the model for his types. Later printers, 
+% such as Nicholas Jenson of Venice,
+% took the Humanist scripts as their models.
+%
+%
+% \subsection{The \thisfont{} script}
+%
+%    The \thisfont{} hand, which is a minuscule script, was in use for some five
+% centuries and was, in a sense, the sucessor to the Uncial book-hand. It was
+% a much more calligraphic script, and as time went on it became even more
+% decorated, until it was too time consuming to use. Usually the
+% lettering in a manuscript was all one size. If the scribe felt the need
+% for `capital' letters then, using the same pen, would either write a larger
+% \thisfont{} letter or a Roman Capital letter. The capitals were only used at
+% the start of a line, and were either fully or partially in the margin. The
+% capitals were large, perhaps two to four times the size of a normal letter,
+% and were the start of versals. As versals for use with other book-hands, 
+% the script lived on until the end of the Middle Ages. 
+%
+%    I have provided a set of `capital' letters that are only a little larger
+% than the normal letters for use in running text. If you want to typeset
+% using versals, then I suggest Daniel Flipo's \Lpack{lettrine} 
+% package~\cite{LETTRINE}.
+% During the time the \thisfont{} script was used the alphabet only had 24 
+% letters. I have included the missing J.
+%
+%    Arabic numerals were unknown at this time, so all numbers were written
+% using the roman numbering system. I have provided Uncial versions of
+% the arabic digits.
+%
+%    Punctuation was used, but not with the frequency of today.
+% A sentence might be ended with
+% a dot at mid-height or a paragraph ended with a colon, also at mid-height.
+% The start
+% of a paragraph might be marked with a capital letter (as a versal).
+% The comma was was  a small pointed
+% slash; the semi-colon was known, as was the single quotation 
+% mark which was represented by a raised comma.
+%
+%
+% \section{The \Lpack{auncial} and \Lpack{allauncl} packages} \label{sec:usc}
+%
+%     The \thisfont{} font family is called |auncl|. The font is supplied in 
+% only the special bookhands B1 encoding. Thus, to use the font in a document
+% you need to at least have: \\
+% \verb?\usepackage[B1,...]{fontenc}? \\
+% in the preamble. You also need to have installed the files: \\
+% \file{b1enc.def}, \file{b1cmr.fd}, and possibly \file{TeXB1.enc}.\\
+% These are available from the CTAN \file{bookhands} directory as the
+% pair \file{bhenc.dtx} and \file{bhenc.ins}.
+%
+% \subsection{The \Lpack{auncial} package}
+%
+%    This is intended for the occasions when some short pieces of text have
+% to be written in \thisfont{} while the majority of the document is in another
+% font. The normal baselineskips are used.
+%
+% \DescribeMacro{\aunclfamily}
+%    The |\aunclfamily| declaration starts typesetting with the \thisfont{} fonts.
+% Use of the \thisfont{} font will continue until either there is another |\...family|
+% declaration or the current group (e.g., environment) is closed.
+%
+% \DescribeMacro{\textuncl}
+%    The command |\textuncl{|\meta{text}|}| will typeset \meta{text} using the
+% \thisfont{} fonts.
+%
+% \subsection{The \Lpack{allauncl} package}
+%
+%
+%    This package is for when the entire document will be typeset with the
+% \thisfont font. The baselineskips are set to those appropriate to the
+% book-hand. 
+%
+%    This is a minimalist package. Apart from declaring \thisfont{} to be the
+% default font and setting the baselineskips appropriately, it makes no other
+% alterations. 
+% Vertical spacing
+% before and after section titles and before and after lists, etc., will be
+% too small as the \LaTeX{} design assumes a font comparable in size to
+% normal printing fonts, and the book-hand is much taller.
+% To capture more of the flavour of the time, all numbers
+% should be written using roman numerals. 
+% The \Lpack{romannum} package~\cite{ROMANNUM}
+% can be used so that \LaTeX{} will typeset the numbers that it generates,
+% like sectioning or caption numbers, using roman numerals instead of arabic 
+% digits. 
+%
+% \DescribeMacro{\cmrfamily}
+% \DescribeMacro{\textcmr}
+% \DescribeMacro{\cmssfamily}
+% \DescribeMacro{\textcmss}
+% \DescribeMacro{\cmttfamily}
+% \DescribeMacro{\textcmtt}
+%    The |...family| declarations start typesetting with the Computer Modern Roman
+% (|\cmrfamily|), the Computer Modern Sans (|\cmssfamily|), and the Computer
+% Modern Typewriter (|\cmttfamily|) font families. The |\textcm..{|\meta{text}|}|
+% commands will typeset \meta{text} in the corresponding Computer Modern font.
+%
+%    The \Lpack{allauncl} package automatically loads the \Lpack{auncial} package,
+% so its font commands are available if necessary.
+%
+%
+%
+% \StopEventually{
+% \bibliographystyle{alpha}
+% \renewcommand{\refname}{Bibliography}
+% \begin{thebibliography}{GMS94}
+% \addcontentsline{toc}{section}{\refname}
+%
+% \bibitem[And69]{ANDERSON69}
+% Donald M.~Anderson.
+% \newblock \emph{The Art of Written Forms: The Theory and Practice of Calligraphy}.
+% \newblock Holt, Rinehart and Winston, 1969.
+%
+% \bibitem[Bol95]{BOLOGNA95}
+% Giulia Bologna.
+% \newblock \emph{Illuminated Manuscripts: The Book before Gutenberg}.
+% \newblock Crescent Books, 1995.
+%
+% \bibitem[Day95]{DAY95}
+% Lewis F.~Day.
+% \newblock \emph{Alphabets Old \& New}.
+% \newblock (3rd edition originally published by B.~T.~Batsford, 1910) 
+% \newblock Senate, 1995.
+%
+% \bibitem[Dro80]{DROGIN80}
+% Marc Drogin.
+% \newblock \emph{Medieval Calligraphy: Its History and Technique}.
+% \newblock Allenheld, Osmun \& Co., 1980.
+%
+% \bibitem[Dru95]{DRUCKER95}
+% Johanna Drucker.
+% \newblock \emph{The Alphabetic Labyrinth}.
+% \newblock Thames \& Hudson, 1995.
+%
+% \bibitem[Fir93]{FIRMAGE93}
+% Richard A.~Firmage.
+% \newblock \emph{The Alphabet Abecedarium}.
+% \newblock David R~Goodine, 1993.
+%
+% \bibitem[Fli98]{LETTRINE}
+% Daniel Flipo.
+% \newblock \emph{The LETTRINE package}.
+% \newblock (Available from CTAN in \texttt{macros/latex/contrib/supported}). 
+% \newblock 1998.
+%
+% \bibitem[Har95]{HARRIS95}
+% David Harris.
+% \newblock \emph{The Art of Calligraphy}.
+% \newblock DK Publishing, 1995.
+%
+% \bibitem[Jen95]{BETON}
+% Frank Jensen.
+% \newblock \emph{The BETON package}.
+% \newblock (Available from CTAN in \texttt{macros/latex/contrib/supported}). 
+% \newblock 1995.
+%
+% \bibitem[Joh71]{JOHNSTON75}
+% Edward Johnston (ed. Heather Child).
+% \newblock \emph{Formal Penship and Other Papers}.
+% \newblock Penthalic, 1971.
+%
+% \bibitem[Knu87]{CM}
+% Donald E.~Knuth.
+% \newblock \emph{Computer Modern Typefaces}.
+% \newblock Addison-Wesley, 1987.
+%
+% \bibitem[Knu92]{METAFONT}
+% Donald E.~Knuth.
+% \newblock \emph{The METAFONTbook}.
+% \newblock Addison-Wesley, 1992.
+%
+% \bibitem[GMS94]{GOOSSENS94}
+% Michel Goossens, Frank Mittelbach, and Alexander Samarin.
+% \newblock \emph{The LaTeX Companion}.
+% \newblock Addison-Wesley Publishing Company, 1994.
+%
+% \bibitem[Tho75]{THOMAS75}
+% Alan G.~Thomas.
+% \newblock \emph{Great Books and Book Collectors}.
+% \newblock Weidenfield and Nichoson, 1975.
+%
+% \bibitem[Wil99]{DOCMFP}
+% Peter R.~Wilson.
+% \newblock \emph{The DOCMFP Package}.
+% \newblock (Available from CTAN in \texttt{macros/latex/contrib/supported}). 
+% \newblock 1999.
+%
+% \bibitem[Wil99b]{ROMANNUM}
+% Peter R.~Wilson.
+% \newblock \emph{The ROMANNUM Package}.
+% \newblock (Available from CTAN in \texttt{macros/latex/contrib/supported}). 
+% \newblock 1999.
+%
+% \end{thebibliography}
+% \PrintIndex
+% }
+%
+%
+% \section{The font definition files} \label{sec:fd}
+%
+%    The font comes in normal and bold weights only.
+%
+%    \begin{macrocode}
+%<*fdot1>
+\DeclareFontFamily{OT1}{auncl}{}
+  \DeclareFontShape{OT1}{auncl}{m}{n}{ <-8.5> auncl7 <8.5-15> auncl10 <15-> auncl17 }{} 
+  \DeclareFontShape{OT1}{auncl}{m}{sl}{ <-> sub * auncl/m/n }{}
+  \DeclareFontShape{OT1}{auncl}{m}{it}{ <-> sub * auncl/m/n }{}
+  \DeclareFontShape{OT1}{auncl}{m}{sc}{ <-> sub * auncl/m/n }{}
+  \DeclareFontShape{OT1}{auncl}{m}{u}{ <-> sub * auncl/m/n }{}
+  \DeclareFontShape{OT1}{auncl}{bx}{n}{ <-8.5> aunclb7 <8.5-15> aunclb10 <15-> aunclb17 }{}
+  \DeclareFontShape{OT1}{auncl}{bx}{it}{ <-> sub * auncl/bx/n }{}
+  \DeclareFontShape{OT1}{auncl}{bx}{sl}{ <-> sub * auncl/bx/n }{}
+  \DeclareFontShape{OT1}{auncl}{b}{n}{ <-> sub * auncl/bx/n }{}
+%</fdot1>
+%    \end{macrocode}
+%
+%
+%    \begin{macrocode}
+%<*fdt1>
+\DeclareFontFamily{T1}{auncl}{}
+  \DeclareFontShape{T1}{auncl}{m}{n}{ <-8.5> auncl7 <8.5-15> auncl10 <15-> auncl17 }{} 
+  \DeclareFontShape{T1}{auncl}{m}{sl}{ <-> sub * auncl/m/n }{}
+  \DeclareFontShape{T1}{auncl}{m}{it}{ <-> sub * auncl/m/n }{}
+  \DeclareFontShape{T1}{auncl}{m}{sc}{ <-> sub * auncl/m/n }{}
+  \DeclareFontShape{T1}{auncl}{m}{u}{ <-> sub * auncl/m/n }{}
+  \DeclareFontShape{T1}{auncl}{bx}{n}{ <-8.5> aunclb7 <8.5-15> aunclb10 <15-> aunclb17 }{}
+  \DeclareFontShape{T1}{auncl}{bx}{it}{ <-> sub * auncl/bx/n }{}
+  \DeclareFontShape{T1}{auncl}{bx}{sl}{ <-> sub * auncl/bx/n }{}
+  \DeclareFontShape{T1}{auncl}{b}{n}{ <-> sub * auncl/bx/n }{}
+%</fdt1>
+%    \end{macrocode}
+%
+%    \begin{macrocode}
+%<*fdb1>
+\DeclareFontFamily{B1}{auncl}{}
+  \DeclareFontShape{B1}{auncl}{m}{n}{ <-> auncl10 }{} 
+  \DeclareFontShape{B1}{auncl}{m}{sl}{ <-> sub * auncl/m/n }{}
+  \DeclareFontShape{B1}{auncl}{m}{it}{ <-> sub * auncl/m/n }{}
+  \DeclareFontShape{B1}{auncl}{m}{sc}{ <-> sub * auncl/m/n }{}
+  \DeclareFontShape{B1}{auncl}{m}{u}{ <-> sub * auncl/m/n }{}
+  \DeclareFontShape{B1}{auncl}{bx}{n}{ <-> aunclb10 }{}
+  \DeclareFontShape{B1}{auncl}{bx}{it}{ <-> sub * auncl/bx/n }{}
+  \DeclareFontShape{B1}{auncl}{bx}{sl}{ <-> sub * auncl/bx/n }{}
+  \DeclareFontShape{B1}{auncl}{b}{n}{ <-> sub * auncl/bx/n }{}
+%</fdb1>
+%    \end{macrocode}
+%
+% \section{The package code} \label{sec:code}
+%
+% \subsection{The \Lpack{auncial} package}
+%
+%    The \Lpack{auncial} package is for typesetting short pieces of text
+% in the \thisfont{} fonts.
+%
+%    Announce the name and version of the package, which requires
+% \LaTeXe{}.
+%    \begin{macrocode}
+%<*usc>
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{auncial}[2005/11/27 v2.0 package for Artificial Uncial fonts]
+%    \end{macrocode}
+%
+% \begin{macro}{\aunclfamily}
+%    Selects the \thisfont{} font family in the B1 encoding.
+% \changes{v1.1}{2005/07/26}{Providing B1 encoding only}
+%    \begin{macrocode}
+\newcommand{\aunclfamily}{\usefont{B1}{auncl}{m}{n}}
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{\textuncl}
+%    Text command for the \thisfont{} font family.
+%    \begin{macrocode}
+\DeclareTextFontCommand{\textauncl}{\aunclfamily}
+%    \end{macrocode}
+% \end{macro}
+%
+%    The end of this package.
+%    \begin{macrocode}
+%</usc>
+%    \end{macrocode}
+%
+% \subsection{The \Lpack{allauncl} package}
+%
+%    The \Lpack{allauncl} package is intended for use when the entire document
+% will be typeset in the book-hand. This is a minimal package. Because the
+% book-hand should not contain arabic digits a fuller package would redefine
+% anything numbered in \LaTeX{} to use roman instead of arabic numbering.
+% Also, because of the large |\baselineskip| many other aspects of \LaTeX{}
+% to do with vertical positioning should also be redefined. 
+%
+%
+%    Announce the name and version of the package, which requires
+% \LaTeXe{}. It also uses the \Lpack{auncial} package.
+%    \begin{macrocode}
+%<*uscall>
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{allauncl}[2005/11/27 v2.0 package for all Artificial Uncial fonts]
+\RequirePackage{auncial}
+%    \end{macrocode}
+%
+% \begin{macro}{\Tienc}
+%  A  macro for testing the value of |\encodingdefault|.
+%    \begin{macrocode}
+\providecommand{\Tienc}{OT1}
+%    \end{macrocode}
+% \end{macro}
+%
+%  Redefine the default fonts to be \thisfont, which has only one family 
+% member.
+% \begin{macro}{\rmdefault}
+% \begin{macro}{\sfdefault}
+% \begin{macro}{\ttdefault}
+%    \begin{macrocode}
+\renewcommand{\rmdefault}{auncl}
+\renewcommand{\sfdefault}{auncl}
+\renewcommand{\ttdefault}{auncl}
+%    \end{macrocode}
+% \end{macro}
+% \end{macro}
+% \end{macro}
+%
+% The `leading' in the book-hand is the same as the |x-height|, which is much
+% greater than for the CMR fonts. I have borrowed code from Frank Jensen's
+% \Lpack{beton} package~\cite{BETON} to do this. The |x-height| (in points) 
+% for the CMR
+% fonts is given in Table~\ref{tab:cmrx}. Note that the CMR design sizes are
+% 5--10, 12, and 17.28 points. The other values given are scaled from these 
+% figures.
+%
+% \begin{table}
+% \centering
+% \caption{The x heights of the CMR and \thisfont{} fonts} \label{tab:cmrx}
+% \begin{tabular}{ccc} \hline
+% Design & CMR & \thisfont \\
+% Size & X Height & X Height \\ \hline
+% 5 & 2.14 & 3.00 \\
+% 6 & 2.58 & 3.61 \\
+% 7 & 3.00 & 4.22 \\
+% 8 & 3.44 & 4.82 \\
+% 9 & 3.86 & 5.40 \\
+% 10 & 4.31 & 6.03 \\
+% 11 & 4.74 & 6.64 \\
+% 12 & 5.17 & 7.24 \\
+% 14 & 6.03 & 8.44 \\
+% 17 & 7.44 & 10.42 \\
+% 20 & 8.75 & 12.25  \\
+% 25 & 10.94 & 15.32  \\ \hline
+% \end{tabular}
+% \end{table}
+%
+% \begin{macro}{\auncial@baselineskip@table}
+% A table of the normal font sizes and the corresponding baselineskip.
+% The distance between baselines for \thisfont{} is over twice 
+% the |x-height|.
+% 
+%    \begin{macrocode}
+\newcommand{\auncial@baselineskip@table}{%
+  <\@vpt>6.6%
+  <\@vipt>7.9%
+  <\@viipt>9.3%
+  <\@viiipt>10.6%
+  <\@ixpt>11.9%
+  <\@xpt>13.3%
+  <\@xipt>14.6%
+  <\@xiipt>16.5%
+  <\@xivpt>18.6%
+  <\@xviipt>22.9%
+  <\@xxpt>26.9%
+  <\@xxvpt>33.7}
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{\auncial@new@setfontsize}
+%  This is a macro that replaces the |\@setfontsize| macro which is called by
+% the font size changing commands.
+%    \begin{macrocode}
+\newcommand{\auncial@new@setfontsize}[3]{%
+  \edef\@tempa{\def\noexpand\@tempb####1<#2}%
+  \@tempa>##2<##3\@nil{\def\auncial@baselineskip@value{##2}}%
+  \edef\@tempa{\noexpand\@tempb\auncial@baselineskip@table<#2}%
+  \@tempa><\@nil
+  \ifx\auncial@baselineskip@value\@empty
+    \def\auncial@baselineskip@value{#3}%
+  \fi
+  \auncial@old@setfontsize{#1}{#2}\auncial@baselineskip@value}
+%    \end{macrocode}
+% \end{macro}
+%
+% We had better give an author a means of using The Computer Modern fonts
+% if necessary.
+%
+% \begin{macro}{\cmrfamily}
+% \begin{macro}{\cmssfamily}
+% \begin{macro}{\cmttfamily}
+%    These macros select the Computer Modern Roman, Sans, and Typewriter 
+% font families in either the T1 or OT1 encodings.
+%    \begin{macrocode}
+\ifx\Tienc\encodingdefault
+  \providecommand{\cmrfamily}{\usefont{OT1}{cmr}{m}{n}}
+  \providecommand{\cmssfamily}{\usefont{OT1}{cmss}{m}{n}}
+  \providecommand{\cmttfamily}{\usefont{OT1}{cmtt}{m}{n}}
+\else
+  \providecommand{\cmrfamily}{\usefont{T1}{cmr}{m}{n}}
+  \providecommand{\cmssfamily}{\usefont{T1}{cmss}{m}{n}}
+  \providecommand{\cmttfamily}{\usefont{T1}{cmtt}{m}{n}}
+\fi
+%    \end{macrocode}
+% \end{macro}
+% \end{macro}
+% \end{macro}
+%
+% \begin{macro}{\textcmr}
+%    Text command for the Computer Modern Roman font family.
+%    \begin{macrocode}
+\DeclareTextFontCommand{\textcmr}{\cmrfamily}
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{\textcmss}
+%    Text command for the Computer Modern Sans font family.
+%    \begin{macrocode}
+\DeclareTextFontCommand{\textcmss}{\cmssfamily}
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{\textcmtt}
+%    Text command for the Computer Modern Typewriter font family.
+%    \begin{macrocode}
+\DeclareTextFontCommand{\textcmtt}{\cmttfamily}
+%    \end{macrocode}
+% \end{macro}
+%
+%
+% At the start of the document, change the |\@setfontsize| macro and call
+% the normal font to implement the change.
+%    \begin{macrocode}
+\AtBeginDocument{%
+  \let\auncial@old@setfontsize=\@setfontsize
+  \let\@setfontsize=\auncial@new@setfontsize}
+\AtBeginDocument{\normalsize}
+%    \end{macrocode}
+%
+%    The end of this package.
+%    \begin{macrocode}
+%</uscall>
+%    \end{macrocode}
+%
+% \section{The map file}
+%
+% Just a short file.
+% \changes{v1.1}{2005/07/26}{Added map file}
+%
+%    \begin{macrocode}
+%<*map>
+auncl10      Bookhands-Artificial-Uncial        <auncl10.pfb
+aunclb10     Bookhands-Artificial-Uncial-Bold   <aunclb10.pfb
+%</map>
+%    \end{macrocode}
+%
+%
+% \Finale
+%
+\endinput
+
+%% \CharacterTable
+%%  {Upper-case    \A\B\C\D\E\F\G\H\I\J\K\L\M\N\O\P\Q\R\S\T\U\V\W\X\Y\Z
+%%   Lower-case    \a\b\c\d\e\f\g\h\i\j\k\l\m\n\o\p\q\r\s\t\u\v\w\x\y\z
+%%   Digits        \0\1\2\3\4\5\6\7\8\9
+%%   Exclamation   \!     Double quote  \"     Hash (number) \#
+%%   Dollar        \$     Percent       \%     Ampersand     \&
+%%   Acute accent  \'     Left paren    \(     Right paren   \)
+%%   Asterisk      \*     Plus          \+     Comma         \,
+%%   Minus         \-     Point         \.     Solidus       \/
+%%   Colon         \:     Semicolon     \;     Less than     \<
+%%   Equals        \=     Greater than  \>     Question mark \?
+%%   Commercial at \@     Left bracket  \[     Backslash     \\
+%%   Right bracket \]     Circumflex    \^     Underscore    \_
+%%   Grave accent  \`     Left brace    \{     Vertical bar  \|
+%%   Right brace   \}     Tilde         \~}
+
+

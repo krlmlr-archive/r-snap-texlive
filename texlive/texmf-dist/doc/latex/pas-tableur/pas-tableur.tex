@@ -1,0 +1,559 @@
+\documentclass[12pt]{article}
+\usepackage[latin1]{inputenc}
+\usepackage[french]{babel}
+\usepackage[T1]{fontenc}
+\usepackage{listings}
+\usepackage[colorlinks=true,urlcolor=blue]{hyperref}
+\usepackage[vmargin=2cm,hmargin=2cm]{geometry}
+\usepackage{titlesec}
+\usepackage{pas-tableur}
+\usetikzlibrary{arrows}
+\usepackage{kpfonts}
+
+\makeatletter
+% -------------------
+% TABLE DES MATIERES 
+% -------------------
+
+\def\@dottedtocline#1#2#3#4#5{%
+  \ifnum #1>\c@tocdepth \else
+    \vskip \z@ \@plus.2\p@
+    {\leftskip #2\relax \rightskip \@tocrmarg \parfillskip -\rightskip
+     \parindent #2\relax\@afterindenttrue
+     \interlinepenalty\@M
+     \leavevmode
+     \@tempdima #3\relax
+     \advance\leftskip \@tempdima \null\nobreak\hskip -\leftskip
+     {#4}\nobreak
+     \leaders\hbox{$\m@th
+        \mkern \@dotsep mu\hbox{.}\mkern \@dotsep
+        mu$}\hfill
+     \nobreak
+     \hb@xt@\@pnumwidth{\hfil\normalfont #5}%
+     \par}%
+  \fi}
+
+\renewcommand*\l@section
+{%
+\color{blueSelecCellBottom}
+\def\@linkcolor{blueSelecCellBottom}\@dottedtocline{1}{1.5em}{2.3em}
+}
+
+\renewcommand*\l@subsection
+{%
+\color{blueSelecCellTop}
+\def\@linkcolor{blueSelecCellTop}
+\@dottedtocline{1}{2.3em}{2.6em}
+}
+
+\def\contentsline#1#2#3#4{%
+  \ifx\\#4\\%
+    \csname l@#1\endcsname{#2}{#3}%
+  \else
+      \csname l@#1\endcsname{\hyper@linkstart{link}{#4}{#2}\hyper@linkend}{%
+        \hyper@linkstart{link}{#4}{#3}\hyper@linkend
+      }%
+  \fi
+}
+
+% --------------------
+% TITRES DES SECTIONS 
+% --------------------
+
+\titleformat{\section}[block]
+{\helvbx\Large\color{blueSelecCellBottom}}
+{\fcolorbox{blueSelecCellBottom}{blueSelecCellBottom}{\textcolor{white}{\bfseries\thesection}}}
+{1em}
+{\helvbx}
+
+\titleformat{\subsection}[block]
+{\helvbx\large\color{blueSelecCellTop}}
+{\thesubsection}
+{1em}
+{\helvbx}
+
+
+\makeatother
+
+\title{pas-tableur.sty\\\small v2.00}
+\date{\today}
+\author{Stéphane PASQUET\\\href{mailto:contact@mathweb.fr}{contact@mathweb.fr}}
+
+\lstset{
+	numbers=left, 
+	numberstyle=\tiny, 
+	stepnumber=1, 
+	numbersep=3pt, 
+	language=[LaTeX]TeX, 
+	backgroundcolor=\color{blueSelec},
+	frame=shadowbox,
+	rulesepcolor=\color{blueSelecCellBottom},
+	rulecolor=\color{blueSelecCellBottom},
+	framexleftmargin=10pt,
+	keywordstyle=\color{blueSelecCellBottom}\bfseries,
+	basicstyle=\ttfamily,
+  columns=flexible,
+  keepspaces=true,
+  upquote=true,
+  commentstyle=\color{gray},
+  morekeywords={tableur,celtxt,selecCell,definecolor,colminwidth,lineminheight, multiSelec,tabcolwidth,tabnumlinewidth,tablineheight,helvbx,draw}
+}
+
+\setlength{\parindent}{0pt}
+\begin{document} 
+
+\maketitle
+
+\tableofcontents
+
+\section{Introduction}
+
+\subsection{Résumé}
+
+L'extension \texttt{pas-tableur.sty} a pour but d'imiter l'apparence des tableurs.
+
+Il ne permet en aucun cas d'effectuer des calculs type tableur.
+
+\medskip
+
+Pour cette version 2 de l'extension, j'ai souhaité utiliser une syntaxe dans le fichier sty plus intuitive et plus pratique pour effectuer d'autres opérations par rapport à la version 1.
+
+\subsection{Installation}
+
+Dans le fichier zip, l'arborescence \LaTeX a été conservée pour vous permettre une installation plus facile.
+
+Ainsi, \texttt{pas-tableur.sty} devra \^etre installée dans le répertoire \og latex \fg{} de votre arborescence \LaTeX, et les fichiers \og pas-tableur.tex \fg{} et \og pas-tableur.pdf \fg{} dans son répertoire \og doc \fg.
+
+\subsection{Les extensions chargées}
+
+Afin de fonctionner correctement, \texttt{pas-tableur.sty} chargent les extensions suivantes :
+
+\medskip
+
+\begin{itemize}
+\item TiKZ, avec la librairie \og calc \fg{} ;
+\item xstring ;
+\item xkeyval.
+\end{itemize}
+
+\section{\textbackslash tableur et \textbackslash tableur* : construire un tableur}
+
+Pour créer un tableur, il faudra se mettre dans un environnement \texttt{tikzpicture} et utiliser la commande \textbackslash tableur ou sa version étoilée.
+
+\subsection{\textbackslash tableur}
+
+\begin{lstlisting}
+\begin{tikzpicture}
+\tableur[<nombre de lignes>]{<colonnes>}
+\end{tikzpicture}
+\end{lstlisting}
+
+\bigskip
+
+L'argument \og colonnes \fg{} peut se présenter de deux façons différentes :
+
+\bigskip
+
+\begin{minipage}{6cm}
+~\par 
+\begin{lstlisting}
+\begin{tikzpicture}
+\tableur[2]{A,B,C}
+\end{tikzpicture}
+\end{lstlisting}
+\end{minipage}
+\begin{minipage}{5mm}
+~\par 
+\end{minipage}
+\begin{minipage}{\dimexpr\linewidth-6.5cm}
+\begin{tikzpicture}
+\tableur[2]{A,B,C}
+\end{tikzpicture}
+\end{minipage}
+
+\bigskip
+
+\begin{minipage}{6cm}
+~\par 
+\begin{lstlisting}
+\begin{tikzpicture}
+\tableur[2]{A-D}
+\end{tikzpicture}
+\end{lstlisting}
+\end{minipage}
+\begin{minipage}{5mm}
+~\par 
+\end{minipage}
+\begin{minipage}{\dimexpr\linewidth-6.5cm}
+\begin{tikzpicture}
+\tableur[2]{A-C}
+\end{tikzpicture}
+\end{minipage}
+
+\bigskip
+
+Pour cette macro, les valeurs par défaut sont :
+
+\medskip
+
+\begin{itemize}
+\item la hauteur de chaque ligne : 1.57em ;
+\item la largeur de chaque colonne : 7em ;
+\item la largeur de la 1\iere{} colonne (contenant le numéros des lignes) : 3em ;
+\item le nombre de lignes : si l'option entre crochets n'est pas informée, il y aura 1 ligne.
+\end{itemize}
+
+\medskip
+
+Pour changer ces valeurs par défaut, on utilisera les commandes :
+
+\medskip
+
+\begin{lstlisting}
+\tabcolwidth{2cm} % pour que chaque colonne ait une largeur de 2 cm
+\tabnumlinewidth{1cm} % pour que la 1ère colonne fasse 1 cm de large
+\tablineheight{15mm} % pour que chaque ligne ait une hauteur de 15 mm
+\end{lstlisting}
+
+\paragraph*{Attention :} il faut impérativement mettre l'unité (cm, mm, em, ex ou pt).
+
+\subsection{\textbackslash tableur*}
+
+La version étoilée de \textbackslash\texttt{tableur} permet de construire un tableur dont les colonnes n'ont pas les m\^emes dimensions.
+
+%\medskip%
+
+\begin{lstlisting}
+\tableur*{A/2cm,B/4cm,C/1cm,D/4cm}
+\end{lstlisting}
+
+\begin{center}
+\begin{tikzpicture}
+\tableur*{A/2cm,B/4cm,C/1cm,D/4cm}
+\end{tikzpicture}
+\end{center}
+
+\subsection{Les noms de colonnes}
+
+Les colonnes peuvent porter n'importe quelle lettre majuscule de l'alphabet latin :\\ ABCDEFGHIJKLMNOPKRSTUVWXYZ.
+
+On ne peut pas nommer les colonnes par \og AA \fg{} par exemple.
+
+\medskip
+
+Quant aux lignes, elles commencent toujours par \og 1 \fg.
+
+\subsection{Les couleurs par défaut}
+
+Deux couleurs sont utilisées pour les cases \og en-t-\^etes \fg{} :
+
+\medskip
+
+\begin{lstlisting}
+\definecolor{grayTopCell}{cmyk}{0.08,0.05,0.06,0}
+\definecolor{grayBottomCell}{cmyk}{0.1,0.07,0.08,0}
+\end{lstlisting}
+
+\medskip
+
+Pour les changer, vous pouvez les redéfinir après avoir appelé \texttt{pas-tableur}.
+
+\medskip
+
+Le gris de séparation des cellules est, quant à lui, défini par :
+
+\medskip
+
+\begin{lstlisting}
+\definecolor{graySepCell}{cmyk}{0.29,0.21,0.21,0}
+\end{lstlisting}
+
+\subsection{La police de caractère des en-t\^ete}
+
+\begin{lstlisting}
+\newcommand{\helvbx}{\usefont{T1}{phv}{m}{n}}
+\end{lstlisting}
+
+\medskip
+
+Ainsi, si vous souhaitez insérer le nom d'une cellule dans votre document, vous pouvez utiliser la syntaxe suivante :
+
+\medskip
+
+\begin{minipage}{8cm}
+\begin{lstlisting}
+Dans la cellule {\helvbx A3}, nous 
+avons inséré la formule ...
+\end{lstlisting}
+\end{minipage}
+\begin{minipage}{5mm}
+~\par 
+\end{minipage}
+\begin{minipage}{\dimexpr\linewidth-8.5cm}
+Dans la cellule {\helvbx A3}, nous avons inséré la formule ...
+\end{minipage}
+
+\subsection{Nomination des cellules}
+
+Toujours dans un logique de simplifier la rédaction des documents, j'ai souhaité nommer chaque cellule de façon intuitive.
+
+Ainsi, la cellule {\helvbx A1} est nommée : cellA-1.
+
+Cette précision est utile lorsque l'on souhaite ajouter des flèches vers certaines cellules comme dans l'exemple suivant :
+
+\medskip
+
+\begin{lstlisting}
+\begin{tikzpicture}
+\tableur[3]{A-E}
+\draw[<-] (cellB-2.center) to[bend right=30] ($(cellB-2)+(2,-1.7)$) 
+node[right] {C'est la cellule {\helvbx B2}};
+\end{tikzpicture}
+\end{lstlisting}
+
+\begin{tikzpicture}
+\tableur[3]{A-E}
+\draw[<-,>=stealth'] (cellB-2.center) to[bend right=30] ($(cellB-2)+(2,-1.7)$) node[right] {C'est la cellule {\helvbx B2}};
+\end{tikzpicture}
+
+\section{\textbackslash celtxt : insérer du texte dans une cellule}
+
+
+\subsection{Syntaxe générale}
+
+\begin{lstlisting}
+\celtxt[<options>}{<colonne>}{<ligne>}{<texte>}
+\end{lstlisting}
+
+\medskip
+
+Les options sont :
+
+\medskip
+
+\begin{itemize}
+\item \texttt{c} : pour centrer le texte ;
+\item \texttt{l} : pour positionner le texte à gauche (c'est cette valeur qui est désignée par défaut) ;
+\item \texttt{r} : pour positionner le texte à droite ;
+\item \texttt{width=} : pour spécifier la largeur de la colonne dans le cas où nous  avons utiliser la commande \textbackslash\texttt{tableur*}. Par défaut, la largeur est 7em (largeur par défaut de chaque colonne) ;
+\item \texttt{color=} : couleur du texte. Par défaut, la couleur est noire.
+\end{itemize}
+
+\medskip
+
+Le texte peut \^etre formatté de deux façons différentes selon qu'il désigne une formule ou un texte normal, comme le montre l'exemple suivant :
+
+\bigskip
+
+\begin{minipage}{7cm}
+\begin{lstlisting}
+\begin{tikzpicture}
+\tableur[2]{M-O}
+\celtxt{M}{1}{=B1^2}
+\celtxt[r]{N}{2}{Du texte ici}
+\end{tikzpicture}
+\end{lstlisting}
+\end{minipage}
+\begin{minipage}{5mm}
+~\par 
+\end{minipage}
+\begin{minipage}{\dimexpr\linewidth-7.5mm}
+\begin{tikzpicture}
+\tableur[2]{M-O}
+\celtxt{M}{1}{=B1^2}
+\celtxt[r]{N}{2}{Du texte ici}
+\end{tikzpicture}
+\end{minipage}
+
+\medskip
+
+\begin{minipage}{7cm}
+\begin{lstlisting}
+\begin{tikzpicture}
+\tableur*[2]{M/13mm,N/3cm}
+\celtxt[width=13mm]{M}{1}{=B1^2}
+\celtxt[r,width=3cm]{N}{2}
+{Du texte ici}
+\end{tikzpicture}
+\end{lstlisting}
+\end{minipage}
+\begin{minipage}{5mm}
+~\par 
+\end{minipage}
+\begin{minipage}{\dimexpr\linewidth-7.5mm}
+\begin{tikzpicture}
+\tableur*[2]{M/13mm,N/3cm}
+\celtxt[width=13mm]{M}{1}{=B1^2}
+\celtxt[r,width=3cm]{N}{2}{Du texte ici}
+\end{tikzpicture}
+\end{minipage}
+
+\subsection{Formater le texte}
+
+On peut mettre en italique :
+
+\medskip
+
+\begin{minipage}{7cm}
+\begin{lstlisting}
+\begin{tikzpicture}
+\tableur[2]{M-O}
+\celtxt{M}{1}{=B1^2}
+\celtxt[r]{N}{2}
+{\itshape Du texte ici}
+\end{tikzpicture}
+\end{lstlisting}
+\end{minipage}
+\begin{minipage}{5mm}
+~\par 
+\end{minipage}
+\begin{minipage}{\dimexpr\linewidth-7.5mm}
+\begin{tikzpicture}
+\tableur[2]{M-O}
+\celtxt{M}{1}{=B1^2}
+\celtxt[r]{N}{2}{\itshape Du texte ici}
+\end{tikzpicture}
+\end{minipage}
+
+\medskip
+
+ou m\^eme en gras :
+
+\medskip
+
+\begin{minipage}{7cm}
+\begin{lstlisting}
+\begin{tikzpicture}
+\tableur[2]{M-O}
+\celtxt{M}{1}{=B1^2}
+\celtxt[r]{N}{2}
+{\bfseries Du texte ici}
+\end{tikzpicture}
+\end{lstlisting}
+\end{minipage}
+\begin{minipage}{5mm}
+~\par 
+\end{minipage}
+\begin{minipage}{\dimexpr\linewidth-7.5mm}
+\begin{tikzpicture}
+\tableur[2]{M-O}
+\celtxt{M}{1}{=B1^2}
+\celtxt[r]{N}{2}{\bfseries Du texte ici}
+\end{tikzpicture}
+\end{minipage}
+
+\medskip
+
+voire m\^eme en petites majuscules :
+
+\medskip
+
+
+\begin{minipage}{7cm}
+\begin{lstlisting}
+\begin{tikzpicture}
+\tableur[2]{M-O}
+\celtxt{M}{1}{=B1^2}
+\celtxt[r,color=red]{N}{2}
+{\scshape Du texte ici}
+\end{tikzpicture}
+\end{lstlisting}
+\end{minipage}
+\begin{minipage}{5mm}
+~\par 
+\end{minipage}
+\begin{minipage}{\dimexpr\linewidth-7.5mm}
+\begin{tikzpicture}
+\tableur[2]{M-O}
+\celtxt{M}{1}{=B1^2}
+\celtxt[r,color=red]{N}{2}{\scshape Du texte ici}
+\end{tikzpicture}
+\end{minipage}
+
+\section{Sélection de cellules}
+
+\subsection{\textbackslash selecCell : sélection d'une cellule}
+
+\begin{lstlisting}
+\selecCell{<colonne>}{<ligne>}
+\end{lstlisting}
+
+\medskip
+
+Permet de simuler le cas où une cellule est sélectionnée, comme le montre l'exemple suivant :
+
+\medskip
+
+\begin{minipage}{7cm}
+~\par 
+\begin{lstlisting}
+\begin{tikzpicture}
+\tableur[3]{M-O}
+\selecCell{N}{2}
+\end{tikzpicture}
+\end{lstlisting}
+\end{minipage}
+\begin{minipage}{5mm}
+~\par 
+\end{minipage}
+\begin{minipage}{\dimexpr\linewidth-7.5mm}
+\begin{tikzpicture}
+\tableur[3]{M-O}
+\selecCell{N}{2}
+\end{tikzpicture}
+\end{minipage}
+
+\subsection{\textbackslash multiSelec : sélection de plusieurs colonnes}
+
+Voyons un exemple pour comprendre la syntaxe :
+
+\medskip
+
+\begin{minipage}{7cm}
+~\par 
+\begin{lstlisting}
+\begin{tikzpicture}
+\tableur[3]{M-O}
+\multiSelec{N-2}{O-3}
+\end{tikzpicture}
+\end{lstlisting}
+\end{minipage}
+\begin{minipage}{5mm}
+~\par 
+\end{minipage}
+\begin{minipage}{\dimexpr\linewidth-7.5mm}
+\begin{tikzpicture}
+\tableur[3]{M-O}
+\multiSelec{N-2}{O-3}
+\end{tikzpicture}
+\end{minipage}
+
+\subsection{Les couleurs par défaut}
+
+\begin{lstlisting}
+% Pour les en-tetes
+\definecolor{blueSelecCellTop}{cmyk}{0.52,0.17,0,0}
+\definecolor{blueSelecCellBottom}{cmyk}{0.75,0.34,0,0}
+
+% Pour les cellules sélectionnées
+\definecolor{blueSelec}{cmyk}{0.23,0.06,0,0}
+\end{lstlisting}
+
+\medskip
+
+\`A noter qu'une opacité de 50\% est appliquée pour les cellules sélectionnées (afin de voir les traits de séparation des cellules).
+
+\section{Suggestions et remarques}
+
+Je suis bien entendu ouvert à toute suggestion d'évolution et remarques. C'est d'ailleurs à l'aide de vos remarques que j'ai pu faire évoluer cette extension.
+
+N'hésitez donc pas à m'envoyer un mail ou a poster votre soucis sur le forum de \href{http://forum.mathematex.net}{mathematex}.
+
+\medskip
+
+J'attire toutefois votre attention sur le fait que toute demande concernant un problème de compilation doit \^etre postée sur le forum (en non envoyée par mail) et accompagnée d'un code précis afin que cela serve aux multiples utilisateurs de cette extension.
+
+\medskip
+
+Je ne répondrai par mail qu'aux questions concernant directement \texttt{pas-tableur}, et non aux problèmes de compilation, qui sont plus d'ordre technique. 
+\end{document}

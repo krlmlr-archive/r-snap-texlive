@@ -1,0 +1,2829 @@
+% \CheckSum{2390}
+% \iffalse meta-comment
+% ======================================================================
+% scrkernel-basics.dtx
+% Copyright (c) Markus Kohm, 2002-2013
+%
+% This file is part of the LaTeX2e KOMA-Script bundle.
+%
+% This work may be distributed and/or modified under the conditions of
+% the LaTeX Project Public License, version 1.3c of the license.
+% The latest version of this license is in
+%   http://www.latex-project.org/lppl.txt
+% and version 1.3c or later is part of all distributions of LaTeX 
+% version 2005/12/01 or later and of this work.
+%
+% This work has the LPPL maintenance status "author-maintained".
+%
+% The Current Maintainer and author of this work is Markus Kohm.
+%
+% This work consists of all files listed in manifest.txt.
+% ----------------------------------------------------------------------
+% scrkernel-basics.dtx
+% Copyright (c) Markus Kohm, 2002-2013
+%
+% Dieses Werk darf nach den Bedingungen der LaTeX Project Public Lizenz,
+% Version 1.3c, verteilt und/oder veraendert werden.
+% Die neuste Version dieser Lizenz ist
+%   http://www.latex-project.org/lppl.txt
+% und Version 1.3c ist Teil aller Verteilungen von LaTeX
+% Version 2005/12/01 oder spaeter und dieses Werks.
+%
+% Dieses Werk hat den LPPL-Verwaltungs-Status "author-maintained"
+% (allein durch den Autor verwaltet).
+%
+% Der Aktuelle Verwalter und Autor dieses Werkes ist Markus Kohm.
+% 
+% Dieses Werk besteht aus den in manifest.txt aufgefuehrten Dateien.
+% ======================================================================
+% \fi
+%
+% \CharacterTable
+%  {Upper-case    \A\B\C\D\E\F\G\H\I\J\K\L\M\N\O\P\Q\R\S\T\U\V\W\X\Y\Z
+%   Lower-case    \a\b\c\d\e\f\g\h\i\j\k\l\m\n\o\p\q\r\s\t\u\v\w\x\y\z
+%   Digits        \0\1\2\3\4\5\6\7\8\9
+%   Exclamation   \!     Double quote  \"     Hash (number) \#
+%   Dollar        \$     Percent       \%     Ampersand     \&
+%   Acute accent  \'     Left paren    \(     Right paren   \)
+%   Asterisk      \*     Plus          \+     Comma         \,
+%   Minus         \-     Point         \.     Solidus       \/
+%   Colon         \:     Semicolon     \;     Less than     \<
+%   Equals        \=     Greater than  \>     Question mark \?
+%   Commercial at \@     Left bracket  \[     Backslash     \\
+%   Right bracket \]     Circumflex    \^     Underscore    \_
+%   Grave accent  \`     Left brace    \{     Vertical bar  \|
+%   Right brace   \}     Tilde         \~}
+%
+% \iffalse
+%%% From File: $Id: scrkernel-basics.dtx 1502 2013-11-06 11:00:12Z mjk $
+%<package&option>\NeedsTeXFormat{LaTeX2e}[1995/06/01]
+%<*driver>
+\ifx\ProvidesFile\undefined\def\ProvidesFile#1[#2]{}\fi
+\ProvidesFile{scrkernel-basics.dtx}[%
+%</driver>
+%<*driver|(package&option)>
+%<package>\ProvidesPackage{%
+%<package&base>  scrbase%
+%<package&koma>  scrkbase%
+%<package>}[%
+%!KOMAScriptVersion
+  package (%
+%<base>    KOMA-Script-independent
+%<koma>    KOMA-Script-dependent
+ basics and keyval usage)]
+%</driver|(package&option)>
+%<*dtx>
+\ifx\documentclass\undefined
+  \input scrdocstrip.tex
+  \@@input scrkernel-version.dtx
+  \@@input scrstrip.inc
+  \KOMAdefVariable{COPYRIGHTFROM}{2002}
+  \generate{\usepreamble\defaultpreamble
+    \file{scrbase.sty}{%
+      \from{scrkernel-version.dtx}{package,scrbase}%
+      \from{scrkernel-basics.dtx}{package,option,base}%
+      \from{scrkernel-language.dtx}{package,option,base}%
+      \from{scrlfile.dtx}{load}%
+      \from{scrkernel-basics.dtx}{package,body,base}%
+      \from{scrkernel-language.dtx}{package,body,base}%
+      \from{scrlogo.dtx}{logo}%
+    }%
+  }
+  \@@input scrstrop.inc
+\else
+  \let\endbatchfile\relax
+\fi
+\endbatchfile
+%</dtx>
+%<*driver>
+\documentclass{scrdoc}
+\usepackage[english,ngerman]{babel}
+\usepackage[latin1]{inputenc}
+\CodelineIndex
+\RecordChanges
+\GetFileInfo{scrkernel-basics.dtx}
+\title{\KOMAScript{} \partname\ \texttt{\filename}%
+  \footnote{Dies ist Version \fileversion\ von Datei
+    \texttt{\filename}.}}
+\date{\filedate}
+\author{Markus Kohm}
+
+\begin{document}
+  \maketitle
+  \tableofcontents
+  \DocInput{\filename}
+\end{document}
+%</driver>
+% \fi
+%
+% \selectlanguage{ngerman}
+%
+% \changes{v1.0}{2002/07/06}{Beginn der ersten Version}
+% \changes{v3.12}{203/03/05}{Verwendung von \cs{@tempa}, \cs{@tempb},
+%   \cs{@tempc} eliminiert}
+%
+% \section{Grundlegenden \KOMAScript-Erweiterungen}
+%
+% Neue Versionen von \KOMAScript{} machen zunehmend Gebrauch vom
+% \textsf{keyval}-Paket. Das \textsf{keyval}-Paket ist Bestandteil des
+% \textsf{graphics}-Pakets und muss als solches auf allen
+% \TeX-Systemen mit \LaTeX{} enthalten sein. Es genügt jedoch in
+% einigen Punkten nicht den Anforderungen von \KOMAScript{}. Deshalb
+% werden hier Erweiterungen vorgenommen, die von \KOMAScript-Klassen
+% und \KOMAScript-Paketen verwendet werden können.
+%
+% Darüber hinaus werden immer mehr Teile von \KOMAScript{} von mehr als einem
+% Paket oder von Paketen und Klassen verwendet. Diese grundlegenden Dinge
+% wurden daher in zwei Pakete, \textsf{scrbase} (für Dinge, die auch von
+% anderen Klassen und Paketen genutzt werden können) und \textsf{scrkbase}
+% (für Dinge, die \KOMAScript vorbehalten bleiben), ausgegliedert. Dadurch
+% werden die Pakete und Klassen selbst kleiner und die können trotzdem
+% unabhängig voneinander verwendet werden. Selbstverständlich kann man dieses
+% Paket auch ohne den Rest von \KOMAScript{} zum Einsatz bringen.
+%
+% \StopEventually{\PrintIndex\PrintChanges}
+%
+% \iffalse
+%<*load>
+% \fi
+%
+% \subsection{Laden des Pakets}
+% Wer das Paket lädt, tut das allerdings in der Regel sogar bereits
+% vor der Definition der Optionen mit:
+%    \begin{macrocode}
+\RequirePackage{scrkbase}[\KOMAScriptVersion]
+%    \end{macrocode}
+%
+% \iffalse
+%</load>
+%<*option>
+% \fi
+%
+% \subsection{\eTeX-Test}
+% \changes{v3.02c}{2009/02/19}{Fehlermeldung, wenn nicht \eTeX{} verwendet
+%   wird}
+%
+%    \begin{macrocode}
+%<*base>
+\begingroup
+  \def\reserved@b{}%
+  \def\reserved@a#1{%
+    \PackageError{scrbase}{seems you are not running e-TeX#1}{%
+      Since 2004 the LaTeX team recommends to use e-TeX.\MessageBreak
+      KOMA-Script since version 2.95 uses several e-TeX features.\MessageBreak
+      At actual systems `latex' should already use e-TeX.\MessageBreak
+      At deprecated systems it may be called `elatex'.\MessageBreak
+      Use either unsupported KOMA-Script up to version 2.9u or\MessageBreak
+      ask you administrator for LaTeX using e-TeX#1.\MessageBreak
+      Not using e-TeX#1 is a fatal error!\MessageBreak
+      Processing cannot be continued!}%
+    \endgroup
+    \batchmode \errmessage{}\csname @@end\endcsname\end\relax
+    \csname endinput\endcsname
+  }%
+  \expandafter\ifx\csname eTeXversion\endcsname\relax\else
+    \ifnum\eTeXversion <2
+      \def\reserved@b{ V 2}%
+    \else
+      \let\reserved@a\endgroup
+    \fi
+  \fi
+\expandafter\reserved@a\expandafter{\reserved@b}
+%</base>
+%    \end{macrocode}
+%
+% \subsection{Der abhängige Teil lädt den unabhängigen Teil}
+%
+%    \begin{macrocode}
+%<koma>\RequirePackage{scrbase}[\KOMAScriptVersion]
+%    \end{macrocode}
+%
+% \subsection{Laden von \textsf{keyval}}
+%
+% Hier wird nicht nur das Paket geladen, was ruckzuck mit:
+%    \begin{macrocode}
+%<base>\RequirePackage{keyval}
+%    \end{macrocode}
+% erledigt ist.
+%
+%
+% \subsection{Test von Anweisungen}
+%
+% \begin{macro}{\scr@ifundefinedorrelax}
+%   \changes{v2.95c}{2006/08/12}{neu (intern)}
+%   \changes{v2.97b}{2007/03/08}{vermurkste Logik korrigiert}
+%   \changes{v2.97c}{2007/04/18}{vermurkste Funktion korrigiert}
+%   \changes{v2.97c}{2007/04/18}{von \cs{scr@ifundefined} umbenannt}
+%   \changes{v3.02c}{2009/02/19}{Sonderbehandlung für nicht \eTeX entfernt}
+% Dieses Makro arbeitet wie \cs{@ifundefined}, definiert dabei aber
+% ein undefiniertes Makro nicht als \cs{relax}. Es muss bereits hier definiert
+% werden, weil es gleich verwendet wird.
+%    \begin{macrocode}
+%<*base>
+\newcommand{\scr@ifundefinedorrelax}[1]{%
+  \ifcsname #1\endcsname
+    \expandafter\ifx\csname #1\endcsname\relax
+      \expandafter\expandafter\expandafter\@firstoftwo
+    \else
+      \expandafter\expandafter\expandafter\@secondoftwo
+    \fi
+  \else
+    \expandafter\@firstoftwo
+  \fi
+}
+%</base>
+%    \end{macrocode}
+%  \end{macro}^^A \scr@ifundefinedorrelax
+%
+%
+% \subsection{Erweiterung von Meldungen}
+%
+% \begin{macro}{\PackageErrorNoLine}
+%   \changes{v3.12}{2013/09/19}{neu}
+% Dieses Makro wird zwar bereits seit langem für einige wenige Fehlermeldungen
+% verwendet, existierte bisher aber nicht. Es wird für Fehlermeldungen
+% verwendet, denen keine eindeutige Zeilennummer zugeordnet werden kann. In
+% der Regel ist dies zu vermeiden und besser \cs{PackageError} zu verwenden.
+%    \begin{macrocode}
+%<*base>
+\newcommand*\PackageErrorNoLine[2]{%
+  \PackageError{#1}{#2\@gobble}%
+}
+%</base>
+%    \end{macrocode}
+% \end{macro}
+%
+%
+% \subsection{Definition von KOMA-\textsf{keyval}-Schlüsseln (Basis)}
+%
+% Üblicherweise verwendet \KOMAScript{} für alle
+% \textsf{keyval}-Schlüssel die gleiche Bereichskennung
+% "`\texttt{KOMA}"'. Dadurch ist es möglich, dass Pakete die Schlüssel
+% der Klassen umdefinieren und dass jeder Teil von \KOMAScript{} die
+% Schlüssel jedes anderen Teils ausführen kann -- sobald sie definiert
+% sind.
+%
+% \begin{macro}{\DefineFamily}
+%   \changes{v3.00}{2008/04/30}{Neue Anweisung}
+% \begin{macro}{\DefineFamilyMember}
+%   \changes{v3.00}{2008/04/30}{Neue Anweisung}
+% \begin{macro}{\DefineFamilyKey}
+%   \changes{v3.00}{2008/04/30}{Neue Anweisung}
+%   \changes{v3.12}{2013/03/04}{Setzen von \cs{FamilyKeyState}}
+% \begin{macro}{\scr@if@family}
+%   \changes{v3.00}{2008/04/30}{Neu (intern)}
+% \begin{macro}{\scr@if@familymember}
+%   \changes{v3.00}{2008/04/30}{Neu (intern)}
+% Familie, Familienmitglied und \textsf{keyval}-Schlüssel für ein
+% Familienmitglied definieren. Dabei wird als Familienmitglied per Default der
+% (Datei-)Name des aktuellen Pakets bzw. der aktuellen Klasse verwendet.
+%    \begin{macrocode}
+%<*base>
+\newcommand*{\DefineFamily}[1]{%
+  \scr@ifundefinedorrelax{#1@key@familylist}{%
+    \@namedef{#1@key@familylist}{}%
+  }{}%
+}
+\newcommand*{\scr@if@family}[2]{%
+  \scr@ifundefinedorrelax{#1@key@familylist}{%
+    \PackageError{scrbase}{%
+      unknown family `#1'%
+    }{%
+      You've tried to #2 for family `#1'.\MessageBreak
+      This my be done only for previous defined families.\MessageBreak
+      You should call `\string\DefineFamily{#1}' first.%
+    }%
+  }%
+}
+\newcommand*{\DefineFamilyMember}[2][.\@currname.\@currext]{%
+  \scr@if@family{#2}{define a family member}{%
+    \edef\reserved@a{%
+      \noexpand\in@{#2#1,}{\csname #2@key@familylist\endcsname}}%
+    \reserved@a
+    \ifin@\else
+      \expandafter\edef\csname #2@key@familylist\endcsname{%
+        \@nameuse{#2@key@familylist}#2#1,}%
+    \fi
+  }%
+}
+\newcommand*{\scr@if@familymember}[3]{%
+  \scr@if@family{#2}{#3}{%
+    \edef\reserved@a{%
+      \noexpand\in@{#2#1,}{\csname #2@key@familylist\endcsname}}%
+    \reserved@a
+    \ifin@
+      \expandafter\@firstofone
+    \else
+      \PackageError{scrbase}{%
+        unknown member `#1' at family `#2'%
+      }{%
+        You've tried to #3 for member `#1' of family `#2'.\MessageBreak
+        This my be done only for previous defined family members.\MessageBreak
+        You should call `\string\DefineFamilyMember[{#1}]{#2}' first.%
+      }%
+      \expandafter\@gobble
+    \fi
+  }%
+}
+\newcommand*{\DefineFamilyKey}[3][.\@currname.\@currext]{%
+  \@ifnextchar[%]
+  {%
+    \edef\reserved@a{#1}%
+    \expandafter\scr@define@family@key
+    \expandafter{\reserved@a}{#2}{#3}%
+  }{%
+    \edef\reserved@a{#1}%
+    \expandafter\scr@define@family@key@nodefault
+    \expandafter{\reserved@a}{#2}{#3}%
+  }%
+}
+\newcommand*{\scr@define@family@key}{}
+\def\scr@define@family@key#1#2#3[#4]#5{%
+  \scr@if@familymember{#1}{#2}{define a key}{%
+    \define@key{#2#1}{#3}[{#4}]{%
+      \def\FamilyOfKey{#2}\def\FamilyMemberOfKey{#1}%
+      \FamilyKeyStateUnknown
+      #5%
+      \def\FamilyOfKey{#2}\def\FamilyMemberOfKey{#1}%
+    }%
+  }%
+}
+\newcommand*{\scr@define@family@key@nodefault}[4]{%
+  \scr@if@familymember{#1}{#2}{define a key}{%
+    \define@key{#2#1}{#3}{%
+      \def\FamilyOfKey{#2}\def\FamilyMemberOfKey{#1}%
+      \FamilyKeyStateUnknown
+      #4
+      \def\FamilyOfKey{#2}\def\FamilyMemberOfKey{#1}%
+    }%
+    \@namedef{KV@#2#1@#3@default}{%
+      \def\FamilyOfKey{#2}\def\FamilyMemberOfKey{#1}%
+      \FamilyKeyStateNeedValue
+    }%
+  }%
+}
+%</base>
+%    \end{macrocode}
+% \end{macro}^^A \scr@if@familymember
+% \end{macro}^^A \scr@if@family
+% \end{macro}^^A \DefineFamilyKey
+% \end{macro}^^A \DefineFamilyMember
+% \end{macro}^^A \DefineFamily
+%
+% \begin{macro}{\FamilyKeyState}
+%   \changes{v3.12}{2013/03/04}{Neue Anweisung}
+% \begin{macro}{\FamilyKeyStateProcessed}
+%   \changes{v3.12}{2013/03/04}{Neue Anweisung}
+% \begin{macro}{\FamilyKeyStateUnknown}
+%   \changes{v3.12}{2013/03/04}{Neue Anweisung}%
+% \begin{macro}{\FamilyKeyStateUnknownValue}
+%   \changes{v3.12}{2013/03/04}{Neue Anweisung}%
+% \begin{macro}{\FamilyKeyStateNeedValue}
+%   \changes{v3.12}{2013/03/04}{Neue Anweisung}%
+% \cs{FamilyKeyState} gibt den Status der Verarbeitung eines Schlüssels
+% an. In der Voreinstellung wird der Status beim Aufruf des Schlüssels auf
+% \cs{FamilyKeyStateUnknown} gesetzt, was anzeigt, dass der Zustand
+% unbekannnt ist, der Schlüssel aber möglicherweise verarbeitet
+% wurde. Daneben gibt es den Zustand \cs{FamilyKeyStateProcessed}, der
+% anzeigt, dass der Schlüssel komplett verarbeitet wurde. Alternativ kann
+% das Makro einen Text enthalten, der ggf. Teil einer Fehlermeldung, einer
+% Warnung oder einer Information über Probleme bei der Verarbeitung wird. Es
+% ist zu beachten, dass \cs{FamilyKeyState} nur unmittelbar nach der
+% Verarbeitung gültig ist.
+%    \begin{macrocode}
+%<*base>
+\newcommand*{\FamilyKeyState}{}
+\newcommand*{\FamilyKeyStateUnknown}{%
+  \let\FamilyKeyState\FamilyKeyStateUnknown
+}
+\newcommand*{\FamilyKeyStateUnknownValue}{%
+  \let\FamilyKeyState\FamilyKeyStateUnknownValue
+}
+\newcommand*{\FamilyKeyStateNeedValue}{%
+  \let\FamilyKeyState\FamilyKeyStateNeedValue
+}
+\newcommand*{\FamilyKeyStateProcessed}{%
+  \let\FamilyKeyState\FamilyKeyStateProcessed
+}
+\let\FamilyKeyState\FamilyKeyStateUnknown
+%</base>
+%    \end{macrocode}
+% \end{macro}^^A \FamilyKeyStateNeedValue
+% \end{macro}^^A \FamilyKeyStateUnknownValue
+% \end{macro}^^A \FamilyKeyStateUnknown
+% \end{macro}^^A \FamilyKeyStateProcessed
+% \end{macro}^^A \FamilyKeyState
+%
+% \begin{macro}{\FamilyOfKey}
+%   \changes{v3.12}{2013/03/04}{Neue Anweisung}
+% \begin{macro}{\FamilyMemberOfKey}
+%   \changes{v3.12}{2013/03/04}{Neue Anweisung}
+% Geben innerhalb der Verarbeitung eines Schlüssels dessen Familie bzw. das
+% zugehörige Familienmitglied an.
+%    \begin{macrocode}
+%<*base>
+\newcommand*{\FamilyOfKey}{}
+\newcommand*{\FamilyMemberOfKey}{}
+%</base>
+%    \end{macrocode}
+% \end{macro}^^A \FamilyMemberOfKey
+% \end{macro}^^A \FamilyOfKey
+%
+% \begin{macro}{\KOMA@key}
+%   \changes{v2.97c}{2007/04/19}{neues optionales Argument}
+% \begin{macro}{\KOMA@key@familylist}
+% \textsf{keyval}-Schlüssel für \KOMAScript{} werden mit \cs{KOMAkey}
+% definiert, damit auch die Familie korrekt gesetzt und ggf. der Liste der
+% Familien (\cs{KOMA@key@familylist}) hinzugefügt wird.
+%    \begin{macrocode}
+%<*koma>
+\newcommand*{\KOMA@key}[1][.\@currname.\@currext]{%
+  \DefineFamilyMember{KOMA}%
+  \DefineFamilyKey[#1]{KOMA}%
+}
+%</koma>
+%    \end{macrocode}
+% \end{macro}
+% \end{macro}
+%
+% \subsection{Optionen}
+%
+% Ab Version 2.97c sollen sowohl globale KOMA-Optionen als auch die
+% KOMA-Optionen der jeweiligen Datei als auch die normalen Optionen in der
+% Reihenfolge ausgeführt werden, in der sie angegeben wurden -- zuerst die
+% globalen Optionen, dann die lokalen. Dabei werden nur die Optionen
+% verwendet, die auch für das jeweilige Paket bzw. die jeweilige Klasse
+% definiert wurden.
+%
+% \begin{macro}{\@globaloptionslist}
+%   \changes{v2.96}{2006/11/26}{new}
+%   \changes{v2.96}{2006/11/26}{Klassenoptionen durchsuchen}
+% Die Lister der globalen Optionen wird teilweise benötigt. Weil
+% \textsl{xkeyval} dämlicherweise glaubt, es müsse alle Optionen mit
+% Gleichheitszeichen aus der Liste der Klassenoptionen entfernen
+% (seltsamerweise aber nicht die (x)keyval-Optionen, die ohne Wert aufgerufen
+% werden, weil ihr Defaultwert verwendet werden soll), wird hier ein eigenes
+% Makro definiert.
+%    \begin{macrocode}
+%<*base>
+\newcommand*{\@globaloptionslist}{}
+\let\@globaloptionslist\@classoptionslist
+\scr@ifundefinedorrelax{XKV@classoptionslist}{}{%
+  \ifx\XKV@classoptionslist\@empty\else
+    \let\@globaloptionslist\XKV@classoptionslist
+  \fi
+}
+%</base>
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{\FamilyProcessOptions}
+%   \changes{v3.00}{2008/04/30}{Neue Anweisung}%
+%   \changes{v3.11a}{2012/06/11}{Klassen melden falsche Werte nicht
+%     selbst als Fehler, sondern informieren nur darüber}
+%   \changes{v3.12}{2013/03/04}{Fehlerbehandlung}
+% Es ist zu beachten, dass falsche Werte für Optionen grundsätzlich nicht in
+% der Verarbeitung der Optionen per Info, Warnung oder Fehler gemeldet werden
+% sollten, sondern über setzen von \cs{FamilyKeyState}. Erst, wenn auch andere
+% Familienmitglieder den Wert nicht verarbeiten können, ergibt sich daraus
+% ggf. eine Meldung, die dann von der Verarbeitung hier erzeugt wird.
+% Es wird darauf hingewiesen, dass diese Anweisung nicht reentrant ist. Das
+% bedeutet, dass man es innerhalb der eigenen Ausführung nicht erneut aufrufen
+% darf.
+% \begin{macro}{\scr@removeunused}
+%   \changes{v3.10}{2011/09/12}{neu (intern)}%
+%   \changes{v3.12}{2013/03/04}{entfernt}
+% \end{macro}^^A \scr@removeunused
+% \begin{macro}{\scr@optiontest}
+%   \changes{v2.97c}{2007/04/18}{neu (intern)}%
+%   \changes{v3.12}{2013/03/04}{entfernt}%
+% \begin{macro}{\scr@pti@ntest}
+%   \changes{v2.97c}{2007/04/18}{neu (intern)}%
+%   \changes{v3.12}{2013/03/04}{entfernt}%
+% \end{macro}^^A \scr@pti@ntest
+% \end{macro}^^A \scr@optiontest
+%    \begin{macrocode}
+%<*base>
+\newcommand*{\FamilyProcessOptions}[2][.\@currname.\@currext]{%
+  \ifx\AtEndOfFamilyOptions\scr@AtEndOfFamilyOptions
+    \PackageError{scrbase}{nested \string\FamilyProcessOptions\space
+      detected\MessageBreak}{%
+      \string\FamilyProcessOptions\space has been used while processing or
+      setting options.\MessageBreak
+      This is currently not allowed. You should contact the author of the
+      causing\MessageBreak
+      code.\MessageBreak
+      This error is fatal. You should not continue.%
+    }%
+  \fi
+  \let\AtEndOfFamilyOptions\scr@AtEndOfFamilyOptions
+  \@namedef{scr@after@options@#1@hook}{\@namedef{scr@after@options@#1@hook}{}}%
+  \let\ds@\@empty
+  \edef\@curroptions{\@ptionlist{\@currname.\@currext}}%
+  \ifx\@currext\@clsextension\else
+%    \end{macrocode}
+% Bei Klassen ist die aktuelle Optionenliste gleichzeitig die globale
+% Optionenliste. Daher dürften Klassen nicht auch noch die globale Optionliste
+% verarbeiten. Paket verarbeiten jedoch auch die globale Optionenliste, geben
+% dazu jedoch keine Fehler oder Warnungen aus.
+%    \begin{macrocode}
+    \@for\CurrentOption:=\@globaloptionslist\do{%
+%    \end{macrocode}
+% Die Optionen werden in der Reihenfolge verarbeitet, in der sie als globale
+% Optionen angegeben wurden. Dabei werden nur Optionen verarbeitet, die nicht
+% leer sind und die im aktuellen Paket bekannt sind. Das sind also keine
+% \textsf{keyval}-Optionen, sondern normale \LaTeX-Optionen.
+%    \begin{macrocode}
+      \ifx\CurrentOption\@empty\else
+        \@expandtwoargs\in@{,\CurrentOption,}{,\@declaredoptions,}%
+        \ifin@
+          \@use@ption
+          \expandafter\let\csname ds@\CurrentOption\endcsname\@empty
+        \else
+%    \end{macrocode}
+% Wenn die Option keine \LaTeX-Option ist, kann sie noch immer eine
+% \textsf{keyval}-Option sein. In diesem Fall wird geprüft, ob das
+% Mitglied (\#1) eine Option in der Familie (\#2) hat. Wenn das der Fall ist,
+% wird die Option unmittelbar ausgeführt und zwar einmal ohne Mitglied (also
+% Optionen, die global der Familie gehören) und dann mit Mitglied. Im Fall
+% einer unbekannnten Option oder eines unbekannten Wertes, geschieht hier gar
+% nichts.
+%    \begin{macrocode}
+          \scr@ifprocess@curroption{#1}{#2}{%
+            \@expandtwoargs\@removeelement\CurrentOption
+            \@unusedoptionlist\@unusedoptionlist
+          }{}%
+        \fi
+      \fi
+    }%
+  \fi
+%    \end{macrocode}
+% Sowohl für Klassen als auch für Pakete werden nun die aktuellen Optionen
+% abgearbeitet. In diesem Fall ist zu beachten, dass nicht definierte Optionen
+% oder unbekannte Werte für Optionen unmittelbar zu einem Fehler führen, wenn
+% es sich um ein Paket handelt. Bei Klassen landet die Option hingegen in der
+% Liste der nicht benutzten globalen Optionen.
+%    \begin{macrocode}
+  \@for\CurrentOption:=\@curroptions\do{%
+    \scr@ifundefinedorrelax{ds@\CurrentOption}{%
+      \@use@ption
+      \scr@ifprocess@curroption{#1}{#2}{}\default@ds
+    }\@use@ption
+  }%
+%    \end{macrocode}
+% Fast zum Schluss wird wir im \LaTeX-Kern der Optionencode für alle
+% deklarierten \LaTeX-Optionen gelöscht und dafür gesorgt, dass nach dem Paket
+% keine unverarbeiteten Optionen mehr vorhanden sind.
+%    \begin{macrocode}
+  \@for\CurrentOption:=\@declaredoptions\do{%
+    \expandafter\let\csname ds@\CurrentOption\endcsname\relax}%
+  \let\CurrentOption\@empty
+  \let\@fileswith@pti@ns\@@fileswith@pti@ns
+  \AtEndOfPackage{\let\@unprocessedoptions\relax}%
+%    \end{macrocode}
+% Jetzt muss noch der Hook ausgeführt und wieder gelöscht werden.
+%    \begin{macrocode}
+  \let\AtEndOfFamilyOptions\@firstofone
+  \@nameuse{scr@after@options@#1@hook}%
+}
+\@onlypreamble\FamilyProcessOptions
+%    \end{macrocode}
+% \begin{macro}{\AtEndOfFamilyOptions}
+%   \changes{v3.12}{2013/03/04}{Neue Anweisung}
+% Mit dieser Option kann innerhalb der Ausführung einer Option Material auf
+% das Ende der aktuellen \cs{FamilyProcessOptions}, \cs{FamilyExecuteOptions},
+% \cs{FamilyOptions} oder \cs{FamilyOption} verzögert werden. Als einziges
+% Argument wird der zu verzögernde Code erwartet, der an \cs{l@addto@macro}
+% delegiert wird.
+% \begin{macro}{\scr@AtEndOfFamilyOptions}
+%   \changes{v3.12}{2013/05/29}{Neue Anweisung (intern)}
+%    \begin{macrocode}
+\newcommand*{\scr@AtEndOfFamilyOptions}{%
+  \expandafter
+  \l@addto@macro\csname scr@after@options@\FamilyOfKey @hook\endcsname
+}
+\newcommand*{\AtEndOfFamilyOptions}{}
+\let\AtEndOfFamilyOptions\@firstofone
+%    \end{macrocode}
+% \end{macro}^^A \scr@AtEndOfFamilyOptions
+% \end{macro}^^A \AtEndOfFamilyOptions
+% \begin{macro}{\scr@ifprocess@curroption}
+% Dieses Makro führt eine aktuelle \textsf{keyval}-Option für das angegebene
+% Mitglied (\#1) der angegebenen Familie (\#2) aus. Falls die Option keinen
+% entsprechenden Wert hat, wird das vierte Argument ausgeführt, anderenfalls
+% nicht. Es ist zu beachten, dass vor der Option des Mitglieds die
+% Familien-Option auszuführen ist. Ggf. benötigt das Mitglied dann keine
+% entsprechende Option.
+%    \begin{macrocode}
+\newcommand*\scr@ifprocess@curroption[2]{%
+  \def\reserved@a##1=##2\@nil{\def\reserved@a{##1}}%
+  \expandafter\reserved@a\CurrentOption=\@nil
+  \scr@ifundefinedorrelax{KV@#2@\reserved@a}{%
+    \scr@ifundefinedorrelax{KV@#2#1@\reserved@a}{%
+      \let\FamilyKeyState\OptionNotUsed
+    }{%
+      \protected@edef\reserved@b{\noexpand\setkeys{#2#1}{\CurrentOption}%
+        \noexpand\def\noexpand\CurrentOption{\CurrentOption}}%
+      \reserved@b
+      \ifx\FamilyKeyState\FamilyKeyStateUnknown
+        \PackageInfo{scrbase}{Unknown processing state.\MessageBreak
+          Processing option `\CurrentOption'\MessageBreak
+          of member `#1' of family\MessageBreak
+          `#2' doesn't set\MessageBreak
+          a valid state. This will be interpreted\MessageBreak
+          as \string\FamilyKeyStateProcessed
+        }%
+        \FamilyKeyStateProcessed
+      \fi
+    }{%
+      \let\FamilyKeyState\OptionNotUsed
+    }%
+  }{%
+    \proteced@edef\reserved@b{\noexpand\setkeys{#2}{\CurrentOption}%
+      \noexpand\def\noexpand\CurrentOption{\CurrentOption}}%
+    \reserved@b
+    \ifx\FamilyKeyState\FamilyKeyStateUnknown
+      \PackageInfo{scrbase}{Unknown processing state.\MessageBreak
+        Processing option `\CurrentOption'\MessageBreak
+        of family `#2'\MessageBreak
+        doesn't set a valid state.\MessageBreak
+        This will be interpreted\MessageBreak
+        as \string\FamilyKeyStateProcessed
+      }%
+      \FamilyKeyStateProcessed
+    \fi
+    \def\reserved@a##1=##2\@nil{\def\reserved@a{##1}}%
+    \expandafter\reserved@a\CurrentOption=\@nil
+    \scr@ifundefinedorrelax{KV@#2#1@\reserved@a}{}{%
+      \protected@edef\reserved@b{\noexpand\setkeys{#2#1}{\CurrentOption}%
+        \noexpand\def\noexpand\CurrentOption{\CurrentOption}}%
+      \ifx\FamilyKeyState\FamiliyKeyStateProcessed
+        \reserved@b
+        \FamilyKeyStateProcessed
+      \else
+        \reserved@b
+        \ifx\FamilyKeyState\FamilyKeyStateUnknown
+          \PackageInfo{scrbase}{Unknown processing state.\MessageBreak
+            Processing option `\CurrentOption'\MessageBreak
+            of member `#1' of family\MessageBreak
+            `#2' doesn't set\MessageBreak
+            a valid state. This will be interpreted\MessageBreak
+            as \string\FamilyKeyStateProcessed
+          }%
+          \FamilyKeyStateProcessed
+        \fi
+      \fi
+    }%
+  }%
+  \ifx\FamilyKeyState\FamilyKeyStateProcessed
+    \expandafter\@firstoftwo
+  \else
+    \expandafter\@secondoftwo
+  \fi
+}
+%</base>
+%    \end{macrocode}
+% \end{macro}^^A \scr@process@curroption
+% \end{macro}^^A \FamilyProcessOptions
+%
+% \begin{macro}{\KOMAProcessOptions}
+%   \changes{v2.97c}{2007/04/18}{neu}%
+%   \changes{v3.00}{2008/04/30}{kein optionales Argument mehr}%
+%   Diese Anweisung führt alle Optionen, sowohl normal deklarierte als auch
+%   keyval-Optionen eines Pakets bzw. einer Klasse in der Reihenfolge, in der
+%   sie verwendet wurden aus -- zuerst globale Optionen, dann lokale
+%   Optionen. Das entspricht der Verwendung von \cs{ProcessOptions*} mit dem
+%   Unterschied, dass eben auch die keyval-Optionen abgearbeitet
+%   werden. keyval-Optionen, die keiner einzelnen Klasse und keinem einzelnen
+%   Paket zugeordnet werden, werden dabei vor gleichnamigen eigenen
+%   keyval-Optionen ausgeführt.
+%    \begin{macrocode}
+%<*koma>
+\newcommand*{\KOMAProcessOptions}{\FamilyProcessOptions{KOMA}}
+\@onlypreamble\KOMAProcessOptions
+%</koma>
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{option}{internalonly}
+%   \changes{v2.96}{2006/11/26}{neu}
+%   \changes{v2.97c}{2007/06/20}{geht auch ohne Argument}
+% \begin{macro}{\dont@let@as@internal@defined}
+%   \changes{v2.96}{2006/11/26}{neu (intern)}
+% Anweisungen, die mit einem internen und einem Anwendername vorhanden sind,
+% können vor dem Anwender optional verborgen werden. Wird kein Argument
+% angegeben, so werden alle Anweisungen verborgen.
+%    \begin{macrocode}
+%<*base>
+\newcommand*{\dont@let@as@internal@defined}{/}
+\newif\if@let@as@internalonly@defined\@let@as@internalonly@definedfalse
+\DefineFamily{KOMA}
+\DefineFamilyMember{KOMA}
+\DefineFamilyKey{KOMA}{internalonly}[\relax]{%
+  \ifx\relax#1\relax
+    \@let@as@internalonly@definedtrue
+  \else
+    \@let@as@internalonly@definedfalse
+    \begingroup
+      \@expandtwoargs\in@{#1}\dont@let@as@internal@defined
+    \expandafter\endgroup
+    \ifin@\else\g@addto@macro\dont@let@as@internal@defined{#1/}\fi
+  \fi
+}
+%</base>
+%    \end{macrocode}
+% \end{macro}
+% \end{option}
+%
+% \changes{v2.96}{2006/08/20}{Optionen werden abgearbeitet}
+% \changes{v2.97c}{2007/04/18}{Optionen werden mit \cs{KOMAProcessOptions}
+%   abgearbeitet}
+%    \begin{macrocode}
+%<koma>\KOMAProcessOptions\relax
+%<base>\FamilyProcessOptions{KOMA}\relax
+%    \end{macrocode}
+%
+% \iffalse
+%</option>
+%<*body>
+% \fi
+%
+% \subsection{Ein wenig zusätzliche Mathematik für \eTeX}
+%
+% \begin{macro}{\XdivY}
+%   \changes{v3.05a}{2010/03/10}{Neu}
+% Ergebnis ist erster Argument durch zweites abgerundet auf die nächst
+% kleinere ganze Zahl.
+%    \begin{macrocode}
+%<*base>
+\newcommand*{\XdivY}[2]{%
+  \numexpr ( #1 + #2 / 2 ) / #2 - 1\relax
+}
+%</base>
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{\XmodY}
+%   \changes{v3.05a}{2010/03/10}{Neu}
+% Ergebnis ist erstes Argument modulo zweites Argument.
+%    \begin{macrocode}
+%<*base>
+\newcommand*{\XmodY}[2]{%
+  \numexpr #1 - #2 * \XdivY{#1}{#2}\relax
+}
+%</base>
+%    \end{macrocode}
+% \end{macro}
+%
+% \subsection{Häufig benötigte Befehle}
+%
+%  \begin{macro}{\if@atdocument}
+%    \changes{v2.95}{2002/12/05}{neuer Schalter}
+%  \begin{macro}{\@atdocumenttrue}
+%  \begin{macro}{\@atdocumentfalse}
+% Dieser Schalter wird bei \cs{begin}\texttt{\{document\}} wahr. Er
+% wird von \KOMAScript{} für Befehle verwendet, die sich
+% unterschiedlich verhalten, je nachdem, ob sie in der Präambel oder
+% danach aufgerufen werden.
+%    \begin{macrocode}
+%<*base>
+\newif\if@atdocument
+\AtBeginDocument{\@atdocumenttrue}
+\@onlypreamble\@atdocumentrue
+\@onlypreamble\@atdocumentfalse
+%</base>
+%    \end{macrocode}
+%  \end{macro}
+%  \end{macro}
+%  \end{macro}
+%
+% \begin{macro}{\let@as@internal@defined}
+%   \changes{v2.95}{2002/08/19}{neu (intern)}
+%   \changes{v2.95c}{2006/08/12}{Warnung bei Umdefinierung}
+%   \changes{v2.96}{2006/11/26}{Herausreichen von internen Makros als
+%     Benutzermakros kann verhindert werden}
+%   \changes{v2.97c}{2007/06/20}{Herausreichen von internen Makros kann
+%     generell verhindert werden}
+%   \changes{v3.10}{2010/10/26}{\cs{ignorespaces} beim \cs{document}-Patch
+%     ergänzt} 
+% Dieses Makro wird intern verwendet, um dokumentierte Makros mit der
+% Definition von internen Makros zu versehen, falls sie nicht bereits
+% definiert oder als nicht zu definieren markiert sind. Der Name des
+% dokumentierten Makros wird als Parameter übergeben. Dies wird gleich
+% benötigt.
+%    \begin{macrocode}
+%<*base>
+\newcommand*{\let@as@internal@defined}[1]{%
+  \begingroup
+    \if@let@as@internalonly@defined
+      \in@true
+    \else
+      \@expandtwoargs\in@{/#1/}\dont@let@as@internal@defined
+    \fi
+  \expandafter\endgroup
+  \ifin@
+    \PackageInfo{%
+      scrbase%
+    }{%
+      \expandafter\string\csname #1\endcsname\space excluded from being
+      defined%
+    }%
+  \else
+    \@ifundefined{#1}{%
+      \begingroup
+        \expandafter\def\expandafter\reserved@a
+          \expandafter{\csname scr@#1\endcsname}
+        \expandafter\def\expandafter\reserved@b
+          \expandafter{\csname #1\endcsname}
+      \expandafter\expandafter\expandafter\endgroup
+      \expandafter\expandafter\expandafter\let\expandafter\reserved@b\reserved@a
+      \if@atdocument\else
+        \g@addto@macro\document{%
+          \expandafter\ifx\csname #1\expandafter\endcsname
+          \csname scr@#1\endcsname
+          \else
+            \PackageWarning{scrbase}{%
+              \expandafter\string\csname #1\endcsname\space was
+              redefined\MessageBreak
+              at the document preamble.\MessageBreak
+              If you did not redefine it by yourself, have a\MessageBreak
+              a look at the description of this command at\MessageBreak
+              the manual of every package you are using\@gobble
+            }%
+          \fi
+          \ignorespaces
+        }%
+      \fi
+    }{%
+      \PackageInfo{%
+        scrbase%
+      }{%
+        \expandafter\string\csname #1\endcsname\space already
+        defined.\MessageBreak
+        If \expandafter\string\csname #1\endcsname\space does not behave
+        like\MessageBreak
+        it was described at the KOMA-Script manual, try to\MessageBreak
+        load `scrbase.sty' earlier or find out at which\MessageBreak
+        package or class \expandafter\string\csname #1\endcsname\space
+        was defined before\@gobble
+      }%
+    }%
+  \fi
+}
+%</base>
+%    \end{macrocode}
+%  \end{macro}
+%
+%  \begin{macro}{\ifundefinedorrelax}
+%    \changes{v2.95}{2002/08/21}{neu}
+%    \changes{v2.95c}{2006/08/12}{über interne Anweisung definiert}
+%    \changes{v2.97c}{2007/06/20}{umbenannt von \cs{ifundefined}}
+% Dieses Makro arbeitet wie \cs{@ifundefined}, definiert dabei aber
+% ein undefiniertes Makro nicht als \cs{relax}.
+%    \begin{macrocode}
+%<*base>
+\let@as@internal@defined{ifundefinedorrelax}
+%</base>
+%    \end{macrocode}
+%  \end{macro}
+%
+% \begin{macro}{\ifnotundefined}
+%   \changes{v2.95}{2002/08/21}{neu}
+%   \changes{v2.95c}{2006/08/12}{nutzt \eTeX{} wenn möglich}
+%   \changes{v3.02c}{2009/02/19}{\eTeX{} ist zwingend}
+% Dieses Makro arbeitet genau umgekehrt zu \cs{ifundefined}. Manchmal
+% ist es ganz nützlich, auch das zu haben. Dieses Makro heißt nicht
+% \cs{ifdefined}, weil \eTeX\ bereits ein solches Primitiv bietet.
+%    \begin{macrocode}
+%<*base>
+\newcommand{\ifnotundefined}[1]{%
+  \ifcsname #1\endcsname
+    \expandafter\@firstoftwo
+  \else
+    \expandafter\@secondoftwo
+  \fi
+}
+%</base>
+%    \end{macrocode}
+%  \end{macro}
+%
+%  \begin{macro}{\ifstr}
+%    \changes{v2.95}{2004/07/20}{if- und then-Teil werden nicht gefressen}
+%    \changes{v3.04b}{2010/01/29}{\cs{edef} durch \cs{protected@edef} ersetzt}
+% Dieses Makro vergleicht zwei Tokenfolgen. Eigentlich müsste es also
+% eher \cs{ifequal} oder ähnlich heißen.
+%    \begin{macrocode}
+%<*base>
+\newcommand\ifstr[2]{%
+  \begingroup\protected@edef\reserved@a{#1}\protected@edef\reserved@b{#2}%
+  \ifx\reserved@a\reserved@b
+    \endgroup\expandafter\@firstoftwo
+  \else
+    \endgroup\expandafter\@secondoftwo
+  \fi
+}
+%</base>
+%    \end{macrocode}
+%  \end{macro}
+%
+% \begin{macro}{\ifstrstart}
+%   \changes{v3.12}{2013/11/05}{neu}%^^A
+% Falls die Expansion des ersten Arguments mit der Expansion des zweiten
+% Arguments beginnt, wird das dritte Argument ausgeführt, sonst das vierte.
+%    \begin{macrocode}
+%<*base>
+\newcommand*{\ifstrstart}[2]{%
+  \begingroup
+    \edef\reserved@a{\noexpand\@ifstrstart{#1}{#2}}%
+    \reserved@a{\aftergroup\@firstoftwo}{\aftergroup\@secondoftwo}%
+  \endgroup
+}
+%    \end{macrocode}
+% \begin{macro}{\@ifstrstart}
+%   \changes{v3.12}{2013/11/05}{neu (intern)}%^^A
+% Hilfsmakro, damit die Argumente vollständig expandiert werden können.
+%    \begin{macrocode}
+\newcommand*{\@ifstrstart}[2]{%
+  \def\reserved@a ##1#2##2\@nil{%
+    \if\relax\detokenize{##1}\relax
+      \expandafter\@firstoftwo
+    \else
+      \expandafter\@secondoftwo
+    \fi
+  }%
+  \reserved@a#1#2\@nil
+}
+%</base>
+%    \end{macrocode}
+% \end{macro}
+% \end{macro}
+%
+% \begin{macro}{\ifisdimen}
+%   \changes{v3.12}{2013/11/05}{neu}%^^A
+% Falls die Expansion des ersten Arguments eine \cs{dimen} ist, wird das
+% zweite Argument ausgeführt, sonst das dritte.
+%    \begin{macrocode}
+%<*base>
+\newcommand*{\ifisdimen}[1]{%
+  \begingroup
+    \edef\reserved@a{#1}%
+    \expandafter\expandafter\expandafter\def
+    \expandafter\expandafter\expandafter\reserved@a
+    \expandafter\expandafter\expandafter{\expandafter\meaning\reserved@a}%
+    \expandafter\def\expandafter\reserved@b\expandafter{\string\dimen}%
+    \ifstrstart{\reserved@a}{\reserved@b}{%
+      \afterassignment\scr@ifrelax@to@nnil
+      \@tempdima=#1\relax\@nnil{%
+        \aftergroup\@firstoftwo
+      }{%
+        \aftergroup\@secondoftwo
+      }%
+    }{\aftergroup\@secondoftwo}%
+  \endgroup
+}
+%    \end{macrocode}
+% \begin{macro}{\scr@ifrelax@to@nnil}
+%   \changes{v3.12}{2013/11/05}{neu (intern)}%^^A
+% Hilfsmakro, zur Verwendung beispielsweise nach Zuweissungen. Falls alles bis
+% zum ersten \cs{@nnil} aus genau einem \cs{relax} besteht, wird das erste
+% Argument ausgeführt, sonst das zweite.
+%    \begin{macrocode}
+\newcommand*{\scr@ifrelax@to@nnil}{}
+\def\scr@ifrelax@to@nnil#1\@nnil{%
+  \begingroup
+    \def\reserved@a{#1}\def\reserved@b{\relax}%
+    \ifx\reserved@a\reserved@b
+      \aftergroup\@firstoftwo
+    \else
+      \aftergroup\@secondoftwo
+    \fi
+  \endgroup
+}
+%</base>
+%    \end{macrocode}
+% \end{macro}
+% \end{macro}
+%
+% \begin{macro}{\ifisdimexpr}
+%   \changes{v3.12}{2013/11/05}{neu}
+% Falls die Expansion des ersten Arguments eine \cs{dimexpr} ist, wird das
+% zweite Argument ausgeführt, sonst das dritte. Achtung: Falls der Ausdruck
+% ungültig ist, so wird ein Fehler gemeldet!
+%    \begin{macrocode}
+%<*base>
+\newcommand*{\ifisdimexpr}[1]{%
+  \begingroup
+    \edef\reserved@a{#1}%
+    \expandafter\expandafter\expandafter\def
+    \expandafter\expandafter\expandafter\reserved@a
+    \expandafter\expandafter\expandafter{\expandafter\meaning\reserved@a}%
+    \expandafter\def\expandafter\reserved@b\expandafter{\string\dimexpr}%
+    \ifstrstart{\reserved@a}{\reserved@b}{%
+      \afterassignment\scr@ifemptyorrelax@to@nnil
+      \@tempdima=#1\relax\@nnil{%
+        \aftergroup\@firstoftwo
+      }{%
+        \aftergroup\@secondoftwo
+      }%
+    }{\aftergroup\@secondoftwo}%
+  \endgroup
+}
+%    \end{macrocode}
+% \begin{macro}{\scr@ifemptyorrelax@to@nnil}
+%   \changes{v3.12}{2013/11/05}{neu (intern)}%^^A
+% Hilfsmakro, zur Verwendung beispielsweise nach Zuweissungen. Falls alles bis
+% zum ersten \cs{@nnil} leer ist oder aus genau einem \cs{relax} besteht, wird
+% das erste Argument ausgeführt, sonst das zweite.
+%    \begin{macrocode}
+\newcommand*{\scr@ifemptyorrelax@to@nnil}{}
+\def\scr@ifemptyorrelax@to@nnil#1\@nnil{%
+  \begingroup
+    \def\reserved@a{#1}\def\reserved@b{\relax}%
+    \ifx\reserved@a\reserved@b
+      \aftergroup\@firstoftwo
+    \else
+      \ifx\reserved@a\@empty
+        \aftergroup\@firstoftwo
+      \else
+        \aftergroup\@secondoftwo
+      \fi
+    \fi
+  \endgroup
+}
+%</base>
+%    \end{macrocode}
+% \end{macro}
+% \end{macro}
+%
+% \begin{macro}{\ifisskip}
+%   \changes{v3.12}{2013/11/05}{neu}%^^A
+% Falls die Expansion des ersten Arguments ein \cs{skip} ist, wird das
+% zweite Argument ausgeführt, sonst das dritte.
+%    \begin{macrocode}
+%<*base>
+\newcommand*{\ifisskip}[1]{%
+  \begingroup
+    \edef\reserved@a{#1}%
+    \expandafter\expandafter\expandafter\def
+    \expandafter\expandafter\expandafter\reserved@a
+    \expandafter\expandafter\expandafter{\expandafter\meaning\reserved@a}%
+    \expandafter\def\expandafter\reserved@b\expandafter{\string\skip}%
+    \ifstrstart{\reserved@a}{\reserved@b}{%
+      \afterassignment\scr@ifrelax@to@nnil
+      \@tempskipa=#1\relax\@nnil{%
+        \aftergroup\@firstoftwo
+      }{%
+        \aftergroup\@secondoftwo
+      }%
+    }{\aftergroup\@secondoftwo}%
+  \endgroup
+}
+%</base>
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{\ifisglueexpr}
+%   \changes{v3.12}{2013/11/05}{neu}
+% Falls die Expansion des ersten Arguments eine \cs{glueexpr} ist, wird das
+% zweite Argument ausgeführt, sonst das dritte. Achtung: Falls der Ausdruck
+% ungültig ist, so wird ein Fehler gemeldet!
+%    \begin{macrocode}
+%<*base>
+\newcommand*{\ifisglueexpr}[1]{%
+  \begingroup
+    \edef\reserved@a{#1}%
+    \expandafter\expandafter\expandafter\def
+    \expandafter\expandafter\expandafter\reserved@a
+    \expandafter\expandafter\expandafter{\expandafter\meaning\reserved@a}%
+    \expandafter\def\expandafter\reserved@b\expandafter{\string\glueexpr}%
+    \ifstrstart{\reserved@a}{\reserved@b}{%
+      \afterassignment\scr@ifemptyorrelax@to@nnil
+      \@tempskipa=#1\relax\@nnil{%
+        \aftergroup\@firstoftwo
+      }{%
+        \aftergroup\@secondoftwo
+      }%
+    }{\aftergroup\@secondoftwo}%
+  \endgroup
+}
+%</base>
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{\ifiscount}
+%   \changes{v3.12}{2013/11/05}{neu}
+% Falls die Expansion des ersten Arguments ein \cs{count} ist, wird das
+% zweite Argument ausgeführt, sonst das dritte. Für \LaTeX-Zähler siehe
+% stattdessen \cs{ifiscounter}.
+%    \begin{macrocode}
+%<*base>
+\newcommand*{\ifiscount}[1]{%
+  \begingroup
+    \edef\reserved@a{#1}%
+    \expandafter\expandafter\expandafter\def
+    \expandafter\expandafter\expandafter\reserved@a
+    \expandafter\expandafter\expandafter{\expandafter\meaning\reserved@a}%
+    \expandafter\def\expandafter\reserved@b\expandafter{\string\count}%
+    \ifstrstart{\reserved@a}{\reserved@b}{%
+      \afterassignment\scr@ifrelax@to@nnil
+      \@tempcnta=#1\relax\@nnil{%
+        \aftergroup\@firstoftwo
+      }{%
+        \aftergroup\@secondoftwo
+      }%
+    }{\aftergroup\@secondoftwo}%
+  \endgroup
+}
+%</base>
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{\ifisnumexpr}
+%   \changes{v3.12}{2013/11/05}{neu}
+% Falls die Expansion des ersten Arguments eine \cs{numexpr} ist, wird das
+% zweite Argument ausgeführt, sonst das dritte. Achtung: Falls der Ausdruck
+% ungültig ist, so wird ein Fehler gemeldet!
+%    \begin{macrocode}
+%<*base>
+\newcommand*{\ifisnumexpr}[1]{%
+  \begingroup
+    \edef\reserved@a{#1}%
+    \expandafter\expandafter\expandafter\def
+    \expandafter\expandafter\expandafter\reserved@a
+    \expandafter\expandafter\expandafter{\expandafter\meaning\reserved@a}%
+    \expandafter\def\expandafter\reserved@b\expandafter{\string\numexpr}%
+    \ifstrstart{\reserved@a}{\reserved@b}{%
+      \afterassignment\scr@ifemptyorrelax@to@nnil
+      \@tempcnta=#1\relax\@nnil{%
+        \aftergroup\@firstoftwo
+      }{%
+        \aftergroup\@secondoftwo
+      }%
+    }{\aftergroup\@secondoftwo}%
+  \endgroup
+}
+%</base>
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{\ifiscounter}
+%   \changes{v3.12}{2013/11/05}{neu}
+% Falls die Expansion des ersten Arguments ein \LaTeX-Zähler ist, wird das
+% zweite Argument ausgeführt, sonst das dritte.
+%    \begin{macrocode}
+%<*base>
+\newcommand*{\ifiscounter}[1]{%
+  \begingroup
+    \@ifundefined{c@#1}%
+                 {\aftergroup\@secondoftwo}%
+                 {\aftergroup\@firstoftwo}%
+  \endgroup
+}
+%</base>
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{\ifisinteger}
+%   \changes{v3.12}{2013/11/05}{neu}
+% Falls die Expansion des ersten Arguments eine (positive oder negative) ganze
+% Zahl ist, wird das zweite Argument ausgeführt, sonst das dritte.
+%    \begin{macrocode}
+%<*base>
+\newcommand*{\ifisinteger}[1]{%
+  \begingroup
+    \edef\reserved@a{#1}\expandafter
+    \scr@ifintegerplusminus\reserved@a\@nil{\aftergroup\@firstoftwo}%
+                                             {\aftergroup\@secondoftwo}
+  \endgroup
+}
+%    \end{macrocode}
+% \begin{macro}{\scr@ifintegerplusminus}
+%   \changes{v3.12}{2013/11/05}{neu (intern)}
+% Hilfsmakro, ausschließlich für \cs{ifisinteger}.
+%    \begin{macrocode}
+\newcommand*{\scr@ifintegerplusminus}{}
+\def\scr@ifintegerplusminus#1#2\@nil{%
+  \def\scr@next{\scr@ifintegerplusminus #2\@nil}%
+  \if #1-\relax
+  \else \if #1+\relax
+    \else
+      \def\scr@next{%
+        \afterassignment\scr@ifrelax@to@nnil
+        \@tempcnta=#1#2\relax\@nnil
+      }%
+      \if #10\else\if #11\else\if #12\else\if #13\else\if #14\else
+      \if #15\else\if #16\else\if #17\else\if #18\else\if #19\else
+        \let\scr@next\@secondoftwo
+      \fi\fi\fi\fi\fi\fi\fi\fi\fi\fi
+    \fi
+  \fi
+  \scr@next
+}
+%</base>
+%    \end{macrocode}
+% \end{macro}
+% \end{macro}
+%
+% \begin{macro}{\ifisdimension}
+%   \changes{v3.12}{2013/11/05}{neu}
+% Falls die Expansion des ersten Arguments eine (positive oder negative)
+% Länge ist, wird das zweite Argument ausgeführt, sonst das dritte. Es sei
+% darauf hingewiesen, dass derzeit ungültige oder fehlende Einheiten eine
+% Fehlermeldung bewirken!
+%    \begin{macrocode}
+%<*base>
+\newcommand*{\ifisdimension}[1]{%
+  \begingroup
+    \edef\reserved@a{#1\relax}\expandafter
+    \scr@ifdimensionplusminus\reserved@a\@nil{\aftergroup\@firstoftwo}%
+                                             {\aftergroup\@secondoftwo}
+  \endgroup
+}
+%    \end{macrocode}
+% \begin{macro}{\scr@ifdimensionplusminus}
+%   \changes{v3.12}{2013/11/05}{neu (intern)}
+% Hilfsmakro, ausschließlich für \cs{ifisdimension}.
+%    \begin{macrocode}
+\newcommand*{\scr@ifdimensionplusminus}{}
+\def\scr@ifdimensionplusminus#1#2\@nil{%
+  \def\scr@next{\scr@ifdimensionplusminus #2\@nil}%
+  \if #1-\relax
+  \else \if #1+\relax
+    \else
+      \def\scr@next{%
+        \afterassignment\scr@ifrelax@to@nnil
+        \@tempdima=#1#2\@nnil
+      }%
+      \if #1,\else\if #1.\else
+        \if #10\else\if #11\else\if #12\else\if #13\else\if #14\else
+        \if #15\else\if #16\else\if #17\else\if #18\else\if #19\else
+          \let\scr@next\@secondoftwo
+        \fi\fi\fi\fi\fi\fi\fi\fi\fi\fi
+      \fi\fi
+    \fi
+  \fi
+  \scr@next
+}
+%</base>
+%    \end{macrocode}
+% \end{macro}
+% \end{macro}
+%
+% \begin{macro}{\ifisglue}
+%   \changes{v3.12}{2013/11/05}{neu}
+% Falls die Expansion des ersten Arguments eine (positive oder negative)
+% Ausdehnung ist, wird das zweite Argument ausgeführt, sonst das dritte. Es sei
+% darauf hingewiesen, dass derzeit ungültige oder fehlende Einheiten eine
+% Fehlermeldung bewirken!
+%    \begin{macrocode}
+%<*base>
+\newcommand*{\ifisglue}[1]{%
+  \begingroup
+    \edef\reserved@a{#1\relax}\expandafter
+    \scr@ifglueplusminus\reserved@a\@nil{\aftergroup\@firstoftwo}%
+                                             {\aftergroup\@secondoftwo}
+  \endgroup
+}
+%    \end{macrocode}
+% \begin{macro}{\scr@ifglueplusminus}
+%   \changes{v3.12}{2013/11/05}{neu (intern)}
+% Hilfsmakro, ausschließlich für \cs{ifisglue}.
+%    \begin{macrocode}
+\newcommand*{\scr@ifglueplusminus}{}
+\def\scr@ifglueplusminus#1#2\@nil{%
+  \def\scr@next{\scr@ifglueplusminus #2\@nil}%
+  \if #1-\relax
+  \else \if #1+\relax
+    \else
+      \def\scr@next{%
+        \afterassignment\scr@ifrelax@to@nnil
+        \@tempskipa=#1#2\@nnil
+      }%
+      \if #1,\else\if #1.\else
+        \if #10\else\if #11\else\if #12\else\if #13\else\if #14\else
+        \if #15\else\if #16\else\if #17\else\if #18\else\if #19\else
+          \let\scr@next\@secondoftwo
+        \fi\fi\fi\fi\fi\fi\fi\fi\fi\fi
+      \fi\fi
+    \fi
+  \fi
+  \scr@next
+}
+%</base>
+%    \end{macrocode}
+% \end{macro}
+% \end{macro}
+%
+%
+% \begin{macro}{\ifnumber}
+%   \changes{v3.12}{2013/10/30}{using \cs{aftergroup} instead of
+%     \cs{endgroup}\cs{expandafter}}%^^A
+% Dieses Makro testet, ob ein übergebener Parameter eine positive,
+% ganze Zahl ist. Ist dies der Fall, wird der zweite Parameter
+% ausgeführt, sonst der dritte.
+%    \begin{macrocode}
+%<*base>
+\newcommand\ifnumber[1]{%
+  \begingroup\@tempswafalse\let\scr@next\test@number
+    \expandafter\scr@next#1\scr@next
+    \if@tempswa
+      \aftergroup\@firstoftwo
+    \else
+      \aftergroup\@secondoftwo
+    \fi
+  \endgroup
+}
+%    \end{macrocode}
+% \begin{macro}{\test@number}
+% Für den eigentlichen Test wird der erste Parameter Token für Token
+% gescannt und beurteilt.
+%    \begin{macrocode}
+\newcommand*{\test@number}[1]{%
+  \ifx \scr@next#1
+    \let\scr@next\relax
+  \else
+%    \end{macrocode}
+% Dabei wird für einen schnelleren Vergleich die Tatsache genutzt, dass
+% Ziffernzeichen immer im selben durchgängigen Bereich liegen
+%    \begin{macrocode}
+    \@tempcnta=\expandafter\expandafter\expandafter\number
+    \expandafter`#1\relax
+    \ifnum \@tempcnta>47
+      \ifnum \@tempcnta<58
+        \@tempswatrue
+      \else\@tempswafalse\fi
+    \else\@tempswafalse\fi
+%    \end{macrocode}
+% Das zeichenweise Scannen und Parsen kann natürlich nicht einfach
+% abgebrochen werden. Stattdessen ist der Parameterrest noch zu
+%  entfernen.
+%    \begin{macrocode}
+    \if@tempswa\else\let\scr@next\gobble@till@scr@next\fi
+  \fi
+  \scr@next
+}
+%    \end{macrocode}
+% \begin{macro}{\gobble@tillscr@@next}
+% Das geschieht mit einem einzigen "`Leermacro"'.
+%    \begin{macrocode}
+\newcommand*{\gobble@till@scr@next}{}
+\def\gobble@till@scr@next#1\scr@next{}
+%</base>
+%    \end{macrocode}
+% \end{macro}
+% \end{macro}
+% \end{macro}
+%
+% \begin{macro}{\ifintnumber}
+%   \changes{v3.12}{2013/10/30}{neu}
+% Ist das erste Argument eine positive oder negative ganze Zahl, to wird das
+% zweite Argument ausgeführt, sonst das dritte. Wie bei \TeX{} auch sind
+% beliebig viele Vorzeichen erlaubt.
+%    \begin{macrocode}
+%<*base>
+\newcommand\ifintnumber[1]{%
+  \begingroup\@tempswafalse\let\scr@next\scr@test@sign
+    \expandafter\scr@next#1\scr@next
+    \if@tempswa
+      \aftergroup\@firstoftwo
+    \else
+      \aftergroup\@secondoftwo
+    \fi
+  \endgroup
+}
+%    \end{macrocode}
+% \begin{macro}{\scr@test@sign}
+%   \changes{v3.12}{2013/10/30}{neu (intern)}
+%    \begin{macrocode}
+\newcommand*{\scr@test@sign}[1]{%
+  \ifx \scr@next#1
+    \let\scr@next\relax
+  \else
+    \if #1-%
+    \else
+      \ifx #1+%
+      \else
+        \def\scr@next{\let\scr@next\test@number\scr@next #1}%
+      \fi
+    \fi
+  \fi
+  \scr@next
+}       
+%</base>
+%    \end{macrocode}
+% \end{macro}
+% \end{macro}
+%
+%  \begin{macro}{\ifdimen}
+% Dieses Makro testet, ob ein übergebener Parameter eine Dimension
+% ist und führt in Abhängigkeit davon den zweiten oder dritten
+% Parameter aus.
+%    \begin{macrocode}
+%<*base>
+\newcommand{\ifdimen}[1]{%
+  \begingroup\@tempswatrue\let\scr@next\test@posdimen
+  \expandafter\test@dimen#1\scr@next
+  \if@tempswa
+    \endgroup\expandafter\@firstoftwo
+  \else
+    \endgroup\expandafter\@secondoftwo
+  \fi
+}
+%    \end{macrocode}
+%  \begin{macro}{\test@dimen}
+% Als erste muss ein Vorzeichen entfernt werden.
+%    \begin{macrocode}
+\newcommand*{\test@dimen}[1]{%
+  \ifx -#1\else\ifx +#1\else
+      \def\scr@next{\let\scr@next\test@posdimen\scr@next#1}\fi\fi
+  \scr@next
+}
+%    \end{macrocode}
+%  \begin{macro}{\test@posdimen}
+% Dann muss getestet werden, ob es sich beim Rest um eine Dimension
+% handelt. Dabei werden der Einfachheit halber mehrere Dezimalkomma
+% und -punkte erlaubt. Natürlich könnte man es auch wirklich richtig
+% machen, aber das wäre nochmal etwas aufwendiger. Ist das wirklich
+% notwendig? 
+%    \begin{macrocode}
+\newcommand*{\test@posdimen}[1]{%
+  \ifx \scr@next#1%
+    \@tempswafalse\let\scr@next\relax
+  \else
+    \if .#1\else\if ,#1\else
+        \@tempcnta=%
+        \expandafter\expandafter\expandafter\number\expandafter`#1\relax
+        \ifnum \@tempcnta>47
+          \ifnum \@tempcnta<58
+          \else\def\scr@next{\test@dimunt#1}\fi
+        \else\def\scr@next{\test@dimunt#1}\fi
+    \fi\fi
+  \fi
+  \scr@next
+}
+%    \end{macrocode}
+%  \begin{macro}{\test@dimunt}
+%  \begin{macro}{\test@trueunt}
+% Außer einer Gleitkomma- bzw. Gleitpunktzahl muss auch noch die Einheit
+% behandelt werden. Dabei sind sowohl die neun Standardeinheiten als auch
+% deren "`true"'-Variante zu berücksichtigen. Deshalb wird zuerst ein
+% eventuelles "`\texttt{true}"' weggeworfen.
+%    \begin{macrocode}
+\newcommand*{\test@dimunt}{}
+\def\test@dimunt#1\scr@next{%
+  \expandafter\test@trueunt#1truetrue\test@trueunt
+}
+\newcommand*{\test@trueunt}{}
+\def\test@trueunt#1true#2true#3\test@trueunt{%
+  \edef\reserved@a{#1}%
+  \ifx\reserved@a\@empty\test@@ifdimunt{#2}\else\test@@ifdimunt{#1}\fi
+}
+%    \end{macrocode}
+%  \begin{macro}{\test@@ifdimunt}
+% Anschließend wird dann getestet, ob es sich um eine der neun üblichen
+% Einheiten handelt.
+%    \begin{macrocode}
+\newcommand*\test@@ifdimunt[1]{%
+  \@tempswafalse
+  \ifstr{#1}{pt}{\@tempswatrue}{%
+    \ifstr{#1}{pc}{\@tempswatrue}{%
+      \ifstr{#1}{in}{\@tempswatrue}{%
+        \ifstr{#1}{bp}{\@tempswatrue}{%
+          \ifstr{#1}{cm}{\@tempswatrue}{%
+            \ifstr{#1}{mm}{\@tempswatrue}{%
+              \ifstr{#1}{dd}{\@tempswatrue}{%
+                \ifstr{#1}{cc}{\@tempswatrue}{%
+                  \ifstr{#1}{sp}{\@tempswatrue}{}%
+                }%
+              }%
+            }%
+          }%
+        }%
+      }%
+    }%
+  }%
+}
+%</base>
+%    \end{macrocode}
+%  \end{macro}
+%  \end{macro}
+%  \end{macro}
+%  \end{macro}
+%  \end{macro}
+%  \end{macro}
+%
+%
+%  \begin{macro}{\ifpdftex}
+%    \changes{v2.95}{2002/08/19}{neu}
+%  \begin{macro}{\scr@ifpdftex}
+%    \changes{v2.95}{2002/08/19}{neu (intern)}
+% If-then-else-Konstrukt, um zu testen, ob pdf\TeX{} verwendet wird.
+%    \begin{macrocode}
+%<*base>
+\newcommand{\scr@ifpdftex}{\ifnotundefined{pdftexversion}}
+\let@as@internal@defined{ifpdftex}
+\BeforePackage{pdfcprot}{\let\ifpdftex\relax}
+\AfterPackage{pdfcprot}{\let@as@internal@defined{ifpdftex}}
+%</base>
+%    \end{macrocode}
+%  \end{macro}
+%  \end{macro}
+%  
+% \begin{macro}{\ifVTeX}
+%   \changes{v2.95}{2002/08/19}{neu}
+%   \changes{v2.97c}{2007/06/20}{umdefiniert von \cs{ifvtex}}
+% \begin{macro}{\scr@ifVTeX}
+%   \changes{v2.95}{2002/08/19}{neu}
+%   \changes{v2.97c}{2007/06/20}{umdefiniert von \cs{scr@ifvtex}}
+% If-then-else-Konstrukt, um zu testen, ob V\TeX{} verwendet wird.
+%    \begin{macrocode}
+%<*base>
+\newcommand{\scr@ifVTeX}{\ifnotundefined{VTeXversion}}
+\let@as@internal@defined{ifVTeX}
+%</base>
+%    \end{macrocode}
+%  \end{macro}
+%  \end{macro}
+%
+%  \begin{macro}{\ifpdfoutput}
+%    \changes{v2.7g}{2001/04/17}{neu}
+%    \changes{v2.8q}{2001/10/19}{\cs{pdfoutput} wird nicht mehr zu
+%      \cs{relax}, wenn zuvor undefiniert}
+%    \changes{v2.8q}{2001/10/19}{darf bereits definiert sein}
+%    \changes{v2.8q}{2001/10/19}{Verwendung von \cs{scr@ifpdfoutput}}
+%  \begin{macro}{\scr@ifpdfoutput}
+%    \changes{v2.8q}{2001/10/19}{neu (intern)}
+%    \changes{v2.8q}{2001/11/13}{funktioniert}
+%    \changes{v2.95}{2002/08/21}{berücksichtigt V\TeX}
+%    \changes{v2.95}{2004/07/20}{Expandierbarkeit verbessert}
+% If-then-else-Konstrukt, um abhängig davon, ob als \texttt{pdf}
+% ausgegeben wird oder nicht, Befehle auszuführen. Dieses Makro wird
+% für die Deklaration der Option \texttt{pagesize} benötigt.
+%    \begin{macrocode}
+%<*base>
+\newcommand{\scr@ifpdfoutput}{%
+  \scr@ifundefinedorrelax{pdfoutput}{%
+    \scr@ifundefinedorrelax{OpMode}{%
+      \expandafter\@secondoftwo%
+    }{%
+      \ifnum\OpMode=1
+        \expandafter\@firstoftwo
+      \else
+        \expandafter\@secondoftwo
+      \fi
+    }%
+  }{%
+    \ifnum\pdfoutput>0 
+      \expandafter\@firstoftwo
+    \else
+      \expandafter\@secondoftwo
+    \fi
+  }%
+}%
+\let@as@internal@defined{ifpdfoutput}
+%</base>
+%    \end{macrocode}
+%  \end{macro}
+%  \end{macro}
+%
+%  \begin{macro}{\ifpsoutput}
+%    \changes{v2.95}{2002/08/21}{neu}
+%  \begin{macro}{\scr@ifpsoutput}
+%    \changes{v2.95}{2002/08/21}{neu (intern)}
+%    \changes{v2.95}{2004/07/20}{Expandierbarkeit verbessert}
+% If-then-else-Konstrukt, um abhängig davon, ob früher oder später
+% \texttt{ps} ausgegeben wird oder nicht, Befehle auszuführen.
+%    \begin{macrocode}
+%<*base>
+\newcommand*{\scr@ifpsoutput}{%
+  \ifnotundefined{if@dvips}{%
+    \if@dvips 
+      \expandafter\@firstoftwo
+    \else 
+      \expandafter\@secondoftwo
+    \fi
+  }{%
+    \ifnotundefined{OpMode}{%
+      \ifnum\OpMode=2
+        \expandafter\@firstoftwo
+      \else
+        \expandafter\@secondoftwo
+      \fi
+    }{%
+      \expandafter\@secondoftwo
+    }%
+  }%
+}
+\let@as@internal@defined{ifpsoutput}
+%</base>
+%    \end{macrocode}
+%  \end{macro}
+%  \end{macro}
+%
+%  \begin{macro}{\ifdvioutput}
+%    \changes{v2.95}{2002/08/21}{neu}
+%  \begin{macro}{\scr@ifdvioutput}
+%    \changes{v2.95}{2002/08/21}{neu (intern)}
+%    \changes{v2.95}{2004/07/20}{Expandierbarkeit verbessert}
+% If-then-else-Konstrukt, um abhängig davon, ob \texttt{dvi}
+% ausgegeben wird oder nicht, Befehle auszuführen.
+%    \begin{macrocode}
+%<*base>
+\newcommand*{\scr@ifdvioutput}{%
+  \scr@ifundefinedorrelax{pdfoutput}{%
+    \scr@ifundefinedorrelax{OpMode}{%
+      \expandafter\@firstoftwo
+    }{%
+      \ifnum\OpMode=0
+        \expandafter\@firstoftwo
+      \else
+        \expandafter\@secondoftwo
+      \fi
+    }%
+  }{%
+    \ifnum\pdfoutput=0
+      \expandafter\@firstoftwo
+    \else
+      \expandafter\@secondoftwo
+    \fi
+  }%
+}
+\let@as@internal@defined{ifdvioutput}
+%</base>
+%    \end{macrocode}
+%  \end{macro}
+%  \end{macro}
+%
+% \begin{macro}{\scr@smashdp}
+%   \changes{v2.97c}{2007/09/17}{neu (intern)}
+%   \changes{v3.02a}{2009/01/23}{\cs{smash} nicht direkt verwenden, weil
+%     \textsf{amsmath} das inkompatibel umdefiniert}
+% Gibt Material aus, erzeugt dabei aber nur Höhe und Breite, jedoch keine
+% Tiefe.
+%    \begin{macrocode}
+%<*base>
+\newcommand*{\scr@smashdp}[1]{%
+  \begingroup
+    \def\finsm@sh{\dp\z@\z@\box\z@}%
+    \ifmmode
+      \expandafter\mathpalette\expandafter\mathsm@sh
+    \else
+      \expandafter\makesm@sh
+    \fi
+    {#1}%
+  \endgroup
+}
+%</base>
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{\PackageInfoNoLine}
+%   \changes{v2.97d}{2007/10/03}{neu}
+% Arbeitet wie \cs{PackageInfo} aber ohne Ausgabe der Zeilennummer.
+%    \begin{macrocode}
+%<*base>
+\providecommand*{\PackageInfoNoLine}[2]{%
+  \PackageInfo{#1}{#2\@gobble}%
+}
+%</base>
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{\ClassInfoNoLine}
+%   \changes{v2.98c}{2008/02/15}{neu}
+% Arbeitet wie \cs{ClassInfo} aber ohne Ausgabe der Zeilennummer.
+%    \begin{macrocode}
+%<*base>
+\providecommand*{\ClassInfoNoLine}[2]{%
+  \ClassInfo{#1}{#2\@gobble}%
+}
+%</base>
+%    \end{macrocode}
+% \end{macro}
+%
+% \subsection{Definition von KOMA-\textsf{keyval}-Schlüsseln (Hauptteil)}
+%
+% \begin{macro}{\FamilyExecuteOptions}
+%   \changes{v3.00}{2008/04/30}{Neue Anweisung}
+%   \changes{v3.04b}{2010/01/29}{\cs{edef} durch \cs{protected@edef} ersetzt}
+%   \changes{v3.04b}{2010/02/02}{\cs{scr@key@atlist} und \cs{scr@key@name}
+%     vor Überschreiben in \cs{serkeys} geschützt}
+%   \changes{v3.12}{2013/03/04}{neue Implementierung}
+%   \changes{v3.12}{2013/03/04}{darf auch noch nach der Präambel verwendet
+%     werden}
+% Entspriche \cs{ExecuteOptions} jedoch \textsf{keyval}-Optionen. Insbesondere
+% ist die Anweisung reentrant! Es ist jedoch zu beachten, dass der hook lokal
+% zum jeweiligen Aufruf ist.
+%    \begin{macrocode}
+%<*base>
+\newcommand*{\FamilyExecuteOptions}[3][.\@currname.\@currext]{%
+  \@namedef{scr@after@options@#1@hook}{\@namedef{scr@after@options@#1@hook}{}}%
+  \@for\scr@key@atlist:=#3\do{%
+    \expandafter\scr@key@split@name@value\scr@key@atlist==\@nil
+    \ifx\scr@key@name\@empty\else
+      \ifx\scr@key@name\space\else
+        \scr@ifundefinedorrelax{KV@#2@\scr@key@name}{%
+          \scr@ifundefinedorrelax{KV@#2#1@\scr@key@name}{%
+            \PackageError{scrbase}{%
+              unknown option
+              `\expandafter\detokenize\expandafter{\scr@key@atlist}'%
+            }{%
+              Member `#1' of family `#2'\MessageBreak
+              cannot handle option `\scr@key@name'.\MessageBreak
+              So it cannot be set%
+              \ifx\scr@key@value\@empty\else
+                \space to value
+                `\expandafter\detokenize\expandafter{\scr@key@value}'%
+              \fi.%
+            }%
+          }{%
+            \scr@execute@option{#2#1}%
+          }%
+        }{%
+          \scr@execute@option{#2}%
+          \ifstr{#1}{}{}{%
+            \scr@ifundefinedorrelax{KV@#2#1\scr@key@name}{}{%
+              \ifx\FamilyKeyState\FamilyKeyStateProcessed
+                \scr@execute@option{#2#1}%
+                \FamilyKeyStateProcessed
+              \else
+                \scr@execute@option{#2#1}%
+              \fi
+            }%
+          }%
+        }%
+        \scr@show@key@state@error
+      \fi
+    \fi
+  }%
+  \@nameuse{scr@after@options@#1@hook}%
+}
+%</base>
+%    \end{macrocode}
+% \begin{macro}{\scr@show@key@state@error}
+%   \changes{v3.12}{2013/03/04}{Neue Anweisung (intern)}%
+% Zeige abhängig von \cs{FamilyKeyState} eine Fehlermeldung. Alle
+% Informationen zu dem Fehler müssen in \cs{FamilyMemberOfKey}
+% (Familienmitglied oder \cs{@empty}), \cs{FamilyOfKey} (Familie oder
+% \cs{@empty}), \cs{scr@key@atlist} (Option, wie sie in der Liste stand),
+% \cs{scr@key@name} (Name der Option) und \cs{scr@key@value} (Wert der
+% Option) stehen. Es ist zu beachten, dass \cs{scr@key@atlist} und
+% \cs{scr@key@value} ebenfalls Macros enthalten können. Deshalb werden diese
+% Werte ggf. über \cs{detokenize} ausgegeben.
+%    \begin{macrocode}
+%<*base>
+\newcommand*{\scr@show@key@state@error}{%
+  \ifx\FamilyKeyState\FamilyKeyStateProcessed\else
+    \PackageError{scrbase}{%
+      unknown option
+      `\expandafter\detokenize\expandafter{\scr@key@atlist}'%
+    }{%
+      Option
+      `\expandafter\detokenize\expandafter{\scr@key@name}'\MessageBreak
+      \ifx\FamilyMemberOfKey\@empty\else
+        of member `\FamilyMemberOfKey'\MessageBreak
+      \fi
+      \ifx\FamilyOfKey\@empty\else
+        of family `\FamilyOfKey'\MessageBreak
+      \fi
+      \ifx\FamilyKeyState\FamilyKeyStateNeedValue
+        expects a value, but has been used without any value.%
+      \else
+        cannot handle value\MessageBreak
+        `\expandafter\detokenize\expandafter{\scr@key@value}',%
+        \MessageBreak
+        \ifx\FamilyKeyState\FamilyKeyStateUnknownValue
+          because this is an unsupported value.%
+        \else
+          because \FamilyKeyState.
+        \fi
+      \fi
+    }%
+  \fi
+}
+%</base>
+%    \end{macrocode}
+% \end{macro}^^A \scr@show@key@state@error
+% \end{macro}^^A \FamilyExecuteOptions
+%
+% \begin{macro}{\KOMAExecuteOptions}
+%   \changes{v2.97c}{2007/04/19}{Neue Anweisung}
+%   \changes{v3.00}{2008/04/30}{Kein optionales Argument mehr}
+%   \changes{v3.12}{2013/03/04}{darf auch noch nach der Präambel verwendet
+%     werden}
+% Liste von Optionen für ein Mitglied der Familie \texttt{KOMA} ausführen.
+%    \begin{macrocode}
+%<*koma>
+\newcommand*{\KOMAExecuteOptions}[1][.\@currname.\@currext]{%
+  \FamilyExecuteOptions[#1]{KOMA}%
+}
+%</koma>
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{\FamilyOptions}
+%   \changes{v3.00}{2008/04/30}{Neue Anweisung}
+%   \changes{v3.12}{2013/03/02}{Neue Implementierung}
+%   \changes{v3.12}{2013/03/02}{\cs{scr@after@options@\#1@hook}}
+% \begin{macro}{\Family@Options}
+%   \changes{v3.00}{2008/04/30}{Neues Makro (intern)}%
+%   \changes{v3.12}{2013/03/04}{entfernt}
+% \end{macro}^^A \FamilyOptions
+% Es werden Schlüssel einer Familie verwendet. Existiert ein Schlüssel nicht,
+% oder ist der Wert für alle Schlüssel unbekannt, so wird ein Fehler
+% ausgegeben. Diese Anweisung selbst ist reentrant, das heißt sie kann auch
+% innerhalb der Ausführung von Optionen aufgerufen werden. Es sei jedoch
+% erwähnt, dass der hook dabei nur die jeweilige Anweisung umfasst.
+%    \begin{macrocode}
+%<*base>
+\newcommand*{\FamilyOptions}[2]{%
+  \@namedef{scr@after@options@#1@hook}{\@namedef{scr@after@options@#1@hook}{}}%
+%    \end{macrocode}
+% \begin{description}
+% \item[Anmerkung:] Es wird nicht auf \textsf{xkeyval} und den dortigen Befehl
+%   \cs{setkeys+} gesetzt, weil dieser die Optionen nicht in der Reihenfolge
+%   der Optionen, sondern in der Reihenfolge der Familien ausführt. Das passt
+%   mir aber hier gar nicht.
+% \end{description}
+% In einer Schleife über alle Optionen werden die Optionen zunächst in Option
+% und Wert aufgespaltet.
+%    \begin{macrocode}
+  \@for\scr@key@atlist:=#2\do{%
+%    \end{macrocode}
+%   \changes{v3.08}{2010/11/05}{leere Argumente in der Optionenliste}%
+% Auf vielfachen Wunsch und entgegen meiner Überzeugung, sind auch leere
+% Argumente in der Optionenliste erlaubt. Die erste Form wäre, wenn zwei
+% Kommas diret aufeinander folgen:
+%    \begin{macrocode}
+    \ifx\scr@key@atlist\@empty\else
+%    \end{macrocode}
+% Die zweite Möglichkeit wäre, dass noch Leerzeichen zwischen den Komma
+% übrig bleiben:
+%    \begin{macrocode}
+      \ifx\scr@key@atlist\space\else
+        \expandafter\scr@key@split@name@value\scr@key@atlist==\@nil
+%    \end{macrocode}
+% Die dritte Möglichkeit, dass auch noch ein Gleichheitszeichen übrig
+% gelassen wurde, werde ich aber nicht abfangen. Irgendwann müssen die
+% Anwender auch mal ihre Fehler einsehen und korrigieren!
+%
+% Wir haben jetzt also eine Option und diese aufgespaltet in Schlüssel und
+% Wert.
+%   \changes{v3.12}{2013/03/04}{der Gesamtstatus wird gespeichert}
+% Jetzt speichern wir den Gesamtstatus einfach, indem der Fehlerspeicher
+% gelöscht wird. Bei \cs{relax} wird er nicht weiter benötigt und es liegt
+% ebenso wie bei \cs{@empty} kein auszugebender Fehler vor. Bei anderen
+% Werten, enthält er Fehler, die zu melden sind.
+%    \begin{macrocode}
+        \let\scr@key@run@errors\@empty
+%    \end{macrocode}
+%
+%   \changes{v3.04b}{2010/01/29}{\cs{edef} durch \cs{protected@edef} ersetzt}
+%   \changes{v3.09a}{2011/06/07}{weniger Expansion durch sinnvollen Gebrauch
+%     von \cs{unexpanded}}
+% Dann wird in einer Schleife über alle Familien festgestellt, ob die Option
+% in einer Familie bekannt ist und ggf. ausgeführt. Hier ist wichtig, dass
+% keines der internen Macros vom Aufruf verändert wird. Außerdem muss der
+% Status und die daraus resultierenden Meldungen aufgesammelt werden.
+%    \begin{macrocode}
+        \scr@key@found@false
+        \edef\reserved@a{\csname #1@key@familylist\endcsname}%
+        \@for\reserved@a:=\reserved@a\do{%
+          \scr@ifundefinedorrelax{KV@\reserved@a @\scr@key@name}{}{%
+            \expandafter\scr@execute@option\expandafter{\reserved@a}%
+            \scr@key@found@true
+            \ifx\scr@key@run@errors\relax\else
+              \ifx\FamilyKeyState\FamilyKeyStateProcessed
+                \let\scr@key@run@errors\relax
+              \else
+                \ifx\FamilyKeyState\FamilyKeyStateUnknownValue
+                  \edef\scr@key@run@errors{%
+                    \unexpanded\expandafter{\scr@key@run@errors}%
+                    \noexpand\MessageBreak
+                    \FamilyMemberOfKey: unkown value
+                    `\expandafter\detokenize\expandafter{\scr@key@value}'.%
+                  }%
+                \else
+                  \ifx\FamilyKeyState\FamilyKeyStateNeedValue
+                    \edef\scr@key@run@errors{%
+                      \unexpanded\expandafter{\scr@key@run@errors}%
+                      \noexpand\MessageBreak
+                      \FamilyMemberOfKey: value expected.
+                    }%
+                  \else
+                    \edef\scr@key@run@errors{%
+                      \unexpanded\expandafter{\scr@key@run@errors}%
+                      \noexpand\MessageBreak
+                      \FamilyMemberOfKey: \FamilyKeyState.
+                    }%
+                  \fi
+                \fi
+              \fi
+            \fi
+          }%
+        }%
+        \ifscr@key@found@
+          \ifx\scr@key@run@errors\relax\else
+            \ifx\scr@key@run@errors\@empty\else
+              \PackageError{scrbase}{%
+                unknown option
+                `\expandafter\detokenize\expandafter{\scr@key@atlist}'%
+              }{%
+                The members of family `#1' cannot set option
+                `\scr@key@name'
+                \ifx\scr@key@value\@empty\else
+                  \MessageBreak
+                  to value
+                  `\expandafter\detokenize\expandafter{\scr@key@value}'%
+                \fi.\MessageBreak
+                Here's what each member says:
+                \scr@key@run@errors
+              }%
+            \fi
+          \fi
+        \else
+          \PackageError{scrbase}{%
+            unknown option
+            `\expandafter\detokenize\expandafter{\scr@key@atlist}'%
+          }{%
+            No one of the members of family `#1'\MessageBreak
+            can handle option `\scr@key@name'.\MessageBreak
+            So it cannot be set%
+            \ifx\scr@key@value\@empty\else
+              \space to value
+              `\expandafter\detokenize\expandafter{\scr@key@value}'%
+            \fi.%
+          }%
+        \fi
+      \fi
+    \fi
+  }%
+  \@nameuse{scr@after@options@#1@hook}%
+}
+%    \end{macrocode}
+% \begin{macro}{\scr@execute@option}
+%   \changes{v3.12}{2013/03/04}{Neue Anweisung (intern)}%
+% Es wird die bereits gesplittete Option ausgeführt, ohne dass die dabei
+% wesentlichen Macros (aber nicht \cs{reserved@a}!)  verändert werden. Das
+% erste Argument ist bereits der Besitzer in \textsf{keyval}-Syntax.
+%    \begin{macrocode}
+\newcommand*{\scr@execute@option}[1]{%
+  \protected@edef\reserved@a{%
+    \noexpand\let\noexpand\KV@err\noexpand\scr@KV@err
+    \noexpand\setkeys{#1}{%
+      \unexpanded\expandafter{\scr@key@atlist}}%
+     \noexpand\def\noexpand\scr@key@atlist{%
+      \unexpanded\expandafter{\scr@key@atlist}}%
+    \noexpand\def\noexpand\scr@key@name{%
+      \unexpanded\expandafter{\scr@key@name}}%
+    \noexpand\def\noexpand\scr@key@value{%
+      \unexpanded\expandafter{\scr@key@value}}
+    \ifx\scr@key@run@errors\relax
+      \noexpand\let\noexpand\scr@key@run@errors\relax
+    \else
+      \noexpand\def\noexpand\scr@key@run@errors{%
+        \unexpanded\expandafter{\scr@key@run@errors}}%
+    \fi
+    \noexpand\def\expandafter\noexpand
+    \csname scr@after@options@#1@hook\endcsname{%
+      \expandafter\unexpanded\expandafter\expandafter\expandafter{%
+        \csname scr@after@options@#1@hook\endcsname
+      }}%
+  }%
+  \let\AtEndOfFamilyOptions\scr@AtEndOfFamilyOptions
+  \reserved@a
+  \let\AtEndOfFamilyOptions\@firstofone
+  \ifx\FamilyKeyState\FamilyKeyStateUnknown
+    \PackageInfo{scrbase}{Unknown processing state.\MessageBreak
+      Processing option `\scr@key@atlist'\MessageBreak
+      \ifx\FamilyMemberOfKey\@empty\else
+        of member `\FamilyMemberOfKey'\MessageBreak
+      \fi
+      of family `\FamilyOfKey'\MessageBreak
+      doesn't set a valid state.\MessageBreak
+      This will be interpreted\MessageBreak
+      as \string\FamilyKeyStateProcessed
+    }%
+    \FamilyKeyStateProcessed
+  \fi
+}
+%    \end{macrocode}
+% \begin{macro}{\scr@key@run@errors}
+%   \changes{v3.12}{2013/03/04}{Neue Anweisung (intern)}
+% Wird innerhalb von \cs{FamilyOptions} benötigt, um die Fehlermeldungen
+% aufzusammeln, aber erst auszugeben, wenn tatsächlich kein Mitglied die
+% Option verarbeiten konnte. Wir definieren das hier, damit oben die
+% Wiederherstellung korrekt funktioniert.
+%    \begin{macrocode}
+\newcommand*{\scr@key@run@errors}{}
+%    \end{macrocode}
+% \end{macro}
+% \end{macro}^^A \scr@execute@option
+% \begin{macro}{\ifscr@key@found@}
+%   \changes{v2.97c}{2007/04/19}{Neuer Schalter (intern)}
+%   \changes{v3.00}{2008/04/30}{umbenannt von \cs{ifKOMA@key@found}}
+% \begin{macro}{\scr@key@atlist}
+%   \changes{v2.97c}{2007/04/19}{Neues Makro (intern)}
+%   \changes{v3.00}{2008/04/30}{umbenannt von \cs{KOMA@key@atlist}}
+% \begin{macro}{\scr@key@name}
+%   \changes{v2.97c}{2007/04/19}{Neues Makro (intern)}
+%   \changes{v3.00}{2008/04/30}{umbenannt von \cs{KOMA@key@name}}
+% \begin{macro}{\scr@key@value}
+%   \changes{v2.97c}{2007/04/19}{Neues Makro (intern)}
+%   \changes{v3.00}{2008/04/30}{umbenannt von \cs{KOMA@key@value}}
+% \begin{macro}{\scr@key@split@name@value}
+%   \changes{v2.97c}{2007/04/19}{Neues Makro (intern)}
+%   \changes{v2.97e}{2007/11/10}{verwendet \cs{KV@@sp@def} zur Entsorgung von
+%     Leerzeichen}
+%   \changes{v3.00}{2008/04/30}{umbenannt von \cs{KOMA@key@split@name@value}}
+%    \begin{macrocode}
+\newif\ifscr@key@found@
+\newcommand*{\scr@key@atlist}{}
+\newcommand*{\scr@key@name}{}
+\newcommand*{\scr@key@value}{}
+\newcommand*{\scr@key@split@name@value}{}
+\def\scr@key@split@name@value#1=#2=#3\@nil{%
+  \KV@@sp@def\scr@key@name{#1}%
+  \KV@@sp@def\scr@key@value{#2}%
+}
+%</base>
+%    \end{macrocode}
+% \end{macro}^^A \scr@key@split@name@value
+% \end{macro}^^A \scr@key@value
+% \end{macro}^^A \scr@key@name
+% \end{macro}^^A \scr@key@atlist
+% \end{macro}^^A \FamilyOptions
+%
+% \begin{macro}{\FamilyOption}
+%   \changes{v3.00}{2008/04/30}{Neue Anweisung}
+% \begin{macro}{\Family@Option}
+%   \changes{v3.00}{2008/04/30}{Neu (intern)}
+%   \changes{v3.12}{2013/03/04}{entfernt}
+% \end{macro}
+%   \changes{v3.04b}{2010/01/29}{\cs{edef} durch \cs{protected@edef} ersetzt}
+% Im Gegensatz zu \cs{FamilyOptions} kann man mit dieser Anweisung nur eine
+% einzige Option setzen. Dafür kann man gleich mehrere durch Komma getrennte
+% Argumente für diese Option setzen. Das erste obligatorische Argument ist
+% wieder die Familie, das zweite obligatorische Argument ist die Option, das
+% dritte, obligatorische Argument ist die Liste der Werte für diese Option.
+%    \begin{macrocode}
+%<*base>
+\newcommand*{\FamilyOption}[3]{%
+  \expandafter\KV@@sp@def\expandafter\scr@key@name\expandafter{#2}%
+%    \end{macrocode}
+% Der einfachste Weg ist nun schlicht, die Liste der Werte durchzugehen und so
+% nach und nach eine Liste von Werten für \cs{FamilyOptions} zu erzeugen.
+%    \begin{macrocode}
+  \let\reserved@a\@empty
+  \@for\reserved@b:=#3\do{%
+%    \end{macrocode}
+%   \changes{v3.08}{2010/11/05}{leere Argumente in der Werteliste}
+% Auf vielfachen Wunsch und entgegen meiner Überzeugung, sind auch leere
+% Argumente in der Werteliste erlaubt, werden jedoch ignoriert:
+%    \begin{macrocode}
+    \ifx\reserved@b\@empty\else
+%    \end{macrocode}
+%   \changes{v3.12}{2012/03/04}{auch Leerzeichenargumente werden ignoriert}
+% Auch Argumente, die nur aus einem Leerzeichen bestehen, werden ignoriert:
+%    \begin{macrocode}
+      \ifx\reserved@b\space\else
+        \edef\reserved@a{\unexpanded\expandafter{\reserved@a},%
+          \scr@key@name=\unexpanded\expandafter{\reserved@b}}%
+      \fi
+    \fi
+  }%
+  \def\reserved@b{\FamilyOptions{#1}}%
+  \expandafter\reserved@b\expandafter{\reserved@a}%
+}
+%</base>
+%    \end{macrocode}
+% \end{macro}
+% \end{macro}
+%
+% \begin{macro}{\KOMAoptions}
+%   \changes{v2.96}{2006/08/20}{Neuer Hook nach den Optionen}
+%   \changes{v2.97c}{2007/04/19}{Optionen aller KOMA-Familien abarbeiten}
+%   \changes{v3.12}{2013/03/04}{Hook-Mechanismus von \cs{FamilyOptions}
+%     verwendent}
+% Simple kleine Abkürzung.
+%    \begin{macrocode}
+%<*koma>
+\newcommand*{\KOMAoptions}{\FamilyOptions{KOMA}}
+%</koma>
+%    \end{macrocode}
+% \begin{macro}{\KOMA@options}
+%   \changes{v2.97c}{2007/04/19}{Neues Makro (intern)}
+%   \changes{v3.12}{2013/03/04}{entfernt}
+% \end{macro}^^A \KOMA@options
+% \end{macro}^^A \KOMAoptions
+%
+% \begin{macro}{\post@kopt@hook}
+%   \changes{v3.12}{2013/03/04}{entfernt}
+% \end{macro}^^A \post@kopt@hook
+% \begin{macro}{\AfterKOMAoptions}
+%   \changes{v3.12}{2013/03/04}{Verwendung von \cs{AtEndOfFamilyOptions}}
+% Eine Option kann dafür sorgen, dass nach den Optionen noch etwas passiert.
+%    \begin{macrocode}
+%<*koma>
+\newcommand*{\AfterKOMAoptions}{}
+\let\AfterKOMAoptions\AtEndOfFamilyOptions
+%</koma>
+%    \end{macrocode}
+% \end{macro}^^A \AfterKOMAoptions
+%
+% \begin{macro}{\l@addto@macro}
+%   \changes{v2.8p}{2001/09/22}{neu (intern)} 
+% Damit \cs{AfterKOMAoptions} lokal möglich ist, wird eine lokal arbeitende
+% Variante von \cs{g@addto@macro} benötigt, wie sie hier vorgestellt wird.
+%   \changes{v2.95}{2006/06/02}{korrigiert, damit es sich bezüglich
+%     Erweiterung um Makrodefinitonen mit Argumenten wie \cs{g@addto@macro}
+%     verhält}
+%   \changes{v3.12}{2013/04/20}{veraltete \eTeX-freie Version entfernt}
+%   \changes{v3.12}{2013/04/20}{Warnung, falls eine inkompatible Definition
+%     von \cs{l@addto@macro} entdeckt wird}
+%    \begin{macrocode}
+%<*base>
+\@ifundefined{l@addto@macro}{}{%
+  \begingroup
+    \long\def\reserved@a#1#2{%
+      \edef#1{\unexpanded\expandafter{#1#2}}%
+    }%
+    \ifx\reserved@a\l@addto@macro\else
+      \PackageWarning{scrbase}{%
+        Someone also uses macro name \string\l@addto@macro.\MessageBreak
+        When KOMA-Script author decided to use macro name\MessageBreak
+        \string\l@addto@macro\space first, there was no other
+        free\MessageBreak
+        LaTeX package using this macro name.\MessageBreak
+        In the meantime other package authers decided to use\MessageBreak
+        same macro name, but unfortunatly not all of those\MessageBreak
+        are compatible with KOMA-Script's definition, e.g.,\MessageBreak
+        while adding definitions with arguments to macros.\MessageBreak
+        Because of such potentially incompatible definitions,\MessageBreak
+        KOMA-Script will redefine the command now.\MessageBreak
+        Please ask the author of the other package to\MessageBreak
+        rename his macro, if a problem results in the\MessageBreak
+        redefinition%
+      }%
+    \fi
+  \endgroup
+}
+\long\def\l@addto@macro#1#2{%
+  \edef#1{\unexpanded\expandafter{#1#2}}%
+}%
+%</base>
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{\KOMAoption}
+%   \changes{v2.98c}{2008/03/12}{Neue Anweisung}
+%   \changes{v3.12}{2013/03/04}{Einfacher Aufruf von \cs{FamilyOption}}
+%    \begin{macrocode}
+%<*koma>
+\newcommand*{\KOMAoption}{\FamilyOption{KOMA}}
+%</koma>
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{\FamilyUnknownKeyValue}
+%   \changes{v3.10}{2011/09/12}{no error while processing global options}%^^A
+%   \changes{v3.11a}{2012/05/28}{prevent remove from list of unused global
+%     options globally}%^^A
+% Dieses Makro berichtet über Fehler wegen unbekannter Wertübergabe an einen
+% Schlüssel. Das erste Argument ist die Familie, das zweite der Schlüssel,
+% das dritte der Wert und das vierte die Liste der möglichen Werte.
+%    \begin{macrocode}
+%<*base>
+\newcommand*{\FamilyUnknownKeyValue}[4]{%
+  \FamilyKeyStateUnknownValue
+  \ifx\FamilyElseValues\@empty\else
+    \PackageWarning{scrbase}{non empty \string\FamilyElseValue
+      ignored.\MessageBreak
+      Setting this command to a non empty\MessageBreak
+      value for option `#2' of\MessageBreak
+      family `#1' is deprecated,\MessageBreak
+      but has been found
+    }%
+  \fi
+}
+%</base>
+%    \end{macrocode}
+% \begin{macro}{\FamilyElseValues}
+%   \changes{v3.00}{2008/05/02}{Neue Anweisung}%^^A
+%   \changes{v3.12}{2013/03/04}{wird intern nicht mehr verwendet}%^^A
+% Diese Anweisung konnte ursprünglich vor dem Setzen eines Wertes definiert
+% werden, um bei einer etwaigen Fehlermeldung weitere Werte als erlaubt
+% auszugeben. Am Ende von \cs{FamilySetBool} und \cs{FamilySetNumerical}
+% wird die Anweisung automatisch zu \cs{@empty}. Seit Version~3.12 wird
+% diese Anweisung jedoch nicht mehr ausgewertet.
+%    \begin{macrocode}
+%<*base>
+\newcommand*{\FamilyElseValues}{}
+%</base>
+%    \end{macrocode}
+% \end{macro}^^A \FamilyUnknownKeyValue
+% \end{macro}^^A \FamilyElseValue
+%
+% \begin{macro}{\FamilyBoolKey}
+%   \changes{v3.00}{2008/04/30}{Neue Anweisung}
+% Dieses Makro definiert einen Schlüssel für eine Familie. Dieser Schlüssel
+% ist ein Schalter, der über diverse Werte geschaltet werden kann.
+% Das erste, optionale Argument ist das Familienmitglied, das zweite,
+% obligatorische Argument ist die Familie, das dritte der Name des Schlüssels,
+% das vierte der Schalter.
+%    \begin{macrocode}
+%<*base>
+\newcommand*{\FamilyBoolKey}[4][.\@currname.\@currext]{%
+  \@ifundefined{if#4}{%
+    \expandafter\newif\csname if#4\endcsname
+  }{}%
+  \DefineFamilyKey[{#1}]{#2}{#3}[true]{\FamilySetBool{#2}{#3}{#4}{##1}}%
+}
+%    \end{macrocode}
+% \begin{macro}{\FamilySetBool}
+%   \changes{v3.00}{2008/04/30}{Neue Anweisung}
+%   \changes{v3.11a}{2012/05/25}{Argument in Fehlermeldung korrigiert}
+% Über diese Anweisung wird der Wert dann gesetzt. Dabei ist das erste
+% Argument die Familie, das zweite der Name des Schlüssels, das dritte der
+% Schalter und das vierte schließlich der gewünschte Wert.
+%    \begin{macrocode}
+\newcommand*{\FamilySetBool}[4]{%
+  \ifstr{#4}{true}{\@nameuse{#3true}\FamilyKeyStateProcessed}{%
+    \ifstr{#4}{on}{\@nameuse{#3true}\FamilyKeyStateProcessed}{%
+      \ifstr{#4}{yes}{\@nameuse{#3true}\FamilyKeyStateProcessed}{%
+        \ifstr{#4}{false}{\@nameuse{#3false}\FamilyKeyStateProcessed}{%
+          \ifstr{#4}{off}{\@nameuse{#3false}\FamilyKeyStateProcessed}{%
+            \ifstr{#4}{no}{\@nameuse{#3false}\FamilyKeyStateProcessed}{%
+              \FamilyUnknownKeyValue{#1}{#2}{#4}{%
+                `true', `on', `yes', `false', `off', `no'%
+              }%
+            }%
+          }%
+        }%
+      }%
+    }%
+  }%
+  \let\FamilyElseValues\@empty
+}
+%</base>
+%    \end{macrocode}
+% \end{macro}
+% \end{macro}
+%
+%  \begin{macro}{\KOMA@unknown@keyval}
+% Dieses Makro berichtet über Fehler wegen unbekannter Wertübergabe an
+% einen Schlüssel. Das erste Argument ist der Schlüssel, das zweite
+% der Wert und das dritte die Liste der möglichen Werte.
+%    \begin{macrocode}
+%<*koma>
+\newcommand*{\KOMA@unknown@keyval}{\FamilyUnknownKeyValue{KOMA}}
+%</koma>
+%    \end{macrocode}
+%  \end{macro}
+%
+% \begin{macro}{\KOMA@ifkey}
+%   \changes{v3.02c}{2009/02/04}{definiert ebenfalls das Familienmitglied}
+% Dieses Makro definiert einen Schlüssel, der einen Schalter an Hand des
+% Wertes setzt. Als Werte sind "`\texttt{true}"', "`\texttt{false}"',
+% "`\texttt{on}"', "`\texttt{off}"', "`\texttt{yes}"' und
+% "`\texttt{no}"' erlaubt. Der Default-Wert für den Schalter ist
+% grundsätzlich "`false"', so dass der Default-Wert für die Verwendung
+% des Schküssels grundsätzlich "`true"' ist. Das erste Argument ist
+% der Name des Schlüssels, der zweite ist der Name des Schalters. 
+%    \begin{macrocode}
+%<*koma>
+\newcommand*{\KOMA@ifkey}{%
+  \DefineFamilyMember{KOMA}%
+  \FamilyBoolKey{KOMA}%
+}
+%</koma>
+%    \end{macrocode}
+%  \begin{macro}{\KOMA@set@ifkey}
+% Die eigentliche Arbeit bei der ganzen Sache wird von diesem internen
+% Makro erledigt. Dabei wird der Name des Schlüssels zu Argument 1, der
+% Name des Schalters zu Argument 2 und der Wert des Schlüssels wird
+% Argument 3.
+%    \begin{macrocode}
+%<*koma>
+\newcommand*{\KOMA@set@ifkey}{\FamilySetBool{KOMA}}
+%</koma>
+%    \end{macrocode}
+%  \end{macro}
+%  \end{macro}
+%
+% \begin{macro}{\FamilyCounterKey}
+%   \changes{v3.12}{2013/11/05}{neu}%^^A
+%   Dieses Makro definiert einen Schlüssel, der einen \LaTeX-Zähler an Hand
+%   des Wertes setzt. Das erste, optionale Argument ist das Familienmitglied,
+%   das zweite, obligatorische Argument ist die Familie, das dritte der Name
+%   des Schlüssels, das vierte der name des \LaTeX-Zählers. Erlaubt sind alle
+%   Integer-Werte.
+%    \begin{macrocode}
+%<*base>
+\newcommand*{\FamilyCounterKey}[4][.\@currname.\@currext]{%
+  \@ifundefined{c@#4}{\newcounter{#4}}{}%
+  \DefineFamilyKey[{#1}]{#2}{#3}{\FamilySetCounter{#2}{#3}{#4}{##1}}%
+}
+%    \end{macrocode}
+% \begin{macro}{\FamilySetCounter}
+%   \changes{v3.12}{2013/11/05}{neu}%^^A
+%   Über diese Anwesiung wird der Wert dann gesetzt. Dabei ist das erste
+%   Argument die Familie, das zweite der Name des Schlüssels, das dritte der
+%   Name des \LaTeX-Zählers, das vierte schließlich der gewünschte Wert.
+%    \begin{macrocode}
+\newcommand*{\FamilySetCounter}[4]{%
+  \ifiscount{#4}{\value{#3}=#4\FamilyKeyStateProcessed}{%
+    \ifisdimen{#4}{\value{#3}=#4\FamilyKeyStateProcessed}{%
+      \ifisskip{#4}{\value{#3}=#4\FamilyKeyState\Processed}{%
+        \ifisnumexpr{#4}{\value{#3}=#4\FamilyKeyStateProcessed}{%
+          \ifisdimexpr{#4}{\value{#3}=#4\FamilyKeyStateProcessed}{%
+            \ifisinteger{#4}{\value{#3}=#4\FamilyKeyStateProcessed}{%
+              \ifiscounter{#4}{\value{#3}=\value{#4}\FamilyKeyStateProcessed}{%
+                \FamilyUnknownKeyValue{#1}{#2}{#4}{%
+                  integer numbers, counters, lengths, skips, dimens
+                }%
+              }%
+            }%
+          }%
+        }%
+      }%
+    }%
+  }%
+}
+%</base>
+%    \end{macrocode}
+% \end{macro}
+% \end{macro}
+% \begin{macro}{\FamilyCounterMacroKey}
+%   \changes{v3.12}{2013/11/05}{neu}%^^A
+% \begin{macro}{\FamilySetCounterMacro}
+%   \changes{v3.12}{2013/11/05}{neu}%^^A
+%   Diese Anweisungen arbeitet fast wie \cs{FamilyCounterKey} und
+%   \cs{FamilySetCounter}, allerdings wird nicht ein Zähler gesetzt, sondern
+%   ein Makro auf einen Wert definiert. Dabei ist das erste Argument die
+%   Familie, das zweite der Name des Schlüssels, das dritte das Makro, das
+%   vierte schließlich der gewünschte Wert.
+%    \begin{macrocode}
+%<*base>
+\newcommand*{\FamilyCounterMacroKey}[4][.\@currname.\@currext]{%
+  \ifdefined#4\else\let#4\z@\fi
+  \DefineFamilyKey[{#1}]{#2}{#3}{\FamilySetCounterMacro{#2}{#3}{#4}{##1}}%
+}
+\newcommand*{\FamilySetCounterMacro}[4]{%
+  \begingroup
+    \ifiscount{#4}{\@tempcnta=#4\FamilyKeyStateProcessed}{%
+      \ifisdimen{#4}{\@tempcnta=#4\FamilyKeyStateProcessed}{%
+        \ifisskip{#4}{\@tempcnta=#4\FamilyKeyState\Processed}{%
+          \ifisnumexpr{#4}{\@tempcnta=#4\FamilyKeyStateProcessed}{%
+            \ifisdimexpr{#4}{\@tempcnta=#4\FamilyKeyStateProcessed}{%
+              \ifisinteger{#4}{\@tempcnta=#4\FamilyKeyStateProcessed}{%
+                \ifiscounter{#4}{%
+                  \@tempcnta=\value{#4}\FamilyKeyStateProcessed}{%
+                  \FamilyUnknownKeyValue{#1}{#2}{#4}{%
+                    integer numbers, counters, lengths, skips, dimens
+                  }%
+                }%
+              }%
+            }%
+          }%
+        }%
+      }%
+    }%
+  \expandafter\expandafter\expandafter\endgroup
+  \expandafter\def\expandafter#3\expandafter{\the\@tempcnta}%
+}    
+%</base>
+%    \end{macrocode}
+% \end{macro}
+% \end{macro}
+%
+% \begin{macro}{\FamilyLengthKey}
+%   \changes{v3.12}{2013/11/05}{neu}%^^A
+%   Dieses Makro definiert einen Schlüssel, der eine \LaTeX-Länge an Hand
+%   des Wertes setzt. Das erste, optionale Argument ist das Familienmitglied,
+%   das zweite, obligatorische Argument ist die Familie, das dritte der Name
+%   des Schlüssels, das vierte der name der \LaTeX-Länge.
+%    \begin{macrocode}
+%<*base>
+\newcommand*{\FamilyLengthKey}[4][.\@currname.\@currext]{%
+  \ifdefined#4\else\newlength{#4}\fi
+  \DefineFamilyKey[{#1}]{#2}{#3}{\FamilySetLength{#2}{#3}{#4}{##1}}%
+}
+%    \end{macrocode}
+% \begin{macro}{\FamilySetLength}
+%   \changes{v3.12}{2013/11/05}{neu}%^^A
+%   Über diese Anwesiung wird der Wert dann gesetzt. Dabei ist das erste
+%   Argument die Familie, das zweite der Name des Schlüssels, das dritte der
+%   Name der \LaTeX-Länge, das vierte schließlich der gewünschte Wert.
+%    \begin{macrocode}
+\newcommand*{\FamilySetLength}[4]{%
+  \ifiscount{#4}{#3=#4\FamilyKeyStateProcessed}{%
+    \ifisdimen{#4}{#3=#4\FamilyKeyStateProcessed}{%
+      \ifisskip{#4}{#3=#4\FamilyKeyState\Processed}{%
+        \ifisnumexpr{#4}{#3=#4\FamilyKeyStateProcessed}{%
+          \ifisdimexpr{#4}{#3=#4\FamilyKeyStateProcessed}{%
+            \ifisglue{#4}{#3=#4\FamilyKeyStateProcessed}{%
+              \FamilyUnknownKeyValue{#1}{#2}{#4}{%
+                length values, counters, lengths, skips, dimens
+              }%
+            }%
+          }%
+        }%
+      }%
+    }%
+  }%
+}
+%</base>
+%    \end{macrocode}
+% \end{macro}
+% \end{macro}
+% \begin{macro}{\FamilyLengthMacroKey}
+%   \changes{v3.12}{2013/11/05}{neu}%^^A
+% \begin{macro}{\FamilySetLengthMacro}
+%   \changes{v3.12}{2013/11/05}{neu}%^^A
+%   Diese Anweisungen arbeitet fast wie \cs{FamilyCounterKey} und
+%   \cs{FamilySetCounter}, allerdings wird nicht ein Zähler gesetzt, sondern
+%   ein Makro auf einen Wert definiert. Dabei ist das erste Argument die
+%   Familie, das zweite der Name des Schlüssels, das dritte das Makro, das
+%   vierte schließlich der gewünschte Wert.
+%    \begin{macrocode}
+%<*base>
+\newcommand*{\FamilyLengthMacroKey}[4][.\@currname.\@currext]{%
+  \ifdefined#4\else\let#4\z@\fi
+  \DefineFamilyKey[{#1}]{#2}{#3}{\FamilySetLengthMacro{#2}{#3}{#4}{##1}}%
+}
+\newcommand*{\FamilySetLengthMacro}[4]{%
+  \begingroup
+    \ifiscount{#4}{\@tempskipa=#4\FamilyKeyStateProcessed}{%
+      \ifisdimen{#4}{\@temskipa=#4\FamilyKeyStateProcessed}{%
+        \ifisskip{#4}{\@tempkipa=#4\FamilyKeyState\Processed}{%
+          \ifisnumexpr{#4}{\@tempskipa=#4\FamilyKeyStateProcessed}{%
+            \ifisdimexpr{#4}{\@tempskipa=#4\FamilyKeyStateProcessed}{%
+              \ifisglue{#4}{\@tempskipa=#4\FamilyKeyStateProcessed}{%
+                \FamilyUnknownKeyValue{#1}{#2}{#4}{%
+                  length values, counters, lengths, skips, dimens
+                }%
+              }%
+            }%
+          }%
+        }%
+      }%
+    }%
+  \expandafter\expandafter\expandafter\endgroup
+  \expandafter\def\expandafter#3\expandafter{\the\@tempskipa}%
+}    
+%</base>
+%    \end{macrocode}
+% \end{macro}
+% \end{macro}
+%
+%
+% \begin{macro}{\FamilyNumericalKey}
+%   \changes{v3.00}{2008/04/30}{Neue Anweisung}
+% \begin{macro}{\Family@Numerical@Key}
+%   \changes{v3.00}{2008/05/28}{Neu (intern)}
+%   \changes{v3.08b}{2011/03/31}{fehlendes Argument bei \cs{ifundefined}}
+% Ein ähnliches Makro definiert einen Schlüssel, der ein nummerisches Makro
+% auf einen bestimmten Wert setzt. Dabei können auch verschiedene symbolische
+% Werte auf denselben nummerischen Wert abgebildet werden. Das erste,
+% optionale Argument ist das Familienmitglied, das zweite, obligatorische
+% Argument ist die Familie, das dritte, obligatorische Argument ist der Name
+% der Option, das vierte, optionale Artument ist der Defaultwert für den
+% Schlüssel, das fünfte, obligatorische Argument ist der Name des Makros, das
+% (in der Voreinstellung als 0) definiert werden soll, das sechste,
+% obligatorische Argument ist die Liste der symbolischen und nummerischen
+% Werte. Die Liste hat die Form:
+% \{\emph{Symbol}\}\{\emph{Wert}\},\{\emph{Symbol}\}\{\emph{Wert}\}\dots
+% Das interne Makro wird benötigt, um das vierte, optionale Argument zu
+% ermöglichen. Dabei ist dann das erste Argument nicht mehr optional, sondern
+% obligatorisch.
+%    \begin{macrocode}
+%<*base>
+\newcommand*{\FamilyNumericalKey}[3][.\@currname.\@currext]{%
+  \@ifnextchar [%]
+    {\Family@Numerical@Key{#1}{#2}{#3}}{\Family@Numerical@Key{#1}{#2}{#3}[]}%
+}
+\newcommand*{\Family@Numerical@Key}{}
+\def\Family@Numerical@Key#1#2#3[#4]#5#6{%
+  \@ifundefined{#5}{\@namedef{#5}{0}}{}%
+  \ifx\relax#4\relax
+    \DefineFamilyKey[{#1}]{#2}{#3}{\FamilySetNumerical{#2}{#3}{#5}{#6}{##1}}%
+  \else
+    \DefineFamilyKey[{#1}]{#2}{#3}[{#4}]{%
+      \FamilySetNumerical{#2}{#3}{#5}{#6}{##1}}%
+  \fi
+}
+%    \end{macrocode}
+% \begin{macro}{\FamilySetNumerical}
+%   \changes{v3.11a}{2012/05/28}{call of \cs{FamilyUnknownKeyValue} outside of
+%     local group}
+% Die eigentliche Arbeit dabei wird von diesem Makro erledigt. Dabei
+% wird die Familie zu Argument 1, der Name des Schlüssels zu Argument 2, der
+% Name des Makros, das definiert werden soll zu Argument 3, die Liste zu
+% Argument 4 und der Wert, auf den gesetzt werden soll, zu Argument 5.
+%    \begin{macrocode}
+\newcommand*{\FamilySetNumerical}[5]{%
+  \begingroup
+    \edef\@searched{#5}%
+    \let\reserved@a=\@empty
+    \let\reserved@b=\@empty
+    \@tempswafalse
+    \@for\@valuelist:=#4\do{%
+      \if@tempswa\else
+        \edef\reserved@c{\expandafter\@firstoftwo\@valuelist}%
+        \edef\reserved@a{\reserved@a\reserved@b`\reserved@c'}%
+        \edef\reserved@b{, }%
+        \ifx\reserved@c\@searched
+          \@tempswatrue
+          \edef\reserved@a{\expandafter\@secondoftwo\@valuelist}%
+        \fi
+      \fi
+    }%
+    \if@tempswa
+      \edef\reserved@a{\endgroup
+        \noexpand\@namedef{#3}{\reserved@a}%
+        \noexpand\FamilyKeyStateProcessed
+      }%
+    \else
+      \edef\reserved@a{\endgroup
+        \noexpand\FamilyUnknownKeyValue{#1}{#2}{#5}{\reserved@a}%
+      }%
+    \fi
+  \reserved@a
+  \let\FamilyElseValues\@empty
+}
+%</base>
+%    \end{macrocode}
+% \end{macro}
+% \end{macro}
+% \end{macro}
+%
+% \begin{macro}{\KOMA@ncmdkey}
+%   \changes{v3.02c}{2009/02/04}{definiert ebenfalls das Familienmitglied}
+% Ein ähnliches Makro definiert einen Schlüssel, der ein nummerisches
+% Makro auf einen bestimmten Wert setzt. Dabei können auch
+% verschiedene symbolische Werte auf denselben nummerischen Wert
+% abgebildet werden. Das erste Argument ist obligatorisch und der Name
+% des Schlüssels. Das zweite Argument ist optional und der Defaultwert
+% für den Schlüssel. Das dritte Argument ist obligatorisch und der
+% Name des Makros, das definiert werden soll. Der Defaultwert dafür
+% ist 0. Das vierte Argument ist obligatorisch und die Liste der
+% symbolischen und nummerischen Wert. Die Liste hat die Form: 
+% \{\emph{Symbol}\}\{\emph{Wert}\},\{\emph{Symbol}\}\{\emph{Wert}\}\dots
+%    \begin{macrocode}
+%<*koma>
+\newcommand*{\KOMA@ncmdkey}{%
+  \DefineFamilyMember{KOMA}%
+  \FamilyNumericalKey{KOMA}%
+}
+%</koma>
+%    \end{macrocode}
+%  \begin{macro}{\KOMA@set@ncmdkey}
+% Die eigentliche Arbeit dabei wird wahlweise von diesem Makro erledigt. Dabei
+% wird der Name des Schlüssels zu Argument 1, der Name des Makros,
+% das definiert werden soll zu Argument 2, die Liste zu Argument 3 und
+% der Wert, auf den gesetzt werden soll, zu Argument 4.
+%    \begin{macrocode}
+%<*koma>
+\newcommand*{\KOMA@set@ncmdkey}{\FamilySetNumerical{KOMA}}
+%</koma>
+%    \end{macrocode}
+%  \end{macro}
+%  \end{macro}
+%
+%
+% \begin{macro}{\FamilyStringKey}
+%   \changes{v3.08}{2010/11/05}{Neue Anweisung}
+%   \changes{v3.08b}{2011/03/31}{\cs{Family@String@Key} und
+%     \cs{Family@@String@@Key} vertauscht}
+% \begin{macro}{\Family@String@Key}
+%   \changes{v3.08}{2010/11/05}{Neu (intern)}
+% \begin{macro}{\Family@@String@@Key}
+%   \changes{v3.08}{2010/11/05}{Neu (intern)}
+% Ein ähnliches Makro definiert einen Schlüssel, der ein Makro auf einen
+% beliegigen Wert setzt. Das erste, optionale Argument ist das
+% Familienmitglied, das zweite, obligatorische Argument ist die Familie, das
+% dritte, obligatorische Argument ist der Name der Option, das vierte,
+% optionale Artument ist der Defaultwert für den Schlüssel, das fünfte,
+% obligatorische Argument ist der Name des Makros, das (in der Voreinstellung
+% als leer) definiert werden soll. Die internen Makro werden benötigt, um das
+% vierte, optionale Argument zu ermöglichen. Dabei ist dann das erste Argument
+% nicht mehr optional, sondern obligatorisch.
+%    \begin{macrocode}
+%<*base>
+\newcommand*{\FamilyStringKey}[3][.\@currname.\@currext]{%
+  \@ifnextchar [%]
+    {\Family@@String@@Key{#1}{#2}{#3}}{\Family@String@Key{#1}{#2}{#3}}%
+}
+\newcommand*{\Family@@String@@Key}{}
+\long\def\Family@@String@@Key#1#2#3[#4]#5{%
+  \DefineFamilyKey[{#1}]{#2}{#3}[{#4}]{\def#5{##1}}%
+}
+\newcommand{\Family@String@Key}[4]{%
+  \DefineFamilyKey[{#1}]{#2}{#3}{\def#4{##1}\FamilyKeyStateProcessed}%
+}
+%</base>
+%    \end{macrocode}
+% \end{macro}
+% \end{macro}
+% \end{macro}
+%
+%
+% \begin{macro}{\KOMA@DeclareDeprecatedOption}
+%   \changes{v3.01a}{2008/11/20}{neu (intern)}
+% \begin{macro}{\KOMA@@DeclareDeprecatedOption}
+%   \changes{v3.01a}{2008/11/20}{neu (intern)}
+% \begin{macro}{\KOMA@@@DeclareDeprecatedOption}
+%   \changes{v3.01a}{2008/11/20}{neu (intern)}
+% Mit Hilfe dieses Makros kann eine Option definiert werden, die
+% eigentlich obsolete ist. Statt dieser Option wird dann ein Schlüssel
+% verwendet. Das erste Argument ist optional und muss dann der Paketname
+% sein. Ist es nicht gesetzt, so wird stattdessen die Klasse
+% \cs{KOMAClassName} angenommen. Das zweite Argument ist der Name der
+% Option. Das vierte Argument ist das Setzen des gewünschten Schlüssels.
+%    \begin{macrocode}
+%<*koma>
+\newcommand*{\KOMA@DeclareDeprecatedOption}{%
+  \@ifnextchar [%]
+  {\KOMA@@DeclareDeprecatedOption}%
+  {\KOMA@@@DeclareDeprecatedOption{\ClassWarningNoLine{\KOMAClassName}}}%
+}
+\newcommand*{\KOMA@@DeclareDeprecatedOption}[1][]{%
+  \KOMA@@@DeclareDeprecatedOption{\PackageWarningNoLine{#1}}%
+}
+\newcommand*{\KOMA@@@DeclareDeprecatedOption}[3]{%
+  \DeclareOption{#2}{\KOMA@UseDeprecatedOption{#1}{#2}{#3}}%
+}
+%    \end{macrocode}
+% \begin{macro}{\KOMA@UseDeprecatedOption}
+%   \changes{v3.01a}{2008/11/20}{neu (intern)}%
+%   \changes{v3.12}{2013/03/04}{Test für \texttt{version!=first}}%
+% Die eigentliche Arbeit wird von diesem Makro erledigt. Die Argumente sind
+% 1. Meldungsbefehl, 2. obsolete Option, 3. Setzen des Schlüssels.
+%    \begin{macrocode}
+\newcommand*{\KOMA@UseDeprecatedOption}[3]{%
+  \let\scr@sr@co\CurrentOption
+  \begingroup
+    #1{%
+      You've used obsolete option `#2'.\MessageBreak
+      Usage of this option indicates an old document and\MessageBreak
+      \scr@ifundefinedorrelax{KV@KOMA.\@currname.\@currext @version}{%
+        changes compatibility level using\MessageBreak
+        `#3,version=first'.\MessageBreak
+        If you don't want this, y%
+      }{%
+        is deprecated.\MessageBreak
+        Y%
+      }%
+      ou should simply replace\MessageBreak
+      usage of option `#2' by `#3'%
+    }%
+  \endgroup
+  \KOMAExecuteOptions{#3,version=first}%
+  \let\CurrentOption\scr@sr@co
+}
+%</koma>
+%    \end{macrocode}
+% \end{macro}^^A \KOMA@UseDeprecatedOption
+% \end{macro}^^A \KOMA@@@DeclareDeprecatedOption
+% \end{macro}^^A \KOMA@@DeclareDeprecatedOption
+% \end{macro}^^A \KOMA@DeclareDeprecatedOption
+%
+%
+% \begin{macro}{\KOMA@DeclareStandardOption}
+%   \changes{v3.01a}{2008/11/21}{neu (intern)}
+% \begin{macro}{\KOMA@@DeclareStandardOption}
+%   \changes{v3.01a}{2008/11/21}{neu (intern)}
+% \begin{macro}{\KOMA@@@DeclareStandardOption}
+%   \changes{v3.01a}{2008/11/21}{neu (intern)}
+% Mit Hilfe dieses Makros kann eine Option definiert werden, die
+% eigentlich obsolete ist. Statt dieser Option wird dann ein Schlüssel
+% verwendet. Das erste Argument ist optional und muss dann der Paketname
+% sein. Ist es nicht gesetzt, so wird stattdessen die Klasse
+% \cs{KOMAClassName} angenommen. Das zweite Argument ist der Name der
+% Option. Das vierte Argument ist das Setzen des gewünschten Schlüssels.
+%    \begin{macrocode}
+%<*koma>
+\newcommand*{\KOMA@DeclareStandardOption}{%
+  \@ifnextchar [%]
+  {\KOMA@@DeclareStandardOption}%
+  {\KOMA@@@DeclareStandardOption{\ClassInfoNoLine{\KOMAClassName}}}%
+}
+\newcommand*{\KOMA@@DeclareStandardOption}[1][]{%
+  \KOMA@@@DeclareStandardOption{\PackageInfoNoLine{#1}}%
+}
+\newcommand*{\KOMA@@@DeclareStandardOption}[3]{%
+  \DeclareOption{#2}{\KOMA@UseStandardOption{#1}{#2}{#3}}%
+}
+%    \end{macrocode}
+% \begin{macro}{\KOMA@UseStandardOption}
+%   \changes{v3.01a}{2008/11/21}{neu (intern)}
+% Die eigentliche Arbeit wird von diesem Makro erledigt. Die Argumente sind
+% 1. Meldungsbefehl, 2. obsolete Option, 3. Setzen des Schlüssels.
+%    \begin{macrocode}
+\newcommand*{\KOMA@UseStandardOption}[3]{%
+  \let\scr@sr@co\CurrentOption
+  #1{%
+    You've used standard option `#2'.\MessageBreak
+    This is correct!\MessageBreak
+    Internally I'm using `#3'.\MessageBreak
+    If you'd like to set the option with \string\KOMAoptions,\MessageBreak
+    you'd have to use `#3' there\MessageBreak
+    instead of `#2', too%
+  }%
+  \KOMAExecuteOptions{#3}%
+  \let\CurrentOption\scr@sr@co
+}
+%    \end{macrocode}
+% \begin{macro}{\scr@sr@co}
+%   \changes{v2.96}{2006/08/20}{neu (intern)}
+% Da das \texttt{xkeyval}-Paket leider \cs{CurrentOption} vernichtet, das aber
+% innerhalb von \cs{ProcessOptions} und \cs{KOMAProcessOptions} nach dem
+% Ausführen der Option noch benötigt wird, muss die Anweisung gesichert
+% werden. Dafür wird ein Hilfsmakro benötigt.
+%    \begin{macrocode}
+\newcommand*{\scr@sr@co}{}
+%</koma>
+%    \end{macrocode}
+% \end{macro}^^A \scr@sr@co
+% \end{macro}^^A \KOMA@UseStandardOption
+% \end{macro}^^A \KOMA@@@DeclareStandardOption
+% \end{macro}^^A \KOMA@@DeclareStandardOption
+% \end{macro}^^A \KOMA@DeclareStandardOption
+%
+%
+% \begin{macro}{\KOMA@DeclareObsoleteOption}
+%   \changes{v2.96}{2006/08/20}{\cs{CurrentOption wir geschützt}}
+%   \changes{v3.12}{2013/03/04}{entfernt weil unbenutzt}
+% \begin{macro}{\KOMA@@DeclareObsoleteOption}
+%   \changes{v2.98c}{2008/02/18}{neu (intern)}
+%   \changes{v3.12}{2013/03/04}{entfernt weil unbenutzt}
+% \begin{macro}{\KOMA@@@DeclareObsoleteOption}
+%   \changes{v2.98c}{2008/02/18}{neu (intern)}
+%   \changes{v3.12}{2013/03/04}{entfernt weil unbenutzt}
+% \begin{macro}{\KOMA@iv@DeclareObsoleteOption}
+%   \changes{v2.98c}{2008/02/18}{neu (intern)}
+%   \changes{v3.12}{2013/03/04}{entfernt weil unbenutzt}
+% \begin{macro}{\KOMA@UseObsoleteOption}
+%   \changes{v2.97c}{2007/04/19}{neu (intern)}
+%   \changes{v3.12}{2013/03/04}{entfernt weil unbenutzt}
+% \end{macro}^^A \KOMA@UseObsoleteOption
+% \end{macro}^^A \KOMA@iv@DeclareObsoleteOption
+% \end{macro}^^A \KOMA@iii@DeclareObsoleteOption
+% \end{macro}^^A \KOMA@ii@DeclareObsoleteOption
+% \end{macro}^^A \KOMA@i@DeclareObsoleteOption
+%
+%
+% \begin{macro}{\KOMA@newdeprecatedcommand}
+%   \changes{v3.12}{2013/03/04}{renamed \cs{KOMA@newobsoletecommand} into
+%     \cs{KOMA@newdeprecatedcommand}}
+% Mit Hilfe dieses Makros kann ein Makro definiert werden, das
+% eigentlich obsolete ist. Das Makro verwendet dann schlicht einen
+% Schlüssel. Das erste Argument ist optional und muss dann entweder
+% \cs{PackageInfo}, \cs{PackageInfoNoLine}, \cs{PackageWarning} oder
+% \cs{PackageWarningNoLine} sein. Das zweite Argument ist das Makro.
+% Das dritte Argument ist das Setzen des gewünschten Schlüssels. Das
+% definierte Makro selbst hat Schaltercharakter, ist also nicht
+% \cs{long} und versteht auch keine Argumente.
+%    \begin{macrocode}
+%<*koma>
+\newcommand*{\KOMA@newdeprecatedcommand}[3][\@gobbletwo]{%
+  \newcommand*{#2}{\KOMA@UseDeprecatedCommand{#1}{\string#2}{#3}}%
+}
+%    \end{macrocode}
+% \begin{macro}{\KOMA@UseDeprecatedCommand}
+%   \changes{v2.97c}{2007/04/19}{neu (intern)}
+%   \changes{v3.12}{2013/03/04}{renamed \cs{KOMA@UseObsoleteCommand} into
+%     \cs{KOMA@UseDeprecatedCommand}}
+% Die eigentliche Arbeit wird von diesem Makro erledigt. Die Argumente sind
+% dieselben.
+%    \begin{macrocode}
+\newcommand*{\KOMA@UseDeprecatedCommand}[3]{%
+  #1{%
+    scrkbase%
+  }{%
+    You've used deprecated command `#2'.\MessageBreak
+    \protect\KOMAoptions{#3} will be used instead.\MessageBreak
+    You should also replace `#2' by `\protect\KOMAoptions{#3}'%
+  }%
+  \KOMAoptions{#3}%
+}
+%</koma>
+%    \end{macrocode}
+% \end{macro}^^A \KOMA@UseDeprecatedCommand
+% \end{macro}^^A \KOMA@newdeprecatedcommand
+%
+%
+% \iffalse
+%</body>
+% \fi
+%
+% \Finale
+%
+\endinput
+%
+% end of file `scrkernel-basics.dtx'
+%%% Local Variables:
+%%% mode: doctex
+%%% TeX-master: t
+%%% End:

@@ -1,0 +1,496 @@
+% !TEX TS-program = pdflatex
+
+% sansmathaccent.tex
+%
+% Provides documentation for the sansmathaccent package
+%
+% author: Ariel Barton
+%
+% Copyright Ariel Barton, 2012, 2013
+%
+% This work may be distributed and/or modified under the
+% conditions of the LaTeX Project Public License, either
+% version 1.3 of this license or (at your option) any
+% later version.
+% The latest version of the license is in
+%    http://www.latex-project.org/lppl.txt
+% and version 1.3 or later is part of all distributions of
+% LaTeX version 2003/06/01 or later.
+%
+% This work has the LPPL maintenance status "author-maintained".
+%
+% The complete list of files considered part of this work is
+% later in this file.
+%
+% Date: 2013/03/28
+
+\documentclass{amsart}
+
+\usepackage{sfmath,sansmathaccent}
+\usepackage{bm}
+
+\usepackage{hyperref}
+\def\sectionautorefname{Section}
+
+\DeclareMathAlphabet{\badmath}{OT1}{cmss}{m}{sl}
+
+\title{The \textsf{sansmathaccent} package}
+
+\author{Ariel Barton}
+
+\begin{document}
+
+\maketitle
+
+It is sometimes desirable to typeset math in sans serif. This is
+particularly true when constructing slides, and so is done by default in
+the \textsf{beamer} class.
+
+However, the Computer Modern sans serif fonts do not contain the
+information TeX needs to position accents correctly. So math accents end
+up placed badly:
+$$ \tilde {\badmath{M}} \quad \dot {\badmath{u}} \quad 
+\hat{{}\badmath{T}} \quad \bar {\badmath{v}} \quad 
+\mathring {\badmath{A}}$$
+
+The \textsf{sansmathaccent} package corrects the accent placements:
+$$ \tilde M \quad \dot u \quad \hat{T} \quad \bar v \quad \mathring A$$
+
+Version 2 is compatible with the \textsf{bm} package:
+$$ \bm{\tilde M} \quad \bm{\dot u} \quad \bm{\hat{T}} \quad \bm{\bar v} 
+\quad \bm{\mathring{A}}$$
+
+\section{Usage}
+
+This package was uploaded to CTAN in March 2013. If you have installed
+or updated your \TeX\ distribution since then, this package might have
+been installed on your system.
+
+If not, you will need to install it. Mik\TeX\ should do this
+automatically if you try to typeset a document that uses the package.
+Mac\TeX\ users can install and update CTAN packages using the program
+``TeX Live Utility'' in the \texttt{/Applications/TeX} folder. \TeX\
+Live users can use the command-line utility \texttt{tlmgr} (see
+\href{http://tug.org/texlive/doc/tlmgr.html}
+{\texttt{http://tug.org/texlive/doc/tlmgr.html}}).
+
+If that does not work, consult one of the following web pages for advice
+on how to install a fonts package by hand:\\
+\href{http://www.tug.org/fonts/fontinstall.html}
+{\texttt{http://www.tug.org/fonts/fontinstall.html}}\\
+\href{http://www.tug.org/fonts/fontinstall-personal.html}
+{\texttt{http://www.tug.org/fonts/fontinstall-personal.html}}\\
+\href{http://en.wikibooks.org/wiki/LaTeX/Packages/Installing_Extra_Packages}
+{\texttt{http://en.wikibooks.org/wiki/LaTeX/Packages/Installing\_Extra\_Packages}}
+
+Some versions of \textsf{beamer} load \textsf{sansmathaccent} automatically. If your version of \textsf{beamer} does not, you can load it yourself:
+
+\begin{quote}
+\verb|\documentclass{beamer}|\\
+\verb|\usepackage{sansmathaccent}|\\
+\verb|\begin{document}|\\
+\verb|\begin{frame}{}|\\
+\verb|$\tilde M$ $\dot u$ $\hat{T}$|\\
+\verb|\end{frame}|\\
+\verb|\end{document}|
+\end{quote}
+
+In an article, book, letter, or other document class other than
+\textsf{beamer}, first use the \textsf{sfmath} package to switch to sans
+serif math, then use \textsf{sansmathaccent} to correct the accents:
+
+
+\begin{quote}
+\verb|\documentclass{article}|\\
+\verb|\usepackage{sfmath,sansmathaccent}|\\
+\verb|\begin{document}|\\
+\verb|$\tilde M$ $\dot u$ $\hat{T}$|\\
+\verb|\end{document}|
+\end{quote}
+
+\section{Warnings}
+
+\textsf{sansmathaccent} is not a standalone package; it is a package to
+correct a specific problem that appears in \textsf{beamer} and
+\textsf{sfmath}. If neither of those packages is used,
+\textsf{sansmathaccent} will do nothing.
+
+Observe also that \textsf{sansmathaccent} will only work with Computer
+Modern sans serif math text; if you use a package such as
+\textsf{helvet} or \textsf{pxfonts} to change the sans serif math font
+away from the default, \textsf{sansmathaccent} will not help you.
+
+Feedback is appreciated and may be sent to \texttt{origamist@gmail.com}.
+
+
+\section{License}
+
+This work (the \textsf{sansmathaccent} package) consists of the
+following files:
+\begin{itemize}
+\item \texttt{mathkerncmssi8.tfm}
+\item \texttt{mathkerncmssi9.tfm}
+\item \texttt{mathkerncmssi10.tfm}
+\item \texttt{mathkerncmssi12.tfm}
+\item \texttt{mathkerncmssi17.tfm}
+\item \texttt{mathkerncmssxi8.tfm}
+\item \texttt{mathkerncmssxi9.tfm}
+\item \texttt{mathkerncmssxi10.tfm}
+\item \texttt{mathkerncmssxi12.tfm}
+\item \texttt{mathkerncmssxi17.tfm}
+\item \texttt{mathkerncmssxi8.vf}
+\item \texttt{mathkerncmssxi9.vf}
+\item \texttt{mathkerncmssxi10.vf}
+\item \texttt{mathkerncmssxi12.vf}
+\item \texttt{mathkerncmssxi17.vf}
+\item \texttt{ot1mathkerncmss.fd}
+\item \texttt{sansmathaccent.map}
+\item \texttt{sansmathaccent.pdf}
+\item \texttt{sansmathaccent.sty}
+\item \texttt{sansmathaccent.tex}
+\end{itemize}
+
+This work may be distributed and/or modified under the
+conditions of the \LaTeX\ Project Public License, either
+version 1.3 of this license or (at your option) any
+later version.
+
+The latest version of the license is in
+\begin{quote}
+\href {http://www.latex-project.org/lppl.txt} 
+{\texttt{http://www.latex-project.org/lppl.txt}}
+\end{quote}
+and version 1.3 or later is part of all distributions of
+\LaTeX\ version 2003/06/01 or later.
+
+This work has the LPPL maintenance status ``author-maintained''.
+
+\subsection{Derived Works included in this package}
+
+The files
+\begin{itemize}
+\item \texttt{mathkerncmssi8.tfm}
+\item \texttt{mathkerncmssi9.tfm}
+\item \texttt{mathkerncmssi10.tfm}
+\item \texttt{mathkerncmssi12.tfm}
+\item \texttt{mathkerncmssi17.tfm}
+\end{itemize}
+were derived from the files
+\begin{itemize}
+\item \texttt{cmssi8.tfm}
+\item \texttt{cmssi9.tfm}
+\item \texttt{cmssi10.tfm}
+\item \texttt{cmssi12.tfm}
+\item \texttt{cmssi17.tfm}
+\end{itemize}
+all of which are part of the \LaTeX\ base distribution and can be found 
+at \href{ctan.org}{\texttt{ctan.org}}. 
+The edited \TeX\ Font Metric (\texttt{.tfm}) files were generated using
+the utilities \texttt{tftopl} and \texttt{pltotf} and using Hendrik
+Vogt's patch (included in the documentation in \autoref{sec:patch}).
+
+The virtual fonts
+\begin{itemize}
+\item \texttt{mathkerncmssxi8}
+\item \texttt{mathkerncmssxi9}
+\item \texttt{mathkerncmssxi10}
+\item \texttt{mathkerncmssxi12}
+\item \texttt{mathkerncmssxi17}
+\end{itemize}
+(\texttt{tfm} and \texttt{vf} files) and the file \texttt{ot1mathkerncmss.fd}
+were generated from the files
+\begin{itemize}
+\item \texttt{ecso0800.tfm}
+\item \texttt{ecso0900.tfm}
+\item \texttt{ecso1000.tfm}
+\item \texttt{ecso1200.tfm}
+\item \texttt{ecso1728.tfm}
+\item \texttt{cmssbx10.tfm}
+\end{itemize}
+all of which are part of the \LaTeX\ base distribution and can be found 
+at \href{ctan.org}{\texttt{ctan.org}}. The edited files were generated  using the \textsf{fontinst} package and the utilities \texttt{tftopl} and \texttt{vptovf}, and some original \textsf{fontinst} files (included in the documentation in \autoref{sec:fontinst}).
+
+
+\section{Patch file}\label{sec:patch}
+
+The following is the patch file used to generate the corrected TFM
+files for the medium-width fonts. It is included for reference; you don't need to read this section
+to use the package. The patch file was written by Hendrik Vogt and used
+with permission.
+\begin{quote}
+\begin{verbatim}
+17a18,61
+>    (LABEL C E)
+>    (LABEL C H)
+>    (LABEL C M)
+>    (LABEL C N)
+>    (LABEL C Q)
+>    (LABEL C i)
+>    (LABEL C j)
+>    (KRN O 177 R 0.1)
+>    (STOP)
+>    (LABEL C J)
+>    (KRN O 177 R 0.22)
+>    (STOP)
+>    (LABEL C e)
+>    (LABEL C m)
+>    (LABEL C n)
+>    (LABEL C r)
+>    (LABEL C B)
+>    (LABEL C R)
+>    (LABEL C S)
+>    (LABEL C Z)
+>    (KRN O 177 R 0.08)
+>    (STOP)
+>    (LABEL C c)
+>    (LABEL C q)
+>    (LABEL C s)
+>    (LABEL C z)
+>    (KRN O 177 R 0.06)
+>    (STOP)
+>    (LABEL C v)
+>    (LABEL C x)
+>    (KRN O 177 R 0.04)
+>    (STOP)
+>    (LABEL C h)
+>    (KRN O 177 R 0.02)
+>    (STOP)
+>    (LABEL C l)
+>    (LABEL C U)
+>    (KRN O 177 R 0.11)
+>    (STOP)
+>    (LABEL C d)
+>    (LABEL C C)
+>    (LABEL C G)
+>    (KRN O 177 R 0.12)
+>    (STOP)
+25a70
+>    (KRN O 177 R 0.1)
+61a107
+>    (KRN O 177 R 0.04)
+62a109
+>    (KRN O 177 R 0.03)
+68a116
+>    (KRN O 177 R 0.08)
+70a119
+>    (KRN O 177 R 0.04)
+77a127
+>    (KRN O 177 R 0.1)
+79a130
+>    (KRN O 177 R 0.07)
+86a138
+>    (KRN O 177 R 0.08)
+87a140
+>    (KRN O 177 R 0.06)
+93a147
+>    (KRN O 177 R 0.09)
+95a150
+>    (KRN O 177 R 0.06)
+103a159
+>    (KRN O 177 R 0.08)
+104a161
+>    (KRN O 177 R 0.1)
+111a169
+>    (KRN O 177 R 0.05)
+112a171
+>    (KRN O 177 R 0.06)
+120a180
+>    (KRN O 177 R 0.08)
+122a183
+>    (KRN O 177 R 0.07)
+124a186
+>    (KRN O 177 R 0.08)
+127a190
+>    (KRN O 177 R 0.14)
+134a198
+>    (KRN O 177 R 0.05)
+140a205
+>    (KRN O 177 R 0.01)
+143a209
+>    (KRN O 177 R 0.1)
+\end{verbatim}
+\end{quote}
+The above was saved as a file \texttt{sansmathaccent.patch}. 
+
+Then the following bash script was run:
+\begin{quote}
+\begin{verbatim}
+for i in 8 9 10 12 17
+do tftopl $(kpsewhich cmssi$i.tfm) > mathkerncmssi$i.pl
+patch mathkerncmssi$i.pl sansmathaccent.patch
+pltotf mathkerncmssi$i.pl
+done
+\end{verbatim}
+\end{quote}
+This generated the desired TFM files.
+
+\section{Fontinst files}\label{sec:fontinst}
+
+%\font \test=cmssxi10 {\test test}
+
+The bold slanted fonts used in this package are virtual fonts. These virtual fonts were generated using the \textsf{fontinst} package and the following two files (again, included only for reference).
+
+File \texttt{mathkerncmss.mtx}:
+\begin{quote}
+\begin{verbatim}
+\setkern{A}{dieresis}{140}
+\setkern{B}{dieresis}{80}
+\setkern{C}{dieresis}{120}
+\setkern{D}{dieresis}{80}
+\setkern{E}{dieresis}{100}
+\setkern{F}{dieresis}{100}
+\setkern{G}{dieresis}{120}
+\setkern{H}{dieresis}{100}
+\setkern{I}{dieresis}{100}
+\setkern{J}{dieresis}{220}
+\setkern{K}{dieresis}{80}
+\setkern{L}{dieresis}{50}
+\setkern{M}{dieresis}{100}
+\setkern{N}{dieresis}{100}
+\setkern{O}{dieresis}{100}
+\setkern{P}{dieresis}{80}
+\setkern{Q}{dieresis}{100}
+\setkern{R}{dieresis}{80}
+\setkern{S}{dieresis}{80}
+\setkern{T}{dieresis}{90}
+\setkern{U}{dieresis}{110}
+\setkern{V}{dieresis}{70}
+\setkern{W}{dieresis}{70}
+\setkern{X}{dieresis}{60}
+\setkern{Y}{dieresis}{60}
+\setkern{Z}{dieresis}{80}
+\setkern{a}{dieresis}{80}
+\setkern{b}{dieresis}{50}
+\setkern{c}{dieresis}{60}
+\setkern{d}{dieresis}{120}
+\setkern{e}{dieresis}{80}
+\setkern{f}{dieresis}{100}
+\setkern{g}{dieresis}{10}
+\setkern{h}{dieresis}{20}
+\setkern{i}{dieresis}{100}
+\setkern{j}{dieresis}{100}
+\setkern{k}{dieresis}{40}
+\setkern{l}{dieresis}{110}
+\setkern{m}{dieresis}{80}
+\setkern{n}{dieresis}{80}
+\setkern{o}{dieresis}{60}
+\setkern{p}{dieresis}{80}
+\setkern{q}{dieresis}{60}
+\setkern{r}{dieresis}{80}
+\setkern{s}{dieresis}{60}
+\setkern{t}{dieresis}{70}
+\setkern{u}{dieresis}{80}
+\setkern{v}{dieresis}{40}
+\setkern{w}{dieresis}{30}
+\setkern{x}{dieresis}{40}
+\setkern{y}{dieresis}{40}
+\setkern{z}{dieresis}{60}
+\end{verbatim}
+\end{quote}
+File \texttt{installfonts.tex}:
+
+
+\begin{quote}
+\begin{verbatim}
+\input fontinst.sty
+
+\installfonts
+
+\generalpltomtx{ecso0800}{ecso0800}{pl}{t1}
+\generalpltomtx{ecso0900}{ecso0900}{pl}{t1}
+\generalpltomtx{ecso1000}{ecso1000}{pl}{t1}
+\generalpltomtx{ecso1200}{ecso1200}{pl}{t1}
+\generalpltomtx{ecso1728}{ecso1728}{pl}{t1}
+\generalpltomtx{cmssbx10}{cmssbx10}{pl}{ot1}
+
+\substitutesilent{bx}{b}
+\substitutesilent{sl}{it}
+
+\installfamily{OT1}{mathkerncmss}{\skewchar\font127 }
+
+\installfontas{cmss8}          {OT1}{mathkerncmss}  {m}{n}{<-8.5>}
+\installfontas{cmss9}          {OT1}{mathkerncmss}  {m}{n}{<8.5-9.5>}
+\installfontas{cmss10}         {OT1}{mathkerncmss}  {m}{n}{<9.5-11.5>}
+\installfontas{cmss12}         {OT1}{mathkerncmss}  {m}{n}{<11.5-15.7>}
+\installfontas{cmss17}         {OT1}{mathkerncmss}  {m}{n}{<15.7->}
+
+\installfontas{mathkerncmssi8} {OT1}{mathkerncmss}  {m}{sl}{<-8.5>}
+\installfontas{mathkerncmssi9} {OT1}{mathkerncmss}  {m}{sl}{<8.5-9.5>}
+\installfontas{mathkerncmssi10}{OT1}{mathkerncmss}  {m}{sl}{<9.5-11.5>}
+\installfontas{mathkerncmssi12}{OT1}{mathkerncmss}  {m}{sl}{<11.5-15.7>}
+\installfontas{mathkerncmssi17}{OT1}{mathkerncmss}  {m}{sl}{<15.7->}
+
+\installfontas{cmssbx10}       {OT1}{mathkerncmss}{bx}{n}{}
+
+\installfont{mathkerncmssxi8}  {ecso0800,cmssbx10,mathkerncmss} 
+    {ot1}{OT1}{mathkerncmss}  {bx}{sl}{<-8.5>}
+\installfont{mathkerncmssxi9}  {ecso0900,cmssbx10,mathkerncmss}     
+    {ot1}{OT1}{mathkerncmss}  {bx}{sl}{<8.5-9.5>}
+\installfont{mathkerncmssxi10}  {ecso1000,cmssbx10,mathkerncmss}               
+    {ot1}{OT1}{mathkerncmss}  {bx}{sl}{<9.5-11.5>}
+\installfont{mathkerncmssxi12}  {ecso1200,cmssbx10,mathkerncmss}   
+    {ot1}{OT1}{mathkerncmss}  {bx}{sl}{<11.5-15.7>}
+\installfont{mathkerncmssxi17}  {ecso1728,cmssbx10,mathkerncmss}   
+    {ot1}{OT1}{mathkerncmss}  {bx}{sl}{<15.7->}
+
+\endinstallfonts\bye
+\end{verbatim}
+\end{quote}
+
+
+Once these files had been written, the following script was run:
+
+\begin{quote}
+\begin{verbatim}
+tftopl cmssbx10 cmssbx10
+
+tftopl ecso0800 ecso0800
+tftopl ecso0900 ecso0900
+tftopl ecso1000 ecso1000
+tftopl ecso1200 ecso1200
+tftopl ecso1728 ecso1728
+
+tex installfonts.tex
+
+for file in *.vpl; do vptovf $file; done
+\end{verbatim}
+\end{quote}
+
+This generated the TFM files and virtual fonts for the bold version, and also the \LaTeX\ font definition file \texttt{otlmathkerncmss.fd}.
+
+\end{document}
+
+\section{Test}
+
+$\bm{\Gamma}$
+
+\begin{tabular}{cccccccc}
+$\hat{a}$ & $\bm{\hat{a}}$ & ${\hat{A}} $ & $\bm{\hat{A}}$ & $\dot{a}$ & $\bm{\dot{a}}$ & ${\dot{A}} $ & $\bm{\dot{A}}$\\
+$\hat{b}$ & $\bm{\hat{b}}$ & ${\hat{B}} $ & $\bm{\hat{B}}$ & $\dot{b}$ & $\bm{\dot{b}}$ & ${\dot{B}} $ & $\bm{\dot{B}}$\\
+$\hat{c}$ & $\bm{\hat{c}}$ & ${\hat{C}} $ & $\bm{\hat{C}}$ & $\dot{c}$ & $\bm{\dot{c}}$ & ${\dot{C}} $ & $\bm{\dot{C}}$\\
+$\hat{d}$ & $\bm{\hat{d}}$ & ${\hat{D}} $ & $\bm{\hat{D}}$ & $\dot{d}$ & $\bm{\dot{d}}$ & ${\dot{D}} $ & $\bm{\dot{D}}$\\
+$\hat{e}$ & $\bm{\hat{e}}$ & ${\hat{E}} $ & $\bm{\hat{E}}$ & $\dot{e}$ & $\bm{\dot{e}}$ & ${\dot{E}} $ & $\bm{\dot{E}}$\\
+$\hat{f}$ & $\bm{\hat{f}}$ & ${\hat{F}} $ & $\bm{\hat{F}}$ & $\dot{f}$ & $\bm{\dot{f}}$ & ${\dot{F}} $ & $\bm{\dot{F}}$\\
+$\hat{g}$ & $\bm{\hat{g}}$ & ${\hat{G}} $ & $\bm{\hat{G}}$ & $\dot{g}$ & $\bm{\dot{g}}$ & ${\dot{G}} $ & $\bm{\dot{G}}$\\
+$\hat{h}$ & $\bm{\hat{h}}$ & ${\hat{H}} $ & $\bm{\hat{H}}$ & $\dot{h}$ & $\bm{\dot{h}}$ & ${\dot{H}} $ & $\bm{\dot{H}}$\\
+$\hat{i}$ & $\bm{\hat{i}}$ & ${\hat{I}} $ & $\bm{\hat{I}}$ & $\dot{i}$ & $\bm{\dot{i}}$ & ${\dot{I}} $ & $\bm{\dot{I}}$\\
+$\hat{j}$ & $\bm{\hat{j}}$ & ${\hat{J}} $ & $\bm{\hat{J}}$ & $\dot{j}$ & $\bm{\dot{j}}$ & ${\dot{J}} $ & $\bm{\dot{J}}$\\
+$\hat{k}$ & $\bm{\hat{k}}$ & ${\hat{K}} $ & $\bm{\hat{K}}$ & $\dot{k}$ & $\bm{\dot{k}}$ & ${\dot{K}} $ & $\bm{\dot{K}}$\\
+$\hat{l}$ & $\bm{\hat{l}}$ & ${\hat{L}} $ & $\bm{\hat{L}}$ & $\dot{l}$ & $\bm{\dot{l}}$ & ${\dot{L}} $ & $\bm{\dot{L}}$\\
+$\hat{m}$ & $\bm{\hat{m}}$ & ${\hat{M}} $ & $\bm{\hat{M}}$ & $\dot{m}$ & $\bm{\dot{m}}$ & ${\dot{M}} $ & $\bm{\dot{M}}$\\
+$\hat{n}$ & $\bm{\hat{n}}$ & ${\hat{N}} $ & $\bm{\hat{N}}$ & $\dot{n}$ & $\bm{\dot{n}}$ & ${\dot{N}} $ & $\bm{\dot{N}}$\\
+$\hat{o}$ & $\bm{\hat{o}}$ & ${\hat{O}} $ & $\bm{\hat{O}}$ & $\dot{o}$ & $\bm{\dot{o}}$ & ${\dot{O}} $ & $\bm{\dot{O}}$\\
+$\hat{p}$ & $\bm{\hat{p}}$ & ${\hat{P}} $ & $\bm{\hat{P}}$ & $\dot{p}$ & $\bm{\dot{p}}$ & ${\dot{P}} $ & $\bm{\dot{P}}$\\
+$\hat{q}$ & $\bm{\hat{q}}$ & ${\hat{Q}} $ & $\bm{\hat{Q}}$ & $\dot{q}$ & $\bm{\dot{q}}$ & ${\dot{Q}} $ & $\bm{\dot{Q}}$\\
+$\hat{r}$ & $\bm{\hat{r}}$ & ${\hat{R}} $ & $\bm{\hat{R}}$ & $\dot{r}$ & $\bm{\dot{r}}$ & ${\dot{R}} $ & $\bm{\dot{R}}$\\
+$\hat{s}$ & $\bm{\hat{s}}$ & ${\hat{S}} $ & $\bm{\hat{S}}$ & $\dot{s}$ & $\bm{\dot{s}}$ & ${\dot{S}} $ & $\bm{\dot{S}}$\\
+$\hat{t}$ & $\bm{\hat{t}}$ & ${\hat{T}} $ & $\bm{\hat{T}}$ & $\dot{t}$ & $\bm{\dot{t}}$ & ${\dot{T}} $ & $\bm{\dot{T}}$\\
+$\hat{u}$ & $\bm{\hat{u}}$ & ${\hat{U}} $ & $\bm{\hat{U}}$ & $\dot{u}$ & $\bm{\dot{u}}$ & ${\dot{U}} $ & $\bm{\dot{U}}$\\
+$\hat{v}$ & $\bm{\hat{v}}$ & ${\hat{V}} $ & $\bm{\hat{V}}$ & $\dot{v}$ & $\bm{\dot{v}}$ & ${\dot{V}} $ & $\bm{\dot{V}}$\\
+$\hat{w}$ & $\bm{\hat{w}}$ & ${\hat{W}} $ & $\bm{\hat{W}}$ & $\dot{w}$ & $\bm{\dot{w}}$ & ${\dot{W}} $ & $\bm{\dot{W}}$\\
+$\hat{x}$ & $\bm{\hat{x}}$ & ${\hat{X}} $ & $\bm{\hat{X}}$ & $\dot{x}$ & $\bm{\dot{x}}$ & ${\dot{X}} $ & $\bm{\dot{X}}$\\
+$\hat{y}$ & $\bm{\hat{y}}$ & ${\hat{Y}} $ & $\bm{\hat{Y}}$ & $\dot{y}$ & $\bm{\dot{y}}$ & ${\dot{Y}} $ & $\bm{\dot{Y}}$\\
+$\hat{z}$ & $\bm{\hat{z}}$ & ${\hat{Z}} $ & $\bm{\hat{Z}}$ & $\dot{z}$ & $\bm{\dot{z}}$ & ${\dot{Z}} $ & $\bm{\dot{Z}}$\\
+\end{tabular}
+
+\end{document}

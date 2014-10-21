@@ -1,0 +1,93 @@
+Titel: Schulausgangsschriften
+Autor: Walter Entenmann
+E-mail: walter.entenmann@t-online.de
+Datum: 30.10.2012
+Lizenz: free lppl 
+        "This material is subject to the LaTeX Projekt Public License".
+Paket-Name: schulschriften
+Version: 1
+Last update: 04.11.2012, 07.11.2012, 14.11.2012
+Kurzbeschreibung: 
+Die in METAFONT implementierten Schrift-Fonts ermoeglichen das
+verbundene Schreiben von Texten in den an deutschen Schulen
+in der Vergangenheit und heute fuer den
+Schreibunterricht zugelassenen
+deutschen und lateinischen Schulausgangsschriften.
+Dazu gehoeren 
+die Suetterlinschrift                (1911), (SU)  <font>=wesu 
+die Deutsche Normalschrift           (1941), (DN)  <font>=wedn
+die lateinische Ausagangsschrift     (1953), (LA)  <font>=wela
+die Schulausgangsschrift  (1968, ehem. DDR), (SAS) <font>=wesa 
+und die Vereinfachte Ausgangsschrift (1972), (VA)  <font>=weva. 
+
+Wenn man das Paket mit
+              unzip schulschriften.zip
+im aktuellen Arbeitsverzeichnis entpackt,
+wird ein Unterverzeichnis schulschriften geoeffnet,
+das  dieses README-File und die weiteren Unterverzeichnisse 
+doc, tex, source  enthaelt.
+
+doc/
+Die Dokumentation findet man im Unterverzeichnis doc 
+als pdf-File und als LaTeX-File. Das pdf-Dokument kann man dort
+mit dem Acrobat-Reader wie folgt lesen
+                  acroread schulschriften.pdf
+
+tex/
+Im Unterverzeichnis tex befinden sich 
+die fuer alle Fonts gemeinsamen Stil- und Beispielfiles
+schulschriften_lin.sty, _ltx.sty, _xpl.tex und _ltx.tex.
+In den weiteren Unterverzeichnissen
+wesu, wedn, wela, wesa, weva liegen fuer jeden Font 
+das Fontdefinitionsfile t1<font>.fd,
+das Fontbefehlsdefinitionsfile <font>.sty und die
+Fonttabelle <font>_fonttabelle.eps.
+
+source/
+Die MetaFont-Quellfiles  befinden sich im Unterverzeichnis source.
+Dieses ist weiter gegliedert in die  Unterverzeichnisse 
+wesu, wedn, wela, wesa, weva, 
+die die *.mf-Files fuer die einzelnen Fonts enthalten.
+
+Das weitere Vorgehen ist in der Dokumentation beschrieben.
+Hier nur eine Kurzanleitung:
+Damit man die Fonts in LaTeX-Dokumenten im ganzen Heimatverzeichnis
+benuetzen kann, muss man sicherstellen, dass die benoetigten Quellfiles etc.
+bei der latex- und dvips-Bearbeitung gefunden werden. 
+Deshalb ist es sehr zweckmaessig, die Files des Pakets
+in einen lokalen texmf-Baum im Home-Directory zu verschieben.
+Dieser sollte folgende Struktur haben:
+~/texmf/tex/latex
+       /fonts/source/
+       /doc/
+
+In diesem ~/texmf-Baum duerfen die Unterverzeichnisse schulschriften
+noch nicht existieren. Im Falle eines Updates muss man diese 
+gegebenenfalls loeschen, bevor man die Files dorthin kopiert.
+
+Zum Kopieren der Files geht man in das Unterverzeichnis schulschriften, 
+das beim Entpacken des Pakets entstanden ist, und gibt die Kommandos:
+cp -r tex ~/texmf/tex/latex/schulschriften
+cp -r source ~/texmf/fonts/source/schulschriften
+cp doc/*.pdf ~/texmf/doc
+cp doc/*.tex ~/texmf/tex/latex/schulschriften
+
+Zum Abschluss gibt man noch die beiden Kommandos:
+sudo mktexlsr
+sudo chown <user>:<user> ~/texmf/ls-R
+Fuer <user> ist der Benutzername einzusetzen. 
+
+Auf manchen Systemen genuegt es statt dessen, nur das Kommando
+mktexlsr ~/texmf
+auszufuehren.
+
+Damit ist die Installation beendet.
+
+Die Dokumentation erhaelt man jetzt mit dem Befehl
+texdoc schulschriften.
+
+
+Fuer Hinweise auf Fehler und fuer Verbesserungsvorschlaege waere ich
+sehr dankbar.
+
+end-of-file

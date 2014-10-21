@@ -1,0 +1,846 @@
+% $Id: manDCPiCpt.tex 13 2013-04-21 15:28:45Z pedro $
+\documentclass[a4paper,11pt]{article}
+\usepackage{a4wide}
+\usepackage[portuguese]{babel}
+\usepackage{ae} % Virtual fonts for PDF-files with T1 encoded CMR-fonts.
+\usepackage[T1]{fontenc}
+\usepackage[utf8x]{inputenc}
+\usepackage{dcpic,pictex}
+\usepackage{alltt}
+\usepackage{verbatim}
+\usepackage{longtable} 
+\usepackage{svn-multi}
+\usepackage{listings}
+\usepackage{url}
+
+\svnidlong
+{$HeadURL: svn+ssh://gentzen.mat.uc.pt/var/lib/svn/DCPiC/CTAN5.0/manDCPiCpt.tex $}
+{$LastChangedDate: 2013-05-01 19:49:49 +0100 (Qua, 01 Mai 2013) $}
+{$LastChangedRevision: 15 $}
+{$LastChangedBy: pedro $}
+
+\svnid{$Id: manDCPiCpt.tex 13 2013-04-21 15:28:45Z pedro $}
+
+\newcommand{\docversion}{\svnyear/\svnmonth/\svnday\ (v\svnrev)}
+
+\def\dcpicversion{v5.0.0}
+
+\lstset{language=TeX,
+  frame = single,
+  morekeywords={begindc,enddc,cmor,pup,commdiag,undigraph,digraph,cdigraph,cundigraph,obj,mor,pleft,pup,pdown,pright,north,northeast,east,southeast,south,southwest,west,northwest,atright,atleft,solidarrow,dashArrow,dotArrow,solidline,dashline,dotline,injectionarrow,aplicationarrow,surjectivearrow,equalline,doublearrow,doubleopposite,nullarrow},
+  basicstyle=\scriptsize}
+
+
+\title{DCpic (5.0) --- Manual de Utilização\\
+\docversion}
+
+\author{Pedro Quaresma\\ CISUC/Departamento de Matemática,
+  Universidade de Coimbra\\ 3001-454 COIMBRA, PORTUGAL\\
+    \url{pedro@mat.uc.pt}\quad phone: +351-239~791~137\quad fax:
+  +351-239~832~568} 
+
+\date{2013/05/01}
+
+\begin{document}
+
+\maketitle
+
+\begin{abstract}
+ O {\em DCpic\/} é um conjunto de comandos para a escrita de grafos,
+ para tal desenvolveu-se um conjunto de comandos, com uma sintaxe
+ simples, que permite a construção de quase todo o tipo de grafos.
+
+ Originalmente o {\em DCpic\/} ({\bf D}iagramas {\bf C}omutativos
+ utilizando o {\bf PiC}TeX) foi concebido para a construção de
+ diagramas comutativos tal como são usados em Teoria das
+ Categorias~\cite{Herrlich73,Pierce98}, temos então grafos etiquetados
+ e com elementos nos nós. A partir da versão 4.0 o conjunto de
+ comandos foi alterada de forma a considerar-se também a construção de
+ grafos dirigidos, e grafos não dirigidos. A forma de os especificar
+ recorre à colocação dos diferentes objectos (nós e arestas) num dado
+ referencial ortonormado,
+
+ O {\em DCpic} está baseado no \PiCTeX\ necessitando deste para poder
+ ser usado.
+\end{abstract}
+
+\vfill
+\begin{quotation}
+This work may be distributed and/or modified under the
+conditions of the LaTeX Project Public License, either version 1.3
+of this license or (at your option) any later version.
+The latest version of this license is in
+  http://www.latex-project.org/lppl.txt
+and version 1.3 or later is part of all distributions of LaTeX
+version 2005/12/01 or later.
+This work has the LPPL maintenance status `maintained'.
+
+The Current Maintainer of this work is Pedro Quaresma (\url{pedro@mat.uc.pt}).
+
+This work consists of the files dcpic.sty.
+\end{quotation}
+
+\vspace*{2cm}
+\noindent Coimbra, 2013/04/21\\
+Pedro Quaresma
+
+\pagebreak
+\section{Hist\'oria}
+
+\begin{description}
+\item[11/1990 - versão 1.0]
+\item[10/1991 - versão 1.1]
+\item[9/1993 - versão 1.2:] argumento ``distância entre as
+  extremidades da seta e os objectos'' passou a ser opcional; uma nova
+  opção para as ``setas'' (opção 3).
+\item[2/3/1995 - versão 1.3:] foi acrescentado o tipo de seta de
+  aplicação (opção 4) a distância da etiqueta
+  à seta respectiva passou a ser fixa (10 unidades de medida).
+
+\item[15/7/1996 - vers\~ao 2.1:] o comando {\tt mor} passou a ter uma
+  sintaxe distinta. Os parâmetros 5 e 6 passaram a ser a
+  distância entre os objectos e os extremos da seta o
+  parâmetro 7 é o nome do morfismo e os parâmetros 8 e 9,
+  colocação do morfismo e tipo de morfismo passaram a ser
+  opcionais.
+
+\item[5/2001 - versão 3.0:] implementação do comando
+  {\tt cmor} baseado no comando de desenho de curvas quadráticas pelo
+  \PiCTeX.
+
+\item[11/2001 - versão 3.1:] modificação das pontas das
+  setas de forma a estas ficarem semelhantes às setas
+  (símbolos) dos TeX.
+
+\item[1/2002 - versão 3.2:] modificação dos comandos {\tt obj}
+  e {\tt mor} de forma a introduzir a especificação lógica
+  dos morfismos, isto é, passa-se a dizer qual é o objecto de
+  partida e/ou o objecto de chegada em vez de ter de especificar o
+  morfismo em termos de coordenadas.  Por outro lado o tamanho das
+  setas passa a ser ajustado automaticamente em relação ao
+  tamanho dos objectos.
+
+\item[5/2002 - vers\~ao 4.0:] {\bf vers\~ao incompatível com as
+    anteriores}. Modificação dos comandos {\tt begindc} e {\tt obj}. O
+  primeiro passou a ter um argumento (obrigat\'orio) que nos
+  permite especificar o tipo de grafo que estamos a querer
+  especificar:
+  \begin{itemize}
+  \item {\tt commdiag} (0), para diagramas comutativos;
+  \item {\tt digraph} (1), para grafos orientados;
+  \item {\tt undigraph} (2), para grafos n\~ao orientados.
+  \end{itemize}
+
+  O comando {\tt obj} modificou a sua sintaxe passou a ter um (após a
+  especifica\c c\~ao das coordenadas, um argumento opcional, um argumento
+  obrigat\'orio, e um argumento opcional. O primeiro argumento opcional
+  d\'a-nos a etiqueta que serve como refer\^encia para a especifica\c c\~ao dos
+  morfismos, na sua aus\^encia usa-se o argumento obrigat\'orio para esse
+  efeito, o argumento obrigat\'orio d\'a-nos o ``conte\'udo'' do objecto, nos
+  diagramas comutativos \'e centrado no ponto dado pelas coordenadas
+  sendo o argumento seguinte simplesmente ignorado, nos grafos o
+  ``conte\'udo'' \'e colocado numa posi\c c\~ao a norte, a noroeste, a este, \ldots,
+  sendo que a posi\c c\~ao concreta \'e especificada pelo \'ultimo dos
+  argumentos deste comando, o valor por omiss\~ao \'e o {\tt norte}.
+
+\item[3/2003 - vers\~ao 4.1:] a pedido de Jon Barker \url{<jeb1@soton.ac.uk>}
+  criei um novo tipo de seta, a seta de sobrejec\c c\~ao.  Para j\'a a dupla
+  seta s\'o fica bem nas setas horizontais ou verticais.
+
+\item[12/2004 - vers\~ao 4.1.1:] nova vers\~ao das setas de sobrejec\c c\~ao que
+  corrigue completamente os problemas da solu\c c\~ao anterior.
+
+\item[3/2007 - vers\~ao 4.2:] acrescenta a directiva
+  ``providespackage''. Acrescenta linhas a ponteado e a tracejado.
+
+\item[5/2008 - vers\~ao 4.2.1:] apaga alguns contadores para tentar
+  diminuir o excessivo uso dos mesmos por parte do PiCTeX.
+
+\item[8/2008 - vers\~ao 4.3:] gra\c cas a Ruben Debeerst
+  \url{<debeerst@mathematik.uni-kassel.de>}, acrescentei uma nova
+  ``seta'' a ``equalline''. Ap\'os isso decidi tamb\'em acrescentar
+  setas duplas, com o mesmo ou diferentes sentidos. Acrescentou-se
+  também a seta nula, isto é, sem representação gráfica, a qual pode
+  ser usada para acrescentar etiquetas a outras ``setas''.
+
+\item[12/2008 - version 4.3.1:] para evitar conflitos com outros
+  pacotes o comando ``id'' \'e internalizado. O comando ``dasharrow'' \'e
+  modificado para ``dashArrow'' para evitar um conflito com o AMSTeX.
+
+\item[12/2009 - version 4.3.2:] para evitar um conflito com o pacote
+  ``hyperref'' mudou-se o contador ``d'' para ``deuc'', aproveitei e 
+  mudei os contadores ``x'' e ``y'' para ``xO'' e ``yO'' 
+
+\item[4/2013 - version 4.4.0:] graças a Xingliang Liang
+  \url{jkl9543@gmail.com>} acrescentou-se uma nova seta ``dotarrow''.
+
+\item[4/2013 - version 5.0:] {\bf uma nova unidade para o sistema de
+    coordenadas}, 1/10 da anterior. Esta nova unidade permite
+  corriguir um problema com a construção das setas duplas, além de
+  permitir uma especificação mais fina dos diagramas.
+\end{description}
+
+\section{Introdução} 
+
+O conjunto de comandos {\em DCpic} é um conjunto de comandos
+\TeX~\cite{Knuth86} dedicado à escrita de diagramas tal como são
+usados em Teoria das Categorias~\cite{Herrlich73,Pierce98}, assim como
+de grafos dirigidos e não dirigidos~\cite{Harary72}.
+
+Pretendeu-se com a sua escrita ter uma forma simples de especificar
+grafos, fazendo-o através da especificação de um conjunto de
+``objectos'' (nós do grafo) colocados num dado referencial
+ortonormado, e através de um conjuntos de morfismos (arestas) que os
+são posicionados explicitamente no referido referencial, ou então,
+a são posição é dada especificando qual é o seu nó de
+partida e qual é o seu nó de chegada.
+
+O gráfico em si é construído recorrendo aos comandos gráficos
+do \PiCTeX.
+
+\section{Utilização}
+
+Antes de mais é necessário carregar os dois conjuntos de comandos
+acima referidos, no caso de um documento \LaTeX~\cite{Lamport94} isso
+pode ser feito com o seguinte comando (no preâmbulo).
+
+\begin{verbatim}
+\usepackage{dcpic,pictex}
+\end{verbatim}
+
+Nos outros formatos ter-se-á de usar um comando equivalente. Após
+isso os diagramas podem ser escritos através dos comandos
+disponibilizados pelo {\em DCpic}.  Por exemplo, os comandos:
+
+
+\begin{lstlisting}
+\begindc{\commdiag}[200]
+ \obj(1,4){$A^B$}
+ \obj(1,1){$C$}
+ \obj(3,4){$A$}
+ \obj(3,1){$C\times{}B$}
+ \obj(6,4){$A^B\times{}B$}
+ \mor{$C$}{$A^B$}{$f$}
+ \mor{$C\times{}B$}{$A$}{$\bar f$}[\atleft,\dashArrow]
+ \mor{$A^B\times{}B$}{$A$}{$ev$}[\atright,\solidarrow]
+ \mor{$C\times{}B$}{$A^B\times{}B$}{$f\times{}id$}[\atright,\solidarrow]
+\enddc
+\end{lstlisting}
+
+produzem o seguinte diagrama:
+
+$$
+\begindc{\commdiag}[200]
+ \obj(1,4){$A^B$}
+ \obj(1,1){$C$}
+ \obj(3,4){$A$}
+ \obj(3,1){$C\times{}B$}
+ \obj(6,4){$A^B\times{}B$}
+ \mor{$C$}{$A^B$}{$f$}
+ \mor{$C\times{}B$}{$A$}{$\bar f$}[\atleft,\dashArrow]
+ \mor{$A^B\times{}B$}{$A$}{$ev$}[\atright,\solidarrow]
+ \mor{$C\times{}B$}{$A^B\times{}B$}{$f\times{}id$}[\atright,\solidarrow]
+\enddc
+$$
+
+O meio ambiente {\tt begindc}, {\tt enddc} permite-nos construir um
+grafo por colocação dos objectos num referencial ortonormado tendo
+a origem em (0,0). As arestas (morfismos) vão ligar pares de nós
+(objectos) entre si.
+
+\section{Comandos Disponíveis}
+
+De seguida apresenta-se a descrição dos comandos, a sua sintaxe e
+a sua funcionalidade. Os argumentos entre parêntesis rectos são
+opcionais.
+
+\begin{description}
+\item[\tt $\backslash$begindc\{\#1\}[\#2\mbox{]}] -- entrada no ambiente de
+  escrita de grafos:
+
+  \begin{tabular}{r@{ -- }l}
+    {\tt \#1} & tipo de grafo\\
+    \multicolumn{2}{l}{\quad $0\equiv\backslash$commdiag, diagrama comutativo;}\\
+    \multicolumn{2}{l}{\quad $1\equiv\backslash$digraph, grafo orientado;}\\
+    \multicolumn{2}{l}{\quad $2\equiv\backslash$undigraph, grafo não orientado;}\\
+    \multicolumn{2}{l}{\quad $3\equiv\backslash$cdigraph, grafo orientado, com
+      objectos circunscritos;}\\
+    \multicolumn{2}{l}{\quad $4\equiv\backslash$cundigraph, grafo não orientado,
+      com objectos circunscritos.}\\
+    {\tt \#2} & factor de escala (opcional)\\
+    \multicolumn{2}{l}{\quad valor por omissão: 300}
+  \end{tabular}
+  
+\item[\tt $\backslash$enddc] -- saída do meio ambiente para a
+  escrita de grafos.  
+
+\item[{\tt $\backslash$obj(\#1,\#2)[\#3]\{\#4\}[\#5]}:] comando de colocação
+  dos nós (objectos).  
+
+  \begin{tabular}{r@{ -- }l}
+    {\tt \#1} e  {\tt \#2}& coordenadas do centro da caixa que vai
+    conter o texto\\
+    {\tt \#3} & etiqueta para identificar o objecto (opcional)\\
+    {\tt \#4} & texto (conte{\'u}do do nó)\\
+    {\tt \#5} & colocação relativa do objecto (opcional)\\
+    \multicolumn{2}{l}{\qquad\quad $0\doteq\backslash$pcent, centrado}\\
+    \multicolumn{2}{l}{\qquad\quad $1\doteq\backslash$north, norte}\\
+    \multicolumn{2}{l}{\qquad\quad $2\doteq\backslash$northeast, nordeste}\\
+    \multicolumn{2}{l}{\qquad\quad $3\doteq\backslash$east, este}\\
+    \multicolumn{2}{l}{\qquad\quad $4\doteq\backslash$southeast, sudeste}\\
+    \multicolumn{2}{l}{\qquad\quad $5\doteq\backslash$south, sul}\\
+    \multicolumn{2}{l}{\qquad\quad $6\doteq\backslash$southwest, sudoeste}\\
+    \multicolumn{2}{l}{\qquad\quad $7\doteq\backslash$west, oeste}\\
+    \multicolumn{2}{l}{\qquad\quad $8\doteq\backslash$northwest, noroeste}
+  \end{tabular}
+
+A etiqueta explícita-se quando não é possível usar o objecto como
+forma de identificação do nó, por exemplo num dado grafo não orientado
+os nós podem não ter conteúdo e como tal serem todos iguais em termos
+de identificação:
+
+Em alguns casos, por exemplo comandos dos \LaTeX\ complexos, pode ser
+necessário explicitar o argumento {\tt \#3} mesmo que seja através da
+etiqueta vazia {\tt []}. Esse especificar da etiqueta vazia torna-se
+necessário para que o mecanismo interno do DCpic de comunicação entre
+comandos (pilhas) não se baralhe e entre num ciclo infinito.
+
+
+$$ 
+\begindc{\undigraph}[200]
+\obj(1,1)[1]{}
+\obj(3,2)[2]{}
+\obj(5,1)[3]{}
+\obj(3,4)[4]{}
+\mor{1}{2}{}
+\mor{1}{3}{}
+\mor{2}{3}{}
+\mor{4}{1}{}
+\mor{4}{3}{}
+\mor{2}{4}{}
+\enddc
+$$
+foi produzido por:
+\begin{lstlisting}
+\begindc{\undigraph}[200]
+\obj(1,1)[1]{}
+\obj(3,2)[2]{}
+\obj(5,1)[3]{}
+\obj(3,4)[4]{}
+\mor{1}{2}{}
+\mor{1}{3}{}
+\mor{2}{3}{}
+\mor{4}{1}{}
+\mor{4}{3}{}
+\mor{2}{4}{}
+\enddc
+\end{lstlisting}
+
+
+O parâmetro referente à colocação do objecto só é relevante quando se
+pensa na identificação dos nós num dado grafo orientado (ou não), por
+exemplo o grafo ``Around the Word''~\cite{Harary72}:
+
+$$
+\begindc{\undigraph}[70]
+\obj(6,4){18}[\south]
+\obj(18,4){17}[\south]
+\obj(8,7){11}[\west]
+\obj(12,8){12}[\south]
+\obj(16,7){13}[\east]
+\obj(8,11){10}[\west]
+\obj(10,12){6}[\northwest]
+\obj(12,10){5}
+\obj(14,12){4}[\northeast]
+\obj(16,11){14}[\east]
+\obj(2,16){19}
+\obj(6,15){9}
+\obj(9,16){8}
+\obj(11,14){7}
+\obj(13,14){3}
+\obj(15,16){2}
+\obj(18,15){15}
+\obj(22,16){16}
+\obj(12,19){1}[\northeast]
+\obj(12,22){20}
+\mor{18}{17}{}\mor{18}{11}{}\mor{18}{19}{}
+\mor{11}{12}{}\mor{11}{10}{}\mor{12}{13}{}
+\mor{12}{5}{}\mor{10}{6}{}\mor{10}{9}{}
+\mor{5}{6}{}\mor{5}{4}{}\mor{13}{17}{}
+\mor{13}{14}{}\mor{9}{19}{}\mor{9}{8}{}
+\mor{6}{7}{}\mor{4}{3}{}\mor{4}{14}{}
+\mor{19}{20}{}\mor{8}{1}{}\mor{8}{7}{}
+\mor{7}{3}{}\mor{3}{2}{}\mor{2}{1}{}
+\mor{2}{15}{}\mor{14}{15}{}\mor{17}{16}{}
+\mor{16}{20}{}\mor{1}{20}{}\mor{15}{16}{}
+\enddc
+$$
+foi produzido por 
+\begin{lstlisting}
+\begindc{\undigraph}[70]
+\obj(6,4){18}[\south]
+\obj(18,4){17}[\south]
+\obj(8,7){11}[\west]
+\obj(12,8){12}[\south]
+\obj(16,7){13}[\east]
+\obj(8,11){10}[\west]
+\obj(10,12){6}[\northwest]
+\obj(12,10){5}
+\obj(14,12){4}[\northeast]
+\obj(16,11){14}[\east]
+\obj(2,16){19}
+\obj(6,15){9}
+\obj(9,16){8}
+\obj(11,14){7}
+\obj(13,14){3}
+\obj(15,16){2}
+\obj(18,15){15}
+\obj(22,16){16}
+\obj(12,19){1}[\northeast]
+\obj(12,22){20}
+\mor{18}{17}{}\mor{18}{11}{}\mor{18}{19}{}
+\mor{11}{12}{}\mor{11}{10}{}\mor{12}{13}{}
+\mor{12}{5}{}\mor{10}{6}{}\mor{10}{9}{}
+\mor{5}{6}{}\mor{5}{4}{}\mor{13}{17}{}
+\mor{13}{14}{}\mor{9}{19}{}\mor{9}{8}{}
+\mor{6}{7}{}\mor{4}{3}{}\mor{4}{14}{}
+\mor{19}{20}{}\mor{8}{1}{}\mor{8}{7}{}
+\mor{7}{3}{}\mor{3}{2}{}\mor{2}{1}{}
+\mor{2}{15}{}\mor{14}{15}{}\mor{17}{16}{}
+\mor{16}{20}{}\mor{1}{20}{}\mor{15}{16}{}
+\enddc
+\end{lstlisting}
+
+
+
+\item[{\tt $\backslash$mor\{\#1\}\{\#2\}[\#5,\#6]\{\#7\}[\#8,\#9]}:]
+  Comando de colocação da seta (morfismo) de ligação de dois objectos
+  -- Primeira variante.
+
+  A numeração errada dos argumentos é aqui feita propositadamente,
+  aquando da explicação da segunda variante deste comando
+  compreender-se-á o porquê desta opção de escrita.
+
+  \begin{longtable}{r@{ -- }p{32em}}
+    {\tt \#1} & referência do nó de partida\\
+    {\tt \#2} & referência do nó de chegada\\
+    {\tt \#5} e  {\tt \#6} & distância do centro dos objectos às
+    extremidades inicial e final respectivamente da seta. Valores por
+    omissão: 10, 10 (para diagramas) 2, 2 (para os grafos)\\
+    {\tt \#7} & texto, ``nome'' do morfismo\\
+    {\tt \#8} & colocação do nome do morfismo em relação à seta. Valor
+    por omissão, $\backslash$atleft. \\
+    \multicolumn{2}{l}{\hspace*{4.5em} 1 $\doteq\backslash$atright, à direita}\\ 
+    \multicolumn{2}{l}{\hspace*{4.5em} -1 $\doteq\backslash$atleft, à esquerda}\\
+    {\tt \#9} & tipo da seta. Valor por omissão, $\backslash$solidarrow.\\
+    \multicolumn{2}{l}{\hspace*{4.5em} 0 $\doteq\backslash$solidarrow, seta sólida} \\
+    \multicolumn{2}{l}{\hspace*{4.5em} 1 $\doteq\backslash$dashArrow, seta tracejada} \\
+    \multicolumn{2}{l}{\hspace*{4.5em} 2 $\doteq\backslash$dotArrow, seta ponteada} \\
+    \multicolumn{2}{l}{\hspace*{4.5em} 3 $\doteq\backslash$solidline, linha sólida} \\
+    \multicolumn{2}{l}{\hspace*{4.5em} 4 $\doteq\backslash$dashline, linha a tracejado} \\
+    \multicolumn{2}{l}{\hspace*{4.5em} 5 $\doteq\backslash$dotline, linha a ponteado} \\
+    \multicolumn{2}{l}{\hspace*{4.5em} 6 $\doteq\backslash$injectionarrow, seta de
+      injecção. Valor anterior 3 (vers\~ao $<$ 4.2) } \\
+    \multicolumn{2}{l}{\hspace*{4.5em} 7 $\doteq\backslash$aplicationarrow, seta de
+      aplicação. Valor anterior 4 (vers\~ao $<$ 4.2) } \\ 
+    \multicolumn{2}{l}{\hspace*{4.5em} 8 $\doteq\backslash$surjectivearrow, seta de
+      função sobrejectiva. Valor anterior 5 (vers\~ao $<$ 4.2) }\\ 
+    \multicolumn{2}{l}{\hspace*{4.5em} 9 $\doteq\backslash$equalline, linha dupla}\\ 
+    \multicolumn{2}{l}{\hspace*{4.5em} 10
+      $\doteq\backslash$doublearrow, seta dupla}\\ 
+    \multicolumn{2}{l}{\hspace*{4.5em} 11
+      $\doteq\backslash$doubleopposite, seta dupla em sentidos opostos}\\ 
+    \multicolumn{2}{l}{\hspace*{4.5em} 12
+      $\doteq\backslash$nullarrow, seta nula, serve o propósito de
+      acrescentar etiquetas as outras ``setas''.}\\ 
+    \end{longtable}
+
+\item[{\tt $\backslash$mor(\#1,\#2)(\#3,\#4)[\#5,\#6]\{\#7\}[\#8,\#9]}:]
+  Comando de colocação da seta (morfismo) de ligação de dois objectos
+  -- Segunda variante.
+
+  \begin{longtable}{r@{ -- }p{32em}}
+    {\tt \#1} e  {\tt \#2} & coordenadas do nó de partida\\
+    {\tt \#3} e  {\tt \#4} & coordenadas do nó de chegada\\
+  \end{longtable}
+
+  Todos os outros argumentos têm o significado já explicado (por
+  isso a numeração errada). É de notar que para a primeira variante é
+  feito o cálculo das coordenadas dos nós de forma automática e depois
+  são passados esses valores para a segunda variante do comando.
+
+
+\item[{\tt $\backslash$cmor(\#1) \#2(\#3,\#4)\{\#5\}[\#6]}] comando para a
+  especificação de setas curvas. O algoritmo de construção das setas é
+  o do \PiCTeX\ o que implica que se está a especificar uma linha
+  quadrática através de um número ímpar de pontos. 
+
+  \begin{tabular}{c@{---}l}
+    {\tt \#1} & lista de pontos, em número ímpar \\
+    {\tt \#2} & direccionamento da seta \\
+    \multicolumn{2}{l}{\qquad 0 $\doteq\backslash$pup, apontar para cima}\\ 
+    \multicolumn{2}{l}{\qquad 1 $\doteq \backslash$pdown, apontar para
+      baixo}\\
+    \multicolumn{2}{l}{\qquad 2 $\doteq \backslash$pright, apontar para a
+      direita}\\
+    \multicolumn{2}{l}{\qquad 3 $\doteq \backslash$pleft, apontar para a
+      esquerda}\\ 
+    {\tt \#3} & abcissa do morfismo\\
+    {\tt \#4} & ordenada do morfismo\\
+    {\tt \#5} & morfismo\\
+    {\tt \#6} & tipo de ``seta'', valor por omissão: 0, seta
+    sólida.\\
+    \multicolumn{2}{l}{\hspace*{4.5em} Os restantes valores poss\'\i veis
+      s\~ao os descritos na variante anterior.}\\  
+
+ \end{tabular}
+
+  O comando {\tt cmor} no caso em que não tem o último parâmetro opcional
+  tem de ser seguido por um espaço. O espaço antes do direccionamento
+  da seta é obrigatório.
+
+  No caso de se ter o valor 2 (``$\backslash$solidline'') o valor para o
+  direccionamento da seta não é tipo em conta, no entanto dado se
+  tratar de um do parâmetro obrigatório é necessário dar-lhe um valor
+\end{description}
+
+
+\section{Alguns Exemplos}
+
+
+\subsection{Setas Duplas, Transformações Naturais, \ldots}
+
+É de notar que alguns casos aparentemente omissos na actual versão
+podem perfeitamente ser construídos através de uma utilização
+imaginativa dos actuais comandos. Por exemplo os seguintes diagramas: 
+
+$$
+\begindc{\commdiag}[30]
+\obj(5,5){$A$}
+\obj(20,5){$B$}
+\mor{$A$}{$B$}{$f$}[\atright,\doublearrow]
+\mor{$A$}{$B$}{$g$}[\atleft,\nullarrow]
+\enddc
+\qquad\qquad\qquad
+\begindc{\commdiag}[140]
+\obj(5,5){$A$}
+\obj(9,5){$B$}
+\mor(5,6)(9,6){$\downarrow\sigma$}[\atright,\solidarrow]
+\mor{$A$}{$B$}{}
+\mor(5,4)(9,4){$\downarrow\tau$}
+\enddc
+$$
+
+Podem ser construídos com a actual versão. Eis como:
+
+
+\begin{lstlisting}
+\begindc{\commdiag}[30]
+\obj(5,5){$A$}
+\obj(20,5){$B$}
+\mor{$A$}{$B$}{$f$}[\atright,\doublearrow]
+\mor{$A$}{$B$}{$g$}[\atleft,\nullarrow]
+
+\begindc{\commdiag}[14]
+\obj(5,5){$A$}
+\obj(9,5){$B$}
+\mor(5,6)(9,6){$\downarrow\sigma$}[\atright,\solidarrow]
+\mor{$A$}{$B$}{}
+\mor(5,4)(9,4){$\downarrow\tau$}
+\enddc
+\end{lstlisting}
+
+
+\subsection{Grafos Orientados com Objectos Circunscritos}
+
+
+$$
+\begindc{\cdigraph}[250]
+\obj(1,5){A}
+\obj(1,4){B}
+\obj(1,1){C}
+\obj(5,5){E}
+\obj(5,3){F}
+\obj(5,1){G}
+\mor{A}{E}[80,80]{5}
+\mor{A}{F}[80,80]{3}
+\mor{B}{F}[80,80]{6}[\atright,\solidarrow]
+\mor{B}{E}[80,80]{1}
+\mor{C}{F}[80,80]{5}
+\mor{C}{G}[80,80]{7}
+\enddc
+$$
+
+Foi produzido através dos seguintes comandos:
+
+
+\begin{lstlisting}
+\begindc{\commdiag}[250]
+\obj(1,5){A}
+\obj(1,4){B}
+\obj(1,1){C}
+\obj(5,5){E}
+\obj(5,3){F}
+\obj(5,1){G}
+\mor{A}{E}[80,80]{5}
+\mor{A}{F}[80,80]{3}
+\mor{B}{F}[80,80]{6}[\atright,\solidarrow]
+\mor{B}{E}[80,80]{1}
+\mor{C}{F}[80,80]{5}
+\mor{C}{G}[80,80]{7}
+\enddc
+\end{lstlisting}
+
+\subsection{Diferentes Tipos de Setas/Linhas}
+
+
+\begin{lstlisting}
+\begindc{\commdiag}[250]
+\obj(10,10)[A]{$OOOOOO$}
+\obj(15,10)[A0]{$A_0$}
+\obj(14,11)[A1]{$A_1$}
+\obj(13,12)[A2]{$A_2$}
+\obj(12,13)[A3]{$A_3$}
+\obj(10,14)[A4]{$A_4$}
+\obj(9,13)[A5]{$A_5$}
+\obj(8,12)[A6]{$A_6$}
+\obj(7,11)[A7]{$A_7$}
+\obj(6,10)[A8]{$A_8$}
+\obj(7,9)[A9]{$A_9$}
+\obj(9,8)[A10]{$A_{10}$}
+\obj(12,8)[A11]{$A_{11}$}
+\mor{A}{A0}{$a_0$}[\atright,\solidarrow]
+\mor{A}{A1}{$a_1$}[\atright,\dashArrow]
+\mor{A}{A2}{$a_2$}[\atright,\dotArrow]
+\mor{A}{A3}{$a_3$}[\atright,\solidline]
+\mor{A}{A4}{$a_4$}[\atright,\dashline]
+\mor{A}{A5}{$a_5$}[\atleft,\dotline]
+\mor{A}{A6}{$a_6$}[\atleft,\injectionarrow]
+\mor{A}{A7}{$a_7$}[\atleft,\aplicationarrow]
+\mor{A}{A8}{$a_8$}[\atleft,\surjectivearrow]
+\mor{A}{A9}{$a_9$}[\atleft,\equalline]
+\mor{A}{A10}{$a_{10}$}[\atleft,\doublearrow]
+\mor{A}{A11}{$a_{11}$}[\atleft,\doubleopposite]
+\mor{A}{A11}{$a_{12}$}[\atright,\nullarrow]
+\enddc
+\end{lstlisting}
+
+$$
+\begindc{\commdiag}[250]
+\obj(10,10)[A]{$OOOOOO$}
+\obj(15,10)[A0]{$A_0$}
+\obj(14,11)[A1]{$A_1$}
+\obj(13,12)[A2]{$A_2$}
+\obj(12,13)[A3]{$A_3$}
+\obj(10,14)[A4]{$A_4$}
+\obj(9,13)[A5]{$A_5$}
+\obj(8,12)[A6]{$A_6$}
+\obj(7,11)[A7]{$A_7$}
+\obj(6,10)[A8]{$A_8$}
+\obj(7,9)[A9]{$A_9$}
+\obj(9,8)[A10]{$A_{10}$}
+\obj(12,8)[A11]{$A_{11}$}
+\mor{A}{A0}{$a_0$}[\atright,\solidarrow]
+\mor{A}{A1}{$a_1$}[\atright,\dashArrow]
+\mor{A}{A2}{$a_2$}[\atright,\dotArrow]
+\mor{A}{A3}{$a_3$}[\atright,\solidline]
+\mor{A}{A4}{$a_4$}[\atright,\dashline]
+\mor{A}{A5}{$a_5$}[\atleft,\dotline]
+\mor{A}{A6}{$a_6$}[\atleft,\injectionarrow]
+\mor{A}{A7}{$a_7$}[\atleft,\aplicationarrow]
+\mor{A}{A8}{$a_8$}[\atleft,\surjectivearrow]
+\mor{A}{A9}{$a_9$}[\atleft,\equalline]
+\mor{A}{A10}{$a_{10}$}[\atleft,\doublearrow]
+\mor{A}{A11}{$a_{11}$}[\atleft,\doubleopposite]
+\mor{A}{A11}{$a_{12}$}[\atright,\nullarrow]
+\enddc
+$$
+
+\subsection{Diagramas com Setas Curvas}
+
+
+
+\begin{lstlisting}
+\begindc{\commdiag}[30]
+\obj(14,11){$A$}
+\obj(39,11){$B$}
+\mor(14,12)(39,12){$f$}
+\mor(39,10)(14,10){$g$}
+\cmor((10,10)(6,11)(5,15)(6,19)(10,20)(14,19)(15,15)) 
+  \pdown(2,20){$id_A$}
+\cmor((40,7)(41,3)(45,2)(49,3)(50,7)(49,11)(45,12)) 
+  \pleft(54,3){$id_B$}
+\enddc
+
+\begindc{\commdiag}[30]
+\obj(10,15)[A]{$A$}
+\obj(40,15)[Aa]{$A$}
+\obj(25,15)[B]{$B$}
+\mor{A}{B}{$f$}
+\mor{B}{Aa}{$g$}
+\cmor((10,11)(11,7)(15,6)(25,6)(35,6)(39,7)(40,11)) 
+  \pup(25,3){$id_A$}
+\enddc
+\end{lstlisting}
+
+$$
+\begindc{\commdiag}[30]
+\obj(14,11){$A$}
+\obj(39,11){$B$}
+\mor(14,12)(39,12){$f$}%[\atright,\solidarrow]
+\mor(39,10)(14,10){$g$}%[\atright,\solidarrow]
+\cmor((10,10)(6,11)(5,15)(6,19)(10,20)(14,19)(15,15)) 
+  \pdown(2,20){$id_A$}
+\cmor((40,7)(41,3)(45,2)(49,3)(50,7)(49,11)(45,12)) 
+  \pleft(54,3){$id_B$}
+\enddc
+\qquad
+\begindc{\commdiag}[30]
+\obj(10,15)[A]{$A$}
+\obj(40,15)[Aa]{$A$}
+\obj(25,15)[B]{$B$}
+\mor{A}{B}{$f$}%[\atright,\solidarrow]
+\mor{B}{Aa}{$g$}%[\atright,\solidarrow]
+\cmor((10,11)(11,7)(15,6)(25,6)(35,6)(39,7)(40,11)) 
+  \pup(25,3){$id_A$}
+\enddc
+$$
+
+\subsection{Um Exemplo Complexo}
+
+O diagrama seguinte foi proposto por Feruglio~\cite{Feruglio94} como
+um caso de teste. Como \'e poss\'\i vel ver o DCpic produz o diagrama
+correctamente a partir de uma especifica\c c\~ao simples.
+
+
+\begin{lstlisting}
+\newcommand{\barraA}{\vrule height2em width0em depth0em}
+\newcommand{\barraB}{\vrule height1.6em width0em depth0em}
+\begindc{\commdiag}[350]
+\obj(1,1)[Gr]{$G$}
+\obj(3,1)[Grstar]{$G_{r^*}$}
+\obj(5,1)[H]{$H$}
+\obj(2,2)[SigmaG]{$\Sigma^G$}
+\obj(6,2)[SigmaH]{$\Sigma^H$}
+\obj(1,3)[Lm]{$L_m$}
+\obj(3,3)[Krm]{$K_{r,m}$}
+\obj(5,3)[Rmstar]{$R_{m^*}$}
+\obj(1,5)[L]{$L$}
+\obj(3,5)[Lr]{$L_r$}
+\obj(5,5)[R]{$R$}
+\obj(2,6)[SigmaL]{$\Sigma^L$}
+\obj(6,6)[SigmaR]{$\Sigma^R$}
+\mor{Gr}{SigmaG}{$\lambda^G$}
+\mor{Grstar}{Gr}{$i_5$}[\atleft,\aplicationarrow]
+\mor{Grstar}{H}{$r^*$}[\atright,\solidarrow]
+\mor{H}{SigmaH}{$\lambda^H$}[\atright,\dashArrow]
+\mor{SigmaG}{SigmaH}{$\varphi^{r^*}$}[\atleft,\solidarrow]
+\mor{Lm}{Gr}{$m$}[\atright,\solidarrow]
+\mor{Lm}{L}{$i_2$}[\atleft,\aplicationarrow]
+\mor{Krm}{Lm}{$i_3\quad$}[\atright,\aplicationarrow]
+\mor{Krm}{Rmstar}{$r$}
+\mor{Krm}{Lr}{$i_4$}[\atright,\aplicationarrow]
+\mor{Krm}{Grstar}{\barraA$m$}
+\mor{Rmstar}{R}{$i_6$}[\atright,\aplicationarrow]
+\mor{Rmstar}{H}{\barraB$m^*$}
+\mor{L}{SigmaL}{$\lambda^L$}
+\mor{Lr}{L}{$i_1\quad$}[\atright,\aplicationarrow]
+\mor{Lr}{R}{$r$}
+\mor{R}{SigmaR}{$\lambda^R$}[\atright,\solidarrow]
+\mor{SigmaL}{SigmaG}{$\varphi^m$}[\atright,\solidarrow]
+\mor{SigmaL}{SigmaR}{$\varphi^r$}
+\mor{SigmaR}{SigmaH}{$\varphi^{m^*}$}
+\enddc
+\end{lstlisting}
+
+\newcommand{\barraA}{\vrule height2em width0em depth0em}
+\newcommand{\barraB}{\vrule height1.6em width0em depth0em}
+$$\begindc{\commdiag}[350]
+\obj(1,1)[Gr]{$G$}
+\obj(3,1)[Grstar]{$G_{r^*}$}
+\obj(5,1)[H]{$H$}
+\obj(2,2)[SigmaG]{$\Sigma^G$}
+\obj(6,2)[SigmaH]{$\Sigma^H$}
+\obj(1,3)[Lm]{$L_m$}
+\obj(3,3)[Krm]{$K_{r,m}$}
+\obj(5,3)[Rmstar]{$R_{m^*}$}
+\obj(1,5)[L]{$L$}
+\obj(3,5)[Lr]{$L_r$}
+\obj(5,5)[R]{$R$}
+\obj(2,6)[SigmaL]{$\Sigma^L$}
+\obj(6,6)[SigmaR]{$\Sigma^R$}
+\mor{Gr}{SigmaG}{$\lambda^G$}
+\mor{Grstar}{Gr}{$i_5$}[\atleft,\aplicationarrow]
+\mor{Grstar}{H}{$r^*$}[\atright,\solidarrow]
+\mor{H}{SigmaH}{$\lambda^H$}[\atright,\dashArrow]
+\mor{SigmaG}{SigmaH}{$\varphi^{r^*}$}[\atleft,\solidarrow]
+\mor{Lm}{Gr}{$m$}[\atright,\solidarrow]
+\mor{Lm}{L}{$i_2$}[\atleft,\aplicationarrow]
+\mor{Krm}{Lm}{$i_3\quad$}[\atright,\aplicationarrow]
+\mor{Krm}{Rmstar}{$r$}
+\mor{Krm}{Lr}{$i_4$}[\atright,\aplicationarrow]
+\mor{Krm}{Grstar}{\barraA$m$}
+\mor{Rmstar}{R}{$i_6$}[\atright,\aplicationarrow]
+\mor{Rmstar}{H}{\barraB$m^*$}
+\mor{L}{SigmaL}{$\lambda^L$}
+\mor{Lr}{L}{$i_1\quad$}[\atright,\aplicationarrow]
+\mor{Lr}{R}{$r$}
+\mor{R}{SigmaR}{$\lambda^R$}[\atright,\solidarrow]
+\mor{SigmaL}{SigmaG}{$\varphi^m$}[\atright,\solidarrow]
+\mor{SigmaL}{SigmaR}{$\varphi^r$}
+\mor{SigmaR}{SigmaH}{$\varphi^{m^*}$}
+\enddc
+$$
+
+
+%\bibliographystyle{plain}
+%\bibliography{pedro}
+
+\newcommand{\noopsort}[1]{} \newcommand{\singleletter}[1]{#1}
+\begin{thebibliography}{1}
+
+\bibitem{Feruglio94}
+{Gabriel Valiente} Feruglio.
+\newblock Typesetting commutative diagrams.
+\newblock {\em TUGboat}, 15(4):466--484, 1994.
+
+\bibitem{Harary72}
+Frank Harary.
+\newblock {\em Graph Theory}.
+\newblock Addison-Wesley, Reading, Massachusetts, 1972.
+
+\bibitem{Herrlich73}
+Horst Herrlich and George Strecker.
+\newblock {\em Category Theory}.
+\newblock Allyn and Bacon Inc., 1973.
+
+\bibitem{Knuth86}
+Donald~E. Knuth.
+\newblock {\em The {\TeX}book}.
+\newblock Addison-Wesley Publishing Company, Reading, Massachusetts, 1986.
+
+\bibitem{Lamport94}
+Leslie Lamport.
+\newblock {\em {\LaTeX}: A Document Preparation System}.
+\newblock Addison-Wesley Publishing Company, Reading,Massachusetts, 2nd
+  edition, 1994.
+
+\bibitem{Pierce98}
+Benjamin Pierce.
+\newblock {\em Basic Category Theory for Computer Scientists}.
+\newblock Foundations of Computing. The MIT Press, London, England, 1998.
+
+\end{thebibliography}
+
+\appendix
+\section{O Código}
+
+{\scriptsize
+\verbatiminput{dcpic.sty}}
+
+\end{document}
+
+%%% Local Variables: 
+%%% mode: latex
+%%% TeX-master: t
+%%% End: 

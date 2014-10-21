@@ -1,0 +1,2095 @@
+% \iffalse meta-comment
+%
+% greeg4cbc.dtx
+%
+%  Author: Peter Wilson (Herries Press) herries dot press at earthlink dot net
+%  Copyright 1999--2005 Peter R. Wilson
+%
+%  This work may be distributed and/or modified under the
+%  conditions of the Latex Project Public License, either
+%  version 1.3 of this license or (at your option) any
+%  later version.
+%  The latest version of the license is in
+%    http://www.latex-project.org/lppl.txt
+%  and version 1.3 or later is part of all distributions of
+%  LaTeX version 2003/06/01 or later.
+%
+%  This work has the LPPL maintenance status "author-maintained".
+%
+%  This work consists of the files listed in the README file.
+%
+%
+%<*driver>
+\documentclass[twoside]{ltxdoc}
+\usepackage{url}
+\usepackage[draft=false,
+            plainpages=false,
+            pdfpagelabels,
+            bookmarksnumbered,
+            hyperindex=false
+           ]{hyperref}
+\providecommand{\phantomsection}{}
+\OnlyDescription %% comment this out for the full glory
+\EnableCrossrefs
+\CodelineIndex
+\setcounter{StandardModuleDepth}{1}
+\makeatletter
+  \@mparswitchfalse
+\makeatother
+\renewcommand{\MakeUppercase}[1]{#1}
+\pagestyle{headings}
+\newenvironment{addtomargins}[1]{%
+  \begin{list}{}{%
+    \topsep 0pt%
+    \addtolength{\leftmargin}{#1}%
+    \addtolength{\rightmargin}{#1}%
+    \listparindent \parindent
+    \itemindent \parindent
+    \parsep \parskip}%
+  \item[]}{\end{list}}
+\begin{document}
+  \raggedbottom
+  \DocInput{greek4cbc.dtx}
+\end{document}
+%</driver>
+%
+% \fi
+%
+% \CheckSum{305}
+%
+% \DoNotIndex{\',\.,\@M,\@@input,\@addtoreset,\@arabic,\@badmath}
+% \DoNotIndex{\@centercr,\@cite}
+% \DoNotIndex{\@dotsep,\@empty,\@float,\@gobble,\@gobbletwo,\@ignoretrue}
+% \DoNotIndex{\@input,\@ixpt,\@m}
+% \DoNotIndex{\@minus,\@mkboth,\@ne,\@nil,\@nomath,\@plus,\@set@topoint}
+% \DoNotIndex{\@tempboxa,\@tempcnta,\@tempdima,\@tempdimb}
+% \DoNotIndex{\@tempswafalse,\@tempswatrue,\@viipt,\@viiipt,\@vipt}
+% \DoNotIndex{\@vpt,\@warning,\@xiipt,\@xipt,\@xivpt,\@xpt,\@xviipt}
+% \DoNotIndex{\@xxpt,\@xxvpt,\\,\ ,\addpenalty,\addtolength,\addvspace}
+% \DoNotIndex{\advance,\Alph,\alph}
+% \DoNotIndex{\arabic,\ast,\begin,\begingroup,\bfseries,\bgroup,\box}
+% \DoNotIndex{\bullet}
+% \DoNotIndex{\cdot,\cite,\CodelineIndex,\cr,\day,\DeclareOption}
+% \DoNotIndex{\def,\DisableCrossrefs,\divide,\DocInput,\documentclass}
+% \DoNotIndex{\DoNotIndex,\egroup,\ifdim,\else,\fi,\em,\endtrivlist}
+% \DoNotIndex{\EnableCrossrefs,\end,\end@dblfloat,\end@float,\endgroup}
+% \DoNotIndex{\endlist,\everycr,\everypar,\ExecuteOptions,\expandafter}
+% \DoNotIndex{\fbox}
+% \DoNotIndex{\filedate,\filename,\fileversion,\fontsize,\framebox,\gdef}
+% \DoNotIndex{\global,\halign,\hangindent,\hbox,\hfil,\hfill,\hrule}
+% \DoNotIndex{\hsize,\hskip,\hspace,\hss,\if@tempswa,\ifcase,\or,\fi,\fi}
+% \DoNotIndex{\ifhmode,\ifvmode,\ifnum,\iftrue,\ifx,\fi,\fi,\fi,\fi,\fi}
+% \DoNotIndex{\input}
+% \DoNotIndex{\jobname,\kern,\leavevmode,\let,\leftmark}
+% \DoNotIndex{\list,\llap,\long,\m@ne,\m@th,\mark,\markboth,\markright}
+% \DoNotIndex{\month,\newcommand,\newcounter,\newenvironment}
+% \DoNotIndex{\NeedsTeXFormat,\newdimen}
+% \DoNotIndex{\newlength,\newpage,\nobreak,\noindent,\null,\number}
+% \DoNotIndex{\numberline,\OldMakeindex,\OnlyDescription,\p@}
+% \DoNotIndex{\pagestyle,\par,\paragraph,\paragraphmark,\parfillskip}
+% \DoNotIndex{\penalty,\PrintChanges,\PrintIndex,\ProcessOptions}
+% \DoNotIndex{\protect,\ProvidesClass,\raggedbottom,\raggedright}
+% \DoNotIndex{\refstepcounter,\relax,\renewcommand,\reset@font}
+% \DoNotIndex{\rightmargin,\rightmark,\rightskip,\rlap,\rmfamily,\roman}
+% \DoNotIndex{\roman,\secdef,\selectfont,\setbox,\setcounter,\setlength}
+% \DoNotIndex{\settowidth,\sfcode,\skip,\sloppy,\slshape,\space}
+% \DoNotIndex{\symbol,\the,\trivlist,\typeout,\tw@,\undefined,\uppercase}
+% \DoNotIndex{\usecounter,\usefont,\usepackage,\vfil,\vfill,\viiipt}
+% \DoNotIndex{\viipt,\vipt,\vskip,\vspace}
+% \DoNotIndex{\wd,\xiipt,\year,\z@}
+%
+% \changes{v1.0}{1999/04/10}{First public release}
+% \changes{v1.1}{2000/10/22}{Simplified and matched with other archaics}
+% \changes{v1.2}{2005/04/06}{Changed contact info, plus Type1 support}
+%
+% \def\fileversion{v1.0} \def\filedate{1999/04/10}
+% \def\fileversion{v1.1} \def\filedate{2000/10/22}
+% \def\fileversion{v1.2} \def\filedate{2005/04/06}
+% \newcommand*{\Lpack}[1]{\textsf {#1}}           ^^A typeset a package
+% \newcommand*{\Lopt}[1]{\textsf {#1}}            ^^A typeset an option
+% \newcommand*{\file}[1]{\texttt {#1}}            ^^A typeset a file
+% \newcommand*{\Lcount}[1]{\textsl {\small#1}}    ^^A typeset a counter
+% \newcommand*{\pstyle}[1]{\textsl {#1}}          ^^A typeset a pagestyle
+% \newcommand*{\Lenv}[1]{\texttt {#1}}            ^^A typeset an environment
+% \newcommand{\BC}{\textsc{bc}}
+% \newcommand{\AD}{\textsc{ad}}
+% \newcommand{\thisfont}{Greek}
+%
+%
+% \makeatletter
+% \newif\if@inenv
+% \@inenvtrue
+% 
+% \def\makeuscoreletter{\catcode`\_11\relax}
+% \def\makehashletter{\catcode`\#11\relax}
+% \def\MakeMfpPrivateLetters{\makeuscoreletter\makehashletter}
+% 
+% \def\environment{\@inenvtrue\begingroup
+%   \catcode`\\12
+%   \MakePrivateLetters \m@cro@ \iffalse}
+% 
+% \def\mfpmacro{\@inenvfalse\begingroup
+%   \catcode`\\12
+%   \MakeMfpPrivateLetters \m@cro@ \iffalse}
+% 
+% \let\endmfpmacro\endmacro
+% 
+% \def\SpecialMainEnvIndex#1{^^A
+%   \if@inenv^^A
+%     \@bsphack\special@index{^^A
+%     #1\actualchar
+%     {\string\ttfamily\space#1}
+%       (environment)^^A
+%     \encapchar main}^^A
+%   \index{environments:\levelchar{\protect\ttfamily#1}\encapchar
+%          main}\@esphack^^A
+%   \else^^A
+%     \@bsphack\special@index{^^A
+%     \string#1\actualchar
+%     \string\verb
+%     \quotechar*\verbatimchar
+%     \string#1\verbatimchar
+%       \space(mfp macro)^^A
+%     \encapchar main}^^A
+%   \index{mfp macros:\levelchar
+%     \string#1\actualchar
+%     \string\verb
+%     \quotechar*\verbatimchar
+%     \string#1\verbatimchar
+%     \encapchar usage}\@esphack^^A
+%   \fi}
+% 
+% \def\DescribeMfpMacro{\leavevmode\@bsphack\begingroup\MakeMfpPrivateLetters
+%   \Describe@Mfpm}
+% \def\Describe@Mfpm#1{\endgroup
+%   \marginpar{\raggedleft\PrintDescribeEnv{#1}}^^A
+%   \SpecialMfpmIndex{#1}\@esphack\ignorespaces}
+% 
+% \def\SpecialMfpmIndex#1{^^A
+%     \@bsphack
+%     \index{\string#1\actualchar
+%       \string\verb
+%       \quotechar*\verbatimchar
+%       \string#1\verbatimchar
+%         \space(mfp macro)
+%       \encapchar usage}^^A
+%     \index{mfp macros:\levelchar
+%       \string#1\actualchar
+%       \string\verb
+%       \quotechar*\verbatimchar
+%       \string#1\verbatimchar
+%       \encapchar usage}^^A
+%     \@esphack}
+% 
+% \def\DescribeMfpVariable{\leavevmode\@bsphack\begingroup\MakeMfpPrivateLetters
+%   \Describe@Mfpv}
+% \def\Describe@Mfpv#1{\endgroup
+%   \marginpar{\raggedleft\PrintDescribeEnv{#1}}^^A
+%   \SpecialMfpvIndex{#1}\@esphack\ignorespaces}
+% 
+% \def\SpecialMfpvIndex#1{^^A
+%     \@bsphack
+%     \index{\string#1\actualchar
+%       \string\verb
+%       \quotechar*\verbatimchar
+%       \string#1\verbatimchar
+%       \space(mfp variable)\encapchar usage}^^A
+%     \index{mfp variables:\levelchar
+%       \string#1\actualchar
+%       \string\verb
+%       \quotechar*\verbatimchar
+%       \string#1\verbatimchar
+%       \encapchar usage}^^A
+%     \@esphack}
+% 
+% \makeatother
+%
+% \title{The \Lpack{Greek4cbc} fonts\thanks{This
+%        file has version number \fileversion, last revised
+%        \filedate.}}
+%
+% \author{%
+% Peter Wilson\thanks{\texttt{herries dot press at earthlink dot net}}\\
+% Herries Press
+% }
+% \date{\filedate}
+% \maketitle
+% \begin{abstract}
+%    The \Lpack{greek4cbc} bundle provides a set of uppercase Greek
+% characters as 
+% shown on a 394~\BC{} stele in Athens.
+% \end{abstract}
+% \tableofcontents
+%
+% 
+%
+% \section{Introduction}
+%
+%    The font presented here is meant to be typical of the Greek characters
+% in use about the 4th century~\BC. It is one of a series of fonts intended
+% to show how the Latin alphabet has evolved from its original Phoenician form
+% to its present day appearance.
+%
+% This manual is typeset according to the conventions of the
+% \LaTeX{} \textsc{docstrip} utility which enables the automatic
+% extraction of the \LaTeX{} macro source files~\cite{GOOSSENS94}.
+%
+%    Section~\ref{sec:usc} describes the usage of the package.
+% Commented code for the fonts 
+% and source code for the package may be in later sections.
+%
+% \subsection{An alphabetic tree}
+%
+%    Scholars are reasonably agreed that all the world's alphabets are descended
+% from a Semitic alphabet invented about 1600~\BC{} in the Middle 
+% East~\cite{DRUCKER95}. The word `Semitic' refers
+% to the family of languages used in the geographical area from
+% Sinai in the south, up the Mediterranean coast to Asia Minor in the north and
+% west to the valley of the Euphrates.
+%
+%    The Phoenician alphabet was stable by about 1100~\BC{} and the script was
+% written right to left. In earlier times the writing direction was variable, 
+% and so were
+% the shapes and orientation of the characters. The alphabet consisted of
+% 22 letters and they were named after things. For example, their first two 
+% letters were called \textit{aleph} (ox), and \textit{beth} (house). 
+% The Phoenician script had
+% only one case --- unlike our modern fonts which have both upper- and 
+% lower-cases. In modern day terms the Phoenician abecedary was: \\
+% A B G D E Y Z H $\Theta$ I K L M N X O P ts Q R S T \\
+% where the `Y' (\textit{vau}) character was sometimes written as `F' and
+% `ts' stands for the \textit{tsade} character.
+%
+%    The Greek alphabet is one of the descendants of the Phoenician alphabet;
+% another was Aramaic which is the ancestor of the Arabic, Persian and Indian 
+% scripts.
+% Initially Greek was written right to left but around the 6th C~\BC{} became 
+% \textit{boustrophedron}, meaning that the lines 
+% alternated in direction. At about 500~\BC{} the writing direction stabilised 
+% as left to 
+% right. The Greeks modified the Phoenician alphabet to match the vocalisation
+% of their language. They kept the Phoenician names of the letters, suitably
+% `greekified', so \textit{aleph} became the familar \textit{alpha} and 
+% \textit{beth} became \textit{beta}. At this
+% point the names of the letters had no meaning. Their were several variants
+% of the Greek character glyphs until they were finally fixed in Athens in
+% 403~\BC.
+% The Greeks did not develop a lower-case 
+% script until about 600--700~\AD.
+%
+%    The Etruscans based their alphabet on the Greek one, and again modified it.
+% However, the Etruscans wrote right to left, so their borrowed characters are 
+% mirror images of the original Greek ones. Like the Phoenicians, the Etruscan
+% script consisted of only one case; they died out before ever needing a
+% lower-case script. The Etruscan script was used up until the first century 
+% \AD, even though the Etruscans themselves had dissapeared by that time.
+% 
+%
+%    In turn, the Romans based their alphabet on the Etruscan one, but as they 
+% wrote left to right, the characters were again mirrored (although the early
+% Roman inscriptions are boustrophedron). 
+%
+%    As the English alphabet is descended from the Roman alphabet
+% it has a pedigree of some three and a half thousand years.
+%
+% \section{The \Lpack{greek4cbc} package} \label{sec:usc}
+%
+%    In the 6th century~\BC{} the Greek alphabet was settling down, but
+% there were several different glyphs used for the characters depending
+% both on the date and on the geographical area. The alphabet retained
+% the Phoenician F form of \textit{vau}, which the Greeks called
+% \textit{digamma}, and also used the Phoenician \textit{qoph} (from
+% which we get our Q). It had added the $\Psi$, $\Phi$, and $\Omega$
+% characters. Thus, the abecedary consisted of 26 characters compared
+% with the 24 characters for modern Greek.
+%
+%    In 403~\BC{} the Athenian Greeks came to an agreement on a standard
+% abecedary and set of glyphs. The font provided by this package comes
+% from an inscription on a stele in Athens dated 394~\BC, so I have
+% assumed that it is reasonable rendition of the 403 `standard'. I have
+% taken the glyphs from Lewis Day's compendium~\cite{DAY95}. The abecedary
+% is the modern one of 24 characters.
+%
+%    Table~\ref{tab} lists, in the \thisfont{} alphabetical order, the
+% transliterated value of the characters and the
+% modern and Phoenician names (in parentheses) of the character.
+%
+% \begin{table}
+% \centering
+% \caption{The \thisfont{} script and alphabet}\label{tab}
+% \begin{tabular}{clcll} \hline
+% Value & Name & ASCII & Command & Command \\ \hline
+% $A$ &
+% alpha (aleph) &
+%  a & |\Aalpha| &
+% |\ARalpha| 
+% \\
+% $B$ &
+% beta (beth) &
+% b & |\Abeta| &
+% |\ARbeta|
+% \\
+% $\Gamma$ &
+% gamma (gimel) &
+% g & |\Agamma| &
+% |\ARgamma|
+% \\
+% $\Delta$ &
+% delta (daleth) &
+% d & |\Adelta| &
+% |\ARdelta|
+% \\
+% $E$ &
+% epsilon (he) &
+% e & |\Aepsilon| &
+% |\ARepsilon|
+% \\
+% $Z$ &
+% zeta (zayin) &
+% z & |\Azeta| &
+% |\ARzeta|
+% \\
+% $H$  &
+% eta (heth) &
+% h & |\Aeta| &
+% |\AReta|
+% \\
+% $\Theta$ &
+% theta (teth) &
+% T & |\Atheta| &
+% |\ARtheta|
+% \\
+% $I$ &
+% iota (yod) &
+% i & |\Aiota| &
+% |\ARiota|
+% \\
+% $K$ &
+% kappa (kaph) &
+% k & |\Akappa| &
+% |\ARkappa|
+% \\
+% $\Lambda$ &
+% lambda (lamed) &
+% l & |\Alambda| &
+% |\ARlambda|
+% \\
+% $M$ &
+% mu (mem) &
+% m & |\Amu| &
+% |\ARmu|
+% \\
+% $N$ &
+% nu (nun) &
+% n & |\Anu| &
+% |\ARnu|
+% \\
+% $\Xi$ &
+% xi (samekh) &
+% x & |\Axi| &
+% |\ARxi|
+% \\
+% $O$ &
+% omicron (ayin) &
+% o & |\Aomicron| &
+% |\ARomicron|
+% \\
+% $\Pi$ &
+% pi (pe) &
+% p & |\Api| &
+% |\ARpi|
+% \\
+% $R$ &
+% rho (resh) &
+% r & |\Arho| &
+% |\ARrho|
+% \\
+% $\Sigma$ &
+% sigma (shin) &
+% s & |\Asigma| &
+% |\ARsigma|
+% \\
+% $T$ &
+% tau (tav) &
+% t & |\Atau| &
+% |\ARtau|
+% \\
+% $\Upsilon$ &
+% upsilon &
+% y & |\Aupsilon| &
+% |\ARupsilon|
+% \\
+% $X$ &
+% chi &
+% X & |\Achi| &
+% |\ARchi|
+% \\
+% $\Phi$ &
+% phi &
+% f & |\Aphi| &
+% |\ARphi|
+% \\
+% $\Psi$ &
+% psi &
+% P & |\Apsi| &
+% |\ARpsi|
+% \\
+% $\Omega$ &
+% omega &
+% O & |\Aomega| &
+% |\ARomega|
+% \\
+% \hline
+% \end{tabular}
+% \end{table}
+%
+% \DescribeMacro{\givbcfamily}
+%    This command selects the 4th century~\BC{} Greek font family. 
+% The family name is |givbc|, standing for Greek IV century BC.
+%
+% \DescribeMacro{\textgivbc}
+% The command |\textgivbc{|\meta{text}|}| typesets \meta{text} in the
+% Greek font.
+%
+%    I have provided two ways of accessing the \thisfont{} glyphs: 
+% (a) by ASCII characters, and
+% (b) by commands whose names are based on the (modern) name of the
+%     character.
+% These are shown in Table~\ref{tab}.
+%     The glyphs illustrated by Day are not uniform in height but I have
+% provided both `smooth' and `rough' versions. The smooth versions
+% are accessed by either the ASCII characters or by the commands |\Axxx|, 
+% while the rough versions are only accessible by the |\ARxxx| commands.
+%
+% \DescribeMacro{\translitgivbc}
+% |\translitgivbc{|\meta{commands}|}| will typeset \meta{commands} 
+% (those in the last two columns of Table~\ref{tab}) as modern glyphs instead
+% of the archaic ones.
+%
+% \DescribeMacro{\translitgivbcfont}
+% The transliterated text is set in the |\translitgivbcfont| font,
+% which is initialised to a math roman form (i.e., |\mathrm|). The
+% transliteration need not be in math mode.
+% 
+% \StopEventually{
+% \bibliographystyle{alpha}
+% \begin{thebibliography}{GMS94}
+%
+% \bibitem[Day95]{DAY95}
+% Lewis F.~Day.
+% \newblock \emph{Alphabets Old \& New}.
+% \newblock Senate, 1995.
+% \newblock (Third edition originally published by B.~T.~Bashford, 1910)
+%
+% \bibitem[Dru95]{DRUCKER95}
+% Johanna Drucker.
+% \newblock \emph{The Alphabetic Labyrinth}.
+% \newblock Thames and Hudson, 1995.
+%
+% \bibitem[Fir93]{FIRMAGE93}
+% Richard A.~Firmage.
+% \newblock \emph{The Alphabet Abecedarium}.
+% \newblock David R.~Goodine, 1993.
+%
+% \bibitem[MG04]{MITTELBACH04}
+% Frank Mittelbach and Michel Goossens.
+% \newblock \emph{The LaTeX Companion}.
+% \newblock Addison-Wesley Publishing Company, second edition, 2004.
+%
+% \end{thebibliography}
+% \PrintIndex
+% }
+%
+%
+% \section{The Metafont code} \label{sec:mf}
+%
+% \subsection{The parameter file}
+%
+%    We deal with the parameter file first, and start by announcing
+% what it is for.
+%    \begin{macrocode}
+%<*up>
+ %%% GIVBC10.MF  Computer Greek 4 century BC font 10 point design size.
+
+%    \end{macrocode}
+%    Parameters from CMR10.MF are used as much as possible, but we
+% only need a few of them. We also
+% make sure that \Lpack{cmbase} is loaded as well as plain Metafont.
+% \DescribeMfpVariable{font_identifier}
+% \DescribeMfpVariable{font_size}
+%    \begin{macrocode}
+if unknown cmbase: input cmbase fi
+
+font_identifier:="GIVBC"; font_size 10pt#;
+
+%    \end{macrocode}
+%
+%
+% \DescribeMfpVariable{u#}
+% \DescribeMfpVariable{letter_fit#}
+%    The majority of the parameters and values are the same for both
+% fonts.
+%    \begin{macrocode}
+u#:=20/36pt#;             % unit width
+letter_fit#:=0pt#;        % extra space added to all sidebars
+
+%    \end{macrocode}
+%
+% \DescribeMfpVariable{body_height#} 
+% \DescribeMfpVariable{asc_height#} 
+% \DescribeMfpVariable{cap_height#} 
+% \DescribeMfpVariable{fig_height#} 
+% \DescribeMfpVariable{x_height#} 
+% \DescribeMfpVariable{desc_depth#} 
+% \DescribeMfpVariable{half_height#} 
+%    \begin{macrocode}
+body_height#:=270/36pt#;       % height of tallest characters
+asc_height#:=250/36pt#;        % height of lowercase ascenders
+cap_height#:=246/36pt#;        % height of caps
+fig_height#:=232/36pt#;        % height of numerals
+x_height#:=155/36pt#;          % height of lowercase without ascenders
+desc_depth#:=70/36pt#;         % depth of lowercase descenders
+half_height#:=1/2cap_height#;  % half the height of caps
+
+%    \end{macrocode}
+%
+% \DescribeMfpVariable{side#}
+% \DescribeMfpVariable{thickfudge}
+% \DescribeMfpVariable{thick#}
+%  I have used a square to help in defining the letter's geometry.
+% All lines have the same thickness.
+%    \begin{macrocode} 
+side#:=cap_height#;          % Height and width of the square
+thickfudge:=1/9; 
+thick#:=thickfudge*side#;    % thickness of all lines in the font
+
+%    \end{macrocode}
+%
+% \DescribeMfpVariable{rule_thickness#}
+%    \begin{macrocode}
+rule_thickness#:=.4pt#;  % thickness of lines
+
+%    \end{macrocode}
+%
+% \DescribeMfpVariable{cap_stem#} 
+%    \begin{macrocode}
+cap_stem#:=thick#;     % thickness of majuscule stems
+
+%    \end{macrocode}
+%
+% \DescribeMfpVariable{o#}
+% \DescribeMfpVariable{apex_o#}
+% \DescribeMfpVariable{apex_corr#}
+%  These deal with fine tuning of some aspects of the glyphs.
+%    \begin{macrocode} 
+o#:=8/36pt#;       % amount of overshoot for curves
+apex_o#:=thin#;    % amount of overshoot for diagonal junctions
+apex_corr#=0pt#;   % fine tuning of overshoot
+
+%    \end{macrocode}
+%
+% \DescribeMfpVariable{slant}
+% |slant| is the amount the font slopes to the right. 
+%    \begin{macrocode}
+slant:=0;      % tilt ratio $(\Delta x/\Delta y)$
+
+%    \end{macrocode}
+% 
+% \DescribeMfpVariable{serifs} 
+% \DescribeMfpVariable{monospace} 
+%    We are generating a sans, variable-width font.
+%    \begin{macrocode}
+serifs:=false;        % should serifs and bulbs be attached?
+monospace:=false;     % should all characters have the same width?
+
+%    \end{macrocode}
+%
+% \DescribeMfpVariable{dot_size#}
+% \DescribeMfpVariable{square_dots}
+%    These parameters are required for the punctation glyphs.
+%    \begin{macrocode}
+dot_size#:=38/36pt#; % size of dots
+square_dots:=false;  % should dots be square?
+
+%    \end{macrocode}
+%
+% \DescribeMfpVariable{whole_font}
+%    We are not generating a complete font.
+%    \begin{macrocode}
+boolean whole_font;  % try generating a complete font?
+whole_font:=false;
+
+%    \end{macrocode}
+%
+%    The driver file would normally be called here.
+%
+%
+% \subsection{The driver file}
+%
+%    If there was a driver file, this would be it. To a large extent the 
+% driver code is based on my \Lpack{cpctitle.mf}
+% for the Pacioli font.
+%
+%    \begin{macrocode}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% end of parameters
+% start of driver code
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%  MACRO SECTION %%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%    \end{macrocode}
+%
+%
+% \begin{mfpmacro}{makebox}
+%    This is a new version of the \Lpack{cmbase.mf} |makebox| macro.
+% Essentially, as we are only generating an uppercase font, we don't
+% need all the horizontals for the lowercase characters.
+%
+%    \begin{macrocode}
+% A new version of cmbase.mf makebox macro
+def makebox(text rule) =
+  for y=0,half_height,cap_height,body_height,x_height,-desc_depth,-body_depth:
+    rule((l,y)t_,(r,y)t_); endfor  % horizontals
+  for x=l,r: rule((x,-body_depth)t_,(x,body_height)t_); endfor % verticals
+  for x=u*(1+floor(1/u)) step u until r-1:
+    rule((x,-body_depth)t_,(x,body_height)t_); endfor         % more verticals
+  if charic<>0:
+    rule((r+charic*pt,h.o_),(r+charic*pt,.5h.o_)); fi  % italic correction
+enddef;
+
+%    \end{macrocode}
+% \end{mfpmacro}
+%
+% \begin{mfpmacro}{proofpcbb}
+%    The macro |proofpcbb(S, xoff, yoff)| draws crosses at the corners of 
+% the square,
+% and at the bottom and top midpoints, where the point |zS| is at
+% position |(xoff,yoff)| in the square. 
+%    \begin{macrocode}
+
+% A macro to delineate the bounding square in proof mode.
+% Point z$ is at (xoff,yoff) in the bounding square.
+def proofpcbb(suffix $)(expr xoff, yoff) =
+if proofing > 0:
+  x$bl = x$ - xoff; y$bl = y$ - yoff;         % Bottom Left Hand Corner
+  z$br = (x$bl+cap_height, y$bl);             % BRHC
+  z$tr = (x$bl+cap_height, y$bl+cap_height);  % TRHC
+  z$tl = (x$bl, y$bl+cap_height);             % TLHC
+  z$bc = 1/2[z$bl,z$br]; z$tc = 1/2[z$tl,z$tr];  % horizontal mid points
+  pair hc, vc;
+  hc = (2u,0); vc = (0,2u);
+  pickup pensquare scaled 2;
+  for s = z$bl, z$br, z$tr, z$tl, z$bc, z$tc:
+    draw s-hc--s+hc;
+    draw s-vc--s+vc;
+  endfor
+fi
+enddef;
+
+%    \end{macrocode}
+% \end{mfpmacro}
+%
+% \begin{mfpmacro}{cm_font_setup}
+%  The basic font set up.
+%    \begin{macrocode}
+
+let cm_font_setup=font_setup; % Knuth's original font_setup
+ 
+
+%    \end{macrocode}
+% \end{mfpmacro}
+%
+% \begin{mfpmacro}{greek_font_setup}
+%    This macro contains additional set up for the Greek font.
+%    \begin{macrocode}
+ 
+def greek_font_setup= % contains special stuff for archaic Greek font
+  define_pixels(u);
+  define_pixels(side,thick,half_height);
+  let adjust_fit=normal_adjust_fit;
+  define_whole_pixels(letter_fit);
+  define_whole_vertical_pixels(body_height,asc_height,
+    cap_height,x_height,desc_depth);
+  body_depth:=desc_depth+body_height-asc_height;
+  define_pixels(dot_size);  
+  shrink_fit:=1+hround(2letter_fit#*hppp)-2letter_fit;
+  if not string mode:
+    if mode<=smoke:
+      shrink_fit:=0;
+    fi
+  fi
+enddef;
+
+%    \end{macrocode}
+% \end{mfpmacro}
+%
+%
+%    \begin{macrocode}
+ 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%  END OF MACROS %%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%    \end{macrocode}
+%
+%    Set the mode and font setup.
+%    \begin{macrocode}
+ 
+font_coding_scheme:="ASCII caps and miniscules";
+ 
+mode_setup; 
+ 
+greek_font_setup;
+
+%    \end{macrocode}
+%
+% \DescribeMfpVariable{pcshiftx#}
+%    \begin{macrocode}
+numeric pcshiftx#; % x value of LHS of box wrt origin of char box
+define_pixels(pcshiftx);
+
+%    \end{macrocode}
+%
+% Do the spacings.
+%
+% \DescribeMfpVariable{font_slant}
+% \DescribeMfpVariable{font_x_height}
+% \DescribeMfpVariable{font_normal_space}
+% \DescribeMfpVariable{font_quad}
+% \DescribeMfpVariable{font_extra_space}
+%    \begin{macrocode}
+ 
+font_slant slant; 
+font_x_height x_height#;
+if monospace: font_normal_space 9u#; % no stretching or shrinking
+ font_quad 18u#;
+ font_extra_space 9u#;
+else: font_normal_space 6u#+2letter_fit#;
+ font_normal_stretch 3u#; font_normal_shrink 2u#;
+ font_quad 18u#+4letter_fit#;
+ font_extra_space 2u#;
+fi 
+
+%    \end{macrocode}
+%
+% \subsection{The glyph code}
+%
+% The following code generates the glyphs for the \thisfont{} font.
+%
+%
+%    \begin{macrocode}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% end of driver code
+% start of glyph code
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%    \end{macrocode}
+% 
+%
+% \begin{mfpmacro}{a}
+%    The letter \textit{alpha}. The inside of the legs are at the edges
+% of the square. The bar is at 1/3 the height.
+%    \begin{macrocode}
+ 
+cmchar "Greek 394BC letter alpha (a)";
+beginchar("a", 2u#+side#+2thick#, cap_height#, 0);
+adjust_fit(0,0);
+pcshiftx := u+thick;
+y100 = h/2; x100 = pcshiftx+y100;  % center point
+numeric alpha[], hor, vert, hypot, theta; 
+pair greek[];
+hor := 0.5h; vert := h-thick;
+greek1 = (hor, vert); 
+theta = 270 + angle(greek1);
+  % for left leg
+penpos1(thick,theta); penpos2(thick,theta); 
+  % and for the right leg
+penpos3(thick,-theta); penpos4(thick,-theta);
+rt x1r=pcshiftx; lft x4l=x1r+side;
+bot y1r=bot y4l=0;
+top y3r= top y2l=h;
+x3r=x2l = 0.5[x1r,x4l];
+z0=whatever[z1r,z2r]=whatever[z3l,z4l];
+  % draw the legs
+filldraw z1l--z2l--z4r--z4l--z0--z1r--cycle;
+  % now for the bar
+y5l=y6l=hround(1/3h); 
+y5r-y5l=y6r-y6l=thick;
+penpos5(whatever, angle(z2-z1)); penpos6(whatever, angle(z3-z4));
+z5=whatever[z1,z2]; z6=whatever[z3,z4];
+penstroke z5e--z6e; % bar line
+proofpcbb(100, y100, y100);
+penlabels(0,1,2,3,4,5,6,100); endchar;
+
+%    \end{macrocode}
+% \end{mfpmacro}
+%
+% \begin{mfpmacro}{b}
+%    The letter \textit{beta}. The actual height is 6/5 the nominal height,
+% with the width being 2/3 the nominal height. This rendition scales it so
+% that the actual height is the same as the nominal height (i.e., setting
+% the declared width to 5/9 nominal height).
+% 
+%    \begin{macrocode}
+ 
+cmchar "Greek 394BC letter beta (b)";
+beginchar("b",4u#+5/9side#, cap_height#, 0);
+adjust_fit(0,0); 
+pcshiftx := 2u;
+y100=h/2; x100=pcshiftx+y100;  % square center
+% the stem
+penpos1(thick,0); penpos2(thick,0);
+y2l=0; y1l=h; x1l=x2l=pcshiftx;
+numeric alpha, long, short, hypot; 
+long=(w-2pcshiftx); short=h/4; hypot=short++long;
+alpha := hypot/long;
+% prepare for the bottom bowl
+penpos3(alpha*thick,90); penpos4(alpha*thick,90); 
+penpos5(alpha*thick,90); penpos6(alpha*thick,90);
+z3l=z2l;
+x4l=w-pcshiftx; y4l=0.25[y2l,y1l];
+z5r=z4l;
+x6l=x2r; y6l=0.5[y2l,y1l];
+% prepare for the top bowl
+penpos7(alpha*thick,90); penpos8(alpha*thick,90); 
+penpos9(alpha*thick,90); penpos10(alpha*thick,90);
+z7r=z6l;
+x8l=x4l; y8l=0.75[y2l,y1l];
+z9r=z8l;
+z10r=z1l;
+% now for the notches
+z11=whatever[z2r,z1r]=whatever[z3r,z4r];  % bottom bowl and stem
+z12=whatever[z3r,z4r]=whatever[z6l,z5l];  % bottom bowl inner
+z13=whatever[z5r,z6r]=whatever[z7l,z8l];  % between the bowls
+z14=whatever[z7r,z8r]=whatever[z9l,z10l]; % top bowl inner
+z15=whatever[z2r,z1r]=whatever[z9l,z10l]; % top bowl and stem
+% draw the outer boundary
+filldraw z1l--z2l--z4l--z13--z8l--cycle;
+% remove interior of bottom bowl
+unfilldraw z6l--z12--z11--cycle;
+% and the top bowl
+unfilldraw z7r--z15--z14--cycle;
+proofpcbb(100, y100, y100);
+penlabels(1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,100); 
+endchar;
+ 
+%    \end{macrocode}
+% \end{mfpmacro}
+%
+% \begin{mfpmacro}{g}
+%    The letter \textit{gamma}. The bottom of the top arm is 2/3 side long.
+%    \begin{macrocode}
+ 
+cmchar "Greek 394BC letter gamma (g)";
+beginchar("g",2u#+thick#+2/3side#, cap_height#, 0);  
+adjust_fit(0, 0); 
+pcshiftx := u;
+y100 = h/2; x100 = pcshiftx + y100;        % center point
+% the stem
+penpos1(thick,0); penpos2(thick,0);
+x1l=x2l=pcshiftx; top y1l=h; bot y2l=0;
+filldraw stroke z1e--z2e;
+% the arm
+penpos3(thick,90); penpos4(thick,90);
+y3r=y4r=y1l; x3l=x1l; x4l=w-pcshiftx;
+filldraw stroke z3e--z4e;
+proofpcbb(100, y100, y100);
+penlabels(1,2,3,4,100); endchar;
+ 
+%    \end{macrocode}
+% \end{mfpmacro}
+%
+% \begin{mfpmacro}{d}
+%    The letter \textit{delta}. Same as \textit{alpha} except that the `bar'
+% is at the base.
+%    \begin{macrocode}
+ 
+cmchar "Greek 394BC letter delat (d)";
+beginchar("d", 2u#+side#+2thick#, cap_height#, 0);
+adjust_fit(0,0);
+pcshiftx := u+thick;
+y100 = h/2; x100 = pcshiftx+y100;  % center point
+numeric alpha, hor, vert, hypot, theta; 
+pair greek[];
+hor := 0.5h; vert := h-thick;
+greek1 = (hor, vert);
+theta = 270 + angle(greek1);
+  % for left leg
+penpos1(thick,theta); penpos2(thick,theta); 
+  % and for the right leg
+penpos3(thick,-theta); penpos4(thick,-theta);
+rt x1r=pcshiftx; lft x4l=x1r+side;
+bot y1r=bot y4l=0;
+top y2l= top y3r=h;
+x3r=x2l = 0.5[x1r,x4l];
+z0=whatever[z1r,z2r]=whatever[z3l,z4l];
+  % now for the bar
+penpos5(thick,90); penpos6(thick,90);
+bot y5l=bot y6l=0;
+x5l=pcshiftx; x6l=w-pcshiftx;
+z7=whatever[z1l,z2l]=whatever[z5l,z6l];
+z8=whatever[z3r,z4r]=whatever[z5l,z6l];
+z9=whatever[z1r,z2r]=whatever[z5r,z6r];
+z10=whatever[z3l,z4l]=whatever[z5r,z6r];
+% draw the outer
+filldraw z7--z2l--z8--cycle;
+% subtract the inner
+unfilldraw z9--z0--z10--cycle;
+proofpcbb(100, y100, y100);
+penlabels(0,1,2,3,4,5,6,7,8,9,10,100); endchar;
+ 
+%    \end{macrocode}
+% \end{mfpmacro}
+%
+% \begin{mfpmacro}{e}
+%    The letter \textit{epsilon}. From LHS of square, top arm is 2/3 + thick,
+% middle is 2/3, and bottom is 2/3 + 2thick.
+%    \begin{macrocode}
+ 
+cmchar "Greek 394BC letter epsilon (e)";
+beginchar("e", 2u#+2/3side#+2thick#, cap_height#,0);
+adjust_fit(0,0); 
+pcshiftx := u;
+y100=h/2; x100=pcshiftx+y100;  % center point
+penpos1(thick,0); penpos2(thick,0);
+lft x1l=lft x2l=pcshiftx; top y1=h; bot y2=0;
+filldraw stroke z1e--z2e; % stem
+% middle arm
+penpos5(thick,90); penpos6(thick,90); 
+x5=x1; y5=y6=h/2; rt x6=pcshiftx + 2/3side;
+filldraw stroke z5e--z6e;
+% top arm
+penpos3(thick,90); penpos4(thick,90); 
+x3=x1; top y3r=top y4r=h; x4=x6+thick;
+filldraw stroke z3e--z4e;
+% bottom arm
+penpos7(thick,90); penpos8(thick,90);
+x7=x1; bot y7l=bot y8l=0; x8=x6+2thick;
+filldraw stroke z7e--z8e;
+proofpcbb(100, y100, y100);
+penlabels(1,2,3,4,5,6,7,8,100); endchar; % end of "E"
+ 
+%    \end{macrocode}
+% \end{mfpmacro}
+%
+%
+% \begin{mfpmacro}{z}
+%    The letter \textit{zeta}. This fills the square, except that the top
+% arm is only 4/5 of the side.
+%    \begin{macrocode}
+ 
+cmchar "Greek 394BC letter zeta (z)";
+beginchar("z", 2u#+side#, cap_height#,0);
+adjust_fit(0, 0); 
+pcshiftx := u;
+y100=h/2; x100=pcshiftx+y100;    % center of square
+numeric alpha, hor, vert, hypot;
+vert=h; hor=4/5side; hypot=vert++hor;
+alpha=hypot/vert;
+penpos1(thick,90); penpos2(thick,90); penpos3(alpha*thick, 0); 
+penpos4(alpha*thick, 0); 
+top y1r=h; lft x1=pcshiftx; 
+y2=y1; rt x2=x3;
+rt x3r=x1+4/5side;; top y3=h; x4l=x1; bot y4=0;
+filldraw stroke z1e--z2e; % top bar
+filldraw stroke z3e--z4e; % diagonal
+% and for the bottom bar
+penpos8(thick,90); penpos9(thick,90); 
+x8=x4; bot y8l=0; 
+x9=pcshiftx+side; y9=y8;
+filldraw stroke z8e--z9e;
+proofpcbb(100, y100, y100);
+penlabels(1,2,3,4,5,6,7,8,9,100); endchar;
+
+%    \end{macrocode}
+% \end{mfpmacro}
+%
+%
+% \begin{mfpmacro}{h}
+%    The letter \textit{eta}. The crossbar is centered.
+%    \begin{macrocode}
+ 
+cmchar "Greek 394BC letter eta (h)";
+beginchar("h", 4u#+side#, cap_height#,0);
+adjust_fit(0,0); 
+pcshiftx := 2u;
+y100 = h/2; x100 = pcshiftx + y100;  % center point
+% left stem
+penpos1(thick,0); penpos2(thick,0);
+lft x1l=lft x2l=pcshiftx; bot y1=0; top y2=h;
+filldraw stroke z1e--z2e;
+% right stem
+penpos3(thick,0); penpos4(thick,0);
+rt x3r= rt x4r= x1l+side; bot y3=0; top y4=h;
+filldraw stroke z3e--z4e;
+% crossbar
+penpos5(thick,90); penpos6(thick,90);
+x5=x1; x6=x3; y5=y6=h/2;
+filldraw stroke z5e--z6e;
+proofpcbb(100, y100, y100);
+labels(1,2,3,4,5,6,100); endchar;
+ 
+%    \end{macrocode}
+% \end{mfpmacro}
+%
+% \begin{mfpmacro}{T}
+%    The letter \textit{theta}. Just a circle with a dot in the center.
+%    \begin{macrocode}
+ 
+cmchar "Greek 394BC letter theta (T)";
+beginchar("T", 2u#+side#, cap_height#, 0);
+adjust_fit(0,0); 
+pcshiftx := u;
+y100=h/2; x100=pcshiftx+y100;    % square center
+numeric alpha; alpha=0.75;
+% outside of circle
+x2r=pcshiftx; x4r=x2r+h; y2r=y4r=y100;
+y1r=h; y3r=0; x1r=x3r=x100;
+% inside of circle
+x2l=x2r+thick; x4l=x4r-thick; y2l=y4l=y2r;
+y1l=y1r-thick; y3l=y3r+thick; x1l=x3l=x1r;
+filldraw z1r..z2r..z3r..z4r..cycle;
+unfilldraw z1l..z2l..z3l..z4l..cycle;
+% the dot
+x12=x100-alpha*thick; x14=x100+alpha*thick; y12=y14=y100; 
+y11=y100+alpha*thick; y13=y100-alpha*thick; x11=x13=x100;
+path p;
+p= z11..z12..z13..z14..cycle;
+filldraw p; filldraw p;
+proofpcbb(100, y100, y100);
+penlabels(1,2,3,4,100); endchar;
+ 
+%    \end{macrocode}
+% \end{mfpmacro}
+%
+% \begin{mfpmacro}{i}
+%    The letter \textit{iota}.
+%    \begin{macrocode}
+ 
+cmchar "Greek 394BC letter iota (i)";
+beginchar("i", 4u#+thick#, cap_height#,0);
+adjust_fit(0,0);
+pcshiftx := 2u;
+y100 = h/2; x100 = pcshiftx + 0.5thick;  % center point
+penpos1(thick,0); penpos2(thick,0);
+x1=x2=hround(w/2); top y1=h; bot y2=0;
+filldraw stroke z1e--z2e; % vertical stem
+proofpcbb(100, y100, y100);
+penlabels(1, 2, 100); 
+endchar;
+ 
+%    \end{macrocode}
+% \end{mfpmacro}
+%
+%
+% \begin{mfpmacro}{k}
+%    The letter \textit{kappa}. It fills 2/3 of the square.
+%    \begin{macrocode}
+ 
+cmchar "Greek 394BC letter kappa (k)";
+beginchar("k", 2u#+2/3side#, cap_height#,0);
+adjust_fit(0,0); 
+pcshiftx := u;
+y100=h/2; x100=pcshiftx+y100;  % square center
+% the stem
+penpos1(thick,0); penpos2(thick,0); 
+lft x1l=lft x2l=pcshiftx;
+ top y1=h; bot y2=0; 
+ filldraw stroke z1e--z2e; % left stem
+numeric hor, vert, theta[];
+pair greek[];
+% upper arm
+hor := 2/3side; vert := side/2;
+greek1 = (hor,vert);
+theta1=270+angle(greek1);
+penpos3(thick,theta1); penpos4(thick,theta1);
+x3l=x2r; y3l=side/2;
+y4l=h; x4r=x1l+2/3side;
+% lower arm
+vert := -side/4;
+greek2 = (hor,vert);
+theta2=270+angle(greek2);
+penpos5(thick,theta2); penpos6(thick,theta2);
+z5r=z3l;
+x6l=x4r; y6l=side/4;
+% arm notch
+z0=whatever[z3r,z4r]=whatever[z5l,z6l];
+% draw the arms
+filldraw z3l--z4l--z4r--z0--z6l--z6r--cycle;
+proofpcbb(100, y100, y100);
+penlabels(0,1,2,3,4,5,6,100); endchar;
+ 
+%    \end{macrocode}
+% \end{mfpmacro}
+%
+% \begin{mfpmacro}{l}
+%    The letter \textit{lambda}. Identical to A without the crossbar.
+%    \begin{macrocode}
+ 
+cmchar "Greek 394BC letter lambda (l)";
+beginchar("l", 2u#+side#+2thick#, cap_height#,0);
+adjust_fit(0,0);
+pcshiftx := u+thick;
+y100 = h/2; x100 = pcshiftx+y100;  % center point
+numeric alpha[], hor, vert, hypot, theta; 
+pair greek[];
+hor := 0.5h; vert := h-thick;
+greek1 = (hor, vert); 
+theta = 270 + angle(greek1);
+  % for left leg
+penpos1(thick,theta); penpos2(thick,theta); 
+  % and for the right leg
+penpos3(thick,-theta); penpos4(thick,-theta);
+rt x1r=pcshiftx; lft x4l=x1r+side;
+bot y1r=bot y4l=0;
+top y3r= top y2l=h;
+x3r=x2l = 0.5[x1r,x4l];
+z0=whatever[z1r,z2r]=whatever[z3l,z4l];
+  % draw the legs
+filldraw z1l--z2l--z4r--z4l--z0--z1r--cycle;
+proofpcbb(100, y100, y100);
+penlabels(0,1,2,3,4,100); endchar; % end of "L"
+ 
+%    \end{macrocode}
+% \end{mfpmacro}
+%
+% \begin{mfpmacro}{m}
+%    The letter \textit{mu}. This has slightly sloping right and left legs. 
+% The inside base of the legs is the square side.
+%    \begin{macrocode}
+ 
+cmchar"Greek 394BC letter mu (m)";
+beginchar("m", 2u#+side#+2thick#, cap_height#, 0);
+adjust_fit(0,0); 
+pcshiftx := u+thick;
+y100=h/2; x100=pcshiftx+y100;     % square center
+numeric alpha, hor, vert, hypot, theta[];
+pair greek[];
+hor := 3thick; vert := side;
+greek1 = (hor, vert);
+theta1 = 270 + angle(greek1);
+% left leg
+penpos1(thick,theta1); penpos2(thick,theta1);
+z1r=(pcshiftx,0); z2l=(pcshiftx+2thick,h);
+% right leg
+penpos3(thick,-theta1); penpos4(thick,-theta1);
+z3l=(pcshiftx+side,0); z4r=(pcshiftx+side-2thick,h);
+% stuff for the middle V, top of the notch at the square center
+z0=z100;
+theta2 = 270 + angle(z4r-z0);
+% left of V
+penpos5(thick,-theta2); penpos6(thick,-theta2);
+z5r=z0; z6r=z2l;
+% right of V
+penpos7(thick,theta2); penpos8(thick,theta2);
+z7l=z0; z8l=z4r;
+% left leg notch
+z9=whatever[z1r,z2r]=whatever[z5l,z6l];
+% under the V
+z10=whatever[z5l,z6l]=whatever[z7r,z8r];
+% right leg notch
+z11=whatever[z7r,z8r]=whatever[z3l,z4l];
+% draw it
+filldraw z1l--z2l--z0--z4r--z3r--z3l--z11--z10--z9--z1r--cycle;
+proofpcbb(100, y100, y100);
+penlabels(0,1,2,3,4,5,6,7,8,9,10,100); endchar;
+ 
+%    \end{macrocode}
+% \end{mfpmacro}
+%
+% \begin{mfpmacro}{n}
+%    The letter \textit{nu}. It fills the square (actually left and right legs
+% are a bit long).
+%    \begin{macrocode}
+ 
+cmchar "Greek 394BC letter nu (n)";
+beginchar("n", 4u#+side#, cap_height#,0);
+adjust_fit(0,0); 
+pcshiftx := 2u;
+y100 = h/2; x100 = pcshiftx + y100;   % center point
+numeric hor, vert, theta;
+pair greek[];
+hor = side-thick; vert = h;
+greek1=(hor,vert);
+theta=270 + angle(greek1);
+% left leg
+penpos1(thick,0); penpos2(thick,0);
+z1l=(pcshiftx,0); z2l=(pcshiftx,h);
+% right leg
+penpos3(thick,0); penpos4(thick,0);
+z3r=(pcshiftx+side,0); z4r=(pcshiftx+side,h);
+% bar
+penpos5(thick,-theta); penpos6(thick,-theta);
+z5l=z3r; z6r=z2l;
+% left notch
+z7=whatever[z1r,z2r]=whatever[z5l,z6l];
+% right notch
+z8=whatever[z5r,z6r]=whatever[z3l,z4l];
+filldraw z1l--z2l--z8--z4l--z4r--z3r--z7--z1r--cycle;
+proofpcbb(100, y100, y100);
+penlabels(1,2,3,4,5,6,7,8,100); endchar;
+ 
+%    \end{macrocode}
+% \end{mfpmacro}
+%
+% \begin{mfpmacro}{x}
+%    The letter \textit{xi}. It fills the square
+%    \begin{macrocode}
+
+cmchar "Greek 394BC letter xi (x)";
+beginchar("x", 2u#+side#, cap_height#, 0);
+adjust_fit(0,0);
+pcshiftx := u;
+y100 = h/2; x100 = pcshiftx + y100;  % center point
+% upright
+penpos1(thick,0); penpos2(thick,0);
+z1=(x100,0); z2=(x100,h);
+filldraw stroke z1e--z2e;
+% 3 horizontal bars
+penpos3(thick,90); penpos4(thick,90);
+z3r=(pcshiftx,h); z4r=(pcshiftx+side,h);
+filldraw stroke z3e--z4e;
+penpos5(thick,90); penpos6(thick,90);
+z5=(pcshiftx,h/2); z6=(pcshiftx+side,h/2);
+filldraw stroke z5e--z6e;
+penpos7(thick,90); penpos8(thick,90);
+z7l=(pcshiftx,0); z8l=(pcshiftx+side,0);
+filldraw stroke z7e--z8e;
+proofpcbb(100, y100, y100);
+penlabels(1,2,3,4,5,6,7,8,100);
+endchar;
+
+%    \end{macrocode}
+% \end{mfpmacro}
+%
+% \begin{mfpmacro}{o}
+%    The letter \textit{omicron}. Just a circle.
+%    \begin{macrocode}
+ 
+cmchar "Greek 394BC letter omicron (o)";
+beginchar("o", 2u#+side#, cap_height#, 0);
+adjust_fit(0,0); 
+pcshiftx := u;
+y100=h/2; x100=pcshiftx+y100;    % square center
+% outside of circle
+x2r=pcshiftx; x4r=x2r+h; y2r=y4r=y100;
+y1r=h; y3r=0; x1r=x3r=x100;
+% inside of circle
+x2l=x2r+thick; x4l=x4r-thick; y2l=y4l=y2r;
+y1l=y1r-thick; y3l=y3r+thick; x1l=x3l=x1r;
+filldraw z1r..z2r..z3r..z4r..cycle;
+unfilldraw z1l..z2l..z3l..z4l..cycle;
+proofpcbb(100, y100, y100);
+penlabels(1,2,3,4,100); endchar;
+ 
+%    \end{macrocode}
+% \end{mfpmacro}
+%
+% \begin{mfpmacro}{p}
+%    The letter \textit{pi}. This just fills the square.
+%    \begin{macrocode}
+ 
+cmchar "Greek 394BC letter pi (p)";
+beginchar("p", 4u#+side#, cap_height#, 0);
+adjust_fit(0, 0); 
+pcshiftx := 2u;
+y100 = h/2; x100 = pcshiftx + y100;        % center point
+% the stem
+penpos1(thick,0); penpos2(thick,0);
+x1l=x2l=pcshiftx; top y1l=h; bot y2l=0;
+filldraw stroke z1e--z2e;
+% the arm
+penpos3(thick,90); penpos4(thick,90);
+y3r=y4r=y1l; x3l=x1l; x4l=w-pcshiftx;
+filldraw stroke z3e--z4e;
+% the beak
+penpos5(thick,0); penpos6(thick,0);
+x5r=x6r=x4; top y5=h; bot y6=h/2;
+filldraw stroke z5e--z6e;
+proofpcbb(100, y100, y100);
+penlabels(1,2,3,4,5,6,100); endchar;
+ 
+ 
+%    \end{macrocode}
+% \end{mfpmacro}
+%
+%
+%
+% \begin{mfpmacro}{r}
+%    The letter \textit{rho}. The actual height is 6/5 side and width 2/3 side.
+% The bowl fits into a square of 2/3 side. This is a trimmed version of the
+% original.
+%    \begin{macrocode}
+ 
+cmchar "Greek 394BC letter rho (r)";
+beginchar("r", 2u#+5/9side#, cap_height#,0);
+adjust_fit(0, 0);
+pcshiftx := u;
+y100=h/2; x100=pcshiftx+y100;    % square center
+penpos1(thick,0); penpos2(thick,0);
+  top lft z1l=(pcshiftx,h); bot lft z2l=(pcshiftx,0);
+filldraw stroke z1e--z2e; % vertical stem
+% the bowl
+penpos3(thick,90); penpos4(thick,0); penpos5(thick,-90); 
+top y3r=top y1; x3r=x1r; 
+bot y5r=5/9[y1,y2]; x5=x3;
+x4r=x1l+5/9side; y4=0.5[y5r,y3r];
+filldraw z3r{right}..z4r{down}..z5r{left}--z5l{right}..z4l{up}..z3l{left}--cycle;
+proofpcbb(100, y100, y100);
+penlabels(1,2,3,4,5,100);
+endchar;
+ 
+%    \end{macrocode}
+% \end{mfpmacro}
+%
+% \begin{mfpmacro}{s}
+%    The letter \textit{sigma}. The width is 2/3 the square.
+%    \begin{macrocode}
+ 
+cmchar "Greek 394BC letter sigma (s)";
+beginchar("s", 2u#+2/3side#, cap_height#, 0);
+adjust_fit(0,0); 
+pcshiftx := u;
+y100 = h/2; x100 = pcshiftx+y100;    % square center
+pair greek[];
+numeric theta[];
+numeric hor, vert;
+% prepare for the long arms
+hor := 2/3side; vert := 1/3h;
+greek1=(hor,vert);
+theta1=270+angle(greek1);
+penpos1(thick,-theta1); penpos2(thick,-theta1);
+penpos7(thick,theta1); penpos8(thick,theta1);
+% prepare for the short arms
+hor := 2/3side-thick; vert := h/2 - h/3;
+greek2=(hor,vert);
+theta2=270-angle(greek2);
+penpos3(thick,theta2); penpos4(thick,theta2);
+penpos5(thick,-theta2); penpos6(thick,-theta2);
+% do the points
+y1l=0; x1r=pcshiftx+2/3side;
+z2l=(pcshiftx,h/3);
+z3l=z2l;
+z4r=(pcshiftx+2/3side-thick, h/2);
+z5r=z4r;
+z6l=(pcshiftx,2/3h);
+z7l=z6l;
+y8l=h; x8r=x1r;
+% bottom notch
+z10=whatever[z1r,z2r]=whatever[z3r,z4r];
+% middle notch
+z11=whatever[z3l,z4l]=whatever[z5l,z6l];
+% top notch
+z12=whatever[z5r,z6r]=whatever[z7r,z8r];
+% draw it all
+filldraw z1l--z2l--z11--z6l--z8l--z8r--z12--z4r--z10--z1r--cycle;
+proofpcbb(100, y100, y100);
+penlabels(1,2,3,4,5,6,7,8,10,11,12,100); endchar;
+ 
+%    \end{macrocode}
+% \end{mfpmacro}
+%
+% \begin{mfpmacro}{t}
+%    The letter \textit{tau}. It has a jaunty crossbar and fills the square.
+%    \begin{macrocode}
+ 
+cmchar "Greek 394BC letter tau (t)";
+beginchar("t",2u#+side#, cap_height#,0);
+adjust_fit(0,0); 
+pcshiftx := u;
+y100=h/2; x100=pcshiftx+y100;     % square center
+numeric hor, vert, theta;
+numeric alpha[]; pair greek[];
+% the stem
+alpha1=h-thick;
+penpos1(thick,0); penpos2(thick,0); 
+z1=(w/2,0); z2=(w/2,alpha1);
+filldraw stroke z1e--z2e;
+% the crossbar (left half)
+penpos3(thick,90); penpos4(thick,90);
+z3r=(pcshiftx,alpha1); z4r=(w/2,alpha1);
+filldraw stroke z3e--z4e;
+% right half
+hor := w/2; vert := h/5;
+greek1=(hor,vert);
+theta = 270 + angle(greek1);
+penpos5(thick,theta);
+y5l=h; x5r=w-pcshiftx;
+filldraw z4l{right}..{greek1}z5r--z5l{-greek1}..{left}z4r--cycle;
+proofpcbb(100, y100, y100);
+penlabels(1,2,3,4,5,100); endchar;
+ 
+%    \end{macrocode}
+% \end{mfpmacro}
+%
+% \begin{mfpmacro}{y}
+%    The letter \textit{upsilon}. 
+% Actual size is square with sides 6/5 of normal. This is
+% a scaled version.
+%    \begin{macrocode}
+ 
+cmchar "Greek 394BC letter upsilon (y)";
+beginchar("y", 2u#+side#, cap_height#, 0);
+adjust_fit(0,0);
+pcshiftx := u;
+y100=h/2; x100=pcshiftx+y100;       % center of square
+numeric alpha, theta;
+numeric hor, vert;
+pair greek[];
+alpha=h/3;
+hor := h; vert := 0.75h;
+greek1 = (hor,vert); greek2 = (-hor, -vert);
+greek3 = (-hor,vert); greek4 = (hor, -vert);
+theta = 270 + angle(greek1);
+% stem
+penpos1(thick,0); penpos2(thick,0);
+z1=(w/2,0); z2=(w/2,alpha);
+% right arm
+penpos3(thick,theta);
+y3l=h; x3r=w-pcshiftx;
+% left arm
+penpos4(thick,-theta);
+y4r=h; x4l=pcshiftx;
+filldraw z1l--z1r--z2r{up}..{greek1}z3r--z3l{greek2}..{down}z2l--cycle;
+filldraw z1l--z1r--z2r{up}..{greek3}z4r--z4l{greek4}..{down}z2l--cycle;
+proofpcbb(100, y100, y100);
+penlabels(0,1,2,3,4,5,6,100); endchar; % End of "U"
+ 
+%    \end{macrocode}
+% \end{mfpmacro}
+%
+%
+% \begin{mfpmacro}{X}
+%    The letter \textit{chi}. It just fits into the square.
+%    \begin{macrocode}
+ 
+cmchar "Greek 394BC letter chi (X)";
+beginchar("X", 2u#+side#, cap_height#, 0);
+adjust_fit(0,0);
+pcshiftx := u;
+y100=h/2; x100=pcshiftx+y100;    % center of square
+numeric theta;
+theta = 270+45;
+% right going leg
+penpos1(thick,theta); penpos2(thick,theta);
+x1l=pcshiftx; y1r=0;  x2r=pcshiftx+side; y2l=h;
+filldraw stroke z1e--z2e;
+% left going leg
+penpos3(thick,-theta); penpos4(thick,-theta);
+x3l=pcshiftx; y3r=h; x4r=pcshiftx+side; y4l=0;
+filldraw stroke z3e--z4e;
+proofpcbb(100, y100, y100);
+penlabels(1,2,3,4,100); endchar;
+ 
+%    \end{macrocode}
+% \end{mfpmacro}
+%
+%
+% \begin{mfpmacro}{f}
+% The letter \textit{phi}. Actual height is 6/5 of square and outer dia of circle
+% is 4/5 side (i.e., 2/3 the actual height). This is a scaled version.
+%    \begin{macrocode}
+
+cmchar "Greek 394BC letter phi (f)";
+beginchar("f", 2u#+2/3side#, cap_height#,0);
+adjust_fit(0, 0); 
+pcshiftx := u;
+y100 = h/2; x100 = pcshiftx + y100;  % center point
+% the stem
+penpos1(thick,0); penpos2(thick,0);
+z1=(w/2,0); z2=(w/2,h);
+% the circle
+z0=(w/2,h/2);
+numeric alpha;
+alpha := 1/3h;
+y3o=y3i=y5i=y5o=h/2;
+x3o=x0-alpha; x3i=x3o+thick; x5o=x0+alpha; x5i=x5o-thick;
+x4o=x4i=x6i=x6o=w/2;
+y4o=y0+alpha; y4i=y4o-thick; y6o=y0-alpha; y6i=y6o+thick;
+% unfill the inner
+unfilldraw z3i..z4i..z5i..z6i..cycle;
+% draw the outer
+filldraw z3o..z4o..z5o..z6o..cycle;
+% draw the stem (twice)
+filldraw stroke z1e--z2e; filldraw stroke z1e--z2e;
+proofpcbb(100, y100, y100);
+penlabels(1,2,3,4,5,6,100);
+endchar;
+
+%    \end{macrocode}
+% \end{mfpmacro}
+%
+% \begin{mfpmacro}{P}
+% The letter \textit{psi}. The actual height is 6/5 square and width is square.
+% This is a scaled version.
+%    \begin{macrocode}
+
+cmchar "Greek 394BC letter psi (P)";
+beginchar("P", 2u#+5/6side#, cap_height#,0);
+adjust_fit(0, 0); 
+pcshiftx := u;
+y100 = h/2; x100 = pcshiftx + y100;  % center point
+numeric alpha, beta;
+numeric hor, vert, theta;
+pair greek;
+alpha=5/6;  % scale factor
+beta=1/3alpha*side+thick; % arm seperation height
+% the stem
+penpos1(thick,0); penpos2(thick,0);
+z1=(w/2,0); z2=(w/2,h);
+filldraw stroke z1e--z2e;
+hor := w/2; vert := h-beta;
+greek = (hor,vert);
+theta=270+angle(greek);
+% right arm
+penpos3(thick,theta); penpos4(thick,theta);
+z3l=(w/2,beta); y4l=alpha*h; x4r=w-pcshiftx;
+% left arm
+penpos5(thick,-theta); penpos6(thick,-theta);
+z5r=z3l; x6l=pcshiftx; y6r=y4l;
+% intersection points
+z10=whatever[z1r,z2r]=whatever[z3r,z4r];
+z11=whatever[z1l,z2l]=whatever[z5l,z6l];
+filldraw z3l--z4l--z4r--z10--cycle; % right arm
+filldraw z5r--z6r--z6l--z11--cycle; % left arm
+proofpcbb(100, y100, y100);
+penlabels(1,2,3,4,5,6,10,11,100);
+endchar;
+
+%    \end{macrocode}
+% \end{mfpmacro}
+%
+% \begin{mfpmacro}{O}
+% The letter \textit{omega}. Height is square, width is 4/3 square.
+%    \begin{macrocode}
+
+cmchar "Greek 394BC letter omega (O)";
+beginchar("O", 2u#+4/3side#, cap_height#,0);
+adjust_fit(0, 0); 
+pcshiftx := u;
+y100 = h/2; x100 = pcshiftx + y100;  % center point
+% bottom arms
+penpos1(thick,90); penpos2(thick,90); penpos3(thick,90); penpos4(thick,90);
+z1l=(pcshiftx,0); z4l=(w-pcshiftx,0);
+x2l = w/2-side/4; x3l=w/2+side/4; y2l=y3l=0;
+% prepare the bowl
+numeric theta, hor, vert;
+pair greek[];
+hor := x2r-pcshiftx; vert := h;
+greek1=(hor,vert); greek2=(-hor,-vert);
+greek3=(-hor,vert); greek4=(hor,-vert);
+theta = 270+angle(greek1);
+penpos5(thick,-theta); penpos9(thick,theta);
+z5r=z2l; z9l=z3l;
+penpos6(thick,0); penpos8(thick,0);
+z6l=(w/2-side/2, h/2); z8r=(w/2+side/2, h/2);
+penpos7(thick,90);
+z7r=(w/2,h);
+path p[];
+p1=z5l{greek3}..z6l{up}..{right}z7r;
+p2=z7r{right}..z8r{down}..{greek2}z9r;
+p3=z1r--z4r;
+% notch points
+z10 = p3 intersectionpoint p1;
+z11 = p3 intersectionpoint p2;
+% draw it
+filldraw z1r--z10{greek3}..z6l{up}..z7r{right}..z8r{down}..{greek2}z11--z4r
+       --z4l--z3l{greek1}..z8l{up}..z7l{left}..z6r{down}..{greek4}z2l--z1l--cycle;
+proofpcbb(100, y100, y100);
+penlabels(1,2,3,4,5,6,7,8,9,10,11,100);
+endchar;
+
+%    \end{macrocode}
+% \end{mfpmacro}
+%
+%    The rest of the glyphs are rough versions of some of the above.
+%
+%
+% \begin{mfpmacro}{B}
+%    The letter \textit{beta}. The actual height is 6/5 the nominal height,
+% with the width being 2/3 the nominal height. 
+% 
+%    \begin{macrocode}
+ 
+cmchar "Greek 394BC letter beta (rough, B)";
+beginchar("B",4u#+2/3side#, cap_height#, 0);
+adjust_fit(0,0); 
+pcshiftx := 2u;
+y100=h/2; x100=pcshiftx+y100;  % square center
+numeric beta;
+beta := side/10; % amount to extend top and bottom
+% the stem
+penpos1(thick,0); penpos2(thick,0);
+y2l=-beta; y1l=h+beta; x1l=x2l=pcshiftx;
+numeric alpha, long, short, hypot; 
+long=(w-2pcshiftx); short=h/4; hypot=short++long;
+alpha := hypot/long;
+% prepare for the bottom bowl
+penpos3(alpha*thick,90); penpos4(alpha*thick,90); 
+penpos5(alpha*thick,90); penpos6(alpha*thick,90);
+z3l=z2l;
+x4l=w-pcshiftx; y4l=0.25[y2l,y1l];
+z5r=z4l;
+x6l=x2r; y6l=0.5[y2l,y1l];
+% prepare for the top bowl
+penpos7(alpha*thick,90); penpos8(alpha*thick,90); 
+penpos9(alpha*thick,90); penpos10(alpha*thick,90);
+z7r=z6l;
+x8l=x4l; y8l=0.75[y2l,y1l];
+z9r=z8l;
+z10r=z1l;
+% now for the notches
+z11=whatever[z2r,z1r]=whatever[z3r,z4r];  % bottom bowl and stem
+z12=whatever[z3r,z4r]=whatever[z6l,z5l];  % bottom bowl inner
+z13=whatever[z5r,z6r]=whatever[z7l,z8l];  % between the bowls
+z14=whatever[z7r,z8r]=whatever[z9l,z10l]; % top bowl inner
+z15=whatever[z2r,z1r]=whatever[z9l,z10l]; % top bowl and stem
+% draw the outer boundary
+filldraw z1l--z2l--z4l--z13--z8l--cycle;
+% remove interior of bottom bowl
+unfilldraw z6l--z12--z11--cycle;
+% and the top bowl
+unfilldraw z7r--z15--z14--cycle;
+proofpcbb(100, y100, y100);
+penlabels(1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,100); 
+endchar;
+ 
+%    \end{macrocode}
+% \end{mfpmacro}
+%
+%
+% \begin{mfpmacro}{M}
+%    The letter \textit{mu}. This has slightly sloping right and left legs. 
+% The inside base of the legs is the square side. Left leg extends below
+% the baseline.
+%    \begin{macrocode}
+ 
+cmchar"Greek 394BC letter mu (rough, M)";
+beginchar("M", 2u#+side#+2thick#, cap_height#, 0);
+adjust_fit(0,0); 
+pcshiftx := u+thick;
+y100=h/2; x100=pcshiftx+y100;     % square center
+numeric alpha, hor, vert, hypot, theta[];
+pair greek[];
+hor := 3thick; vert := side;
+greek1 = (hor, vert);
+theta1 = 270 + angle(greek1);
+% left leg
+numeric beta;
+beta := thick; % extra depth below baseline
+penpos1(thick,theta1); penpos2(thick,theta1);
+z1r=(pcshiftx,-beta); z2l=(pcshiftx+2thick,h);
+% right leg
+penpos3(thick,-theta1); penpos4(thick,-theta1);
+z3l=(pcshiftx+side,0); z4r=(pcshiftx+side-2thick,h);
+% stuff for the middle V, top of the notch at the square center
+z0=z100;
+theta2 = 270 + angle(z4r-z0);
+% left of V
+penpos5(thick,-theta2); penpos6(thick,-theta2);
+z5r=z0; z6r=z2l;
+% right of V
+penpos7(thick,theta2); penpos8(thick,theta2);
+z7l=z0; z8l=z4r;
+% left leg notch
+z9=whatever[z1r,z2r]=whatever[z5l,z6l];
+% under the V
+z10=whatever[z5l,z6l]=whatever[z7r,z8r];
+% right leg notch
+z11=whatever[z7r,z8r]=whatever[z3l,z4l];
+% draw it
+filldraw z1l--z2l--z0--z4r--z3r--z3l--z11--z10--z9--z1r--cycle;
+proofpcbb(100, y100, y100);
+penlabels(0,1,2,3,4,5,6,7,8,9,10,100); endchar;
+ 
+%    \end{macrocode}
+% \end{mfpmacro}
+%
+% \begin{mfpmacro}{N}
+%    The letter \textit{nu}. It fills the square (actually left and right legs
+% are a bit long).
+%    \begin{macrocode}
+ 
+cmchar "Greek 394BC letter nu (rough, N)";
+beginchar("N", 4u#+side#, cap_height#,0);
+adjust_fit(0,0); 
+pcshiftx := 2u;
+y100 = h/2; x100 = pcshiftx + y100;   % center point
+numeric hor, vert, theta;
+pair greek[];
+hor = side-thick; vert = h;
+greek1=(hor,vert);
+theta=270 + angle(greek1);
+numeric beta;
+beta := thick;  % extra extensions of the legs
+% left leg
+penpos1(thick,0); penpos2(thick,0);
+z1l=(pcshiftx,-beta); z2l=(pcshiftx,h);
+% right leg
+penpos3(thick,0); penpos4(thick,0);
+z3r=(pcshiftx+side,0); z4r=(pcshiftx+side,h+beta);
+% bar
+penpos5(thick,-theta); penpos6(thick,-theta);
+z5l=z3r; z6r=z2l;
+% left notch
+z7=whatever[z1r,z2r]=whatever[z5l,z6l];
+% right notch
+z8=whatever[z5r,z6r]=whatever[z3l,z4l];
+filldraw z1l--z2l--z8--z4l--z4r--z3r--z7--z1r--cycle;
+proofpcbb(100, y100, y100);
+penlabels(1,2,3,4,5,6,7,8,100); endchar;
+ 
+%    \end{macrocode}
+% \end{mfpmacro}
+%
+%
+% \begin{mfpmacro}{R}
+%    The letter \textit{rho}. The actual height is 6/5 side and width 2/3 side.
+% The bowl fits into a square of 2/3 side. 
+%    \begin{macrocode}
+ 
+cmchar "Greek 394BC letter rho (rough, R)";
+beginchar("R", 2u#+2/3side#, cap_height#,0);
+adjust_fit(0, 0);
+pcshiftx := u;
+y100=h/2; x100=pcshiftx+y100;    % square center
+numeric beta;
+beta := side/10;  % extra top and bottom extensions
+penpos1(thick,0); penpos2(thick,0);
+  top lft z1l=(pcshiftx,h+beta); bot lft z2l=(pcshiftx,-beta);
+filldraw stroke z1e--z2e; % vertical stem
+% the bowl
+penpos3(thick,90); penpos4(thick,0); penpos5(thick,-90); 
+top y3r=top y1; x3r=x1r; 
+bot y5r=5/9[y1,y2]; x5=x3;
+x4r=x1l+5/9side; y4=0.5[y5r,y3r];
+filldraw z3r{right}..z4r{down}..z5r{left}--z5l{right}..z4l{up}..z3l{left}--cycle;
+proofpcbb(100, y100, y100);
+penlabels(1,2,3,4,5,100);
+endchar;
+ 
+%    \end{macrocode}
+% \end{mfpmacro}
+%
+% \begin{mfpmacro}{Y}
+%    The letter \textit{upsilon}. 
+% Actual size is square with sides 6/5 of normal. 
+%    \begin{macrocode}
+ 
+cmchar "Greek 394BC letter upsilon (rough, Y)";
+beginchar("Y", 2u#+6/5side#, cap_height#, 0);
+adjust_fit(0,0);
+pcshiftx := u;
+y100=h/2; x100=pcshiftx+y100;       % center of square
+numeric beta;
+beta := side/10;  % extra at top and bottom
+numeric alpha, theta;
+numeric hor, vert;
+pair greek[];
+alpha=h/3;
+hor := h; vert := 0.75h;
+greek1 = (hor,vert); greek2 = (-hor, -vert);
+greek3 = (-hor,vert); greek4 = (hor, -vert);
+theta = 270 + angle(greek1);
+% stem
+penpos1(thick,0); penpos2(thick,0);
+z1=(w/2,-beta); z2=(w/2,alpha);
+% right arm
+penpos3(thick,theta);
+y3l=h+beta; x3r=w-pcshiftx;
+% left arm
+penpos4(thick,-theta);
+y4r=h+beta; x4l=pcshiftx;
+filldraw z1l--z1r--z2r{up}..{greek1}z3r--z3l{greek2}..{down}z2l--cycle;
+filldraw z1l--z1r--z2r{up}..{greek3}z4r--z4l{greek4}..{down}z2l--cycle;
+proofpcbb(100, y100, y100);
+penlabels(0,1,2,3,4,5,6,100); endchar; % End of "u"
+ 
+%    \end{macrocode}
+% \end{mfpmacro}
+%
+%
+%
+% \begin{mfpmacro}{F}
+% The letter \textit{phi}. Actual height is 6/5 of square and outer dia of circle
+% is 4/5 side (i.e., 2/3 the actual height).
+%    \begin{macrocode}
+
+cmchar "Greek 394BC letter phi (rough, F)";
+beginchar("F", 2u#+4/5side#, cap_height#,0);
+adjust_fit(0, 0); 
+pcshiftx := u;
+y100 = h/2; x100 = pcshiftx + y100;  % center point
+% the stem
+numeric beta;
+beta := side/10;  % extra at top and bottom
+penpos1(thick,0); penpos2(thick,0);
+z1=(w/2,-beta); z2=(w/2,h+beta);
+% the circle
+z0=(w/2,h/2);
+numeric alpha;
+alpha := 2/5side;
+y3o=y3i=y5i=y5o=h/2;
+x3o=x0-alpha; x3i=x3o+thick; x5o=x0+alpha; x5i=x5o-thick;
+x4o=x4i=x6i=x6o=w/2;
+y4o=y0+alpha; y4i=y4o-thick; y6o=y0-alpha; y6i=y6o+thick;
+% unfill the inner
+unfilldraw z3i..z4i..z5i..z6i..cycle;
+% draw the outer
+filldraw z3o..z4o..z5o..z6o..cycle;
+% draw the stem (twice)
+filldraw stroke z1e--z2e; filldraw stroke z1e--z2e;
+proofpcbb(100, y100, y100);
+penlabels(1,2,3,4,5,6,100);
+endchar;
+
+%    \end{macrocode}
+% \end{mfpmacro}
+%
+% \begin{mfpmacro}{Q}
+% The letter \textit{psi}. The actual height is 6/5 square and width is square.
+%    \begin{macrocode}
+
+cmchar "Greek 394BC letter psi (rough, Q)";
+beginchar("Q", 2u#+side#, cap_height#,0);
+adjust_fit(0, 0); 
+pcshiftx := u;
+y100 = h/2; x100 = pcshiftx + y100;  % center point
+numeric alpha, beta;
+numeric hor, vert, theta;
+pair greek;
+alpha=1;  % scale factor
+beta=1/3alpha*side+thick; % arm seperation height
+% the stem
+numeric gamma;
+gamma := side/10;  % extra at top and bottom
+penpos1(thick,0); penpos2(thick,0);
+z1=(w/2,-gamma); z2=(w/2,h+gamma);
+filldraw stroke z1e--z2e;
+hor := w/2; vert := h-beta;
+greek = (hor,vert);
+theta=270+angle(greek);
+% right arm
+penpos3(thick,theta); penpos4(thick,theta);
+z3l=(w/2,beta); y4l=alpha*h; x4r=w-pcshiftx;
+% left arm
+penpos5(thick,-theta); penpos6(thick,-theta);
+z5r=z3l; x6l=pcshiftx; y6r=y4l;
+% intersection points
+z10=whatever[z1r,z2r]=whatever[z3r,z4r];
+z11=whatever[z1l,z2l]=whatever[z5l,z6l];
+filldraw z3l--z4l--z4r--z10--cycle; % right arm
+filldraw z5r--z6r--z6l--z11--cycle; % left arm
+proofpcbb(100, y100, y100);
+penlabels(1,2,3,4,5,6,10,11,100);
+endchar;
+
+%    \end{macrocode}
+% \end{mfpmacro}
+%
+%
+%  The end of the glyphs and the file.
+%    \begin{macrocode}
+
+end
+
+%</up>
+%    \end{macrocode}
+%
+%
+% \section{The font definition files} \label{sec:fd}
+%
+%    \begin{macrocode}
+%<*fdot1>
+\DeclareFontFamily{OT1}{givbc}{}
+  \DeclareFontShape{OT1}{givbc}{m}{n}{ <-> givbc10 }{}
+  \DeclareFontShape{OT1}{givbc}{bx}{n}{ <-> sub givbc/m/n }{}
+  \DeclareFontShape{OT1}{givbc}{b}{n}{ <-> sub givbc/m/n }{}
+  \DeclareFontShape{OT1}{givbc}{m}{sl}{ <-> sub givbc/m/n }{}
+  \DeclareFontShape{OT1}{givbc}{m}{it}{ <-> sub givbc/m/n }{}
+%</fdot1>
+%    \end{macrocode}
+%
+%
+%    \begin{macrocode}
+%<*fdt1>
+\DeclareFontFamily{T1}{givbc}{}
+  \DeclareFontShape{T1}{givbc}{m}{n}{ <-> givbc10 }{}
+  \DeclareFontShape{T1}{givbc}{bx}{n}{ <-> sub givbc/m/n }{}
+  \DeclareFontShape{T1}{givbc}{b}{n}{ <-> sub givbc/m/n }{}
+  \DeclareFontShape{T1}{givbc}{m}{sl}{ <-> sub givbc/m/n }{}
+  \DeclareFontShape{T1}{givbc}{m}{it}{ <-> sub givbc/m/n }{}
+%</fdt1>
+%    \end{macrocode}
+%
+% \section{The \Lpack{greek4cbc} package code} \label{sec:code}
+%
+%    Announce the name and version of the package, which requires
+% \LaTeXe{}.
+%    \begin{macrocode}
+%<*usc>
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{greek4cbc}[2000/10/22 v1.1 package for 4th century BC Greek fonts]
+%    \end{macrocode}
+%
+%
+% \begin{macro}{\givbcfamily}
+%    Selects the 4th century BC Greek font family in the T1 encoding.
+%    \begin{macrocode}
+\newcommand{\givbcfamily}{\usefont{T1}{givbc}{m}{n}}
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{\textgivbc}
+%    Text command for the 4th century BC Greek font family.
+%    \begin{macrocode}
+\DeclareTextFontCommand{\textgivbc}{\givbcfamily}
+%    \end{macrocode}
+% \end{macro}
+%
+%  The commands for the signs.
+%
+%    \begin{macrocode}
+
+\chardef\Aalpha=`a
+\chardef\Abeta=`b
+\chardef\Agamma=`g
+\chardef\Adelta=`d
+\chardef\Aepsilon=`e
+\chardef\Azeta=`z
+\chardef\Aeta=`h
+\chardef\Atheta=`T
+\chardef\Aiota=`i
+\chardef\Akappa=`k
+\chardef\Alambda=`l
+\chardef\Amu=`m
+\chardef\Anu=`n
+\chardef\Axi=`x
+\chardef\Aomicron=`o
+\chardef\Api=`p
+\chardef\Arho=`r
+\chardef\Asigma=`s
+\chardef\Atau=`t
+\chardef\Aupsilon=`y
+\chardef\Achi=`X
+\chardef\Aphi=`f
+\chardef\Apsi=`P
+\chardef\Aomega=`O
+
+\chardef\ARalpha=`a
+\chardef\ARbeta=`B
+\chardef\ARgamma=`g
+\chardef\ARdelta=`d
+\chardef\ARepsilon=`e
+\chardef\ARzeta=`z
+\chardef\AReta=`h
+\chardef\ARtheta=`T
+\chardef\ARiota=`i
+\chardef\ARkappa=`k
+\chardef\ARlambda=`l
+\chardef\ARmu=`M
+\chardef\ARnu=`N
+\chardef\ARxi=`x
+\chardef\ARomicron=`o
+\chardef\ARpi=`p
+\chardef\ARrho=`R
+\chardef\ARsigma=`s
+\chardef\ARtau=`t
+\chardef\ARupsilon=`Y
+\chardef\ARchi=`X
+\chardef\ARphi=`F
+\chardef\ARpsi=`Q
+\chardef\ARomega=`O
+
+%    \end{macrocode}
+%
+% \begin{macro}{\translitgvibc}
+% \begin{macro}{\translitgivbcfont}
+% |\translitgivbc{|\meta{commands}|}| transliterates \meta{commands}
+% using the |\translitgivbcfont|.
+%    \begin{macrocode}
+\newcommand{\translitgivbc}[1]{{%
+  \@translitGiv #1}}
+\newcommand{\translitgivbcfont}{\mathrm}
+
+%    \end{macrocode}
+% \end{macro}
+% \end{macro}
+%
+% \begin{macro}{\@translitGiv}
+%    This macro redefines all character commands to produce the transliterated
+% version instead of the glyph. There must be no spaces in the definition.
+%    \begin{macrocode}
+\newcommand{\@translitGiv}{%
+\def\Aalpha{\ensuremath{\translitgivbcfont{A}}}\def\ARalpha{\Aalpha}%
+\def\Abeta{\ensuremath{\translitgivbcfont{B}}}\def\ARbeta{\Abeta}%
+\def\Agamma{\ensuremath{\translitgivbcfont{\Gamma}}}\def\ARgamma{\Agamma}%
+\def\Adelta{\ensuremath{\translitgivbcfont{\Delta}}}\def\ARdelta{\Adelta}%
+\def\Aepsilon{\ensuremath{\translitgivbcfont{E}}}\def\ARepsilon{\Aepsilon}%
+\def\Azeta{\ensuremath{\translitgivbcfont{Z}}}\def\ARzeta{\Azeta}%
+\def\Aeta{\ensuremath{\translitgivbcfont{H}}}\def\AReta{\Aeta}%
+\def\Atheta{\ensuremath{\translitgivbcfont{\Theta}}}\def\ARtheta{\Atheta}%
+\def\Aiota{\ensuremath{\translitgivbcfont{I}}}\def\ARiota{\Aiota}%
+\def\Akappa{\ensuremath{\translitgivbcfont{K}}}\def\ARkappa{\Akappa}%
+\def\Alambda{\ensuremath{\translitgivbcfont{\Lambda}}}\def\ARlambda{\Alambda}%
+\def\Amu{\ensuremath{\translitgivbcfont{M}}}\def\ARmu{\Amu}%
+\def\Anu{\ensuremath{\translitgivbcfont{N}}}\def\ARnu{\Anu}%
+\def\Axi{\ensuremath{\translitgivbcfont{\Xi}}}\def\ARxi{\Axi}%
+\def\Aomicron{\ensuremath{\translitgivbcfont{O}}}\def\ARomicron{\Aomicron}%
+\def\Api{\ensuremath{\translitgivbcfont{\Pi}}}\def\ARpi{\Api}%
+\def\Arho{\ensuremath{\translitgivbcfont{R}}}\def\ARrho{\Arho}%
+\def\Asigma{\ensuremath{\translitgivbcfont{\Sigma}}}\def\ARsigma{\Asigma}%
+\def\Atau{\ensuremath{\translitgivbcfont{T}}}\def\ARtau{\Atau}%
+\def\Aupsilon{\ensuremath{\translitgivbcfont{\Upsilon}}}\def\ARupsilon{\Aupsilon}%
+\def\Achi{\ensuremath{\translitgivbcfont{X}}}\def\ARchi{\Achi}%
+\def\Aphi{\ensuremath{\translitgivbcfont{\Phi}}}\def\ARphi{\Aphi}%
+\def\Apsi{\ensuremath{\translitgivbcfont{\Psi}}}\def\ARpsi{\Apsi}%
+\def\Aomega{\ensuremath{\translitgivbcfont{\Omega}}}\def\ARomega{\Aomega}%
+}
+
+%    \end{macrocode}
+% \end{macro}
+%
+%    The end of this package.
+%    \begin{macrocode}
+%</usc>
+%    \end{macrocode}
+%
+% \section{The Type1 map file}
+%
+% Just a line.
+% \changes{v1.2}{2005/04/06}{Added map file}
+%    \begin{macrocode}
+%<*map>
+givbc10  Archaic-Greek-4th-Century-BC  <givbc10.pfb
+%</map>
+%    \end{macrocode}
+%
+%
+%
+% \Finale
+%
+\endinput
+
+%% \CharacterTable
+%%  {Upper-case    \A\B\C\D\E\F\G\H\I\J\K\L\M\N\O\P\Q\R\S\T\U\V\W\X\Y\Z
+%%   Lower-case    \a\b\c\d\e\f\g\h\i\j\k\l\m\n\o\p\q\r\s\t\u\v\w\x\y\z
+%%   Digits        \0\1\2\3\4\5\6\7\8\9
+%%   Exclamation   \!     Double quote  \"     Hash (number) \#
+%%   Dollar        \$     Percent       \%     Ampersand     \&
+%%   Acute accent  \'     Left paren    \(     Right paren   \)
+%%   Asterisk      \*     Plus          \+     Comma         \,
+%%   Minus         \-     Point         \.     Solidus       \/
+%%   Colon         \:     Semicolon     \;     Less than     \<
+%%   Equals        \=     Greater than  \>     Question mark \?
+%%   Commercial at \@     Left bracket  \[     Backslash     \\
+%%   Right bracket \]     Circumflex    \^     Underscore    \_
+%%   Grave accent  \`     Left brace    \{     Vertical bar  \|
+%%   Right brace   \}     Tilde         \~}
+
+

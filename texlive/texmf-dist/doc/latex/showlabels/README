@@ -1,0 +1,162 @@
+                                   Showlabels
+
+   Put the names of \labels and other commands into the margins of a draft
+   document.
+
+   Version 1.6.6, 2013 December 6, http://purl.org/nxg/dist/showlabels.
+
+   This class option helps you keep track of all the labels in your
+   documents, by putting the name of the new label into the margin
+   whenever either the \label command is used, or an equation is
+   automatically numbered. It is compatible with the amsmath and hyperref
+   packages.
+
+   It is similar to, but does a little more than, the showkeys package.
+
+   You invoke this package with the command \usepackage{showlabels} in the
+   preamble. You can control where the labels appear -- in the margins or
+   in the interline gaps -- and you can change the appearance of the
+   formatted labels to some extent.
+
+   As well, you can have the arguments to other commands besides \label
+   displayed. This is fairly obviously useful for the \cite command, but
+   it can be useful for \ref or \begin as well.
+
+   The package will also work in the presence of the [twocolumn] option.
+   In this case, the options [inner] and [outer] will be ignored, and the
+   label will be placed in the nearer margin.
+
+   The source code for the package is maintained at bitbucket.org, which
+   also includes an issue tracker, where you can report bugs (or just mail
+   me).
+
+  Compatibility and problems
+
+   For reasonably obvious reasons, this package will not work at all well
+   with the multicol package, and for possibly less obvious reasons, it
+   won't work with the [leqno] option either (at some point it should be
+   modified to at least recognise and warn of the conflict in either
+   case). The package can occasionally place labels in the wrong margins,
+   near the top of a page -- see the documentation for a discussion of
+   this.
+
+  Download and installation
+
+    1. Download the file showlabels-1.6.6.tar.gz or showlabels-1.6.6.zip
+       and unpack it.
+    2. Run LaTeX on the file showlabels.ins -- this will unpack the style
+       file showlabels.sty amongst other files. Place this somewhere where
+       TeX can find it.
+    3. Run LaTeX on the file showlabels.dtx to obtain the documentation.
+
+   On CTAN: /tex-archive/macros/latex/contrib/showlabels/
+
+   On the web http://purl.org/nxg/dist/showlabels
+
+   The sources are in a Mercurial repository at bitbucket.org.
+
+  History
+
+   1.6.6, 2013 December 6
+
+          + Add configuration interface \showlabelrefline and ensure that
+            \color works in \showlabelfont.
+          + Various documentation tweaks
+          + Change licence from GPL to LPPL
+          + Fix link to repository
+
+   1.6.5, 2009 May 27
+          Fixed a bug in the way that labels including underscores (and
+          other 'exotic' characters) were displayed.
+
+   1.6.4, 2008 October 10
+          Fixed another poor interaction between eqnarray and amsart. Now
+          we get equation labels in eqnarray, and we don't get marginal
+          notes about \eqref (which is good; might this finally be
+          fixed?).
+
+   1.6.3, 2008 July 24
+          Release 1.6.2 broke compatibility with the rest of amsmath
+          (eqnarray became the only thing that worked within amsmath)!
+          Fixed. Doh!
+
+   1.6.2, 2008 June 27
+          The reimplementation of eqnarray within amsart was such that
+          equation labels disappeared in that case. Fixed.
+
+   1.6.1, 2007 June 17
+          Fix an errant test, which mangled equation labels starting with
+          two identical letters.
+
+   1.6, 2006 May 26
+          The \showlabels command will now work with commands (such as
+          \cite or \includegraphics) which take an optional argument.
+
+   1.5a, 2005 March 17
+          Defined \showlabelfont using \ttfamily rather than \tt (I'd
+          avoided doing this before to avoid a seemingly pointless
+          incompatibility with LaTeX 2.09, but (a) I imagine the package
+          is incompatible with that for other reasons, and (b) it's really
+          not worth the hassle...).
+
+   1.5, 2004 October 8
+          Added \showlabelfont and \showlabelsetlabel commands, allowing
+          customisation of the printed labels. Added and documented
+          options [final], [draft] (the former makes this package do
+          nothing; the latter is the default behaviour).
+
+   1.4a, 2003 January 28
+          Acquired the [left] and [right] options, and fixed a bug which
+          affected \label commands in captions.
+
+   1.4, 2001 July 24
+          Became (more) compatible with the wrapfig package. Also, I added
+          the \showlabels command, to have the package display references
+          to commands other than \label (\cite and \ref are obvious ones),
+          and an [inline] option to have labels (etc.) displayed inline
+          where possible, rather than always in the margin.
+
+   1.3e, 2001 May 30
+          Became compatible with the hyperref package in particular, and
+          in general with other packages which themselves modify the
+          \label command. This will work, however, only if the showlabels
+          package is loaded after other packages which do this.
+          Notwithstanding Sebastian Rahtz's excellent general advice on
+          this, showlabels should indeed be loaded after hyperref.
+
+   1.3
+          After a long delay, here is an updated version of my showlabels
+          package. It corrects all the reported bugs which I could
+          reproduce, namely:
+
+          + The package now formats labels correctly when the \label
+            command appears outside either an equation or a \caption
+            (silly of me).
+          + A couple of people reported problems in the interaction with
+            the amsmath package. Either these were confined to that
+            package's earlier incarnations as AMS-LaTeX or the amstex
+            package, or else there's some arcane circumstance I can't
+            reproduce, so I haven't found anything to fix on this matter.
+            Note that the \usepackage{showlabels} command must come after
+            the \usepackage{amsmath} command. Bug-sightings here will be
+            warmly appreciated.
+          + I haven't worried too much about the precise formatting of the
+            labels -- this is, after all, supposed to be a draft-only
+            package.
+
+   1.1, 2001?
+          Modified to conform to the slightly different mechanism that
+          amsmath uses to produce equation numbers. I don't habitually use
+          amsmath, so I won't discover any bugs or weaknesses with its
+          support here, and I'd consequently be glad to be informed of any
+          that appear. Do note that the \usepackage{showlabels} command
+          must appear after the \usepackage{amsmath} if it is to detect
+          that you are using the amsmath package. Note also that, since
+          these additions appeared, AMS-LaTeX and the amstex package seem
+          to have been declared `obsolete' in favour of the amsmath
+          package. This package now claims conformance with the amsmath
+          package alone, though it will probably work with older versions
+          in fact.
+
+   Norman Gray
+   2013 December 6

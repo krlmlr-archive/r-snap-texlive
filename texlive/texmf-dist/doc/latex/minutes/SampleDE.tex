@@ -1,0 +1,114 @@
+\def\minfileversion{V1.8d}     %^^Aof minutes.sty
+\def\minfiledate{2009/12/04}   %^^Aof minutes.sty
+%%
+%% \CharacterTable
+%%  {Upper-case    \A\B\C\D\E\F\G\H\I\J\K\L\M\N\O\P\Q\R\S\T\U\V\W\X\Y\Z
+%%   Lower-case    \a\b\c\d\e\f\g\h\i\j\k\l\m\n\o\p\q\r\s\t\u\v\w\x\y\z
+%%   Digits        \0\1\2\3\4\5\6\7\8\9
+%%   Exclamation   \!     Double quote  \"     Hash (number) \#
+%%   Dollar        \$     Percent       \%     Ampersand     \&
+%%   Acute accent  \'     Left paren    \(     Right paren   \)
+%%   Asterisk      \*     Plus          \+     Comma         \,
+%%   Minus         \-     Point         \.     Solidus       \/
+%%   Colon         \:     Semicolon     \;     Less than     \<
+%%   Equals        \=     Greater than  \>     Question mark \?
+%%   Commercial at \@     Left bracket  \[     Backslash     \\
+%%   Right bracket \]     Circumflex    \^     Underscore    \_
+%%   Grave accent  \`     Left brace    \{     Vertical bar  \|
+%%   Right brace   \}     Tilde         \~}
+%%
+\begin{Protokoll}{Titel des deutschen Protokolls}
+\untertitel{Untertitel}
+\moderation{Moderator, Sitzungsleiter}
+\protokollant{Protokollant}
+\teilnehmer{Teilnehmer}
+\gaeste{G\"aste}
+\sitzungsdatum{25.\ Dezember 1999}
+\sitzungsbeginn{10:00}
+\sitzungsende{20:00}
+\sitzungsort{Esslingen}
+\verteiler{Vereinsmitglieder}
+\fehlend[entschuldigt]{abwesend}
+%%\fehlendEntschuldigt{}
+%%\fehlendUnentschuldigt{}
+\protokollKopf
+
+\topic{Top eins}%<-- hier Tagesordnungspunkt einfuegen
+\subtopic{Unterpunkt zu Top eins}%<-- Unterpunkt
+Text zum Tagesordnungspunkt.
+%%
+\topic{Termine und Aufgaben}
+\subtopic{Termine}
+\termin{2000/12/24}[10:00]{Heiliger Vormittag}
+\termin{2000/12/24}{Heiligabend}
+\termin{2000/12/24}[20:00]{Bescherung}[Ob meine W\"unsche erf\"ullt werden?]
+\termin*{2000/12/25}{Weihnachten (ohne Kalendereintrag)}
+
+\topic{Aufgaben}
+\aufgabe{Wer}{Was}
+\aufgabe*{Jemand macht was}
+\aufgabe*[Heute]{Jemand soll heute was machen}
+\aufgabe[Erledigt]{Zust{\"a}ndig}[Gestern]{Jemand macht was}
+
+\newcols[][1]%notwendig wegen einem Fehler
+\begin{Geheim}
+\topic{Geheimer Punkt}
+Dieser Text ist geheim und kann mit der Option \texttt{Secret}
+ausgegeben werden.
+\end{Geheim}
+
+\subtopic{Nach Geheimen Text}
+Wenn dieser Abschnitt nicht im Hauptabschnitt "`Geheim"' liegt,
+dann wurde die Ausgabe des geheimen Textes unterdr{\"u}ckt.
+\geheim{Jetzt noch ein kleines Geheimnis}
+\newcols
+
+\zusatztopic{Au{\ss}erordentlicher Tagesordnungspunkt}
+\subtopic{Unterpunkt}
+
+\topic{Anh{\"a}nge}
+\anhang{Anhang mit zwei Seiten}{2}
+
+\anhang[att:de]{Anhang mit Referenz}{2}
+
+\topic{Abstimmungen und Entscheidungen}
+\subtopic{Meinungen und Argumentationen}
+\meinung{Herder}{Abweichende Meinung zum Protokoll}
+
+Eine Diskussionsfolge:
+\begin{Meinungen}
+\item[Goethe] Eine Meinung
+\item[Schiller] Eine andere Meinung
+\end{Meinungen}
+
+Argumente k"onnen mit Pro und Contra geführt werden:
+\begin{Argumentation}
+\pro Grund daf"ur
+\Pro wichtiger Grund daf"ur
+\contra Grund dagegen
+\Contra wichtiger Grund dagegen
+\item Kommentar dazu
+\ergebnis Ergebnis
+\end{Argumentation}
+
+\subtopic{Einzelne Abstimmungen}
+\abstimmung{Kurze Abstimmung}{1}{2}{3}
+
+Und noch eine Abstimmung mit Ergebnis:\par
+\abstimmung{Kurze Abstimmung}{1}{2}{3}[Ergebnis]
+
+\subtopic{Mehrere Abstimmungen in Folge}
+\begin{Abstimmung}
+\abstimmung{Abstimmung eins}{1}{2}{3}
+\abstimmung{Abstimmung zwei}{1}{2}{3}[Entscheidung]
+\abstimmung{Abstimmung drei}{1}{2}{3}
+\end{Abstimmung}
+
+\subtopic{Beschl{\"u}sse}
+\beschlussthema{Thema}{Titel des Themas}
+\beschluss{Thema}{Entscheidung gefallen}
+\beschluss*{Entscheidung ohne Thema}[Langtext zur Entscheidung]
+\end{Protokoll}
+\endinput
+%%
+%% End of file `SampleDE.tex'.

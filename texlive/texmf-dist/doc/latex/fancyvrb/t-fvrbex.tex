@@ -1,0 +1,220 @@
+%%
+%% This is file `t-fvrbex.tex',
+%% generated with the docstrip utility.
+%%
+%% The original source files were:
+%%
+%% fvrb-ex.dtx  (with options: `t-fvrbex')
+%% 
+%% IMPORTANT NOTICE:
+%% 
+%% For the copyright see the source file.
+%% 
+%% Any modified versions of this file must be renamed
+%% with new filenames distinct from t-fvrbex.tex.
+%% 
+%% For distribution of the original source see the terms
+%% for copying and modification in the file fvrb-ex.dtx.
+%% 
+%% This generated file may be distributed as long as the
+%% original source files, as listed above, are part of the
+%% same distribution. (The sources need not necessarily be
+%% in the same archive or directory.)
+%%
+%% Package `fvrb-ex' (`fvrb-ex', `hbaw' and `hcolor')
+%%
+%% COPYING:
+%% This package may be distributed under the terms of the LaTeX Project Public
+%% License, as described in lppl.txt in the base LaTeX distribution.
+%% Either version 1.0 or, at your option, any later version.
+%%
+%% Denis Girou (CNRS/IDRIS - France) <Denis.Girou@idris.fr> March 27, 1998
+%%
+%% File `t-fvrbex'
+%%
+\documentclass{article}
+
+\usepackage[bawcolor,pstricks]{fvrb-ex}
+\pstrickstrue
+\usepackage[T1]{fontenc}
+\usepackage[latin1]{inputenc}
+\usepackage[charter]{mathdesign}
+\usepackage{url}
+\usepackage{xcolor}
+
+\begin{document}
+
+\title{Test file for the `\textsf{fvrb-ex}' package}
+\author{Denis Girou\\CNRS/IDRIS\\Orsay -- France\\
+        {\footnotesize email: Denis.Girou@idris.fr}}
+\date{Version 1.2\\March 27, 1998}
+
+\maketitle
+
+\RecustomVerbatimEnvironment{Verbatim}{Verbatim}
+  {gobble=2,commentchar=^^a3,numbers=left,numbersep=3pt,frame=single}
+
+\section{\texttt{Example} environment}
+
+\begin{Verbatim}
+  \begin{Example}
+    First verbatim line.
+    Second verbatim line.
+    Third verbatim line.
+  \end{Example}
+\end{Verbatim}
+
+\begin{Example}
+  First verbatim line.
+  Second verbatim line.
+  Third verbatim line.
+\end{Example}
+
+\begin{Verbatim}
+  \begin{Example}[frame=lines,framerule=1mm,numbers=left]
+    First verbatim line.
+    Second verbatim line.
+    Third verbatim line.
+  \end{Example}
+\end{Verbatim}
+
+\begin{Example}[frame=lines,framerule=1mm,numbers=left]
+  First verbatim line.
+  Second verbatim line.
+  Third verbatim line.
+\end{Example}
+
+\section{\texttt{CenterExample} environment}
+
+\begin{Verbatim}
+  \begin{CenterExample}[frame=single,numbers=right]
+    First verbatim line.
+    Second verbatim line.
+    Third verbatim line.
+  \end{CenterExample}
+\end{Verbatim}
+
+\begin{CenterExample}[frame=single,numbers=right]
+  First verbatim line.
+  Second verbatim line.
+  Third verbatim line.
+\end{CenterExample}
+
+\begin{Verbatim}
+  \begin{CenterExample}[frame=lines,numbers=left]
+    ^^a7HLa^^b5First^^b6 verbatim line.
+    ^^a7HLb^^b5Second^^b6 verbatim line.
+    ^^a7HLCBWz^^b5Third^^b6 verbatim line.
+  \end{CenterExample}
+\end{Verbatim}
+
+\begin{CenterExample}[frame=lines,numbers=left]
+  ^^a7HLa^^b5First^^b6 verbatim line.
+  ^^a7HLb^^b5Second^^b6 verbatim line.
+  ^^a7HLCBWz^^b5Third^^b6 verbatim line.
+\end{CenterExample}
+
+\section{\texttt{SideBySideExample} environment}
+
+\begin{Verbatim}
+  \begin{SideBySideExample}[xrightmargin=5cm,frame=lines,
+                            numbers=left]
+    First verbatim line.
+    Second verbatim line.
+    Third verbatim line.
+  \end{SideBySideExample}
+\end{Verbatim}
+
+\begin{SideBySideExample}[xrightmargin=5cm,frame=single,numbers=left]
+  First verbatim line.
+  Second verbatim line.
+  Third verbatim line.
+\end{SideBySideExample}
+
+\ifpstricks                     % If PSTricks is available
+
+\section{\texttt{PCenterExample} environment}
+
+\begin{Verbatim}
+  \fvset{frame=lines,framerule=0.5mm,numbers=left}
+
+  \begin{PCenterExample}(-0.5,-0.5)(0.5,0.5)
+    \setlength{\unitlength}{1cm}
+    \put(0,0){\circle{1}}
+  \end{PCenterExample}
+
+  \showgrid
+  \begin{PCenterExample}(-1,-1)(1,1)
+    \setlength{\unitlength}{1cm}
+    \put(0,0){\circle{1}}
+  \end{PCenterExample}
+\end{Verbatim}
+
+{\fvset{frame=lines,framerule=0.5mm,numbers=left}
+\begin{PCenterExample}(-0.5,-0.5)(0.5,0.5)
+  \setlength{\unitlength}{1cm}
+  \put(0,0){\circle{1}}
+\end{PCenterExample}
+\showgrid
+\begin{PCenterExample}(-1,-1)(1,1)
+   \setlength{\unitlength}{1cm}
+   \put(0,0){\circle{1}}
+\end{PCenterExample}
+}
+
+\section{\texttt{PSideBySideExample} environment}
+
+\begin{Verbatim}
+  \fvset{frame=single,xrightmargin=5cm}
+  \begin{PSideBySideExample}(-2,-1)(2,1)
+    \psellipse*[linecolor=yellow](2,1)
+  \end{PSideBySideExample}
+  \showgrid
+  \begin{PSideBySideExample}(-2,-1)(2,1)
+    \psellipse[linestyle=dashed](2,1)
+  \end{PSideBySideExample}
+\end{Verbatim}
+
+{\fvset{frame=single,xrightmargin=5cm}
+\begin{PSideBySideExample}(-2,-1)(2,1)
+  \psellipse*[linecolor=yellow](2,1)
+\end{PSideBySideExample}
+
+\showgrid
+\begin{PSideBySideExample}(-2,-1)(2,1)
+  \psellipse[linestyle=dashed](2,1)
+\end{PSideBySideExample}
+}
+
+\begin{Verbatim}
+  \fvset{frame=single,xrightmargin=5cm}
+  \begin{PSideBySideExample}(-2,-1)(2,1)
+    \psellipse[linestyle=^^a7HLCBWe^^b5dashed^^b6](2,1)
+  \end{PSideBySideExample}
+  \begin{PSideBySideExample}[numbers=right](-2,-1)(2,1)
+    \psellipse[linestyle=^^a7HLe^^b5dotted^^b6](2,1)
+  \end{PSideBySideExample}
+\end{Verbatim}
+
+{\fvset{frame=single,xrightmargin=5cm}
+\begin{PSideBySideExample}(-2,-1)(2,1)
+  \psellipse[linestyle=^^a7HLCBWe^^b5dashed^^b6](2,1)
+\end{PSideBySideExample}
+\begin{PSideBySideExample}[numbers=right](-2,-1)(2,1)
+  \psellipse[linestyle=^^a7HLe^^b5dotted^^b6](2,1)
+\end{PSideBySideExample}
+
+\else                           % If PSTricks is not available
+\begin{quote}
+  \section{\texttt{PCenterExample} and \texttt{PSideBySideExample}
+environments}
+
+  \textbf{\large Warning!} These two environments are not demonstrated here,
+because PSTricks was not found on this platform.
+\end{quote}
+\fi
+
+\end{document}
+\endinput
+%%
+%% End of file `t-fvrbex.tex'.

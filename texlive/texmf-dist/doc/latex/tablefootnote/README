@@ -1,0 +1,192 @@
+README for tablefootnote package, 2014/01/26, v1.1c
+
+
+TABLE OF CONTENTS
+=================
+
+1 Introduction
+2 Download
+3 Installation
+4 Additional Packages
+5 Package Compatibility
+6 Author/Maintainer
+7 Bug Reports
+8 Known Problems
+
+
+1 INTRODUCTION
+==============
+
+This LaTeX package provides the command \tablefootnote{...}
+to be used in a table or sidewaystable environment.
+In those environments \footnote{...} would not work and
+would need to be replaced by \footnotemark in the
+(sideways)table and \footnotetext{...} after the
+(sideways)table environment ended. Additionally the counters
+for footnote and (when the hyperref package with option
+hyperfootnotes=true is used) Hfootnote would need to be
+adjusted manually. Then still the hyperlinks in a
+(sideways)table would not work.
+When the footnotebackref package is used, \footnotemark and
+\footnotetext{...} would need to be redefined.
+Just using \tablefootnote{...} in the (sideways)table does
+all this automatically. (Compatibility with the
+footnotebackref package was achieved without redefining
+\footnotemark or \footnotetext.)
+Redefining \footnote was not done as to not create conflicts
+with other packages.
+This material is subject to the LaTeX Project Public License
+(LPPL). See http://www.ctan.org/license/lppl1.3
+for the details of that license.
+
+
+2 DOWNLOAD
+==========
+
+`tablefootnote' is available on CTAN:
+  http://www.ctan.org/pkg/tablefootnote
+
+Running
+tex tablefootnote.dtx
+generates the files
+tablefootnote.ins, tablefootnote.drv, tablefootnote.sty,
+and tablefootnote-example.tex.
+
+Also a ZIP file is provided that contains these files,
+the manual (tablefootnote.pdf), the compiled example
+(tablefootnote-example.pdf), and this README, already
+sorted in a TDS tree:
+  http://www.ctan.org/install/macros/latex/contrib/
+  tablefootnote.tds.zip
+
+3 INSTALLATION
+==============
+
+Installation with ZIP file in TDS format
+----------------------------------------
+The ZIP file `tablefootnote.tds.zip' contains the files
+sorted in a TDS tree. Thus you can directly unpack the
+ZIP file inside a TDS tree.
+(See CTAN:tds.zip for an explanation of TDS.)
+Example:
+  cd /...somewhere.../texmf
+  unzip /...downloadpath.../tablefootnote.tds.zip
+Do not forget to refresh the file name database of this
+TDS tree.
+Example:
+  texhash /...somewhere.../texmf
+
+Manual installation
+-------------------
+a) Download the tablefootnote files from CTAN.
+   If necessary, unpack them.
+b) Generate the package and driver files:
+     tex tablefootnote.dtx
+c) Install the file `*.sty' in your TDS tree:
+     cp *.sty TDS:tex/latex/tablefootnote/
+   Replace `TDS:' by the prefix of your TDS tree
+   (texmf directory).
+d) Create the documentation (if necessary), e.g.
+     pdflatex  tablefootnote.dtx
+     makeindex -s gind.ist  tablefootnote.idx
+     pdflatex  tablefootnote.dtx
+     makeindex -s gind.ist  tablefootnote.idx
+     pdflatex  tablefootnote.dtx
+e) Update the databases if necessary, e.g. for teTeX:
+     mktexlsr .../texmf
+f) Create the tablefootnote-example.pdf (if necessary), e.g.
+     pdflatex tablefootnote-example.tex
+     pdflatex tablefootnote-example.tex
+     pdflatex tablefootnote-example.tex
+g) Copy the documentation files to
+   "TDS:doc/latex/tablefootnote/":
+   README, tablefootnote.pdf, tablefootnote-example.tex,
+   tablefootnote-example.pdf.
+
+
+4 ADDITIONAL PACKAGES
+=====================
+
+tablefootnote loads other packages:
+* letltxmacro, http://www.ctan.org/pkg/letltxmacro
+* ltxcmds, http://www.ctan.org/pkg/ltxcmds
+When the etoolbox package is available, it is used:
+* etoolbox, http://www.ctan.org/pkg/etoolbox
+(All packages possibly load further packages.
+See the result of the \listfiles command in the log-file
+of the example.)
+
+
+5 PACKAGE COMPATIBILITY
+=======================
+
+- Using the hyperref-option pdfview=FitH or FitBH makes the
+    hyperlinks of footnotes in sidewaystables to not lead
+    to the footnotes, due to a bug in pdfTeX,
+    computing wrong anchor coordinates (Heiko Oberdiek,
+    29. October 2011). The printed version is OK.
+- Footnotes in sidewaystables are printed one below the
+    other, even if the footmisc package with option "para"
+    is used.
+- When LuaTeX is used to compile a document with
+    rotated content, the hyperreferences therein are
+    misplaced (regardless of loaded tablefootnote-package
+    or footnotes at all - all hyperreferences in
+    rotated content are misplaced). Using pdflatex does not
+    result in any problem here.
+
+
+6 AUTHOR/MAINTAINER
+=====================
+
+* H.-Martin Münch
+
+
+7 BUG REPORTS
+==============
+
+A bug report should contain:
+* Comprehensive problem description. This includes error or
+  warning messages.
+* \errorcontextlines=\maxdimen can be added in the
+  TeX code to get more information in TeX error messages.
+* Minimal test file that shows the problem, but does not
+  contain any unnecessary packages and code.
+* Used drivers/programs.
+* Version information about used packages and programs.
+* If you are using LaTeX, then add "\listfiles". Then
+  a list of version information is printed at the end
+  of the LaTeX run.
+* Please no other files than the minimal test file.
+  The other files .log, .dvi, .ps, .pdf are seldom
+  necessary, so send them only on request.
+* Please .zip or .tar.gz your file(s) before sending them!
+
+Bug address
+-----------
+Bug reports can be send to the maintainer:
+  H.-Martin Münch
+  <Martin [dot] Muench [at] Uni-Bonn [dot] de>
+
+
+8 KNOWN PROBLEMS
+=================
+
+- Using the hyperref-option "pdfview=FitH" or "pdfview=FitBH"
+    makes the hyperlinks of footnotes in sidewaystables
+    to not lead to the footnotes, due to a bug in pdfTeX,
+    computing wrong anchor coordinates (Heiko Oberdiek,
+    2011/10/29). The printed version is OK.
+- Footnotes in sidewaystables are printed one below the other,
+    even if the footmisc package with option para is used.
+- When a table with (table)footnotes floates to another place,
+    its footnotenumbers are not automatically adapted.
+- When LuaTeX is used to compile a document with
+    rotated content, the hyperreferences therein are
+    misplaced (regardless of loaded tablefootnote-package
+    or footnotes at all - all hyperreferences in
+    rotated content are misplaced). 
+    Using pdflatex does not result in any problem here.
+    Problem found by Arno Trautmann, 2011/11/15.
+
+Ideas for solutions are welcome!

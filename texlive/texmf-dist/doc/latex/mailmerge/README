@@ -1,0 +1,82 @@
+
+MAILMERGE: repeat amount of text merging fields
+
+author: Miguel Vinicius Santini Frasson
+
+2009--09--23 version 1.0
+
+The LaTeX package mailmerge provides an interface to produce text from
+a template where fields are replaced by actual data, like in a
+database.  It is useful to produce several letters from a template,
+certificates or other such documents.  It allows to access the entry
+number, number of entries and so on.
+
+Generation of sty file and documentation from DTX and INS files
+===============================================================
+
+-> generating mailmerge.sty
+latex mailmerge.ins
+
+-> generating documentation in pdf form
+pdflatex mailmerge.dtx
+pdflatex mailmerge.dtx
+makeindex -s gind.ist -o mailmerge.ind mailmerge.idx
+pdflatex mailmerge.dtx
+pdflatex mailmerge.dtx
+
+Suggestion of instalation
+=========================
+
+1) Put inside your TEXINPUTS variable points to or
+
+2) Inside TEXMF tree > tex > latex
+   create a directory named mailmerge and put mailmerge.sty there.
+   
+   Inside TEXMF tree > doc > latex
+   create a directory named mailmerge and put mailmerge.pdf there.
+
+Example of usage
+================
+
+\documentclass{article}
+\usepackage{ifthen,mailmerge}
+
+\begin{document}
+
+% \ifequal{A}{B}{what if A=B}{what if A<>B}
+\newcommand{\ifequal}[2]{\ifthenelse{\equal{#1}{#2}}}
+
+\mailfields{name,friends,drives}
+
+\mailrepeat{\section*{\field{name}'s profile}
+   \field{name} has
+   \ifequal{\field{friends}}{}
+     {no friends}
+     {\field{friends} as friends}.
+   \ifequal{\field{drives}}{yes}{Drives.}{Doesn't drive.}
+   \par (entry \entrynumber\ of \numberofentries)
+   % \newpage optional
+}
+
+\mailentry{John,{Bart and Robert},yes}
+\mailentry{Sara,{Jean, Phillip and Maria},no}
+\mailentry{Edward,,yes}
+
+\end{document}
+
+
+Licence
+=======
+
+Copyright (C) 2009 Miguel V. S. Frasson (mvsfrasson@gmail.com)
+
+Licence: LPPL
+
+This package may be distributed under the terms of the LaTeX
+Project Public License, as described in lppl.txt in the base
+LaTeX distribution, either version 1.2 or (at your option)
+any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.

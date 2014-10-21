@@ -1,0 +1,117 @@
+
+   The xpicture package, version 1.2a
+   (Several extensions of the "picture" standard environment,
+    including graphs of functions and parametric curves)
+   Robert Fuster, 2012/12/17
+
+
+1. Licence
+----------
+This material is subject to the LaTeX Project Public License. 
+
+See http://www.ctan.org/tex-archive/help/Catalogue/licenses.lppl.html 
+for the details of that license.
+
+
+2. About this package
+---------------------
+
+The xpicture package introduces several new graphical instructions, 
+and some enriched versions of standard instructions used inside the picture 
+environment that, among other utilities, will provide the possibility of 
+using different reference systems and a fine control the precise position 
+where the objects are placed in your drawing.
+
+But the most interesting feature of this package is the ability to draw high
+quality curves such that conic sections, graphs of elementary functions and 
+parametric curves, from LaTeX and using the typical LaTeX syntax.
+
+The new instructions defined by this package can be classified as follows:
+
+       -- Reference systems and coordinates:
+
+             - Declaration and use of different reference systems, 
+               with Cartesian or polar coordinates.
+             - Instructions to show Cartesian or polar reference systems.
+
+       -- An alternative to the picture environment, compatible with 
+          the new reference systems.
+  
+       -- Alternative instructions or extensions of the standard picture
+          commands and those defined by the packages pict2e and curve2e:
+
+             - Enriched versions of marks \put and \multiput, providing an
+               adequate control of the precise position in which objects 
+               are composed.
+             - Instructions for drawing straight segments, vectors
+               (in any direction and using any reference system), polygonal 
+               lines, and regular and arbitrary polygons.
+
+       -- Regular curves:
+
+             - Instructions for drawing conic sections (circles, ellipses, 
+               hyperbolas and parabolas) and arcs of these curves.
+             - Instructions to graph functions and parametrically defined 
+               curves.
+
+
+This package requires the "calculator" and "calculus" packages. You can
+download these packages from CTAN:
+
+        /macros/latex/contrib/calculator
+
+Packages "pict2e", "curve2e" and "xcolor" are also needed. These packages are 
+included in major TeX distributions.
+
+
+3. Installation and documentation
+---------------------------------
+
+After uncompressing "xpicture.zip" you will have the following files:
+
+   -- "README". This file.
+   -- "xpicture.dtx". The source file.
+   -- "xpicture-doc.pdf". The compiled "xpicture" user manual.
+   -- "xpicture-doc.tex". The user manual source file.
+   -- "xpicture.tds.zip". Ready to use tds-structures zip file.
+
+Then, you can install the package in two ways: 
+
+   a) Unpacking the zip file xpicture.tds.zip into your local texmf tree 
+      and updating the file database, or
+
+   b) By compiling the source file "xpicture.dtx" in the following sequence 
+
+         >> pdflatex xpicture.dtx
+         >> pdflatex xpicture.dtx
+         >> makeindex -s gind.ist -o xpicture.ind xpicture.idx
+         >> pdflatex xpicture.dtx 
+
+      Then, several files will be generated:
+
+         "xpicture.sty" (the package). 
+          Move this file where LaTeX search for (typically, in a local
+          texmf tree, at tex/latex/xpicture/) and refresh the file database.
+   
+         "xpicture.pdf" (documented source and reference manual).
+
+         "xpicture.cfgxmpl" (costumizable local configuration file).
+
+      Recall that the user manual is not "xpicture.pdf", but 
+      "xpicture-doc.pdf". If you re-compile this file,
+       many small files, named "xpictureNN.tex" are generated.
+      These files contain the source code of all examples included 
+      in the manual.
+      You can store or discard this files.
+
+Please, visit the "xpicture" homepage at
+
+        http://www.upv.es/~rfuster/xpicture
+
+---------------------------------------------------
+Robert Fuster
+rfuster@mat.upv.es
+
+Universitat Polit\`ecnica de Val\`encia, 2012/12/17
+---------------------------------------------------
+

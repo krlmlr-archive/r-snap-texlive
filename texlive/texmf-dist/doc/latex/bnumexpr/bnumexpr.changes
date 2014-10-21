@@ -1,0 +1,28 @@
+%%----------------------------------------------------------------
+%% The bnumexpr package: Expressions with big integers
+%% Copyright (C) 2014 by Jean-Francois Burnol
+%%----------------------------------------------------------------
+%% This is a generated file.
+%%
+%% For distribution see the terms in the source file bnumexpr.dtx.
+%%
+\item[1.1a (2014/09/22)] \begin{itemize}
+  \item added |l3bigint| option to use experimental \LaTeX3
+    package of the same name.
+
+  \item added Changes and Readme sections to the documentation.
+
+  \item better |\BNE_protect| mechanism for use of
+  |\bnumexpr...\relax| inside an |\edef| (without |\bnethe|). Previous one,
+  inherited from |xintexpr.sty 1.09n|, assumed that the |\.=<digits>| dummy
+  control sequence encapsulating the computation result had |\relax|
+  meaning. But removing this assumption was only a matter of letting
+  |\BNE_protect| protect two, not one, tokens. This will be backported to
+  next version of |xintexpr.sty|, naturally.
+  \end{itemize}
+\item[1.1 (2014/09/21)] First release. This is down-scaled from the
+  (development version of) |xintexpr.sty|. Motivation came the previous day
+  from a chat with \textsc{Joseph Wright} over big int status in \LaTeX3.
+  The |\bnumexpr...\relax| parser can be used on top of big int macros of
+  one's choice. Functionalities limited to the basic operations. I leave
+  the power operator |^| as an option.

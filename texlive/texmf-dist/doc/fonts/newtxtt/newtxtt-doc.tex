@@ -1,0 +1,87 @@
+% !TEX TS-program = pdflatexmk
+\documentclass{article}
+
+\usepackage[margin=1in]{geometry} 
+\usepackage[parfill]{parskip}% Begin paragraphs with an empty line rather than an indent
+\pdfmapfile{=newtxtt.map}
+\usepackage{graphicx}
+%SetFonts
+\usepackage{XCharter}
+\usepackage[T1]{fontenc}
+\usepackage{textcomp}
+\usepackage[zerostyle=a]{newtxtt} % TX typewriter
+\usepackage[libertine,bigdelims]{newtxmath}
+\useosf
+\font\fonta newtxtta
+\font\fontb newtxttb
+\font\fontc newtxttc
+\font\fontd newtxttd
+\renewcommand*{\sfdefault}{lmtt}% sans serif is otherwise not used
+%SetFonts
+\def\TeX{T\kern-.1667em\lower.5ex\hbox{E}\kern-.09emX\@}
+\DeclareRobustCommand{\LaTeX}{L\kern-.28em%
+\raise.4ex\hbox{\textsc{a}}%
+        \kern-.1em%
+        \TeX}
+\title{Using \texttt{newtxtt v.1.01} to Access the TX Typewriter Fonts}
+\author{Michael Sharpe}
+\date{\today}  % Activate to display a given date or no date
+
+\begin{document}
+\maketitle
+There is a relative paucity of free serifed typewriter fonts available in \LaTeX---{\tt courier}
+ and (extensions of) {\tt cmtt} are the most common.  In my opinion, {\tt cmtt} and its enhancements, especially {\tt zlmtt}, are a much better choice than {\tt courier} in almost every circumstance, as the latter is so light and so wide that it looks poor on screen and causes endless problems with overfull boxes. (The ratio of their glyph widths is $723/525\approx1.38$.) This package provides an interface to another alternative---the typewriter fonts provided with {\tt txfonts}, with some enhancements. They have the same widths as {\tt cmtt}, but are taller, heavier, more geometric and less shapely, with  very low contrast, and are more suited to match Roman fonts of height and weight approximating that of Times. This small package, loaded with
+\begin{verbatim}
+\usepackage{newtxtt} % options can be added
+\end{verbatim}
+provides access to its features, no matter what other text fonts you might be using. It should be placed after all your other text font loading packages that might contain instructions to change \verb|\ttdefault|, and before loading math packages so that the math packages can make a suitable definition of \verb|\mathtt|. With no options specified, as above, you'll get full functionality as a monospaced typewriter font family, with typewriter text rendered using essentially {\tt txtt}, but with a four choices for the glyph  `zero'. In addition, the package  provides italic (slanted) and bold versions, plus small caps in regular (medium) and bold weights, upright shape only. It is offered  only in T$1$ (plus full TS$1$) encoding. The macros \verb|\ttdefault|, \verb|\ttfamily|, \verb|\texttt| and the obsolete but convenient macro \verb|\tt| may be used to access this font. 
+ The package provides an alternate form of {\tt newtxtt} that differs from it in two important ways:
+ \begin{itemize}
+ \item 
+ the interword spacing is no longer the same as the glyph spacing, but is generally smaller---{\tt fontdimen} settings have been changed to resemble those of text fonts;
+  \item
+ hyphenation is permitted.
+ \end{itemize}
+These features may be accessed by means of the new macros \verb|\ttzdefault|, \verb|\ttzfamily|, \verb|\textttz| and  \verb|\ttz| which are in all ways analogous to their monospace cousins. (Verbatim modes will continue to use the monospaced version.) The purpose of the {\tt ttz} version to allow use of \texttt{newtxtt} for blocks of {\tt TypeWriter}-like text, though not monospaced and respecting  right justification. Eg,
+\begin{verbatim}
+{\ttz Block of text, perhaps many lines long, will be rendered right-justified.}
+\end{verbatim}
+
+The options you may use in loading this package are:
+\begin{itemize}
+\item {\tt scaled=.97} will load the fonts scaled to $.97$ times natural size. This is useful with Roman fonts having an x-height smaller than Times, for which {\tt txtt} was designed.
+\item
+{\tt zerostyle} selects the form of {\tt `zero'} from one of four possibilities: {\tt a, b, c, d}, ({\tt a} being the default) which result respectively in\\[6pt] 
+{\fonta 0} ---form {\tt a}, narrower than capital {\tt O};\\
+{\fontb 0} ---form {\tt b}, original version from {\tt txtt};\\
+{\fontc 0} ---form {\tt c}, slashed, narrower than capital {\tt O};\\
+{\fontd 0} ---form {\tt d}, dotted, narrower than capital {\tt O}. 
+\item
+{\tt nomono} changes the {\tt tt} macro definitions replacing them, in effect,  by their {\tt ttz} versions. I do not recommend this, but perhaps someone who does not print code and does not wish to change all existing \verb|\tt| to \verb|\ttz| might find this useful.
+\end{itemize}
+\textsc{New Macros:}
+\begin{itemize}
+\item
+\verb|\ttz| switches to non-monospace typewriter mode; \\
+eg, \verb|{\ttz text in ttz mode}| renders as \\
+{\ttz text in ttz mode}.
+\item Essentially the same effect with \verb|{\ttzfamily text in ttz mode}|.
+\item \verb|\textttz{}| renders its argument in {\tt ttz} mode.
+\end{itemize}
+
+This document uses the following font settings:
+\begin{verbatim}
+\usepackage[osf]{XCharter} % osf in text, lining figures in math
+\usepackage[T1]{fontenc}
+\usepackage{textcomp}
+\usepackage[zerostyle=a]{newtxtt} % TX typewriter
+\usepackage[libertine,bigdelims]{newtxmath}
+\end{verbatim}
+
+Comparison with Latin Modern Typewriter: 
+
+\textsf{LM Typewriter: This is just a line to illustrate typewriter 0123456789.}\\
+\texttt{TX Typewriter: This is just a line to illustrate typewriter 0123456789.}\\
+\textttz{TX Typewriter: This is just a line to illustrate typewriter 0123456789. (ttz version)}
+
+\end{document}  

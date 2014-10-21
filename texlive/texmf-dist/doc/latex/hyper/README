@@ -1,0 +1,49 @@
+hyper-package V4.2d of 1999/03/09
+
+This package is used to produce hypertext documents with LaTeX.
+
+Currently supported are:
+  * the LaTeX2e base
+  * the following packages:
+      + amslatex
+      + cweb
+      + fancyheadings
+      + ftnright
+      + longtable
+      + natbib
+      + subeqnarray
+      + theorem
+      + xr
+
+Current extensions are:
+  * backcite
+
+Many other packages will run with the hyper-package without modifying
+anything. Just try it.
+
+Documentation:
+  Process hyper.dtx three times with latex
+  If the hyper-package is already installed this will produce a hypertext
+  document. Otherwise you will get a classical document without hypertext
+  marks.
+
+Installation on Unix-platforms:
+  Configure the variables of Makefile-Unix to Your needs and execute 
+  "make -f Makefile-Unix install". Follow the instructions.
+
+Installation on MSDos-platforms:
+  Configure the variables of Makefile-MSDos to Your needs and execute 
+  "nmake -f Makefile-MSDos install". Follow the instructions.
+
+Installation on other platforms:
+  Process hyper.ins with latex and move the files ending with .hyp or .sty
+  into a directory searched by TeX.
+  Move the files from the subdirectories contrib and scontrib into a
+  directory searched by TeX.
+
+Addons (not part of the installation directives above):
+  There is a perl script called dvi2pdf.pl that generates a pdf file from 
+  a dvi file using a dvips capable of transforming hyper dvi files to
+  hyper ps files and ghostscripts pdfwriter capability.
+  This file has three variables that have to be configured.
+

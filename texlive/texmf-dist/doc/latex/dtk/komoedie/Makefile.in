@@ -1,0 +1,93 @@
+
+# Makefile.latex -- Rules for processing LaTeX files with "make"
+#
+# Copyright (C) 1999,2005 Rolf Niepraschk, Rolf.Niepraschk@ptb.de, 2005/01/20
+
+.SUFFIXES : .tex .dvi .ps .pdf .eps .mp .mps 
+
+SHELL = /bin/sh
+
+ifeq ($(BIBTEX),) 
+  BIBTEX= bibtex
+endif 
+ifeq ($(METAPOST),)  
+  METAPOST = mpost
+endif 
+ifeq ($(MAKEINDEX),)  
+  MAKEINDEX = makeindex
+endif 
+ifeq ($(MAKEGLOSSARY),)  
+  MAKEGLOSSARY = makeindex
+endif 
+ifeq ($(GREP),)
+  GREP = grep
+endif
+ifeq ($(DIFF),)
+  DIFF = diff
+endif
+ifeq ($(TOUCH),)
+  TOUCH = touch
+endif
+ifeq ($(CP),)
+  CP = cp
+endif
+
+ifneq ($(MAKEINDEXSTYLE),) 
+  idxstyle = -s $(MAKEINDEXSTYLE)
+endif
+ifneq ($(MAKEGLOSSARYSTYLE),) 
+  glostyle = -s $(MAKEGLOSSARYSTYLE)
+endif
+
+ifeq ($(RUNMAX),)
+  runmax = 5
+else
+  runmax = $(RUNMAX)
+endif  
+
+bibwarn = 'There were undefined references'
+rerunwarn = 'Rerun to get cross-references right'
+linenowarn = 'rerun to get it right'
+# Package longtable Warning: Table widths have changed. Rerun LaTeX.
+multlab = 'There were multiply-defined labels'
+ltxmisc = $*.toc $*.lof $*.lot $*.idx $*.glo #$*.out
+
+%.dvi %.pdf : %.ltx
+	@ $(latexcmds)
+
+%.dvi %.pdf : %.tex
+	@ $(latexcmds)
+
+define latexcmds
+  $(TOUCH) $(ltxmisc) # create some files if necessary 
+  runs=0; \
+  while test $$runs -lt $(runmax); do \
+    runs=`expr $$runs + 1`; rerun=0; status=0; \
+    $(foreach i, $(ltxmisc), $(CP) $i $i.old;) \
+    $(LATEX) '$(DOCUMENTOPT)\input{$<}'; \
+    if test $$? -gt 0; then status=`expr $$status + 64`;  fi; \
+    if $(GREP) $(rerunwarn) $*.log > /dev/null; then rerun=1; fi; \
+    if $(GREP) $(linenowarn) $*.log > /dev/null; then rerun=1; fi; \
+    if $(DIFF) $*.idx $*.idx.old > /dev/null; then :; else \
+      $(MAKEINDEX) $(MAKEINDEXFLAGS) $(idxstyle) \
+        -t $*.ilg -o $*.ind $*.idx; \
+      if test $$? -gt 0; then status=`expr $$status + 256`; break; fi; \
+    fi; \
+    if $(DIFF) $*.glo $*.glo.old > /dev/null; then :; else \
+      $(MAKEGLOSSARY) $(MAKEGLOSSARYFLAGS) $(glostyle) \
+        -t $*.glg -o $*.gls $*.glo; \
+      if test $$? -gt 0; then status=`expr $$status + 512`; break; fi; \
+    fi; \
+    $(foreach i, $(ltxmisc), \
+      if $(DIFF) $i $i.old > /dev/null; then :; else rerun=1; fi;) \
+    echo '++++++++++++++++++++++++++++++++' rerun=$$rerun runs=$$runs; \
+    if test $$rerun -eq 0; then break; fi; \
+  done; \
+  $(RM) $(ltxmisc:=.old); \
+  for i in $(ltxmisc); do if test ! -s $$i; then $(RM) $$i; fi; done; \
+  exit $$status
+endef
+
+_clean : 
+	$(RM) $(addprefix $(MAIN), .log .aux .bbl .blg .ind .ilg .gls .glg \
+          $(ltxmisc))

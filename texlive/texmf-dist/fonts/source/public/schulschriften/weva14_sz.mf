@@ -1,0 +1,374 @@
+% Vereinfachte Ausgangsschrift weva
+% Ziffern, Satzzeichen, Sonderzeichen
+% Walter Entenmann
+% 11.09.2011
+% 13.09.2012
+%
+
+% Ziffern
+beginchar("0",30ut#,Ht#,0);
+  pickup weva_pen;
+draw fullcircle xscaled 20ut yscaled Ht shifted (15ut,ht);
+endchar;
+
+beginchar("1",30ut#,Ht#,0);
+  pickup weva_pen;
+  xpos:=7.5ut;
+  gerade(ht,Ht,10ut,xpos);
+  stamm(Ht,0,xpos);
+endchar;
+
+beginchar("2",30ut#,Ht#,0);
+  pickup weva_pen;
+  draw halfcircle xscaled 20ut yscaled ht shifted (15ut,1.5*ht);
+  draw ((25ut,1.5*ht){down}..tension2and 5..{-20ut,-27.5ut}(5ut,0));
+  gerade(0,0,20ut,5ut);
+endchar;
+
+beginchar("3",30ut#,Ht#,0);
+  pickup weva_pen;
+  draw ((-8.5ut,Ht-5ut)..(0,Ht){right}..(8.5ut,30ut){down}..(-1.5ut,ht+1ut){left}) shifted (15ut,0);
+  draw ((-1.5ut,ht+1ut){right}..(10ut,ht/2){down}..(0,0){left}..(-10ut,5ut)) shifted (15ut,0);
+endchar;
+
+beginchar("4",30ut#,Ht#,0);
+  pickup weva_pen;
+draw ((5ut,h)--(0,h/4)--(20ut,h/4)) shifted (5ut,0);
+draw ((13.5ut,30ut)--(13.5ut,0)) shifted (5ut,0);
+endchar;
+
+beginchar("5",30ut#,Ht#,0);
+  pickup weva_pen;
+  draw ((20ut,Ht)--(0,Ht)--(0,25ut)) shifted (5ut,0);
+  draw (halfcircle rotated -90 xscaled 25ut yscaled 27.5ut) shifted (12.5ut,13.75ut);
+  draw ((7.5ut,27.5ut){left}..(0,25ut)) shifted (5ut,0);
+  draw ((7.5ut,0){left}..(0,5ut)) shifted (5ut,0);
+endchar;
+
+
+beginchar("6",30ut#,Ht#,0);
+  pickup weva_pen;
+  draw fullcircle xscaled 20ut yscaled 27.5ut shifted (15ut,13.75ut);
+  draw ((0,13.75ut){up}..(10ut,Ht){right}..(16ut,Ht-2.5ut)) shifted (5ut,0);
+endchar;
+
+
+beginchar("7",30ut#,Ht#,0);
+  pickup weva_pen;
+  draw ((0,Ht)--(20ut,Ht)--(5ut,0)) shifted (5ut,0);
+    draw ((0,ht)--(10ut,ht)) shifted (12.5ut,0);
+endchar;
+
+beginchar("8",30ut#,Ht#,0);
+  pickup weva_pen;
+  p:=(0,0){-1,-macht}..(-10ut,-10ut){down}..(0,-ht){right}..(10ut,-10ut){up}..{-1,macht}(0,0);
+  draw p shifted (15ut,ht);
+  draw p rotated 180 shifted (15ut,ht);
+endchar;
+
+
+beginchar("9",30ut#,Ht#,0);
+  pickup weva_pen;
+  draw fullcircle xscaled 20ut yscaled 25ut shifted (15ut,27.5ut);
+  draw ((20ut,Ht)--(20ut,27.5ut){down}..(10ut,0){left}..(0,5ut)) shifted (5ut,0);
+endchar;
+
+% ASCII-Zeichen
+beginchar("!",20ut#,Ht#,0);
+  pickup weva_pen;
+  z1=(10ut,40ut);
+  z2=(10ut,10ut);
+  z3=(10ut,0);
+  p := z1--z2;
+  draw p;
+  pickup weva_pen_thick;
+  drawdot z3;
+  labels(range 1 thru 3); 
+endchar;
+
+% ", Doppelapostroph, hier identisch mit oct"020", dt. Anfz. o.
+beginchar(oct"042",25ut#,Ht#,0);
+  pickup weva_pen;
+  komma(12.5ut,Ht);
+  komma(17.5ut,Ht);
+endchar;
+
+% #
+beginchar("#",50ut#,Ht#,dt#);
+  pickup weva_pen;
+draw ((0,1.5*ht)--(0,-1.5*ht)) slanted 1/6 shifted (20ut,ht/2);
+draw ((0,1.5*ht)--(0,-1.5*ht)) slanted 1/6 shifted (20ut+10ut,ht/2);
+draw (((-ht,0)--(ht,0)) shifted (0,5ut) slanted 1/6) shifted (25ut,ht/2);
+draw (((-ht,0)--(ht,0)) shifted (0,-5ut) slanted 1/6) shifted (25ut,ht/2);
+endchar;
+  
+% $
+beginchar("$",30ut#,Ht#,0);
+  pickup weva_pen;
+  draw halfcircle xscaled 20ut yscaled 20ut shifted (15ut,30ut);
+   draw (halfcircle rotated 180 xscaled 20ut yscaled 20ut) shifted (15ut,10ut);
+   draw ((-10ut,10ut){down}..{down}(10ut,-10ut)) shifted (15ut,ht);
+   draw ((0,ht+2.5ut)--(0,-ht-2.5ut)) shifted (15ut,ht);
+endchar;
+
+% %
+beginchar("%",40ut#,Ht#,0);
+  pickup weva_pen;
+  q := (-23.6ut,0)--(23.6ut,0);
+  breit:=12.5ut;hoch:=17.5ut;
+  p := (breit/2,0){up}..(0,hoch/2){left}..(-breit/2,0){down}..(0,-hoch/2){right}..{up}(breit/2,0);
+  x0:=whatever;y0:=whatever;
+  z0=(directionpoint (-1,2) of (subpath (0,1) of p)) shifted (7.5ut+breit/2,Ht-hoch/2);
+  draw p shifted (7.5ut+breit/2,Ht-hoch/2);
+  draw p shifted (7.5ut+25ut-breit/2,hoch/2);
+  draw q rotated 58 shifted (w/2,h/2);
+  draw z0{1,-2}..{dir 58}(7.5ut+25ut,Ht);
+  endchar;
+
+% &
+  beginchar("&",40ut#,Ht#,0);
+  pickup weva_pen;
+  p := (22.5ut,12.5ut)..tension 1.2..(7.5ut,0){left}..(0,8ut){up}..
+  %(8.167ut,21ut){3,2}..
+  tension 1.2..(17ut,34.5ut){up}..(11.5ut,Ht){left}..(4ut,30ut){down}..{2,-3}(8.167ut,21ut)--(22.5ut,0);
+  draw p shifted (10ut,0);
+  endchar;
+
+% §
+  beginchar(oct"237",30ut#,Ht#,dt#);
+  pickup weva_pen;
+  p := (7.5ut,20ut){up}..(0,30ut){left}..(-7.5ut,20ut){down}..(-2.5ut,10ut){3,-2}..tension 1.2..(7.5ut,-2.5ut){down}..{left}(2.5ut,-10ut);
+  draw p shifted (w/2,ht/2);
+  draw p rotated 180 shifted (w/2,ht/2);
+  endchar;
+
+% [
+beginchar("[",25ut#,Ht#,0);
+  pickup weva_pen;
+draw ((5ut,Ht)--(0,Ht)--(0,0)--(5ut,0)) shifted (10ut,0);
+  endchar;
+
+% ]
+beginchar("]",25ut#,Ht#,0);
+  pickup weva_pen;
+draw ((5ut,Ht)--(10ut,Ht)--(10ut,0)--(5ut,0)) shifted (5ut,0);
+  endchar;
+
+beginchar("'",20ut#,Ht#,0);
+  pickup weva_pen;
+komma(12.5ut,Ht);
+endchar;
+
+beginchar("(",20ut#,Ht#,0);
+  pickup weva_pen;
+draw ((5ut,Ht)..(0,ht){down}..(5ut,0)) shifted (10ut,0);
+endchar;
+
+beginchar(")",20ut#,Ht#,0);
+  pickup weva_pen;
+draw ((5ut,Ht)..(10ut,ht){down}..(5ut,0));
+endchar;
+
+beginchar("*",38ut#,42.5ut#,0);
+  pickup weva_pen;
+z3=(19ut,30ut);
+  z1=(-12.5ut,0);
+  z2=(12.5ut,0);
+  p := z1--z2;
+  draw p   rotated  30  shifted z3 ;
+  draw p   rotated -30  shifted z3 ;
+  draw p   rotated  90 shifted z3 ;
+  labels(range 0 thru 3); 
+endchar;
+
+beginchar("+",40ut#,Ht#,0);
+  pickup weva_pen;
+z3=(20ut,12.5ut);
+  z1=(-12.5ut,0);
+  z2=(12.5ut,0);
+  p := z1--z2;
+  draw p   shifted z3 ;
+  draw p   rotated 90 shifted z3 ;
+  labels(range 0 thru 3); 
+endchar;
+
+beginchar(",",15ut#,ht#,dt#);
+  pickup weva_pen;
+komma(7.5ut,3.5ut); 
+endchar;
+
+% ASCII Bindestrich oct"055" (OT1: auch Trennstrich)
+beginchar("-",27.5ut#,ht#,0);
+  pickup weva_pen;
+  z1=(0,0);
+  z2=(12.5ut,0);
+  p := z1--z2;
+  draw p  shifted (7.5ut,ht/2);
+  labels(range 1 thru 2); 
+endchar;
+
+% T1: Trennstrich
+beginchar(oct"177",27.5ut#,ht#,0);
+  pickup weva_pen;
+  z1=(0,0);
+  z2=(12.5ut,0);
+  p := z1--z2;
+  draw p  shifted (7.5ut,ht/2);
+  labels(range 1 thru 2); 
+endchar;
+
+beginchar(".",15ut#,ht#,0);
+  pickup weva_pen_thick;
+  z1=(7.5ut,0ut);
+  drawdot z1  ;
+  labels(1); 
+endchar;
+ 
+beginchar("/",25ut#,Ht#,0);
+  pickup weva_pen;
+draw ((5ut,0)--(20ut,Ht));
+endchar;
+
+beginchar(":",20ut#,ht#,0);
+  pickup weva_pen_thick;
+  drawdot (0,0) shifted (10ut,0);
+  drawdot (0,0) shifted (10ut,17.5ut);
+endchar;
+
+beginchar(";",20ut#,ht#,-dt#);
+  pickup weva_pen;
+komma(10ut,3.5ut);
+  pickup weva_pen_thick;
+  drawdot (0,0) shifted (10ut,17.5ut);
+endchar;
+ 
+beginchar(">",37.5ut#,Ht#,0);
+  pickup weva_pen;
+  z1=(7.5ut+20ut*sqrt(3)/2,12.5ut);
+  p := (0,0)--(20ut,0);
+  draw p rotated  150 shifted z1;
+  draw p rotated -150 shifted z1;
+  labels(1); 
+endchar;
+
+beginchar("=",40ut#,Ht#,0);
+  pickup weva_pen;
+p := (0,0)--(25ut,0);
+draw p shifted (7.5ut,12.5ut+3.5ut);
+draw p shifted (7.5ut,12.5ut-3.5ut);
+endchar;
+
+beginchar("<",37.5ut#,Ht#,0);
+  pickup weva_pen;
+  z1=(7.5ut,12.5ut);
+  p := (0,0)--(20ut,0);
+  draw p rotated  30 shifted z1;
+  draw p rotated -30 shifted z1;
+  labels(1); 
+endchar;
+
+beginchar("?",35ut#,Ht#,0);
+  pickup weva_pen;
+  z1=(-7.5ut,10ut);
+  z2=(0,15ut);
+  z3=(7.5ut,7.5ut);
+  z4=(0,0);
+  z5=(-7.5ut,-7.5ut);
+  z6=(0,-15ut);
+  z7=(7.5ut,-10ut);
+  p := z1..z2{right}..z3{down}..z4..{down}z5..z6{right}..z7;
+  draw p  shifted (w/2,h/2+5ut) ;
+  pickup weva_pen_thick;
+  drawdot (0,0) shifted (w/2,0);
+  labels(range 1 thru 7); 
+endchar;
+
+% @
+beginchar("@",50ut#,Ht#,0);
+  pickup weva_pen;
+draw (superellipse((a,0),(0,b),(-a,0),(0,-b),sigma)) shifted (25ut,ht);
+draw ((a,b-2.5ut)--(a,-b+r){down}..(a+r,-b){right}..tension1.5..(a+9ut,0){up}..(0,ht){left}..(-a-9ut,0){down}..(0,-ht){right}..(a+9ut,-ht+9ut)) shifted (a+9ut+9ut,ht);
+endchar;
+
+%
+% spezielle Sonderzeichen (T1-Kodierung)
+% dt. Anfuehrungszeichen oben (\grqq), wie oct"042"
+beginchar(oct"020",25ut#,Ht#,0);
+  pickup weva_pen;
+  komma(12.5ut,Ht);
+  komma(17.5ut,Ht);
+endchar;
+
+% dt. Anfuehrungszeichen unten (\glqq)
+beginchar(oct"022",25ut#,ht#,dt#);
+  pickup weva_pen;
+  komma(7.5ut,3.5ut);
+  komma(12.5ut,3.5ut);
+endchar;
+
+% Bis-Strich, Gedankenstrich ( -- )
+beginchar(oct"025",40ut#,ht#,0);
+  pickup weva_pen;
+  p :=(0,0)--(25ut,0);
+draw p shifted (7.5ut,12.5ut);
+endchar;
+
+% langer (engl.) Gedankenstrich (---)
+beginchar(oct"026",65ut#,ht#,0);
+  pickup weva_pen;
+  p := (0,0)--(50ut,0);
+  draw p shifted (7.5ut,12.5ut);
+endchar;
+
+% franz. Anfz. << (\flqq)
+beginchar(oct"023",30ut#,ht#,0);
+  pickup weva_pen;
+p := (0,0){dir 10}..(11.5ut,0);
+q := (0,0){dir -10}..(11.5ut,0);
+draw p rotated -60 shifted (10ut,10ut);
+draw q rotated 60 shifted (10ut,10ut);
+draw p rotated -60 shifted (15ut,10ut);
+draw q rotated 60 shifted (15ut,10ut);
+endchar;
+
+% franz. Anfz. < (\flq)
+beginchar(oct"016",25ut#,ht#,0);
+  pickup weva_pen;
+p := (0,0){dir 10}..(11.5ut,0);
+q := (0,0){dir -10}..(11.5ut,0);
+draw p rotated -60 shifted (10ut,10ut);
+draw q rotated 60 shifted (10ut,10ut);
+endchar;
+
+
+% franz. Anfz. >> (\frqq)
+beginchar(oct"024",30ut#,ht#,0);
+  pickup weva_pen;
+p := (0,0){dir 10}..(11.5ut,0);
+q := (0,0){dir -10}..(11.5ut,0);
+draw p rotated 120 shifted (20ut,10ut);
+draw q rotated -120 shifted (20ut,10ut);
+draw p rotated 120 shifted (15ut,10ut);
+draw q rotated -120 shifted (15ut,10ut);
+endchar;
+
+% franz. Anfz. > (\frq)
+beginchar(oct"017",25ut#,ht#,0);
+  pickup weva_pen;
+p := (0,0){dir 10}..(11.5ut,0);
+q := (0,0){dir -10}..(11.5ut,0);
+draw p rotated 120 shifted (15ut,10ut);
+draw q rotated -120 shifted (15ut,10ut);
+endchar;
+
+% Euro
+beginchar(oct"027",50ut#,Ht#,0);
+  pickup weva_pen;
+    draw (halfcircle rotated 90) xscaled 30ut yscaled Ht shifted (30ut,ht);
+  draw ((0,0){right}..(10ut,-5ut)) shifted (30ut,Ht);
+  draw ((0,0){right}..(10ut,5ut)) shifted (30ut,0);
+  draw (((-27.5ut,0)--(0,0)) shifted (30ut,ht+2.5ut)) slanted 0.29;
+  draw (((-27.5ut,0)--(0,0)) shifted (30ut,ht-2.5ut)) slanted 0.29;
+  endchar;
+
+%%%%%%%%%%%%%%%% File-Ende %%%%%%%%%%%%%%%%%

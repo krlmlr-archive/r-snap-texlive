@@ -1,0 +1,100 @@
+\documentclass{article}
+\usepackage{casyltex}
+\title{\CASylTeX: Macros for Cree/Inuktitut\\ Version 2.00}
+\author{Ivan A Derzhanski}
+\date{25 October 2008}
+\def\zdemo#1{$\frac{\hbox{\sylla #1}}{\hbox{\Ztwo\sylla #1}}$}
+
+\begin{document}
+\maketitle
+
+This version of package \CASylTeX\ (Canadian Aboriginal Syllabics)
+enables you to typeset Cree and Inuktitut text%
+\footnote{Support for other languages will be added in later versions.}
+%
+in James Evans' syllabic script.
+It consists of the style sheet \verb!casyltex.sty!
+and the fount \verb!casyll10!.
+
+The typesetting of Cree/Inuktitut text
+is done by the environment \verb!syllab!.
+For short quotations (no longer than one paragraph)
+the macro \verb!\sylla! is also available.
+
+The input of \CASylTeX\ is romanised text in lowercase (except as specified below)
+and with no punctuation (other than full stops, which are rendered as~\sylla{..}).
+The following syllables are recognised:
+
+\medskip
+\hspace{-.45in}\begin{tabular}{r|cccccccccccccccc}
+& --- & \texttt c, \texttt g & \texttt j, \texttt y & \texttt k
+& \texttt l & \texttt L & \texttt m & \texttt n
+& \texttt p & \texttt q & \texttt r & \texttt s
+& \texttt S & \texttt t & \texttt T & \texttt v, \texttt f
+\\\hline
+\texttt a & \sylla{a} & \sylla{ca} & \sylla{ja} & \sylla{ka}
+& \sylla{la} & \sylla{La} & \sylla{ma} & \sylla{na}
+& \sylla{pa} & \sylla{qa} & \sylla{ra}/\Rtwo\sylla{ra} & \sylla{sa}
+& \sylla{Sa} & \sylla{ta} & \sylla{Ta}/\Ttwo\sylla{Ta} & \sylla{va}
+\\
+\texttt e & \sylla{e} & \sylla{ce} & \sylla{je} & \sylla{ke}
+& \sylla{le} & \sylla{Le} & \sylla{me} & \sylla{ne}
+& \sylla{pe} & \sylla{qe} & \sylla{re}/\Rtwo\sylla{re} & \sylla{se}
+& \sylla{Se} & \sylla{te} & \sylla{Te}/\Ttwo\sylla{Te} & \sylla{ve}
+\\
+\texttt i & \sylla{i} & \sylla{ci} & \sylla{ji} & \sylla{ki}
+& \sylla{li} & \sylla{Li} & \sylla{mi} & \sylla{ni}
+& \sylla{pi} & \sylla{qi} & \sylla{ri}/\Rtwo\sylla{ri} & \sylla{si}
+& \sylla{Si} & \sylla{ti} & \sylla{Ti}/\Ttwo\sylla{Ti} & \sylla{vi}
+\\
+\texttt o, \texttt u & \sylla{o} & \sylla{co} & \sylla{jo} & \sylla{ko}
+& \sylla{lo} & \sylla{Lo} & \sylla{mo} & \sylla{no}
+& \sylla{po} & \sylla{qo} & \sylla{ro}/\Rtwo\sylla{ro} & \sylla{so}
+& \sylla{So} & \sylla{to} & \sylla{Ti}/\Ttwo\sylla{Ti} & \sylla{vo}
+\\\hline
+--- & --- & \zdemo c & \zdemo j & \zdemo k
+& \zdemo l & \sylla L & \zdemo m & \zdemo n
+& \zdemo p & \sylla q & \zdemo r/\Rtwo\sylla r & \zdemo s
+& \zdemo S & \zdemo t & \sylla T/\Ttwo \sylla T & \sylla v
+\\
+\end{tabular}
+\medskip\\
+%
+And the following non-syllables:
+
+\medskip
+\begin{tabular}{cccc}
+\texttt h & \texttt K & \texttt M & \texttt x \\\hline
+\sylla h & \sylla K & \sylla M & \sylla x \\
+\end{tabular}
+\medskip\\
+%
+The input \texttt N generates \sylla N (resp.~\sylla{\Ztwo N}, see below;
+but there is no \texttt{Na},
+so you have to write \texttt{Nga} for \sylla{Nga}, etc.).
+
+The input \texttt w generates a dot next to the syllabic character
+if a vowel follows and \sylla w otherwise.
+By default the dot appears after the character (as for West Cree), but can be made to
+appear before it (as for East Cree) by \verb!\wfronttrue! (back by \verb!\wfrontfalse!).
+
+The letters \texttt c and~\texttt g, \texttt j and~\texttt y,
+\texttt o and~\texttt u, \texttt v and~\texttt f have the same effect.
+Inuktitut~\textit\& (voiceless fricative \textit l)
+and regional Cree \textit{sh} and \textit{th}
+are input as \texttt L,~\texttt S and~\texttt T, respectively.
+Vowel length is marked by capitalising the vowel letter
+or by \verb!'! after~it; \verb!hwe'! and~\verb!hwE!
+both generate~\sylla{hwE}.
+
+There are two shapes available for \texttt r. You can choose
+\sylla r (the default) by~\verb!\Rone! and \sylla {\Rtwo r}
+by~\verb!\Rtwo!, and whichever shape is chosen, \texttt R
+generates the other one.
+
+There are also two options for most syllable-final consonants:
+they either look like superscript syllables with~\textit a
+(the default) or have independent shapes.  You can indicate
+your preference by~\verb!\Zone! or~\verb!\Ztwo!.
+
+\end{document}

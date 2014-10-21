@@ -1,0 +1,84 @@
+
+	     Literate Programming for Prolog with LaTeX.
+
+			   Gerd Neugebauer
+	      FB Informatik, Universität Koblenz-Landau
+		    gerd@informatik.uni-koblenz.de
+
+
+This file describes the installation procedure of the style options pl
+and pcode. The documentation will be produced during this process.
+
+Files
+=====
+
+The distribution of pl.sty contains at least the following files:
+
+README		This file.
+pl.doc		The documented style file.
+pl.ins		The docstrip program to produce pl.sty.
+pl.tex		The driver file to produce the documentation.
+pl.cfg		The documentation configuration file.
+sample.pl	A sample Prolog file.
+Makefile	A makefile for UN*X (or whoever can use it)
+
+
+
+Prerequisites
+=============
+
+(1) You need to have installed LaTeX.
+    LaTeX 2.09 is ok.
+
+(2) You need the style option doc.sty and the file docstrip.tex on
+    your TeX search path. (To put them in the current directory should
+    also work)
+    You need a version distributed with LaTeX2e --- even if you still
+    use LaTeX 2.09.
+
+(3) You need multicol.sty. At least a file named multicol.sty should
+    be on your TeX search path if you use LaTeX 2.09.
+
+(4) You should have the program makeindex to generate the index for the full
+    documentation.
+
+
+Installation
+============
+
+(1)	If you have a working make (e.g. on UNIX) you can just type
+
+	make
+
+	This performs the following steps which can also be started
+	manually:
+
+	(1.1)	Run LaTeX on the file pl.ins like in
+
+		latex pl.ins
+
+		This should produce the files pl.sty and pcode.sty
+		(and as a side effect the file pl.log)
+
+	(1.2)	Run LaTeX on the file pl.tex like in
+
+			latex pl.tex
+
+		This will produce the documentation file pl.dvi
+
+(2)	Place the file pl.sty and maybe pcode.sty in a place where TeX
+	searches for it.
+
+(3)	Print the documentation pl.dvi and READ it!
+
+
+PROBLEMS
+========
+
+*	If you do not get your hands on the appropriate version of
+	docstrip then you can just rename pl.doc into pl.sty. This
+	should work even if the startup time might be slightly higher.
+
+*	If you get an error during the processing of pl.tex, most
+	likely your version of doc.sty or multicol.sty is out of date.
+

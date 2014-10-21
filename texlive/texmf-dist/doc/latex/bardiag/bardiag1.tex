@@ -1,0 +1,102 @@
+\documentclass[12pt]{article}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\usepackage{barddoc}
+
+\usepackage{xr}
+\externaldocument{bardiag}
+
+\title{The \bard package: documentation part 2
+       \thanks{This file has version number \barvers and describes \bard ver.\barvers}
+}
+
+\begin{document}
+\maketitle
+
+\setcounter{section}{3}
+\mysection{Horizontal mode \label{sec:4}}
+
+There is also a possibility to draw a diagram with horizontally oriented
+bars. An example of such a diagram is shown in \figref{fig4:1}
+
+\begin{figure}[!ht]\centering
+  \renewcommand{\bdorientation}{\bdhor}
+  \input{figs/examp6.tex}
+\caption{\label{fig4:1} Example of a diagram drawn in the horizontal mode. 
+          Compare with {\figref{fig:9}}. The listing can be found in 
+          section \ref{sec:4:1}}
+\end{figure}
+
+The idea is that one has to be able to ``rotate'' a diagram without
+changing to much in the source. For this purpose a parameter
+\verb+\bdorientation+ is introduced. It should have one of two values:
+\verb+\bdvert+ (default) and \verb+\bdhor+, meaning vertical and
+horizontal. The \figref{fig4:1} is drawn with the following piece of
+code
+\begin{lstlisting}{}
+\begin{figure}[!ht]\centering
+  \renewcommand{\bdorientation}{\bdhor}
+  \input{figs/examp6.tex}
+\caption{xxxx}
+\end{figure}
+\end{lstlisting}
+\noindent
+Line 2 sets the orientation. 
+
+The main point here is that, while calling \texttt{bardiagrambegin}
+[see section~\ref{sec:4:1} for the listing], one changes the meaning
+of its parameters. If before the arguments \#1 and \#2  meant X(=horizontal) and
+Y(=vertical) sizes of the framed part of the diagram, then now one has
+to call Y the direction along the bars. So, after\\
+\verb+\renewcommand{\bdorientation}{\bdhor}+\\
+X becomes vertical and Y horizontal. It sounds crazy, I know. 
+In fact, it means that you don't need to change the arguments
+of \verb+\beginbardiag+ to
+rotate the diagram. Only  \verb+\bdorientationin+ should be
+redefined. The same holds for unit lengths (args \#6 and \#7).
+
+The same idea may work for a legend - its argument are now ``measured''
+perpendicular to the bars (\#1) and along the bars (\#2). Still, you
+will probably need to shift the legend by hand to make it look pretty.
+
+Well, basically, that's it. Of course, the bar primitives, which are
+used to draw the ``real things'' should be aware of a possibility to
+draw them horizontally. All primitives supplied with this package work
+this way. 
+
+To demonstrate the concept let me draw the same diagram as in 
+\figref{fig:1}, but now in the horizontal mode.
+
+\begin{lstlisting}{}
+\renewcommand{\bdorientation}{\bdhor}
+\begin{figure}[t]\centering
+  \input{figs/examp1.tex}
+\caption{\label{fig:1hor} \figref{fig:1} redrawn in the horizontal mode.}
+\end{figure}
+\end{lstlisting}
+
+The result is \figref{fig:1hor}. It looks quite okay. However the same
+trick does not work 
+with \figref{fig:4hor} (which is \figref{fig:1} 
+plus a legend) [\figref{fig:4hor}]. You need to move the legend by hand.
+
+
+\renewcommand{\bdorientation}{\bdhor}
+\begin{figure}[t]\centering
+  \input{figs/examp1.tex}
+\caption{\label{fig:1hor} \figref{fig:1} redrawn in the horizontal mode.}
+\end{figure}
+
+\begin{figure}[t]\centering
+  \input{figs/examp1b.tex}
+\caption{\label{fig:4hor} \figref{fig:4} redrawn in the horizontal
+  mode. As you see, the legend messes it up. Sorry, I cannot do
+  anything about it.}
+\end{figure}
+
+\clearpage
+\subsection{\label{sec:4:1}Listing of the example \figref{fig4:1}}
+\lstinputlisting{figs/examp6.tex}
+
+
+
+\end{document}

@@ -1,0 +1,81 @@
+%%
+%% This is file `totcount-ex.tex',
+%% generated with the docstrip utility.
+%%
+%% The original source files were:
+%%
+%% totcount.dtx  (with options: `ex')
+%% 
+%% The TotCount package, version 1.2, 2011/01/25
+%% 
+%% Copyright (c) [2009] Vasileios Koutavas (Vasileios.Koutavas@scss.tcd.ie)
+%% 
+%% This program may be re-distributed and/or modified under the terms of the
+%% LaTeX Project Public License version 1.3c, or any later version.
+%% The latest version of this license is in
+%%    CTAN:macros/latex/base/lppl.txt
+%% 
+\def\totcfileversion{1.2}
+\def\totcfiledate{2011/01/25}
+\def\totcdocdate{25 Jan 2011}
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesFile{totcount-ex.tex}
+      [\totcfiledate \space v\totcfileversion \space%
+       test file for the TotCount package]
+\documentclass{article}
+%%
+%% Import the package
+\RequirePackage{totcount}
+%%
+%%  Comment out the following line to use the previously stored total counts in
+%%  'mycount.aux' (make sure it exists!) instead of computing them again:
+\def\computemycount{}
+\expandafter\ifx\csname computemycount\endcsname\relax
+  \usetotcountfile{mycount.aux}
+  \newcounter{mycount} % so that increments of this counter don't break
+\else
+  \newtotcounter[auxfile=mycount.aux]{mycount}
+\fi
+%%
+%% Register the section and page counters as a total counters:
+\regtotcounter{section}
+\regtotcounter{page}
+
+\begin{document}
+%%
+%% A total counter can be declared/registered anywhere:
+\newtotcounter{yourcount}
+
+\section{Total Counts}
+%%
+%% Increment counters as usual:
+\addtocounter{mycount}{5}
+\addtocounter{yourcount}{5}
+%%
+%% Print the value of a total counter by using |\total|:
+The total value of the counter {\tt mycount} is \total{mycount} (should
+be 10), and the total value of the counter {\tt yourcount} is
+\total{yourcount} (should be 17).
+
+%%
+%% Get the numeric value of a total counter by using |\totvalue|:
+This document has \total{section}
+\ifnum\totvalue{section}=1 section \else sections \fi
+and \total{page}
+\ifnum\totvalue{page}=1 page. \else pages. \fi
+
+%%
+%% The effect of incrementing the counters will be visible the second
+%% time LaTeX runs:
+\addtocounter{yourcount}{5}
+\addtocounter{mycount}{5}
+\addtocounter{yourcount}{7}
+
+\section{A Section}
+\section{Another Section}
+\section{Yet Another Section}
+
+\end{document}
+\endinput
+%%
+%% End of file `totcount-ex.tex'.

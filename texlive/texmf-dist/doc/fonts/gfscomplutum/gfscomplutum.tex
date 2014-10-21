@@ -1,0 +1,222 @@
+%%  (c) copyright  2006, 2007
+%% Antonis Tsolomitis
+%% Department of Mathematics, University of the Aegean
+%%
+%%  This document can be redistributed and/or modified under the terms
+%%  of the LaTeX Project Public License Distributed from CTAN
+%%  archives in directory macros/latex/base/lppl.txt; either
+%%  version 1 of the License, or any later version.
+
+\documentclass{article}
+\usepackage[polutonikogreek,english]{babel}
+\usepackage[iso-8859-7]{inputenc}
+\usepackage{cmbright}
+%\usepackage[default]{gfsneohellenic}
+%\usepackage{gfsneohellenic}
+\usepackage{gfscomplutum}
+\usepackage{latexsym,amsfonts}
+%\renewcommand{\ttdefault}{hlst}
+
+%%%%% Theorems and friends
+\newtheorem{theorem}{Θεώρημα}[section]         
+\newtheorem{lemma}[theorem]{Λήμμα}
+\newtheorem{proposition}[theorem]{Πρόταση}
+\newtheorem{corollary}[theorem]{Πόρισμα}
+\newtheorem{definition}[theorem]{Ορισμός}
+\newtheorem{remark}[theorem]{Παρατήρηση}
+\newtheorem{axiom}[theorem]{Αξίωμα}
+\newtheorem{exercise}[theorem]{¶σκηση}
+
+
+%%%%% Environment ``proof''
+\newenvironment{proof}[1]{{\textit{Απόδειξη:}}}{\ \hfill$\Box$}
+\newenvironment{hint}[1]{{\textit{Υπόδειξη:}}}{\ \hfill$\Box$}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+
+
+
+
+\title{The \textsc{gfs complutum} font}
+\author{Antonis Tsolomitis\\
+Laboratory of Digital Typography\\ and Mathematical Software\\
+Department of Mathematics\\
+University of the Aegean\\
+\textlatin{\texttt{http://myria.math.aegean.gr/labs/dt}}}
+\date {\textsc{12} May \textsc{2006}}
+
+
+\begin{document}
+\maketitle
+
+\section{Introduction}
+
+
+
+The font---and hence the package---supports only the LGR encoding and it 
+is to be used with the greek option of the Babel package.
+
+The fonts are loaded with
+
+\verb|\usepackage{gfscomplutum}| or \verb|\usepackage[default]{gfscomplutum}|.
+
+
+The latter one sets \textsc{gfs} Complutum as the default document font. The former
+defines the environment \verb|complutum| and the command
+\verb|\textcomplutum|. For example, while in Greek language
+
+\verb|\textcomplutum{dokim'h}| 
+
+\noindent produces 
+
+\textgreek{\textcomplutum{dokim'h}}.
+
+x-height is adjusted so that it matches with the x-height of the
+\verb|gfsneohelenic| package. 
+
+
+
+
+\section{Installation}
+
+Copy the contents of the subdirectory afm in
+texmf/fonts/afm/GFS/Complutum
+
+\medskip
+
+\noindent Copy the contents of the subdirectory doc in
+texmf/doc/latex/GFS/Complutum/
+
+\medskip
+
+\noindent Copy the contents of the subdirectory enc in
+texmf/fonts/enc/dvips/GFS/Complutum/
+
+\medskip
+
+\noindent Copy the contents of the subdirectory map in
+texmf/fonts/map/dvips/GFS/Complutum/
+
+\medskip
+
+\noindent Copy the contents of the subdirectory tex in
+texmf/tex/latex/GFS/Complutum/
+
+\medskip
+
+\noindent Copy the contents of the subdirectory tfm in
+texmf/fonts/tfm/GFS/Complutum/
+
+\medskip
+
+\noindent Copy the contents of the subdirectory type1 in
+texmf/fonts/type1/GFS/Complutum/
+
+\medskip
+
+\noindent Copy the contents of the subdirectory vf in
+texmf/fonts/vf/GFS/Complutum/
+
+\medskip
+
+\noindent In your installation's updmap.cfg file add the line
+
+\medskip
+
+\noindent Map gfscomplutum.map
+
+\medskip
+
+Refresh your filename database and the map file database (for example, on Unix systems
+run mktexlsr and then run the updmap-sys (or updmap on older systems) script as root).
+
+You are now ready to use the fonts.
+
+\section{Usage}
+
+As said in the introduction the package covers only
+greek. Greek covers polytonic too through babel (read the
+documentation
+of the babel package and its greek option). 
+
+For example, the preample
+
+\begin{verbatim}
+\documentclass{article}
+\usepackage[english,greek]{babel}
+\usepackage[iso-8859-7]{inputenc}
+\usepackage{cmbright}
+\usepackage[default]{gfscomplutum}
+\end{verbatim}
+
+will be the correct setup for articles in Greek using Complutum for the
+main font.
+
+\bigskip
+
+\subsection{Transformations by \texttt{dvips}}
+
+Other than the shape provided by the font itself, this package
+provides a slanted shape as well
+using the standard mechanism provided by dvips. 
+
+
+\subsection{Alternative characters}
+There is an alternative design for tau. This is used by default as the
+second of two consecutive taus, as for example in
+\textgreek{\textcomplutum{Αττική}} (Attika).
+This form of tau can be accessed directly with \verb|\taualt|.
+
+
+
+
+\section{Problems}
+
+
+ The
+accents of the capital letters should hang in the left margin when such a letter starts a
+line.  \TeX\ and \LaTeX\ do not provide the tools for such a
+feature. However, this seems to be possible with 
+\textlatin{pdf\TeX}
+As this is work in progress, please be patient\ldots
+
+
+
+
+\section{Samples}
+
+
+\Large
+\greektext\selectlanguage{polutonikogreek}
+\begin{complutum}
+\begin{center}
+<'Hrhc
+\end{center}
+\begin{flushright}
+θυμίαμα αρώματα
+\end{flushright}
+\begin{center}
+%\begin{minipage}{10cm}
+\begin{verse}
+Κυανέοις κόλποισιν >ενημένη, >αερόμορφε,\\
+<'Ηρα παμβασίλεια, Δι`ος σύλλεκτρε μάκαιρα,\\
+ψυχοτρόφους a>'urac θνητο~ις παρέχουσα προσηνε~ις,\\
+>'ομβρων μ`εν μήτηρ, >ανέμων τροφέ, παντογένεθλε:\\
+χωρ`ις γ`αρ σέθεν ο>υδ`εν <'ολως ζω~ης φύσιν >'εγνω:\\
+κοινωνε~ις γ`αρ <'απασι κεκραμένη >ηέρι σεμν~ωι:\\
+πάντων γ`αρ κρατέεις μούνη πάντεσσί τ'' >ανάσσεις\\
+>ηερίοις <ροίζοισι τινασσομένη κατ`α χε~υμα.\\
+>αλλά, μάκαιρα θεά, πολυώνυμε, παμβασίλεια,\\
+>'ελθοις ε>υμενέουσα καλ~ωι γήθοντι προσώπωι.\\
+\end{verse}
+%\end{minipage}
+\end{center}
+\end{complutum}
+
+\end{document}
+
+%%% Local Variables: 
+%%% mode: latex
+%%% TeX-master: t
+%%% End: 

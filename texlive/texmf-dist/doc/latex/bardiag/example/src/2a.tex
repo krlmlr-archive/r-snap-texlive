@@ -1,0 +1,23 @@
+% The same kind of thing as fig 1, but with real numbers
+    %this is the way to redefine styles
+    % \newpsstyle{mytickstyle}{linewidth=1pt,linecolor=blue}
+    \renewcommand{\betweenticks}{10}
+    \bardiagrambegin{9.2}{45}{2cm}{1}{2}{1cm}{0.2cm}
+       \drawlevellines
+       \baritem{Jelger}{21.5}{green}
+       \baritem{Johan}{12.7}{red}
+       \baritem{Rikkert}{10}{yellow}
+       \baritem{Henk}{31}{green}
+       \baritem{Erwin}{42}{red}  
+       %
+       % we  call
+       \diagLegendoptions{verylightgray}{black}{0.5pt}
+       % to produce a legend with verylightgray background with black frame
+       % with linewidth=0.5pt
+       %
+       \diagLegendbegin{0.5}{42}{5.0}
+         \diagLegenditem{Full year}{green}
+         \diagLegenditem{Less than a year}{red}
+         \diagLegenditem{Less than 6 months}{yellow}
+       \diagLegendend
+    \bardiagramend{}{\large Activity (\%)}

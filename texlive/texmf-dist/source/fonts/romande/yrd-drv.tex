@@ -1,0 +1,88 @@
+\input fontinst.sty
+\needsfontinstversion{1.926}
+%:substitutions
+%bold for bold extended
+\substitutesilent{bx}{b}
+\substitutesilent{b}{db}
+\substitutesilent{db}{m}
+\substitutesilent{si}{sc}
+\substitutesilent{sl}{it}
+%:record transformations for later map file creation
+\recordtransforms{yrd-rec.tex}
+%:transformations - reencode
+	\transformfont{t1-romandeadf-yrdr}{\reencodefont{t1-romandeadf}{\fromafm{yrdr8a}}}
+	\transformfont{t1-romandeadf-yrdri}{\reencodefont{t1-romandeadf}{\fromafm{yrdri8a}}}
+	\transformfont{t1-romandeadf-yrdrc}{\reencodefont{t1-romandeadf}{\fromafm{yrdrc8a}}}
+	\transformfont{t1-romandeadf-yrdd}{\reencodefont{t1-romandeadf}{\fromafm{yrdd8a}}}
+	\transformfont{t1-romandeadf-yrddi}{\reencodefont{t1-romandeadf}{\fromafm{yrddi8a}}}
+	\transformfont{t1-romandeadf-yrddc}{\reencodefont{t1-romandeadf}{\fromafm{yrddc8a}}}
+	\transformfont{t1-romandeadf-yrdriw}{\reencodefont{t1-romandeadf}{\fromafm{yrdriw8a}}}
+	\transformfont{t1-romandeadf-alt-yrdr}{\reencodefont{t1-romandeadf-alt}{\fromafm{yrdr8a}}}
+	\transformfont{t1-romandeadf-alt-yrdri}{\reencodefont{t1-romandeadf-alt}{\fromafm{yrdri8a}}}
+	\transformfont{t1-romandeadf-alt-yrdd}{\reencodefont{t1-romandeadf-alt}{\fromafm{yrdd8a}}}
+	\transformfont{t1-romandeadf-alt-yrddi}{\reencodefont{t1-romandeadf-alt}{\fromafm{yrddi8a}}}
+	\transformfont{t1-romandeadf-alt-yrdriw}{\reencodefont{t1-romandeadf-alt}{\fromafm{yrdriw8a}}}
+	\transformfont{s-yrdr}{\reencodefont{romande-supp}{\fromafm{yrdr8a}}}
+	\transformfont{s-yrdri}{\reencodefont{romande-supp}{\fromafm{yrdri8a}}}
+	\transformfont{s-yrdrc}{\reencodefont{romande-supp}{\fromafm{yrdrc8a}}}
+	\transformfont{s-yrdd}{\reencodefont{romande-supp}{\fromafm{yrdd8a}}}
+	\transformfont{s-yrddi}{\reencodefont{romande-supp}{\fromafm{yrddi8a}}}
+	\transformfont{s-yrddc}{\reencodefont{romande-supp}{\fromafm{yrddc8a}}}
+	\transformfont{s-yrdriw}{\reencodefont{romande-supp}{\fromafm{yrdriw8a}}}
+	\transformfont{ts1-yrdr}{\reencodefont{ts1-euro}{\fromafm{yrdr8a}}}
+	\transformfont{ts1-yrdri}{\reencodefont{ts1-euro}{\fromafm{yrdri8a}}}
+	\transformfont{ts1-yrdd}{\reencodefont{ts1-euro}{\fromafm{yrdd8a}}}
+	\transformfont{ts1-yrddi}{\reencodefont{ts1-euro}{\fromafm{yrddi8a}}}
+	\transformfont{ts1-yrdriw}{\reencodefont{ts1-euro}{\fromafm{yrdriw8a}}}
+	\input reglyph-yrd.tex
+%:installation - creation of virtual fonts
+	\installfonts
+		\installfamily{T1}{yrd}{}
+		\installfont{yrdr8t}{t1-romandeadf-yrdr,newlatin}{t1-romandeadf}{T1}{yrd}{m}{n}{}
+		\installfont{yrdrc8t}{t1-romandeadf-yrdrc,newlatin}{t1-romandeadf}{T1}{yrd}{m}{sc}{}
+		\installfont{yrdri8t}{t1-romandeadf-yrdri,newlatin}{t1-romandeadf}{T1}{yrd}{m}{it}{}
+		\installfontas{yrdri8t}{T1}{yrd}{m}{sl}{}
+		\installfont{yrdd8t}{t1-romandeadf-yrdd,newlatin}{t1-romandeadf}{T1}{yrd}{db}{n}{}
+		\installfont{yrddc8t}{t1-romandeadf-yrddc,newlatin}{t1-romandeadf}{T1}{yrd}{db}{sc}{}
+		\installfont{yrddi8t}{t1-romandeadf-yrddi,newlatin}{t1-romandeadf}{T1}{yrd}{db}{it}{}
+		\installfontas{yrddi8t}{T1}{yrd}{db}{sl}{}
+		\installfamily{T1}{yrda}{}
+		\installfont{yrdra8t}{t1-romandeadf-alt-yrdr,rs-yrdr,newlatin}{t1-romandeadf-alt}{T1}{yrda}{m}{n}{}
+		\installfontas{yrdrc8t}{T1}{yrda}{m}{sc}{}
+		\installfont{yrdrai8t}{t1-romandeadf-alt-yrdri,rs-yrdri,newlatin}{t1-romandeadf-alt}{T1}{yrda}{m}{it}{}
+		\installfont{yrdda8t}{t1-romandeadf-alt-yrdd,rs-yrdd,newlatin}{t1-romandeadf-alt}{T1}{yrda}{db}{n}{}
+		\installfontas{yrddc8t}{T1}{yrda}{db}{sc}{}
+		\installfont{yrddai8t}{t1-romandeadf-alt-yrddi,rs-yrddi,newlatin}{t1-romandeadf-alt}{T1}{yrda}{db}{it}{}
+		\installfamily{T1}{yrdw}{}
+		\installfont{yrdriw8t}{t1-romandeadf-yrdriw,newlatin}{t1-romandeadf}{T1}{yrdw}{m}{it}{}
+		\installfontas{yrdriw8t}{T1}{yrdw}{m}{n}{}
+		\installfontas{yrdriw8t}{T1}{yrdw}{m}{sc}{}
+		\installfamily{T1}{yrdaw}{}
+		\installfont{yrdraiw8t}{t1-romandeadf-alt-yrdriw,rs-yrdriw,newlatin}{t1-romandeadf-alt}{T1}{yrdaw}{m}{it}{}
+		\installfontas{yrdraiw8t}{T1}{yrdaw}{m}{n}{}
+		\installfontas{yrdraiw8t}{T1}{yrdaw}{m}{sc}{}
+		\installfamily{TS1}{yrd}{}
+		\installfont{yrdr8c}{t1-romandeadf-yrdr,ts1-yrdr,t1-romandeadf-yrdr suffix oldstyle,rs-yrdr,textcomp}{ts1-euro}{TS1}{yrd}{m}{n}{}
+		\installfontas{yrdr8c}{TS1}{yrd}{m}{sc}{}
+		\installfont{yrdri8c}{t1-romandeadf-yrdri,ts1-yrdri,t1-romandeadf-yrdri suffix oldstyle,rs-yrdri,textcomp}{ts1-euro}{TS1}{yrd}{m}{it}{}
+		\installfont{yrdd8c}{t1-romandeadf-yrdd,ts1-yrdd,t1-romandeadf-yrdd suffix oldstyle,rs-yrdd,textcomp}{ts1-euro}{TS1}{yrd}{db}{n}{}
+		\installfontas{yrdd8c}{TS1}{yrd}{db}{sc}{}
+		\installfont{yrddi8c}{t1-romandeadf-yrddi,ts1-yrddi,t1-romandeadf-yrddi suffix oldstyle,rs-yrddi,textcomp}{ts1-euro}{TS1}{yrd}{db}{it}{}
+		\installfamily{TS1}{yrda}{}
+		\installfontas{yrdr8c}{TS1}{yrda}{m}{n}{}
+		\installfontas{yrdr8c}{TS1}{yrda}{m}{sc}{}
+		\installfontas{yrdri8c}{TS1}{yrda}{m}{it}{}
+		\installfontas{yrdd8c}{TS1}{yrda}{db}{n}{}
+		\installfontas{yrdd8c}{TS1}{yrda}{db}{sc}{}
+		\installfontas{yrddi8c}{TS1}{yrda}{db}{it}{}
+		\installfamily{TS1}{yrdw}{}
+		\installfont{yrdriw8c}{t1-romandeadf-yrdriw,ts1-yrdriw,t1-romandeadf-yrdriw suffix oldstyle,rs-yrdriw,textcomp}{ts1-euro}{TS1}{yrdw}{m}{it}{}
+		\installfontas{yrdriw8c}{TS1}{yrdw}{m}{n}{}
+		\installfontas{yrdriw8c}{TS1}{yrdw}{m}{sc}{}
+		\installfamily{TS1}{yrdaw}{}
+		\installfontas{yrdriw8c}{TS1}{yrdaw}{m}{it}{}
+		\installfontas{yrdriw8c}{TS1}{yrdaw}{m}{n}{}
+		\installfontas{yrdriw8c}{TS1}{yrdaw}{m}{sc}{}
+	\endinstallfonts
+\endrecordtransforms
+\bye

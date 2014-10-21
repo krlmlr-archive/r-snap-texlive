@@ -1,0 +1,506 @@
+%%
+%% This is file `engpron-fr.ltx',
+%% generated with the docstrip utility.
+%%
+%% The original source files were:
+%%
+%% engpron.dtx  (with options: `doc,fr')
+%% This is a generated file.
+%% 
+%% Copyright (C) 2003-2008 Y. Henel, le TeXnicien de surface
+%% <le.texnicien.de.surface@wanadoo.fr>
+%% 
+%% This file may be distributed and/or modified under the conditions of
+%% the LaTeX Project Public License, either version 1.2 of this license
+%% or (at your option) any later version.  The latest version of this
+%% license is in:
+%% 
+%%    http://www.latex-project.org/lppl.txt
+%% 
+%% and version 1.2 or later is part of all distributions of LaTeX version
+%% 1999/12/01 or later.
+\documentclass[a4paper]{article}
+\usepackage{xspace,array}
+\usepackage[latin1]{inputenc}
+\usepackage[tame,hyphenable]{engpron}
+\usepackage[T1]{fontenc}
+\usepackage[english,frenchb]{babel}
+\usepackage{engpron-tools}
+\usepackage{makeidx}
+\usepackage[colorlinks=true,
+            linkcolor=blue,
+            urlcolor=blue,
+            citecolor=blue]{hyperref}
+\makeindex
+\begin{document}
+\GetFileInfo{engpron.sty}
+\newcommand{\GBP}{\texttt{^^a3}\xspace}
+\title{Documentation fran^^e7aise de l'extension
+  \textsf{engpron}\thanks{%
+  Ce document correspond au fichier
+  \textsf{engpron}~\fileversion,
+  du \filedate, ^^e9dition du cinquantenaire.}}
+\author{Le \TeX nicien de surface\\
+        \href{mailto:le.texnicien.de.surface@wanadoo.fr}%
+        {le.texnicien.de.surface@wanadoo.fr}}
+\date{\docdate}
+
+\maketitle
+
+\begin{abstract}
+  Ce module n'est qu'une petite poign^^e9e fix^^e9e tant bien que mal sur
+  le module \Pkg{tipa} dont je tiens ^^e0 remercier l'auteur,
+  \textsc{Fukui}~Rei, tr^^e8s cordialement. Je remercie ^^e9galement
+  T.~\textsc{Lachand-Robert} pour son ouvrage~\cite{tlachand} sans
+  lequel je ne serais que peu de chose |;)| et
+  Josselin~\textsc{Noirel} pour ses conseils sur
+  \url{fr.comp.text.tex} ainsi que pour \og notre \fg module
+  \Pkg{drac}.
+
+  Ce module fournit des macros\footnote{appel^^e9es ensuite \og macros
+    en \GBP \fg.} commen^^e7ant par le caract^^e8re \GBP, rendu actif, qui
+  permettent d'^^e9crire la prononciation de l'anglais britannique ou
+  am^^e9ricain ^^e0 l'aide de l'API telle qu'on la trouve dans le \og
+  English Pronouncing Dictionary \fg de Daniel~\textsc{Jones}. Une
+  option permet d'obtenir le style adopt^^e9 par le
+  Harraps~\cite{harraps}.
+
+  Le module \Pkg{engpron} utilise, si l'option \Option{drac} est
+  choisie comme c'est le cas par d^^e9faut, le module \Pkg{drac} pour
+  faire de \GBP un caract^^e8re actif robuste, ce qui permet d'utiliser
+  les macros en \GBP dans des arguments \og mobiles \fg au sens de
+  \LaTeX.
+
+  On trouvera en fin de document (page~\pageref{latable}) une table
+  des commandes commen^^e7ant par un \GBP dans la configuration par
+  d^^e9faut : \Option{monstress} et \Option{jones}.
+\end{abstract}
+
+\tableofcontents
+
+\section{Utilisation}
+
+Ce module charge \Pkg{tipa}, merveilleux module qui permet
+d'^^e9crire en API, alphabet phon^^e9tique international, avec
+\LaTeX{}. Il fournit quelques macros qui permettent de reprendre la
+prononciation de l'anglais britannique et am^^e9ricain telle qu'on la
+trouve dans le \textsc{Jones}~\cite{jones15} ou dans~\cite{jones}.
+
+L'extension \Pkg{drac} est utilis^^e9, par d^^e9faut, pour faire de \GBP un
+caract^^e8re actif robuste au sens de \LaTeX.
+
+\subsection{Le module et ses options}
+
+On pr^^e9sente ici les options de \Pkg{engpron}. On chargera
+\Pkg{engpron} avec, p.~ex.,
+\cs{usepackage}|[|\BOP|wild|\BOP|]|\BOP|{|\BOP|engpron|\BOP|}|.
+
+J'ai tent^^e9 de regrouper les options par rapport ^^e0 leurs effets.
+
+\subsubsection{Comportement de \GBP}
+
+Par d^^e9faut, ou explicitement avec l'option \Option{wild}, ce module
+rend le caract^^e8re \GBP actif et le red^^e9finit de mani^^e8re ^^e0
+\DescribeOption{wild} permettre la d^^e9finition de macros comme
+|^^a3a| et leur utilisation dans tout le texte. Il permet ^^e9galement
+d'obtenir une pr^^e9sentation uniforme de la prononciation ^^e0 l'aide de
+la macro \cs{pron}\marg{texte en API}.
+Si l'on pr^^e9f^^e8re, on peut choisir l'option \Option{tame}
+qui r^^e9tablit le caract^^e8re \GBP dans sa cat^^e9gorie dans le
+\DescribeOption{tame}
+codage fournit par |fontenc|\oarg{T1} et donc le rend actif et lui
+permet d'^^e9crire le symbole de la livre sterling. Il faudra alors
+utiliser soit la macro \cs{Pron}\marg{texte en API}, soit
+\cs{PRON}\marg{texte en API}  \TO et obtenir ainsi la pr^^e9sentation
+donn^^e9e par \cs{pron}\TF soit enfin l'environnement |LivreActive| dans
+lequel \GBP est activ^^e9.
+
+Par d^^e9faut, ou explicitement avec l'option \Option{drac}, ce module
+\DescribeOption{drac}
+utilise l'extension \Pkg{drac} pour faire de \GBP un caract^^e8re
+actif et \emph{robuste} au sens des arguments mouvants de \LaTeX.
+\DescribeOption{nodrac}
+L'option oppos^^e9e est \Option{nodrac} qui ne charge pas l'extension
+\Pkg{drac} est conserve les d^^e9finitions de \GBP donn^^e9es par la
+version~1.
+
+\subsubsection{Aspect du texte}
+
+Par d^^e9faut \Pkg{engpron} active l'option \Option{jones} qui
+\DescribeOption{jones} permet d'obtenir une pr^^e9sentation du \og r \fg
+final \PRON{a^^a3Z} et des sons optionnels conforme ^^e0~\cite{jones15}. On
+obtient \PRON{n^^a3Xen} pour le \og schwa \Pron{^^a3e} \fg et \PRON{a^^a3Xt^^a3sa}
+pour un \og t \fg optionnel.
+
+\Pkg{engpron} propose ^^e9galement l'option \Option{harraps} qui permet
+d'obtenir \DescribeOption{harraps}\label{harrapsrfin} alors une
+pr^^e9sentation conforme ^^e0~\cite{harraps} \CAD que les sons optionnels
+sont repr^^e9sent^^e9s entre parenth^^e8ses et que le \og r \fg final se
+pr^^e9sente comme ceci : \textsl{r}. De plus \pron{\textsl{o}} note ce
+que Jones~\cite{jones15} ^^e9crit \PRON{^^a3w}.
+
+\subsubsection{Syllabisation et accents toniques}
+
+Le module propose plusieurs options g^^e9rant la syllabisation. Avec
+\Option{hyphenable} on \DescribeOption{hyphenable} autorise \LaTeX\ ^^e0
+couper\index{coupure} sur les marques explicites de
+syllabisation\index{syllabisation} \TO voir plus loin |^^a3k|,
+page~\pageref{livrek}\TF et sur les marques d'accents
+toniques\index{accent tonique} \TO |^^a3b|, |^^a3B|, |^^a3h| et |^^a3H|. On dira
+alors que les marques de syllabisation et d'accents toniques sont
+\emph{s^^e9cables}\index{s^^e9cable}.
+
+Avec l'option \Option{unhyphenable}, on interdit la coupure des mots
+sur ces marques. Les marques sont dites alors
+\emph{ins^^e9cables}\index{ins^^e9cable}. \DescribeOption{unhyphenable} Pour
+conserver le comportement des versions pr^^e9c^^e9dentes, c'est l'option
+\Option{unhyphenable} qui est choisie par d^^e9faut.
+
+\vspace{\baselineskip}
+
+On peut choisir entre l'option \Option{visible} et l'option
+\Option{invisible}. Avec la premi^^e8re, \Option{visible}, la marque de
+\DescribeOption{visible} syllabisation, |^^a3k|, produit un glyphe qui
+est d^^e9fini par \cs{EPSyllabeMarque} \TO macro que l'on peut red^^e9finir
+^^e0 coup de \cs{renewcommand} et qui, par d^^e9faut, donne un simple
+point. Lorsque l'option \Option{invisible} est en vigueur, la macro
+\DescribeOption{invisible} |^^a3k| ne produit aucun glyphe mais la c^^e9sure
+y reste possible si l'option \Option{hyphenable} est en vigueur.
+
+\vspace{\baselineskip}
+
+\Pkg{engpron} propose deux autres options : \Option{monstress},
+\DescribeOption{monstress} option par d^^e9faut, et
+\Option{tipastress}. Elles sont exclusives l'une de l'autre et
+d^^e9finissent les glyphes repr^^e9sentant les accents toniques principaux
+et secondaires. L'utilisateur peut \DescribeOption{tipastress}
+red^^e9finir ^^e0 sa convenance les deux macros utilis^^e9es par d^^e9faut
+\cs{EPaccentprincipal} et \cs{EPaccent}\BOP|secondaire| et remplacer
+ainsi les \og glyphes \fg que je fournis par d^^e9faut.  Avec la
+premi^^e8re, on obtient \Pron{^^a3h} et \Pron{^^a3b} comme marque d'accent
+tonique principal et secondaire respectivement et avec la deuxi^^e8me
+\textprimstress{} et \textsecstress{} respectivement, glyphes fournis
+par \Pkg{tipa}.
+
+\subsubsection{Brouillon et erreur}
+
+Certaines macros, ^^e0 savoir |^^a3K|, |^^a3m| et |^^a3M|, attendent une lettre
+pour d^^e9terminer ce qu'elles ont ^^e0 faire. Cependant toutes les lettres
+ne conviennent pas. Avec l'option \Option{final},
+\DescribeOption{final}qui s'oppose ^^e0 \Option{draft}, \Pkg{engpron} ne
+produit rien dans le document mais ^^e9met un \DescribeOption{draft}
+avertissement dont on trouve la trace dans le fichier |.log|, avec
+l'option \Option{nice}, ou s'arr^^eate sur une erreur
+\DescribeOption{nice} avec l'option \Option{tough}. Avec
+\Option{draft}, on lit le texte suivant dans le document produit:
+\texttt{\string?\string!<*>\string!\string?} o^^f9 \DescribeOption{tough}
+\texttt{*} tient ici la place du caract^^e8re \emph{erron^^e9}.
+
+\subsubsection{R^^e9sum^^e9 des options disponibles}
+
+Bref, pour r^^e9sumer:
+\nopagebreak{}\par\nopagebreak{}
+\noindent
+\begin{tabular}{*{2}{>{\scshape}l} l}
+  \multicolumn{1}{l}{L'option par d^^e9faut} &
+  \multicolumn{1}{l}{et l'option oppos^^e9e} &
+  agissent sur\\
+  wild & tame & activit^^e9 de \GBP\\
+  drac & nodrac & robustesse de \GBP\\
+  jones & harraps & notation de la prononciation\\
+  monstress & tipastress & notation des accents toniques\\
+  unhyphenable & hyphenable & cr^^e9ation de points de c^^e9sure\\
+  visible & invisible & visibilit^^e9 de la syllabisation\\
+  \multicolumn{3}{l}{\emph{En cas d'erreur avec} \texttt{^^a3K},
+    \texttt{^^a3M} \emph{ou} \texttt{^^a3m}}\\
+  final & draft & trace \og ^^e9crite\fg \\
+  nice & tough & avertissement ou message d'erreur
+\end{tabular}
+
+\subsection{Les macros \og \GBP \fg}
+\label{sec:macrospound}
+
+Nous allons maintenant pr^^e9senter les macros commen^^e7ant par \GBP.
+
+Pour r^^e9aliser ces macros, je me suis appuy^^e9 une fois encore sur
+T.~\textsc{Lachand-Robert} dans~\cite{tlachand}. C'est son exemple
+de macros utilisant |^^a7| pour ^^e9crire les lettres grecques qui m'a
+donn^^e9 l'id^^e9e de faire pareil pour pouvoir noter la phon^^e9tique
+anglaise, ce dont j'avais besoin pour mes classes\footnote{On finit
+  par faire des choses ^^e9tranges lorsque l'on enseigne les
+  math^^e9matiques \emph{en anglais} en section europ^^e9enne de
+  lyc^^e9e\Sourire.}.  Et c'est en piochant de ci de l^^e0 que j'ai trouv^^e9
+les techniques pour r^^e9aliser les macros comme \cs{EP@haut}.
+
+Je ne pr^^e9sente dans cette section que quelques unes des macros
+reprises dans la table situ^^e9e page~\pageref{latable}.
+
+\subsubsection{Accents toniques}
+
+On obtient les accents toniques \TO tels que d^^e9finit par l'option
+\DescribePoundMacro{h} \Option{tipastress} ou \Option{monstress}\TF
+avec, pour l'accent tonique principal\index{accent
+principal}\index{accent tonique}, \DescribePoundMacro{H} |^^a3h| \TO |h|
+comme \emph{haut}\TF ou encore, pour des raisons de commodit^^e9s de
+frappe au clavier, par |^^a3H|. \DescribePoundMacro{b}Pour l'accent
+tonique secondaire\index{accent secondaire}, on utilisera
+\DescribePoundMacro{B}
+indiff^^e9remment soit |^^a3b| soit |^^a3B| \TO |b| pour \emph{bas}.
+
+\NOUVEAU{D^^e9sormais, quand l'option \Option{hyphenable} est choisie, les
+  marques d'accents toniques fournissent ^^e0 \TeX\ des points de
+  coupure de mot \TO \emph{c^^e9sure}. Ils sont s^^e9cables.}
+
+\subsubsection{Syllabisation}
+
+\NOUVEAU{Ce qui concerne la \emph{syllabisation}, \CAD l'indication
+  des limites de syllabes, est introduit par la version~2 du
+  module.}
+
+On peut avoir envie, ou besoin, d'indiquer la limite des syllabes
+des mots, comme on le voit dans le Jones~\cite{jones15}. Pour ce
+faire, le module fournit une seule macro \cs{EPSyllabeCoupure}
+\DescribeMacro{EPSyllabeCoupure} rattach^^e9e ^^e0 la macro\label{livrek}
+|^^a3k|\DescribePoundMacro{k}. Son comportement est contr^^f4l^^e9 par les
+couples d'options \Option{hyphenable}\slash \Option{unhyphenable} et
+\Option{visible}\slash \Option{invisible}.  Avec
+\Option{hyphenable}, elle indique ^^e0 \LaTeX\ un point de coupure de
+mot, ce qu'elle ne fait pas avec \Option{unhyphenable}. Avec
+\Option{visible}, elle place un glyphe dont \cs{EPSyllabeMarque}
+\DescribeMacro{EPSyllabeMarque} d^^e9termine
+l'aspect. Avec \Option{invisible}, elle ne produit rien.
+
+Par d^^e9faut, \cs{EPSyllabeMarque} est d^^e9finie comme un b^^eate point. On
+prendra garde au fait que, \cs{EPSyllabeMarque} intervenant comme
+argument de \cs{discretionary}, elle est soumise ^^e0 certaines
+restrictions comme, p.~ex. le fait de ne pas pouvoir contenir de
+math^^e9matiques.
+
+Quelles que soient les options en vigueur, on peut
+toujours\label{livreK} indiquer un point de coupure possible ^^e0 l'aide
+de |^^a3KX|, dans ce cas aucun glyphe n'est \DescribePoundMacro{KX}
+produit et le point est \emph{invisible}. Avec |^^a3KB| et |^^a3KH| on
+produit un \DescribePoundMacro{KB} \DescribePoundMacro{KH} accent
+tonique secondaire ou principal \emph{s^^e9cable}. Avec |^^a3Kb| ou |^^a3Kh|,
+les accents toniques sont \emph{ins^^e9cables}.  Avec |^^a3Kk|, on place une
+marque de syllabisation toujours visible et toujours
+ins^^e9cable. \DescribePoundMacro{Kk} Enfin, |^^a3KK|
+\DescribePoundMacro{KK} produit toujours une marque de syllabisation
+visible et s^^e9cable. L'aspect des marques de syllabisation est, bien
+entendu, fix^^e9 par \cs{EPSyllabeMarque}.  On aura remarqu^^e9 que les
+minuscules sont li^^e9es ^^e0 des objets \emph{ins^^e9cables} et les capitales
+^^e0 des objets \emph{s^^e9cables}\footnote{Si c'est pas du souci du d^^e9tail
+  et de la syst^^e9matique!}. Je n'ai pas ^^e9prouv^^e9 le besoin de fournir un
+|^^a3Kx| qui ne ferait strictement rien: une chaine de caract^^e8res vide me
+semble faire tout aussi bien l'affaire.
+
+\subsubsection{Sons optionnels}
+
+Pour indiquer les sons optionnels \DescribePoundMacro{X} on
+utilisera la macro |^^a3X|\meta{une lettre} qui \textbf{doit} ^^eatre suivie
+d'\emph{une lettre}. La macro ne fonctionne pas si elle est suivie
+d'un groupe\footnote{Peut-^^eatre pour la prochaine version, qui sait ?}.
+Cette macro fournit normalement ce qu'il faut pour les sons optionnels
+de l'anglais. Elle traite diff^^e9remment (avec l'option \Option{jones})
+la lettre \og e \fg qui donne \PRON{^^a3Xe} et les autres comme \og t \fg
+qui donne \PRON{^^a3Xt} avec |^^a3Xe| et |^^a3Xt| respectivement.
+
+Pour noter le \og r \fg final qui n'est prononc^^e9 qu'en cas de liaison,
+on \DescribePoundMacro{Z} utilisera |^^a3Z| qui est red^^e9finit lors du
+choix de l'option \Option{harraps} \TO voir~\ref{harrapsrfin}.
+
+\subsection{Autres macros et un environnement}
+ \label{sec:autresmacros}
+
+L'utilisateur a acc^^e8s \TO facilement\TF ^^e0 un certain nombres de
+commandes qui permettent de r^^e9gler des d^^e9tails de pr^^e9sentation. Il
+peut les red^^e9finir par \cs{renewcommand} et obtenir ainsi son propre
+style.
+
+Comme indiqu^^e9e ci-dessus, cf. \Option{monstress}, les macros
+\cs{EPaccentprincipal} et \cs{EPaccent}\BOP|secondaire| d^^e9finissent
+les glyphes obtenus par |^^a3H| et |^^a3B| respectivement.
+
+\NOUVEAU{Apparue avec la version~2}, la macro \cs{EPAccentCoupure}
+\DescribeMacro{EPAccentCoupure} d^^e9finit le comportement des marques
+d'accents toniques en cas de c^^e9sure. Par d^^e9faut, la marque d'accent
+tonique passe ^^e0 la ligne avec la syllabe qui porte l'accent, autrement
+dit, \Pron{^^a3Bh^^a3p^^a3kf^^a3Xen^^a3H^^a3q^^a3k^^a3s^^a3Xen} est coup^^e9, si n^^e9cessaire, en
+\Pron{^^a3Bh^^a3p^^a3kf^^a3Xen}\verb+|+\Pron{^^a3H^^a3q^^a3k^^a3s^^a3Xen}.
+
+\NOUVEAU{Depuis la version~2}, la macro \cs{EPSyllabeMarque} d^^e9finit
+la marque de limite de syllabe et \cs{EPSyllabeCoupure} d^^e9finit le
+comportement de la coupure sur une telle marque. Par d^^e9faut,
+\DescribeMacro{EPSyllabeCoupure} la c^^e9sure sur \Pron{^^a3Hh^^a3p^^a3kf^^a3Xen}
+donne \Pron{^^a3Hh^^a3p^^a3k}\verb+|+\Pron{f^^a3Xen}, autrement dit, la marque
+de syllabisation est conserv^^e9e avant le saut de ligne.
+
+Les macros \cs{EPouvrante}, \cs{EPfermante} et \cs{EPtextestyle}
+d^^e9finissent \DescribeMacro{EPouvrante} ce qui entoure la
+prononciation et, pour la troisi^^e8me, le style du
+\DescribeMacro{EPfermante} texte de cette prononciation. Par
+d^^e9faut, les deux premi^^e8re donnent \EPouvrante{}
+\DescribeMacro{EPtextestyle} et \EPfermante{} et \cs{EPtextestyle}
+est d^^e9finie comme |\rmfamily\upshape|.
+
+Pour ce qui suit je noterai que \og la livre est active
+\fg\index{livre!active} pour signifier que le
+caract^^e8re \GBP est actif et \textbf{n'est pas} d^^e9fini pour donner le
+glyphe de la livre sterling mais bien pour renvoyer la macro
+commen^^e7ant par \GBP. J'^^e9crirai que \og la livre est
+inactive\index{livre!inactive} \fg dans tous les
+autres cas.
+
+Ces trois macros sont utilis^^e9e par \cs{pron} et \cs{PRON} pour
+permettre \DescribeMacro{pron} l'obtention d'une pr^^e9sentation uniforme
+quelque soit le contexte et l'activit^^e9 de la livre.  La macro
+\cs{pron}\marg{texte} permet d'obtenir une pr^^e9sentation de la
+prononciation comme on la trouve habituellement apr^^e8s un mot dans un
+texte au long. On l'utilise lorsque \og la livre est
+active\index{livre!active} \fg.  On ^^e9crira alors
+|\pron{ma^^a3i}| pour obtenir \PRON{ma^^a3i}.
+
+Lorsque \og la livre est inactive\index{livre!inactive} \fg, on
+utilisera \DescribeMacro{PRON} \cs{PRON}\marg{texte} pour obtenir le
+m^^eame r^^e9sultat. En fait, comme dans ce document je charge le module
+\Pkg{engpron} avec l'option \Option{tame} j'ai obtenu, au paragraphe
+pr^^e9c^^e9dent, \PRON{ma^^a3i} avec |\PRON{ma^^a3i}|. Et l^^e0 je vous ai tout dit !
+
+Enfin, la livre ^^e9tant inactive\index{livre!inactive},
+\cs{Pron}\marg{texte} fournit le \DescribeMacro{Pron} moyen de taper
+de l'API sans la pr^^e9sentation donn^^e9e par \cs{pron}. En tapant
+|\Pron{^^a3Hf^^a3in^^a3k^^a3i^^a3kg^^a3en}| on obtiendra simplement
+\Pron{^^a3Hf^^a3in^^a3k^^a3i^^a3kg^^a3en} sans \og d^^e9coration \fg.
+
+La macro \cs{ActiveLaLivre} \DescribeMacro{ActiveLaLivre} rend la
+livre active\index{livre!active}, elle est utilis^^e9e par \cs{Pron},
+\cs{PRON} et l'environnement qui suit. On peut l'utiliser dans un
+tableau \TO avec le module \Pkg{array}\TF pour obtenir la livre active
+dans une colonne, par exemple.
+
+L'environnement \DescribeEnv{LivreActive} fait ce que son
+nom indique et active la livre. C'est tout ce qu'il fait. On pourra
+donc taper l'horrible \\[2pt]
+|\begin{LivreActive} \pron{^^a3Hstj^^a3U^^a3kp^^a3id} \end{LivreActive}|\\[2pt]
+au lieu de |\PRON{^^a3Hklev^^a3k^^a3E^^a3Z}|. On aura compris qu'il s'utilise pour
+de long texte, des tables\dots
+
+\vspace{\baselineskip}
+
+\NOUVEAU{Pour finir}, avec les macros antagonistes
+\DescribeMacro{MakeHyphenable} \cs{MakeHyphenable}\slash
+\cs{MakeUnHyphenable} on peut contrarier l'effet des options
+\Option{hyphenable}\slash\Option{unhyphenable}
+\DescribeMacro{MakeUnHyphenable}\index{coupure}.
+
+\cs{MakeHyphenable} red^^e9finit les macros li^^e9es ^^e0 |^^a3H|, |^^a3h|, |^^a3B|,
+|^^a3b| et |^^a3k|\index{accent tonique}\index{syllabisation} pour qu'elles
+fournissent des marques
+s^^e9cables\index{marque!s^^e9cable}\index{s^^e9cable}. \cs{MakeUnHyphenable} les
+red^^e9finit pour que les marques soient
+ins^^e9cables\index{marque!ins^^e9cable}\index{ins^^e9cable}. La
+visibilit^^e9\index{marque!visibilit^^e9}\index{visibilit^^e9} de |^^a3k| n'est
+pas modifi^^e9e.
+
+Autre couple de macros oppos^^e9es: \DescribeMacro{MakeVisible}
+\cs{MakeVisible}\slash\cs{MakeInVisible}.  La macro
+\cs{Make}\BOP|Vi|\BOP|si|\BOP|ble| red^^e9finit la macro li^^e9e ^^e0
+|^^a3k|\index{syllabisation}\index{visibilit^^e9} pour qu'elle fournisse des
+marques visibles\index{marque!visible},
+\cs{MakeInVisible}\index{marque!visible} fait le
+\DescribeMacro{MakeInVisible} contraire. La
+s^^e9cabilit^^e9\index{s^^e9cabilit^^e9} de |^^a3k| n'est pas modifi^^e9e.
+
+\subsection{Conclusion}
+\label{sec:conclusion}
+
+On remarquera en regardant la table~\ref{latable} ou le code de
+l'extension qu'il reste de la place pour d^^e9finir d'autres macros
+utilisant la livre active.
+
+Tout d'abord quelques lettres ne sont pas employ^^e9es et, par exemple,
+|^^a3S| ne fait rien. Par ailleurs, on peut d^^e9finir d'autre macros avec
+plus d'une lettre derri^^e8re le \GBP mais on devra alors taper
+|^^a3{aeiou}| pour utiliser en fait la macro |\^^a3aeiou|. Je pense qu'il
+faudrait r^^e9server cela ^^e0 des macros ayant un effet substantiel
+\Sourire.
+
+En dernier lieu, j'avouerais que le codage
+choisi n'est pas forc^^e9ment optimal. En fait, je l'ai ^^e9labor^^e9 au fur
+^^e0 mesure des besoins et il n'y a pas de r^^e8gle g^^e9n^^e9rale
+d'organisation. Toutefois on pourra remarquer quelques efforts de
+syst^^e8me.
+
+L'utilisateur devrait se sentir libre d'effectuer les changements
+qu'il souhaite \TO mais dans ce cas, conform^^e9ment ^^e0 la licence sous
+laquelle est publi^^e9 ce module, on devra en changer le nom\TF ou,
+s'il le pr^^e9f^^e8re me demander de les mettre en \oe uvre. Je ne fais
+cependant aucune promesse quant ^^e0 la rapidit^^e9 ^^e0 laquelle
+j'interviendrais.
+
+\begin{thebibliography}{99}
+\addcontentsline{toc}{section}{Bibliographie}
+\bibitem{jones15} Daniel~\textsc{Jones} \dag.
+\emph{English Pronouncing Dictionary}.
+15th Edition. This major new edition edited by Peter Roach \& James
+Hartman.
+Cambridge University Press, \oldstylenums{1997}.\\
+\textsc{isbn} : \texttt{0-521-45903-6}
+\bibitem{jones} Daniel~\textsc{Jones} \dag.
+\emph{English Pronouncing Dictionary}.
+Cambridge University Press, \oldstylenums{1991}.
+\bibitem{tlachand} T.~\textsc{Lachand-Robert}.
+\emph{La ma^^eetrise de \TeX{} et \LaTeX{}}.
+Masson, Paris, Milan, Barcelone, \oldstylenums{1995}.\\
+\textsc{isbn} : \texttt{2-225-84832-7}.
+\bibitem{harraps} J. E. \textsc{Manson}, M.A.
+\emph{Harrap's New Shorter French And English Dictionary.}
+Revised edition \copyright{} George G. Harrap \&
+Co. Ltd. \oldstylenums{1967}.
+Bordas diffuseur, \oldstylenums{1980}.\\
+\textsc{isbn} : \texttt{0 245 59062 5}
+\end{thebibliography}
+
+\newpage
+
+\section{Table des macros \GBP}
+
+\thispagestyle{empty}{\LARGE
+\vspace*{\stretch{1}}
+\begin{LivreActive}
+\noindent
+\begin{tabular}[l]{|>{\ttfamily }c|>{\ActiveLaLivre }c||>{\ttfamily
+}c|c||>{\ttfamily }c|c||>{\ttfamily}c|c|}\hline
+\multicolumn{8}{|c|}{Voyelles}\\ \hline
+\^^a3a & ^^a3a & \^^a3A & ^^a3A & \^^a3e & ^^a3e & \^^a3E & ^^a3E \\ \hline
+\^^a3i & ^^a3i & \^^a3I & ^^a3I & \^^a3o & ^^a3o & \^^a3O & ^^a3O \\ \hline
+\^^a3u & ^^a3u & \^^a3U & ^^a3U & \^^a3v & ^^a3v & \^^a3x & ^^a3x \\ \hline
+\^^a3c & ^^a3c & \^^a3C & ^^a3C & \^^a3y & ^^a3y &     &    \\ \hline
+\multicolumn{8}{|c|}{Diphtongues}\\ \hline
+\^^a3p & ^^a3p & \^^a3q & ^^a3q & \^^a3r & ^^a3r & \^^a3P & ^^a3P\\ \hline
+\^^a3Q & ^^a3Q & \^^a3R & ^^a3R & \^^a3w & ^^a3w & \^^a3W & ^^a3W\\ \hline
+\^^a3V & ^^a3V &     &    &     &    &     &   \\ \hline
+\multicolumn{8}{|c|}{Consonnes}\\ \hline
+\^^a3d & ^^a3d & \^^a3f & ^^a3f & \^^a3j & ^^a3j & \^^a3l & ^^a3l \\ \hline
+\^^a3n & ^^a3n & \^^a3s & ^^a3s & \^^a3t & ^^a3t & \^^a3z & ^^a3z \\ \hline
+\^^a3T & ^^a3T & \^^a3L & ^^a3L &     &    &     &    \\ \hline
+\multicolumn{8}{|c|}{Accents toniques}\\ \hline
+\^^a3b & ^^a3b & \^^a3B & ^^a3B & \^^a3h & ^^a3h & \^^a3H & ^^a3H \\ \hline
+\^^a3Kb & ^^a3Kb & \^^a3KB & ^^a3KB & \^^a3Kh & ^^a3Kh & \^^a3KH & ^^a3KH \\ \hline
+\multicolumn{8}{|c|}{Syllabisation}\\ \hline
+\^^a3k & ^^a3k & \^^a3Kk & ^^a3Kk & \^^a3KK & ^^a3KK & \^^a3KX & ^^a3KX \\ \hline
+\multicolumn{8}{|c|}{Voyelles nasalis^^e9es}\\
+\multicolumn{8}{|c|}{prononciation fran^^e7aise}\\ \hline
+\^^a3Ma & ^^a3Ma & \^^a3Mi & ^^a3Mi & \^^a3Mo & ^^a3Mo & \^^a3Mu & ^^a3Mu \\ \hline
+\multicolumn{8}{|c|}{prononciation anglaise}\\ \hline
+\^^a3ma & ^^a3ma & \^^a3mi & ^^a3mi & \^^a3mo & ^^a3mo & \^^a3mu & ^^a3mu \\ \hline
+\end{tabular}\label{latable}
+\end{LivreActive}
+\vspace*{\stretch{1}}
+}
+
+\printindex
+\end{document}
+\endinput
+%%
+%% End of file `engpron-fr.ltx'.

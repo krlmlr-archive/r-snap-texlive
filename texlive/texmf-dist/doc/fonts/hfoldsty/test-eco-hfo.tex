@@ -1,0 +1,90 @@
+\makeatletter
+\@ifundefined{ifhfo}{%
+  \typeout{^^JError: Do not run latex on test-eco-hfo directly!^^J%
+    \space\space\space\space\space\space\space
+    Use test-eco.tex or test-hfo.tex instead.^^J}%
+  \stop
+}{}%
+\listfiles
+\RequirePackage{fix-cm}
+\documentclass[ngerman,11pt]{article}
+\usepackage[T1]{fontenc}
+\usepackage[latin1]{inputenc}
+\usepackage{babel}
+\usepackage[textwidth=190mm,textheight=280mm]{geometry}
+\ifhfo
+  \usepackage{hfoldsty}
+\else
+  \usepackage{eco}
+\fi
+\usepackage{slantsc}
+\pagestyle{empty}
+%\def\flqq{\guillemotleft}
+%\def\frqq{\guillemotright}
+\def\flqq{%
+  \textormath{\guillemotleft}{\mbox{\guillemotleft}}}
+\def\frqq{%
+  \textormath{\guillemotright}{\mbox{\guillemotright}}}
+
+\begingroup
+\shorthandon{"}
+\gdef\text{ABCDEFGHIJKLMNOPQRSTUVWXYZÄÖÜ abcdefghijklmnopqrstuvwxyzäöüß
+  0123456789\\
+  fi fl ff ffi ffl 
+  \frqq H\flqq\ \frqq\kern0pt H\kern0pt\flqq\ 
+  \frqq A\flqq\ \frqq\kern0pt A\kern0pt\flqq\ 
+  \frqq V\flqq\ \frqq\kern0pt V\kern0pt\flqq}
+\endgroup
+
+\parindent0mm
+\parskip5mm
+\begin{document}
+\textbf{\jobname}
+
+\begingroup
+\rmfamily
+{\text}\\
+{\itshape\text}\\
+{\slshape\text}\\
+{\bfseries\text}\\
+{\bfseries\itshape\text}\\
+{\bfseries\slshape\text}\\
+\scshape
+{\text}\\
+{\itshape\text}\\
+{\bfseries\text}\\
+{\bfseries\itshape\text}
+\endgroup
+
+\begingroup
+\sffamily
+{\text}\\
+{\itshape\text}\\
+{\slshape\text}\\
+{\bfseries\text}\\
+{\bfseries\itshape\text}\\
+{\bfseries\slshape\text}\\
+\scshape
+{\text}\\
+{\itshape\text}\\
+{\bfseries\text}\\
+{\bfseries\itshape\text}
+\endgroup
+
+\begingroup
+\ttfamily
+{\text}\\
+{\itshape\text}\\
+{\slshape\text}\\
+{\bfseries\text}\\
+{\bfseries\itshape\text}\\
+{\bfseries\slshape\text}\\
+\scshape
+{\text}\\
+{\itshape\text}\\
+{\bfseries\text}\\
+{\bfseries\itshape\text}
+\endgroup
+
+
+\end{document}

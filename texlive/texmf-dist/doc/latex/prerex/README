@@ -1,0 +1,101 @@
+prerex, version 2014-10-17. Macros for prerequisite charts, with
+associated editor and viewer applications.
+
+This package consists of 
+
+  prerex.sty 
+    a LaTeX package for producing charts of course nodes
+    linked by arrows representing pre- and co-requisites,
+
+  prerex 
+    an interactive program for creating and editing chart
+    descriptions, and
+
+  vprerex ("visual prerex") a GUI and previewer for prerex.
+
+The implementation of prerex.sty is built on pgf, so that it may be
+used equally happily with latex or pdflatex; prerex is written in C
+and vprerex is written in C++ using the Qt-4 and poppler libraries.
+
+See chart.{pdf,svg} for a small example of a prerequisite
+chart and real-life examples at
+
+http://www.cs.queensu.ca/students/undergraduate/prerequisites/
+
+Prerequisite charts are useful to students selecting courses and
+planning their programs, and to faculty and staff advising students
+and managing curriculum development. Conventional sources of course,
+program and timetable information are rarely in a user-friendly
+format. Faculty and staff advisors, being already fairly familiar
+with their courses and programs, often do not appreciate how
+inconvenient it is for students to access all the information they
+need to make course choices.
+
+The crucial tool in the prerex suite is "prerex.sty", a macro
+package that defines a "chart" environment and commands to specify
+construction of course boxes and directed arrows between them.
+
+prerex.sty depends on
+
+  pgf (and add-on tikz), version 3.0 or higher 
+  multido
+  relsize
+  calc
+  hyperref
+
+The use of pgf means that Postscript processing is not required.
+Either pdflatex or latex -> dvips [ -> ps2pdf ] or latex -> dvipdfmx
+or latex -> dvisvgm (with suitable driver options) will generate
+charts.
+
+Installation of prerex.sty:
+
+  + copy prerex.sty to your-texmf-tree/tex/latex/misc
+  + copy doc/prerex.{tex,pdf} to your-texmf-tree/doc/latex/misc
+  + if necessary, refresh the TeX database (e.g., texhash)
+  + copy doc/prerex.sty.7 to sub-directory man7 of a man directory on your 
+    MANPATH
+  + test by doing 
+
+       man 7 prerex.sty
+       pdflatex chart.tex
+
+See doc/prerex.pdf for detailed documentation.
+
+The prerex editor allows interactive editing of the chart
+environments of LaTeX source files. It supports add, remove,
+cut-and-paste, and edit operations on course boxes and arrows, and
+vertical or horizontal shifts of the whole diagram or selected sets
+of course boxes. When a course box is moved, the arrows into and out
+of it automatically follow. To install on most Unix-like platforms,
+including OS-X and Cygwin on Windows:
+
+  tar zxvf prerex-6.5.4.tar.gz
+  cd prerex-6.5.4
+  ./configure  [--prefix=$HOME]
+  make
+  make install  (as root if necessary)
+
+The prerex editor will also build on the MinGW platform on Windows
+if the readline package in the gnuwin32.sourceforge.net repository
+has been installed.
+
+The effects of editing operations may be observed in any PDF viewer
+that re-loads dynamically. The vprerex (visual prerex) application
+included in the prerex suite is a GUI and viewer for the prerex
+editor. It may be used just as a minimalist viewer of arbitrary PDF
+files but supports editing of charts generated using prerex.sty
+by allowing coordinates of course boxes, arrows, and background
+points to be conveyed back to the prerex editor command-line using
+the clipboard. See the INSTALL in the tarball for installation
+instructions.
+
+See the file doc/intro.pdf for an overview of the prerex system.
+
+prerex.sty, README, prerex.1, prerex.5, prerex.sty.7, prerex.tex and
+chart.tex may be modified and distributed according to the terms of
+the LaTeX Project Public License.
+
+The source files for prerex and vprerex may be modified and
+distributed according to the terms of the GNU General Public Licence
+(version 2).

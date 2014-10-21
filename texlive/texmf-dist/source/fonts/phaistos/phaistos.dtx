@@ -1,0 +1,264 @@
+%% \CharacterTable
+%%  {Upper-case    \A\B\C\D\E\F\G\H\I\J\K\L\M\N\O\P\Q\R\S\T\U\V\W\X\Y\Z
+%%   Lower-case    \a\b\c\d\e\f\g\h\i\j\k\l\m\n\o\p\q\r\s\t\u\v\w\x\y\z
+%%   Digits        \0\1\2\3\4\5\6\7\8\9
+%%   Exclamation   \!     Double quote  \"     Hash (number) \#
+%%   Dollar        \$     Percent       \%     Ampersand     \&
+%%   Acute accent  \'     Left paren    \(     Right paren   \)
+%%   Asterisk      \*     Plus          \+     Comma         \,
+%%   Minus         \-     Point         \.     Solidus       \/
+%%   Colon         \:     Semicolon     \;     Less than     \<
+%%   Equals        \=     Greater than  \>     Question mark \?
+%%   Commercial at \@     Left bracket  \[     Backslash     \\
+%%   Right bracket \]     Circumflex    \^     Underscore    \_
+%%   Grave accent  \`     Left brace    \{     Vertical bar  \|
+%%   Right brace   \}     Tilde         \~}
+%\iffalse
+%
+% (c) Copyright  2004 Apostolos Syropoulos
+% This program can be redistributed and/or modified under the terms
+% of the LaTeX Project Public License Distributed from CTAN
+% archives in directory macros/latex/base/lppl.txt; either
+% version 1 of the License, or any later version.
+%
+% Please report errors or suggestions for improvement to
+%
+%    Apostolos Syropoulos
+%    366, 28th October Str.
+%    GR-671 00 Xanthi, GREECE
+%    apostolo@ocean1.ee.duth.gr or apostolo@obelix.ee.duth.gr
+%
+%\fi
+% \CheckSum{193}
+% \iffalse This is a Metacomment
+%
+%<phaistos, >\ProvidesFile{phaistos.sty}
+%<phaistos, >  [2004/04/23 v1.0 Package `phaistos.sty']
+%
+%    \begin{macrocode}
+%<*driver>
+\documentclass{ltxdoc}
+\usepackage{url}
+\GetFileInfo{phaistos.drv}
+\begin{document}
+   \DocInput{phaistos.dtx}
+\end{document}
+%</driver>
+%    \end{macrocode}
+% \fi
+%
+% \title{The \textsf{phaistos} package}
+% \author{Apostolos Syropoulos\\366, 28th October Str.\\
+% GR-671 00 Xanthi, HELLAS\\
+% Email:\texttt{apostolo@obelix.ee.duth.gr}}
+% \date{2004/04/23}
+% \maketitle
+%
+%\MakeShortVerb{\|}
+%\StopEventually{}
+% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% \section{Introduction}
+% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+% The \textsf{phaistos} package defines the necessary \LaTeX\ interface to
+% the phaistos font, which consists of all symbols found on the well-known
+% disk of Phaistos. To the best of our knowledge, the script has not been 
+% deciphered yet and probably
+% it will never be deciphered. The font was designed by Stratos Doumanis
+% and the author of this package with help from Zoi Amanatidou and Panagiotis
+% Koudas. In order to design the glyphs we used the excellent booklet
+% ``Le Disque de Phaistos'' by Jean-Pierre Olivier, Diffusion de Boccard,
+% Paris, 1992. The booklet contains many images of the various symbols as well
+% as many drawings. The font was created using a methodology that was developed
+% for the creation of the Epi-Olmec font.
+%
+% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% \section{The Source Code}
+% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+% The first thing we need to define is a new local font encoding. The
+% following code is not much of a font encoding, nevertheless it is
+% required to have these minimum declarations in order to use the
+% ``font encoding.''
+%    \begin{macrocode}
+%<*phaistos>
+\DeclareFontEncoding{LPH}{}{}
+\DeclareFontSubstitution{LPH}{cmr}{m}{n}
+\DeclareFontFamily{LPH}{cmr}{\hyphenchar\font=-1}
+%    \end{macrocode}
+% Clearly, it makes no sense to have any series other than normal. So all
+% of the following definitions default to the first case.
+%    \begin{macrocode}
+\DeclareFontShape{LPH}{cmr}{m}{n}{%
+   <-> phaistos }{}
+
+\DeclareFontShape{LPH}{cmr}{m}{sc}{%
+   <-> ssub * cmr/m/n}{}
+
+\DeclareFontShape{LPH}{cmr}{m}{sl}{%
+   <-> ssub * cmr/m/n}{}
+
+\DeclareFontShape{LPH}{cmr}{m}{it}{%
+   <-> ssub * cmr/m/n}{}
+
+\DeclareFontShape{LPH}{cmr}{bx}{n}{%
+   <-> ssub * cmr/m/n}{}
+
+\DeclareFontShape{LPH}{cmr}{bx}{sc}{%
+   <-> ssub * cmr/m/n}{}
+
+\DeclareFontShape{LPH}{cmr}{bx}{sl}{%
+   <-> ssub * cmr/m/n}{}
+
+\DeclareFontShape{LPH}{cmr}{bx}{it}{%
+   <-> ssub * cmr/m/n}{}
+%    \end{macrocode}
+% Let us now proceed with the definition of the various glyph access commands.
+% The names of the glyph access commands are those of the ``{\em Phaistos
+% ConScript Unicode Standard}'' 
+% (see \url{http://www.evertype.com/standards/csur/phaistos.html}).
+%    \begin{macrocode}
+
+\DeclareTextSymbol{\PHpedestrian}{LPH}{"41}
+\DeclareTextSymbolDefault{\PHpedestrian}{LPH}
+
+\DeclareTextSymbol{\PHplumedHead}{LPH}{"42}
+\DeclareTextSymbolDefault{\PHplumedHead}{LPH}
+
+\DeclareTextSymbol{\PHtattooedHead}{LPH}{"43}
+\DeclareTextSymbolDefault{\PHtattooedHead}{LPH}
+
+\DeclareTextSymbol{\PHcaptive}{LPH}{"44}
+\DeclareTextSymbolDefault{\PHcaptive}{LPH}
+
+\DeclareTextSymbol{\PHchild}{LPH}{"45}
+\DeclareTextSymbolDefault{\PHchild}{LPH}
+
+\DeclareTextSymbol{\PHwoman}{LPH}{"46}
+\DeclareTextSymbolDefault{\PHwoman}{LPH}
+
+\DeclareTextSymbol{\PHhelmet}{LPH}{"47}
+\DeclareTextSymbolDefault{\PHhelmet}{LPH}
+
+\DeclareTextSymbol{\PHgaunlet}{LPH}{"48}
+\DeclareTextSymbolDefault{\PHgaunlet}{LPH}
+
+\DeclareTextSymbol{\PHtiara}{LPH}{"49}
+\DeclareTextSymbolDefault{\PHtiara}{LPH}
+
+\DeclareTextSymbol{\PHarrow}{LPH}{"4A}
+\DeclareTextSymbolDefault{\PHarrow}{LPH}
+
+\DeclareTextSymbol{\PHbow}{LPH}{"4B}
+\DeclareTextSymbolDefault{\PHbow}{LPH}
+
+\DeclareTextSymbol{\PHshield}{LPH}{"4C}
+\DeclareTextSymbolDefault{\PHshield}{LPH}
+
+\DeclareTextSymbol{\PHclub}{LPH}{"4D}
+\DeclareTextSymbolDefault{\PHclub}{LPH}
+
+\DeclareTextSymbol{\PHmanacles}{LPH}{"4E}
+\DeclareTextSymbolDefault{\PHmanacles}{LPH}
+
+\DeclareTextSymbol{\PHmattock}{LPH}{"4F}
+\DeclareTextSymbolDefault{\PHmattock}{LPH}
+
+\DeclareTextSymbol{\PHsaw}{LPH}{"50}
+\DeclareTextSymbolDefault{\PHsaw}{LPH}
+
+\DeclareTextSymbol{\PHlid}{LPH}{"51}
+\DeclareTextSymbolDefault{\PHlid}{LPH}
+
+\DeclareTextSymbol{\PHboomerang}{LPH}{"52}
+\DeclareTextSymbolDefault{\PHboomerang}{LPH}
+
+\DeclareTextSymbol{\PHcarpentryPlane}{LPH}{"53}
+\DeclareTextSymbolDefault{\PHcarpentryPlane}{LPH}
+
+\DeclareTextSymbol{\PHdolium}{LPH}{"54}
+\DeclareTextSymbolDefault{\PHdolium}{LPH}
+
+\DeclareTextSymbol{\PHcomb}{LPH}{"55}
+\DeclareTextSymbolDefault{\PHcomb}{LPH}
+
+\DeclareTextSymbol{\PHsling}{LPH}{"56}
+\DeclareTextSymbolDefault{\PHsling}{LPH}
+
+\DeclareTextSymbol{\PHcolumn}{LPH}{"57}
+\DeclareTextSymbolDefault{\PHcolumn}{LPH}
+
+\DeclareTextSymbol{\PHbeehive}{LPH}{"58}
+\DeclareTextSymbolDefault{\PHbeehive}{LPH}
+
+\DeclareTextSymbol{\PHship}{LPH}{"59}
+\DeclareTextSymbolDefault{\PHship}{LPH}
+
+\DeclareTextSymbol{\PHhorn}{LPH}{"5A}
+\DeclareTextSymbolDefault{\PHhorn}{LPH}
+
+\DeclareTextSymbol{\PHhide}{LPH}{"61}
+\DeclareTextSymbolDefault{\PHhide}{LPH}
+
+\DeclareTextSymbol{\PHbullLeg}{LPH}{"62}
+\DeclareTextSymbolDefault{\PHbullLeg}{LPH}
+
+\DeclareTextSymbol{\PHcat}{LPH}{"63}
+\DeclareTextSymbolDefault{\PHcat}{LPH}
+
+\DeclareTextSymbol{\PHram}{LPH}{"64}
+\DeclareTextSymbolDefault{\PHram}{LPH}
+
+\DeclareTextSymbol{\PHeagle}{LPH}{"65}
+\DeclareTextSymbolDefault{\PHeagle}{LPH}
+
+\DeclareTextSymbol{\PHdove}{LPH}{"66}
+\DeclareTextSymbolDefault{\PHdove}{LPH}
+
+\DeclareTextSymbol{\PHtunny}{LPH}{"67}
+\DeclareTextSymbolDefault{\PHtunny}{LPH}
+
+\DeclareTextSymbol{\PHbee}{LPH}{"68}
+\DeclareTextSymbolDefault{\PHbee}{LPH}
+
+\DeclareTextSymbol{\PHplaneTree}{LPH}{"69}
+\DeclareTextSymbolDefault{\PHplaneTree}{LPH}
+
+\DeclareTextSymbol{\PHvine}{LPH}{"6A}
+\DeclareTextSymbolDefault{\PHvine}{LPH}
+
+\DeclareTextSymbol{\PHpapyrus}{LPH}{"6B}
+\DeclareTextSymbolDefault{\PHpapyrus}{LPH}
+
+\DeclareTextSymbol{\PHrosette}{LPH}{"6C}
+\DeclareTextSymbolDefault{\PHrosette}{LPH}
+
+\DeclareTextSymbol{\PHlily}{LPH}{"6D}
+\DeclareTextSymbolDefault{\PHlily}{LPH}
+
+\DeclareTextSymbol{\PHoxBack}{LPH}{"6E}
+\DeclareTextSymbolDefault{\PHoxBack}{LPH}
+
+\DeclareTextSymbol{\PHflute}{LPH}{"6F}
+\DeclareTextSymbolDefault{\PHflute}{LPH}
+
+\DeclareTextSymbol{\PHgrater}{LPH}{"70}
+\DeclareTextSymbolDefault{\PHgrater}{LPH}
+
+\DeclareTextSymbol{\PHstrainer}{LPH}{"71}
+\DeclareTextSymbolDefault{\PHstrainer}{LPH}
+
+\DeclareTextSymbol{\PHsmallAxe}{LPH}{"72}
+\DeclareTextSymbolDefault{\PHsmallAxe}{LPH}
+
+\DeclareTextSymbol{\PHwavyBand}{LPH}{"73}
+\DeclareTextSymbolDefault{\PHwavyBand}{LPH}
+%</phaistos>
+%    \end{macrocode}
+%  That is all! But this is not all we can do with the font. 
+% I believe that the design of a macro package
+% that would allow people to replicate the disk is a really challenging
+% idea. Indeed, we are working towards this direction, and we hope to
+% be able to produce some results in near future. Of course, this isn't
+% much of a project, but it is definetely fun!
+%\Finale

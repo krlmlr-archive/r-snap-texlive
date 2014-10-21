@@ -1,0 +1,55 @@
+% tryfont.tex    Test Pacioli fonts
+\documentclass{article}
+\usepackage{t1enc}
+\usepackage{pacioli}
+
+%\DeclareFontFamily{OT1}{cdr}{}
+%  \DeclareFontShape{OT1}{cdr}{m}{n}{ <-> cdr10 }{}
+
+
+\newcommand{\ABC}{ABCDEFGHIJKLMNOPQRSTUVWXYZ}
+\newcommand{\ABc}{ABcDEFgHIJKLMNoPqRSTUVWXYZ}
+\newcommand{\punct}{.,;:!?`' \&{} () []}
+\newcommand{\dashes}{- -- ---}
+
+\title{Try Pacioli Fonts}
+\author{}
+\date{}
+\begin{document}
+\maketitle
+
+    This provides a short test of the characters in the Pacioli fonts
+--- the \verb|cpc| font family.
+
+%\begin{center}
+%The Duerer font \\
+%{\fontencoding{OT1}\fontfamily{cdr}\selectfont\Large \ABC}
+%\end{center}
+
+\begin{center}
+The Pacioli normal font (adjusted and then non-adjusted) \\
+{\cpcfamily\Large \ABC\\ \punct{}\dashes\\ \ABc\\}
+\end{center}
+\begin{center}
+The Pacioli slanted font (adjusted and then non-adjusted) \\
+{\cpcfamily\slshape\Large \ABC\\ \punct{}\dashes\\ \ABc\\}
+\end{center}
+\begin{center}
+    Some ligatures in the normal font \\
+\textcpc{``THE LAZY DOG --- BUT QUICK FOX?''}
+\end{center}
+\begin{center}
+    Some ligatures in the slanted font \\
+\textcpc{\textsl{``THE LAZY DOG --- BUT QUICK FOX?''}}
+\end{center}
+
+\begin{center}
+The font in its normal size \\
+\textcpc{\ABC} \\
+and the Computer Modern Roman for comparison \\
+\ABC 
+\end{center}
+    
+    This is the end of the test file.
+
+\end{document}

@@ -1,0 +1,66 @@
+------------ syntax.tex --------------
+
+Einfaches Erzeugen von Syntaxdiagrammen mit LaTeX.
+
+Die enthaltenen Dateien sind im Fruehjahr/Sommer 1997 entstanden, 
+um das Setzen eines Vorlesungsscripts zur Programmiersprache Pascal
+zu vereinfachen. Auch wenn es sich nicht um ein Paket im LaTeX Sinne
+handelt, ist die Erweiterung doch evtl. fuer den Einen oder Anderen 
+nuetzlich:
+
+Die Syntaxdiagramme werden durch eine spezielle Umgebung und 
+zugehoerige Befehle erzeugt, wobei die genaue Positionierung 
+automatisch erfolgt. 
+
+
+--------------------------------------------------------------
+README           -  diese Datei
+syntax.tex       -  alles Wichtige
+syntaxintro.tex  -  die Dokumentation
+syntaxtest.tex   -  einige Beispieldiagramme
+
+--------------------------------------------------------------
+Verwendung in eigenem Dokument:
+
+  \usepackage{fancybox}
+  \input{syntax.tex}
+
+--------------------------------------------------------------
+Beispiel eines Diagramms mit den wesentlichen Elementen:
+
+  \begin{Syntaxdiagramm}%
+    \Wiederholung{%
+      \Alternative{%
+  	\Stapel{\TerSym{Setzen}}%
+  	       {\TerSym{Sie}}% 
+      }{\begin{Alternativen}%
+  	  {\TerSym{Das}}%
+  	  {\TerSym{Hand}}%
+  	  \SynVarR{einmal}\\  
+  	  \SynVarR{von}\\
+  	\end{Alternativen}%
+      }% 
+    }{\SynVar{!!!!}%
+    }
+  \end{Syntaxdiagramm}
+  
+
+--------------------------------------------------------------
+      Die LaTeX Ergaenzung syntax.tex unterliegt der 
+
+             GNU GENERAL PUBLIC LICENSE
+--------------------------------------------------------------
+
+
+
+
+Kritik, Anregungen und eigene Erweiterungen bitte an:
+
+
+       --------------------------------------
+         Bernd Worsch  Doberaner Strasse 99 
+                   18057 Rostock
+                bernd.worsch@web.de
+                  email preferred
+       --------------------------biichi-ji---
+  

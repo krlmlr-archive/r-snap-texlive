@@ -1,0 +1,218 @@
+%%
+%% This is file `mathexample.tex',
+%% generated with the docstrip utility.
+%%
+%% The original source files were:
+%%
+%% texpower-doc.dtx  (with options: `mathexample,mathexample-src,end')
+%% 
+%% --------------------------------------------------------------
+%% TeXPower bundle - dynamic online presentations with LaTeX
+%% Copyright (C) 1999-2004 Stephan Lehmke
+%% Copyright (C) 2003-2005 Hans Fredrik Nordhaug
+%% 
+%% This program is free software; you can redistribute it and/or
+%% modify it under the terms of the GNU General Public License
+%% as published by the Free Software Foundation; either version 2
+%% of the License, or (at your option) any later version.
+%% 
+%% This program is distributed in the hope that it will be useful,
+%% but WITHOUT ANY WARRANTY; without even the implied warranty of
+%% MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+%% GNU General Public License for more details.
+%% --------------------------------------------------------------
+%% 
+%% The list of all files belonging to the TeXPower bundle is
+%% given in the file `00readme.txt'.
+%% 
+\ProvidesFile{mathexample.tex}%
+      [2005/04/07 TeXPower example file]
+%-----------------------------------------------------------------------------------------------------------------
+%
+% Math example for the package texpower.sty.
+%
+%-----------------------------------------------------------------------------------------------------------------
+% Enable all color emphasis and highlighting options. Use white background and slifonts.
+
+\PassOptionsToPackage{coloremph,colormath,colorhighlight,whitebackground}{texpower}
+
+% Input the generic preamble.
+
+\input{__TPpreamble}
+
+\usepackage{tpslifonts}
+
+\hypersetup{pdftitle={texpower math example}}
+
+
+%-----------------------------------------------------------------------------------------------------------------
+% Packages and Preamble settings individual for this example.
+
+% We write some aligned equations.
+
+\usepackage{amsmath}
+% Make nested braces grow.
+\delimitershortfall-1sp
+
+%-----------------------------------------------------------------------------------------------------------------
+% Finally, everything is set up. Here we go...
+%
+\begin{document}
+\begin{slide}
+%-----------------------------------------------------------------------------------------------------------------
+%
+\makeslidetitle{\macroname{stepwise} Example: An Aligned Equation}\label{Sec:ExEq}
+% In the following, an aligned system of equations is built incrementally. We use the custom command \liststepwise to
+% avoid glitches in vertical spacing.
+%
+\liststepwise%
+{%
+  %
+  % This is just for compressing the equations so they can be squeezed on one slide.
+  %
+  \fontsize{7.8pt}{9pt}\selectfont
+  \renewcommand{\arraystretch}{0}%
+  \setlength{\arraycolsep}{0pt}%
+  \setlength{\abovedisplayskip}{0pt}%
+  \setlength{\belowdisplayskip}{0pt}%
+  %
+  % \highlightboxed will be used for underlaying some formulas with color. To minimize overlap, the width of the outer
+  % frame is reduced.
+  \setlength{\highlightboxsep}{1pt}%
+  %
+  \begin{align*}
+    \lefteqn
+    {%
+      \min
+      \left(
+        % The nested braces are filled `from outer to inner'. This means nesting a lot of steps inside each other...
+        % The outermost brace is displayed from the outset.
+        % The first step (which follows right here) displays the next inner brace (the first argument of \min), filled
+        % with an almost `empty' array (apart from one comma and some dots).
+        % \bstep is used to get appropriate white space when the step is not yet active.
+        \bstep
+        {\max
+          \left(
+            \begin{array}{l}
+              % The next two steps fill in the lines of the array.
+              \bstep{\min\left(F'(x),\min\left(F_1(x),G_1(y)\right)\right)},\\[-2ex]
+              \vdots\\
+              \bstep{\min\left(F'(x),\min\left(F_n(x),G_n(y)\right)\right)}
+            \end{array}
+          \right)
+          },
+        % After the first brace is filled, the next step provides the second argument of \min.
+        \bstep{\min\left(G_i(y),H_i(z)\right)}
+      \right)
+      }
+    &
+    % The next couple of steps will create the remaining lines of the aligned equations. These need to be
+    % insubstantial (as is the default for \liststepwise), because & can't go in a box.
+    % As a consequence, the horizontal alignment cannot kick in until the last step is performed. This would make the
+    % alignment `flicker' sidewise.
+    % So we have to bite the bullet and duplicate the widest entry here (invisibly), so that the horizontal alignment
+    % is constant during all steps. *sigh*
+    \phantom
+    {%
+      {}=
+      \min
+      \left(
+        F'(x),
+        \min
+        \left(
+          \max
+          \left(
+            \begin{array}{l}
+              \min\left(F_1(x),\min\left(G_1(y),G_i(y)\right)\right),\\[-1.5ex]
+              \vdots\\[-.5ex]
+              \min\left(F_n(x),\min\left(G_n(y),G_i(y)\right)\right)
+            \end{array}
+          \right),
+          H_i(z)
+        \right)
+      \right)
+      }
+    % The next step displays two lines at a time, but incompletely, i.e. some parts are missing (which are inside
+    % nested calls of \bstep).
+    % This way, it is demonstrated how the arguments of the nested \min's are reordered.
+    \step
+    {%
+      \\
+      &=
+      \max
+      \left(
+        % The macro \activatestep is used by \stepwise to `wrap' the argument of a \bstep command at the _first_ time
+        % it appears.
+        % Usually, it does nothing. Now, we redefine it to highlight its background, so it is easier to spot the
+        % places where the additional arguments were inserted.
+        \let\activatestep\highlightboxed
+        \begin{array}{l}
+          \min
+          \left(
+            % The inner \bstep's display the missing arguments, which are completely identical in both lines.
+            % It is intended that all the missing arguments appear at the same time, so \rebstep is used for the
+            % remaining arguments which have been left out.
+            \min\left(\bstep{F'(x)},\min\left(\rebstep{F_1(x),G_1(y)}\right)\right),\min\left(G_i(y),H_i(z)\right)
+          \right),\\[-2ex]
+          \vdots\\[-1ex]
+          \min
+          \left(
+            \min\left(\rebstep{F'(x)},\min\left(\rebstep{F_n(x),G_n(y)}\right)\right),\min\left(G_i(y),H_i(z)\right)
+          \right)
+        \end{array}
+      \right)
+      \\
+      &=
+      \max
+      \left(
+        \let\activatestep\highlightboxed
+        \begin{array}{l}
+          \min
+          \left(
+            \min\left(
+              % Here are the remaining arguments of \min which are all to be displayed in one step (together with
+              % those from the previous line).
+              \rebstep{F'(x)},\min\left(\rebstep{F_1(x)},\min\left(\rebstep{G_1(y)},G_i(y)\right)\right)
+            \right),
+            H_i(z)
+          \right),\\[-2.5ex]
+          \vdots\\[-1.5ex]
+          \min
+          \left(
+            \min\left(
+              \rebstep{F'(x)},\min\left(\rebstep{F_n(x)},\min\left(\rebstep{G_n(y)},G_i(y)\right)\right)
+            \right),
+            H_i(z)
+          \right)
+        \end{array}
+      \right)
+      }
+    \step
+    {%
+      \\
+      &=
+      \min
+      \left(
+        F'(x),
+        \min
+        \left(
+          \max
+          \left(
+            \begin{array}{l}
+              \min\left(F_1(x),\min\left(G_1(y),G_i(y)\right)\right),\\[-1.5ex]
+              \vdots\\[-.5ex]
+              \min\left(F_n(x),\min\left(G_n(y),G_i(y)\right)\right)
+            \end{array}
+          \right),
+          H_i(z)
+        \right)
+      \right)
+      }
+  \end{align*}
+  }%
+  \newslide
+\end{slide}
+\end{document}
+\endinput
+%%
+%% End of file `mathexample.tex'.

@@ -1,0 +1,14 @@
+#!/usr/bin/env pfaedit
+#
+# Mostly copied from mftrace
+# Rename added
+Open ($argv[1]+".pfa");
+MergeKern($argv[2]);
+SelectAll ();
+Simplify ();
+AutoHint ();
+SetFontNames ($argv[4],"Computer Modern Bright",$argv[5],$argv[6],"Part of the hfbright font family by Harald Harders, h.harders@tu-bs.de");
+# SetItalicAngle (0.5,100);
+Generate ("tmp.pfa");
+# Generate ($argv[3]+".pfa");
+Quit (0);

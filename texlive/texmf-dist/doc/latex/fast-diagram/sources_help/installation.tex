@@ -1,0 +1,44 @@
+\section{Mise en place du package}\label{MP}
+%==================================
+
+
+	\subsection{Installation}\label{installation}
+	%--------------------------
+
+		Le package s'installe comme n'importe quel autre.
+		Après l'avoir téléchargé, copier le :
+		\begin{itemize}
+			\item soit dans le dossier du document que vous êtes en train de rédiger (c'est une méthode facile, mais il ne sera valable que pour ce document-là)
+			\item soit dans un des dossiers par défaut de latex.
+				L'emplacement de ces dossiers dépendent du logiciel et du système d'exploitation utilisé (Windows, Mac, Linux, etc.).
+		\end{itemize}
+
+	\subsection{Packages requis}\label{packages}
+	%-----------------------------------
+
+		Pour que le package fonctionne, vous devez déjà avoir les packages suivants d'installés :
+		\begin{itemize}
+			\item \href{http://sourceforge.net/projects/pgf/}{\textbf{TikZ}} : Package de dessin vectoriel sur lequel repose le diagramme fast,
+			\item \href{http://www.ctan.org/pkg/ifthen}{\textbf{ifthen}} : Package permettant une compilation à choix multiple,
+			\item \href{http://www.ctan.org/pkg/relsize}{\textbf{relsize}} : Package permettant de gérer les longueurs relatives (em, ...)
+			\item \href{http://tug.ctan.org/tex-archive/macros/latex/contrib/xargs}{\textbf{xarg}} : Package permettant de créer des commandes à plusieurs arguments optionnels.
+		\end{itemize}
+
+	\subsection{Appel du package ``fast-diagram.sty''}\label{appel}
+	%-------------------------------
+
+		L'appel du package se fait simplement en écrivant dans l'entête du document :
+%#########################
+\begin{code}
+\usepackage{fast-diagram}
+\end{code}
+%########################
+		Afin d'éviter d'éventuels conflits entre packages, toutes les commandes utilisées ici sont précédées du préfixe {\color{blue}\verb'fast'}
+		(par exemple {\color{blue}\verb'\fastFT'} pour désigner la fonction technique \verb'FT').
+		Pour la mise en place de raccourcis, l'option {\color{blue}\verb'[raccourcis]'} peut être apportée dans le package de la manière suivante :
+%#########################
+\begin{code}
+\usepackage[raccourcis]{fast-diagram}
+\end{code}
+%########################
+		Les raccourcis seront développés plus tard.

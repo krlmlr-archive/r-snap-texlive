@@ -1,0 +1,61 @@
+\documentclass[a4paper,11pt,danish,DIVcalc]{scrartcl}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{babel,listings,foekfont,microtype}
+\usepackage[sc,osf]{mathpazo}
+\usepackage[scaled]{luximono}
+\renewcommand*\sfdefault{iwonac}
+\linespread{1.05}         % Palatino needs more leading (space between
+                          % lines)
+\author{Palle Jørgensen}
+%\date{28. September 2006}
+\title{The \texttt{foekfont} package}
+\newcommand*\sourcefile[1]{\subsection{#1}
+  \lstinputlisting{#1}}
+\lstset{language=[latex]tex,breaklines=true}
+\pdfoutput=1
+
+\begin{document}
+\maketitle
+
+
+\section{Introduction}
+\label{sec:introduction}
+
+The \texttt{foekfont} package is for typesetting the title of the
+\madsfoek\footnote{Mads Føk, http://www.madsfoek.dk} magazine; The
+students magazine at Faculty of
+Science\footnote{http://www.nat.au.dk}, University of
+Aarhus\footnote{http://www.au.dk}.
+
+
+\section{Using the \texttt{foekfont} package}
+\label{sec:using-madsf-pack}
+
+The package offers three commands; the \verb+\foekfamily+ command,
+which changes the font family to the FoekFont. A command with an argument,
+\verb+\foek+ for typesetting small text pieces in FoekFont, e.g.\
+\verb+\foek{cheese}+ produces \foek{cheese}. Finally a fast command
+for the typesetting of the magazine title, \verb+\madsfoek+.
+
+\section{License}
+\label{sec:license}
+
+The license of the FoekFont is GNU General Public License, GPL.
+\clearpage
+\appendix
+
+\section{Source files of the foekfont bundle}
+\label{sec:source-files-madsf}
+
+\sourcefile{foekfont.sty}
+\sourcefile{t1foekfont.fd}
+\sourcefile{ot1foekfont.fd}
+\sourcefile{foekfont.map}
+
+\end{document}
+
+%%% Local Variables: 
+%%% mode: latex
+%%% TeX-master: t
+%%% End: 

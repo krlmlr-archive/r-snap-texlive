@@ -1,0 +1,773 @@
+%% directory.tex
+%% Copyright 1998-2004 Christophe Geuzaine <geuz@geuz.org>
+%
+% $Id: directory.tex,v 1.32 2004/09/22 21:05:18 geuzaine Exp $
+%
+% This program can be redistributed and/or modified under the terms
+% of the LaTeX Project Public License distributed from CTAN
+% archives in directory macros/latex/base/lppl.txt; either
+% version 1 of the License, or (at your option) any later version.
+%
+% 'directory' user's guide and example file
+% 
+% The parts you may want to customize are labeled with "CUSTOM:". The lines
+% beginning with "%%tth:" are used by TTH (a LaTeX to HTML translator).
+
+\documentclass[10pt]{article}
+
+\usepackage[break,longdates]{directory} 
+
+% CUSTOM: uncomment one of the following:
+% \directorystyle{email}
+% \directorystyle{phone}
+% \directorystyle{birthday}
+% \directorystyle{letter}
+% \directorystyle{address-html}
+% \directorystyle{email-html}
+% \directorystyle{address-vcard}
+% \directorystyle{address-ldif}
+\directorystyle{address}
+
+% CUSTOM: here is how I customize the directory for this user's guide:
+\renewcommand{\dirsymbol}{\raisebox{1ex}{\tiny{[see \S\ref{sec:output}]}}}
+\renewcommand{\Dirlabel}[1]{{#1}}
+\renewcommand{\Dirheader}[1]{\item\hspace{-\dirindent}\textbf{\MakeUppercase{#1}}}
+
+\ifx\pdfoutput\undefined\else
+  \usepackage[colorlinks=true,urlcolor=blue]{hyperref}
+  \newcommand\MyURL{\begingroup\Url}
+  \renewcommand{\Diremail}[1]{\href{mailto:#1}{\MyURL{#1}}}
+  \renewcommand{\Dirurl}[1]{\href{#1}{\MyURL{#1}}}
+\fi
+\def\baselinestretch{0.98}
+
+\newcommand{\BibTeX}{\textsc{Bib}\TeX}
+\newcommand{\Quote}[1]{`{#1}'}
+\newcommand{\DbleQuote}[1]{``{#1}''}
+\newcommand{\Download}{\footnote{\texttt{directory} is available at
+  \url{http://www.geuz.org/directory/} or through the CTAN in the
+  \url{biblio/bibtex/contrib/directory/} subdirectory. \texttt{directory}
+  is distributed under the \LaTeX\ Project Public License (LPPL) since
+  version 1.11.}}
+
+%%tth: \def\Quote#1{'{#1}'}
+%%tth: \def\DbleQuote#1{''{#1}''}
+%%tth: \def\Download{\footnote{\texttt{directory} is distributed under the
+%%tth: \LaTeX\ Project Public License (LPPL) since version 1.11.}}
+%%tth: \def\LaTeX{LaTeX}
+%%tth: \def\BibTeX{BibTeX}
+
+\pagestyle{headings}
+
+\begin{document}
+
+\title{\texttt{directory}: address books with \LaTeX\ and \BibTeX}
+
+% CUSTOM: try e.g. \author{\wdir{c.geuzaine}} with \directorystyle{letter}
+\author{\dir{c.geuzaine}}
+
+%%tth: \special{html:<H3 align=center>Christophe Geuzaine</H3>}
+
+\date{Version 1.20, 22 September 2004}
+
+\maketitle
+
+%%tth: \section*{Download}
+%%tth: The current distribution of \texttt{directory} is 
+%%tth: \href{http://www.geuz.org/directory/src/directory-1.20.tgz}{directory-1.20.tgz}.
+%%tth: This distribution contains both a
+%%tth: \href{http://www.geuz.org/directory/directory.ps}{PostScript}
+%%tth: and a \href{http://www.geuz.org/directory/directory.pdf}{PDF}
+%%tth: version of the documentation. The separate files are also available
+%%tth: through the \href{http://www.ctan.org/}{CTAN} sites in the 
+%%tth: \href{http://www.ctan.org/tex-archive/biblio/bibtex/contrib/directory/}
+%%tth: {biblio/bibtex/contrib/directory/} subdirectory. Older versions are
+%%tth: still available \href{http://www.geuz.org/directory/src/}{here}.
+%%tth: Any questions, comments or suggestions? Send me an 
+%%tth: \href{mailto:geuz@geuz.org}{e-mail}. 
+
+\tableofcontents
+
+\section{Introduction}
+
+\texttt{directory}\Download\ is a macro package for \LaTeX\ and \BibTeX\ that
+facilitates the construction, the maintenance and the exploitation of an
+address book like database. It consists of five \BibTeX\ style files
+(\texttt{address.bst}, \texttt{phone.bst}, \texttt{email.bst},
+\texttt{birthday.bst} and \texttt{letter.bst}) designed to be used in
+conjunction with the \LaTeX\ style file \texttt{directory.sty}. Depending on
+the bibliographical style used, the package has two main applications:
+
+\begin{enumerate}
+\item
+the construction of a list of information (address, phone number, etc.)
+about selected persons, companies or places;
+\item
+the inclusion of a selected piece of information concerning a person, a
+place or a company at a desired location in a document.
+\end{enumerate}
+
+In the first case, \texttt{directory} behaves just like standard
+bibliographical styles: while standard bibliographical styles handle data
+concerning books, articles, proceedings, etc., \texttt{directory} handles
+data relative to people, companies or places. For example, the name in the
+title of this guide refers to the corresponding entry in the directory
+listed in section~\ref{sec:output}. The first four \BibTeX\ files provide
+several ways to handle this data.
+
+In the second case, the package enables bits of the database to be put in your
+document. It can for example be used to put the address of your correspondent
+in the address field of a letter.  
+
+\sloppypar
+Four special \BibTeX\ style files (\texttt{address-html.bst},
+\texttt{email-html.bst}, \texttt{address-vcard.bst} and
+\texttt{address-ldif.bst}) are also provided for an easy generation of HTML,
+vCard and LDIF versions of your directories.
+
+\section{General description}
+
+\subsection{Package inclusion and options}
+
+The package is included by the usual \verb'\usepackage{directory}' command
+at the top of the document. Four options are available:
+\begin{description}
+\item[\textmd{\texttt{break}:}] allows the directory fields to be broken
+  across pages;
+\item[\textmd{\texttt{german}:}] creates directories in German;
+\item[\textmd{\texttt{french}:}] creates directories in French;
+\item[\textmd{\texttt{longdates}:}] prints birthday dates using month names
+  instead of numbers.
+\end{description}
+The old (before version 1.10) formatting options are now handled by the same
+command mechanism as all other customization options (see
+section~\ref{sec:custom}).
+
+The directory is produced by the
+\verb'\directory['\emph{extension}\verb']{'\emph{filename}\verb'}' command,
+where \emph{filename} stands for the name of the \texttt{bib} file (without
+the \texttt{bib} extension) and where the optional argument \emph{extension}
+gives, if necessary, the extension of the file output by \BibTeX\ (see
+section~\ref{sec:usingboth}). As usual, multiple \texttt{bib} files can be
+included, a comma separating the different file names.
+
+\subsection{Making a citation}
+
+An entry is cited in the text by a \verb'\dir{'\emph{key}\verb'}',  
+\verb'\pdir{'\emph{key}\verb'}', \verb'\rdir{'\emph{key}\verb'}' or
+\verb'\wdir{'\emph{key}\verb'}' command, equivalent to the standard
+\verb'\cite{'\emph{key}\verb'}' command, where \emph{key} is used in the same
+way as ever (referring to an entry in a \texttt{bib} file). 
+The differences between the four citation commands will be explained in the next
+section.
+A \verb'\nodir{'\emph{key}\verb'}' command exists and acts exactly like
+\verb'\nocite{'\emph{key}\verb'}' for standard bibliographies.
+
+\subsection{The \texttt{bst} styles}
+
+The style of the directory is chosen by a \verb'\directorystyle{'\emph{style}\verb'}'  
+command, where \emph{style} is one of the following:
+\begin{description}
+\item[\textmd{\texttt{address}:}] 
+full listing in the directory of all fields corresponding to the
+\emph{key} entry. The \verb'\dir{'\emph{key}\verb'}' command also prints the
+\texttt{name} field of the entry in the document;  
+\item[\textmd{\texttt{phone}:}] 
+only the phone, cellular and fax fields corresponding to the cited entry are
+displayed in the directory. The \verb'\dir{'\emph{key}\verb'}' command acts in
+the same way as with the \texttt{address} style, except that the names are
+abbreviated; 
+\item[\textmd{\texttt{email}:}] 
+only e-mail addresses are displayed in the directory. The
+\verb'\dir{'\emph{key}\verb'}' command acts in the same way as with the
+\texttt{address} style;
+\item[\textmd{\texttt{birthday}:}] 
+only the birthdays are displayed, sorting the entries in chronological
+order. The \verb'\dir{'\emph{key}\verb'}' command acts in the same way as with
+the \texttt{address} style;
+\item[\textmd{\texttt{letter}:}] 
+acts in a slightly different way than the four preceding styles. No directory
+is produced with the \verb|\directory| command. The
+\verb'\dir{'\emph{key}\verb'}' command results in the \texttt{name} field of
+the \emph{key} entry to be printed in the document. The
+\verb'\pdir{'\emph{key}\verb'}' (respectively \verb'\rdir{'\emph{key}\verb'}'
+or \verb'\wdir{'\emph{key}\verb'}') command prints the name and the private
+(respectively residence or work) address in the document in a tabulated way.
+\end{description}
+
+
+\subsection{The \texttt{bib} file fields}
+
+\texttt{directory} defines three entry types: \verb'@person{}',
+\verb'@company{}' and \verb'@place{}'. In all these types, \texttt{name} is
+the only mandatory field, since it serves as a key for sorting the entries.
+Here are all the available fields that can be defined for each entry:
+
+\begin{verbatim}
+@person{key,
+  name = "Full name(s), in standard BibTeX format",
+  nickname = "Nickname(s)",
+  birthday = "Birthday date(s), in numeric 'day month' format",
+  birthyear = "Birth year(s)",
+
+  p.street = "Street of private residence",
+  p.city = "City of private residence",
+  p.zip = "ZIP code of private residence",
+  p.state = "State of private residence",
+  p.country = "Country of private residence",
+  p.phone = "Private phone number",
+  p.cellular = "Private mobile phone number",
+  p.fax = "Private fax number",
+  p.email = "Private e-mail address",
+  p.url = "Private home page",
+  p.account = "Private bank account",
+
+  r.street = "Street of alternative residence",
+  r.city = "City of alternative residence",
+  r.zip = "ZIP code of alternative residence",
+  r.state = "State of alternative residence",
+  r.country = "Country of alternative residence",
+  r.phone = "Alternative phone number",
+  r.cellular = "Alternative mobile phone number",
+  r.fax = "Alternative fax number",
+  r.email = "Alternative e-mail address",
+  r.url = "Alternative home page",
+  r.account = "Alternative bank account",
+
+  w.name = "Work organization name",
+  w.title = "Job title",
+  w.street = "Street of work organization",
+  w.city = "City of work organization",
+  w.zip = "ZIP code of work organization",
+  w.state = "State of work organization",
+  w.country = "Country of work organization",
+  w.phone = "Work phone number",
+  w.cellular = "Work mobile phone number",
+  w.fax = "Work fax number",
+  w.email = "Work e-mail address",
+  w.url = "Work home page",
+  w.account = "Work bank account",
+
+  note = "Additional notes about the person",
+}
+\end{verbatim}
+
+\begin{verbatim}
+@company{key,
+  name = "Company name",
+  street = "Company street",
+  city = "Company city",
+  zip = "Company ZIP code",
+  state = "Company state",
+  country = "Company country",
+  phone = "Company phone number",
+  cellular = "Company mobile phone number",
+  fax = "Company fax number",
+  email = "Company e-mail address",
+  url = "Company home page",
+  account = "Company bank account",
+  note = "Additional notes about the company",
+}
+\end{verbatim}
+
+\begin{verbatim}
+@place{key,
+  name = "Place name",
+  street = "Place street",
+  city = "Place city",
+  zip = "Place ZIP code",
+  state = "Place state",
+  country = "Place country",
+  phone = "Place phone number",
+  cellular = "Place mobile phone number",
+  fax = "Place fax number",
+  note = "Additional notes about the place",
+}
+\end{verbatim}
+
+Multiple names, nicknames or birthday dates should be be separated with
+``\texttt{and}''. For backward compatibility, or if an unconventional
+address formatting is needed, the \texttt{street}, \texttt{city},
+\texttt{state}, \texttt{zip} and \texttt{country} fields (and their
+\texttt{p.}, \texttt{r.} and \texttt{w.}  equivalents) can be replaced by
+generic \texttt{address}, \texttt{p.address}, \texttt{r.address} or
+\texttt{w.address} fields. As soon as an \texttt{address} field is defined,
+any \texttt{street}, \texttt{city}, \texttt{state}, \texttt{zip} or
+\texttt{country} field definition is ignored, and the formatting in the
+\texttt{address} field is kept as is.
+
+\section{Customization}
+\label{sec:custom}
+
+\subsection{Dimensions}
+
+Three new dimensions defining the indentation of the fields (\verb'\dirindent'
+and \verb'\dirparindent') and the amount of space between two entries
+(\verb'\dirsep') have been introduced. The default values are:
+\begin{quote}
+\begin{verbatim}
+\setlength{\dirindent}{3em}
+\setlength{\dirparindent}{0em}
+\setlength{\dirsep}{3ex}
+\end{verbatim}
+\end{quote}
+
+If you want to explicitly introduce a new paragraph in a field, you
+should use the \verb'\dirbreak' command.
+
+A fourth dimension (\verb'\dirtablewidth') sets the width of the table used
+to display fields in when the \texttt{letter} style is selected. The default
+value is:
+\begin{quote}
+\begin{verbatim}
+\setlength{\dirtablewidth}{0.5\textwidth}
+\end{verbatim}
+\end{quote}
+
+
+\subsection{Flags and formats}
+\label{sec:flagsformats}
+
+Each field of a directory is easily customizable by redefining one of the
+commands summarized in table~\ref{tab:commands} at the end of this user's
+guide (page~\pageref{tab:commands}).
+
+For example, to produce nicely formatted address booklets, you could
+redefine the \verb'\Dirheader' command as
+\begin{quote}
+\begin{verbatim}
+\pagestyle{headings}
+\renewcommand{\Dirheader}[1]
+ {\newpage\markboth{\MakeUppercase{#1}}{\MakeUppercase{#1}}}
+\end{verbatim}
+\end{quote}
+(which will split the directory across pages, with the first letter used in
+the sorting algorithm in the header of each page) or
+\begin{quote}
+\begin{verbatim}
+\renewcommand{\Dirheader}[1]
+  {\item\hspace{-\dirindent}\textbf{\MakeUppercase{#1}}}
+\end{verbatim}
+\end{quote}
+(which will produce inline headings).
+
+When a field type appears multiple times in an entry, the default settings
+assume the same formatting for each one. For example, there are three
+instances of a \texttt{phone} type field in a full \texttt{person} entry,
+i.e.\ \texttt{p.phone}, \texttt{r.phone} and \texttt{w.phone}, and the
+\verb'\dirphone' and \verb'\Dirphone' customization commands apply to these
+three instances in the same way.
+
+To particularize the formatting of one of these instances, you can use
+special versions of the customization commands, constructed by inserting
+\texttt{p}, \texttt{r} or \texttt{w} after the \verb'\dir' or \verb'\Dir'
+prefix of the original commands. For example, to customize only the
+\texttt{phone} field in the work part, you should use \verb'\dirwphone' and
+\verb'\Dirwphone'. 
+
+To change the formatting of names, you have to edit the \BibTeX\ style
+files. For example, the default name format ``Christophe von Geuzaine, Jr.''
+can be changed into ``von Geuzaine C., Jr.'' in your address books by replacing the line
+\begin{quote}
+\begin{verbatim}
+s nameptr "{ff }{vv }{ll}{, jj}" format.name$ 't :=
+\end{verbatim}
+\end{quote}
+in the file \texttt{address.bst} by the line
+\begin{quote}
+\begin{verbatim}
+s nameptr "{vv }{ll}{ f.}{, jj}" format.name$ 't :=
+\end{verbatim}
+\end{quote}
+
+
+\section{Using both \texttt{directory} and \texttt{bibliography}}
+\label{sec:usingboth}
+
+Since \BibTeX\ always produces an output file of the form
+\Quote{\emph{filename}\texttt{.bbl}}, it is necessary---in order to use \emph{both} 
+directory and bibliography entries---, after generating the \texttt{bbl} file
+corresponding to the directory, to rename it with a new extension (for example
+\texttt{dir}), and to give this new extension as an optional argument to the
+\verb'\directory' command. The normal procedure can then be followed during the
+rest of the bibliography processing. Remember that changing the directory
+(adding an entry or suppressing one) forces you to restart from the beginning. 
+
+\section{Generating directories with hypertext links}
+
+You can use the \texttt{hyperref} package along with \texttt{directory}. For
+example, adding the following lines in the preamble of your document and
+using \texttt{pdflatex} will produce a PDF version of your directory, with
+working links for the \verb'email' and \verb'url' fields.
+
+\begin{quote}
+\begin{verbatim}
+\ifx\pdfoutput\undefined\else
+  \usepackage{hyperref}
+  \newcommand\MyURL{\begingroup\Url}
+  \renewcommand{\Diremail}[1]{\href{mailto:#1}{\MyURL{#1}}}
+  \renewcommand{\Dirurl}[1]{\href{#1}{\MyURL{#1}}}
+\fi
+\end{verbatim}
+\end{quote}
+
+\section{Generating HTML, vCard or LDIF directories}
+
+Four special \BibTeX\ style files (\texttt{address-html},
+\texttt{email-html}, \texttt{address-vcard} and \texttt{address-ldif}) allow
+the easy generation of HTML, vCard and LDIF versions of your directories:
+
+\begin{description}
+\item[\textmd{\texttt{address-html}:}] 
+full listing in the HTML directory of all fields corresponding to the
+\emph{key} entry. The output formatting is similar to that produced by \LaTeX\
+with the \texttt{address} style;
+\item[\textmd{\texttt{email-html}:}] 
+only e-mail addresses are displayed in the HTML directory;
+\item[\textmd{\texttt{address-vcard}:}] 
+full listing in the vCard directory of all fields corresponding to the
+\emph{key} entry.
+\item[\textmd{\texttt{address-ldif}:}] 
+full listing in the LDIF directory of all fields corresponding to the
+\emph{key} entry.
+\end{description}
+
+Since \BibTeX\ directly outputs a \texttt{bbl} file in HTML, vCard or LDIF
+format, no additional program is needed to make the HTML/vCard/LDIF
+conversion. The \texttt{bbl} file directly contains the HTML/vCard/LDIF
+code, ready to be included in a HTML document or to be imported in a
+vCard/LDIF-aware application (Apple Address Book, Microsoft Outlook, Mozilla
+Mail, etc.).
+
+This method presents nevertheless a little drawback: after \BibTeX'ing your
+\LaTeX\ file, running \LaTeX\ on the same file (even with another
+\verb|\directorystyle|) will produce errors, since the \texttt{bbl} file is
+not understandable by \LaTeX. You have to either delete the \texttt{bbl}
+file or to override the error messages (and to change the
+\verb|\directorystyle|) before any subsequent successful \LaTeX\ run.
+
+The handling of special characters in the HTML/vCard/LDIF directories is
+also somewhat problematic: any special \LaTeX\ character sequence is output
+the way it is in the \texttt{bib} file. This implies for example that
+\verb|{\'e}| is printed in the HTML document as \verb|{\'e}|, and not as
+\verb|&eacute;|. The vCard style assumes an ISO Latin 1 encoding of the
+directory. If a special encoding is used in the \texttt{bib} file, the LDIF
+output will need to be converted to UTF8. See the comments in the \BibTeX\
+style files for more information.
+
+\section{Example}
+\label{sec:example}
+
+Despite the option described in section~\ref{sec:usingboth}, one of the most
+interesting way of using \texttt{directory} is to build a separate address
+book, including several \texttt{bib} files referring to several categories of
+people, companies or places, as in the example shown in this document:  
+\begin{quote}  
+\verb|\nodir{*}| \\
+\verb|\directory{family,business}|
+\end{quote}
+
+A second interesting way of using \texttt{directory} is to use it in your faxes
+or letters. Using the standard \LaTeX\ class \texttt{letter.cls} with the
+directory style \texttt{letter}, you may for example begin a letter by the
+following command (\verb'\wdir' must be \texttt{protect}'ed since the argument
+of the \texttt{letter} environment is a moving argument):
+\begin{quote}  
+\verb'\begin{letter}{\protect\wdir{c.geuzaine}}'
+\end{quote}
+
+Take a look at the example \texttt{tex} and \texttt{bib}
+files (\texttt{directory.tex}, \texttt{family.bib} and
+\texttt{business.bib}) and try the options out. The source files are
+commented and easy to customize. I would be very happy to get your suggestions
+to improve this package. 
+
+\subsection{Source file}
+
+Here are four \texttt{bib} entries (taken from \texttt{family.bib} and 
+\texttt{business.bib}):
+
+\begin{verbatim}
+@Person{c.geuzaine,
+  name       = "Christophe Geuzaine",
+  birthday   = "06 02",
+  birthyear  = "1973",
+  p.email    = "geuz@geuz.org",
+  p.url      = "http://www.geuz.org",
+  w.title    = "Postdoctoral Scholar",
+  w.name     = "Caltech, Applied and Computational Mathematics",
+  w.url      = "http://www.acm.caltech.edu",
+  w.street   = "1200 E California Blvd",
+  w.city     = "Pasadena",
+  w.state    = "CA",
+  w.zip      = 91125,
+  w.country  = "USA",
+  w.phone    = "1 626 395 4552",
+}
+
+@Person{d.d.knu,
+  name       = "Knudson, Daffy Duck and Bunny, Bugs and Mr. Pluto",
+  nickname   = "gnat and gnu and pluto",
+  birthday   = "10 02 and 05 11 and 01 01",
+  p.phone    = "+01-(0)2-765.43.21",
+  p.cellular = "+01-(0)5-555.55.55",
+  p.account  = "010-1234567-05",
+  r.street   = "Haight Street 512",
+  r.zip      = 80214,
+  r.city     = "Novosibirsk",
+  r.country  = "Gnuland",
+  r.phone    = "+01-(0)2-876.54.32",
+  w.name     = "University of Novosibirsk, 
+                Department of Octopus Parthenogenesis",
+}
+
+@Company{knudsoft,
+  name   = "The Knudsoft Company",
+  email  = "knud@knudsoft.com", 
+  url    = "http://knudsoft.com/hole/gates.htm", 
+}
+
+@Place{knudsoft:rs.2,
+  name   = "Knudsoft (RS.2 Computer Room)",
+  phone  = "+01-(0)2-434.23.23",
+}
+\end{verbatim}
+
+\subsection{Output}
+\label{sec:output}
+
+The output resulting from the \verb'\directory{family,business}' command is 
+shown below (all entries are listed, thanks to the \verb'\nodir{*}' command):
+
+% CUSTOM: try e.g. citing just some of the entries
+\nodir{*}
+
+% CUSTOM: this has the same effect as \directory[bbl]{family,business}
+\directory{family,business} 
+
+%%tth: \par directory generated with \href{directory-address.html}{address-html.bst},
+%%tth: \href{directory-email.html}{email-html.bst}, 
+%%tth: \href{directory-address.vcf}{address-vcard.bst} and
+%%tth: \href{directory-address.ldif}{address-ldif.bst}.
+
+\section{Contributors}
+
+Many thanks to Bernd Schandl, Robert Walker Sumner, Thomas Ruedas and
+J\"urgen G\"obel for their suggestions and corrections.
+
+\section{Versions}
+
+\begin{description}
+\item[0.95] (Jan 8, 1998)
+First distributed version. 
+\item[0.96] (Jan 9, 1998)
+New documentation. Introduction of customization commands. New alignment
+mechanism in the \texttt{addressbook} and \texttt{phonebook} environments.  
+\item[0.97] (Jan 26, 1998)
+Entries \texttt{ccp} and \texttt{p.ccp} changed to \texttt{account} and
+\texttt{p.account}.
+\item[0.98] (Feb 9, 1998)
+New style \texttt{letter.bst}. New commands \verb|\pdir|, \verb|\rdir| and
+\verb|\wdir| to produce in-text addresses when used with the
+\texttt{letter.bst} style. New internal key generation. 
+\item[0.99] (Feb 12, 1998)
+Name change of old customization flags (\verb'\'\emph{name}\verb'flag' becomes
+\verb'\dir'\emph{name}). New flags introduced: \verb|\dirnickname|, \verb|\dirphone|,
+\verb|\dirfax|, \verb|\diremail|, \verb|\dirurl|, \verb|\diraccount| and
+\verb|\dirand|.
+\item[1.00] (Mar 26, 1998)
+New HTML styles (\texttt{address-html.bst} and \texttt{email-html.bst}). 
+\item[1.01] (Oct 26, 1998)
+Minor corrections.
+\item[1.10] (May 6, 1999)
+Major rewriting of \texttt{bst} files (suppression of direct \LaTeX\
+formatting). Definition of new customization commands. New package global
+options to split directories across pages and allow page breaks inside
+directory fields. The \texttt{url.sty} package is now required. 
+\item[1.11] (May 7, 1999)
+Introduction of \verb'\dirparindent'. 
+\item[1.12] (May 11, 1999)
+Formatting commands can be particularized to each subfield by adding
+\texttt{p}, \texttt{r} or \texttt{w} after the \verb'\dir' or \verb'\Dir'
+prefix of the original customization command. Many simplifications and small
+corrections in the page breaking mechanism and in the list environments.
+\item[1.13] (Jun 21, 1999)
+Fixed bug for long entries without blank spaces (e.g.\ in \texttt{url}
+fields).
+\item[1.14] (Jun 21, 2000)
+More flexible definition of \verb|\Dirheader|.
+\item[1.15] (Aug 28, 2000)
+Added fields for cellular phones (suggested by Stefano Ferrari). Added
+section explaining how to use \texttt{hyperref} to generate PDF documents
+with hyperlinks. Updated web site address.
+\item[1.16] (Feb 5, 2002) 
+Added \verb'\dirtablewidth' to set the width of the fields when the
+\texttt{letter} style is selected. Suppressed the \texttt{split} option
+(redefining the \verb'\Dirheader' command makes it possible to achieve the
+same result: see section~\ref{sec:flagsformats}).
+\item[1.17] (Dec 15, 2002)
+Revised documentation.
+\item[1.18] (Sep 13, 2003)
+Added vCard and LDIF support.
+\item[1.19] (Sep 15, 2003)
+Split \texttt{address} into \texttt{street}, \texttt{city}, \texttt{state},
+\texttt{zip} and \texttt{country}.
+\item[1.20] (Sep 22, 2004)
+Fixed small vcard export bug when using the old \texttt{address} fields;
+new \texttt{german}, \texttt{french} and \texttt{longdates} options.
+\end{description}
+
+
+\begin{table}[p]
+\caption{Summary of customization commands\label{tab:commands}}
+\begin{center}\small
+\begin{tabular}{@{}l@{\hspace{5pt}}c@{\hspace{5pt}}p{3.8cm}l@{}}
+\hline
+Command & Arg. & Explanation & Default \\
+\hline
+
+\verb'\dirsymbol' & 0 & 
+\raggedright In-text symbol produced after a directory citation & 
+\verb*'' \\
+
+\verb'\dirand' & 0 &
+\DbleQuote{anding} string &
+\verb*'\normalfont{and}' \\
+
+\verb'\dirbirthday' & 0 &
+Birthday field flag &
+\verb*'$\star$~' \\
+
+\verb'\dirprivate' & 0 &
+Private field flag &
+\verb*'\emph{p}~' \\
+
+\verb'\dirresidence' & 0 &
+Residence field flag &
+\verb*'\emph{r}~' \\
+
+\verb'\dirwork' & 0 &
+Work field flag &
+\verb*'\emph{w}~' \\
+
+\verb'\dirnote' & 0 &
+Note field flag &
+\verb*'$\triangleright$~' \\
+
+\verb'\dirnickname' & 0 &
+Nickname field flag &
+\verb*'' \\
+
+\verb'\diraddress' & 0 &
+Address fields flag &
+\verb*'' \\
+
+\verb'\dirphone'$^*$ & 0 &
+Phone fields flag &
+\verb*'tel: ' \\
+
+\verb'\dircellular'$^*$ & 0 &
+Cellular phone fields flag &
+\verb*'mobile: ' \\
+
+\verb'\dirfax'$^*$ & 0 &
+Fax fields flag &
+\verb*'fax: ' \\
+
+\verb'\diremail'$^*$ & 0 &
+E-mail fields flag &
+\verb*'' \\
+
+\verb'\dirurl'$^*$ & 0 &
+Url fields flag &
+\verb*'' \\
+
+\verb'\diraccount'$^*$ & 0 &
+Account fields flag &
+\verb*'acc: ' \\
+
+\verb'\dirtitle' & 0 &
+Title field flag &
+\verb*'' \\
+
+\verb'\dirname' & 0 &
+Name field flag &
+\verb*'' \\
+
+\verb'\Dirlabel' & 1 &
+Label format &
+\verb*'{\textbf{#1}}' \\
+
+\verb'\Dirheader' & 1 & 
+Command issued for each new starting letter in the directory (the arg.\ is
+the first letter used in the sorting algorithm) & 
+\verb*'{}' \\
+
+\verb'\Dirbirthday' & 2 &
+\raggedright Birthday format (the first arg.\ is the day, the second
+is the month) & 
+\verb*'{\number#2}/{\number#1}' \\
+
+\verb'\Dirbirthyear' & 1 &
+\raggedright Birth year format when a \texttt{birthday} field exists &
+\verb*'/{#1}' \\
+
+\verb'\DirbirthyearAlone' & 1 &
+\raggedright Birth year format when no \texttt{birthday} field exists &
+\verb*'{#1}' \\
+
+\verb'\Dirnickname' & 1 &
+Nickname format &
+\verb*'(aka \emph{#1})' \\
+
+\verb'\Diraddress'$^*$ & 1 &
+Address format &
+\verb*'{#1}' \\
+
+\verb'\Dirphone'$^*$ & 1 &
+Phone format &
+\verb*'{#1}' \\
+
+\verb'\Dircellular'$^*$ & 1 &
+Cellular phone format &
+\verb*'{#1}' \\
+
+\verb'\Dirfax'$^*$ & 1 &
+Fax format &
+\verb*'{#1}' \\
+
+\verb'\Diremail'$^*$ & 1 &
+E-mail format &
+\verb*'\url{#1}' \\
+
+\verb'\Dirurl'$^*$ & 1 &
+Url format &
+\verb*'\url{#1}' \\
+
+\verb'\Diraccount'$^*$ & 1 &
+Account format &
+\verb*'\url{#1}' \\
+
+\verb'\Dirtitle' & 1 &
+Title format &
+\verb*'{#1}' \\
+
+\verb'\Dirname' & 1 &
+Name format &
+\verb*'{#1}' \\
+
+\verb'\Dirnote' & 1 &
+Note format &
+\verb*'{#1}' \\
+
+\hline
+\end{tabular}
+\end{center}
+\vspace{-5pt}\small
+$^*$\,The commands marked with an asterisk also exist
+in three other versions, controlling independently the private, residence and
+work parts (e.g.\ \verb'\dirphone' can be particularized to \verb'\dirpphone',
+\verb'\dirrphone' and \verb'\dirwphone').
+\end{table}
+
+\end{document}

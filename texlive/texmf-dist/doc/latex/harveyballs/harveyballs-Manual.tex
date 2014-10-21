@@ -1,0 +1,142 @@
+\documentclass{article}%
+
+\title{The \texttt{harveyballs} Package}
+\author{Sascha Roth\\Technische Universit\"at M\"unchen\\sascha.roth@mytum.de}
+
+\usepackage{booktabs}%
+\usepackage{xspace}%
+\usepackage{HarveyBalls}%
+%
+\begin{document}%
+\maketitle
+
+
+%\@harveyBallsSize and \@harveyBallsLineWidth 
+
+\newcommand{\pkgName}{\texttt{harveyballs}\xspace}
+
+\begin{abstract}
+This document exemplifies the \pkgName package for \LaTeXe in a nutshell. Harvey balls can be used in arbitrary contexts such as to present survey results in a visual manner or express parameter values of certain characteristics. They provide a visual means to easily compare these values best facilitated by the sophisticated pattern recognition techniques of build in visual human cognition by mother nature.
+\end{abstract}
+
+\section{Package Dependencies}
+
+The \pkgName package requires the \texttt{tikz} package.
+
+
+\section{Examples and Options}
+
+\subsection{In text}
+
+This is a normal text with Harvey Balls included.
+Here is a value commonly indicating a property is not fulfilled \harveyBallNone.
+For partially fulfilled properties you could use a Harvey Ball filled by a quarter, e.g.\,\harveyBallQuarter.
+If it is half fulfilled, you could use \harveyBallHalf.
+Almost fulfilled properties could be illustrated with \harveyBallThreeQuarter.
+Finally, if a certain property is fullfilled entirely you should use \harveyBallFull.
+
+\subsection{In table}
+Harvey Balls can also be integrated in tables (cf.\,Table \ref{tab:ExampleForATableIncludingHarveyBalls}).
+
+
+\begin{table}[h]
+	\centering
+		\begin{tabular}{lccc}
+\hline
+									& Approach 1 & Approach 2 & Approach 3\\
+\hline
+			Property 1	& \harveyBallNone & \harveyBallQuarter & \harveyBallHalf \\
+			Property 2	& \harveyBallHalf & \harveyBallThreeQuarter & \harveyBallFull \\
+			Property 3	& \harveyBallFull & \harveyBallThreeQuarter & \harveyBallQuarter\\
+\hline			
+		\end{tabular}
+	\caption{Example for a table including Harvey Balls}
+	\label{tab:ExampleForATableIncludingHarveyBalls}
+\end{table}
+
+\subsection{Custom size}
+
+There are two variables available to the user to override the size of the Harvey Balls globally.
+\begin{itemize}
+\item \verb|\harveyBallsSize|, i.e. the size of the Harvey Balls and
+\item \verb|\harveyBallsLineWidth|, i.e. the line width used to draw the Harvey Balls.
+\end{itemize}
+Threse values can be changed using the following commands:
+\begin{itemize}
+\item \verb|\def\harveyBallsSize{0.85ex}|
+\item \verb|\def\harveyBallsLineWidth{0.2pt}|
+\end{itemize}
+Whereas 0.85ex and 0.2pt would be parameters, i.e. your custom sizes. Note that these are also the default values.
+\verb|\def\harveyBallsLineWidth{1pt}| and \verb|\def\harveyBallsSize{3ex}| produces:\\
+\def\harveyBallsLineWidth{1pt}\def\harveyBallsSize{3ex}
+\harveyBallNone, \harveyBallNone, \harveyBallQuarter,  \harveyBallHalf, \harveyBallThreeQuarter, \harveyBallFull. \\ 
+
+%reset to defaults
+%\def\harveyBallsSize{0.85ex}
+%\def\harveyBallsLineWidth{0.2pt}
+
+
+You can also use custom sized using an optional parameter for each Harvey Ball\\
+%
+\begin{table}[h]
+	\centering
+\begin{tabular}{lc}
+\hline
+Command & {Produced Harvey Ball}\\
+\hline
+\verb|\harveyBallNone[14pt]| & \harveyBallNone[14pt] \\
+\verb|\harveyBallQuarter[14pt]|& \harveyBallQuarter[14pt]\\
+\verb|\harveyBallHalf[14pt]|& \harveyBallHalf[14pt]\\
+\verb|\harveyBallThreeQuarter[14pt]|& \harveyBallThreeQuarter[14pt]\\
+\verb|\harveyBallFull[14pt]|& \harveyBallFull[14pt]\\
+\hline
+\end{tabular}
+	\caption{Example for custom-sized Harvey Balls}
+\end{table}
+
+\subsection{Custom Colors}
+The colors of the Havey Balls can be overridden utilizing the user variables
+\begin{itemize}
+\item  \verb|\harveyBallsColor|, i.e. the fill color of the Harvey Ball and
+\item  \verb|\harveyBallsLineColor|, i.e. the border color of the Harvey Ball.
+\end{itemize}
+For instance with \verb|\def\harveyBallsColor{red}| and \verb|\def\harveyBallsLineColor{blue}| you Harvey Balls will apear like this:\\
+\def\harveyBallsColor{red}
+\def\harveyBallsLineColor{blue}
+\harveyBallNone, \harveyBallQuarter,  \harveyBallHalf, \harveyBallThreeQuarter, \harveyBallFull. \\ 
+
+\def\harveyBallsColor{blue}
+
+\section{Changelog}
+\begin{tabular}{llp{8cm}}
+Date & Version & Changes\\
+\hline
+2013/10/26 & Version 1.1 & Added user variables for fill and border colors, custom sizes and improved visual appreareance. Thanks to Daniel H. Luecking from University of Arkansas for the valuable feedback to the initial version and suggestions for improvements \\
+2013/10/22 & Version 1.0 & Initial release.\\
+\end{tabular}
+
+
+\section{License}
+\begin{verbatim}
+Harvey Balls for LaTeX
+Copyright (C) 2013 Sascha Roth, Technical University Munich
+
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
+\end{verbatim}
+
+%This work consists of the files README, svg.dtx (with derived files svg.sty, svg.pdf, Fig.1a.pdf, Fig.1b.eps, Fig.2.pdf, Fig.2.png, sample.tex),  preamble.tex, example.svg (with derived files example.pdf and example.pdf).
+
+% The following files constitute the svg package and should be distributed as a whole: README, svg.dtx, svg.sty, svg.pdf,  Fig.1a.pdf, Fig.1b.eps, Fig.2.pdf, Fig.2.png, preamble.tex  example.svg, example.pdf, example.pdf_tex, root.C, root.svg,  root.pdf, and root.pdf_tex.
+
+\end{document}

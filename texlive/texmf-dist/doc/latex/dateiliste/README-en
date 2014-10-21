@@ -1,0 +1,113 @@
+This README is for version:
+      2012/10/13 v0.6 %
+----------------
+LaTeX-package 'dateiliste' - include list of used files
+(like \listfiles) in the document, and related features.
+
+Author:  Paul Ebermann <Paul-Ebermann@gmx.de>
+License: LPPL 1.3b or later, author-maintained
+         (see http://www.latex-project.org/lppl/).
+
+All Documentation (other than this file) is in german.
+
+The typesetting of the documentation needs 'pauldoc' (from the
+same author).
+Additionally you'll need the packages 'ltxtable', 'tabularx',
+'longtable' and 'rcsinfo'.
+
+The package comes as .dtx + .ins.
+Run "latex dateiliste.ins" to create the style file and the
+README-files (and maybe put them to texmf/tex/latex/paul/, if
+your docstrip is configured accordingly), (after that and
+maybe updating your TeX hash) run "latex dateiliste.dtx"
+(some times) to create the documentation.
+
+ Usage
+-------
+The package has three main features, which can
+be used independently, but together are specially
+useful.
+
+(1) automatic version infos:
+
+  If you use a version control system like RCS, CVS, Subversion
+  for your LaTeX source files, you may use the Id tag to generate
+  the date and version number for the version string in \listfiles.
+  Use
+
+    \ProvideFileInfos{$<>Id$}{short description}
+
+  (without '<>' [0]) in your file, and do a 'cvs commit' (or
+  'svn commit'). In the svn case, use the package-option 'svn'
+  (or 'subversion') to indicate the parsing format to the
+  package, and tell Subversion to expand Id:
+     svn propset svn:keywords Id <filename>
+
+(2) include main file:
+
+  Normally the "main" file (given on the command
+  line to LaTeX) does not appear in the list given
+  by \listfiles. This is changed by the package for
+  the case that the file has the name \jobname.tex.
+
+  (More precisely, the package adds \jobname.tex
+   iff this file exists and it not can be determinded[1]
+   to be already in the file list [2].)
+
+  This is enabled by default and may be disabled
+  using the package option 'noaddmain'.
+  The macro
+    \mainFileToList
+  may also be invoked manually to add the main file.
+
+(3) include file list also in the (dvi) result
+
+  You can use the command
+
+    \printFileList[<section command>]
+
+  to include a pretty-printed version of the
+  file list as a section (by default \section*,
+  any sectioning command may be given as an
+  optional argument).
+
+  You also have to use \listfiles in the
+  document preamble (otherwise you'll only get
+  an error message).
+
+  The table only appears from the second LaTeX-run,
+  from the third one is complete, and may need some
+  more runs to align correctly.
+
+  The title, preamble and table headers may be localized
+  with babel - translations for 'english', 'german',
+  'ngerman' and 'esperanto' are included.
+  If you need something else or don't use babel, you have
+  to redefine the following macros:
+
+  \fileListName     - title ("List of Files")
+  \fileListPreamble - preamble (typeset before the table)
+  \fileNameName     - table header "file name"
+  \dateName         - table header "date"
+  \verName          - table header "version"
+  \descriptionName  - table header "description"
+
+-----
+[0] The <> are inserted here to avoid Subversion
+    expanding this line. If someone has an idea how
+    to have this in plain format in the README (maybe
+    with some complicated magic in the .dtx and/or .ins),
+    please contact me.
+[1] this determination can be configured with
+    the package options
+    nocat12 - does only work with eTeX, else
+       may give double entry
+    cat12 - works also without eTeX, but may
+       have some side effects to other macro
+       packages, since it converts \@filelist
+       to cat 12.
+    The default setting works like cat12 on non-eTeX
+    and like nocat12 on eTeX.
+
+[2] this may occur when you invoke
+    LaTeX with "\input{mainfile.tex}".

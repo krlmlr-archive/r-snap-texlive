@@ -1,0 +1,211 @@
+%%
+%% This is file `engpron-ex-en.tex',
+%% generated with the docstrip utility.
+%%
+%% The original source files were:
+%%
+%% engpron.dtx  (with options: `exemple,en')
+%% This is a generated file.
+%% 
+%% Copyright (C) 2003-2008 Y. Henel, le TeXnicien de surface
+%% <le.texnicien.de.surface@wanadoo.fr>
+%% 
+%% This file may be distributed and/or modified under the conditions of
+%% the LaTeX Project Public License, either version 1.2 of this license
+%% or (at your option) any later version.  The latest version of this
+%% license is in:
+%% 
+%%    http://www.latex-project.org/lppl.txt
+%% 
+%% and version 1.2 or later is part of all distributions of LaTeX version
+%% 1999/12/01 or later.
+\documentclass[a4paper]{article}
+\usepackage{array,xspace}
+\usepackage[latin1]{inputenc}
+\usepackage[tame,hyphenable]{engpron}[2008/08/15]
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+\usepackage[frenchb, english]{babel}
+\setlength{\parindent}{0pt}
+\newcommand\BOP{\discretionary{}{}{}}
+\newcommand{\TO}{\textemdash\ \ignorespaces}
+\newcommand{\TF}{\unskip\ \textemdash\xspace}
+\newcommand\Pkg[1]{\textsf{#1}}
+\newcommand\Option[1]{\textsc{#1}}
+\begin{document}
+\begin{center}\LARGE
+ Usage of the \Pkg{engpron} package
+\end{center}
+Here are some examples of the usage of the \texttt{^^a3}-macros. The
+\verb+engpron+ package is loaded whith the options \Option{jones},
+\Option{monstress}, \Option{unhyphenable}, \Option{visible},
+\Option{nice}, and \Option{final} \TO default options\TF and the
+explicit option \Option{tame} which replaces the default option
+\Option{wild}.
+\paragraph{The \texttt{^^a3X} macro} This macro \emph{must} be
+followed by a single letter. It notes the optional sounds the way
+Jones~\cite{jones15} does if option \Option{jones} has been chosen,
+or,  the Harraps~\cite{harraps} does if option \Option{harraps} has
+been chosen.
+
+One would type for example
+\verb!\PRON{!\texttt{^^a3e^^a3h^^a3Xt^^a3s^^a3U^^a3kli^^a3k^^a3en}\verb!}!
+to obtain \PRON{^^a3e^^a3h^^a3Xt^^a3s^^a3U^^a3kli^^a3k^^a3en}.
+
+Followed by the letter `e' it gives \Pron{^^a3Xe}
+(\verb+\Pron{^^a3Xe}+) as in \PRON{^^a3B^^a3af^^a3kek^^a3Ht^^a3q^^a3k^^a3s^^a3Xen} one can
+obtain with \verb+\PRON{^^a3B^^a3af^^a3kek^^a3Ht^^a3q^^a3k^^a3s^^a3Xen}+.
+\paragraph{\texttt{^^a3M} and \texttt{^^a3m} macros} They give the French
+nasalised vowels, French way for the 1rst one and English way for the
+2nd. See the 2nd table. They must be followed by one of the following
+letters: a, i, o, u. One may think to the French
+`restaur\textbf{ant}', `v\textbf{in}', `b\textbf{on} march^^e9',
+`Verd\textbf{un}'.
+\paragraph{Macro \texttt{^^a3Z}} It notes the final `r' which is only
+pronunced when followed by a vowel. One has e.g. \Pron{^^a3H^^a3akt^^a3e^^a3Z} with
+\verb+\Pron{^^a3H^^a3akt^^a3e^^a3Z}+.
+\paragraph{Macro \texttt{^^a3k}} Its beheviour is controlled by the
+options \Option{hyphenable} \TO which is the contrary of
+\Option{unhyphenable}\TF and \Option{visible} \TO contrary of
+\Option{invisible}. It is used to mark the syllable limits.
+
+With the default option \Option{visible} it produces a glyph which is
+by default [.] and defined by the macro
+\verb+\EPSyllabeMarque+.  This macro can be redefined with a
+\verb+\renewcommand+ if necessary. With option \Option{invisible} \verb+^^a3k+
+doesn't produce any glyph.
+
+With option \Option{hyphenable} \verb+^^a3k+ allows a break but prevent it
+with \Option{unhyphenable} which is the default.
+\paragraph{Macro \texttt{^^a3K}} Its behaviour is determined by the
+following letter. \texttt{X} gives an invisible breakable point,
+\texttt{k} a visible unbreakable mark of syllable limit, \texttt{K} a
+visible \emph{breakable} mark of syllable limit, \texttt{b} an
+unbreakable mark of secondary stress, \texttt{B} a \emph{breakable}
+mark of secondary stress, \texttt{h} an unbreakable mark of primary
+stress, and, avant last, \texttt{H} a \emph{breakable} mark of primary
+stress. Its behaviour \textbf{doesn't depend} on the enforced options.
+\vspace*{\stretch{1}}
+
+\begin{thebibliography}{99}
+\bibitem{jones15} Daniel~\textsc{Jones} \dag.
+\emph{English Pronouncing Dictionary}.
+15th Edition. This major new edition edited by Peter Roach \& James
+Hartman.
+Cambridge University Press, 1997.
+\textsc{isbn} : \texttt{0-521-45903-6}
+\bibitem{harraps} J. E. \textsc{Manson}, M.A.
+\emph{Harrap's New Shorter French And English Dictionary.}
+Revised edition \copyright{} George G. Harrap \&
+Co. Ltd. \oldstylenums{1967}.
+Bordas diffuseur, \oldstylenums{1980}.
+\textsc{isbn} : \texttt{0 245 59062 5}
+\end{thebibliography}
+\newpage
+
+\vspace*{\stretch{1}}
+
+\begin{LivreActive}\Large
+\hspace*{\stretch{1}}
+\begin{tabular}[c]{|>{\ttfamily }c|c||>{\ttfamily }c|c||>{\ttfamily
+    }c|c||>{\ttfamily }c|c||>{\ttfamily }c|c|}\hline
+\multicolumn{10}{|c|}{
+The macros in alphabetic order
+}\\
+\multicolumn{10}{|c|}{
+The star refers to the preceding explanations
+}\\ \hline
+\^^a3a & ^^a3a & \^^a3b & ^^a3b & \^^a3c & ^^a3c & \^^a3d & ^^a3d & \^^a3e  & ^^a3e \\ \hline
+\^^a3f & ^^a3f & \^^a3g & ^^a3g & \^^a3h & ^^a3h & \^^a3i & ^^a3i & \^^a3j  & ^^a3j \\ \hline
+\^^a3k & $\ast$ & \^^a3l & ^^a3l & \^^a3m & $\ast$ & \^^a3n & ^^a3n & \^^a3o  & ^^a3o \\ \hline
+\^^a3p & ^^a3p & \^^a3q & ^^a3q & \^^a3r & ^^a3r & \^^a3s & ^^a3s & \^^a3t  & ^^a3t \\ \hline
+\^^a3u & ^^a3u & \^^a3v & ^^a3v & \^^a3w & ^^a3w & \^^a3x & ^^a3x & \^^a3y  & ^^a3y \\ \hline
+\^^a3z & ^^a3z &     &    &     &    &     &    &      &    \\ \hline
+\^^a3A & ^^a3A & \^^a3B & ^^a3B & \^^a3C & ^^a3C & \^^a3D & ^^a3D & \^^a3E  & ^^a3E \\ \hline
+\^^a3F & ^^a3F & \^^a3G & ^^a3G & \^^a3H & ^^a3H & \^^a3I & ^^a3I & \^^a3J  & ^^a3J \\ \hline
+\^^a3K & $\ast$ & \^^a3L & ^^a3L & \^^a3M & $\ast$ & \^^a3N & ^^a3N & \^^a3O  & ^^a3O \\ \hline
+\^^a3P & ^^a3P & \^^a3Q & ^^a3Q & \^^a3R & ^^a3R & \^^a3S & ^^a3S & \^^a3T  & ^^a3T \\ \hline
+\^^a3U & ^^a3U & \^^a3V & ^^a3V & \^^a3W & ^^a3W & \^^a3X & $\ast$ & \^^a3Y  & ^^a3Y \\ \hline
+\^^a3Z & ^^a3Z &     &    &     &    &     &    &      &    \\ \hline
+\end{tabular}
+\hspace*{\stretch{1}}
+\end{LivreActive}
+
+\vspace*{\stretch{1}}
+\newpage
+\thispagestyle{empty}
+
+\vspace*{\stretch{1}}
+\begin{LivreActive}
+\hspace*{\stretch{1}}
+{\Large
+\begin{tabular}[c]{|>{\ttfamily }c|c||>{\ttfamily }c|c||>{\ttfamily
+    }c|c||>{\ttfamily }c|c|}\hline
+\multicolumn{8}{|c|}{
+Vowels
+}\\ \hline
+\^^a3a & ^^a3a & \^^a3A & ^^a3A & \^^a3e & ^^a3e & \^^a3E & ^^a3E \\ \hline
+\^^a3i & ^^a3i & \^^a3I & ^^a3I & \^^a3o & ^^a3o & \^^a3O & ^^a3O \\ \hline
+\^^a3u & ^^a3u & \^^a3U & ^^a3U & \^^a3v & ^^a3v & \^^a3x & ^^a3x \\ \hline
+\^^a3c & ^^a3c & \^^a3C & ^^a3C & \^^a3y & ^^a3y &     &    \\ \hline
+\multicolumn{8}{|c|}{
+Diphtongs
+}\\ \hline
+\^^a3p & ^^a3p & \^^a3q & ^^a3q & \^^a3r & ^^a3r & \^^a3P & ^^a3P\\ \hline
+\^^a3Q & ^^a3Q & \^^a3R & ^^a3R & \^^a3w & ^^a3w & \^^a3W & ^^a3W\\ \hline
+\^^a3V & ^^a3V &     &    &     &    &     &   \\ \hline
+\multicolumn{8}{|c|}{
+Consonants
+}\\ \hline
+\^^a3d & ^^a3d & \^^a3f & ^^a3f & \^^a3j & ^^a3j & \^^a3l & ^^a3l \\ \hline
+\^^a3n & ^^a3n & \^^a3s & ^^a3s & \^^a3t & ^^a3t & \^^a3z & ^^a3z \\ \hline
+\^^a3T & ^^a3T & \^^a3L & ^^a3L &     &    &     &    \\ \hline
+\multicolumn{8}{|c|}{
+Stress
+}\\ \hline
+\^^a3b & ^^a3b & \^^a3B & ^^a3B & \^^a3h & ^^a3h & \^^a3H & ^^a3H \\ \hline
+\^^a3Kb & ^^a3Kb & \^^a3KB & ^^a3KB & \^^a3Kh & ^^a3Kh & \^^a3KH & ^^a3KH \\ \hline
+\multicolumn{8}{|c|}{
+Nasalised vowels
+}\\
+\multicolumn{8}{|c|}{
+French pronunciation
+}\\ \hline
+\^^a3Ma & ^^a3Ma & \^^a3Mi & ^^a3Mi & \^^a3Mo & ^^a3Mo & \^^a3Mu & ^^a3Mu \\ \hline
+\multicolumn{8}{|c|}{
+English pronunciation
+}\\ \hline
+\^^a3ma & ^^a3ma & \^^a3mi & ^^a3mi & \^^a3mo & ^^a3mo & \^^a3mu & ^^a3mu \\ \hline
+\multicolumn{8}{|c|}{
+Syllables marking
+}\\ \hline
+\^^a3k & ^^a3k & \^^a3Kk & ^^a3Kk & \^^a3KK & ^^a3KK & \^^a3KX& ^^a3KX\\ \hline
+\end{tabular}}
+\hspace*{\stretch{1}}
+\vspace*{\stretch{4}}
+
+{\footnotesize
+The preceding table is written in a \verb+LivreActive+-environment and
+one must use the \verb+\+\texttt{\^^a3}-macro to obtain the character
+\^^a3. But one can type `^^a3a' with a straightforward `\texttt{\^^a3a}'.
+
+Inside a \verb+LivreActive+-environment, one obtains \pron{^^a3H^^a3akt^^a3e^^a3Z}
+with \verb+\pron{+\texttt{\^^a3H}\BOP\texttt{\^^a3akt}\BOP\texttt{\^^a3e}\BOP%
+\texttt{\^^a3Z}\verb+}+ but one will notice by reading the present
+\texttt{engpron-ex-en.tex} file what is required to obtain a semblance of
+\texttt{verbatim}.
+}
+
+\vspace{2\baselineskip}
+\newlength{\montruc}\settowidth{\montruc}{Yvon \textsc{Henel}, \TeX
+  nicien de surface.}
+\hspace*{\stretch{1}}\makebox[\montruc][c]{Yvon \textsc{Henel}, \TeX
+  nicien de surface.}\\[.5\baselineskip]
+\hspace*{\stretch{1}}\makebox[\montruc][c]{2008-07-15}
+
+\vspace*{\stretch{1}}
+\end{LivreActive}
+\end{document}
+\endinput
+%%
+%% End of file `engpron-ex-en.tex'.

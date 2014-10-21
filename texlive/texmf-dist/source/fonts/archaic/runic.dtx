@@ -1,0 +1,929 @@
+% \iffalse meta-comment
+%
+% runic.dtx
+%
+%  Author: Peter Wilson (Herries Press) herries dot press at earthlink dot net
+%  Copyright 1999--2005 Peter R. Wilson
+%
+%  This work may be distributed and/or modified under the
+%  conditions of the Latex Project Public License, either
+%  version 1.3 of this license or (at your option) any
+%  later version.
+%  The latest version of the license is in
+%    http://www.latex-project.org/lppl.txt
+%  and version 1.3 or later is part of all distributions of
+%  LaTeX version 2003/06/01 or later.
+%
+%  This work has the LPPL maintenance status "author-maintained".
+%
+%  This work consists of the files listed in the README file.
+%
+%
+%<*driver>
+\documentclass[twoside]{ltxdoc}
+\usepackage{docmfp}
+\usepackage{url}
+\usepackage[draft=false,
+            plainpages=false,
+            pdfpagelabels,
+            bookmarksnumbered,
+            hyperindex=false
+           ]{hyperref}
+\providecommand{\phantomsection}{}
+\OnlyDescription %% comment this out for the full glory
+\EnableCrossrefs
+\CodelineIndex
+\setcounter{StandardModuleDepth}{1}
+\makeatletter
+  \@mparswitchfalse
+\makeatother
+\renewcommand{\MakeUppercase}[1]{#1}
+\pagestyle{headings}
+\newenvironment{addtomargins}[1]{%
+  \begin{list}{}{%
+    \topsep 0pt%
+    \addtolength{\leftmargin}{#1}%
+    \addtolength{\rightmargin}{#1}%
+    \listparindent \parindent
+    \itemindent \parindent
+    \parsep \parskip}%
+  \item[]}{\end{list}}
+\begin{document}
+  \raggedbottom
+  \DocInput{runic.dtx}
+\end{document}
+%</driver>
+%
+% \fi
+%
+% \CheckSum{25}
+%
+% \DoNotIndex{\',\.,\@M,\@@input,\@addtoreset,\@arabic,\@badmath}
+% \DoNotIndex{\@centercr,\@cite}
+% \DoNotIndex{\@dotsep,\@empty,\@float,\@gobble,\@gobbletwo,\@ignoretrue}
+% \DoNotIndex{\@input,\@ixpt,\@m}
+% \DoNotIndex{\@minus,\@mkboth,\@ne,\@nil,\@nomath,\@plus,\@set@topoint}
+% \DoNotIndex{\@tempboxa,\@tempcnta,\@tempdima,\@tempdimb}
+% \DoNotIndex{\@tempswafalse,\@tempswatrue,\@viipt,\@viiipt,\@vipt}
+% \DoNotIndex{\@vpt,\@warning,\@xiipt,\@xipt,\@xivpt,\@xpt,\@xviipt}
+% \DoNotIndex{\@xxpt,\@xxvpt,\\,\ ,\addpenalty,\addtolength,\addvspace}
+% \DoNotIndex{\advance,\Alph,\alph}
+% \DoNotIndex{\arabic,\ast,\begin,\begingroup,\bfseries,\bgroup,\box}
+% \DoNotIndex{\bullet}
+% \DoNotIndex{\cdot,\cite,\CodelineIndex,\cr,\day,\DeclareOption}
+% \DoNotIndex{\def,\DisableCrossrefs,\divide,\DocInput,\documentclass}
+% \DoNotIndex{\DoNotIndex,\egroup,\ifdim,\else,\fi,\em,\endtrivlist}
+% \DoNotIndex{\EnableCrossrefs,\end,\end@dblfloat,\end@float,\endgroup}
+% \DoNotIndex{\endlist,\everycr,\everypar,\ExecuteOptions,\expandafter}
+% \DoNotIndex{\fbox}
+% \DoNotIndex{\filedate,\filename,\fileversion,\fontsize,\framebox,\gdef}
+% \DoNotIndex{\global,\halign,\hangindent,\hbox,\hfil,\hfill,\hrule}
+% \DoNotIndex{\hsize,\hskip,\hspace,\hss,\if@tempswa,\ifcase,\or,\fi,\fi}
+% \DoNotIndex{\ifhmode,\ifvmode,\ifnum,\iftrue,\ifx,\fi,\fi,\fi,\fi,\fi}
+% \DoNotIndex{\input}
+% \DoNotIndex{\jobname,\kern,\leavevmode,\let,\leftmark}
+% \DoNotIndex{\list,\llap,\long,\m@ne,\m@th,\mark,\markboth,\markright}
+% \DoNotIndex{\month,\newcommand,\newcounter,\newenvironment}
+% \DoNotIndex{\NeedsTeXFormat,\newdimen}
+% \DoNotIndex{\newlength,\newpage,\nobreak,\noindent,\null,\number}
+% \DoNotIndex{\numberline,\OldMakeindex,\OnlyDescription,\p@}
+% \DoNotIndex{\pagestyle,\par,\paragraph,\paragraphmark,\parfillskip}
+% \DoNotIndex{\penalty,\PrintChanges,\PrintIndex,\ProcessOptions}
+% \DoNotIndex{\protect,\ProvidesClass,\raggedbottom,\raggedright}
+% \DoNotIndex{\refstepcounter,\relax,\renewcommand,\reset@font}
+% \DoNotIndex{\rightmargin,\rightmark,\rightskip,\rlap,\rmfamily,\roman}
+% \DoNotIndex{\roman,\secdef,\selectfont,\setbox,\setcounter,\setlength}
+% \DoNotIndex{\settowidth,\sfcode,\skip,\sloppy,\slshape,\space}
+% \DoNotIndex{\symbol,\the,\trivlist,\typeout,\tw@,\undefined,\uppercase}
+% \DoNotIndex{\usecounter,\usefont,\usepackage,\vfil,\vfill,\viiipt}
+% \DoNotIndex{\viipt,\vipt,\vskip,\vspace}
+% \DoNotIndex{\wd,\xiipt,\year,\z@}
+%
+% \changes{v1.0}{1999/03/14}{First public release}
+% \changes{v1.1}{2005/03/31}{Minor changes reflecting changed circumstances}
+% \changes{v1.1}{2005/03/31}{Merged the Metafont files}
+%
+% \def\fileversion{v1.0} \def\filedate{1999/03/14}
+% \def\fileversion{v1.1} \def\filedate{2005/03/31}
+% \newcommand*{\Lpack}[1]{\textsf {#1}}           ^^A typeset a package
+% \newcommand*{\Lopt}[1]{\textsf {#1}}            ^^A typeset an option
+% \newcommand*{\file}[1]{\texttt {#1}}            ^^A typeset a file
+% \newcommand*{\Lcount}[1]{\textsl {\small#1}}    ^^A typeset a counter
+% \newcommand*{\pstyle}[1]{\textsl {#1}}          ^^A typeset a pagestyle
+% \newcommand*{\Lenv}[1]{\texttt {#1}}            ^^A typeset an environment
+% \newcommand{\BC}{\textsc{bc}}
+% \newcommand{\AD}{\textsc{ad}}
+%
+% \title{The \Lpack{Runic} fonts\thanks{This
+%        file has version number \fileversion, last revised
+%        \filedate.}}
+%
+% \author{%
+% Peter Wilson\thanks{\texttt{herries dot press at earthlink dot net}}\\
+% Herries Press
+% }
+% \date{\filedate}
+% \maketitle
+% \begin{abstract}
+%    The \Lpack{runic} package provides a set of fonts for the Runic
+% script, also known as futharc after the names of the initial letters
+% of the Runic abecedary. The font follows the Anglo-Saxon abecedary.
+% \end{abstract}
+% \tableofcontents
+%
+% 
+%
+% \section{Introduction}
+%
+% The Runic alphabet and characters was in fairly common use in Europe, 
+% particularly in the Germanic, Scandinavian and Anglo-Saxon countries
+% until the Middle Ages. 
+% The font presented here follows the Anglo-Saxon abecedary.
+%
+%    This is one of a series of fonts intended to show how the Latin alphabet has
+% changed from its original Phoenician form to its present day appearance.
+% 
+% This manual is typeset according to the conventions of the
+% \LaTeX{} \textsc{docstrip} utility which enables the automatic
+% extraction of the \LaTeX{} macro source files~\cite{GOOSSENS94}.
+%
+%    Section~\ref{sec:usc} describes the usage of the package.
+% Commented code for the font and package may be in later sections.
+%
+% \subsection{An alphabetic tree}
+%
+%    Scholars are reasonably agreed that all the world's alphabets are descended
+% from a Semitic alphabet invented about 1600~\BC{} in the Middle 
+% East~\cite{DRUCKER95}. The word `Semitic' refers
+% to the family of languages used in the geographical area from
+% Sinai in the south, up the Mediterranean coast to Asia Minor in the north and
+% west to the valley of the Euphrates.
+%
+%    The Phoenician alphabet was stable by about 1100~\BC{} and the script was
+% written right to left. In earlier times the writing direction was variable, 
+% and so were
+% the shapes and orientation of the characters. The alphabet consisted of
+% 22 letters and they were named after things. For example, their first two 
+% letters were called \textit{aleph} (ox), and \textit{beth} (house). 
+% The Phoenician script had
+% only one case --- unlike our modern fonts which have both upper- and 
+% lower-cases. In modern day terms, the Phoenician abecedary was: \\
+% A B G D E Y Z H $\Theta$ I K L M N X O P ts Q R S T \\
+% where the `Y' (\textit{vau}) character was sometimes written as `F', and
+% `ts' stands for the \textit{tsade} character.
+%
+%    The Greek alphabet is one of the descendants of the Phoenician alphabet;
+% another was Aramaic which is the ancestor of the Arabic, Persian and Indian 
+% scripts.
+% Initially Greek was written right to left but around the 6th C~\BC{} became 
+% \textit{boustrophedron}, meaning that the lines 
+% alternated in direction. At about 500~\BC{} the writing direction stabilised 
+% as left to 
+% right. The Greeks modified the Phoenician alphabet to match the vocalisation
+% of their language. They kept the Phoenician names of the letters, suitably
+% `greekified', so \textit{aleph} became the familar \textit{alpha} and 
+% \textit{beth} became \textit{beta}. At this
+% point the names of the letters had no meaning. Their were several variants
+% of the Greek character glyphs until they were finally fixed in Athens in
+% 403~\BC.
+% The Greeks did not develop a lower-case 
+% script until about 600--700~\AD.
+%
+%    The Etruscans based their alphabet on the Greek one, and again modified it.
+% However, the Etruscans wrote right to left, so their borrowed characters are 
+% mirror images of the original Greek ones. Like the Phoenicians, the Etruscan
+% script consisted of only one case; they died out before ever needing a
+% lower-case script. The Etruscan script was used up until the first century 
+% \AD, even though the Etruscans themselves had dissapeared by that time.
+% 
+%
+%    In turn, the Romans based their alphabet on the Etruscan one, but as they 
+% wrote left to right, the characters were again mirrored (although the early
+% Roman inscriptions are boustrophedron). 
+%
+%    As the English alphabet is descended from the Roman alphabet
+% it has a pedigree of some three and a half thousand years.
+%
+% \section{The \Lpack{runic} package} \label{sec:usc}
+%
+%    There are three major versions of the Runic script, known as \textit{futharc}
+% after the initial letters of its abecedary, Anglo-Saxon, Germanic and
+% Scandinavian. Scholars are unclear about the genealogy of the script, but there
+% are some obvious relationships betyween some of the futharc glyphs and the
+% Phoenecian glyphs. Some other letters, such as the \textit{thorn} and 
+% \textit{wen}, are known Runic inventions. And then there are other glyphs
+% which I can only assume were also Runic inventions.
+%
+%    The font presented here is based on the Anglo-Saxon Runic abecedary 
+% which had 24 letters and one (punctuation) mark.
+% The font presented here is based on information from Drucker~\cite{DRUCKER95},
+% Firmage~\cite{FIRMAGE93}, and the 
+% \textit{Encyclopedia Brittanica}.
+%
+%
+% \DescribeMacro{\Fthorn}
+% \DescribeMacro{\Fng}
+% Many of the Runic characters 
+% have a direct correspondence with the modern Latin alphabet. 
+% For those characters that have a direct correspondance I have mapped
+% the Runic letter to the uppercase Latin letter. However, the \textit{thorn}
+% and \textit{ng} characters have no match. These two characters are
+% accessed via |\Fthorn| and |\Fng| respectively.
+% 
+% The letter sequence
+% for the futharc abecedary mapping is:\\
+% |F U \Fthorn A R K G W H N I J Y P X S T B E M L \Fng D O :| \\
+% where |:| is the (punctuation) mark.
+%
+%
+% \DescribeMacro{\futfamily}
+%    This command selects the Runic font family. The family name is |fut|.
+%
+% \DescribeMacro{\textfut}
+% The command |\textfut{|\meta{text}|}| typesets \meta{text} in the
+% Runic font.
+%     
+% \StopEventually{
+% \bibliographystyle{alpha}
+% \begin{thebibliography}{GMS94}
+%
+% \bibitem[Dru95]{DRUCKER95}
+% Johanna Drucker.
+% \newblock \emph{The Alphabetic Labyrinth}.
+% \newblock Thames and Hudson, 1995.
+%
+% \bibitem[Fir93]{FIRMAGE93}
+% Richard A.~Firmage.
+% \newblock \emph{The Alphabet Abecedarium}.
+% \newblock David R.~Goodine, 1993.
+%
+% \bibitem[GMS94]{GOOSSENS94}
+% Michel Goossens, Frank Mittelbach, and Alexander Samarin.
+% \newblock \emph{The LaTeX Companion}.
+% \newblock Addison-Wesley Publishing Company,second edition, 2004.
+%
+% \end{thebibliography}
+% }
+%
+%
+% \section{The Metafont code} \label{sec:mf}
+%
+% \subsection{The parameter file}
+%
+%    We deal with the parameter file first, and start by announcing
+% what it is for.
+%    \begin{macrocode}
+%<*up>
+%%% FUT10.MF  Computer Runic font 10 point design size.
+
+%    \end{macrocode}
+%    Specify the font size.
+%    \begin{macrocode}
+
+font_identifier:="Runic"; font_size 10pt#;
+
+%    \end{macrocode}
+%
+%
+% \begin{macro}{u} 
+% \begin{macro}{ht}
+% \begin{macro}{s} 
+% \begin{macro}{o} 
+% \begin{macro}{px} 
+% \begin{macro}{font-normal-space} 
+% \begin{macro}{font-normal-shrink} 
+% \begin{macro}{font-x-height} 
+% \begin{macro}{font-quad}
+%    Define the very simple font parameters.
+%    \begin{macrocode}
+u#:=.2pt#;                 % unit width
+ht#:=7pt#;                 % height of characters (CM cap-height is approx 6.8pt)
+s#:=1.5pt#;                % width correction (right and left)
+o#:=1/20pt#;               % overshoot
+px#:=.7pt#;                % horizontal width of pen
+font_normal_space:=7pt#;   % width of a blank space
+font_normal_shrink:=.9pt#; % width correction for blank space
+font_x_height:=4.5pt#;     % height of one ex
+font_quad:=10pt#;          % an em
+
+%    \end{macrocode}
+% \end{macro}
+% \end{macro}
+% \end{macro}
+% \end{macro}
+% \end{macro}
+% \end{macro}
+% \end{macro}
+% \end{macro}
+% \end{macro}
+%
+%   For a full font the driver file would normally be called here.
+% In this case I have embedded it.
+%    \begin{macrocode} 
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%% end of parameters
+%%% start of driver code
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%    \end{macrocode}
+%
+%
+% \subsection{The driver file}
+%
+%    If there was a seperate driver file, this would be its contents.
+%
+%    \begin{macrocode}
+font_coding_scheme:="Runic glyphs";
+mode_setup;
+
+%    \end{macrocode}
+%
+% \begin{macro}{ho}
+% \begin{macro}{leftloc}
+% \begin{macro}{py}
+%  Perform additional setup.
+%    \begin{macrocode}
+ho#:=o#;                   % horizontal overshoot
+leftloc#:=s#;        % leftmost xcoord of character
+py#:=.9px#;                % vertical thickness of the pen
+
+define_pixels(s,u);
+define_blacker_pixels(px,py);
+define_good_x_pixels(leftloc);
+define_corrected_pixels(o);             % turn on overshoot correction
+define_horizontal_corrected_pixels(ho);  
+
+%    \end{macrocode}
+% \end{macro}
+% \end{macro}
+% \end{macro}
+%
+% \begin{macro}{midloc}
+% \begin{macro}{rightloc}
+%    Variables for the middle xcoord and rightmost xcoord of a character.
+%    \begin{macrocode}
+numeric midloc, rightloc;
+%    \end{macrocode}
+% \end{macro}
+% \end{macro}
+%
+% \begin{macro}{stylus}
+%    Define the pen.
+%    \begin{macrocode}
+pickup pencircle xscaled px yscaled py;
+stylus:=savepen;
+
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{beginglyph}
+%    A macro to save some typing of beginchar arguments.
+%    \begin{macrocode}
+def beginglyph(expr code, unit_width) =
+  beginchar(code, unit_width*ht#+2s#, ht#, 0);
+  midloc:=1/2w; rightloc:=(w-s);
+  pickup stylus enddef;
+
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{cmchar}
+%    |cmchar| should precede each character
+%    \begin{macrocode}
+let cmchar=\;
+
+%    \end{macrocode}
+% \end{macro}
+% 
+%    That would be the end of a driver file, except for calling the glyph code.
+%
+%
+% \subsection{The glyph code}
+%
+%    The following code generates the glyphs for the Runic font. The characters
+% are defined in the futharc ordering.
+%
+%    \begin{macrocode}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%% end of driver code
+%%% start of glyph code
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%    \end{macrocode}
+%
+% \begin{macro}{F}
+%    The letter F (\textit{feoh}, wealth). Somewhat like a modern F.
+%    \begin{macrocode}
+ 
+cmchar "Runic letter F";
+beginglyph("F",0.4);
+x1=x2=x3=x6=leftloc;
+x4=x5=rightloc;
+bot y1=-o;
+y2=0.4h; y3=0.7h;
+y4=0.6h; y5=0.9h;
+y6=h;
+draw z1--z6;               % upright
+draw z3--z5; draw z2--z4;  % arms
+labels(1,2,3,4,5,6);
+endchar;
+
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{U}
+%    The letter U (\textit{ur}, auroch (a wild ox)). Somewhat like an inverted 
+% angular U.
+%    \begin{macrocode}
+ 
+cmchar "Runic letter U";
+beginglyph("U",0.6);
+x1=x2=leftloc;
+x3=x4=rightloc; 
+bot y1= bot y4=-o; top y2=h; y3=0.6h;
+draw z1--z2--z3--z4;
+labels(1,2,3,4); endchar;
+ 
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{thorn}
+%    The letter \textit{thorn}.
+%    \begin{macrocode}
+ 
+cmchar "Runic letter Thorn";
+beginglyph(oct"002", 0.4);
+x1=x2=x3=x4=leftloc; x5=rightloc;
+bot y1=-o; y2=0.25h; y3=0.75h; top y4=h; y5=0.5h;
+draw z1--z4;     % upright
+draw z2--z5--z3; % bowl
+labels(1,2,3,4,5); endchar;
+ 
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{A}
+%    The letter A (\textit{asc}, oak tree). Somewhat like a kinked F.
+%    \begin{macrocode}
+ 
+cmchar "Runic letter A";
+beginglyph("A",0.6);
+x1=x2=x3=leftloc; x4=x5=midloc; x6=x7=rightloc;
+bot y1=-o; y3=y7=h; y2=y6=y5=0.75h; y4=0.5h;
+draw z1--z3;                       % upright
+draw z2--z4--z6; draw z3--z5--z7;  % arms
+labels(1,2,3,4,5,6,7); endchar;
+ 
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{R}
+%    The letter R (\textit{rad}, riding). An angular modern R.
+%    \begin{macrocode}
+ 
+cmchar "Runic letter R";
+beginglyph("R",0.4);
+x1=x2=x3=leftloc; x4=x5=rightloc;
+bot y1= bot y4=-o; y2=0.4h; y5=0.7h; top y3=h;
+draw z1--z3;     % upright
+draw z2--z5--z3; % bowl
+draw z2--z4;     % leg
+labels(1,2,3,4,5); endchar;
+ 
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{K}
+%    The letter K (\textit{kaun}, torch). Like K but without the upper arm.
+%    \begin{macrocode}
+ 
+cmchar "Runic letter K";
+beginglyph("K",0.4);
+x1=x2=x3=leftloc; x4=rightloc;
+bot y1= bot y4=-o; y2=0.4h; top y3=h;
+draw z1--z3;     % upright
+draw z2--z4;     % leg
+labels(1,2,3,4); endchar;
+ 
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{G}
+%    The letter G (\textit{gifu}, gift). This looks like our uppercase letter X.
+%    \begin{macrocode}
+ 
+cmchar "Runic letter G";
+beginglyph("G",0.6);
+x1=x2=leftloc; x3=x4=rightloc;
+bot y1= bot y3=-o; top y2= top y4= h;
+draw z1--z4;  
+draw z2--z3;  
+labels(1,2,3,4); endchar;
+
+%    \end{macrocode}
+% \end{macro}
+%
+%
+% \begin{macro}{W}
+%    The letter W (\textit{wen}, joy). It looks like an angular P.
+%    \begin{macrocode}
+ 
+cmchar "Runic letter W";
+beginglyph("W", 0.4);
+x1=x2=x3=leftloc; x5=rightloc;
+bot y1=-o; y2=0.4h; y5=0.7h; top y3=h;
+draw z1--z3;     % upright
+draw z2--z5--z3; % bowl
+labels(1,2,3,5); endchar;
+ 
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{H}
+% The letter H (\textit{hegel}, hail). Like an H but with double sloping bars.
+%    \begin{macrocode}
+ 
+cmchar "Runic letter H";
+beginglyph("H",0.6);
+x1=x2=leftloc; x3=x4=rightloc;
+bot y1 = bot y3= -o; top y2 = top y4 = h;
+z5=0.5[z1,z2]; z6=0.7[z1,z2];
+z7=0.3[z3,z4]; z8=0.5[z3,z4];
+draw z1--z2; draw z3--z4;   % uprights
+draw z5--z7; draw z6--z8;   % bars
+labels(1,2,3,4,5,6,7,8); endchar;
+
+%    \end{macrocode}
+% \end{macro}
+%
+%
+% \begin{macro}{N}
+%    The letter N (\textit{nyd}, need or hardship). A cross with a sloping bar.
+%    \begin{macrocode}
+ 
+cmchar "Runic letter N";
+beginglyph("N",0.4);
+x1=x2=midloc; x3=leftloc; x4=rightloc;
+bot y1=-o; top y2=h;
+y3=0.6h; y4=0.4h;
+draw z1--z2;   % upright
+draw z3--z4;   % bar
+labels(1,2,3,4); endchar;
+
+%    \end{macrocode}
+% \end{macro}
+%
+%
+% \begin{macro}{I}
+%    The letter I (\textit{is}, ice).
+%    \begin{macrocode}
+ 
+cmchar "Runic letter I";
+beginglyph("I",0.2);
+x1=x2=midloc;
+bot y1=-o; top y2=h;
+draw z1--z2;
+labels(1,2); endchar;
+ 
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{J}
+%    The letter J (\textit{ger}, year). It looks like an angular $\Phi$.
+%    \begin{macrocode}
+ 
+cmchar "Runic letter J";
+beginglyph("J",0.4);
+x1=x2=x3=x5=midloc; x4=leftloc; x6=rightloc;
+bot y1=-o; top y2=h;
+y4=y6=0.5h;
+y3=0.25h; y5=0.75h;
+draw z1--z2;                % the upright
+draw z3--z4--z5--z6--cycle; % the rectangle
+labels(1,2,3,4,5,6); endchar;
+ 
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{Y}
+%    The letter \textit{eoh}. Somewhat like an angular upright S.
+%    \begin{macrocode}
+ 
+cmchar"Runic letter Y";
+beginglyph("Y",0.6);
+x1=leftloc; x2=x3=midloc; x4=rightloc;
+bot y2=-o; top y3=h;
+y1=0.3h; y4=0.7h;
+draw z1--z2--z3--z4;
+labels(1,2,3,4); endchar;
+ 
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{P}
+%    The letter P (\textit{peorth}). 
+%    \begin{macrocode}
+ 
+cmchar "Runic letter P";
+beginglyph("P",0.6);
+x1=x2=leftloc; x3=x4=midloc; x5=x6=rightloc;
+bot y1= bot y5=-o; top y2= top y6= h;
+y3=0.3h; y4=0.7h;
+draw z5--z3--z1--z2--z4--z6;
+labels(1,2,3,4,5,6); endchar;
+ 
+%    \end{macrocode}
+% \end{macro}
+%
+%
+% \begin{macro}{X}
+%    The letter X (\textit{eolhx}, elk?). Like an angular $\Psi$.
+% It corresponds to the Phoenician \textit{XXX}.
+%    \begin{macrocode}
+ 
+cmchar "Runic letter X";
+beginglyph("X", 0.6);
+x1=x2=midloc;
+x4=leftloc; x5=rightloc;
+bot y1=-o; top y2= top y4= top y5= h;
+z3=0.5[z1,z2];
+draw z1--z2;     % upright
+draw z4--z3--z5; % V shape
+labels(1,2,3,4,5); endchar;
+ 
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{S}
+%    The letter S (\textit{sigil}, sun). Like an angular S on its side.
+%    \begin{macrocode}
+ 
+cmchar "Runic letter S";
+beginglyph("S",0.4);
+x1=x2=leftloc; x3=x4=rightloc;
+top y1=h; bot y4=-o;
+y2=0.3h; y3=0.7h;
+draw z1--z2--z3--z4;
+labels(1,2,3,4); endchar;
+ 
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{T}
+%    The letter T (\textit{tir}, the name of a star?). Like an upward pointing
+% arrow.
+%    \begin{macrocode}
+ 
+cmchar "Runic letter T";
+beginglyph("T", 0.4);
+x1=x2=midloc; x3=leftloc; x4=rightloc;
+bot y1=-o; top y2=h;
+y3=y4=0.7h;
+draw z1--z2;     % upright
+draw z3--z2--z4; % arrowhead
+labels(1,2,3,4); endchar;
+ 
+%    \end{macrocode}
+% \end{macro}
+%
+%
+% \begin{macro}{B}
+%    The letter B (\textit{berc}, birch tree). An angular B.
+%    \begin{macrocode}
+ 
+cmchar "Runic letter B";
+beginglyph("B",0.4);
+x1=x2=leftloc; 
+x4=x5=rightloc;
+bot y1=-o; top y2=h; 
+y4=0.3h; y5=0.7h;
+z3=0.5[z1,z2];
+draw z1--z2;      % upright
+draw z3--z5--z2;  % upper bowl
+draw z3--z4--z1;  % lower bowl
+labels(1,2,3,4,5); endchar;
+ 
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{E}
+%    The letter E (\textit{eh}, horse).  It looks like an M.
+%    \begin{macrocode}
+ 
+cmchar "Runic letter E";
+beginglyph("E",0.6);
+x1=x2=leftloc; x3=midloc; x4=x5=rightloc;
+bot y1= bot y5=-o; top y2= top y4= h;
+y3=0.6h;
+draw z1--z2--z3--z4--z5;
+labels(1,2,3,4,5); endchar;
+ 
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{M}
+%    The letter M (\textit{man}, man). 
+%    \begin{macrocode}
+ 
+cmchar "Runic letter M";
+beginglyph("M", 0.6);
+x1=x2=x3=leftloc; x4=x5=x6=rightloc;
+bot y1= bot y4=-o; top y3= top y6= h;
+y2=y5=0.6h; 
+draw z1--z3; draw z4--z6;  % uprights
+draw z2--z6; draw z3--z5;  % cross
+labels(1,2,3,4,5,6); endchar;
+ 
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{L}
+%    The letter L (\textit{lagu}, water or sea). Somewhat like $\Gamma$.
+%    \begin{macrocode}
+ 
+cmchar "Runic letter L";
+beginglyph("L", 0.4);
+x1=x2=leftloc; x3=rightloc;
+bot y1=-o; top y2=h; y3=0.6h;
+draw z1--z2--z3;
+labels(1,2,3); endchar;
+ 
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{ng}
+%    The letter \textit{ng}. Like a pair of crossed angle brackets.
+%    \begin{macrocode}
+ 
+cmchar "Runic letter NG";
+beginglyph(oct"010", 0.6);
+x1=x2=leftloc; x3=x4=rightloc;
+bot y1= bot y3=-o; top y2= top y4= h;
+x5=0.85[x1,x3]; x6=0.15[x1,x3];
+y5=y6=0.5h;
+draw z1--z5--z2;
+draw z3--z6--z4;
+labels(1,2,3,4,5,6); endchar;
+ 
+ 
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{D}
+%    The letter D (\textit{daeg}, day). Like the Runic M, but the cross is lower.
+%    \begin{macrocode}
+ 
+cmchar "Runic letter D";
+beginglyph("D", 0.6);
+x1=x2=leftloc; x3=x4=rightloc;
+bot y1= bot y3=-o; top y2= top y4= h;
+z5=0.4[z1,z2]; z6=0.8[z1,z2];
+z7=0.4[z3,z4]; z8=0.8[z3,z4];
+draw z1--z2; draw z3--z4;  % uprights
+draw z5--z8; draw z6--z7;  % cross
+labels(1,2,3,4,5,6,7,8); endchar;
+ 
+ 
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{O}
+%    The letter O (\textit{othil}, mouth).
+%    \begin{macrocode}
+ 
+cmchar "Runic letter O";
+beginglyph("O", 0.6);
+x1=x2=x3=leftloc; x4=x5=x6=rightloc; x7=midloc;
+y1=y4=0; y7= h;
+y2=y5=0.25[y1,y7]; y3=y6=0.75[y1,y7];
+draw z1--z2--z6--z7--z3--z5--z4;
+labels(1,2,3,4,5,6,7); endchar;
+ 
+ 
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{:}
+%    The Runic punctuation mark.
+%    \begin{macrocode}
+ 
+cmchar "Runic mark :";
+beginglyph(":",0.2);
+x1=x2=x3=x4=midloc;
+y1=0.2h; y2=0.35h; y3=0.65h; y4=0.8h;
+draw z1--z2; draw z3--z4;  % the `colon'
+labels(1,2,3,4); endchar;
+ 
+%    \end{macrocode}
+% \end{macro}
+%
+%    The end of the glyphs and the file.
+%
+%    \begin{macrocode}
+
+end
+
+%</up> 
+%    \end{macrocode}
+%
+%
+%
+% \section{The font definition files} \label{sec:fd}
+%
+%    \begin{macrocode}
+%<*fdot1>
+\DeclareFontFamily{OT1}{fut}{}
+  \DeclareFontShape{OT1}{fut}{m}{n}{ <-> fut10 }{}
+  \DeclareFontShape{OT1}{fut}{bx}{n}{ <-> sub fut/m/n }{}
+  \DeclareFontShape{OT1}{fut}{b}{n}{ <-> sub fut/m/n }{}
+  \DeclareFontShape{OT1}{fut}{m}{sl}{ <-> sub fut/m/n }{}
+  \DeclareFontShape{OT1}{fut}{m}{it}{ <-> sub fut/m/n }{}
+%</fdot1>
+%    \end{macrocode}
+%
+%
+%    \begin{macrocode}
+%<*fdt1>
+\DeclareFontFamily{T1}{fut}{}
+  \DeclareFontShape{T1}{fut}{m}{n}{ <-> fut10 }{}
+  \DeclareFontShape{T1}{fut}{bx}{n}{ <-> sub fut/m/n }{}
+  \DeclareFontShape{T1}{fut}{b}{n}{ <-> sub fut/m/n }{}
+  \DeclareFontShape{T1}{fut}{m}{sl}{ <-> sub fut/m/n }{}
+  \DeclareFontShape{T1}{fut}{m}{it}{ <-> sub fut/m/n }{}
+%</fdt1>
+%    \end{macrocode}
+%
+% \section{The \Lpack{runic} package code} \label{sec:code}
+%
+%    Announce the name and version of the package, which requires
+% \LaTeXe{}.
+%    \begin{macrocode}
+%<*usc>
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{runic}[1999/03/14 v1.0 package for Runic fonts]
+%    \end{macrocode}
+%
+%
+% \begin{macro}{\futfamily}
+%    Selects the futharc (Runic) font family in the OT1 encoding.
+%    \begin{macrocode}
+\newcommand{\futfamily}{\usefont{OT1}{fut}{m}{n}}
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{\textetr}
+%    Text command for the futharc (Runic) font family.
+%    \begin{macrocode}
+\DeclareTextFontCommand{\textfut}{\futfamily}
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{\Fthorn}
+% \begin{macro}{\Fng}
+%    The Runic \textit{thorn} and \textit{ng} characters are accessed
+% by |\Fthorn| and |\Fng| respectively.
+%    \begin{macrocode}
+\chardef\Fthorn='002
+\chardef\Fng='010
+%    \end{macrocode}
+% \end{macro}
+% \end{macro}
+%
+%    The end of this package.
+%    \begin{macrocode}
+%</usc>
+%    \end{macrocode}
+%
+% \section{The Postscript Type1 map} \label{sec:map}
+%
+% Just one line.
+%
+%    \begin{macrocode}
+%<*map>
+fut10  Archaic-Futharc <fut10.pfb
+%</map>
+%    \end{macrocode}
+%
+% \Finale
+% \PrintIndex
+%
+\endinput
+
+%% \CharacterTable
+%%  {Upper-case    \A\B\C\D\E\F\G\H\I\J\K\L\M\N\O\P\Q\R\S\T\U\V\W\X\Y\Z
+%%   Lower-case    \a\b\c\d\e\f\g\h\i\j\k\l\m\n\o\p\q\r\s\t\u\v\w\x\y\z
+%%   Digits        \0\1\2\3\4\5\6\7\8\9
+%%   Exclamation   \!     Double quote  \"     Hash (number) \#
+%%   Dollar        \$     Percent       \%     Ampersand     \&
+%%   Acute accent  \'     Left paren    \(     Right paren   \)
+%%   Asterisk      \*     Plus          \+     Comma         \,
+%%   Minus         \-     Point         \.     Solidus       \/
+%%   Colon         \:     Semicolon     \;     Less than     \<
+%%   Equals        \=     Greater than  \>     Question mark \?
+%%   Commercial at \@     Left bracket  \[     Backslash     \\
+%%   Right bracket \]     Circumflex    \^     Underscore    \_
+%%   Grave accent  \`     Left brace    \{     Vertical bar  \|
+%%   Right brace   \}     Tilde         \~}
+
+

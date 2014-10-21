@@ -1,0 +1,373 @@
+% arara: lualatex
+% !arara: biber
+% arara: lualatex
+% !arara: lualatex
+% --------------------------------------------------------------------------
+% the IDXCMDS package
+% 
+%   create commands for adding formatted index entries
+% 
+% --------------------------------------------------------------------------
+% Clemens Niederberger
+% Web:    https://bitbucket.org/cgnieder/idxcmds/
+% E-Mail: contact@mychemistry.eu
+% --------------------------------------------------------------------------
+% Copyright 2012-2013 Clemens Niederberger
+% 
+% This work may be distributed and/or modified under the
+% conditions of the LaTeX Project Public License, either version 1.3
+% of this license or (at your option) any later version.
+% The latest version of this license is in
+%   http://www.latex-project.org/lppl.txt
+% and version 1.3 or later is part of all distributions of LaTeX
+% version 2005/12/01 or later.
+% 
+% This work has the LPPL maintenance status `maintained'.
+% 
+% The Current Maintainer of this work is Clemens Niederberger.
+% --------------------------------------------------------------------------
+% The idxcmds package consists of the files
+%  - idxcmds.sty
+%  - idxcmds_en.tex, idxcmds_en.pdf
+%  - README
+% --------------------------------------------------------------------------
+% If you have any ideas, questions, suggestions or bugs to report, please
+% feel free to contact me.
+% --------------------------------------------------------------------------
+% in order to compile this documentation you need the document class
+% `cnpkgdoc' which you can get here:
+%   https://bitbucket.org/cgnieder/cnpkgdoc/
+%
+\PassOptionsToPackage{supstfm=libertinesups}{superiors}
+\documentclass{cnpkgdoc}
+\docsetup{
+  pkg = idxcmds ,
+  subtitle = create commands for adding formatted index entries,
+  language = en ,
+  code-box = {
+    backgroundcolor  = gray!5!white ,
+    skipbelow        = .6\baselineskip plus .5ex minus .5ex ,
+    skipabove        = .6\baselineskip plus .5ex minus .5ex ,
+    roundcorner      = 3pt ,
+  } ,
+  gobble   = 1
+}
+
+\addcmds{acr,environ,file,hsnbg,KOMAScript,name,test}
+\addcmds{
+  @ifstar,
+  cmd,cmd@base,cmd@idx,cmd@nostar,cmd@star,
+  indexentry
+}
+
+\cnpkgusecolorscheme{friendly}
+\usepackage[oldstyle,proportional]{libertine}
+\usepackage[libertine]{newtxmath}
+\usepackage{libertinehologopatch}
+\setmonofont[Scale=MatchLowercase]{Bitstream Vera Sans Mono}
+
+\usepackage[english]{selnolig}
+
+\renewcommand*\othersectionlevelsformat[3]{%
+  \textcolor{main}{#3\autodot}\enskip}
+\renewcommand*\partformat{%
+  \textcolor{main}{\partname~\thepart\autodot}}
+\usepackage{fnpct}
+\pagestyle{headings}
+
+\usepackage{imakeidx}
+\usepackage{filecontents}
+\begin{filecontents*}{\jobname.ist}
+ heading_prefix "{\\bfseries "
+ heading_suffix "\\hfil}\\nopagebreak\n"
+ headings_flag  1
+ delim_0 "\\dotfill\\hyperpage{"
+ delim_1 "\\dotfill\\hyperpage{"
+ delim_2 "\\dotfill\\hyperpage{"
+ delim_r "}\\textendash\\hyperpage{"
+ delim_t "}"
+ suffix_2p "\\nohyperpage{\\,f.}"
+ suffix_3p "\\nohyperpage{\\,ff.}"
+\end{filecontents*}
+\indexsetup{othercode=\footnotesize,noclearpage}
+\makeindex[options={-s \jobname.ist},intoc,columns=3]
+\makeindex[name=examples,title=Example Index,intoc,columns=3]
+
+\usepackage[backend=biber,style=alphabetic]{biblatex}
+\addbibresource{\jobname.bib}
+\begin{filecontents}{\jobname.bib}
+@package{pkg:etoolbox,
+  title   = {\paket*{etoolbox}},
+  author  = {Philipp Lehman},
+  date    = {2011-01-21},
+  version = {2.1},
+  url     = {http://mirror.ctan.org/macros/latex/contrib/etoolbox}
+}
+@package{pkg:imakeidx,
+  title   = {\paket*{imakeidx}},
+  author  = {Claudio Beccari and Enrico Gregorio},
+  date    = {2013-03-26},
+  version = {1.3},
+  url     = {http://mirror.ctan.org/macros/latex/contrib/imakeidx}
+}
+@package{pkg:ltxcmds,
+  title   = {\paket*{ltxcmds}},
+  author  = {Heiko Oberdiek},
+  date    = {2011-11-09},
+  version = {1.22},
+  url     = {http://mirror.ctan.org/tex-archive/macros/latex/contrib/oberdiek/}
+}
+@package{pkg:pgfopts,
+  title   = {\paket*{pgfopts}},
+  author  = {Joseph Wright},
+  date    = {2011-06-02},
+  version = {2.1},
+  url     = {http://mirror.ctan.org/macros/latex/contrib/pgfopts}
+}
+\end{filecontents}
+
+\newidxcmd\acr{\textsc{#1}}
+\newidxcmd[{\index[examples]}]\environ{\texttt{#1}}[ (Environment)]
+\newidxcmd\name{\textsf{#1}}
+\newsubmainidxcmd\file{\textsf{#1}}
+\newsubidxcmd\test{Test}{\textcolor{red}{#1}}
+\newsubidxcmd*\hsnbg{\name[Heisenberg]{Werner Heisenberg}}{#1}
+
+\begin{document}
+
+\section{Licence and Requirements}\label{sec:license}\secidx{Licence}
+Permission is granted to copy, distribute and/or modify this software under
+the terms of the \LaTeX{} Project Public License, version 1.3 or later
+(\url{http://www.latex-project.org/lppl.txt}). The package has the status
+``maintained.''
+
+\idxcmds loads and needs the the packages \paket{etoolbox}~\cite{pkg:etoolbox},
+\paket{pgfopts}~\cite{pkg:pgfopts} and \paket{ltxcmds}~\cite{pkg:ltxcmds}.
+\secidx*{Licence}
+
+\section{Motivation}\secidx{Motivation}
+When working on a larger document and designing and writing the macros for
+various bits and pieces I was going to use I found myself repeatedly writing
+the same kind of macros again and again that had some kind of semantic
+meaning, maybe some markup definitions that also created an index entry and
+had a star form for omitting the index entry.  They all had more or less the
+following structure:
+
+\begin{beispiel}[code only]
+ \makeatletter
+ \newcommand*\cmd{\@ifstar\cmd@star\cmd@nostar}
+ \newcommand*\cmd@star[1]{\cmd@base{#1}}
+ \newcommand*\cmd@nostar[1]{\cmd@base{#1}\cmd@idx{#1}}
+ \newcommand*\cmd@base[1]{\textit{#1}}
+ \newcommand*\cmd@idx[1]{\index{#1@\cmd@base{#1}}}
+ \makeatother
+\end{beispiel}
+
+After having copied and pasted this code for the fourth time I thought: you
+should have a command that does this for you.  That was when \cmd{newidxcmd}
+was born.  This command soon enough got some extensions, \eg, giving
+the commands thus defined an optional argument that allowed specifying the
+sorting.  It wasn't long before I realized that I might want to use this
+\cmd{newidxcmd} again in other documents which was when I wrote the first
+draft of this package.
+
+I added other commands, \cmd{newsubmainidxcmd} and \cmd{newsubidxcmd}, which I
+didn't (and still don't) really use or need but of which I thought they could
+be useful for others, and here we are.
+\secidx*{Motivation}
+
+\section{Usage}\label{sec:usage}\secidx{Usage}
+\subsection{Available Commands}\secidx[Available Commands]{Usage}
+\idxcmds provides these commands:
+\begin{beschreibung}
+  \Befehl{newidxcmd}[<index cs>]{\cmd*{cmd}}\ma{<formatting specs>}\oa{<append>}\newline
+    Defines a command \cmd*{cmd} that formats its argument according to
+    \code{<formatting specs>} and creates an index entry with \code{<index cs>}
+    that gets \code{<append>} appended.  Refer to the argument of \cmd*{cmd}
+    in \code{<formatting specs>} with \code{\#1}.
+    
+    Also defines a command \cmd*{cmdidx} that allows to only create an index
+    entry.  See section~\ref{ssec:command:usage:newidxcmd} for examples and
+    further description of its functionality.  Default for \code{<index cs>} is
+    \cmd{index}.
+  \Befehl{newsubidxcmd}*[<index cs>]{\cmd*{cmd}}\ma{<main entry>}\ma{<form.\@ specs>}\oa{<append>}\newline
+    Defines a command \cmd*{cmd} that formats its argument according to
+    \code{<form.\@ specs>} and creates an index sub-entry to \code{<main
+      entry>} with \code{<index cs>} that gets \code{<append>}
+    appended.  Refer to the argument of \cmd*{cmd} in \code{<form.\@ specs>}
+    with \code{\#1}.
+    
+    Also defines a command \cmd*{cmdidx} that allows to only create an index
+    entry.  See section~\ref{ssec:command:usage:newsubidxcmd} for further
+    description of its functionality. Default for \code{<index cs>} is
+    \cmd{index}.
+  \Befehl{newsubmainidxcmd}[<index cs>]{\cmd*{cmd}}\ma{<form.\@ specs>}\oa{<append>}\newline
+    Defines a command \cmd*{cmd} that formats its argument according to
+    \code{<form.\@ specs>} and creates an index sub-entry to a main entry with
+    \code{<index cs>} that gets \code{<append>} appended.  Refer to
+    the argument of \cmd*{cmd} in \code{<form.\@ specs>} with \code{\#1}.
+    
+    Also defines a command \cmd*{cmdidx} that allows to only create an index
+    entry.  The main entry is specified at use time. See
+    section~\ref{ssec:command:usage:newsubmainidxcmd} for examples and further 
+    description of its functionality. Default for \code{<index cs>} is
+    \cmd{index}.
+\end{beschreibung}
+
+The commands \cmd*{cmd} defined this way are robust but their formatting
+argument is not placed in a group.  Keep this in mind when you use
+\cmd*{bfseries} or something in a definition.  \cmd*{cmd} will be defined
+using \paket{etoolbox}' \cmd{newrobustcmd} which means an error will be thrown
+if \cmd*{cmd} is already defined.
+
+Of course these commands cannot cover all possible use cases for index entries
+but that is not the intention of this package, anyway.
+
+\subsection{Command Usage}\label{ssec:command:usage}\secidx[Command Usage]{Usage}
+\subsubsection{\cmd*{newidxcmd}}\label{ssec:command:usage:newidxcmd}
+The command \cmd{newidxcmd}{\cmd*{cmd}}\ma{<formatting specs>} will define a
+new command \cmd*{cmd} with the following syntax:
+\begin{beschreibung}
+  \Befehl{cmd}*{<text>}\newline
+    format \code{<text>} according to specifications, no index entry.
+  \Befehl{cmd}[<srt idx>]{<text>}\oa{<app>}\newline
+    format \code{<text>} according to specifications, add formatted index
+    entry, sorted according to \code{<srt idx>} or, if the optional argument
+    is left out, sorted according to \code{<text>}.  \code{<app>} is added to
+    the index entry if the trailing optional argument is used (this can be
+    useful for instance for getting formatted page numbers).
+  \Befehl{cmdidx}[<srt idx>]{<text>}\oa{<app>}\newline
+    add formatted index entry, sorted according to \code{<srt idx>} or, if the
+    optional argument is left out, sorted according to \code{<text>}.
+    \code{<app>} is added to the index entry if the trailing optional argument
+    is used.
+\end{beschreibung}
+
+Let's see an example:
+\begin{beispiel}
+ % in the preamble, probably:
+ % \newidxcmd{\acr}{\textsc{#1}}
+ % \newidxcmd[{\index[examples]}]{\environ}{\texttt{#1}}[ (Environment)]
+ % \newidxcmd{\name}{\textsf{#1}}
+ \acr{cd}, \acr{id}
+ 
+ \environ{center}, \environ{flushleft}
+
+ \name*{Albert Einstein}, \name[Heisenberg]{Werner Heisenberg}
+\end{beispiel}
+You will find these examples in the index or the examples index,
+respectively.  The second set of examples shows the purpose of the first
+optional argument: if you have several indexes --~like this documentation has
+for demonstration purposes~-- you might need to specify the index command
+used\footnote{This document uses \paket*{imakeidx}~\cite{pkg:imakeidx} for
+  this purpose.}.  If you want to prove if the example worked: \name*{Albert
+  Einstein} should not be found in the index and \name*{Werner Heisenberg}
+should be sorted under \emph{Heisenberg}.  Both \environ*{center} and
+\environ*{flushleft} ahould be found in the examples index.
+
+Now let's disect the example a bit.  The uses of \cmd*{acr}{cd},
+\cmd*{name}*{Albert Einstein} and \cmd*{environ}{center} will essentially
+expand to
+\begin{beispiel}[code only]
+ % \acr{cd} =>
+ \textsc{cd}\index{cd@\textsc{cd}}
+ % and in \jobname.idx =>
+ \indexentry{cd@\textsc  {cd}}{3}
+
+ % \name*{Albert Einstein} =>
+ \textsf{Albert Einstein}
+
+ % \environ{center} =>
+ \texttt{center}\index[examples]{center@\texttt{center} (Environment)}
+ % and in examples.idx =>
+ \indexentry{center@\texttt  {center} (Environment)}{3}
+\end{beispiel}
+
+\subsubsection{\cmd*{newsubidxcmd}}\label{ssec:command:usage:newsubidxcmd}
+The command \cmd{newsubidxcmd}*{\cmd*{cmd}}\ma{<main entry>}\ma{<form.\@
+  specs>} will define a new command \cmd*{cmd} with the same syntax as
+\cmd{newidxcmd} does.  However, \cmd{newsubidxcmd} has an additional argument
+that specifies the main index entry this group of sub entries belongs to.  For
+the unstarred variant this argument can be some arbitrary main entry.  For the
+starred variant it demands a command plus argument defined by \cmd{newidxcmd}
+as argument.
+
+\begin{beispiel}
+ % preamble:
+ % \newsubidxcmd{\test}{Test}{\textcolor{red}{#1}}
+ % \newsubidxcmd*{\hsnbg}{\name[Heisenberg]{Werner Heisenberg}}{#1}
+ \name[Heisenberg]{Werner Heisenberg} was born in
+ \hsnbg[Wuerzburg]{W\"urzburg (Germany)}. He worked as a
+ professor in \hsnbg{Leipzig (Germany)}. And this is a
+ \test{test}.
+\end{beispiel}
+
+\subsubsection{\cmd*{newsubmainidxcmd}}\label{ssec:command:usage:newsubmainidxcmd}
+The command \cmd{newsubmainidxcmd}{\cmd*{cmd}}\ma{<form.\@ specs>} will define
+a new command \cmd*{cmd} similar to \cmd{newsubidxcmd} but where the main
+index entry is specified for every use case in the running text.  \cmd*{cmd}
+will have the following syntax:
+\begin{beschreibung}
+  \Befehl{cmd}*{<text>}\newline
+    format \code{<text>} according to specifications, no index entry.
+  \Befehl{cmd}[<srt idx>]{<text>}\ma{<main entry>}\oa{<app>}\newline
+    format \code{<text>} according to specifications, add formatted index
+    sub-entry to the main index entry \code{<main entry>}, sorted according to
+    \code{<srt idx>} or, if the optional argument is left out, sorted
+    according to \code{<text>}.  \code{<app>} is added to the index entry if
+    the trailing optional argument is used (this can be useful for instance
+    for getting formatted page numbers).
+  \Befehl{cmdidx}[<srt idx>]{<text>}\ma{<main entry>}\oa{<app>}\newline
+    add formatted index sub-entry to the main index entry \code{<main entry>},
+    sorted according to \code{<srt idx>} or, if the optional argument is left
+    out, sorted according to \code{<text>}.  \code{<app>} is added to the
+    index entry if the trailing optional argument is used.
+\end{beschreibung}
+
+\begin{beispiel}
+ % in the preamble, probably:
+ % \newsubmainidxcmd{\file}{\textsf{#1}}
+ \file{article}{classes} is a standard \LaTeX{} class.
+ \file{scrartcl}{KOMA-Script@\KOMAScript} is part of the \KOMAScript{} bundle.
+ \file*{test} is a dummy.
+\end{beispiel}
+
+\subsection{Options}\secidx[Options]{Usage}
+\idxcmds has the following options -- either setable as package option or with
+the setup command \cmd{setidxcmds}{<options>} which takes a comma separated
+list of options:
+\begin{beschreibung}
+  \Option{sort-sep}{<symbol>}\Default{@}
+    set makeindex symbol to separate the index into sorting and typesetting
+    part as specified in the index style file.
+  \Option{sub-sep}{<symbol>}\Default{!}
+    set makeindex symbol to add a sub entry as specified in the index style
+    file.
+  \Option{idx-cmd}{<control sequence>}\Default{\cmd*{index}}
+    \sinceversion{0.2b}The default indexing command that is used by \idxcmds.
+\end{beschreibung}
+\secidx*{Usage}
+
+\printbibliography
+
+\section{Implementation}\secidx{Implementation}
+In the following code the lines 1--32 have been omitted.  They only repeat the
+license statement which has already been mentioned in
+section~\ref{sec:license}.
+
+\implementation[linerange={33-1000},firstnumber=33]
+\secidx*{Implementation}
+
+% \begingroup
+\indexprologue{\noindent
+  This index has some peculiar entries in addition to the ones you would
+  normally expect.  But actually they are the corresponding entries to the
+  examples shown in section~\ref{sec:usage}.%
+}
+\printindex
+% \def\clearpage{\vskip\baselineskip}
+\clearpage
+\printindex[examples]
+% \endgroup
+
+\end{document}

@@ -1,0 +1,77 @@
+boites
+======
+
+`boites` is a LaTeX package to typeset boxes that may break across pages.
+
+License
+-------
+
+(c) 1998-1999 Vincent Zoonekynd <zoonek@math.jussieu.fr>
+
+Distributed under the GNU Public Licence
+
+Description
+-----------
+
+These environments allow page breaks inside framed boxes.  They include
+a few examples (shaded box, box with a wavy line on its side, etc.)
+
+See also the
+[`framed`](http://github.github.com/github-flavored-markdown/sample_content.html)
+package.
+
+Usage
+-----
+
+In the preamble: 
+
+    \usepackage{boites,boites_examples,graphicx}
+
+Before using the various environments:
+
+  `\bkcounttrue`:  the lines will be numbered
+
+  `\bkcountfalse`: the lines will not be numbered
+
+Boxed text with a title:
+
+    \begin{boiteepaisseavecuntitre}
+      ...
+    \end{boiteepaisseavecuntitre}
+
+Text with a double vertical line on the left and a number (17, in this
+example):
+
+    \begin{boitenumeroteeavecunedoublebarre}{17}
+      ...
+    \end{boitenumeroteeavecunedoublebarre}
+
+Text with a wavy line on the left:
+
+    \begin{boiteavecunelignequiondulesurlecote}
+      ...
+    \end{boiteavecunelignequiondulesurlecote}
+
+Shaded box:
+
+    \begin{boitecoloriee}
+      ...
+    \end{boitecoloriee}
+
+If you wish other kinds of boxes, have a look at `boites_examples.sty`
+and feel free to adapt the macros.
+
+Features
+--------
+
+ * These environments may be nested.
+ * They may appear in a multicols environment.
+ * Floating material, footnotes, marginpars appearing inside 
+   them will be lost.
+
+History
+-------
+
+ * 1992: original macros (eclbkbox.sty) by Hideki Isozaki
+ * 1998: a few modifications to make the macros more configurable,
+         more comments and inclusion of some examples (Vincent Zoonekynd)

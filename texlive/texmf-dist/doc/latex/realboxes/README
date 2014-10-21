@@ -1,0 +1,60 @@
+LaTeX package 'realboxes'
+~~~~~~~~~~~~~~~~~~~~~~~~~
+Copyright (c) 2011 by Martin Scharrer <martin@scharrer-online.de>
+WWW: http://latex.scharrer-online.de/
+
+This LaTeX package uses the authors other package 'collectbox' to define
+variants of common box related macros which read the content as real box and
+not as macro argument. This enables the use of verbatim or other special
+material as part of this content.
+
+The provided macros simply have the same names as the original versions but
+start with an upper-case letter instead.
+The "long-form" macros, like \Makebox, can also be used as environments, but
+not the "short-form" macros, like \Mbox. However, normally the long form uses
+the short form anyway when no optional arguments are used.
+
+The following macros (taken from the shown packages) are provided:
+
+## LaTeX core (option 'core') ##
+
+    \Makebox[<width>][<position>]{<content>}
+    \Fbox{<content>}
+    \Mbox{<content>}
+    \Raisebox{<length>}[<height>][<depth>]{<content>}
+    \Leftline{<content>}
+    \Rightline{<content>}
+    \Centerline{<content>}
+    \Rlap{<content>}
+    \Llap{<content>}
+    \Framebox[<width>][<position>]{<content>}
+    \Parbox[<pos>][<height>][<inner-pos>]{<width>}{<content>}
+    \Savebox{<box register>}[<width>][<position>]{<content>}
+    \Sbox{<box register>}{<content>}
+
+
+## color/xcolor ##
+
+    \Colorbox[<model>]{<color>}{<content>}
+    \Fcolorbox[<frame model>]{<frame color>}[<bg model>]{<bg color>}{<content>}
+
+## graphics/graphicx ##
+
+    \Rotatebox[<options>]{<angle>}{<content>}
+    \Scalebox{<h-scale>}{<v-scale>}{<content>}
+    \Reflectbox{<content>}
+    \Resizebox*{<width>}{<height>}{<content>}
+
+## dashbox ##
+
+    \Dbox{<content>}
+    \Dashbox[<width>][<position>]{<content>}
+    \Lbox[<layers>]{<content>}
+    \Dlbox[<layers>]{<content>}
+
+## fancybox ##
+
+The \Sbox macro provided by the 'core' option is defined in a way to not 
+collide with the 'Sbox' environment of this package.
+
+

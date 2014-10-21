@@ -1,0 +1,836 @@
+\documentclass[a4paper]{christophe}
+% Packages
+\usepackage[latin1]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[frenchb]{babel}
+\usepackage{graphics,array}
+\usepackage{kpfonts}
+% Mise en page
+\setlength{\parindent}{0pt}
+\renewcommand{\arraystretch}{1.3}
+% Special
+\DeclareMathSymbol{\partialup}{\mathord}{letters}{128}
+\DeclareMathSymbol{\narrowiiintop}{\mathop}{largesymbolsA}{135}
+   \def\narrowiiint{\narrowiiintop\nolimits}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%
+\begin{document}
+
+\begin{center}
+{\Huge Kp-Fonts}
+
+\bigskip
+
+{\Large \textsf{Le projet \textsc{Johannes Kepler}}}
+
+\medskip
+
+{\large \textsf{Version 3.31}}
+\end{center}
+
+\bigskip
+
+\hfill \textsc{Christophe Caignaert}
+
+\hfill \texttt{c.caignaert@free.fr}
+
+\bigskip
+
+\begin{center}
+\textit{\'Economisez votre toner et épargnez l'environnement, utilisez l'option \og light \fg,} 
+
+\textit{C'est 20\,\% de toner en moins !}
+\end{center}
+
+\section{Kp-Fonts}
+
+\subsection{Présentation}
+
+Kp-Fonts est un ensemble le plus complet possible de polices pour LaTeX, incluant des polices de texte romaines, sans-serif et machine à écrire, ainsi qu'un ensemble de polices mathématiques comprenant, en normal et gras, tous les symboles usuels et tous les symboles de l\textsc{'ams} et davantage\dots
+
+La première caractéristique recherchée de ces polices était d'avoir un design à la fois basique et dynamique. Regardons par exemple le \og a \fg{} romain droit :
+
+\bigskip
+
+\hspace{-4mm}\begin{tabular}{|c|c|c|c|c|c|}\hline
+Kp-Fonts & Kp-\textit{light} & CM & Palatino & Utopia & Times\\\hline
+\scalebox{10}{a} &
+\scalebox{10}{\fontfamily{jkpl}\selectfont a} &
+\scalebox{10}{\fontfamily{lmr}\selectfont a} &
+\scalebox{10}{\fontfamily{ppl}\selectfont a} &
+\scalebox{9.2}{\rule{0pt}{1.25ex}\fontfamily{put}\selectfont a} &
+\scalebox{10}{\fontfamily{ptm}\selectfont a}\\\hline
+\end{tabular}
+
+\bigskip
+
+Le projet est de fournir un grand ensemble d'options pour individualiser votre composition de texte ou de mathématiques.
+
+\medskip
+
+Ce package LaTeX est distribue sous license \textsc{gpl}.
+
+\medskip
+
+Les autres polices ont été dessinées de façon à s'harmoniser au mieux.
+
+Kp-Fonts ne nécessite a priori aucun autre package de polices et est complètement compatible avec \texttt{amsmath} que Kp-fonts charge ainsi que \texttt{textcomp} (avec l'option \texttt{full}). À moins bien sûr que vous utilisiez les options relatives à ces chargements\dots
+
+\begin{center}\itshape
+Vous ne devez donc pas charger les extensions \textbf{\texttt{amsmath}} et \textbf{\texttt{textcomp}}.
+\end{center}
+
+\begin{center}\itshape
+Vous pouvez utiliser les options d'\textbf{\texttt{amsmath}} comme option de \textbf{\texttt{kpfonts}}, sauf \textbf{cmex10}.
+\end{center}
+
+L'utilisation de Kp-Fonts ne nécessite qu'un \verb+\usepackage{kpfonts}+ dans le préambule de votre document, au besoin avec des options décrites plus loin.
+
+Enfin, on a recherché une compatibilité maximale avec différents ensembles de polices mathématiques existants.
+
+\subsection{Polices de texte}
+
+\begin{itemize}
+  \item Les codages \textsc{t1, ot1} et \textsc {ts1} sont disponibles complètement à une petite exception près pour le symbole \verb+\SS+ en majuscule dans les polices de type machine à écrire; si vous utilisez des accents, vous devez travailler en \textsc{t1}, le codage \textsc{ot1} n'est là que pour des raisons historiques;
+  \item Les polices romaines sont disponibles droites, en petites majuscules (normales et grandes), italiques, penchées, petites majuscules penchées (normales et grandes) et \og oldstyle \fg{}
+  	en normal, gras et gras étendu;
+  \item Les polices sans-serif sont disponibles droites et penchées, en petites majuscules droites et penchées (normales et grandes), en \og oldstyle \fg, en normal, gras et gras étendu;
+  \item Les polices télétypes sont disponibles droites et penchées, en normal et gras.
+\end{itemize}
+
+\begin{center}\itshape
+La graisse par défaut est \textbf{bold}, et non pas \textbf{bold extended}.
+\end{center}
+
+\subsection{Polices mathématiques}
+
+\begin{itemize}
+	\item La commande \verb+\boldmath+ est complètement implantée et Kp-Fonts \textbf{ne nécessite pas} de
+				\og poor man bold \fg ;
+	\item On dispose de polices grecques droites $\alphaup\betaup\gammaup\Gamma\Delta$ et penchées $\alpha\beta\gamma\Gammasl\Deltasl$;
+	\item La commande \verb=\mathbb= fournit $\mathbb{ABC}$, caractères dessinés à partir des majuscules de texte;  
+	\item La commande \verb=\mathcal= fournit $\mathcal{ABC}$, version légèrement modifiée des polices \textsc{cm};
+	\item La commande \verb=\mathscr= fournit $\mathscr{AB}\,\mathscr{C}$, sans aucun package supplémentaire; ces caractères ont été dessinés à partir de polices traditionnelles;
+	\item La commande \verb=\mathfrak= fournit $\mathfrak{ABCabc}$, toujours à partir de polices traditionnelles redessinées pour être plus lisibles :
+	$\mathfrak{CTAN}$ à comparer avec \textit{CTAN} sur \texttt{www.ctan.org}!
+	\item Voir aussi l'alphabet \verb=\mathupright=, ou \verb=\mathup=, dans la partie consacrée aux versions mathématiques \textit{sf}.
+\end{itemize}
+
+\section{Options}
+
+\subsection{Principales options globales}
+
+\begin{description}
+	\item[light :] alors, vous utilisez la version \textit{light} des polices. Les métriques sont inchangées.
+									L'affichage n'est pas très bon, au contraire de l'impression 
+									si vous aimez les polices fines;
+									
+Ce texte est composé avec les polices par défaut, et ci-dessous, vous trouverez un exemple des polices \og light \fg, en droit et italique, normal et gras :
+
+\bigskip
+
+\hfill\begin{minipage}{11cm}{\fontfamily{jkpl}\selectfont
+While the high-level font commands are intended for use in a document, the low-level commands\dots
+}\end{minipage}
+
+\smallskip
+
+\hfill\begin{minipage}{11cm}{\fontfamily{jkpl}\selectfont
+\textbf{While the high-level font commands are intended for use in a document, the low-level commands\dots}
+}\end{minipage}
+
+\smallskip
+
+
+\hfill\begin{minipage}{11cm}{\fontfamily{jkpl}\selectfont
+
+\textit{While the high-level font commands are intended for use in a document, the low-level commands\dots}
+}\end{minipage}
+
+\smallskip
+
+
+\hfill\begin{minipage}{11cm}{\fontfamily{jkpl}\selectfont
+\textbf{\textit{While the high-level font commands are intended for use in a document, the low-level commands\dots}}
+}\end{minipage}
+
+\smallskip
+
+	\item[fulloldstylenums :] équivaut aux deux options \textit{oldstylenums}
+	
+					  et \textit{oldstylenumsmath};
+	\item[fulloldstyle :] équivaut aux deux options \textit{oldstyle} et \textit{oldstylemath};
+	\item[fullveryoldstyle :] équivaut aux deux options \textit{veryoldstyle} 
+	
+						et \textit{veryoldstylemath}.
+\end{description}
+
+\subsection{Autres options globales}
+
+\begin{description}
+	\item[nomath :] Kp-Fonts ne modifie pas les polices les polices mathématiques par défaut;
+	\item[notext :] Kp-Fonts ne modifie pas les polices de texte par défaut;
+	\item[nosf :] Kp-Fonts ne modifie pas les polices sans-serif par défaut (text et math);
+	\item[nott :] Kp-Fonts ne modifie pas les polices machine à écrire par défaut (text et math);
+	\item[onlyrm :] équivalente aux deux précédentes options ;
+	\item[noamsmath:] Kp-Fonts ne charge pas \texttt{amsmath} ; 
+	\item[notextcomp:] Kp-Fonts ne charge pas \texttt{textcomp}.
+\end{description}
+
+Et si vous utilisez les deux premières et les deux dernières options, Kp-Fonts ne fait rien\dots
+
+\subsection{Options des polices de texte}
+
+Notez que ces options n'affectent que les polices de texte.
+
+\begin{description}
+
+	\item[lighttext :] le texte est composé en utilisant les polices \og light \fg.
+
+	\item[oldstylenums :] Les polices fournissent ici
+		les nombres elzéviriens par défaut.
+		
+		Une commande \verb=\classicstylenums= permet alors, en romain, d'accéder aux nombres usuels.
+		
+		Quelques exemples en droit et italique, medium et gras:
+		
+			\begin{itemize}
+				\item {\fontfamily{jkposn}\selectfont 0123456789 !}
+				\item {\fontfamily{jkposn}\selectfont \textit{0123456789 !}}
+				\item {\fontfamily{jkposn}\selectfont \textbf{0123456789 !}}
+				\item {\fontfamily{jkposn}\selectfont \textbf{\textit{0123456789 !}}}
+			\end{itemize}
+			
+	\item[oldstyle :] Les polices fournissent ici {\og \fontfamily{jkpos}\selectfont Q \fg,
+		les nombres elzéviriens par défaut.
+		  
+		En romain et sans-serif, oldstyle fournit les anciennes ligatures \og ct \fg{} et \og st \fg}, et enfin, 
+		la petite capitale  {\fontfamily{jkpos}\selectfont \og \textsc{q} \fg{}}.
+		
+		Une commande \verb=\classicstylenums= permet alors, en romain, d'accéder aux nombres usuels.
+		
+		Quelques exemples:
+		
+			\begin{itemize}
+				\item {\fontfamily{jkpos}\selectfont Quelle police, quelle esthétique actuelle !}
+				\item {\fontfamily{jkpos}\selectfont \textit{Quelle police, quelle esthétique actuelle !}}
+				\item {\fontfamily{jkpos}\selectfont \textbf{Quelle police, quelle esthétique actuelle !}}
+				\item {\fontfamily{jkpos}\selectfont \textsc{Quelle police, quelle esthétique actuelle !}}
+				\item {\fontfamily{jkpos}\selectfont \textbf{\textit{Quelle police, quelle esthétique actuelle !}}}
+				\item {\fontfamily{jkpos}\selectfont \textsc{\textbf{Quelle police, quelle esthétique actuelle !}}}
+			\end{itemize}
+			
+	\item[veryoldstyle :] Identique à l'option \textit{oldstyle} sauf que le \og s\fg{} rond 
+		est remplacé par le \og {\fontfamily{jkpvos}\selectfont s} \fg{} long.
+		
+		On peut toujours accéder au \og s\fg{} rond par la ligature \og \texttt{s=} \fg, 
+		ce qui est utilisé assez souvent en fin de mot.
+		
+		Exemple: \verb+\textit{espoirs=}+\quad donne \quad \og {\fontfamily{jkpvos}\selectfont \textit{espoirs=}} \fg{}
+		
+		Evidemment, il n'y pas de \og {\fontfamily{jkpvos}\selectfont s} \fg{} long en petites capitales !
+			
+	\item[rmx] alors, vous avez six graisses, données ici avec les correspondances :
+	
+	\medskip
+	
+	\begin{tabular}{|c|c|c|}\hline
+		light & \texttt{l} & {\fontfamily{jkpx}\fontseries{l}\selectfont medium en mode light} \\ \hline
+		medium & \texttt{m} & {\fontfamily{jkpx}\fontseries{m}\selectfont medium en mode standard} \\ \hline
+		semi-bold & \texttt{sb} & {\fontfamily{jkpx}\fontseries{sb}\selectfont bold en mode light} \\ \hline
+		bold & \texttt{b} & {\fontfamily{jkpx}\fontseries{b}\selectfont bold en mode standard} \\ \hline
+		semi-bold extended & \texttt{sbx} & {\fontfamily{jkpx}\fontseries{sbx}
+													\selectfont bold extended en mode light} \\ \hline
+		bold extended & \texttt{bx} & {\fontfamily{jkpx}\fontseries{bx}
+																		\selectfont bold extended en mode standard} \\ \hline
+	\end{tabular}
+	
+	\medskip   
+	
+	
+	Dans ce cas, l'option \textit{light} n'affecte que les polices mathématiques, l'option \textit{lighttext} est ignorée.
+	
+	Je n'aime pas trop cette option car les familles standard et light sont cousines et non pas s\oe urs ! Par ailleurs, cette option n'affecte que les polices romaines.
+	
+	\item[largesmallcaps] donne des petites majuscules plus grandes que par défaut :
+	
+				{\fontfamily{jkpk}\selectfont\textsc{Grandes}} et \textsc{Petites} (par défaut) petites majuscules !
+	
+	\item[easyscsl] permet d'emboîter les commandes \verb=\textsl= et \verb=\textsc= pour obtenir les petites majuscules penchées.
+	
+				Attention,
+				\begin{itemize}
+					\item cette option utilise le package \texttt{ifthen},
+					\item emboîter les commandes précédentes avec des polices autres va générer des erreurs\dots
+				\end{itemize}
+	\item[nofligatures] donne un texte ne contenant pas les ligatures ff, fi, fl, ffi et ffl.
+	      
+	      La lettre \textit{f} a été redessinée pour donner un résulat convenable.
+	      
+	      Cette option est ignorée en présence de \textit{oldstyle} ou \textit{veryoldstyle}.
+	      
+	      On obtient par exemple, {\fontfamily{jkpf}\selectfont \og Un finaliste efflanqué\fg{}}
+	      au lieu d'avoir, \og Un finaliste efflanqué\fg{}.
+	      
+	      De la même façon, {\fontfamily{jkpf}\fontshape{it}\selectfont \og Un finaliste efflanqué\fg{}}
+	      au lieu d'avoir, \textit{\og Un finaliste efflanqué\fg{}}.
+\end{description}
+
+\subsection{Nouvelles commandes de texte}
+
+\begin{description}
+  \item[\textbackslash textscsl\{\dots\}] et \textbf{\textbackslash scslshape :} 
+        fournissent les petites majuscules penchées.
+        
+        \begin{center}
+        \textscsl{Petites capitales penchées}
+        \end{center}
+  
+  \begin{center}
+  \textit{Attention, }\verb=\textsc{\textsl{...}}=\textit{ ne fournit pas ce résultat sans utiliser l'option \textup{easyscsl}!}
+  
+  \textit{Cette forme de police n'est pas habituelle en \TeX!}
+  \end{center}
+  \item[\textbackslash otherscshape, \textbackslash textothersc\{\dots\}] 
+        fournissent les \textit{autres} petites majuscules (normales ou grandes) romaines ou sans-serif.
+        
+        \begin{center}
+        On échange par exemple
+        
+        \textsc{Exemple en petites capitales} \quad\textit{et}\quad \textothersc{Exemple en petites capitales}
+        \end{center}
+  \item[\textbackslash otherscslshape, \textbackslash textotherscsl\{\dots\}] 
+        fournissent les \textit{autres} petites majuscules penchées (normales ou grandes) romaines ou sans-serif.
+        
+        \begin{center}
+        On échange par exemple
+        
+        \textscsl{Exemple en petites capitales} \quad\textit{et}\quad \textotherscsl{Exemple en petites capitales}
+        \end{center}
+  \item[\textbackslash othertailQ] change le dessin de la majuscule 
+        \og Q\fg, avec une courte ou longue queue.
+        
+        \begin{center}
+        On échange par exemple
+        
+        Question \quad\textit{et}\quad \othertailQ uestion
+        \end{center}
+  \item[\textbackslash othertailscq, \textbackslash othertailscslq] font la même chose 
+        avec les petites capitales \og \textsc{q}\fg.
+        
+        \begin{center}
+        On échange par exemple
+        
+        \textsc{question} \quad\textit{et}\quad \textsc{\othertailscq uestion}
+        \end{center}
+\end{description}
+
+\begin{center}
+\textit{Les commandes \og other\fg{} changent la \textbf{taille} des petites capitales}
+
+\textit{et les commandes \og othertail\fg{} changent le \textbf{dessin} des lettres \og Q\fg}
+\end{center}
+
+\begin{center}
+\fbox{\begin{minipage}{8cm}
+Dans certains cas, les titres de section par exemple, les commandes \og other\fg{} doivent être protégées
+par : \og \texttt{\textbackslash protect\textbackslash}...\texttt{other}...\fg !
+\end{minipage}}
+\end{center}
+
+\subsection{Modes mathématiques}
+
+Il y a six modes mathématiques appelés par la commande \verb=\mathversion=.
+
+Par exemple, 
+
+\smallskip
+
+\hfill\verb=\mathversion{sf}$\left(a+b\right)^2$=\quad donne :\quad {\mathversion{sf}$\left(a+b\right)^2$}
+
+\begin{description}
+  \item[normal :] Le mode par défaut dépend des options utilisées.
+  \item[bold :] Le mode gras par défaut.
+  \item[sf :] Les mathématiques sont composées avec les polices sans-serif penchées.
+  
+             \qquad\mathversion{sf}$\displaystyle\sum_{n=1}^{+\infty}\dfrac{1}{n^2}=\dfrac{\pi^2}{6}$
+  \item[boldsf :] Le même mode mathématique en gras.
+  
+             \qquad\mathversion{boldsf}$\displaystyle\sum_{n=1}^{+\infty}\dfrac{1}{n^2}=\dfrac{\pi^2}{6}$
+  \item[rm :] La composition habituelle des mathématiques en romain italique.
+  
+             \qquad\mathversion{rm}$\displaystyle\sum_{n=1}^{+\infty}\dfrac{1}{n^2}=\dfrac{\pi^2}{6}$
+  \item[boldrm :] Le même mode mathématique en gras.
+  
+             \qquad\mathversion{boldrm}$\displaystyle\sum_{n=1}^{+\infty}\dfrac{1}{n^2}=\dfrac{\pi^2}{6}$
+\end{description}
+
+\begin{center}\fbox{
+\begin{minipage}{10cm}
+Avec les versions mathématiques sans-serif, l'option \textit{widermath} est ignorée, ainsi que l'option \textit{lightmath}, ou l'option \textit{light} dans la composition mathématique!
+\end{minipage}}
+\end{center}
+
+Notons aussi la présence d'un nouvel alphabet mathématique : \verb=\mathupright= ou \verb=\mathup=. 
+
+Il équivaut à 
+\begin{itemize}
+	\item \verb=\mathrm= avec les versions mathématiques \textit{rm}, et,
+	\item \verb=\mathsf=  avec les versions mathématiques \textit{sf}.
+\end{itemize}
+
+Autrement dit, il fournit l'alphabet droit correspondant aux lettres mathématiques.
+
+
+
+\subsection{Options de la composition mathématique}
+
+\begin{description}
+
+	\item[lightmath :] les mathématiques sont composées avec les polices \og light \fg.
+  \item[sfmath :] les mathématiques sont composées avec les polices sans-serif penchées, par défaut et avec le mode mathématique \textit{bold}.
+  
+       cela permet d'utiliser le package \textit{bm} avec les mathématiques composées en sans-serif;
+  \item[sfmathbb :] dans tous les cas, la police \verb=\mathbb= est sans-serif:
+        {\mathversion{sf} $\mathbb{C\,K\,N\,Q\,R\,Z}$};         
+  \item[rmmathbb :] dans tous les cas, la police \verb=\mathbb= est romaine:
+        {\mathversion{normal} $\mathbb{C\,K\,N\,Q\,R\,Z}$};         
+	\item[nomathscript :] Kp-Fonts ne crée pas la commande \verb=\mathscr=; cette option vous est utile si vous utiliser
+				le package \verb=\mathrsfs=;
+	\item[mathcalasscript :] cette option échange les polices \verb=\mathcal= et \verb=\mathscr= ;
+	\item[classicReIm :] les commandes \verb=\Re= et \verb=\Im= donnent comme habituellement $\mathfrak{R}$ et  $\mathfrak{I}$. Par défaut, Kp-Fonts donne $\Re$ et $\Im$;
+	\item[uprightRoman :] les \textit{Majuscules} romaines sont droites.
+	\item[frenchstyle :] équivaut aux options \textit{uprightRoman} et \textit{uprightgreeks}, les majuscules romaines et les minuscules grecques sont droites, selon la tradition typographique française; les minuscules romaines restent obliques;
+	\item[upright :] synonyme de la précédente;
+	\item[oldstylenumsmath :] fournit les nombres elzéviriens par défaut et change les polices de \verb=\mathrm=,
+				\verb=\mathsf= et \verb=\mathtt= qui fonctionnent comme les polices de texte avec l'option \textit{oldstylenums};
+	\item[oldstylemath :] fournit les nombres elzéviriens par défaut et change les polices de \verb=\mathrm=,
+				\verb=\mathsf= et \verb=\mathtt= qui fonctionnent comme les polices de texte avec l'option \textit{oldstyle};
+	\item[veryoldstylemath :] identique à \textit{oldstylemath} avec, en plus, le \og s \fg{} long;
+	\item[narrowiints :] fournit des intégrales multiples plus étroites, plus \og françaises\fg :
+	
+        $\narrowiiint$ et $\displaystyle\narrowiiint$\quad au lieu de\quad
+				$\iiint$ et $\displaystyle\iiint$
+	\item[partialup :] fournit le symbole \verb=\partial= droit :
+	                   
+	                   $\partialup$\quad au lieu de\quad$\partial$
+	                   
+	     Vous avez aussi les commandes absolues \verb=\partialup= et \verb=\partialsl=\dots
+	\item[widermath :] pour élargir l'espace entre les lettres mathématiques;
+	\item[noDcommand :] pour préserver une éventuelle compatibilité avec un autre package, la commande \verb=\D= n'est pas chargée.
+				
+\end{description}
+
+Notons que, avec les options \verb+oldstylenumsmath+, \verb+oldstylemath+, 
+
+\verb+veryoldstylemath+, 
+\verb+fulloldstylenums+, \verb+fulloldstyle+ ou \verb+fullveryoldstyle+,
+en mode mathématique, comme les nombres {\fontfamily{jkpvos}\selectfont 3, 4, 5, 7 et 9} sont descendants, les exposants sont placés plus hauts.
+
+\subsection{Placement des indices et exposants}
+
+En mode mathématique, un peu comme avec \texttt{amsmath}, les options suivantes règlent le placement des indices et exposants.
+
+\subsubsection{Intégrales}
+
+L'option par défaut est \textbf{nointlimits}.
+
+
+\renewcommand{\arraystretch}{1.8}
+
+\begin{center}\begin{tabular}{|c||c|c|c|}\hline
+\verb+\int_a^bf(t)+&\textbf{intlimits}&\textbf{nointlimits}&\textbf{fullintlimits}\\\hline\hline
+textstyle&$\int_a^bf(t)$&$\int_a^bf(t)$&\rule[-3ex]{0pt}{7.5ex}$\int\limits_a^bf(t)$\\\hline
+displaystyle&$\displaystyle\int\limits_a^bf(t)$&$\displaystyle\int_a^bf(t)$&\rule[-4.5ex]{0pt}{11ex}$\displaystyle\int\limits_a^bf(t)$\\\hline
+\end{tabular}\end{center}
+
+\renewcommand{\arraystretch}{1.3}
+
+\subsubsection{Sommations et produits}
+
+L'option par défaut est \textbf{sumlimits}.
+
+
+\renewcommand{\arraystretch}{1.8}
+
+\begin{center}\begin{tabular}{|c||c|c|c|}\hline
+\verb+\sum_{i=1}^nu_n+&\textbf{sumlimits}&\textbf{nosumlimits}&\textbf{fullsumlimits}\\\hline\hline
+textstyle&$\sum_{i=1}^nu_n$&$\sum_{i=1}^nu_n$&\rule[-3ex]{0pt}{7ex}$\sum\limits_{i=1}^nu_n$\\\hline
+displaystyle&$\displaystyle\sum_{i=1}^nu_n$&$\displaystyle\sum\nolimits_{i=1}^nu_n$&\rule[-4ex]{0pt}{9ex}$\displaystyle\sum_{i=1}^nu_n$\\\hline
+\end{tabular}\end{center}
+
+\renewcommand{\arraystretch}{1.3}
+
+\subsection{Options de gestion des lettres grecques en mode mathématique}
+
+\begin{description}
+	\item[uprightgreeks :] les \textit{minuscules} grecques sont droites, $\alphaup\betaup\gammaup$;
+	\item[slantedGreeks :] les \textit{Majuscules} grecques sont penchées, $\Gammasl\Deltasl$. 
+\end{description}
+
+\section{Utilisation}
+
+\subsection{Accès aux caractères grecs}
+
+On a vu les deux options qui permettent de modifier les caractères grecs utilisés par défaut. 
+
+Par ailleurs, on peut toujours accéder aux autres caractères grecs par les commandes \verb=\otheralpha=, \verb=\otherGamma=. Le résultat dépend ici des options utilisées.
+
+Pour les majuscules, on dispose aussi des commandes du type \verb=\varGamma= qui sont synonymes des précédentes.
+
+Enfin, les commandes comme \verb=\alphasl=, \verb=\alphaup=, \verb=\Gammaup= ou \verb=\Gammasl= permettent toujours d'obtenir le caractère désiré quelle que soit l'option utilisée.
+
+\subsection{Symboles standards}
+
+Tous les symboles standards sont présents, y compris tous ceux du package \texttt{amssymb}, en graisse normale et grasse.
+
+Par exemple:\quad $\leq\quad\bullet\quad\pm$\quad pour les symboles standards ou \quad$\twoheadrightarrow\quad\subsetneq\quad\leqslant$\quad pour les symboles de l\textsc{'ams}.
+
+{\mathversion{bold}
+et aussi en gras:\quad$\leq\quad\bullet\quad\pm$\quad ou \quad$\twoheadrightarrow\quad\subsetneq\quad\leqslant$.}
+
+On a bien sûr aussi les constructions habituelles en normal ou gras: \quad $\mapsto\longmapsto$,\quad
+{\mathversion{bold}$\mapsto\longmapsto$}
+
+\subsection{Symboles supplémentaires}
+
+Kp-Fonts propose de nombreux symboles ou constructions supplémentaires. 
+
+On a aussi de nombreuses négations non reportées ici.
+
+%\mathversion{bold}
+
+\begin{center}\begin{tabular}{r>{$}c<{$}|r>{$}c<{$}}
+
+\verb=\mappedfrom=&\mappedfrom&\verb=\longmappedfrom=&\longmappedfrom\\
+\verb=\Mapsto=&\Mapsto&\verb=\Longmapsto=&\Longmapsto\\
+\verb=\Mappedfrom=&\Mappedfrom&\verb=\Longmappedfrom=&\Longmappedfrom\\
+\verb=\mmapsto=&\mmapsto&\verb=\longmmapsto=&\longmmapsto\\
+\verb=\mmappedfrom=&\mmappedfrom&\verb=\longmmappedfrom=&\longmmappedfrom\\
+\verb=\Mmapsto=&\Mmapsto&\verb=\Longmmapsto=&\Longmmapsto\\
+\verb=\Mmappedfrom=&\Mmappedfrom&\verb=\Longmmappedfrom=&\Longmmappedfrom\\
+\verb=\dashleftarrow=&\dashleftarrow&\verb=\dashrightarrow=&\dashrightarrow\\
+\verb=\dashleftrightarrow=&\dashleftrightarrow&\verb=\leftsquigarrow=&\leftsquigarrow\\
+\verb=\Nearrow=&\Nearrow&\verb=\Searrow=&\Searrow\\
+\verb=\Nwarrow=&\Nwarrow&\verb=\Swarrow=&\Swarrow\\
+\verb=\varemptyset=&\varemptyset& & \\
+\verb=\leadstoext=&\leadstoext&\verb=\leadsto=&\leadsto\\
+
+\end{tabular}\end{center}
+
+On notera que ces deux derniers symboles se combinent :
+
+\verb=\leadstoext\leadstoext\leadstoext\leadsto=
+donne\quad
+$\leadstoext\leadstoext\leadstoext\leadsto$
+
+\begin{center}\begin{tabular}{r>{$}c<{$}|r>{$}c<{$}}
+
+\verb=\boxright=&\boxright&\verb=\Diamondright=&\Diamondright\\
+\verb=\circleright=&\circleright&\verb=\boxleft=&\boxleft\\
+\verb=\Diamondleft=&\Diamondleft&\verb=\circleleft=&\circleleft\\
+\verb=\boxdotright=&\boxdotright&\verb=\Diamonddotright=&\Diamonddotright\\
+\verb=\circleddotright=&\circleddotright&\verb=\boxdotleft=&\boxdotleft\\
+\verb=\Diamonddotleft=&\Diamonddotleft&\verb=\circleddotleft=&\circleddotleft\\
+
+\end{tabular}\end{center}
+
+\begin{center}\begin{tabular}{r>{$}c<{$}|r>{$}c<{$}}
+
+\verb=\boxRight=&\boxRight&\verb=\boxLeft=&\boxLeft\\
+\verb=\boxdotRight=&\boxdotRight&\verb=\boxdotLeft=&\boxdotLeft\\
+\verb=\DiamondRight=&\DiamondRight&\verb=\DiamondLeft=&\DiamondLeft\\
+\verb=\DiamonddotRight=&\DiamonddotRight&\verb=\DiamonddotLeft=&\DiamonddotLeft\\
+
+\end{tabular}\end{center}
+
+\begin{center}\begin{tabular}{r>{$}c<{$}|r>{$}c<{$}}
+
+\verb=\multimap=&\multimap&\verb=\multimapinv=&\multimapinv\\
+\verb=\multimapboth=&\multimapboth&\verb=\multimapdot=&\multimapdot\\
+\verb=\multimapdotinv=&\multimapdotinv&\verb=\multimapdotboth=&\multimapdotboth\\
+\verb=\multimapdotbothA=&\multimapdotbothA&\verb=\multimapdotbothB=&\multimapdotbothB\\
+\verb=\multimapbothvert=&\multimapbothvert&\verb=\multimapdotbothvert=&\multimapdotbothvert\\
+\verb=\multimapdotbothAvert=&\multimapdotbothAvert&\verb=\multimapdotbothBvert=&\multimapdotbothBvert\\
+
+\end{tabular}\end{center}
+
+\begin{center}\begin{tabular}{r>{$}c<{$}|r>{$}c<{$}|r>{$}c<{$}}
+
+\verb=\Wr=&\Wr&\verb=\sqcupplus=&\sqcupplus&\verb=\sqcapplus=&\sqcapplus\\
+\verb=\medcirc=&\medcirc&\verb=\medbullet=&\medbullet&\verb=\doteq=&\doteq\\
+\verb=\VDash=&\VDash&\verb=\VvDash=&\VvDash&
+\verb=\cong=&\cong\\
+\verb=\preceqq=&\preceqq&
+\verb=\succeqq=&\succeqq&\verb=\coloneqq=&\coloneqq\\
+\verb=\varparallel=&\varparallel&\verb=\varparallelinv=&\varparallelinv&\verb=\colonapprox=&\colonapprox\\
+\verb=\colonsim=&\colonsim&\verb=\Colonapprox=&\Colonapprox&\verb=\Colonsim=&\Colonsim\\
+\verb=\eqqcolon=&\eqqcolon&\verb=\coloneq=&\coloneq&\verb=\eqcolon=&\eqcolon\\
+\verb=\Coloneqq=&\Coloneqq&
+\verb=\Eqqcolon=&\Eqqcolon&\verb=\invamp=&\invamp\\
+\verb=\Diamonddot=&\Diamonddot&\verb=\Diamond=&\Diamond&\verb=\Diamondblack=&\Diamondblack\\
+
+\end{tabular}\end{center}
+
+\begin{center}\begin{tabular}{r>{$}c<{$}|r>{$}c<{$}|r>{$}c<{$}}
+
+\verb=\strictif=&\strictif&\verb=\strictfi=&\strictfi&\verb=\strictiff=&\strictiff\\
+\verb=\circledless=&\circledless&\verb=\circledgtr=&\circledgtr&\verb=\circledwedge=&\circledwedge\\
+\verb=\circledvee=&\circledvee&\verb=\circledbar=&\circledbar&\verb=\circledbslash=&\circledbslash\\
+\verb=\lJoin=&\lJoin&\verb=\rJoin=&\rJoin&\verb=\Join=&\Join\\
+\verb=\openJoin=&\openJoin&\verb=\lrtimes=&\lrtimes&\verb=\opentimes=&\opentimes\\
+\verb=\Lbag=&\Lbag&\verb=\Rbag=&\Rbag&\verb=\nplus=&\nplus\\
+\verb=\Top=&\Top&\verb=\Bot=&\Bot&\verb=\Perp=&\Perp\\
+\verb=\boxast=&\boxast&\verb=\boxbslash=&\boxbslash&\verb=\boxbar=&\boxbar\\
+\verb=\boxslash=&\boxslash&\verb=\lambdaslash=&\lambdaslash&\verb=\lambdabar=&\lambdabar\\
+\verb=\varclubsuit=&\varclubsuit&\verb=\vardiamondsuit=&\vardiamondsuit&\verb=\varheartsuit=&\varheartsuit\\
+\verb=\varspadesuit=&\varspadesuit&\verb=\llbracket=&\llbracket&\verb=\rrbracket=&\rrbracket\\
+
+\end{tabular}\end{center}
+
+\verb=\lbag=, \verb=\rbag=, \verb=\llbracket= et \verb=\rrbracket= sont verticalement extensibles.
+
+\subsection{Variantes des symboles d'intégration}
+
+On peut remarquer que, quand on écrit une primitive, le résultat manque souvent d'élégance car la fonction est souvent placée trop loin du signe d'intégration.
+
+Ce qu'on peut voir ici :
+
+\[\int f(t)\:\mathrm{d}t\]
+
+Kp-Fonts possède des instructions supplémentaires pour éviter cela. La première est la commande \verb=\varint= qui donne :
+
+\[\varint f(t)\:\mathrm{d}t\]
+
+Chacun peut ainsi choisir la forme qui lui convient le mieux !
+
+Bien sûr, cette commande ne convient pas quand on calcule une intégrale\dots
+
+On peut aussi la coupler à la commande \verb=\D{...}=, le \og d \fg{} de l'intégration avec un espacement optimisé:
+	
+	\qquad\verb=\displaystyle\varint f(t)\D{t}=\qquad donne\qquad
+	$\displaystyle\varint f(t)\D{t}$
+	
+	Avec l'option \textit{frenchstyle}, on obtient un \og d \fg{} droit, comme plus haut.
+
+
+Les autres commandes disponibles sont :
+\verb=\variint=, \verb=\variiint=, \verb=\variiiint= et \verb=\varidotsint=.
+
+\subsection{Grands symboles supplémentaires}
+
+Notons d'abord que les commandes \verb=\widehat= et \verb=\widetilde= ont été étendues :
+\[\widetilde{tilde}\qquad\widehat{chapeau}\]
+
+On a ensuite les commandes \verb=\widearc=, \verb=\widearcarrow= (ou \verb=\wideOarc=), 
+
+\verb=\wideparen=
+et \verb=\widering= :
+\[\widearc{arc}\qquad\widearcarrow{arrow}\qquad\wideparen{paren}\qquad\widering{RING}\]
+
+Cette dernière commande génère une erreur avec l'option \verb=noamsmath=
+
+Notons enfin les quelques commandes supplémentaires :
+
+\renewcommand{\arraystretch}{1.8}
+
+\begin{center}\begin{tabular}{r>{$}c<{$}>{$\displaystyle}c<{$}|r>{$}c<{$}>{$\displaystyle}c<{$}}
+
+\verb=\bignplus=&\bignplus&\bignplus&\verb=\bigsqcupplus=&\bigsqcupplus&\bigsqcupplus\\
+\verb=\bigsqcapplus=&\bigsqcapplus&\bigsqcapplus&\verb=\bigsqcap=&\bigsqcap&\bigsqcap\\
+\verb=\varprod=&\varprod&\varprod&\\
+
+\end{tabular}\end{center}
+
+
+\subsection{Symboles d'intégration supplémentaires}
+
+Il existe de nombreux signes d'intégration supplémentaires :
+
+\renewcommand{\arraystretch}{2}
+
+\begin{center}
+\begin{tabular}{r>{$}c<{$}c|r>{$}c<{$}c} 
+\verb+\oiint+ &\oiint& $\displaystyle\oiint$ & 
+\verb+\ointctrclockwise+ &\ointctrclockwise& $\displaystyle\ointctrclockwise$  \\
+\verb+\ointclockwise+ &\ointclockwise& $\displaystyle\ointclockwise$ & 
+\verb+\sqint+ &\sqint& $\displaystyle\sqint$ \\
+\verb+\idotsint+ &\idotsint& $\displaystyle\idotsint$ & 
+\verb+\oiiint+ &\oiiint& $\displaystyle\oiiint$ \\ 
+\verb+\varointctrclockwise+ &\varointctrclockwise& $\displaystyle\varointctrclockwise$ & \verb+\varointclockwise+ &\varointclockwise& $\displaystyle\varointclockwise$ \\
+\verb+\fint+ &\fint& $\displaystyle\fint$ & 
+\verb+\oiintctrclockwise+ &\oiintctrclockwise& $\displaystyle\oiintctrclockwise$ \\ 
+\verb+\varoiintclockwise+ &\varoiintclockwise& $\displaystyle\varoiintclockwise$ &
+\verb+\oiintclockwise+ &\oiintclockwise& $\displaystyle\oiintclockwise$ \\ 
+\verb+\varoiintctrclockwise+ &\varoiintctrclockwise& $\displaystyle\varoiintctrclockwise$ & \verb+\oiiintctrclockwise+ &\oiiintctrclockwise& $\displaystyle\oiiintctrclockwise$ \\
+\verb+\varoiiintctrclockwise+ &\varoiiintctrclockwise& $\displaystyle\varoiiintctrclockwise$ & 
+\verb+\sqiint+ &\sqiint& $\displaystyle\sqiint$ \\ 
+\verb+\sqiiint+ &\sqiiint& $\displaystyle\sqiiint$ \\
+\end{tabular}
+\end{center}
+
+\section{Installation}
+
+\begin{itemize}
+	\item 
+	
+Avec MikTeX, installez le package comme décrit ici :
+	
+	\medskip
+
+	\begin{verbatim}
+	http://docs.miktex.org/manual/pkgmgt.html#id562117
+	\end{verbatim}
+	
+	\bigskip
+	
+	\item
+	
+Avec une autre distribution, ou, sous MikTeX, pour faire une installation manuelle, suivez ces instructions :
+	
+	\bigskip
+
+\begin{enumerate}
+	\item 
+Le package fournit une architexture \textsc{tds} standard. Vous devez copier les fichiers dans l'une de vos arborescences \texttt{texmf} locales puis mettre à jour votre base de fichiers.
+	
+	\bigskip
+	\item
+Maintenant, vous devez mettre à jour vos fichiers \texttt{.map}.
+	
+	\bigskip
+\begin{itemize}
+	\item 
+Avec une distribution \texttt{web2c}, éxécutez \texttt{updmap}:
+	
+	\medskip
+
+	\begin{verbatim}
+	updmap --enable Map=kpfonts.map
+	\end{verbatim}
+	
+	\medskip
+	
+et/ou, cette fois ci en tant que \textit{root}:
+	
+	\medskip
+
+	\begin{verbatim}
+	updmap-sys --enable Map=kpfonts.map
+	\end{verbatim}
+	
+	\bigskip
+	
+	\item
+Sous MikTeX, suivez les instructions du manuel :
+	
+	\medskip
+
+	\begin{verbatim}
+	http://docs.miktex.org/manual/advanced.html#psfonts
+	\end{verbatim}
+	
+\end{itemize}
+	
+\end{enumerate}
+	
+\end{itemize}
+
+
+\section{Quelques petits compléments}
+
+\subsection{Les familles de polices de texte du projet \textsc{Johannes Kepler}}
+
+Si vous voulez, ou si vous devez, utiliser les commandes de bas niveau,
+les noms des familles de polices sont constitués de la façon suivante:
+
+\begin{center}\begin{tabular}{|l|l|}\hline
+\textbf{roman}& jkp[l,x][k][f][osn,os,vos]\\\hline
+\textbf{sans serif}& jkpss[k][f][osn,os,vos]\\\hline
+\textbf{télétype}& jkptt[osn,os,vos]\\\hline
+\end{tabular}\end{center}
+
+où les options correspondantes sont:
+
+\begin{center}\begin{tabular}{|l|l|}\hline
+\textbf{l, x}& light, rmx\\\hline
+\textbf{k}& largesmallcaps\\\hline
+\textbf{f}&nofligatures\\\hline
+\textbf{osn, os, vos}& oldstylenums, oldstyle, veryoldstyle\\\hline
+\end{tabular}\end{center}
+
+Bien sûr, on ne peut avoir \textbf{f} et \textbf{os} ou \textbf{vos}.
+
+Remarquons que toutes ces familles existent dans les encodages \textsc{ot}\oldstylenums{1}, \textsc{t}\oldstylenums{1} et \textsc{ts}\oldstylenums{1}.
+
+
+\subsection{Metriques et compatibilité}
+
+\begin{itemize}
+	\item L'option \textit{light} ne change aucune métrique;
+	\item Les familles d'options \textit{oldstylenums} et \textit{oldstyle} ne changent pas de métrique horizontale;
+	\item La famille d'options \textit{veryoldstyle} change aussi les métriques du 's' minuscule
+				et la hauteur des exposants en mode math;
+	\item Toutes les options sont compatibles, sauf si cela n'a pas de sens,
+				comme les deux options \textit{nomath} et \textit{frenchstyle} simultanément;
+	\item En cas de conflit entre des options des familles \textit{oldstylenums}, \textit{oldstyle} et \textit{veryoldstyle},
+				les options les plus légères sont ignorées.
+\end{itemize}
+
+\subsection{Affichage et impression}
+
+Comme souvent, il peut exister des problèmes d'affichage ou d'impression\dots
+
+Les problèmes d'affichage sont dus à un \og hinting \fg{} automatique. Je ne suis pas typographe professionnel et je ne sais pas intervenir là dessus ;
+les problèmes d'impression peuvent se poser avec des versions anciennes d'\textit{Acroread}\textregistered{} sous \textit{Windows}\textregistered.
+
+Si vous utilisez l'option \textit{light}, l'impression est nettement meilleure que l'affichage !
+
+Signalons que l'impression est meilleure sous \textit{Ghostscript-Ghostview}\textregistered\dots
+
+\subsection{Résumé}
+
+L'ensemble des possibilités de \textit{kpfonts} est résumé en une page dans le fichier \textit{kpfonts-abstract.pdf} !
+
+\subsection{Recherche de mots}
+
+Avec l'option \textit{veryoldstyle}, les visualisateurs ne trouvent pas les ligatures rares \textbf{si, sl, st} et les \textbf{s} accent aigu, caron et cédille. 
+
+\begin{center}
+\textit{N'utilisez pas cette option si vous voulez faire de telles recherches !}
+\end{center}
+
+\subsection{Mes options préférées}
+
+\begin{itemize}
+	\item Pour un document sans math, j'utilise les options \textit{light} et \textit{oldstyle};
+	\item et pour un document avec des maths, j'utilise les options \textit{light, frenchstyle,
+				narrowiints} et \textit{partialup}, mais je suis aussi français !
+\end{itemize}
+
+\subsection{\textsc{Johannes Kepler 1571-1630}}
+
+Vers 1600, \textsc{Kepler} est obligé de fuir à Prague suite aux persécutions religieuses de la contre-réforme, en effet il était luthérien. Il rejoint l'observatoire de l'astronome danois \textsc{Tycho Brahe}. Mais celui-ci meurt en 1601, lui laissant  l'usage de ses archives. En analysant méthodiquement, et sans a-priori, ces données, il établit les deux premières lois du mouvement planétaire qui ont immortalisé son nom (1609) ; lois qu'il vérifia par d'autres observations. Il fut ainsi un précurseur de la méthode scientifique.
+
+\subsection{Dernière remarque}
+
+Notons que \textit{Kepler}\textregistered{} est un nom déposé de police distribué par \textit{Adobe}\texttrademark. 
+
+Les polices de Kp-Fonts n'ont rien à voir avec celles-ci.
+
+Kp-Fonts est distribuée sous licence \textsc{gpl}.
+
+\subsection{Remerciements}
+
+Je tiens à remercier pour leur aide et leur soutien
+\begin{itemize}
+	\item \textsc{Nicolas Boulenguez} (Tests);
+	\item \textsc{Michel Bovani} (Polices);
+	\item \textsc{Daniel Flipo} (\LaTeX);
+	\item \textsc{Souraya Muhidine} (Relecture de la traduction)
+	\item \textsc{Peter Rosenberg} (\textsc{urw})
+	\item \textsc{Christian Tellechea} (package \textit{xstring})
+	\item et les contributeurs de \texttt{comp.text.tex} et de \texttt{fr.comp.text.tex}
+\end{itemize}
+	
+\end{document}

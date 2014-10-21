@@ -1,0 +1,86 @@
+%%
+%% This is file `GS_set_code_digit_seq.tex',
+%% generated with the docstrip utility.
+%%
+%% The original source files were:
+%%
+%% GS1.dtx  (with options: `test,GS.set.code.digit.seq')
+%% 
+%% EXPERIMENTAL CODE
+%% 
+%% This Work depends on the correct version of expl3 release.  If
+%% you'll update expl3 you may need a update of this this Work too.
+%% 
+%% Do not distribute this file without also distributing the
+%% source files specified above.
+%% 
+%% Do not distribute modified version of this file.
+%% 
+%% File: GS1.dtx Copyright (C) 2012 Markus Kohm
+%%
+%% It may be distributed and/or modified under the conditions of the
+%% LaTeX Project Public License (LPPL), either version 1.3c of this
+%% license or (at your option) any later version.  The latest version
+%% of this license is in the file
+%%
+%%    http://www.latex-project.org/lppl.txt
+%%
+%% This file is part of the "GS1 bundle" (The Work in LPPL)
+%% and all files in that bundle must be distributed together.
+%%
+%% The released version of this bundle is available from CTAN.
+%%
+%% -------------------------------------------------------------------------
+\RequirePackage{expl3}
+\GetIdInfo$Id: GS1.dtx 15 2012-08-27 10:25:03Z mjk $
+  {GS1 code handler and barcode generator}
+\documentclass{article}
+\usepackage{GS1}
+\ExplSyntaxOn
+\msg_new:nnn { GS1/test } { function }
+  {
+    Something~is~wrong~with~function~#1
+    \msg_line_context:~~of~\c_job_name_tl.tex.
+  }
+\ExplSyntaxOff
+\begin{document}
+\ExplSyntaxOn
+\seq_new:N \l_testa_seq
+\seq_new:N \l_testb_seq
+
+\GS_set_code_digit_seq:Nn \l_testa_seq {ISBN 978-3-86541-459-5}
+Sequence~for~ISBN~978-3-86541-459-5~is:~
+\seq_use:Nnnn \l_testa_seq { ,~ } { ,~} { ,~ }
+
+\GS_set_code_digit_seq:Nn \l_testb_seq {9783865414595}
+\seq_map_inline:Nn \l_testa_seq
+  {
+    \seq_pop_left:NN \l_testb_seq \l_tmpa_tl
+    \tl_set:Nn \l_tmpb_tl { #1 }
+    \tl_if_eq:NNF \l_tmpa_tl \l_tmpb_tl
+      {
+        \tl_show:N l_testa_seq
+        \tl_show:N l_testb_seq
+        \msg_fatal:nnn { GS1/test } { function } { \GS_set_code_digit_seq:Nn }
+      }
+  }
+
+\GS_set_code_digit_seq:Nn \l_testa_seq {ISBN 978-3-86541-459-5}
+\seq_set_split:Nnn \l_testb_seq {,} {9,7,8,3,8,6,5,4,1,4,5,9,5}
+\seq_map_inline:Nn \l_testa_seq
+  {
+    \seq_pop_left:NN \l_testb_seq \l_tmpa_tl
+    \tl_set:Nn \l_tmpb_tl { #1 }
+    \tl_if_eq:NNF \l_tmpa_tl \l_tmpb_tl
+      {
+        \tl_show:N \l_testa_seq
+        \tl_show:N \l_testb_seq
+        \msg_fatal:nnn { GS1/test } { function } { \GS_set_code_digit_seq:Nn }
+      }
+  }
+
+\ExplSyntaxOff
+\end{document}
+%% 
+%%
+%% End of file `GS_set_code_digit_seq.tex'.

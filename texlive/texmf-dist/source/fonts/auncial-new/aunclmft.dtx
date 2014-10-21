@@ -1,0 +1,2173 @@
+% \iffalse meta-comment
+%
+% aunclmft.dtx
+%
+%  Author: Peter Wilson (Herries Press) herries dot press at earthlink dot net
+%  Copyright 1999--2005 Peter R. Wilson
+%
+%  This work may be distributed and/or modified under the
+%  conditions of the Latex Project Public License, either
+%  version 1.3 of this license or (at your option) any
+%  later version.
+%  The latest version of the license is in
+%    http://www.latex-project.org/lppl.txt
+%  and version 1.3 or later is part of all distributions of
+%  LaTeX version 2003/06/01 or later.
+%
+%  This work has the LPPL maintenance status "author-maintained".
+%
+%  This work consists of the files listed in the README file.
+%
+% If you do not have the docmfp package (available from CTAN in
+% tex-archive/macros/latex/contrib/supported), comment out the
+% \usepackage{docmfp} line below and uncomment the line following it. 
+%
+%<*driver>
+\documentclass[twoside]{ltxdoc}
+\usepackage{docmfp}
+%%%%%% \providecommand{\DescribeVariable}[1]{} \newenvironment{routine}[1]{}{}
+\usepackage{url}
+\usepackage[draft=false,
+            plainpages=false,
+            pdfpagelabels,
+            bookmarksnumbered,
+            hyperindex=false
+           ]{hyperref}
+\providecommand{\phantomsection}{}
+\OnlyDescription %% comment this out for the full glory
+\EnableCrossrefs
+\CodelineIndex
+\setcounter{StandardModuleDepth}{1}
+\makeatletter
+  \@mparswitchfalse
+\makeatother
+\renewcommand{\MakeUppercase}[1]{#1}
+\pagestyle{headings}
+\newenvironment{addtomargins}[1]{%
+  \begin{list}{}{%
+    \topsep 0pt%
+    \addtolength{\leftmargin}{#1}%
+    \addtolength{\rightmargin}{#1}%
+    \listparindent \parindent
+    \itemindent \parindent
+    \parsep \parskip}%
+  \item[]}{\end{list}}
+\begin{document}
+  \raggedbottom
+  \DocInput{aunclmft.dtx}
+\end{document}
+%</driver>
+%
+% \fi
+%
+% \CheckSum{132}
+%
+% \DoNotIndex{\',\.,\@M,\@@input,\@addtoreset,\@arabic,\@badmath}
+% \DoNotIndex{\@centercr,\@cite}
+% \DoNotIndex{\@dotsep,\@empty,\@float,\@gobble,\@gobbletwo,\@ignoretrue}
+% \DoNotIndex{\@input,\@ixpt,\@m}
+% \DoNotIndex{\@minus,\@mkboth,\@ne,\@nil,\@nomath,\@plus,\@set@topoint}
+% \DoNotIndex{\@tempboxa,\@tempcnta,\@tempdima,\@tempdimb}
+% \DoNotIndex{\@tempswafalse,\@tempswatrue,\@viipt,\@viiipt,\@vipt}
+% \DoNotIndex{\@vpt,\@warning,\@xiipt,\@xipt,\@xivpt,\@xpt,\@xviipt}
+% \DoNotIndex{\@xxpt,\@xxvpt,\\,\ ,\addpenalty,\addtolength,\addvspace}
+% \DoNotIndex{\advance,\Alph,\alph}
+% \DoNotIndex{\arabic,\ast,\begin,\begingroup,\bfseries,\bgroup,\box}
+% \DoNotIndex{\bullet}
+% \DoNotIndex{\cdot,\cite,\CodelineIndex,\cr,\day,\DeclareOption}
+% \DoNotIndex{\def,\DisableCrossrefs,\divide,\DocInput,\documentclass}
+% \DoNotIndex{\DoNotIndex,\egroup,\ifdim,\else,\fi,\em,\endtrivlist}
+% \DoNotIndex{\EnableCrossrefs,\end,\end@dblfloat,\end@float,\endgroup}
+% \DoNotIndex{\endlist,\everycr,\everypar,\ExecuteOptions,\expandafter}
+% \DoNotIndex{\fbox}
+% \DoNotIndex{\filedate,\filename,\fileversion,\fontsize,\framebox,\gdef}
+% \DoNotIndex{\global,\halign,\hangindent,\hbox,\hfil,\hfill,\hrule}
+% \DoNotIndex{\hsize,\hskip,\hspace,\hss,\if@tempswa,\ifcase,\or,\fi,\fi}
+% \DoNotIndex{\ifhmode,\ifvmode,\ifnum,\iftrue,\ifx,\fi,\fi,\fi,\fi,\fi}
+% \DoNotIndex{\input}
+% \DoNotIndex{\jobname,\kern,\leavevmode,\let,\leftmark}
+% \DoNotIndex{\list,\llap,\long,\m@ne,\m@th,\mark,\markboth,\markright}
+% \DoNotIndex{\month,\newcommand,\newcounter,\newenvironment}
+% \DoNotIndex{\NeedsTeXFormat,\newdimen}
+% \DoNotIndex{\newlength,\newpage,\nobreak,\noindent,\null,\number}
+% \DoNotIndex{\numberline,\OldMakeindex,\OnlyDescription,\p@}
+% \DoNotIndex{\pagestyle,\par,\paragraph,\paragraphmark,\parfillskip}
+% \DoNotIndex{\penalty,\PrintChanges,\PrintIndex,\ProcessOptions}
+% \DoNotIndex{\protect,\ProvidesClass,\raggedbottom,\raggedright}
+% \DoNotIndex{\refstepcounter,\relax,\renewcommand,\reset@font}
+% \DoNotIndex{\rightmargin,\rightmark,\rightskip,\rlap,\rmfamily,\roman}
+% \DoNotIndex{\roman,\secdef,\selectfont,\setbox,\setcounter,\setlength}
+% \DoNotIndex{\settowidth,\sfcode,\skip,\sloppy,\slshape,\space}
+% \DoNotIndex{\symbol,\the,\trivlist,\typeout,\tw@,\undefined,\uppercase}
+% \DoNotIndex{\usecounter,\usefont,\usepackage,\vfil,\vfill,\viiipt}
+% \DoNotIndex{\viipt,\vipt,\vskip,\vspace}
+% \DoNotIndex{\wd,\xiipt,\year,\z@}
+%
+% \changes{v1.0}{1999/05/22}{First public release}
+% \changes{v2.0}{2005/11/27}{Major rewrite}
+%
+% \def\fileversion{v1.0} \def\filedate{1999/05/22}
+% \def\fileversion{v2.0} \def\filedate{2005/11/27}
+% \newcommand*{\Lpack}[1]{\textsf {#1}}           ^^A typeset a package
+% \newcommand*{\Lopt}[1]{\textsf {#1}}            ^^A typeset an option
+% \newcommand*{\file}[1]{\texttt {#1}}            ^^A typeset a file
+% \newcommand*{\Lcount}[1]{\textsl {\small#1}}    ^^A typeset a counter
+% \newcommand*{\pstyle}[1]{\textsl {#1}}          ^^A typeset a pagestyle
+% \newcommand*{\Lenv}[1]{\texttt {#1}}            ^^A typeset an environment
+% \newcommand*{\AD}{\textsc{ad}}
+% \newcommand*{\thisfont}{Artificial Uncial}
+%
+% \title{\Lpack{Artificial Uncial}: MetaFont driver code\thanks{This
+%        file has version number \fileversion, last revised
+%        \filedate.}}
+%
+% \author{%
+% Peter Wilson\footnote{\texttt{herries dot press at earthlink dot net}}\\
+% Herries Press }
+% \date{\filedate}
+% \maketitle
+% \begin{abstract}
+%    The \Lpack{auncial} bundle provides a PostScript Type1 set of 
+% \thisfont{} bookhands 
+% as used
+% for manuscripts in the 6th to the 10th century. This is one in a series
+% of manuscript fonts.
+%
+% This document contains the MetaFont driver code.
+% \end{abstract}
+% \tableofcontents
+% \listoftables
+%
+% 
+%
+% \section{Introduction}
+%
+%    The \Lpack{auncial} bundle provides a PostScript Type1 version of a 
+% Metafont~\cite{METAFONT} rendition 
+% of the \thisfont{} manuscript book-hand that was in use between about the
+% sixth and tenth centuries~\AD. It is part of a project to provide fonts
+% covering the major manuscript hands between the first century~\AD{} and
+% the invention of printing.
+%
+% This document contains the MetaFont driver code.
+%
+% This manual is typeset according to the conventions of the
+% \LaTeX{} \textsc{docstrip} utility which enables the automatic
+% extraction of the \LaTeX{} macro source files~\cite{GOOSSENS94}.
+% The \Lpack{docmfp} package is used for documenting the Metafont portions
+% of the distribution~\cite{DOCMFP}.
+%
+% \section{The Metafont code} \label{sec:mf}
+%
+%
+%    As previously noted, this work is part of a larger project to provide
+% fonts covering the main manuscript book-hands. As such, one of the
+% aims is to produce a coordinated set of fonts, especially as multiple
+% hands might be used in a single document. 
+%
+%    Noting that the hands tend to be somewhat larger than the typical 10pt
+% size (where the x-height is approximately 1.5mm) used for modern books, 
+% I have also designed the fonts
+% at a larger than normal size, then applied some non-linear factors when reducing
+% them down to a 10pt size.
+%    Further, I have used the height of the Carolingian minuscule as a 
+% normalising factor when deciding on the absolute height of any particular
+% script. The x-height of the Carolingian font is made equal to the
+% x-height of the Computer Modern Roman (CMR) font.
+%
+%    Modern fonts are effectively drawn. That is, the outline of the letter is
+% drawn carefully and the center is filled with ink. This is shown to good
+% effect in the Metafont code for the Computer Modern fonts~\cite{CM}.
+% In contrast, the manuscript letters were inked by single pen strokes in
+% a calligraphic manner. I have tried to repeat this calligraphic style
+% in the Metafont code.
+%
+%    As much as possible I have tried to use parameter values from the
+% Computer Modern Roman (CMR) fonts in order to reduce possible
+% infelicities if the CM and manuscript fonts are used together. However,
+% few of the CMR parameters are applicable to the calligraphic style.
+%
+%
+% \StopEventually{
+% \bibliographystyle{alpha}
+% \renewcommand{\refname}{Bibliography}
+% \begin{thebibliography}{GMS94}
+% \addcontentsline{toc}{section}{\refname}
+%
+% \bibitem[And69]{ANDERSON69}
+% Donald M.~Anderson.
+% \newblock \emph{The Art of Written Forms: The Theory and Practice of Calligraphy}.
+% \newblock Holt, Rinehart and Winston, 1969.
+%
+% \bibitem[Bol95]{BOLOGNA95}
+% Giulia Bologna.
+% \newblock \emph{Illuminated Manuscripts: The Book before Gutenberg}.
+% \newblock Crescent Books, 1995.
+%
+% \bibitem[Day95]{DAY95}
+% Lewis F.~Day.
+% \newblock \emph{Alphabets Old \& New}.
+% \newblock (3rd edition originally published by B.~T.~Batsford, 1910) 
+% \newblock Senate, 1995.
+%
+% \bibitem[Dro80]{DROGIN80}
+% Marc Drogin.
+% \newblock \emph{Medieval Calligraphy: Its History and Technique}.
+% \newblock Allenheld, Osmun \& Co., 1980.
+%
+% \bibitem[Dru95]{DRUCKER95}
+% Johanna Drucker.
+% \newblock \emph{The Alphabetic Labyrinth}.
+% \newblock Thames \& Hudson, 1995.
+%
+% \bibitem[Fir93]{FIRMAGE93}
+% Richard A.~Firmage.
+% \newblock \emph{The Alphabet Abecedarium}.
+% \newblock David R~Goodine, 1993.
+%
+% \bibitem[Fli98]{LETTRINE}
+% Daniel Flipo.
+% \newblock \emph{The LETTRINE package}.
+% \newblock (Available from CTAN in \texttt{macros/latex/contrib/supported}). 
+% \newblock 1998.
+%
+% \bibitem[Har95]{HARRIS95}
+% David Harris.
+% \newblock \emph{The Art of Calligraphy}.
+% \newblock DK Publishing, 1995.
+%
+% \bibitem[Jen95]{BETON}
+% Frank Jensen.
+% \newblock \emph{The BETON package}.
+% \newblock (Available from CTAN in \texttt{macros/latex/contrib/supported}). 
+% \newblock 1995.
+%
+% \bibitem[Joh71]{JOHNSTON75}
+% Edward Johnston (ed. Heather Child).
+% \newblock \emph{Formal Penship and Other Papers}.
+% \newblock Penthalic, 1971.
+%
+% \bibitem[Knu87]{CM}
+% Donald E.~Knuth.
+% \newblock \emph{Computer Modern Typefaces}.
+% \newblock Addison-Wesley, 1987.
+%
+% \bibitem[Knu92]{METAFONT}
+% Donald E.~Knuth.
+% \newblock \emph{The METAFONTbook}.
+% \newblock Addison-Wesley, 1992.
+%
+% \bibitem[GMS94]{GOOSSENS94}
+% Michel Goossens, Frank Mittelbach, and Alexander Samarin.
+% \newblock \emph{The LaTeX Companion}.
+% \newblock Addison-Wesley Publishing Company, 1994.
+%
+% \bibitem[Tho75]{THOMAS75}
+% Alan G.~Thomas.
+% \newblock \emph{Great Books and Book Collectors}.
+% \newblock Weidenfield and Nichoson, 1975.
+%
+% \bibitem[Wil99]{DOCMFP}
+% Peter R.~Wilson.
+% \newblock \emph{The DOCMFP Package}.
+% \newblock (Available from CTAN in \texttt{macros/latex/contrib/supported}). 
+% \newblock 1999.
+%
+% \bibitem[Wil99b]{ROMANNUM}
+% Peter R.~Wilson.
+% \newblock \emph{The ROMANNUM Package}.
+% \newblock (Available from CTAN in \texttt{macros/latex/contrib/supported}). 
+% \newblock 1999.
+%
+% \end{thebibliography}
+% \PrintIndex
+% }
+%
+% \section{The driver file}
+%
+%    The driver file sets up the font parameters and also contains
+% the macros used in the definition of the characters.
+%
+%    \begin{macrocode}
+%<*mfd>
+% This is UNCLTITLE.MF for the Artificial Uncial font.
+% This file also contains special macros universally needed in the 
+% font but either not in the cmbase.mf file or modifications of these.
+%
+%    \end{macrocode}
+%
+% \begin{routine}{makebox}
+%    This is a new version of the \Lpack{cmbase.mf} |makebox| macro.
+% Essentially, as we are only generating a single case font, we don't
+% need all the horizontals for the CMR characters.
+%
+%    \begin{macrocode}
+%%% A new version of cmbase.mf makebox macro
+def makebox(text rule) =
+  for y=0,half_height,cap_height,body_height,x_height,asc_height,-desc_depth,-body_depth:
+    rule((l,y)t_,(r,y)t_); endfor  % horizontals
+  for x=l,r: rule((x,-body_depth)t_,(x,body_height)t_); endfor % verticals
+  for x=u*(1+floor(1/u)) step u until r-1:
+    rule((x,-body_depth)t_,(x,body_height)t_); endfor         % more verticals
+  if charic<>0:
+    rule((r+charic*pt,h.o_),(r+charic*pt,.5h.o_)); fi  % italic correction
+enddef;
+
+%    \end{macrocode}
+% \end{routine}
+%
+% \begin{routine}{proofpcbb}
+%    The macro |proofpcbb(S, xoff, yoff)| draws crosses at the corners of the
+% square, and at the bottom and top midpoints, where the point |zS| is at
+% position |(xoff,yoff)| in the square. 
+%    \begin{macrocode}
+%%% A macro to delineate a letter's bounding square in proof mode.
+%%% Point z$ is at (xoff,yoff) in the bounding square.
+def proofpcbb(suffix $)(expr xoff, yoff) =
+if proofing > 0:
+  x$bl = x$ - xoff; y$bl = y$ - yoff;         % Bottom Left Hand Corner
+  z$br = (x$bl+side, y$bl);                   % BRHC
+  z$tr = (x$bl+side, y$bl+side);              % TRHC
+  z$tl = (x$bl, y$bl+side);                   % TLHC
+  z$bc = 1/2[z$bl,z$br]; z$tc = 1/2[z$tl,z$tr];  % horizontal mid points
+  pair hc, vc;
+  hc = (2u,0); vc = (0,2u);
+  pickup pensquare scaled 2;
+  for s = z$bl, z$br, z$tr, z$tl, z$bc, z$tc:
+    draw s-hc--s+hc;
+    draw s-vc--s+vc;
+  endfor
+fi
+enddef;
+
+%    \end{macrocode}
+% \end{routine}
+%
+%
+%
+% \begin{routine}{auncial_font_setup}
+%    This macro contains the set up for the \thisfont{} fonts.
+%    \begin{macrocode}
+def auncial_font_setup= % contains special stuff for auncial fonts
+  define_pixels(side,half_height,carol_height,comma_width);
+  define_pixels(u,dot_size,letter_size,cap_height,width_adj,serif_fit,
+                cap_serif_fit,jut,cap_jut);
+  define_pixels(fig_width);
+  define_whole_pixels(letter_fit);
+  define_whole_vertical_pixels(body_height,asc_height,cap_height,x_height,
+                               desc_depth,body_depth,fig_height,
+                               accent_ysize,accent_gap);
+  define_corrected_pixels(o);
+  define_blacker_pixels(thick,thin,accent_thickness);
+  let adjust_fit = normal_adjust_fit;
+%    \end{macrocode}
+% \DescribeVariable{stylus}
+%  The pen for drawing the thinnest lines is |stylus|.
+%    \begin{macrocode}
+  pickup pencircle scaled thin;
+  stylus:=savepen;
+%    \end{macrocode}
+% \DescribeVariable{thickstylus}
+%  The pen for drawing lines a bit thicker than the thinnest is |thickstylus|.
+%    \begin{macrocode}
+  pickup pencircle scaled (1.5thin);
+  thickstylus:=savepen;
+%    \end{macrocode}
+% \DescribeVariable{accentpen}
+%  The pen for drawing the typical accent is |accentpen|.
+%    \begin{macrocode}
+  pickup pencircle xscaled 1/2thick yscaled thin rotated pangle;
+  accentpen:=savepen;
+%    \end{macrocode}
+% \DescribeVariable{quill}
+%  The normal calligraphic pen is |quill|.
+%    \begin{macrocode}
+  pickup pencircle xscaled thick yscaled thin rotated pangle;
+  quill:=savepen;
+  numeric pcshiftx#; % x value of LHS of box wrt origin of char box
+  define_pixels(pcshiftx);
+  numeric sqxside#;   % x size of the square
+  numeric sqyside#;   % y size of the square
+  define_pixels(sqxside,sqyside);
+
+enddef; % end of auncial_font_setup
+
+%    \end{macrocode}
+% \end{routine}
+%
+%
+% \DescribeVariable{ductus}
+% A boolean to control drawing the ductus (TRUE) or the full letter (FALSE).
+%    \begin{macrocode}
+boolean ductus;
+ductus:=false;
+%    \end{macrocode}
+%
+% \DescribeVariable{qhor}
+% \DescribeVariable{qvert}
+% The cosine and sine of the pen angle.
+%    \begin{macrocode}
+numeric qhor, qvert;
+qhor:=cosd(pangle); qvert:=sind(pangle);
+%    \end{macrocode}
+%
+% \DescribeVariable{pdir}
+% The vector corresponding to the pen angle.
+%    \begin{macrocode}
+pair pdir; pdir=dir(pangle);
+%    \end{macrocode}
+%
+% \DescribeVariable{ppdir}
+% The vector that is perpendicular (anticlockwise) to the pen angle.
+%    \begin{macrocode}
+pair ppdir; ppdir=dir(pangle+90);
+
+%    \end{macrocode}
+%
+%
+% \begin{routine}{draw_serif}
+% A macro to draw a serif. |draw_serif(1,2,f)| uses the current pen to
+% draw a serif of extent |jut| at |z1| to the left of the line from |z2| 
+% to |z1|. The
+% radius is controlled by |f|, where $0<f<1$. The `stem' from |z1| to |z2|
+% starts at the point |z1a|.
+%    \begin{macrocode}
+def draw_serif(suffix $, $$)(expr fr)=
+  numeric beta, ajut, bjut;
+%    \end{macrocode}
+% |fr| and |beta| control the serif radius.
+%    \begin{macrocode}
+  beta=1-fr;
+  ajut=fr*jut; bjut=beta*jut;
+%    \end{macrocode}
+% The points |$c|, |$b| and |$a| define the serif. For a top (bottom) serif
+% the leftmost (rightmost) point is 
+% |$c| and |$a| is on the stem. |$a| is moved from |$| towards |$$| by the 
+% distance |ajut|, and the other points are calculated from this. If the stem
+% is not vertical, then we have to rotate |$b| to match.
+%    \begin{macrocode}
+  pair vec[]; vec1=unitvector(z$$-z$);
+  vec2=ajut*vec1;
+  z$a=z$ shifted vec2;
+  z$b=z$a rotatedaround (z$,-90);
+  boolean top_serif;
+  if y$>y$$:
+    top_serif := true;
+    z$c=z$b shifted (-bjut*pdir);
+  else:
+    top_serif:=false;
+    z$c=z$b shifted (bjut*pdir);
+  fi
+%    \end{macrocode}
+% Draw the parts, and finish off.
+%    \begin{macrocode}
+  if top_serif:
+    draw z$c--z$b{pdir}..{z$$-z$}z$a;    % the serif
+  else:
+    draw z$c--z$b{-pdir}..{z$$-z$}z$a;
+  fi
+  labels($a,$b,$c);
+enddef; % end of draw_serif
+
+%    \end{macrocode}
+% \end{routine}
+%
+% \begin{routine}{draw_istem}
+%  A macro to draw the shape of an i. |draw_istem(1,2,f)| draws a stem whose
+% top is at |z1| and bottom at |z2|. It draws with the current pen and the serifs
+% are of extent |jut|. There is a top left and bottom right serif.
+% The serif radius is controlled by |f|, with $0<f<1$.
+%    \begin{macrocode}
+def draw_istem(suffix $, $$)(expr fr)=
+  draw_serif($, $$, fr);  % top serif
+  draw_serif($$, $, fr);  % bottom serif
+  draw z$a--z$$a;  % the stem
+enddef; % end of draw_istem
+
+%    \end{macrocode}
+% \end{routine}
+%
+% \begin{routine}{draw_tstem}
+%  A macro to draw the shape of the stem of a `t'. |draw_tstem(1,2,f)| draws a 
+% stem whose
+% top is at |z1| and bottom at |z2| with a right serif at |z2|. The radius
+% is controlled by |f|, with $0 < f < 1$.
+% It draws with the current pen and the serif is of extent |jut|.
+%    \begin{macrocode}
+def draw_tstem(suffix $, $$)(expr fr)=
+  draw_serif($$, $, fr);  % the serif
+  draw z$--z$$a;                      % the stem
+enddef; % end of draw_tstem
+
+%    \end{macrocode}
+% \end{routine}
+%
+% \begin{routine}{draw_tlserif}
+%  A macro to draw a top left serif. |draw_tlserif(1,2,f)| draws a serif on top
+% of a stem whose absolute 
+% top is at |z1| and bottom at |z2|. It draws with the current pen and the serif
+% is of extent |jut|. It also draws the stem to the point |z2|. The serif
+% radius is controlled by |f|, with $0<f<1$.
+%    \begin{macrocode}
+def draw_tlserif(suffix $, $$)(expr fr)=
+  draw_serif($, $$, fr);  % the serif
+  draw z$a--z$$;                       % the stem
+enddef; % end of draw_tlserif
+
+%    \end{macrocode}
+% \end{routine}
+%
+%
+% \begin{routine}{draw_flick}
+%  A macro to draw a flick (like an eyebrow). 
+% |draw_flick(1,rise,fall,fjut)| draws a stroke starting at |z1| rising up by
+% |rise| and falling down by |fall| wrt |z1|. The overall stroke distance is
+% |fjut| to the right of |z1|. It is drawn with the current pen.
+%    \begin{macrocode}
+def draw_flick(suffix $)(expr rise, fall, fjut)=
+%    \end{macrocode}
+% The points |z$a| and |z$b|, together with |z$| make up three points on the
+% ductus.
+%    \begin{macrocode}
+  rt x$b = x1+fjut; top y$b=y$-fall;
+  x$a=0.5[x$,x$b]; top y$a=y$+rise;
+%    \end{macrocode}
+% Draw the part, and finish off.
+%    \begin{macrocode}
+  draw z$..z$a..z$b; 
+  labels($a,$b);
+enddef; % end of draw_flick
+
+%    \end{macrocode}
+% \end{routine}
+%
+%
+% \begin{routine}{draw_wave}
+% A macro to draw a (horizontal) stroke with a flick at each end 
+% (down at the left and up at the right). |draw_wave(1,2,f)| uses the current
+% pen to draw from |z1wl| to |z1wr|, where |x1wl=x1|, |y1wl=y1-f|, and
+% |x1wr=x2|, |y1wr=y2+f|, with |z1| assumed to be at the left of |z2|.
+%    \begin{macrocode}
+def draw_wave(suffix $,$$)(expr f)=
+  x$wl=x$; y$wl=y$-f;
+  x$wr=x$$; y$wr=y$$+f;
+  z$wc=0.5[z$wl,z$wr];
+  draw z$wl{pdir}..z$wc{right}..{pdir}z$wr;
+  labels($wl,$wc,$wr);
+enddef; % end of draw_wave
+
+%    \end{macrocode}
+% \end{routine}
+%
+% \begin{routine}{draw_tail}
+% A macro to draw a tail at the bottom of a (vertical) stem.
+% |draw_tail(1,fjut)| draws a tail at the bottom of the stem which ends at |z1|.
+% The depth is controlled by the |desc_depth| value and the jut by |fjut|.
+%    \begin{macrocode}
+def draw_tail(suffix $)(expr fj)=
+  pen oldpen; oldpen:=currentpen;
+  pickup quill;
+  x$tl' = lft x$; y$tl=bot y$;
+  pickup stylus;
+  lft x$tl=x$tl';
+  x$tb=x$tl-fj; bot y$tb=y$tl-1/2desc_depth;
+  filldraw z${down}..{-pdir}z$tb & z$tb{pdir}..{up}z$tl--cycle;
+  pickup oldpen;
+  labels($tb,$tl);
+enddef; % end of draw_tail
+
+%    \end{macrocode}
+% \end{routine}
+%
+% \begin{routine}{draw_triangle}
+% A macro to draw a downward pointing equilateral triangle.
+% |draw_triangle(1,sz)| draws a triangle of side length with |z1| in the middle
+% of the base.
+%    \begin{macrocode}
+def draw_triangle(suffix $)(expr sz)=
+  pen oldpen; oldpen:=currentpen;
+  pickup stylus;
+  x$t1=x$-sz/2; x$t3=x$+sz/2;
+  y$t1=y$t3=y$;
+  x$t2=x$; y$t2=y$-0.9sz;   % approx sqrt(3)/2
+  filldraw z$t1--z$t2--z$t3--cycle;
+  pickup oldpen;
+  labels($t1,$t2,$t3);
+enddef; % end of draw_triangle
+
+%    \end{macrocode}
+% \end{routine}
+%
+% \begin{routine}{draw_rtriangle}
+% A macro to draw a downward pointing right angled triangle.
+% |draw_triangle(1,sz)| draws a triangle of side length with |z1| at the
+% right (where the right angle is).
+%    \begin{macrocode}
+def draw_rtriangle(suffix $)(expr sz)=
+  pen oldpen; oldpen:=currentpen;
+  pickup stylus;
+  x$t1=x$-sz; rt x$t3=x$;
+  y$t1=y$t3=y$;
+  x$t2=x$t3; y$t2=y$-sz;
+  filldraw z$t1--z$t2--z$t3--cycle;
+  pickup oldpen;
+  labels($t1,$t2,$t3);
+enddef; % end of draw_rtriangle
+
+%    \end{macrocode}
+% \end{routine}
+%
+% \begin{routine}{draw_rutriangle}
+% A macro to draw an upward pointing right angled triangle.
+% |draw_triangle(1,sz)| draws a triangle of side length with |z1| at the
+% right (where the right angle is).
+%    \begin{macrocode}
+def draw_rutriangle(suffix $)(expr sz)=
+  pen oldpen; oldpen:=currentpen;
+  pickup stylus;
+  x$t1=x$-sz; rt x$t3=x$;
+  y$t1=y$t3=y$;
+  x$t2=x$t3; y$t2=y$+sz;
+  filldraw z$t1--z$t2--z$t3--cycle;
+  pickup oldpen;
+  labels($t1,$t2,$t3);
+enddef; % end of draw_rutriangle
+
+%    \end{macrocode}
+% \end{routine}
+%
+% \begin{routine}{draw_fork}
+% A macro to draw a forked line.
+% |draw_fork(1,2,sz)| draws a graduated line from |z1| to |z2| with a forked
+% end of size |sz|.
+%    \begin{macrocode}
+def draw_fork(suffix $, $$)(expr sz)=
+  pen oldpen; oldpen:=currentpen;
+  pickup quill;
+  x$f1'=lft x$; y$f1'=bot y$;
+  x$f3'=rt x$;  y$f3'=top y$;
+  pickup stylus;
+  lft x$f1=x$f1'; bot y$f1=y$f1';
+  rt x$f3=x$f3';  y$f3-y$=2*(y$-y$f1);
+  rt x$f2=x$$-sz; bot y$f2=y$$;
+  rt x$f4= rt x$f5=x$$;
+  bot y$f5=y$$-sz; top y$f4=y$$+1/2sz;
+  filldraw z$f1--z$f2--z$f3--cycle;   % the line
+  draw z$f2{right}..z$f4;             % upper fork
+  draw z$f2{right}..z$f5;             % lower fork
+  pickup oldpen;
+  labels($f1,$f2,$f3,$f4,$f5);
+enddef; % end of draw_fork
+
+%    \end{macrocode}
+% \end{routine}
+%
+% \begin{routine}{draw_pdot}
+%  A macro to draw a period dot.
+% |draw_pdot(1,sz)| uses |stylus| to draw a dot centered at |z1| of overall size |sz|.
+%    \begin{macrocode}
+def draw_pdot(suffix $)(expr sz)=
+%    \end{macrocode}
+% Draw a square rotated 45 degrees.
+%    \begin{macrocode}
+  z$s = z$ shifted (0.5sz*left);
+  z$t = z$ shifted (0.5sz*up);
+  z$u = z$s shifted (sz*right);
+  z$v = z$t shifted (sz*down);
+  pickup stylus;
+  filldraw z$s--z$t--z$u--z$v--cycle;
+  labels($s,$t,$u,$v);
+enddef; % end of draw_pdot
+
+%    \end{macrocode}
+% \end{routine}
+%
+% \begin{routine}{draw_pcomma}
+%  A macro to draw a period comma.
+% |draw_pcomma(1,t,w)| draws a comma placed at |z1| (the top), line width is |t|
+% and bottom of line is |w| horizontally from |z1|. The pen is |stylus|.
+%    \begin{macrocode}
+def draw_pcomma(suffix $)(expr sz, ar)=
+%    \end{macrocode}
+% Draw a line of at |z$| of width |sz| sloping back and down at 45 degrees
+% for a total width of |ar|.
+%    \begin{macrocode}
+  z$s = z$ shifted (0.5sz*left);
+  z$t = z$s shifted (sz*right);
+  x$v=x$s-ar; y$v=y$s-ar;
+  z$u = z$v shifted (sz*right);
+  pickup stylus;
+  filldraw z$s--z$t--z$u--cycle;
+  labels($s,$t,$u,$v);
+enddef; % end of draw_pcomma
+
+%    \end{macrocode}
+% \end{routine}
+%
+% \begin{routine}{draw_plq}
+%  A macro to draw a period left quote.
+% |draw_plq(1,t,w)| draws a left quote placed at |z1| (the top), line width is |t|
+% and bottom of line is |w| horizontally from |z1|.
+%    \begin{macrocode}
+def draw_plq(suffix $)(expr sz, ar)=
+%    \end{macrocode}
+% Draw a line of at |z$| of width |sz| sloping forward and down at 45 degrees
+% for a total width of |ar|.
+%    \begin{macrocode}
+  z$s = z$ shifted (0.5sz*left);
+  z$t = z$s shifted (sz*right);
+  x$v=x$s+ar; y$v=y$s-ar;
+  z$u = z$v shifted (sz*right);
+  pickup stylus;
+  filldraw z$s--z$t--z$v--cycle;
+  labels($s,$t,$u,$v);
+enddef; % end of draw_plq
+
+%    \end{macrocode}
+% \end{routine}
+%
+% \begin{routine}{draw_small_zero}
+% A macro to draw a (small) zero.
+% |draw_small_zero(1,2)|, bottom left at |z1|, top right at |z2|.
+%    \begin{macrocode}
+def draw_small_zero(suffix $, $$)=
+  x$szt=x$szb=1/2[x$,x$$]; x$szr=x$$; x$szl=x$;
+  y$szt=y$$; y$szb=y$; y$szl=y$szr=1/2[y$,y$$];
+  draw z$szt..z$szr..z$szb..z$szl..cycle;
+  labels($,$szt,$szr,$szb,$szl);
+enddef; % end of draw_small_zero
+
+%    \end{macrocode}
+% \end{routine}
+%
+% \subsection{Routines for accents}
+%
+%    The next set of routines are for drawing accents and other decorations.
+%
+% \begin{routine}{draw_grave}
+% A macro to draw a grave accent.
+% |draw_grave(1)|, top at z1, angle |accent_angle|, 
+% with total drop of |accent_ysize|.
+%    \begin{macrocode}
+def draw_grave(suffix $)=
+  pen oldpen; oldpen:=currentpen;  pickup accentpen;
+  x$gab = x$ + accent_ysize*cos_accent_angle; 
+  y$gab = y$ - accent_ysize*sin_accent_angle;
+  z$gam = 1/2[z$,z$gab];
+  draw z$--z$gab;
+  pickup oldpen;
+  labels($,$gam,$gab);
+enddef; % end of draw_grave
+
+%    \end{macrocode}
+% \end{routine}
+%
+% \begin{routine}{draw_acute}
+% A macro to draw an acute accent.
+% |draw_acute(1)|, top at z1, angle |accent_angle|, 
+% with total drop of |accent_ysize|.
+%    \begin{macrocode}
+def draw_acute(suffix $)=
+  pen oldpen; oldpen:=currentpen;  pickup accentpen;
+  x$aab = x$ - accent_ysize*cos_accent_angle;
+  y$aab = y$ - accent_ysize*sin_accent_angle;
+  z$aam = 1/2[z$,z$aab];
+  draw z$--z$aab;
+  pickup oldpen;
+  labels($,$aab,$aam);
+enddef; % end of draw_acute
+
+%    \end{macrocode}
+% \end{routine}
+%
+% \begin{routine}{draw_circumflex}
+% A macro to draw a circumflex accent.
+% |draw_circumflex(1)|, bottom at z1, angles |accent_angle|, with total drop of 
+% |accent_ysize|.
+%    \begin{macrocode}
+def draw_circumflex(suffix $)=
+  pen oldpen; oldpen:=currentpen;  pickup accentpen;
+  x$cabl = x$ - accent_ysize*cos_accent_angle; x$cabr - x$ = x$ - x$cabl;
+  y$cabl = y$cabr = y$;
+  y$catm = y$ + accent_ysize*sin_accent_angle;
+  x$catm = x$;
+  draw z$cabl--z$catm--z$cabr;
+  pickup oldpen;
+  labels($,$cabl,$cabr,$catm);
+enddef; % end of draw_circumflex
+
+%    \end{macrocode}
+% \end{routine}
+%
+% \begin{routine}{draw_hachek}
+% A macro to draw a caron/hachek accent.
+% |draw_hachek(1)|, bottom at z1, angles |accent_angle|, with total drop of 
+% |accent_ysize|.
+%    \begin{macrocode}
+def draw_hachek(suffix $)=
+  pen oldpen; oldpen:=currentpen;  pickup accentpen;
+  x$hatl = x$ - accent_ysize*cos_accent_angle; x$hatr - x$ = x$ - x$hatl;
+  y$hatl = y$hatr = y$ + accent_ysize*sin_accent_angle;
+  draw z$hatl--z$--z$hatr;
+  pickup oldpen;
+  labels($,$hatl,$hatr);
+enddef; % end of draw_hachek
+
+%    \end{macrocode}
+% \end{routine}
+%
+% \begin{routine}{draw_breve}
+% A macro to draw a breve accent (a rounded hachek).
+% |draw_breve(1)|, bottom at z1, angles |accent_angle|, with total drop of 
+% |accent_ysize|.
+%    \begin{macrocode}
+def draw_breve(suffix $)=
+  pen oldpen; oldpen:=currentpen;  pickup accentpen;
+  x$batl = x$ - accent_ysize*cos_accent_angle; x$batr - x$ = x$ - x$batl;
+  y$batl = y$batr = y$ + accent_ysize*sin_accent_angle;
+  draw z$batl..z$..z$batr;
+  pickup oldpen;
+  labels($,$batl,$batr);
+enddef; % end of draw_hachek
+
+%    \end{macrocode}
+% \end{routine}
+%
+% \begin{routine}{draw_ring}
+% A macro to draw a ring accent.
+% |draw_breve(1)|, top at z1, angles |accent_angle|, with total drop of 
+% |accent_ysize|.
+%    \begin{macrocode}
+def draw_ring(suffix $)=
+  pen oldpen; oldpen:=currentpen;  pickup accentpen;
+  x$rab = x$; y$rab = y$ - accent_ysize;
+  y$raml = y$ramr = 1/2[y$,y$rab];
+  x$ramr - x$ = x$ - x$raml = 1/2accent_ysize;
+  draw z$..z$ramr..z$rab..z$raml..cycle;
+  pickup oldpen;
+  labels($,$ramr,$rab,$raml);
+enddef; % end of draw_ring
+
+%    \end{macrocode}
+% \end{routine}
+%
+% \begin{routine}{draw_dota}
+% A macro to draw a dot accent.
+% |draw_dota(1)|, top at z1, angles |accent_angle|, 
+% and diameter 1/2|accent_ysize|..
+%    \begin{macrocode}
+def draw_dota(suffix $)=
+  pen oldpen; oldpen:=currentpen;  pickup stylus;
+  numeric dotalpha; dotalpha := 1/2accent_ysize;
+  x$dab = x$; y$dab = y$ - dotalpha;
+  y$daml = y$damr = 1/2[y$,y$dab];
+  x$damr - x$ = x$ - x$daml = 1/2dotalpha;
+  draw_pdot($,12/16accent_ysize);
+  pickup oldpen;
+  labels($,$damr,$dab,$daml);
+enddef; % end of draw_dota
+
+%    \end{macrocode}
+% \end{routine}
+%
+% \begin{routine}{draw_dieresis}
+% A macro to draw a dieresis (double dot) accent.
+% |draw_ddota(1)|, top at z1, angles |accent_angle|, 
+% and diameter 1/2|accent_ysize|..
+%    \begin{macrocode}
+def draw_dieresis(suffix $)=
+  pen oldpen; oldpen:=currentpen;  pickup stylus;
+  numeric ddotalpha; ddotalpha := 1/2accent_ysize;
+  x$ddab = x$; y$ddab = y$ - ddotalpha; z$ddam = 1/2[z$,z$ddab];
+  y$'damr = y$''daml = y$ddam; x$''daml - x$ = x$ - x$'damr = 1/2accent_ysize;
+  y$drl=y$drr=y$ddam; x$drl = x$-10/16accent_ysize; x$drr=x$+10/16accent_ysize;
+  draw_pdot($drl,12/16accent_ysize); draw_pdot($drr,12/16accent_ysize);
+  pickup oldpen;
+  labels($,$ddam,$ddab);
+enddef; % end of draw_dieresis
+
+%    \end{macrocode}
+% \end{routine}
+%
+% \begin{routine}{draw_lumlaut}
+% A macro to draw a long (Hungarian) umlaut accent.
+% |draw_lumlaut(1)|, top at z1, angles |accent_angle|, 
+% and depth |accent_ysize|..
+%    \begin{macrocode}
+def draw_lumlaut(suffix $)=
+  pen oldpen; oldpen:=currentpen;  pickup accentpen;
+  x$luab = x$; y$luab = y$ - accent_ysize; z$luam = 1/2[z$,z$luab];
+  y$lualt = y$luart = y$; y$lualb = y$luarb = y$luab;
+  x$luarm - x$luam = x$luam - x$lualm = 1/2accent_ysize;
+  x$luart - x$luarb = accent_ysize*(cosd(70)) = x$lualt - x$lualb;
+  z$lualm = 1/2[z$lualt,z$lualb]; z$luarm = 1/2[z$luart,z$luarb];
+  draw z$lualt--z$lualb;  draw z$luart--z$luarb;
+  pickup oldpen;
+  labels($,$luam,$luab,$lualt,$lualb,$luart,$luarb);
+enddef; % end of draw_lumlaut
+
+%    \end{macrocode}
+% \end{routine}
+%
+% \begin{routine}{draw_tildea}
+% A macro to draw a tilde accent.
+% |draw_tildea(1)|, center at z1, angles |accent_angle|, 
+% and length |accent_ysize|..
+%    \begin{macrocode}
+def draw_tildea(suffix $)=
+  pen oldpen; oldpen:=currentpen;  pickup accentpen;
+  y$tal=y$=y$tar;
+  x$tar - x$ = x$ - x$tal = 12/16accent_ysize;
+  draw z$tal{dir accent_angle}..z$..{dir accent_angle}z$tar;
+  pickup oldpen;
+  labels($,$tal,$tar);
+enddef; % end of draw_tildea
+
+%    \end{macrocode}
+% \end{routine}
+%
+% \begin{routine}{draw_macron}
+% A macro to draw a macron (bar) accent.
+% |draw_macron(1)|, center at z1, angles |accent_angle|, 
+% and length |accent_ysize|..
+%    \begin{macrocode}
+def draw_macron(suffix $)=
+  pen oldpen; oldpen:=currentpen;  pickup accentpen;
+  y$mal=y$=y$mar;
+  x$mar - x$ = x$ - x$mal = 1/2accent_ysize;
+  draw z$mal--z$mar;
+  pickup oldpen;
+  labels($,$mal,$mar);
+enddef; % end of draw_macron
+
+%    \end{macrocode}
+% \end{routine}
+%
+% \begin{routine}{draw_cedilla}
+% A macro to draw a cedilla.
+% |draw_cedilla(1)|, top at z1, angles |accent_angle|, 
+% and length |accent_ysize|..
+%    \begin{macrocode}
+def draw_cedilla(suffix $)=
+  pen oldpen; oldpen:=currentpen;  pickup accentpen;
+  x$cedc=x$; y$cedc= y$-accent_ysize; 
+  x$ceda=x$; y$ceda=4/16[y$,y$cedc];
+  x$cedb=x$+8/16accent_ysize; y$cedb=1/2[y$ceda,y$cedc];
+  x$cedd=x$cedc-2/16accent_ysize; y$cedd=y$cedc-1/16accent_ysize;
+  draw z$--z$ceda; draw z$ceda..z$cedb..z$cedc..z$cedd;
+  pickup oldpen;
+  labels($,$ceda,$cedb,$cedc,$cedd);
+enddef; % end of draw_cedilla
+
+%    \end{macrocode}
+% \end{routine}
+%
+% \begin{routine}{draw_ogonek}
+% A macro to draw an ogonek.
+% |draw_ogonek(1)|, top at z1, angles |accent_angle|, 
+% and length |accent_ysize|..
+%    \begin{macrocode}
+def draw_ogonek(suffix $)=
+  pen oldpen; oldpen:=currentpen;  pickup accentpen;
+  x$ogc=x$; y$ogc= y$-accent_ysize; 
+  x$oga=x$; y$oga=2/16[y$,y$ogc];
+  x$ogb=x$-8/16accent_ysize; y$ogb=1/2[y$oga,y$ogc];
+  x$ogd=x$ogc+4/16accent_ysize; y$ogd=y$ogc+2/16accent_ysize;
+  draw z$..z$ogb..z$ogc..z$ogd;
+  pickup oldpen;
+  labels($,$oga,$ogb,$ogc,$ogd);
+enddef; % end of draw_ogonek
+
+%    \end{macrocode}
+% \end{routine}
+%
+% \begin{routine}{draw_leftguill}
+% A macro to draw a left guillemot.
+% |draw_leftquill(1, gh, gw)|, bottom at z1, height and width |gh| and |gw|.
+%    \begin{macrocode}
+def draw_leftguill(suffix $)(expr gh, gw)=
+  x$lgqt=x$; y$lgqt= y$+gh;
+  x$lgqm=x$-gw; y$lgqm=1/2[y$,y$lgqt];
+  draw z$--z$lgqm--z$lgqt;
+  labels($,$lgqm,$lgqt);
+enddef; % end of draw_leftguill
+
+%    \end{macrocode}
+% \end{routine}
+%
+% \begin{routine}{draw_rightguill}
+% A macro to draw a right guillemot.
+% |draw_rightguill(1, gh, gw)|, bottom at z1, height and width |gh| and |gw|.
+%    \begin{macrocode}
+def draw_rightguill(suffix $)(expr gh, gw)=
+  x$rgqt=x$; y$rgqt= y$+gh;
+  x$rgqm=x$+gw; y$rgqm=1/2[y$,y$rgqt];
+  draw z$--z$rgqm--z$rgqt;
+  labels($,$rgqm,$rgqt);
+enddef; % end of draw_rightguill
+
+%    \end{macrocode}
+% \end{routine}
+%
+% \subsection{Routines for alphabetic characters}
+%
+% The next set of routines are for drawing characters.
+%
+% \begin{routine}{draw_a}
+% Draw the `a' character. 
+% |$| and |$$| are the lower left and upper right of the character's `box'.
+%    \begin{macrocode}
+def draw_a(suffix $,$$)=
+  lft x1=x$+2jut; rt x2=x$$;
+  top y1=y$$; bot y2=y$;
+%  for the bowl
+  z3=3/4[z2,z1];
+  x5=lft x3; y5=bot y3;
+  z13=1/2[z2,z1];
+  x15=lft x13; y15=bot y13;
+  if ductus:
+    pickup stylus;
+  fi
+  draw_istem(1,2,srad);  % the stem
+  pickup thickstylus;         % for the bowl
+  lft x4=x$; bot y4=y$;
+  z14=0.2[z4,z5];
+  draw z14{pdir}...{z5-z4}z15;   % bowl bottom
+  draw z5--z4;         % bowl top
+  labels(1,2,3,4,5,13,14,15);
+enddef;
+
+%    \end{macrocode}
+% \end{routine}
+% 
+% \begin{routine}{draw_a}
+% Draw the `a' character. 
+% |$| and |$$| are the lower left and upper right of the character's `box'.
+%    \begin{macrocode}
+def draw_a_save(suffix $,$$)=
+  lft x1=x$; rt x2=x$$;
+  top y1=y$$; bot y2=y$;
+%  for the bowl
+  z3=3/4[z2,z1];
+  x5=lft x3; y5=bot y3;
+  z13=1/2[z2,z1];
+  x15=lft x13; y15=bot y13;
+  if ductus:
+    pickup stylus;
+  fi
+  draw_istem(1,2,srad);  % the stem
+  pickup thickstylus;         % for the bowl
+  lft x4=pcshiftx; bot y4=0;
+  z14=0.2[z4,z5];
+  draw z14{pdir}...{z5-z4}z15;   % bowl bottom
+  draw z5--z4;         % bowl top
+  labels(1,2,3,4,5,13,14,15);
+enddef;
+
+%    \end{macrocode}
+% \end{routine}
+% 
+% \begin{routine}{draw_at}
+% Draw the commercial at character. 
+% |$| and |$$| are the lower left and upper right of the character's `box'.
+%    \begin{macrocode}
+def draw_at(suffix $,$$)=
+  lft x1=2/3[x$,x$$]; rt x2=x$$;
+  top y1=y$$; bot y2=y$;
+%  for the bowl
+  z3=3/4[z2,z1];
+  x5=lft x3; y5=bot y3;
+  z13=1/2[z2,z1];
+  x15=lft x13; y15=bot y13;
+  if ductus:
+    pickup stylus;
+  fi
+  draw_tstem(3,2,srad);  % the stem
+  pickup thickstylus;         % for the bowl
+  lft x4=1/3[x$,x$$]; bot y4=y$;
+  z14=0.2[z4,z5];
+  draw z14{pdir}...{z5-z4}z15;   % bowl bottom
+  draw z5--z4;         % bowl top
+%% the loop  
+  pickup quill;
+  lft x201=x$; y201=1/2[y$,y$$];
+  x203=1/2[x4,x2]; y203=y$-1/2desc_depth;
+  draw z3..{down}z201..{right}z203;
+  labels(1,2,3,4,5,13,14,15,201,202,203);
+enddef;
+
+%    \end{macrocode}
+% \end{routine}
+% 
+% \begin{routine}{draw_aesc}
+% Draw the aesc character. 
+% |$| and |$$| are the lower left and upper right of the character's `box'.
+%    \begin{macrocode}
+def draw_aesc(suffix $,$$)=
+  lft x1=1/3[x$,x$$]; rt x2=2/3[x$,x$$];
+  top y1=y$$; bot y2=y$;
+%  for the bowl
+  z3=3/4[z2,z1];
+  x5=lft x3; y5=bot y3;
+  z13=1/2[z2,z1];
+  x15=lft x13; y15=bot y13;
+  if ductus:
+    pickup stylus;
+  fi
+  draw_istem(1,2,srad);  % the stem
+  pickup thickstylus;         % for the bowl
+  lft x4=x$; bot y4=y$;
+  z14=0.2[z4,z5];
+  draw z14{pdir}...{z5-z4}z15;   % bowl bottom
+  draw z5--z4;         % bowl top
+%% the e
+  pickup quill;
+  lft x101=x13; rt x103=x$$;  x102=x104=1/2[x101,x103];
+  top y102=y$$; bot y104=y$; 
+%%  y101=y103=1/2[y$,y$$];
+  y101=y103=y13;
+  x105=x106=x103;
+  y105=0.1[y$,y$$]; 
+  top y106=0.95[y$,y$$]; y106'=top y106; y106''=bot y106; x106''=lft x106;
+% the serif
+  pickup stylus;
+  rt x116=x$$; top y116=y106';
+  x117=x106; y117=y116-jut;
+  lft x118=x106''; bot y118=y106'';
+  pickup quill;
+% the bar
+  x107=x101; y107=y101;
+  x108=x$$; y108=y107;
+  if ductus:
+    pickup stylus;
+  fi
+  draw z106..z102..z101..z2a; % the bowl
+  pickup stylus;
+  filldraw z117..z118--z116--cycle;        % the serif
+  draw_fork(101,108,jut);                   % the bar
+  labels(1,2,3,4,5,13,14,15,101,102,103,104,105,106,107);
+enddef;
+
+%    \end{macrocode}
+% \end{routine}
+% 
+% \begin{routine}{draw_b}
+% Draw a `b' character.
+% |$| and |$$| are the lower left and upper right of the character's `box'.
+%    \begin{macrocode}
+def draw_b(suffix $,$$)=
+  lft x1=lft x2=x$;
+  top y1=y$$; bot y2=y$;
+% lower bowl
+  rt x4=x$$; y4=1/3[y$,y$$];
+  lft x5=rt x1+2thin; y5=2/3[y$,y$$];
+  z6=z1;
+  rt x7=0.67[x1,x4]; y7=y6;
+  x9=rt x7-thin; y9=h-thin;
+  x8=lft x5+thin; y8=bot y5+thin;
+  if ductus:
+    pickup stylus;
+  fi
+  draw_tlserif(1,2,srad);                             % the stem
+  draw z2{right}..z4{up}..{left}z5;                   % bottom bowl
+  draw z6--z7;                                        % top bowl
+  pickup stylus;
+  draw z9--z8;
+  penlabels(1,2,3,4,5,6,7,8,9,100);
+enddef;
+
+%    \end{macrocode}
+% \end{routine}
+%
+% \begin{routine}{draw_c}
+% Draw a `c' character.
+% |$| and |$$| are the lower left and upper right of the character's `box'.
+%    \begin{macrocode}
+def draw_c(suffix $,$$)=
+  lft x1=x$; rt x3=x$$; x2=x4=1/2[x1,x3];
+  top y2=y$$; bot y4=y$; y1=y3=1/2[y$,y$$];
+  x5=x6=x3;
+  y5=0.1[y$,y$$]; 
+  top y6=0.95[y$,y$$]; y6'=top y6; y6''=bot y6; x6''=lft x6;
+% the serif
+  pickup stylus;
+  rt x16=x$$; top y16=y6';
+  x17=x6; y17=y16-jut;
+  lft x18=x6''; bot y18=y6'';
+  pickup quill;
+  if ductus:
+    pickup stylus;
+  fi
+  draw z5{-pdir}..{left}z4..z1..z2..z6;
+  pickup stylus;
+  filldraw z17..z18--z16--cycle;
+  penlabels(1,2,3,4,5,6,16,17,18,100);
+enddef;
+
+%    \end{macrocode}
+% \end{routine}
+%
+% \begin{routine}{draw_d}
+% Draw a `d' character.
+% |$| and |$$| are the lower left and upper right of the character's `box'.
+%    \begin{macrocode}
+def draw_d(suffix $,$$)=
+  lft x1=x$; rt x3=x$$;
+  bot y4=y$; top y5=y$$;
+  x2=x4=1/2[x1,x3]; top y2=3/4[y$,y$$]; 
+  y1=y3=0.5[y4,y2];
+  x5=x1;
+  if ductus:
+    pickup stylus;
+  fi
+  draw z2{-pdir}..z1{down}..z4{right}..z3{up}..z5;
+  penlabels(0,1,2,3,4,5,6,7,8,100);
+enddef;
+
+%    \end{macrocode}
+% \end{routine}
+%
+% \begin{routine}{draw_dyet}
+% Draw a `dyet' character.
+% |$| and |$$| are the lower left and upper right of the character's `box'.
+%    \begin{macrocode}
+def draw_dyet(suffix $,$$)=
+  lft x1=x$; rt x3=x$$;
+  bot y4=y$; top y5=y$$;
+  x2=x4=1/2[x1,x3]; top y2=3/4[y$,y$$]; 
+  y1=y3=0.5[y4,y2];
+  x5=x1;
+  path p[];
+  p1=z2{-pdir}..z1{down}..z4{right}..z3{up}..z5;
+  if ductus:
+    pickup stylus;
+  fi
+  draw p1;
+% the bar
+  x11=1/2[x5,x2]; y11=1/2[y2,y5];
+  x12=x11; y12-y666 = y666-y11;
+  draw z11--z12;
+  penlabels(0,1,2,3,4,5,6,7,8,10,11,100);
+enddef;
+
+%    \end{macrocode}
+% \end{routine}
+%
+%
+% \begin{routine}{draw_e}
+% Draw an `e' character.
+% |$| and |$$| are the lower left and upper right of the character's `box'.
+%    \begin{macrocode}
+def draw_e(suffix $,$$)=
+  lft x1=x$; rt x3=x$$;  x2=x4=1/2[x1,x3];
+  top y2=y$$; bot y4=y$; y1=y3=1/2[y$,y$$];
+  x5=x6=x3;
+  y5=0.1[y$,y$$]; 
+  top y6=0.95[y$,y$$]; y6'=top y6; y6''=bot y6; x6''=lft x6;
+% the serif
+  pickup stylus;
+  rt x16=x$$; top y16=y6';
+  x17=x6; y17=y16-jut;
+  lft x18=x6''; bot y18=y6'';
+  pickup quill;
+% the bar
+  x7=x1; y7=y1;
+  x8=x$$; y8=y7;
+  if ductus:
+    pickup stylus;
+  fi
+  draw z5{-pdir}..{left}z4..z1..z2..z6; % the bowl
+  pickup stylus;
+  filldraw z17..z18--z16--cycle;        % the serif
+  draw_fork(7,8,jut);                   % the bar
+  ductus:=false;
+  penlabels(1,2,3,4,5,6,7,8,9,10,16,17,18,100);
+enddef;
+
+%    \end{macrocode}
+% \end{routine}
+%
+% \begin{routine}{draw_ethel}
+% Draw an `ethel' character.
+% |$| and |$$| are the lower left and upper right of the character's `box'.
+%    \begin{macrocode}
+def draw_ethel(suffix $,$$)=
+  lft x1=1/2[x$,x$$]; rt x3=x$$;  x2=x4=1/2[x1,x3];
+  top y2=y$$; bot y4=y$; y1=y3=1/2[y$,y$$];
+  x5=x6=x3;
+  y5=0.1[y$,y$$]; 
+  top y6=0.95[y$,y$$]; y6'=top y6; y6''=bot y6; x6''=lft x6;
+% the serif
+  pickup stylus;
+  rt x16=x$$; top y16=y6';
+  x17=x6; y17=y16-jut;
+  lft x18=x6''; bot y18=y6'';
+  pickup quill;
+% the bar
+  x7=x1; y7=y1;
+  x8=x$$; y8=y7;
+  if ductus:
+    pickup stylus;
+  fi
+  draw z5{-pdir}..{left}z4..z1..z2..z6; % the bowl
+  pickup stylus;
+  filldraw z17..z18--z16--cycle;        % the serif
+  draw_fork(7,8,jut);                   % the bar
+%% the O
+  pickup quill;
+  lft x101=x$; rt x103= x1; y101=1/2[y$,y$$]; y103=y1;
+  x102 = x104 = 1/2[x101,x103]; y102=y$$; y104=y$;
+  draw z101..z102..z103..z104..cycle;
+  ductus:=false;
+  penlabels(1,2,3,4,5,6,7,8,9,10,16,17,18,101,102,103,104);
+enddef;
+
+%    \end{macrocode}
+% \end{routine}
+%
+% \begin{routine}{draw_f}
+% Draw an `f' character.
+% |$| and |$$| are the lower left and upper right of the character's `box'.
+% and |$$$| is lower left of the descender box.
+%    \begin{macrocode}
+def draw_f(suffix $,$$,$$$)=
+% stem
+  lft x$Ft=lft x$Fb= x$;         % 1 = Ft, 2 = Fb
+  top y$Ft=y$$; bot y$Fb=y$$$;
+% bars
+  x$Ftl=x$Fml=x$Ft; y$Ftl=y$Ft; bot y$Fml=y$;    % 3 = Ftl, 4 = Fml
+  rt x$Ftr= rt x$Fmr=x$$; y$Ftr=y$Ftl; y$Fmr=y$Fml;  % 5 = Ftr, 6 = Fmr
+% triangles
+  x$Ftrt=x$Fmrt=rt x$Ftr-1/2thin;         % 15 = Ftrt, 16 = Fmrt
+  y$Ftrt=y$Ftr; y$Fmrt=y$Fmr; 
+  if ductus:
+    pickup stylus;
+  fi
+  draw_tlserif($Ft,$Fb,srad);          % stem
+  draw_tail($Fb,jut);
+  draw z$Ftl--z$Ftr;                     % top bar
+  draw_rtriangle($Ftrt,jut);
+  draw z$Fml--z$Fmr;                     % bottom bar
+  draw_rtriangle($Fmrt,jut);
+  penlabels(1,2,3,4,5,6,15,16,100,$Ft,$Fb,$Ftl,$Fml,$Ftr,$Fmr,$Ftrt,$Fmrt);
+enddef;
+
+%    \end{macrocode}
+% \end{routine}
+%
+%
+% \begin{routine}{draw_g}
+% Draw a `g' character.
+% |$| and |$$| are the lower left and upper right of the character's `box'.
+% and |$$$| is lower left of the descender box.
+%    \begin{macrocode}
+def draw_g(suffix $,$$,$$$)=
+% the bowl
+  lft x1=x$; rt x3=x$$; y1=y3=1/2[y$,y$$];
+  x2=x4=1/2[x$,x$$]; top y2=y$$; bot y4=y$;
+  x5=x6=x3;
+  y5=0.1[y$,y$$]; 
+  top y6=0.95[y$,y$$]; y6'=top y6; y6''=bot y6; x6''=lft x6;
+% the serif
+  pickup stylus;
+  rt x16=x$$; top y16=y6';
+  x17=x6; y17=y16-jut;
+  lft x18=x6''; bot y18=y6'';
+  pickup quill;
+% the stem
+  x7=rt x5-1/2thin; y7=top y5-1/2thin;
+  pickup stylus;
+  lft x8=1/2[x$,x$$]; bot y8=y$$$; 
+  pickup quill;
+  pair vec[]; vec1:=z7-z8; vec2:=z8-z7;
+  y21=y8+3/2thick; z21=whatever[z8,z7];
+  y22=y8+   thick; z22=whatever[z8,z7];
+  x23=x8-thick; y23=y8;
+  x24=x23+1/2thick; y24=y23+1/2thick;
+  if ductus:
+    pickup stylus;
+  fi
+  draw z5{-pdir}..{left}z4..z1..z2..z6;  % the bowl
+  pickup stylus;
+  filldraw z17..z18--z16--cycle;         % the serif
+  draw z7--z22;                          % the stem
+  filldraw z22{vec2}..{left}z23--z24{right}..{vec1}z21--cycle;
+  penlabels(1,2,3,4,5,6,7,8,16,17,18,21,22,23,24,100);
+enddef;
+
+%    \end{macrocode}
+% \end{routine}
+%
+%
+% \begin{routine}{draw_h}
+% Draw an `h' character.
+% |$| and |$$| are the lower left and upper right of the character's `box'.
+%    \begin{macrocode}
+def draw_h(suffix $,$$)=
+  lft x1=lft x2=x$;
+  top y1=y$$; bot y2=y$;
+% bowl
+  rt x5=x$$; y5=3/8[y$,y$$];
+  lft x6=2/3[x$,x$$]; bot y6=y$;
+  x4=0.5[x1,x5]; top y4=3/4[y$,y$$];
+  x4'=0.5[x4,x1]; y4'=y4;
+  z4''=z4' shifted (-w*pdir);
+  z3'=whatever[z4',z4'']=whatever[z1,z2];
+  x3=rt x3'; y3=y3';
+  if ductus:
+    pickup stylus;
+  fi
+  draw_istem(1,2,srad);                    % stem
+  draw z3{pdir}..z4{right}..z5{down}..z6;  % bowl
+  penlabels(1,2,3,4,5,6,100);
+enddef;
+
+%    \end{macrocode}
+% \end{routine}
+%
+%
+% \begin{routine}{draw_i}
+% Draw an `i' character.
+% |$| and |$$| are the lower left and upper right of the character's `box'.
+%    \begin{macrocode}
+def draw_i(suffix $,$$)=
+  lft x$It=lft x$Ib=x$;         % 1 = $It, 2 = $Ib
+  top y$It=y$$; bot y$Ib=y$;
+  draw_tlserif($It,$Ib,srad);
+  draw_tail($Ib,jut);
+  penlabels(1,2,$It,$Ib,100);
+enddef;
+
+%    \end{macrocode}
+% \end{routine}
+%
+%
+% \begin{routine}{draw_j}
+% Draw a `j' character.
+% |$| and |$$| are the lower left and upper right of the character's `box'.
+%    \begin{macrocode}
+def draw_j(suffix $,$$)=
+  lft x$Jt=lft x$Jb=x$;        % 1 = Jt,  2 = Jb
+  top y$Jt=y$$; bot y$Jb=y$;
+  draw_tlserif($Jt,$Jb,srad);
+  draw_tail($Jb,jut);
+  penlabels($Jt,$Jb);
+enddef;
+
+%    \end{macrocode}
+% \end{routine}
+%
+%
+% \begin{routine}{draw_k}
+% Draw a `k' character.
+% |$| and |$$| are the lower left and upper right of the character's `box'.
+%    \begin{macrocode}
+def draw_k(suffix $,$$)=
+  lft x1=lft x2=x$; top y1=y$$; bot y2=y$;
+% for the flick
+  numeric rise,fall,fjut;
+  x3=rt x1; y3=5/8[y$,y$$];
+  rise:=1/6[y$,y$$]; fall:=-rise/2; fjut:=1/2[x$,x$$];
+% for the leg
+  z4=z3;
+  x5=x$$; y5=y$;
+  if ductus:
+    pickup stylus;
+  fi
+  draw_tlserif(1,2,srad);          % stem
+  draw_tail(2,jut);
+  draw_flick(3,rise,fall,fjut);    % upper diag
+  draw_tstem(4,5,srad);            % lower diag
+  penlabels(1,2,3,4,5,100);
+enddef;
+
+%    \end{macrocode}
+% \end{routine}
+%
+%
+% \begin{routine}{draw_l}
+% Draw an `l' character.
+% |$| and |$$| are the lower left and upper right of the character's `box'.
+%    \begin{macrocode}
+def draw_l(suffix $,$$)=
+  lft x$Lt=lft x$Lb= x$;              % 1 = Lt,  2 = Lb
+  top y$Lt=y$$; bot y$Lb=y$;
+  z$Lbl=z$Lb;                         % 3 = Lbl
+  x$Lbr=x$$; y$Lbr=y$;                % 4 = Lbr
+  draw_tlserif($Lt,$Lb,srad);         % the stem
+  draw_fork($Lbl,$Lbr,jut);           % the foot
+  penlabels($Lt,$Lb,$Lbl,$Lbr);
+enddef;
+
+%    \end{macrocode}
+% \end{routine}
+%
+% \begin{routine}{draw_pound}
+% Draw a pound (sterling) symbol.
+% |$| and |$$| are the lower left and upper right of the character's `box'.
+%    \begin{macrocode}
+def draw_pound(suffix $,$$)=
+  lft x$pst=lft x$psb= x$;
+  top y$pst=y$$-thick; bot y$psb=y$;
+  z$psm=z$psb;
+  x$psr=x$$; y$psr=y$;
+  draw z$psb--z$pst;                    % the stem
+  draw_fork($psm,$psr,jut);                        % the foot
+% top arch
+  x$pstr=3/4[x$,x$$]; top y$pstr=y$$;
+  draw z$pstr..{down}z$pst;
+% bar
+  lft x$psbl= x$-jut; y$psbl = y$psbr = 2/3[y$psb,y$pst];
+  x$psbr - x$pst = (2x$pst - x$psbl);
+  draw z$psbl--z$psbr;
+  penlabels($pst,$psb,$psm,$psr,$pstr,$psbl,$psbr,1,2,3,4,100);
+enddef;
+
+%    \end{macrocode}
+% \end{routine}
+%
+%
+% \begin{routine}{draw_m}
+% Draw an `m' character.
+% |$| and |$$| are the lower left and upper right of the character's `box'.
+%    \begin{macrocode}
+def draw_m(suffix $,$$)=
+  lft x2= x$; y2=1/2[y$,y$$];
+  rt x8=x$$; y8=y2;
+  rt x1=1/4w; bot y1=0;
+  x4=1/2[x$,x$$]; y4=2/3[y$,y$$];
+  x3=0.5[x2,x4]; top y3=y$$;
+  x5=x4; y5=y1;
+  z6=z4;
+  x7=3/4[x$,x$$]; top y7=y$$;
+  lft x9=3/4[x$,x$$]; y9=y1;
+  if ductus:
+    pickup stylus;
+  fi
+  draw z1..z2{up}..z3{right}..{down}z4;      % left half
+  draw_tstem(4,5,srad);                      % middle stem
+  draw z6..z7{right}..z8{down}..{-pdir}z9;          % right half
+  ductus:=false;
+  penlabels(1,2,3,4,5,6,7,8,9,100);
+enddef;
+
+%    \end{macrocode}
+% \end{routine}
+%
+%
+% \begin{routine}{draw_n}
+% Draw an `n' character.
+% |$| and |$$| are the lower left and upper right of the character's `box'.
+%    \begin{macrocode}
+def draw_n(suffix $,$$)=
+% left stem
+  lft x$nlt=x$; top y$nlt=y$$;   %% nlt = 1
+  x$nlb=x$nlt; bot y$nlb=y$;     %% nlb = 2
+% right stem
+  rt x$nrt=x$$; y$nrt=y$nlt;     %% nrt = 4
+  x$nrb=x$nrt; bot y$nrb=y$;     %% nrb = 3
+  if ductus:
+    pickup stylus;
+  fi
+  draw_tlserif($nlt,$nlb,srad);              % left stem
+  draw_tail($nlb,jut);
+  draw_istem($nrt,$nrb,srad);                % right stem
+  draw z$nlt--z$nrb;                         % diagonal
+  penlabels($nlt,$nlb,$nrt,$nrb);
+enddef;
+
+%    \end{macrocode}
+% \end{routine}
+%
+% \begin{routine}{draw_eng}
+% Draw an `eng' character.
+% |$| and |$$| are the lower left and upper right of the character's `box'.
+%    \begin{macrocode}
+def draw_eng(suffix $,$$,$$$)=
+draw_n($,$$);
+x$nge=2/3[x$nlb,x$nrb]; y$nge = y$$$; x$ngf=1/3[x$nlb,x$nrb]; 
+y$ngf = 1/2[y$nrb,y$nge];
+draw z$nrb{down}..z$nge..z$ngf;
+%% undraw the bottom serif
+pickup stylus;
+lft x$nglt= lft x$nglb=x$$; rt x$ngrb=rt x$ngrt = x$$+jut;
+top y$nglt = top y$ngrt = y$$; bot y$nglb = bot y$ngrb = y$;
+path pu[];
+pu1 =  z$nglt--z$nglb--z$ngrb--z$ngrt--cycle;
+unfilldraw pu1; unfilldraw pu1;
+penlabels($nge,$ngf,$nglt,$nglb,$lgrb,$ngrt);
+enddef;
+
+%    \end{macrocode}
+% \end{routine}
+%
+%
+% \begin{routine}{draw_o}
+% Draw an `o' character.
+% |$| and |$$| are the lower left and upper right of the character's `box'.
+%    \begin{macrocode}
+def draw_o(suffix $,$$)=
+  lft x1=x$; rt x3=x$$; y1=y3=1/2[y$,y$$];
+  x2=x4=1/2[x$,x$$]; top y2=y$$; bot y4=y$;
+  if ductus:
+    pickup stylus;
+  fi
+  draw z1..z2..z3..z4..cycle;
+  penlabels(1,2,3,4,100);
+enddef;
+
+%    \end{macrocode}
+% \end{routine}
+%
+%
+% \begin{routine}{draw_p}
+% Draw a `p' character.
+% |$| and |$$| are the lower left and upper right of the character's `box'.
+% |$$$| is base of descender box.
+%    \begin{macrocode}
+def draw_p(suffix $,$$,$$$)=
+% stem
+  lft x1=lft x2=x$; top y1=y$$; bot y2=y$$$;
+% bowl
+  z3=z1;
+  rt x5=x$$; y5=1/2[y$,y$$]; 
+  lft x7=rt x1; bot y7=y$;
+  if ductus:
+    pickup stylus;
+  fi
+  draw_tlserif(1,2,srad);               % stem
+  draw_tail(2,jut);
+  draw z3{pdir}..z5{down}..{-pdir}z7;   % bowl
+  penlabels(1,2,3,4,5,6,7,100);
+enddef;
+
+%    \end{macrocode}
+% \end{routine}
+%
+%
+% \begin{routine}{draw_q}
+% Draw a `q' character.
+% |$| and |$$| are the lower left and upper right of the character's `box'.
+% |$$$| is base of descender box.
+%    \begin{macrocode}
+def draw_q(suffix $,$$,$$$)=
+% right stem
+  rt x1=rt x2=x$$; top y1=y$$; bot y2=y$$$;
+% bowl
+  z3=z1;
+  lft x5=x$; y5=1/2[y$,y$$];
+  rt x7=lft x1; y7=0.1[y$,y$$];
+  if ductus:
+    pickup stylus;
+  fi
+  draw z1--z2;                          % right stem
+  draw_tail(2,jut);
+  draw z3{left}..z5{down}..{pdir}z7;    % bowl
+  penlabels(1,2,3,4,5,6,7,100);
+enddef;
+
+%    \end{macrocode}
+% \end{routine}
+%
+%
+% \begin{routine}{draw_pilcrow}
+% Draw a pilcrow character.
+% |$| and |$$| are the lower left and upper right of the character's `box'.
+% |$$$| is base of descender box.
+%    \begin{macrocode}
+def draw_pilcrow(suffix $,$$,$$$)=
+% right stem
+  rt x1=rt x2=x$$; top y1=y$$; bot y2=y$$$;
+% bowl
+  x3=x1; y3=y1-thick;
+  lft x5=x$; y5=1/2[y$,y$$];
+  rt x7=lft x1; y7=0.1[y$,y$$];
+  lft x15=rt x5; y15=y5;
+  if ductus:
+    pickup stylus;
+  fi
+  draw z1--z2;                          % right stem
+  draw_tail(2,jut);
+  draw z3{left}..z5{down}..{pdir}z7;    % bowl
+  draw z3{left}..z15{down}..{pdir}z7;    % bowl
+  penlabels(1,2,3,4,5,6,7,15,100);
+enddef;
+
+%    \end{macrocode}
+% \end{routine}
+%
+%
+% \begin{routine}{draw_r}
+% Draw an `r' character.
+% |$| and |$$| are the lower left and upper right of the character's `box'.
+%    \begin{macrocode}
+def draw_r(suffix $,$$)=
+% stem
+  lft x1=lft x2=x$; top y1=y$$; bot y2=y$;
+% bowl
+  lft x3=rt x1-thin; y3=y1;
+  rt x5=3/4[x$,x$$]; y5=3/4[y$,y$$];
+  lft x7=rt x1; bot y7=1/3[y$,y$$];
+% leg
+  z8=z7;
+  rt x9=x$$; bot y9=y$;
+  if ductus:
+    pickup stylus;
+  fi
+  draw_tlserif(1,2,srad);                   % stem
+  draw_tail(2,jut);
+  draw z3{pdir}..z5{down}..{-pdir}z7;       % bowl
+  draw z8{-ppdir}..{right}z9;               % leg
+  penlabels(1,2,3,4,5,6,7,8,9,100);
+enddef;
+
+%    \end{macrocode}
+% \end{routine}
+%
+%
+% \begin{routine}{draw_s}
+% Draw an `s' character.
+% |$| and |$$| are the lower left and upper right of the character's `box'.
+%    \begin{macrocode}
+def draw_s(suffix $,$$)=
+  rt x$Sa=x$$; top y$Sa=y$$-thin;   % a = 1
+  x$Sb=1/2[x$,x$$]; top y$Sb=y$$;   % b = 2
+  lft x$Sc=x$; y$Sc=0.75[y$,y$$];   % c = 3
+  x$Sd=x$Sb; y$Sd=1/2[y$,y$$];      % d = 4
+  x$Se=x$Sa; y$Se=0.25[y$,y$$];     % e = 5
+  x$Sf=x$Sb; bot y$Sf=y$;           % f = 6
+  x$Sg=x$Sc; bot y$Sg = y$+thin;    % g = 7
+  path p[];
+  p1=z$Sa..z$Sb{left}..z$Sc{down}..z$Sd..z$Se{down}..z$Sf{left}..z$Sg;
+  pair vec[];
+  vec1= direction 0 of p1;
+  vec2= direction (length p1) of p1;
+  z$Saa=z$Sa shifted vec1;          % aa = 11
+  z$Sgg=z$Sg shifted -vec2;         % gg = 17
+  y$Sf'=top y$Sa; y$Sf''=bot y$Sa; x$Sf''=lft x$Sa;
+% the serif
+  pickup stylus;
+  rt x$Sfff=x$$; top y$Sfff=y$Sf';      % 26 = fff
+  x$Sggg=x$Sa; y$Sggg=y$Sfff-0.75jut;   % 27 = ggg
+  lft x$Shhh=x$Sf''; bot y$Shhh=y$Sf''; % 28 = hhh
+  pickup quill;
+  if ductus:
+    pickup stylus;
+  fi
+  draw p1;                          % the curve
+  pickup stylus;
+  filldraw z$Sggg..z$Shhh--z$Sfff--cycle;    % the serif
+  penlabels($Sa,$Sb,$Sc,$Sd,$Se,$Sf,$Sg,$Saa,$Sgg,$Sfff,$Sggg,$Shhh);
+enddef;
+
+%    \end{macrocode}
+% \end{routine}
+%
+%
+% \begin{routine}{draw_eszett}
+% Draw an eszett.
+% |$| and |$$| are the lower left and upper right of the character's `box'.
+%    \begin{macrocode}
+def draw_eszett(suffix $,$$,$$$)=
+  lft x1 = lft x2 = x$; bot y1 = y$$$; y2 = y$$-2thick;
+  top y3=y$$; rt x4 = rt x6 = x$$; x3 = 1/2[x2,x4];
+  lft x5 = lft x7 = x1+thick;
+  bot y7 = y$; y5 = 1/2[y7,y3];
+  y4 = 1/2[y5,y3]; y6 = 1/2[y7,y5];
+  if ductus:
+    pickup stylus;
+  fi
+  draw z1--z2{up}..z3{right}..z4{down}..{-pdir}z5;
+  draw z5{right}..z6{down}..{left}z7;
+  draw_tail(1,jut);
+  penlabels(1,2,3,4,5,6,7,8,9,10,11,12,13,14,15);
+enddef;
+
+%    \end{macrocode}
+% \end{routine}
+%
+%
+% \begin{routine}{draw_section}
+% Draw a section symbol.
+% |$| and |$$| are the lower left and upper right of the character's `box'.
+%    \begin{macrocode}
+def draw_section(suffix $,$$,$$$)=
+  rt x1 = rt x11 = x666; top y1 = top y11 = y666;
+  lft x5 = lft x15 = x555; bot y5 = bot y15 = y$$$;
+  x12=x15; x4 = x1;
+  y3 = 1/2[y5,y1] + 1/2thick; y13 = y3-thick;
+  y2=1/2[y3,y1]; y4 = 1/2[y5,y3]; 
+  y12=1/2[y13,y11]; y14=1/2[y15,y13];
+  x2=x12+thick; x14=x4-thick;
+  x3=1/2[x2,x4]; x13 = 1/2[x12,x14];
+  if ductus:
+    pickup stylus;
+  fi
+  draw z1..z2..z3..z4..z5;
+  draw z11..z12..z13..z14..z15;
+  penlabels(1,2,3,4,5,11,12,13,14,15);
+enddef;
+
+%    \end{macrocode}
+% \end{routine}
+%
+%
+% \begin{routine}{draw_t}
+% Draw a `t' character.
+% |$| and |$$| are the lower left and upper right of the character's `box'.
+%    \begin{macrocode}
+def draw_t(suffix $,$$)=
+%%  x1=x2=1/2[x$,x$$];
+%%  top y1=y$$; bot y2=y$;
+%%  lft x3=x$; rt x4=x$$; y3=y4=y1;
+%%  x5=x$+0.5jut; y5=y$$-1/2thin;
+%%  x6=x$$-1/2thin; y6=y5;
+%%  if ductus:
+%%    pickup stylus;
+%%  fi
+%%  draw_tstem(1,2,srad);   % stem
+%%  draw z3--z4;   % top bar
+%%  draw_triangle(5,jut); draw_rtriangle(6,jut);
+%%  penlabels(1,2,3,4,5,100);
+  x184=x284=1/2[x$,x$$];
+  top y184=y$$; bot y284=y$;
+  lft x384=x$; rt x484=x$$; y384=y484=y184;
+  x584=x$+0.5jut; y584=y$$-1/2thin;
+  x684=x$$-1/2thin; y684=y584;
+  if ductus:
+    pickup stylus;
+  fi
+  draw_tstem(184,284,srad);   % stem
+  draw z384--z484;   % top bar
+  draw_triangle(584,jut); draw_rtriangle(684,jut);
+  penlabels(184,284,384,484,584,100);
+enddef;
+
+%    \end{macrocode}
+% \end{routine}
+%
+%
+% \begin{routine}{draw_u}
+% Draw a `u' character.
+% |$| and |$$| are the lower left and upper right of the character's `box'.
+%    \begin{macrocode}
+def draw_u(suffix $,$$)=
+% left half first
+  lft x6=x$+jut; top y6=y$$-2thin;
+  lft x7=x$; y7=1/2[y$,y$$];
+  x8=0.5[x6,x1]; bot y8=y$;
+% the stem
+  rt x1=x$$; top y1=y$$;
+  x2=x1; bot y2=y$;
+% construction points for the curved part
+  x5=0.5[x8,x1]; y5=y8;
+  z5'=z5 shifted (w*pdir);
+  path p[];
+  p1=z5--z5';
+  p2=z1--z2;
+  z9= p2 intersectionpoint p1;
+  pair vec[];
+  p3=z6..z7{down}..{right}z8;
+  vec3 = direction 0 of p3;
+  z16=z6 shifted vec3;
+  if ductus:
+    pickup stylus;
+  fi
+% draw the serifs, then the bowls
+  draw_serif(6,16,srad);                      % left half
+  draw z6a..z7{down}..z8{right}..{pdir}z9;  
+  draw_istem(1,2,srad);                       % right stem
+  penlabels(1,2,3,4,5,6,7,8,9,11,16,100);
+enddef;
+
+%    \end{macrocode}
+% \end{routine}
+%
+%
+% \begin{routine}{draw_v}
+% Draw a `v' character.
+% |$| and |$$| are the lower left and upper right of the character's `box'.
+%    \begin{macrocode}
+def draw_v(suffix $,$$)=
+% right side of W
+  numeric midx; midx:= pcshiftx;
+  lft x1=x$; top y1=y$$;
+  x2=x1; y2=1/2[y$,y$$];
+  rt x4=x$$; y4=y2;
+  x3=0.5[x2,x4]; bot y3=y$;
+  x5=x4-thick; y5=y1;
+  if ductus:
+    pickup stylus;
+  fi
+% draw the serifs, then the bowls
+  draw_tlserif(1,2,srad);  
+  draw z2{down}..z3{right}..z4{up}..z5;  
+  penlabels(1,2,3,4,5,11,100);
+enddef;
+
+%    \end{macrocode}
+% \end{routine}
+%
+%
+% \begin{routine}{draw_w}
+% Draw a `w' character.
+% |$| and |$$| are the lower left and upper right of the character's `box'.
+%    \begin{macrocode}
+def draw_w(suffix $,$$)=
+% right side first
+  numeric midx; midx:= 1/2[x$,x$$]-jut;
+  lft x1=midx+jut; top y1=y$$;
+  x2=x1; y2=1/2[y$,y$$];
+  rt x4=x$$; y4=y2;
+  x3=0.5[x2,x4]; bot y3=y$;
+  x5=x4-thick; y5=y1;
+% left side
+  lft x6=x$+jut;
+  top y6=y$$-2thin;
+  lft x7=x$; y7=y2;
+  x8=0.5[x7,x1]; y8=y3;
+% construction points
+  x15=0.5[x8,x1]; y15=y8;
+  z15'=z15 shifted (w*pdir);
+  x2'=x2; y2'=y15;
+  path p[];
+  p1=z1--z2';
+  p2=z15--z15';
+  z9= p2 intersectionpoint p1;
+  pair vec[];
+  p3=z6..z7{down}..{right}z8;
+  vec3 = direction 0 of p3;
+  z16=z6 shifted vec3;
+  if ductus:
+    pickup stylus;
+  fi
+% draw the serifs, then the bowls
+  draw_tlserif(1,2,srad);                      % right half
+  draw z2{down}..z3{right}..z4{up}..z5;  
+  draw_serif(6,16,srad);                      % left half
+  draw z6a..z7{down}..z8{right}..z9;  
+  penlabels(1,2,3,4,5,6,7,8,9,11,16,100);
+enddef;
+
+%    \end{macrocode}
+% \end{routine}
+%
+%
+% \begin{routine}{draw_x}
+% Draw an `x' character.
+% |$| and |$$| are the lower left and upper right of the character's `box'.
+%    \begin{macrocode}
+def draw_x(suffix $,$$,$$$)=
+% thick diagonal
+  lft x1=x$+jut; rt x2=x$$-jut;
+  y1=y$$; y2=y$;
+% thin diagonal
+  lft x3=x$; bot y3=y$$$;
+  rt x5=x$$; top y5=y$$;
+  if ductus:
+    pickup stylus;
+  fi
+  draw_istem(1,2,srad);            % thick diagonal
+  draw z3..{pdir}z5;               % thin diagonal
+  penlabels(1,2,3,4,5,6,7,8,100);
+enddef;
+
+%    \end{macrocode}
+% \end{routine}
+%
+%
+% \begin{routine}{draw_y_base}
+% Draw a dotless `y' character.
+% |$| and |$$| are the lower left and upper right of the character's `box'.
+%    \begin{macrocode}
+def draw_y_base(suffix $,$$,$$$)=
+% left stroke
+  lft x1=x$+jut; top y1=y$$;
+  rt x2=3/4[x$,x$$]; top y2=y$;
+% right stroke
+  pickup stylus;
+  rt x3=x$$; top y3=y$$;
+  lft x4=x$; bot y4=y$$$;
+  x5=x3-3thin; y5=y3;
+  x7=x2-3/2thin; y7=y2;
+  pickup quill;
+  if ductus:
+    pickup stylus;
+  fi
+  draw_tlserif(1,2,srad);       % left stroke
+  pickup stylus;
+  filldraw z3..z2..z4 & z4..z7..z5--cycle;  % right stroke
+  penlabels(1,2,3,4,5,6,7,8,9,10,100);
+enddef;
+
+%    \end{macrocode}
+% \end{routine}
+%
+% \begin{routine}{draw_y}
+% Draw a `y' character.
+% |$| and |$$| are the lower left and upper right of the character's `box'.
+%    \begin{macrocode}
+def draw_y(suffix $,$$,$$$)=
+  draw_y_base($,$$,$$$);
+  x8=1/2[x$,x$$]; y8=y$$+jut;
+  draw_pdot(8,dot_size);        % the dot
+  penlabels(8);
+enddef;
+
+%    \end{macrocode}
+% \end{routine}
+%
+%
+% \begin{routine}{draw_z}
+% Draw a `z' character.
+% |$| and |$$| are the lower left and upper right of the character's `box'.
+%    \begin{macrocode}
+def draw_z(suffix $,$$)=
+  % bottom stroke
+  lft x4=x$; bot y4=y$;
+  x6=x$$; y6=y$;
+% top stroke
+  x1=x4; top y1=y$$;
+  rt x3=6/7[x$,x$$]; y3=y1;
+  x11=x$+0.5jut; y11=y$$-thin/2; 
+  if ductus:
+    pickup stylus;
+  fi
+  draw z1--z3;    % top stroke
+  draw_triangle(11,jut);
+  draw_fork(4,6,jut);
+  draw z4--z3;    % diagonal
+  penlabels(1,2,3,4,5,6,100);
+enddef;
+
+%    \end{macrocode}
+% \end{routine}
+%
+%
+% \begin{routine}{draw_thorn}
+% Draw a thorn character.
+% |$| and |$$| are the lower left and upper right of the character's `box'.
+% |$$$| is base of descender box.
+%    \begin{macrocode}
+def draw_thorn(suffix $,$$,$$$)=
+% stem
+  lft x1=lft x2=x$; top y1=y$$; bot y2=y$$$;
+% bowl
+  lft x7=rt x1; bot y7=y$;
+  x3=x1; y1-y3 = y7-y2;
+  rt x5=x$$; y5=1/2[y3,y7]; 
+  if ductus:
+    pickup stylus;
+  fi
+  draw_tlserif(1,2,srad);               % stem
+  draw_tail(2,jut);
+  draw z3{pdir}..z5{down}..{-pdir}z7;   % bowl
+  penlabels(1,2,3,4,5,6,7,100);
+enddef;
+
+%    \end{macrocode}
+% \end{routine}
+%
+%
+%
+%
+% \subsection{Mode, setup and input files}
+%
+%
+%    Set the mode and font setup.
+%    \begin{macrocode}
+font_coding_scheme:="TeXB1";
+mode_setup; 
+auncial_font_setup;
+
+%    \end{macrocode}
+%
+%
+%    We generate letters, together with some punctuation and
+% analphabetics.
+%    \begin{macrocode}
+input auncllow;      % characters below ASCII
+input aunclsci;      % ASCII character set
+input aunclmid;      % bottom of top half
+input auncltop;      % top of top half
+
+%    \end{macrocode}
+%
+% \subsection{Ligatures}
+%
+% The open and close double quotes, and the en- and em-dashes.
+%    \begin{macrocode}
+%%ligtable "`": "`"=:oct"134";
+%%ligtable "'": "'"=:oct"042"; %% , "?" kern 2u#, "!" kern 2u#;
+%%ligtable "-": "-"=:oct"173";
+%%ligtable oct"173": "-"=:oct"174";
+ligtable "`": "`"=:oct"020";        %% open quotes
+ligtable "'": "'"=:oct"021";        %% close quotes
+%% , "?" kern 2u#, "!" kern 2u#;
+ligtable "-": "-"=:oct"025";        %% en-dash
+ligtable oct"025": "-"=:oct"026";   %% em-dash
+
+%    \end{macrocode}
+%
+% Other ligatures are possible in the following slots..
+%
+%    \begin{macrocode}
+%%ligtable oct"240": "t"=oct"223";
+%%ligtable "e": "t"=oct"247";
+%%ligtable "s": "t"=oct"263";
+%%ligtable "c": "t"=oct"265";
+%%ligtable =oct"223";
+%%ligtable =oct"225";
+
+%    \end{macrocode}
+%
+% Finally, do the uppercase ligtable.
+%
+%    \begin{macrocode}
+font_slant slant; font_x_height x_height#;
+if monospace: font_normal_space 9u#; % no stretching or shrinking
+ font_quad 18u#;
+ font_extra_space 9u#;
+else: font_normal_space 6u#+2letter_fit#;
+ font_normal_stretch 3u#; font_normal_shrink 2u#;
+ font_quad 18u#+4letter_fit#;
+ font_extra_space 2u#;
+ k#:=-.5u#; kk#:=-1.5u#; kkk#:=-2u#; % three degrees of kerning
+%% ligtable "P": "T": "Y": "A" kern kk#;
+%% ligtable "F": "V": "W": "A" kern if serifs: kkk# else: kk#fi,
+%%  "K": "X": "O" kern k#, "C" kern k#, "G" kern k#, "Q" kern k#;
+%% ligtable "O": "D": "X" kern k#, "W" kern k#, "A" kern k#,
+%%   "V" kern k#, "Y" kern k#;
+%% ligtable "A": if serifs: "R": fi
+%%  "C" kern k#, "O" kern k#, "G" kern k#, "U" kern k#, "Q" kern k#,
+%%  "L": "T" kern kk#, "Y" kern kkk#, "V" kern kk#, "W" kern kkk#;
+%%ligtable "I": "I" kern -k#; % Richard III
+fi
+
+bye.
+
+%</mfd>
+%    \end{macrocode}
+%
+%
+% \Finale
+%
+\endinput
+
+%% \CharacterTable
+%%  {Upper-case    \A\B\C\D\E\F\G\H\I\J\K\L\M\N\O\P\Q\R\S\T\U\V\W\X\Y\Z
+%%   Lower-case    \a\b\c\d\e\f\g\h\i\j\k\l\m\n\o\p\q\r\s\t\u\v\w\x\y\z
+%%   Digits        \0\1\2\3\4\5\6\7\8\9
+%%   Exclamation   \!     Double quote  \"     Hash (number) \#
+%%   Dollar        \$     Percent       \%     Ampersand     \&
+%%   Acute accent  \'     Left paren    \(     Right paren   \)
+%%   Asterisk      \*     Plus          \+     Comma         \,
+%%   Minus         \-     Point         \.     Solidus       \/
+%%   Colon         \:     Semicolon     \;     Less than     \<
+%%   Equals        \=     Greater than  \>     Question mark \?
+%%   Commercial at \@     Left bracket  \[     Backslash     \\
+%%   Right bracket \]     Circumflex    \^     Underscore    \_
+%%   Grave accent  \`     Left brace    \{     Vertical bar  \|
+%%   Right brace   \}     Tilde         \~}
+
+

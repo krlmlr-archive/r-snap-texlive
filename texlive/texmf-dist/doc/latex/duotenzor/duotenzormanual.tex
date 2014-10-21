@@ -1,0 +1,437 @@
+
+
+\documentclass[10pt]{article}
+
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsfonts}
+\usepackage{graphics}
+\usepackage{MnSymbol}
+\usepackage{array}
+
+\usepackage{duotenzor}
+
+%\setoperationalfont{\mathcal}
+
+%\setduotensorfont{\mathsf}
+
+\title{\bf The duotenzor drawing package}
+\author{Lucien Hardy\\
+\textit{Perimeter Institute,}\\
+\textit{31 Caroline Street North,}\\
+\textit{Waterloo, Ontario N2L 2Y5, Canada}}
+
+
+\begin{document}
+
+\maketitle
+
+\vspace{17mm}
+
+\[
+\begin{Diagram}[1.3]{0}{-3.3}
+\begin{move}{-2,4}
+\Duobox{A}{0,0}
+\linkedprep[0.7]{A}{1}{A1}{3}{0}\duosymbol[-3,-6]{\scriptstyle a}
+\linkedprep[0.7]{A}{2}{A2}{4.5}{0}\duosymbol[-25,-6]{\scriptstyle c}
+\linkedprep[0.7]{A}{3}{A3}{6}{0}\duosymbol[-44,-6]{\scriptstyle a}
+\end{move}
+\begin{move}{-2.5,15}
+\Duobox[2]{B}{0,0}
+\linkedeffect[0.7]{B}{1}{1B}{-4.5}{0}\duosymbol[25,-6]{\scriptstyle a}
+\linkedeffect[0.7]{B}{2}{2B}{-3}{0}\duosymbol[3,-6]{\scriptstyle a}
+\linkedprep[0.7]{B}{1.5}{B15}{3}{0} \duosymbol[-3,-6]{\scriptstyle b}
+\end{move}
+\begin{move}{6,9}
+\Duobox[2]{C}{0,0}
+\linkedeffect[0.7]{C}{1}{1C}{-4.5}{0}\duosymbol[25,-6]{\scriptstyle c}
+\linkedeffect[0.7]{C}{2}{2C}{-3}{0}\duosymbol[3,-6]{\scriptstyle a}
+\linkedprep[0.7]{C}{1}{C1}{3}{0} \duosymbol[-3,-6]{\scriptstyle a}
+\linkedprep[0.7]{C}{2}{C2}{4.5}{0} \otherside\duosymbol[-25,3]{\scriptstyle d}
+\end{move}
+\begin{move}{3,21}
+\Duobox[2]{D}{0,0}
+\linkedeffect[0.7]{D}{1}{1D}{-4.5}{0}\duosymbol[25,-6]{\scriptstyle b}
+\linkedeffect[0.7]{D}{2}{2D}{-3}{0}\otherside\duosymbol[3,3]{\scriptstyle d}
+\end{move}
+\wire{A1}{1B}{1}{1}\opsymbol{a} \wire{A2}{1C}{1}{1}\opsymbol{c} \wire{A3}{2C}{1}{1}\otherside\opsymbol{a}
+\wire{C1}{2B}{1}{1}\opsymbol{a} \wire{C2}{2D}{1}{1}\otherside\opsymbol[4,0]{d} \wire{B15}{1D}{1}{1}\opsymbol{b}
+\end{Diagram}
+\]
+
+\vspace{14mm}
+
+\noindent Version 1.00.
+
+\vspace{3pt}
+
+\noindent Copyright 2010 by Lucien Hardy.
+
+\vspace{3pt}
+
+\noindent Permission is granted to distribute and/or modify both the documentation and the code under the
+conditions of the LaTeX Project Public License, either version 1.3 of this license or (at your option) any
+later version.
+
+\newpage
+
+
+The \verb+duotenzor+ drawing package (spelled with a \verb+z+) is a purpose built package for drawing circuits and duotensor diagrams \cite{Hardyduotensors}.  It consists of about eighty commands (defined using the LaTeX \verb+\newcommand+ command) that call on the TikZ package written by Till Tantau \cite{TikZ}. TikZ is, of course, much much more versatile and it (or some other similar package) should be used to draw more complicated diagrams.  \verb+duotenzor+ has two advantages:  (1) fewer commands are required for circuit and duotensor diagrams than with a more advanced package; (2) producing a drawing is very similar to producing an equation using LaTeX.  The package file, \verb+duotenzor.sty+, can be downloaded from CTAN and, once saved into the appropriate folder (the working folder will suffice), uploaded into the document using the command \verb+\usepackage{duotenzor}+ in the document preamble.  This package calls on the TikZ drawing package \cite{TikZ} and two of its libraries (\verb+calc+ and \verb+arrows+).  It also calls on the \verb+xspace+ package.  All these are included as standard in most LaTeX installations. \verb+duotenzor+ consists of about sixty commands which must be used inside
+\verb+\begin{diagram} ... \end{diagram}+ commands.  In addition there are about twenty commands that can be used in regular text or in math mode but not inside the diagram environment.
+
+The following code produces the example on the right.
+
+\begin{verbatim}
+\begin{diagram}
+\Opbox{A}{0,0}
+\Opbox{B}{2,4}
+\wire{A}{B}{1}{2}
+\end{diagram}
+\end{verbatim}
+\makebox[3cm][l]{
+\begin{diagram}
+\boundingbox{0,0}{0,0}
+\begin{move}{30,5}
+\Opbox{A}{0,0}
+\Opbox{B}{2,4}
+\wire{A}{B}{1}{2}
+\end{move}
+\end{diagram}
+}
+
+\vspace{-13pt}
+\noindent
+Here \verb+\Opbox{B}{2,4}+ puts a box at coordinate $(2,4)$ with the symbol $\mathsf B$ in it.  An alternative way to do this is to use
+\verb+\opbox{B}{2,4}\opsymbol{B}+.  In this case \verb+\opbox{B}{2,4}+ produces an empty box which, in the code, is called \verb+B+ (we cannot have two objects with the same name).  Then the command \verb+\opsymbol{B}+ puts a $\mathsf B$ in the box.  We need to use this more lengthy construction if we want to have two boxes with the same letter inside them.  By default these boxes are of size 3 having room for 3 inputs and 3 outputs.  A box of size 5 is produced by \verb+\Opbox[5]{A}{2,4}+.  We can choose non-integer sizes should we wish.  The \verb+\wire{A}{B}{1}{2}+ command draws a wire from output 1 of box \verb+A+ to input 2 of box \verb+B+.  The inputs and outputs need not be integers.  This is particularly useful if we want to have a different number inputs and outputs.
+
+The command \verb+\opsymbol{s}+ puts the symbol $\mathsf{s}$ (in the \verb+\mathsf+ font) at the appropriate location for the preceeding object.  We can use to put a symbol in a box or on the left of a wire for example. To switch the symbol to the other side of the wire we use the command \verb+\otherside+ immediately before the \verb+\opsymbol+ command.   The command allows optional fine tuning.  For example, \verb+\opsymbol[5,13]{s}+
+will move the symbol 5 small units to the left and 13 small units up.  This fine tuning is useful since \verb+duotenzor+ does not always position the labels to ones taste.  Here is an example illustrating these points.
+\newpage
+\begin{verbatim}
+\begin{diagram}
+\Opbox{A}{0,0}
+\opbox[2]{B}{2,4}\opsymbol{B}
+\Opbox[2]{C}{-1,9}
+\wire{A}{B}{2}{1}\opsymbol{a}
+\wire{A}{B}{3}{2} \otherside \opsymbol{c}
+\wire{A}{C}{1}{1}\opsymbol{b}
+\wire{B}{C}{1.5}{2} \opsymbol[-2,-5]{d}
+\end{diagram}
+\end{verbatim}
+\makebox[3cm][l]{
+\begin{diagram}
+\boundingbox{0,0}{0,0}
+\begin{move}{38,6.5}
+\Opbox{A}{0,0}
+\opbox[2]{B}{2,4}\opsymbol{B}
+\Opbox[2]{C}{-1,9}
+\wire{A}{B}{2}{1}\opsymbol{a}
+\wire{A}{B}{3}{2} \otherside \opsymbol{c}
+\wire{A}{C}{1}{1}\opsymbol{b}
+\wire{B}{C}{1.5}{2} \opsymbol[-2,-5]{d}
+\end{move}
+\end{diagram}
+}
+
+\vspace{-13pt}
+\noindent Here is another example illustrating the use of \verb+\inwire+ and \verb+\outwire+
+\makebox[3cm][l]{
+\begin{diagram}
+\boundingbox{0,0}{0,0}
+\begin{move}{-4,-9}
+\Opbox{D}{0,0}
+\inwire[-5]{D}{1} \Opsymbol{a}
+\inwire{D}{2} \Opsymbol{b}
+\closedinwire[5]{D}{3} \Opsymbol{c}
+\outwire[-5]{D}{1.5} \Opsymbol{d}
+\closedoutwire[5]{D}{2.5} \Opsymbol{e}
+\end{move}
+\end{diagram}
+}
+\begin{verbatim}
+\begin{diagram}
+\Opbox{D}{0,0}
+\inwire[-5]{D}{1} \Opsymbol{a}
+\inwire{D}{2} \Opsymbol{b}
+\closedinwire[5]{D}{3} \Opsymbol{c}
+\outwire[-5]{D}{1.5} \Opsymbol{d}
+\closedoutwire[5]{D}{2.5} \Opsymbol{e}
+\end{diagram}
+\end{verbatim}
+
+\noindent The optional argument in square brackets on \verb+\inwire+ and \verb+\outwire+ allows the inwire and outwire to be bent which can be visually more appealing.  We use \verb+\Opsymbol+ rather than \verb+\opsymbol+ for putting symbols at the end of wires to get the symbols aligned (\verb+\opsymbol+ can be used but produces messy results).  The commands \verb+\closedinwire+ and \verb+\closedoutwire+ produce closed inputs and outputs as shown.
+
+Similar commands produce duotensor diagrams.  Here is an example
+\makebox[3cm][l]{
+\begin{diagram}
+\boundingbox{0,0}{0,0}
+\begin{move}{-9,-11}
+\Duobox[2]{A}{0,0}
+\duobox[2]{B}{6,3} \duosymbol{B}
+\link{A}{B}{1}{1.5}\duosymbol{a}
+\inblack[-5]{A}{1} \Duosymbol{a}
+\inwhite[5]{A}{2} \Duosymbol{b}
+\outblack[5]{A}{2} \duosymbol{d}
+\outwhite[-5]{B}{1}\Duosymbol{a}
+\outblack[5]{B}{2}\Duosymbol{c}
+\end{move}
+\end{diagram}
+}
+\begin{verbatim}
+\begin{diagram}
+\Duobox[2]{A}{0,0}
+\duobox[2]{B}{6,3} \duosymbol{B}
+\link{A}{B}{1}{1.5}\duosymbol{a}
+\inblack[-5]{A}{1} \Duosymbol{a}
+\inwhite[5]{A}{2} \Duosymbol{b}
+\outblack[5]{A}{2} \duosymbol{d}
+\outwhite[-5]{B}{1}\Duosymbol{a}
+\outblack[5]{B}{2}\Duosymbol{c}
+\end{diagram}
+\end{verbatim}
+
+The command \verb+\otherside+ can be used to put a label below (rather than above) a link.
+
+\newpage
+
+Often it is necessary to put black and white dots on the links themselves.  This is illustrated by
+\makebox[3cm][l]{
+\begin{diagram}
+\boundingbox{0,0}{0,0}
+\begin{move}{17,-11}
+\Duobox[12]{A}{0,0}
+\Duobox[12]{B}{12,4}
+\linkbw{A}{B}{2}{2}
+\linkwb{A}{B}{4}{4}
+\linkwbbw{A}{B}{6}{6}
+\linkbwwb{A}{B}{8}{8}
+\linkwbwb{A}{B}{10}{10}
+\linkbwbw{A}{B}{12}{12}
+\end{move}
+\end{diagram}
+}
+\begin{verbatim}
+\begin{diagram}
+\Duobox[12]{A}{0,0}
+\Duobox[12]{B}{12,4}
+\linkbw{A}{B}{2}{2}
+\linkwb{A}{B}{4}{4}
+\linkwbbw{A}{B}{6}{6}
+\linkbwwb{A}{B}{8}{8}
+\linkwbwb{A}{B}{10}{10}
+\linkbwbw{A}{B}{12}{12}
+\end{diagram}
+\end{verbatim}
+
+\noindent Both \verb+\wire+ and \verb+\link+ (along with all the related commands in the above example) also take an optional argument in square brackets which increases the curviness of the line.  The value 0 produces a straight line.  The default value is 1.
+
+There are a few commands that are useful for drawing hybrid diagrams.  The command \verb+\Opduobox{hsize}{vsize}{A}{2,5}+ produces a box of horizontal size \verb+hsize+ and vertical size \verb+vsize+ labeled with $\mathsf A$ at coordinate $(2,5)$.  Both links and wires can be attached to this box.  The command \verb+\opduobox+ is the same except it does not have a symbol in it (a symbol can be placed in it using \verb+\opsymbol+ or \verb+\duosymbol+).  We also have \verb+\fideffect[scale]{F}{2,7}+ and \verb+\fidprep[scale]{G}{2,7}+ which produce triangles representing fiducial effects and preparations scaled by the optional \verb+scale+ argument.  They can be both linked to and wired to.  Here is an example
+\makebox[3cm][l]{
+\begin{diagram}
+\boundingbox{0,0}{0,0}
+\begin{move}{7,-12}
+\Opduobox{4}{3}{A}{0,0}
+\Opbox{B}{1,6}
+\fideffect[2]{F}{-5,-2}\opsymbol{F}
+\fidprep{G}{5,2}
+\link{A}{G}{2}{1}
+\link{F}{A}{1}{3}
+\wire{A}{B}{4}{1}
+\wire{G}{B}{1}{3}
+\end{move}
+\end{diagram}
+}
+\begin{verbatim}
+\begin{diagram}
+\Opduobox{4}{3}{A}{0,0}
+\Opbox{B}{1,6}
+\fideffect[2]{F}{-5,-2}\opsymbol{F}
+\fidprep{G}{5,2}
+\link{A}{G}{2}{1}
+\link{F}{A}{1}{3}
+\wire{A}{B}{4}{1}
+\wire{G}{B}{1}{3}
+\end{diagram}
+\end{verbatim}
+
+\noindent It is difficult to align the fiducial effects and fiducial preparations with the duobox they are linked to using the above commands. To help with this, the additional commands \verb+\linkedeffect+ and \verb+\linkedprep+ are supplied.  The command \verb+\linkedeffect[scale]{A}{3}{F}{x}{Dy}+ draws a fiducial element named \verb+F+ with $x$-coordinate \verb+x+ and a $y$-coordinate at a height \verb+Dy+ above the 3 port of duobox \verb+A+ (usually \verb+Dy+ is set to 0 since we are trying to align these objects).  Further, it draws in the link.  Here is an example
+\newpage
+\makebox[3cm][l]{
+\begin{diagram}
+\boundingbox{0,0}{0,0}
+\begin{move}{35,-6}
+\Duobox[2]{C}{0,0}
+\linkedeffect[0.7]{C}{1}{1C}{-4.5}{0}
+\linkedeffect[0.7]{C}{2}{2C}{-3}{0}
+\linkedprep[0.7]{C}{1}{C1}{3}{0}
+\linkedprep[0.7]{C}{2}{C2}{4.5}{0}
+\end{move}
+\end{diagram}
+}
+\begin{verbatim}
+\begin{diagram}
+\Duobox[2]{C}{0,0}
+\linkedeffect[0.7]{C}{1}{1C}{-4.5}{0}
+\linkedeffect[0.7]{C}{2}{2C}{-3}{0}
+\linkedprep[0.7]{C}{1}{C1}{3}{0}
+\linkedprep[0.7]{C}{2}{C2}{4.5}{0}
+\end{diagram}
+\end{verbatim}
+
+\noindent We can connect wires to these fiducial elements using the names they are given (e.g.\ \verb+1C+ for the first one).
+
+The following objects can be linked to (like duoboxes) and have symbols placed above (or below) them
+\makebox[3cm][l]{
+\begin{diagram}
+\boundingbox{0,0}{0,0}
+\begin{move}{23,-3.5}
+\bbmetric{A}{0,0}
+\bwmetric{B}{0,-2}
+\wbmetric{C}{0,-4}
+\wwmetric{D}{0,-6}\otherside \duosymbol{d}
+\end{move}
+\end{diagram}
+}
+\begin{verbatim}
+\begin{diagram}
+\bbmetric{A}{0,0}
+\bwmetric{B}{0,-2}
+\wbmetric{C}{0,-4}
+\wwmetric{D}{0,-6}\otherside \duosymbol{d}
+\end{diagram}
+\end{verbatim}
+
+%\noindent We have also shown how to put a symbol below one of these objects.
+
+To foliate a circuit we use the \verb+foliation+ environment.  This contains an argument saying what $x$-coordinate on the left the foliation lines start, and what $x$-coordinate on the right the foliation lines end.  Foliation lines are drawn using \verb+\startfoliate+, \verb+\continuefoliate+, and \verb+\finishfoliate+ commands.  The \verb+\Startfoliate+, \verb+\Continuefoliate+, and \verb+\Finishfoliate+ commands take an extra argument which allow the intersection point of foliation line with a given wire to be moved away from the centre of the wire by a fraction of the wires length.
+\makebox[3cm][l]{
+\begin{diagram}[1.5]
+\boundingbox{0,0}{0,0}
+\begin{move}{18,-15}
+\Opbox{A}{0,0}
+\Opbox[2]{B}{2,4}
+\Opbox[2]{C}{-1,9}
+\wire{A}{B}{2}{1}
+\wire{A}{B}{3}{2}
+\wire{A}{C}{1}{1}
+\wire{B}{C}{1.5}{2}
+\begin{foliation}{-5}{6}
+\Startfoliate{A}{C}{1}{1}{-0.25}
+\continuefoliate{A}{B}{2}{1}
+\finishfoliate{A}{B}{3}{2}
+\putlatex{\ensuremath{t_1}}
+%
+\Startfoliate{A}{C}{1}{1}{0.25}
+\finishfoliate{B}{C}{1.5}{2}
+\otherside\putlatex{\ensuremath{t_1}}
+\end{foliation}
+\end{move}
+\end{diagram}
+}
+\begin{verbatim}
+\begin{diagram}[1.5]
+\Opbox{A}{0,0}
+\Opbox[2]{B}{2,4}
+\Opbox[2]{C}{-1,9}
+\wire{A}{B}{2}{1}
+\wire{A}{B}{3}{2}
+\wire{A}{C}{1}{1}
+\wire{B}{C}{1.5}{2}
+\begin{foliation}{-5}{6}
+  \Startfoliate{A}{C}{1}{1}{-0.25}
+  \continuefoliate{A}{B}{2}{1}
+  \finishfoliate{A}{B}{3}{2}
+  \putlatex{\ensuremath{t_1}}
+  \Startfoliate{A}{C}{1}{1}{0.25}
+  \finishfoliate{B}{C}{1.5}{2}
+  \otherside\putlatex{\ensuremath{t_1}}
+\end{foliation}
+\end{diagram}
+\end{verbatim}
+
+\noindent We have illustrated a few more features in this example.  The \verb+diagram+ environment takes an optional argument that scales the diagram (in this example we have set this to 1.5, the default is 1).  Scaling does not effect the font size.  We have also used the \verb+\putlatex+ command.  This works like \verb+\opsymbol+ and \verb+\duosymbol+. It places the symbol inside the argument at the appropriate location (in this case on the left of the foliation line, or on the right if the \verb+\otherside+ command is used).  We have used the standard LaTeX command \verb+\ensuremath+ rather than \verb+$...$+  since then the diagram can be put inside the equation environment without causing an error.  The command \verb+\placelatex{x,y}{LaTeX}+ can also be used to put some standard LaTex in the diagram.  In this case, it places it at the position $(x,y)$.  Both \verb+\putlatex+ and \verb+\placelatex+ admit an optional fine tuning argument.
+
+The command \verb+\thispoint[dx,dy]{A}{x,y}+ produces an abstract point named \verb+A+ which we can connect wires to, links to, and place symbols at using the various commands above.  This can be useful if we want a wire or link to end at a location at which there is no box.
+
+We can use \verb+\begin{Diagram}[scale]{X}{y} ... \end{Diagram}+ instead of using the \verb+diagram+ environment.  This has additional arguments.  \verb+X+ moves the whole diagram to the left by this distance.  \verb+y+ changes the baseline LaTeX associated with the diagram which has the effect of moving the diagram up by this distance in some cases (this is useful in the equation environment).   With in a diagram we can group together different parts of the diagram within the \verb+move+ environment.  Thus, the part of the diagram whose commands appear inside \verb+\begin{move}[scale]{X,Y} ... \end{move}+ will be scaled by a factor \verb+scale+ and moved distance \verb+X+ in the $x$-direction and \verb+Y+ in the $y$-direction relative to other parts of the diagram.   This is useful in managing complex diagrams.
+The \verb+\boundingbox{x1,y1}{x2,y2}+ command causes LaTeX to think that the diagram is inside the bounding box with bottom left corner at \verb+(x1,y1)+ and top right corner \verb+(x2,y2)+.  This is useful in managing the white space around a diagram.
+
+\verb+duotenzor+ provides a number of stand alone commands.  These can be used in regular text, in math mode, and in the equation environment but not in the \verb+diagram+ environment.  These commands are
+
+\newpage
+
+\hspace{2.2cm}\makebox[\textwidth][l]{Stand alone commands in duotenzor}
+
+\begin{center}
+\begin{tabular}{l l c l l}
+\bbdots & \verb+\bbdots+ & \hspace{3cm} & \bndots & \verb+\bndots+  \\
+\bwdots & \verb+\bwdots+ & & \wndots & \verb+\wndots+  \\
+\wbdots & \verb+\wbdots+ & & \nbdots & \verb+\nbdots+  \\
+\wwdots & \verb+\wwdots+ & & \nwdots & \verb+\nwdots+  \\
+\nndots & \verb+\nndots+ & \vspace{5pt} & \nndotslong & \verb+\nndotslong+ \\
+\bbleftjump & \verb+\bbleftjump+ & \vspace{6pt} & \bbrightjump & \verb+\bbrightjump+  \\
+\bwleftjump & \verb+\bwleftjump+ & \vspace{6pt} & \bwrightjump & \verb+\bwrightjump+ \\
+\wbleftjump & \verb+\wbleftjump+ & \vspace{6pt} & \wbrightjump & \verb+\wbrightjump+ \\
+\wwleftjump & \verb+\wwleftjump+ & \vspace{6pt} & \wwrightjump & \verb+\wwrightjump+ \\
+\end{tabular}
+\end{center}
+
+One more stand alone command is \verb+\ultrathickdash+ which produces \ultrathickdash.
+Finally, for reference, here is a complete list of all commands (in addition to those in the above table) most of which have been discussed above.  They are grouped with other commands (after \lq\lq also") which take similar arguments.  The argument in square brackets is always optional.  For \verb+step+, \verb+scale+, \verb+size+, and \verb+curviness+  the default value is 1.  For \verb+bend+ the default value is 0. For the fine tuning parameters \verb+dx,dy+ the default value is 0,0. The \verb+\setoperatinalfont+ command can be used to change the operational font (and similarly for \verb+\setduotensorfont+). It is set, by default to \verb+\mathsf+. The \verb+\constructiongrid+ command can be used to aid drawing (and removed from the finished product). Its arguments indicate the lower left and upper right coordinates.
+
+\begin{verbatim}
+Fonts:     \setoperationalfont{\newfontchoice},
+                also \setduotensorfont{\newfontchoice},
+Environ-:  \begin{diagram}[scale],
+ments      \begin{Diagram}[scale]{xshift}{voffset},
+           \begin{move}[scale]{dX,dY},
+Grid:      \constructiongrid[step]{x1,y1}{x2,y2}
+Boxes:     \Opbox[size]{A}{x,y},
+                also \opbox, \Duobox, \duobox,
+           \Opduobox{hsize}{vsize}{A}{x,y}
+                also \opduobox
+Fiducials: \fidprep[size]{F}{x,y},
+                also \fideffect
+           \linkedprep[size]{A}{3}{X}{x}{Dy},
+                also \linkedeffect
+Wires:     \wire[curviness]{A}{B}{1}{3},
+                also \doublewire, \thickwire, \thinwire
+           \outwire[bend]{A}{2},
+                also \inwire, \closedinwire, \closedoutwire
+Links:     \link[curviness]{A}{B}{1}{3},
+                also \doublelink, \thicklink, \thinlink, \linkbw,
+                     \linkwb, \linkww, \linkbb, \blink, \linkb,
+                     \wlink, \linkw, \linkwbbw, \linkbwwb,
+                     \linkwbwb, \linkbwbw, \blink, \wlink, \linkb
+                     \linkw, \blinkb, \blinkw, \wlinkb, \wlinkw
+           \outblack[bend]{A}{3},
+                also \outwhite, \inblack, \inwhite
+Symbols:   \opsymbol[dx,dy]{a},
+                also \duosymbol, \Opsymbol, \Duosymbol, \putlatex
+           \otherside
+           \placelatex[dx,dy]{x,y}{LaTeX stuff here}
+Metric:    \bbmetric[size]{g}{x,y}
+                also \wwmetric, \wbmetric, \bwmetric
+                     \bbinsert, \wbinsert, \bwinsert, \wwinsert
+Foliation: \begin{foliation}{X}{Y}  ...  \end{foliation}
+           \startfoliate{A}{B}{1}{3}
+                also \continuefoliate, \finishfoliate
+           \Startfoliate{A}{B}{1}{3}{Dy}
+                also \Continuefoliate, \Finishfoliate
+Abstract:  \thispoint[dx,dy]{A}{x,y}
+           \boundingbox{coord1}{coord2}
+\end{verbatim}
+
+
+\vspace{7mm}
+
+\section*{Acknowledgements}
+Research at Perimeter Institute for Theoretical Physics is supported in part by
+the Government of Canada through NSERC and by the Province of Ontario
+through MRI.  I am grateful to staff at the Casa Mia deli and cafe where much of this work was done.  
+
+\begin{thebibliography}{00}
+\bibitem{Hardyduotensors} L.\ Hardy, {\it A formalism-local framework for general probabilistic theories including quantum theory}, arXiv:1005.5164 at http://arxiv.org/abs/1005.5164 (2010).
+\bibitem{TikZ} T.\ Tantau, {\it TikZ and PGF: Manual for version 2.00}, at http://sourceforge.net/projects/pgf/, (2007).
+\end{thebibliography}
+\end{document}

@@ -1,0 +1,49 @@
+\begin{center}
+\renewcommand{\testframe}[1]{\frame{#1}}
+\testframe{
+\begin{NumericDataPlot}%
+	[urx=2.2cm,ury=2.5cm,llx=2.0cm,lly=1.8cm]%
+	{0.8\textwidth}{12cm}
+
+	\setxAxis{xMin=1.0, xMax=1.6, Dx=0.2}
+	\setyAxis{yMin=50, yMax=150, Dy=25}
+
+	\plotxAxis%
+		[TickLabelSep=2\baselineskip, LabelSep=0em, LabelOption=\color{blue},
+		LabelPos=1, LabelRefPt=tr, LabelOrientation=l]%
+		{x-label\\2 lines 0 em}
+		
+	\plotyAxis%
+		[TickLabelSep=3em, LabelSep=0em, LabelPos=0.25, %
+		 LabelRefPt=bl]%
+		{y-label\\testing 0em}
+	
+	\PutTickLabelYaxis[y=60,TickLabelSep=0pt]{$60$}
+	\PutTickLabelXaxis[x=1.1]{$1.1$}
+	\PutTickLabelXaxis[x=1.05,TickLabelSep=0em]{$1.05$}
+	\PutTickLabelXaxis%
+		[x=1.2,TickLabelSep=1ex,TickLabelRot=45,TickLabelRefPt=tr]%
+		{test at $1.2$}
+	
+	\listplot[style=StdLineStyA]{\IdentI}
+	
+	\setxAxis{xMin=1000, xMax=1600, Dx=60}
+	\setyAxis{yMin=50, yMax=150, Dy=25}
+	
+	\plotxAxis%
+		[TickLabelSep=1em, LabelSep=3em, AxisStyle=Upper, NoGrid, %
+		 LabelOption=\Large,TickLabelRot=45,TickLabelRefPt=bl]%
+		{x-label\\test 3em}
+	\plotyAxis%
+		[TickLabelSep=0em, LabelSep=3em, AxisStyle=Right, NoGrid, %
+		LabelOrientation=r]%
+		{y-label\\test 3em text}
+	
+	\PutTickLabelXaxis[x=1500]{$1500$}
+	\PutTickLabelYaxis[ax=right,y=135]{$135$}
+	\PutTickLabelYaxis[y=140,TickLabelSep=1em]{$140$}
+	\PutTickLabelYaxis[y=120,TickLabelSep=0em,TickLabelRot=-45]{$120$}
+\end{NumericDataPlot}
+}
+%\renewcommand{\testframe}[1]{#1}
+\end{center}

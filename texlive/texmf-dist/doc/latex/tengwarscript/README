@@ -1,0 +1,60 @@
+TengwarScript package for LaTeX
+version 1.3.1, July 2014
+Author: Ignacio Fernández Galván (Jellby): jellby@yahoo.com
+Homepage: http://djelibeibi.unex.es/tengwar
+
+
+INTRODUCTION
+
+The TengwarScript package aim is to provide a mid-level access to
+tengwar fonts while still generating good output by default. Each
+tengwar sign has an individual command, wich should place the sign
+nicely with relation to the preceding signs. So, to write the word
+"quetta" in Quenya mode one would write:
+
+  \Tquesse\TTacute\Ttinco\TTdoubler\TTthreedots
+
+For long texts, all this typing would be too cumbersome, so it is
+advised to use an automatic transcriber. The recommended one is "ptt"
+(Perl tengwar transcriber), which can be found in the above homepage.
+
+Note: This package needs a tengwar font to work properly. Which fonts
+are supported and how to install them can be found in the documentation.
+ENC, VF, TFM and MAP files are included in the package.
+
+
+QUICK INSTALATION
+
+(These steps work in tetex 3.0, [TEXMF] is preferably the local or
+user texmf tree)
+
+1. "latex tengwarscript.dtx" to get the documentation.
+
+2. "latex tengwarscript.ins" to get the package files.
+
+3. a) Move *.sty and *.cfg into [TEXMF]/tex/latex/tengwarscript/.
+   b) Move *.tfm into [TEXMF]/fonts/tfm/tengwarscript/.
+   c) Move *.enc into [TEXMF]/fonts/enc/tengwarscript/.
+   d) Move *.vf into [TEXMF]/fonts/vf/tengwarscript/.
+   e) Move tengwarscript.map into [TEXMF]/fonts/map/dvips/.
+
+4. Download the tengwar fonts (see documentation). You may need to
+rename some files to match the names in the .map file. You can use
+the included script install-tengwar-scripts.sh to automate the
+download and rename.
+
+5. Move *.ttf into [TEXMF]/fonts/truetype/tengwarscript/ or *.pfb
+   into [TEXMF]/fonts/type1/tengwarscript/.
+
+6. Add "Map tengwarscript.map" to updmap.cfg.
+
+7. "texhash" to refresh the database.
+
+8. "updmap" or "updmap-sys" to update the configuration.
+
+
+LICENSE
+
+This package is distributed under the LaTeX Proyect Public License
+(LPPL), see http://www.latex-project.org/lppl.txt for the details or the
+included file COPYING.

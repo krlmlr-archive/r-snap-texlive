@@ -1,0 +1,181 @@
+Product-integral symbol, by J C. Loredo-Osti, based on R.D. Gill's "pi.ps" file.  
+Updated 08/09/01.
+
+prodint.readme 		This file
+
+prodint.afm 		Adobe font metrics
+prodint.pfa		Type1 font outlines (ascii format)
+prodint.pfb		Type1 font outlines (binary format) 
+
+prodint.sty		LaTeX style file
+prodint.tfm		TeX font metrics
+
+prodint.tex 		LaTeX example
+config.prodint 		File used to produce postscript example
+prodint.map		File used to produce postscript example
+prodint.pdf		Example in pdf
+
+The distribution is available under the conditions of the Open Font License.
+
+Mac Files obtained with PFA/PFB Convert, in OzTeX's tex extras,
+
+prodint.sit.hqx 	Stuffed and binhexed (by Alladin Dropstuff 5.1.2), contains:
+
+prodint			A Mac postscript font (lwfn file, with "laser writer font" icon)
+prodint Suitcase	A font suitcase (i.e., a screenfont: bitmap+font description)
+
+
+
+========================================================================
+
+To install the font for LaTeX in a Unix system do:
+
+
+1. Copy "prodint.tfm" and "prodint.pfb" where the LaTeX fonts live.
+
+2. Add to your "fonts.map" (usualy in "/usr/share/texmf/dvips/config")
+   the entry:
+
+prodint prodint < prodint.pfb
+
+
+3. Copy "prodint.sty" where LaTeX can see it.
+
+
+4. Execute `mktexlsr' or whatever you need to do to update the ls-R file.
+
+
+"prodint.sty" defines the product-integral symbol in three sizes:
+
+\prodi   ----- text
+\Prodi   ----- display
+\PRODI   ----- big
+
+check "prodint.ps" to see how these look like. 
+
+You can generate "prodint.ps" without installing the LaTeX prodint
+files by typing
+
+    latex prodint; dvips -o prodint.ps -P prodint prodint
+
+in this directory.
+
+========================================================================
+
+To install the font for LaTeX in Mac OS 9 do:
+
+1.  Throw prodint.sit.hqx onto the Stuffit Expander icon.  This produces a 
+folder, prodint, containing two files:
+
+prodint			A postscript font (with "laser printer font" icon)
+prodint Suitcase	A font suitcase (bitmap+font description)
+
+Put   prodint    and    prodint Suitcase   into your System's font folder.
+
+
+2. What kind of TeX do you have?  I use OzTeX.   What I do: 
+
+Add to the file "psfonts.map" which resides in   OzTeX/TeX/DVIPS/Inputs    the line:
+
+prodint prodint          <prodint
+
+This takes care that dvips knows about prodint.
+
+
+Add to the file "Local" which resides in   OzTeX   the line:
+
+prodint   prodint        <prodint           prodint        nil
+
+This takes care that OzTeX's dvi viewer knows about prodint.
+
+
+3. Copy "prodint.sty" where OzTeX can see it.
+
+
+4. Copy "prodint.tfm" where OzTeX can see it.
+
+
+"prodint.sty" define the product-integral symbol in three sizes:
+
+\prodi   ----- text
+\Prodi   ----- display
+\PRODI   ----- big
+
+check "prodint.ps" to see how these look like. 
+
+
+========================================================================
+
+To install the font for LaTeX in Mac OS X do:
+
+Something between the UNIX and Mac installations! It is easy, and I have done
+it for CMacTeX and for TeXShop. Send me an email if you want help.
+CMacTeX understands Mac postscript fonts (with the laser writer icon, so-called
+lwfn - laser writer font - files). TeXShop only knows about pfb files.
+To use pdftex you must tell pdftex.cfg about the prodint.map file, where
+the relevant font definition is made. The file prodint.map should contain
+the single line
+
+prodint   prodint        <prodint
+
+or
+
+prodint   prodint        <prodint.pfb
+
+=======================================================================
+
+Another UNIX installation (Utrecht):
+
+1. Unpack the tar file.
+
+In directory  /usr/local/TeX/texmf/fonts/afm ,  make  subdirectory  prodint  and put 
+prodint.afm  in it.
+
+In directory  /usr/local/TeX/texmf/fonts/tfm ,  make  subdirectory  prodint , and put
+prodint.tfm  in it.
+
+In directory  /usr/local/TeX/texmf/fonts/type1 ,  make subdirectory  prodint , and put
+prodint.pfb  in it.
+
+Put  prodint.tex  en  prodint.sty  in
+/usr/local/TeX/texmf/tex/local_styles
+
+
+2. Make Type1 fonts known to TeX .
+
+To make use of Type1 fonts, include all pfb file information in the 
+following .map files
+
+For dvips, in /usr/local/TeX/texmf/dvips/config/psfonts.map ,  add the line:
+
+prodint prodint < prodint.pfb  
+
+For dvipdfm,  in /usr/local/Tex/texmf/pdftex/config/psfonts.map, add the same line.
+
+With the unix command 
+
+texconfig rehash 
+
+a new TeX file index is created  (ls-R file), so TeX can actually find the new fonts and files.
+
+
+
+----------------------------
+Postscript font created by:
+
+J C. Loredo-Osti
+josti@bagel.epi.mcgill.ca
+
+Department of Human Genetics
+McGill Univesity
+Montreal, Canada
+
+-----------------------------
+
+Mac comments added by:
+
+Richard D. Gill gill@math.uu.nl
+
+Mathematical Institute
+University of Utrecht
+Netherlands

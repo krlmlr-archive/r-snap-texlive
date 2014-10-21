@@ -1,0 +1,127 @@
+%%
+%% This is file `bckwrdexample.tex',
+%% generated with the docstrip utility.
+%%
+%% The original source files were:
+%%
+%% texpower-doc.dtx  (with options: `bckwrdexample,bckwrdexample-src,end')
+%% 
+%% --------------------------------------------------------------
+%% TeXPower bundle - dynamic online presentations with LaTeX
+%% Copyright (C) 1999-2004 Stephan Lehmke
+%% Copyright (C) 2003-2005 Hans Fredrik Nordhaug
+%% 
+%% This program is free software; you can redistribute it and/or
+%% modify it under the terms of the GNU General Public License
+%% as published by the Free Software Foundation; either version 2
+%% of the License, or (at your option) any later version.
+%% 
+%% This program is distributed in the hope that it will be useful,
+%% but WITHOUT ANY WARRANTY; without even the implied warranty of
+%% MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+%% GNU General Public License for more details.
+%% --------------------------------------------------------------
+%% 
+%% The list of all files belonging to the TeXPower bundle is
+%% given in the file `00readme.txt'.
+%% 
+\ProvidesFile{bckwrdexample.tex}%
+      [2005/04/07 TeXPower example file]
+%-----------------------------------------------------------------------------------------------------------------
+%
+% Backwards writing example for the package texpower.sty.
+%
+%-----------------------------------------------------------------------------------------------------------------
+% Set background color to black and use slifonts.
+
+\PassOptionsToPackage{blackbackground}{texpower}
+\RequirePackage{tpslifonts}
+
+% Input the generic preamble.
+
+\input{__TPpreamble}
+\hypersetup{pdftitle={texpower backwards writing example}}
+
+% Define \includegraphics for including an mps (metapost postscript) image.
+\usepackage{graphicx}
+% The mps extension isn't supported out-of-the-box for latex+dvips
+\ifthenelse{\boolean{psspecialsallowed}}{%
+\DeclareGraphicsExtensions{.mps}}{}
+
+%-----------------------------------------------------------------------------------------------------------------
+% Finally, everything is set up. Here we go...
+%
+\begin{document}
+\begin{slide}
+
+  %-----------------------------------------------------------------------------------------------------------------
+  %
+  \makeslidetitle{\macroname{stepwise} Example: Writing Backwards}\label{Sec:ExBackwards}
+  %
+  % The following example doesn't really demonstrate a useful application. Its purpose is twofold:
+  % a) Show how the functionality of \stepwise can be extended by the user by referring to the macros provided by the
+  %    package.
+  % b) Show that \steps can appear in any order, and can be made to appear simultaneously in several places (and mention
+  %    the problems this raises).
+
+  % We define a new macro \backstep which will call \step, but the steps will be executed in _reverse_ order.
+  % This is achieved as follows:
+  % * We refer to the counter totalsteps, which gives the total number of steps occurring in this argument of
+  %   \stepwise.
+  % * From this, we subtract the value of the counter stepcommand, which gives the number of this \step command (in the
+  %   order of appearance).
+  % * The result is compared with the counter step, which gives the number of the current step.
+  % (the default for `triggering' a \step is the condition \value{step}=\value{stepcommand})
+  %
+  % Note that if the ifthen Package would support this syntax, we could use the bracketed optional argument of \step (as
+  % in the previous example), defining \backstep like this:
+  %
+  % \newcommand{\backstep}{\step[\value{totalsteps}-\value{stepcommand}+1=\value{step}]}
+  %
+  % As \ifthenelse doesn't offer this syntax, we have to calculate \value{totalsteps}-\value{stepcommand}+1 in a separate
+  % counter. This doesn't fit the intended use of \step's optional argument. But hey, there is another syntax ;-)
+  % If the optional argument is specified with braces (...), then it can contain an arbitrary test which takes two
+  % arguments and selects the first if it succeeds and the second if it fails. We use this variant here.
+  %
+  \newcounter{reversestepno}%
+  \newcommand{\backstep}{\step(\setcounter{reversestepno}{\value{totalsteps}-\value{stepcommand}+1}\ifthenelse{\value{step}=\value{reversestepno}})}%
+  %
+  % We use the custom command \parstepwise which not only wraps the whole argument of \stepwise into a minipage (because
+  % otherwise vertical spacing goes haywire, don't ask me why), but also gives substance to steps.
+  %
+  % If the following \stepwise command would only contain the calls to \backstep, everything would be fine.
+  % But we _had_ to add something else....
+  % In the second part of this application of \stepwise, several steps are executed simultaneously with those executed
+  % backwards in the first part. This means the value of the counter totalsteps is 14, i.e. the calls to \backstep
+  % correspond to steps 8...14. To remedy this, we decree that the first step performed shall be number 7, by setting
+  % the counter firststep accordingly in the optional argument of \stepwise.
+  %
+  \parstepwise[\setcounter{firststep}{\value{totalsteps}/2+\value{firststep}}]
+  {%
+    \begin{quote}
+      \Huge
+      \backstep{Is} \backstep{now} \backstep{it}
+      \backstep{backwards} \backstep{write} \backstep{to}
+      \backstep{possible\,!}
+
+      \bigskip
+
+      % By determining explicitly the times at which the following steps are executed, we make them appear
+      % simultaneously with the preceding flock of \backsteps. As we have set the counter firststep to 7, we start
+      % counting with 8.
+      %
+      \step[\value{step}=8]{\includegraphics[width=2cm]{fig-1}}
+      \step[\value{step}=9]{\includegraphics[width=2cm]{fig-1}}
+      \step[\value{step}=10]{\includegraphics[width=2cm]{fig-1}}
+      \step[\value{step}=11]{\includegraphics[width=2cm]{fig-1}}
+      \step[\value{step}=12]{\includegraphics[width=2cm]{fig-1}}
+      \step[\value{step}=13]{\includegraphics[width=2cm]{fig-1}}
+      \step[\value{step}=14]{\includegraphics[width=2cm]{fig-1}}%
+    \end{quote}
+    }%
+  \newslide
+\end{slide}
+\end{document}
+\endinput
+%%
+%% End of file `bckwrdexample.tex'.

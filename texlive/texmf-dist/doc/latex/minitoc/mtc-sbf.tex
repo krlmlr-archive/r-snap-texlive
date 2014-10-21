@@ -1,0 +1,87 @@
+%%
+%% This is file `mtc-sbf.tex',
+%% generated with the docstrip utility.
+%%
+%% The original source files were:
+%%
+%% minitoc.dtx  (with options: `mtc-sbf')
+%% This is a generated file.
+%% 
+%% 
+%% This file may be distributed and/or modified under the conditions of
+%% the LaTeX Project Public License, either version 1.3 of this license
+%% or (at your option) any later version.  The latest version of this
+%% license is in:
+%% 
+%%    http://www.latex-project.org/lppl.txt
+%% 
+%% and version 1.3 or later is part of all distributions of LaTeX version
+%% 2003/12/01 or later.
+%% 
+%% This work has the LPPL maintenance status "author-maintained".
+%% 
+%% This Current Maintainer of this work is Jean-Pierre F. Drucbert (JPFD).
+%% 
+%% This work consists of all the files listed in the file `minitoc.l'
+%% distributed with it.
+%% Copyright 1993 1994 1995 1996 1997 1998 1999 2000
+%%           2001 2002 2003 2004 2005 2006 2007 2008
+%% Jean-Pierre F. Drucbert
+%% <jean-pierre.drucbert@onera.fr>
+\documentclass[12pt]{report}
+\ProvidesFile{mtc-sbf.tex}%
+  [2007/01/04]
+\usepackage{subfigure}
+\makeatletter
+\renewcommand{\l@subfigure}{\@dottedxxxline{\ext@subfigure}{2}{3.9em}{3.3em}}
+\makeatother
+\usepackage{varioref}
+\usepackage[tight]{minitoc}
+\newcommand{\goodap}{%
+  \hspace{\subfigtopskip}%
+  \hspace{\subfigbottomskip}}
+\setcounter{lofdepth}{2}
+\begin{document}
+\mtcsetdepth{minilof}{2}
+\mtcsetfont{minitoc}{section}{\small\rmfamily\upshape\bfseries}
+\mtcsetfont{partlof}{subfigure}{\small\rmfamily\slshape\bfseries}
+\mtcsetfont{partlof}{figure}{\small\rmfamily\upshape\bfseries}
+\mtcsetfont{minilof}{subfigure}{\small\rmfamily\slshape\bfseries}
+\mtcsetfont{minilof}{figure}{\small\rmfamily\upshape\bfseries}
+%% no tables in this document
+%% \mtcsetfont{partlot}{subtable}{\small\rmfamily\slshape\bfseries}
+%% \mtcsetfont{partlot}{table}{\small\rmfamily\upshape\bfseries}
+%% \mtcsetfont{minilot}{subtable}{\small\rmfamily\slshape\bfseries}
+%% \mtcsetfont{minilot}{table}{\small\rmfamily\upshape\bfseries}
+\dominilof \listoffigures \tableofcontents
+\chapter{First Chapter}
+\minilof \mtcskip
+\mtcsetdepth{minilof}{1} \minilof
+\begin{figure}
+\centering
+   \fbox{%
+     \begin{minipage}{3.5in}%
+       \raggedright
+       \begin{center}
+         \subfigure[First]{%
+           \fbox{\hbox to 20mm{\vbox to 15mm{\vfil\null}\hfil}}}%
+           \hspace{\subfigtopskip}\hspace{\subfigbottomskip}%
+         \subfigure[Second Figure]{%
+           \fbox{\hbox to 20mm{\vbox to 10mm{\vfil\null}\hfil}}}\\
+         \subfigure[Third]{\label{3figs-c}%
+           \fbox{\hbox to 20mm{\vbox to 10mm{\vfil\null}\hfil}}}\\
+         \caption{Three subfigures.}\label{3figs}%
+       \end{center}
+       \vspace{4pt}%
+       This figure contains two top `subfigures' and
+       Figure~\ref{3figs-c}.
+       \end{minipage}}
+\end{figure}
+Figure~\vref{3figs} contains two top ``subfigures'' and
+Figure~\vref{3figs-c}.
+\end{document}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%
+\endinput
+%%
+%% End of file `mtc-sbf.tex'.

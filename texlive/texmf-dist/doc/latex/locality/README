@@ -1,0 +1,68 @@
+LaTeX Package: Locality 2010/06/29 v0.1
+----------------------------------------
+Various macros for keeping things local
+
+Copyright (C) 2010
+by Jason Gross <JasonGross9+locality@gmail.com>
+
+Abstract:
+  This package provides various macros to keep changes local to the current 
+  group.  This allows one to (re)define helper macros without worrying about
+  accidentally changing the functionality of another package's or the user's
+  definitions.  Additionally, it allows recursive macros to have some
+  definitions persist between calls, and others be local.
+
+CTAN: macros/latex/contrib/locality
+
+Recent changes:
+ [Release 0.2]
+  * Switched the order of tests in \manyaftergroup, eliminating an infinite loop.
+  * Added \DeclareNonlocal*s, \pushvalues, \popvalues, \pushvalue, \popvalue, and a few others.
+  * Fixed \DeclareNonlocal* to work with \aftergroup.
+  * Added requirement for etoolbox, so that patching takes place at the end of the preamble.
+ [Release 0.1]
+  * Initial release.  Some macros untested.
+
+EOF
+
+
+Files:
+  * README         -  this file
+  * changes.txt    -  history of changes
+  * locality.ins   -  for installation to get .sty from .dtx
+  * locality.dtx   -  including sources and documentation
+  * locality.pdf   -  print-ready documentation
+
+Installation: 
+[manual installation]
+  * To get locality.sty out of locality.dtx
+        $ latex locality.ins
+  * To build documentation
+        $ latex locality.dtx
+  * Put the derived files in the proper directories:
+      -  tex/latex/locality/locality.sty
+      -  doc/latex/locality/locality.pdf
+      -  source/latex/locality/locality.dtx
+
+[TeXLive]
+  * Use 'tlmgr' command
+        $ tlmgr show locality          -- to check the package info
+        $ sudo tlmgr update locality   -- to update the package
+  * You can use 'TeX Live Utility' instead of 'tlmgr', if on MacOSX.
+
+[MikTeX]
+  * Use the MikTeX Update Wizard to update locality package.
+
+License:
+  This work may be distributed and/or modified under the conditions
+  of the LaTeX Project Public License, either version 1.3c of this
+  license or (at your option) any later version. The latest version
+  of this license is in http://www.latex-project.org/lppl.txt
+  and version 1.3c or later is part of all distributions of LaTeX
+  version 2005/12/01 or later.
+
+--
+Happy TeXing!
+Jason Gross
+ 
+EOF

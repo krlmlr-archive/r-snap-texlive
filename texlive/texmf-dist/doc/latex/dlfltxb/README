@@ -1,0 +1,212 @@
+% (C) Lars Madsen, daleif@imf.au.dk, 2008/01/17
+% This material is subject to the LaTeX Project Public License. 
+% See http://www.ctan.org/tex-archive/help/Catalogue/licenses.lppl.html 
+% for the details of that license.
+
+The dlfltxb bundle consists of (currently) four packages used for my
+book "Introduktion til LaTeX" (in Danish, available from
+http://www.imf.au.dk/system/latex/bog/). 
+
+One package consists of various home made macros (in the book
+presented as code tips), which are also useful for other users. The
+remaining three  packages are used internally for writing the book.
+
+At least one more package (dlfltxbsc) will be added to the bundle
+later. This is the package used for all the
+examples in the book.
+
+
+HISTORY
+=======
+
+ * 20070601 added new versions of dlfltxbcodetips and
+   dlfltxbmarkup-sample.cfg 
+
+ * 20070604 made dlfltxbcodetips more compatible with the mathdesign
+   package by adding the 'noamssymb' option
+
+ * 20070710 bugfix in dlfltxbcodetips (the counter aliasing in
+   \NewShadedTheorem should now work as intended)
+
+ * 20070711 bugfix in dlfltxbcodetips (coding error in \ArrowBetweenLines)
+
+ * 20080117 added the dlfltxbtocconfig package
+
+ * 20080122 small changes to dlfltxbtocconfig
+
+ * 20080805 changes to several packages	
+
+ * 20081030 renamed a file because of confusion
+
+ * 20100304 updated packages for todays releace
+
+Current file contents for the dlfltxb bundle:
+=============================================
+
+dlfltxbcodetips (v0.5):
+-----------------------
+
+ * dlfltxbcodetips.sty
+ * dlfltxbcodetips.pdf (manual)
+ * dlfltxbcodetips.tex (source for the manual)
+ 
+   The dlfltxbcodetips package contains macros:
+
+   * \bigtimes (without the need for extra fonts)
+   * \nuparrow, \ndownarrow (using graphicx and \nrightarrow and \nleftarrow)
+   * \InsertTheoremBreak for inserting a 'linebreak' before the start of
+     a list, when that list is the first part of a theorem text
+   * a series of macros for helping with alignment in formulas
+   * \NewShadedTheorem for auto creating shaded theorems with the
+     ntheorem package (requires the user to load the (x)color and framed
+     packages and define the shadecolor, and of course using ntheorem)
+   * \ProvidePGFPagesFourOnOneWithSpaceForNotes provides a 
+     '4 on 1 with space for notes' layout for pgfpages, based on the
+      standard '8 on 1'
+   * \OverloadUnderscoreInMath, after which _ will be overloaded in
+     math-mode, such that X_|max| = X_{\textup{max}}
+   * \DeclareMathSymbolShorthand and hence \DeclareMathSet for
+   * creating easy shortcuts to various symbols, such as \setR for
+     \mathbb{R} (the real numbers), we promote the method of using
+     shortcuts that have a meaning with out the definition of the
+     shortcut it self
+
+Changes
+-------
+
+  v0.2 Better implementations of \nuparrow, \ndownarrow and bigtimes,
+       all due to Enrico Gregorio. Also changed the implementation of
+       \NewShadedTheorem such that the environment giving the
+       bagground is now configurable.
+ v0.23 Made the autoloading of amssymb optional.
+ v0.25 Bugfix.
+ v0.26 Bugfix.
+ v0.30 added \ProvidePGFPagesFourOnOneWithSpaceForNotes
+ v0.40 added \MoveEqLeft (renamed from \PullBack),
+       \OverloadUnderscoreInMath, \DeclareMathSet,
+       \DeclareMathSymbolShorthand	
+ v0.5  Removed \MoveEqLeft, \ArrowBetweenLines, \SwapDeadSpace
+       They have a new home in the mathtools package
+       \nuparrow and \ndownarrow delayed until begin document, 
+       such that they can better detect for missing symbols
+
+
+
+dlfltxbmarkup (v0.70):
+---------------------
+
+ * dlfltxbmarkup.sty
+ * dlfltxbmarkup.pdf (manual)
+ * dlfltxbmarkup.tex (source for the manual)
+ * dlfltxbmarkup-sample.cfg (sample configuration file, actually the
+   keys I currently use for the book)
+ * dlfltxbmarkup-showkeys.tex (a file that can be used to print a list
+   of category keys and their description)
+ * dlfltxbmarkup-showkeys.pdf (sample description file showing the
+ * contents of dlfltxbmarkup-sample.cfg)
+
+   The dlfltxbmarkup package provides:
+   
+   * \markup for marking up words etc. in the text. The context is
+     controlled by user defined category keys. \markup can
+     automatically write in the text, in the (outer) margin and adding
+     the word to the index (in several places if so defined in the key
+     definition) 
+   * \felineGenerateKey for generating category keys
+
+   The dlfltxbmarkup package requires the use of the memoir
+   class. Currently I do not plan on creating a version the is not
+   dependant of memoir.
+
+
+Changes
+-------
+
+ 20070601 new version of dlfltxbmarkup-sample.cfg
+ 20080117 new version of dlfltxbmarkup-sample.cfg plus a bug fix
+ 20080805 use \scriptsize instead of \footnotesize when writing in the
+          margins. Major cleanup in dlfltxbmarkup-sample.cfg 
+ 20081030 The sample key dlfltxbmarkup-sample.cfg has been renamed to
+          dlfltxbmarkupbookkeys.sty as to remove confusion
+ 20100304 several new keys added to dlfltxbmarkupbookkeys.sty
+
+
+dlfltxbmisc (v0.3):
+-------------------
+
+ * dlfltxbmisc.sty
+ * dlfltxbmisc.pdf (manual)
+ * dlfltxbmics.tex (source for the manual)
+
+   The dlfltxbmisc package provides
+
+   * macros for writing sample LaTeX arguments
+   * two simple environments for displaying syntax
+   * the \addurl (bad name) that I use for specially wrapping URLs in
+     the bibliography
+
+
+Changes
+-------
+
+ 2008/01/01 fixed to accommodate changes in mempatch version 4.9
+ 2010/03/04 added \CTAN macro
+
+dlfltxbtocconfig (0.7)
+----------------------
+
+  * dlfltxbtocconfig.sty
+  * dlfltxbtocconfig.pdf (very short manual)
+  * dlfltxbtocconfig.tex (source for manual)
+
+    The dlfltxbtocconfig package provides
+
+    * macros for creating the short and long TOC for my LaTeX book
+    * macros to 'dynamically' change the TOC indentation for subsubsection items
+    * feature for setting auto-generated numwidths for section and
+      subsection based on the contents of the .toc file.  
+      (rewritten in version 0.7)
+
+Changes
+-------
+
+ 2008/01/17 Initial release
+ 2008/01/22 Made the ToC titles configurable using \contentsname and a 
+            provided \shortcontentsname
+ 2008/08/05 some reconfiguration of the look of the short toc.
+ 2010/03/04 toc configuration heavyly changed, autoadjusting now use 
+            undocumented features in memoir (benefit of being memoir maintainer ;-)
+
+package_doc.bib:
+----------------
+
+   Bibliographic information used by all three documentations.
+
+dlfltxbbibtex.bst, .dbj:
+------------------------
+
+Bibtex style and makebst driver used for the book.
+
+If you choose to change the bibtex style using the dbj file, please rename it first.
+
+
+
+INSTALLATION:
+=============
+
+Place all *.sty files in 
+
+tex/latex/dlfltxb
+
+All *.tex *.bib *.pdf and README in
+
+doc/latex/dlfltxb
+
+The .bst file in
+
+bibtex/bst/dlfltxb
+
+
+
+/Lars Madsen
+daleif@imf.au.dk

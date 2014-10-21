@@ -1,0 +1,69 @@
+\documentclass{article}
+\usepackage{geometry}
+\geometry{noheadfoot, vmargin=1.0in, hmargin=0.5in}
+\usepackage{prerex}
+
+\usepackage[default,scale=0.92]{opensans}
+\renewcommand{\seriesdefault}{sb}
+\renewcommand{\ttfamily}{\fontfamily{cmtt}\fontseries{m}\selectfont}
+
+
+
+\begin{document}
+\thispagestyle{empty}
+\setcounter{diagheight}{50}
+
+
+\begin{chart}
+\text 10,50:{\Large Computer\\\Large Science}
+\reqfullcourse 50,45:{1083}{Comput.\,Sci.\\Concepts}{TTh 10:00}
+\reqhalfcourse 25,40:{1303}{Discrete\\Structures}{MWF 9:30}
+\reqhalfcourse 30,30:{2813}{Computer\\Organiz.\,I}{MWF 8:30}
+  \prereq 50,45,30,30:
+  \prereq 25,40,30,30:
+\reqhalfcourse 45,30:{2023}{Procedural\\Prog.\,Devel.}{MWF 2:30}
+  \prereq 50,45,45,30:
+\reqhalfcourse 65,30:{2513}{Informat.\\Systems}{TTh 1:00}
+  \coreq 50,45,65,30:
+\mini 10,26:{1083}
+\reqhalfcourse 10,20:{2333}{Computab.\,\&\\Formal\,Lang.}{TTh 11:30}
+  \prereq 25,40,10,20:
+  \prereq 10,26,10,20:
+\reqhalfcourse 45,20:{2013}{Software\\Engineer.\,I}{MWF 11:30}
+  \prereq 45,30,45,20:
+\halfcourse 55,20:{2685}{\texttt{C++}\\Program.}{no}
+  \prereq 45,30,55,20:
+\mini 21,16:{2013}
+\reqhalfcourse 15,10:{3323}{Data\\Structures}{MWF 10:30}
+  \prereq 25,40,15,10:
+  \prereq 21,16,15,10:
+\reqhalfcourse 25,10:{3813}{Comput.\\Organiz.\,II}{TTh 8:30}
+  \prereq 30,30,25,10:
+\reqhalfcourse 35,10:{3413}{Operating\\Systems\,I}{MWF 9:30}
+  \prereq 30,30,35,10:
+  \recomm 45,20,35,10:
+\halfcourse 45,10:{3013}{Software\\Engineer.\,II}{MWF 11:30}
+  \prereq 45,20,45,10:
+\halfcourse 58,10:{3513}{Database\\Mngt.\,Sys.\,I}{MWF 8:30 pm}
+  \prereq 65,30,58,10:
+  \prereq 45,20,58,10:
+\reqhalfcourse 70,10:{3503}{Sys.\,Anal.\\\&\,Design}{TTh 10:00}
+  \prereq 65,30,70,10:
+\end{chart}
+
+\begin{center}
+\begin{minipage}{6.0in}
+\begin{itemize}
+\item
+A solid arrow \solidarrow\  indicates a required prerequisite, 
+a dotted arrow \dottedarrow\ 
+indicates a corequisite (to be taken before or concurrently), and a
+dashed arrow \dashedarrow\ indicates a recommended prerequisite.
+Core courses are in \boldbox\ boxes; 
+other courses (i.e.,~options or prerequisites)
+are in \lightbox\ boxes.
+\item Timetabling abbreviations: M, T, W, Th, F=Mon, Tue, Wed, Thur, Fri, resp.; eve=7:00--9:50 pm; no=not offered.
+\end{itemize}
+\end{minipage}
+\end{center}
+\end{document}

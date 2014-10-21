@@ -1,0 +1,987 @@
+%%
+%% This is file `pageslts-example.tex',
+%% generated with the docstrip utility.
+%%
+%% The original source files were:
+%%
+%% pageslts.dtx  (with options: `example')
+%% 
+%% This is a generated file.
+%% 
+%% Project: pageslts
+%% Version: 2014/01/19 v1.2c
+%% 
+%% Copyright (C) 2010 - 2014 by
+%%     H.-Martin M"unch <Martin dot Muench at Uni-Bonn dot de>
+%% Portions of code copyrighted by other people as marked.
+%% 
+%% IMPORTANT NOTICE:
+%% On the first page backslash pagenumbering should be called
+%% (with the appropriate argument out of e.g.
+%%  * roman    - Lowercase Roman numerals: i, ii, iii, iv,...
+%%  * Roman    - Uppercase Roman numerals: I, II, III, IV,...
+%%  * arabic   - Arabic numerals: 1, 2, 3, 4,...
+%%  * alph     - Lowercase letters: a, b, c, d,...
+%%  * Alph     - Uppercase letters: A, B, C, D,...
+%%  * fnsymbol - Footnote symbols: *, ^^e2^^80^^a0 (ddagger), ^^e2^^80^^a1 (dddagger),
+%%                                  ^^c2^^a7 (mathsection),...
+%% ). The command backslash pagenumbering is renewed, but no change
+%% should be visible to the output text, because only labels are added.
+%% backslash OrigPagenumbering can be used to get the original meaning
+%% of backslash pagenumbering, but in that case this package does not
+%% see the change in the page numbering scheme and will make mistakes.
+%% The package takes options.
+%% 
+%% The usual disclaimer applies:
+%% If it doesn't work right that's your problem.
+%% (Nevertheless, send an e-mail to the maintainer
+%%  when you find an error in this package.)
+%% 
+%% This work may be distributed and/or modified under the
+%% conditions of the LaTeX Project Public License, either
+%% version 1.3c of this license or (at your option) any later
+%% version. This version of this license is in
+%%    http://www.latex-project.org/lppl/lppl-1-3c.txt
+%% and the latest version of this license is in
+%%    http://www.latex-project.org/lppl.txt
+%% and version 1.3c or later is part of all distributions of
+%% LaTeX version 2005/12/01 or later.
+%% 
+%% This work has the LPPL maintenance status "maintained".
+%% 
+%% The Current Maintainer of this work is H.-Martin Muench.
+%% 
+%% This package first started as a revision of the lastpage
+%% package of Jeffrey P. Goldberg (jeffrey+news at goldmark dot org),
+%% but it became obvious that a replacement was needed.
+%% 
+%% This work consists of the main source file pageslts.dtx
+%% and the derived files
+%%    pageslts.sty, pageslts.pdf, pageslts.ins, pageslts.drv,
+%%    pageslts-example.tex.
+%% 
+%% In memoriam Tommy Muench + 2014/01/02.
+%% 
+\documentclass[british]{article}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\usepackage{lipsum}[2011/04/14]%          v1.2
+\usepackage[draft]{showkeys}[2007/08/07]% v3.15
+%%      Use final instead of draft to hide the keys. %%
+\usepackage{hyperref}[2012/11/06]%        v6.83m
+\hypersetup{%
+ extension=pdf,%
+ plainpages=false,%
+ pdfpagelabels=true,%
+ hyperindex=false,%
+ pdflang={en},%
+ pdftitle={pageslts package example},%
+ pdfauthor={Hans-Martin Muench},%
+ pdfsubject={Example for the pageslts package},%
+ pdfkeywords={LaTeX, pageslts, H.-Martin Muench},%
+ pdfview=Fit,%
+ pdfstartview=Fit,%
+ pdfpagelayout=SinglePage,%
+ bookmarksopen=true%
+}
+\usepackage[pagecontinue=true,alphMult=ab,AlphMulti=AB,fnsymbolmult=true,%
+ romanMult=true,RomanMulti=true]{pageslts}[2014/01/19]% v1.2c
+%% These are the default options. %%
+
+\makeatletter
+  \renewcommand{\@evenfoot}%
+   {Page \thepage\ (\theCurrentPage; local: \theCurrentPageLocal) of %
+    \lastpageref{pagesLTS.roman}(\lastpageref{pagesLTS.roman.local}) + %
+    \lastpageref{pagesLTS.Roman}(\lastpageref{pagesLTS.Roman.local}) + %
+    \lastpageref{pagesLTS.arabic}(\lastpageref{pagesLTS.arabic.local}) + %
+    \lastpageref{pagesLTS.fnsymbol}(\lastpageref{pagesLTS.fnsymbol.local}) + %
+    \lastpageref{pagesLTS.alph}(\lastpageref{pagesLTS.alph.local}) + %
+    \lastpageref{pagesLTS.Alph}(\lastpageref{pagesLTS.Alph.local}) = %
+    \lastpageref{LastPages} pages.%
+   }
+  \renewcommand{\@oddfoot}{\@evenfoot}
+  \def\pagesLTSexampleArabic{3}
+  \def\pagesLTSexamplealph{23}
+  \gdef\unit#1{\mathord{\thinspace\mathrm{#1}}}%
+\makeatother
+
+\listfiles
+
+\begin{document}
+\pagenumbering{roman}
+%% Note the first \pagenumbering immediately behind \begin{document}! %%
+%%\addtocounter{page}{-2} %%
+
+\section*{Example for pageslts}
+\addcontentsline{toc}{section}{Example for pageslts}
+\markboth{Example for pageslts}{Example for pageslts}
+
+This example demonstrates the most common uses of package\\
+\textsf{pageslts}, v1.2c as of 2014/01/19 (HMM).\\
+The used options were \texttt{pagecontinue=true},
+\texttt{alphMult=ab}, \texttt{AlphMulti=AB}, \linebreak
+\texttt{fnsymbolmult=true},
+\texttt{romanMult=true}, and \texttt{RomanMulti=true}
+(the default ones).\\
+For more details please see the documentation!\\
+
+\label{keys} To hide the \pageref{keys}{\qquad } use option
+\texttt{final} instead of \texttt{draft} with the \textsf{showkeys}
+package (or remove the package call from the preamble of
+this document).\\
+
+\textbf{Hyperlinks or not:} If the \textsf{hyperref} package is loaded,
+the references are also hyperlinked:\\
+\smallskip
+Page \thepage\ (\theCurrentPage; local: \theCurrentPageLocal) of %
+\lastpageref{pagesLTS.roman}(\lastpageref{pagesLTS.roman.local}) + %
+\lastpageref{pagesLTS.Roman}(\lastpageref{pagesLTS.Roman.local}) + %
+\lastpageref{pagesLTS.arabic}(\lastpageref{pagesLTS.arabic.local}) + %
+\lastpageref{pagesLTS.fnsymbol}(\lastpageref{pagesLTS.fnsymbol.local}) + %
+\lastpageref{pagesLTS.alph}(\lastpageref{pagesLTS.alph.local}) + %
+\lastpageref{pagesLTS.Alph}(\lastpageref{pagesLTS.Alph.local}) = %
+\lastpageref{LastPages} pages.\\
+If the \textsf{hyperref} package is loaded, but the hyperlinks of the
+references shall be suppressed, \verb|\pageref*{...}|
+and \verb|\lastpageref*{...}| can be used:\\
+Page \thepage\ (\theCurrentPage; local: \theCurrentPageLocal) of %
+\lastpageref*{pagesLTS.roman}(\lastpageref*{pagesLTS.roman.local}) + %
+\lastpageref*{pagesLTS.Roman}(\lastpageref*{pagesLTS.Roman.local}) + %
+\lastpageref*{pagesLTS.arabic}(\lastpageref*{pagesLTS.arabic.local}) + %
+\lastpageref*{pagesLTS.fnsymbol}(\lastpageref*{pagesLTS.fnsymbol.local}) + %
+\lastpageref*{pagesLTS.alph}(\lastpageref*{pagesLTS.alph.local}) + %
+\lastpageref*{pagesLTS.Alph}(\lastpageref*{pagesLTS.Alph.local}) = %
+\lastpageref*{LastPages} pages.\\
+
+\textbf{Trademarks} appear throughout this example without any
+trademark symbol; they are the property of their respective
+trademark owner. There is no intention of infringement; the
+usage is to the benefit of the trademark owner.\\
+
+\textbf{Tip}: Use \textit{logical page numbers} for
+the display of the pdf!\\
+(In Adobe Reader XI (11.0.6): \underline{E}dit $>$
+Prefere\underline{n}ces (Ctrl+k) $>$ Page Display $>$
+Page Content and Information $>$ Use logical page
+\nolinebreak{\underline{n}umbers.)}\\
+
+You want negative page numbers? Not only arabic, but even roman,
+Roman, alph, Alph or fnsymbol ones? No problem, e.\,g. just give a\\
+\verb|\addtocounter{page}{|-\textit{some number}\verb|}| in the
+source code of this example file (or uncomment the prepared line)!
+
+\bigskip
+
+Save per page about $200\unit{ml}$ water, $2\unit{g}$ CO$_{2}$
+and $2\unit{g}$ wood:\\
+Therefore please print only if this is really necessary.
+
+\pagebreak
+
+\tableofcontents
+
+\newpage
+
+\pagenumbering{roman}
+%% in case the page numbering is changed before,
+%% otherwise pagesLTS.current.local.roman on this page
+%% would be undefined
+
+\section{roman}
+
+\noindent (\texttt{roman} page numbering was started before,
+because the page numbering scheme was needed to start at
+the first page, of course.)\\
+
+\noindent First page (\verb|\lastpageref{pagesLTS.0}|):
+\lastpageref{pagesLTS.0}\\
+
+\noindent The page (\verb|\thepage|): \thepage \\
+
+\noindent Current page (\verb|\theCurrentPage|),
+i.\,e. counted continuously from the first page): \theCurrentPage \\
+You can get this also in other formats:
+\roman{CurrentPage}, \Roman{CurrentPage}, \arabic{CurrentPage},
+\fnsymbol{CurrentPage}, \alph{CurrentPage}, \Alph{CurrentPage}.
+
+\noindent CurrentPageLocal (\verb|\theCurrentPageLocal|),
+i.\,e. counted continuously from the first page of the
+current page numbering scheme): \theCurrentPageLocal \\
+You can get also this in other formats, too:
+\roman{pagesLTS.current.local.roman}, \Roman{pagesLTS.current.local.roman},
+\arabic{pagesLTS.current.local.roman}, \fnsymbol{pagesLTS.current.local.roman},
+\alph{pagesLTS.current.local.roman}, \Alph{pagesLTS.current.local.roman},
+but probably it only makes sense if page numbering scheme and format are
+the same, e.\,g.\\
+\verb|\Roman{pagesLTS.current.local.Roman}|\\
+or \verb|\Alph{pagesLTS.current.local.Alph}|. \verb|\arabic{...}| could
+make sense even if combined with another page numbering scheme.
+And this is exactly what \verb|\theCurrentPageLocal| does:\\
+\nolinebreak{\verb|\def\theCurrentPageLocal{\arabic{pagesLTS.current.local.\pagesLTS@pnc}}|.}\\
+
+\noindent Last roman page (pagesLTS.roman): \lastpageref{pagesLTS.roman}{\hskip4em }
+(There are \lastpageref{pagesLTS.roman.local} pages with roman numbers.)\\
+
+\noindent Last Roman page (pagesLTS.Roman): \lastpageref{pagesLTS.Roman}{\hskip3em }
+(There are \lastpageref{pagesLTS.Roman.local}~pages with Roman numbers:\\
+\lastpages{Roman}{1}~pages in the first Roman sector
+(\pageref{Roman}{\hskip3em }-\lastpageref{pagesLTS.Roman.1}{\hskip3em }),\\
+\lastpages{Roman}{2}~pages in the second Roman sector
+(\pageref{Roman2}{\hskip3em }-\lastpageref{pagesLTS.Roman.2}{\hskip3em }), and\\
+\lastpages{Roman}{3}~pages in the third Roman sector
+(\pageref{Roman3}{\hskip3em }-\lastpageref{pagesLTS.Roman.3}{\hskip3em }).\\
+
+When the option \texttt{pagecontinue=false} is used with the
+\textsf{pageslts} package, the \verb|\lastpageref{pagesLTS.Roman}| will
+point to the same page as before, but this will have a lower number.\\
+The \verb|\lastpageref{pagesLTS.Roman.local}| will not change,
+because the number of pages does not change (only the page numbers).\\
+
+\noindent Last arabic page (pagesLTS.arabic): \lastpageref{pagesLTS.arabic}{\hskip5em }
+(There are only \lastpageref{pagesLTS.arabic.local} pages with arabic numbers,
+because an \verb|\addtocounter{page}{|\pagesLTSexampleArabic\verb|}| was used.)\\
+
+\noindent Last fnsymbol page (pagesLTS.fnsymbol): \lastpageref{pagesLTS.fnsymbol} \\
+(\verb|\lastpageref{pagesLTS.fnsymbol}| -- never \verb|\pageref{pagesLTS.fnsymbol}|!)\\
+(There are \lastpageref{pagesLTS.fnsymbol.local} pages with fnsymbol numbers.)\\
+
+\noindent Last alph page (pagesLTS.alph): \lastpageref{pagesLTS.alph}{\hskip4em }
+(There are only \lastpageref{pagesLTS.alph.local} pages with alph numbers,
+because an \verb|\addtocounter{page}{|\pagesLTSexamplealph\verb|}| was used.)\\
+
+\noindent Last Alph page (pagesLTS.Alph): \lastpageref{pagesLTS.Alph}{\hskip4em }
+(There are \lastpageref{pagesLTS.Alph.local} pages with Alph numbers.)\\
+
+\noindent Last page's \textit{name} (LastPage): \lastpageref{LastPage}\\
+
+\noindent Very last page's \textit{name} (VeryLastPage): \lastpageref{VeryLastPage}\\
+(\texttt{lastpage} and \texttt{VeryLastPage} are identical, unless
+a package with output \linebreak
+\verb|\AtEndDocument| after the \textsf{pageslts} package was added.)\\
+
+\noindent Last page's \textit{number} (LastPages): \lastpageref{LastPages}{\hskip3em }
+(=~total number of pages)\\
+
+\lipsum[1-3]
+
+\newpage
+
+\pagenumbering{Roman}
+
+\section{Roman\label{Roman}}
+\subsection{Common Roman page numbering}
+
+\noindent First page (\verb|\lastpageref{pagesLTS.0}|):
+\lastpageref{pagesLTS.0}\\
+
+\noindent The page (\verb|\thepage|): \thepage \\
+
+\noindent Current page (\verb|\theCurrentPage|),
+i.\,e. counted continuously from the first page): \theCurrentPage \\
+
+\noindent CurrentPageLocal (\verb|\theCurrentPageLocal|),
+i.\,e. counted continuously from the first page of the
+current page numbering scheme): \theCurrentPageLocal \\
+
+\noindent Last roman page (pagesLTS.roman): \lastpageref{pagesLTS.roman}{\hskip4em }
+(There are \lastpageref{pagesLTS.roman.local} pages with roman numbers.)\\
+
+\noindent Last Roman page (pagesLTS.Roman): \lastpageref{pagesLTS.Roman}{\hskip3em }
+(There are \lastpageref{pagesLTS.Roman.local}~pages with Roman numbers:\\
+\lastpages{Roman}{1}~pages in the first Roman sector
+(\pageref{Roman}{\hskip3em }-\lastpageref{pagesLTS.Roman.1}{\hskip3em }),\\
+\lastpages{Roman}{2}~pages in the second Roman sector
+(\pageref{Roman2}{\hskip3em }-\lastpageref{pagesLTS.Roman.2}{\hskip3em }), and\\
+\lastpages{Roman}{3}~pages in the third Roman sector
+(\pageref{Roman3}{\hskip3em }-\lastpageref{pagesLTS.Roman.3}{\hskip3em }).\\
+
+\noindent Last arabic page (pagesLTS.arabic): \lastpageref{pagesLTS.arabic}{\hskip5em }
+(There are only \lastpageref{pagesLTS.arabic.local} pages with arabic numbers,
+because an \verb|\addtocounter{page}{|\pagesLTSexampleArabic\verb|}| was used.)\\
+
+\noindent Last fnsymbol page (pagesLTS.fnsymbol): \lastpageref{pagesLTS.fnsymbol} \\
+(\verb|\lastpageref{pagesLTS.fnsymbol}| -- never \verb|\pageref{pagesLTS.fnsymbol}|!)\\
+(There are \lastpageref{pagesLTS.fnsymbol.local} pages with fnsymbol numbers.)\\
+
+\noindent Last alph page (pagesLTS.alph): \lastpageref{pagesLTS.alph}{\hskip4em }
+(There are only \lastpageref{pagesLTS.alph.local} pages with alph numbers,
+because an \verb|\addtocounter{page}{|\pagesLTSexamplealph\verb|}| was used.)\\
+
+\noindent Last Alph page (pagesLTS.Alph): \lastpageref{pagesLTS.Alph}{\hskip4em }
+(There are \lastpageref{pagesLTS.Alph.local} pages with Alph numbers.)\\
+
+\noindent Last page's \textit{name} (LastPage): \lastpageref{LastPage}\\
+
+\noindent Very last page's \textit{name} (VeryLastPage): \lastpageref{VeryLastPage}\\
+(\texttt{LastPage} and \texttt{VeryLastPage} are identical, unless
+a package with output \linebreak
+\verb|\AtEndDocument| after the \textsf{pageslts} package was added.)\\
+
+\noindent Last page's \textit{number} (LastPages): \lastpageref{LastPages}{\hskip3em }
+(=~total number of pages)\\
+
+\lipsum[1-4]
+
+\newpage
+
+\subsection{Last page of first Roman sector}
+\verb|\lastpageref{pagesLTS.Roman}| does \textbf{not}
+refer to this page (but there: \lastpageref{pagesLTS.Roman}),
+because the option \texttt{pagecontinue=true}
+was chosen. When a reference to this page is wanted,\\
+\verb|\lastpageref{pagesLTS.Roman.1}| can be used: \lastpageref{pagesLTS.Roman.1}.\\
+
+\bigskip
+There are \lastpages{Roman}{1}~pages (\verb|\lastpages{Roman}{1}|)
+in this first Roman sector.\\
+The Roman page numbering scheme is continued later in section~\ref{Roman2})!
+
+\newpage
+
+\pagenumbering{arabic}
+
+\section{arabic}
+
+\subsection{Standard page numbering}
+
+\noindent First page (\verb|\lastpageref{pagesLTS.0}|):
+\lastpageref{pagesLTS.0}\\
+
+\noindent The page (\verb|\thepage|): \thepage \\
+
+\noindent Current page (\verb|\theCurrentPage|),
+i.\,e. counted continuously from the first page): \theCurrentPage \\
+
+\noindent CurrentPageLocal (\verb|\theCurrentPageLocal|),
+i.\,e. counted continuously from the first page of the
+current page numbering scheme): \theCurrentPageLocal \\
+
+\noindent Last roman page (pagesLTS.roman): \lastpageref{pagesLTS.roman}{\hskip4em }
+(There are \lastpageref{pagesLTS.roman.local} pages with roman numbers.)\\
+
+\noindent Last Roman page (pagesLTS.Roman): \lastpageref{pagesLTS.Roman}{\hskip3em }
+(There are \lastpageref{pagesLTS.Roman.local}~pages with Roman numbers:\\
+\lastpages{Roman}{1}~pages in the first Roman sector
+(\pageref{Roman}{\hskip3em }-\lastpageref{pagesLTS.Roman.1}{\hskip3em }),\\
+\lastpages{Roman}{2}~pages in the second Roman sector
+(\pageref{Roman2}{\hskip3em }-\lastpageref{pagesLTS.Roman.2}{\hskip3em }), and\\
+\lastpages{Roman}{3}~pages in the third Roman sector
+(\pageref{Roman3}{\hskip3em }-\lastpageref{pagesLTS.Roman.3}{\hskip3em }).\\
+
+\noindent Last arabic page (pagesLTS.arabic): \lastpageref{pagesLTS.arabic}{\hskip5em }
+(There are only \lastpageref{pagesLTS.arabic.local} pages with arabic numbers,
+because an \verb|\addtocounter{page}{|\pagesLTSexampleArabic\verb|}| was used.)\\
+
+\noindent Last fnsymbol page (pagesLTS.fnsymbol): \lastpageref{pagesLTS.fnsymbol} \\
+(\verb|\lastpageref{pagesLTS.fnsymbol}| -- never \verb|\pageref{pagesLTS.fnsymbol}|!)\\
+(There are \lastpageref{pagesLTS.fnsymbol.local} pages with fnsymbol numbers.)\\
+
+\noindent Last alph page (pagesLTS.alph): \lastpageref{pagesLTS.alph}{\hskip4em }
+(There are only \lastpageref{pagesLTS.alph.local} pages with alph numbers,
+because an \verb|\addtocounter{page}{|\pagesLTSexamplealph\verb|}| was used.)\\
+
+\noindent Last Alph page (pagesLTS.Alph): \lastpageref{pagesLTS.Alph}{\hskip4em }
+(There are \lastpageref{pagesLTS.Alph.local} pages with Alph numbers.)\\
+
+\noindent Last page's \textit{name} (LastPage): \lastpageref{LastPage}\\
+
+\noindent Very last page's \textit{name} (VeryLastPage): \lastpageref{VeryLastPage}\\
+(\texttt{LastPage} and \texttt{VeryLastPage} are identical, unless
+a package with output \linebreak
+\verb|\AtEndDocument| after the \textsf{pagesLTS} package was added.)\\
+
+\noindent Last page's \textit{number} (LastPages): \lastpageref{LastPages}{\hskip3em }
+(=~total number of pages)\\
+
+\lipsum[1-4]
+\newpage
+
+\subsection[Empty page style]{Also an empty page style is no problem %
+for the current or total page count}
+
+\bigskip
+
+\thispagestyle{empty}
+
+\noindent First page (\verb|\lastpageref{pagesLTS.0}|):
+\lastpageref{pagesLTS.0}\\
+
+\noindent The page (\verb|\thepage|): \thepage \\
+
+\noindent Current page (\verb|\theCurrentPage|),
+i.\,e. counted continuously from the first page): \theCurrentPage \\
+
+\noindent CurrentPageLocal (\verb|\theCurrentPageLocal|),
+i.\,e. counted continuously from the first page of the
+current page numbering scheme): \theCurrentPageLocal \\
+
+\noindent Last roman page (pagesLTS.roman): \lastpageref{pagesLTS.roman}{\hskip4em }
+(There are \lastpageref{pagesLTS.roman.local} pages with roman numbers.)\\
+
+\noindent Last Roman page (pagesLTS.Roman): \lastpageref{pagesLTS.Roman}{\hskip3em }
+(There are \lastpageref{pagesLTS.Roman.local}~pages with Roman numbers:\\
+\lastpages{Roman}{1}~pages in the first Roman sector
+(\pageref{Roman}{\hskip3em }-\lastpageref{pagesLTS.Roman.1}{\hskip3em }),\\
+\lastpages{Roman}{2}~pages in the second Roman sector
+(\pageref{Roman2}{\hskip3em }-\lastpageref{pagesLTS.Roman.2}{\hskip3em }), and\\
+\lastpages{Roman}{3}~pages in the third Roman sector
+(\pageref{Roman3}{\hskip3em }-\lastpageref{pagesLTS.Roman.3}{\hskip3em }).\\
+
+\noindent Last arabic page (pagesLTS.arabic): \lastpageref{pagesLTS.arabic}{\hskip5em }
+(There are only \lastpageref{pagesLTS.arabic.local} pages with arabic numbers,
+because an \verb|\addtocounter{page}{|\pagesLTSexampleArabic\verb|}| was used.)\\
+
+\noindent Last fnsymbol page (pagesLTS.fnsymbol): \lastpageref{pagesLTS.fnsymbol} \\
+(\verb|\lastpageref{pagesLTS.fnsymbol}| -- never \verb|\pageref{pagesLTS.fnsymbol}|!)\\
+(There are \lastpageref{pagesLTS.fnsymbol.local} pages with fnsymbol numbers.)\\
+
+\noindent Last alph page (pagesLTS.alph): \lastpageref{pagesLTS.alph}{\hskip4em }
+(There are only \lastpageref{pagesLTS.alph.local} pages with alph numbers,
+because an \verb|\addtocounter{page}{|\pagesLTSexamplealph\verb|}| was used.)\\
+
+\noindent Last Alph page (pagesLTS.Alph): \lastpageref{pagesLTS.Alph}{\hskip4em }
+(There are \lastpageref{pagesLTS.Alph.local} pages with Alph numbers.)\\
+
+\noindent Last page's \textit{name} (LastPage): \lastpageref{LastPage}\\
+
+\noindent Very last page's \textit{name} (VeryLastPage): \lastpageref{VeryLastPage}\\
+(\texttt{LastPage} and \texttt{VeryLastPage} are identical, unless
+a package with output \linebreak
+\verb|\AtEndDocument| after the \textsf{pageslts} package was added.)\\
+
+\noindent Last page's \textit{number} (LastPages): \lastpageref{LastPages}{\hskip3em }
+(=~total number of pages)\\
+
+\lipsum[1-4]
+
+\newpage
+
+\subsection[addtocounter, setcounter]{Neither %
+\texttt{\textbackslash addtocounter\{page\}} nor %
+\texttt{\textbackslash setcounter\{page\}} is a problem for the %
+current or total page numbers}
+
+(Here is an \verb|\addtocounter{page}{|\pagesLTSexampleArabic\verb|}|
+in the source code.)\\
+\addtocounter{page}{\pagesLTSexampleArabic}
+
+\noindent The page (from \verb|\thepage| command): \thepage \\
+
+\noindent Current page (from \verb|\theCurrentPage|\ %
+command), i.\,e. counted continuously from the first page): \theCurrentPage \\
+
+\noindent CurrentPageLocal (from \verb|\theCurrentPageLocal|\ %
+command), i.\,e. counted continuously from the first page of the
+current page numbering scheme): \theCurrentPageLocal\\
+
+\noindent Last page's number (LastPages): \lastpageref{LastPages}{\hskip3em }
+(= total number of pages)\\
+
+\lipsum[1-7]
+
+\newpage
+
+\pagenumbering{fnsymbol}
+
+\section{fnsymbol}
+
+Adobe Reader XI (11.0.1) does not show the correct page names
+for all pages with \texttt{fnsymbol} page numbering scheme:
+
+\begin{center}
+\begin{tabular}{c|c|c|c}
+page   & page & \multicolumn{2}{c|}{shown by the Reader}                \\
+number & name & without       & \multicolumn{1}{c|}{with}               \\
+      &   & \multicolumn{2}{c|}{\textsf{alphalph} \&\ \textsf{pageslts}}\\ \hline
+$-2$ & \texttt{LaTeX Error}               &          & \ensuremath {-\ }\\
+$-1$ & \texttt{LaTeX Error}               &          & \ensuremath {- *}\\
+ $0$ & (ignored by \LaTeX)                &          & 0                \\
+ $1$ & \ensuremath {*}                    & *        & \ensuremath {*}  \\
+ $2$ & \ensuremath {\dagger }             &          &                  \\
+ $3$ & \ensuremath {\ddagger }            &          &                  \\
+ $4$ & \ensuremath {\mathsection }        &          &                  \\
+ $5$ & \ensuremath {\mathparagraph }      &          &                  \\
+ $6$ & \ensuremath {\delimiter "026B30D } & "026B30D & \ensuremath {**} \\
+ $7$ & \ensuremath {**}                   & **       &                  \\
+ $8$ & \ensuremath {\dagger \dagger }     &          &                  \\
+ $9$ & \ensuremath {\ddagger \ddagger }   &          &                  \\
+$10$ & \texttt{LaTeX Error}               &          &                  \\
+$11$ & \texttt{LaTeX Error}               &          & \ensuremath {***}\\
+$12$ & \texttt{LaTeX Error}               &          &                  \\
+\end{tabular}
+\end{center}
+
+\noindent and so on, while at least the (\ldots\ of \ldots ) part
+of the page number is displayed correctly.\\
+
+\bigskip
+
+Without option \texttt{fnsymbolmult=true} of the \textsf{pageslts} package
+(and the help of \textsc{Heiko Oberdiek}'s \textsf{alphalph} package),
+after page~9 (\textquotedblleft \ensuremath {\ddagger \ddagger }\textquotedblright )
+(and also for negative page numbers) there would just appear a
+\begin{quote}
+\begin{verbatim}
+LaTeX Error: Counter too large
+See the LaTeX manual or LaTeX Companion for explanation.
+You've lost some text.  Try typing  <return>  to proceed.
+If that doesn't work, type  X <return>  to quit.
+\end{verbatim}
+\end{quote}
+Now the page numbers after 5 (\ensuremath {\mathparagraph }) are
+continued  with the doubled \textquotedblleft number\textquotedblright{} of
+the first, second, third,\ldots\ page (\ensuremath {**},
+\ensuremath {\dagger \dagger }, \ensuremath {\ddagger \ddagger },
+\ensuremath {\mathsection \mathsection },
+\ensuremath {\mathparagraph \mathparagraph }),
+and after the tenth page the \textquotedblleft number\textquotedblright{} is
+tripled (\ensuremath {***}, \ensuremath {\dagger \dagger \dagger },\ldots).
+Page zero is named 0 and negative pages just named like the positive ones
+with addition of a minus sign~($-$).
+
+\bigskip
+
+\noindent First page (\verb|\lastpageref{pagesLTS.0}|):
+\lastpageref{pagesLTS.0}\\
+
+\noindent The page (\verb|\thepage|): \thepage \\
+
+\noindent Current page (\verb|\theCurrentPage|),
+i.\,e. counted continuously from the first page): \theCurrentPage \\
+
+\noindent CurrentPageLocal (\verb|\theCurrentPageLocal|),
+i.\,e. counted continuously from the first page of the
+current page numbering scheme): \theCurrentPageLocal \\
+
+\noindent Last roman page (pagesLTS.roman): \lastpageref{pagesLTS.roman}{\hskip4em }
+(There are \lastpageref{pagesLTS.roman.local} pages with roman numbers.)\\
+
+\noindent Last Roman page (pagesLTS.Roman): \lastpageref{pagesLTS.Roman}{\hskip3em }
+(There are \lastpageref{pagesLTS.Roman.local}~pages with Roman numbers:\\
+\lastpages{Roman}{1}~pages in the first Roman sector
+(\pageref{Roman}{\hskip3em }-\lastpageref{pagesLTS.Roman.1}{\hskip3em }),\\
+\lastpages{Roman}{2}~pages in the second Roman sector
+(\pageref{Roman2}{\hskip3em }-\lastpageref{pagesLTS.Roman.2}{\hskip3em }), and\\
+\lastpages{Roman}{3}~pages in the third Roman sector
+(\pageref{Roman3}{\hskip3em }-\lastpageref{pagesLTS.Roman.3}{\hskip3em }).\\
+
+\noindent Last arabic page (pagesLTS.arabic): \lastpageref{pagesLTS.arabic}{\hskip5em }
+(There are only \lastpageref{pagesLTS.arabic.local} pages with arabic numbers,
+because an \verb|\addtocounter{page}{|\pagesLTSexampleArabic\verb|}| was used.)\\
+
+\noindent Last fnsymbol page (pagesLTS.fnsymbol): \lastpageref{pagesLTS.fnsymbol} \\
+(\verb|\lastpageref{pagesLTS.fnsymbol}| -- never \verb|\pageref{pagesLTS.fnsymbol}|!)\\
+(There are \lastpageref{pagesLTS.fnsymbol.local} pages with fnsymbol numbers.)\\
+
+\noindent Last alph page (pagesLTS.alph): \lastpageref{pagesLTS.alph}{\hskip4em }
+(There are only \lastpageref{pagesLTS.alph.local} pages with alph numbers,
+because an \verb|\addtocounter{page}{|\pagesLTSexamplealph\verb|}| was used.)\\
+
+\noindent Last Alph page (pagesLTS.Alph): \lastpageref{pagesLTS.Alph}{\hskip4em }
+(There are \lastpageref{pagesLTS.Alph.local} pages with Alph numbers.)\\
+
+\noindent Last page's \textit{name} (LastPage): \lastpageref{LastPage}\\
+
+\noindent Very last page's \textit{name} (VeryLastPage): \lastpageref{VeryLastPage}\\
+(\texttt{LastPage} and \texttt{VeryLastPage} are identical, unless
+a package with output \linebreak
+\verb|\AtEndDocument| after the \textsf{pageslts} package was added.)\\
+
+\noindent Last page's \textit{number} (LastPages): \lastpageref{LastPages}{\hskip3em }
+(=~total number of pages)\\
+
+\lipsum[1-60]
+
+\newpage
+
+\pagenumbering{Roman}
+
+\section{Roman - again!\label{Roman2}}
+
+The page number would start with \textquotedblleft I\textquotedblright{} again --
+but for the \textsf{pageslts} package (with option \texttt{pagecontinue=true},
+or with option just \texttt{pagecontinue}, or even just
+\nolinebreak{with\textbf{out}} option \texttt{pagecontinue=false}).
+This package remembered the (\arabic{pagesLTS.double.Roman}-1)\footnote{%
+OK, here you have to compute this value for yourself, but %
+subtracting one should be manageable for \TeX{}nicians.} pages already
+done in Roman output, and therefore continues with page
+\textquotedblleft \thepage \textquotedblright .\\
+If you want to start with \textquotedblleft I\textquotedblright{} all
+over again, you will have two pages with the same name,
+but nevertheless you can do this by using option \texttt{pagecontinue=false}
+or a \verb|\setcounter{page}{1}|\ here (not demonstrated in this example file).\\
+
+\noindent First page (\verb|\lastpageref{pagesLTS.0}|):
+ \lastpageref{pagesLTS.0}\\
+
+\noindent The page (\verb|\thepage|): \thepage \\
+
+\noindent Current page (\verb|\theCurrentPage|),
+i.\,e. counted continuously from the first page): \theCurrentPage \\
+
+\noindent CurrentPageLocal (\verb|\theCurrentPageLocal|),
+i.\,e. counted continuously from the first page of the
+current page numbering scheme): \theCurrentPageLocal \\
+
+\noindent Last roman page (pagesLTS.roman): \lastpageref{pagesLTS.roman}{\hskip4em }
+(There are \lastpageref{pagesLTS.roman.local} pages with roman numbers.)\\
+
+\noindent Last Roman page (pagesLTS.Roman): \lastpageref{pagesLTS.Roman}{\hskip3em }
+(There are \lastpageref{pagesLTS.Roman.local}~pages with Roman numbers:\\
+\lastpages{Roman}{1}~pages in the first Roman sector
+(\pageref{Roman}{\hskip3em }-\lastpageref{pagesLTS.Roman.1}{\hskip3em }),\\
+\lastpages{Roman}{2}~pages in the second Roman sector
+(\pageref{Roman2}{\hskip3em }-\lastpageref{pagesLTS.Roman.2}{\hskip3em }), and\\
+\lastpages{Roman}{3}~pages in the third Roman sector
+(\pageref{Roman3}{\hskip3em }-\lastpageref{pagesLTS.Roman.3}{\hskip3em }).\\
+
+\noindent Last arabic page (pagesLTS.arabic): \lastpageref{pagesLTS.arabic}{\hskip5em }
+(There are only \lastpageref{pagesLTS.arabic.local} pages with arabic numbers,
+because an \verb|\addtocounter{page}{|\pagesLTSexampleArabic\verb|}| was used.)\\
+
+\noindent Last fnsymbol page (pagesLTS.fnsymbol): \lastpageref{pagesLTS.fnsymbol} \\
+(\verb|\lastpageref{pagesLTS.fnsymbol}| -- never
+\verb|\pageref{pagesLTS.fnsymbol}|!)\\
+(There are \lastpageref{pagesLTS.fnsymbol.local} pages with fnsymbol numbers.)\\
+
+\noindent Last alph page (pagesLTS.alph): \lastpageref{pagesLTS.alph}{\hskip4em }
+(There are only \lastpageref{pagesLTS.alph.local} pages with alph numbers,
+because an \verb|\addtocounter{page}{|\pagesLTSexamplealph\verb|}| was used.)\\
+
+\noindent Last Alph page (pagesLTS.Alph): \lastpageref{pagesLTS.Alph}{\hskip4em }
+(There are \lastpageref{pagesLTS.Alph.local} pages with Alph numbers.)\\
+
+\noindent Last page's \textit{name} (LastPage): \lastpageref{LastPage}\\
+
+\noindent Very last page's \textit{name} (VeryLastPage): \lastpageref{VeryLastPage}\\
+(\texttt{LastPage} and \texttt{VeryLastPage} are identical, unless
+a package with output \linebreak
+\verb|\AtEndDocument| after the \textsf{pageslts} package was added.)\\
+
+\noindent Last page's \textit{number} (LastPages): \lastpageref{LastPages}{\hskip3em }
+(=~total number of pages)\\
+
+\lipsum[1-6]
+
+\newpage
+
+\verb|\lastpageref{pagesLTS.Roman}| does \textbf{not}
+refer to this page (but there: \lastpageref{pagesLTS.Roman}),
+because the option \texttt{pagecontinue=true}
+was chosen. When a reference to this page is wanted,\\
+\verb|\lastpageref{pagesLTS.Roman.2}| can be used: \lastpageref{pagesLTS.Roman.2}.\\
+
+\bigskip
+There are \lastpages{Roman}{2}~pages (\verb|\lastpages{Roman}{2}|) in this
+second Roman sector.\\
+The Roman page numbering scheme is continued later in section~\ref{Roman3})!
+
+\newpage
+
+\pagenumbering{alph}
+
+\section{alph\label{alph}}
+
+\noindent First page (\verb|\lastpageref{pagesLTS.0}|):
+ \lastpageref{pagesLTS.0}\\
+
+\noindent The page (\verb|\thepage|): \thepage \\
+
+\noindent Current page (\verb|\theCurrentPage|),
+i.\,e. counted continuously from the first page): \theCurrentPage \\
+
+\noindent CurrentPageLocal (\verb|\theCurrentPageLocal|),
+i.\,e. counted continuously from the first page of the
+current page numbering scheme): \theCurrentPageLocal \\
+
+\noindent Last roman page (pagesLTS.roman): \lastpageref{pagesLTS.roman}{\hskip4em }
+(There are \lastpageref{pagesLTS.roman.local} pages with roman numbers.)\\
+
+\noindent Last Roman page (pagesLTS.Roman): \lastpageref{pagesLTS.Roman}{\hskip3em }
+(There are \lastpageref{pagesLTS.Roman.local}~pages with Roman numbers:\\
+\lastpages{Roman}{1}~pages in the first Roman sector
+(\pageref{Roman}{\hskip3em }-\lastpageref{pagesLTS.Roman.1}{\hskip3em }),\\
+\lastpages{Roman}{2}~pages in the second Roman sector
+(\pageref{Roman2}{\hskip3em }-\lastpageref{pagesLTS.Roman.2}{\hskip3em }), and\\
+\lastpages{Roman}{3}~pages in the third Roman sector
+(\pageref{Roman3}{\hskip3em }-\lastpageref{pagesLTS.Roman.3}{\hskip3em }).\\
+
+\noindent Last arabic page (pagesLTS.arabic): \lastpageref{pagesLTS.arabic}{\hskip5em }
+(There are only \lastpageref{pagesLTS.arabic.local} pages with arabic numbers,
+because an \verb|\addtocounter{page}{|\pagesLTSexampleArabic\verb|}| was used.)\\
+
+\noindent Last fnsymbol page (pagesLTS.fnsymbol): \lastpageref{pagesLTS.fnsymbol} \\
+(\verb|\lastpageref{pagesLTS.fnsymbol}| -- never \verb|\pageref{pagesLTS.fnsymbol}|!)\\
+(There are \lastpageref{pagesLTS.fnsymbol.local} pages with fnsymbol numbers.)\\
+
+\noindent Last alph page (pagesLTS.alph): \lastpageref{pagesLTS.alph}{\hskip4em }
+(There are only \lastpageref{pagesLTS.alph.local} pages with alph numbers,
+because an \verb|\addtocounter{page}{|\pagesLTSexamplealph\verb|}| was used.)\\
+
+\noindent Last Alph page (pagesLTS.Alph): \lastpageref{pagesLTS.Alph}{\hskip4em }
+(There are \lastpageref{pagesLTS.Alph.local} pages with Alph numbers.)\\
+
+\noindent Last page's \textit{name} (LastPage): \lastpageref{LastPage}\\
+
+\noindent Very last page's \textit{name} (VeryLastPage): \lastpageref{VeryLastPage}\\
+(\texttt{LastPage} and \texttt{VeryLastPage} are identical, unless
+a package with output \linebreak
+\verb|\AtEndDocument| after the \textsf{pageslts} package was added.)\\
+
+\noindent Last page's \textit{number} (LastPages): \lastpageref{LastPages}{\hskip3em }
+(=~total number of pages)\\
+
+\lipsum[1-4]
+
+\newpage
+
+Without option \texttt{alphMult=ab} of the \textsf{pageslts} (and the help of
+\textsc{Heiko Oberdiek's} \textsf{alphalph} package), after page
+\textquotedblleft z\textquotedblright{} there would just appear a
+\begin{quote}
+\begin{verbatim}
+LaTeX Error: Counter too large
+See the LaTeX manual or LaTeX Companion for explanation.
+You've lost some text.  Try typing  <return>  to proceed.
+If that doesn't work, type  X <return>  to quit.
+\end{verbatim}
+\end{quote}
+Now the page numbers are continued aa, ab, ac,\ldots\ (aa, bb, cc,\ldots\ is
+also possible, see the \textsf{pageslts} documentation).\\
+To demonstrate this, we add a\\
+\verb|\addtocounter{page}{|\pagesLTSexamplealph\verb|}|\\
+in the source code here.
+
+\addtocounter{page}{\pagesLTSexamplealph}
+
+\bigskip
+
+\lipsum[1-18]
+
+\newpage
+
+\pagenumbering{Roman}
+
+\section{Roman - third time!\label{Roman3}}
+
+The page number would start with
+\textquotedblleft I\textquotedblright{} again -- but
+for the \textsf{pageslts} package (with option \texttt{pagecontinue=true},
+or with option just \texttt{pagecontinue}, or even just
+\nolinebreak{with\textbf{out}} option \texttt{pagecontinue=false}).
+This package remembered the
+(\arabic{pagesLTS.double.Roman}-1)\footnote{OK, here %
+you have to compute this value for yourself, but %
+subtracting one should be managable for \TeX nicians.} pages already
+done in Roman output, and therefore continues with page
+\textquotedblleft \thepage \textquotedblright .\\
+If you want to start with \textquotedblleft I\textquotedblright{} all
+over again, you will have (at least) two pages with the same name,
+but nevertheless you can do this by using option
+\texttt{pagecontinue=false} instead of \texttt{pagecontinue=true}
+(not demonstrated here).\\
+
+\noindent First page (\verb|\lastpageref{pagesLTS.0}|):
+ \lastpageref{pagesLTS.0}\\
+
+\noindent The page (\verb|\thepage|): \thepage \\
+
+\noindent Current page (\verb|\theCurrentPage|),
+i.\,e. counted continuously from the first page): \theCurrentPage \\
+
+\noindent CurrentPageLocal (\verb|\theCurrentPageLocal|),
+i.\,e. counted continuously from the first page of the
+current page numbering scheme): \theCurrentPageLocal \\
+
+\noindent Last roman page (pagesLTS.roman): \lastpageref{pagesLTS.roman}{\hskip4em }
+(There are \lastpageref{pagesLTS.roman.local} pages with roman numbers.)\\
+
+\noindent Last Roman page (pagesLTS.Roman): \lastpageref{pagesLTS.Roman}{\hskip3em }
+(There are \lastpageref{pagesLTS.Roman.local}~pages with Roman numbers:\\
+\lastpages{Roman}{1}~pages in the first Roman sector
+(\pageref{Roman}{\hskip3em }-\lastpageref{pagesLTS.Roman.1}{\hskip3em }),\\
+\lastpages{Roman}{2}~pages in the second Roman sector
+(\pageref{Roman2}{\hskip3em }-\lastpageref{pagesLTS.Roman.2}{\hskip3em }), and\\
+\lastpages{Roman}{3}~pages in the third Roman sector
+(\pageref{Roman3}{\hskip3em }-\lastpageref{pagesLTS.Roman.3}{\hskip3em }).\\
+
+\noindent Last arabic page (pagesLTS.arabic): \lastpageref{pagesLTS.arabic}{\hskip5em }
+(There are only \lastpageref{pagesLTS.arabic.local} pages with arabic numbers,
+because an \verb|\addtocounter{page}{|\pagesLTSexampleArabic\verb|}| was used.)\\
+
+\noindent Last fnsymbol page (pagesLTS.fnsymbol): \lastpageref{pagesLTS.fnsymbol} \\
+(\verb|\lastpageref{pagesLTS.fnsymbol}| -- never \verb|\pageref{pagesLTS.fnsymbol}|!)\\
+(There are \lastpageref{pagesLTS.fnsymbol.local} pages with fnsymbol numbers.)\\
+
+\noindent Last alph page (pagesLTS.alph): \lastpageref{pagesLTS.alph}{\hskip4em }
+(There are only \lastpageref{pagesLTS.alph.local} pages with alph numbers,
+because an \verb|\addtocounter{page}{|\pagesLTSexamplealph\verb|}| was used.)\\
+
+\noindent Last Alph page (pagesLTS.Alph): \lastpageref{pagesLTS.Alph}{\hskip4em }
+(There are \lastpageref{pagesLTS.Alph.local} pages with Alph numbers.)\\
+
+\noindent Last page's \textit{name} (LastPage): \lastpageref{LastPage}\\
+
+\noindent Very last page's \textit{name} (VeryLastPage): \lastpageref{VeryLastPage}\\
+(\texttt{LastPage} and \texttt{VeryLastPage} are identical, unless
+a package with output \linebreak
+\verb|\AtEndDocument| after the \textsf{pageslts} package was added.)\\
+
+\noindent Last page's \textit{number} (LastPages): \lastpageref{LastPages}{\hskip3em }
+(=~total number of pages)\\
+
+\lipsum[1-3]
+
+\newpage
+
+\lastpageref{pagesLTS.Roman}
+(\verb|\lastpageref{pagesLTS.Roman}|)
+\textbf{does} refers to this page, because the option
+\texttt{pagecontinue=true} was chosen. Also\\
+\verb|\lastpageref{pagesLTS.Roman.3}| can be used: \lastpageref{pagesLTS.Roman.3}.\\
+
+\bigskip
+
+There are \lastpages{Roman}{3}~pages (\verb|\lastpages{Roman}{3}|) in this
+third Roman sector.\\
+
+\newpage
+
+\pagenumbering{Alph}
+
+\section{Alph}
+
+\noindent First page (\verb|\lastpageref{pagesLTS.0}|):
+ \lastpageref{pagesLTS.0}\\
+
+\noindent The page (\verb|\thepage|): \thepage \\
+
+\noindent Current page (\verb|\theCurrentPage|),
+i.\,e. counted continuously from the first page): \theCurrentPage \\
+
+\noindent CurrentPageLocal (\verb|\theCurrentPageLocal|),
+i.\,e. counted continuously from the first page of the
+current page numbering scheme): \theCurrentPageLocal \\
+
+\noindent Last roman page (pagesLTS.roman): \lastpageref{pagesLTS.roman}{\hskip4em }
+(There are \lastpageref{pagesLTS.roman.local} pages with roman numbers.)\\
+
+\noindent Last Roman page (pagesLTS.Roman): \lastpageref{pagesLTS.Roman}{\hskip3em }
+(There are \lastpageref{pagesLTS.Roman.local}~pages with Roman numbers:\\
+\lastpages{Roman}{1}~pages in the first Roman sector
+(\pageref{Roman}{\hskip3em }-\lastpageref{pagesLTS.Roman.1}{\hskip3em }),\\
+\lastpages{Roman}{2}~pages in the second Roman sector
+(\pageref{Roman2}{\hskip3em }-\lastpageref{pagesLTS.Roman.2}{\hskip3em }), and\\
+\lastpages{Roman}{3}~pages in the third Roman sector
+(\pageref{Roman3}{\hskip3em }-\lastpageref{pagesLTS.Roman.3}{\hskip3em }).\\
+
+\noindent Last arabic page (pagesLTS.arabic): \lastpageref{pagesLTS.arabic}{\hskip5em }
+(There are only \lastpageref{pagesLTS.arabic.local} pages with arabic numbers,
+because an \verb|\addtocounter{page}{|\pagesLTSexampleArabic\verb|}| was used.)\\
+
+\noindent Last fnsymbol page (pagesLTS.fnsymbol): \lastpageref{pagesLTS.fnsymbol} \\
+(\verb|\lastpageref{pagesLTS.fnsymbol}| -- never \verb|\pageref{pagesLTS.fnsymbol}|!)\\
+(There are \lastpageref{pagesLTS.fnsymbol.local} pages with fnsymbol numbers.)\\
+
+\noindent Last alph page (pagesLTS.alph): \lastpageref{pagesLTS.alph}{\hskip4em }
+(There are only \lastpageref{pagesLTS.alph.local} pages with alph numbers,
+because an \verb|\addtocounter{page}{|\pagesLTSexamplealph\verb|}| was used.)\\
+
+\noindent Last Alph page (pagesLTS.Alph): \lastpageref{pagesLTS.Alph}{\hskip4em }
+(There are \lastpageref{pagesLTS.Alph.local} pages with Alph numbers.)\\
+
+\noindent Last page's \textit{name} (LastPage): \lastpageref{LastPage}\\
+
+\noindent Very last page's \textit{name} (VeryLastPage): \lastpageref{VeryLastPage}\\
+(\texttt{LastPage} and \texttt{VeryLastPage} are identical, unless
+a package with output \linebreak
+\verb|\AtEndDocument| after the \textsf{pageslts} package was added.)\\
+
+\noindent Last page's \textit{number} (LastPages): \lastpageref{LastPages}{\hskip3em }
+(=~total number of pages)\\
+
+\lipsum[1-3]
+
+Without option \texttt{alphMulti=AB} of the \textsf{pageslts} (and the help of
+\textsc{Heiko Oberdiek's} \textsf{alphalph} package), after page
+\textquotedblleft Z\textquotedblright{} there would just appear a
+\begin{quote}
+\begin{verbatim}
+LaTeX Error: Counter too large
+See the LaTeX manual or LaTeX Companion for explanation.
+You've lost some text.  Try typing  <return>  to proceed.
+If that doesn't work, type  X <return>  to quit.
+\end{verbatim}
+\end{quote}
+Now the page numbers are continued AA, AB, AC,\ldots\ (AA, BB, CC,\ldots\ is
+also possible, see the \textsf{pageslts} documentation).\\
+This is not demonstrated here, but see section~\ref{alph}.
+
+\newpage
+
+\section{The End}
+
+\noindent First page (\verb|\lastpageref{pagesLTS.0}|):
+ \lastpageref{pagesLTS.0}\\
+
+\noindent The page (\verb|\thepage|): \thepage \\
+
+\noindent Current page (\verb|\theCurrentPage|),
+i.\,e. counted continuously from the first page): \theCurrentPage \\
+
+\noindent CurrentPageLocal (\verb|\theCurrentPageLocal|),
+i.\,e. counted continuously from the first page of the
+current page numbering scheme): \theCurrentPageLocal \\
+
+\noindent Last roman page (pagesLTS.roman): \lastpageref{pagesLTS.roman}{\hskip4em }
+(There are \lastpageref{pagesLTS.roman.local} pages with roman numbers.)\\
+
+\noindent Last Roman page (pagesLTS.Roman): \lastpageref{pagesLTS.Roman}{\hskip3em }
+(There are \lastpageref{pagesLTS.Roman.local}~pages with Roman numbers:\\
+\lastpages{Roman}{1}~pages in the first Roman sector
+(\pageref{Roman}{\hskip3em }-\lastpageref{pagesLTS.Roman.1}{\hskip3em }),\\
+\lastpages{Roman}{2}~pages in the second Roman sector
+(\pageref{Roman2}{\hskip3em }-\lastpageref{pagesLTS.Roman.2}{\hskip3em }), and\\
+\lastpages{Roman}{3}~pages in the third Roman sector
+(\pageref{Roman3}{\hskip3em }-\lastpageref{pagesLTS.Roman.3}{\hskip3em }).\\
+
+\noindent Last arabic page (pagesLTS.arabic): \lastpageref{pagesLTS.arabic}{\hskip5em }
+(There are only \lastpageref{pagesLTS.arabic.local} pages with arabic numbers,
+because an \verb|\addtocounter{page}{|\pagesLTSexampleArabic\verb|}| was used.)\\
+
+\noindent Last fnsymbol page (pagesLTS.fnsymbol): \lastpageref{pagesLTS.fnsymbol} \\
+(\verb|\lastpageref{pagesLTS.fnsymbol}| -- never \verb|\pageref{pagesLTS.fnsymbol}|!)\\
+(There are \lastpageref{pagesLTS.fnsymbol.local} pages with fnsymbol numbers.)\\
+
+\noindent Last alph page (pagesLTS.alph): \lastpageref{pagesLTS.alph}{\hskip4em }
+(There are only \lastpageref{pagesLTS.alph.local} pages with alph numbers,
+because an \verb|\addtocounter{page}{|\pagesLTSexamplealph\verb|}| was used.)\\
+
+\noindent Last Alph page (pagesLTS.Alph): \lastpageref{pagesLTS.Alph}{\hskip4em }
+(There are \lastpageref{pagesLTS.Alph.local} pages with Alph numbers.)\\
+
+\noindent Last page's \textit{name} (LastPage): \lastpageref{LastPage}\\
+
+\noindent Very last page's \textit{name} (VeryLastPage): \lastpageref{VeryLastPage}\\
+(\texttt{LastPage} and \texttt{VeryLastPage} are identical, unless
+a package with output \linebreak
+\verb|\AtEndDocument| after the \textsf{pageslts} package was added.)\\
+
+\noindent Last page's \textit{number} (LastPages): \lastpageref{LastPages}{\hskip3em }
+(=~total number of pages)\\
+
+\medskip
+
+\noindent Page \thepage\ (\theCurrentPage; local: \theCurrentPageLocal) of %
+\lastpageref{pagesLTS.roman} (\lastpageref{pagesLTS.roman.local}) + %
+\lastpageref{pagesLTS.Roman} (\lastpageref{pagesLTS.Roman.local}) + %
+\lastpageref{pagesLTS.arabic} (\lastpageref{pagesLTS.arabic.local}) + %
+\lastpageref{pagesLTS.fnsymbol} (\lastpageref{pagesLTS.fnsymbol.local}) + %
+\lastpageref{pagesLTS.alph} (\lastpageref{pagesLTS.alph.local}) + %
+\lastpageref{pagesLTS.Alph} (\lastpageref{pagesLTS.Alph.local}) = %
+\lastpageref{LastPages} pages.
+
+\end{document}
+\endinput
+%%
+%% End of file `pageslts-example.tex'.

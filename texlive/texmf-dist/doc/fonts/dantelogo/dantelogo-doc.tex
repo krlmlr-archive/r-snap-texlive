@@ -1,0 +1,63 @@
+% $Id: dantelogo-doc.tex 127 2014-10-01 15:17:09Z herbert $
+\documentclass{article}
+\usepackage{iftex}
+\ifPDFTeX
+  \usepackage[T1]{fontenc}
+  \usepackage{libertine}
+  \usepackage[scaled=0.85]{beramono}
+  \usepackage[utf8]{inputenc}
+\else
+  \usepackage{fontspec}
+  \usepackage{libertine}
+  \setmonofont[Scale=0.85]{DejaVu Sans Mono}
+\fi
+\usepackage{dantelogo}
+\usepackage{geometry}
+\let\FV\fileversion
+\usepackage{showexpl}
+\lstset{language=[LaTeX]TEX,basicstyle=\ttfamily\small,%
+        extendedchars,numbers=left,numberstyle=\tiny,%
+        xleftmargin=2em,breaklines=true}
+
+\begin{document}
+\title{Package \texttt{dantelogo}\\v.\,\FV}
+\author{Herbert Voß \and Klaus Höppner}
+\date{\today}
+\maketitle
+
+\verb|\dantelogo[<size>]| which gives \dantelogo, can be used with all current \TeX\ engines. There are Type1 and OTF versions
+of the font which includes only the five characters d-a-n-t-e. The \verb|<size>| is an optional parameter. The package itself tries 
+to detect the running machine (\texttt{pdflatex}, \texttt{xelatex}, or \texttt{lualatex}) and then loads by default 
+package \verb|fontenc| for \texttt{pdflatex} or package \texttt{fontspec}, otherwise.
+
+\begin{LTXexample}[width=0.4\linewidth]
+\dantelogo\Huge\dantelogo
+\end{LTXexample}
+
+\begin{LTXexample}[width=0.4\linewidth]
+\dantelogo[20pt]\dantelogo
+\end{LTXexample}
+
+\begin{LTXexample}[width=0.4\linewidth]
+\bfseries\dantelogo\Huge\dantelogo
+\end{LTXexample}
+
+\begin{LTXexample}[width=0.4\linewidth]
+\itshape\dantelogo[20pt]\dantelogo
+\end{LTXexample}
+
+\begin{LTXexample}[width=0.4\linewidth]
+\bfseries\itshape\dantelogo\Huge\dantelogo
+\end{LTXexample}
+
+\subsection*{License}
+The fonts are under the SIL Open Font License (http://scripts.sil.org/OFL) and
+the package is under the LPPL.
+
+
+\subsection*{The code}
+
+\lstinputlisting{dantelogo.sty}
+
+
+\end{document}

@@ -1,0 +1,1482 @@
+%%
+%% This is file `dinbrief.tex',
+%% generated with the docstrip utility.
+%%
+%% The original source files were:
+%%
+%% dinbrief.dtx  (with options: `documentation')
+%% 
+%% =======================================================================
+%% 
+%% Copyright (C) 1993, 96, 97 by University of Karlsruhe (Computing Center).
+%% Copyright (C) 1998, 2000   by University of Karlsruhe (Computing Center)
+%%                            and Richard Gussmann.
+%% All rights reserved.
+%% For additional copyright information see further down in this file.
+%% 
+%% This file is part of the DINBRIEF package
+%% -----------------------------------------------------------------------
+%% 
+%% It may be distributed under the terms of the LaTeX Project Public
+%% License (LPPL), as described in lppl.txt in the base LaTeX distribution.
+%% Either version 1.1 or, at your option, any later version.
+%% 
+%% The latest version of this license is in
+%% 
+%%         http://www.latex-project.org/lppl.txt
+%% 
+%% LPPL Version 1.1 or later is part of all distributions of LaTeX
+%% version 1999/06/01 or later.
+%% 
+%% 
+%% For error reports in case of UNCHANGED versions see readme files.
+%% 
+%% Please do not request updates from us directly.  Distribution is
+%% done through Mail-Servers, TeX organizations and others.
+%% 
+%% If you receive only some of these files from someone, complain!
+%% 
+%%
+%% \CharacterTable
+%%  {Upper-case    \A\B\C\D\E\F\G\H\I\J\K\L\M\N\O\P\Q\R\S\T\U\V\W\X\Y\Z
+%%   Lower-case    \a\b\c\d\e\f\g\h\i\j\k\l\m\n\o\p\q\r\s\t\u\v\w\x\y\z
+%%   Digits        \0\1\2\3\4\5\6\7\8\9
+%%   Exclamation   \!     Double quote  \"     Hash (number) \#
+%%   Dollar        \$     Percent       \%     Ampersand     \&
+%%   Acute accent  \'     Left paren    \(     Right paren   \)
+%%   Asterisk      \*     Plus          \+     Comma         \,
+%%   Minus         \-     Point         \.     Solidus       \/
+%%   Colon         \:     Semicolon     \;     Less than     \<
+%%   Equals        \=     Greater than  \>     Question mark \?
+%%   Commercial at \@     Left bracket  \[     Backslash     \\
+%%   Right bracket \]     Circumflex    \^     Underscore    \_
+%%   Grave accent  \`     Left brace    \{     Vertical bar  \|
+%%   Right brace   \}     Tilde         \~}
+%%
+\expandafter\ifx\csname documentclass\endcsname\relax
+    \documentstyle[german]{article}
+    \typeout{Using the command \string\documentstyle.}
+    \newcommand\LaTeXe{\LaTeX\kern.15em2$_\varepsilon$}
+  \else
+    \documentclass[10pt]{article}
+    \usepackage{german}
+    \typeout{Using the command \string\documentclass.}
+  \fi
+
+\newcommand\Dopt[1]{{\tt #1\/}}
+\newcommand\file[1]{{\tt #1\/}}
+
+\title{Standard Document Class `dinbrief'\\ for \LaTeX{} version 2e\\
+       Standard Document Style `dinbrief'\\ for \LaTeX{} version 2.09}
+
+\author{%
+Copyright \copyright\ 1993,\ 96,\ 98\\ by Klaus Dieter Braune, Richard Gussmann
+}
+\newenvironment{decl}%
+    {\par\small\addvspace{4.5ex plus 1ex}%
+     \vskip -\parskip
+     \noindent\hspace{-\leftmargini}%
+     \begin{tabular}{|l|}\hline\ignorespaces}%
+    {\\\hline\end{tabular}\par\nopagebreak\addvspace{2.3ex}%
+     \vskip -\parskip}
+\newcommand{\declline}[1]{\\\multicolumn1{|r|}{\small#1}}
+\newcommand{\m}[1]{\mbox{$\langle$\emph{#1}$\rangle$}}
+\renewcommand{\arg}[1]{{\tt\string{}\m{#1}{\tt\string}}}
+\expandafter\ifx\csname oarg\endcsname\relax
+  \newcommand{\oarg}[1]{{\tt[}\m{#1}{\tt]}}
+\fi
+\makeatletter
+\expandafter\ifx\csname cmd\endcsname\relax
+  \def\cmd#1{\cs{\expandafter\cmd@to@cs\string#1}}
+\fi
+\expandafter\ifx\csname cmd@to@cs\endcsname\relax
+\def\cmd@to@cs#1#2{\char\number`#2\relax}
+\fi
+\makeatother
+\expandafter\ifx\csname cs\endcsname\relax
+\def\cs#1{{\tt\char`\\#1}}
+\fi
+\newcommand{\env}[2]{\cmd{#1}{\protect\tt\char`\{#2\char`\}}}
+\newcommand{\envname}[1]{{\protect\tt#1}}
+\germanTeX
+\expandafter\ifx\csname emph\endcsname\relax
+  \newcommand\emph[1]{{\em#1\/}}% This is \emph{not} the LaTeX2e
+                                %  definition!
+\fi
+
+\begin{document}
+\maketitle
+\renewcommand{\textfraction}{0.10}
+\renewcommand{\topfraction}{0.65}
+\renewcommand{\bottomfraction}{0.85}
+\expandafter\ifx\csname sect\endcsname\relax
+  \let\sect=\section
+\fi
+\expandafter\ifx\csname ssect\endcsname\relax
+  \let\ssect=\subsection
+\fi
+\expandafter\ifx\csname sssect\endcsname\relax
+  \let\sssect=\subsubsection
+\fi
+\sect{Benutzerhandbuch (User's Guide)}
+
+Mit \LaTeX\ k"onnen (nat"urlich) auch Briefe geschrieben werden.
+F"ur englische Briefe gibt es die Dokumentklasse \envname{letter}.
+Deutsche Briefe k"onnen mit der Klasse \envname{dinbrief}
+geschrieben werden.
+
+Die vorliegende Klasse \envname{dinbrief} basiert auf dem
+\envname{dinbrief}-Stil der Universit"at Karlsruhe. Dieser
+Stil wurde aus \envname{dletter.sty} entwickelt, welcher
+von D.~Heinrich abgefa"st wurde. Seinerseits geht dieser
+zur"uck auf den Stil \envname{a4letter} von H.~Partl, welcher
+seinen Ursprung im urspr"unglichen \envname{letter}-Stil
+von L.~Lamport hatte. Zus"atzlich wurden aus den \envname{dinbrief.sty}
+von R.~Sengerling der Befehlsvorrat und die Option \Dopt{norm}
+"ubernommen. Ferner enth"alt diese Klasse Tips und Anregungen von
+B.~Raichle.
+
+In den Briefen k"onnen u.a.\ Formeln,
+Tabellen und beliebige Listen verwendet werden.
+In einem Dokument k"onnen mehrere Briefe geschrieben werden.
+Die Gliederung in Abs"atze erfolgt durch Einf"ugen einer
+Leerzeile (wie in \LaTeX\ "ublich).
+
+\sect{Zus"atzliche Optionen der {\protect\tt dinbrief}-Klasse}%
+\index{Briefe>Optionen}\index{Optionen der dinbrief-Klasse=Optionen der \envname{dinbrief}-Klasse}
+
+In der DIN Norm~676 werden zwei Formen von Briefen festgelegt.
+In "alteren Versionen dieses Paketes wurde nur diejenige Form unterst"utzt,
+in der oben ein Rand von 45mm f"ur den Briefkopf freigelassen wird.
+In der zweiten Version ist dieser Rand auf 27mm verk"urzt; damit steht f"ur
+den Brieftext mehr Platz (18mm) zur Verf"ugung.
+
+Die Wahl der gew"unschten Form kann durch Angabe der Optionen \Dopt{addresshigh}
+f"ur einen oberen Rand von 27mm oder \Dopt{addressstd} f"ur einen oberen Rand
+von 45mm getroffen werden.
+Die Angabe der Option \Dopt{addressstd} kann unterbleiben, da sie ohnehin
+voreingestellt ist.
+
+\sect{Befehle in der {\protect\tt dinbrief}-Klasse}%
+\index{Briefe>DIN 676}\index{DIN-Brief}\index{Briefe>dinbrief=\envname{dinbrief}}
+
+Bereits vor \env\begin{document} kann man Angaben machen, die f"ur
+alle Briefe g"ultig sind, z.B.\ {\bf Absender\/} (\cs{address}
+bzw.\ \cs{backaddress}), {\bf Absendeort\/} (\cs{place}),
+{\bf Telefon\/} (\cs{phone}) und {\bf Unterschrift\/} (\cs{signature}).
+
+\ssect{Aus der {\protect\tt letter}-Klasse "ubernommene Befehle}
+
+Jeder Brief steht in einer eigenen \envname{letter}-Umgebung.
+Der Empf"anger wird als Argument des
+\env\begin{letter}-Befehls angegeben
+(\env\begin{letter}\arg{Anschrift}).
+
+Eine entscheidende Bedeutung beim Schreiben von Briefen
+hat der \cs{opening}-Befehl. Nur dieser Befehl setzt
+den Briefkopf, die Absenderangaben und die Adresse des
+Empf"angers. Die {\bf Anrede des Empf"angers\/} wird als
+Argument angegeben (\cmd\opening\arg{Anrede}).
+
+Danach folgt der eigentliche Brieftext. Die abschlie"sende
+{\bf Gru"sformel\/} wird mit dem Befehl \cmd\closing\arg{Gru"sformel}
+gesetzt. Dieser Befehl f"ugt auch die maschinenschriftliche
+Wiederholung der Unterschrift an, wie sie mit dem
+\cs{signature}-Befehl festgelegt wurde.
+Die erweiterte Form \cmd\closing\oarg{Unterschrift}\arg{Gru"sformel}
+erm"oglicht es, die Unterschrift unter den Brief als Text oder Graphik
+einzubinden.
+
+Im Anschlu"s an die Gru"sformel werden {\bf Anlagen-\/}
+(\cmd\encl\arg{Anlage}), {\bf Verteilvermerke\/}
+(\cmd\cc\arg{Verteiler}) und das {\bf Postscriptum\/}
+(\cmd\ps\arg{Postscriptum}) an den Brief angef"ugt.
+
+Mit dem Befehl \cs{makelabels} (vor \env\begin{document})
+werden zus"atzlich {\bf Adre"s-Etiketten\/} erzeugt.
+
+Dar"uberhinaus wurden die oben erw"ahnten Befehle
+\cs{address}, \cs{place} und \cs{signature} aus
+der \envname{letter}-Klasse "ubernommen.
+
+\begin{figure}[p]
+\begin{center}
+{\small
+\begin{verbatim}
+\documentclass[12pt]{dinbrief}
+\usepackage{german}
+
+\address{R"udiger Kurz\\
+         Am See 1\\
+         76133 Karlsruhe}
+\backaddress{R. Kurz, Am See 1, 76133 Karslruhe}
+
+\signature{R"udiger Kurz}
+\place{Karlsruhe}
+
+\begin{document}
+\phone{0721}{222222}
+\begin{letter}{Deutsche Bundespost\\
+               Fernmeldeamt Karlsruhe\\
+               Postfach 7300\\[\medskipamount]
+               {\bf 76131 Karlsruhe}}
+
+\yourmail{01.04.93}
+\sign{123456}
+\subject{Betrieb eines Mikrowellensenders}
+
+\opening{Sehr geehrte Damen und Herren,}
+
+anbei sende ich Ihnen eine Kopie der bisherigen Genehmigung f"ur
+unseren Mikrowellenherd...
+
+... Ihre Bem"uhungen im voraus vielen Dank.
+
+\closing{Mit freundlichen Gr"u"sen,}
+
+\ps{Wir bitten um schnelle Erledigung.}
+\cc{Deutsche Bundespost\\
+    Karlsruher Privatfunk \\
+    S"uddeutscher Rundfunk}
+
+\encl{Abschrift der Urkunde}
+
+\end{letter}
+\end{document}
+\end{verbatim}}
+\caption{Brief mit \LaTeX.}\label{brief}
+\end{center}
+\end{figure}
+
+\ssect{Zus"atzliche Befehle im DIN-Brief}
+
+Der Befehl \cmd\phone\arg{Vorwahl}\arg{Rufnummer/Durchwahl}
+legt die {\bf Telefonnummer\/} des Absenders fest.
+Sie wird in der Bezugszeichenzeile ausgegeben.
+
+Der {\bf Bezug\/} auf einen empfangenen Brief ist m"oglich
+mit Hilfe des Befehls
+\cmd\yourmail\arg{Ihre Zeichen, Ihre Nachricht vom}.
+
+Mit dem Befehl \cmd\sign\arg{Unsere Zeichen, unsere Nachricht vom}
+kann eine {\bf eigene Kennzeichnung\/} des Briefes angegeben werden.
+
+Mit dem Befehl \cmd\writer\arg{Sachbearbeiter} kann
+der {\bf Name des Sachbearbeiters\/} festgelegt werden.
+
+Die Bezugszeichenzeile wird nur gesetzt, falls einer der
+Befehle \cs{yourmail}, \cs{sign} oder \cs{writer} verwendet
+wird. Der Befehl \cs{writer} schaltet zus"atzlich auf das
+in der DIN Norm~676 (Entwurf Mai~1991) festgelegte Layout um.
+
+Der {\bf Betreff (die stichwortartige Inhaltsangabe)\/} des
+Briefes wird durch den Befehl \cs{subject}\arg{Betreff}
+angegeben. Mit \cs{backaddress} wird die Adresse festgelegt,
+die als {\bf Absenderadresse im Brief\kern0pt fenster}
+eingeblendet wird.
+
+Abbildung~\ref{brief} enth"alt ein Beispiel f"ur einen Brief.
+Die Anwendung der Befehle und ihre Reihenfolge in der Quelldatei
+kann dem Beispiel entnommen werden.
+
+F"ur alle, denen das "`Fenster"' um die Adresse nicht gef"allt,
+besteht die M"oglichkeit, durch Angabe von
+\cmd\nowindowrules\index{nowindowrules=\verb+\nowindowrules+}
+vor dem Befehl \cmd\opening\ dieses abzuschalten.
+Durch \cmd\windowrules\index{windowrules=\verb+\windowrules+} l"a"st es
+sich wieder aktivieren.
+
+Der Trennstrich zwischen der R"ucksendeadresse und der Anschrift im
+Anschriftenfeld kann mit dem Befehl
+\cmd\nobackaddressrule\index{nobackaddressrule=\verb+\nobackaddressrule+}
+unterdr"uckt und bei folgenden Briefen mit
+\cmd\backaddressrule\index{backaddressrule=\verb+\backaddressrule+} wieder
+aktiviert werden.
+
+Die Faltmarkierung am linken Blattrand wird durch den Befehl
+\cmd\nowindowtics\index{nowindowtics=\verb+\nowindowtics+} ab- und mit
+\cmd\windowtics\index{windowtics=\verb+\windowtics+} wieder angeschaltet.
+\medskip
+
+Die Ver"anderung des Layouts der Briefe ist mit Hilfe von insgesamt 13 Befehlen
+m"oglich.
+Um f"ur einen Brief wirksam zu werden, m"ussen diese Befehle {\em vor\/}
+dem Befehl \cmd\opening\ angegeben werden.
+Die ersten 9 dieser Befehle legen Gr"o"se und Position des Fensters f"ur die
+Anschrift und der Adresse des Absenders im Anschriften-Fenster fest.
+Die "ubrigen Befehle legen den Abstand der Oberkante der Bezugszeichenzeile,
+den Abstand der Oberkante des Bereiches f"ur Angaben zu Kapitalgesellschaften
+und die Abst"ande der Faltmarkierungen vom oberen Papierrand fest.
+Ein Befehl zur Festlegung der Lochmarkierung ist "ubrigens nicht vorgesehen,
+da die Lochmarkierung in die Mitte der Seite -- abh"angig vom Wert der L"ange
+\cmd\paperheight\ -- gesetzt wird.
+
+Der Befehl \cmd\setaddressllcorner\arg{L"angenangabe}\arg{L"angenangabe}\index{setaddressllcorner=\verb+\setaddressllcorner+}
+legt mit seinen beiden Argumenten die Position der linken {\em unteren\/} Ecke
+des Fensters bezogen auf die linke {\em obere\/} Ecke des Blattes fest: das
+erste den Abstand vom linken und das zweite den Anstand vom oberen Blattrand.
+Der Abstand des Fensters vom linken Rand -- ohne "Anderung des Abstandes vom
+oberen Rand -- kann mit dem Befehl
+\cmd\setaddressllhpos\arg{L"angenangabe}\index{setaddressllhpos=\verb+\setaddressllhpos+}
+festgelegt werden.
+Entsprechend legt der Befehl
+\cmd\setaddressllvpos\arg{L"angenangabe}\index{setaddressllvpos=\verb+\setaddressllvpos+}
+den Abstand des unteren Randes des Fensters vom oberen Blattrand fest.
+
+Zur Auswahl der zu verwendenden Variante der Briefform -- hochgestellte oder
+tiefer gestelltes Feld f"ur die Anschrift -- stehen die beiden Befehle
+\cmd\addresshigh\ (hochgestellte Anschrift) und \cmd\addressstd\
+(voreingestellte tiefer gestellte Anschrift) zur Verf"ugung.
+Beide Befehle sind nur wirksam, wenn sie {\em vor\/} dem \cmd\opening-Befehl
+angegeben werden.
+Gegebenenfalls k"onnen sie auch -- wie viele anderen Befehle -- in der
+Konfigurationsdatei verwendet werden.
+
+Auch zur Festlegung der H"ohe und Breite des Fensters f"ur die Anschrift sind
+Befehle vorgesehen.
+Der Befehl \cmd\setaddresswidth\arg{L"angenangabe}\index{setaddresswidth=\verb+\setaddresswidth+}
+setzt die Breite des Fensters auf die angegebene L"ange.
+Entsprechend legt der Befehl
+\cmd\setaddressheight\arg{L"angenangabe}\index{setaddressheight=\verb+\setaddressheight+}
+die H"ohe des Fensters fest (ohne das direkt dar"uber angeordnete Feld f"ur
+den Absender).
+
+In der Regel m"ochte man den Text der Anschrift nicht direkt am linken Rand
+beginnen lassen -- wie auch in diesem Paket voreingstellt.
+Mit dem Befehl \cmd\setaddressoffset\arg{L"angenangabe}\index{setaddressoffset=\verb+\setaddressoffset+}
+kann man diese Einr"uckung selbst festlegen.
+Der Text der Anschrift wird "ubrigens nicht abgeschnitten und kann daher
+gegebenenfalls "uber den rechten Rand des Fensters hinausragen -- bitte
+brechen Sie in diesem Fall zu lange Zeilen an einer geigneten Stelle selbst
+um.
+
+Die H"ohe des Feldes f"ur den Absender direkt oben anschlie"send an das
+Feld f"ur die Anschrift kann mit dem Befehl
+\cmd\setbackaddressheight\arg{L"angenangabe}\index{setbackaddressheight=\verb+\setbackaddressheight+}
+festgelegt werden.
+
+Werden der DIN Norm entsprechende Fensterumschl"age verwendet, sollten die
+Voreinstellungen f"ur Gr"o"se und Position des Fensters f"ur die Anschrift
+und den Absender nicht ver"andert werden, damit sie im Fenster sichtbar sind.
+
+Der Befehl \cmd\setreflinetop\arg{L"angenangabe}\index{setreflinetop=\verb+\setreflinetop+}
+legt den Abstand der Oberkante der Bezugszeichenzeile vom oberen Papierrand
+fest; bei den beiden Formen der DIN Norm liegt diese Oberkante 8.5mm unterhalb
+des Fensters f"ur die Anschrift.
+
+Am Ende der ersten Seite von Briefen ist ein Feld f"ur Angaben zu
+Kapitalgesellschaften vorgesehen, das man bei eigenen Briefen gegebenenfalls
+zur Angabe des eigenen Kontos verwenden kann.
+Die Formbl"atter der Norm sehen f"ur dieses Feld nur die letzten 16mm des
+Papiers vor.
+Ben"otigt man mehr Platz f"ur Angaben in diesem Feld, kann man mit dem Befehl
+\cmd\setbottomtexttop\arg{L"angenangabe}\index{setbottomtexttop=\verb+\setbottomtexttop+}
+die Oberkante des Feldes geeignet festlegen.
+Der f"ur den Brieftext zur Verf"ugung stehende Platz wird automatisch
+angepa"st.
+
+Im Zusammenhang mit einer Verschiebung des Fensters f"ur die Anschrift
+m"ussen gegebenenfalls die Faltmarkierungen angepa"st werden.
+Den Abstand der oberen Faltmarkierung vom oberen Blattrand legt man mit dem
+Befehl \cmd\setupperfoldmarkvpos\arg{L"angenangabe}\index{setupperfoldmarkvpos=\verb+\setupperfoldmarkvpos+}
+fest, den der unteren Faltmarkierung entsprechend mit dem Befehl
+\cmd\setlowerfoldmarkvpos\arg{L"angenangabe}\index{setlowerfoldmarkvpos=\verb+\setlowerfoldmarkvpos+}.
+Die H"ohe der Markierung zum Lochen (in der Blattmitte) ergibt sich automatisch
+aus der Blatth"ohe und kann nicht ver"andert werden.
+\medskip
+
+Ausf"uhrungen und Erl"auterungen zum Erstellen von Adre"s-Etiketten
+finden Sie in einem eigenen Abschnitt weiter hinten in diesem Dokument.
+Die Befehlsreferenz enth"alt ebenfalls kurze Beschreibungen der
+Befehle zu den Adre"s-Etiketten.
+
+Eine einfache Absenderanschrift in der auf Schreibmaschinen "ublichen
+Form (DIN~5008) wird durch den Befehl \cmd\stdaddress\arg{Absenderanschrift}
+anstelle von \cmd\address{} erreicht. Die einzelnen Zeilen sind durch
+\verb.\\. zu trennen. Das Datum wird ebenfalls oben ausgegeben.
+Die Bezugszeichenzeile entf"allt.
+
+Mit dem Befehl \cmd\postremark\ kann ein Postvermerk gesetzt werden.
+Dieser Vermerk erscheint im Anschriftenfeld oben, von den "ubrigen
+im Argument des Befehls \env\begin{letter}\arg{Anschrift} durch eine
+Leerzeile getrennt. Der Behandlungsvermerk wird durch den
+Befehl \cmd\handling\arg{Text}\ vereinbart.
+
+Die Anlagen- und Verteilvermerke k"onnen mit dem Befehl \cmd\enclright\
+rechts auf Grad~50 anstelle nach der Gru"sformel ausgegeben werden.
+Die Befehle \cmd\encl\ und \cmd\cc\ sind dazu vor dem \cmd\closing-Befehl
+anzugeben.
+
+\ssect{Befehlsreferenz}
+
+\begin{description}
+  \item[\env\begin{letter}\arg{{Anschrift}} \dots\ \env\end{letter}] \hfil\break
+        Diese Befehle rahmen jeden einzelnen Brief ein. Die
+        Anschrift des Em\-pf"an\-gers wird als Argument des Befehls
+        \env\begin{letter}\arg{Anschrift} angegeben.
+        Die einzelnen Zeilen in der Anschrift werden durch
+        \cmd\\ getrennt.
+        Es d"urfen weitere Briefe folgen.
+
+  \item[\cmd\signature\arg{Unterschrift des Absenders}] \hfil\break
+        Dieser Befehl legt die maschinenschriftliche
+        Wiederholung der Unterschrift fest.
+        Der Befehl gilt solange, bis ein weiterer
+        \cmd\signature-Befehl eine neue "`Unterschrift"'
+        festlegt.
+
+  \item[\cmd\address\arg{{Name und Adresse des Absenders}}] \hfil\break
+        Die Adresse des Absenders wird vereinbart.
+        Dieser Befehl gilt f"ur den laufenden und alle
+        weiteren Briefe; er gilt solange, bis ein
+        weiterer \cmd\address-Befehl angegeben wird.
+
+  \item[\cmd\backaddress\arg{{Absenderadresse im Brief\kern 0pt fenster}}] \hfil\break
+        Der Befehl legt die Anschrift des Absenders oben im
+        Anschriftenfeld des Briefs fest.
+
+  \item[\cmd\place\arg{{Ortsangabe im Brief}}] \hfil\break
+        Mit diesem Befehl wird der Absendeort angegeben, der
+        zusammen mit dem Datum im Briefkopf ausgegeben wird.
+
+  \item[\cmd\date\arg{{Briefdatum}}] \hfil\break
+        Soll als Absendedatum {\sl nicht\/} das aktuelle
+        Tagesdatum (des Rechners) eingesetzt werden,
+        kann mit diesem Befehl das Datum
+        explizit angegeben werden.
+
+        Ohne diesen Befehl wird das aktuelle Tagesdatum
+        im Brief verwendet.
+
+  \item[\cmd\yourmail\arg{{Ihre Zeichen, Ihre Nachricht vom}}] \hfil\break
+        Der Befehl legt den Inhalt des Feldes {\bf Ihre
+        Zeichen, Ihre Nachricht vom\/} in der
+        Bezugszeichenzeile fest.
+
+  \item[\cmd\sign\arg{{Unsere Zeichen (, unsere Nachricht vom)}}] \hfil\break
+        Dieser Befehl legt den Inhalt des Feldes
+        {\bf Unsere Zeichen \dots\/} fest.
+
+  \item[\cmd\phone\arg{{Vorwahl}}\arg{{Rufnummer/Durchwahl}}] \hfil\break
+        Die Telefonnummer aufgeteilt nach Vorwahl und Rufnummer oder
+        Durchwahl wird mit dem Befehl \cmd\phone{} vereinbart. Diese
+        Angaben werden in der Bezugszeichenzeile ausgegeben.
+
+  \item[\cmd\writer\arg{{Sachbearbeiter}}] \hfil\break
+        Die Neufassung der Norm DIN~676 vom Mai 1991 sieht in
+        der Bezugszeichenzeile ein weiteres Feld f"ur den
+        Sachbearbeiter vor. Mit dem Befehl \cmd\writer{}
+        kann ein solcher Sachbearbeiter angegeben werden.
+
+        {\sl Die Verwendung dieses Befehls gestaltet den Brief
+        entsprechend der Norm DIN~676 vom Mai 1991.\/}
+
+  \item[\cmd\subject\arg{{Betreff}}] \hfil\break
+        Mit diesem Befehl wird der Betreff gesetzt, der den
+        Empf"anger "uber den Gegenstand des Briefes
+        informiert.
+
+        \cmd\concern{} steht aus historischen Gr"unden
+        als Synonym bis auf weiteres zur Verf"ugung.
+
+  \item[\cmd\centeraddress] \hfil\break
+        Die Empf"angeranschrift wird im Brief\kern 0pt fenster
+        vertikal zentriert.
+
+  \item[\cmd\normaladdress] \hfil\break
+        Die Empf"angeranschrift wird im Anschriftenfeld unten gesetzt.
+
+  \item[\cmd\opening\arg{{Anrede}}] \hfil\break
+        Dieser Befehl vereinbart die Anrede des Empf"angers und setzt
+        den Briefkopf, die Empf"angerangaben, eine eventuell vorhandene
+        Bezugszeichenzeile, den Betreff und die Anrede des Empf"angers.
+
+        {\bf Dieser Befehl darf nicht fehlen!\/}
+
+  \item[\cmd\closing\oarg{Unterschrift}\arg{{Gru"sformel}}] \hfil\break
+        Der Befehl \cmd\closing{} setzt die Gru"sformel und nach
+        drei Leerzeilen die maschinenschrifliche Wiederholung
+        der Unterschrift.
+
+        Die erweiterte Form \cmd\closing\oarg{Unterschrift}\arg{Gru"sformel}
+        setzt zus"atzlich das optionale Argument -- beispielsweise eine mit
+        \cmd\includegraphics\ eingebundene PostScript-Datei -- als
+        Unterschrift in die freigelassenen Zeilen.
+        "Uberschreitet die H"ohe des optionalen Argumentes zwei Zeilen,
+        rutscht die maschinenschrifliche Wiederholung der Unterschrift
+        entsprechend nach unten.
+        Bitte beachten Sie, da"s ein optionales Argument eckige Klammern nur
+        enthalten darf, wenn das optionale Argument selbst in geschweifte
+        Klammern eingeschlossen ist.
+
+  \item[\cmd\encl\arg{{Anlagen}}] \hfil\break
+        Der Vermerk "uber dem Brief beigef"ugte Anlagen
+        wird mit dem Befehl \cmd\encl{} an den Brief
+        angeh"angt. Die einzelnen Eintragungen k"onnen
+        durch \cmd\\{} getrennt werden.
+
+        Die Reihenfolge der Verwendung der Befehle
+        \cmd\encl, \cmd\cc{} und \cmd\ps{} ist beliebig,
+        falls die Befehle nach dem \cmd\closing-Befehl
+        angegeben werden. Die Norm empfiehlt allerdings
+        den Anlagenvermerk vor dem Verteilvermerk
+        anzubringen.
+
+  \item[\cmd\cc\arg{{Verteiler}}] \hfil\break
+        Der Vermerk "uber weitere Empf"anger dieses Briefes wird
+        mit dem Befehl \cmd\cc{} gesetzt. Die einzelnen Eintragungen
+        k"onnen durch \cmd\\ getrennt werden.
+
+        Die Befehle \cmd\encl{} und \cmd\cc{} k"onnen sowohl
+        vor wie auch nach dem \cmd\closing-Befehl stehen. Wird
+        der Befehl \cmd\enclright{} verwendet, m"ussen die beiden
+        Befehle vor dem \cmd\closing-Befehl stehen.
+
+  \item[\cmd\ps\arg{{Postscriptum}}] \hfil\break
+        Gesch"aftsbriefe enthalten kein Postskriptum.
+        Es wurde trotzdem die M"og\-lich\-keit geschaffen,
+        ein solches zu verwenden. Mit dem Befehl
+        \cmd\ps{} wird ein Postskriptum gesetzt.
+
+  \item[\cmd\makelabels] \hfil\break
+        Dieser Befehl mu"s in der Pr"aambel stehen; also
+        zwischen \cmd\documentstyle{} oder \cmd\documentclass{}
+        und dem \env\begin{document}-Befehl.
+        Er aktiviert das Ausdrucken von Adress-Etiketten.
+
+  \item[\cmd\labelstyle\arg{{Stil der Label}}] \hfil\break
+        Dieser Befehl vereinbart das Layout der
+        Adress-Etiketten. Es gibt Drucker, die in der
+        Lage sind, Briefumschl"age zu bedrucken. Mit diesem
+        Befehl legt man die Form der Briefumschl"age fest.
+
+        {\sl Zur Zeit steht nur das Layout \env\labelstyle{plain}
+        zur Verf"ugung.\/}
+
+  \item[\cmd\bottomtext\arg{{Feld f\"ur Kapitalgesellschaften}}] \hfil\break
+        Am Fu"s der ersten Briefseite werden Gesch"aftsangaben und
+        zus"atzlich bei Kapitalgesellschaften gesellschaftsrechtliche
+        Angaben angegeben. Der Befehl \cmd\bottomtext{} vereinbart
+        diese Angaben.
+
+
+  \item[\cmd\windowrules] \hfil\break
+        Das Anschriftenfeld im Brief wird durch Linien ober-
+        und unterhalb vom "ubrigen Brief abgegrenzt.
+        Die Hervorhebung wird aktiviert.
+
+  \item[\cmd\nowindowrules] \hfil\break
+        Der Befehl schaltet den Rahmen ab.
+
+  \item[\cmd\backaddressrule] \hfil\break
+        Der Absender und die Anschrift im Anschriftenfeld des Briefes werden
+durch eine Linie getrennt (Voreinstellung).
+
+  \item[\cmd\nobackaddressrule] \hfil\break
+Die Trennungslinie zwischen dem Absender und der Anschrift im
+Anschriftenfeld des Briefes wird unterdr"uckt.
+
+  \item[\cmd\windowtics] \hfil\break
+        Es werden Faltmarkierungen am linken Briefrand
+        geruckt.
+
+  \item[\cmd\nowindowtics] \hfil\break
+        Es werden keine Faltmarkierungen am linken Briefrand
+        ausgedruckt.
+
+  \item[\cmd\disabledraftstandard] \hfil\break
+        Der Brief wird entsprechend den
+        Vorschriften der Norm DIN~676 vom Dezember 1976 auf
+        dem Briefbogen ausgegeben.
+
+  \item[\cmd\enabledraftstandard] \hfil\break
+        Der Brief wird entsprechend den
+        Vorschriften des Entwurfs der Norm DIN~676 vom
+        Mai~1991 auf dem Briefbogen ausgegeben.
+
+  \item[\cmd\setaddressllcorner\arg{Abstand vom linken Rand}%
+        \arg{Abstand vom oberen  Rand}] \hfil\break
+        Mit diesem Befehl legt man die Position der linken unteren Ecke
+        des Fensters f"ur die Anschrift des Empf"angers fest.
+        Beide Argumente sind L"angen, wobei die erste den (horizontalen)
+        Abstand zum linken Blattrand und die zweite den (vertikalen)
+        Abstand zum oberen Blattrand angibt.
+
+  \item[\cmd\setaddressllhpos\arg{Abstand vom linken Rand}] \hfil\break
+        Der Befehle legt den (horizontalen) Abstand des Fensters f"ur die
+        Anschrift vom linken Blattrand fest.
+        Soll gleichzeitig die H"ohe des Fensters ge"andert werden, kann der
+        Befehle \cmd\setaddressllcorner\ verwendet werden.
+
+        In der DIN Norm ist der Abstand vom linken Rand fest als 20mm
+        vorgegeben (dieser Wert ist voreingestellt).
+
+  \item[\cmd\setaddressllvpos\arg{Abstand vom oberen Rand}] \hfil\break
+        Der Befehl legt den (vertikalen) Abstand des Fensters f"ur die
+        Anschrift vom oberen Blattrand fest.
+        Soll das Fenster gleichzeitig horizontal verschoben werden, kann der
+        Befehle \cmd\setaddressllcorner\ verwendet werden.
+
+        Die DIN Norm sieht zwei Varianten mit einer hochgestellten und einer
+        tiefer gestellten Anschrift vor.
+        Voreingestellt ist die tiefer gestellte Variante mit einem Wert von
+        90mm.
+        F"ur die hochgestellte Variante ist der Wert 72mm vorgeschrieben.
+
+        Zur einfachen Auswahl der Varianten stehen die beiden Optionen
+        \Dopt{addresshigh} (hochgestellte Anschrift) und \Dopt{addressstd}
+(voreingestellte tiefer gestellte Anschrift) vorgesehen.
+
+  \item[\cmd\addresshigh] \hfil\break
+        Dieser Befehl setzt die L"angen \verb|\addrvpos|, \verb|\reflinevpos|,
+        \verb|\ufldmarkvpos| und \verb|\lfldmarkvpos| entsprechend der Variante
+        mit hochgestelltem Feld f"ur die Anschrift entsprechend der Form~A der
+        DIN Norm.
+        Der Befehl ist nur wirksam, wenn er {\em vor\/} dem
+        \cmd\opening-Befehl steht (auch in der Konfigurationsdatei).
+
+  \item[\cmd\addressstd] \hfil\break
+        Der Befehl setzt die L"angen \verb|\addrvpos|, \verb|\reflinevpos|,
+        \verb|\ufldmarkvpos| und \verb|\lfldmarkvpos| entsprechend der Variante mit
+        tiefer gestelltem Feld f"ur die Anschrift entsprechend der Form~B der
+        DIN Norm und entspricht der Voreinstellung.
+        Der Befehl ist ebenfalls nur {\em vor\/} dem \cmd\opening-Befehl
+        wirksam (auch in der Konfigurationsdatei).
+
+  \item[\cmd\setaddresswidth\arg{Breite des Fensters f"ur die Anschrift}]
+        \hfil\break
+        Mit diesem Befehl wird die Breite des Fensters f"ur die Anschrift
+        festgelegt (voreingestellt: 85mm).
+
+  \item[\cmd\setaddressheight\arg{H"ohe des Fensters f"ur die Anschrift}]
+        \hfil\break
+        Die H"ohe des Fensters f"ur die Anschrift kann man mit diesem Befehl
+        festlegen.  Voreingestellt sind 40mm.
+
+  \item[\cmd\setaddressoffset\arg{Abstand vom linken Fensterrand}] \hfil\break
+        In der Regel m"ochte man, da"s die Anschrift nicht direkt am linken
+        Rand des Fensters f"ur die Anschrift beginnt, sondern einige
+        Millimeter einger"uckt ist.
+        Mit diesem Befehl kann man die Einr"uckung festlegen.
+        Voreingestellt sind 4mm.
+        Die Anschrift beginnt bei dieser Einstellung b"undig mit dem
+        Text des Briefes.
+
+  \item[\cmd\setbackaddressheight\arg{H"ohe des Feldes f"ur den Absender}]
+        \hfil\break
+        Das Feld f"ur den Absender schlie"st oben an das Fensters f"ur die
+        Anschrift an.  Die H"ohe dieses Feldes wird mit dem Befehl
+        \cmd\setbackaddressheight\ festgelegt.  Voreingestellt sind 5mm.
+
+  \item[\cmd\setreflinetop\arg{Abstand vom oberen Rand}] \hfil\break
+        Mit diesem Befehl wird der Abstand der Oberkante der
+        Bezugszeichenzeile vom oberen Blattrand festgelegt.
+        Voreingestellt sind 98.5mm; bei Angabe der Option f"ur eine
+        hochgestellte Anschrift wird der Wert auf 80.5mm gesetzt.
+
+  \item[\cmd\setbottomtexttop\arg{Abstand vom oberen Rand}] \hfil\break
+        Mit diesem Befehl legt man den den Abstand der Oberkante des Feldes
+        f"ur Gesch"aftsangaben und (nur bei Kapitalgesellschaften)
+        gesellschaftsrechtliche Angaben auf der ersten Seite und dem oberen
+        Blattrand fest.
+        Voreingestellt sind 281mm; bei mehrzeiligen Angaben in diesem Fekd
+        mu"s man den Wert entsprechend verringern.
+        Der Abgleich mit der H"ohe der letzten verf"ugbaren Zeile auf der
+        Seite erfolgt automatisch.
+
+  \item[\cmd\setupperfoldmarkvpos\arg{Abstand vom oberen Rand}] \hfil\break
+        Mit diesem Befehl legt man den Abstand der \emph{oberen}
+        Faltmarkierung vom oberen Blattrand fest.
+        Voreingestellt sind 105mm und bei Angabe der Option f"ur eine
+        hochgestellte Anschrift 87mm.
+
+  \item[\cmd\setlowerfoldmarkvpos\arg{Abstand vom oberen Rand}] \hfil\break
+        Den Abstand der \emph{unteren} Faltmarkierung vom oberen Blattrand
+        legt man mit diesem Befehl fest.
+        Voreingestellt sind 210mm und bei Angabe der Option f"ur eine
+        hochgestellte Anschrift 192mm.
+
+  \item[\cmd\setlabelwidth\arg{Breite eines Labels}] \hfil\break
+        Dieser Befehl legt die Breite eines Labels fest.
+        Als Argument erwartet dieser Befehl eine L"angenangabe.
+
+        {\sl Die Labelbreite ist in der vorliegenden Version
+        auf 105~$mm$ festgelegt worden und sollte nicht
+        ge"andert werden. Dieser Befehl ist f"ur sp"atere
+        Erweiterungen reserviert.\/}
+
+  \item[\cmd\setlabelheight\arg{H"ohe eines Labels}] \hfil\break
+        Der Befehl \cmd\setlabelheight{} vereinbart die im
+        Argument angegebene L"ange als Labelh"ohe.
+
+  \item[\cmd\setlabeltopmargin\arg{oberer Rand}] \hfil\break
+        Bevor die beiden obersten Label (bei beiden Spalten)
+        ausgegeben werden, wird oben ein Rand gelassen, dessen
+        H"ohe mit \cmd\setlabeltopmargin{} angegeben wird.
+        Es wird eine L"angenangabe erwartet.
+
+  \item[\cmd\setlabelnumber\arg{Labelanzahl pro Spalte}] \hfil\break
+        Dieser Befehl bestimmt die Zahl der Labels in einer Spalte.
+
+  \item[\cmd\spare\arg{Anzahl leerer Labels}] \hfil\break
+        Es werden die im Argument des Befehls angegebene
+        Anzahl von Label freigelassen, bevor das erste
+        Adre"s--Etikett ausgegeben wird. Die Label werden
+        spaltenweise durchgez"ahlt.
+
+  \item[\cmd\offlabels] \hfil\break
+  \item[\cmd\onlabels] \hfil\break
+  \item[\cmd\nolabels] \hfil\break
+  \item[\cmd\stdaddress\arg{Adresse des Absenders}] \hfil\break
+        Dieser Befehl setzt die Absenderanschrift in der
+        auf Schreibmaschinen "ublichen Form (DIN 5008).
+        Mit diesem Befehl kann der Briefkopf nicht frei gestaltet
+        werden.
+
+  \item[\env\begin{dinquote} \dots\ \env\end{dinquote}] \hfil\break
+        Diese Umgebung r"uckt den Text auf der linken Seite um
+        ein Inch ein. Rechts folgt keine Einr"uckung.
+
+  \item[\cmd\enclright] \hfil\break
+        Die Anlagen- und Verteilvermerke beginnen, falls sie vor
+        den \cmd\closing-Befehl angegeben wurden, rechts
+        neben der Gru"sformel.
+
+  \item[\cmd\postremark\arg{Postvermerk}] \hfil\break
+        Der Postvermerk wird mit dem Befehl \cmd\postremark{}
+        vereinbart. Der Postvermerk geht der Empf"angeranschrift
+        mit einer Leerzeile voraus. Dieser Befehl mu"s zwischen
+        \env\begin{letter} und dem Befehl \cmd\opening\ stehen.
+
+  \item[\cmd\handling\arg{Behandlungsvermerk}] \hfil\break
+        Der Behandlungsvermerk wird rechts neben der
+        Empf"angeranschrift auf Grad 50 (bei einer 10er Teilung)
+        in H"ohe der letzten Zeile der Empf"angeranschrift
+        ausgegeben. Dieser Befehl mu"s zwischen
+        \env\begin{letter} und dem Befehl \cmd\opening\ stehen.
+\end{description}
+
+
+\begin{table}[htp]
+\caption{Zusammenfassung der Dinbrief-Befehle (Teil 1):}\index{dinbrief>Befehle}
+
+\begin{center}
+\begin{tabular}{l}
+  \hline
+    \verb|\begin{document}|                                          \\
+    \verb|\end{document}|                                            \\
+  \hline
+    \verb|\begin{letter}|\arg{{Anschrift}}                           \\
+    \verb|\end{letter}|                                              \\
+  \hline
+    \verb|\signature|\arg{Unterschrift des Absenders}           \\
+    \verb|\address|\arg{{Name und Adresse des Absenders}}       \\
+    \verb|\backaddress|\arg{{Absenderadresse im Brieffenster}}  \\
+  \hline
+    \verb|\place|\arg{{Ortsangabe im Brief}}                    \\
+    \verb|\date|\arg{{Briefdatum}}                              \\
+    \verb|\yourmail|\arg{{Ihre Zeichen, Ihre Nachricht vom}}    \\
+    \verb|\sign|\arg{{Unsere Zeichen (, unsere Nachricht vom)}} \\
+    \verb|\phone|\arg{{Vorwahl}}\arg{{Rufnummer/Durchwahl}}     \\
+    \verb|\writer|\arg{{Sachbearbeiter}}                        \\
+  \hline
+    \verb|\subject|\arg{{Betreff}}                              \\
+    \verb|\concern|\arg{{Betreff}}                              \\
+    \verb|\opening|\arg{{Anrede}}                               \\
+    \verb|\closing|\oarg{Unterschrift}\arg{{Gru"sformel}}       \\
+  \hline
+    \verb|\centeraddress|                                       \\
+    \verb|\normaladdress|                                       \\
+  \hline
+    \verb|\encl|\arg{{Anlagen}}                               \\
+    \verb|\ps|\arg{{Postscriptum}}                            \\
+    \verb|\cc|\arg{{Verteiler}}                               \\
+  \hline
+    \verb|\makelabels|                                        \\
+    \verb|\labelstyle|\arg{{Stil der Label}}                  \\
+  \hline
+    \verb|\bottomtext|\arg{{Feld f\"ur Kapitalgesellschaften}}\\
+  \hline
+    \verb|\nowindowrules|                                     \\
+    \verb|\windowrules|                                       \\
+    \verb|\nobackaddressrule|                                 \\
+    \verb|\backaddressrule|                                   \\
+    \verb|\nowindowtics|                                      \\
+    \verb|\windowtics|                                        \\
+  \hline
+    \verb|\disabledraftstandard|                              \\
+    \verb|\enabledraftstandard|                               \\
+  \hline
+    \verb|\setaddressllcorner|\arg{Abstand vom linken Rand}   \\
+    \verb|\setaddressllhpos|\arg{Abstand vom linken Rand}     \\
+    \verb|\setaddressllvpos|\arg{Abstand vom oberen Rand}     \\
+    \verb|\addresshigh|                                       \\
+    \verb|\addressstd|                                        \\
+    \verb|\setaddresswidth|\arg{Breite des Anschriften-Fensters}\\
+    \verb|\setaddressheight|\arg{H"ohe des Anschriften-Fensters}\\
+    \verb|\setaddressoffset|\arg{Abstand vom linken Fensterrand}\\
+    \verb|\setbackaddressheight|\arg{H"ohe des Anschriften-Fensters}\\
+  \hline
+    \verb|\setreflinetop|\arg{Abstand vom oberen Rand}     \\
+    \verb|\setbottomtexttop|\arg{Abstand vom oberen Rand}   \\
+    \verb|\setupperfoldmarkvpos|\arg{Abstand vom oberen Rand} \\
+    \verb|\setlowerfoldmarkvpos|\arg{Abstand vom oberen Rand}  \\
+  \hline
+\end{tabular}
+\end{center}
+\end{table}
+
+\begin{table}[htp]
+\caption{Zusammenfassung der Dinbrief-Befehle (Teil 2):}\index{dinbrief>Befehle}
+
+\begin{center}
+\begin{tabular}{l}
+  \hline
+    \verb|\setlabelwidth|\arg{Breite eines Labels}            \\
+    \verb|\setlabelheight|\arg{H"ohe eines Labels}            \\
+    \verb|\setlabeltopmargin|\arg{oberer Rand}                \\
+    \verb|\setlabelnumber|\arg{Labelanzahl pro Spalte}        \\
+    \verb|\spare|\arg{Anzahl leerer Labels}                   \\
+  \hline
+    \verb|\stdaddress|\arg{Adresse des Absenders}             \\
+    \verb|\begin{dinquote}|                                   \\
+    \verb|\end{dinquote}|                                     \\
+    \verb|\enclright|                                         \\
+    \verb|\postremark|\arg{Postvermerk}                       \\
+    \verb|\handling|\arg{Behandlungsvermerk}                  \\
+  \hline
+\end{tabular}
+\end{center}
+\end{table}
+
+
+\begin{table}[ht]
+\caption{"Uberschriftvariablen und deren Inhalt}%
+\index{dinbrief>"Uberschriftvariablen}
+
+\begin{center}
+(Voreinstellung entspricht DIN)
+
+\begin{tabular}{l}
+ \hline
+  \verb|\ccname|\{{\tt Verteiler}\}        \\
+  \verb|\enclname|\{{\tt Anlage(n)}\}      \\
+  \verb|\psname|\{{\tt PS}\}               \\
+ \hline
+  \verb|\phonemsg|\{{\tt Telefon}\}        \\
+  \verb|\signmsgold|\{{\tt Unsere Zeichen}\}  \\
+  \verb|\signmsgnew|\{{\tt Unsere Zeichen, unsere Nachricht vom}\}  \\
+  \verb|\yourmailmsg|\{{\tt Ihre Zeichen, Ihre Nachricht vom}\}  \\
+ \hline
+\end{tabular}
+\end{center}
+
+\end{table}
+
+\ssect{Bezugszeichenzeile}\index{Bezugszeichenzeile}
+Die vorliegende Version des \envname{dinbrief}s enth"alt
+zwei verschiedene Formen von Bezugszeichenzeilen.
+Die beiden Formen sind in der Norm 676 vom Dezember 1976 und
+im Entwurf zur Norm 676 vom Mai 1991 definiert. Mit den
+Befehlen \cmd\enabledraftstandard\ und \cmd\disabledraftstandard\
+schaltet man auf die Form des Entwurfs oder der geltenden Norm
+um. Die beiden Formen sind zur besseren Unterscheidung in
+Abbildung~\ref{fig:referlines} wiedergegeben.
+
+\begin{figure}[htb]
+\begin{center}
+\unitlength0.65mm
+\begin{picture}(190, 60)
+  \linethickness{0.4pt}
+  \thinlines
+  %
+    \put( 10.0, 49){\parbox[t]{50.8\unitlength}{{\sf\tiny Ihre Zeichen, Ihre Nachricht vom}\\{\cmd\yourmail}}}
+    \put( 60.8, 49){\parbox[t]{50.8\unitlength}{{\sf\tiny Unsere Zeichen}\\{\cmd\sign}}}
+    \put(111.6, 49){\parbox[t]{25.4\unitlength}{{\sf\tiny Telefon}\\{\cmd\phone}}}
+    \put(137.0, 49){\parbox[t]{25.4\unitlength}{{\sf\tiny Ortsname\\[-2ex] (Datum)}\\{\cmd\place}\\{\cmd\date}}}
+    \put(  0.0, 56){\makebox(190, 0){Bezugszeichenzeile nach DIN 676 vom Dezember 1976}}
+    \put(  0.0, 30){\framebox(190, 30){}}
+  %
+    \put( 10.0, 16){\parbox[t]{50.8\unitlength}{{\sf\tiny Ihr Zeichen, Ihre Nachricht vom}\\{\cmd\yourmail}}}
+    \put( 60.8, 16){\parbox[t]{50.8\unitlength}{{\sf\tiny Unser Zeichen, unsere Nachricht vom}\\{\cmd\sign}}}
+    \put(111.6, 16){\parbox[t]{50.8\unitlength}{{\sf\tiny Telefon, Bearbeiter}\\{\cmd\phone}\\{\cmd\writer}}}
+    \put(162.4, 16){\parbox[t]{15.0\unitlength}{{\sf\tiny Datum}\\{\cmd\place}\\{\cmd\date}}}
+    \put(  0.0, 23){\makebox(190, 0){Bezugszeichenzeile nach DIN 676 vom Mai 1991 (Entwurf)}}
+    \put(  0.0,  1){\framebox(190, 27){}}
+\end{picture}%
+\caption{Formen von Bezugszeichenzeilen}\label{fig:referlines}
+\end{center}
+\end{figure}
+
+\ssect{Standardkonfiguration mit einer Konfigurationsdatei}\index{Konfigurationsdatei}
+Am Ende der Bearbeitung der Dokumentklasse \envname{dinbrief} wird die
+Konfigurationsdatei \file{dinbrief.cfg} eingelesen, falls eine Datei dieses
+Namens im Suchpfad f"ur \TeX-Eingabedateien gefunden wird.
+Die Suche wird in der gleichen Weise durchgef"uhrt wie bei anderen
+\TeX-Eingabedateien.
+
+In der Konfigurationsdatei k"onnen alle Befehle verwendet werden, die man vor
+\cmd\begin\arg{document} angeben darf.
+Beispielsweise kann die Datei mit den daf"ur vorgesehenen Befehlen das Layout
+des Briefes abweichend von der DIN Norm festlegen, einen Briefkopf definieren
+oder das Feld f"ur Angaben bei Kapitalgesellschaften vergr"o"ern und auch
+die Angaben selbst mit dem Befehl \cmd\bottomtext\ festlegen.
+
+Die Angabe der Optionen \Dopt{addresshigh} oder \Dopt{addressstd}
+"uberschreibt Angaben vertikalen Positionierung des  Feldes f"ur die Anschrift,
+der Bezugszeichenzeile und der Faltmarkierungen.
+Explizite Festlegungen vor dem Befehl \cmd\opening\ "uberschreiben sowohl
+Einstellungen durch Angabe von Optionen in der \cmd\documentclass-Anweisung
+als auch in der Konfigurationsdatei.
+
+Beim Auspacken der \envname{dinbrief}-Verteilung wird auch eine
+Konfigurationsdatei erstellt, die nur Kommentare enth"alt.
+Einzelne Befehle k"onnen durch Entfernen des Kommentarzeichens aktiviert
+werden.
+Die verwendeten Befehle sind in dieser Dokumentation beschrieben.
+
+\ssect{Briefkopf}\index{Briefkopf}
+Bei h"aufigem Briefeschreiben kommt sicher bald der
+Wunsch nach einem eigenen Briefkopf auf; auch dies ist
+mit \LaTeX\ zu verwirklichen.
+Am besten erstellt man eine Datei mit den Einstellungen
+f"ur eigene Briefe, wie im Beispiel die Datei {\tt brfkopf.tex}.
+Diese Datei kann z.B.\ den Briefkopf aus
+Abb.~\ref{briefkopf} enthalten.
+
+\renewcommand{\textfraction}{0.35}
+
+\begin{figure}[p]
+\begin{center}
+\begin{verbatim}
+\newlength{\UKAwd}
+\newlength{\ADDRwd}
+\font\fa=cmcsc10  scaled 1440
+\font\fb=cmss12   scaled 1095
+\font\fc=cmss10   scaled 1000
+\def\briefkopf{
+ \settowidth{\UKAwd}{\fa Institut f"ur Verpackungen}
+ \settowidth{\ADDRwd}{\fc EARN/BITNET: yx99 at dkauni2}
+ \vspace*{7truemm}
+ \raisebox{-11.3mm}{%
+   \setlength{\unitlength}{1truemm}
+   \begin{picture}(15,15)(0,0)
+     \thicklines
+     \put(7.5,7.5){\circle{15}}
+     \put(7.5,7.5){\circle{10}}
+     \put(7.5,7.5){\circle{ 5}}
+   \end{picture}%
+ }
+ {\fc\hspace{.7em}}
+ \parbox[t]{\UKAwd}{
+        \centering{\fa Universit\"at Gralsruhe} \\
+        \centering{\fa Institut f"ur Verpackungen} \\[.5ex]
+        \centering{\fb Prof.\ Dr.\ Fritz Schreiber}
+        }
+ \hfill
+ \parbox[t]{\ADDRwd}{
+        \fc Engesserstr.\ 9 $\cdot$ Postfach 6980 \\
+        \fc 76128 Karlsruhe\\
+        \fc Telefon: (0721) 608-9790 \\
+        }  }
+\signature{Prof.\ Dr.\ Fritz Schreiber}
+\place{Karlsruhe}
+\address{\briefkopf}
+\phone{(0721)}{608-9790}
+\def\FS{Prof.\,F.\,Schreiber, Univ.\,Karlsruhe,
+        Postf.\,6980, 76128\,Karlsruhe\rule[-1ex]{0pt}{0pt}}
+\end{verbatim}
+\caption{Definition eines Briefkopfs}\label{briefkopf}
+\end{center}
+\end{figure}
+
+Am Anfang des Briefes sollte nun der Befehl \verb+\input{brfkopf}+
+aufgenommen werden gefolgt von \verb+\address{\myaddress}+%
+\index{myaddress=\verb+\myaddress+}. Dies sorgt
+f"ur die gew"unschte Ausgabe des Briefkopfes am Beginn des Briefes.
+Nat"urlich lassen sich auch andere als die hier verwendeten Schriftarten
+verwenden.
+
+\ssect{Kopfzeilen}\index{Kopfzeilen}
+
+Es stehen verschiedene Kopfzeilen zur Verf"ugung die "uber die
+Option \linebreak[4]\verb+\pagestyle{...}+\index{pagestyle=\verb+\pagestyle+}
+ausgew"ahlt werden k"onnen.
+Bei \verb+plain+\index{plain=\verb+plain+} wird eine Seitennumerierung
+bei mehrseitigen Briefen in der Fu"szeile eingeblendet, die Kopfzeile
+bleibt leer. Durch \verb+headings+\index{headings=\verb+headings+} wird
+die Kopfzeile mit einer Anrede und der Seitenzahl bei mehrseitigen
+Briefen gesetzt.
+
+\ssect{Einblenden von Unterschriften}
+\cmd\closing\oarg{Unterschrift}\arg{Gru"sformel} erlaubt es,
+die Unterschrift als Graphik einzubinden. F"ur unser Beispiel
+nehmen wir an, da"s die Graphik als encapuslated Postscript-Datei
+im Verzeichnis und mit Namen \file{graph/sig.eps} vorliegt.
+Die Befehle zum Einbinden von Graphiken stellt das Paket
+{\sc graphics} zur VerfÅgung. In der Pr"aambel des Briefes wird
+ein Befehl zum Setzen der Unterschrift definiert:\\[\medskipamount]
+\hspace*{2em}\verb|\newcommand{\setsignature}{\includegraphics{graph/sig.eps}}|\\[\medskipamount]
+Die Gru"sformel wird dann in der erweiterten Form gesetzt:\\[\medskipamount]
+\hspace*{2em}\verb|\closing[\protect\setsignature]{Mit freundlichen Gr"u"sen}|\\[\medskipamount]
+Gegebenenfalls ist es notwendig, die Unterschrift mit dem
+Befehl \verb+\raisebox+ in die notwendige Position zu schieben.
+Dazu ist die Definition des Macros zum Einbinden der Unterschrift
+wie folgt anzupassen:\\[\medskipamount]
+\hspace*{2em}\verb|\newcommand{\setsignature}{\raisebox{-3mm}{\includegraphics{graph/sig.eps}}}|\\[\medskipamount]
+Die L"angenangabe (hier -3mm) ist entsprechend anzupassen.
+
+\ssect{Briefe in englischer oder franz"osischer Sprache}
+
+Wer Briefe in anderen Sprachen schreiben m"ochte, kann f"ur Englisch und
+Franz"osisch die Trennung (abh"angig von der Installation) und Befehle f"ur
+Buchstaben mit Akzenten mit dem Befehl
+\cmd\selectlanguage\arg{Sprache}
+\index{selectlanguage=\verb+\selectlanguage+} umschalten.
+Das Umsetzen von Bezeichnungen z.B.\ f"ur Anlage \dots{} mu"s explizit durch
+Befehle erfolgen, die in der Dokumentation zum {\tt dinbrief} beschrieben sind.
+
+\ssect{Serienbriefe}\index{Serienbriefe}
+
+Mit \LaTeX\ lassen sich auch Serienbriefe schreiben. Man ben"otigt dazu
+nur ein kleines Makro wie z.B. das folgende:
+
+\begin{center}
+\begin{minipage}{0.75\textwidth}
+\begin{verbatim}
+\def\mailto#1{
+  \begin{letter}{#1}
+  \input{brftext}
+  \end{letter}}
+\end{verbatim}
+\end{minipage}
+\end{center}
+
+Mit dem Befehl \verb+\input{brftext}+ wird die Datei geladen, die den Text f"ur
+den Serienbrief enth"alt. In einer weiteren Datei stehen unsere Adressaten im
+folgenden Format:
+
+\begin{center}
+\begin{minipage}{0.75\textwidth}
+\begin{verbatim}
+\mailto{Karle Huber\\
+        Lichtensteinstr. 45\\[\medskipamount]
+        77777 Hintertupfingen}
+\mailto{Anna H"aberle\\
+        Wallstra"se 7\\[\medskipamount]
+        88888 L"andle}
+\end{verbatim}
+\end{minipage}
+\end{center}
+
+Die Briefe k"onnen nun mit einer Umgebung wie der in Abbildung~\ref{serie}
+ausgedruckt werden. In der Zeile \verb|\input{#address}| ist der
+Platzhalter \verb|#address| durch den Dateinamen zu ersetzen.
+
+\begin{figure}[p]
+\begin{center}
+\begin{verbatim}
+\documentclass[12pt]{dinbrief}
+\usepackage{german}
+
+\input{brfkopf}
+\address{\myaddress}
+\backaddress{R. Kurz, Am See 1, 76139 Karlsruhe}
+
+\signature{R. Kurz}
+\place{76139 Karlsruhe}
+
+\def\mailto#1{                % zum ausdrucken von
+                              % Serienbriefen
+  \begin{letter}{#1}
+  \input{brftext}             % Datei, die den Text enthaelt
+  \end{letter}}
+
+\begin{document}
+
+\input{#address}              % Adress-Datei
+
+\end{document}
+\end{verbatim}
+\caption{Erstellen von Serienbriefen}
+\label{serie}
+\end{center}
+\end{figure}
+
+Beachten sollte man, da"s dann der Text in der Datei {\tt brftext.tex}
+direkt mit
+\verb+\opening{...}+ beginnt (also kein \verb+\begin{letter}+ und
+\verb+\end{letter}+ enth"alt) und mit \verb+\closing{...}+ bzw.
+\verb+\ps{...}+ abschlie"st.
+
+Ein Beispiel f"ur die Datei {\tt brftext.tex} finden Sie in
+Abbildung~\ref{brftext}.
+
+\begin{figure}[p]
+\begin{center}
+\begin{verbatim}
+\opening{Betrieb eines Mikrowellensenders}
+
+Sehr geehrte Damen und Herren,
+
+anbei sende ich Ihnen eine Kopie der bisherigen Genehmigung f"ur
+unseren Mikrowellenherd...
+
+... Ihre Bem"uhungen im voraus vielen Dank.
+
+\closing{Mit freundlichen Gr"u"sen,}
+
+\ps{Wir bitten um schnelle Erledigung.}
+\cc{Deutsche Bundespost\\
+    Karlsruher Privatfunk\\
+    S"uddeutscher Rundfunk}
+
+\encl{Abschrift der Urkunde}
+\end{verbatim}
+\caption{Rumpf eines Serienbriefes}
+\label{brftext}
+\end{center}
+\end{figure}
+
+\ssect{Einige Regeln f"ur das Briefeschreiben}
+
+Dieser Abschnitt enth"alt Passagen aus den
+Normen DIN~5008 (Regeln f"ur das Maschinenschreiben) und
+DIN~676 (Gesch"aftsbrief), erg"anzt um einige
+zus"atzliche Hinweise und Tips.
+Der Abschnitt erhebt keinen Anspruch auf
+Vollst"andigkeit. Er soll Anf"angern wie auch
+Ge"ubten einen "Uberblick "uber die wichtigsten
+Regeln geben. Ferner werden die Grenzen der
+vorliegenden Version aufgezeigt und es wird
+auf bekannte Fehler hingewiesen.
+
+\begin{enumerate}
+  \item {\bf Zeilenabstand}
+
+        Es wird mit einfachem Grundzeilenabstand geschrieben.
+
+  \item {\bf Anschriftenfeld}
+
+        Die Angaben im Anschriftenfeld werden auf
+        folgende Weise gegliedert:
+        \begin{enumerate}
+          \item Sendungsart, Versendungsform, Vorausverf"ugung
+          \item Leerzeile
+          \item Empf"angerbezeichnung
+          \item Postfach oder Stra"se und Hausnummer
+          \item Leerzeile
+          \item Postleitzahl und Bestimmungsort
+          \item Leerzeile
+          \item Bestimmungsland
+        \end{enumerate}
+
+        Bei Auslandsanschriften ist die Leerzeile zwischen
+        der Zeile mit Postfach oder Stra"se und Hausnummer
+        und der Zeile mit dem Bestimmungsort entbehrlich,
+        wenn das Bestimmungsland unter der entsprechenden
+        Zeile angegeben werden mu"s.
+
+        Im Verkehr mit bestimmten L"andern kann auf die
+        Angabe des Bestimmungslandes verzichtet werden,
+        wenn das Unterscheidungskennzeichen f"ur den
+        grenz"uberschreitenden Kraftfahrzeugverkehr
+        der Postleitzahl --- durch einen Bindestrich
+        getrennt --- vorangestellt wird.
+
+        Nach dem ersten Eintrag im Anschriftenfeld
+        darf nur ein \verb|\\| stehen. Direkte
+        L"angenangaben (z.B.\ \verb|\\[\medskipamount]|)
+        sind nicht zul"assig und verursachen einen Fehler.
+        Der Fehler kann umgangen werden, indem eine
+        Konstruktion
+        \m{Versendungsform}\verb|\\~\\|%
+        \m{Empf"angerbezeichnung} usw.\
+        verwendet wird.
+
+  \item {\bf Bezugszeichen und Tagangabe}
+
+        Die Eintragungen in dieser Zeile werden automatisch
+        an der richtigen Stelle plaziert.
+
+  \item {\bf Betreff und Teilbetreff}
+
+        Betreff und Teilbetreff sind stichwortartige
+        Inhaltsangaben. Der Betreff bezieht sich auf den
+        ganzen Brief, Teilbetreffe beziehen sich auf
+        Briefteile.
+
+        Der {\em Wortlauf des Betreffs\/} wird ohne
+        Schlu"spunkt geschrieben.
+        Der {\em Teilbetreff\/} beginnt an der Fluchtlinie
+        (linker Rand), schlie"st mit einem Punkt und wird
+        unterstrichen. Wir empfehlen diesen Text besser
+        durch eine andere Schriftart (z.B.\ fett)
+        hervorzuheben. Der Text wird unmittelbar angef"ugt.
+  \item {\bf Behandlungsvermerke}
+
+        Behandlungsvermerke (z.B.\ eilt) werden
+        neben das Anschriftenfeld, beginnend auf
+        Grad 50 (bei einer 10er Teilung), oder im
+        Anschlu"s an die Betreffangabe geschrieben;
+        sie k"onnen hervorgehoben werden.
+
+  \item {\bf Anlagen- und Verteilvermerke}
+
+        Anlagen- und Verteilvermerke beginnen an der
+        Fluchtlinie oder auf Grad 50 (60 oder 75).
+        Die vorliegende Version des `dinbriefs'
+        unterst"utzt nur Anlagen- und Verteilvermerke
+        auf der Fluchtlinie.
+
+        Der Anlagenvermerk geht dem Verteilvermerk
+        voraus.
+
+  \item {\bf Postscriptum}
+
+        Die DIN Norm 5008 sieht kein Postscriptum vor.
+        Die vorliegende Version des `dinbriefs'
+        unterst"utzt trotzdem ein Postscriptum.
+        Wir empfehlen das Postscriptum unmittelbar
+        nach der Gru"sformel \verb|\closing| oder
+        nach Anlagen- und Verteilvermerken zu setzen.
+
+  \item {\bf Seitennumerierung}
+
+        Die Seiten eines Schriftst"ucks sind von der
+        2.~Seite an oben fortlaufend zu benummern.
+        Die Pagestyles \verb|headings| und
+        \verb|contheadings| unterst"utzen diese
+        Forderung. Das Verfahren ist jedoch noch nicht
+        befriedigend.
+
+  \item {\bf Hinweis auf Folgeseiten}
+
+        Wenn der Text eines Schriftst"ucks eine n"achste
+        Seite beansprucht, wird empfohlen
+        \begin{itemize}
+          \item am Fu"s der bereits beschrifteten Seite,
+          \item nach der letzten Textzeile,
+          \item mit mindestens einer Leerzeile Abstand,
+          \item auf Grad 60 (72 oder 90) beginnend,
+        \end{itemize}
+        als Hinweis auf die folgende Seite drei Punkte
+        zu schreiben.
+
+        Dieses Vorgehen wird zur Zeit nicht unterst"utzt.
+        Der Pagestyle \verb|contheadings| schreibt jedoch
+        an das Ende der laufenden Seite die Seitenzahl
+        der Folgeseite und auf Folgeseiten die
+        aktuelle Seite in der Kopf der Seite.
+
+        Die Kombination des Befehls \verb|\bottomtext|,
+        zum Einblenden einer weiteren Kommunikationszeile
+        am unteren Blattende der ersten Seite sowie
+        von gesellschaftsrechtlichen Angaben,
+        mit Seitenstilen, die die Fu"szeile unten mit
+        der Seitennummer oder Folgeseitennummer
+        beschriften, hat unter Umst"anden zur Folge,
+        da"s die Seiten- oder Folgeseitennummer
+        von diesen Feldern "uberschrieben wird.
+
+  \item {\bf Kommunikationszeile am Blattende und
+        gesellschaftsrechtliche Angaben}
+
+        Eine Kommunikationszeile am Blattende kann die folgenden
+        Angaben enthalten: Gesch"aftsr"aume, Telefon, Telefax,
+        Teletex, Telex, Btx und Kontoverbindungen.
+
+        Bei Kapitalgesellschaften sind die Angaben "uber
+        \begin{itemize}
+          \item die Rechtsform und den Sitz der Gesellschaft,
+          \item das Registergericht des Sitzes der Gesellschaft
+                und die Nummer, unter der die Gesellschaft in
+                das Handelsregister eingetragen ist,
+          \item den Namen des Vorsitzenden des Aufsichtsrates
+                (sofern die Gesellschaft nach gesetzlicher
+                Vorschrift einen Aufsichtsrat zu bilden hat),
+          \item die Namen des Vorsitzenden und aller Mitglieder
+                des Vorstandes (bei Gesellschaften mit
+                beschr"ankter Haftung die Namen der
+                Gesch"afts\-f"uhrer),
+        \end{itemize}
+        am Fu"s des Vordrucks aufzuf"uhren.\hfil\break
+        Die Rechtsform kann auch im Briefkopf als Bestandteil
+        der Firma angegeben werden.
+\end{enumerate}
+
+\ssect{Adre"s--Etiketten}
+Das Ausdrucken von Adre"s-Etiketten ist w"unschenswert, wenn
+keine Fensterbriefh"ullen verwendet werden. Damit das Bedrucken
+von verschiedenen Etiketts"atzen m"oglich wird, kann die Breite
+und H"ohe der einzelnen Etiketten mit den Befehlen
+\verb|\setlabelwidth|\arg{Breite} und
+\verb|\setlabelheight|\arg{H"ohe} eingestellt
+werden. Der obere Rand kann mit dem Befehl
+\verb|\setlabeltopmargin|\arg{oberer Rand} festgelegt werden.
+Die Anzahl der Labels in einer Spalte wird durch den Befehl
+\verb|\setlabelnumber|\arg{Anzahl} angegeben. Die mehrfache
+Verwendung eines Etikettenblatts wird durch den Befehl
+\verb|\spare|\arg{Anzahl} m"oglich. Dieser Befehl r"uckt
+den Druckbeginn um {\em Anzahl\/} Positionen vor.
+Die Ausgabe der Adre"s--Etiketten erfolgt spaltenweise.
+
+In vielen Druckern bleiben die Etikettenbl"atter h"angen,
+wenn die Tr"agerfolie in beiden Spalten freiliegt. Drucker,
+die alternativ einen ebenen Papiertransport besitzen, sollten
+zur Ausgabe von Etiketten auf diesen umgeschaltet werden.
+
+\ssect{Kompatibilit"at zu Rainer Sengerlings `dinbrief'}
+Im Jahr 1992 wurde an der Universit"at Karlsruhe ein Briefstil
+entwickelt, dem der Namen `dinbrief' gegeben wurde. Im gleichen
+Jahr ver"offentlichte Rainer Sengerling einen Briefstil unter
+dem gleichen Namen.
+
+Rainer Sengerling hat darauf verzichtet seinen Briefstil
+an \LaTeXe\ anzupassen. Daraufhin haben wir den Briefstil
+`dinbrief' im Dezember 1994 als \LaTeXe-Klasse ver"offentlicht.
+Die beiden Briefstile haben unterschiedliche Befehlss"atze,
+was bei vielen Benutzern zu Verwirrung und Irritationen
+gef"uhrt hat. Wegen der unterschiedlichen Befehle der beiden
+Stile haben uns viele Anfragen erreicht. Die jetzt vorliegende
+Fassung stellt beide Befehlss"atze zur Verf"ugung und f"uhrt die
+bisher unabh"anigen Briefstile zusammen.
+
+Gegenw"artig wird die Klassenoption \verb|german| nicht ausgewertet
+und f"uhrt zu einer Warnung. Alternativ mu"s mit dem Befehl
+\begin{quote}
+  \verb|\usepackage{german}|\\
+\end{quote}
+der Stil "`{\tt german}"' geladen werden.
+
+\begin{description}
+
+  \item[\cmd\Retouradresse\arg{{Absenderadresse im Brief\kern 0pt fenster}}]
+        Der Befehl legt die Anschrift des Absenders oben im
+        Anschriftenfeld des Briefs fest.
+
+  \item[\cmd\Retourlabel] \hfil\break
+        Dieser Befehl erzeugt Absenderadre"s-Etiketten, falls
+        die Erzeugung der Etiketten aktiviert wurde.
+
+        Ferner wird die Ausgabe der \cmd\Retouradresse\ unterdr"uckt.
+
+        {\bf Dieser Befehl wird gegenw"artig nicht unterst"utzt und
+        erzeugt eine Warnung.\/}
+
+  \item[\cmd\Fenster] \hfil\break
+        Bei der Verwendung von Fensterbriefh"ullen wird die mit
+        \cmd\Retouradresse\ vereinbarte einzeilige R"ucksendeadresse
+        (Absenderadresse) oben im Anschriftenfeld eingeblendet,
+        falls der Befehl \cmd\Fenster\ angegeben wurde. Ferner
+        werden die Faltmarken am linken Rand ausgegeben.
+
+        Daf"ur wird die Ausgabe der Etiketten unterdr"uckt.
+
+        {\bf Dieser Befehl wird gegenw"artig nicht unterst"utzt und
+        erzeugt eine Warnung.\/}
+
+  \item[\cmd\Postvermerk\arg{Postvermerk}] \hfil\break
+        Dieser Befehl vereinbart Vermerke f"ur den
+        Postversand wie z.B.\ Einschreiben.
+
+  \item[\cmd\Behandlungsvermerk\arg{Behandlungsvermerk}] \hfil\break
+        Der Befehl \cmd\Behandlungsvermerk\ dient zur
+        Angabe von (man wirds kaum glauben) Behandlungsvermerken
+        wie z.B.\ Eilt, pers"onlich oder "`F"ur die unterste
+        Schublade"'.
+
+  \item[\cmd\Absender\arg{Name und Adresse des Absenders}] \hfil\break
+        Die Adresse des Absenders wird vereinbart.
+        Dieser Befehl gilt f"ur den laufenden und alle
+        weiteren Briefe; er gilt solange, bis ein
+        weiterer \cmd\Absender- oder \cmd\address-Befehl
+        angegeben wird.
+
+  \item[\cmd\Absender\arg{Teil 1::Teil 2}] \hfil\break
+        Dies ist eine Sonderform des \cmd\Absender-Befehls.
+        Der durch \verb|::| abgetrennte {\em Teil2\/}
+        erscheint im Briefkopf, aber nicht im
+        Absenderetikett, falls ein solches mit dem
+        Befehl \cmd\Retourlabel\ angefordert
+        wurde.
+
+        Dieser Befehl wird korrekt unterst"utzt. Da aber
+        der Befehl \cmd\Retourlabel\ nicht implementiert
+        wurde, hat die Aufteilung im Moment praktisch keine
+        Bedeutung; sie kann aber in sp"ateren Versionen
+        wieder notwendig sein.
+
+  \item[\cmd\Datum\arg{Briefdatum}] \hfil\break
+        Soll als Absendedatum {\sl nicht\/} das aktuelle
+        Tagesdatum (des Rechners) eingesetzt werden, kann
+        mit diesem Befehl das Datum explizit angegeben werden.
+
+        Der Befehl \cmd\heute\ wird nicht unterst"utzt.
+
+  \item[\cmd\Betreff\arg{{Betreff}}] \hfil\break
+        Mit diesem Befehl wird der Betreff gesetzt, der den
+        Empf"anger "uber den Gegenstand des Briefes
+        informiert. Der Betreff kann ein oder mehrzeilig sein.
+
+  \item[\cmd\Einrueckung\arg{Text}] \hfil\break
+        Der Text wird um $1 in$ einger"uckt und geht bis zum
+        rechten Rand. Der Text darf Abs"atze enthalten.
+
+  \item[\cmd\anlagenrechts] \hfil\break
+        Die Anlagen- und Verteilvermerke beginnen {\sl rechts\/}
+        neben der Gru"sformel auf Grad 50. Mit diesem Befehl
+        kann Platz gespart werden, falls die Seite fast voll
+        ist, und kein neues Blatt begonnen werden soll.
+        Dieser Befehl mu"s vor \cmd\closing\ stehen.
+        Die Anlagen- und Verteilvermerke m"ussen in diesem
+        Fall ebenfalls vor dem \cmd\closing-Befehl stehen.
+
+  \item[\cmd\Anlagen\arg{Anlagenvermerk}] \hfil\break
+        Mit diesem Befehl werden eventuelle Anlagenvermerke
+        vereinbart oder gesetzt. Dieser Befehl darf sowohl
+        vor dem \cmd\closing-Befehl als auch hinter diesem
+        stehen. Der Anlagenvermerk wird nur vereinbart falls
+        der Befehl vor dem \cmd\closing-Befehl angegeben wird.
+        Der Anlagenvermerk wird sofort ausgegeben und gesetzt,
+        falls der Befehl nach dem \cmd\closing-Befehl angegeben
+        wird.
+
+  \item[\cmd\Verteiler\arg{Verteilvermerk}] \hfil\break
+        Dieser Befehl vereinbart oder setzt Verteilvermerke.
+        Die Ausf"uhrungen zum \cmd\Anlagen-Befehl gelten
+        auch f"ur diesen Befehl.
+
+  \item[\cmd\Etihoehe\arg{H"ohe eines Adressetiketts}] \hfil\break
+        Verschiedene Herstelle vertreiben Adressetiketten,
+        die alle ein bischen anders sind. Um den Briefstil
+        an unterschiedlich hohe Adre"setiketten anzupassen,
+        kann mit dem Befehl \cmd\Etihoehe\ die H"ohe eines
+        Etiketts angegeben werden.
+
+  \item[\cmd\Etirand\arg{oberer Rand}] \hfil\break
+        Die B"ogen mit den Adre"setiketten haben oft einen
+        Versatz oder oberen Rand. Mit dem Befehl \cmd\Etirand\
+        kann dieser Versatz eingestellt werden.
+
+  \item[\cmd\Etizahl\arg{Zahl der Etiketten}] \hfil\break
+        Auf ein Blatt mit Adre"setiketten passen leider
+        nicht beliebig viele sondern nur eine begrenzte
+        Anzahl von Etiketten, die sich dann auch nicht kunterbunt
+        auf dem Blatt tummeln, sondern Spaltenweise angeordnet
+        sind. Die Zahl der Etiketten, die in eine Spalte
+        passen werden durch den Befehl \cmd\Etizahl\
+        angegeben.
+
+  \item[\cmd\spare\arg{{n}}] \hfil\break
+        Das Bedrucken der Adre"setiketten beginnt nach {\em n\/}
+        leeren Adre"slabeln. Die Label werden spaltenweise
+        durchgez"ahlt.
+
+\end{description}
+
+\clearpage
+\end{document}
+\endinput
+%%
+%% End of file `dinbrief.tex'.

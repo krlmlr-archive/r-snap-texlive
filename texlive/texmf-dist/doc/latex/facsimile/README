@@ -1,0 +1,61 @@
+
+		      The facsimile LaTeX package
+
+
+	facsimile v1.1 (2002/02/25)
+	CTAN:macros/latex/contrib/facsimile
+	Copyright (C) 2003 Torsten Bronger
+	Distributed under the terms of LPPL
+
+
+Abstract
+
+The facsimile package provides a simple interface for creating a fax.
+This covers by and large two areas: First, a title page is created with
+a detailed fax header.  And secondly, every page gets headers and
+footers so that the recipient can be sure to have received all pages and
+complete pages, and to have the correct order.
+
+Supported languages: Afrikaans, Dutch, English, French, German, Italian,
+Portuguese, Spanish, and Swedish.
+
+
+Files
+
+README          This file.
+facsimile.dtx   Documentation and code for facsimile.cls.
+facsimile.ins   Installation script.
+facsimile.pdf   Ready-to-print package manual.
+
+
+Installation
+
+1) tex facsimile.ins
+     unpacks `facsimile.cls' and the example files `fac-en.cfg',
+     `fac-de.cfg', and `example.tex' from facsimile.dtx.
+
+2) Edit `facsimile.cfg'
+     if you need to set your default options.  You may use `fac-en.cfg'
+     or `fac-de.cfg' as your starting point.
+
+3) Copy facsimile.cls and facsimile.cfg
+     into a directory searched by LaTeX.
+
+
+Documentation
+
+The package contains the manual `facsimile.pdf'. So you don't have to
+make the manual, but you can remake it. To create the same manual, type
+
+        pdflatex facsimile.dtx      
+        pdflatex facsimile.dtx      
+	makeindex -s gind facsimile.idx
+        pdflatex facsimile.dtx      
+
+(or simply "latex facsimile.dtx" to get a DVI file).  To create the full
+documentation with the code description, first add a percent sign at the
+beginning of the line
+
+       \OnlyDescription
+
+in `facsimile.dtx'.

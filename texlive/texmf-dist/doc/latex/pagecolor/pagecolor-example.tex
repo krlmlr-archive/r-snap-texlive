@@ -1,0 +1,156 @@
+%%
+%% This is file `pagecolor-example.tex',
+%% generated with the docstrip utility.
+%%
+%% The original source files were:
+%%
+%% pagecolor.dtx  (with options: `example')
+%% 
+%% This is a generated file.
+%% 
+%% Project: pagecolor
+%% Version: 2012/02/23 v1.0e
+%% 
+%% Copyright (C) 2011 - 2012 by
+%%     H.-Martin M"unch <Martin dot Muench at Uni-Bonn dot de>
+%% 
+%% The usual disclaimer applies:
+%% If it doesn't work right that's your problem.
+%% (Nevertheless, send an e-mail to the maintainer
+%%  when you find an error in this package.)
+%% 
+%% This work may be distributed and/or modified under the
+%% conditions of the LaTeX Project Public License, either
+%% version 1.3c of this license or (at your option) any later
+%% version. This version of this license is in
+%%    http://www.latex-project.org/lppl/lppl-1-3c.txt
+%% and the latest version of this license is in
+%%    http://www.latex-project.org/lppl.txt
+%% and version 1.3c or later is part of all distributions of
+%% LaTeX version 2005/12/01 or later.
+%% 
+%% This work has the LPPL maintenance status "maintained".
+%% 
+%% The Current Maintainer of this work is H.-Martin Muench.
+%% 
+%% This work consists of the main source file pagecolor.dtx,
+%% the README, and the derived files
+%%    pagecolor.sty, pagecolor.pdf,
+%%    pagecolor.ins, pagecolor.drv,
+%%    pagecolor-example.tex, pagecolor-example.pdf.
+%% 
+\documentclass[british]{article}[2007/10/19]% v1.4h
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\usepackage[%
+ extension=pdf,%
+ plainpages=false,%
+ pdfpagelabels=true,%
+ hyperindex=false,%
+ pdflang={en},%
+ pdftitle={pagecolor package example},%
+ pdfauthor={H.-Martin Muench},%
+ pdfsubject={Example for the pagecolor package},%
+ pdfkeywords={LaTeX, pagecolor, thepagecolor, page colour,%
+  H.-Martin Muench},%
+ pdfview=Fit,pdfstartview=Fit,%
+ pdfpagelayout=SinglePage%
+]{hyperref}[2012/02/06]% v6.82o
+\usepackage[x11names]{xcolor}[2007/01/21]% v2.11
+ % The xcolor package would not be needed for just using
+ % the base colours. The color package would be sufficient for that.
+\usepackage[pagecolor={LightGoldenrod1}]{pagecolor}[2012/02/23]% v1.0e
+
+\usepackage{afterpage}[1995/10/27]% v1.08
+ % The afterpage package is generally not needed,
+ % but the |\newpagecolor{somecolour}\afterpage{\restorepagecolor}|
+ % construct shall be demonstrated.
+
+\usepackage{lipsum}[2011/04/14]% v1.2
+ % The lipsum package is generally not needed,
+ % but some blind text is needed for the example.
+
+\gdef\unit#1{\mathord{\thinspace\mathrm{#1}}}%
+\listfiles
+\begin{document}
+\pagenumbering{arabic}
+\section*{Example for pagecolor}
+
+This example demonstrates the use of package\newline
+\textsf{pagecolor}, v1.0e as of 2012/02/23 (HMM).\newline
+The used option was \verb|pagecolor={LightGoldenrod1}|.\newline
+\verb|pagecolor={none}| would be the default.\newline
+
+For more details please see the documentation!\newline
+
+\noindent {\color{teal} Save per page about $200\unit{ml}$ water,
+$2\unit{g}$ CO$_{2}$ and $2\unit{g}$ wood:\newline
+Therefore please print only if this is really necessary.}\newline
+
+The current page (background) colour is\newline
+\verb|\thepagecolor|\ =\ \thepagecolor \newline
+(and \verb|\thepagecolornone|\ =\ \thepagecolornone ,
+which would only be different from \verb|\thepagecolor|,
+when the page colour would be \verb|none|).
+
+\pagebreak
+\pagecolor{rgb:-green!40!yellow,3;green!40!yellow,2;red,1}
+
+{\color{white} The current page (background) colour is\newline
+\verb|\thepagecolor|\ =\ \thepagecolor . \newline}
+
+{\color{\thepagecolor} And that makes this text practically invisible.
+\newline}
+
+{\color{white} Which made the preceding line of text practically
+invisible.}
+
+\pagebreak
+\newpagecolor{red}
+
+This page uses \verb|\newpagecolor{red}|.
+
+\pagebreak
+\restorepagecolor
+
+{\color{white}And this page uses \verb|\restorepagecolor| to restore
+the page colour to the value it had before the red page.}
+
+\pagebreak
+\pagecolor{none}
+
+This page uses \verb|\pagecolor{none}|. If the \verb|\nopagecolor|
+command is known (pdf\TeX and Lua\TeX; not yet for dvips, dvipdfm(x)
+or Xe\TeX), the page colour is now \verb|none|, otherwise \verb|white|:
+\verb|\thepagecolor|\ =\ \thepagecolor\ and
+\verb|\thepagecolornone|\ =\ \thepagecolornone .
+
+\pagebreak
+\restorepagecolor
+
+{\color{white}\verb|\restorepagecolor| restored the page colour again.}
+
+\pagebreak
+\pagecolor{green}
+
+This page is green due to \verb|\pagecolor{green}|.
+
+\pagebreak
+\newpagecolor{blue}\afterpage{\restorepagecolor}
+
+{\color{white}\verb|\newpagecolor{blue}\afterpage{\restorepagecolor}|%
+\newline
+was used here, i.\,e.~this page is blue, and the next one will
+automatically have the same page colour before it was changed to blue
+here (i.\,e. green).}
+
+\smallskip
+{\color{red}\textbf{\lipsum[1-11]}}
+\bigskip
+
+The page colour was changed back at the end of the page -
+in mid-sentence!
+
+\end{document}
+\endinput
+%%
+%% End of file `pagecolor-example.tex'.

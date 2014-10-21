@@ -1,0 +1,57 @@
+The goal of this package is the simplest possible provision of
+map images (OpenStreetMap, Google Maps and Google Street View
+are supported). In the simplest case, the specification of an
+address is sufficient. The package loads the map using the
+\write18 feature, which you must activate to use this package.
+The image will be downloaded by an external Lua script. You can
+use this script also from the command line.
+
+License: LPPL
+
+Changes in v1.8:
+
+- added support for long routes by the gps2gps mode (getmapdl.lua)
+
+  Long routes might be defined by several thousands of way points.
+  Encoding these into a encoded polyline would hugely exceed the
+  URL length limit of 2048 bytes. The gps2gps mode allows you to
+  reduce the number of gps coordinates based on a given bound.
+
+- added multi route support for gps2epl mode
+
+- updated documentation
+
+  INSTALL
+===========
+
+First of all, install the package with the package manager of
+your TeX distribution, if possible! A getmap package is
+available for TeXLive2014+ and MiKTeX!
+
+Manual installation:
+
+download getmap.dtx and makefile (Linux) or install.bat (Windows)
+
+* Linux
+
+  simply run  make  to extract the files and to create the
+  documentation. Run  sudo make install  to copy the files
+  into $TEXMFLOCAL
+
+  Moreover, there are the following usefull make targets:
+
+  uninstall  deletes the package in $TEXMFOCAL
+  package    only extracts the files
+  clean      cleans all aux files
+  cleanall   cleans all files except the downloaded files
+
+* Windows
+
+  In MiKTeX scripts like getmapdl.lua must be registered.
+  This can not be done manually! Please use the package
+  manager to install getmap.
+
+  For TeXLive simply run install.bat! It assumes that you
+  use a standard installation of TeXLive2014. Otherwise you
+  must adjust the variables in the first lines of install.bat!
+

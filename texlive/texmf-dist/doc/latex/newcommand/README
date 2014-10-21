@@ -1,0 +1,58 @@
+		+------------------------------------+
+                |           NEWCOMMAND.PY	     |
+		|				     |
+                | More flexible argument processing  |
+                | than what \newcommand provides     |
+		|				     |
+                | By Scott Pakin, scott+nc@pakin.org |
+		+------------------------------------+
+
+
+Description
+-----------
+
+LaTeX's \newcommand is fairly limited in the way it processes optional
+arguments, but the TeX alternative, a batch of \defs and \futurelets,
+can be overwhelming to the casual LaTeX user.  newcommand.py is a
+Python program that automatically generates LaTeX macro definitions
+for macros that require more powerful argument processing than
+\newcommand can handle.  newcommand.py is intended for LaTeX advanced
+beginners (i.e., those who know how to use \newcommand but not
+internal LaTeX2e commands such as \@ifnextchar) and for more advanced
+users who want to save some typing when defining complex macros.
+
+With newcommand.py, the user specifies a template for a macro's
+arguments.  newcommand.py then custom-generates a macro definition
+according to the user's specifications and includes a user-friendly
+"Put code here" comment to indicate where the macro's main code should
+appear.  newcommand.py supports arbitrary interleavings of required
+and optional arguments, starred macros, mandatory literal text, macros
+with more than nine arguments, optional arguments delimited by
+parentheses instead of square brackets, and optional arguments whose
+value defaults to the value given for a prior argument.  The generated
+macros can easily be pasted into a LaTeX document and edited as
+desired.
+
+
+Installation
+------------
+
+You'll need a Python interpreter (http://www.python.org/).  Besides
+that, just make sure that newcommand.py is placed somewhere in your
+path and that spark.py is somewhere that newcommand.py can find it.
+
+
+Copyright and license
+---------------------
+
+Copyright (C) 2010 Scott Pakin, scott+nc@pakin.org
+
+This package may be distributed and/or modified under the conditions
+of the LaTeX Project Public License, either version 1.3c of this
+license or (at your option) any later version.  The latest version of
+this license is in:
+
+    http://www.latex-project.org/lppl.txt
+
+and version 1.3c or later is part of all distributions of LaTeX version
+2006/05/20 or later.

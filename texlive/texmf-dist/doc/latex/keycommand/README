@@ -1,0 +1,37 @@
+% keycommand is a package providing an easy way to define commands
+% with keys in LaTeX. The code is based on kvsetkeys by Heiko
+% Oberdiek. It does not rely on keyval.
+%
+% This work consists of the main source file keycommand.dtx
+% and the derived files
+%    keycommand.sty, keycommand.pdf, keycommand.ins,
+%    keycommand-example.tex
+%
+% Unpacking:
+%    (a) If keycommand.ins is present:
+%           etex keycommand.ins
+%    (b) Without keycommand.ins:
+%           etex keycommand.dtx
+%    (c) If you insist on using LaTeX
+%           latex \let\install=y\input{keycommand.dtx}
+%        (quote the arguments according to the demands of your shell)
+%
+% Documentation:
+%           (pdf)latex keycommand.dtx
+%
+% -----------------------------------------------------------------
+% Typical example:
+%
+% \newkeycommand+[\|]\myFigure[
+%            caption={\textcolor{red}{<no caption given>},
+%            placement=h}][OtherKeys][1]{%
+%     |\begin{figure}|[\commandkey{placement}]
+%         |\includegraphics|[\commandkey{OtherKeys}]{#1}
+%         |\caption|{\commandkey{caption}}}
+% Usage :
+%
+% \myFigure[caption=small image,page=12,viewport=20 50 136 95,clip]{image.pdf}
+% -----------------------------------------------------------------
+
+
+

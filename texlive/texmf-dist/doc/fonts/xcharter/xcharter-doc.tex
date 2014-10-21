@@ -1,0 +1,90 @@
+\documentclass[11pt]{article}
+\usepackage[margin=1in]{geometry} 
+\usepackage[parfill]{parskip} 
+
+\usepackage[scaled=1.03,varqu,varl]{zi4}
+\usepackage[type1]{cabin}
+\usepackage[scaled=.98]{XCharter}
+\usepackage[T1]{fontenc}
+\linespread{1.04}
+\usepackage[libertine,bigdelims,vvarbb,scaled=1.07]{newtxmath}
+\usepackage[cal=boondoxo]{mathalfa}
+\useosf
+\font\osfIfnt=XCharter-Roman-tosf-t1 at 11pt
+\font\osffnt=XCharter1-Roman-tosf-t1 at 11pt
+
+%\usepackage[cal=rsfso]{mathalfa}
+%\usepackage{bm}% load after all math to give access to bold math
+\title{The XCharter Font Package}
+\author{Michael Sharpe}
+%\date{}
+\begin{document}
+\maketitle
+
+
+\section{Package Features}
+The XCharter fonts are extensions of the Bitstream Charter fonts, adding oldstyle figures (proportionally spaced only), superior figures and small caps in all styles. The original Charter fonts were designed by famed font designer Matthew Carter in the late 1980's to enhance legibility of the output from printers of that era (laser, dot matrix, thermal and inkjet) with resolutions that would now be considered low---not far from modern screen resolutions. Their low contrasts, high x-heights and use of piecewise linear outlines where possible may make them interesting again as fonts that will render well on small devices and perhaps projected slides. (It's worth noting that the same designer provided Georgia for Microsoft. It is widely considered to be one of the clearest serifed fonts for viewing on screen, and bears a number of similarities to Charter, though the latter is  heavier.)
+
+Support files are provided for T$1$, TS$1$ and LY$1$ encodings. The package has  a number of options:
+\begin{itemize}
+\item
+{\tt scaled=.98}, for example, scales all text to 98\% of specified size;
+\item {\tt lining} (or just {\tt lf}) makes lining figures ($0123456789$) the default for text---this is set automatically and does not need to be entered explicitly;
+\item {\tt oldstyle} (or {\tt osf}) sets the figure style in text mode to oldstyle (\textosf{0123456789}) with numeral one like a shortened  $1$, but math mode will always use lining figures;
+\item {\tt oldstyleI} (or {\tt osfI}) sets the figure style in text mode to oldstyle (\textosfI{0123456789}) with numeral one like a shortened I, but math mode will always use lining figures;
+\item {\tt sups} sets the style for superscript figures (eg, footnote markers) to XCharter's superior figures rather than using the default text inserts in mathematical superscripts.
+\end{itemize}
+\textsc{Special Macros:}
+\begin{itemize}
+\item
+\verb|\useosf| (usable only in the preamble) may be used for changing the text figure style to {\tt osf} though math mode will use lining figures.
+\item \verb|\useosfI| (usable only in the preamble) may ne used for changing the text figure style to {\tt osfI} though math mode will use lining figures.
+\item \verb|\textsu| prints its argument in superior figures, eg \verb|\textsu{12}| results in \textsu{12}. The effect is the same with \verb|{\sustyle 12}|.
+\item \verb|\textlf| prints its argument in lining figures, eg \verb|\textlf{12}| results in \textlf{12}. The effect is the same with \verb|{\lfstyle 12}|.
+\item \verb|{\osfstyle 23}| prints \textosf{23} using whatever oldstyle option is in force. 
+\item \verb|\textosf| prints its argument in oldstyle figures using, in effect, the {\tt osf} option---eg \verb|\textosf{12}| results in \textosf{12}. 
+\item \verb|\textosfI| prints its argument in oldstyle figures using, in effect, the {\tt osfI} option---eg \verb|\textosfI{12}| results in \textosfI{12}. \end{itemize}
+
+Two math packages seem to provide reasonable companions for \textsf{XCharter}. The first example uses Charter italics as math italics, but doesn't provide arbitrary scaling and doesn't sufficiently distinguish math italic v from mathematical Greek \verb|\nu|. Moreover, it is not easy to redefine \verb|\mathcal| to get a better math calligraphic alphabet---eg, the {\tt mathalfa} package fails. The second uses \textsf{libertine} italics and Greek in math mode, which is a good match to Charter in style and weight after scaling up, is arbitrarily scalable, has distinct math italic v and mathematical Greek \verb|\nu|, and is completely compatible with {\tt mathalfa}.
+
+\textsc{Example 1:}
+\begin{verbatim}
+\usepackage[charter,expert]{mathdesign}
+\usepackage[scaled=.96,osf]{XCharter}% matches the size used in math
+\linespread{1.04}
+\end{verbatim}
+
+\textsc{Example 2:}
+\begin{verbatim}
+\usepackage[scaled=.98,sups,osf]{XCharter}% lining figures in math, osf in text
+\usepackage[scaled=1.04,varqu,varl]{zi4}% inconsolata typewriter
+\usepackage[type1]{cabin}% sans serif
+\usepackage[libertine,bigdelims,vvarbb,scaled=1.07]{newtxmath}
+\usepackage[cal=boondoxo]{mathalfa}
+\linespread{1.04}
+\end{verbatim}
+Here is a short sample based on the preamble of \textsc{Example 2}:\\[4pt]
+\def\Pr{\ensuremath{\mathbb{P}}}
+\def\rmd{\mathrm{d}}
+The typeset math below follows the ISO recommendations that only variables
+be set in italic. Note the use of upright shapes for $\rmd$, $\mathrm{e}$
+and $\uppi$. (The first two are entered as \verb|\mathrm{d}| and
+\verb|\mathrm{e}|, and in fonts derived from {\tt newtxmath} or {\tt mtpro2},
+ the latter is entered as \verb|\uppi|.)
+
+\textbf{Simplest form of the \textit{Central Limit Theorem}:} \textit{Let
+$X_1$, $X_2,\cdots$ be a sequence of iid random variables with mean $0$ 
+and variance $1$ on a probability space $(\Omega,\mathcal{F},\Pr)$. Then}
+\[\Pr\left(\frac{X_1+\cdots+X_n}{\sqrt{n}}\le y\right)\to\mathfrak{N}(y)\coloneq
+\int_{-\infty}^y \frac{\mathrm{e}^{-t^2/2}}{\sqrt{2\uppi}}\,
+\mathrm{d}t\quad\mbox{as $n\to\infty$,}\]
+\textit{or, equivalently, letting} $S_n\coloneq\sum_1^n X_k$,
+\[\mathbb{E} f\left(S_n/\sqrt{n}\right)\to \int_{-\infty}^\infty f(t)
+\frac{\mathrm{e}^{-t^2/2}}{\sqrt{2\uppi}}\,\mathrm{d}t
+\quad\mbox{as $n\to\infty$, for every $f\in\mathrm{b}
+\mathcal{C}(\mathbb{R})$.}\]
+
+\section{Text effects under \texttt{fontaxes}}
+This package loads the {\tt fontaxes} package in order to access italic small caps. You should pay attention to the fact that {\tt fontaxes} modifies the behavior of some basic \LaTeX\ text macros such as \verb|\textsc| and \verb|\textup|. Under normal \LaTeX, some text effects are combined, so that, for example, \verb|\textbf{\textit{a}}| produces bold italic {\tt a}, while other effects are not, eg, \verb|\textsc{\textup{a}}| has the same effect as \verb|\textup{a}|, producing the letter {\tt a} in upright, not small cap, style. With {\tt fontaxes}, \verb|\textsc{\textup{a}}| produces instead upright small cap {\tt a}. It offers a macro \verb|\textulc| that undoes small caps, so that, eg, \verb|\textsc{\textulc{a}}| produces {\tt a} in non-small cap mode, with whatever other style choices were in force, such as bold or italics.
+
+\end{document}

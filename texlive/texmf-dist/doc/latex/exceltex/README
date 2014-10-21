@@ -1,0 +1,164 @@
+    ABOUT
+
+Exceltex is a LaTeX package combined with a helper program written in
+Perl. It provides a easy to use yet powerfull and flexible way to get
+data from Spreadsheets into LaTeX.
+
+In difference to other existing solutions, exceltex does not seek for
+making the creation of tables in LaTeX easier, but to get data from
+Spreadsheets in into LaTeX as easy as possible.
+
+The excel fileformat acts as an interface between the spreadsheet
+application and exceltex beacause it is easily accessible via the
+Spreadsheet::ParseExcel Perl module and because most spreadsheet
+applications are able to read and write excel files.
+
+
+
+
+    REQIREMENTS
+
+Exceltex depends on the perl module Spreadsheet::ParseExcel and the
+LaTeX Packages ulem and color.
+
+Currently a Unix like operating system is required, cygwin on windows
+should work also.
+
+
+
+
+
+    LATEX COMMANDS
+
+Exceltex provides two commands to include single cells and cell-ranges
+for tabulars. Load the exceltex LaTeX package via
+\usepackage{exceltex}.
+
+   \inccell{foo.xls!results!B9}
+   	includes cell B9 from sheet results in file foo.xls
+
+   \inctab{foo.xls!results!B2!C15}
+    	includes  the  14  rows between B2 and F15 from sheet results
+	in file foo.xls in LaTeX' tabular format ('&' separated rows
+        ended by \\)
+
+For both commands you may omit specifying the file (foo.xls) if it has
+the same basename (foo) as the LaTeX file (foo.tex).
+
+
+
+
+    USAGE
+
+Mark cells and tabulars for inclusion with the \incell and \inctab
+commands. Then run latex, exceltex and latex again.
+
+The following Example demonstrates the usage of exceltex:
+
+--- snip ---
+\documentclass{article}
+\usepackage[options]{exceltex}
+
+\begin{document}
+
+\title{a brief introduction to exceltex}
+\maketitle
+
+\section{including single cells}
+
+You can include contents of cells with the \\inccell command. Example:
+Cell A1 on sheet 'Sheet1' of file foo.xls is:
+\inccell{foo.xls!Sheet1!A1}
+
+
+\section{including tabulars}
+
+this is as easy as including single cells.
+
+\begin{tabular}{lll}
+  \hline
+  column 1 & colum 2 & colum 3 \\
+  \hline
+  \inctab{foo.xls!Sheet1!A1!C5}
+  \hline
+\end{tabular}
+
+\end{document}
+--- snap ---
+
+now, run latex, then exceltex and latex again.
+
+The \inctab command does nothing else than provide the requested cells
+in LaTeX' tabular format - colums are separated with a '&', each line
+is endet with a line break (\\). This gives you a maximum of
+flexibility and the freedom to use whatever tabular package you want.
+
+
+Currently one package option is supported.
+\usepackage[cellrefs]{exceltex} will write cell data to files named by
+filename, workbook and cell instead of sequentially numbered files.
+
+
+
+
+    PROBLEMS
+
+* Exceltex cannot read Excel files created by Spreadsheet::WriteExcel
+  (see Spreadsheet::ParseExcel documentatin for details).
+
+* Workbook names must not include problematic characters (LaTeX
+  control Characters) (^,_,$,%,&,!). Just use Letters, Numbers and a
+  Minus as spearator.  
+
+* when using the cellrefs package option, whitespaces are also
+  forbidden in workbook names and filenames. These are LaTeX
+  limitations, i think.
+
+
+
+
+
+    HOW IT WORKS
+
+The first LaTeX run writes an entry for each \inctab, \inccell command
+to a spearate index file (\jobname.exltx). This index is then read by
+the exceltex helper script, which actually extracts the ordered data
+and writes it to sequentially numbered files in the directory
+\jobname-exltx.  The \inctab and \inccell are then simply including
+these files via a \InputIfExists{} command on the following latex runs.
+
+
+
+
+    TODO
+
+Support for other formats than excels would be appreciating. There is
+maybe a chance to get OpenOffice Calc working. There is now a module
+OpenOffice::Parse::SXC on cpan which could to the job for Openoffice,
+but it seems quite new and is not includeded in Ubuntu yet.  On the
+other hand, support for different fileformats would yield a naming
+problem, at the time i started with exceltex (in 2004) there was only
+Spreadsheet::ParseExcel, so the name exceltex ....
+
+
+The newest version of Exceltex is available at the following url:
+http://www.physik.uni-freiburg.de/~doerr/exceltex
+
+
+
+
+    COPYING
+
+exceltex is Copyright 2004-2006 by Hans-Peter Doerr
+<doerr@cip.physik.uni-freiburg.de>
+
+This is free software; see the source for copying conditions.  There
+is NO warranty; not even for MERCHANTABILITY or FITNESS FOR A
+PARTICULAR PURPOSE.
+
+exceltex is distributed under the terms of the Gnu General Public
+License (GPL) Version 2.  See COPYING for details.
+
+
+
+README for exceltex version 0.5.1, Apr 30, 2006

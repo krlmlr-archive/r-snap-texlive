@@ -1,0 +1,152 @@
+README for hrefhide package, 2011/04/29, v1.0f
+
+
+TABLE OF CONTENTS
+=================
+
+1 Introduction
+2 Download
+3 Installation
+4 Additional Packages
+5 New Features
+6 Package Compatibility
+7 Authors/Maintainers
+8 Bug Reports
+9 Known Problems
+
+
+1 INTRODUCTION
+==============
+
+This package provides the command \hrefdisplayonly (additionally to \href of
+the hyperref package by Heiko Oberdiek). While the (hyperlinked) text appears
+like an ordinary nhref in the compiled pdf-file, the same text will be "hidden"
+when printing the text. It is not really invisible, but just has the same colour
+as the background (default: white). Therefore the layout is not changed when
+printing the document.
+Further the commands \hycon and \hycoff (hyper-colour-on/off) can be used
+to simulate switching option ocgcolorlinks of hyperref package on and off.
+
+
+2 DOWNLOAD
+==========
+
+`hrefhide' is available on CTAN:
+  CTAN:macros/latex/contrib/hrefhide/
+
+Also a ZIP file is provided that contains the files, already
+sorted in a TDS tree (should become available on CTAN soon):
+  CTAN:install/macros/latex/contrib/hrefhide.tds.zip
+
+`CTAN:' means one of the `Comprehensive TeX Archive Network'
+nodes or one of its mirrors. This is explained in
+  http://www.tex.ac.uk/cgi-bin/texfaq2html?label=archives
+
+The CTAN stuff will be mirrored automatically from the
+ftp server, so
+  ftp://ftp.tug.org/pub/tex/pagesLTS/
+corresponds to
+  CTAN:macros/latex/contrib/pagesLTS/
+
+
+3 INSTALLATION
+==============
+
+Installation with ZIP file in TDS format
+----------------------------------------
+The ZIP file `hrefhide.tds.zip' contains the files sorted
+in a TDS tree. Thus you can directly unpack the ZIP file
+inside a TDS tree.
+(See CTAN:tds.zip for an explanation of TDS.)
+Example:
+  cd /...somewhere.../texmf
+  unzip /...downloadpath.../hrefhide.tds.zip
+Do not forget to refresh the file name database of this
+TDS tree.
+Example:
+  texhash /...somewhere.../texmf
+
+Manual installation
+-------------------
+a) Download the hrefhide files from CTAN or the TUG server.
+   If necessary, unpack them.
+b) Generate the package and driver files:
+     tex hrefhide.ins
+c) Install the files `*.sty', and `*.cfg' in your TDS tree:
+     cp *.sty *.cfg TDS:tex/latex/hrefhide/
+   Replace `TDS:' by the prefix of your TDS tree
+   (texmf directory).
+d) Copy the documentation files to
+   "TDS:doc/latex/hrefhide/":
+   README, hrefhide.pdf, hrefhide-example.tex,
+   hrefhide-example.pdf.
+e) Update the databases if necessary, e.g. for teTeX:
+     mktexlsr .../texmf
+
+
+4 ADDITIONAL PACKAGES
+=====================
+
+Depending on the driver and option settings, hrefhide loads
+other packages:
+* hyperref.sty:
+    CTAN:macros/latex/contrib/hyperref/hyperref.dtx
+* kvoptions.sty:
+    CTAN:macros/latex/contrib/oberdiek/kvoptions.dtx
+* xcolor.sty:
+    CTAN:/macros/latex/contrib/xcolor/xcolor.dtx
+which again load other packages
+(see the result of the \listfiles command in the log-file
+ of the example).
+
+
+5 PACKAGE COMPATIBILITY
+=======================
+
+hrefhide must be loaded AFTER package hyperref:
+
+  Package loading order:
+
+  \usepackage[ocgcolorlinks]{hyperref}
+  \usepackage{hrefhide}
+
+
+6 AUTHOR/MAINTAINER
+=====================
+
+* Hans-Martin Münch
+
+
+7 BUG REPORTS
+==============
+
+A bug report should contain:
+* Comprehensive problem description. This includes error or
+  warning messages.
+  * \errorcontextlines=\maxdimen can be added in the
+    TeX code to get more informations in TeX error messages.
+* Minimal test file that shows the problem, but does not
+  contain any unnecessary packages and code.
+* Used drivers/programs.
+* Version information about used packages and programs.
+  * If you are using LaTeX, then add "\listfiles". Then
+    a list of version informations is printed at the end
+    of the LaTeX run.
+* Please no other files than the minimal test file.
+  The other files .log, .dvi, .ps, .pdf are seldom
+  necessary, so send them only on request.
+* Please .zip or .tar.gz your file(s) before sending them!
+
+Bug address
+-----------
+Bug reports can be send to the maintainer:
+  Hans-Martin Münch
+  <Martin [dot] Muench [at] Uni-Bonn [dot] de>
+
+
+8 KNOWN PROBLEMS
+=================
+
+* as yet: none... - Well, of course there are all issues
+  of the hyperref package with ocgcolorlinks option,
+  e.g. no linebreaks inside links.

@@ -1,0 +1,27 @@
+\begin{NumericDataPlot}
+   {\textwidth}{6.5cm}
+
+   \definecolor{MyColor}{cmyk}{0.6 0.21 1.0 0.2}
+   \newpsstyle{MyLine}{linecolor=MyColor, linewidth=2pt, linestyle=dashed,
+   dash=1pt 1pt 4pt 1pt 1pt 3pt, dotstyle=*, showpoints=true, dotsize=5pt}
+   \newpsstyle{MyLineA}{linecolor=blue, linestyle=dotted,
+   dotstyle=asterisk, showpoints=true}
+
+	\setxAxis
+	   {xMin=1, xMax=1.6, Dx=0.2}
+	\setyAxis
+	   {yMin=50, yMax=150, Dy=25}
+	
+	\plotxAxis[NoLabel]{}
+	\plotyAxis[NoLabel]{}
+	
+	\listplot[style=MyLine]
+	   {\IdentI}
+	\listplot[style=MyLineA]
+	   {\IdentII}
+	
+	\putSE{\LegendDefinition{
+		\LegLine{style=MyLine} & IdentI\\
+		\LegLine{style=MyLineA} & IdentII
+	}}
+\end{NumericDataPlot}

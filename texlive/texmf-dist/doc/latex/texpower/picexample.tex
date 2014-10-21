@@ -1,0 +1,78 @@
+%%
+%% This is file `picexample.tex',
+%% generated with the docstrip utility.
+%%
+%% The original source files were:
+%%
+%% texpower-doc.dtx  (with options: `picexample,picexample-src,end')
+%% 
+%% --------------------------------------------------------------
+%% TeXPower bundle - dynamic online presentations with LaTeX
+%% Copyright (C) 1999-2004 Stephan Lehmke
+%% Copyright (C) 2003-2005 Hans Fredrik Nordhaug
+%% 
+%% This program is free software; you can redistribute it and/or
+%% modify it under the terms of the GNU General Public License
+%% as published by the Free Software Foundation; either version 2
+%% of the License, or (at your option) any later version.
+%% 
+%% This program is distributed in the hope that it will be useful,
+%% but WITHOUT ANY WARRANTY; without even the implied warranty of
+%% MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+%% GNU General Public License for more details.
+%% --------------------------------------------------------------
+%% 
+%% The list of all files belonging to the TeXPower bundle is
+%% given in the file `00readme.txt'.
+%% 
+\ProvidesFile{picexample.tex}%
+      [2005/04/07 TeXPower example file]
+%-----------------------------------------------------------------------------------------------------------------
+%
+% Picture example for the package texpower.sty.
+%
+%-----------------------------------------------------------------------------------------------------------------
+% Use slifonts and a dark background.
+
+\PassOptionsToPackage{colormath,colorhighlight,darkbackground}{texpower}
+\RequirePackage{tpslifonts}
+
+% Input the generic preamble.
+
+\input{__TPpreamble}
+\hypersetup{pdftitle={texpower picture example}}
+
+
+\ifthenelse{\boolean{psspecialsallowed}}% Can we use PSTricks?
+{% Yes.
+  % PsTricks (sic) is used for creating the picture example.
+
+  \usepackage[noxcolor]{pstricks}
+  \usepackage{pstcol}
+  \usepackage{pst-node}
+
+  \psset{unit=\unitlength}
+  }
+{% No. We'll make do without.
+  }
+
+
+%-----------------------------------------------------------------------------------------------------------------
+% Finally, everything is set up. Here we go...
+%
+\begin{document}
+\begin{slide}
+
+%-----------------------------------------------------------------------------------------------------------------
+%
+\makeslidetitle{\macroname{stepwise} Example: A Picture}\label{Sec:ExPic}
+
+\ifthenelse{\boolean{psspecialsallowed}}% Can we use PSTricks?
+{\input{picpsexample}}{\input{picltxexample}}
+\newslide
+\pageTransitionReplace
+\end{slide}
+\end{document}
+\endinput
+%%
+%% End of file `picexample.tex'.

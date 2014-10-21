@@ -1,0 +1,107 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%                                                           %
+%                    MyCV class (v1.5.6)                    %
+%                        2012-05-20                         %
+%                                                           %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+===========
+|         |
+| License |
+|         |
+===========
+
+This work may be distributed and/or modified under the
+conditions of the LaTeX Project Public License version
+1.3c, available at 'http://www.latex-project.org/lppl'.
+
+============
+|          |
+| Abstract |
+|          |
+============
+
+This LaTex class provides a set of functionality for
+writing "curriculum vitae" with different layouts.
+To achieve this goal, it adopts a different approach
+with respect to the other c.v. classes or packages.
+Basically, the idea is that a user can write some
+custom configuration directives, by means of which
+is possible both to produce different c.v. layouts
+and quickly switch among them.
+In order to process such directives, this class uses
+a set of lists, provided by the package <etextools>.
+A basic support for TikZ decorations is also provided.
+
+==========================
+|                        |
+| Files and installation |
+|                        |
+==========================
+
+---------------------------------------------------------
+The base directory of this bundle has the following files
+and sub-directories
+---------------------------------------------------------
+
+'README'      -- this file
+'CHANGELOG    -- the revision history
+'mycv.dtx'    -- the main source file
+'checksum.pl' -- verify the integrity of the main files
+'mycv.pdf'    -- the documentation file
+<Examples>    -- directory with some examples
+<Doc>         -- contains the documentation sources
+
+The following files are also created when extracting
+the 'mycv.dtx' contents (see 'Class installation' below).
+
+   ** the main class file
+   'mycv.cls'
+
+   ** support for the main class implementation
+   'mycv_[base|misc|version].def'
+
+   ** class extensions
+   'mycv_[style|dec].sty'
+
+   ** split the contents of a file (see the doc.)
+   'mycv_split_contents.pl'
+
+------------------
+Class installation
+------------------
+
+*) Extracts the content of the file 'mycv.dtx'. It is
+   done by typing the command:
+
+      (pdf)latex mycv.dtx
+
+*) Moves all files with extensions '.def', '.sty' and
+   '.cls' into a folder searched by LaTeX; the update
+   of the LaTeX db might be necessary to complete the
+   installation.
+
+*) Optionally, the Perl script 'mycv_split_contents.pl'
+   may be copied to a folder in the 'PATH' environment
+   variable; on Unix-like systems, it's also necessary
+   to make the script executable.
+
+*) To check the integrity of the main files, the script
+   'checksum.pl' (it does not provide any argument) may
+   be executed, provided that it's executable (only for
+   Unix-like systems).
+
+-------------
+Documentation
+-------------
+
+To create the documentation, move to the <Doc> folder
+and run 'mycv.tex' twice through pdflatex. Due to the
+use of some TikZ decorations, it may take awhile.
+
+--------
+Examples
+--------
+
+See the file 'Notes.txt' in the folder 'Examples' for
+information on how to produce pdf files with examples.

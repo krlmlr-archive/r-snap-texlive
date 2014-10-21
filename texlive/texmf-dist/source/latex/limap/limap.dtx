@@ -1,0 +1,1244 @@
+%%^^A%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%^^A $Id: limap.dtx 1.2 2000/03/01 20:11:42 gene Exp gene $
+%%^^A%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%\iffalse
+%% Purpose:
+%%      A package for typesetting Information Maps.
+%%
+%% Documentation:
+%%      The documentation  can be generated  from  the  original  file
+%%      limap.dtx with the doc style/package. LaTeX the file limap.tex
+%%      to get the full documentation in \textsc{dvi} format.
+%%
+%% Author: Gerd Neugebauer
+%%         Mainzer Str. 8
+%%         56321 Rhens (Germany)
+%% Mail:   gerd.neugebauer@sdm.de
+%%	   gerd.neugebauer@gmx.de
+%%
+%% Copyright (C) 1999-2000 Gerd Neugebauer
+%%
+%% limap.dtx may be  distributed under the terms of  the LaTeX Project
+%% Public  License,  as  described  in  lppl.txt  in  the  base  LaTeX
+%% distribution.   Either version 1.0  or, at  your option,  any later
+%% version.
+%%
+%% This class is still under development and  may be replaced with a
+%% new version which provides an enhanced functionality.
+%%
+%\fi
+%^^A%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+% \title{A \LaTeX\ Package for Typesetting Information Maps\thanks{This file
+%    documents \filename\ version \fileversion\ as of \filedate.}} 
+% \author{Gerd Neugebauer\\
+%	  Mainzer Str.\ 8\\
+%	  56321 Rhens (Germany)\\
+%	  Net: \texttt{gerd.neugebauer@sdm.de}}
+%
+% \date{{\footnotesize Documentation date: \docdate}}
+%
+% \maketitle
+%
+%^^A%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% \changes{1.0}{2000/03/01}{First public release.}
+%^^A%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+% \DoNotIndex{\ ,\",\',\.,\[,\\,\],\^,\`,\~,\@,\@author,\@auxout}
+% \DoNotIndex{\@currentlabel,\@currenvir,\@date}
+% \DoNotIndex{\@dottedtocline,\@gobble,\@gobbletwo,\@highpenalty}
+% \DoNotIndex{\@ifnextchar,\@ifstar,\@ifundefined}
+% \DoNotIndex{\@namedef,\@nameuse,\@pnumwidth,\@startsection,\@starttoc}
+% \DoNotIndex{\@tempdima,\@title,\@thefnmark,\@undefined}
+% \DoNotIndex{\@ixpt,\@vpt,\@vipt,\@viipt,\@viiipt}
+% \DoNotIndex{\@xpt,\@xipt,\@xiipt,\@xivpt,\@xvii,\@xxpt,\@xxvpt}
+% \DoNotIndex{\AA,\AE,\CodelineIndex}
+% \DoNotIndex{\CurrentOption,\DeclareOption,\DeleteShortVerb,\DocInput}
+% \DoNotIndex{\EnableCrossrefs,\H,\InputIfFileExists}
+% \DoNotIndex{\L,\LARGE,\LaTeX,\Large}
+% \DoNotIndex{\LoadClass,\NeedsTeXFormat,\O,\OE,\OptionNotUsed}
+% \DoNotIndex{\PackageError,\PackageWarning,\PassOptionsToClass}
+% \DoNotIndex{\ProcessOptions,\ProvidesClass}
+% \DoNotIndex{\PrintChanges,\PrintIndex}
+% \DoNotIndex{\ProvidesPackage,\RecordChanges,\RequirePackage,\TeX}
+% \DoNotIndex{\aa,\addcontentsline,\addpenalty,\addtolength,\advance}
+% \DoNotIndex{\addvspace,\ae,\ast,\arabic}
+% \DoNotIndex{\b,\baselineskip,\begin,\begingroup,\bf,\bgroup,\egroup}
+% \DoNotIndex{\bigskip,\box,\bullet}
+% \DoNotIndex{\c,\cal,\catcode,\centering,\chapter,\chardef,\circ}
+% \DoNotIndex{\clearpage,\closein,\closeout}
+% \DoNotIndex{\clubpenalty,\csname}
+% \DoNotIndex{\d,\def,\dimen,\diamond,\divide,\documentclass,\dots,\dp}
+% \DoNotIndex{\edef,\else,\em,\emph,\empty,\end,\endcsname,\endgroup}
+% \DoNotIndex{\endinput,\endlist}
+% \DoNotIndex{\expandafter,\fbox,\fi,\footnotesize,\footskip,\framebox}
+% \DoNotIndex{\frenchspacing,\futurelet,\gdef,\global,\gobble}
+% \DoNotIndex{\hangafter,\hangindent,\hbox,\headheight,\headsep,\hfil}
+% \DoNotIndex{\hfill,\hrule,\hskip,\hspace,\hss,\ht,\huge,\ifcat,\ifeof}
+% \DoNotIndex{\ifdim,\ifnum,\iftrue,\ifx,\ignorespaces,\immediate,\index}
+% \DoNotIndex{\input,\it}
+% \DoNotIndex{\itemindent,\itemsep,\jobname,\kern,\l,\labelsep,\labelwidth}
+% \DoNotIndex{\large,\leavevmode,\leftmark,\leftskip,\let,\list}
+% \DoNotIndex{\llap,\long,\lower}
+% \DoNotIndex{\m@th,\makebox,\magstep,\makeindex,\markboth,\mbox,\medskip}
+% \DoNotIndex{\multicolumn}
+% \DoNotIndex{\newblock,\newcommand,\newcount,\newenvironment,\newfont}
+% \DoNotIndex{\newif,\newlength,\newline,\newpage,\newread,\newwrite}
+% \DoNotIndex{\nobreak,\noindent,\normalsize,\null,\o,\oe}
+% \DoNotIndex{\openin,\openout,\or,\pagestyle,\par,\paragraph,\parbox}
+% \DoNotIndex{\parfillskip,\parindent,\parsep,\parskip,\part,\partopsep}
+% \DoNotIndex{\penalty,\providecommand,\quad}
+% \DoNotIndex{\raggedbottom,\raggedright,\raise,\raisebox,\refstepcounter}
+% \DoNotIndex{\relax,\renewcommand,\renewenvironment,\rightskip,\rm,\rule}
+% \DoNotIndex{\sbox,\sc,\section,\setcounter,\setlength,\settowidth}
+% \DoNotIndex{\sf,\sfcode,\sl}
+% \DoNotIndex{\sloppy,\small,\space,\ss,\string}
+% \DoNotIndex{\subparagraph,\subsubparagraph}
+% \DoNotIndex{\subsection,\subsubsection,\symbol}
+% \DoNotIndex{\t,\tenex,\textheight,\textit,\textsf,\textstyle,\textwidth}
+% \DoNotIndex{\the,\thepage,\thispagestyle}
+% \DoNotIndex{\topmargin,\topsep,\tt,\typeout}
+% \DoNotIndex{\u,\unitlength,\usecounter,\v,\varepsilon,\vbox}
+% \DoNotIndex{\vfill,\vsize,\vskip,\vspace,\vss}
+% \DoNotIndex{\wd,\widowpenalty,\write,\xdef,\z@}
+%
+%^^A%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%    \CheckSum{608}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%  \CharacterTable
+%%  {Upper-case    \A\B\C\D\E\F\G\H\I\J\K\L\M\N\O\P\Q\R\S\T\U\V\W\X\Y\Z
+%%   Lower-case    \a\b\c\d\e\f\g\h\i\j\k\l\m\n\o\p\q\r\s\t\u\v\w\x\y\z
+%%   Digits        \0\1\2\3\4\5\6\7\8\9
+%%   Exclamation   \!     Double quote  \"     Hash (number) \#
+%%   Dollar        \$     Percent       \%     Ampersand     \&
+%%   Acute accent  \'     Left paren    \(     Right paren   \)
+%%   Asterisk      \*     Plus          \+     Comma         \,
+%%   Minus         \-     Point         \.     Solidus       \/
+%%   Colon         \:     Semicolon     \;     Less than     \<
+%%   Equals        \=     Greater than  \>     Question mark \?
+%%   Commercial at \@     Left bracket  \[     Backslash     \\
+%%   Right bracket \]     Circumflex    \^     Underscore    \_
+%%   Grave accent  \`     Left brace    \{     Vertical bar  \|
+%%   Right brace   \}     Tilde         \~}
+%%
+%^^A%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+%    \begin{abstract}
+%      The Information
+%      Mapping\(^{\textrm{\footnotesize\textregistered}}\) method
+%      provides a different methodology for structuring and presenting
+%      information. It claims to be useful for readers who are more
+%      concerned about finding the right information than reading the
+%      document as a whole. Thus short, highly structured, and context
+%      free pieces of information are used.
+%
+%      \texttt{limap.dtx} provides a \LaTeX{} style and a \LaTeX{}
+%      class.  The style contains definitions to typeset maps and
+%      blocks according to the Information Mapping method. The
+%      class provides all definitions to typeset a whole document.
+%    \end{abstract}
+%
+%    \newpage
+%    \tableofcontents
+%    \newpage
+%    
+%    \section{Motivation}
+%    
+%    The information mapping method provides a methodology to
+%    structure information in a special way. The aim is to help a
+%    reader who uses the document to search for relevant information
+%    instead of consuming  it from start to end. The information
+%    mapping method also claims to raise the productivity of writers.
+%
+%    This document does not include an introduction to the information
+%    mapping method. The reader is referred to other documents. Maybe
+%    an acompanying document is distributed with this package.
+%
+%    To support the information mapping method several \LaTeX{} macros
+%    and environments are needed which provide a logical description
+%    of the relevant concepts. Those macros are provided in the
+%    package and class file.
+%    
+%    This package provides both a class file as well as a package. The
+%    package contains the definitions of maps, blocks, and
+%    others. They can be used together with any base class. 
+%
+%    The class load a base class and does some other useful stuff. The
+%    base class can be determined with two class options.
+%    
+%    
+%    \section{The User Interface}
+%    
+%    The main part of the user interface is inherited from \LaTeX. The
+%    major differences are the sectioning commands which are made
+%    obsolete in parts by the information mapping method.
+%
+%    \subsection{Package and Class Options}
+%    The package and the class can take several options to influence
+%    the behaviour of the package or class. 
+%    
+%    First, we describe the settings influencing the languáge specific
+%    settings. They do not make provisions to use the appropriate
+%    hyphenation patterns. They just arrange things such that the
+%    internaly used texts are displaeyed in the choosen language.
+%    \begin{description}
+%    \item [austrian] Activate the language specific text fragments
+%    for the austrian language (in fact German with one minor modification).
+%    \item [german] Activate the language specific text fragments
+%    for the german language.
+%    \item [french] Activate the language specific text fragments
+%    for the french language.
+%    \item [english] Activate the language specific text fragments
+%    for the english language.
+%    \item [USenglish] Activate the language specific text fragments
+%    for the american language.
+%    \end{description}
+%
+%    The class has two additional options to determine the base class
+%    to be used. The first option is the variant. It can take the
+%    following values:
+%    
+%    \begin{description}
+%    \item [base] Use the base set of classes. This is the default.
+%    \item [koma] Use the set of classes from koma-script.
+%    \end{description}
+%
+%    The second option is the class type. It determines which kind of
+%    document to typeset. It can talk the following values:
+%    \begin{description}
+%    \item [book] Typeset a book type document.
+%    \item [report] Typeset a report type document.
+%    \item [article] Typeset a article type document.
+%    \item [letter] Typeset a letter type document.
+%    \end{description}
+%    
+%    The following table shows which base classes are loaded according
+%    to the given values:
+%    
+%    \begin{center}
+%      \begin{tabular}{lcc}\hline
+%      			& \emph{base}	& \emph{koma}	\\\hline
+%      \emph{book}	& book		& scrbook	\\
+%      \emph{report}	& report	& scrreprt	\\
+%      \emph{article}	& article	& scrartcl	\\
+%      \emph{letter}	& latter	& scrlettr	\\\hline
+%      \end{tabular}
+%    \end{center}
+%    
+%    Any option not processed by limap.cls is passed to the base class
+%    used. Thus it is possible to customize those classes any further.
+%    
+%    
+%    \subsection{Macros and Environments}
+%
+%    \DescribeEnv{Block}
+%    The environment |Block| can be used to typeset an IMAP block. It takes
+%    one argument which is the block title.
+%
+%    This environment is active inside a map only. It can't easily be
+%    redefined.
+%
+%    \DescribeMacro{\Block}
+%    The macro |\Block| can be used to typeset an IMAP block. It takes
+%    one argument which is the block title.
+%
+%    This is a shorthand for denoting a block. The end mark can be
+%    omitted if you use the macro instead of the environment.
+%    Nevertheless this is depreciated. 
+%
+%    \DescribeMacro{\WideBlock}
+%    The macro |\WideBlock| can be used to typeset a piece of
+%    information on the whole page width. It is normally used after an
+%    initiating block containng the title of the whole construction.
+%
+%    The macro |\WideBlock| takes one argument which contains the
+%    material to span the whole page width.
+%
+%    \DescribeEnv{Map}
+%    The environment |Map| can be used to typeset an IMAP map. 
+%
+%    \DescribeMacro{\MapTableOfContents}
+%    The macro |\MapTableOfContents| can be used to typeset the table
+%    of contents for a map. This table of contents includes all
+%    submaps of the map it is contained in---not recursively but
+%    only one level deeper.
+%
+%    \DescribeMacro{\maketitle}
+%    The macro |\maketitle| is redefined by the class to show a new
+%    appearance on a title page. It can be used as in the standard
+%    classes. 
+%
+%    
+%    \subsection{The Configuration Options}
+%
+%    The configuration options are settings which can be easily
+%    adapted to suit your personal needs. Nevertheless it is strongly
+%    recommended that you touch them only if you are really knowing
+%    what you are doing and when you are willing to face the
+%    consequences.
+%
+%    \DescribeMacro{\MapRuleWidth}
+%    The macro |\MapRuleWidth| determines the width of the rules drawn
+%    between blocks.
+%
+%    \DescribeMacro{\MapFont}
+%    The macro |\MapFont| determines the font changing command to be
+%    used when starting a new map. 
+%
+%    \DescribeMacro{\MapTitleSize}
+%    The macro |\MapTitleSize| determines the size changing command to
+%    be used when typesetting the title of a map.
+%
+%    \DescribeMacro{\MapTitleContinuedSize}
+%    This macro determines the font changing command to be used for
+%    typesetting the additional text after titles on followup pages of
+%    multipage maps.
+%
+%    \DescribeMacro{\MapParskip}
+%    The macro |\MapParskip| determines the distance of the text from
+%    the separating rules.
+%
+%    \DescribeMacro{\MapTitlefraction}
+%    The macro |\MapTitlefraction| determines the part of the page
+%    width devoted to the title area. It is a fraction in the range
+%    from 0 to 1. 
+%
+%    \DescribeMacro{\MapTextfraction}
+%    This macro determines the part of the page width devoted to the
+%    text area. It is a fraction in the range from 0 to 1.
+%    |\MapTitlefraction| and |\MapTextfraction| should add up to
+%    something less or equal to 1. Otherwise you will get some
+%    ``overfull hbox'' messages.
+%
+%    \DescribeMacro{\MapNewpage}
+%    The macro |\MapNewpage| is expanded whenever a new page is
+%    required between maps. Thus it can be used to suppress the
+%    newpages by |\let|ing it to |\relax|. Note that this is not in
+%    the spirit of the Information Mapping method.
+%
+%    \DescribeMacro{\MapTOC} 
+%    The macro |\MapTOC| is expanded to generate the entry in the
+%    table of contents. It can be redefined to allow another
+%    behaviour.
+%
+%    
+%    \subsection{Changing or Adding Language Specific Settings}
+%
+%    Several strings are used automatically by the current class or
+%    package. Default values for several languages are hardwired in
+%    the implementation. Nevertheless it is possible to change those
+%    language specific settings.
+%
+%    If you create settings for a new language it is highly
+%    recommended to contact the author to integrate them into the
+%    default distribution.
+%
+%    The following macros can be redefined in the preamble after the
+%    package or class has been loaded to reset the language specific
+%    text. 
+%
+%    \DescribeMacro{\MapContinued}
+%    The macro |\MapContinued| contains the text appearing at the end
+%    of map which are continued on the next page.
+%
+%    \DescribeMacro{\MapContinuing}
+%    The macro |\MapContinuing| contains the text appearing at the
+%    beginning of map which are continued from the previous page. It
+%    is typeset after the map title.
+%
+%    \DescribeMacro{\MapTOCname}
+%    The macro |\MapTOCname| contains the text of the heading in table
+%    of contents of maps for the column of map titles.
+%
+%    \DescribeMacro{\MapTOCpage}
+%    The macro |\MapTOCpage| contains the text of the heading in table
+%    of contents of maps for the column of page numbers.
+%
+%    If you want to provide a new language \emph{lang} you can define
+%    the macro |\IMAP@SelectLanguage@|\texttt{\textit{lang}} which
+%    redefines the macros given above. This definition has to be
+%    present before the package is loaded.
+%
+%    Note that the macro name contains a @ character. Thus the
+%    definition should be made in a package of its own.
+%
+%    
+%    \subsection{The Configuration File}
+%
+%    When the class or package is loaded as a last action a
+%    configuration file is loaded if it can be found. The name of the
+%    configuration file is \texttt{limap.cfg}. This file can contain
+%    redefinitions of the several macros to adjust the behaviour of
+%    limap on a per directory, per user or per installation base.
+%
+%    Note that some settings are activated before the configuration
+%    file is loaded. Thus some settings may not have any effect at
+%    all. 
+%
+%
+%
+%    \vfill\noindent\hrulefill
+%
+%    \emph{To be completed}
+%
+%    \noindent\hrulefill\vfill\null
+%
+%    \StopEventually{}
+%    \newpage
+%    \if@undefined\environment
+%    \newenvironment{environment}[1]{}{}
+%    \fi
+%
+%
+%    \section{The Documentation Driver}
+%
+%    The documentation driver is necessary to provide a self
+%    documenting dtx file. With this construction the dtx file can be
+%    run through \LaTeX\ to produce the documentation.
+%
+%    \subsection{The Version Information}
+%
+%    \begin{macro}{\LIMAP@RCS}
+%    The macro |\LIMAP@RCS| is used to parse rcs information. The
+%    second word enclosed in spaces is preserved. The other parts are
+%    ignored. 
+%    \begin{macrocode}
+\def\LIMAP@RCS$#1: #2 #3${#2}
+%    \end{macrocode}
+%    \end{macro}
+%
+%    Now the usual macros are filled. Some of the informations are
+%    taken from strings automatically managed by rcs.
+%
+%    \begin{macro}{\filename}
+%    |\filename| is the name of the dtx file.
+%    \begin{macrocode}
+\def\filename{limap.dtx}
+%    \end{macrocode}
+%    \end{macro}
+%    \begin{macro}{\fileversion}
+%    |\fileversion| is the version number of the dtx file.
+%    \begin{macrocode}
+\xdef\fileversion{\LIMAP@RCS$Revision: 1.2 $}
+%    \end{macrocode}
+%    \end{macro}
+%    \begin{macro}{\filedate}
+%    |\filedate| is the change date of the dtx file.
+%    \begin{macrocode}
+\xdef\filedate{\LIMAP@RCS$Date: 2000/03/01 20:11:42 $}
+%    \end{macrocode}
+%    \end{macro}
+%    \begin{macro}{\docversion}
+%    |\docversion| is version number of the documentation. It is
+%    identical to the version number of the dtx file.
+%    \begin{macrocode}
+\let\docversion=\fileversion
+%    \end{macrocode}
+%    \end{macro}
+%    \begin{macro}{\docdate}
+%    |\docdate| is change date of the documentation. It is
+%    identical to the change date of the dtx file.
+%    \begin{macrocode}
+\let\docdate=\filedate
+%    \end{macrocode}
+%    \end{macro}
+%
+%    \subsection{Producing the Documentation}
+%
+%    The driver section contains a complete \LaTeX\ document which
+%    loads the dtx file. The special class |ltxdoc| is used and some
+%    arraganements are made for this purpose.
+%
+%    \begin{macrocode}
+%<*driver>
+\documentclass{ltxdoc}
+\RequirePackage{textcomp}
+\InputIfFileExists{limap.dcf}{}{}
+\RecordChanges
+\EnableCrossrefs
+\CodelineIndex
+\begin{document}
+\DeleteShortVerb{|}
+\DocInput{\filename}
+\newpage
+\PrintChanges
+\newpage
+\setcounter{IndexColumns}{2}
+\PrintIndex
+\end{document}
+%</driver>
+%    \end{macrocode}
+%
+%    \section{The Implementation}
+%    The rest of the document describes the implementation. Usually it
+%    is not meant for the casual user. Nevertheless it might be
+%    fruitful for those searching for inspiration or for tricks when
+%    using this class or style.
+%
+%    \subsection{Preliminaries and Option Processing}
+%
+%    First of all we request a descent version of \LaTeX\ to be used.
+%
+%    \begin{macrocode}
+\NeedsTeXFormat{LaTeX2e}
+%    \end{macrocode}
+%
+%    \subsubsection{The Package/Class Declarations}
+%
+%    When the package is generated, the package identification is
+%    included. 
+%    \begin{macrocode}
+%<*package>
+\ProvidesPackage{limap}[\filedate\space  gene]
+%</package>
+%    \end{macrocode}
+%
+%    When the class is generated, the class identification is
+%    included. 
+%    \begin{macrocode}
+%<*class>
+\ProvidesClass{limap}[\filedate\space  gene]
+%</class>
+%    \end{macrocode}
+%    
+%    \subsubsection{Language Specific Declarations}
+%
+%    \begin{macro}{\LIMAP@Language}
+%    The macro |\IMAP@Language| determines the language to be used for
+%    several small text fragments to be inserted at certain places. It
+%    is redefinded by package/class options and evaluated at the end
+%    to activate the selected settings.
+%    \begin{macrocode}
+\providecommand\LIMAP@Language{english}
+%    \end{macrocode}
+%    \end{macro}
+%    
+%    \begin{macrocode}
+\DeclareOption{austrian}{\renewcommand\LIMAP@Language{austrian}}
+\DeclareOption{german}{\renewcommand\LIMAP@Language{german}}
+\DeclareOption{french}{\renewcommand\LIMAP@Language{french}}
+\DeclareOption{english}{\renewcommand\LIMAP@Language{english}}
+\DeclareOption{USenglish}{\renewcommand\LIMAP@Language{USenglish}}
+%    \end{macrocode}
+%
+%    \begin{macro}{\ifLIMAP@strict}
+%    The boolean |\ifLIMAP@strict| determines if the lower sectioning
+%    macros should be disabled in the class.
+%    \begin{macrocode}
+\newif\ifLIMAP@strict \LIMAP@stricttrue
+%    \end{macrocode}
+%    \end{macro}
+%
+%    \begin{macrocode}
+\DeclareOption{nonstrict}{\LIMAP@strictfalse}
+%    \end{macrocode}
+%    
+%    \subsubsection{Determining the Appropriate Base Class}
+%
+%    \begin{macrocode}
+%<*class>
+%    \end{macrocode}
+%
+%    \begin{macro}{\LIMAP@ClassType}
+%    The macro |\LIMAP@ClassType| determines the type of the class to
+%    be used. Usually it can take the values |book|, |report|,
+%    |article|, and |letter| (for completeness). This macro is
+%    redefined when the options of the class are evaluated. Finally
+%    this macro helps to select the appropriate base class.
+%    \begin{macrocode}
+\providecommand\LIMAP@ClassType{report}
+%    \end{macrocode}
+%    \end{macro}
+%    
+%    \begin{macrocode}
+\DeclareOption{book}{\renewcommand\LIMAP@ClassType{book}}
+\DeclareOption{report}{\renewcommand\LIMAP@ClassType{report}}
+\DeclareOption{article}{\renewcommand\LIMAP@ClassType{article}}
+\DeclareOption{letter}{\renewcommand\LIMAP@ClassType{letter}}
+%    \end{macrocode}
+%    
+%    \begin{macro}{\LIMAP@Variant}
+%    The macro |\LIMAP@Variant| determines the variant of the class to
+%    be used. Usually it can take the values |base| and |koma|. This
+%    macro is redefined when the options of the class are evaluated.
+%    Finally this macro helps to select the appropriate base class.
+%    \begin{macrocode}
+\providecommand\LIMAP@Variant{base}
+%    \end{macrocode}
+%    \end{macro}
+%    
+%    \begin{macrocode}
+\DeclareOption{koma}{\renewcommand\LIMAP@Variant{koma}}
+\DeclareOption{base}{\renewcommand\LIMAP@Variant{base}}
+%    \end{macrocode}
+%
+%    Define a mapping between the variant and class type to the class
+%    name to be used.
+%    \begin{macrocode}
+\newcommand\LIMAP@Class@base@article{article}
+\newcommand\LIMAP@Class@base@report{report}
+\newcommand\LIMAP@Class@base@book{book}
+\newcommand\LIMAP@Class@base@letter{letter}
+\newcommand\LIMAP@Class@koma@article{scrartcl}
+\newcommand\LIMAP@Class@koma@report{scrreprt}
+\newcommand\LIMAP@Class@koma@book{scrbook}
+\newcommand\LIMAP@Class@koma@letter{scrlettr}
+%    \end{macrocode}
+%
+%    \begin{macrocode}
+\DeclareOption*{\PassOptionsToClass{\CurrentOption}{%
+    \csname LIMAP@Class@\LIMAP@Variant @\LIMAP@ClassType\endcsname}%
+  }
+%    \end{macrocode}
+%
+%    Thus the class specific options are completed.
+%    \begin{macrocode}
+%</class>
+%    \end{macrocode}
+%    
+%    Now we can process all options. 
+%    \begin{macrocode}
+\ProcessOptions
+%    \end{macrocode}
+%
+%    \begin{macrocode}
+%<*class>
+%    \end{macrocode}
+%    The requested class is loaded and the options remaining are
+%    processed. 
+%    \begin{macrocode}
+\LoadClass{\csname LIMAP@Class@\LIMAP@Variant @\LIMAP@ClassType\endcsname}
+%</class>
+%    \end{macrocode}
+%
+%    \subsubsection{Loading Required Packages}
+%
+%    The package |longtable| is used internally to implement a part of
+%    the required functionality. Thus we need to ensure that it is
+%    loaded. 
+%    \begin{macrocode}
+\RequirePackage{longtable}
+%    \end{macrocode}
+%
+%    The package |booktabs| is used internally to implement a part of
+%    the required functionality. Thus we need to ensure that it is
+%    loaded. 
+%    \begin{macrocode}
+\RequirePackage{booktabs}
+%    \end{macrocode}
+%    
+%    
+%    \begin{macrocode}
+%<*class>
+\RequirePackage{fancyhdr}
+\addtolength{\headheight}{2ex}%
+\pagestyle{fancy}%
+\cfoot{}
+\rhead{\small\thepage}
+\lhead{\textit{\footnotesize\@title}}
+\def\@title{}
+%</class>
+%    \end{macrocode}
+%
+%    Since the blocks are not supposed to line up at the end of the
+%    page we declare |\raggedbottom|.
+%    \begin{macrocode}
+\raggedbottom
+%    \end{macrocode}
+%    
+%    \subsection{Layout Parameters}
+%
+%    The layout can be influenced by a large number of
+%    parameters. Thus the design decisions have been made transparent
+%    (to a certain degree at least). These options are not meant to be
+%    changed except when a new layout is beeing designed and implemented.
+%
+%    \begin{macro}{\MapRuleWidth}
+%    The macro |\MapRuleWidth| determines the width of the rules drawn
+%    between blocks. 
+%    \begin{macrocode}
+\newcommand\MapRuleWidth{.25pt}
+%    \end{macrocode}
+%    \end{macro}
+%
+%    \begin{macro}{\MapContinued}
+%    This macro determines the text to be used in the title of
+%    continued maps. This macro is reset when the language specific
+%    initializations are performed.
+%    \begin{macrocode}
+\newcommand\MapContinued{}
+%    \end{macrocode}
+%    \end{macro}
+%
+%    \begin{macro}{\MapContinuing}
+%    The macro |\MapContinuing| determines the  text to be used at the
+%    bottom of the map which is continued. This macro is reset when
+%    the language specific initializations are performed.
+%    \begin{macrocode}
+\newcommand\MapContinuing{}
+%    \end{macrocode}
+%    \end{macro}
+%
+%    \begin{macro}{\MapContinuingFormat}
+%    This macro determines the format of the bottom line on continued
+%    maps. I.e. it includes the text as well as font changing
+%    commands. The text is passed to this command as argument 1.
+%    \begin{macrocode}
+\newcommand\MapContinuingFormat[1]{\textit{\footnotesize #1}}
+%    \end{macrocode}
+%    \end{macro}
+%
+%    \begin{macro}{\MapContinuedFormat}
+%    This macro determines the format of the bottom line on continued
+%    maps. I.e. it includes the text passed to it as argument 1 as
+%    well as font changing commands. 
+%    \begin{macrocode}
+\newcommand\MapContinuedFormat[1]{, {\MapTitleContinuedSize #1}}
+%    \end{macrocode}
+%    \end{macro}
+%
+%    \begin{macro}{\MapFont}
+%    The macro |\MapFont| determines the font changing command to be
+%    used when starting a new map. 
+%    \begin{macrocode}
+\let\MapFont\textsf
+%    \end{macrocode}
+%    \end{macro}
+%
+%    \begin{macro}{\MapTitleSize}
+%    The macro |\MapTitleSize| determines the size changing command to
+%    be used when typesetting the title of a map.
+%    \begin{macrocode}
+\let\MapTitleSize\Large
+%    \end{macrocode}
+%    \end{macro}
+%
+%    \begin{macro}{\MapTitleContinuedSize}
+%    This macro determines the font changing command to be used for
+%    typesetting the additional text after titles on followup pages of
+%    multipage maps.
+%    \begin{macrocode}
+\let\MapTitleContinuedSize\small
+%    \end{macrocode}
+%    \end{macro}
+%
+%    \begin{macro}{\MapParskip}
+%    The macro |\MapParskip| determines the distance of the text from
+%    the separating rules.
+%    \begin{macrocode}
+\newcommand\MapParskip{2ex}
+%    \end{macrocode}
+%    \end{macro}
+%
+%    \begin{macro}{\MapTitlefraction}
+%    The macro |\MapTitlefraction| determines the part of the page
+%    width devoted to the title area. It is a fraction in the range
+%    from 0 to 1. 
+%    \begin{macrocode}
+\newcommand\MapTitlefraction{.2}
+%    \end{macrocode}
+%    \end{macro}
+%
+%    \begin{macro}{\MapTextfraction}
+%    This macro determines the part of the page width devoted to the
+%    text area. It is a fraction in the range from 0 to 1.
+%    |\MapTitlefraction| and |\MapTextfraction| should add up to
+%    something less or equal to 1. Otherwise you will get some
+%    ``overfull hbox'' messages.
+%    \begin{macrocode}
+\newcommand\MapTextfraction{.75}
+%    \end{macrocode}
+%    \end{macro}
+%
+%    \subsection{Adaptable Macros}
+%
+%    \begin{macro}{\MapNewpage}
+%    The macro |\MapNewpage| is expanded whenever a new page is
+%    required between maps. Thus it can be used to suppress the
+%    newpages by |\let|ing it to |\relax|.
+%    \begin{macrocode}
+\let\MapNewpage\newpage
+%    \end{macrocode}
+%    \end{macro}
+%
+%    \begin{macro}{\MapTOC}
+%    The macro |\MapTOC| is expanded to generate the entry in the
+%    table of contents. It can be redefined to allow another
+%    behaviour.
+%    \begin{macrocode}
+\newcommand\MapTOC[1]{%
+  \refstepcounter{\@nameuse{Map@TOC@name\the\Map@level}}%
+  \addcontentsline{toc}{\@nameuse{Map@TOC@name\the\Map@level}}{#1}%
+}
+%    \end{macrocode}
+%    \end{macro}
+%
+%    \begin{macro}{\MapTOCname}
+%    The macro |\MapTOCname| contains the heading for the section title
+%    in contents blocks. This macro is reset when the language specific
+%    initializations are performed.
+%    \begin{macrocode}
+\newcommand\MapTOCname{}
+%    \end{macrocode}
+%    \end{macro}
+%
+%    \begin{macro}{\MapTOCpage}
+%    The macro |\MapTOCpage| contains the heading for the page number
+%    in contents blocks. This macro is reset when the language specific
+%    initializations are performed.
+%    \begin{macrocode}
+\newcommand\MapTOCpage{}
+%    \end{macrocode}
+%    \end{macro}
+%
+%    \begin{macro}{\MapTOCemph}
+%    The macro |\MapTOCemph| 
+%    \begin{macrocode}
+\let\MapTOCemph=\emph
+%    \end{macrocode}
+%    \end{macro}
+%
+%    \subsection{Language Specific Macros}
+%
+%    This section contains interanl macros used to implement the
+%    functionality. New languages can be easily be added. For this
+%    puropose only a new macro has to be defined and a package/class
+%    option for the convenience of the user.
+%
+%    Consider you want to add a new language ``latin'' then you have
+%    to provide the command |\LIMAP@SelectLanguage@latin|. This macro
+%    should simply redefine the macros containing strings of the
+%    language specific texts. Examples for other languages are
+%    provided in this section.
+%
+%    To enable the language settings for ``latin'' the macro
+%    |\LIMAP@Language| has to be defined to contain the value
+%    ``latin''. Usually this is accomplished by providing a convenient
+%    option to the package or class.
+%
+%    \begin{macro}{\LIMAP@SelectLanguage@austrian}
+%    Provide the definition for the langauge ``austrian''.
+%    \begin{macrocode}
+\providecommand\LIMAP@SelectLanguage@austrian{%
+  \renewcommand\MapContinued{ Fortsetzung}%
+  \renewcommand\MapContinuing{Fortsetzung\dots}
+  \renewcommand\MapTOCname{Titel}
+  \renewcommand\MapTOCpage{Seite}
+}
+%    \end{macrocode}
+%    \end{macro}
+%
+%    \begin{macro}{\LIMAP@SelectLanguage@german}
+%    Provide the definitions for the laguage ``german''.
+%    \begin{macrocode}
+\providecommand\LIMAP@SelectLanguage@german{%
+  \renewcommand\MapContinued{ Fortsetzung}%
+  \renewcommand\MapContinuing{Fortsetzung\dots}
+  \renewcommand\MapTOCname{Titel}
+  \renewcommand\MapTOCpage{Seite}
+}
+%    \end{macrocode}
+%    \end{macro}
+%
+%    \begin{macro}{\LIMAP@SelectLanguage@english}
+%    Provide the definitions for the language ``english''.
+%    \begin{macrocode}
+\providecommand\LIMAP@SelectLanguage@english{%
+  \renewcommand\MapContinued{ Continued}%
+  \renewcommand\MapContinuing{Continuing\dots}
+  \renewcommand\MapTOCname{Title}
+  \renewcommand\MapTOCpage{Page}
+}
+%    \end{macrocode}
+%    \end{macro}
+%
+%    \begin{macro}{\LIMAP@SelectLanguage@USenglish}
+%    Provide the definitions for the language ``USenglish''.
+%    \begin{macrocode}
+\providecommand\LIMAP@SelectLanguage@USenglish{%
+  \renewcommand\MapContinued{ Continued}%
+  \renewcommand\MapContinuing{Continuing\dots}
+  \renewcommand\MapTOCname{Title}
+  \renewcommand\MapTOCpage{Page}
+}
+%    \end{macrocode}
+%    \end{macro}
+%
+%
+%    \subsection{Internal Macros, Lengths, and Counters}
+%
+%    This section contains internal macros used to implement the
+%    functionality. 
+%
+%    \begin{macro}{\Map@length}
+%    The length register |\Map@length| is allocated to store the width
+%    of the space between the columns of a block.
+%    \begin{macrocode}
+\newlength{\Map@length}
+%    \end{macrocode}
+%    \end{macro}
+%
+%    \begin{macro}{\Map@level}
+%    The macro |\Map@level| determines the level of inclusion of
+%    maps. It is used to determine the appearence in the table of
+%    contents. 
+%    \begin{macrocode}
+\newcount\Map@level
+\Map@level=0
+%    \end{macrocode}
+%    \end{macro}
+%
+%    \begin{macro}{\Map@blockcount}
+%    The macro |\Map@blockcount| is used to count the blocks per map
+%    to issue a style warning if required.
+%    \begin{macrocode}
+\newcount\Map@blockcount
+%    \end{macrocode}
+%    \end{macro}
+%
+%    \begin{macro}{\ifMap@open@}
+%    The conditional |\ifMap@open@| is used to record the opening and
+%    closing of the |longtable| environment, since can not be used
+%    inside itself. Thus it can be closed before a new instance is
+%    opened. 
+%    \begin{macrocode}
+\newif\ifMap@open@
+\Map@open@false
+%    \end{macrocode}
+%    \end{macro}
+%
+%    \begin{macro}{\Map@TOC@name}
+%    The macros |\Map@TOC@name|\dots provide a mapping between a
+%    number and a sectioning unit. This mapping is used when the
+%    entry in the table of contents is generated.
+%    \begin{macrocode}
+\@namedef{Map@TOC@name0}{chapter}
+\@namedef{Map@TOC@name1}{section}
+\@namedef{Map@TOC@name2}{subsection}
+\@namedef{Map@TOC@name3}{subsubsection}
+\@namedef{Map@TOC@name4}{paragraph}
+\@namedef{Map@TOC@name5}{subparagraph}
+\@namedef{Map@TOC@name6}{subsubparagraph}
+\@namedef{Map@TOC@name7}{subsubparagraph}
+\@namedef{Map@TOC@name8}{subsubparagraph}
+\@namedef{Map@TOC@name9}{subsubparagraph}
+\@namedef{Map@TOC@name10}{subsubparagraph}
+\@namedef{Map@TOC@name11}{subsubparagraph}
+\@namedef{Map@TOC@name12}{subsubparagraph}
+%    \end{macrocode}
+%    \end{macro}
+%
+%    \begin{macro}{\Map@start}
+%    The macro |\Map@start| is used to initiate the use of a map. It
+%    uses the |longtable| environment to perform the page breaking and
+%    marking of continued pages.
+%    \begin{macrocode}
+\newcommand\Map@start{%
+%  \typeout{--- MAP START}%
+  \setlength{\Map@length}{\textwidth}%
+  \addtolength{\Map@length}{-\MapTitlefraction\textwidth}%
+  \addtolength{\Map@length}{-\MapTextfraction\textwidth}%
+  \MapTOC{\Map@TITLE}%
+  \longtable
+    {@{}p{\MapTitlefraction\textwidth}@{\hspace{\Map@length}}
+        p{\MapTextfraction\textwidth}@{}}%
+      \multicolumn{2}{@{}p{\textwidth}@{}}{%
+        \MapFont{\MapTitleSize\rule{0pt}{3ex}%
+          \Map@TITLE}}
+    \endfirsthead
+      \multicolumn{2}{@{}p{\textwidth}@{}}{%
+        \MapFont{\MapTitleSize\rule{0pt}{3ex}%
+          \Map@TITLE\MapContinuedFormat{\MapContinued}}}%
+    \endhead
+      \par\vspace*{-\parskip}\vspace*{-2ex}\\
+      &\rule{\MapTextfraction\textwidth}{\MapRuleWidth}\newline
+      \mbox{}\hfill\raisebox{3pt}{\MapContinuingFormat{\MapContinuing}}
+    \endfoot
+      &\rule{\MapTextfraction\textwidth}{\MapRuleWidth}%
+       \vspace{\MapParskip}
+    \endlastfoot
+    \xdef\@currentlabel{\Map@TITLE}%
+    \global\Map@open@true
+}
+%    \end{macrocode}
+%    \end{macro}
+%
+%    \begin{macro}{\Map@end}
+%    The macro |\Map@end| is expanded when the end of the end of the
+%    |longtable| environment might be needed. The boolean |\ifMap@open@|
+%    determines whether such an environment is really open.
+%    \begin{macrocode}
+\newcommand\Map@end{%
+%  \typeout{--- MAP END}%
+  \ifMap@open@
+    \global\Map@open@false
+    \endlongtable
+    \MapNewpage
+  \fi
+  \iftrue
+   \ifnum\Map@blockcount>9
+    \PackageWarning{limap}%
+    {*** The current map contains too much blocks: \the\Map@blockcount}%
+   \else\ifnum\Map@blockcount>7
+    \PackageWarning{limap}%
+    {--- The current map contains \the\Map@blockcount blocks.}%
+   \fi\fi
+  \fi
+}
+%    \end{macrocode}
+%    \end{macro}
+%
+%    \begin{macro}{\Map@UP}
+%    The macro |\Map@UP| contains the number of the parent map or the
+%    empty string.
+%    \begin{macrocode}
+\newcommand\Map@UP{}
+%    \end{macrocode}
+%    \end{macro}
+%
+%    \begin{macro}{\Map@no}
+%    The counter |\Map@no| contains the sequence number for all
+%    maps. This value is used internally to reference single maps.
+%    \begin{macrocode}
+\newcount\Map@no
+%    \end{macrocode}
+%    \end{macro}
+%
+%    \begin{macro}{\Map@parts@}
+%    The macro |\Map@parts@| is used to store the parts of the
+%    toplevel maps. This is the initialization of a feature otherwise
+%    used in the aux file.
+%    \begin{macrocode}
+\@namedef{Map@parts@}{}
+%    \end{macrocode}
+%    \end{macro}
+%
+%    \subsection{Typesetting a Map}
+%
+%    \begin{environment}{Map}
+%    This environment determines the apearance of a Map. It is
+%    implemented as a longtable environment which takes care for the
+%    page breaks and inserts material at the end of the page and the
+%    beginning of the new page upon page break.
+%    \begin{macrocode}
+\newenvironment{Map}[1]{%
+%    \end{macrocode}
+%    First the messages of |longtable| are modified to show this
+%    package name instead.
+%    \begin{macrocode}
+  \def\LT@err{\PackageError{limap}}%
+  \def\LT@warn{\PackageWarning{limap}}%
+%    \end{macrocode}
+%    The map local macro |\Block| and the environment |Block| is
+%    activated. The counter for blocks is reset.
+%    \begin{macrocode}
+  \let\Block\Map@Block
+  \let\endBlock\Map@endBlock
+  \Map@blockcount=0
+%    \end{macrocode}
+%    The number of the map in the internal counting is set by
+%    incrementing the old value.
+%    \begin{macrocode}
+  \global\advance\Map@no1
+%  \typeout{--- \the\Map@no: \Map@UP}%
+%    \end{macrocode}
+%    
+%    \begin{macrocode}
+  \ifx\Map@UP\empty\else
+    \immediate\write\@auxout
+      {\string\expandafter\string\xdef\string\csname\space
+        Map@parts@\Map@UP\string\endcsname{\string\csname\space 
+          Map@parts@\Map@UP\string\endcsname\the\Map@no:}}%
+  \fi
+%    \end{macrocode}
+%    
+%    \begin{macrocode}
+  \edef\Map@UP{\the\Map@no}%
+  \ifnum\Map@level>0
+    \xdef\Map@@up{\Map@UP}% Just to save the value across blocks.
+    \endgroup
+%    \typeout{--- Closing Map \the\Map@level}%
+    \Map@end
+    \begingroup
+    \edef\Map@UP{\Map@@up}%
+    \def\@currenvir{Map}%
+  \fi
+  \edef\Map@this{\the\Map@no}%
+%    \end{macrocode}
+%    The entries for future use of submaps are written to the aux file.
+%    \begin{macrocode}
+  \immediate\write\@auxout
+    {\string\global\string\@namedef{Map@title@\the\Map@no}{#1}}%
+  \immediate\write\@auxout
+    {\string\global\string\@namedef{Map@page@\the\Map@no}{\the\c@page}}%
+  \immediate\write\@auxout
+    {\string\global\string\@namedef{Map@parts@\the\Map@no}{}}%
+%    \end{macrocode}
+%    
+%    \begin{macrocode}
+%  \typeout{--- Opening Map \the\Map@level}%
+  \global\advance\Map@level1
+  \def\Map@TITLE{#1}%
+  \Map@start
+%    \end{macrocode}
+%
+%    \begin{macrocode}
+  }{%
+%    \end{macrocode}
+%
+%    \begin{macrocode}
+  \Map@end
+  \global\advance\Map@level-1
+%  \typeout{--- At end of Map \Map@this  level \the\Map@level}%
+}
+%    \end{macrocode}
+%    \end{environment}
+%
+%    \subsection{Typesetting a Block}
+%
+%    \begin{environment}{Map@Block}
+%    This macro is used to typeset a block inside a Map. To avoid
+%    abuse outside of a map it is activated within a Map only.
+%    \begin{macrocode}
+\newenvironment{Map@Block}[1]{\par\vspace*{-\parskip}\vspace*{-2ex}%
+  \\\null\par
+  \vspace*{\MapParskip}%
+  \raggedright\hspace{0pt}\MapFont{#1}%
+  \gdef\@currentlabel{#1}%
+%  \global\advance\Map@blockcount1
+  &\parskip=\MapParskip
+  \rule{\MapTextfraction\textwidth}{\MapRuleWidth}\par
+%    \end{macrocode}
+%
+%    The final action is empty. Thus the block can be used as a simple
+%    macro as well. 
+%    \begin{macrocode}
+}{%
+}
+%    \end{macrocode}
+%    \end{environment}
+%
+%    \begin{macro}{\WideBlock}
+%    The macro |\WideBlock| takes one argument which is added to the
+%    current block where the whole width of the table is used.
+%    \begin{macrocode}
+\newcommand\Wide@Block{\\\multicolumn2{@{}l@{}}}{}
+%    \end{macrocode}
+%    \end{macro}
+%
+%    \subsection{Typesetting a Table of Contents}
+%
+%    \begin{macro}{\MapTableOfContents}
+%    The macro |\MapTableOfContents| produces the table of contents
+%    for the current map. It produces a tabular containing the
+%    titels and pages of all maps directly contained in the current
+%    map. 
+%    \begin{macrocode}
+\newcommand\MapTableOfContents{%
+  \medskip\par
+  \xdef\Map@@{\csname Map@parts@\the\Map@no\endcsname}%
+  \gdef\Map@@@{}%
+  \centering
+  \begin{tabular}{p{.6\textwidth}r}\toprule
+    \MapTOCemph{\MapTOCname}&\MapTOCemph{\MapTOCpage}\\
+    \midrule
+    \expandafter\Map@toc@loop \Map@@:%
+    \\\bottomrule
+  \end{tabular}
+}
+%    \end{macrocode}
+%    \end{macro}
+%
+%    \begin{macro}{\Map@toc@loop}
+%    The macro |\Map@toc@loop| is a recursive solution to loop throup
+%    all elements of a list of children.
+%    \begin{macrocode}
+\def\Map@toc@loop#1:{%
+  \def\Map@@{#1}%
+  \ifx\Map@@\empty
+    \global\let\Map@@=\relax
+  \else
+    \gdef\Map@@{\Map@@@\@nameuse{Map@title@#1}&\@nameuse{Map@page@#1}%
+      \global\let\Map@@@=\\%
+      \Map@toc@loop}%
+  \fi
+  \Map@@
+}
+%    \end{macrocode}
+%    \end{macro}
+% 
+%    \subsection{Typesetting a Title Page}
+%
+%    \begin{macro}{\MakeTitle}
+%    The macro |\MakeTitle| can be used as a replacement for the
+%    |\maketitle| macro.
+%    \begin{macrocode}
+\newcommand\MakeTitle{\thispagestyle{empty}
+  \rule{0pt}{.25\textheight}\par
+  \mbox{}\hfill
+  \begin{minipage}{\MapTextfraction\textwidth}
+    \raggedright
+    \rule{\textwidth}{1pt}\par
+    \vspace*{5ex}%
+    \sf{\huge \@title\par}%
+    \vspace*{5ex}%
+    \rule{\textwidth}{1pt}\par
+    \vspace*{5ex}%
+    \MapFont{\large \@author}	\par
+    \vspace*{10ex}%
+    \MapFont{\footnotesize \@date}
+    \vspace*{10ex}%
+  \end{minipage}%
+  \par
+}
+%    \end{macrocode}
+%    \end{macro}
+%
+%    The new |\maketitle| macro is activated for the class.
+%
+%    \begin{macrocode}
+%<*class>
+\let\maketitle\MakeTitle
+%</class>
+%    \end{macrocode}
+%    
+%    \subsection{Final Actions}
+%
+%    Load the configuration file at the end if it can be found.
+%    \begin{macrocode}
+\InputIfFileExists{limap.cfg}{}{}
+%    \end{macrocode}
+%
+%    Finally we have to activate the proper settings for the choosen
+%    language.
+%    \begin{macrocode}
+\csname LIMAP@SelectLanguage@\LIMAP@Language\endcsname
+%    \end{macrocode}
+%
+%    \begin{macrocode}
+\ifLIMAP@strict
+%  \def\section{\PackageWarning{limap}{The sectioning command 
+%      `section' is not available.}}
+  \def\subsection{\PackageWarning{limap}{The sectioning command
+      `subsection' is not available.}}
+  \def\subsubsection{\PackageWarning{limap}{The sectioning command
+      `subsubsection' is not available.}}
+  \def\paragraph{\PackageWarning{limap}{The sectioning command
+      `paragraph' is not available.}}
+  \def\subparagraph{\PackageWarning{limap}{The sectioning command
+      `subparagraph' is not available.}}
+  \def\subsubparagraph{\PackageWarning{limap}{The sectioning command
+      `subsubparagraph' is not available.}}
+\fi
+%    \end{macrocode}
+%
+%    That's all.
+%
+%    \Finale
+%
+\endinput
+%
+% Local Variables: 
+% mode: latex
+% TeX-master: "limap.dtx"
+% End: 

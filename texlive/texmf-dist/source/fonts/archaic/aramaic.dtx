@@ -1,0 +1,1186 @@
+% \iffalse meta-comment
+%
+% aramaic.dtx
+%
+%  Author: Peter Wilson (Herries Press) herries dot press at earthlink dot net
+%  Copyright 1999--2005 Peter R. Wilson
+%
+%  This work may be distributed and/or modified under the
+%  conditions of the Latex Project Public License, either
+%  version 1.3 of this license or (at your option) any
+%  later version.
+%  The latest version of the license is in
+%    http://www.latex-project.org/lppl.txt
+%  and version 1.3 or later is part of all distributions of
+%  LaTeX version 2003/06/01 or later.
+%
+%  This work has the LPPL maintenance status "author-maintained".
+%
+%  This work consists of the files listed in the README file.
+%
+%
+%<*driver>
+\documentclass[twoside]{ltxdoc}
+\usepackage{url}
+\usepackage[draft=false,
+            plainpages=false,
+            pdfpagelabels,
+            bookmarksnumbered,
+            hyperindex=false
+           ]{hyperref}
+\providecommand{\phantomsection}{}
+\OnlyDescription %% comment this out for the full glory
+\EnableCrossrefs
+\CodelineIndex
+\setcounter{StandardModuleDepth}{1}
+\makeatletter
+  \@mparswitchfalse
+\makeatother
+\renewcommand{\MakeUppercase}[1]{#1}
+\pagestyle{headings}
+\newenvironment{addtomargins}[1]{%
+  \begin{list}{}{%
+    \topsep 0pt%
+    \addtolength{\leftmargin}{#1}%
+    \addtolength{\rightmargin}{#1}%
+    \listparindent \parindent
+    \itemindent \parindent
+    \parsep \parskip}%
+  \item[]}{\end{list}}
+\begin{document}
+  \raggedbottom
+  \DocInput{aramaic.dtx}
+\end{document}
+%</driver>
+%
+%
+% \fi
+%
+% \CheckSum{242}
+%
+% \DoNotIndex{\',\.,\@M,\@@input,\@addtoreset,\@arabic,\@badmath}
+% \DoNotIndex{\@centercr,\@cite}
+% \DoNotIndex{\@dotsep,\@empty,\@float,\@gobble,\@gobbletwo,\@ignoretrue}
+% \DoNotIndex{\@input,\@ixpt,\@m}
+% \DoNotIndex{\@minus,\@mkboth,\@ne,\@nil,\@nomath,\@plus,\@set@topoint}
+% \DoNotIndex{\@tempboxa,\@tempcnta,\@tempdima,\@tempdimb}
+% \DoNotIndex{\@tempswafalse,\@tempswatrue,\@viipt,\@viiipt,\@vipt}
+% \DoNotIndex{\@vpt,\@warning,\@xiipt,\@xipt,\@xivpt,\@xpt,\@xviipt}
+% \DoNotIndex{\@xxpt,\@xxvpt,\\,\ ,\addpenalty,\addtolength,\addvspace}
+% \DoNotIndex{\advance,\Alph,\alph}
+% \DoNotIndex{\arabic,\ast,\begin,\begingroup,\bfseries,\bgroup,\box}
+% \DoNotIndex{\bullet}
+% \DoNotIndex{\cdot,\cite,\CodelineIndex,\cr,\day,\DeclareOption}
+% \DoNotIndex{\def,\DisableCrossrefs,\divide,\DocInput,\documentclass}
+% \DoNotIndex{\DoNotIndex,\egroup,\ifdim,\else,\fi,\em,\endtrivlist}
+% \DoNotIndex{\EnableCrossrefs,\end,\end@dblfloat,\end@float,\endgroup}
+% \DoNotIndex{\endlist,\everycr,\everypar,\ExecuteOptions,\expandafter}
+% \DoNotIndex{\fbox}
+% \DoNotIndex{\filedate,\filename,\fileversion,\fontsize,\framebox,\gdef}
+% \DoNotIndex{\global,\halign,\hangindent,\hbox,\hfil,\hfill,\hrule}
+% \DoNotIndex{\hsize,\hskip,\hspace,\hss,\if@tempswa,\ifcase,\or,\fi,\fi}
+% \DoNotIndex{\ifhmode,\ifvmode,\ifnum,\iftrue,\ifx,\fi,\fi,\fi,\fi,\fi}
+% \DoNotIndex{\input}
+% \DoNotIndex{\jobname,\kern,\leavevmode,\let,\leftmark}
+% \DoNotIndex{\list,\llap,\long,\m@ne,\m@th,\mark,\markboth,\markright}
+% \DoNotIndex{\month,\newcommand,\newcounter,\newenvironment}
+% \DoNotIndex{\NeedsTeXFormat,\newdimen}
+% \DoNotIndex{\newlength,\newpage,\nobreak,\noindent,\null,\number}
+% \DoNotIndex{\numberline,\OldMakeindex,\OnlyDescription,\p@}
+% \DoNotIndex{\pagestyle,\par,\paragraph,\paragraphmark,\parfillskip}
+% \DoNotIndex{\penalty,\PrintChanges,\PrintIndex,\ProcessOptions}
+% \DoNotIndex{\protect,\ProvidesClass,\raggedbottom,\raggedright}
+% \DoNotIndex{\refstepcounter,\relax,\renewcommand,\reset@font}
+% \DoNotIndex{\rightmargin,\rightmark,\rightskip,\rlap,\rmfamily,\roman}
+% \DoNotIndex{\roman,\secdef,\selectfont,\setbox,\setcounter,\setlength}
+% \DoNotIndex{\settowidth,\sfcode,\skip,\sloppy,\slshape,\space}
+% \DoNotIndex{\symbol,\the,\trivlist,\typeout,\tw@,\undefined,\uppercase}
+% \DoNotIndex{\usecounter,\usefont,\usepackage,\vfil,\vfill,\viiipt}
+% \DoNotIndex{\viipt,\vipt,\vskip,\vspace}
+% \DoNotIndex{\wd,\xiipt,\year,\z@}
+%
+% \changes{v1.0}{1999/03/14}{First public release}
+% \changes{v1.1}{2000/09/30}{Minor changes to glyph encodings}
+% \changes{v1.2}{2005/06/14}{Added Type1 map file}
+%
+% \def\fileversion{v1.0} \def\filedate{1999/03/14}
+% \def\fileversion{v1.1} \def\filedate{2000/09/30}
+% \def\fileversion{v1.2} \def\filedate{2005/06/14}
+% \newcommand*{\Lpack}[1]{\textsf {#1}}           ^^A typeset a package
+% \newcommand*{\Lopt}[1]{\textsf {#1}}            ^^A typeset an option
+% \newcommand*{\file}[1]{\texttt {#1}}            ^^A typeset a file
+% \newcommand*{\Lcount}[1]{\textsl {\small#1}}    ^^A typeset a counter
+% \newcommand*{\pstyle}[1]{\textsl {#1}}          ^^A typeset a pagestyle
+% \newcommand*{\Lenv}[1]{\texttt {#1}}            ^^A typeset an environment
+% \newcommand{\BC}{\textsc{bc}}
+% \newcommand{\AD}{\textsc{ad}}
+% \newcommand{\thisfont}{Aramaic}
+%
+% \title{The \Lpack{Aramaic} fonts\thanks{This
+%        file has version number \fileversion, last revised
+%        \filedate.}}
+%
+% \author{%
+% Peter Wilson\thanks{\texttt{herries dor press at earthlink dot net}}\\
+% Herries Press }
+% \date{\filedate}
+% \maketitle
+% \begin{abstract}
+%    The \Lpack{aramaic} bundle provides a set of fonts for the 
+% Aramaic script which was used between about the tenth and second
+% centuries~\BC{} in the Middle East.
+% \end{abstract}
+% \tableofcontents
+%
+% 
+%
+% \section{Introduction}
+%
+% The Phoenician alphabet and characters is a direct ancestor of our modern day
+% Latin alphabet and fonts. 
+% The font presented here is one of a series of fonts intended to show how
+% the modern Latin alphabet has evolved from its original Phoenician form
+% to its present day appearance.
+% 
+% This manual is typeset according to the conventions of the
+% \LaTeX{} \textsc{docstrip} utility which enables the automatic
+% extraction of the \LaTeX{} macro source files~\cite{COMPANION}.
+%
+%    Section~\ref{sec:usc} describes the usage of the package.
+% Commented code for the fonts and source code for the package is in later sections.
+%
+% \subsection{An alphabetic tree}
+%
+%    Scholars are reasonably agreed that all the world's alphabets are descended
+% from a Semitic alphabet invented about 1600~\BC{} in the Middle 
+% East~\cite{DRUCKER95}. The word `Semitic' refers
+% to the family of languages used in the geographical area from
+% Sinai in the south, up the Mediterranean coast to Asia Minor in the north and
+% west to the valley of the Euphrates.
+%
+%    The Phoenician alphabet was stable by about 1100~\BC{} and the script was
+% written right to left. In earlier times the writing direction was variable, 
+% and so were
+% the shapes and orientation of the characters. The alphabet consisted of
+% 22 letters and they were named after things. For example, their first two 
+% letters were called \textit{aleph} (ox), and \textit{beth} (house). 
+% The Phoenician script had
+% only one case --- unlike our modern fonts which have both upper- and 
+% lower-cases. In modern terms the Phoenician abecedary was: \\
+% A B G D E Y Z H $\Theta$ I K L M N X O P ts Q R S T \\
+% where the `Y' (\textit{vau}) character was sometimes written as `F', and
+% `ts' stands for the \textit{tsade} character.
+%
+%    The Greek alphabet is one of the descendants of the Phoenician alphabet;
+% another was Aramaic which is the ancestor of the Arabic, Persian and Indian 
+% scripts.
+% Initially Greek was written right to left but around the 6th C~\BC{} became 
+% \textit{boustrophedron}, meaning that the lines 
+% alternated in direction. At about 500~\BC{} the writing direction stabilised 
+% as left to 
+% right. The Greeks modified the Phoenician alphabet to match the vocalisation
+% of their language. They kept the Phoenician names of the letters, suitably
+% `greekified', so \textit{aleph} became the familar \textit{alpha} and 
+% \textit{beth} became \textit{beta}. At this
+% point the names of the letters had no meaning. Their were several variants
+% of the Greek character glyphs until they were finally fixed in Athens in
+% 403~\BC.
+% The Greeks did not develop a lower-case 
+% script until about 600--700~\AD.
+%
+%    The Etruscans based their alphabet on the Greek one, and again modified it.
+% However, the Etruscans wrote right to left, so their borrowed characters are 
+% mirror images of the original Greek ones. Like the Phoenicians, the Etruscan
+% script consisted of only one case; they died out before ever needing a
+% lower-case script. The Etruscan script was used up until the first century 
+% \AD, even though the Etruscans themselves had dissapeared by that time.
+% 
+%
+%    In turn, the Romans based their alphabet on the Etruscan one, but as they 
+% wrote left to right, the characters were again mirrored (although the early
+% Roman inscriptions are boustrophedron). 
+%
+%    As the English alphabet is descended from the Roman alphabet
+% it has a pedigree of some three and a half thousand years.
+%
+% \section{The \Lpack{aramaic} package} \label{sec:usc}
+%
+%    The \thisfont{} script is an early offshoot from the Phoenician
+% script, eventually leading to the Arabic and square Jewish scripts.
+% It was used between about the tenth and second centuries~\BC{}
+% in the Middle East. The version presented is typical of about the
+% middle of its life.
+%
+%    The alphabet consisted of 22 characters.
+%    Table~\ref{tab} lists, in the \thisfont{} alphabetical order, the
+% transliterated value of the characters and, where I know it, the
+% modern name of the character.
+%
+% \begin{table}
+% \centering
+% \caption{The \thisfont{} script and alphabet}\label{tab}
+% \begin{tabular}{clcll} \hline
+% Value & Name? & ASCII & Command & Command \\ \hline
+% \textit{a} &
+% aleph &
+% ' a & |\Arq| |\Aa| &
+% |\Aaleph| 
+% \\
+% \textit{b} &
+% beth &
+% b & |\Ab| &
+% |\Abeth|
+% \\
+% \textit{g} &
+% gimel &
+% g & |\Ag| &
+% |\Agimel|
+% \\
+% \textit{d} &
+% daleth &
+% d & |\Ad| &
+% |\Adaleth|
+% \\
+% \textit{h} &
+% he &
+% h & |\Ah| &
+% |\Ahe|
+% \\
+% \textit{w} &
+% vav &
+% w & |\Aw| &
+% |\Avav|
+% \\
+% \textit{z} &
+% zayin &
+% z & |\Az| &
+% |\Azayin|
+% \\
+% \textit{\d{h}} &
+% heth &
+% H & |\Ahd| &
+% |\Aheth|
+% \\
+% \textit{\d{t}} &
+% teth &
+% T & |\Atd| &
+% |\Ateth|
+% \\
+% \textit{y} &
+% yod &
+% y & |\Ay| &
+% |\Ayod|
+% \\
+% \textit{k} &
+% kaph &
+% k & |\Ak| &
+% |\Akaph|
+% \\
+% \textit{l} &
+% lamed &
+% l & |\Al| &
+% |\Alamed|
+% \\
+% \textit{m} &
+% mem &
+% m & |\Am| &
+% |\Amem|
+% \\
+% \textit{n} &
+% nun &
+% n & |\An| &
+% |\Anun|
+% \\
+% \textit{s} &
+% samekh &
+% s & |\As| &
+% |\Asamekh|
+% \\
+% \textit{`} &
+% ayin &
+% ` o & |\Alq| |\Ao| &
+% |\Aayin|
+% \\
+% \textit{p} &
+% pe &
+% p & |\Ap| &
+% |\Ape|
+% \\
+% \textit{\d{s}} &
+% sade &
+% x & |\Asd| &
+% |\Asade|
+% \\
+% \textit{q} &
+% qoph &
+% q & |\Aq| &
+% |\Aqoph|
+% \\
+% \textit{r} &
+% resh &
+% r & |\Ar| &
+% |\Aresh|
+% \\
+% \textit{\v{s}} &
+% shin &
+% S & |\Asv| &
+% |\Ashin|
+% \\
+% \textit{t} &
+% tav &
+% t & |\At| &
+% |\Atav|
+% \\
+% \hline
+% \end{tabular}
+% \end{table}
+%
+%
+%
+% \DescribeMacro{\aramfamily}
+%    This command selects the \thisfont{} font family. The family name is |aram|.
+%
+% \DescribeMacro{\textaram}
+% The command |\textaram{|\meta{text}|}| typesets \meta{text} in the
+% \thisfont{} font.
+%
+%    I have provided three ways of accessing the \thisfont{} glyphs: 
+% (a) by ASCII characters,
+% (b) by commands whose names are based on the transliterated values, and
+% (c) by commands whose names are based on the (modern) name of the
+%     character.
+% These are shown in Table~\ref{tab}.
+%
+%
+% \DescribeMacro{\translitaram}
+% The command |\translitaram{|\meta{commands}|}| will typeset the
+% transliteration of the \thisfont{} character commands (those in the
+% last two columns of Table~\ref{tab}).
+%
+% \DescribeMacro{\translitaramfont}
+%   The font used for the transliteration is defined by this macro,
+% which is initialsed to an italic font (i.e., |\itshape|).
+%     
+% \StopEventually{
+% \bibliographystyle{alpha}
+% \begin{thebibliography}{GMS94}
+%
+% \bibitem[Dav97]{DAVIES97}
+% W. V. Davies.
+% \newblock \emph{Reading the Past: Egyptian Hieroglyphs}.
+% \newblock University of California Press/British Museum, 1997.
+% \newblock (ISBN 0-520-06287-6)
+%
+% \bibitem[Dru95]{DRUCKER95}
+% Johanna Drucker.
+% \newblock \emph{The Alphabetic Labyrinth}.
+% \newblock Thames and Hudson, 1995.
+%
+% \bibitem[Fir93]{FIRMAGE93}
+% Richard A.~Firmage.
+% \newblock \emph{The Alphabet Abecedarium}.
+% \newblock David R.~Goodine, 1993.
+%
+% \bibitem[MG04]{COMPANION}
+% Frank Mittelbach and Michel Goossens.
+% \newblock \emph{The LaTeX Companion}.
+% \newblock Addison-Wesley Publishing Company, second edition, 2004.
+%
+% \bibitem[Hea90]{HEALEY90}
+% John F.~Healey.
+% \newblock \emph{Reading the Past: The Early Alphabet}.
+% \newblock University of California Press/British Museum, 1990.
+% \newblock (ISBN 0-520-07309-6)
+%
+% \end{thebibliography}
+% \PrintIndex
+% }
+%
+%
+% \section{The Metafont code} \label{sec:mf}
+%
+% \subsection{The parameter file}
+%
+%    We deal with the parameter file first, and start by announcing
+% what it is for.
+%    \begin{macrocode}
+%<*up>
+%%% ARAM10.MF  Computer Aramaic font 10 point design size.
+
+%    \end{macrocode}
+%    Specify the font size.
+%    \begin{macrocode}
+
+font_identifier:="aramaic"; font_size 10pt#;
+
+%    \end{macrocode}
+%
+%
+% \begin{macro}{u} 
+% \begin{macro}{ht} 
+% \begin{macro}{s} 
+% \begin{macro}{o} 
+% \begin{macro}{px} 
+% \begin{macro}{font-normal-space} 
+% \begin{macro}{font-normal-shrink} 
+% \begin{macro}{font-x-height} 
+% \begin{macro}{font-quad}
+%    Define the very simple font parameters.
+%    \begin{macrocode}
+u#:=.2pt#;      % unit width
+ht#:=7pt#;      % height of characters (CM cap-height is approx 6.8pt)
+s#:=1.5pt#;                % width correction (right and left)
+o#:=1/20pt#;               % overshoot
+px#:=.6pt#;                % horizontal width of pen
+font_normal_space:=7pt#;   % width of a blank space
+font_normal_shrink:=.9pt#; % width correction for blank space
+font_x_height:=4.5pt#;     % height of one ex
+font_quad:=10pt#;          % an em
+
+%    \end{macrocode}
+% \end{macro}
+% \end{macro}
+% \end{macro}
+% \end{macro}
+% \end{macro}
+% \end{macro}
+% \end{macro}
+% \end{macro}
+% \end{macro}
+%
+%    For a full font, normally the driver file would be called
+% here. In this case I have embedded it.
+%    \begin{macrocode} 
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% end of parameters
+% start of driver code
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%    \end{macrocode}
+%
+%
+% \subsection{The driver file}
+%
+%    If there was a seperate driver file, this would be its contents.
+%
+%    \begin{macrocode}
+
+font_coding_scheme:="Aramaic glyphs";
+mode_setup;
+
+%    \end{macrocode}
+%
+% \begin{macro}{ho}
+% \begin{macro}{leftloc}
+% \begin{macro}{py}
+%  Perform additional setup.
+%    \begin{macrocode}
+ho#:=o#;                   % horizontal overshoot
+leftloc#:=s#;              % leftmost xcoord of character
+py#:=.8px#;                % vertical thickness of the pen
+
+define_pixels(s,u);
+define_blacker_pixels(px,py);
+define_good_x_pixels(leftloc);
+define_corrected_pixels(o);             % turn on overshoot correction
+define_horizontal_corrected_pixels(ho);  
+
+%    \end{macrocode}
+% \end{macro}
+% \end{macro}
+% \end{macro}
+%
+% \begin{macro}{midloc}
+% \begin{macro}{rightloc}
+%    Variables for the middle xcoord and rightmost xcoord of a character.
+%    \begin{macrocode}
+numeric midloc, rightloc;
+%    \end{macrocode}
+% \end{macro}
+% \end{macro}
+%
+% \begin{macro}{stylus}
+%    Define the pen.
+%    \begin{macrocode}
+pickup pencircle xscaled px yscaled py;
+stylus:=savepen;
+
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{beginglyph}
+%    A macro to save some typing of beginchar arguments.
+%    \begin{macrocode}
+def beginglyph(expr code, unit_width) =
+  beginchar(code, unit_width*ht#+2s#, ht#, 0);
+  midloc:=1/2w; rightloc:=(w-s);
+  pickup stylus enddef;
+
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{cmchar}
+%    |cmchar| should precede each character
+%    \begin{macrocode}
+let cmchar=\;
+
+%    \end{macrocode}
+% \end{macro}
+%
+%    \begin{macrocode}
+newinternal defaultsmoothrad;
+numeric smoothrad, defaultsmoothrad;
+defaultsmoothrad := 2px;
+smoothrad := 2px;
+
+tertiarydef p ~ q =
+  begingroup
+  c_ := fullcircle scaled 2smoothrad shifted point 0 of q;
+  a_ := ypart(c_ intersectiontimes p);
+  b_ := ypart(c_ intersectiontimes q);
+  if a_ < 0: point 0 of p{direction 0 of p} else: subpath(0,a_) of p fi
+     ... if b_ < 0: {direction infinity of q}point infinity of q
+         else: subpath(b_,infinity) of q fi
+  endgroup
+enddef;
+
+def smoothly(text t) =
+  hide(n_:=0; for z=t: z_[incr n_]:= z; endfor)
+  (z_1 for k=2 upto n_-1: --z_[k]) ~ (z_[k] endfor --z_[n_])
+enddef;
+
+%    \end{macrocode}
+% 
+%    That would be the end of a seperate drive file, except for calling
+% the glyph code file.
+%
+% \subsection{The glyph code}
+%
+%    The following code generates the glyphs for the Aramaic font. 
+% The characters
+% are defined in the Phoenician alphabetic ordering.
+%
+%    \begin{macrocode}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% end of driver code
+% start of glyph code
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%    \end{macrocode}
+%
+% \begin{macro}{'}
+% The \thisfont{} letter \textit{aleph}. Like an X.
+%    \begin{macrocode}
+ 
+cmchar "Aramaic letter aleph (coded as ')";
+beginglyph("'",1.0);
+numeric n[];
+n1 := rightloc-leftloc;  % glyph width
+z1=(leftloc,0); z2=(rightloc,h);
+z3=(midloc,h/2);
+draw z1{dir(45)}..z3{right}..{up}z2;
+z11=(1/4[leftloc,rightloc],h); z12=(rightloc,0);
+draw z11--z12;
+labels(1,2,3,4,5,11,12);
+endchar;
+
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{a}
+% The \thisfont{}letter \textit{aleph}.
+%    \begin{macrocode}
+ 
+cmchar "Aramaic letter aleph (coded as a)";
+beginglyph("a",1.0);
+numeric n[];
+n1 := rightloc-leftloc;  % glyph width
+z1=(leftloc,0); z2=(rightloc,h);
+z3=(midloc,h/2);
+draw z1{dir(45)}..z3{right}..{up}z2;
+z11=(1/4[leftloc,rightloc],h); z12=(rightloc,0);
+draw z11--z12;
+labels(1,2,3,4,5,11,12);
+endchar;
+
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{b}
+% The \thisfont{} letter \textit{bet}. Like a lowercase y.
+%    \begin{macrocode}
+ 
+cmchar "Aramaic letter bet (coded as b)";
+beginglyph("b",0.8);
+z1=(1/4[leftloc,rightloc],h);
+z2=(x1,3/4h);
+z3=(rightloc,y2);
+z5=(leftloc,0);
+%%draw z1--z2--z3;
+draw smoothly(z1, z2, z3);
+draw z3{dir(-120)}..{left}z5;
+labels(1,2,3,4,5); endchar;
+ 
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{g}
+%    The \thisfont{} letter \textit{gimel}. Like a stick bent into 
+%an upside down V.
+%    \begin{macrocode}
+ 
+cmchar "Aramaic letter gimel (coded as g)";
+beginglyph("g", 0.7);
+z1=(leftloc, 1/3h);
+z2=(rightloc,h);
+z3=(rightloc,0);
+%%draw z1--z2--z3;
+draw smoothly(z1, z2, z3);
+labels(1,2,3,4); endchar;
+ 
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{d}
+% The \thisfont{} letter \textit{dalet}. More y-like than bet.
+%    \begin{macrocode}
+ 
+cmchar "Aramaic letter dalet (coded as d)";
+beginglyph("d",0.6);
+z1=(leftloc,h);
+z2=(x1,3/4h);
+z3=(rightloc,h);
+z4=(rightloc,0);
+draw z1{down}..{up}z3;
+draw z3--z4;
+labels(1,2,3,4,5); endchar;
+ 
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{h}
+% The \thisfont{} letter \textit{he}. Like a lowercase n.
+%    \begin{macrocode}
+ 
+cmchar "Aramaic letter he (coded as h)";
+beginglyph("h",0.8);
+z1=(leftloc,2/3h);
+z2=(rightloc,h);
+z3=(rightloc,0);
+z11=1/2[z1,z2];
+z12=(x11,1/2y1);
+draw smoothly(z1, z2, z3);
+draw z11--z12;
+labels(1,2,3,4,5,6,7,8,9,10); endchar;
+ 
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{w}
+% The \thisfont{} letter \textit{vav}. Slightly bent stick.
+%    \begin{macrocode}
+ 
+cmchar "Aramaic letter vav (coded as w)";
+beginglyph("w",0.4);
+z1=(leftloc,h);
+z2=(rightloc,h);
+z3=(rightloc,0);
+draw z1{dir(-45)}..{down}z3;
+labels(1,2,3,4,5,6,7,8,9,10); endchar;
+ 
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{z}
+% The \thisfont{} letter \textit{zayin}. Short vertical line.
+%    \begin{macrocode}
+ 
+cmchar "Aramaic letter zayin (coded as z)";
+beginglyph("z",0.2);
+z1=(midloc,3/4h);
+z2=(midloc,1/4h);
+draw z1--z2;
+labels(1,2,3,4,5,6,7,8,9,10); endchar;
+ 
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{H}
+% The \thisfont{} letter \textit{het} (h sub dot). 
+%    \begin{macrocode}
+ 
+cmchar "Aramaic letter het (h sub dot?) (coded as H)";
+beginglyph("H", 0.7);
+z1=(leftloc,0); z2=(leftloc,h);
+z3=(rightloc,0); z4=(rightloc,h);
+z5=7/8[z1,z2];
+draw z1--z2;
+draw smoothly(z5, z4, z3);
+labels(1,2,3,4,5,6,7,8,9,10); endchar;
+ 
+%    \end{macrocode}
+% \end{macro}
+%
+%
+%
+% \begin{macro}{T}
+% The \thisfont{} letter \textit{tet} (t sub dot). Like the numeral 6.
+%    \begin{macrocode}
+ 
+cmchar "Aramaic letter tet (t sub dot) (coded as T)";
+beginglyph("T",0.6);
+path pth[];
+z1=(1/3[leftloc,rightloc], h);
+z2=(leftloc, 3/8h);
+z4=(rightloc,0);
+z5=(rightloc, 7/12h);
+pth1 := z1..z2{down}..{right}z4;
+z6 = point 1.3 of pth1;
+pth2 := pth1 & z4--z5--z6;
+draw pth1;
+draw smoothly(z4, z5, z6);
+labels(1,2,3,4,5,6,7,8,9); endchar;
+
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{y}
+% The \thisfont{} letter \textit{yod}. Like a circumflex accent.
+%    \begin{macrocode}
+ 
+cmchar "Aramaic letter yod (coded as y)";
+beginglyph("y",0.2);
+z1=(leftloc, 6/8h);
+z2=(midloc,h);
+z3=(rightloc,y1);
+draw z1--z2--z3;
+labels(1,2,3,4,5,6); endchar;
+
+%    \end{macrocode}
+% \end{macro}
+%
+%
+% \begin{macro}{k}
+% The \thisfont{} letter \textit{kaf}. 
+% More upright and stiffer version of \textit{bet}.
+%    \begin{macrocode}
+ 
+cmchar "Aramaic letter kaf (coded as k)";
+beginglyph("k",0.6);
+z1=(leftloc,h);
+z2=(x1,7/8y1);
+z3=(rightloc,y1);
+z5=(3/4[x1,x3],0);
+draw z1--z2;
+draw smoothly(z2, z3, z5);
+labels(1,2,3,4,5); endchar;
+ 
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{l}
+% The \thisfont{} letter \textit{lamed}. 
+% Like a handwritten l.
+%    \begin{macrocode}
+ 
+cmchar "Aramaic letter lamed (coded as l)";
+beginglyph("l",0.5);
+z1=(midloc,h);
+z2=(leftloc, 1/4h);
+z3=(midloc,0);
+z4=(rightloc,1/2y2);
+draw z1--z2{down}..{right}z3..z4;
+labels(1,2,3,4,5,6); endchar;
+ 
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{m}
+% The \thisfont{} letter \textit{mem}. 
+% Like \textit{bet} with a line through the top bar.
+%    \begin{macrocode}
+ 
+cmchar"Aramaic letter mem (coded as m)";
+beginglyph("m",0.8);
+z1=(leftloc,h);
+z2=(x1,3/4h);
+z3=(rightloc,y2);
+z5=(leftloc,0);
+draw smoothly(z1, z2, z3, z5);
+z11=(1/2[x2,x3],y1);
+z12 = z11 shifted (3/2(y1-y2)*down);
+draw z11--z12;
+labels(1,2,3,4,5,11,12); endchar;
+ 
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{n}
+% The \thisfont{} letter \textit{nun}.
+% Like a very thin \textit{bet}.
+%    \begin{macrocode}
+ 
+cmchar "Aramaic letter nun (coded as n)";
+beginglyph("n",0.3);
+z1=(leftloc,h);
+z2=(x1,3/4h);
+z3=(rightloc,y2);
+z5=(leftloc,0);
+draw smoothly(z1, z2, z3, z5);
+labels(1,2,3,4,5,11,12); endchar;
+ 
+%    \end{macrocode}
+% \end{macro}
+%
+%
+% \begin{macro}{s}
+% The \thisfont{} letter \textit{samekh}. 
+%    \begin{macrocode}
+ 
+cmchar "Aramaic letter samekh (coded as s)";
+beginglyph("s", 0.6);
+z1=(leftloc,h);
+z2=(x1,2/3h);
+z3=(rightloc,y2);
+z5=(rightloc,0);
+z4=1/2[z1,z3];
+draw z1{right}..z4{down}..{left}z2;
+draw smoothly(z2, z3, z5);
+labels(1,2,3,4,5,11,12); endchar;
+ 
+%    \end{macrocode}
+% \end{macro}
+%
+%
+% \begin{macro}{`}
+% The \thisfont{} letter \textit{ayin}.
+% Like a U.
+%    \begin{macrocode}
+ 
+cmchar "Aramaic letter ayin (coded as `)";
+beginglyph("`",0.6);
+z1=(leftloc,3/4h);
+z3=(rightloc,y1);
+z2=(1/2[x1,x3], (h-y1));
+draw z1{down}..z2{right}..{up}z3;
+labels(1,2,3,4,5,6,7); endchar;
+ 
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{o}
+% The \thisfont{} letter \textit{ayin}.
+%    \begin{macrocode}
+ 
+cmchar "Aramaic letter ayin (coded as o)";
+beginglyph("o",0.6);
+z1=(leftloc,3/4h);
+z3=(rightloc,y1);
+z2=(1/2[x1,x3], (h-y1));
+draw z1{down}..z2{right}..{up}z3;
+labels(1,2,3,4,5,6,7); endchar;
+ 
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{p}
+%    The \thisfont{} letter \textit{pe}.
+% Looks like an ear.
+%    \begin{macrocode}
+ 
+cmchar "Aramaic letter pe (coded as p)";
+beginglyph("p", 0.6);
+z1=(leftloc,7/8h);
+z2=(midloc,h);
+z3=(rightloc,6/8h);
+z5=(leftloc,0);
+draw z1..z2{right}..z3{down}..z5;
+labels(1,2,3,4,5,6); endchar;
+ 
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{x}
+%    The \thisfont{} letter \textit{tsadi}.
+% Like a P sloping slightly forwards.
+%    \begin{macrocode}
+ 
+cmchar "Aramaic letter tsadi (S sub dot) (coded as x)";
+beginglyph("x", 0.6);
+z1=(1/8[leftloc,rightloc], h);
+z2=(leftloc,0);
+z3=7/8[z2,z1];
+z4=(1/2[x1,rightloc], h);
+z6=(1/2[x3,x4],5/8h);
+z5=(rightloc, 2/3[y6,y4]);
+draw z1--z2;
+draw z3...z4...z5{down}...z6;
+labels(1,2,3,4,5,6); endchar;
+ 
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{q}
+% The \thisfont{} letter \textit{qof}.
+% Like a P sloping slightly backwards.
+%    \begin{macrocode}
+
+cmchar "Aramaic letter qof (coded as q)";
+beginglyph("q", 0.7);
+z1=(leftloc,h);
+z3=(rightloc,13/16h);
+z2=(1/8[x1,x3], y1);
+z4=(1/2[x2,x3], 9/16h);
+z11=z2;
+z12=(2/8[x11,rightloc], 0);
+draw z1--z2{right}..z3{down}..{left}z4;
+draw z11--z12;
+labels(1,2,3,4,5,6,7,11,12); endchar;
+
+%    \end{macrocode}
+% \end{macro}
+%
+%
+%
+% \begin{macro}{r}
+% The \thisfont{} letter \textit{resh}.
+% Practically identical to \textit{dalet}.
+%    \begin{macrocode}
+ 
+cmchar "Aramaic letter resh (coded as r)";
+beginglyph("r",0.6);
+z1=(leftloc,h);
+z2=(x1,3/4h);
+z3=(rightloc,h);
+z4=(rightloc,0);
+draw z1{down}..{up}z3;
+draw z3--z4;
+labels(1,2,3,4,5); endchar;
+ 
+%    \end{macrocode}
+% \end{macro}
+%
+%
+% \begin{macro}{S}
+% The \thisfont{} letter \textit{shin} (s sup v). 
+% Like a rounded E partly lying on its back.
+%    \begin{macrocode}
+ 
+cmchar "Aramaic letter shin (s sup v) (coded as S)";
+beginglyph("S", 0.8);
+path pth[];
+z1=(leftloc,h);
+z4=(rightloc,1/2h);
+z3=(2/3[x1,x4], 0);
+pth1 := z1{down}..z3{right}..{up}z4;
+z2= point 0.5 of pth1;
+z12=(1/2[x3,x4], 1/2[y4,y1]);
+draw z2--z12;
+draw pth1;
+labels(1,2,3,4,5,6,7,11,12); endchar;
+ 
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{t}
+% The \thisfont{} letter \textit{tav}.
+% Like my handwritten lowercase p.
+%    \begin{macrocode}
+ 
+cmchar "Aramaic letter tav (coded as t)";
+beginglyph("t", 1.0);
+path pth[];
+z1=(midloc,h);
+z3=(leftloc,0);
+z2=(1/2[x3,x1], 1/8[y3,y1]);
+z11=5/8[z2,z1];
+z12=(1/2[x1,rightloc],h);
+z13=(rightloc,y11);
+z14=(x12,1/2[y2,y11]);
+draw smoothly(z1, z2, z3);
+draw z11...z12{right}...z13{down}...z14;
+labels(1,2,3,4,10,11,12,13,14); endchar;
+ 
+ 
+%    \end{macrocode}
+% \end{macro}
+%
+%
+%  The end of the glyphs.
+%
+%    \begin{macrocode} 
+
+end
+
+%</up> 
+%    \end{macrocode}
+%
+%
+%
+% \section{The font definition files} \label{sec:fd}
+%
+%    \begin{macrocode}
+%<*fdot1>
+\DeclareFontFamily{OT1}{aram}{}
+  \DeclareFontShape{OT1}{aram}{m}{n}{ <-> aram10 }{}
+  \DeclareFontShape{OT1}{aram}{bx}{n}{ <-> sub aram/m/n }{}
+  \DeclareFontShape{OT1}{aram}{b}{n}{ <-> sub aram/m/n }{}
+  \DeclareFontShape{OT1}{aram}{m}{sl}{ <-> sub aram/m/n }{}
+  \DeclareFontShape{OT1}{aram}{m}{it}{ <-> sub aram/m/n }{}
+%</fdot1>
+%    \end{macrocode}
+%
+%
+%    \begin{macrocode}
+%<*fdt1>
+\DeclareFontFamily{T1}{aram}{}
+  \DeclareFontShape{T1}{aram}{m}{n}{ <-> aram10 }{}
+  \DeclareFontShape{T1}{aram}{bx}{n}{ <-> sub aram/m/n }{}
+  \DeclareFontShape{T1}{aram}{b}{n}{ <-> sub aram/m/n }{}
+  \DeclareFontShape{T1}{aram}{m}{sl}{ <-> sub aram/m/n }{}
+  \DeclareFontShape{T1}{aram}{m}{it}{ <-> sub aram/m/n }{}
+%</fdt1>
+%    \end{macrocode}
+%
+%
+% \section{The \Lpack{aramaic} package code} \label{sec:code}
+%
+%    Announce the name and version of the package, which requires
+% \LaTeXe{}.
+%    \begin{macrocode}
+%<*usc>
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{aramaic}[2000/09/30 v1.0 package for Aramaic fonts]
+%    \end{macrocode}
+%
+%
+% \begin{macro}{\aramfamily}
+%    Selects the font family in the T1 encoding.
+%    \begin{macrocode}
+\newcommand{\aramfamily}{\usefont{T1}{aram}{m}{n}}
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{\textaram}
+%    Text command for the font family.
+%    \begin{macrocode}
+\DeclareTextFontCommand{\textaram}{\aramfamily}
+
+%    \end{macrocode}
+% \end{macro}
+%
+% The commands for the signs.
+%    \begin{macrocode}
+\chardef\Arq=`'    \chardef\Aa=`a        \chardef\Aaleph=`'
+\chardef\Ab=`b     \chardef\Abeth=`b
+\chardef\Ag=`g     \chardef\Agimel=`g
+\chardef\Ad=`d     \chardef\Adaleth=`d
+\chardef\Ah=`h     \chardef\Ahe=`h
+\chardef\Aw=`w     \chardef\Avav=`w
+\chardef\Az=`z     \chardef\Azayin=`z
+\chardef\Ahd=`H    \chardef\Aheth=`H
+\chardef\Atd=`T    \chardef\Ateth=`T
+\chardef\Ay=`y     \chardef\Ayod=`y
+\chardef\Ak=`k     \chardef\Akaph=`k
+\chardef\Al=`l     \chardef\Alamed=`l
+\chardef\Am=`m     \chardef\Amem=`m
+\chardef\An=`n     \chardef\Anun=`n
+\chardef\As=`s     \chardef\Asamekh=`s
+\chardef\Alq=``    \chardef\Ao=`o        \chardef\Aayin=``
+\chardef\Ap=`p     \chardef\Ape=`p
+\chardef\Asd=`x    \chardef\Asade=`x
+\chardef\Aq=`q     \chardef\Aqoph=`q
+\chardef\Ar=`r     \chardef\Aresh=`r
+\chardef\Asv=`S    \chardef\Ashin=`S
+\chardef\At=`t     \chardef\Atav=`t
+
+%    \end{macrocode}
+%
+% \begin{macro}{\translitaram}
+% \begin{macro}{\transliaramfont}
+%  |\translitaram{|\meta{commands}|}| transliterates
+% \meta{commands} using the |\translitaram| font. 
+%    \begin{macrocode}
+\newcommand{\translitaram}[1]{{%
+  \@translitA\translitaramfont #1}}
+\newcommand{\translitaramfont}{\itshape}
+
+%    \end{macrocode}
+% \end{macro}
+% \end{macro}
+%
+% \begin{macro}{\@translitA}
+%  This macro redefines all the character commands to produce
+% the transliterated value instead of the glyph. There must be no
+% spaces in the definition.
+%    \begin{macrocode}
+\newcommand{\@translitA}{%
+\def\Arq{'}\def\Aa{\Arq}\def\Aaleph{\A}%
+\def\Ab{b}\def\Abeth{\Ab}%
+\def\Ag{g}\def\Agimel{\Ag}%
+\def\Ad{d}\def\Adaleth{\Ad}%
+\def\Ah{h}\def\Ahe{\Ah}%
+\def\Aw{w}\def\Avav{\Aw}%
+\def\Az{z}\def\Azayin{\Az}%
+\def\Ahd{\d{h}}\def\Aheth{\Ahd}%
+\def\Atd{\d{t}}\def\Ateth{\Atd}%
+\def\Ay{y}\def\Ayod{\Ay}%
+\def\Ak{k}\def\Akaph{\Ak}%
+\def\Al{l}\def\Alamed{\Al}%
+\def\Am{m}\def\Amem{\Am}%
+\def\An{n}\def\Anun{\An}%
+\def\As{s}\def\Asamekh{\As}%
+\def\Alq{`}\def\Ao{\Alq}\def\Aayin{\Alq}%
+\def\Ap{p}\def\Ape{\Ap}%
+\def\Asd{\d{s}}\def\Asade{\Asd}%
+\def\Aq{q}\def\Aqoph{\Aq}%
+\def\Ar{r}\def\Aresh{\Ar}%
+\def\Asv{\v{s}}\def\Ashin{\Asv}%
+\def\At{t}\def\Atav{\At}%
+}
+
+%    \end{macrocode}
+% \end{macro}
+%
+%
+%
+%    The end of this package.
+%    \begin{macrocode}
+%</usc>
+%    \end{macrocode}
+%
+% \section{The map file}
+%
+% This is pretty short.
+% \changes{v1.2}{2005/06/13}{Added the map file}
+%    \begin{macrocode}
+%<*map>
+aram10    Archaic-Aramaic    <aram10.pfb
+%</map>
+%   \end{macrocode}
+%
+%
+% \Finale
+% \PrintIndex
+%
+\endinput
+
+%% \CharacterTable
+%%  {Upper-case    \A\B\C\D\E\F\G\H\I\J\K\L\M\N\O\P\Q\R\S\T\U\V\W\X\Y\Z
+%%   Lower-case    \a\b\c\d\e\f\g\h\i\j\k\l\m\n\o\p\q\r\s\t\u\v\w\x\y\z
+%%   Digits        \0\1\2\3\4\5\6\7\8\9
+%%   Exclamation   \!     Double quote  \"     Hash (number) \#
+%%   Dollar        \$     Percent       \%     Ampersand     \&
+%%   Acute accent  \'     Left paren    \(     Right paren   \)
+%%   Asterisk      \*     Plus          \+     Comma         \,
+%%   Minus         \-     Point         \.     Solidus       \/
+%%   Colon         \:     Semicolon     \;     Less than     \<
+%%   Equals        \=     Greater than  \>     Question mark \?
+%%   Commercial at \@     Left bracket  \[     Backslash     \\
+%%   Right bracket \]     Circumflex    \^     Underscore    \_
+%%   Grave accent  \`     Left brace    \{     Vertical bar  \|
+%%   Right brace   \}     Tilde         \~}
+
+

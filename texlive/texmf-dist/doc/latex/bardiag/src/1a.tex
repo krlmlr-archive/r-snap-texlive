@@ -1,0 +1,23 @@
+%this is the way to redefine styles
+% \newpsstyle{mytickstyle}{linewidth=1pt,linecolor=blue}
+
+\renewcommand{\betweenticks}{200}
+\bardiagrambegin{9.5}{1000}{2cm}{1}{2}{1cm}{0.01cm}
+    \drawlevellines
+    \baritem{Jelger}{721}{green}
+    \baritem{Johan}{412}{red}
+    \baritem{Rikkert}{810}{yellow}
+    \baritem{Henk}{310}{green}
+    \baritem{Erwin}{542}{red}  
+    %
+    % we can call
+    %  \diagLegendoptions{yellow}{red}{0.5pt}
+    % to produce a legend with yellow background with red frame
+    % with linewidth=0.5pt
+    %
+    \diagLegendbegin{5.63}{970.3}{5.0}
+      \diagLegenditem{Full year}{green}
+      \diagLegenditem{Less than a year}{red}
+      \diagLegenditem{Less than 6 months}{yellow}
+    \diagLegendend
+\bardiagramend{}{\large Jobs Submitted}

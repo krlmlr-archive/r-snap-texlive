@@ -1,0 +1,42 @@
+%%%%%%%%%%%%%%%%%%%
+\usepackage[latin1]{inputenc} 		%Caracteres francais
+\usepackage[T1]{fontenc} 		%Caracteres francais
+\usepackage[francais]{babel}		%On ecrit en francais
+\usepackage{geometry}
+\usepackage{xcolor}
+\usepackage{listings}
+\usepackage[tikz]{bclogo}
+\usepackage{hyperref}
+\usepackage{amsmath}
+\usepackage{nameref}
+
+\hypersetup{colorlinks,citecolor=black,filecolor=black,linkcolor=red,urlcolor=blue}
+\geometry{margin=2cm}
+\title{Package ``fast-diagram.sty''}
+\author{Raphaël ALLAIS}
+\definecolor{fond}{RGB}{250,250,250}
+\lstset{language=[LaTeX]TeX,columns=flexible,basicstyle=\ttfamily,texcsstyle=*\color{blue},identifierstyle=\color{brown},commentstyle=\color{gray}\itshape,
+	moretexcs={FT,ST,fastDecalageTrait,FV,fastHauteurBoite,fastInterligne,fastLargeurBoite,fastEspaceColonne,fastReset,fastDecalageOuHorizontal,fastDecalageOuVertical,fastFT,fastST,fastVide,definecolor,fastSetCouleurBordures,fastSetCouleurTexte,fastSetCouleurFond}}
+\newcommand{\cqd}{Ce qui donne :\\}
+\newcommand{\comm}[1]{{\bfseries #1}}
+\newcommand{\uem}	{\ensuremath{\footnotesize\text{ em}}}
+\newcommand{\ucm}	{\ensuremath{\footnotesize\text{ cm}}}
+\newcommand{\maref}[1]	{\nameref{#1} (p.\pageref{#1})}
+\definecolor{couleurExemple}{RGB}{240,240,240}%{250,250,250} %Couleur du fond
+\newenvironment{exemple}
+		{\begin{bclogo}[couleur=couleurExemple,arrondi=0.3,noborder = true,logo=\bcloupe,epBarre = 0]{}}
+		{\end{bclogo}\vspace{0.5cm}}
+
+\lstnewenvironment{code}
+		{\footnotesize\setbox1=\vbox
+					\bgroup}
+		{\egroup	
+		\begin{center}
+			\begin{minipage}{0.8\linewidth}
+				\begin{bclogo}[couleur=white,logo=\bccrayon,noborder = true]{Code}
+					\box1
+				\end{bclogo}
+			\end{minipage}
+		\end{center}
+}
+%%%%%%%%%%%%%%%%%%%

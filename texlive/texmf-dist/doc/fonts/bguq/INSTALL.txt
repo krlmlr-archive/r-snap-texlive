@@ -1,0 +1,71 @@
+Install with Makefile
+---------------------
+
+For Unix: installs into /usr/local/share/texmf, if you want it 
+elsewhere then edit the Makefile. Run
+
+  make install
+
+as root
+
+Install manually
+----------------
+
+In the following replace $(TEXMF) by your TeX tree (where TeX 
+looks for its files -- this will vary depending on your TeX 
+distribution, often /usr/local/share/texmf on Unix systems.
+The output of
+
+  kpsewhich -var-value=TEXMFLOCAL
+
+is probably what you want)
+
+Create directories
+
+   mkdir $(TEXMF)/fonts/source/bguq/
+   mkdir $(TEXMF)/fonts/tfm/bguq/
+   mkdir $(TEXMF)/tex/latex/bguq/
+
+and copy files
+
+   cp  *.mf      $(TEXMF)/fonts/source/bguq/
+   cp  *.tfm     $(TEXMF)/fonts/tfm/bguq/
+   cp  bguq.sty  $(TEXMF)/tex/latex/bguq/
+   cp  Ubguq*.fd $(TEXMF)/tex/latex/bguq/
+
+Your TeX distribution may expect you to update its cache
+of files -- if using TeXLive run
+
+  mktexlsr
+
+Installing the PostScript files is more difficult and 
+depends on your OS and TeX distribution.  For TeXLive
+on Linux
+
+  cp *.pfb    $(TEXMF)/fonts/type1/bguq/
+  cp bguq.map $(TEXMF)/fonts/map/dvips/
+  cp bguq.cfg $(TEXMF)/tex/latex/bguq/
+
+then run
+
+  mktexlsr
+  updmap-sys --enable Map=bguq.map
+
+For other systems, or in case of problems see
+
+  http://www.tug.org/fonts/fontinstall.html
+
+Testing
+-------
+
+To test, run
+
+  latex bguq.dtx
+
+and view the file bguq.dvi, then
+
+  pdflatex bguq.dtx
+
+and view bguq.pdf
+
+$Id: INSTALL,v 1.1 2012/07/17 22:50:41 jjg Exp $

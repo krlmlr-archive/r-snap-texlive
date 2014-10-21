@@ -1,0 +1,444 @@
+% Fichier comprenant les macros de styles
+
+% \env : environnement de couleurs
+% Synthaxe : \env[style=nom de l'environnement,pluriel (option)]{texte}
+
+\define@cmdkey [PAS] {env} {style}{}
+\define@cmdkey [PAS] {env} {name}{}
+\define@cmdkey [PAS] {env} {color}{}
+\define@cmdkey [PAS] {env} {title}{}
+\define@cmdkey [PAS] {env} {symb}{}
+\define@boolkey[PAS] {env} {toc}[true]{} 
+\define@boolkey[PAS] {env} {notoc}[true]{} 
+\define@boolkey[PAS] {env} {pluriel}[true]{} 
+\define@boolkey[PAS] {env} {endsymb}[true]{} 
+\define@boolkey[PAS] {env} {degrade}[true]{} 
+\define@boolkey[PAS] {env} {notitle}[true]{} 
+\define@boolkey[PAS] {env} {notitlebreak}[true]{}
+\presetkeys    [PAS] {env} {style= , name= , title= ,pluriel = false, color=, symb = $\blacksquare$, degrade = false, toc=false, notoc=false, notitle=false, notitlebreak=false, endsymb=false}{}
+
+\newcommand*{\env}[1][]{\pasEnv[#1]}
+
+\long\def\pasEnv[#1]#2{
+   \setkeys[PAS]{env}{#1}
+	\if@everytoc
+   	\ifx\cmdPAS@env@name\@empty
+   	\else
+   		\ifPAS@env@notoc
+   		\else
+				\phantomsection
+				\addcontentsline{toc}{section}{\cmdPAS@env@name}
+			\fi
+   	\fi
+   \else
+		\ifPAS@env@toc
+			\phantomsection
+			\addcontentsline{toc}{section}{\cmdPAS@env@name}
+		\fi
+	\fi
+	%
+   \IfStrEq{\cmdPAS@env@style}{prop}
+   {%
+   \ifPAS@env@pluriel
+   	\def\texte{Propri\'et\'es}
+   \else
+   	\def\texte{Propri\'et\'e}
+   \fi
+   \def\couleur{red}%
+   }{}
+   \IfStrEq{\cmdPAS@env@style}{demo}
+   {%
+   \ifPAS@env@pluriel
+   	\def\texte{D\'emonstrations}
+   \else
+   	\def\texte{D\'emonstration}
+   \fi
+   \def\couleur{black}%
+   }{}
+   \IfStrEq{\cmdPAS@env@style}{rem}{\ifPAS@env@pluriel\def\texte{Remarques}\else\def\texte{Remarque}\fi\def\couleur{rem}}{}
+   \IfStrEq{\cmdPAS@env@style}{defi}
+	{%
+		\ifPAS@env@pluriel
+			\def\texte{D\'efinitions}
+		\else
+			\def\texte{D\'efinition}
+		\fi
+		\def\couleur{defi}
+	}{}
+	\IfStrEq{\cmdPAS@env@style}{thm}{\ifPAS@env@pluriel\def\texte{Th\'eor\`emes}\else\def\texte{Th\'eor\`emes}\fi\def\couleur{thm}}{}
+   \IfStrEq{\cmdPAS@env@style}{ex}{\ifPAS@env@pluriel\def\texte{Exemples}\else\def\texte{Exemple}\fi\def\couleur{ex}}{}
+   \IfStrEq{\cmdPAS@env@style}{nota}{\ifPAS@env@pluriel\def\texte{Notations}\else\def\texte{Notation}\fi\def\couleur{nota}}{}
+   \IfStrEq{\cmdPAS@env@style}{act}{\ifPAS@env@pluriel\def\texte{Activit\'es}\else\def\texte{Activit\'e}\fi\def\couleur{orange}}{}
+	\IfStrEq{\cmdPAS@env@style}{meth}{\ifPAS@env@pluriel\def\texte{M\'ethodes}\else\def\texte{M\'ethode}\fi\def\couleur{brown}}{}
+	\IfStrEq{\cmdPAS@env@title}{}{}{\def\texte{\cmdPAS@env@title}}
+	\IfStrEq{\cmdPAS@env@color}{}{}{\def\couleur{\cmdPAS@env@color}}
+	\ifPAS@env@degrade
+		\tikzstyle{noeud} = [rectangle,inner sep=10pt,fill=\couleur!10,path fading=east]
+	\else
+		\tikzstyle{noeud} = [rectangle,inner sep=10pt,fill=\couleur!10]
+	\fi
+	\itemclass{\couleur}
+   \noindent
+   \begin{tikzpicture}
+   	\node [noeud] (box)
+   	{%
+      	\begin{minipage}{\textwidth}
+			\itshape #2
+			\ifPAS@env@endsymb
+				\hfill \cmdPAS@env@symb
+			\fi
+      	\end{minipage}
+   	};
+   	\ifPAS@env@notitle\else
+   		\node[text=white,fill=\couleur,rectangle, shading=ball, ball color=\couleur, above right] (title) at ($(box.north west)+(-0.03,0)$)
+   		{\begin{ant}\textbf{\texte}\end{ant}};
+   	\fi
+   	\draw[color=\couleur!50!black,very thick] (box.north west)--(box.south west)--(box.south east);
+   	\node[left,color=\couleur] at (box.north east) {\emph{\cmdPAS@env@name}};
+   \end{tikzpicture}   
+   \vspace{0.5cm}
+}
+
+% Environnement "pasbox"
+
+\newsavebox{\pas@box}
+%
+\newcounter{suite@box}
+\newenvironment*{pasbox}[1][]
+{%
+   \setcounter{suite@box}{0}
+   \setkeys[PAS]{env}{#1}
+   \if@everytoc
+   	\ifx\cmdPAS@env@name\@empty\else
+   		\ifPAS@env@notoc\else
+				\phantomsection
+				\addcontentsline{toc}{section}{\cmdPAS@env@name}
+			\fi
+   	\fi
+   \else
+		\ifPAS@env@toc
+			\phantomsection
+			\addcontentsline{toc}{section}{\cmdPAS@env@name}
+		\fi
+	\fi
+	\IfStrEq{\cmdPAS@env@style}{thm}
+   {%
+   	\ifPAS@env@pluriel
+   		\def\texte{Th\'eor\`emes}
+   	\else
+   		\def\texte{Th\'eor\`eme}
+   	\fi
+   	\def\couleur{thm}
+   }{}
+   \IfStrEq{\cmdPAS@env@style}{demo}
+   {%
+   	\ifPAS@env@pluriel
+   		\def\texte{D\'emonstrations}
+   	\else
+   		\def\texte{D\'emonstration}
+   	\fi
+   	\def\couleur{black}
+   }{}
+   \IfStrEq{\cmdPAS@env@style}{prop}
+   {%
+   	\ifPAS@env@pluriel
+   		\def\texte{Propri\'et\'es}
+   	\else
+   		\def\texte{Propri\'et\'e}
+   	\fi
+   	\def\couleur{red}
+   }{}
+   \IfStrEq{\cmdPAS@env@style}{rem}
+   {%
+   	\ifPAS@env@pluriel
+   		\def\texte{Remarques}
+   	\else
+   		\def\texte{Remarque}
+   	\fi
+   	\def\couleur{rem}
+   }{}
+   \IfStrEq{\cmdPAS@env@style}{defi}
+	{%
+	 \ifPAS@env@pluriel
+		\def\texte{D\'efinitions}
+	 \else
+		\def\texte{D\'efinition}
+	 \fi
+	 \def\couleur{defi}
+	}{}
+   	\IfStrEq{\cmdPAS@env@style}{ex}
+   	{%
+   	 \ifPAS@env@pluriel
+   	 	\def\texte{Exemples}
+   	 \else
+   	 	\def\texte{Exemple}
+   	 \fi
+   	 \def\couleur{ex}
+   	}{}
+   	\IfStrEq{\cmdPAS@env@style}{nota}
+   	{%
+   	\ifPAS@env@pluriel
+   	\def\texte{Notations}
+   	\else
+   	\def\texte{Notation}
+   	\fi
+   	\def\couleur{nota}
+   	}{}
+   	\IfStrEq{\cmdPAS@env@style}{act}
+   	{%
+   		\ifPAS@env@pluriel
+   			\def\texte{Activit\'es}
+   		\else
+   			\def\texte{Activit\'e}
+   		\fi
+   		\def\couleur{orange}
+   	}{}
+	\IfStrEq{\cmdPAS@env@style}{meth}
+	{%
+		\ifPAS@env@pluriel
+			\def\texte{M\'ethodes}
+		\else
+			\def\texte{M\'ethode}
+		\fi
+		\def\couleur{brown}
+	}{}
+	\IfStrEq{\cmdPAS@env@title}{}{}{\def\texte{\cmdPAS@env@title}}
+	\IfStrEq{\cmdPAS@env@color}{}{}{\def\couleur{\cmdPAS@env@color}}
+	\ifPAS@env@degrade
+		\tikzstyle{noeud} = [rectangle,inner sep=10pt,fill=\couleur!10,path fading=east]
+	\else
+		\tikzstyle{noeud} = [rectangle,inner sep=10pt,fill=\couleur!10]
+	\fi
+	\itemclass{\couleur}
+	\begin{lrbox}{\pas@box}
+		\begin{minipage}{0.93\linewidth}
+}
+{
+		\ifPAS@env@endsymb
+			\hfill \cmdPAS@env@symb
+		\fi
+    		\end{minipage}
+	\end{lrbox}
+	\begin{tikzpicture}
+   	\node [noeud] (box)
+   	{%
+		\usebox{\pas@box}
+   	};
+   	\ifnum\thesuite@box=1
+   		\edef\texte{\texte~(suite)}
+   		\ifPAS@env@notitlebreak\else\ifPAS@env@notitle\else
+   			\node[text=white,fill=\couleur,rectangle, shading=ball, ball color=\couleur, above right] (title) at ($(box.north west)+(-0.03,0)$)
+   			{\begin{ant}\textbf{\texte}\end{ant}};
+   		\fi\fi
+   	\else
+   		\ifPAS@env@notitle\else
+   			\node[text=white,fill=\couleur,rectangle, shading=ball, ball color=\couleur, above right] (title) at ($(box.north west)+(-0.03,0)$)
+   			{\begin{ant}\textbf{\texte}\end{ant}};
+   		\fi
+   	\fi
+   		\draw[color=\couleur!50!black,very thick] (box.north west)--(box.south west)--(box.south east);
+   		\node[left,color=\couleur] at (box.north east) {\emph{\cmdPAS@env@name}};
+   		\end{tikzpicture}   
+   		\vspace{0.5cm}
+}
+
+% \breakbox
+
+\newcommand*{\breakbox}
+{%
+	\end{minipage}
+	\end{lrbox}
+	\stepcounter{suite@box}
+	\begin{tikzpicture}
+   	\node [noeud] (box)
+   	{%
+		\usebox{\pas@box}
+   	};
+   	\ifPAS@env@notitle\else
+   	\node[text=white,fill=\couleur,rectangle, shading=ball, ball color=\couleur, above right] (title) at ($(box.north west)+(-0.03,0)$)
+   		{\begin{ant}\textbf{\texte}\end{ant}};
+   	\fi
+   		\draw[color=\couleur!50!black,very thick] (box.north west)--(box.south west)--(box.south east);
+   		\node[left,color=\couleur] at (box.north east) {\emph{\cmdPAS@env@name}};
+   		\node[rounded corners=3pt,draw=\couleur!50!black,very thick,left,fill=white] at ($(box.south east)+(-0.5,0)$) {...};
+   	\end{tikzpicture}\par 
+   	\begin{lrbox}{\pas@box} 
+   		\begin{minipage}{0.93\linewidth}
+}
+
+%%%%%%%%%% définition du titre
+
+\define@cmdkey [PAS] {chap} {num}{}
+\define@cmdkey [PAS] {chap} {color}{}
+\define@cmdkey [PAS] {chap} {pos}{}
+\define@boolkey[PAS] {chap} {noclearpage}[true]{} 
+\presetkeys    [PAS] {chap} {num = ,
+ 							 color = red,
+ 							 pos = right,
+							 noclearpage = false}{}
+
+\newcommand*{\chap}[1][]{\pasChap[#1]}
+
+\def\pasChap[#1]#2#3{
+   \setkeys[PAS]{chap}{#1}
+   \ifPAS@chap@noclearpage\else \clearpage \fi
+   \IfStrEq{\cmdPAS@chap@pos}{right}
+      { \tikzstyle{pastitrepos} = [text=\cmdPAS@chap@color,rectangle,left]
+        \tikzstyle{pastrait} = [right color=\cmdPAS@chap@color, left color=white,thick]
+        \tikzstyle{passstitre} = [\cmdPAS@chap@color,left,scale=0.5]
+        \edef\PASx{-\textwidth}
+        \def\PASpos{box.north west}
+        \def\PAStrait{box.west}
+        \def\PASsstitre{box.south west}
+        \def\PAStitrealign{flushright}
+      }
+      { \tikzstyle{pastitrepos} = [text=\cmdPAS@chap@color,rectangle,right]
+        \tikzstyle{pastrait} = [left color=\cmdPAS@chap@color, right color=white,thick]
+        \tikzstyle{passstitre} = [\cmdPAS@chap@color,right,scale=0.5]
+        \edef\PASx{\textwidth} 
+        \def\PASpos{box.north east}   
+        \def\PAStrait{box.east}  
+        \def\PASsstitre{box.south east}
+        \def\PAStitrealign{flushleft}
+      }
+   \noindent
+   \begin{tikzpicture}
+   \node[fill=\cmdPAS@chap@color, shading=ball, ball color=\cmdPAS@chap@color, very thick,circle, inner xsep=5pt, inner ysep=2pt] (box) at (0,0) {\begin{Large}\textcolor{white}{\begin{ant} \textbf{\cmdPAS@chap@num} \end{ant}}\end{Large}};
+   \node[pastitrepos] at (\PASpos) {\begin{minipage}{\textwidth}\begin{\PAStitrealign} \begin{Large}\textcolor{\cmdPAS@chap@color}{ \begin{ant} #2 \end{ant}}\end{Large} \end{\PAStitrealign} \end{minipage}};
+   \shade[pastrait] (\PAStrait) rectangle +(\PASx,-0.01);
+   \node[passstitre] at (\PASsstitre) {\begin{ant}#3\end{ant}};
+   \end{tikzpicture}
+}
+
+%%%%%%%%%%%% Définition d'un mot
+
+\newcommand{\definmot}[1]{\texttt{\textbf{\textcolor{defi}{#1}}}}
+
+% Itemclass
+
+\newcommand{\itemclass}[1] % #1 = couleur
+{
+	\setlist[itemize,1]{label={\color{#1!50!black}\textbullet}}
+	\setlist[itemize,2]{label={\color{#1!50!black}$\rightarrow$}}
+	\setlist[enumerate,1]
+	{%
+		label=\fcolorbox{#1!50!black}
+		{#1!50!black}
+		{\color{#1!20}\normalsize\bfseries\arabic*}
+	}
+	\setlist[enumerate,2]{label=\textcolor{#1!50!black}{\normalsize\bfseries\alph*.}}
+}
+\itemclass{black}{}
+
+%%%%%%%%%%%% Pour le sommaire
+
+\renewcommand*\l@section{\color{blue!50!black}\def\@linkcolor{blue!50!black}\@dottedtocline{1}{1em}{2.3em}}
+\def\contentsline#1#2#3#4{%
+  \ifx\\#4\\%
+    \csname l@#1\endcsname{#2}{#3}%
+  \else
+      \csname l@#1\endcsname{\hyper@linkstart{link}{#4}{#2}\hyper@linkend}{%
+        \hyper@linkstart{link}{#4}{#3}\hyper@linkend
+      }%
+  \fi
+}
+\renewcommand{\contentsname}{\color{purple}\titreFONT\huge Sommaire}
+
+%%%%%%%%%%% FONTES
+
+\def\titreFONT{\fontfamily{phv}\fontseries{bx}\selectfont} % pb6
+\def\tocFONT{\fontfamily{phv}\fontseries{m}\selectfont}
+
+%%%%%%%%%%% PREREQUIS
+
+\newsavebox{\prerequisBox}
+\newenvironment{prerequis}
+{%
+	\begin{lrbox}{\prerequisBox}
+	\begin{minipage}{0.9\linewidth}
+	\begin{itemize}[leftmargin=1em,label={\color{purple}$\bullet$}]
+	\tocFONT
+}
+{%
+	\end{itemize}
+	\end{minipage}
+	\end{lrbox}
+	\begin{tikzpicture}
+	\node (titre) {\includegraphics[scale=0.25]{prerequis.png}};
+	\node[below right,text=purple] at (titre.north east) {\titreFONT\huge Pr\'erequis};
+	\node[below right] (contenu) at (titre.south) {\usebox{\prerequisBox}};
+	\draw[purple,very thick] (contenu.north west) -- (contenu.south west);
+	\end{tikzpicture}
+}
+
+%%%%%%%%%%%%%%% A RETENIR
+\newsavebox{\imageBox}
+\newlength{\largeurimageBox}
+\newsavebox{\aretenirBox}
+\newenvironment{aretenir}[1][1]
+{%
+\def\sc{#1}
+\begin{lrbox}{\imageBox}
+\includegraphics[scale=\sc]{coeur.png}
+\end{lrbox}
+\settowidth{\largeurimageBox}{\usebox{\imageBox}}%
+\begin{lrbox}{\aretenirBox}
+\begin{minipage}{\dimexpr\linewidth-\largeurimageBox-1em}
+}
+{%
+\end{minipage}
+\end{lrbox}
+\begin{tikzpicture}
+\node[below right,rounded corners,very thick,draw=red!60!black] (box) {\usebox{\aretenirBox}};
+\node[below left] at ($(box.north west)+(0,0.8em)$) {\includegraphics[scale=\sc]{coeur.png}};
+\end{tikzpicture}
+\vspace*{2em}
+}
+
+%%%%%%%%%%%%%%%%%% ATTENTION
+
+\newsavebox{\attentionBox}
+
+\newenvironment{attention}[1][1]
+{%
+\def\sc{#1}
+\begin{lrbox}{\imageBox}
+\includegraphics[scale=\sc]{attention.png}
+\end{lrbox}
+\settowidth{\largeurimageBox}{\usebox{\imageBox}}%
+\begin{lrbox}{\attentionBox}
+\begin{minipage}{\dimexpr\linewidth-\largeurimageBox-1em}
+}
+{%
+\end{minipage}
+\end{lrbox}
+\begin{tikzpicture}
+\node[below right,rounded corners,very thick,draw=red!60!black] (box) {\usebox{\attentionBox}};
+\node[below left] at ($(box.north west)+(0,0.8em)$) {\includegraphics[scale=\sc]{attention.png}};
+\end{tikzpicture}
+\vspace*{2em}
+}
+
+%%%%%%%%%%%%%%%% BONUS
+
+\newcounter{bonus}
+\newcommand*{\bonus}{\@ifstar{\bonus@star}{\bonus@nostar}}
+\newcommand*\bonus@star[1]{%
+\newpage
+\begingroup
+\fontfamily{phv}\fontseries{bx}\fontsize{16}{14}\selectfont
+\color{blue!40!black}Complément \thebonus : #1
+\endgroup
+\vspace*{1em}
+}
+\newcommand*\bonus@nostar[1]{%
+\stepcounter{bonus}
+\newpage
+\phantomsection
+\addcontentsline{toc}{section}{Complément \thebonus : #1}
+\begingroup
+\fontfamily{phv}\fontseries{bx}\fontsize{16}{14}\selectfont
+\color{blue!40!black}Complément \thebonus : #1
+\endgroup
+\vspace*{1em}
+}

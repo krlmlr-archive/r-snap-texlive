@@ -1,0 +1,171 @@
+% Copyright 2010 Thomas Koenig, Alexander Michel
+%
+% This file is part of NumericPlots.
+%
+% NumericPlots is free software: you can redistribute it and/or modify
+% it under the terms of the GNU General Public License as published by
+% the Free Software Foundation, either version 3 of the License, or
+% any later version.
+%
+% NumericPlots is distributed in the hope that it will be useful,
+% but WITHOUT ANY WARRANTY; without even the implied warranty of
+% MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+% GNU General Public License for more details.
+%
+% You should have received a copy of the GNU General Public License
+% along with NumericPlots.  If not, see <http://www.gnu.org/licenses/>.
+
+\part{Version}
+
+\section{History}
+
+\begin{itemize}
+  \item 18.05.2010
+  \begin{itemize}
+    \item added LabelOption to plotAxis
+    \item added TickLabelOption to plotAxis
+    \item added possibility to change StdLabelOption
+    \item added possibility to change StdTickLabelOption
+  \end{itemize}
+  \item 11.06.2010
+  \begin{itemize}
+    \item expanded documentation
+    \item changed the command \texttt{LegLine}.
+    \item added the commands \texttt{plotxGrid} and \texttt{plotyGrid}. The
+    grids may now be plotted before the axis to avoid overlapping of the grid
+    and the axis.
+  \end{itemize}
+  \item 17.06.2010
+  \begin{itemize}
+    \item changed export2latex: check for the necessary precision before
+    exporting the data
+  \end{itemize}
+  \item 21.06.2010
+  \begin{itemize}
+    \item added option for logarithmic axes
+  \end{itemize}
+  \item 05.07.2010
+  \begin{itemize}
+    \item added command NDPline
+    \item added instructions to fill areas between plots to documentation
+  \end{itemize}
+  \item 03.08.2010
+  \begin{itemize}
+    \item added options to \texttt{export2latex.m}
+  \end{itemize}
+  \item 05.08.2010
+  \begin{itemize}
+  	\item new calculation of tick lengths
+  	\item length of the ticks may now be given in mm, see
+  	\ref{sec:OptionsGeneral}
+  \end{itemize}
+  \item 14.09.2010
+    \begin{itemize}
+      \item added \texttt{struct2latex} to the package
+      \item added \texttt{dspace2struct} to the package
+      \item added \texttt{dspace2latex} to the package
+      \item changed \texttt{struct2latex}: mapping column vectors
+      \item changed \texttt{struct2latex}: downsampling option added
+    \end{itemize}
+   \item 15.11.2010
+   \begin{itemize}
+     \item changed the lineends of the axis
+   \end{itemize}
+   \item 07.01.2011
+   \begin{itemize}
+     \item adjusted linestyles
+     \item example with the available linestyles
+   \end{itemize}
+   \item 04.05.2011
+   \begin{itemize}
+     \item added commands to place exponents at the axes
+     \item added documentation for put North, \ldots, SouthWest
+   \end{itemize}
+   \item 14.05.2011
+   \begin{itemize}
+     \item added command to put a box in the graph
+   \end{itemize}
+   \item 17.05.2011
+   \begin{itemize}
+     \item added ps-style LegendBoxStyle to adjust the style of the box
+     underlying the legend
+   \end{itemize}
+      \item 12.07.2011
+   \begin{itemize}
+     \item changes in documentation
+     \item adopted \texttt{dspace2struct} for \textsc{dSpace Next Generation}
+     \item added \verb+\NDPvline, \NDPhline, \NDPvbox+ and \verb+\NDPhbox+
+     \end{itemize}
+ 	\item 01.06.2012
+     \begin{itemize}
+     	\item changes in documentation
+     	\item general bug fixing
+     	\item bug fixing for \texttt{dspace2struct}
+     	\item suppressing notification of the calculations made by the fp package
+     	during the compilation.
+   \end{itemize}
+   \item 14.06.2012
+   \begin{itemize}
+     \item added rotation option for \verb+\NDPput+ (Rot=45)
+   \end{itemize}
+   \item 03.08.2012
+   \begin{itemize}
+     \item added documentation for plotting noisy data
+   \end{itemize}
+   \item 23.08.2012
+   \begin{itemize}
+     \item added command \verb+\LegDot+
+   \end{itemize}
+   \item 29.08.2012
+   \begin{itemize}
+     \item added command \verb+\multilistplot+
+     \item added \verb+options.NaNsplit+ to export2latex
+   \end{itemize}
+   \item 30.08.2012
+   \begin{itemize}
+     \item added options DDx and DDy for minor grid
+     \item added option LabelBP
+   \end{itemize}
+   \item 19.03.2013
+   \begin{itemize}
+   	\item added Customized Tick Labels
+   \end{itemize}
+  \item 11.04.2013
+   \begin{itemize}
+   \item Corrected calculation of bounding box
+     \begin{itemize}
+     \item removed additional horizontal phantom space
+		\item  Previously, the padding values lly and ury where added to the given
+height parameter to set the object height. Now, the given height parameter is correctly set as height of the bounding box.
+   \item new standard values for padding parameters lly, llx, ury, urx, which now take into account the current font size settings (unit \verb|em|, \verb|\baselineskip|)
+     \end{itemize}
+   \item added more detailed documentation of the bounding box and coordinate frame behavior 
+   \end{itemize}
+   \item 16.04.2013
+   \begin{itemize}
+   	\item Changed positioning of axis labels and tick labels and added more
+   	options for customization.
+   	\item Changed option LabelBP to LabelRefPt.
+   	\item Changed options xLabelSep and yLabelSep to LabelSep (with different
+   	meaning).
+   	\item Changed options xTickLabelSep and yTickLabelSep to TickLabelSep (with
+   	different meaning).
+  \end{itemize}
+  \item 19.04.2013
+  \begin{itemize}
+  	\item added and improved documentation
+  \end{itemize}
+  \item 25.04.2013
+  \begin{itemize}
+  	\item changed implementation of subgrids for logarithmic axes
+  \end{itemize}
+  \item 04.06.2013
+  \begin{itemize}
+  	\item corrected and added documentation concerning the use of \verb|PutTickLabelXaxis| and \verb|PutTickLabelYaxis| for customized tick labels
+  \end{itemize}
+  \item 18.09.2013
+  \begin{itemize}
+  	\item corrected error ocurring for xLog and yLog labels. In some occasions
+  	Latex wrote $10^{-0}$ instead of $10^{0}$.
+  \end{itemize}
+\end{itemize} 

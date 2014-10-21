@@ -1,0 +1,49 @@
+% change texinfo fonts
+% usage: put the following code early in your file,
+% but after \input texinfo
+
+%%%%%%%%%%%%%%%%
+% @tex
+% \input pstexi
+% @end tex
+%
+% @textfonts
+% @rm
+%%%%%%%%%%%%%%%%
+
+% Set the font macro #1 to the font named #2, adding on the
+% specified font prefix (normally `cm').
+% #3 is the font's design size, #4 is a scale factor
+% \def\setfont#1#2#3#4{\font#1=\fontprefix#2#3 scaled #4}
+% UPDATE: a new implementation uses a fifth encoding(?) parameter,
+% which we simply ignore.
+\newcount\atsize
+\def\setfont#1#2#3#4#5{%
+  \def\mag{#4}
+  \global\atsize=\mag
+  \global\multiply\atsize #3
+  \global\divide\atsize 1000
+  \global\font#1=#2 at \atsize pt}
+
+% \fontprefix not usable outside cm/lm/ec
+\gdef\fontprefix{}
+
+\gdef\rmshape{pplr7t}
+\gdef\rmbshape{pplb7t}               %where the normal face is bold
+\gdef\bfshape{pplb7t}
+\gdef\bxshape{pplb7t}
+\gdef\ttshape{texnansi-lmtt10}
+\gdef\ttbshape{texnansi-lmtk10}
+\gdef\ttslshape{texnansi-lmtto10}
+\gdef\itshape{pplri7t}
+\gdef\itbshape{pplbi7t}
+\gdef\slshape{pplri7t}
+\gdef\slbshape{pplbi7t}
+\gdef\sfshape{texnansi-lmss10}
+\gdef\sfbshape{texnansi-lmssbx10}
+\gdef\scshape{pplrc7t}
+\gdef\scbshape{pplbc7t}
+
+\definetextfontsizexi
+
+\global\let\subtitlerm=\tenrm

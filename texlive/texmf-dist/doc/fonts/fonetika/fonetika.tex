@@ -1,0 +1,128 @@
+\documentclass[a4paper,11pt,british,DIVcalc]{scrartcl}
+\usepackage[T1]{fontenc,url}
+\usepackage[utf8]{inputenc}
+\usepackage{babel,fonetika,listings}
+\usepackage[sc,osf]{mathpazo}
+\usepackage[scaled]{luximono}
+\author{Palle Jørgensen}
+\renewcommand*\sfdefault{iwonac}
+\title{The fonetika package}
+\renewcommand*\textsl[1]{{\fontfamily{ppl}\slshape #1}}
+\urlstyle{rm}
+\newcommand*\nooldstyle[1]{{\fontfamily{ppl}\selectfont #1}}
+\newcommand*\TI{\nooldstyle{T1}}
+\lstset{breaklines=true,language=[latex]tex}
+
+\begin{document}
+
+\maketitle  
+\section{Introduction}
+\label{sec:english-summary}
+
+The Fonetika fonts is a set of fonts designed to be used for the
+danish \emph{Dania}\,\cite{dania} phonetic alphabet. 
+
+There are two fonts; a serif font \emph{Fonetika Dania Pallae} based
+on \textsl{URW Palladio} (Palatino), and a sans serif font
+\emph{Fonetika Dania Iwonae} based on \textsl{Iwona Condendsed.} Both
+fonts exist in a regular and a bold weight.\footnote{The fonts
+  Palladio and Iwona Condensed are the fonts used in this document}
+
+The fonts are made with FontForge\,\cite{fontforge}.
+
+For easy typing, the special characters are placed on the places of
+uppercase letters in the \TI{} encoding. Hence the fonetika package
+requires the fontenc package with option \TI{}. This is loaded if not
+loaded by the user. The encoding of the fonetika fonts is a sort of
+``fake'' \TI{} encoding.
+
+\section{User interface}
+\label{sec:user-interface}
+
+\subsection{Loading the package}
+\label{sec:loading-package}
+
+The fonetika package has two options, \texttt{serif} and \texttt{sans}
+which determines whether the \string\fonetika\ command chooses the
+serif or the the sans serif font. The option \texttt{serif} is default.
+
+\subsection{Commands}
+\label{sec:commands}
+
+The basic command of the fonetika package is (surprise)
+\string\fonetika\ which takes an argument, and typesets it with the
+current fonetika-font.
+
+\begin{tabular}{lll}
+  chokolade & \verb+\fonetika{Sogo|laDe}+ & \fonetika{Sogo|laDe}
+\end{tabular}
+
+Furthermore there are two commands, \verb+\fonetikaserif+ and
+\verb+\fonetikasans+, which works just like the \verb+\fonetika+
+command, but selects the serif and sans serif fonts specificly. This
+is mainly for use in section titles if they are set with another font
+than the body text.
+
+\subsection{Input and output}
+\label{sec:input-output}
+
+The tables below show the typed input and the phonetic characters it
+produces.
+
+\begingroup
+\tabcolsep1pt
+\parindent0pt
+\catcode`!\active
+\let!\fonetikafamily
+\catcode`?\active
+\let?\ttfamily
+\begin{tabular}{@{}lllllllllllllllllllllllllllll}
+  \noalign{\subsubsection*{Uppercase letters}}
+  ?A&?B&?C&?D&?E&?F&?G&?H&?I&?J&?K&?L&?M&?N&?O&?P&?Q&?R&?S&?T&?U&?V&?W&?X&?Y&?Z&?Æ&?Ø&?Å\\
+  !A&!B&!C&!D&!E&!F&!G&!H&!I&!J&!K&!L&!M&!N&!O&!P&!Q&!R&!S&!T&!U&!V&!W&!X&!Y&!Z&!Æ&!Ø&!Å\bigskip\\
+  \noalign{\subsubsection*{Lowercase letters}}
+  ?a&?b&?c&?d&?e&?f&?g&?h&?i&?j&?k&?l&?m&?n&?o&?p&?q&?r&?s&?t&?u&?v&?w&?x&?y&?z&?æ&?ø&?å\\
+  !a&!b&!c&!d&!e&!f&!g&!h&!i&!j&!k&!l&!m&!n&!o&!p&!q&!r&!s&!t&!u&!v&!w&!x&!y&!z&!æ&!ø&!å\bigskip\\
+  \noalign{\subsubsection*{Other characters}}
+  ?|&?'&?[&?]&?,&?.&?0\\
+  !|&!'&![&!]&!,&!.&!0\bigskip\\
+\end{tabular}
+\endgroup
+
+\section{License}
+\label{sec:license}
+
+The license of the fonetika fonts is Gnu General Public License, GPL\cite{gpl},
+exept the fonts and metrics of the Fonetika Dania Iwonae. The license
+of those is GUST Font Nosource License, \cite{gust}.
+
+\begin{thebibliography}{9}
+\bibitem{dania} \url{http://da.wikipedia.org/wiki/Dania}
+\bibitem{fontforge} \url{http://sourceforge.net/projects/fontforge/}
+\bibitem{gpl} \url{http://www.gnu.org/licenses/gpl.txt}
+\bibitem{gust} \url{http://tug.org/fonts/licenses/GUST-FONT-NOSOURCE-LICENSE.txt}
+\end{thebibliography}
+\appendix
+\clearpage
+\section{Source of the fonetika files}
+\label{sec:source-fonet-files}
+
+\subsection{Source of fonetika.sty}
+\label{sec:source-fonetika.sty}
+\lstinputlisting{fonetika.sty}
+
+\subsection{Source of t1fonetika.fd}
+\label{sec:source-t1fonetika.fd}
+\lstinputlisting{t1fonetika.fd}
+
+\subsection{Source of fonetika.map}
+\label{sec:source-fonetika.map}
+\lstinputlisting{fonetika.map}
+
+
+\end{document}
+
+%%% Local Variables: 
+%%% mode: latex
+%%% TeX-master: t
+%%% End: 

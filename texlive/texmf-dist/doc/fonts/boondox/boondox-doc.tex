@@ -1,0 +1,70 @@
+\documentclass[11pt]{article}
+\usepackage[margin=1.4in]{geometry} 
+%\geometry{landscape}                % Activate for for rotated page geometry
+\usepackage[parfill]{parskip}    % Activate to begin paragraphs with an empty line rather than an indent
+\usepackage{url}\usepackage{graphicx}
+
+\usepackage{hyperref}
+\title{BOONDOX math alphabets}
+\author{Michael Sharpe\\
+msharpe at ucsd dot edu}
+\date{}
+
+\begin{document}
+\maketitle
+The BOONDOX fonts are PostScript versions of subsets of the STIX fonts corresponding to regular and bold weights of three alphabets---calligraphic, fraktur and double struck, \textsc{aka} blackboard bold. Support files are provided so that they can be called up from \LaTeX\ math mode using the commands \verb|\mathcal|, \verb|\mathbcal|, \verb|\mathfrak|, \verb|\mathbfrak|, \verb|\mathbb| and \verb|\mathbbb|. The font family name derives from the fact that, at least in the US, the phrase ``in the boondox'' implies ``in the stix.''
+
+The base PostScript fonts were constructed from \textsf{STIXGeneral.otf} and \textsf{STIXGeneralBol.otf} using a \textsf{FontForge} script, resulting in 
+\begin{verbatim}
+zxxrl8a.pfb % BOONDOXDoubleStruck-Regular
+zxxbl8a.pfb % BOONDOXDoubleStruck-Bold
+zxxrw8a.pfb % BOONDOXCalligraphic-Regular
+zxxbw8a.pfb % BOONDOXCalligraphic-Bold
+zxxrf8a.pfb % BOONDOXFraktur-Regular
+zxxbf8a.pfb % BOONDOXFraktur-Bold
+\end{verbatim}
+together with the corresponding {\tt.afm} files. (The names are almost Berry conformant: the initial {\tt z} warns that they break the rules, and the font id {\tt xx} is completely unblessed by any authority. The remaining parts are nearly OK, except that the font lack many glyphs normally in {\tt 8a} encoding, but all glyphs are in the correct slots.)
+
+Using \textsf{afm2tfm}, the afm files were transformed to raw tfm files (kern information discarded)
+\begin{verbatim}
+zxxrl7z.tfm
+zxxbl7z.tfm
+zxxrw7z.tfm
+zxxbw7z.tfm
+zxxrf7z.tfm
+zxxbf7z.tfm
+zxxrow7z.tfm % same as zxxrw7z, less oblique
+zxxbow7z.tfm % same as zxxbw7z, less oblique
+\end{verbatim}
+which serve as the basis for further virtual math fonts. Finally, using \textsf{FontForge} scripts and manual adjustments to the metrics to suit my personal taste, produces (no pretense of using Berry names):
+\begin{verbatim}
+BOONDOX-r-cal.tfm
+BOONDOX-b-cal.tfm
+BOONDOX-r-calo.tfm
+BOONDOX-b-calo.tfm
+BOONDOX-r-frak.tfm
+BOONDOX-b-frak.tfm
+BOONDOX-r-ds.tfm
+BOONDOX-b-ds.tfm
+\end{verbatim}
+and the corresponding {\tt.vf} files. 
+
+There are two ways to use these. The traditional method is based on  {\tt.sty} and {\tt.fd} files for each pair: {\tt BOONDOX-cal}, {\tt BOONDOX-calo}, {\tt BOONDOX-frak} and {\tt BOONDOX-ds}. For example,
+\begin{verbatim}
+\usepackage[scaled=.95]{BOONDOX-ds}
+\end{verbatim}
+defines the output from \verb|\mathbb| and \verb|\mathbbb| to come from {\tt BOONDOX-r-ds} and {\tt BOONDOX-b-ds} respectively, scaled to 95\% of normal size, and 
+\begin{verbatim}
+\usepackage{BOONDOX-calo}
+\end{verbatim}
+defines the output from \verb|\mathcal| and \verb|\mathbcal| to come from {\tt BOONDOX-r-calo} and {\tt BOONDOX-b-calo} respectively. (These are \emph{less} oblique versions of the {\tt BOONDOX} calligraphic fonts.)
+
+The second method uses a different interface not depending on the {\tt.sty} and {\tt.fd} files at all. The package \textsf{mathalfa	} permits you to say
+\begin{verbatim}
+\usepackage[bb=boondox,bbscaled=.95,cal=boondoxo]{mathalfa}
+\end{verbatim}
+to accomplish the same effect as the above.
+
+See the \textsf{mathalfa} documentation for font samples of these and many other math alphabets.
+
+\end{document}

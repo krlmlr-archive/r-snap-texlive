@@ -1,0 +1,747 @@
+% \iffalse
+% $Id: gillcm.dtx,v 1.6 2010-07-30 20:40:55 boris Exp $
+%
+% Copyright (c) 2010, Boris Veytsman
+%
+% All rights reserved.
+%
+% Redistribution and use in source and binary forms, with or without
+% modification, are permitted provided that the following conditions
+% are met: 
+%
+%    * Redistributions of source code must retain the above copyright
+%    notice, this list of conditions and the following disclaimer. 
+%    * Redistributions in binary form must reproduce the above
+%    copyright notice, this list of conditions and the following
+%    disclaimer in the documentation and/or other materials provided
+%    with the distribution. 
+%    * Neither the name of the original author nor the names of the
+%    contributors may be used to endorse or promote products derived
+%    from this software without specific prior written permission. 
+%
+% THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND
+% CONTRIBUTORS "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES,
+% INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF
+% MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+% DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS
+% BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL,
+% EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED
+% TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE,
+% DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON
+% ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
+% OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY
+% OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
+% POSSIBILITY OF SUCH DAMAGE.
+%
+% \fi 
+% \CheckSum{138}
+%
+%
+%% \CharacterTable
+%%  {Upper-case    \A\B\C\D\E\F\G\H\I\J\K\L\M\N\O\P\Q\R\S\T\U\V\W\X\Y\Z
+%%   Lower-case    \a\b\c\d\e\f\g\h\i\j\k\l\m\n\o\p\q\r\s\t\u\v\w\x\y\z
+%%   Digits        \0\1\2\3\4\5\6\7\8\9
+%%   Exclamation   \!     Double quote  \"     Hash (number) \#
+%%   Dollar        \$     Percent       \%     Ampersand     \&
+%%   Acute accent  \'     Left paren    \(     Right paren   \)
+%%   Asterisk      \*     Plus          \+     Comma         \,
+%%   Minus         \-     Point         \.     Solidus       \/
+%%   Colon         \:     Semicolon     \;     Less than     \<
+%%   Equals        \=     Greater than  \>     Question mark \?
+%%   Commercial at \@     Left bracket  \[     Backslash     \\
+%%   Right bracket \]     Circumflex    \^     Underscore    \_
+%%   Grave accent  \`     Left brace    \{     Vertical bar  \|
+%%   Right brace   \}     Tilde         \~} 
+%
+%\iffalse
+% Taken from xkeyval.dtx
+%\fi
+%\makeatletter
+%\def\DescribeOption#1{\leavevmode\@bsphack
+%              \marginpar{\raggedleft\PrintDescribeOption{#1}}%
+%              \SpecialOptionIndex{#1}\@esphack\ignorespaces}
+%\def\PrintDescribeOption#1{\strut\emph{option}\\\MacroFont #1\ }
+%\def\SpecialOptionIndex#1{\@bsphack
+%    \index{#1\actualchar{\protect\ttfamily#1}
+%           (option)\encapchar usage}%
+%    \index{options:\levelchar#1\actualchar{\protect\ttfamily#1}\encapchar
+%           usage}\@esphack}
+%\def\DescribeOptions#1{\leavevmode\@bsphack
+%  \marginpar{\raggedleft\strut\emph{options}%
+%  \@for\@tempa:=#1\do{%
+%    \\\strut\MacroFont\@tempa\SpecialOptionIndex\@tempa
+%  }}\@esphack\ignorespaces}
+%\makeatother
+%
+%
+% \MakeShortVerb{|}
+% \GetFileInfo{gillcm.dtx}
+% \title{Unslanted Italic Computer Modern Fonts Based on Eric Gill's Ideas}
+% \author{Boris Veytsman\thanks{%
+% \href{mailto:borisv@lk.net}{\texttt{borisv@lk.net}},
+% \href{mailto:boris@varphi.com}{\texttt{boris@varphi.com}}}} 
+% \date{\filedate, \fileversion}
+% \maketitle
+% \begin{abstract}
+% This is a demonstration of the use of virtual fonts for unusual
+% effects.  We employ virtual fonts to implement an old idea of Eric
+% Gill.  This package was written for the author's talk
+% at TUG'2010.
+% \end{abstract}
+% \tableofcontents
+% \listoffigures
+% \listoftables
+% \clearpage
+%
+% \changes{v1.0}{2010/05/08}{First fully functional version} 
+% \changes{v1.1}{2010/07/28}{Documentation update} 
+%
+%\section{Introduction}
+%\label{sec:intro}
+%
+% This package is mostly a demonstration of the use of
+% \textsf{Fontinst}~\cite{Jeffrey04:Fontinst} for mixing and changing
+% fonts.  I wrote it as an appendix for my talk at TUG'2010.  Of
+% course, as it happens with many teachers, I myself learned a lot
+% while making this demo.
+%
+% The demo assumes some knowledge of \TeX{} and the way of writing
+% |dtx| files~\cite{Clsguide}.
+%
+% Eric Gill said that unslanted italics should use Roman uppercase
+% letters~\cite{Gill:Typography}:
+% \begin{quote}
+%   Properly speaking, there is no such thing as an alphabet of italic
+%   capitals, and where upright or nearly upright italics are used
+%   ordinary upright Roman capitals go perfectly well with them.
+% \end{quote}
+% 
+% Let us create a font with italic lowercase and upright uppercase.
+% Actually we create \emph{two} fonts: one based on ``normal'', i.e.
+% slanted italics, and one based on unslanted ones (we call them
+% |gishape| and |gushape|).  In both cases we start with Computer
+% Modern Italics, and perform all changes using virtual fonts
+% mechanism.
+%
+% Alan Hoenig in his book~\cite{Hoenig98:TeXUnbound} gives another
+% example of a font based on Gill's idea.
+%
+%
+% A couple words about the installation of the system.  You need the file
+% \url{http://ctan.tug.org/install/fonts/psfonts/public/gillcm.tds.zip}/
+% Unzip this file in \path{$TEXMF}.  Add |+cmg.map| to the
+% configuration files of dvips, pdftex and your dvi previewer.  How
+% exactly you do this depends on the \TeX{} distribution you use.   For \TeX Live you create a file
+% \path{$TEXMF/updmap.d/50gcm.cfg} with just the line
+% \begin{verbatim}
+% Map gcm.map
+% \end{verbatim}
+% and then run |texhash| and |updmap|.  If you use Debian or Ubuntu,
+% the system-wide |updmap.d| directory is located in |/etc|, and you
+% need to create the file |gcm.list| in
+% \path{/var/lib/tex-common/fontmap-cfg/} with the line
+% \begin{verbatim}
+% 50gcm
+% \end{verbatim}
+%
+%
+% If you use Mik\TeX2.6, run
+% \begin{verbatim}
+% initexmf --edit-config-file updmap  
+% \end{verbatim}
+% Add to the config file
+% \begin{verbatim}
+%  Map gcm.map
+% \end{verbatim}
+% save, exit and run |updmap|. 
+% 
+% If you use Mik\TeX2.5 or earlier, edit
+% \path{localtexmf\web2c\updmap.cfg}, adding the line
+% \begin{verbatim}
+% Map gcm.map
+% \end{verbatim}
+% and run |updmap|.
+%
+% After this run updmap and texhash programs to update the
+% configuration files and file names database.
+%
+% Refer to your distribution documentation for the further details.
+%
+%
+%  
+%
+%\DescribeMacro{\gishape}
+%\DescribeMacro{\gushape}
+% To use the fonts in \LaTeX{} just add
+% |\usepackage{gillcm}| to the preamble of your document. The style
+% adds two new commands |\gishape| and |\gushape| that typeset
+% ``Gillized'' italics and ``Gillized'' upright italics.
+%
+%
+%
+%
+% \StopEventually{
+%
+% \section{Acknowledgements}
+%
+% Most of the things I know about virtual fonts I learned from the
+% excellent book~\cite{Hoenig98:TeXUnbound} and the
+% manual~\cite{fontinstallationguide}.   I am grateful to \TeX{} Users
+% Group and Karl Berry for encouraging my interest in virtual fonts
+% and to my consulting customers for their support of my font
+% projects. 
+%
+%   \bibliography{gillcm}
+%   \bibliographystyle{unsrt}}
+%
+%\section{Implementation}
+%\label{sec:impl}
+%
+%\subsection{Identification}
+%\label{sec:ident}
+%
+% 
+% We start with the declaration who we are.  Most |.dtx| files put
+% driver code in a separate driver file |.drv|.  We roll this code into the
+% main file, and use the pseudo-guard |<gobble>| for it.  This means
+% that the text between |<*gobble>| and |</gobble>| will \emph{not}
+% end in any derived file, but it will be used to typeset this manual.
+%
+% We also use the following guards:  |<style>| for \LaTeX{} style,
+% |<drv>| for \textsf{Fontinst} driver |drv.tex|, |<map>| for
+% \textsf{Fontinst} map generator |map.tex| and |<mtx>| for the font
+% metrics file |delupper.mtx|.  More about these files below.  Note
+% that |mtx| files do not allow \LaTeX{} command |\ProvidesFile|, so
+% we do not put it there. 
+%    \begin{macrocode}
+%<style>\NeedsTeXFormat{LaTeX2e}
+%<*gobble>
+\ProvidesFile{gillcm.dtx}
+%</gobble>
+%<style>\ProvidesClass{gillcm}
+%<drv>\ProvidesFile{drv.tex}
+%<map>\ProvidesFile{map.tex}
+%<*!mtx>
+[2010/07/28 v1.1 Computer Modern Italics with Gill extensions]
+%</!mtx>
+%    \end{macrocode}
+% And the driver code:
+%    \begin{macrocode}
+%<*gobble>
+\documentclass{ltxdoc}
+\usepackage{booktabs,amsmath}
+\usepackage{url}
+\usepackage[breaklinks,colorlinks,linkcolor=black,citecolor=black,
+            pagecolor=black,urlcolor=black,hyperindex=false]{hyperref}
+\PageIndex
+\CodelineIndex
+\RecordChanges
+\EnableCrossrefs
+\begin{document}
+  \DocInput{gillcm.dtx}
+\end{document}
+%</gobble> 
+%    \end{macrocode}
+%
+% \subsection{Preparation of Computer Modern Fonts}
+%
+% We deal with Type~1 fonts, so we need Computer Modern Roman and
+% Italic in the PFB formats.  They are provided, for example, by
+% \textsf{cm-super} package.  We need the files listed in
+% Table~\ref{tab:cm}.  We copy them into the working directory.  Since
+% \textsf{Fontinst} prefers ASCII files, we extract metric information
+% from them using |pf2afm| utility.
+%
+% The famous |make| program allows us to write down these operations
+% succinctly as shown on Figure~\ref{fig:afm}.  Here the first
+% paragraph lists our PFB files, the second one says that each PFB
+% file corresponds to one AFM file, the third paragraph tells |make|
+% to copy the PFB file from wherever they are (since |kpsewhich|) to
+% the current directory, and the last paragraph instructs |make| to
+% apply |pf2afm| to each PFB file.  Of course if you do not want to
+% use |make|, you can perform all these operations manually.
+%
+% \begin{figure}
+%   \centering
+% \begin{verbatim}
+% PFB =\
+%       cmti10.pfb\
+%       cmr10.pfb \
+%       cmbxti10.pfb \
+%       cmbx10.pfb
+%
+% AFM = ${PFB:%.pfb=%.afm}
+%
+% %.pfb:
+%       cp `kpsewhich $@` .
+%
+% %.afm:  %.pfb
+%       pf2afm $<
+% \end{verbatim}
+%   \caption{Creating AFM Files Using \texttt{Makefile}}
+%   \label{fig:afm}
+% \end{figure}
+%
+%
+% \begin{table}
+%   \centering
+%   \caption{Computer Modern Font Files}
+%   \label{tab:cm}
+%   \begin{tabular}{ll}
+%     \toprule
+%     File  &  Font\\
+%     \midrule
+%     |cmti10.pfb| & Computer Modern Italic\\
+%     |cmr10.pfb| & Computer Modern Roman \\
+%     |cmbxti10.pfb| & Computer Modern Bold Italic\\
+%     |cmbx10.pfb| & Computer Modern Bold\\
+%     \bottomrule
+%   \end{tabular}   
+% \end{table}
+%
+%\subsection{Fontinst Driver}
+%\label{sec:drv}
+%
+% In this section we construct the file |drv.tex| which does most of
+% the work.
+%
+%
+% First, we read the \textsf{Fontinst} program |fontinst.sty|:
+%    \begin{macrocode}
+%<*drv>
+\input fontinst.sty
+%    \end{macrocode}
+% 
+%
+% We want to ``unslant'' the fonts.  This can be imagined as negative
+% slanting.  The characteristic angle of Computer Modern Italics is
+% $167/1000$ (technically, this is the tangent of the angle, so the
+% angle itself is $\tan^{-1}(0.167) = 9^{\circ}28'51''$), so we use
+% $-167/1000$ as our characteristic angle:
+%    \begin{macrocode}
+\setint{slant}{-167}
+%    \end{macrocode}
+% 
+% Now it is time to uncover a white lie in Table~\ref{tab:cm}: the
+% ``bold'' fonts listed there are actually bold extended fonts: they
+% are slightly widened in the horizontal direction.  By tradition we
+% call them nevertheless bold.  The next line facilitates this white
+% lie: it instructs \textsf{Fontinst} to silently substitute bold
+% extended fonts whenever a user request bold fonts.
+%    \begin{macrocode}
+\substitutesilent{bx}{b}
+%    \end{macrocode}
+%
+%
+% 
+% \textsf{Fontinst} is designed to create virtual font files for \TeX.
+% However, it also can be used to automatically create ``font maps'':
+% special files read by |dvips| or |pdftex| to map PFB files into the
+% virtual fonts.  To do this we need to \emph{record transformations}
+% of Type~1 fonts for the map creation program.  Fortunately,
+% \textsf{Fontinst} can do this for us too.  The following command
+% starts this recording:
+%    \begin{macrocode}
+\recordtransforms{rec.tex}
+%    \end{macrocode}
+% The command  |\endrecordtransforms| below dumps these recordings
+% into the file |rec.tex|.  The resulting file is shown on
+% Figure~\ref{fig:rec}. 
+%
+% \begin{figure}
+%   \centering
+% \begin{verbatim}
+% \storemapdata{cmr10}{\fromafm{cmr10}{CMR10}}{}
+% \storemapdata{cmgm8r}{\frommtx{cmr10}}{\reencodefont{8r}}
+% \storemapdata{cmti10}{\fromafm{cmti10}{CMTI10}}{}
+% \storemapdata{cmgmi8r}{\frommtx{cmti10}}{\reencodefont{8r}}
+% \storemapdata{cmti10}{\fromafm{cmti10}{CMTI10}}{}
+% \storemapdata{cmgmiu8r}{\frommtx{cmti10}}{\reencodefont{8r}\transformfont{1000}{-167}}
+% \storemapdata{cmbx10}{\fromafm{cmbx10}{CMBX10}}{}
+% \storemapdata{cmgb8r}{\frommtx{cmbx10}}{\reencodefont{8r}}
+% \storemapdata{cmbxti10}{\fromafm{cmbxti10}{CMBXTI10}}{}
+% \storemapdata{cmgbi8r}{\frommtx{cmbxti10}}{\reencodefont{8r}}
+% \storemapdata{cmbxti10}{\fromafm{cmbxti10}{CMBXTI10}}{}
+% \storemapdata{cmgbiu8r}{\frommtx{cmbxti10}}{\reencodefont{8r}\transformfont{1000}{-167}}
+% \makemapentry{cmgmi8r}
+% \makemapentry{cmgm8r}
+% \makemapentry{cmgbi8r}
+% \makemapentry{cmgb8r}
+% \makemapentry{cmgmiu8r}
+% \makemapentry{cmgm8r}
+% \makemapentry{cmgbiu8r}
+% \makemapentry{cmgb8r}
+% \makemapentry{cmgmi8r}
+% \makemapentry{cmgm8r}
+% \makemapentry{cmgbi8r}
+% \makemapentry{cmgb8r}
+% \makemapentry{cmgmiu8r}
+% \makemapentry{cmgm8r}
+% \makemapentry{cmgbiu8r}
+% \makemapentry{cmgb8r}
+% \makemapentry{cmgmi8r}
+% \makemapentry{cmgm8r}
+% \makemapentry{cmgbi8r}
+% \makemapentry{cmgb8r}
+% \makemapentry{cmgmiu8r}
+% \makemapentry{cmgm8r}
+% \makemapentry{cmgbiu8r}
+% \makemapentry{cmgb8r}
+% \end{verbatim}  
+%   \caption{File \texttt{rec.tex} (created automatically)}
+%   \label{fig:rec}
+% \end{figure}
+% 
+%
+% Now we can create the fonts to play with.  We will follow Karl
+% Berry's scheme~\cite{fontname} for naming them.  The font family
+% will be called |cmg| (Computer Modern Gillized).  The next letters
+% are |m| for medium, |mi| for medium italic, |miu| for medium
+% italic unslanted, and |b|, |bi|, |biu| for the corresponding bold
+% variants.  The last symbols correspond to font encoding.
+%
+% We start with the fonts in the |8r| (\TeX{} Base 1) encoding.  
+% 
+% First, let us create a medium Roman font.  We take Computer Modern
+% Roman file |cmr10.afm| and reencode it.  The main command is
+% |\trnasformfont|.  Its first argument (|cmgm8r|) is the resulting
+% font (remember, the family is |cmg|, the weight is |m| and the
+% encoding is |8r|). Its second argument is the source. This argument
+% says that we take |cmr10.afm| (|\fromafm| command) and reencode it
+% to the required encoding (|\reencodefont|):
+%    \begin{macrocode}
+\transformfont{cmgm8r}{\reencodefont{8r}{\fromafm{cmr10}}}
+%    \end{macrocode}
+% 
+% In the same way we create medium italic font |cmgmi8r| from the file
+% |cmti10.afm|:
+%    \begin{macrocode}
+\transformfont{cmgmi8r}{\reencodefont{8r}{\fromafm{cmti10}}}
+%    \end{macrocode}
+% 
+% The italic unslanted font |cmgmiu8r| is different: not only we
+% reencode the source, we also unslant it, or, rather, slant it using
+% the negative angle |\int{slant}| defined above.  This is done by the
+% command |\slantfont|:
+%    \begin{macrocode}
+\transformfont{cmgmiu8r}{\slantfont{\int{slant}}%
+  \reencodefont{8r}{\fromafm{cmti10}}}
+%    \end{macrocode}
+%
+% In the similar manner we create three bold fonts: Roman, italic and
+% italic unslanted: 
+%    \begin{macrocode}
+\transformfont{cmgb8r}{\reencodefont{8r}{\fromafm{cmbx10}}}
+\transformfont{cmgbi8r}{\reencodefont{8r}{\fromafm{cmbxti10}}}
+\transformfont{cmgbiu8r}{\slantfont{\int{slant}}%
+  \reencodefont{8r}{\fromafm{cmbxti10}}}
+%    \end{macrocode}
+%
+% 
+% Fonts in \TeX{} Base 1 encoding are useful for manipulation, but
+% they are not directly usable in \TeX{} or \LaTeX{} documents.  In
+% this package we create fonts in the traditional \TeX{} encoding
+% (|OT1|) and Cork encoding (|T1|).  \textsf{Fontinst} can create for
+% us both virtual font files and \LaTeX{} font description files
+% (|.fd|).  This is (rather unfortunately) called font installation.
+% All font installation commands must be bracketed between
+% |\installfonts| and |\endinstallfonts| directives. so we start with
+% the first one:
+%    \begin{macrocode}
+\installfonts
+%    \end{macrocode}
+% 
+% Then we declare the family and encoding we are going to install.
+% Let us start with |OT1|.  Do not worry about the third (empty)
+% argument of the |\installfamily| command.
+%    \begin{macrocode}
+\installfamily{OT1}{cmg}{}
+%    \end{macrocode}
+% 
+% Now the real work begins.  Let us construct ``Gillized'' Computer
+% Modern Italic font.  According to our scheme it will be called
+% |cmgmi7t|.  This name is the first argument of |\installfont|
+% command.  
+%
+% The second argument is the set of MTX files; one can view it as
+% instructions to \textsf{Fontinst} describing \emph{how} to construct
+% the file.  We start from the file |cmgmi8r|, created on the previous
+% step.  It is just Computer Modern Italic.  The next instruction is
+% |delupper|.  It refers to the file |delupper.mtx|, which we create
+% below (Section~\ref{sec:delupper}).  For now it is enough to say
+% that this file deletes from the font all uppercase letters.  If we
+% would stop here, the resulting font would have empty spaces instead
+% of letters A, B, \dots{} However, we do not stop and add another
+% instruction, |cmgm8r|.  Let us recall that |cmgm8r| is Computer
+% Modern Roman.  Therefore \textsf{Fontinst} will take the characters
+% from this font and add it to the font created so far.  Which
+% characters will be added?  The lowercase characters a, b, \dots{}
+% are already filled up (\textsf{Fontinst} does not fill the slots
+% already taken), so only empty spaces will be taken from the Roman
+% font---i.e. the spaces that our |delupper.mtx| emptied.  We get a
+% combined font!  The last instruction, |latin| tells
+% \textsf{Fontinst} how to construct the characters that are absent
+% from the fonts (like the euro sign).  It is always prudent to
+% include it as the last resort.
+%
+% The next argument of the |\installfont| command is the encoding of
+% the result (actually, it can include a list of the so called ETX
+% files).
+%
+% The last four arguments are used to construct \LaTeX{} font
+% definition files.  They say that \LaTeX{} should consider the
+% resulting file to have encoding |OT1|, belong to the family |cmg|,
+% have medium weight (|m|) and ``Gill Italic'' shape (|gi|).  Again,
+% do not mind the last (empty) argument.
+%
+% So the command looks like the following:
+%    \begin{macrocode}
+\installfont{cmgmi7t}{cmgmi8r,delupper,cmgm8r,latin}{ot1}{OT1}{cmg}{m}{gi}{}
+%    \end{macrocode}
+% 
+% We repeat this with bold weight:
+%    \begin{macrocode}
+\installfont{cmgbi7t}{cmgbi8r,delupper,cmgb8r,latin}{ot1}{OT1}{cmg}{bx}{gi}{}
+%    \end{macrocode}
+% 
+% Unslanted italics are made in the same way, using |cmgmiu8r| and
+% |cmgbiu8r| as the source:
+%    \begin{macrocode}
+\installfont{cmgmiu7t}{cmgmiu8r,delupper,cmgm8r,latin}{ot1}{OT1}{cmg}{m}{gu}{}
+\installfont{cmgbiu7t}{cmgbiu8r,delupper,cmgb8r,latin}{ot1}{OT1}{cmg}{bx}{gu}{}
+%    \end{macrocode}
+% 
+% We repeat this with |T1| encoding.  Note that for |T1| the
+% ``instructions of the last resort'' are in the file |newlatin.mtx|:
+%    \begin{macrocode}
+\installfamily{T1}{cmg}{}
+\installfont{cmgmi8t}{cmgmi8r,delupper,cmgm8r,newlatin}{t1}{T1}{cmg}{m}{gi}{}
+\installfont{cmgbi8t}{cmgbi8r,delupper,cmgb8r,newlatin}{t1}{T1}{cmg}{bx}{gi}{}
+\installfont{cmgmiu8t}{cmgmiu8r,delupper,cmgm8r,newlatin}{t1}{T1}{cmg}{m}{gu}{}
+\installfont{cmgbiu8t}{cmgbiu8r,delupper,cmgb8r,newlatin}{t1}{T1}{cmg}{bx}{gu}{}
+%    \end{macrocode}
+% 
+% Fonts in |T1| encoding should be accompanied by fonts in the ``text
+% companion'' encoding |TS1|.  They include special symbols and
+% accents:
+%    \begin{macrocode}
+\installfamily{TS1}{cmg}{}
+\installfont{cmgmi8c}{cmgmi8r,delupper,cmgm8r,textcomp}{ts1}{TS1}{cmg}{m}{gi}{}
+\installfont{cmgbi8c}{cmgbi8r,delupper,cmgb8r,textcomp}{ts1}{TS1}{cmg}{bx}{gi}{}
+\installfont{cmgmiu8c}{cmgmiu8r,delupper,cmgm8r,textcomp}{ts1}{TS1}{cmg}{m}{gu}{}
+\installfont{cmgbiu8c}{cmgbiu8r,delupper,cmgb8r,textcomp}{ts1}{TS1}{cmg}{bx}{gu}{}
+%    \end{macrocode}
+% 
+% This finishes our file.  Let us just close the open groups:
+%    \begin{macrocode}
+\endinstallfonts
+\endrecordtransforms
+\bye
+%</drv>
+%    \end{macrocode}
+% 
+%
+%\subsection{Fontmap Generation}
+%\label{sec:fontmap}
+%
+% The file |map.tex| is used to create font map file.  In this section
+% we create it.
+%
+% First, we read the corresponding \textsf{Fontinst} file:
+%    \begin{macrocode}
+%<*map>
+\input finstmsc.sty
+%    \end{macrocode}
+% 
+% Next, we tell \textsf{Fontinst} that our Postscript files have the
+% extension |.pfb| and that the resulting map should be called |cmg.map|:
+%    \begin{macrocode}
+\resetstr{PSfontsuffix}{.pfb}
+\adddriver{dvips}{cmg.map}
+%    \end{macrocode}
+% 
+% Then we read the file |rec.tex| which is generated by the run of
+% |drv.tex| (Figure~\ref{fig:rec}):
+%    \begin{macrocode}
+\input rec.tex
+%    \end{macrocode}
+% 
+% And that is all:
+%    \begin{macrocode}
+\donedrivers
+\bye
+%</map>
+%    \end{macrocode}
+%
+%
+%\subsection{Deleting Uppercase Glyphs}
+%\label{sec:delupper}
+%
+%
+% Our |\installfont| instructions include deleting all uppercase
+% letters from the italic fonts.  This is done by the file
+% |delupper.mtx|, which we describe here.
+%
+%
+% Everything between |\relax| and |\metrix| is just a comment:
+%    \begin{macrocode}
+%<*mtx>
+\relax
+Unset all uppercase letters and punctuation
+\metrics
+%    \end{macrocode}
+% 
+% The file itself uses the command |\unsetglyph|.  We unset the
+% uppercase letters, parenthesizes, etc.
+%    \begin{macrocode}
+\unsetglyph{A}
+\unsetglyph{B}
+\unsetglyph{C}
+\unsetglyph{D}
+\unsetglyph{E}
+\unsetglyph{F}
+\unsetglyph{G}
+\unsetglyph{H}
+\unsetglyph{I}
+\unsetglyph{J}
+\unsetglyph{K}
+\unsetglyph{L}
+\unsetglyph{M}
+\unsetglyph{N}
+\unsetglyph{O}
+\unsetglyph{P}
+\unsetglyph{Q}
+\unsetglyph{R}
+\unsetglyph{S}
+\unsetglyph{T}
+\unsetglyph{U}
+\unsetglyph{V}
+\unsetglyph{W}
+\unsetglyph{X}
+\unsetglyph{Y}
+\unsetglyph{Z}
+\unsetglyph{AE}
+\unsetglyph{OE}
+\unsetglyph{Oslash}
+\unsetglyph{exclam}
+\unsetglyph{parenleft}
+\unsetglyph{parenright}
+\unsetglyph{comma}
+\unsetglyph{period}
+\unsetglyph{slash}
+\unsetglyph{zero}
+\unsetglyph{one}
+\unsetglyph{two}
+\unsetglyph{three}
+\unsetglyph{four}
+\unsetglyph{five}
+\unsetglyph{six}
+\unsetglyph{seven}
+\unsetglyph{eight}
+\unsetglyph{nine}
+\unsetglyph{colon}
+\unsetglyph{semicolon}
+\unsetglyph{exclamdown}
+\unsetglyph{questiondown}
+\unsetglyph{question}
+\unsetglyph{bracketleft}
+\unsetglyph{bracketright}
+\endmetrics
+%</mtx>
+%    \end{macrocode}
+%
+%
+%\subsection{Creation of Fonts}
+%\label{sec:creation}
+%
+% Now we are ready to create fonts.  We need to run
+% \begin{verbatim}
+% latex drv.tex
+% latex map.tex
+% \end{verbatim}
+% This will create a lot of |.pl| and |.vpl| files.  They should be
+% converted into binary format using utilities |pltotf| and |vptovf|.
+% On Figure~\ref{fig:tfm} we show how to do all these tasks using
+% |make|.  Of course, we can run all these commands manually.
+%
+% \begin{figure}
+%   \centering
+% \begin{verbatim}
+% %.map:  drv.tex map.tex $(AFM)
+%       pdflatex drv.tex
+%       pdflatex map.tex
+%       for x in *.pl; do pltotf $$x; done
+%       for x in *.vpl; do vptovf $$x; done
+% \end{verbatim}
+%   \caption{Creating TFM and VF Files using \texttt{Makefile}}
+%   \label{fig:tfm}
+% \end{figure}
+%
+%\subsection{Style File}
+%\label{sec:style}
+%
+% To use the fonts in \LaTeX{} let us define commands |\gishape| and
+% |\gushape| that select Gill Italic and Gill Unslanted Italic
+% correspondingly.  Note that they should work only in text mode;
+% math mode should use ``normal'' italics.  Here we are:
+%    \begin{macrocode}
+%<*style>
+\DeclareRobustCommand\gishape
+        {\not@math@alphabet\itshape\mathit
+         \fontshape{gi}\fontfamily{cmg}\selectfont}
+\DeclareRobustCommand\gushape
+        {\not@math@alphabet\itshape\mathit
+         \fontshape{gu}\fontfamily{cmg}\selectfont}
+%</style>
+%    \end{macrocode}
+%
+%
+%\subsection{Creation of Installation Archive}
+%\label{sec:tds}
+%
+% The last step is to put all the files in the structure suitable for
+% the modern \TeX{} installations (the so called TDS structure).  We
+% will create the archive |gillcm.tds.zip| with the relevant files.
+% The archive is packed into the |gillcm.tgz| file ready to be shipped
+% to CTAN.  Of course, we do not want to ship Computer Modern fonts,
+% so we delete them from the directory first.
+%
+% The corresponding fragment of |Makefile| is shown on
+% Figure~\ref{fig:archive}. 
+%
+% \begin{figure}
+%   \centering
+% \begin{verbatim}
+% archive: all clean
+%        $(RM) cmr*.tfm cmt*.tfm cmb*.tfm
+%        $(RM) cmr*.afm cmt*.afm cmb*.afm
+%        $(RM) cmr*.vf cmt*.vf cmb*.vf
+%        mkdir -p fonts/tfm/$(FOUNDRY)/$(PACKAGE)
+%        cp *.tfm fonts/tfm/$(FOUNDRY)/$(PACKAGE)
+%        mkdir -p fonts/vf/$(FOUNDRY)/$(PACKAGE)
+%        cp *.vf fonts/vf/$(FOUNDRY)/$(PACKAGE)
+%        mkdir -p fonts/map/dvips/$(PACKAGE)
+%        cp *.map fonts/map/dvips/$(PACKAGE)
+%        mkdir -p tex/latex/$(PACKAGE)
+%        cp *.fd *.sty tex/latex/$(PACKAGE)
+%        mkdir -p doc/latex/$(PACKAGE)
+%        cp README *.pdf *.tex *.bib *.dtx *.ins doc/latex/$(PACKAGE)
+%        zip -r $(PACKAGE).tds.zip fonts tex doc
+%        tar -czvf $(PACKAGE).tgz \
+%                README $(PACKAGE).tds.zip *.tex *.pdf *.bib *.dtx *.ins
+% \end{verbatim}
+%   \caption{Creation of Installation File for CTAN}
+%   \label{fig:archive}
+% \end{figure}
+%
+%
+% This finishes our task!
+%
+%\Finale
+%\clearpage
+%
+%\PrintChanges
+%\clearpage
+%\PrintIndex
+%
+\endinput

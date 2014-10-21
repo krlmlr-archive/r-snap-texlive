@@ -1,0 +1,302 @@
+%Slidefont-demo.tex
+\documentclass{beamer}\errorcontextlines=9
+\usetheme{AnnArbor}
+\usefonttheme{professionalfonts}
+\useoutertheme[right]{sidebar}
+\setbeamercolor{alerted text}{fg=red!90!black}
+\beamertemplatetransparentcovereddynamic
+\usepackage[T1]{fontenc}
+\usepackage[latin1]{inputenc}
+\usepackage[polutonikogreek,english]{babel}
+\usepackage{textcomp}
+\usepackage{mflogo}
+\usepackage{lxfonts}
+\usepackage{amsmath, amssymb,array,booktabs}
+
+\newfont{\cit}{cmssqi8 scaled 1200}
+\newfont{\lit}{lcmssi8 scaled 1200}
+\newfont{\cir}{cmssq8 scaled 1200} 
+\newfont{\lir}{lcmss8 scaled 1200}
+\DeclareFixedFont{\cmsyx}{OMS}{cmsy}{m}{n}{12}
+\DeclareFixedFont{\cmssx}{OT1}{cmss}{m}{n}{12}
+
+
+
+
+
+\newcommand\SliTeX{Sli\kern-.05em\TeX}
+\newcommand\AMS{\ensuremath{\mathcal{A\!_{\textstyle M}\mkern-2mu S}}}
+\DeclareMathOperator{\diff}{\mathrm{d}\!}
+\newcommand*\cs[1]{\texttt{\char92#1}}
+\newcommand\pack[1]{\textsl{#1}}
+
+\def\TRON{\tracingcommands=2\tracingmacros=2\relax}
+\def\TROF{\tracingcommands=0\tracingmacros=0\relax}
+
+
+\title{Revived slide fonts for \LaTeX}
+\subtitle{Demo\qquad Version 2.0}
+\author{Claudio Beccari}
+\date{2013-12-07}
+
+\begin{document}
+%\expandafter\show\csname mv@normal \endcsname
+
+
+\begin{frame}
+\titlepage
+\end{frame}
+
+%\begin{frame}\frametitle{Table of contents}
+%\tableofcontents
+%\end{frame}
+
+\section{Introduction}
+
+\begin{frame}\frametitle{The original \LaTeX\ slides}
+When \LaTeX\ was created, Leslie Lamport made an accompanying program named \SliTeX. At that time PCs had very little memory and format files could not handle more than one language at a time.
+
+\medskip
+
+{\centering\alert{It was A.D.\ 1984!}\par}
+
+\medskip
+
+\SliTeX\ was used for creating that time's presentations. Its main value, besides creating presentations to be printed on transparencies (beamers did not exist at that time\dots), was to use fonts whose legibility was excellent.
+\end{frame}
+
+\begin{frame}\frametitle{The old slides font}
+The old slides fonts derived from the ones D.E.\ Knuth designed for his witty citations at the end of each \TeX\-book chapter, for example:
+\begin{quote}\raggedleft{\cit
+If you can't solve a problem,\\
+you can always look up the answer.\\
+But please, Try first to solve it by yourself;\\
+then you'll learn more and you'll learn faster.\par}
+\makebox[\linewidth][r]{\cir --- DONALD E.\ KNUTH. {\cit The \TeX\-book} (1983)}
+\end{quote}
+\end{frame}
+
+\begin{frame}\frametitle{The old slides font}
+You may notice that the upper case `i' and the lower case `l' are undistinguishable, and, even worse, they get confused with the math symbol $|$.
+
+\medskip
+
+Lamport himself made from the knuthian one a variant with a serifed capital `i':
+\begin{quote}\raggedleft{\lit
+If you can't solve a problem,\\
+you can always look up the answer.\\
+But please, Try first to solve it by yourself;\\
+then you'll learn more and you'll learn faster.\par}
+\makebox[\linewidth][r]{\lir --- DONALD E.\ KNUTH. {\lit The \TeX\-book} (1983)}
+\end{quote}
+\end{frame}
+
+\begin{frame}\frametitle{The new slides font}
+In order to use this slides font also in mathematics I realized this new font (used throughout this presentation) so that Knuth's citation becomes:
+\begin{quote}\raggedleft\small\linespread{1.2}{\itshape
+If you can't solve a problem,\\
+you can always look up the answer.\\
+But please, Try first to solve it by yourself;\\
+then you'll learn more and you'll learn faster.\par}
+\makebox[\linewidth][r]{\upshape --- DONALD E.\ KNUTH. {\itshape The \TeX\-book} (1983)}
+\end{quote}
+\end{frame}
+
+\begin{frame}\frametitle{Comparison between the sanserif fonts}
+If you compare at the same font size this new font with the ordinary sanserif font of the CM/EC collections (the fonts that are used by default, for example, by \textsl{beamer}) you notice a remarkable difference in legibility and this explains the initial choice made by Lamport.
+\begin{center}
+\def\S{\rule{0pt}{2.2ex}}\def\D{\rule[-1ex]{0pt}{0pt}}
+\begin{tabular*}{\linewidth}{r@{\extracolsep{\fill}}l}\hline
+\footnotesize\texttt{\itshape OT1/cmss}\S  & \cmssx abcdefghijklmnopqrstuvwxyz\\
+\footnotesize\texttt{\itshape OT1/llcmss}\D&        abcdefghijklmnopqrstuvwxyz\\\hline
+\end{tabular*}
+\end{center}
+\end{frame}
+
+\begin{frame}\frametitle{The old slides font and mathematics}
+Math with \SliTeX\ used to be typeset with the ordinary math fonts used with \LaTeX;  the only exception was that the `operators' font was substituted with the upright slides font.
+
+The result was poor; not only everybody could notice the difference between the stroke weight of the CM math fonts compared to the slides font, but the various signs obtained by composition of different glyphs, such as, for example, \(\textfont2\cmsyx \Longrightarrow\) instead of \(\Longrightarrow\), were composed with an `equals' sign taken from the slides fonts, and an arrow tip taken from the CM math symbols fonts.
+\end{frame}
+
+
+\section{The new slides fonts}
+
+\begin{frame}\frametitle{The new slides fonts and mathematics}\small
+Therefore, in order to use the new slides font in mathematics it was necessary to restyle the three math fonts, specifically: 
+\begin{itemize}
+\item the `letters' font that contains the math italics alphabet, the upper and lower case slanted Greek alphabet, and many other symbols;
+\item the `symbols' font that included also the upper case calligraphic alphabet;
+\item the `delimiters' font that contains the extensible glyphs for the large delimiters and operators.
+\end{itemize}
+
+To this end the three above mentioned fonts have been rebuilt with the stylistic parameters of the new fonts, both in medium and bold face weights.
+\end{frame}
+
+\begin{frame}\frametitle{First math example}
+The second degree real coefficient equation
+\begin{equation}
+ax^2 + bx + c = 0
+\end{equation}
+has solutions
+\begin{equation}
+x_{1,2} = \frac{-b \pm\sqrt{b^2-4ac}}{2a}
+\end{equation}
+\end{frame}
+
+
+\begin{frame}\frametitle{First math example}
+\noindent with
+\begin{equation}
+\begin{cases}
+x_{1,2} \in \mathbb{R} &\text{if } b^2-4ac>0\\
+x_1=x_2 \in \mathbb{R} &\text{if } b^2-4ac=0\\
+x_{1,2} \in \mathbb{C} &\text{if } b^2-4ac<0
+\end{cases}
+\end{equation}
+\end{frame}
+
+\begin{frame}\frametitle{Comments to the first example}
+The example displays the usual algebraic structures with exponents, subscripts, fractions and square roots.
+
+It displays also an extensible operator and \alert{black board bold} characters, that belong to the further symbol collection of the \texttt{amssymb} package, that were also restyled with the stylistic parameters of the lxfonts.
+
+\end{frame}
+
+\begin{frame}\frametitle{The \AMS\ fonts}
+With the same stylistic parameters the \AMS\ fonts of the \texttt{msam} and \texttt{msbm} collections were rebuilt, so that all packages of the \textsl{amsmath} bundle can be used in a way that all symbols and commands share the same stylistic features. 
+
+You can type for example:
+\TRON\begin{equation}
+\nexists F(\boldsymbol{P}) : F(\boldsymbol{P}) \eqsim \iiint_V f(\boldsymbol{P}) \diff x \diff y \diff z
+\end{equation}\TROF
+~
+\begin{equation}
+\begin{pmatrix}
+a_{1,1} & a_{1,2} & a_{1,3}\\
+a_{2,1} & a_{2,2} & a_{2,3}\\
+a_{3,1} & a_{3,2} & a_{3,3}
+\end{pmatrix}
+\begin{pmatrix}
+x_1 \\ x_2 \\ x_3
+\end{pmatrix}
+\lessapprox
+\begin{pmatrix}
+y_1 \\ y_2 \\ y_3
+\end{pmatrix}
+\end{equation}
+\end{frame}
+
+\begin{frame}{The \LaTeX\ symbols}
+The following symbols are the \LaTeX\ special symbols, provided by the \pack{latexsym} package \alert{and} by the \pack{amsfonts} one; by delaying the call to the LXfonts macros to the \cs{AtEndPreamble} hook, it is possible to check which packages have already been loaded, and in case the \pack{latexsym} package is not reloaded.
+\begin{center}
+\begin{tabular}{l>$c<$l>$c<$}\toprule
+\cs{Join}		& \Join		& \cs{leadsto}	& \leadsto	\\
+\cs{sqsupset}	& \sqsupset	& \cs{sqsubset}	& \sqsubset	\\
+\cs{rhd}		& \rhd		& \cs{lhd}		& \lhd		\\
+\cs{unrhd}		& \unrhd	& \cs{unlhd}	& \unlhd	\\
+\cs{Diamond}	& \Diamond	& \cs{mho}		& \mho		\\
+\cs{Box}		& \Box		&				&			\\
+\bottomrule
+\end{tabular}
+\end{center}
+\end{frame}
+
+\begin{frame}\frametitle{Second math example}
+The residue theorem states that if $f(z) : z,\,f\in \mathbb{C}$ is analytic in domanin $\mathbb{D}$ except in a finite number of singular points, then
+\begin{equation}
+\circlearrowleft\mkern-18.5mu\int_\gamma f(z)\diff z = 2\pi \mathrm{j}\sum_{k=1}^{N_{\mathrm{sing}}} R_k
+\end{equation}
+holds true; $\gamma\in\mathbb{D}$ is a simply connected closed line and $N_{\mathrm{sing}}$ is the number of singularities contained within $\gamma$.
+\end{frame}
+
+\begin{frame}\frametitle{The Text Companion font}
+Of course the restyling has been done also on the TS encoded Text Companion font, the one you call for when you input the package:
+\begin{flushleft}\ttfamily
+\cs{usepackage}\{textcomp\}
+\end{flushleft}
+
+Here is a small sample:
+\begin{center}\begin{tabular}{*7c}
+\pounds& \textmu& \textohm& \textyen& \textdollar& \texteuro& \textcelsius\\
+\textlbrackdbl&\textborn&\textdivorced&\textmarried&\textleaf&\textmusicalnote&\textrbrackdbl\\
+\textperthousand&\textcentoldstyle&\textwon&\textnaira&\textguarani&\textpilcrow&\textpertenthousand
+\end{tabular}
+\end{center}
+\end{frame}
+
+\begin{frame}\frametitle{Typewriter fonts for presentations}
+Since presentations (like this one) may involve computer programming or computer science topics, the lxfonts style file contains also the typewriter type fonts taken from the CM/EC fonts but magnified a little bit so as to have the same x-height as the other text fonts. With these fonts you can type programming code such as:
+\begin{flushleft}\ttfamily
+\cs{documentclass}\{beamer\}\\
+...\\
+\cs{usepackage}[T1]\{fontenc\}\\
+\cs{usepackage}[latin1]\{inputenc\}\\
+...\\
+\cs{usepackage}\{lxfonts\}\\
+\cs{begin}\{document\}
+\end{flushleft}
+\end{frame}
+
+
+
+\begin{frame}\frametitle{How to use the lxfonts}
+As it was shown in the previous slide the new fonts may be used by simply calling the \texttt{lxfonts} package.
+
+\alert{Just one warning}: call the \texttt{lxfonts} package after you have loaded all the other font related packages; \texttt{lxfonts} will take care of invoking the correct font description files with the proper encodings; according to the packages loaded, it provides to some definitions that are necessary for mutual compatibility.
+
+\alert{A \textsl{beamer} warning}: If you are using \textsl{beamer} and math italics does not come out correctly, specify:
+\begin{flushleft}\ttfamily
+\cs{usefonttheme}\{professionalfonts\}
+\end{flushleft}
+\end{frame}
+
+\begin{frame}{Integration with the Greek script}
+If it is needed to mix Latin and Greek script sentences in a presentation, it is good to remember that the Greek CB fonts include also  a font for slides that closely matches the Latin one. In order to mix Latin and Greek script the necessary  LGR Greek font description files are already available with the LX fonts bundle, therefore the Greek script is readily accessible, and the \pack{babel} language switching commands are fully available also when using the LX fonts.
+\end{frame}
+
+
+\begin{frame}{Integration with the Greek script}
+Here is a short sentence that uses the Greek CB fonts for slides; the text is in fully accented polytonic Greek.
+
+\begin{quote}
+\begin{otherlanguage}{greek}
+To'utou q'arin >ap'elip'on se >en Kr'hth|, <'ina t`a le'iponta
+>epidiort'wsh| ka`i katast'hsh|s kat`a p'olin presbit'erous, <ws
+>eg'w soi dietax'amen, e>'i t'is >estin >an'egklhtos, mi~as
+gunaik`os >an'hr, t'ekna >'eqwn pist'a, m`h >en kathgor'ia|
+>aswt'ias >`h >anup'otakta.\end{otherlanguage}\end{quote}
+\end{frame}
+
+\begin{frame}\frametitle{Type\,1 lxfonts}
+The package contains all the type\,1 versions of the new fonts; after you have added their map file to the system (or personal) files by carefully following the instructions given in the \structure{LXfonts.readme} file, you can run the \alert{pdflatex}, or the \alert{latex+dvips+ps2pdf}, or the \alert{latex+dvipdfm} programs, and they will use the \alert{type\,1} fonts instead of the \MF\ bitmapped ones.
+\end{frame}
+
+
+
+
+
+
+\section{Conclusion}
+
+\begin{frame}\frametitle{Experiment!}
+It's evident that a new collection of fonts requires extensive experimentation, so as to spot all the glitches they and the associated files contain.
+
+\medskip
+
+The actual distribution may be defined as an $\alpha$-version, but the sooner feedback arrives, the sooner the fonts bundle is corrected and becomes stable.
+
+\medskip
+
+Therefore\dots
+\end{frame}
+
+\begin{frame}\frametitle{The end}
+\begin{center}
+\fontsize{37}{35}\selectfont Happy TeXing\\ \makebox[\linewidth]{with the \alert{lxfonts}!}
+
+\end{center}
+\end{frame}
+
+
+\end{document}

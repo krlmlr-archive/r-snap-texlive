@@ -1,0 +1,481 @@
+%%
+%% This is file `engpron-en.ltx',
+%% generated with the docstrip utility.
+%%
+%% The original source files were:
+%%
+%% engpron.dtx  (with options: `doc,en')
+%% This is a generated file.
+%% 
+%% Copyright (C) 2003-2008 Y. Henel, le TeXnicien de surface
+%% <le.texnicien.de.surface@wanadoo.fr>
+%% 
+%% This file may be distributed and/or modified under the conditions of
+%% the LaTeX Project Public License, either version 1.2 of this license
+%% or (at your option) any later version.  The latest version of this
+%% license is in:
+%% 
+%%    http://www.latex-project.org/lppl.txt
+%% 
+%% and version 1.2 or later is part of all distributions of LaTeX version
+%% 1999/12/01 or later.
+\documentclass[a4paper]{article}
+\usepackage{xspace,array}
+\usepackage[latin1]{inputenc}
+\usepackage[tame,hyphenable]{engpron}
+\usepackage[T1]{fontenc}
+\usepackage[frenchb,english]{babel}
+\usepackage{engpron-tools}
+\usepackage{makeidx}
+\usepackage[colorlinks=true,
+            linkcolor=blue,
+            urlcolor=blue,
+            citecolor=blue]{hyperref}
+\makeindex
+\begin{document}
+\GetFileInfo{engpron.sty}
+\newcommand{\GBP}{\texttt{^^a3}\xspace}
+\title{The English documentation of the package
+  \textsf{engpron}\thanks{This document corresponds to the file
+    \textsf{engpron}~\fileversion, dated \filedate.}}
+\author{Le \TeX nicien de surface\\
+        \href{mailto:le.texnicien.de.surface@wanadoo.fr}%
+        {le.texnicien.de.surface@wanadoo.fr}}
+\date{\docdate}
+
+\maketitle
+
+\begin{abstract}
+  This package is a tiny handle hardly correctly sewn on the package
+  |tipa| the author of which, \textsc{Fukui}~Rei, I thank very much. I
+  also wish to thank T.~\textsc{Lachand-Robert} for his
+  book~\cite{tlachand}, without which I would far less able than I am
+  (poorly) nowadays, and Josselin~\textsc{Noirel} for his invaluable
+  pieces of advice with which he provided me on
+  \url{fr.comp.text.tex}.
+
+  This new (2) version can use the package \texttt{drac} created by
+  Josselin~\textsc{Noirel} if the relevant option is choosen as it is
+  the case by default.
+
+  This package provides macros beginning with the \GBP character, made
+  active, which enable us to write the British or American English
+  pronunciation as one can find it in the ``English Pronouncing
+  Dictionary'' by Daniel~Jones. There is an option to typeset the
+  pronunciation in the style of the Harrap's~\cite{harraps}.
+
+  I provide a table (page~\pageref{latable}) at the end of this
+  document in which one could find the macros beginning with a
+  \texttt{^^a3} and their effect when the options by default
+  |monstress| and |jones| are enforced.
+\end{abstract}
+
+\tableofcontents
+
+\section{Usage}
+
+This package loads \Pkg{tipa}, with which one can write with the
+API\footnote{Alphabet Phon^^e9tique International} through \LaTeX. It
+provides some macros which enable one to typeset the British or
+American English pronunciation \emph{^^e0 la}
+\textsc{Jones}~\cite{jones15} (default) or as
+\textsc{Harrap}~\cite{harraps} with the package option
+\Option{harraps}.
+
+The \Pkg{drac} package is used by default to make of \GBP a robust (in
+\LaTeX\ parlance) active character.
+
+\subsection{The Package and its Options}
+
+Here come the options of \Pkg{engpron}. You can load
+\Pkg{engpron} with
+e.~g.\ \cs{usepackage}|[|\BOP|wild|\BOP|]|\BOP|{|\BOP|engpron|\BOP|}|.
+
+I have tried to group the options according to their effect.
+
+\subsubsection{\GBP's Behaviour}
+
+By default or with the option \Option{wild} this package makes the
+\DescribeOption{wild}
+character \GBP active et redefines it to enable the definition of
+macros such as |^^a3a| and their usage in all the text. It also enables
+us to obtain a uniform presentation of the pronunciation with the
+macro \cs{pron}\marg{text in API}.
+If you prefer, you can chose the option \Option{tame} which
+reestablish the character \GBP in its usual category in the
+\DescribeOption{tame}
+encoding given by |fontenc|\oarg{T1} i.~e.\ makes it active and makes
+it print the symbol of the pound. You will have to use either the
+macro \cs{Pron}\marg{text in API} or \cs{PRON}\marg{text in API} \TO and
+thus obtain the presentation ensured by \cs{pron}\TF or the
+environment |LivreActive| in which \GBP is active.
+
+By default or explicitly with option \Option{drac} this package
+\DescribeOption{drac}
+uses the \Pkg{drac} package to turn \GBP into a \emph{robust} active
+character where \emph{robust} has the meaning it has in the context of
+\LaTeX{} moving arguments.
+\DescribeOption{nodrac}
+The opposite option is \Option{nodrac} with which \Pkg{drac} is not
+loaded and \GBP keeps the definition given in the version~1.
+
+\subsubsection{The Look of the Text}
+
+By default \Pkg{engpron} enforces the option \Option{jones} and so
+\DescribeOption{jones} gives the presentation of the final ``r''
+\PRON{a^^a3Z} and of the optional sounds according to~\cite{jones15}. You
+then obtain \PRON{n^^a3Xen} for the ``schwa \Pron{^^a3e}'' and
+\PRON{a^^a3Xt^^a3sa} for optional ``t''.
+
+There is also the option \Option{harraps} which then gives the
+presentation \DescribeOption{harraps}\label{harrapsrfin} which you
+find in~\cite{harraps}: the optional sounds are given in parenthesis
+and the final ``r'' looks like this \textsl{r}. Moreover
+\pron{\textsl{o}} denotes what Jones~\cite{jones15} writes \PRON{^^a3w}.
+
+\subsubsection{The Syllable Divisions and the Stresses}
+
+The package offers many options supporting the syllable division. With
+option \Option{hyphenable} you allow \LaTeX\ to cut\index{hyphenation}
+words on the explicit marks of syllable division\index{syllable
+  division} \TO see below |^^a3k|, page~\pageref{livrek} \TF and on the
+marks of primary or secondary stresses\index{stress} \TO |^^a3b|, |^^a3B|,
+|^^a3h| et |^^a3H|. In such a case I will say that the marks of syllable
+divisions and of stresses ar \emph{cuttable}\index{cuttable}.
+
+With the option \Option{unhyphenable} you forbid the cutting of words
+on those marks. Those marks are then said to be
+\emph{uncuttable}\index{uncuttable}.  \DescribeOption{unhyphenable} To
+keep the behaviour of the preceding version, the option
+\Option{unhyphenable} is the default.
+
+\vspace{\baselineskip}
+
+You can chose between option \Option{visible} and option
+\DescribeOption{visible} \Option{invisible}. With the first,
+\Option{visible}, the macro of syllable division |^^a3k| produces a glyph
+which is defined by \cs{EPSyllabeMarque} \TO macro that you can
+redefine with \cs{renewcommand} and which by default gives a plain
+dot. When you enforce option \Option{invisible}, the macro |^^a3k|
+produces no glyph but is un\slash cuttable according to the chosen
+option between \Option{hyphenable} and \Option{unhyphenable}.
+
+\vspace{\baselineskip}
+
+\Pkg{engpron} offers two other options: \Option{monstress} which is
+\DescribeOption{monstress} the default and \Option{tipastress}. They
+are mutually exclusive and set the glyphs which present the primary
+and secondary stresses. The \DescribeOption{tipastress} user can
+redefine with \cs{renewcommand} the macros used by default \TO
+\cs{EPaccentprincipal} and \cs{EPaccentsecondaire}\TF and thus replace
+the default glyphs I provide. With the first, and default, option you
+obtain \Pron{^^a3h} and \Pron{^^a3b} as glyphs of primary and secondary
+stress respectively; with the second option you obtain
+\textprimstress{} and \textsecstress{} respectively, glyphs provided
+by \Pkg{tipa}.
+
+\subsubsection{Draft and Error}
+
+Some macros, \emph{viz.} |^^a3K|, |^^a3m|, and |^^a3M|, await a letter to
+\DescribeOption{final} determine what they have to do. However all the
+letters are not suitable. With option \Option{final} which is the
+opposite of \DescribeOption{draft} \Option{draft} \Pkg{engpron}
+doesn't produce anything in the document but emits a warning you can
+find in the |.log| file if you \DescribeOption{nice} have choosen
+option \Option{nice} or stops on an error if option
+\DescribeOption{tough} \Option{tough} is enforced. With option
+\Option{draft} you can read, in the document, the following
+``message'' \texttt{\string?\string!<*>\string!\string?} where
+\texttt{*} plays here the role of the \emph{erroneous} character.
+
+\subsubsection{Summary of Available Options}
+
+To sum it up:
+\nopagebreak{}\par\nopagebreak{}
+\noindent
+\begin{tabular}{*{2}{>{\scshape}l} l}
+  \multicolumn{1}{l}{The default option} &
+  \multicolumn{1}{l}{and the opposite option} &
+  act on\\
+  wild & tame & active status of \GBP\\
+  drac & nodrac & robustness of \GBP\\
+  jones & harraps & notation of the pronunciation\\
+  monstress & tipastress & notation of stresses\\
+  unhyphenable & hyphenable & creation of discretionary break\\
+  visible & invisible & visibility of syllable divisions\\
+  \multicolumn{3}{l}{\emph{In case of an error with} \texttt{^^a3K},
+    \texttt{^^a3M}, \emph{or} \texttt{^^a3m}}\\
+  final & draft & written trace in the doc \\
+  nice & tough & \TeX\ warning or error
+\end{tabular}
+
+\subsection{The \GBP Macros}
+\label{sec:macrospound}
+
+I will now present the macros the name of which begins with \GBP.
+
+To create these macros I used once again the book~\cite{tlachand} by
+T.~\textsc{Lachand-Robert}. It's from its example of macros using |^^a7|
+to write greek letters that came the idea of doing something on the
+same line to denote the pronunciation of English words. I needed that
+then for I was teaching maths in English to French pupils in ``Euro''
+section. I found bits every now and then which gave me the means of
+creating macros such as \cs{EP@haut}.
+
+In this section I present just some of the macros which are all given
+in the table on page~\pageref{latable}.
+
+\subsubsection{The Stress Marks}
+
+You will obtain the stress marks \TO as defined by the option
+\DescribePoundMacro{h}
+\Option{tipastress} or \Option{monstress}\TF with, for the primary
+\DescribePoundMacro{H}
+stress |^^a3h| or |^^a3H| and for the secondary stress with |^^a3b| or |^^a3B|.
+\DescribePoundMacro{b}
+\DescribePoundMacro{b} The ``rationale'' for them are, in French, |h| for
+\DescribePoundMacro{B}
+\emph{haut} and |b| for \emph{bas} but I think it is safe to think to
+\emph{high} and \emph{below}.
+
+\NOUVEAU{From version~2, when option \Option{hyphenable} have been
+  chosen these stress marks are cuttable i.~e.\ they give \TeX\
+  discretionary breaks.}
+
+\subsubsection{Syllable Division}
+
+\NOUVEAU{What pertains to syllable division, i.~e.\ marking the limits
+  of the syllables, is introduced in version~2 of the package.}
+
+You may want, or need, to show the limits of the syllables of words as
+\DescribeMacro{EPSyllabeCoupure}
+you can see it in the Jones~\cite{jones15}. To this effect, the
+package provides one macro \cs{EPSyllabeCoupure} linked to the
+|^^a3k|~macro.\label{livrek} Its behaviour is controlled by the following
+pairs of opposite options: \Option{hyphenable}\slash
+\Option{unhyphenable} and \Option{visible}\slash
+\Option{invisible}. With \Option{hyphenable} the macro gives \TeX\ a
+discretionary break which it doesn't with option
+\Option{unhyphenable}. With option \Option{visible} |^^a3k| produces the
+\DescribeMacro{EPSyllabeMarque}
+glyph determined by \cs{EPSyllabeMarque} whereas with
+\Option{invisible} it produces nothing.
+
+By default, \cs{EPSyllabeMarque} is equal to a period (full stop). You
+should take care of the fact that, for \cs{EPSyllabeMarque} is an
+argument of \cs{discretionary}, it suffers some restrictions such as
+e.~g.\ to not contain maths.
+
+Whatever are the enforced options, you can always give \TeX\ a
+\DescribePoundMacro{KX} discretionary break with |^^a3KX| which doesn't
+produce any glyph so |^^a3KX| is cuttable and invisible. With |^^a3KB| and
+|^^a3KH| you get \DescribePoundMacro{KB}\DescribePoundMacro{KH}
+respectively primary and secondary \emph{cuttable} stress marks. With
+|^^a3Kk| you get an always \emph{visible} and \emph{uncuttable} syllable
+division mark. Lastly |^^a3KK| \DescribePoundMacro{KK} produces an always
+visible and cuttable syllable division mark. The look of the marks is
+as a matter of course set by \cs{EPSyllabeMarque}. You will have
+remarked that lower case letters are linked to \emph{uncuttable} marks
+and upper case letters to \emph{cuttable} ones. I have feel no urge to
+provide a |^^a3Kx| which would have done strictly nothing, I tend to
+believe that then a void string is largely enough.
+
+\subsubsection{Optional Sounds}
+
+To note optional sounds \DescribePoundMacro{X} you will use the |^^a3X|
+macro as in |^^a3X|\meta{one letter} for |^^a3X| \textbf{must} be followed
+by \textbf{a single letter}. The macro doesn't work if followed by a
+group. It normally can deal with the optional sounds of the English
+language. It makes the difference, when option \Option{jones} is
+enforced, between the letter ``e'' which gives \PRON{^^a3Xe} and the
+others such as ``t'' which gives \PRON{^^a3Xt} with |^^a3Xe| and |^^a3Xt|
+respectively.
+
+To denote the final and \TO to use Jones' term\TF potential ``r''
+which is pronounced, in British English, when followed by a word
+beginning by a vowel, you will use \DescribePoundMacro{Z} |^^a3Z| which is
+redefined when option \Option{harraps} is chosen,
+see~\ref{harrapsrfin}.
+
+\subsection{Other Macros and one Environment}
+ \label{sec:autresmacros}
+
+I give the user an easy access to some macros which enable us to set
+some details of presentation. You can redefine them with
+\cs{renewcommand} and so doing obtain your own style.
+
+As already said above \TO see \Option{monstress} \TF the macros
+\cs{EPaccentprincipal} and \cs{EPaccentsecondaire} define the glyphs
+obtained with |^^a3H| and |^^a3B| respectively.
+
+\NOUVEAU{Since version~2} the \cs{EPAccentCoupure} macro set the
+\DescribeMacro{EPAccentCoupure}
+behaviour of the stress marks when there is a break. The default is to
+keep the stress mark with the text which begins the new line
+i.~e.\ \Pron{^^a3Bh^^a3p^^a3kf^^a3Xen^^a3H^^a3q^^a3k^^a3s^^a3Xen} is cut, if necessary, as
+\Pron{^^a3Bh^^a3p^^a3kf^^a3Xen}\verb+|+\Pron{^^a3H^^a3q^^a3k^^a3s^^a3Xen}.
+
+\NOUVEAU{Since version~2} the \cs{EPSyllabeMarque} set the mark for
+syllable division and \cs{EPSyllabe}\BOP|Coupure| defines the
+behaviour of \DescribeMacro{EPSyllabeCoupure} the mark in case of
+break. Default is to keep the mark at the end of the line so
+\Pron{^^a3Hh^^a3p^^a3kf^^a3Xen} is cut in \Pron{^^a3Hh^^a3p^^a3k}\verb+|+\Pron{f^^a3Xen}.
+
+The macros \cs{EPouvrante} (\emph{opening}) and \cs{EPfermante}
+(\emph{closing}) define \DescribeMacro{EPouvrante} what precedes and
+follows the pronunciation. The macro \cs{EPtextestyle} defines the
+style of the \DescribeMacro{EPfermante} text of the pronunciation. By
+default, the first two macros give \EPouvrante{} and
+\EPfermante{}; \DescribeMacro{EPtextestyle} \cs{EPtextestyle} is
+defined as |\rmfamily\upshape|.
+
+In what follows I will write that ``the pound is
+active''\index{pound!active} to mean that the
+character \GBP is active and \textbf{is not} defined to produce the
+glyph of the pound sterling but to give the macro beginning with
+\GBP. In all other cases I will write that ``the pound is
+inactive''\index{pound!inactive}.
+
+Those three macros are used by \cs{pron} and \cs{PRON} to produce a
+\DescribeMacro{pron} uniform presentation whatever the contexte and
+the activity of the pound. The macro \cs{pron}\marg{text} produces a
+presentation of the pronunciation as you can find it usually after a
+word in a text. You will use it when ``the pound is
+active\index{pound!active}.'' You will then write |\pron{ma^^a3i}| to
+obtain \PRON{ma^^a3i}.
+
+When ``the pound is inactive\index{pound!inactive}'' you will use
+\DescribeMacro{PRON} \cs{PRON}\marg{text} to obtain the same
+result. In fact as in this document I've loaded the package
+\Pkg{engpron} with option \Option{tame} I've obtained, in the
+preceding paragraph, \PRON{ma^^a3i} with |\PRON{ma^^a3i}|. And now I've said
+it all!
+
+Lastly when the pound is inactive\index{pound!inactive},
+\cs{Pron}\marg{text} give the means of enter API without the
+presentation given by \cs{pron}. With |\Pron{^^a3Hf^^a3in^^a3k^^a3i^^a3kg^^a3en}| you
+will simply obtain \Pron{^^a3Hf^^a3in^^a3k^^a3i^^a3kg^^a3en} without ``decoration.''
+
+The macro \cs{ActiveLaLivre} \DescribeMacro{ActiveLaLivre} makes the
+pound active\index{pound!active}, it is used by \cs{Pron}, \cs{PRON},
+and the following environment. You can use it for example in a array
+\TO with the package \Pkg{array}\TF to make the pound active in a
+column.
+
+
+
+\vspace{\baselineskip}
+
+\NOUVEAU{To conclude}, with the antagonistic macros
+\DescribeMacro{MakeHyphenable} \cs{MakeHyphenable}\slash
+\cs{MakeUnHyphenable} you can thwart the effect of options
+\Option{hyphenable}\slash\Option{unhyphenable}
+\DescribeMacro{MakeUnHyphenable}\index{hyphenation}.
+
+\cs{MakeHyphenable} redefines the macros linked to |^^a3H|, |^^a3h|, |^^a3B|,
+|^^a3b|, and |^^a3k|\index{stress}\index{syllable division} in order that
+they produce cuttable\index{mark!cuttable}\index{cuttable}
+marks. \cs{MakeUnHyphenable} redefines them to obtain uncuttable
+marks\index{mark!uncuttable}\index{uncuttable}. The
+visibility\index{mark!visibility}\index{visibility} of |^^a3k| is not
+modified.
+
+Other pair of opposite macros: \DescribeMacro{MakeVisible}
+\cs{MakeVisible}\slash\cs{MakeInVisible}. The macro
+\cs{Make}\BOP|Vi|\BOP|sible| redefines the macro linked to
+|^^a3k|\index{syllable division}\index{visibility} to make it produce
+visible marks\index{mark!visible}, \cs{MakeInVisible} does the
+opposite\index{mark!invisible}\DescribeMacro{MakeInVisible}. The
+cuttability\index{cuttability} of |^^a3k| is not modified.
+
+\subsection{Conclusion}
+\label{sec:conclusion}
+
+You will notice, if you look at the table~\ref{latable} or the code of
+this package, that there remain place to define other macros using
+an active pound.
+
+First of all some letters are not used and e.~g.\ |^^a3S| does nothing. On
+the other hand, you can define other macros with more than one letter
+behind \GBP but you will have to type |^^a3{aeiou}| to use a macro the
+true name of which would be |\^^a3aeiou|. I do believe it should be kept
+for macros with a substantial effect \Sourire.
+
+As a conclusion, I will freely admit that the chosen code is not
+necessarily optimal. Actually, I have made it along in view of my
+needs and I cannot say that there is a general rule for
+organization. Nevertheless you will be able to notice some efforts
+made towards systematization.
+
+You should feel free to make changes you want as long as \TO in accord
+with the license under which this package is made available\TF you
+change its name. You can, if you prefer, ask for modification and I
+will try to make it according to your requirement if feasible but I
+make \textbf{no} promise to be quick and clever.
+
+\begin{thebibliography}{99}
+\addcontentsline{toc}{section}{Bibliography}
+\bibitem{jones15} Daniel~\textsc{Jones} \dag.
+\emph{English Pronouncing Dictionary}.
+15th Edition. This major new edition edited by Peter Roach \& James
+Hartman.
+Cambridge University Press, \oldstylenums{1997}.\\
+\textsc{isbn} : \texttt{0-521-45903-6}
+\bibitem{jones} Daniel~\textsc{Jones} \dag.
+\emph{English Pronouncing Dictionary}.
+Cambridge University Press, \oldstylenums{1991}.
+\bibitem{tlachand} T.~\textsc{Lachand-Robert}.
+\emph{La ma^^eetrise de \TeX{} et \LaTeX{}}.
+Masson, Paris, Milan, Barcelone, \oldstylenums{1995}.\\
+\textsc{isbn} : \texttt{2-225-84832-7}.
+\bibitem{harraps} J. E. \textsc{Manson}, M.A.
+\emph{Harrap's New Shorter French And English Dictionary.}
+Revised edition \copyright{} George G. Harrap \&
+Co. Ltd. \oldstylenums{1967}.
+Bordas diffuseur, \oldstylenums{1980}.\\
+\textsc{isbn} : \texttt{0 245 59062 5}
+\end{thebibliography}
+
+\newpage
+
+\section{Table of the \GBP Macros}
+
+\thispagestyle{empty}{\LARGE
+\vspace*{\stretch{1}}
+\begin{LivreActive}
+\noindent
+\begin{tabular}[l]{|>{\ttfamily }c|>{\ActiveLaLivre }c||>{\ttfamily
+}c|c||>{\ttfamily }c|c||>{\ttfamily}c|c|}\hline
+\multicolumn{8}{|c|}{Vowels}\\ \hline
+\^^a3a & ^^a3a & \^^a3A & ^^a3A & \^^a3e & ^^a3e & \^^a3E & ^^a3E \\ \hline
+\^^a3i & ^^a3i & \^^a3I & ^^a3I & \^^a3o & ^^a3o & \^^a3O & ^^a3O \\ \hline
+\^^a3u & ^^a3u & \^^a3U & ^^a3U & \^^a3v & ^^a3v & \^^a3x & ^^a3x \\ \hline
+\^^a3c & ^^a3c & \^^a3C & ^^a3C & \^^a3y & ^^a3y &     &    \\ \hline
+\multicolumn{8}{|c|}{Diphthongs}\\ \hline
+\^^a3p & ^^a3p & \^^a3q & ^^a3q & \^^a3r & ^^a3r & \^^a3P & ^^a3P\\ \hline
+\^^a3Q & ^^a3Q & \^^a3R & ^^a3R & \^^a3w & ^^a3w & \^^a3W & ^^a3W\\ \hline
+\^^a3V & ^^a3V &     &    &     &    &     &   \\ \hline
+\multicolumn{8}{|c|}{Consonants}\\ \hline
+\^^a3d & ^^a3d & \^^a3f & ^^a3f & \^^a3j & ^^a3j & \^^a3l & ^^a3l \\ \hline
+\^^a3n & ^^a3n & \^^a3s & ^^a3s & \^^a3t & ^^a3t & \^^a3z & ^^a3z \\ \hline
+\^^a3T & ^^a3T & \^^a3L & ^^a3L &     &    &     &    \\ \hline
+\multicolumn{8}{|c|}{Stresses}\\ \hline
+\^^a3b & ^^a3b & \^^a3B & ^^a3B & \^^a3h & ^^a3h & \^^a3H & ^^a3H \\ \hline
+\^^a3Kb & ^^a3Kb & \^^a3KB & ^^a3KB & \^^a3Kh & ^^a3Kh & \^^a3KH & ^^a3KH \\ \hline
+\multicolumn{8}{|c|}{Syllable division}\\ \hline
+\^^a3k & ^^a3k & \^^a3Kk & ^^a3Kk & \^^a3KK & ^^a3KK & \^^a3KX & ^^a3KX \\ \hline
+\multicolumn{8}{|c|}{French nasalised vowels}\\
+\multicolumn{8}{|c|}{French pronunciation}\\ \hline
+\^^a3Ma & ^^a3Ma & \^^a3Mi & ^^a3Mi & \^^a3Mo & ^^a3Mo & \^^a3Mu & ^^a3Mu \\ \hline
+\multicolumn{8}{|c|}{English pronunciation}\\ \hline
+\^^a3ma & ^^a3ma & \^^a3mi & ^^a3mi & \^^a3mo & ^^a3mo & \^^a3mu & ^^a3mu \\ \hline
+\end{tabular}\label{latable}
+\end{LivreActive}
+\vspace*{\stretch{1}}
+}
+
+\printindex
+\end{document}
+\endinput
+%%
+%% End of file `engpron-en.ltx'.

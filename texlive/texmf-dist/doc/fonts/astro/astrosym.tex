@@ -1,0 +1,167 @@
+% ASTROSYM.TEX : AstroSym (Version 2.20,  Aug. 10, 2002) - file 8 of 8
+% Peter Schmitt                      eMail: Peter.Schmitt@univie.ac.at
+% Institute of Mathematics, University of Vienna       Vienna, Austria
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%% style definitions and auxilary macros
+
+\newcount\n \newcount\last
+\def\nextchar{\ifnum \n<\last
+                     \char\n
+                     \hskip1mm plus.1mm minus.1mm
+                     \advance\n by 1 
+                     \let\next=\nextchar
+               \else \let\next=\relax
+                 \fi \next}
+\def\showsinglesymbol#1[#2]{\leavevmode\vphantom{{\astro\char1 }}
+                      \n=#2 \Char\n
+                            \hskip3mm\relax#1\par}
+\def\showsymbol#1[#2]{\leavevmode\vphantom{{\astro\char1 }}
+                      \n=#2 \Char\n
+          \advance\n by 100 \Char\n
+          \advance\n by 100 \ifnum \n > 255 \advance\n -78 \fi \Char\n
+                     \hskip3mm\relax#1\par}
+\def\Char#1{\hbox to 10mm{\hfil[\the\n]\hskip2mm}%
+            \hbox to12mm{\astro\char\n\hfil}\hskip1mm}
+\def\list{\begingroup\obeylines\everypar{\showsymbol}}
+\def\singlelist{\begingroup\obeylines\everypar{\showsinglesymbol}}
+\def\endlist{\endgroup}
+\def\show#1:#2 - #3 & #4 - #5 {%
+    #1:\par
+    {\astro \n=#2 \last=#3 \advance\last by 1 \nextchar
+     \astro \n=#4 \last=#5 \advance\last by 1 \nextchar}
+    \par}
+\font\astro=astrosym
+\overfullrule0pt\nopagenumbers
+\hsize16truecm
+\parindent0pt
+\parskip 10pt plus10pt
+
+%%%%%%%%%%%%%%%%%%%%%%
+
+\headline{%
+Astronomical Symbols -- Version 2.20 (August 2002)
+\hfill\the\year--\the\month--\the\day\ --- Page \the\pageno}
+
+%%% print all characters of AstroSym font
+
+\show `Calligraphic Version'         :   0 -  55 &  56 -  69
+\show `Uniform Version (Bold)'       : 100 - 155 & 156 - 169
+\show `Uniform Version (Thin)'       : 200 - 255 & 178 - 191
+\show extra symbols (single version) :  90 -  92 &  93 -  95
+
+%%% show all symbols and their variants
+
+List of symbols:
+
+The planetary system:
+
+\list
+Sol [0]
+Mercurius [1]
+Venus [2]
+Terra [3]
+Terra 2 [29]
+Mars [4]
+Mars 2 [30]
+Iuppiter [5]
+Saturnus [6]
+Saturnus 2 [23]
+Uranus [7]
+Neptunus [8]
+Neptunus 2 [24]
+Pluto [9]
+Pluto 3 [31]
+Pluto 2 [25]
+Pluto 4 (tree) [56]
+Pluto 5 (cup) [57]
+Pluto 6 [68]
+Luna [10]
+Luna 2 [44]
+\endlist
+
+Planetoids (and related):
+
+\list
+Ceres [48]
+Ceres 2 [49]
+Juno [50]
+Juno 2 [51]
+Pallas [52]
+Vesta [53]
+Vesta 2 [54]
+Chiron [55]
+Chiron 2 [66]
+Lilith [67]
+\endlist
+
+The phases of the moon:
+
+\list
+full moon [39]
+(moon) first quarter [41]
+(moon) first quarter -- inverse [43]
+(moon 2) first quarter [45]
+(moon 2) first quarter -- inverse [47]
+Luna = (moon) last quarter [10]
+(moon) last quarter -- inverse [42]
+Luna 2 = (moon 2) last quarter [44]
+(moon 2) last quarter -- inverse [46]
+new moon [40]
+\endlist
+
+additional versions:
+
+\singlelist
+(moon face) full moon [90]
+(moon face) first quarter [93]
+(moon face) first quarter - inverse [95]
+(moon face) last quarter [92]
+(moon face) last quarter - inverse [94]
+(moon face) new moon [91]
+\endlist
+
+The signs of the zodiac:
+
+\list
+Aries [11]
+Taurus [12]
+Gemini [13]
+Cancer [14]
+Leo [15]
+Virgo [16]
+Libra [17]
+Libra 2 [26]
+Libra 3 [32]
+Scorpio [18]
+Sagittarius [19]
+Capricornus [20]
+Aquarius [21]
+Aquarius 2 [27]
+Aquarius 3 [28]
+Pisces [22]
+\endlist
+
+Various astronomical signs:
+
+\list
+Star [33]
+Comet [34]
+Meteor [35]
+Conjunction [36]
+Semi-sextile [58]
+Semi-quadrature [59]
+Sextile [60]
+Sextile 2 [69]
+Quadrature [38]
+Trigon [61]
+one and a half quadrature [62]
+Quincunx [63]
+Opposition [37]
+ascending node of moon  [64]
+descending node of moon [65]
+\endlist
+
+\end
+%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%% end of ASTROSYM.TEX %%%

@@ -1,0 +1,213 @@
+\documentclass[12pt]{article}
+
+\usepackage[latin2]{inputenc}
+\usepackage{polski,array}
+\usepackage[math]{anttor}
+\usepackage[margin=2.5cm,nohead]{geometry}
+
+\newcommand*{\cs}[1]{\texttt{\char`\\#1}}
+
+\title{Jak u¿ywaæ Antykwy Toruñskiej w~\LaTeX u}
+\author{Marcin Woliñski}
+\date{wersja 1.1, 5 pa¼dziernika 2005}
+\begin{document}
+\maketitle
+
+
+\section{U¿ycie jako domy¶lnego pisma dokumentu}
+
+
+U¿ycie \textsc{Antykwy Toruñskiej} jako domy¶lnego kroju dokumentu
+mo¿na ³atwo uzyskaæ za pomoc± pakietu \texttt{anttor}.  Antykwa
+Toruñska jest dostêpna w~kilku uk³adach (zestawach znaków).  Do sk³adu
+w jêzyku angielskim wystarczy domy¶lny dla \LaTeX a uk³ad kodowania
+\texttt{OT1}.  Do sk³adu w jêzyku polskim mo¿na w³±czyæ uk³ad
+\texttt{OT4} (wystarczy za³adowaæ pakiet \texttt{polski}).  Bogatszy
+podzbiór znaków fontu da u¿ycie uk³adu \texttt{QX}:
+\begin{verbatim}
+\usepackage{polski,anttor}
+\usepackage[QX]{fontenc}
+\end{verbatim}
+Ponadto w~wywo³aniu pakietu \texttt{anttor} mo¿e wyst±piæ opcja
+\texttt{light} w³±czaj±ca odmianê jasn± i/lub \texttt{condensed}
+w³±czaj±ca odmianê zwê¿on± kroju.
+
+Poni¿ej przedstawiam wynik stosowania standardowych poleceñ
+\cs{textit}, \cs{textbf}, \cs{textsc} i~ich kombinacji w~zale¿no¶ci od
+sposobu za³adowania pakietu:
+
+\begin{verbatim}
+\usepackage{anttor}
+\end{verbatim}
+\begin{quotation}
+  \textsc{Ten typowy \textbf{akapit} testowy} daje przy okazji rodzaj
+  filigranowego wysypu hodowli pieczarek w~zielonym kasztanie
+  repetycji \textbf{gloryfikacji \textsc{stanowisk
+      \textit{ministerialnych}}} i~podsypanych minimalistom jako
+  fetysz \textit{zaduchu studziennych barykad aglomeracji
+    fosforescencji \textbf{luminazy} atraktywno\dywiz bajerywnej
+    z~dodatkiem glukozy} i~mineralnych bakterii finansowych oraz
+  gromadzenia idei atrakcyjnych pomp prasowych z~okazji rozpoczynania
+  wegetacji takich istot jak wiolonczele, napoje bazaltowe i~gramatyka
+  z~okresu mezozoicznego z~jej typowym sposobem oznajmiania zachwytu
+  nad bytem poprzez wycie i~popiskiwanie o~charakterystycznej
+  modulacji toniczno\dywiz barycznej z~wyskokami w~kierunku
+  reglamentacji zawartej immanentnie w~bagnie.
+\end{quotation}
+
+\pagebreak
+\begin{verbatim}
+\usepackage[light]{anttor}
+\end{verbatim}
+\begin{quotation}
+  \renewcommand{\rmdefault}{anttl}\normalfont
+  \textsc{Ten typowy \textbf{akapit} testowy} daje przy okazji rodzaj
+  filigranowego wysypu hodowli pieczarek w~zielonym kasztanie
+  repetycji \textbf{gloryfikacji \textsc{stanowisk
+      \textit{ministerialnych}}} i~podsypanych minimalistom jako
+  fetysz \textit{zaduchu studziennych barykad aglomeracji
+    fosforescencji \textbf{luminazy} atraktywno\dywiz bajerywnej
+    z~dodatkiem glukozy} i~mineralnych bakterii finansowych oraz
+  gromadzenia idei atrakcyjnych pomp prasowych z~okazji rozpoczynania
+  wegetacji takich istot jak wiolonczele, napoje bazaltowe i~gramatyka
+  z~okresu mezozoicznego z~jej typowym sposobem oznajmiania zachwytu
+  nad bytem poprzez wycie i~popiskiwanie o~charakterystycznej
+  modulacji toniczno\dywiz barycznej z~wyskokami w~kierunku
+  reglamentacji zawartej immanentnie w~bagnie.
+\end{quotation}
+
+\begin{verbatim}
+\usepackage[condensed]{anttor}
+\end{verbatim}
+\begin{quotation}
+  \renewcommand{\rmdefault}{anttc}\normalfont
+  \textsc{Ten typowy \textbf{akapit} testowy} daje przy okazji rodzaj
+  filigranowego wysypu hodowli pieczarek w~zielonym kasztanie
+  repetycji \textbf{gloryfikacji \textsc{stanowisk
+      \textit{ministerialnych}}} i~podsypanych minimalistom jako
+  fetysz \textit{zaduchu studziennych barykad aglomeracji
+    fosforescencji \textbf{luminazy} atraktywno\dywiz bajerywnej
+    z~dodatkiem glukozy} i~mineralnych bakterii finansowych oraz
+  gromadzenia idei atrakcyjnych pomp prasowych z~okazji rozpoczynania
+  wegetacji takich istot jak wiolonczele, napoje bazaltowe i~gramatyka
+  z~okresu mezozoicznego z~jej typowym sposobem oznajmiania zachwytu
+  nad bytem poprzez wycie i~popiskiwanie o~charakterystycznej
+  modulacji toniczno\dywiz barycznej z~wyskokami w~kierunku
+  reglamentacji zawartej immanentnie w~bagnie.
+\end{quotation}
+
+\begin{verbatim}
+\usepackage[light,condensed]{anttor}
+\end{verbatim}
+\begin{quotation}
+  \renewcommand{\rmdefault}{anttlc}\normalfont
+  \textsc{Ten typowy \textbf{akapit} testowy} daje przy okazji rodzaj
+  filigranowego wysypu hodowli pieczarek w~zielonym kasztanie
+  repetycji \textbf{gloryfikacji \textsc{stanowisk
+      \textit{ministerialnych}}} i~podsypanych minimalistom jako
+  fetysz \textit{zaduchu studziennych barykad aglomeracji
+    fosforescencji \textbf{luminazy} atraktywno\dywiz bajerywnej
+    z~dodatkiem glukozy} i~mineralnych bakterii finansowych oraz
+  gromadzenia idei atrakcyjnych pomp prasowych z~okazji rozpoczynania
+  wegetacji takich istot jak wiolonczele, napoje bazaltowe i~gramatyka
+  z~okresu mezozoicznego z~jej typowym sposobem oznajmiania zachwytu
+  nad bytem poprzez wycie i~popiskiwanie o~charakterystycznej
+  modulacji toniczno\dywiz barycznej z~wyskokami w~kierunku
+  reglamentacji zawartej immanentnie w~bagnie.
+\end{quotation}
+
+\section{U¿ycie we fragmentach dokumentu}
+
+\LaTeX ow± nazw± kroju \textsc{Antykwa Toruñska} jest \texttt{antt}.
+Aby wiêc z³o¿yæ fragment tekstu tym krojem wystarcz± nastêpuj±ce
+polecenia (nie trzeba ³adowaæ ¿adnych pakietów):
+\begin{verbatim}
+  gromadzenia idei atrakcyjnych pomp prasowych z~okazji rozpoczynania
+  wegetacji takich istot jak
+  {\fontfamily{antt}\selectfont
+  wiolonczele, napoje bazaltowe i~gramatyka z~okresu mezozoicznego}
+  z~jej typowym sposobem oznajmiania zachwytu
+  nad bytem poprzez wycie i~popiskiwanie o~charakterystycznej
+\end{verbatim}
+\begin{quotation}
+  \renewcommand{\rmdefault}{cmr}\normalfont
+\noindent  gromadzenia idei atrakcyjnych pomp prasowych z~okazji rozpoczynania
+  wegetacji takich istot jak
+  {\fontfamily{antt}\selectfont
+  wiolonczele, napoje bazaltowe i~gramatyka z~okresu mezozoicznego}
+  z~jej typowym sposobem oznajmiania zachwytu
+  nad bytem poprzez wycie i~popiskiwanie o~charakterystycznej
+\end{quotation}
+
+Odmianê jasn± i/lub~zwê¿on± mo¿na uzyskaæ z~pomoc± odpowiednich
+argumentów polecenia \cs{fontseries}:
+\begin{verbatim}
+  gromadzenia idei atrakcyjnych pomp prasowych z~okazji rozpoczynania
+  wegetacji takich istot jak
+  {\fontfamily{antt}\fontseries{l}\selectfont
+  wiolonczele, napoje bazaltowe
+  i~{\fontseries{bc}\selectfont gramatyka} z~okresu mezozoicznego}
+  z~jej typowym sposobem oznajmiania zachwytu
+  nad bytem poprzez wycie i~popiskiwanie o~charakterystycznej
+\end{verbatim}
+\begin{quotation}
+  \renewcommand{\rmdefault}{cmr}\normalfont
+\noindent  gromadzenia idei atrakcyjnych pomp prasowych z~okazji rozpoczynania
+  wegetacji takich istot jak
+  {\fontfamily{antt}\fontseries{l}\selectfont
+  wiolonczele, napoje bazaltowe
+  i~{\fontseries{bc}\selectfont gramatyka} z~okresu mezozoicznego}
+  z~jej typowym sposobem oznajmiania zachwytu
+  nad bytem poprzez wycie i~popiskiwanie o~charakterystycznej
+\end{quotation}
+Zapewne ³atwiej jednak pos³u¿yæ siê \emph{rodzin±} zwê¿on± i~jasn±:
+\begin{center}
+  \begin{tabular}{>\ttfamily ll}
+    antt & normalna\\
+    anttl & jasna \\
+    anttc & zwê¿ona \\
+    anttlc & jasna zwê¿ona
+  \end{tabular}
+\end{center}
+
+Dok³adny opis poleceñ \cs{fontfamily} i~\cs{fontseries} mo¿na znale¼æ
+w~dokumencie \texttt{fntguide.tex} dystrybuowanym z~\LaTeX em.
+
+
+\section{U¿ycie we wzorach matematycznych}
+\label{sec:math}
+
+Aby u¿yæ pisma Antykwa Toruñska we wzorach matematycznych nale¿y zadeklarowaæ
+w~wywo³aniu pakietu opcjê \texttt{math} lub \texttt{mathnoalias}:
+\begin{verbatim}
+\usepackage[math]{anttor}
+\end{verbatim}
+
+U¿ycie ka¿dej z~tych opcji spowoduje zdefiniowanie ,,wersji
+matematyki'' o~nazwie \texttt{anttor} i~\texttt{anttorbold} oraz
+aktywowanie wersji \texttt{anttor}.  Zatem w~sk³adzie dostajemy
+$$\prod_{j<0}\biggl(\sum_{k\ge0}{\mit\Gamma}_{jk}z^k\biggr)
+=\sum_{0\ge0}z^n\,\Biggl(\sum_ {\scriptstyle k_0,k_1,\ldots\ge0\atop
+  \scriptstyle k_0+k_1+\cdots=n} a_{0k_0}a_{1k_1}\ldots\,\Biggr).$$
+
+
+Ró¿nica miêdzy tymi opcjami polega na tym, ¿e w~wypadku \texttt{math}
+nowe wersje matematyki s± podstawiane równie¿ pod standardowe nazwy
+\texttt{normal} i~\texttt{bold}, dziêki czemu polecenia \cs{boldmath}
+i~\cs{unboldmath} zaczynaj± siê odnosiæ do wzorów sk³adanych Antykw±
+Toruñsk±.
+
+W~wypadku opcji \texttt{mathnoalias} standardowe wersje matematyki
+utrzymuj± swoje znaczenie, a~wersje ,,toruñskie'' mo¿na uaktywniaæ
+poleceniami
+\begin{verbatim}
+\mathversion{anttor}
+\mathversion{anttorbold}
+\end{verbatim}
+
+W~wypadku opcji \texttt{math} standardowe wersje matematyki
+pozostaj± dostêpne pod nazwami \texttt{cmr} i~\texttt{cmrbold}.
+
+W~sumie wiêc w~typowym wypadku mo¿na poleciæ u¿ywanie opcji
+\texttt{math}.
+\end{document}

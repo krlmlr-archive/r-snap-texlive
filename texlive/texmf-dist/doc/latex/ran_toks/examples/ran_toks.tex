@@ -1,0 +1,77 @@
+\documentclass{article}
+\usepackage{ran_toks}
+
+%\useThisSeed{606574325}
+%\useLastAsSeed
+%\rtdebugtrue
+%\ranToksOn
+%\ranToksOff
+
+\parindent0pt \parskip6pt
+
+
+\begin{document}
+\begin{center}\bfseries
+    Test file for \textsf{ran\_toks} Package\\[3pt]
+        D. P. Story
+\end{center}
+
+Test of the \verb!\ranToks! command.
+
+\ranToks{myPals}{%
+    {Jim}{Richard}{Don}
+    {Alex}{Tom}{J\"{u}rgen}
+}
+I have {\nToksFor{myPals}} pals, they are \useRanTok{1}, \useRanTok{2},
+\useRanTok{3}, \useRanTok{4}, {\useRanTok{5}} and \useRanTok{6}. (Listed
+in the order of best friend to least best friend.)
+
+Test of the \verb!\bRTVToks!/\verb!\eRTVToks! pair of commands and of the
+\texttt{rtVW} environment.
+
+\bRTVToks{myThoughts}%
+\begin{rtVW}
+\begin{minipage}[t]{.67\linewidth}
+Roses are red and violets are blue,
+I've forgotten the rest, have you too?
+\end{minipage}
+\end{rtVW}
+\begin{rtVW}
+\begin{minipage}[t]{.67\linewidth}
+I gave up saying bad things like
+\verb!$#%%%^*%^&#$@#! when I was just a teenager
+\end{minipage}
+\end{rtVW}
+\begin{rtVW}
+\begin{minipage}[t]{.67\linewidth}
+I am a good guy, pass it on! The code for this last sentence is,
+\begin{verbatim}
+%#$% I am a good guy, pass it on! ^&*&^*
+\end{verbatim}
+How did that other stuff get in there?
+\end{minipage}
+\end{rtVW}
+\eRTVToks
+\begin{enumerate}
+    \item \useRanTok{1}
+    \item \useRanTok{2}
+    \item \useRanTok{3}
+\end{enumerate}
+
+Use \verb!\useRTName! command when another list separates the current
+position from the list you want to use. Here we want to use the list named
+\texttt{myPals}, but since that definition, a new list named
+\texttt{myThoughts} was declared.
+
+\useRTName{myPals}
+List of pals: \useRanTok{1}, \useRanTok{2}, \useRanTok{3}, \useRanTok{4},
+\useRanTok{4}, \useRanTok{5}.
+
+For mixing lists. it might be easier to use the optional parameter:
+{\useRanTok[myPals]{1}} and \useRanTok[myThoughts]{1}.
+
+The \verb!\rtTokByNum! can retrieve an item from the list, in its declared
+order; eg, from the \texttt{myPals} list, the first and last are {\rtTokByNum[myPals]{1}}
+and \rtTokByNum[myPals]{\nToksFor{myPals}}.
+
+\end{document}

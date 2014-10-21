@@ -1,0 +1,78 @@
+%%
+%% This is file `exp-testopt.test',
+%% generated with the docstrip utility.
+%%
+%% The original source files were:
+%%
+%% exp-testopt.dtx  (with options: `test')
+%% 
+%% IMPORTANT NOTICE:
+%% 
+%% For the copyright see the source file.
+%% 
+%% Any modified versions of this file must be renamed
+%% with new filenames distinct from exp-testopt.test.
+%% 
+%% For distribution of the original source see the terms
+%% for copying and modification in the file exp-testopt.dtx.
+%% 
+%% This generated file may be distributed as long as the
+%% original source files, as listed above, are part of the
+%% same distribution. (The sources need not necessarily be
+%% in the same archive or directory.)
+%%  (C) 2008 Paul Ebermann
+%%
+%%   Package exp-testopt - expandible testopt-Variante.
+%%
+%%   Die Datei exp-testopt.dtx sowie die dazugehörige
+%%   exp-testopt.ins sowie die damit generierte
+%%   exp-testopt.sty stehen unter der
+%%   "LaTeX Project Public License" (LPPL, zu finden
+%%   unter http://www.latex-project.org/lppl/, sowie
+%%   auch in den meisten TeX-Distributionen in
+%%   texmf/docs/latex/base/lppl*.txt), Version 1.3b oder
+%%   später (nach Wahl des Verwenders).
+%%
+%%   Der 'maintenance-status' ist (zur Zeit) 'author-maintained'.
+%%
+%%   Das heißt u.a., die Dateien dürfen frei vertrieben werden,
+%%   bei Änderungen (durch andere Personen als Paul Ebermann)
+%%   ist aber der Name der Datei zu ändern.
+\makeatletter
+\errorcontextlines = 20
+
+\def\beispiel{%
+  \@expandable@testopt\beispielImpl{Default}%
+}
+\def\beispielImpl[#1]{%
+  \fbox{#1}%
+}
+\makeatother
+
+\expnewcommand*{\ekzemplo}[1][Defa\u ulto]{%
+  \textbf{(#1)}%
+}
+
+\expnewcommand*{\ekzemploDu}[2][defa\u ulto]{%
+  \ensuremath{\frac{\mbox{#1}}{\mbox{#2}}}%
+}
+
+  \beispiel{egal} \beispiel[bla]
+  \beispiel$ e=m c^2$ \beispiel[$ e=m c^2$]
+
+  \ekzemplo\ekzemplo[Bla]
+  \expandafter\ekzemplo\space[bla]
+  \expandafter\expandafter\expandafter\ekzemplo\expandafter\space\space[dua bla]
+  \ekzemplo
+  [nova linio]
+  \ekzemplo
+
+  [du novaj linioj]
+  \ekzemplo[blub]
+
+  \ekzemploDu{testo}
+  \ekzemploDu[bla]{testo}
+
+\endinput
+%%
+%% End of file `exp-testopt.test'.

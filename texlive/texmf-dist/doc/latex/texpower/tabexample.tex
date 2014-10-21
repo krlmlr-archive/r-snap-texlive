@@ -1,0 +1,92 @@
+%%
+%% This is file `tabexample.tex',
+%% generated with the docstrip utility.
+%%
+%% The original source files were:
+%%
+%% texpower-doc.dtx  (with options: `tabexample,tabexample-src,end')
+%% 
+%% --------------------------------------------------------------
+%% TeXPower bundle - dynamic online presentations with LaTeX
+%% Copyright (C) 1999-2004 Stephan Lehmke
+%% Copyright (C) 2003-2005 Hans Fredrik Nordhaug
+%% 
+%% This program is free software; you can redistribute it and/or
+%% modify it under the terms of the GNU General Public License
+%% as published by the Free Software Foundation; either version 2
+%% of the License, or (at your option) any later version.
+%% 
+%% This program is distributed in the hope that it will be useful,
+%% but WITHOUT ANY WARRANTY; without even the implied warranty of
+%% MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+%% GNU General Public License for more details.
+%% --------------------------------------------------------------
+%% 
+%% The list of all files belonging to the TeXPower bundle is
+%% given in the file `00readme.txt'.
+%% 
+\ProvidesFile{tabexample.tex}%
+      [2005/04/07 TeXPower example file]
+%-----------------------------------------------------------------------------------------------------------------
+%
+% Tabular example for the package texpower.sty.
+%
+%-----------------------------------------------------------------------------------------------------------------
+% Use slifonts.
+
+\RequirePackage{tpslifonts}
+
+% Input the generic preamble.
+
+\input{__TPpreamble}
+\hypersetup{pdftitle={texpower tabular example}}
+
+
+%-----------------------------------------------------------------------------------------------------------------
+% Finally, everything is set up. Here we go...
+%
+\begin{document}
+\begin{slide}
+
+
+%-----------------------------------------------------------------------------------------------------------------
+%
+\makeslidetitle{\macroname{stepwise} Example: A Tabular}
+
+% In the following, a tabular object is built incrementally.
+% Observe how & and \\ are placed inside the following step to avoid `opening' empty cells.
+% The macro \tabend is redefined to `replace' the final \hline by \cline's when a line is not yet complete.
+%
+  \newcommand{\tabend}{\\\hline}%
+
+  \liststepwise{%
+    \begin{center}
+      \step{%
+        \begin{tabular}{|l|l|l|}
+          \hline
+          They can & be built & line by line%
+          \step{\\\hline or cell\renewcommand{\tabend}{\\\cline{1-1}}}%
+          \step{& by\renewcommand{\tabend}{\\\cline{1-2}}}%
+          \step{& cell\renewcommand{\tabend}{\\\hline}}%
+          \step
+          {%
+            \\\hline
+                                %
+                                % Again, \step's are nested inside each other...
+                                %
+            \step{or}&\step{like}&\step{this.}%
+            }%
+          \step{\\\hline But\renewcommand{\tabend}{\\\cline{1-1}}}%
+          \step{& beware\renewcommand{\tabend}{\\\cline{1-2}}}%
+          \step{& of cells growing horizontally!\renewcommand{\tabend}{\\\hline}}%
+          \tabend
+        \end{tabular}%
+        }%
+    \end{center}%
+    }%
+  \newslide
+\end{slide}
+\end{document}
+\endinput
+%%
+%% End of file `tabexample.tex'.

@@ -1,0 +1,1234 @@
+% This file is part of the Petri-nets packages. See file README for
+% copyright notice.
+
+\documentclass[11pt]{article}
+
+\usepackage{pnets}
+
+\catcode`\|=\active
+\def|{\verb|}
+
+%%
+%%
+
+\begin{document}
+
+\title{Petri-nets packages}
+\author{Franck Pommereau (pommereau@univ-paris12.fr)}
+\date{Last update: \pnversion}
+\maketitle
+
+\begin{abstract}\noindent
+This paper describes Petri-nets, a set of \TeX/\LaTeX{} packages about
+Petri nets and related models. One package allows to draw Petri-nets
+in PostScript or PDF documents. One other defines macros related to
+PBC, M-nets and \bpn{} models. A last package just gathers together
+the two previous.
+\end{abstract}
+
+\begin{small}
+\tableofcontents
+\end{small}
+
+%%
+%%
+
+\section{Introduction}
+
+Petri-nets is a set of packages which I use to write my papers about
+Petri nets and related models (essentially: PBC, M-nets and \bpn). It
+features three packages: one for drawing net, one other which defines
+additional macros for textual purpose (like the name ``\bpn'') and a
+last one for both purposes. The first package has been designed with a
+precise goal: saving me a lot of work when I have to draw nets. This
+goal explains some choices I did: typesetting labels in math mode by
+default, ending commands with the line, etc. I feel this results in an
+intuitive and high-level way to define Petri nets, but if you have
+ideas to improve this, don't hesitate to contact me. The text command
+package is more classical and if it saves also a lot of typing, its
+main goal is to ensure uniform notations.
+
+All these packages may evolve and grow up and if you (or I) feel that
+a feature is missing, you can send me an e-mail explaining your needs
+(\TeX{} code is welcome too). Notice that I don't pretend being a
+specialist in Petri nets and I'm only used to work on three or four
+models; so I may ignore particular things in particular models. This
+may explain some missing features.
+
+%%
+%%
+
+\subsection{Installation}
+
+The last version of the package may be downloaded on the web at the
+URL {\it http:/\slash www.univ-paris12.fr\slash lacl\slash
+pommereau\slash petrinets.tar.gz\/}, a copy should be available on
+{\it CTAN\slash macros\slash generic\slash petri-nets}; the
+distribution contains the following files:
+
+\begin{itemize}
+\item |pnets.tex| is the main \TeX{} package;
+\item |pnets.sty| is its \LaTeX{} counterpart;
+\item |pndraw.tex| and |pndraw.sty| are the \TeX{} and \LaTeX{}
+      sub-packages for drawing nets;
+\item |pntext.tex| and |pntext.sty| are the \TeX{} and \LaTeX{}
+      sub-packages for text commands;
+\item |pnversion.tex| defines macro |\pnversion|;
+\item |pndoc.ps|, |pndoc.pdf| and |pndoc.tex| are the present paper
+      and its source;
+\item |COPYING| is the text of the GNU GPL;
+\item |ChangeLog| collects all changes done to Petri-nets;
+\item |README| is a short introduction text;
+\item |pn2pdf| is a Perl script used to produce PDF files with
+      pdf\LaTeX.
+\end{itemize}
+
+In order to have Petri-nets working, you need to copy files |pnets.*|,
+|pndraw.*|, |pntext.*| and |pnversion.tex| in a place where \TeX{}
+will be able to find them. This can be somewhere in the default search
+path (see your local \TeX{} documentation) or in a directory included
+in your |TEXINPUT| environment variable.
+
+Packages from Petri-nets have been developed and tested with
+te\TeX-1.0.2 for Linux. \TeX{} packages should work with any \TeX{}
+version greater than or equal to 3 (my version is 3.14159, Web2C
+7.3.7). \LaTeX{} packages have been designed for \LaTeX$2_\varepsilon$
+so you may experiment troubles with an older version.
+
+In order to typeset symbols for classical sets of numbers (\setN,
+\setR, etc.) Petri-nets uses fonts from AMS. So you must have package
+|amsfonts| installed for \LaTeX{} or fonts |bbm| for \TeX{} (I think
+these conditions are more or less equivalent).
+
+The drawing basis are provided by package PSTricks, my version is
+PST97 but I used only macros described in the manual of version 0.93a
+so I hope it should work with it.
+
+Using PSTricks has an important consequence: actual drawings are done
+in PostScript, so, you may not see them directly from the DVI viewer
+(at least not correctly); additionally, you must use a PostScript
+driver in order to produce your final document (for example, dvips
+works well). Some support to produce PDF documents with pdf{\LaTeX} is
+provided (see section~\ref{sec:pdf}).
+
+PSTricks conflicts with packages |color|, |graphics| and |graphicx|,
+Petri-nets thus inherits this conflict. If you wish to use them
+together, you should first load package |pstcol|, then Petri-nets and
+at last, |color|, |graphics| or |graphicx|. The following is quoted
+from PSTricks' |README|:
+
+\begin{quote}
+To use the standard `|color|' package (which is available both for
+plain \TeX{} and \LaTeX) with PSTricks, you must load the `|pstcol|'
+extra package written by David Carlisle, which interface the two
+packages, loading them in the right order, and overriding some small
+parts of PSTricks to allow it to use the `|color|' package system for
+specifying color.  We {\it strongly\/} recommend that you use this way
+today.
+
+\LaTeX{} users must also take care that the `|pstcol|' package is
+required in place of the `|pstricks|' one if the `|graphics|' or
+`|graphicx|' package is also loaded.
+\end{quote}
+
+If you wish to produce PDF files using pdf{\LaTeX}, you also need to
+copy the script |pn2pdf| in a directory from which it can be executed.
+This script requires a working Perl with the packages |Digest::MD5|
+and |Getopt::Long| installed. Moreover, the script calls the following
+programs: |latex|, |dvips| and |epstopdf| which must be installed on
+your system (there should be not problem for the first two). In order
+to include the PDF pictures, the package |graphicx| is used (in this
+case, it does not lead to any conflict since PSTricks is not loaded
+when running pdf\LaTeX). Finally, the package |ifpdf| is used to
+detect whether a document is compiled using \LaTeX{} or pdf\LaTeX.
+This package should be thus installed.
+
+You can test your installation by recompiling the present manual which
+is written in \LaTeX. If it compiles successfully, this means that
+Petri-nets and PSTricks have been found by \TeX. If one file is not
+found, \TeX{} will complain, giving the file name. Then, running dvips
+will ensure that the PostScript headers of PSTricks can be found. You
+may also test the PDF support by producing the PDF version of this
+manual, see section~\ref{sec:pdf} for the way to proceed.
+
+If you successfully use Petri-nets under another configuration, feel
+free to send me an e-mail at {\it pommereau@univ-paris12.fr}. You may
+also send bug reports or comments, they are welcome. Of course, bug
+fixes are welcome too.
+
+%%
+%%
+
+\subsection{Loading the packages}
+
+From \TeX, you can load the package with |\input pnets|, from \LaTeX,
+you should put |\usepackage{pnets}| in the preamble of your document.
+Since you may want to use only the drawing macros, you can use
+|\input pndraw| or from \LaTeX: |\usepackage{pndraw}|. Similarly, in
+order to load only text commands, you can use |\input pntext| or
+|\usepackage{pntext}|.
+
+Both packages define a macro |\pnversion| which gives the date of the
+last update of the package. The date is given as a triple of numbers
+of the form |year-month-day|.
+
+%%
+%%
+
+\subsection{Things to do, known bugs and problems}
+
+In order to draw additional labels at the right position, |pndraw| has
+to perform some time consuming floating point computing. I plane in
+the future to perform this directly in PostScript, in order to speed-up
+\TeX{} compilation stage.
+
+Only transitions are allowed to change their size according to their
+inner label, it may be nice to have this feature for the other
+nodes. But it's may be a little bit difficult or quite ugly for some
+nodes.
+
+I also could add looping arcs. This is useless for Petri nets but it
+would allow one to use the packages for other purposes, like drawing
+automata.
+
+The PDf pictures are clipped to the bounding box of the corresponding
+net. I've seen on the newsgroups that there exists a solution, but it
+was written in German which I can't read.
+
+When one looks at a PDF document using Acrobat Reader, small blur
+points appear at the top-right and bottom-left corners of the Petri
+nets. This comes from two white points added in order to force dvips
+to produce the right bounding box when a net is generated alone in an
+EPS file. So, this is a bug of Acrobat Reader rather than one of
+Petri-nets.
+
+In a late future, I'd like to make the package independent of
+PSTricks, so it would be more portable (but maybe less powerful).
+
+%%
+%%
+
+\subsection{Legal stuff}
+
+Petri-nets is {\copyright} 2002 Franck Pommereau ({\it
+pommereau@univ-paris12.fr\/}).
+
+This program is free software; you can redistribute it and/or modify
+it under the terms of the {\it GNU General Public License\/} as
+published by the Free Software Foundation; either version 2 of the
+License, or any later version (see file |COPYING|).
+
+This program is distributed in the hope that it will be useful, but
+{\it without any warranty\/}; without even the implied warranty of
+{\it merchantability\/} or {\it fitness for a particular purpose}.
+See the {\it GNU General Public License\/} for more details.
+
+You should have received a copy of the {\it GNU General Public
+License\/} along with this program; if not, write to the Free Software
+Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307
+USA
+
+%%
+%%
+
+\subsection{Contributors}
+
+I am very grateful to all the persons who contributed to my work, in
+particular:
+
+\begin{quote}
+Denis Girou,
+Hanna Klaudel,
+Andr\'e Steenveld.
+\end{quote}
+
+%%
+%%
+
+\section{Text commands: package {\tt pntext}}
+
+This section lists the commands defined in package |pntext|, they are
+all available from \TeX{} as well as from \LaTeX.
+
+\paragraph{Math sets.}
+%
+Command |\mathset{A}| produces symbol \mathset{A} (and of course it
+works for any text). Shortcuts are defined: |\setN| for |\mathset{N}|
+and similarly for |\setZ|, |\setQ|, |\setR| and |\setC|.
+
+\paragraph{Status of places.}
+%
+Commands |\iplace|, |\eplace| and |\xplace| produce respectively
+characters \iplace, \eplace{} and \xplace. Command |\placestatus{n}|
+typesets character \placestatus{n} (in the case you would like a new
+place type).
+
+\paragraph{Operators for communication.}
+%
+Synchronization operator (\sy) is available through command |\sy|, in
+math mode, this command is surrounded by additional white space as
+usual for binary operators. Similar operators are |\rs| for
+restriction and |\tie| for asynchronous links. Scoping is available
+with commands |\lscope| and |\rscope| which produce respectively a
+left and a right double bracket, you may also use |\scope{A}{N}| to
+produce \scope{A}{N}.
+
+If you use |\lscope| (resp. |\rscope|) without the corresponding
+|\rscope| (resp. |\lscope|) in the same equation or array cell, \TeX{}
+will complain about some missing |\right| (resp. |\left|). In order to
+close (resp. open) a scope without drawing the bracket, you may use
+macro |\Rscope| (resp. |\Lscope|).
+
+\paragraph{Choice.}
+%
+Choice operator \choice{} is produced with command |\choice|. In math
+mode, it behaves like any binary operator.
+
+\paragraph{\bpn.}
+%
+The logo of \bpn{} is typeset using command |\bpn|. A \bpn{} keyword
+(say \bpnkw{program}) is typeset with |\bpnkw{program}| and for a
+non-terminal in the syntax (say \bpnnt{scope}) you may use
+|\bpnnt{scope}|. Function \mnet{} is defined as |\mnet|.
+
+\paragraph{Sets of values and variables.}
+%
+\Var{} and \Val{} are typeset using commands |\Var| and |\Val|. They
+are better to use than directly the text they typeset because they
+adjust their spacing in math mode: compare ``$Var$'' with ``$\Var$''.
+
+\paragraph{To be continued\dots}
+
+%%
+%%
+
+\section{Drawing nets: package {\tt pndraw}}
+
+%%
+%%
+
+\subsection{Some words about PSTricks}
+
+Reading PSTricks manual could be a good idea, but if you don't want
+to, you should know a few things about it in order to use Petri-nets
+successfully.
+
+In PSTricks, any point is designated by two coordinates in a grid,
+centered on a reference point which has coordinates $(0,0)$. The
+figure~\ref{axis} shows an example.
+
+\begin{figure}[t]
+\begin{center}
+\begin{petrinet}(-1.5,-1.5)(5.5,3.5)
+\pst\psgrid[subgriddiv=1,griddots=10](-1,-1)(5,3)
+\pst\psline{->}(0,-1.5)(0,3.5)
+\pst\psline{->}(-1.5,0)(5.5,0)
+\pst\psdot(4,2)
+\pst\rput[br](4,2){$(4,2)$}
+\pst\psdot(0,0)
+\pst\rput[br](0,0){$(0,0)$}
+\pst\psdot(2.5,-.5)
+\pst\rput[l](2.5,-.5){$\,(2.5,-.5)$}
+\end{petrinet}
+\end{center}
+\caption{The Cartesian coordinate system.}
+\label{axis}
+\end{figure}
+
+The distance from the origin $(0,0)$ to a point $(x,y)$ depends on
+three parameters. |units| is a global scale, if |unit=1.2cm|, $(4,2)$
+becomes an abbreviation for $(4 \times 1.2\hbox{ cm}, 2 \times
+1.2\hbox{ cm})$. There's also |xunit| and |yunit| which act
+respectively only on horizontal or vertical scale; for example, if
+|xunit=20pt| and |yunit=1in|, $(4,2)$ stands for $(4 \times 20\hbox{
+pt}, 2 \times 1\hbox{ in})$. As you can see on these short examples,
+|unit|, |xunit| and |yunit| can be affected any value which is a valid
+\TeX{} |dimen| (or \LaTeX{} length).
+
+The default value for all these three parameters is 1~cm; to change
+it, you can use the |\psset| command as in |\psset{unit=.5cm}| or in a
+combined way as in |\psset{xunit=1cm,yunit=2cm}|.
+
+Since coordinates are formed as a comma separated couple of numbers,
+you {\it must not\/} use comma as decimal separator here: |(4.5,2.3)|
+is correct but |(4,5,2,3)| is not.
+
+Sometime you'll be asked to give an angle value as a macro parameter.
+In Petri-nets, angles are measured in degrees; they can be given as a
+numerical value or with a one/two letter(s) code as shown in the
+figure~\ref{angles}. Of course, when you specify an angle by its
+numerical value, you can use any number, even negative, and not only
+one of the eight values shown on figure~\ref{angles}.
+
+\begin{figure}[t]
+\begin{center}
+\begin{petrinet}[unit=2cm](-2,-1.3)(2,1.3)
+\pst\pscircle(0,0){1}%
+{\count0=0 %
+ \loop %
+ \ifnum\count0<360 %
+   \uput{.95}[\the\count0]{\the\count0}(0,0){\bf--}%
+   \advance\count0 by 45 %
+ \repeat}
+\pst\uput{1.1}[0](0,0){$0=r$}
+\pst\uput{1.1}[45](0,0){$45=tr/rt$}
+\pst\uput{1.1}[90](0,0){$90=t$}
+\pst\uput{1.1}[135](0,0){$135=tl/lt$}
+\pst\uput{1.1}[180](0,0){$180=l$}
+\pst\uput{1.1}[225](0,0){$225=bl/lb$}
+\pst\uput{1.1}[270](0,0){$270=b$}
+\pst\uput{1.1}[315](0,0){$315=br/rb$}
+\end{petrinet}
+\caption{Translation from angle values to letter code. $r$ is for {\it
+right}, $t$ for {\it top}, $l$ for {\it left\/} and $b$ for {\it
+bottom}.}
+\label{angles}
+\end{center}
+\end{figure}
+
+The macro |\psset| is used to change PSTricks default parameters, it
+takes one argument which is a comma-separated list of |name=value|
+pairs. For example, |pndraw.tex| itself uses:
+%
+\begin{verbatim}
+\psset{linewidth=.5pt,
+       doublesep=.5pt,
+       labelsep=2pt}
+\end{verbatim}
+
+As you can see, blank spaces before a |name| are ignored. You already
+know how to change units, some additional |name|s should be useful for
+Petri-nets:
+
+\begin{itemize}
+\item |linewidth| is the default width for {\it any\/} line drawn by
+      PSTricks;
+\item |doubleline| can be |true| or |false|, when set to |true|, any
+      line drawn is doubled;
+\item |doublesep| is the distance between the two lines of a doubled
+      line;
+\item |labelsep| is the distance between an arc and its label(s);
+\item |linecolor| is the color used to draw lines, it can be, for
+      example, |black|, |darkgray|, |gray|, |lightgray|, |white|,
+      |red|, |blue|, |green|, |cyan|, |magenta| or |yellow|;
+\item |fillcolor| is the color used to fill shapes; you can use for it
+      the same colors as for |linecolor|.
+\end{itemize}
+
+PSTricks recognizes many other parameters and you should refer to its
+manual for all the details.
+
+%%
+%%
+
+\subsection{Beginning and ending nets}
+
+To begin a net, just type |\beginnet| for \TeX{} or |\begin{petrinet}|
+under \LaTeX; both this commands are expecting two pairs of
+coordinates to give the bottom-left and up-right extrema of the net.
+
+For example, |\begin{petrinet}(-1,-2)(5,3)| starts a net which should
+extend in the rectangular area, which we call the {\it bounding box},
+delimited by $(-1,-2)$ at the lower left corner and $(5,3)$ at the
+upper right. These coordinates are sensitive to current values of
+|unit|, |xunit| and |yunit|.
+
+The real effect of these two pairs is to fix the size of the bounding
+box which carry the net drawn (it is actually a |\hbox| set in
+horizontal mode but who cares?). If some parts of the net extends
+outside of the declared bounding box, it will be drawn outside and
+that's all. In other words, the bounding box announced just reserves
+room for the net and the drawing itself is invisible to \TeX. This
+allows you to lies about the real dimension of your drawings: you can
+declare a bigger or a smaller bounding box, if you want more or less
+white space around your nets. This behaviour is different when running
+pdf\LaTeX, see the section~\ref{sec:pdf} for details.
+
+Before to give the coordinates of the bounding box for a net, you can
+give optional parameters inside square brackets. These parameters are
+interpreted as PSTricks options which are applied to the following net
+and stay local to it. For example, if we have |unit=1cm| before
+starting a net, command |\begin{petrinet}[unit=2cm](0,0)(1,1)| starts
+a net with |unit=2cm| for its bounding box and any coordinate given
+inside the net. But as the net ends, the previous value of |unit| is
+restored.
+
+In order to have bounding boxes drawn in your nets: you may use
+command |\showbb|, optionally followed by bracketed options. For the
+figure~\ref{fig:nodes example}, I added |\showbb| at the beginning of
+the net. The starred version of |\showbb| fills the background and so,
+command |\showbb*[fillcolor=red]| draws a filled red rectangle over
+the bounding box.
+
+To end the drawing, you should use |\endnet| or |\end{petrinet}| (did
+you guess?). All macros between these two ones are interpreted as
+PSTricks or Petri-nets commands. In the following, we call a {\it
+net\/} all the stuff inclosed between |\begin{petrinet}| and
+|\end{petrinet}| (if you use \LaTeX). One point has to be remembered:
+inside a net, the end of line has a special meaning because it is used
+to end most Petri-nets drawing commands. So if you want to use
+commands spread over several lines, you have to end every line but the
+last with a comment (|%|). Also notice that if you call the |\psset|
+command inside a net, its effect will remain local to this particular
+net.
+
+If you wish something to be done every time a net begins, you may set
+token list |\everynet| to what you want to be inserted between command
+|\begin{petrinet}| and your drawing commands. For example, with
+|\everynet={\small}|, all the following nets will be set in small
+types.
+
+Except for beginning and ending nets, all the macros are the same
+under \TeX{} or \LaTeX.
+
+%%
+%%
+
+\subsection{Drawing nodes}
+
+The available node shapes are places, transitions, modules, sources
+and stores, which are drawn in figure~\ref{fig:nodes}. They are
+produced with the macros |\place|, |\trans|, |\module|, |\source| and
+|\store| respectively. Their size is controlled with the dimensions
+|\placesize|, |\transsize|, |\modulesize|, |\sourcesize| and
+|\storesize| respectively. For instance, |\transsize=8mm| sets the
+size of transitions to |8mm|; |\nodessize{5mm}| sets the size of {\it
+all\/} the nodes to |5mm|.
+
+\begin{figure}
+\begin{center}
+\begin{petrinet}[xunit=2cm](-.5,-.5)(4.5,1)
+\place{place}(0,0) p
+\label"{t}place\strut
+\trans{trans}(1,0) t
+\label"{t}transition\strut
+\module{module}(2,0) m
+\label"{t}module\strut
+\source{source}(3,0) s
+\label"{t}source\strut
+\store{store}(4,0) labels are ignored for stores
+\label"{t}store\strut
+\end{petrinet}
+\end{center}
+\caption{The nodes available in Petri-nets.}
+\label{fig:nodes}
+\end{figure}
+
+Creating a node is possible using the command
+``node\{name\}$(x,y)$label'' where:
+%
+\begin{itemize}
+\item ``node'' is one of the above node commands;
+\item ``name'' is the name of this node which should be unique for a
+      given net (if not, the new node overwrites the old one). This
+      name is case sensitive and should not contain any special
+      characters (as |$|, |\|, etc.); %$
+\item ``$(x,y)$'' are the coordinates of the node's center;
+\item ``label'' is the text to typeset inside the node, it
+       extends until the end of the line. This label is silently
+       discarded for stores.
+\end{itemize}
+
+For instance, the nodes in figure~\ref{fig:nodes} where drawn with the
+commands:
+%
+\begin{verbatim}
+\place{place}(0,0) p
+\trans{trans}(1,0) t
+\module{module}(2,0) m
+\source{source}(3,0) s
+\store{store}(4,0) labels are ignored for stores
+\end{verbatim}
+
+By default, labels are typeset in math mode, if you wish a label
+typeset in text mode, add option |"| after the node command. Notice
+that any space after the coordinates of the node is part of the label,
+it has no importance in math mode but in text mode it leads to a label
+which starts with a white space. Option |=| sets double-line mode and
+so the node is drawn with doubled lines. Option |!| sets the line
+width to 2pt so the node appears thicker than usually. PSTricks
+options may be given between square brackets, for instance adding
+|[linecolor=red,linewidth=1pt]| leads to a red node with 1pt lines.
+
+For transitions, an additional option |*| may be used in order to have
+the boundaries of the transition adjusted to the label typeset inside.
+By default, the size of a node is fixed and the label overlaps outside
+if too long, for transitions with option |*|, the size is just fine.
+
+\subsubsection{Additional labels}
+
+You can give additional outer labels to a node. Each label is typeset
+using the macro%
+%
+\footnote{For \LaTeX, this means that the well known cross-referencing
+macro {\tt\string\label} is not available inside a {\tt petrinet}
+environment. But outside, it works as usual.}
+%
+|\label| which has two arguments: the first is an angle indication and
+the second, which extends until the end of the line, is the text to
+typeset. The angle indication is a numeric value or a code as
+explained earlier. Option |"| explained above is also available for
+additional labels (and should be given just after |\label|).
+
+Before I give an example, let me explain a useful parameter for
+typesetting label: the token list |\everylabel| is expanded before any
+label is typeset. For example, command |\everylabel={\scriptstyle}|
+leads to typeset all the following labels in script style. This works
+for really any label, not only for nodes labels. If |\everylabel| is
+set inside a net, its effect will remain local to this net.
+
+The figure~\ref{fig:nodes example} has been typeset using the
+following commands:
+%
+\begin{verbatim}
+\begin{petrinet}[xunit=2cm](-.5,-.5)(2.5,.5)
+\showbb
+\place{p1}(0,0) \bullet
+\trans*="{t}(1,0)~transition~
+  \label"{70}more text
+\place!{p2}(2,0)
+  \label{r} \left\{     % I can type multi-line
+    {\textstyle 1, 2, 3 \atop   % labels, thanks to comments.
+     \textstyle 4, 5, 6} \right\}
+\end{petrinet}
+\end{verbatim}
+
+\begin{figure}
+\begin{center}
+\begin{petrinet}[xunit=2cm](-.5,-.5)(2.5,.5)
+\showbb
+\place{p1}(0,0) \bullet
+\trans*="{t}(1,0)~transition~
+  \label"{70}more text
+\place!{p2}(2,0)
+  \label{r} \left\{     % I can type multi-line
+    {\textstyle 1, 2, 3 \atop   % labels, thanks to comments.
+     \textstyle 4, 5, 6} \right\}
+\end{petrinet}
+\caption{Example of nodes. In the PDF, nets is clipped to its bounding
+         box, see section~\ref{sec:pdf}. }
+\label{fig:nodes example}
+\end{center}
+\end{figure}
+
+You may notice that the net is not well centered, it extends more on
+the right. This is because I declared a bounding box of $(-.5,-.5)$ to
+$(2.5,.5)$ while in fact, the label of the right-most place extends on
+the right, outside of the bounding box (which is made visible by the
+macro |\showbb|).
+
+%%
+%%
+
+\subsubsection{Free text}
+
+Another kind of node is unboxed text. The macro |\text| is similar to
+|\trans*| but without border. Like for other nodes, the text is
+typeset in math mode and it can be added outer labels with the macro
+|\label|.
+
+This macro knows only the option |"| which has the usual meaning.
+
+%%
+%%
+
+\subsection{Linking nodes}
+
+You can draw links between two arbitrary nodes. The package won't
+check if requested links are valid from Petri nets point of view, so
+you can draw an arc between two places for instance. Basically, macro
+|\link| has three parameters: the name of the starting node, that of
+the ending node, and the text to typeset on the link (which extends
+until the end of the line). You can add optional parameters, before
+the first node name:
+%
+\begin{itemize}
+\item options inside square brackets are PSTricks options, as usual;
+\item a real number, between 0 and 1, enclosed in angle brackets ({\it
+      e.g.}, |<.3>|) can be used to specify the position of the label,
+      between starting and ending nodes. Value 0 stands for ``on
+      the starting node'' while 1 means ``on the ending node''; the
+      default value is $.5$ ({\it i.e.}, on the middle of the link);
+\item the characters |^|, |_| or |*| may be used to specify the side of
+      the link where the label is typeset. For an link which extends
+      from the left to the right, |^| means ``above'', |_| means
+      ``below'' and |*| means ``over''. If nothing is specified, the
+      label is placed above the link;
+\item the options |"|, |=| and |!| have their usual meanings;
+\item arrowheads and such can be specified between two signs |/|.
+      The available values are shown in the figure~\ref{fig:arrows},
+      default is no arrow.
+\end{itemize}
+
+\begin{figure}
+\begin{center}
+\catcode`\|=12
+\begin{petrinet}[yunit=6mm](-.6,-.3)(8,15.3)
+\pst\catcode`\|=12
+\text{caption}(3,15)\rlap{none (default)}
+  \text"{t}(0,15){\tt -}
+  \text{l}(1,15)
+  \text{r}(2,15)
+  \link/-/{l}{r}
+\text{caption}(3,14)\rlap{arrowheads}
+  \text"{t}(0,14){\tt <->}
+  \text{l}(1,14)
+  \text{r}(2,14)
+  \link/<->/{l}{r}
+\text{caption}(3,13)\rlap{reverse arrowheads}
+  \text"{t}(0,13){\tt >-<}
+  \text{l}(1,13)
+  \text{r}(2,13)
+  \link/>-</{l}{r}
+\text{caption}(3,12)\rlap{double arrowheads}
+  \text"{t}(0,12){\tt <{}<->{}>}
+  \text{l}(1,12)
+  \text{r}(2,12)
+  \link/<<->>/{l}{r}
+\text{caption}(3,11)\rlap{reverse double arrowheads}
+  \text"{t}(0,11){\tt >{}>-<{}<}
+  \text{l}(1,11)
+  \text{r}(2,11)
+  \link/>>-<</{l}{r}
+\text{caption}(3,10)\rlap{T-bar flush to endpoints}
+  \text"{t}(0,10){\tt |-|}
+  \text{l}(1,10)
+  \text{r}(2,10)
+  \link/|-|/{l}{r}
+\text{caption}(3,9)\rlap{T-bar centred on endpoints}
+  \text"{t}(0,9){\tt |*-|*}
+  \text{l}(1,9)
+  \text{r}(2,9)
+  \link/|*-|*/{l}{r}
+\text{caption}(3,8)\rlap{square brackets}
+  \text"{t}(0,8){\tt [-]}
+  \text{l}(1,8)
+  \text{r}(2,8)
+  \link/[-]/{l}{r}
+\text{caption}(3,7)\rlap{rounded brackets}
+  \text"{t}(0,7){\tt (-)}
+  \text{l}(1,7)
+  \text{r}(2,7)
+  \link/(-)/{l}{r}
+\text{caption}(3,6)\rlap{circles centred on endpoints}
+  \text"{t}(0,6){\tt o-o}
+  \text{l}(1,6)
+  \text{r}(2,6)
+  \link/o-o/{l}{r}
+\text{caption}(3,5)\rlap{circles flush to endpoints}
+  \text"{t}(0,5){\tt oo-oo}
+  \text{l}(1,5)
+  \text{r}(2,5)
+  \link/oo-oo/{l}{r}
+\text{caption}(3,4)\rlap{disks centred on endpoints}
+  \text"{t}(0,4){\tt *-*}
+  \text{l}(1,4)
+  \text{r}(2,4)
+  \link/*-*/{l}{r}
+\text{caption}(3,3)\rlap{disks flush to endpoints}
+  \text"{t}(0,3){\tt **-**}
+  \text{l}(1,3)
+  \text{r}(2,3)
+  \link/**-**/{l}{r}
+\text{caption}(3,2)\rlap{extended rounded ends}
+  \text"{t}(0,2){\tt c-c}
+  \text{l}(1,2)
+  \text{r}(2,2)
+  \link/c-c/{l}{r}
+\text{caption}(3,1)\rlap{flush rounded ends}
+  \text"{t}(0,1){\tt cc-cc}
+  \text{l}(1,1)
+  \text{r}(2,1)
+  \link/cc-cc/{l}{r}
+\text{caption}(3,0)\rlap{extended square ends}
+  \text"{t}(0,0){\tt C-C}
+  \text{l}(1,0)
+  \text{r}(2,0)
+  \link/C-C/{l}{r}
+\end{petrinet}
+\end{center}
+\caption{The different types of links termination. They can be freely
+mixed.}
+\label{fig:arrows}
+\end{figure}
+
+The order in which you use these options has no importance, provided
+that all options are given before the starting node. Additionally, if
+you use contradicting options, only the last used is taken into
+account. For instance, the two following lines are equivalent:
+
+|\link_[linecolor=gray,linewidth=5pt]*<.2>^[linewidth=1pt]|
+
+|\link^<.2>[linecolor=gray,linewidth=1pt]|.
+
+To draw curved links, you should use PSTricks' |arcangle| option which
+is an angle in degrees (you cannot use a letter code here), measuring
+the deviation from a straight line between nodes, at the starting and
+at the ending of the link. Try, it's easy.
+
+To change the appearance of the arrowhead, you must change PSTricks'
+parameters |arrowsize|, |arrowlength| and |arrowinset|. Petri-nets
+uses the following:
+%
+\begin{verbatim}
+\psset{arrowlength=1.4,
+       arrowinset=0,
+       arrowsize=2pt 2}
+\end{verbatim}
+%
+I wont explain how it works, just try, it's easy too. (Or read the
+manual of PSTricks where all the details are given.)
+
+%%
+%%
+
+\subsubsection{Additional labels}
+
+Like for nodes, links can be added more labels. This is also made with
+the macro |\label|, but here, its syntax is like for the macro
+|\link|, except that you must not specify the starting and ending
+nodes (but the options of |\link| are available).
+
+%%
+%%
+
+\subsubsection{Arcs}
+
+Since links are almost always draw with a single arrowhead at the end
+(and then called {\it arcs\/}), a shortcut is provided: the macro
+|\arc| may be used instead of |\link/->/|.
+
+%%
+%%
+
+\section{Tips, tricks and troubleshooting}
+
+\paragraph{Nets as macro arguments.}
+%
+If you try to define a net inside the argument of a macro, you will
+have an error. For instance, the code
+%
+\begin{verbatim}
+\centerline{\begin{petrinet}(0,0)(1,1)
+\place{p}(0,0) p
+\trans{t}(1,1) t
+\arc{p}{t}
+\arc{t}{p}
+\end{petrinet}}
+\end{verbatim}
+%
+produces an error such as:
+%
+\begin{verbatim}
+! Argument of \net:place:draw has an extra }.
+<inserted text> 
+                \par 
+l.11 \end{petrinet}}
+\end{verbatim}
+
+The reason is that the macro |\centerline| reads all the net and treat
+the end of lines as spaces. Similar things occur with the other
+characters which are considered in a special way inside nets. The
+right way to produce the desired effect is to use the macro
+|\savenet|:
+%
+\begin{verbatim}
+\savenet
+\begin{petrinet}(0,0)(1,1)
+\place{p}(0,0) p
+\trans{t}(1,1) t
+\arc{p}{t}
+\arc{t}{p}
+\end{petrinet}
+\centerline{\shownet}
+\end{verbatim}
+%
+the form |\savenet\begin{petrinet}| works as well and from plain
+{\TeX} you should use the form |\savenet\beginnet|. After one
+|\savenet| you may even use |\shownet| several times in order to
+duplicate the saved net.
+
+\paragraph{Error messages.}
+%
+Sometimes, you'll get an error message such as:
+
+\begin{verbatim}
+! Argument of \net:place:draw has an extra }.
+<inserted text> 
+                \par 
+l.785 \place{i3}(2,0) i_3
+                         
+? 
+\end{verbatim}
+
+This usually means that the error was just before the line for which
+\TeX{} complains (here line 785 which is correct). And usually, this
+error is an omission of one of the arguments of a drawing macro.
+
+Another kind of message occurs quite often:
+
+\begin{verbatim}
+PSTricks error.  See User's Guide for further information.
+                 Type  H <return>  for immediate help.
+! Graphics parameter `rcangle' not defined..
+\@pstrickserr ... immediate help.}\errmessage {#1}
+                                                  \endgroup 
+l.794 \arc[rcangle=30]
+                      {ab2}{i3} \bullet
+? 
+\end{verbatim}
+
+This is because on line 794, you misspelled the word ``arcangle'',
+giving ``rcangle'' instead. This error is detected by PSTricks since
+bracketed arguments are sent verbatim to it.
+
+In general, since the package |pndraw| uses a lot of tricks in order
+to read the arguments of the commands, you should not trust too much
+the error messages: just look at the line indicated in the message and
+seek for a mistake in it or in the lines before. (Actually, this
+advice can be used for almost any error message issued by \LaTeX\dots)
+
+\paragraph{Drawing commands on multiple lines.}
+%
+Inside a net, label arguments are delimited by the end of the line. To
+type an argument which extends on more than one line, you should end
+each line but the last with a comment~|%|.
+
+\paragraph{Empty node.}
+%
+If you want to draw ``floating'' arcs, {\it i.e.}, arcs wich are not
+attached to a place or a transition, you just can anchor them on empty
+texts: the following net is depicted in the figure~\ref{empty text}.
+
+\begin{verbatim}
+\begin{petrinet}(0,0)(2,0)
+\text{from}(0,0)
+\text{to}(2,0)
+\arc{from}{to}
+\end{petrinet}
+\end{verbatim}
+
+\begin{figure}[t]
+\begin{center}
+\begin{petrinet}(-.2,-.2)(2.2,.2)
+\text{from}(0,0)
+\text{to}(2,0)
+\arc{from}{to}
+\end{petrinet}
+\end{center}
+\caption{An arc anchored on empty texts}
+\label{empty text}
+\end{figure}
+
+\paragraph{Text mode labels.}
+%
+Take care of the interaction between |\everylabel| and the option |"|
+which typesets a label in text mode. For example, setting
+|\everylabel{\scriptstyle}| leads to an error every time a text mode
+label is typeset because |\scriptstyle| is a math command. So you
+should prefer the longer but safer form: |\everylabel{\ifmmode|\hskip
+0pt|\scriptstyle|\hskip 0pt|\else|\hskip 0pt|\scriptsize|\hskip
+0pt|\fi}|.
+
+\paragraph{Labels at the wrong position.}
+%
+If the additional labels of a node appear centered on it instead of
+outside, this may come from the way you visualize your document. DVI
+viewers usually do not interpret correctly all of the PostScript
+commands used by PSTricks. Trying a PostScript viewer (GhostView is
+certainly a good choice) may solve your problem.
+
+\paragraph{To be continued\dots}
+
+%%
+%%
+
+\section{Producing PDF documents}
+\label{sec:pdf}
+
+The {\LaTeX} version of |pndraw| provides some support for pdf{\LaTeX}
+through the Perl script |pn2pdf| included in the archive. The usage is
+quite automated, even completely if you run |pdflatex| with the option
+|--shell|. If you don't want to enable this option, run first
+|pdflatex|, then run |pn2pdf| |-b| |document| (assuming your file is
+called |document.tex|) and finally run |pdflatex| again.\footnote{This
+process was different in the previous version of the package!} Using
+the option |--shell| simply allows |pdflatex| to run |pn2pdf| for you.
+
+Several files are produced by these different runs. You may never see
+most of them since they are deleted when the become useless. {\it Take
+care that none of your files uses one of these names otherwise it will
+be overwrote or deleted!}
+%
+\begin{itemize}
+\item |document.sum| is used to remember some information in order
+      to avoid recreating pictures if not necessary.
+\item |document.|$d$ is created and deleted for test purpose when the
+      option |--shell| has been used, $d$ is the date when |pdflatex|
+      was started, as produced by the macros
+      |\the\year\the\month\the\day\the\time| (in the current document,
+      it leads to \the\year\the\month\the\day\the\time).
+\item |document.bpn| is created when |pdflatex| is run without the
+      option |--shell|, it contains the directives for producing the
+      figures with |pn2pdf -b|.
+\item |document.pre| is used by |pn2pdf| in order to remember the
+      commands (like |\psset|) issued outside of |petrinets|
+      environments.
+\item |document-fig|$n$|.pn|, |document-fig|$n$|.tex|,
+      |document-fig|$n$|.aux|,\\ |document-fig|$n$|.dvi|,
+      |document-fig|$n$|.log|, |document-fig|$n$|.eps| are created
+      during the generation of |document-fig|$n$|.pdf| which contains
+      the rendering of the $n$th net of the document.
+\end{itemize}
+%
+The files |document-fig|$n$|.pdf| should not be deleted before the
+final document is produced since they are included from |pdflatex|. If
+they are not found, a warning is issued during the compilation.
+
+There is several important things you should notice:
+%
+\begin{enumerate}
+\item Everything outside of the bounding box of a net is
+      cropped during the creation of the PDF picture. So, take care to
+      check how your picture is rendered (using |\showbb| for
+      instance).
+\item Only one pass of {\LaTeX} is made on each figure. If you need to
+      several passes, you may run |pn2pdf| manually, with the options
+      |-f| and |-k| (see below).
+\item {\LaTeX} and {pdf\LaTeX} do not always produce identical
+      rendering of the same document. However, Petri-nets pictures
+      should be the same since they are always typeset by \LaTeX.
+\end{enumerate}
+
+To conclude, here is a summary of the ways to run |pn2pdf|:
+%
+\begin{itemize}
+\item |pn2pdf document-fig|$n$|.pn|\\
+      generate |pn2pdf document-fig|$n$|.pdf|
+\item the option |-f| or |--force| may be used to force the creation
+      of PDF files even if their source did not change.
+\item |pn2pdf -t FILES| or |pn2pdf --test FILES|\\
+      used by {pdf\LaTeX} in order to check is the option |--shell|
+      was used or not.
+\item |pn2pdf -b document| or |pn2pdf --batch document|\\
+      reads the file |document.bpn| in order to produce the figures.
+\item |pn2pdf -d FILES| or |pn2pdf --delete FILES|\\
+      deletes |FILES| (which may be patterns like |*.aux|), this is
+      use by |pdflatex| in order to remove some temporary files.
+\item the option |-k| or |--keep| prevents |pn2pdf| from deleting the
+      temporary files.
+\item the option |-h| or |--help| prints a short help and exit.
+\end{itemize}
+
+%%
+%%
+
+\newpage
+\appendix
+
+\section{Reference pages}
+
+\subsection{Text commands: package {\tt pntext}}
+
+\begin{center}
+\begin{tabular}{l@{\qquad}l}
+|\bpn| & \bpn \\
+|\bpnkw{key-word}| & \bpnkw{key-word} \\
+|\bpnnt{non-terminal}| & \bpnnt{non-terminal} \\
+|\choice| & \choice \\
+|\eplace| & \eplace \\
+|\iplace| & \iplace \\
+|\lscope| & $\lscope\Rscope$ \\
+|\Lscope| & invisible version of |\lscope| \\
+|\mathset{A}| & \mathset{A} \\
+|\mnet| & \mnet \\
+|\placestatus{d}| & \placestatus{d} \\
+|\pnversion| & \pnversion{} (current version) \\
+|\rs| & \rs \\
+|\rscope| & $\Lscope\rscope$ \\
+|\Rscope| & invisible version of |\rscope| \\
+|\scope{a}{N}| & $\scope{a}{N}$ \\
+|\setC| & \setC \\
+|\setN| & \setN \\
+|\setQ| & \setQ \\
+|\setR| & \setR \\
+|\setZ| & \setZ \\
+|\sy| & \sy \\
+|\tie| & \tie \\
+|\Val| & \Val \\
+|\Var| & \Var \\
+|\xplace| & \xplace \\
+\end{tabular}
+\end{center}
+
+\subsection{Drawing command: package {\tt pndraw}}
+
+\def\n{$\hookleftarrow$}
+\def\<{$\displaystyle\big\langle$}
+\def\>{$\displaystyle\big\rangle$}
+\newenvironment{options}{\\[5pt]\begin{tabular}{@{\qquad}ll}}{\end{tabular}}
+
+The parts placed between angle brackets \<$\cdots$\> are the optional
+ones, the others are mandatory. Symbol \n{} denotes the end of the
+line.
+
+\begin{itemize}
+\item |\arc|\<|^_*"=![|options|]<|pos|>|\>|{|node1|}{|node2|}|\<label\>\n\\
+Draws a labelled arc between node1 and node2.
+\begin{options}
+|^| & label above the arc (default)\\
+|_| & label below the arc \\
+|*| & label over the arc \\
+|"| & label in text mode \\
+|=| & double line \\
+|!| & thick line \\
+|[|options|]| & PSTricks options \\
+|<|pos|>| & position of the label ($0 \leq {}$pos${}\leq 1$) \\
+\end{options}
+%
+\item |\beginnet|\<|[|options|]|\>$(x_1,y_1)(x_2,y_2)$\n\\
+      |\begin{petrinet}|\<|[|options|]|\>$(x_1,y_1)(x_2,y_2)$\n\\
+Begins a net whose bounding box is defined by $(x_1,y_1)$ as
+bottom left corner and $(x_2,y_2)$ at top right corner.
+\begin{options}
+|[|options|]| & PSTricks options \\
+\end{options}
+%
+\item |\endnet|\\
+      |\end{petrinet}|\\
+Ends a net.
+%
+\item |\everylabel={|\<tokens\>|}|\\
+Expands tokens each time a label is typeset.
+%
+\item |\everynet={|\<tokens\>|}|\\
+Expands tokens each time a net is started.
+%
+\item |\label|\<|"{|pos|}|label\>\n\\
+      |\label|\<|"<|pos|>|label\>\n\\
+Draws an additional label for a node (first line) or a link (second
+line).
+\begin{options}
+|"| & label in text mode \\
+|{|pos|}| & position of the label, an angle (in degrees) \\
+          & or a corner code (t,l,b,r,tl,tr,bl,br) \\
+|<|pos|>| & position of the label ($0 \leq$ pos $\leq 1$)\\
+\end{options}
+%
+\item |\link|\<|^_*"=![|options|]<|pos|>/|arrow|/|\>|{|node1|}{|node2|}|\<label\>\n\\
+Draws a labelled link between node1 and node2.
+\begin{options}
+|^| & label above the arc (default) \\
+|_| & label below the arc \\
+|*| & label over the arc \\
+|"| & label in text mode \\
+|=| & double line \\
+|!| & thick line \\
+|[|options|]| & PSTricks options \\
+|<|pos|>| & position of the label ($0 \leq {}$pos${}\leq 1$) \\
+|/|arrow|/| & arrows specifications (see the figure~\ref{fig:arrows} \\
+\end{options}
+%
+\item |\module|\<|"=![|options|]|\>|{|name|}|$(x,y)$\<label\>\n\\
+Draws a labelled module centered on $(x,y)$.
+\begin{options}
+|"| & label in text mode \\
+|=| & double line \\
+|!| & thick line \\
+|[|options|]| & PSTricks options \\
+\end{options}
+%
+\item |\modulesize=|dimen\\
+Sets the size of the modules.
+%
+\item |\nodessize{|dimen|}|\\
+Sets the size of all nodes.
+%
+\item |\place|\<|"=![|options|]|\>|{|name|}|$(x,y)$\<label\>\n\\
+Draws a labelled place centered on $(x,y)$.
+\begin{options}
+|"| & label in text mode \\
+|=| & double line \\
+|!| & thick line \\
+|[|options|]| & PSTricks options \\
+\end{options}
+%
+\item |\placesize=|dimen\\
+Sets the size of the places.
+%
+\item |\psset{|name|=|value\<|,...|\>|}|\\
+Sets PSTricks options.
+\begin{options}
+|arcangle=|angle & angle at the ends of links \\
+|arrowinset=|real & size of arrowheads insets \\
+|arrowlength=|real & length of arrowheads \\
+|arrowsize=|dim integer & size of arrowheads \\
+|doubleline=|boolean & double lines on/off \\
+|doublesep=|dim & distance between double lines \\
+|fillcolor=|color & background color \\
+|labelsep=|dim & distance between labels and nodes \\
+|linecolor=|color & lines color \\
+|linewidth=|dim & lines thickness \\
+|unit=|dim & global scale \\
+|xunit=|dim & horizontal scale \\
+|yunit=|dim & vertical scale\\
+\end{options}
+%
+\item |\savenet|\\
+Just before the beginning of a net: saves it without displaying it.
+%
+\item |\showbb|\<|*[|options|]|\>\n\\
+Draws the bounding box of a net.
+\begin{options}
+|*| & background filled \\
+|[|options|]| & PSTricks options \\
+\end{options}
+%
+\item |\shownet|\\
+Displays the last net saved by |\savenet|.
+%
+\item |\source|\<|"=![|options|]|\>|{|name|}|$(x,y)$\<label\>\n\\
+Draws a labelled source centered on $(x,y)$.
+\begin{options}
+|"| & label in text mode \\
+|=| & double line \\
+|!| & thick line \\
+|[|options|]| & PSTricks options \\
+\end{options}
+%
+\item |\sourcesize=|dimen\\
+Sets the size of sources.
+%
+\item |\store|\<|"=![|options|]|\>|{|name|}|$(x,y)$\n\\
+Draws a store centered on $(x,y)$.
+\begin{options}
+|"| & label in text mode \\
+|=| & double line \\
+|!| & thick line \\
+|[|options|]| & PSTricks options \\
+\end{options}
+%
+\item |\storesize=|dimen\\
+Sets the size of stores.
+%
+\item |\text|\<|"|\>|{|name|}|$(x,y)$\<label\>\n\\
+Draws an unboxed labelled node centered on $(x,y)$.
+\begin{options}
+|"| & label in text mode \\
+\end{options}
+%
+\item |\trans|\<|*"=![|options|]|\>|{|name|}|$(x,y)$\<label\>\n\\
+Draws a labelled transition centered on $(x,y)$.
+\begin{options}
+|*| & automatic size \\
+|"| & label in text mode \\
+|=| & double line \\
+|!| & thick line \\
+|[|options|]| & PSTricks options \\
+\end{options}
+%
+\item |\transsize=|dimen\\
+Sets the size of transitions.
+\end{itemize}
+
+\end{document}

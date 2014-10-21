@@ -1,0 +1,164 @@
+%%
+%% This is file `nagdemo.tex',
+%% generated with the docstrip utility.
+%%
+%% The original source files were:
+%%
+%% nag.dtx  (with options: `nagdemo')
+%% This is a generated file.
+%% 
+%% This file is part of the `nag' package.
+%% The `nag' package has the LPPL maintenance status: maintained.
+%% Current Maintainer is Ulrich M. Schwarz, ulmi@absatzen.de
+%% 
+%% Copyright (C) 2005-8 by Ulrich M. Schwarz.
+%% 
+%% This file may be distributed and/or modified under the
+%% conditions of the LaTeX Project Public License, either
+%% version 1.3a of this license or (at your option) any later
+%% version. The latest version of this license is in:
+%% http://www.latex-project.org/lppl.txt
+%% 
+%% Test document: finding and complaining about obsolete macros.
+%%
+\RequirePackage[l2tabu, orthodox, experimental]{nag}[2007/12/21]
+\documentclass{article}
+%% some usual culprits
+\usepackage{times, a4wide, epsfig, palatino}
+%% some fancy packages
+\usepackage{subfig, topcapt, caption, hyperref}
+\begin{document}
+\typeout{Next: no complaint because frontmatter is not defined}
+\ifx\frontmatter\undefined
+\else
+  \typeout{FAILURE! I shouldn't know frontmatter!}
+\fi
+\typeout{Next: no complaing about label outside float not preceded by caption}
+\section{Tests}\label{sec:tests}
+\typeout{Next: it and bf complaints}
+{\it italics {\bf not bold italics}}
+
+\typeout{Next: not-an-env complaints}
+\begin{Large}
+  \begin{sffamily}
+    Large and sans.
+  \end{sffamily}
+\end{Large}
+
+\typeout{Next: center in float complaint}
+\begin{figure}
+  \begin{center}
+    Center in float.
+  \end{center}
+  \caption{\label{fig}Figs and dates.}
+\end{figure}
+
+\typeout{Next: no complaints: manually fake caption}
+\begin{figure}
+    I have a caption, you just can't see it.
+\makeatletter\nag@hascaptiontrue\makeatother
+  \label{date}
+\end{figure}
+
+\typeout{Next: no complaing about label outside float not preceded by caption}
+\section{More Tests}\label{sec:tests2}
+
+\typeout{Next: put-label-after-caption complaint}
+\begin{figure}
+  \label{coconut}\caption{Preceded, not followed, by label.}
+\end{figure}
+
+\typeout{Next: no-caption complaint}
+\begin{figure}
+    No caption, even a fake one.
+    But too big, this should get bottom-of-page warning.
+    \rule{1pt}{0.4\textheight}
+\end{figure}
+
+\typeout{Next: no complaint about subfloat and topcapt}
+\typeout{also: complaint about it in caption.}
+\begin{figure}
+  \subfloat{\label{sf:1}Subfig number~\ref{sf:1}  with label.}
+  \subfloat[\label{sf:17}Strange subfig]{Subfig~\ref{sf:17} with label elsewhere.}
+  \caption{Figure: \it's a sin!}
+\end{figure}
+
+\begin{figure}
+  \topcaption{A topcaption.}
+  \subfloat{\label{sf:2}Subfig~\ref{sf:2} with label, but no caption.}
+\end{figure}
+
+\typeout{Next: no robustness issues}
+\begin{minipage}{5cm}
+  foo\footnote{bar}
+\end{minipage}
+
+\typeout{Shouldn't cause trouble to have dollars in headings.}
+\section{Maths tests, like if $1+1=2$}
+
+\typeout{Next: three complaints in total concerning $$ and eqnarray}
+
+A \TeX-style displayed equation:
+$$ 1+1=2 $$
+
+Not an equation at all:
+$ $ 1+1=2 $ $
+
+An in line equation:
+$1+1=2$
+
+Two inline equations, double dollar is dollar dollar in resticted
+horizontal mode (onlyamsmath gets this wrong):
+$a+b=c$$1+1=2$
+
+An eqnarray:
+\begin{eqnarray}
+1+1 &=& 2
+\end{eqnarray}
+
+A bracket-style equation:
+\[1+1=2\]
+
+A starred eqnarray:
+\begin{eqnarray*}
+1+1 &=& 2
+\end{eqnarray*}
+
+A double-dollar in a hbox:
+\hbox{$$}
+
+\typeout{Next: appendix complaints}
+\begin{appendix}
+  \begin{center}
+    It's a center environment.
+  \end{center}
+\typeout{Next: no over complaint, centerline complaint, no frac complaint}
+  Over etc. warning removed for compatibility with \LaTeX\ without amsmath.
+
+  \centerline{Furthermore, $4\over 2=2$.}
+  $\frac 42$
+\end{appendix}
+\typeout{Next: unmatched endflushright}
+This is not flushright, in spite of a endflushright coming up.
+\endflushright
+\typeout{Next: unclosed center}
+{\center Smack in the middle, but center used as a switch\par}
+\typeout{Next: mismatched endflushright}
+
+Another endflushright, this is brace-mismatched and otherwise totally
+unsuited for closing the center command above.
+\endflushright
+
+\typeout{Next: a warning that is not uppercased.}
+\MakeUppercase{\it's a sin!}
+
+\typeout{Next: another warning about it in a caption, in the LoF this time.}
+\listoffigures
+\AtEndDocument{\typeout{You should get 25 warnings and one info in the log.}}
+\end{document}
+%%X Local Variables:
+%%X mode: latex
+%%X End:
+\endinput
+%%
+%% End of file `nagdemo.tex'.

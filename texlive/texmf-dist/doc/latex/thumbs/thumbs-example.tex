@@ -1,0 +1,475 @@
+%%
+%% This is file `thumbs-example.tex',
+%% generated with the docstrip utility.
+%%
+%% The original source files were:
+%%
+%% thumbs.dtx  (with options: `example')
+%% 
+%% This is a generated file.
+%% 
+%% Project: thumbs
+%% Version: 2014/03/09 v1.0q
+%% 
+%% Copyright (C) 2010 - 2014 by
+%%     H.-Martin M"unch <Martin dot Muench at Uni-Bonn dot de>
+%% 
+%% The usual disclaimer applies:
+%% If it doesn't work right that's your problem.
+%% (Nevertheless, send an e-mail to the maintainer
+%%  when you find an error in this package.)
+%% 
+%% This work may be distributed and/or modified under the
+%% conditions of the LaTeX Project Public License, either
+%% version 1.3c of this license or (at your option) any later
+%% version. This version of this license is in
+%%    http://www.latex-project.org/lppl/lppl-1-3c.txt
+%% and the latest version of this license is in
+%%    http://www.latex-project.org/lppl.txt
+%% and version 1.3c or later is part of all distributions of
+%% LaTeX version 2005/12/01 or later.
+%% 
+%% This work has the LPPL maintenance status "maintained".
+%% 
+%% The Current Maintainer of this work is H.-Martin Muench.
+%% 
+%% This work consists of the main source file thumbs.dtx,
+%% the README, and the derived files
+%%    thumbs.sty, thumbs.pdf,
+%%    thumbs.ins, thumbs.drv,
+%%    thumbs-example.tex, thumbs-example.pdf.
+%% 
+%% In memoriam Tommy Muench + 2014/01/02.
+%% 
+\documentclass[twoside,british]{article}[2007/10/19]% v1.4h
+\usepackage{lipsum}[2011/04/14]%  v1.2
+\usepackage{eurosym}[1998/08/06]% v1.1
+\usepackage[extension=pdf,%
+ pdfpagelayout=TwoPageRight,pdfpagemode=UseThumbs,%
+ plainpages=false,pdfpagelabels=true,%
+ hyperindex=false,%
+ pdflang={en},%
+ pdftitle={thumbs package example},%
+ pdfauthor={H.-Martin Muench},%
+ pdfsubject={Example for the thumbs package},%
+ pdfkeywords={LaTeX, thumbs, thumb marks, H.-Martin Muench},%
+ pdfview=Fit,pdfstartview=Fit,%
+ linktoc=all]{hyperref}[2012/11/06]% v6.83m
+\usepackage[thumblink=rule,linefill=dots,height={auto},minheight={47pt},%
+            width={auto},distance={2mm},topthumbmargin={auto},bottomthumbmargin={auto},%
+            eventxtindent={5pt},oddtxtexdent={5pt},%
+            evenmarkindent={0pt},oddmarkexdent={0pt},evenprintvoffset={0pt},%
+            nophantomsection=false,ignorehoffset=true,ignorevoffset=true,final=true,%
+            hidethumbs=false,verbose=true]{thumbs}[2014/03/09]% v1.0q
+\nopagecolor% use \pagecolor{white} if \nopagecolor does not work
+\gdef\unit#1{\mathord{\thinspace\mathrm{#1}}}
+\makeatletter
+\ltx@ifpackageloaded{hyperref}{% hyperref loaded
+}{% hyperref not loaded
+ \usepackage{url}% otherwise the "\url"s in this example must be removed manually
+}
+\makeatother
+\listfiles
+\begin{document}
+\pagenumbering{arabic}
+\section*{Example for thumbs}
+\addcontentsline{toc}{section}{Example for thumbs}
+\markboth{Example for thumbs}{Example for thumbs}
+
+This example demonstrates the most common uses of package
+\textsf{thumbs}, v1.0q as of 2014/03/09 (HMM).
+The used options were \texttt{thumblink=rule}, \texttt{linefill=dots},
+\texttt{height=auto}, \texttt{minheight=\{47pt\}}, \texttt{width={auto}},
+\texttt{distance=\{2mm\}}, \newline
+\texttt{topthumbmargin=\{auto\}}, \texttt{bottomthumbmargin=\{auto\}}, \newline
+\texttt{eventxtindent=\{5pt\}}, \texttt{oddtxtexdent=\{5pt\}},
+\texttt{evenmarkindent=\{0pt\}}, \texttt{oddmarkexdent=\{0pt\}},
+\texttt{evenprintvoffset=\{0pt\}},
+\texttt{nophantomsection=false},
+\texttt{ignorehoffset=true}, \texttt{ignorevoffset=true}, \newline
+\texttt{final=true},\texttt{hidethumbs=false}, and \texttt{verbose=true}.
+
+\noindent These are the default options, except \texttt{verbose=true}.
+For more details please see the documentation!\newline
+
+\textbf{Hyperlinks or not:} If the \textsf{hyperref} package is loaded,
+the references in the overview page for the thumb marks are also hyperlinked
+(except when option \texttt{thumblink=none} is used).\newline
+
+\bigskip
+
+{\color{teal} Save per page about $200\unit{ml}$ water, $2\unit{g}$ CO$_{2}$
+and $2\unit{g}$ wood:\newline
+Therefore please print only if this is really necessary.}\newline
+
+\bigskip
+
+\textbf{%
+For testing purpose page \pageref{greenpage} has been completely coloured!
+\newline
+Better exclude it from printing\ldots \newline}
+
+\bigskip
+
+Some thumb mark texts are too large for the thumb mark by intention
+(especially when the paper size and therefore also the thumb mark size
+is decreased). When option \texttt{width=\{autoauto\}} would be used,
+the thumb mark width would be automatically increased.
+Please see page~\pageref{HugeText} for details!
+
+\bigskip
+
+For printing this example to another format of paper (e.\,g. A4)
+it is necessary to add the according option (e.\,g. \verb|a4paper|)
+to the document class and recompile it! (In that case the
+thumb marks column change will occur at another point, of course.)
+With paper format equal to document format the document can be printed
+without adapting the size, like e.\,g.
+\textquotedblleft shrink to page\textquotedblright .
+That would add a white border around the document
+and by moving the thumb marks from the edge of the paper they no longer appear
+at the side of the stack of paper. It is also necessary to use a printer
+capable of printing up to the border of the sheet of paper. Alternatively
+it is possible after the printing to cut the paper to the right size.
+While performing this manually is probably quite cumbersome,
+printing houses use paper, which is slightly larger than the
+desired format, and afterwards cut it to format.
+
+\newpage
+
+\addtitlethumb{Frontmatter}{0}{white}{gray}{pagesLTS.0}
+
+At the first page no thumb mark was used, but we want to begin with thumb marks
+at the first page, therefore a
+\begin{verbatim}
+\addtitlethumb{Frontmatter}{0}{white}{gray}{pagesLTS.0}
+\end{verbatim}
+was used at the beginning of this page.
+
+\newpage
+
+\tableofcontents
+
+\newpage
+
+To include an overview page for the thumb marks,
+\begin{verbatim}
+\addthumbsoverviewtocontents{section}{Thumb marks overview}%
+\thumbsoverview{Table of Thumbs}
+\end{verbatim}
+is used, where \verb|\addthumbsoverviewtocontents| adds the thumb
+marks overview page to the table of contents.
+
+\smallskip
+
+Generally it is desirable to have a hyperlink from the thumbs overview page
+to lead to the thumb mark and not to some earlier place. Therefore automatically
+a \verb|\phantomsection| is placed before each thumb mark. But for example when
+using the thumb mark after a \verb|\chapter{...}| command, it is probably nicer
+to have the link point at the top of that chapter's title (instead of the line
+below it). The automatical placing of the \verb|\phantomsection| can be disabled
+either globally by using option \texttt{nophantomsection}, or locally for the next
+thumb mark by the command \verb|\thumbsnophantom|. (When disabled globally,
+still manual use of \verb|\phantomsection| is possible.)
+
+\addthumbsoverviewtocontents{section}{Thumb marks overview}%
+\thumbsoverview{Table of Thumbs}
+
+That were the overview pages for the thumb marks.
+
+\newpage
+
+\section{The first section}
+\addthumb{First section}{\space\Huge{\textbf{$1^ \textrm{st}$}}}{yellow}{green}
+
+\begin{verbatim}
+\addthumb{First section}{\space\Huge{\textbf{$1^ \textrm{st}$}}}{yellow}{green}
+\end{verbatim}
+
+A thumb mark is added for this section. The parameters are: title for the thumb mark,
+the text to be displayed in the thumb mark (choose your own format),
+the colour of the text in the thumb mark,
+and the background colour of the thumb mark (parameters in this order).\newline
+
+Now for some pages of \textquotedblleft content\textquotedblright\ldots
+
+\newpage
+\lipsum[1]
+\newpage
+\lipsum[1]
+\newpage
+\lipsum[1]
+\newpage
+
+\section{The second section}
+\addthumb{Second section}{\Huge{\textbf{\arabic{section}}}}{green}{yellow}
+
+For this section, the text to be displayed in the thumb mark was set to
+\begin{verbatim}
+\Huge{\textbf{\arabic{section}}}
+\end{verbatim}
+i.\,e. the number of the section will be displayed (huge \& bold).\newline
+
+Let us change the thumb mark on a page with an even number:
+
+\newpage
+
+\section{The third section}
+\addthumb{Third section}{\Huge{\textbf{\arabic{section}}}}{blue}{red}
+
+No problem!
+
+And you do not need to have a section to add a thumb:
+
+\newpage
+
+\addthumb{Still third section}{\Huge{\textbf{\arabic{section}b}}}{red}{blue}
+
+This is still the third section, but there is a new thumb mark.
+
+On the other hand, you can even get rid of the thumb marks
+for some page(s):
+
+\newpage
+
+\stopthumb
+
+The command
+\begin{verbatim}
+\stopthumb
+\end{verbatim}
+was used here. Until another \verb|\addthumb| (with parameters) or
+\begin{verbatim}
+\continuethumb
+\end{verbatim}
+is used, there will be no more thumb marks.
+
+\newpage
+
+Still no thumb marks.
+
+\newpage
+
+Still no thumb marks.
+
+\newpage
+
+Still no thumb marks.
+
+\newpage
+
+\continuethumb
+
+Thumb mark continued (unchanged).
+
+\newpage
+
+Thumb mark continued (unchanged).
+
+\newpage
+
+Time for another thumb,
+
+\addthumb{Another heading}{Small text}{white}{black}
+
+and another.
+
+\addthumb{Huge Text paragraph}{\Huge{Huge\\ \ Text}}{yellow}{green}
+
+\bigskip
+
+\textquotedblleft {\Huge{Huge Text}}\textquotedblright\ is too large for
+the thumb mark. When option \texttt{width=\{autoauto\}} would be used,
+the thumb mark width would be automatically increased. Now the text is
+either split over two lines (try \verb|Huge\\ \ Text| for another format)
+or (in case \verb|Huge~Text| is used) is written over the border of the
+thumb mark. When the text is too wide for the thumb mark and cannot
+be split, \LaTeX{} might nevertheless place the text into the next line.
+By this the text is placed too low. Adding a
+\hbox{\verb|\protect\vspace*{-| some lenght \verb|}|} to the text could help,
+for example\\
+\verb|\addthumb{Huge Text}{\protect\vspace*{-3pt}\Huge{Huge~Text}}...|.
+\label{HugeText}
+
+\addthumb{Huge Text}{\Huge{Huge~Text}}{red}{blue}
+
+\addthumb{Huge Bold Text}{\Huge{\textbf{HBT}}}{black}{yellow}
+
+\bigskip
+
+When there is more than one thumb mark at one page, this is also no problem.
+
+\newpage
+
+Some text
+
+\newpage
+
+Some text
+
+\newpage
+
+Some text
+
+\newpage
+
+\section{xcolor}
+\addthumb{xcolor}{\Huge{\textbf{xcolor}}}{magenta}{cyan}
+
+It is probably a good idea to have a look at the \textsf{xcolor} package
+and use other colours than used in this example.
+
+(About automatically increasing the thumb mark width to the thumb mark text
+width please see the note at page~\pageref{HugeText}.)
+
+\newpage
+
+\addthumb{A mark}{\Huge{\textbf{A}}}{lime}{darkgray}
+
+I just need to add further thumb marks to get them reaching the bottom of the page.
+
+Generally the vertical size of the thumb marks is set to the value given in the
+height option. If it is \texttt{auto}, the size of the thumb marks is decreased,
+so that they fit all on one page. But when they get smaller than \texttt{minheight},
+instead of decreasing their size further, a~new thumbs column is started
+(which will happen here).
+
+\newpage
+
+\addthumb{B mark}{\Huge{\textbf{B}}}{brown}{pink}
+
+There! A new thumb column was started automatically!
+
+\newpage
+
+\addthumb{C mark}{\Huge{\textbf{C}}}{brown}{pink}
+
+You can, of course, keep the colour for more than one thumb mark.
+
+\newpage
+
+\addthumb{$1/1.\,955\,83$\, EUR}{\Huge{\textbf{D}}}{orange}{violet}
+
+I am just adding further thumb marks.
+
+If you are curious why the thumb mark between
+\textquotedblleft C mark\textquotedblright\ and \textquotedblleft E mark\textquotedblright\ has
+not been named \textquotedblleft D mark\textquotedblright\ but
+\textquotedblleft $1/1.\,955\,83$\, EUR\textquotedblright :
+
+$1\unit{DM}=1\unit{D\ Mark}=1\unit{Deutsche\ Mark}$\newline
+$=\frac{1}{1.\,955\,83}\,$\euro $\,=1/1.\,955\,83\unit{Euro}=1/1.\,955\,83\unit{EUR}$.
+
+\newpage
+
+Let us have a look at \verb|\thumbsoverviewverso|:
+
+\addthumbsoverviewtocontents{section}{Table of Thumbs, verso mode}%
+\thumbsoverviewverso{Table of Thumbs, verso mode}
+
+\newpage
+
+And, of course, also at \verb|\thumbsoverviewdouble|:
+
+\addthumbsoverviewtocontents{section}{Table of Thumbs, double mode}%
+\thumbsoverviewdouble{Table of Thumbs, double mode}
+
+\newpage
+
+\addthumb{E mark}{\Huge{\textbf{E}}}{lightgray}{black}
+
+I am just adding further thumb marks.
+
+\newpage
+
+\addthumb{F mark}{\Huge{\textbf{F}}}{magenta}{black}
+
+Some text.
+
+\newpage
+\thumbnewcolumn
+\addthumb{New thumb marks column}{\Huge{\textit{NC}}}{magenta}{black}
+
+There! A new thumb column was started manually!
+
+\newpage
+
+Some text.
+
+\newpage
+
+\addthumb{G mark}{\Huge{\textbf{G}}}{orange}{violet}
+
+I just added another thumb mark.
+
+\newpage
+
+\pagecolor{green}
+
+\makeatletter
+\ltx@ifpackageloaded{hyperref}{% hyperref loaded
+\phantomsection%
+}{% hyperref not loaded
+}%
+\makeatother
+
+\label{greenpage}
+
+Some faulty pdf-viewer sometimes (for the same document!)
+adds a white line at the bottom and right side of the document
+when presenting it. This does not change the printed version.
+To test for this problem, this page has been completely coloured.
+(Probably better exclude this page from printing!)
+
+\textsc{Heiko Oberdiek} wrote at Tue, 26 Apr 2011 14:13:29 +0200
+in the \newline
+comp.text.tex newsgroup (see e.\,g. \newline
+\url{http://groups.google.com/group/de.comp.text.tex/msg/b3aea4a60e1c3737}):\newline
+\textquotedblleft Der Ursprung ist 0 0,
+da gibt es nicht viel zu runden; bei den anderen Seiten
+werden pt als bp in die PDF-Datei geschrieben, d.h.
+der Balken ist um 72.27/72 zu gro\ss{}, das
+sollte auch Rundungsfehler abdecken.\textquotedblright
+
+(The origin is 0 0, there is not much to be rounded;
+for the other sides the $\unit{pt}$ are written as $\unit{bp}$ into
+the pdf-file, i.\,e. the rule is too large by $72.27/72$, which
+should cover also rounding errors.)
+
+The thumb marks are also too large - on purpose! This has been done
+to assure, that they cover the page up to its (paper) border,
+therefore they are placed a little bit over the paper margin.
+
+Now I red somewhere in the net (should have remembered to note the url),
+that white margins are presented, whenever there is some object outside
+of the page. Thus, it is a feature, not a bug?!
+What I do not understand: The same document sometimes is presented
+with white lines and sometimes without (same viewer, same PC).\newline
+But at least it does not influence the printed version.
+
+\newpage
+
+\pagecolor{white}
+
+It is possible to use the Table of Thumbs more than once (for example
+at the beginning and the end of the document) and to refer to them via e.\,g.
+\verb|\pageref{TableOfThumbs1}, \pageref{TableOfThumbs2}|,... ,
+here: page \pageref{TableOfThumbs1}, page \pageref{TableOfThumbs2},
+and via e.\,g. \verb|\pageref{TableOfThumbs}| it is referred to the last used
+Table of Thumbs (for compatibility with older package versions).
+If there is only one Table of Thumbs, this one is also the last one, of course.
+Here it is at page \pageref{TableOfThumbs}.\newline
+
+Now let us have a look at \verb|\thumbsoverviewback|:
+
+\addthumbsoverviewtocontents{section}{Table of Thumbs, back mode}%
+\thumbsoverviewback{Table of Thumbs, back mode}
+
+\newpage
+
+Text can be placed after any of the Tables of Thumbs, of course.
+
+\end{document}
+\endinput
+%%
+%% End of file `thumbs-example.tex'.

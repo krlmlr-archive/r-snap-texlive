@@ -1,0 +1,202 @@
+%%
+%% This is file `mtc-bo.tex',
+%% generated with the docstrip utility.
+%%
+%% The original source files were:
+%%
+%% minitoc.dtx  (with options: `mtc-bo')
+%% This is a generated file.
+%% 
+%% 
+%% This file may be distributed and/or modified under the conditions of
+%% the LaTeX Project Public License, either version 1.3 of this license
+%% or (at your option) any later version.  The latest version of this
+%% license is in:
+%% 
+%%    http://www.latex-project.org/lppl.txt
+%% 
+%% and version 1.3 or later is part of all distributions of LaTeX version
+%% 2003/12/01 or later.
+%% 
+%% This work has the LPPL maintenance status "author-maintained".
+%% 
+%% This Current Maintainer of this work is Jean-Pierre F. Drucbert (JPFD).
+%% 
+%% This work consists of all the files listed in the file `minitoc.l'
+%% distributed with it.
+%% Copyright 1993 1994 1995 1996 1997 1998 1999 2000
+%%           2001 2002 2003 2004 2005 2006 2007 2008
+%% Jean-Pierre F. Drucbert
+%% <jean-pierre.drucbert@onera.fr>
+\documentclass[10pt]{book}
+\ProvidesFile{mtc-bo.tex}%
+  [2007/04/17]
+\usepackage[paperwidth=8.5in,paperheight=11in,%
+      lmargin=1.25in,rmargin=1.25in,tmargin=1in,bmargin=1in]{geometry}
+\usepackage{multicol}
+\usepackage{color}
+\usepackage{tocloft}
+\setlength{\cftsecindent}{0cm}
+\setlength{\cftsecnumwidth}{15 pt}
+\setlength{\cftsubsecindent}{\cftsecindent}
+\addtolength{\cftsubsecindent}{\cftsecnumwidth}
+\setlength{\cftsubsecnumwidth}{20 pt}
+\setlength{\cftsubsubsecindent}{\cftsubsecindent}
+\addtolength{\cftsubsubsecindent}{\cftsubsecnumwidth}
+\cftpagenumbersoff{sec}
+\cftpagenumbersoff{subsec}
+\usepackage[francais,tight]{minitoc}
+\usepackage{hyperref}
+\setlength{\mtcindent}{0pt}
+\nomtcrule        % pas de filets en haut et en bas de la mini-tdm
+\nomtcpagenumbers % pas de numéro de pages
+\renewcommand{\mtctitle}{Contenu de la rencontre}
+\usepackage[francais]{babel}
+\usepackage{franc,frnew}
+\usepackage[T1]{fontenc}
+\usepackage[isolatin]{inputenc}
+\usepackage{mypatches}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\makeatletter
+\def\@makechapterhead#1{%
+  \vspace*{10\p@}%
+  {\parindent \z@ \raggedleft \normalfont
+   \interlinepenalty\@M
+   \ifnum \c@secnumdepth >\m@ne
+     \Huge\bfseries\sffamily Rencontre \thechapter\\% \quad
+   \fi
+   \Huge\bfseries\sffamily #1\par\nobreak
+   \vskip 10\p@
+}}
+\def\@makeschapterhead#1{%
+  \vspace*{10\p@}%
+  {\parindent \z@ \raggedright \normalfont
+   \interlinepenalty\@M
+   \Huge \sffamily #1\par\nobreak
+   \vskip 10\p@
+}} \makeatother
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newenvironment{pageUn}[6]{%
+\parindent = 0.0in
+\rule{\linewidth}{1pt}
+\begin{multicols}{2}
+        {\large \bfseries Math. pour médecine nucléaire\\
+        \textit{(#2)}}
+        \vfill\columnbreak
+        \raggedleft\bfseries Automne 2003\\
+        #1
+\end{multicols}
+\vspace{-18pt}
+\rule{\linewidth}{1pt}
+
+\setlength{\columnseprule}{.3pt} \setlength{\columnsep}{1cm}
+\begin{multicols}{2}%
+
+\colorbox[cmyk]{.1,0,0,0}{%
+        \parbox{\linewidth}{%
+        \setcounter{minitocdepth}{3}%
+        \minitoc%
+        }}
+
+\mtcskip
+
+
+{\large \bfseries Documents distribués}
+\begin{itemize} \renewcommand{\labelitemi}{$\star$} #3 \end{itemize}
+
+
+\vspace{12pt}{\large \bfseries Messages}
+\begin{itemize} \renewcommand{\labelitemi}{$\star$}#4\end{itemize}
+
+\vspace{12pt}{\large \bfseries Lecture}\vspace{-6pt} \par#5 \par
+
+\vspace{12pt}{\large \bfseries Exercices}\vspace{-6pt}\par#6\par
+
+\end{multicols}%
+}
+{\hrule}
+
+
+\parskip = 0.1in
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\renewcommand{\thesection}{\Alph{section}}
+
+%%%%%%%%%%
+%%%%%%%%%%
+\begin{document}
+\dominitoc \faketableofcontents
+\chapter{Première étape (début)}
+\begin{pageUn}
+        {%1     Date du cours
+                lundi 25 août
+                }
+        {%2     Durée du cours
+                2 périodes
+                }
+        {%3     Liste des documents à~distribuer
+                \item Plan de cours
+                \item Fiche d'identification
+                \item Grille horaire
+                \item Feuilles d'exercices supplémentaires
+                }
+        {%4     Ne pas oublier
+                \item Acheter le livre de référence
+                \item Apporter une disquette
+                }
+        {%5     Lecture
+                Lire les pages ppp à~ppp et ppp à~ppp
+                }
+        {%6     Exercice
+                Faire les exercices nnn de la page ppp
+                }
+\end{pageUn}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Titre de la section} %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+Texte dans la section
+
+%%
+\subsection{Une sous-section}
+%%
+Bla bla bla
+
+%%
+\subsection{Une autre sous-section}
+%%
+Bla bla bla
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Titre d'une autre section} %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+Texte dans la section
+
+%%
+\subsection{Une sous-section}
+%%
+Bla bla bla
+
+%%
+\subsection{Une autre sous-section}
+%%
+Bla bla bla
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Encore une autre section} %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+Texte dans la section
+
+\end{document}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%
+\endinput
+%%
+%% End of file `mtc-bo.tex'.

@@ -1,0 +1,27 @@
+This archive is the distribution of nomentbl, a LaTeX package for
+making nomenclatures in a longtable.
+
+Files:
+nomentbl.ins
+nomentbl.dtx
+nomentbl.pdf
+nomentbl.dvi
+example.pdf
+example.dvi
+README
+
+Installation:
+latex nomentbl.ins
+Put nomentbl.sty in directory where LaTeX will find it
+Put nomentbl.ist in directory where makeindex will find it
+
+Documentation is available as pdf and dvi. If needed it can be made
+with LaTeX by:
+latex nomentbl.dtx
+makeindex.exe -o nomentbl.nls -s nomentbl.ist nomentbl.nlo 
+latex nomentbl.dtx
+makeindex.exe -o nomentbl.gls -s gglo.ist nomentbl.glo 
+makeindex.exe -o nomentbl.ind -s gind.ist nomentbl.idx 
+latex nomentbl.dtx
+latex nomentbl.dtx
+

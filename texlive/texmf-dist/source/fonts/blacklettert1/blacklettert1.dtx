@@ -1,0 +1,6280 @@
+% \iffalse meta-comment
+%       $Id: blacklettert1.dtx,v 1.3 2002/05/30 18:16:53 torsten Exp torsten $    
+%
+%     blacklettert1.dtx -- Blackletter Typefaces in T1 Encoding
+%     Copyright 2003 Torsten Bronger <torsten.bronger@gmx.de>
+%
+%   This program may be distributed and/or modified under the
+%   conditions of the LaTeX Project Public License, either version 1.2
+%   of this license or (at your option) any later version.
+%   The latest version of this license is in
+%     http://www.latex-project.org/lppl.txt
+%   and version 1.2 or later is part of all distributions of LaTeX
+%   version 1999/12/01 or later.
+%
+% \fi
+%
+% \CheckSum{5465}
+% \CharacterTable
+%  {Upper-case    \A\B\C\D\E\F\G\H\I\J\K\L\M\N\O\P\Q\R\S\T\U\V\W\X\Y\Z
+%   Lower-case    \a\b\c\d\e\f\g\h\i\j\k\l\m\n\o\p\q\r\s\t\u\v\w\x\y\z
+%   Digits        \0\1\2\3\4\5\6\7\8\9
+%   Exclamation   \!     Double quote  \"     Hash (number) \#
+%   Dollar        \$     Percent       \%     Ampersand     \&
+%   Acute accent  \'     Left paren    \(     Right paren   \)
+%   Asterisk      \*     Plus          \+     Comma         \,
+%   Minus         \-     Point         \.     Solidus       \/
+%   Colon         \:     Semicolon     \;     Less than     \<
+%   Equals        \=     Greater than  \>     Question mark \?
+%   Commercial at \@     Left bracket  \[     Backslash     \\
+%   Right bracket \]     Circumflex    \^     Underscore    \_
+%   Grave accent  \`     Left brace    \{     Vertical bar  \|
+%   Right brace   \}     Tilde         \~}
+% 
+%
+% \def\fileversion{v1.1}
+% \def\filedate{2003/02/17}
+%
+% \title{Blackletter Typefaces in T1 Encoding\thanks{This file
+%        has version number \fileversion, last
+%        revised \filedate.}}
+% \author{Torsten Bronger\\
+%         \url{bronger@physik.rwth-aachen.de}}
+%
+% \maketitle
+% 
+% \begin{abstract}
+% This package |blacklettert1| provides virtual fonts for T1-like variants of the
+% blackletter typefaces published in 1990 by Yannis Haralambous, namely yfrak,
+% yswab and ygoth. Their original encoding is unspecified.  Additionally, this
+% package embeds these fonts nicely into \LaTeXe's font selection scheme.  The
+% structure of this package allows for further blackletter typefaces from other
+% sources to be made usable for \LaTeX\ in a similar way, too.
+% \end{abstract}
+% 
+% \tableofcontents
+%
+% \section*{The documentation driver file}
+%
+% The next bit of code contains the documentation driver file for
+% \TeX, i.\,e., the file that will produce the documentation you are
+% currently reading. It will be extracted from this file by the
+% \texttt{docstrip} program. Since it is the first code in the file
+% one can alternatively process this file directly with \LaTeXe{} to
+% obtain the documentation.
+%
+%    \begin{macrocode}
+%<*driver>
+\documentclass{ltxdoc}
+
+%    \end{macrocode}
+% If you comment out the next line, you get a \emph{full} description
+% of this package.
+%    \begin{macrocode}
+\OnlyDescription
+
+%    \end{macrocode}
+% Not clean at all, but it works.
+%    \begin{macrocode}
+\newlabel{codingscheme}{{??}{??}}
+
+\setcounter{StandardModuleDepth}{1}
+
+\usepackage{url}
+\providecommand*{\url}[1]{\texttt{\mbox{#1}}}
+
+\usepackage{mathptmx}
+
+\begin{document}
+   \DocInput{blacklettert1.dtx}
+   \PrintChanges
+   \PrintIndex
+\end{document}
+%</driver>
+%    \end{macrocode}
+%
+% \section{Introduction}
+%
+% In 1990, Yannis Haralambous published a set of three blackletter typefaces.
+% (Very often, though inaccurately, such typefaces are also called ``Gothic''
+% or ``old German'' typefaces.)
+%
+% These three fonts are yfrak (Fraktur), yswab (Schwabacher) and ygoth
+% (Textur), and Haralambous made them freely available.  They were created
+% using Metafont. Unfortunately, although all three fonts are very nicely
+% drawn and well endowed with ligatures and special symbols, they are produced
+% in a very awkward encoding, making it very inconvenient to use them.
+% Therefore in 1994 Thierry Bouche wrote dcfrak, a Metafont font that by and
+% large was a T1 (Cork) encoded re-implementation of Haralambous' yfrak.
+% Bouche added blacker accents.
+%
+% His work has three flaws: It only covers yfrak, it is a new font (virtual
+% fonts are prefered if possible) and it doesn't make use of \TeX's boundary
+% character feature that was especially designed having blackletter typefaces and
+% old Latin scripts in mind.
+%
+%
+% \section{This package}
+%
+% \dots~provides virtual fonts and a (nearly) T1 encoded Fraktur family that
+% can be used very easily with \LaTeX.  In fact, if you switch to the font by
+% saying
+%\begin{verbatim}
+%\fontfamily{yfrak}\selectfont
+%\end{verbatim}
+% (no special package is needed, but T1 must be the current encoding) all you
+% still have to do is to break up certain ligatures with \verb|\/| commands.
+% You could even use the same \LaTeX\ source text for both Fraktur and, say,
+% Times output.
+%
+% This approach has several advantages:
+% \begin{itemize}
+% \item Virtual fonts are easy to install and elegantly make use of already
+%   installed fonts,
+% \item you don't have to get adjusted to the quite strange input format
+%   Haralambous suggested, actually the impact on the source text is (not zero,
+%   but) relatively small,
+% \item makes it possible to return to Latin typefaces without further changes,
+% \item makes proper hyphenation in whatever language possible,
+% \item makes spell checkers that can cope with \LaTeX\ work also for Fraktur
+%   texts,
+% \item allows for letterspaced version and
+% \item embeds yfrak, yswab and ygoth nicely in the font selection scheme of
+%   \LaTeX.
+% \end{itemize}
+%
+% Additionally, it solves some design flaws of the original fonts:
+% \begin{itemize}
+%   \item ygoth is slightly letterspaced.
+%   \item The letters i, l and fi of ygoth are now correctly positioned within 
+%     their boxes.
+%   \item Many too big and too small letter boxes are adjusted.
+%   \item Missing dieresis accent added to ygoth and yfrak.
+%   \item Inter-word space is reduced.
+% \end{itemize}
+%
+% I have to admit one disadvantage of this virtual font approach: Some DVI
+% viewers still can't handle them properly.  In this case, please complain to
+% the DVI driver author.  At least dvips has no problem.
+%
+% \medskip The package bases on a modified version of the T1 encoding, but
+% only unusual slots got a new contents.  This T1 variant can be used for
+% other blackletter typefaces, too.  See the full documentation of this package for
+% further details.
+%
+% \section{Installation}
+%
+% You can use the already compiled \mbox{|vf|-,} |tfm|- and |fd|-files.  Just
+% copy them in directories where \LaTeX\ and your DVI driver can find them.
+% (Typically where other files with the same respective extension already
+% exist.)
+%
+% Alternatively you can use the Makefile and give the commands
+%\begin{verbatim}
+%make
+%make install
+%\end{verbatim}
+% (At least the latter as root.)  This will create fresh versions of the
+% virtual fonts and install them.  Please have a look at the Makefile, whether
+% all paths are set as you need them.  If you want to compile the fonts, please
+% notice that you need special PL files for yfrak, yswab, ygoth and cmu10.
+% The problem is that they must have set a certain \texttt{CODINGSCHEME}. See
+% page~\pageref{codingscheme} (this page is unknown if you have set
+% \mbox{\texttt{\char'134OnlyDescription}}) for further details.
+%
+% Maybe it's necessary to run a program like te\TeX's |texhash| -- or
+% something equivalent of your \TeX\ implementation -- after the installation
+% process.
+%
+% \section{Using the fonts}
+%
+% \emph{Warning}: The original fonts (|.mf| or |.pfb|) must be available for
+% your DVI driver before this package can be used!  They are not part of this
+% package.
+%
+% \subsection{Switching to Fraktur}
+%
+% This package doesn't contain a |sty| file that you can include with a
+% |\usepackage| command.  If you switch to yfrak in the T1 encoding with
+% something like
+%\begin{verbatim}
+%\fontfamily{yfrak}\selectfont
+%\end{verbatim}
+% you get Fraktur.  The |\emph| version will be a neatly letterspaced Fraktur,
+% |\textsl| is Schwabacher. In the preamble you can say
+%\begin{verbatim}
+%\renewcommand{\emph}[1]{\textsl{#1}}
+%\end{verbatim}
+% and Schwabacher will be the default |\emph| markup, if you prefer that.
+% Bold face is Textur, so that Textur will be used for the headings (standard
+% \LaTeX\ behaviour) which is common use.
+%
+%You can make the Fraktur font selection global for the whole document by
+% saying
+%\begin{verbatim}
+%\renewcommand{\rmdefault}{yfrak}
+%\end{verbatim}
+% in the preamble.
+%
+% \subsection{Typographic difficulties}
+%
+% A very important point is breaking up ligatures with |\/| or -- in German
+% texts -- with \verb!"|!.  Blackletter typefaces have many of them, but at subword
+% boundaries you have to split them up.  The German word ``aus\/tragen'' is
+% written in the source as ``\verb!aus"|tragen!'', because ``aus'' is a
+% prefix.
+%
+% Blackletter typefaces have two lower case ``s'': A \emph{round} one, the one we
+% know, and a \emph{long} one, similar of an ``f''.  In German, the latter has
+% survived as the left part in the ligature ``\ss''.  One must choose the
+% correct form for every occurrence.  As a rule of thumb, the round form at
+% the end of the word, the long form everywhere else.  \TeX\ will do that
+% automatically.  However, sometimes a round ``s'' is necessary within a word,
+% at the end of a subword boundary.
+%
+% From \TeX's point of view, the letter of ``s'' within or at the beginning of
+% words is a ligature, too.  A typical German case is ``aussetzen'' that must
+% be input ``\verb!aus"|setzen!''.  Sometimes you will have to input a |\/| as
+% in |kafkaes\/k|.  But there are also English examples: |news\/letter| --
+% although Knuth insists on the ligature.~\texttt{\mbox{;-)}}
+%
+%
+%
+% \section{Remarks}
+%
+% The author of this package would like to encourage people to use Fraktur,
+% for small bits of their texts, for special moods or just for aesthetical
+% considerations.  Technically speaking, I try to lower the threshold for
+% using these typefaces by making the access a lot easier.  They are of course
+% not for everyday texts.
+%
+% But it's really a pity that many people think that such blackletter typefaces are
+% old use, or connect them with German nationalism, especially the Nazi
+% era. The first is not strictly true (at least not for German speaking
+% regions), the latter is very unfair.  Only few people know that the Nazis
+% themselves forbade them in 1941, because they were ``Jewish letters'' -- the
+% ban being as silly as the given reason.
+%
+% One should consider blackletter typefaces another degree of freedom in the font
+% space.  They are not only to revive old texts; in fact, many font foundries
+% produce -- albeit only a few -- new Fraktur variants.
+%
+% \medskip To non-German authors: Although Fraktur and Schwabacher have been
+% used almost entirely for German texts, there is really no reason to limit it
+% to that.  Their parents and sisters, Gothic, Textura, Rotunda, Bastarda
+% etc.\ have been heavily used for Latin, Italian, French and English.
+% European and American designers have created beautiful Fraktur alphabets.
+% A.~Kapr wrote, ``Schwabacher and Fraktur are just branches of the Latin
+% script tree, tended by many nations.''
+%
+% 
+% \section{Related work}
+%
+% The |fraktur| package by Matthias Muehlich (FixMe:~Link!)\ is another
+% approach to bring blackletter typefaces to \LaTeX.  The main differences are:
+% \begin{itemize}
+%   \item He provides virtual font solutions for many commercial fonts (but
+%     not for Haralambous' typefaces).
+%   \item He uses another encoding (FixMe:~Name?)\ which is quite much different
+%     from T1.  It covers some additional letters and ligatures.
+% \end{itemize}
+% If you want to have a ready-to-run solution for those typefaces (some of
+% which are free for private use), this package will be helpful for you.
+%
+% \bigskip Walter Schmidt's |yfonts| package provides a more direct access to
+% Haralambous' fonts, including the initials font |yinitas|.  This is especially
+% useful if you want to typeset old texts, with all ligatures and Gutenberg
+% feeling.
+%
+% \StopEventually{}
+%
+%
+% \section{The \texttt{fontinst} input file}
+%
+% This file (|yutoyt1.tex|) is the driver file for the T1 representation
+% of Yannis Haralambous' blackletter typefaces.  It it called by
+%\begin{verbatim}
+%tex yutoyt1
+%\end{verbatim}
+%    \begin{macrocode}
+%<*yutoyt1tex>
+\input fontinst.sty
+
+\def\requiredversion{1.801}
+\ifx\fontinstversion\requiredversion\else\errmessage{fontinst 1.801 needed.}\fi
+
+%    \end{macrocode}
+% The first step is quite unusual: I have to define some new encodings, 
+% because Haralambous invented three different encodings for his three fonts,
+% and, of course, also incompatible with all other encodings on this planet.
+%
+% \emph{Warning:}\label{codingscheme} That's the reason why you can't use this
+% package with the \emph{original} TFM files.  You must use the PL files
+% supplied with this package, because the PL files must contain the correct
+% name for their encoding.  Although that's the only line that's been
+% modified, it's crucial.
+%    \begin{macrocode}
+\declareencoding{YH GOTISCH}{ygoth}
+\declareencoding{YH SCHWABACHER}{yswab}
+\declareencoding{YH FRAKTUR}{yfrak}
+%    \end{macrocode}
+% The same is true for |cmu10.pl|:  It has a slightly different encoding
+% (it contains a sterling sign instead of a dollar), but it doesn't say so
+% in the tfm file header.  By the way, the |ot1i| encoding is part of the
+% standard \texttt{fontinst} distribution.
+%    \begin{macrocode}
+\declareencoding{TEX ITALIC TEXT}{ot1i}
+\installfonts
+%    \end{macrocode}
+% I didn't rename the family name because I don't know of another T1 version
+% of yfrak.  I think it's not a lie when I claim that it's still yfrak, but
+% in another encoding.
+%
+% I need another hyphen character because otherwise a long ``s'' may become
+% round immediately before a hyphen.
+%    \begin{macrocode}
+\installfamily{T1}{yfrak}{\hyphenchar\font=127}
+
+%    \end{macrocode}
+% First, the normal version.  The tfm file will be called |tfrak.tfm|.
+%    \begin{macrocode}
+\installfont{tfrak}{yfrak,kernoff,yswab scaled 700,setglyph,%
+                    cmr10,cmmi10,cmsy10,%
+                    unsetacc,cmr7 scaled 700,ecrm1000,%
+                    unsetcm,ecrm0700 scaled 700,kernon,%
+                    unsetdia,yfrak,kernoff,unsetste,cmu10,kernon,%
+                    fcleanup,blackletter}{T1frak}
+  {T1}{yfrak}{m}{n}{}
+%    \end{macrocode}
+% Secondly, the letterspaced version.  By and large, it's a copy from above.
+% Notice that I annihilate almost all kerning, in fact, only one pair 
+% survives!  The latterspaced version is mapped to the italic variant.  This
+% should transform legacy document automatically, and it helps to 
+% ``re-antiqua'' Fraktur texts easily.
+%    \begin{macrocode}
+\installfont{tfrakls}{kernoff,yfrak,yswab scaled 700,setglyph,%
+                    cmr10,cmmi10,cmsy10,%
+                    unsetacc,cmr7 scaled 700,ecrm1000,%
+                    unsetcm,ecrm0700 scaled 700,%
+                    unsetdia,yfrak,unsetste,cmu10,%
+                    fcleanup,kernon,lettersp,kernoff,blackletter}{T1frak}
+  {T1}{yfrak}{m}{it}{}
+%    \end{macrocode}
+% The |\textsl| version is |tswab|, the T1 variant of |yswab|.  It is
+% much simpler, largely because it doesn't need smaller accents.
+%    \begin{macrocode}
+\installfont{tswab}{yswab,setglyph,kernoff,cmbx10,cmmib10,cmbsy10,%
+                    unsetcm,ecbx1000,kernon,%
+                    unsetdia,yswab,scleanup,blackletter}{T1frak}
+  {T1}{yfrak}{m}{sl}{}
+%    \end{macrocode}
+% Very closely related to the |tswab| solution is |tgoth|, which is mapped to
+% the bold version of yfrak in the T1 encoding.  The only differences are in
+% |gcleanup.mtx|.
+%    \begin{macrocode}
+\installfont{tgoth}{ygoth,setglyph,kernoff,cmbx10,cmmib10,cmbsy10,%
+                    unsetcm,ecbx1000,kernon,%
+                    unsetdia,ygoth,gcleanup,blackletter}{T1frak}
+  {T1}{yfrak}{b}{n}{}
+\endinstallfonts
+
+\bye
+%</yutoyt1tex>
+%    \end{macrocode}
+%
+%
+% \section{The \texttt{yfrak} text encoding vector}
+%
+% Here I describe the original encoding of the yfrak font by Yannis 
+% Haralambous.  This file is read when |yfrak.pl| is converted into 
+% |yfrak.mtx| in order to be digested by \texttt{fontinst}.
+%
+% FixMe: Probably this file could easily be simplified very
+% much, especially the metric setting may be superfluous.  But I don't know.
+%    \begin{macrocode}
+%<*yfraketx>
+\relax
+
+\documentclass[twocolumn]{article}
+\usepackage{fontdoc}
+
+\title{The \texttt{yfrak} text encoding vector}
+\author{Torsten Bronger}
+\date{10 April 2002 \\
+Version 1.0}
+
+\begin{document}
+\maketitle
+
+\section{Introduction}
+
+This document describes the encoding of yfrak (fraktur).
+
+\encoding
+
+\needsfontinstversion{1.801}
+
+
+\comment{\section{Default values}}
+
+\setcommand\lc#1#2{#2}
+\setcommand\uc#1#2{#1}
+\setcommand\lclig#1#2{#2}
+\setcommand\uclig#1#2{#1}
+\setcommand\digit#1{#1}
+\setcommand\tty{n}
+\setcommand\currency{dollar}
+
+\setstr{codingscheme}{UNSPECIFIED}
+
+\setint{italicslant}{0}
+
+\ifisglyph{x}\then
+   \setint{xheight}{\height{x}}
+\else
+   \setint{xheight}{500}
+\fi
+
+\ifisglyph{space}\then
+   \setint{interword}{\width{space}}
+\else\ifisglyph{i}\then
+   \setint{interword}{\width{i}}
+\else
+   \setint{interword}{333}
+\fi\fi
+
+
+\comment{\section{Default font dimensions}}
+
+\setint{fontdimen(1)}{\int{italicslant}}              % italic slant
+\setint{fontdimen(2)}{\int{interword}}                % interword space
+\ifisint{monowidth}\then
+   \setint{fontdimen(3)}{0}                           % interword stretch
+   \setint{fontdimen(4)}{0}                           % interword shrink
+\else
+   \setint{fontdimen(3)}{\scale{\int{interword}}{600}}% interword stretch
+   \setint{fontdimen(4)}{\scale{\int{interword}}{240}}% interword shrink
+\fi
+\setint{fontdimen(5)}{\int{xheight}}                  % x-height
+\setint{fontdimen(6)}{1000}                           % quad
+\ifisint{monowidth}\then
+   \setint{fontdimen(7)}{\int{interword}}             % extra space after .
+\else
+   \setint{fontdimen(7)}{\scale{\int{interword}}{240}}% extra space after .
+\fi
+
+\setint{boundarychar}{32}
+
+\comment{\section{The encoding}}
+
+\nextslot{"10}
+
+\setslot{dotlessi}
+   \comment{A dotless i like `\i'}
+\endsetslot
+
+\setslot{dotlessj}
+   \comment{A dotless j like `\j'}
+\endsetslot
+
+\setslot{grave}
+   \comment{The grave accent `\`a'.}
+\endsetslot
+
+\setslot{acute}
+   \comment{The acute accent `\'a'.}
+\endsetslot
+
+\setslot{caron}
+   \comment{The caron or h\'a\v cek accent `\v a'.}
+\endsetslot
+
+\setslot{breve}
+   \comment{The breve accent `\u a'.}
+\endsetslot
+
+\setslot{macron}
+   \comment{The macron accent `\=a'.}
+\endsetslot
+
+\setslot{ringfitted}
+   \comment{The ring accent `\aa', fitted to be the same width as an
+      upper case `A'.}
+\endsetslot
+
+\setslot{cedilla}
+   \comment{The cedilla accent `\c a'.}
+\endsetslot
+
+\skipslots{1}
+
+\setslot{\lc{SS}{germandbls}}
+   \comment{The letter `\ss'.}
+\endsetslot
+
+\nextslot{"21}
+
+\setslot{exclam}
+   \comment{The exclamation mark `!'.}
+\endsetslot
+
+\setslot{quotedblleft}
+  \comment{The English opening quote mark `\,\textquotedblleft\,'.}
+\endsetslot
+
+\setslot{numbersign}
+   \comment{The hash sign `\#'.}
+\endsetslot
+
+\setslot{varJ}
+   \comment{Variant of the letter `{J}'.}
+\endsetslot
+
+\setslot{percent}
+   \comment{The percent sign `\%'.}
+\endsetslot
+
+\setslot{ampersand}
+   \comment{The ampersand sign `\&'.}
+\endsetslot
+
+\setslot{quoteright}
+   \ligature{LIG}{quoteright}{quotedblright}
+   \comment{The English closing quotation mark `\,'\,'.}
+\endsetslot
+
+\setslot{parenleft}
+   \comment{The opening parenthesis `('.}
+\endsetslot
+
+\setslot{parenright}
+   \comment{The closing parenthesis `)'.}
+\endsetslot
+
+\setslot{asterisk}
+   \comment{The raised asterisk `*'.}
+\endsetslot
+
+\setslot{plus}
+   \comment{The addition sign `+'.}
+\endsetslot
+
+\setslot{comma}
+   \comment{The comma `,'.}
+\endsetslot
+
+\setslot{hyphen}
+   \ligature{LIG}{hyphen}{rangedash}
+   \comment{The hyphen `-'.}
+\endsetslot
+
+\setslot{period}
+   \comment{The full point `.'.}
+\endsetslot
+
+\setslot{slash}
+   \comment{The forward oblique `/'.}
+\endsetslot
+
+\setslot{\digit{zero}}
+   \comment{The number zero `0'.  This (and all the other numerals) may be
+      old style or ranging digits.}
+\endsetslot
+
+\setslot{\digit{one}}
+   \comment{The number one `1'.}
+\endsetslot
+
+\setslot{\digit{two}}
+   \comment{The number two `2'.}
+\endsetslot
+
+\setslot{\digit{three}}
+   \comment{The number three `3'.}
+\endsetslot
+
+\setslot{\digit{four}}
+   \comment{The number four `4'.}
+\endsetslot
+
+\setslot{\digit{five}}
+   \comment{The number five `5'.}
+\endsetslot
+
+\setslot{\digit{six}}
+   \comment{The number six `6'.}
+\endsetslot
+
+\setslot{\digit{seven}}
+   \comment{The number seven `7'.}
+\endsetslot
+
+\setslot{\digit{eight}}
+   \comment{The number eight `8'.}
+\endsetslot
+
+\setslot{\digit{nine}}
+   \comment{The number nine `9'.}
+\endsetslot
+
+\setslot{colon}
+   \comment{The colon punctuation mark `:'.}
+\endsetslot
+
+\setslot{semicolon}
+   \comment{The semi-colon punctuation mark `;'.}
+\endsetslot
+
+\setslot{section}
+   \comment{The section sign `{\S}'.}
+\endsetslot
+
+\setslot{equal}
+   \comment{The equals sign `='.}
+\endsetslot
+
+\skipslots{1}
+
+\setslot{question}
+   \comment{The question mark `?'.}
+\endsetslot
+
+\skipslots{1}
+
+\setslot{\uc{A}{a}}
+   \comment{The letter `{A}'.}
+\endsetslot
+
+\setslot{\uc{B}{b}}
+   \comment{The letter `{B}'.}
+\endsetslot
+
+\setslot{\uc{C}{c}}
+   \comment{The letter `{C}'.}
+\endsetslot
+
+\setslot{\uc{D}{d}}
+   \comment{The letter `{D}'.}
+\endsetslot
+
+\setslot{\uc{E}{e}}
+   \comment{The letter `{E}'.}
+\endsetslot
+
+\setslot{\uc{F}{f}}
+   \comment{The letter `{F}'.}
+\endsetslot
+
+\setslot{\uc{G}{g}}
+   \comment{The letter `{G}'.}
+\endsetslot
+
+\setslot{\uc{H}{h}}
+   \comment{The letter `{H}'.}
+\endsetslot
+
+\setslot{\uc{I}{i}}
+   \comment{The letter `{I}'.}
+\endsetslot
+
+\setslot{\uc{J}{j}}
+   \comment{The letter `{J}'.}
+\endsetslot
+
+\setslot{\uc{K}{k}}
+   \comment{The letter `{K}'.}
+\endsetslot
+
+\setslot{\uc{L}{l}}
+   \comment{The letter `{L}'.}
+\endsetslot
+
+\setslot{\uc{M}{m}}
+   \comment{The letter `{M}'.}
+\endsetslot
+
+\setslot{\uc{N}{n}}
+   \comment{The letter `{N}'.}
+\endsetslot
+
+\setslot{\uc{O}{o}}
+   \comment{The letter `{O}'.}
+\endsetslot
+
+\setslot{\uc{P}{p}}
+   \comment{The letter `{P}'.}
+\endsetslot
+
+\setslot{\uc{Q}{q}}
+   \comment{The letter `{Q}'.}
+\endsetslot
+
+\setslot{\uc{R}{r}}
+   \comment{The letter `{R}'.}
+\endsetslot
+
+\setslot{\uc{S}{s}}
+   \comment{The letter `{S}'.}
+\endsetslot
+
+\setslot{\uc{T}{t}}
+   \comment{The letter `{T}'.}
+\endsetslot
+
+\setslot{\uc{U}{u}}
+   \comment{The letter `{U}'.}
+\endsetslot
+
+\setslot{\uc{V}{v}}
+   \comment{The letter `{V}'.}
+\endsetslot
+
+\setslot{\uc{W}{w}}
+   \comment{The letter `{W}'.}
+\endsetslot
+
+\setslot{\uc{X}{x}}
+   \comment{The letter `{X}'.}
+\endsetslot
+
+\setslot{\uc{Y}{y}}
+   \comment{The letter `{Y}'.}
+\endsetslot
+
+\setslot{\uc{Z}{z}}
+   \comment{The letter `{Z}'.}
+\endsetslot
+
+\setslot{bracketleft}
+   \comment{The opening square bracket `['.}
+\endsetslot
+
+\setslot{quotedblbase}
+  \comment{A German double quote mark `,\kern-0.1em,' similar to two commas,
+      but with tighter letterspacing and different sidebearings.}
+\endsetslot
+
+\setslot{bracketright}
+   \comment{The closing square bracket `]'.}
+\endsetslot
+
+\setslot{circumflex}
+   \comment{The circumflex accent `\^ a'.}
+\endsetslot
+
+\setslot{dotaccent}
+   \comment{The dot accent `\.a'.}
+\endsetslot
+
+\setslot{quoteleft}
+   \ligature{LIG}{quoteleft}{quotedblleft}
+   \comment{The English opening single quotation mark `\,`\,'.}
+\endsetslot
+
+\setslot{\lc{A}{a}}
+   \comment{The letter `{a}'.}
+\endsetslot
+
+\setslot{\lc{B}{b}}
+   \comment{The letter `{b}'.}
+\endsetslot
+
+\setslot{\lc{C}{c}}
+   \comment{The letter `{c}'.}
+\endsetslot
+
+\setslot{\lc{D}{d}}
+   \comment{The letter `{d}'.}
+\endsetslot
+
+\setslot{\lc{E}{e}}
+   \comment{The letter `{e}'.}
+\endsetslot
+
+\setslot{\lc{F}{f}}
+   \ligature{LIG}{\lc{I}{i}}{\lclig{FI}{fi}}
+   \ligature{LIG}{\lc{F}{f}}{\lclig{FF}{ff}}
+   \ligature{LIG}{\lc{L}{l}}{\lclig{FL}{fl}}
+   \comment{The letter `{f}'.}
+\endsetslot
+
+\setslot{\lc{G}{g}}
+   \comment{The letter `{g}'.}
+\endsetslot
+
+\setslot{\lc{H}{h}}
+   \comment{The letter `{h}'.}
+\endsetslot
+
+\setslot{\lc{I}{i}}
+   \comment{The letter `{i}'.}
+\endsetslot
+
+\setslot{\lc{J}{j}}
+   \comment{The letter `{j}'.}
+\endsetslot
+
+\setslot{\lc{K}{k}}
+   \comment{The letter `{k}'.}
+\endsetslot
+
+\setslot{\lc{L}{l}}
+   \comment{The letter `{l}'.}
+\endsetslot
+
+\setslot{\lc{M}{m}}
+   \comment{The letter `{m}'.}
+\endsetslot
+
+\setslot{\lc{N}{n}}
+   \comment{The letter `{n}'.}
+\endsetslot
+
+\setslot{\lc{O}{o}}
+   \comment{The letter `{o}'.}
+\endsetslot
+
+\setslot{\lc{P}{p}}
+   \comment{The letter `{p}'.}
+\endsetslot
+
+\setslot{\lc{Q}{q}}
+   \comment{The letter `{q}'.}
+\endsetslot
+
+\setslot{\lc{R}{r}}
+   \comment{The letter `{r}'.}
+\endsetslot
+
+\setslot{\lc{S}{s}}
+   \comment{The letter `{s}'.}
+\endsetslot
+
+\setslot{\lc{T}{t}}
+   \comment{The letter `{t}'.}
+\endsetslot
+
+\setslot{\lc{U}{u}}
+   \comment{The letter `{u}'.}
+\endsetslot
+
+\setslot{\lc{V}{v}}
+   \comment{The letter `{v}'.}
+\endsetslot
+
+\setslot{\lc{W}{w}}
+   \comment{The letter `{w}'.}
+\endsetslot
+
+\setslot{\lc{X}{x}}
+   \comment{The letter `{x}'.}
+\endsetslot
+
+\setslot{\lc{Y}{y}}
+   \comment{The letter `{y}'.}
+\endsetslot
+
+\setslot{\lc{Z}{z}}
+   \comment{The letter `{z}'.}
+\endsetslot
+
+\setslot{rangedash}
+   \ligature{LIG}{hyphen}{punctdash}
+   \comment{The number range dash `1--9'.  In a monowidth font, this
+      might be set as `{\tt 1{-}9}'.}
+\endsetslot
+
+\setslot{punctdash}
+   \comment{The punctuation dash `Oh---boy.'  In a monowidth font, this
+      might be set as `{\tt Oh{-}{-}boy.}'}
+\endsetslot
+
+\setslot{hungarumlaut}
+   \comment{The long Hungarian umlaut `\H a'.}
+\endsetslot
+
+\setslot{tilde}
+   \comment{The tilde accent `\~a'.}
+\endsetslot
+
+\comment{\section{Non-standard ligatures}}
+
+\nextslot{"81}
+
+\setslot{ss}
+   \comment{The `ss' ligature.}
+\endsetslot
+
+\setslot{st}
+   \comment{The `st' ligature.}
+\endsetslot
+
+\setslot{sf}
+   \comment{The `sf' ligature.}
+\endsetslot
+
+\setslot{ff}
+   \comment{The `ff' ligature.}
+\endsetslot
+
+\setslot{ch}
+   \comment{The `ch' ligature.}
+\endsetslot
+
+\setslot{ck}
+   \comment{The `ck' ligature.}
+\endsetslot
+
+\skipslots{2}
+
+\setslot{asmalle}
+   \comment{The letter `a' with little e at top.}
+\endsetslot
+
+\setslot{adieresis}
+   \comment{the letter `\"a'}
+\endsetslot
+
+\setslot{tz}
+   \comment{The `tz' ligature.}
+\endsetslot
+
+\skipslots{1}
+
+\setslot{sround}
+   \comment{The letter round `s'.}
+\endsetslot
+
+\skipslots{2}
+
+\setslot{esmalle}
+   \comment{The letter `e' with little e at top.}
+\endsetslot
+
+\setslot{edieresis}
+   \comment{the letter `\"e'}
+\endsetslot
+
+\nextslot{"99}
+
+\setslot{osmalle}
+   \comment{The letter `o' with little e at top.}
+\endsetslot
+
+\setslot{odieresis}
+   \comment{the letter `\"o'}
+\endsetslot
+
+\skipslots{3}
+
+\setslot{usmalle}
+   \comment{The letter `u' with little e at top.}
+\endsetslot
+
+\setslot{udieresis}
+   \comment{the letter `\"u'}
+\endsetslot
+
+\nextslot{"A4}
+
+\setslot{varsection}
+   \comment{Variant of section sign `\S'.}
+\endsetslot
+
+\nextslot{"C9}
+
+\setslot{etc}
+   \comment{The abbreviation sign `etc'.}
+\endsetslot
+
+
+\endencoding
+\end{document}
+%</yfraketx>
+%    \end{macrocode}
+%
+% 
+% \section{The \texttt{yswab} text encoding vector}
+%
+% Here I describe the original encoding of the yswab font by Yannis 
+% Haralambous.  This file is read when |yswab.pl| is converted into 
+% |yswab.mtx| in order to be digested by \texttt{fontinst}.
+%
+% FixMe: Probably this file could easily be simplified very
+% much, especially the metric setting may be superfluous.  But I don't know.
+%    \begin{macrocode}
+%<*yswabetx>
+\relax
+
+\documentclass[twocolumn]{article}
+\usepackage{fontdoc}
+
+\title{The \texttt{yswab} text encoding vector}
+\author{Torsten Bronger}
+\date{10 April 2002 \\
+Version 1.0}
+
+\begin{document}
+\maketitle
+
+\section{Introduction}
+
+This document describes the encoding of yswab (schwabacher).
+
+\encoding
+
+\needsfontinstversion{1.801}
+
+
+\comment{\section{Default values}}
+
+\setcommand\lc#1#2{#2}
+\setcommand\uc#1#2{#1}
+\setcommand\lclig#1#2{#2}
+\setcommand\uclig#1#2{#1}
+\setcommand\digit#1{#1}
+\setcommand\tty{n}
+\setcommand\currency{dollar}
+
+\setstr{codingscheme}{UNSPECIFIED}
+
+\setint{italicslant}{0}
+
+\ifisglyph{x}\then
+   \setint{xheight}{\height{x}}
+\else
+   \setint{xheight}{500}
+\fi
+
+\ifisglyph{space}\then
+   \setint{interword}{\width{space}}
+\else\ifisglyph{i}\then
+   \setint{interword}{\width{i}}
+\else
+   \setint{interword}{333}
+\fi\fi
+
+
+\comment{\section{Default font dimensions}}
+
+\setint{fontdimen(1)}{\int{italicslant}}              % italic slant
+\setint{fontdimen(2)}{\int{interword}}                % interword space
+\ifisint{monowidth}\then
+   \setint{fontdimen(3)}{0}                           % interword stretch
+   \setint{fontdimen(4)}{0}                           % interword shrink
+\else
+   \setint{fontdimen(3)}{\scale{\int{interword}}{600}}% interword stretch
+   \setint{fontdimen(4)}{\scale{\int{interword}}{240}}% interword shrink
+\fi
+\setint{fontdimen(5)}{\int{xheight}}                  % x-height
+\setint{fontdimen(6)}{1000}                           % quad
+\ifisint{monowidth}\then
+   \setint{fontdimen(7)}{\int{interword}}             % extra space after .
+\else
+   \setint{fontdimen(7)}{\scale{\int{interword}}{240}}% extra space after .
+\fi
+
+\comment{\section{The encoding}}
+
+\nextslot{"10}
+
+\setslot{dotlessi}
+   \comment{A dotless i like `\i'}
+\endsetslot
+
+\setslot{dotlessj}
+   \comment{A dotless j like `\j'}
+\endsetslot
+
+\setslot{grave}
+   \comment{The grave accent `\`a'.}
+\endsetslot
+
+\setslot{acute}
+   \comment{The acute accent `\'a'.}
+\endsetslot
+
+\setslot{caron}
+   \comment{The caron or h\'a\v cek accent `\v a'.}
+\endsetslot
+
+\setslot{breve}
+   \comment{The breve accent `\u a'.}
+\endsetslot
+
+\setslot{macron}
+   \comment{The macron accent `\=a'.}
+\endsetslot
+
+\setslot{ringfitted}
+   \comment{The ring accent `\aa', fitted to be the same width as an
+      upper case `A'.}
+\endsetslot
+
+\setslot{cedilla}
+   \comment{The cedilla accent `\c a'.}
+\endsetslot
+
+\skipslots{1}
+
+\setslot{\lc{SS}{germandbls}}
+   \comment{The letter `\ss'.}
+\endsetslot
+
+\nextslot{"21}
+
+\setslot{exclam}
+   \comment{The exclamation mark `!'.}
+\endsetslot
+
+\setslot{quotedblleft}
+  \comment{The English opening quote mark `\,\textquotedblleft\,'.}
+\endsetslot
+
+\setslot{numbersign}
+   \comment{The hash sign `\#'.}
+\endsetslot
+
+\skipslots{1}
+
+\setslot{percent}
+   \comment{The percent sign `\%'.}
+\endsetslot
+
+\skipslots{1}
+
+\setslot{quoteright}
+   \ligature{LIG}{quoteright}{quotedblright}
+   \comment{The English closing quotation mark `\,'\,'.}
+\endsetslot
+
+\setslot{parenleft}
+   \comment{The opening parenthesis `('.}
+\endsetslot
+
+\setslot{parenright}
+   \comment{The closing parenthesis `)'.}
+\endsetslot
+
+\setslot{asterisk}
+   \comment{The raised asterisk `*'.}
+\endsetslot
+
+\setslot{plus}
+   \comment{The addition sign `+'.}
+\endsetslot
+
+\setslot{comma}
+   \comment{The comma `,'.}
+\endsetslot
+
+\setslot{hyphen}
+   \ligature{LIG}{hyphen}{rangedash}
+   \comment{The hyphen `-'.}
+\endsetslot
+
+\setslot{period}
+   \comment{The full point `.'.}
+\endsetslot
+
+\setslot{slash}
+   \comment{The forward oblique `/'.}
+\endsetslot
+
+\setslot{\digit{zero}}
+   \comment{The number zero `0'.  This (and all the other numerals) may be
+      old style or ranging digits.}
+\endsetslot
+
+\setslot{\digit{one}}
+   \comment{The number one `1'.}
+\endsetslot
+
+\setslot{\digit{two}}
+   \comment{The number two `2'.}
+\endsetslot
+
+\setslot{\digit{three}}
+   \comment{The number three `3'.}
+\endsetslot
+
+\setslot{\digit{four}}
+   \comment{The number four `4'.}
+\endsetslot
+
+\setslot{\digit{five}}
+   \comment{The number five `5'.}
+\endsetslot
+
+\setslot{\digit{six}}
+   \comment{The number six `6'.}
+\endsetslot
+
+\setslot{\digit{seven}}
+   \comment{The number seven `7'.}
+\endsetslot
+
+\setslot{\digit{eight}}
+   \comment{The number eight `8'.}
+\endsetslot
+
+\setslot{\digit{nine}}
+   \comment{The number nine `9'.}
+\endsetslot
+
+\setslot{colon}
+   \comment{The colon punctuation mark `:'.}
+\endsetslot
+
+\skipslots{1}
+
+\setslot{section}
+   \comment{The section sign `{\S}'.}
+\endsetslot
+
+\setslot{equal}
+   \comment{The equals sign `='.}
+\endsetslot
+
+\skipslots{1}
+
+\setslot{question}
+   \comment{The question mark `?'.}
+\endsetslot
+
+\skipslots{1}
+
+\setslot{\uc{A}{a}}
+   \comment{The letter `{A}'.}
+\endsetslot
+
+\setslot{\uc{B}{b}}
+   \comment{The letter `{B}'.}
+\endsetslot
+
+\setslot{\uc{C}{c}}
+   \comment{The letter `{C}'.}
+\endsetslot
+
+\setslot{\uc{D}{d}}
+   \comment{The letter `{D}'.}
+\endsetslot
+
+\setslot{\uc{E}{e}}
+   \comment{The letter `{E}'.}
+\endsetslot
+
+\setslot{\uc{F}{f}}
+   \comment{The letter `{F}'.}
+\endsetslot
+
+\setslot{\uc{G}{g}}
+   \comment{The letter `{G}'.}
+\endsetslot
+
+\setslot{\uc{H}{h}}
+   \comment{The letter `{H}'.}
+\endsetslot
+
+\setslot{\uc{I}{i}}
+   \comment{The letter `{I}'.}
+\endsetslot
+
+\setslot{\uc{J}{j}}
+   \comment{The letter `{J}'.}
+\endsetslot
+
+\setslot{\uc{K}{k}}
+   \comment{The letter `{K}'.}
+\endsetslot
+
+\setslot{\uc{L}{l}}
+   \comment{The letter `{L}'.}
+\endsetslot
+
+\setslot{\uc{M}{m}}
+   \comment{The letter `{M}'.}
+\endsetslot
+
+\setslot{\uc{N}{n}}
+   \comment{The letter `{N}'.}
+\endsetslot
+
+\setslot{\uc{O}{o}}
+   \comment{The letter `{O}'.}
+\endsetslot
+
+\setslot{\uc{P}{p}}
+   \comment{The letter `{P}'.}
+\endsetslot
+
+\setslot{\uc{Q}{q}}
+   \comment{The letter `{Q}'.}
+\endsetslot
+
+\setslot{\uc{R}{r}}
+   \comment{The letter `{R}'.}
+\endsetslot
+
+\setslot{\uc{S}{s}}
+   \comment{The letter `{S}'.}
+\endsetslot
+
+\setslot{\uc{T}{t}}
+   \comment{The letter `{T}'.}
+\endsetslot
+
+\setslot{\uc{U}{u}}
+   \comment{The letter `{U}'.}
+\endsetslot
+
+\setslot{\uc{V}{v}}
+   \comment{The letter `{V}'.}
+\endsetslot
+
+\setslot{\uc{W}{w}}
+   \comment{The letter `{W}'.}
+\endsetslot
+
+\setslot{\uc{X}{x}}
+   \comment{The letter `{X}'.}
+\endsetslot
+
+\setslot{\uc{Y}{y}}
+   \comment{The letter `{Y}'.}
+\endsetslot
+
+\setslot{\uc{Z}{z}}
+   \comment{The letter `{Z}'.}
+\endsetslot
+
+\setslot{bracketleft}
+   \comment{The opening square bracket `['.}
+\endsetslot
+
+\setslot{quotedblbase}
+  \comment{A German double quote mark `,\kern-0.1em,' similar to two commas,
+      but with tighter letterspacing and different sidebearings.}
+\endsetslot
+
+\setslot{bracketright}
+   \comment{The closing square bracket `]'.}
+\endsetslot
+
+\setslot{circumflex}
+   \comment{The circumflex accent `\^ a'.}
+\endsetslot
+
+\setslot{dotaccent}
+   \comment{The dot accent `\.a'.}
+\endsetslot
+
+\setslot{quoteleft}
+   \ligature{LIG}{quoteleft}{quotedblleft}
+   \comment{The English opening single quotation mark `\,`\,'.}
+\endsetslot
+
+\setslot{\lc{A}{a}}
+   \comment{The letter `{a}'.}
+\endsetslot
+
+\setslot{\lc{B}{b}}
+   \comment{The letter `{b}'.}
+\endsetslot
+
+\setslot{\lc{C}{c}}
+   \comment{The letter `{c}'.}
+\endsetslot
+
+\setslot{\lc{D}{d}}
+   \comment{The letter `{d}'.}
+\endsetslot
+
+\setslot{\lc{E}{e}}
+   \comment{The letter `{e}'.}
+\endsetslot
+
+\setslot{\lc{F}{f}}
+   \ligature{LIG}{\lc{I}{i}}{\lclig{FI}{fi}}
+   \ligature{LIG}{\lc{F}{f}}{\lclig{FF}{ff}}
+   \ligature{LIG}{\lc{L}{l}}{\lclig{FL}{fl}}
+   \comment{The letter `{f}'.}
+\endsetslot
+
+\setslot{\lc{G}{g}}
+   \comment{The letter `{g}'.}
+\endsetslot
+
+\setslot{\lc{H}{h}}
+   \comment{The letter `{h}'.}
+\endsetslot
+
+\setslot{\lc{I}{i}}
+   \comment{The letter `{i}'.}
+\endsetslot
+
+\setslot{\lc{J}{j}}
+   \comment{The letter `{j}'.}
+\endsetslot
+
+\setslot{\lc{K}{k}}
+   \comment{The letter `{k}'.}
+\endsetslot
+
+\setslot{\lc{L}{l}}
+   \comment{The letter `{l}'.}
+\endsetslot
+
+\setslot{\lc{M}{m}}
+   \comment{The letter `{m}'.}
+\endsetslot
+
+\setslot{\lc{N}{n}}
+   \comment{The letter `{n}'.}
+\endsetslot
+
+\setslot{\lc{O}{o}}
+   \comment{The letter `{o}'.}
+\endsetslot
+
+\setslot{\lc{P}{p}}
+   \comment{The letter `{p}'.}
+\endsetslot
+
+\setslot{\lc{Q}{q}}
+   \comment{The letter `{q}'.}
+\endsetslot
+
+\setslot{\lc{R}{r}}
+   \comment{The letter `{r}'.}
+\endsetslot
+
+\setslot{\lc{S}{s}}
+   \comment{The letter `{s}'.}
+\endsetslot
+
+\setslot{\lc{T}{t}}
+   \comment{The letter `{t}'.}
+\endsetslot
+
+\setslot{\lc{U}{u}}
+   \comment{The letter `{u}'.}
+\endsetslot
+
+\setslot{\lc{V}{v}}
+   \comment{The letter `{v}'.}
+\endsetslot
+
+\setslot{\lc{W}{w}}
+   \comment{The letter `{w}'.}
+\endsetslot
+
+\setslot{\lc{X}{x}}
+   \comment{The letter `{x}'.}
+\endsetslot
+
+\setslot{\lc{Y}{y}}
+   \comment{The letter `{y}'.}
+\endsetslot
+
+\setslot{\lc{Z}{z}}
+   \comment{The letter `{z}'.}
+\endsetslot
+
+\setslot{rangedash}
+   \ligature{LIG}{hyphen}{punctdash}
+   \comment{The number range dash `1--9'.  In a monowidth font, this
+      might be set as `{\tt 1{-}9}'.}
+\endsetslot
+
+\setslot{punctdash}
+   \comment{The punctuation dash `Oh---boy.'  In a monowidth font, this
+      might be set as `{\tt Oh{-}{-}boy.}'}
+\endsetslot
+
+\setslot{dieresis}
+   \comment{The umlaut or dieresis accent `\"{}'.}
+\endsetslot
+
+\setslot{tilde}
+   \comment{The tilde accent `\~a'.}
+\endsetslot
+
+\comment{\section{Non-standard ligatures}}
+
+\nextslot{"81}
+
+\setslot{ss}
+   \comment{The `ss' ligature.}
+\endsetslot
+
+\setslot{st}
+   \comment{The `st' ligature.}
+\endsetslot
+
+\setslot{sf}
+   \comment{The `sf' ligature.}
+\endsetslot
+
+\setslot{ff}
+   \comment{The `ff' ligature.}
+\endsetslot
+
+\setslot{ch}
+   \comment{The `ch' ligature.}
+\endsetslot
+
+\setslot{ck}
+   \comment{The `ck' ligature.}
+\endsetslot
+
+\skipslots{2}
+
+\setslot{asmalle}
+   \comment{The letter `a' with little e at top.}
+\endsetslot
+
+\setslot{adieresis}
+   \comment{the letter `\"a'}
+\endsetslot
+
+\skipslots{2}
+
+\setslot{sround}
+   \comment{The letter round `s'.}
+\endsetslot
+
+\skipslots{2}
+
+\setslot{esmalle}
+   \comment{The letter `e' with little e at top.}
+\endsetslot
+
+\setslot{edieresis}
+   \comment{the letter `\"e'}
+\endsetslot
+
+\nextslot{"99}
+
+\setslot{osmalle}
+   \comment{The letter `o' with little e at top.}
+\endsetslot
+
+\setslot{odieresis}
+   \comment{the letter `\"o'}
+\endsetslot
+
+\skipslots{3}
+
+\setslot{usmalle}
+   \comment{The letter `u' with little e at top.}
+\endsetslot
+
+\setslot{udieresis}
+   \comment{the letter `\"u'}
+\endsetslot
+
+\nextslot{"A4}
+
+\setslot{varsection}
+   \comment{Variant of section sign `\S'.}
+\endsetslot
+
+\skipslots{2}
+
+\setslot{\lc{varSS}{vargermandbls}}
+   \comment{A variant of the letter `\ss'.}
+\endsetslot
+
+
+\endencoding
+\end{document}
+%</yswabetx>
+%    \end{macrocode}
+%
+%
+% \section{The \texttt{ygoth} text encoding vector}
+%
+% Here I describe the original encoding of the ygoth font by Yannis 
+% Haralambous.  This file is read when |ygoth.pl| is converted into 
+% |ygoth.mtx| in order to be digested by \texttt{fontinst}.
+%
+% FixMe: Probably this file could easily be simplified very
+% much, especially the metric setting may be superfluous.  But I don't know.
+%    \begin{macrocode}
+%<*ygothetx>
+\relax
+
+\documentclass[twocolumn]{article}
+\usepackage{fontdoc}
+
+\title{The \texttt{ygoth} text encoding vector}
+\author{Torsten Bronger}
+\date{10 April 2002 \\
+Version 1.0}
+
+\begin{document}
+\maketitle
+
+\section{Introduction}
+
+This document describes the encoding of ygoth (textur).
+
+\encoding
+
+\needsfontinstversion{1.801}
+
+
+\comment{\section{Default values}}
+
+\setcommand\lc#1#2{#2}
+\setcommand\uc#1#2{#1}
+\setcommand\lclig#1#2{#2}
+\setcommand\uclig#1#2{#1}
+\setcommand\digit#1{#1}
+\setcommand\tty{n}
+\setcommand\currency{dollar}
+
+\setstr{codingscheme}{UNSPECIFIED}
+
+\setint{italicslant}{0}
+
+\ifisglyph{x}\then
+   \setint{xheight}{\height{x}}
+\else
+   \setint{xheight}{500}
+\fi
+
+\ifisglyph{space}\then
+   \setint{interword}{\width{space}}
+\else\ifisglyph{i}\then
+   \setint{interword}{\width{i}}
+\else
+   \setint{interword}{333}
+\fi\fi
+
+
+\comment{\section{Default font dimensions}}
+
+\setint{fontdimen(1)}{\int{italicslant}}              % italic slant
+\setint{fontdimen(2)}{\int{interword}}                % interword space
+\ifisint{monowidth}\then
+   \setint{fontdimen(3)}{0}                           % interword stretch
+   \setint{fontdimen(4)}{0}                           % interword shrink
+\else
+   \setint{fontdimen(3)}{\scale{\int{interword}}{600}}% interword stretch
+   \setint{fontdimen(4)}{\scale{\int{interword}}{240}}% interword shrink
+\fi
+\setint{fontdimen(5)}{\int{xheight}}                  % x-height
+\setint{fontdimen(6)}{1000}                           % quad
+\ifisint{monowidth}\then
+   \setint{fontdimen(7)}{\int{interword}}             % extra space after .
+\else
+   \setint{fontdimen(7)}{\scale{\int{interword}}{240}}% extra space after .
+\fi
+
+\comment{\section{The encoding}}
+
+\nextslot{0}
+
+\setslot{ba}
+   \comment{the ligature `ba'}
+\endsetslot
+
+\setslot{be}
+   \comment{the ligature `be'}
+\endsetslot
+
+\setslot{bo}
+   \comment{the ligature `bo'}
+\endsetslot
+
+\setslot{ch}
+   \comment{the ligature `ch'}
+\endsetslot
+
+\setslot{ck}
+   \comment{the ligature `ck'}
+\endsetslot
+
+\setslot{ct}
+   \comment{the ligature `ct'}
+\endsetslot
+
+\setslot{da}
+   \comment{the ligature `da'}
+\endsetslot
+
+\setslot{de}
+   \comment{the ligature `de'}
+\endsetslot
+
+\setslot{do}
+   \comment{the ligature `do'}
+\endsetslot
+
+\setslot{ha}
+   \comment{the ligature `ha'}
+\endsetslot
+
+\setslot{he}
+   \comment{the ligature `he'}
+\endsetslot
+
+\setslot{ff}
+   \comment{the ligature `ff'}
+\endsetslot
+
+\setslot{fi}
+   \comment{the ligature `fi'}
+\endsetslot
+
+\setslot{fl}
+   \comment{the ligature `fl'}
+\endsetslot
+
+\setslot{ffi}
+   \comment{the ligature `ffi'}
+\endsetslot
+
+\setslot{ffl}
+   \comment{the ligature `ffl'}
+\endsetslot
+
+\setslot{dotlessi}
+   \comment{A dotless i like `\i'}
+\endsetslot
+
+\setslot{dotlessj}
+   \comment{A dotless j like `\j'}
+\endsetslot
+
+\setslot{ho}
+   \comment{the ligature `ho'}
+\endsetslot
+
+\setslot{pa}
+   \comment{the ligature `pa'}
+\endsetslot
+
+\setslot{pe}
+   \comment{the ligature `pe'}
+\endsetslot
+
+\setslot{po}
+   \comment{the ligature `po'}
+\endsetslot
+
+\setslot{ij}
+   \comment{the ligature `ij'}
+\endsetslot
+
+\setslot{qz}
+   \comment{the ligature `qz'}
+\endsetslot
+
+\setslot{va}
+   \comment{the ligature `va'}
+\endsetslot
+
+\setslot{\lc{SS}{germandbls}}
+   \comment{The letter `\ss'.}
+\endsetslot
+
+\setslot{\lc{AE}{ae}}
+   \comment{The letter `\ae'.  This is a single letter, and should not be
+      faked with `ae'.}
+\endsetslot
+
+\setslot{\lc{OE}{oe}}
+   \comment{The letter `\oe'.  This is a single letter, and should not be
+      faked with `oe'.}
+\endsetslot
+
+\setslot{\lc{Oslash}{oslash}}
+   \comment{The letter `\o'.}
+\endsetslot
+
+\setslot{ll}
+   \comment{the ligature `ll'}
+\endsetslot
+
+\setslot{ve}
+   \comment{the ligature `ve'}
+\endsetslot
+
+\setslot{vu}
+   \comment{the ligature `vu'}
+\endsetslot
+
+\nextslot{"21}
+
+\setslot{exclam}
+   \comment{The exclamation mark `!'.}
+\endsetslot
+
+\setslot{quotedblright}
+   \comment{An English double closing quote mark `\,''\,'.}
+\endsetslot
+
+\setslot{pp}
+   \comment{the ligature `pp'}
+\endsetslot
+
+\setslot{qq}
+   \comment{the ligature `qq'}
+\endsetslot
+
+\skipslots{1}
+
+\setslot{ss}
+   \comment{the ligature `ss'}
+\endsetslot
+
+\setslot{quoteright}
+   \ligature{LIG}{quoteright}{quotedblright}
+   \comment{The English closing quotation mark `\,'\,'.}
+\endsetslot
+
+\setslot{parenleft}
+   \comment{The opening parenthesis `('.}
+\endsetslot
+
+\setslot{parenright}
+   \comment{The closing parenthesis `)'.}
+\endsetslot
+
+\setslot{ssvar}
+   \comment{the ligature `ss' (variant)}
+\endsetslot
+
+\setslot{ssi}
+   \comment{the ligature `ssi'}
+\endsetslot
+
+\setslot{comma}
+   \comment{The comma `,'.}
+\endsetslot
+
+\setslot{hyphen}
+   \ligature{LIG}{hyphen}{rangedash}
+   \comment{The hyphen `-'.}
+\endsetslot
+
+\setslot{period}
+   \comment{The full point `.'.}
+\endsetslot
+
+\setslot{ssivar}
+   \comment{the ligature `ssi' (variant)}
+\endsetslot
+
+\setslot{\digit{zero}}
+   \comment{The number zero `0'.  This (and all the other numerals) may be
+      old style or ranging digits.}
+\endsetslot
+
+\setslot{\digit{one}}
+   \comment{The number one `1'.}
+\endsetslot
+
+\setslot{\digit{two}}
+   \comment{The number two `2'.}
+\endsetslot
+
+\setslot{\digit{three}}
+   \comment{The number three `3'.}
+\endsetslot
+
+\setslot{\digit{four}}
+   \comment{The number four `4'.}
+\endsetslot
+
+\setslot{\digit{five}}
+   \comment{The number five `5'.}
+\endsetslot
+
+\setslot{\digit{six}}
+   \comment{The number six `6'.}
+\endsetslot
+
+\setslot{\digit{seven}}
+   \comment{The number seven `7'.}
+\endsetslot
+
+\setslot{\digit{eight}}
+   \comment{The number eight `8'.}
+\endsetslot
+
+\setslot{\digit{nine}}
+   \comment{The number nine `9'.}
+\endsetslot
+
+\setslot{colon}
+   \comment{The colon punctuation mark `:'.}
+\endsetslot
+
+\setslot{semicolon}
+   \comment{The semi-colon punctuation mark `;'.}
+\endsetslot
+
+\setslot{st}
+   \comment{the ligature `st'}
+\endsetslot
+
+\setslot{stvar}
+   \comment{the ligature `st' (variant)}
+\endsetslot
+
+\setslot{tz}
+   \comment{the ligature `tz'}
+\endsetslot
+
+\setslot{question}
+   \comment{The question mark `?'.}
+\endsetslot
+
+\skipslots{1}
+
+\setslot{\uc{A}{a}}
+   \comment{The letter `{A}'.}
+\endsetslot
+
+\setslot{\uc{B}{b}}
+   \comment{The letter `{B}'.}
+\endsetslot
+
+\setslot{\uc{C}{c}}
+   \comment{The letter `{C}'.}
+\endsetslot
+
+\setslot{\uc{D}{d}}
+   \comment{The letter `{D}'.}
+\endsetslot
+
+\setslot{\uc{E}{e}}
+   \comment{The letter `{E}'.}
+\endsetslot
+
+\setslot{\uc{F}{f}}
+   \comment{The letter `{F}'.}
+\endsetslot
+
+\setslot{\uc{G}{g}}
+   \comment{The letter `{G}'.}
+\endsetslot
+
+\setslot{\uc{H}{h}}
+   \comment{The letter `{H}'.}
+\endsetslot
+
+\setslot{\uc{I}{i}}
+   \comment{The letter `{I}'.}
+\endsetslot
+
+\setslot{\uc{J}{j}}
+   \comment{The letter `{J}'.}
+\endsetslot
+
+\setslot{\uc{K}{k}}
+   \comment{The letter `{K}'.}
+\endsetslot
+
+\setslot{\uc{L}{l}}
+   \comment{The letter `{L}'.}
+\endsetslot
+
+\setslot{\uc{M}{m}}
+   \comment{The letter `{M}'.}
+\endsetslot
+
+\setslot{\uc{N}{n}}
+   \comment{The letter `{N}'.}
+\endsetslot
+
+\setslot{\uc{O}{o}}
+   \comment{The letter `{O}'.}
+\endsetslot
+
+\setslot{\uc{P}{p}}
+   \comment{The letter `{P}'.}
+\endsetslot
+
+\setslot{\uc{Q}{q}}
+   \comment{The letter `{Q}'.}
+\endsetslot
+
+\setslot{\uc{R}{r}}
+   \comment{The letter `{R}'.}
+\endsetslot
+
+\setslot{\uc{S}{s}}
+   \comment{The letter `{S}'.}
+\endsetslot
+
+\setslot{\uc{T}{t}}
+   \comment{The letter `{T}'.}
+\endsetslot
+
+\setslot{\uc{U}{u}}
+   \comment{The letter `{U}'.}
+\endsetslot
+
+\setslot{\uc{V}{v}}
+   \comment{The letter `{V}'.}
+\endsetslot
+
+\setslot{\uc{W}{w}}
+   \comment{The letter `{W}'.}
+\endsetslot
+
+\setslot{\uc{X}{x}}
+   \comment{The letter `{X}'.}
+\endsetslot
+
+\setslot{\uc{Y}{y}}
+   \comment{The letter `{Y}'.}
+\endsetslot
+
+\setslot{\uc{Z}{z}}
+   \comment{The letter `{Z}'.}
+\endsetslot
+
+\setslot{adieresis}
+   \comment{the letter `\"a'}
+\endsetslot
+
+\setslot{edieresis}
+   \comment{the letter `\"e'}
+\endsetslot
+
+\setslot{odieresis}
+   \comment{the letter `\"o'}
+\endsetslot
+
+\setslot{udieresis}
+   \comment{the letter `\"u'}
+\endsetslot
+
+\setslot{quotedblleft}
+  \comment{The English opening quote mark `\,\textquotedblleft\,'.}
+\endsetslot
+
+\setslot{sround}
+   \comment{The letter round `s'.}
+\endsetslot
+
+\setslot{\lc{A}{a}}
+   \comment{The letter `{a}'.}
+\endsetslot
+
+\setslot{\lc{B}{b}}
+   \comment{The letter `{b}'.}
+\endsetslot
+
+\setslot{\lc{C}{c}}
+   \comment{The letter `{c}'.}
+\endsetslot
+
+\setslot{\lc{D}{d}}
+   \comment{The letter `{d}'.}
+\endsetslot
+
+\setslot{\lc{E}{e}}
+   \comment{The letter `{e}'.}
+\endsetslot
+
+\setslot{\lc{F}{f}}
+   \ligature{LIG}{\lc{I}{i}}{\lclig{FI}{fi}}
+   \ligature{LIG}{\lc{F}{f}}{\lclig{FF}{ff}}
+   \ligature{LIG}{\lc{L}{l}}{\lclig{FL}{fl}}
+   \comment{The letter `{f}'.}
+\endsetslot
+
+\setslot{\lc{G}{g}}
+   \comment{The letter `{g}'.}
+\endsetslot
+
+\setslot{\lc{H}{h}}
+   \comment{The letter `{h}'.}
+\endsetslot
+
+\setslot{\lc{I}{i}}
+   \comment{The letter `{i}'.}
+\endsetslot
+
+\setslot{\lc{J}{j}}
+   \comment{The letter `{j}'.}
+\endsetslot
+
+\setslot{\lc{K}{k}}
+   \comment{The letter `{k}'.}
+\endsetslot
+
+\setslot{\lc{L}{l}}
+   \comment{The letter `{l}'.}
+\endsetslot
+
+\setslot{\lc{M}{m}}
+   \comment{The letter `{m}'.}
+\endsetslot
+
+\setslot{\lc{N}{n}}
+   \comment{The letter `{n}'.}
+\endsetslot
+
+\setslot{\lc{O}{o}}
+   \comment{The letter `{o}'.}
+\endsetslot
+
+\setslot{\lc{P}{p}}
+   \comment{The letter `{p}'.}
+\endsetslot
+
+\setslot{\lc{Q}{q}}
+   \comment{The letter `{q}'.}
+\endsetslot
+
+\setslot{\lc{R}{r}}
+   \comment{The letter `{r}'.}
+\endsetslot
+
+\setslot{\lc{S}{s}}
+   \comment{The letter `{s}'.}
+\endsetslot
+
+\setslot{\lc{T}{t}}
+   \comment{The letter `{t}'.}
+\endsetslot
+
+\setslot{\lc{U}{u}}
+   \comment{The letter `{u}'.}
+\endsetslot
+
+\setslot{\lc{V}{v}}
+   \comment{The letter `{v}'.}
+\endsetslot
+
+\setslot{\lc{W}{w}}
+   \comment{The letter `{w}'.}
+\endsetslot
+
+\setslot{\lc{X}{x}}
+   \comment{The letter `{x}'.}
+\endsetslot
+
+\setslot{\lc{Y}{y}}
+   \comment{The letter `{y}'.}
+\endsetslot
+
+\setslot{\lc{Z}{z}}
+   \comment{The letter `{z}'.}
+\endsetslot
+
+\setslot{rangedash}
+   \ligature{LIG}{hyphen}{punctdash}
+   \comment{The number range dash `1--9'.  In a monowidth font, this
+      might be set as `{\tt 1{-}9}'.}
+\endsetslot
+
+\setslot{punctdash}
+   \comment{The punctuation dash `Oh---boy.'  In a monowidth font, this
+      might be set as `{\tt Oh{-}{-}boy.}'}
+\endsetslot
+
+\endencoding
+\end{document}
+%</ygothetx>
+%    \end{macrocode}
+%
+%
+% \section{First cleaning up}
+%
+% In this file (|setglyph.mtx|), we do two things: First, we move some
+% ligatures from the poriginal encoding to the correct position in my 
+% pseudo-T1, ans secondly we unset some glyphs that shouldn't be used from
+% the Haralambous font.
+% 
+%    \begin{macrocode}
+%<*setglyphmtx>
+\relax
+
+\metrics
+
+%    \end{macrocode}  
+%
+% \subsection{Moving the ligatures}
+%
+% E.\,g., the ``ck'' ligature must end up in the T1 slot called
+% ``ffl ligature''.  Here I do so.  Of cause, only if the respective ligature
+% is available at all.
+%    \begin{macrocode}
+\setcommand\setglyphmaybe#1#2{%
+\unsetglyph{#1}
+\ifisglyph{#2}\then
+\setglyph{#1}
+  \glyph{#2}{1000}
+\endsetglyph
+\fi
+}
+
+\setglyphmaybe{dotlessj}{si}
+\setglyphmaybe{ffi}{ch}
+\setglyphmaybe{ffl}{ck}
+\setglyphmaybe{backslash}{ft}
+\setglyphmaybe{asciicircum}{ss}
+\setglyphmaybe{underscore}{st}
+\setglyphmaybe{bar}{tz}
+
+%    \end{macrocode}
+%
+% \subsection{Taking accents from CM}
+%
+% All ligatures are taken from CM, only the Hungarian umlaut comes from EC
+% (see below).  The Haralambous fonts don't contain all of them anyway.
+%    \begin{macrocode}
+\unsetglyph{circumflex}
+\unsetglyph{breve}
+\unsetglyph{ring}
+\unsetglyph{macron}
+\unsetglyph{caron}
+\unsetglyph{tilde}
+\unsetglyph{quotedblleft}
+\unsetglyph{quotedblright}
+\unsetglyph{quotedblbase}
+\unsetglyph{tilde}
+\unsetglyph{slash}
+
+
+\endmetrics
+%</setglyphmtx>
+%    \end{macrocode}
+%
+%
+% \section{Making the accents smaller}
+%
+% This part will eventually come to the file |unsetacc.mtx|.  I want to take
+% the accents not from the original computer modern or their T1 variant, but
+% from the seven point version, at least for the Fraktur font.  These smaller
+% accents look nicer in my opinion, because the dainty Fraktur letters can't
+% cope with usual ten point accents.
+%    \begin{macrocode}
+%<*unsetaccmtx>
+\relax
+
+\metrics
+
+%    \end{macrocode}
+% The following three lines save the old height of the tilde character in a
+% variable called |oldtildeheight| in order to be able to shift the smaller
+% accents upwards to the correct height later.  Probably this was superfluous,
+% because I have to tweak the heights anyway.
+%    \begin{macrocode}
+\setint{oldtildeheight}{\height{tilde}}
+\def\temp{\int{oldtildeheight}}
+\xdef\oldtildeheight{\the\temp}
+
+\unsetglyph{grave}
+\unsetglyph{acute}
+\unsetglyph{circumflex}
+\unsetglyph{tilde}
+\unsetglyph{ring}
+\unsetglyph{caron}
+\unsetglyph{breve}
+\unsetglyph{dotaccent}
+
+\endmetrics
+%</unsetaccmtx>
+%    \end{macrocode}
+%
+%
+% \section{The Hungarian umlaut}
+%
+% This wanders eventually to the file |unsetcm.mtx| and does not more than
+% just unsetting the Hungarian umlaut accent.  The reason for that is that
+% this symbol looks much nicer in the EC fonts, especially because the normal
+% dieresis accent looks wuite similar to the CM version of the Hungarian 
+% umlaut, which is potentially dangerous.  (Hungarian uses both.)
+%    \begin{macrocode}
+%<*unsetcmmtx>
+\relax
+
+\metrics
+
+\unsetglyph{hungarumlaut}
+
+\endmetrics
+%</unsetcmmtx>
+%    \end{macrocode}
+%
+%
+% \section{Unsetting the diacritics}
+%
+% In this section (eventually the file |unsetdia.mtx|), I make all
+% pathologial latter, i.\,e.\ all letters with diacritic signs, undefined.
+% After that, I can set some critical characters manually in the ``cleanup''
+% files (see below), ar I can let them be constrcuted in |blackletter.mtx|.
+%    \begin{macrocode}
+%<*unsetdiamtx>
+\relax
+
+\metrics
+
+\unsetglyph{hyphenchar}
+
+\unsetglyph{Abreve}
+\unsetglyph{Aogonek}
+\unsetglyph{Cacute}
+\unsetglyph{Ccaron}
+\unsetglyph{Dcaron}
+\unsetglyph{Ecaron}
+\unsetglyph{Eogonek}
+\unsetglyph{Gbreve}
+\unsetglyph{Lacute}
+\unsetglyph{Lcaron}
+\unsetglyph{Lslash}
+\unsetglyph{Nacute}
+\unsetglyph{Ncaron}
+\unsetglyph{Ng}
+\unsetglyph{Ohungarumlaut}
+\unsetglyph{Racute}
+\unsetglyph{Rcaron}
+\unsetglyph{Sacute}
+\unsetglyph{Scaron}
+\unsetglyph{Scedilla}
+\unsetglyph{Tcaron}
+\unsetglyph{Tcedilla}
+\unsetglyph{Uhungarumlaut}
+\unsetglyph{Uring}
+\unsetglyph{Ydieresis}
+\unsetglyph{Zacute}
+\unsetglyph{Zcaron}
+\unsetglyph{Zdotaccent}
+\unsetglyph{IJ}
+\unsetglyph{Idotaccent}
+\unsetglyph{dbar}
+
+\unsetglyph{abreve}
+\unsetglyph{aogonek}
+\unsetglyph{cacute}
+\unsetglyph{ccaron}
+\unsetglyph{dcaron}
+\unsetglyph{ecaron}
+\unsetglyph{eogonek}
+\unsetglyph{gbreve}
+\unsetglyph{lacute}
+\unsetglyph{lcaron}
+\unsetglyph{lslash}
+\unsetglyph{nacute}
+\unsetglyph{ncaron}
+\unsetglyph{ng}
+\unsetglyph{ohungarumlaut}
+\unsetglyph{racute}
+\unsetglyph{rcaron}
+\unsetglyph{sacute}
+\unsetglyph{scaron}
+\unsetglyph{scedilla}
+\unsetglyph{tcaron}
+\unsetglyph{tcedilla}
+\unsetglyph{uhungarumlaut}
+\unsetglyph{uring}
+\unsetglyph{ydieresis}
+\unsetglyph{zacute}
+\unsetglyph{zcaron}
+\unsetglyph{zdotaccent}
+\unsetglyph{ij}
+
+\unsetglyph{Agrave}
+\unsetglyph{Aacute}
+\unsetglyph{Acircumflex}
+\unsetglyph{Atilde}
+\unsetglyph{Adieresis}
+\unsetglyph{Aring}
+\unsetglyph{AE}
+\unsetglyph{Ccedilla}
+\unsetglyph{Egrave}
+\unsetglyph{Eacute}
+\unsetglyph{Ecircumflex}
+\unsetglyph{Edieresis}
+\unsetglyph{Igrave}
+\unsetglyph{Iacute}
+\unsetglyph{Icircumflex}
+\unsetglyph{Idieresis}
+\unsetglyph{Eth}
+\unsetglyph{Ntilde}
+\unsetglyph{Ograve}
+\unsetglyph{Oacute}
+\unsetglyph{Ocircumflex}
+\unsetglyph{Otilde}
+\unsetglyph{Odieresis}
+\unsetglyph{OE}
+\unsetglyph{Oslash}
+\unsetglyph{Ugrave}
+\unsetglyph{Uacute}
+\unsetglyph{Ucircumflex}
+\unsetglyph{Udieresis}
+\unsetglyph{Yacute}
+\unsetglyph{Thorn}
+\unsetglyph{SS}
+\unsetglyph{agrave}
+\unsetglyph{aacute}
+\unsetglyph{acircumflex}
+\unsetglyph{atilde}
+\unsetglyph{adieresis}
+\unsetglyph{aring}
+\unsetglyph{ae}
+\unsetglyph{ccedilla}
+\unsetglyph{egrave}
+\unsetglyph{eacute}
+\unsetglyph{ecircumflex}
+\unsetglyph{edieresis}
+\unsetglyph{igrave}
+\unsetglyph{iacute}
+\unsetglyph{icircumflex}
+\unsetglyph{idieresis}
+\unsetglyph{eth}
+\unsetglyph{ntilde}
+\unsetglyph{ograve}
+\unsetglyph{oacute}
+\unsetglyph{ocircumflex}
+\unsetglyph{otilde}
+\unsetglyph{odieresis}
+\unsetglyph{oe}
+\unsetglyph{oslash}
+\unsetglyph{ugrave}
+\unsetglyph{uacute}
+\unsetglyph{ucircumflex}
+\unsetglyph{udieresis}
+\unsetglyph{yacute}
+\unsetglyph{thorn}
+\unsetglyph{germandbls}
+
+\endmetrics
+%</unsetdiamtx>
+%    \end{macrocode}
+%
+%
+% \section{Getting the sterling symbol}
+%
+% This part will eventually come to the file |unsetste.mtx|.  It's quite 
+% annoying that this is necessary, but I haven't found a better solution.
+% Since I don't want to take the sterling symbol from the EC fonts, I have
+% to unset it here.  Not more.
+%    \begin{macrocode}
+%<*unsetstemtx>
+\relax
+
+\metrics
+
+\unsetglyph{sterling}
+
+\endmetrics
+%</unsetstemtx>
+%    \end{macrocode}
+%
+%
+% \section{Final touches to yfrak}
+%
+%    \begin{macrocode}
+%<*fcleanupmtx>
+\relax
+
+\metrics
+
+%    \end{macrocode}
+%
+% \subsection{Accent positioning}
+%
+% A top accent is set by placing the center of the accent at the given
+% position along the width of the letter, raised up by the difference
+% between the height of the letter and the xheight.
+%    \begin{macrocode}
+\setcommand\topaccent#1#2#3{
+   \push
+      \moveup{\max{0}{\sub{\height{#1}}{\int{xheight}}}}
+      \movert{\add{\sub{\scale{\width{#1}}{#3}}{\scale{\width{#2}}{500}}}
+         {\scale{\sub{\height{#1}}{\int{xheight}}}{\int{italicslant}}}}
+      \glyph{#2}{1000}
+   \pop
+   \glyph{#1}{1000}
+}
+
+%    \end{macrocode}
+% A bottom accent is set by placing the center of the accent at the given
+% position along the width of the letter.
+%    \begin{macrocode}
+\setcommand\botaccent#1#2#3{
+   \push
+      \movert{\sub{\scale{\width{#1}}{#3}}{\scale{\width{#2}}{500}}}
+      \glyph{#2}{1000}
+   \pop
+   \glyph{#1}{1000}
+}
+
+%    \end{macrocode}
+% The following values are for the |#3| paramter in the above macros.
+%    \begin{macrocode}
+\setcommand\Askew{550}
+\setcommand\Uskew{470}
+
+%    \end{macrocode}
+% |\adjustheight| is meant for characters with a too small height, which is
+% true for all German umlauts, for example.
+%    \begin{macrocode}
+\setcommand\adjustheight#1{%
+\resetglyph{#1}
+  \glyph{#1}{1000}
+  \resetheight{\height{k}}
+\endsetglyph
+}
+
+\adjustheight{adieresis}
+\adjustheight{edieresis}
+\adjustheight{odieresis}
+\adjustheight{udieresis}
+\adjustheight{i}
+\adjustheight{j}
+
+%    \end{macrocode}
+%
+% \subsection{Setting up the accents}
+%
+% Here I copy the save value of the height of the tilde accent to
+% |pushvalue|.
+%    \begin{macrocode}
+\setint{pushvalue}{\sub{\oldtildeheight}{\height{tilde}}}
+
+%    \end{macrocode}
+% This routine moves the accent up.  The accent is smaller than ten points
+% (seven points), and this routine tries to ensure that it still has the
+% correct height.  It doesn't do this perfectly, therefor I need the special
+% tweak parameter |#2|, which is usually negative.
+%    \begin{macrocode}
+\setcommand\pushaccent#1#2{
+  \resetglyph{#1}
+    \moveup{\add{\int{pushvalue}}{#2}}
+    \glyph{#1}{1000}
+  \endsetglyph
+}
+
+%    \end{macrocode}
+% Here now the concrete accents.
+%    \begin{macrocode}
+\pushaccent{grave}{-20}
+\pushaccent{acute}{-20}
+\pushaccent{circumflex}{-40}
+\pushaccent{tilde}{-70}
+\pushaccent{hungarumlaut}{-20}
+%    \end{macrocode}
+% I handle the dieresis separately because it comes from yswab, and not from
+% CM.
+%    \begin{macrocode}
+\resetglyph{dieresis}
+  \moveup{160}
+  \glyph{dieresis}{1000}
+\endsetglyph
+\pushaccent{ring}{-50}
+\pushaccent{caron}{-50}
+\pushaccent{breve}{-20}
+\pushaccent{dotaccent}{-30}
+
+%    \end{macrocode}
+% I want to have the original ring accent from yfrak.  It's quite nice.
+%    \begin{macrocode}
+\resetglyph{ring}
+  \glyph{ringfitted}{1000}
+\endsetglyph
+
+%    \end{macrocode}
+%
+% \subsection{Correcting false characters boxes}
+%
+% The depth and height of the ``ch'' and ``ck'' ligature are wrong.  Here I
+% correct that.
+%    \begin{macrocode}
+\resetglyph{ffi}
+  \glyph{ffi}{1000}
+  \resetheight{\height{h}}
+  \resetdepth{\depth{h}}
+\endsetglyph
+
+\resetglyph{ffl}
+  \glyph{ffl}{1000}
+  \resetheight{\height{k}}
+\endsetglyph
+
+\resetint{interword}{250}
+
+%    \end{macrocode}
+% Similar correction for comma, period and semicolon.
+%    \begin{macrocode}
+\resetglyph{comma}
+  \glyph{comma}{1000}
+  \resetheight{\height{quotesinglbase}}
+  \resetdepth{\depth{quotesinglbase}}
+\endsetglyph
+
+\resetglyph{period}
+  \glyph{period}{1000}
+  \resetheight{\height{quotesinglbase}}
+\endsetglyph
+
+\resetglyph{semicolon}
+  \glyph{semicolon}{1000}
+  \resetdepth{\depth{comma}}
+\endsetglyph
+
+%    \end{macrocode}
+% The following ligatures are not available in yfrak and must be faked in
+% |blackletter.mtx|.
+%    \begin{macrocode}
+\unsetglyph{dotlessj}
+\unsetglyph{fi}
+\unsetglyph{fl}
+\unsetglyph{backslash}
+
+%    \end{macrocode}
+%
+% \subsection{Setting up the quotes}
+%
+% What follows, are hopeless tricks to get nice double and single quotes.  I 
+% move the glyphes arbitrarily around, in order to get nice spacing to 
+% following or preceding letters and to avaiod EC characters here.
+%    \begin{macrocode}
+\resetglyph{quotedblleft}
+  \movert{-100}
+  \glyph{quotedblleft}{1000}
+  \resetwidth{\add{\width{quotedblbase}}{70}}
+\endsetglyph
+
+\resetglyph{quotedblright}
+  \movert{20}
+  \glyph{quotedblright}{1000}
+  \resetwidth{\add{\width{quotedblbase}}{20}}
+\endsetglyph
+
+\resetglyph{quotesinglbase}
+  \moveup{\sub{\height{quotedblbase}}{\height{quoteright}}}
+  \glyph{quoteright}{1000}
+  \samesize{quotesinglbase}
+\endsetglyph
+
+\resetglyph{quotedblbase}
+  \moveup{\sub{\height{quotedblbase}}{\height{quotedblright}}}
+  \movert{-60}
+  \glyph{quotedblright}{1000}
+  \resetheight{\height{quotedblbase}}
+  \resetdepth{\depth{quotedblbase}}
+  \resetwidth{\add{\width{quotedblbase}}{40}}
+\endsetglyph
+
+%    \end{macrocode}
+%
+% \subsection{Faking the glyphs}
+%
+% Now I try to fake or improve the letters for the latin T1 version of yfrak.
+% Most of this should be easy to understand.
+%    \begin{macrocode}
+\resetglyph{A}
+  \glyph{A}{1000}
+  \resetheight{\sub{\height{A}}{50}}
+\endsetglyph
+
+\setglyph{Abreve}
+   \topaccent{A}{breve}{\Askew}
+\endsetglyph
+
+\setglyph{Aogonek}
+   \botaccent{A}{ogonek}{610}
+\endsetglyph
+
+\setglyph{Eogonek}
+   \botaccent{E}{ogonek}{590}
+\endsetglyph
+
+\setglyph{Lcaron}
+   \glyph{L}{1000}
+   \movert{-100}
+   \glyph{quoteright}{1000}
+\endsetglyph
+
+\setglyph{Lslash}
+   \glyph{lslashslash}{1000}
+   \movert{-270}
+   \glyph{L}{1000}
+\endsetglyph
+
+\setglyph{Ng}
+  \glyph{S}{1000}
+\endsetglyph
+
+\setglyph{Uhungarumlaut}
+   \topaccent{U}{hungarumlaut}{\Uskew}
+\endsetglyph
+
+\setglyph{Uring}
+   \topaccent{U}{ring}{\Uskew}
+\endsetglyph
+
+\setglyph{dbar}
+   \push
+      \movert{-160}
+      \moveup{
+         \sub{\scale{\add{\height{d}}{\int{xheight}}}{470}}
+             {\height{macron}}}
+      \glyph{macron}{1000}
+   \pop
+   \glyph{d}{1000}
+   \samesize{d}
+\endsetglyph
+
+\setglyph{lslash}
+   \glyph{lslashslash}{1000}
+   \movert{-210}
+   \glyph{l}{1000}
+\endsetglyph
+
+\setglyph{ng}
+  \glyph{sround}{1000}
+\endsetglyph
+
+\setglyph{sacute}
+   \topaccent{sround}{acute}{500}
+\endsetglyph
+
+\setglyph{scaron}
+   \topaccent{sround}{caron}{500}
+\endsetglyph
+
+\setglyph{scedilla}
+   \botaccent{sround}{cedilla}{500}
+\endsetglyph
+
+\setglyph{Agrave}
+   \topaccent{A}{grave}{\Askew}
+\endsetglyph
+
+\setglyph{Aacute}
+   \topaccent{A}{acute}{\Askew}
+\endsetglyph
+
+\setglyph{Acircumflex}
+   \topaccent{A}{circumflex}{\Askew}
+\endsetglyph
+
+\setglyph{Atilde}
+   \topaccent{A}{tilde}{\Askew}
+\endsetglyph
+
+\setglyph{Adieresis}
+   \topaccent{A}{dieresis}{\Askew}
+\endsetglyph
+
+\setglyph{Aring}
+   \topaccent{A}{ring}{\Askew}
+\endsetglyph
+
+\resetglyph{AE}
+   \glyph{A}{1000}
+   \movert{-120}
+   \glyph{E}{1000}
+\endsetglyph
+
+\setglyph{Eth}
+   \push
+      \movert{100}
+      \moveup{
+         \sub{\scale{\add{\height{d}}{\int{xheight}}}{300}}
+             {\height{macron}}}
+      \glyph{macron}{1000}
+   \pop
+   \glyph{D}{1000}
+   \resetdepth{\depth{D}}
+\endsetglyph
+
+\resetglyph{OE}
+   \glyph{O}{1000}
+   \movert{-100}
+   \glyph{E}{1000}
+\endsetglyph
+
+\resetglyph{Oslash}
+   \push
+     \moveup{130}
+     \movert{170}
+     \glyph{slash}{800}
+   \pop
+   \glyph{O}{1000}
+\endsetglyph
+
+\setglyph{Ugrave}
+   \topaccent{U}{grave}{\Uskew}
+\endsetglyph
+
+\setglyph{Uacute}
+   \topaccent{U}{acute}{\Uskew}
+\endsetglyph
+
+\setglyph{Ucircumflex}
+   \topaccent{U}{circumflex}{\Uskew}
+\endsetglyph
+
+\setglyph{Udieresis}
+   \topaccent{U}{dieresis}{\Uskew}
+\endsetglyph
+
+\setglyph{Thorn}
+   \glyph{T}{1000}
+   \movert{-100}
+   \glyph{h}{1000}
+\endsetglyph
+
+\resetglyph{ae}
+   \glyph{a}{1000}
+   \movert{-150}
+   \glyph{e}{1000}
+\endsetglyph
+
+\setglyph{eth}
+   \push
+      \movert{-100}
+      \moveup{
+         \sub{\scale{\add{\height{d}}{\int{xheight}}}{700}}
+             {\height{macron}}}
+      \glyph{lslashslash}{1000}
+   \pop
+   \glyph{d}{1000}
+\endsetglyph
+
+\resetglyph{oslash}
+   \push
+     \moveup{120}
+     \movert{50}
+     \glyph{slash}{500}
+   \pop
+   \glyph{o}{1000}
+\endsetglyph
+
+\resetglyph{oe}
+   \glyph{o}{1000}
+   \movert{-100}
+   \glyph{e}{1000}
+\endsetglyph
+
+\setglyph{thorn}
+   \glyph{t}{1000}
+   \movert{-80}
+   \glyph{h}{1000}
+\endsetglyph
+
+\endmetrics
+%</fcleanupmtx>
+%    \end{macrocode}
+%
+%
+% \section{Final touches to yswab}
+%
+%    \begin{macrocode}
+%<*scleanupmtx>
+\relax
+
+\metrics
+
+%    \end{macrocode}
+%
+% \subsection{Accent positioning}
+%
+% A top accent is set by placing the center of the accent at the given
+% position along the width of the letter, raised up by the difference
+% between the height of the letter and the xheight.
+%    \begin{macrocode}
+\setcommand\topaccent#1#2#3{
+   \push
+      \moveup{\max{0}{\sub{\height{#1}}{\int{xheight}}}}
+      \movert{\add{\sub{\scale{\width{#1}}{#3}}{\scale{\width{#2}}{500}}}
+         {\scale{\sub{\height{#1}}{\int{xheight}}}{\int{italicslant}}}}
+      \glyph{#2}{1000}
+   \pop
+   \glyph{#1}{1000}
+}
+
+%    \end{macrocode}
+% A bottom accent is set by placing the center of the accent at the given
+% position along the width of the letter.
+%    \begin{macrocode}
+\setcommand\botaccent#1#2#3{
+   \push
+      \movert{\sub{\scale{\width{#1}}{#3}}{\scale{\width{#2}}{500}}}
+      \glyph{#2}{1000}
+   \pop
+   \glyph{#1}{1000}
+}
+
+%    \end{macrocode}
+% The following value is for the |#3| paramter in the above macros.
+%    \begin{macrocode}
+\setcommand\Askew{580}
+
+%    \end{macrocode}
+% |\adjustheight| is meant for characters with a too small height, which is
+% true for all German umlauts, for example.
+%    \begin{macrocode}
+\setcommand\adjustheight#1{%
+\resetglyph{#1}
+  \glyph{#1}{1000}
+  \resetheight{\height{k}}
+\endsetglyph
+}
+
+\adjustheight{adieresis}
+\adjustheight{edieresis}
+\adjustheight{odieresis}
+\adjustheight{udieresis}
+
+%    \end{macrocode}
+%
+% \subsection{Setting up the accents}
+%
+% Here I make all accents a little bit smaller to fit with ygoth.
+% Additionally I push them upwards, which is accent dependent.
+%    \begin{macrocode}
+\resetglyph{tilde}
+  \moveup{-40}
+  \glyph{tilde}{1000}
+\endsetglyph
+
+\resetglyph{dieresis}
+  \moveup{-40}
+  \glyph{dieresis}{1000}
+\endsetglyph
+
+%    \end{macrocode}
+% I want to have the original ring accent from yfrak.  It's quite nice.
+%    \begin{macrocode}
+\resetglyph{ring}
+  \moveup{-30}
+  \glyph{ringfitted}{1000}
+\endsetglyph
+
+%    \end{macrocode}
+%
+% \subsection{Setting up the quotes}
+%
+% What follows, are hopeless tricks to get nice double and single quotes.  I
+% move the glyphes arbitrarily around, in order to get nice spacing to
+% following or preceding letters and to avaiod EC characters here.
+%    \begin{macrocode}
+\resetglyph{quotedblleft}
+  \movert{-90}
+  \glyph{quotedblleft}{1000}
+  \resetwidth{\sub{\width{quotedblleft}}{100}}
+\endsetglyph
+
+\resetglyph{quotedblright}
+  \movert{20}
+  \glyph{quotedblright}{1000}
+  \resetwidth{\sub{\width{quotedblright}}{120}}
+\endsetglyph
+
+\resetglyph{quotesinglbase}
+  \moveup{\sub{\height{quotedblbase}}{\height{quoteright}}}
+  \glyph{quoteright}{1000}
+  \samesize{quotesinglbase}
+\endsetglyph
+
+\resetglyph{quotedblbase}
+  \moveup{\sub{\height{quotedblbase}}{\height{quotedblright}}}
+  \movert{-45}
+  \glyph{quotedblright}{1000}
+  \movert{70}
+  \resetheight{\height{quotedblbase}}
+  \resetdepth{\depth{quotedblbase}}
+\endsetglyph
+
+%    \end{macrocode}
+%
+% \subsection{Correcting character boxes}
+%
+% I don't know why, but the original character boxes of Haralambous for
+% yswab are sometimes wrong.
+%    \begin{macrocode}
+\resetglyph{ffi}
+  \glyph{ffi}{1000}
+  \resetheight{\height{h}}
+  \resetdepth{\depth{h}}
+\endsetglyph
+
+\resetglyph{ffl}
+  \glyph{ffl}{1000}
+  \resetheight{\height{k}}
+\endsetglyph
+
+\resetglyph{comma}
+  \glyph{comma}{1000}
+  \resetheight{\height{quotesinglbase}}
+  \resetdepth{\depth{quotesinglbase}}
+\endsetglyph
+
+\resetglyph{period}
+  \glyph{period}{1000}
+  \resetheight{\height{quotesinglbase}}
+\endsetglyph
+
+\resetglyph{m}
+  \glyph{m}{1000}
+  \resetheight{\height{u}}
+\endsetglyph
+
+\resetglyph{n}
+  \glyph{n}{1000}
+  \resetheight{\height{u}}
+\endsetglyph
+
+\resetint{interword}{250}
+
+%    \end{macrocode}
+%
+% \subsection{Faking the glyphs}
+%
+% The following glyphs should be constructed in |blackletter.mtx|.
+%    \begin{macrocode}
+\unsetglyph{dotlessj}
+\unsetglyph{fi}
+\unsetglyph{fl}
+\unsetglyph{backslash}
+\unsetglyph{bar}
+
+%    \end{macrocode}
+% Now I try to fake or improve the letters for the latin T1 version of ygoth.
+% Most of this should be easy to understand.
+%    \begin{macrocode}
+\setglyph{Abreve}
+   \topaccent{A}{breve}{\Askew}
+\endsetglyph
+
+\setglyph{Lcaron}
+   \glyph{L}{1000}
+   \movert{-200}
+   \glyph{quoteright}{1000}
+\endsetglyph
+
+\setglyph{Lslash}
+   \glyph{lslashslash}{1000}
+   \movert{-270}
+   \glyph{L}{1000}
+\endsetglyph
+
+\setglyph{Ng}
+  \glyph{S}{1000}
+\endsetglyph
+
+\setglyph{dbar}
+   \push
+      \movert{-160}
+      \moveup{
+         \sub{\scale{\add{\height{d}}{\int{xheight}}}{470}}
+             {\height{macron}}}
+      \glyph{macron}{1000}
+   \pop
+   \glyph{d}{1000}
+   \samesize{d}
+\endsetglyph
+
+\setglyph{lslash}
+   \glyph{lslashslash}{1000}
+   \movert{-240}
+   \glyph{l}{1000}
+\endsetglyph
+
+\setglyph{ng}
+  \glyph{sround}{1000}
+\endsetglyph
+
+\setglyph{sacute}
+   \topaccent{sround}{acute}{500}
+\endsetglyph
+
+\setglyph{scaron}
+   \topaccent{sround}{caron}{500}
+\endsetglyph
+
+\setglyph{scedilla}
+   \botaccent{sround}{cedilla}{500}
+\endsetglyph
+
+\setglyph{Agrave}
+   \topaccent{A}{grave}{\Askew}
+\endsetglyph
+
+\setglyph{Aacute}
+   \topaccent{A}{acute}{\Askew}
+\endsetglyph
+
+\setglyph{Acircumflex}
+   \topaccent{A}{circumflex}{\Askew}
+\endsetglyph
+
+\setglyph{Atilde}
+   \topaccent{A}{tilde}{\Askew}
+\endsetglyph
+
+\setglyph{Adieresis}
+   \topaccent{A}{dieresis}{\Askew}
+\endsetglyph
+
+\setglyph{Aring}
+   \topaccent{A}{ring}{\Askew}
+\endsetglyph
+
+\setglyph{AE}
+   \glyph{A}{1000}
+   \movert{-100}
+   \glyph{E}{1000}
+\endsetglyph
+
+\setglyph{Eth}
+   \push
+      \movert{100}
+      \moveup{
+         \sub{\scale{\add{\height{d}}{\int{xheight}}}{300}}
+             {\height{macron}}}
+      \glyph{macron}{1000}
+   \pop
+   \glyph{D}{1000}
+   \resetdepth{\depth{D}}
+\endsetglyph
+
+\setglyph{OE}
+   \glyph{O}{1000}
+   \movert{-100}
+   \glyph{E}{1000}
+\endsetglyph
+
+\setglyph{Oslash}
+   \push
+     \moveup{130}
+     \movert{170}
+     \glyph{slash}{800}
+   \pop
+   \glyph{O}{1000}
+\endsetglyph
+
+\setglyph{Thorn}
+   \glyph{T}{1000}
+   \movert{-100}
+   \glyph{h}{1000}
+\endsetglyph
+
+\setglyph{ae}
+   \glyph{a}{1000}
+   \movert{-150}
+   \glyph{e}{1000}
+\endsetglyph
+
+\setglyph{eth}
+   \push
+      \movert{-30}
+      \moveup{
+         \sub{\scale{\add{\height{d}}{\int{xheight}}}{650}}
+             {\height{macron}}}
+      \glyph{lslashslash}{1000}
+   \pop
+   \glyph{d}{1000}
+\endsetglyph
+
+\setglyph{oslash}
+   \push
+     \moveup{120}
+     \movert{70}
+     \glyph{slash}{500}
+   \pop
+   \glyph{o}{1000}
+\endsetglyph
+
+\setglyph{oe}
+   \glyph{o}{1000}
+   \movert{-100}
+   \glyph{e}{1000}
+\endsetglyph
+
+\setglyph{thorn}
+   \glyph{t}{1000}
+   \movert{-80}
+   \glyph{h}{1000}
+\endsetglyph
+
+\endmetrics
+%</scleanupmtx>
+%    \end{macrocode}
+%
+%
+% \section{Final touches to ygoth}
+%
+%    \begin{macrocode}
+%<*gcleanupmtx>
+\relax
+
+\metrics
+
+%    \end{macrocode}
+%
+% \subsection{Accent positioning}
+%
+% A top accent is set by placing the center of the accent at the given
+% position along the width of the letter, raised up by the difference
+% between the height of the letter and the xheight.
+%    \begin{macrocode}
+\setcommand\topaccent#1#2#3{
+   \push
+      \moveup{\max{0}{\sub{\height{#1}}{\int{xheight}}}}
+      \movert{\add{\sub{\scale{\width{#1}}{#3}}{\scale{\width{#2}}{500}}}
+         {\scale{\sub{\height{#1}}{\int{xheight}}}{\int{italicslant}}}}
+      \glyph{#2}{1000}
+   \pop
+   \glyph{#1}{1000}
+}
+
+%    \end{macrocode}
+% A bottom accent is set by placing the center of the accent at the given
+% position along the width of the letter.
+%    \begin{macrocode}
+\setcommand\botaccent#1#2#3{
+   \push
+      \movert{\sub{\scale{\width{#1}}{#3}}{\scale{\width{#2}}{500}}}
+      \glyph{#2}{1000}
+   \pop
+   \glyph{#1}{1000}
+}
+
+%    \end{macrocode}
+% The following values are for the |#3| paramter in the above macros.
+%    \begin{macrocode}
+\setcommand\Askew{700}
+\setcommand\Uskew{600}
+
+%    \end{macrocode}
+% |\adjustheight| is meant for characters with a too small height, which is
+% true for all German umlauts, for example.
+%    \begin{macrocode}
+\setcommand\adjustheight#1{%
+\resetglyph{#1}
+  \glyph{#1}{1000}
+  \resetheight{\height{k}}
+\endsetglyph
+}
+
+\adjustheight{adieresis}
+\adjustheight{edieresis}
+\adjustheight{odieresis}
+\adjustheight{udieresis}
+
+%    \end{macrocode}
+%
+% \subsection{Setting up the accents}
+%
+% Here I make all accents a little bit smaller to fit with ygoth.
+% Additionally I push them upwards, which is accent dependent.
+%    \begin{macrocode}
+\setcommand\SmallerAccent#1#2{
+\resetglyph{#1}
+  \moveup{\add{100}{#2}}
+  \movert{\div{\width{#1}}{10}}
+  \glyph{#1}{800}
+  \samesize{#1}
+\endsetglyph
+}
+
+\SmallerAccent{grave}{20}
+\SmallerAccent{acute}{20}
+\SmallerAccent{circumflex}{20}
+\SmallerAccent{tilde}{0}
+\SmallerAccent{hungarumlaut}{20}
+\SmallerAccent{ring}{30}
+\SmallerAccent{ringfitted}{20}
+\SmallerAccent{caron}{20}
+\SmallerAccent{breve}{20}
+
+%    \end{macrocode}
+% I construct the dieresis of two mere periods.  Don't say anything.
+%    \begin{macrocode}
+\resetglyph{dieresis}
+  \moveup{560}
+  \movert{80}
+  \glyph{period}{1000}
+  \movert{-140}
+  \glyph{period}{1000}
+  \samesize{dieresis}
+\endsetglyph
+
+%    \end{macrocode}
+% Similar trick for the dot accent.
+%    \begin{macrocode}
+\resetglyph{dotaccent}
+  \moveup{560}
+  \movert{10}
+  \glyph{period}{1000}
+  \samesize{dotaccent}
+\endsetglyph
+
+\resetglyph{ring}
+  \moveup{-30}
+  \glyph{ringfitted}{1000}
+\endsetglyph
+
+%    \end{macrocode}
+%
+% \subsection{Setting up the quotes}
+%
+% What follows, are hopeless tricks to get nice double and single quotes.  I
+% move the glyphes arbitrarily around, in order to get nice spacing to
+% following or preceding letters and to avaiod EC characters here.
+%    \begin{macrocode}
+\resetglyph{quotesinglbase}
+  \moveup{\sub{\height{quotedblbase}}{\height{quoteright}}}
+  \glyph{quoteright}{1000}
+  \samesize{quotesinglbase}
+\endsetglyph
+
+\resetglyph{quotedblleft}
+  \movert{-90}
+  \glyph{quotedblleft}{1000}
+  \resetwidth{\sub{\width{quotedblleft}}{100}}
+\endsetglyph
+
+\resetglyph{quotedblright}
+  \movert{20}
+  \glyph{quotedblright}{1000}
+  \resetwidth{\sub{\width{quotedblright}}{120}}
+\endsetglyph
+
+\resetglyph{quotedblbase}
+  \moveup{\sub{\height{quotedblbase}}{\height{quotedblright}}}
+  \movert{-80}
+  \glyph{quotedblright}{1000}
+  \resetheight{\height{quotedblbase}}
+  \resetdepth{\depth{quotedblbase}}
+  \resetwidth{\add{\width{quotedblbase}}{30}}
+\endsetglyph
+
+%    \end{macrocode}
+%
+% \subsection{Correcting character boxes}
+%
+% I don't know why, but the original character boxes of Haralambous for
+% ygoth are sometimes wrong.  Here I shift the ``i'' a little bit to the
+% left and the ``l'' a little bit to the right.  Similar changes to other
+% characters.
+%    \begin{macrocode}
+\resetglyph{dotlessi}
+  \movert{-30}
+  \glyph{dotlessi}{1000}
+  \resetwidth{\width{dotlessi}}
+  \resetheight{\height{u}}
+\endsetglyph
+
+\resetglyph{fi}
+  \glyph{fi}{1000}
+  \movert{40}
+\endsetglyph
+
+\resetglyph{ffi}
+  \glyph{ffi}{1000}
+  \movert{20}
+  \resetdepth{\depth{h}}
+\endsetglyph
+
+\resetglyph{ffl}
+  \glyph{ffl}{1000}
+  \movert{20}
+\endsetglyph
+
+\resetglyph{comma}
+  \glyph{comma}{1000}
+  \resetheight{\height{quotesinglbase}}
+\endsetglyph
+
+\resetglyph{period}
+  \glyph{period}{1000}
+  \resetheight{\height{quotesinglbase}}
+\endsetglyph
+
+\resetglyph{A}
+  \glyph{A}{1000}
+  \resetheight{\sub{\height{A}}{50}}
+\endsetglyph
+
+\resetglyph{i}
+  \movert{-30}
+  \glyph{i}{1000}
+  \samesize{i}
+\endsetglyph
+
+\resetglyph{j}
+  \movert{-30}
+  \glyph{j}{1000}
+  \movert{30}
+\endsetglyph
+
+\resetglyph{l}
+  \movert{30}
+  \glyph{l}{1000}
+  \samesize{l}
+\endsetglyph
+
+\resetint{interword}{250}
+
+%    \end{macrocode}
+%
+% \subsection{Kerning}
+%
+% ``F'' and ``V'' need some kerning.
+%
+%    \begin{macrocode}
+\setkern{F}{a}{-140}
+\setkern{F}{e}{-110}
+\setkern{F}{o}{-140}
+\setkern{F}{u}{-110}
+
+\setkern{V}{a}{-140}
+\setkern{V}{e}{-110}
+\setkern{V}{o}{-140}
+\setkern{V}{u}{-110}
+
+
+%    \end{macrocode}
+%
+% \subsection{Faking the glyphs}
+%
+% The following glyphs should be constructed in |blackletter.mtx|.
+%    \begin{macrocode}
+\unsetglyph{dotlessj}
+\unsetglyph{backslash}
+
+%    \end{macrocode}
+% Now I try to fake or improve the letters for the latin T1 version of ygoth.
+% Most of this should be easy to understand.
+%    \begin{macrocode}
+\setglyph{Abreve}
+   \topaccent{A}{breve}{\Askew}
+\endsetglyph
+
+\setglyph{Eogonek}
+   \botaccent{E}{ogonek}{600}
+\endsetglyph
+
+\setglyph{Lacute}
+   \topaccent{L}{acute}{700}
+\endsetglyph
+
+\setglyph{Lcaron}
+   \glyph{L}{1000}
+   \movert{-30}
+   \glyph{quoteright}{1000}
+\endsetglyph
+
+\setglyph{Lslash}
+   \moveup{-200}
+   \glyph{lslashslash}{1800}
+   \moveup{200}
+   \movert{-640}
+   \glyph{L}{1000}
+   \samesize{L}
+\endsetglyph
+
+\setglyph{Ng}
+  \glyph{S}{1000}
+\endsetglyph
+
+\setglyph{Uhungarumlaut}
+   \topaccent{U}{hungarumlaut}{\Uskew}
+\endsetglyph
+
+\setglyph{Uring}
+   \topaccent{U}{ring}{\Uskew}
+\endsetglyph
+
+\setglyph{dbar}
+   \push
+      \movert{-100}
+      \moveup{
+         \sub{\scale{\add{\height{d}}{\int{xheight}}}{390}}
+             {\height{macron}}}
+      \glyph{macron}{1000}
+   \pop
+   \glyph{d}{1000}
+   \samesize{d}
+\endsetglyph
+
+\setglyph{lcaron}
+   \glyph{l}{1000}
+   \movert{-50}
+   \glyph{quoteright}{1000}
+\endsetglyph
+
+\setglyph{lslash}
+   \glyph{lslashslash}{1000}
+   \movert{-220}
+   \glyph{l}{1000}
+\endsetglyph
+
+\setglyph{ng}
+  \glyph{sround}{1000}
+\endsetglyph
+
+\setglyph{sacute}
+   \topaccent{sround}{acute}{500}
+\endsetglyph
+
+\setglyph{scaron}
+   \topaccent{sround}{caron}{500}
+\endsetglyph
+
+\setglyph{scedilla}
+   \botaccent{sround}{cedilla}{500}
+\endsetglyph
+
+\setglyph{Agrave}
+   \topaccent{A}{grave}{\Askew}
+\endsetglyph
+
+\setglyph{Aacute}
+   \topaccent{A}{acute}{\Askew}
+\endsetglyph
+
+\setglyph{Acircumflex}
+   \topaccent{A}{circumflex}{\Askew}
+\endsetglyph
+
+\setglyph{Atilde}
+   \topaccent{A}{tilde}{\Askew}
+\endsetglyph
+
+\setglyph{Adieresis}
+   \topaccent{A}{dieresis}{\Askew}
+\endsetglyph
+
+\setglyph{Aring}
+   \topaccent{A}{ring}{\Askew}
+\endsetglyph
+
+\setglyph{AE}
+   \glyph{A}{1000}
+   \movert{-190}
+   \glyph{E}{1000}
+\endsetglyph
+
+\setglyph{Eth}
+   \push
+      \movert{-80}
+      \moveup{
+         \sub{\scale{\add{\height{d}}{\int{xheight}}}{380}}
+             {\height{macron}}}
+      \glyph{macron}{1000}
+   \pop
+   \glyph{D}{1000}
+   \resetdepth{\depth{D}}
+\endsetglyph
+
+\setglyph{OE}
+   \glyph{O}{1000}
+   \movert{-100}
+   \glyph{E}{1000}
+\endsetglyph
+
+\setglyph{Oslash}
+   \push
+     \moveup{130}
+     \movert{190}
+     \glyph{slash}{800}
+   \pop
+   \glyph{O}{1000}
+\endsetglyph
+
+\setglyph{Ugrave}
+   \topaccent{U}{grave}{\Uskew}
+\endsetglyph
+
+\setglyph{Uacute}
+   \topaccent{U}{acute}{\Uskew}
+\endsetglyph
+
+\setglyph{Ucircumflex}
+   \topaccent{U}{circumflex}{\Uskew}
+\endsetglyph
+
+\setglyph{Udieresis}
+   \topaccent{U}{dieresis}{\Uskew}
+\endsetglyph
+
+\setglyph{Thorn}
+   \glyph{T}{1000}
+   \movert{-100}
+   \glyph{h}{1000}
+\endsetglyph
+
+\setglyph{ae}
+   \glyph{a}{1000}
+   \movert{-150}
+   \glyph{e}{1000}
+\endsetglyph
+
+\setglyph{eth}
+   \push
+      \movert{-40}
+      \moveup{
+         \sub{\scale{\add{\height{d}}{\int{xheight}}}{620}}
+             {\height{macron}}}
+      \glyph{lslashslash}{1000}
+   \pop
+   \glyph{d}{1000}
+\endsetglyph
+
+\setglyph{oslash}
+   \push
+     \moveup{120}
+     \movert{70}
+     \glyph{slash}{500}
+   \pop
+   \glyph{o}{1000}
+\endsetglyph
+
+\setglyph{oe}
+   \glyph{o}{1000}
+   \movert{-100}
+   \glyph{e}{1000}
+\endsetglyph
+
+\setglyph{thorn}
+   \glyph{t}{1000}
+   \movert{-80}
+   \glyph{h}{1000}
+\endsetglyph
+
+%    \end{macrocode}
+%
+% \subsection{Letterspacing}
+%
+% ygoth runs too narrow.  I improve that here.
+%    \begin{macrocode}
+\setint{letterspacing}{50}
+
+%    \end{macrocode}
+% On the other hand, the German combination ``sch'' looks like ``s\,ch''.
+% Therefore I set this kerning here.  FixMe: This induces wrong implicit
+% kerning of diacritic letters in |blackletter.mtx|.
+%    \begin{macrocode}
+\setkern{s}{c}{-80}
+
+\endmetrics
+%</gcleanupmtx>
+%    \end{macrocode}
+%
+%
+% \section{Letterspacing}
+%
+% The following definitions form the file |lettersp.mtx| and define some
+% thing for a letterspeced Fraktur version, used eventually as the italic
+% counterpart.
+%    \begin{macrocode}
+%<*letterspmtx>
+\relax
+
+\metrics
+
+%    \end{macrocode}
+%
+% \subsection{The ``sch'' case}
+%
+% First, I re-do the spacing for the ``sch'' combination.  This is unusual,
+% but I find it more readable this way.
+%
+% This is now turned off.
+%    \begin{macrocode}
+\iffalse
+\setkern{s}{c}{-150}
+\fi
+
+%    \end{macrocode}
+% The following definitions turn off all kerning commands.  This prevents
+% |blackletter.mtx| from copying the above kerning information to other 
+% \mbox{``s--c''} combinations with diacritic marks.
+%    \begin{macrocode}
+\gdef\setleftrightkerning#1#2#3{}
+\gdef\setleftkerning#1#2#3{}
+\gdef\setrightkerning#1#2#3{}
+
+%    \end{macrocode}
+% Now I finally set the letterspacing.
+%    \begin{macrocode}
+\setint{letterspacing}{150}
+
+\resetint{interword}{350}
+
+%    \end{macrocode}
+%
+% \subsection{Breaking up of some ligatures}
+%
+% In the rest of the file I re-define some ligatures, namely all ligatures
+% that have to be blackletter up in letterspacing.  Actually the ``st'' ligature
+% should be blackletter up, too, according to Duden and other sources.  Curiously
+% enough, I've found no real life book that did it that way, everybody keeps
+% it together.  So I do that, too.  After all, it's a very nice ligature.
+%    \begin{macrocode}
+\resetglyph{dotlessj}
+  \glyph{s}{1000}
+  \movert{\int{letterspacing}}
+  \glyph{i}{1000}
+\endsetglyph
+
+\resetglyph{ff}
+  \glyph{f}{1000}
+  \movert{\int{letterspacing}}
+  \glyph{f}{1000}
+\endsetglyph
+
+\resetglyph{fi}
+  \glyph{f}{1000}
+  \movert{\int{letterspacing}}
+  \glyph{i}{1000}
+\endsetglyph
+
+\resetglyph{fl}
+  \glyph{f}{1000}
+  \movert{\int{letterspacing}}
+  \glyph{l}{1000}
+\endsetglyph
+
+\resetglyph{backslash}
+  \glyph{f}{1000}
+  \movert{\int{letterspacing}}
+  \glyph{t}{1000}
+\endsetglyph
+
+\resetglyph{asciicircum}
+  \glyph{s}{1000}
+  \movert{\int{letterspacing}}
+  \glyph{s}{1000}
+\endsetglyph
+
+\endmetrics
+%</letterspmtx>
+%    \end{macrocode}
+% The following file |blackletter.mtx| is a slimmed and modified version of
+% \texttt{fontinst}'s |latin.mtx|.  It makes last settings and tries to fake
+% glyphs that are still missing.
+%    \begin{macrocode}
+%<*blacklettermtx>
+\relax
+
+\documentclass[twocolumn]{article}
+\usepackage{fontdoc}
+
+\title{The blackletter typefaces glyphs}
+\author{Torsten Bronger}
+\date{7.~May 2002 \\
+Version 1.0}
+
+\begin{document}
+\maketitle
+
+\section{Introduction}
+
+This document describes the glyphs used by the {\tt fontinst} package when
+generating blackletter typefaces fonts, especially those by Yannis Haralambous.  
+It's a modified version of {\tt fontinst}'s \verb|latin.mtx|.
+
+\metrics
+
+\needsfontinstversion{1.801}
+
+%    \end{macrocode}
+%
+% \subsection{Basic helper commands}
+%
+% |\unfakable| is a glyph which can't be faked.
+%    \begin{macrocode}
+\setcommand\unfakable#1{
+   \setglyph{#1}
+      \ifisglyph{#1-not}\then
+         \moveup{\neg{\depth{#1-not}}}
+         \glyphrule{
+            \width{#1-not}
+         }{
+            \add{\depth{#1-not}}{\height{#1-not}}
+         }
+         \resetitalic{\italic{#1-not}}
+         \moveup{\depth{#1-not}}
+      \else
+         \glyphrule{500}{500}
+      \fi
+      \glyphwarning{missing glyph `#1'}
+   \endsetglyph
+}
+
+%    \end{macrocode}
+% A top accent is set by placing the center of the accent at the given
+% position along the width of the letter, raised up by the difference
+% between the height of the letter and the xheight.
+%    \begin{macrocode}
+\setcommand\topaccent#1#2#3{
+   \push
+      \moveup{\max{0}{\sub{\height{#1}}{\int{xheight}}}}
+      \movert{\add{\sub{\scale{\width{#1}}{#3}}{\scale{\width{#2}}{500}}}
+         {\scale{\sub{\height{#1}}{\int{xheight}}}{\int{italicslant}}}}
+      \glyph{#2}{1000}
+   \pop
+   \glyph{#1}{1000}
+}
+
+%    \end{macrocode}
+% A bottom accent is set by placing the center of the accent at the given
+% position along the width of the letter.
+%    \begin{macrocode}
+\setcommand\botaccent#1#2#3{
+   \push
+      \movert{\sub{\scale{\width{#1}}{#3}}{\scale{\width{#2}}{500}}}
+      \glyph{#2}{1000}
+   \pop
+   \glyph{#1}{1000}
+}
+
+%    \end{macrocode}
+%
+% \subsection{Default font values}
+%
+%    \begin{macrocode}
+\comment{\section{Default values}}
+
+\setint{italicslant}{0}
+\setint{xheight}{\height{x}}
+\setint{capheight}{\height{A}}
+\setint{ascender}{\height{k}}
+\setint{descender}{\depth{g}}
+\setint{underlinethickness}{40}
+\setint{visiblespacedepth}{200}
+\setint{visiblespacewidth}{400}
+\setint{visiblespacesurround}{50}
+\setint{smallcapsscale}{800}
+\setint{smallcapskerning}{900}
+
+\setint{capspacing}{50}
+\setint{smallcapsextraspace}{0}
+
+\setint{boundarychar}{32}
+
+
+%    \end{macrocode}
+%
+% \subsection{Kerning adjustments}
+%
+%    \begin{macrocode}
+\comment{\section{Kerning}}
+
+%    \end{macrocode}
+% The command |\typicalkerns| adds extra space before some punctuation.  This
+% is common in typesetting with blackletter typefaces.
+%    \begin{macrocode}
+\setcommand\typicalkerns#1{
+  \setkern{#1}{exclam}{100}
+  \setkern{#1}{question}{100}
+  \setkern{#1}{colon}{50}
+  \setkern{#1}{semicolon}{50}
+}
+
+%    \end{macrocode}
+% Now we call |\typicalkerns| for all letter-like characters.
+%    \begin{macrocode}
+\typicalkerns{dotlessj}
+\typicalkerns{ff}
+\typicalkerns{fi}
+\typicalkerns{fl}
+\typicalkerns{ffi}
+\typicalkerns{ffl}
+
+\typicalkerns{zero}
+\typicalkerns{one}
+\typicalkerns{two}
+\typicalkerns{three}
+\typicalkerns{four}
+\typicalkerns{five}
+\typicalkerns{six}
+\typicalkerns{seven}
+\typicalkerns{eight}
+\typicalkerns{nine}
+
+\typicalkerns{A} \typicalkerns{B}
+\typicalkerns{C} \typicalkerns{D} \typicalkerns{E} \typicalkerns{F}
+\typicalkerns{G} \typicalkerns{H} \typicalkerns{I} \typicalkerns{J}
+\typicalkerns{K} \typicalkerns{L} \typicalkerns{M} \typicalkerns{N}
+\typicalkerns{O} \typicalkerns{P} \typicalkerns{Q} \typicalkerns{R}
+\typicalkerns{S} \typicalkerns{T} \typicalkerns{U} \typicalkerns{V}
+\typicalkerns{W} \typicalkerns{X} \typicalkerns{Y} \typicalkerns{Z}
+
+\typicalkerns{a} \typicalkerns{b}
+\typicalkerns{c} \typicalkerns{d} \typicalkerns{e} \typicalkerns{f}
+\typicalkerns{g} \typicalkerns{h} \typicalkerns{i} \typicalkerns{j}
+\typicalkerns{k} \typicalkerns{l} \typicalkerns{m} \typicalkerns{n}
+\typicalkerns{o} \typicalkerns{p} \typicalkerns{q} \typicalkerns{r}
+\typicalkerns{s} \typicalkerns{t} \typicalkerns{u} \typicalkerns{v}
+\typicalkerns{w} \typicalkerns{x} \typicalkerns{y} \typicalkerns{z}
+
+\typicalkerns{backslash}
+\typicalkerns{asciicircum}
+\typicalkerns{underscore}
+\typicalkerns{bar}
+
+\typicalkerns{quoteleft}
+\typicalkerns{quoteright}
+\typicalkerns{quotedblleft}
+\typicalkerns{quotedblright}
+
+\typicalkerns{Abreve}
+\typicalkerns{Aogonek} \typicalkerns{Cacute} \typicalkerns{Ccaron}
+\typicalkerns{Dcaron} \typicalkerns{Ecaron} \typicalkerns{Eogonek}
+\typicalkerns{Gbreve} \typicalkerns{Lacute} \typicalkerns{Lcaron}
+\typicalkerns{Lslash} \typicalkerns{Nacute} \typicalkerns{Ncaron}
+\typicalkerns{Ng} \typicalkerns{Ohungarumlaut} \typicalkerns{Racute}
+\typicalkerns{Rcaron} \typicalkerns{Sacute} \typicalkerns{Scaron}
+\typicalkerns{Scedilla} \typicalkerns{Tcaron} \typicalkerns{Tcedilla}
+\typicalkerns{Uhungarumlaut} \typicalkerns{Uring} \typicalkerns{Ydieresis}
+\typicalkerns{Zacute} \typicalkerns{Zcaron} \typicalkerns{Zdotaccent}
+\typicalkerns{IJ} \typicalkerns{Idotaccent} \typicalkerns{dbar}
+
+\typicalkerns{section}
+
+\typicalkerns{abreve} \typicalkerns{aogonek}
+\typicalkerns{cacute} \typicalkerns{ccaron} \typicalkerns{dcaron}
+\typicalkerns{ecaron} \typicalkerns{eogonek} \typicalkerns{gbreve}
+\typicalkerns{lacute} \typicalkerns{lcaron} \typicalkerns{lslash}
+\typicalkerns{nacute} \typicalkerns{ncaron} \typicalkerns{ng}
+\typicalkerns{ohungarumlaut} \typicalkerns{racute} \typicalkerns{rcaron}
+\typicalkerns{sacute} \typicalkerns{scaron} \typicalkerns{scedilla}
+\typicalkerns{tcaron} \typicalkerns{tcedilla} \typicalkerns{uhungarumlaut}
+\typicalkerns{uring} \typicalkerns{ydieresis} \typicalkerns{zacute}
+\typicalkerns{zcaron} \typicalkerns{zdotaccent} \typicalkerns{ij}
+
+%\typicalkerns{exclamdown}
+%\typicalkerns{questiondown}
+\typicalkerns{sterling}
+
+\typicalkerns{Agrave}
+\typicalkerns{Aacute} \typicalkerns{Acircumflex} \typicalkerns{Atilde}
+\typicalkerns{Adieresis} \typicalkerns{Aring} \typicalkerns{AE}
+\typicalkerns{Ccedilla} \typicalkerns{Egrave} \typicalkerns{Eacute}
+\typicalkerns{Ecircumflex} \typicalkerns{Edieresis} \typicalkerns{Igrave}
+\typicalkerns{Iacute} \typicalkerns{Icircumflex} \typicalkerns{Idieresis}
+\typicalkerns{Eth} \typicalkerns{Ntilde} \typicalkerns{Ograve}
+\typicalkerns{Oacute} \typicalkerns{Ocircumflex} \typicalkerns{Otilde}
+\typicalkerns{Odieresis} \typicalkerns{OE} \typicalkerns{Oslash}
+\typicalkerns{Ugrave} \typicalkerns{Uacute} \typicalkerns{Ucircumflex}
+\typicalkerns{Udieresis} \typicalkerns{Yacute} \typicalkerns{Thorn}
+\typicalkerns{SS} \typicalkerns{agrave} \typicalkerns{aacute}
+\typicalkerns{acircumflex} \typicalkerns{atilde} \typicalkerns{adieresis}
+\typicalkerns{aring} \typicalkerns{ae} \typicalkerns{ccedilla}
+\typicalkerns{egrave} \typicalkerns{eacute} \typicalkerns{ecircumflex}
+\typicalkerns{edieresis} \typicalkerns{igrave} \typicalkerns{iacute}
+\typicalkerns{icircumflex} \typicalkerns{idieresis} \typicalkerns{eth}
+\typicalkerns{ntilde} \typicalkerns{ograve} \typicalkerns{oacute}
+\typicalkerns{ocircumflex} \typicalkerns{otilde} \typicalkerns{odieresis}
+\typicalkerns{oe} \typicalkerns{oslash} \typicalkerns{ugrave}
+\typicalkerns{uacute} \typicalkerns{ucircumflex} \typicalkerns{udieresis}
+\typicalkerns{yacute} \typicalkerns{thorn} \typicalkerns{germandbls}
+
+%    \end{macrocode}
+% Here we set the kernings of the new ligature characters.
+%    \begin{macrocode}
+\setleftkerning{dotlessj}{s}{1000}
+\setrightkerning{dotlessj}{i}{1000}
+
+\setleftkerning{backslash}{f}{1000}
+\setrightkerning{backslash}{t}{1000}
+
+\setleftkerning{asciicircum}{s}{1000}
+\setrightkerning{asciicircum}{s}{1000}
+
+\setleftkerning{underscore}{s}{1000}
+\setrightkerning{unserscore}{t}{1000}
+
+\setleftkerning{bar}{t}{1000}
+\setrightkerning{bar}{z}{1000}
+
+
+%    \end{macrocode}
+% The following adjustments are again taken from |latin.mtx|.
+%    \begin{macrocode}
+\setleftrightkerning{visiblespace}{space}{1000}
+
+\setleftkerning{hyphenchar}{hyphen}{1000}
+
+\setleftrightkerning{Aacute}{A}{1000}
+\setleftrightkerning{Abreve}{A}{1000}
+\setleftrightkerning{Acircumflex}{A}{1000}
+\setleftrightkerning{Adieresis}{A}{1000}
+\setleftrightkerning{Agrave}{A}{1000}
+\setleftrightkerning{Aogonek}{A}{1000}
+\setleftrightkerning{Aring}{A}{1000}
+\setleftrightkerning{Atilde}{A}{1000}
+
+\setleftrightkerning{Cacute}{C}{1000}
+\setleftrightkerning{Ccaron}{C}{1000}
+\setleftrightkerning{Ccedilla}{C}{1000}
+
+\setleftrightkerning{Dcaron}{D}{1000}
+
+\setleftrightkerning{Eacute}{E}{1000}
+\setleftrightkerning{Ecaron}{E}{1000}
+\setleftrightkerning{Ecircumflex}{E}{1000}
+\setleftrightkerning{Edieresis}{E}{1000}
+\setleftrightkerning{Egrave}{E}{1000}
+\setleftrightkerning{Eogonek}{E}{1000}
+
+\setleftrightkerning{Gbreve}{G}{1000}
+
+\setleftkerning{IJ}{I}{1000}
+
+\setleftrightkerning{Iacute}{I}{1000}
+\setleftrightkerning{Icircumflex}{I}{1000}
+\setleftrightkerning{Idieresis}{I}{1000}
+\setleftrightkerning{Idotaccent}{I}{1000}
+\setleftrightkerning{Igrave}{I}{1000}
+
+\setrightkerning{IJ}{J}{1000}
+
+\setleftrightkerning{Lacute}{L}{1000}
+\setleftrightkerning{Lslash}{L}{1000}
+\setleftkerning{Lcaron}{L}{1000}
+
+\setleftrightkerning{Nacute}{N}{1000}
+\setleftrightkerning{Ncaron}{N}{1000}
+\setleftrightkerning{Ntilde}{N}{1000}
+
+\setleftrightkerning{Oacute}{O}{1000}
+\setleftrightkerning{Ocircumflex}{O}{1000}
+\setleftrightkerning{Odieresis}{O}{1000}
+\setleftrightkerning{Ograve}{O}{1000}
+\setleftrightkerning{Ohungarumlaut}{O}{1000}
+\setleftrightkerning{Oslash}{O}{1000}
+\setleftrightkerning{Otilde}{O}{1000}
+
+\setleftrightkerning{Rcaron}{R}{1000}
+\setleftrightkerning{Racute}{R}{1000}
+
+\setleftrightkerning{SS}{S}{1000}
+\setleftrightkerning{Sacute}{S}{1000}
+\setleftrightkerning{Scaron}{S}{1000}
+\setleftrightkerning{Scedilla}{S}{1000}
+
+\setleftrightkerning{Tcaron}{T}{1000}
+\setleftrightkerning{Tcedilla}{T}{1000}
+
+\setleftrightkerning{Uacute}{U}{1000}
+\setleftrightkerning{Ucircumflex}{U}{1000}
+\setleftrightkerning{Udieresis}{U}{1000}
+\setleftrightkerning{Ugrave}{U}{1000}
+\setleftrightkerning{Uhungarumlaut}{U}{1000}
+\setleftrightkerning{Uring}{U}{1000}
+
+\setleftrightkerning{Yacute}{Y}{1000}
+\setleftrightkerning{Ydieresis}{Y}{1000}
+
+\setleftrightkerning{Zacute}{Z}{1000}
+\setleftrightkerning{Zcaron}{Z}{1000}
+\setleftrightkerning{Zdotaccent}{Z}{1000}
+
+\setleftrightkerning{aogonek}{a}{1000}
+
+\setleftrightkerning{ccedilla}{c}{1000}
+
+\setleftrightkerning{eogonek}{e}{1000}
+
+%    \end{macrocode}
+% The following four lines are of course different from |latin.mtx|, because
+% these positions contain different ligatures here.  ``ffi'' is ``ch'', and
+% ``ffl'' is ``ck''.
+%    \begin{macrocode}
+\setleftkerning{ffi}{c}{1000}
+\setleftkerning{ffl}{c}{1000}
+\setrightkerning{ffi}{h}{1000}
+\setrightkerning{ffl}{k}{1000}
+
+\setleftrightkerning{ff}{f}{1000}
+\setleftkerning{fi}{f}{1000}
+\setleftkerning{fl}{f}{1000}
+
+\setleftkerning{ij}{i}{1000}
+
+\setrightkerning{fi}{i}{1000}
+
+\setrightkerning{ij}{j}{1000}
+
+\setrightkerning{fl}{l}{1000}
+
+\setleftkerning{oe}{o}{1000}
+\setrightkerning{oe}{e}{1000}
+\setleftrightkerning{oslash}{o}{1000}
+
+\setleftrightkerning{scedilla}{s}{1000}
+
+\setleftrightkerning{tcedilla}{t}{1000}
+
+%    \end{macrocode}
+%
+% \subsection{Faking of glyphs}
+%
+% \subsubsection{List of unfakable glyphs}
+%
+% At first, a list of all glyphs that can't be faked.  This list is shorter
+% than in |latin.mtx|, because I'm naughty enough to fake more.
+%    \begin{macrocode}
+\comment{\section{Unfakable glyphs}}
+
+\unfakable{Gamma}
+\unfakable{Delta}
+\unfakable{Theta}
+\unfakable{Lambda}
+\unfakable{Xi}
+\unfakable{Pi}
+\unfakable{Sigma}
+\unfakable{Upsilon}
+\unfakable{Upsilon1}
+\unfakable{Phi}
+\unfakable{Psi}
+\unfakable{Omega}
+
+\unfakable{grave}
+\unfakable{acute}
+\unfakable{circumflex}
+\unfakable{tilde}
+\unfakable{dieresis}
+\unfakable{hungarumlaut}
+\unfakable{ring}
+\unfakable{caron}
+\unfakable{breve}
+\unfakable{macron}
+\unfakable{dotaccent}
+\unfakable{cedilla}
+\unfakable{ogonek}
+\unfakable{guilsinglleft}
+\unfakable{guilsinglright}
+\unfakable{quotedblleft}
+\unfakable{quotedblright}
+\unfakable{quotedblbase}
+\unfakable{guillemotleft}
+\unfakable{guillemotright}
+\unfakable{endash}
+\unfakable{emdash}
+\unfakable{dotlessi}
+\unfakable{perthousandzero}
+\unfakable{exclam}
+\unfakable{quotedbl}
+\unfakable{numbersign}
+\unfakable{dollar}
+\unfakable{percent}
+\unfakable{ampersand}
+\unfakable{quoteright}
+\unfakable{parenleft}
+\unfakable{parenright}
+\unfakable{asterisk}
+\unfakable{plus}
+\unfakable{comma}
+\unfakable{hyphen}
+\unfakable{period}
+\unfakable{slash}
+\unfakable{zero}
+\unfakable{one}
+\unfakable{two}
+\unfakable{three}
+\unfakable{four}
+\unfakable{five}
+\unfakable{six}
+\unfakable{seven}
+\unfakable{eight}
+\unfakable{nine}
+\unfakable{zerooldstyle}
+\unfakable{oneoldstyle}
+\unfakable{twooldstyle}
+\unfakable{threeoldstyle}
+\unfakable{fouroldstyle}
+\unfakable{fiveoldstyle}
+\unfakable{sixoldstyle}
+\unfakable{sevenoldstyle}
+\unfakable{eightoldstyle}
+\unfakable{nineoldstyle}
+\unfakable{colon}
+\unfakable{semicolon}
+\unfakable{less}
+\unfakable{equal}
+\unfakable{greater}
+\unfakable{question}
+\unfakable{at}
+\unfakable{A}
+\unfakable{B}
+\unfakable{C}
+\unfakable{D}
+\unfakable{E}
+\unfakable{F}
+\unfakable{G}
+\unfakable{H}
+\unfakable{I}
+\unfakable{J}
+\unfakable{K}
+\unfakable{L}
+\unfakable{M}
+\unfakable{N}
+\unfakable{O}
+\unfakable{P}
+\unfakable{Q}
+\unfakable{R}
+\unfakable{S}
+\unfakable{T}
+\unfakable{U}
+\unfakable{V}
+\unfakable{W}
+\unfakable{X}
+\unfakable{Y}
+\unfakable{Z}
+\unfakable{bracketleft}
+\unfakable{bracketright}
+\unfakable{quoteleft}
+\unfakable{a}
+\unfakable{b}
+\unfakable{c}
+\unfakable{d}
+\unfakable{e}
+\unfakable{f}
+\unfakable{g}
+\unfakable{h}
+\unfakable{i}
+\unfakable{j}
+\unfakable{k}
+\unfakable{l}
+\unfakable{m}
+\unfakable{n}
+\unfakable{o}
+\unfakable{p}
+\unfakable{q}
+\unfakable{r}
+\unfakable{s}
+\unfakable{t}
+\unfakable{u}
+\unfakable{v}
+\unfakable{w}
+\unfakable{x}
+\unfakable{y}
+\unfakable{z}
+\unfakable{braceleft}
+\unfakable{braceright}
+\unfakable{asciitilde}
+\unfakable{Eng}
+\unfakable{section}
+\unfakable{eng}
+\unfakable{exclamdown}
+\unfakable{questiondown}
+\unfakable{sterling}
+\unfakable{AE}
+\unfakable{Eth}
+\unfakable{OE}
+\unfakable{Oslash}
+\unfakable{Thorn}
+\unfakable{ae}
+\unfakable{eth}
+\unfakable{oe}
+\unfakable{oslash}
+\unfakable{thorn}
+\unfakable{germandbls}
+\unfakable{lslashslash}
+
+%    \end{macrocode}
+%
+% \subsubsection{Glyph construction}
+%
+% Most of this here is taken from |latin.mtx|.
+%    \begin{macrocode}
+\comment{\section{Glyphs}}
+
+\setglyph{space}
+   \ifisglyph{space-not}\then
+      \movert{\width{space-not}}
+   \else
+      \movert{\width{i}}
+   \fi
+\endsetglyph
+
+\setglyph{compwordmark}
+   \glyphrule{0}{\int{xheight}}
+\endsetglyph
+\setint{compwordmark-spacing}{0}
+
+\setglyph{quotesinglbase}
+   \glyph{comma}{1000}
+\endsetglyph
+
+%    \end{macrocode} 
+% In the slot of the dotless ``j'', we actually have the ``si'' ligature.
+%    \begin{macrocode}
+\setglyph{dotlessj}
+  \glyph{s}{1000}
+  \glyph{i}{1000}
+\endsetglyph
+
+\setglyph{fi}
+   \glyph{f}{1000}
+   \movert{\kerning{f}{i}}
+   \glyph{i}{1000}
+\endsetglyph
+
+\setglyph{ff}
+   \glyph{f}{1000}
+   \movert{\kerning{f}{f}}
+   \glyph{f}{1000}
+\endsetglyph
+
+\setglyph{fl}
+   \glyph{f}{1000}
+   \movert{\kerning{f}{l}}
+   \glyph{l}{1000}
+\endsetglyph
+
+%    \end{macrocode} 
+% In the slot of the ``ffi'' ligature, we actually have the ``ch'' ligature.
+%    \begin{macrocode}
+\setglyph{ffi}
+   \glyph{c}{1000}
+   \movert{\kerning{c}{h}}
+   \glyph{h}{1000}
+\endsetglyph
+
+%    \end{macrocode} 
+% In the slot of the ``ffl'' ligature, we actually have the ``ck'' ligature.
+%    \begin{macrocode}
+\setglyph{ffl}
+   \glyph{c}{1000}
+   \movert{\kerning{c}{k}}
+   \glyph{k}{1000}
+\endsetglyph
+
+\setglyph{visiblespace}
+   \moveup{\neg{\int{visiblespacedepth}}}
+   \movert{\int{visiblespacesurround}}
+   \glyphrule
+      {\int{underlinethickness}}
+      {\int{visiblespacedepth}}
+   \glyphrule
+      {\int{visiblespacewidth}}
+      {\int{underlinethickness}}
+   \glyphrule
+      {\int{underlinethickness}}
+      {\int{visiblespacedepth}}
+   \movert{\int{visiblespacesurround}}
+   \moveup{\int{visiblespacedepth}}
+\endsetglyph
+
+\setglyph{rangedash}
+   \ifisint{monowidth}\then
+      \glyph{hyphen}{1000}
+   \else
+      \glyph{endash}{1000}
+   \fi
+\endsetglyph
+
+\setglyph{punctdash}
+   \ifisint{monowidth}\then
+      \glyph{hyphen}{1000}
+      \glyph{hyphen}{1000}
+   \else
+      \glyph{emdash}{1000}
+   \fi
+\endsetglyph
+
+%    \end{macrocode} 
+% In the slot of the backslash, we actually have the ``ft'' ligature.  This
+% ligature is not available in Haralambous' fonts, but it's a common Fraktur
+% ligature and other font that you may get will probably have it.
+%    \begin{macrocode}
+\setglyph{backslash}
+  \glyph{f}{1000}
+  \glyph{t}{1000}
+\endsetglyph
+
+%    \end{macrocode} 
+% In the slot of the ascii circumflex, we actually have the ``ss'' ligature.
+%    \begin{macrocode}
+\setglyph{asciicircum}
+  \glyph{s}{1000}
+  \glyph{s}{1000}
+\endsetglyph
+
+%    \end{macrocode} 
+% In the slot of the underscore, we actually have the ``st'' ligature.
+%    \begin{macrocode}
+\setglyph{underscore}
+  \glyph{s}{1000}
+  \glyph{t}{1000}
+\endsetglyph
+
+%    \end{macrocode} 
+% In the slot of the vertical bar, we actually have the ``tz'' ligature.
+%    \begin{macrocode}
+\setglyph{bar}
+  \glyph{t}{1000}
+  \glyph{z}{1000}
+\endsetglyph
+
+%    \end{macrocode} 
+% The hyphen character has width zero, which is different from |latin.mtx|.
+%    \begin{macrocode}
+\setglyph{hyphenchar}
+  \glyph{hyphen}{1000}
+%  \resetwidth{0}
+\endsetglyph
+
+\setglyph{ringfitted}
+   \movert{\div{\sub{\width{A}}{\width{ring}}}{2}}
+   \glyph{ring}{1000}
+   \movert{\div{\sub{\width{A}}{\width{ring}}}{2}}
+\endsetglyph
+
+\setglyph{lslash}
+   \glyph{lslashslash}{1000}
+   \movert{\kerning{lslashslash}{l}}
+   \glyph{l}{1000}
+\endsetglyph
+
+\setglyph{Lslash}
+   \glyph{lslashslash}{1000}
+   \movert{\kerning{lslashslash}{L}}
+   \glyph{L}{1000}
+\endsetglyph
+
+\setglyph{Abreve}
+   \topaccent{A}{breve}{500}
+\endsetglyph
+
+\setglyph{Aogonek}
+   \botaccent{A}{ogonek}{900}
+\endsetglyph
+
+\setglyph{Cacute}
+   \topaccent{C}{acute}{500}
+\endsetglyph
+
+\setglyph{Ccaron}
+   \topaccent{C}{caron}{500}
+\endsetglyph
+
+\setglyph{Dcaron}
+   \topaccent{D}{caron}{450}
+\endsetglyph
+
+\setglyph{Ecaron}
+   \topaccent{E}{caron}{500}
+\endsetglyph
+
+\setglyph{Eogonek}
+   \botaccent{E}{ogonek}{850}
+\endsetglyph
+
+\setglyph{Gbreve}
+   \topaccent{G}{breve}{500}
+\endsetglyph
+
+\setglyph{Lacute}
+   \topaccent{L}{acute}{250}
+\endsetglyph
+
+\setglyph{Lcaron}
+   \glyph{L}{1000}
+   \ifisint{monowidth}\then\else
+      \movert{-200}
+   \fi
+   \glyph{quoteright}{1000}
+\endsetglyph
+
+\setglyph{Nacute}
+   \topaccent{N}{acute}{500}
+\endsetglyph
+
+\setglyph{Ncaron}
+   \topaccent{N}{caron}{500}
+\endsetglyph
+
+\setglyph{Ohungarumlaut}
+   \topaccent{O}{hungarumlaut}{500}
+\endsetglyph
+
+\setglyph{Racute}
+   \topaccent{R}{acute}{500}
+\endsetglyph
+
+\setglyph{Rcaron}
+   \topaccent{R}{caron}{500}
+\endsetglyph
+
+\setglyph{Sacute}
+   \topaccent{S}{acute}{500}
+\endsetglyph
+
+\setglyph{Scaron}
+   \topaccent{S}{caron}{500}
+\endsetglyph
+
+\setglyph{Scedilla}
+   \botaccent{S}{cedilla}{500}
+\endsetglyph
+
+\setglyph{Tcaron}
+   \topaccent{T}{caron}{500}
+\endsetglyph
+
+\setglyph{Tcedilla}
+   \botaccent{T}{cedilla}{500}
+\endsetglyph
+
+\setglyph{Uhungarumlaut}
+   \topaccent{U}{hungarumlaut}{500}
+\endsetglyph
+
+\setglyph{Uring}
+   \topaccent{U}{ring}{500}
+\endsetglyph
+
+\setglyph{Ydieresis}
+   \topaccent{Y}{dieresis}{500}
+\endsetglyph
+
+\setglyph{Zacute}
+   \topaccent{Z}{acute}{500}
+\endsetglyph
+
+\setglyph{Zcaron}
+   \topaccent{Z}{caron}{500}
+\endsetglyph
+
+\setglyph{Zdotaccent}
+   \topaccent{Z}{dotaccent}{500}
+\endsetglyph
+
+\setglyph{IJ}
+   \glyph{I}{1000}
+   \movert{\kerning{I}{J}}
+   \glyph{J}{1000}
+\endsetglyph
+
+\setglyph{Idotaccent}
+   \topaccent{I}{dotaccent}{500}
+\endsetglyph
+
+\setglyph{dbar}
+   \push
+      \movert{\sub{\width{d}}{\width{macron}}}
+      \moveup{
+         \sub{\scale{\add{\height{d}}{\int{xheight}}}{500}}
+             {\height{macron}}}
+      \glyph{macron}{1000}
+   \pop
+   \glyph{d}{1000}
+\endsetglyph
+
+\setglyph{abreve}
+   \topaccent{a}{breve}{500}
+\endsetglyph
+
+\setglyph{aogonek}
+   \botaccent{a}{ogonek}{850}
+\endsetglyph
+
+\setglyph{cacute}
+   \topaccent{c}{acute}{500}
+\endsetglyph
+
+\setglyph{ccaron}
+   \topaccent{c}{caron}{500}
+\endsetglyph
+
+\setglyph{dcaron}
+   \glyph{d}{1000}
+   \ifisint{monowidth}\then\else
+      \movert{-75}
+   \fi
+   \glyph{quoteright}{1000}
+\endsetglyph
+
+\setglyph{ecaron}
+   \topaccent{e}{caron}{500}
+\endsetglyph
+
+\setglyph{eogonek}
+   \botaccent{e}{ogonek}{500}
+\endsetglyph
+
+\setglyph{gbreve}
+   \topaccent{g}{breve}{500}
+\endsetglyph
+
+\setglyph{lacute}
+   \topaccent{l}{acute}{500}
+\endsetglyph
+
+\setglyph{lcaron}
+   \glyph{l}{1000}
+   \ifisint{monowidth}\then\else
+      \movert{-100}
+   \fi
+   \glyph{quoteright}{1000}
+\endsetglyph
+
+\setglyph{nacute}
+   \topaccent{n}{acute}{500}
+\endsetglyph
+
+\setglyph{ncaron}
+   \topaccent{n}{caron}{500}
+\endsetglyph
+
+\setglyph{ohungarumlaut}
+   \topaccent{o}{hungarumlaut}{500}
+\endsetglyph
+
+\setglyph{racute}
+   \topaccent{r}{acute}{500}
+\endsetglyph
+
+\setglyph{rcaron}
+   \topaccent{r}{caron}{500}
+\endsetglyph
+
+\setglyph{sacute}
+   \topaccent{s}{acute}{500}
+\endsetglyph
+
+\setglyph{scaron}
+   \topaccent{s}{caron}{500}
+\endsetglyph
+
+\setglyph{scedilla}
+   \botaccent{s}{cedilla}{500}
+\endsetglyph
+
+\setglyph{tcaron}
+   \glyph{t}{1000}
+   \ifisint{monowidth}\then\else
+      \movert{-75}
+   \fi
+   \glyph{quoteright}{1000}
+\endsetglyph
+
+\setglyph{tcedilla}
+   \botaccent{t}{cedilla}{500}
+\endsetglyph
+
+\setglyph{uhungarumlaut}
+   \topaccent{u}{hungarumlaut}{500}
+\endsetglyph
+
+\setglyph{uring}
+   \topaccent{u}{ring}{500}
+\endsetglyph
+
+\setglyph{ydieresis}
+   \topaccent{y}{dieresis}{500}
+\endsetglyph
+
+\setglyph{zacute}
+   \topaccent{z}{acute}{500}
+\endsetglyph
+
+\setglyph{zcaron}
+   \topaccent{z}{caron}{500}
+\endsetglyph
+
+\setglyph{zdotaccent}
+   \topaccent{z}{dotaccent}{500}
+\endsetglyph
+
+\setglyph{ij}
+   \glyph{i}{1000}
+   \movert{\kerning{i}{j}}
+   \glyph{j}{1000}
+\endsetglyph
+
+\setglyph{Agrave}
+   \topaccent{A}{grave}{500}
+\endsetglyph
+
+\setglyph{Aacute}
+   \topaccent{A}{acute}{500}
+\endsetglyph
+
+\setglyph{Acircumflex}
+   \topaccent{A}{circumflex}{500}
+\endsetglyph
+
+\setglyph{Atilde}
+   \topaccent{A}{tilde}{500}
+\endsetglyph
+
+\setglyph{Adieresis}
+   \topaccent{A}{dieresis}{500}
+\endsetglyph
+
+\setglyph{Aring}
+   \topaccent{A}{ring}{500}
+\endsetglyph
+
+\setglyph{Ccedilla}
+   \botaccent{C}{cedilla}{500}
+\endsetglyph
+
+\setglyph{Egrave}
+   \topaccent{E}{grave}{500}
+\endsetglyph
+
+\setglyph{Eacute}
+   \topaccent{E}{acute}{500}
+\endsetglyph
+
+\setglyph{Ecircumflex}
+   \topaccent{E}{circumflex}{500}
+\endsetglyph
+
+\setglyph{Edieresis}
+ \topaccent{E}{dieresis}{500}
+\endsetglyph
+
+\setglyph{Iacute}
+   \topaccent{I}{acute}{500}
+\endsetglyph
+
+\setglyph{Igrave}
+   \topaccent{I}{grave}{500}
+\endsetglyph
+
+\setglyph{Icircumflex}
+   \topaccent{I}{circumflex}{500}
+\endsetglyph
+
+\setglyph{Idieresis}
+   \topaccent{I}{dieresis}{500}
+\endsetglyph
+
+\setglyph{Ntilde}
+   \topaccent{N}{tilde}{500}
+\endsetglyph
+
+\setglyph{Ograve}
+   \topaccent{O}{grave}{500}
+\endsetglyph
+
+\setglyph{Oacute}
+   \topaccent{O}{acute}{500}
+\endsetglyph
+
+\setglyph{Ocircumflex}
+   \topaccent{O}{circumflex}{500}
+\endsetglyph
+
+\setglyph{Otilde}
+   \topaccent{O}{tilde}{500}
+\endsetglyph
+
+\setglyph{Odieresis}
+   \topaccent{O}{dieresis}{500}
+\endsetglyph
+
+\setglyph{Ugrave}
+   \topaccent{U}{grave}{500}
+\endsetglyph
+
+\setglyph{Uacute}
+   \topaccent{U}{acute}{500}
+\endsetglyph
+
+\setglyph{Ucircumflex}
+   \topaccent{U}{circumflex}{500}
+\endsetglyph
+
+\setglyph{Udieresis}
+   \topaccent{U}{dieresis}{500}
+\endsetglyph
+
+\setglyph{Yacute}
+   \topaccent{Y}{acute}{500}
+\endsetglyph
+
+\setglyph{SS}
+   \glyph{S}{1000}
+   \movert{\kerning{S}{S}}
+   \glyph{S}{1000}
+\endsetglyph
+
+\setglyph{agrave}
+   \topaccent{a}{grave}{500}
+\endsetglyph
+
+\setglyph{aacute}
+   \topaccent{a}{acute}{500}
+\endsetglyph
+
+\setglyph{acircumflex}
+   \topaccent{a}{circumflex}{500}
+\endsetglyph
+
+\setglyph{atilde}
+   \topaccent{a}{tilde}{500}
+\endsetglyph
+
+\setglyph{adieresis}
+   \topaccent{a}{dieresis}{500}
+\endsetglyph
+
+\setglyph{aring}
+   \topaccent{a}{ring}{500}
+\endsetglyph
+
+\setglyph{ccedilla}
+   \botaccent{c}{cedilla}{500}
+\endsetglyph
+
+\setglyph{egrave}
+   \topaccent{e}{grave}{500}
+\endsetglyph
+
+\setglyph{eacute}
+   \topaccent{e}{acute}{500}
+\endsetglyph
+
+\setglyph{ecircumflex}
+   \topaccent{e}{circumflex}{500}
+\endsetglyph
+
+\setglyph{edieresis}
+   \topaccent{e}{dieresis}{500}
+\endsetglyph
+
+\setglyph{igrave}
+   \topaccent{dotlessi}{grave}{500}
+\endsetglyph
+
+\setglyph{iacute}
+   \topaccent{dotlessi}{acute}{500}
+\endsetglyph
+
+\setglyph{icircumflex}
+   \topaccent{dotlessi}{circumflex}{500}
+\endsetglyph
+
+\setglyph{idieresis}
+   \topaccent{dotlessi}{dieresis}{500}
+\endsetglyph
+
+\setglyph{ntilde}
+   \topaccent{n}{tilde}{500}
+\endsetglyph
+
+\setglyph{ograve}
+   \topaccent{o}{grave}{500}
+\endsetglyph
+
+\setglyph{oacute}
+   \topaccent{o}{acute}{500}
+\endsetglyph
+
+\setglyph{ocircumflex}
+   \topaccent{o}{circumflex}{500}
+\endsetglyph
+
+\setglyph{otilde}
+   \topaccent{o}{tilde}{500}
+\endsetglyph
+
+\setglyph{odieresis}
+   \topaccent{o}{dieresis}{500}
+\endsetglyph
+
+\setglyph{ugrave}
+   \topaccent{u}{grave}{500}
+\endsetglyph
+
+\setglyph{uacute}
+   \topaccent{u}{acute}{500}
+\endsetglyph
+
+\setglyph{ucircumflex}
+   \topaccent{u}{circumflex}{500}
+\endsetglyph
+
+\setglyph{udieresis}
+   \topaccent{u}{dieresis}{500}
+\endsetglyph
+
+\setglyph{yacute}
+   \topaccent{y}{acute}{500}
+\endsetglyph
+
+%    \end{macrocode}
+%
+% \subsection{Deleting depths from accents}
+%
+%    \begin{macrocode}
+\comment{\section{Accents}
+   \TeX's math accent-positioning requires accents to have zero depth.}
+
+\setcommand\zerodepth#1{
+  \ifisglyph{#1}\then
+   \resetglyph{#1}
+        \glyph{#1}{1000}
+        \resetdepth{0}
+   \endresetglyph
+  \fi
+}
+\zerodepth{grave}
+\zerodepth{acute}
+\zerodepth{circumflex}
+\zerodepth{tilde}
+\zerodepth{dieresis}
+\zerodepth{hungarumlaut}
+\zerodepth{ring}
+\zerodepth{caron}
+\zerodepth{breve}
+\zerodepth{macron}
+\zerodepth{dotaccent}
+
+\endmetrics
+\end{document}
+%</blacklettermtx>
+%    \end{macrocode}
+%
+%
+% \section{The blackletter typefaces encoding vector, a T1 variant}
+%
+% This file |t1frak.etx| is a simplification and modification of |t1.etx| of
+% the \texttt{fontinst} package.  It describes the output encoding vector of
+% the blackletter typefaces.
+%
+% By and large, this is T1.  Only some not so frequently used characters have 
+% been replaced with additional ligatures and the so called ``round~s''.
+%
+% However, the \emph{names} of the glyphs here are the same as in real T1.
+% I wasn't brave enough to change them, but if it turns out that it's 
+% completely undangerous to use other name, I may change them.  Both variants
+% may cause confusion.
+%
+% The following substitutions are made from real T1:
+% \begin{itemize}
+% \item ``\j''~$\to$ ``si'' ligature
+% \item ``ffi'' ligature~$\to$ ``ch'' ligature
+% \item ``ffl''~$\to$ ``ck'' ligature
+% \item ``$\backslash$''~$\to$ ``ft'' ligature
+% \item ``$\hat{\ }$''~$\to$ ``ss'' ligature
+% \item ``\underline{ }''~$\to$ ``st'' ligature
+% \item ``$\vert$''~$\to$ ``tz'' ligature
+% \item ``Eng''~$\to$ ``S''
+% \item ``eng''~$\to$ ``round~s''
+% \end{itemize}
+%    \begin{macrocode}
+%<*t1fraketx>
+\relax
+
+\documentclass[twocolumn]{article}
+\usepackage[TS1,T1]{fontenc}
+\usepackage{textcomp}
+\usepackage{fontdoc}
+
+\title{The Fraktur encoding vector, a T1 variant}
+\author{Torsten Bronger}
+\date{29 May 2002 \\
+Version 1.0}
+
+\begin{document}
+
+\maketitle
+
+\section{Introduction}
+
+This document describes a modified Cork (T1) text encoding, modified
+for the so called old German fonts.
+
+\newcommand*{\actually}[1]{ \emph{\bfseries Actually, here
+    in the Fraktur encoding, the #1}.}
+
+\encoding
+
+\needsfontinstversion{1.801}
+
+%    \end{macrocode}
+%
+% \subsection{Default settings}
+%
+%    \begin{macrocode}
+\comment{\section{Default values}}
+
+\setstr{codingscheme}{EXTENDED TEX FONT ENCODING - LATIN}
+
+\setcommand\lc#1#2{#2}
+\setcommand\uc#1#2{#1}
+\setcommand\lctop#1#2{#2}
+\setcommand\uctop#1#2{#1}
+\setcommand\lclig#1#2{#2}
+\setcommand\uclig#1#2{#1}
+\setcommand\digit#1{#1}
+
+\setint{italicslant}{0}
+
+\ifisglyph{x}\then
+   \setint{xheight}{\height{x}}
+\else
+   \setint{xheight}{500}
+\fi
+
+\ifisglyph{space}\then
+  \setint{interword}{\width{space}}
+\else\ifisglyph{i}\then
+  \setint{interword}{\width{i}}
+\else
+  \setint{interword}{333}
+\fi\fi
+
+% added by Thierry Bouche <Thierry.Bouche@ujf-grenoble.fr>
+% 1997/02/07 to calculate values for extra EC fontdimens
+% Amended by SPQR 1997/02/09
+\ifisglyph{X}\then
+   \setint{capheight}{\height{X}}
+\else
+   \setint{capheight}{750}
+\fi
+
+\ifisglyph{k}\then
+   \setint{ascender}{\height{k}}
+\else
+   \ifisint{capheight}\then
+        \setint{ascender}{\int{capheight}}
+   \else
+        \setint{ascender}{750}
+\fi\fi
+
+\ifisglyph{Aring}\then
+   \setint{acccapheight}{\height{Aring}}
+\else
+   \setint{acccapheight}{999}
+\fi
+
+\ifisint{descender_neg}\then
+  \setint{descender}{\neg{\int{descender_neg}}}
+ \else
+    \ifisglyph{p}\then
+      \setint{descender}{\depth{p}}
+   \else
+      \setint{descender}{250}
+   \fi
+\fi
+
+\ifisglyph{Aring}\then
+   \setint{maxheight}{\height{Aring}}
+\else
+   \setint{maxheight}{1000}
+\fi
+
+\ifisint{maxdepth_neg}\then
+  \setint{maxdepth}{\neg{\int{maxdepth_neg}}}
+\else
+   \ifisglyph{j}\then
+    \setint{maxdepth}{\depth{j}}
+  \else
+    \setint{maxdepth}{250}
+  \fi
+\fi
+
+\ifisglyph{six}\then
+   \setint{digitwidth}{\width{six}}
+\else
+   \setint{digitwidth}{500}
+\fi
+
+\setint{capstem}{0} % not in AFM files
+\setint{baselineskip}{1200}
+% end changes by Thierry
+
+
+\comment{\section{Default font dimensions}}
+
+\setint{fontdimen(1)}{\int{italicslant}}              % italic slant
+\setint{fontdimen(2)}{\int{interword}}                % interword space
+\ifisint{monowidth}\then
+   \setint{fontdimen(3)}{0}                           % interword stretch
+   \setint{fontdimen(4)}{0}                           % interword shrink
+\else
+   \setint{fontdimen(3)}{\scale{\int{interword}}{600}}% interword stretch
+%    \end{macrocode}
+% The following was changed from 240 to 150.
+%    \begin{macrocode}
+   \setint{fontdimen(4)}{\scale{\int{interword}}{150}}% interword shrink
+\fi
+\setint{fontdimen(5)}{\int{xheight}}                  % x-height
+\setint{fontdimen(6)}{1000}                           % quad
+\ifisint{monowidth}\then
+   \setint{fontdimen(7)}{\int{interword}}             % extra space after .
+\else
+%    \end{macrocode}
+% The following was changed from 240 to 150.
+%    \begin{macrocode}
+   \setint{fontdimen(7)}{\scale{\int{interword}}{150}}% extra space after .
+\fi
+% added by Thierry Bouche <Thierry.Bouche@ujf-grenoble.fr> 1997/02/07
+\setint{fontdimen(8)}{\int{capheight}}   % cap height
+\setint{fontdimen(9)}{\int{ascender}}  % ascender
+\setint{fontdimen(10)}{\int{acccapheight}} % accented cap height
+\setint{fontdimen(11)}{\int{descender}} % descender's depth
+\setint{fontdimen(12)}{\int{maxheight}} % max height
+\setint{fontdimen(13)}{\int{maxdepth}} % max depth
+\setint{fontdimen(14)}{\int{digitwidth}} % digit width
+\setint{fontdimen(15)}{\int{capstem}} % cap_stem
+\setint{fontdimen(16)}{\int{baselineskip}} % baselineskip
+
+%    \end{macrocode}
+%
+% \subsection{The encoding vector}
+%
+%    \begin{macrocode}
+\comment{\section{The encoding}
+   There are 256 glyphs in this encoding.}
+
+\setslot{\lc{Grave}{grave}}
+   \comment{The grave accent `\`{}'.}
+\endsetslot
+
+\setslot{\lc{Acute}{acute}}
+   \comment{The acute accent `\'{}'.}
+\endsetslot
+
+\setslot{\lc{Circumflex}{circumflex}}
+   \comment{The circumflex accent `\^{}'.}
+\endsetslot
+
+\setslot{\lc{Tilde}{tilde}}
+   \comment{The tilde accent `\~{}'.}
+\endsetslot
+
+\setslot{\lc{Dieresis}{dieresis}}
+   \comment{The umlaut or dieresis accent `\"{}'.}
+\endsetslot
+
+\setslot{\lc{Hungarumlaut}{hungarumlaut}}
+   \comment{The long Hungarian umlaut `\H{}'.}
+\endsetslot
+
+\setslot{\lc{Ring}{ring}}
+   \comment{The ring accent `\r{}'.}
+\endsetslot
+
+\setslot{\lc{Caron}{caron}}
+   \comment{The caron or h\'a\v cek accent `\v{}'.}
+\endsetslot
+
+\setslot{\lc{Breve}{breve}}
+   \comment{The breve accent `\u{}'.}
+\endsetslot
+
+\setslot{\lc{Macron}{macron}}
+   \comment{The macron accent `\={}'.}
+\endsetslot
+
+\setslot{\lc{Dotaccent}{dotaccent}}
+   \comment{The dot accent `\.{}'.}
+\endsetslot
+
+\setslot{\lc{Cedilla}{cedilla}}
+   \comment{The cedilla accent `\c {}'.}
+\endsetslot
+
+\setslot{\lc{Ogonek}{ogonek}}
+   \comment{The ogonek accent `\k {}'.}
+\endsetslot
+
+\setslot{quotesinglbase}
+  \comment{A German single quote mark `\quotesinglbase' similar to a comma,
+      but with different sidebearings.}
+\endsetslot
+
+\setslot{guilsinglleft}
+  \comment{A French single opening quote mark `\guilsinglleft',
+      unavailable in \plain\ \TeX.}
+\endsetslot
+
+\setslot{guilsinglright}
+  \comment{A French single closing quote mark `\guilsinglright',
+      unavailable in \plain\ \TeX.}
+\endsetslot
+
+\setslot{quotedblleft}
+  \comment{The English opening quote mark `\,\textquotedblleft\,'.}
+\endsetslot
+
+\setslot{quotedblright}
+  \comment{The English closing quote mark `\,\textquotedblright\,'.}
+\endsetslot
+
+\setslot{quotedblbase}
+  \comment{A German double quote mark `\quotedblbase' similar to two commas,
+      but with tighter letterspacing and different sidebearings.}
+\endsetslot
+
+\setslot{guillemotleft}
+  \comment{A French double opening quote mark `\guillemotleft',
+      unavailable in \plain\ \TeX.}
+\endsetslot
+
+\setslot{guillemotright}
+  \comment{A French closing opening quote mark `\guillemotright',
+      unavailable in \plain\ \TeX.}
+\endsetslot
+
+\setslot{rangedash}
+   \ligature{LIG}{hyphen}{punctdash}
+   \comment{The number range dash `1--9'.  In a monowidth font, this
+      might be set as `{\tt 1{-}9}'.}
+\endsetslot
+
+\setslot{punctdash}
+   \comment{The punctuation dash `Oh---boy.'  In a monowidth font, this
+      might be set as `{\tt Oh{-}{-}boy.}'}
+\endsetslot
+
+\setslot{compwordmark}
+   \comment{An invisible glyph, with zero width and depth, but the
+      height of lowercase letters without ascenders.
+      It is used to stop ligaturing in words like `shelf{}ful'.}
+\endsetslot
+
+\setslot{perthousandzero}
+   \comment{A glyph which is placed after `\%' to produce a
+      `per-thousand', or twice to produce `per-ten-thousand'.
+      Your guess is as good as mine as to what this glyph should look
+      like in a monowidth font.}
+\endsetslot
+
+\setslot{\lc{dotlessI}{dotlessi}}
+   \comment{A dotless i `\i', used to produce accented letters such as
+      `\=\i'.}
+\endsetslot
+
+\setslot{\lc{dotlessJ}{dotlessj}}
+   \comment{A dotless j `\j', used to produce accented letters such as
+      `\=\j'.  Most non-\TeX\ fonts do not have this glyph.  \actually{`ssi'
+      ligature}}
+\endsetslot
+
+\setslot{\lclig{FF}{ff}}
+   \comment{The `ff' ligature.  It should be two characters wide in a
+      monowidth font.}
+\endsetslot
+
+\setslot{\lclig{FI}{fi}}
+   \comment{The `fi' ligature.  It should be two characters wide in a
+      monowidth font.}
+\endsetslot
+
+\setslot{\lclig{FL}{fl}}
+   \comment{The `fl' ligature.  It should be two characters wide in a
+      monowidth font.}
+\endsetslot
+
+\setslot{\lclig{FFI}{ffi}}
+   \comment{The `ffi' ligature.  It should be three characters wide in a
+      monowidth font. \actually{`ch' ligature}}
+\endsetslot
+
+\setslot{\lclig{FFL}{ffl}}
+   \comment{The `ffl' ligature.  It should be three characters wide in a
+      monowidth font. \actually{`ck' ligature}}
+\endsetslot
+
+\setslot{visiblespace}
+   \comment{A visible space glyph `\textvisiblespace'.}
+\endsetslot
+
+\setslot{exclam}
+   \ligature{LIG}{quoteleft}{exclamdown}
+   \comment{The exclamation mark `!'.}
+\endsetslot
+
+\setslot{quotedbl}
+  \comment{The `neutral' double quotation mark `\,\textquotedbl\,',
+      included for use in monowidth fonts, or for setting computer
+      programs.  Note that the inclusion of this glyph in this slot
+      means that \TeX\ documents which used `{\tt\char`\"}' as an
+      input character will no longer work.}
+\endsetslot
+
+\setslot{numbersign}
+   \comment{The hash sign `\#'.}
+\endsetslot
+
+\setslot{dollar}
+   \comment{The dollar sign `\$'.}
+\endsetslot
+
+\setslot{percent}
+   \comment{The percent sign `\%'.}
+\endsetslot
+
+\setslot{ampersand}
+   \comment{The ampersand sign `\&'.}
+\endsetslot
+
+\setslot{quoteright}
+   \ligature{LIG}{quoteright}{quotedblright}
+   \comment{The English closing single quote mark `\,\textquoteright\,'.}
+\endsetslot
+
+\setslot{parenleft}
+   \comment{The opening parenthesis `('.}
+\endsetslot
+
+\setslot{parenright}
+   \comment{The closing parenthesis `)'.}
+\endsetslot
+
+\setslot{asterisk}
+   \comment{The raised asterisk `*'.}
+\endsetslot
+
+\setslot{plus}
+   \comment{The addition sign `+'.}
+\endsetslot
+
+\setslot{comma}
+   \ligature{LIG}{comma}{quotedblbase}
+   \comment{The comma `,'.}
+\endsetslot
+
+\setslot{hyphen}
+   \ligature{LIG}{hyphen}{rangedash}
+   \ligature{LIG}{hyphenchar}{hyphenchar}
+   \comment{The hyphen `-'.}
+\endsetslot
+
+\setslot{period}
+   \comment{The period `.'.}
+\endsetslot
+
+\setslot{slash}
+   \comment{The forward oblique `/'.}
+\endsetslot
+
+\setslot{\digit{zero}}
+   \comment{The number `0'.  This (and all the other numerals) may be
+      old style or ranging digits.}
+\endsetslot
+
+\setslot{\digit{one}}
+   \comment{The number `1'.}
+\endsetslot
+
+\setslot{\digit{two}}
+   \comment{The number `2'.}
+\endsetslot
+
+\setslot{\digit{three}}
+   \comment{The number `3'.}
+\endsetslot
+
+\setslot{\digit{four}}
+   \comment{The number `4'.}
+\endsetslot
+
+\setslot{\digit{five}}
+   \comment{The number `5'.}
+\endsetslot
+
+\setslot{\digit{six}}
+   \comment{The number `6'.}
+\endsetslot
+
+\setslot{\digit{seven}}
+   \comment{The number `7'.}
+\endsetslot
+
+\setslot{\digit{eight}}
+   \comment{The number `8'.}
+\endsetslot
+
+\setslot{\digit{nine}}
+   \comment{The number `9'.}
+\endsetslot
+
+\setslot{colon}
+   \comment{The colon punctuation mark `:'.}
+\endsetslot
+
+\setslot{semicolon}
+   \comment{The semi-colon punctuation mark `;'.}
+\endsetslot
+
+\setslot{less}
+   \ligature{LIG}{less}{guillemotleft}
+   \comment{The less-than sign `\textless'.}
+\endsetslot
+
+\setslot{equal}
+   \comment{The equals sign `='.}
+\endsetslot
+
+\setslot{greater}
+   \ligature{LIG}{greater}{guillemotright}
+   \comment{The greater-than sign `\textgreater'.}
+\endsetslot
+
+\setslot{question}
+   \ligature{LIG}{quoteleft}{questiondown}
+   \comment{The question mark `?'.}
+\endsetslot
+
+\setslot{at}
+   \comment{The at sign `@'.}
+\endsetslot
+
+\setslot{\uc{A}{a}}
+   \comment{The letter `{A}'.}
+\endsetslot
+
+\setslot{\uc{B}{b}}
+   \comment{The letter `{B}'.}
+\endsetslot
+
+\setslot{\uc{C}{c}}
+   \comment{The letter `{C}'.}
+\endsetslot
+
+\setslot{\uc{D}{d}}
+   \comment{The letter `{D}'.}
+\endsetslot
+
+\setslot{\uc{E}{e}}
+   \comment{The letter `{E}'.}
+\endsetslot
+
+\setslot{\uc{F}{f}}
+   \comment{The letter `{F}'.}
+\endsetslot
+
+\setslot{\uc{G}{g}}
+   \comment{The letter `{G}'.}
+\endsetslot
+
+\setslot{\uc{H}{h}}
+   \comment{The letter `{H}'.}
+\endsetslot
+
+\setslot{\uc{I}{i}}
+   \comment{The letter `{I}'.}
+\endsetslot
+
+\setslot{\uc{J}{j}}
+   \comment{The letter `{J}'.  But actually just an `I'\@.}
+\endsetslot
+
+\setslot{\uc{K}{k}}
+   \comment{The letter `{K}'.}
+\endsetslot
+
+\setslot{\uc{L}{l}}
+   \comment{The letter `{L}'.}
+\endsetslot
+
+\setslot{\uc{M}{m}}
+   \comment{The letter `{M}'.}
+\endsetslot
+
+\setslot{\uc{N}{n}}
+   \comment{The letter `{N}'.}
+\endsetslot
+
+\setslot{\uc{O}{o}}
+   \comment{The letter `{O}'.}
+\endsetslot
+
+\setslot{\uc{P}{p}}
+   \comment{The letter `{P}'.}
+\endsetslot
+
+\setslot{\uc{Q}{q}}
+   \comment{The letter `{Q}'.}
+\endsetslot
+
+\setslot{\uc{R}{r}}
+   \comment{The letter `{R}'.}
+\endsetslot
+
+\setslot{\uc{S}{s}}
+   \comment{The letter `{S}'.}
+\endsetslot
+
+\setslot{\uc{T}{t}}
+   \comment{The letter `{T}'.}
+\endsetslot
+
+\setslot{\uc{U}{u}}
+   \comment{The letter `{U}'.}
+\endsetslot
+
+\setslot{\uc{V}{v}}
+   \comment{The letter `{V}'.}
+\endsetslot
+
+\setslot{\uc{W}{w}}
+   \comment{The letter `{W}'.}
+\endsetslot
+
+\setslot{\uc{X}{x}}
+   \comment{The letter `{X}'.}
+\endsetslot
+
+\setslot{\uc{Y}{y}}
+   \comment{The letter `{Y}'.}
+\endsetslot
+
+\setslot{\uc{Z}{z}}
+   \comment{The letter `{Z}'.}
+\endsetslot
+
+\setslot{bracketleft}
+   \comment{The opening square bracket `['.}
+\endsetslot
+
+\setslot{backslash}
+   \comment{The backwards oblique `\textbackslash'.  \actually{`sf' ligature}}
+\endsetslot
+
+\setslot{bracketright}
+   \comment{The closing square bracket `]'.}
+\endsetslot
+
+\setslot{asciicircum}
+   \ligature{LIG}{visiblespace}{germandbls}
+   \comment{The ASCII upward-pointing arrow head `\textasciicircum'.
+      This is included for compatibility with typewriter fonts used
+      for computer listings.  \actually{`ss' ligature}}
+\endsetslot
+
+\setslot{underscore}
+   \comment{The ASCII underline character `\textunderscore', usually
+      set on the baseline.
+      This is included for compatibility with typewriter fonts used
+      for computer listings.  \actually{`st' ligature}}
+\endsetslot
+
+\setslot{quoteleft}
+   \ligature{LIG}{quoteleft}{quotedblleft}
+   \comment{The English opening single quote mark `\,\textquoteleft\,'.}
+\endsetslot
+
+\setslot{\lc{A}{a}}
+   \comment{The letter `{a}'.}
+\endsetslot
+
+\setslot{\lc{B}{b}}
+   \comment{The letter `{b}'.}
+\endsetslot
+
+\setslot{\lc{C}{c}}
+   \ligature{LIG}{h}{ffi}
+   \ligature{LIG}{k}{ffl}
+   \comment{The letter `{c}'.}
+\endsetslot
+
+\setslot{\lc{D}{d}}
+   \comment{The letter `{d}'.}
+\endsetslot
+
+\setslot{\lc{E}{e}}
+   \comment{The letter `{e}'.}
+\endsetslot
+
+\setslot{\lc{F}{f}}
+   \ligature{LIG}{\lc{I}{i}}{\lclig{FI}{fi}}
+   \ligature{LIG}{\lc{F}{f}}{\lclig{FF}{ff}}
+   \ligature{LIG}{\lc{L}{l}}{\lclig{FL}{fl}}
+   \ligature{LIG}{\lc{T}{t}}{\lclig{backslash}{backslash}}
+   \comment{The letter `{f}'.}
+\endsetslot
+
+\setslot{\lc{G}{g}}
+   \comment{The letter `{g}'.}
+\endsetslot
+
+\setslot{\lc{H}{h}}
+   \comment{The letter `{h}'.}
+\endsetslot
+
+\setslot{\lc{I}{i}}
+   \comment{The letter `{i}'.}
+\endsetslot
+
+\setslot{\lc{J}{j}}
+   \comment{The letter `{j}'.}
+\endsetslot
+
+\setslot{\lc{K}{k}}
+   \comment{The letter `{k}'.}
+\endsetslot
+
+\setslot{\lc{L}{l}}
+   \comment{The letter `{l}'.}
+\endsetslot
+
+\setslot{\lc{M}{m}}
+   \comment{The letter `{m}'.}
+\endsetslot
+
+\setslot{\lc{N}{n}}
+   \comment{The letter `{n}'.}
+\endsetslot
+
+\setslot{\lc{O}{o}}
+   \comment{The letter `{o}'.}
+\endsetslot
+
+\setslot{\lc{P}{p}}
+   \comment{The letter `{p}'.}
+\endsetslot
+
+\setslot{\lc{Q}{q}}
+   \comment{The letter `{q}'.}
+\endsetslot
+
+\setslot{\lc{R}{r}}
+   \comment{The letter `{r}'.}
+\endsetslot
+
+\setslot{\lc{S}{s}}
+%    \end{macrocode}
+% The following ligature is with the boundary character and performs the
+% transformation of the long~s to the round~s.
+%    \begin{macrocode}
+   \ligature{LIG}{visiblespace}{ng}
+   \ligature{LIG}{t}{underscore}
+   \ligature{LIG}{s}{asciicircum}
+   \ligature{LIG}{f}{backslash}
+   \ligature{LIG}{i}{dotlessj}
+%    \end{macrocode}
+% The following ligatures make the long~s to become a round~s if one of these
+% characters immediately follows.  This prevents the user to insert |\/| and
+% similar things at ubiquitous places.
+%    \begin{macrocode}
+   \ligature{LIG/}{quoteright}{ng}
+   \ligature{LIG/}{guilsinglleft}{ng}
+   \ligature{LIG/}{guilsinglright}{ng}
+   \ligature{LIG/}{quotedblleft}{ng}
+   \ligature{LIG/}{quotedblright}{ng}
+   \ligature{LIG/}{guillemotleft}{ng}
+   \ligature{LIG/}{guillemotright}{ng}
+   \ligature{LIG/}{period}{ng}
+   \ligature{LIG/}{comma}{ng}
+   \ligature{LIG/}{colon}{ng}
+   \ligature{LIG/}{semicolon}{ng}
+   \ligature{LIG/}{exclam}{ng}
+   \ligature{LIG/}{question}{ng}
+   \ligature{LIG/}{slash}{ng}
+   \ligature{LIG/}{hyphen}{ng}
+   \ligature{LIG/}{parenleft}{ng}
+   \ligature{LIG/}{parenright}{ng}
+   \comment{The letter `{s}'.  \actually{letter long `s'}}
+\endsetslot
+
+\setslot{\lc{T}{t}}
+   \ligature{LIG}{z}{bar}
+   \comment{The letter `{t}'.}
+\endsetslot
+
+\setslot{\lc{U}{u}}
+   \comment{The letter `{u}'.}
+\endsetslot
+
+\setslot{\lc{V}{v}}
+   \comment{The letter `{v}'.}
+\endsetslot
+
+\setslot{\lc{W}{w}}
+   \comment{The letter `{w}'.}
+\endsetslot
+
+\setslot{\lc{X}{x}}
+   \comment{The letter `{x}'.}
+\endsetslot
+
+\setslot{\lc{Y}{y}}
+   \comment{The letter `{y}'.}
+\endsetslot
+
+\setslot{\lc{Z}{z}}
+   \comment{The letter `{z}'.}
+\endsetslot
+
+\setslot{braceleft}
+   \comment{The opening curly brace `\textbraceleft'.}
+\endsetslot
+
+\setslot{bar}
+   \comment{The ASCII vertical bar `\textbar'.
+      This is included for compatibility with typewriter fonts used
+      for computer listings.  \actually{`tz' ligature}}
+\endsetslot
+
+\setslot{braceright}
+   \comment{The closing curly brace `\textbraceright'.}
+\endsetslot
+
+\setslot{asciitilde}
+   \comment{The ASCII tilde `\textasciitilde'.
+      This is included for compatibility with typewriter fonts used
+      for computer listings.}
+\endsetslot
+
+\setslot{hyphenchar}
+   \comment{The glyph used for hyphenation in this font, which will
+      almost always be the same as `hyphen'.}
+\endsetslot
+
+
+\setslot{\uctop{Abreve}{abreve}}
+   \comment{The letter `\u A'.}
+\endsetslot
+
+\setslot{\uc{Aogonek}{aogonek}}
+   \comment{The letter `\k A'.}
+\endsetslot
+
+\setslot{\uctop{Cacute}{cacute}}
+   \comment{The letter `\' C'.}
+\endsetslot
+
+\setslot{\uctop{Ccaron}{ccaron}}
+   \comment{The letter `\v C'.}
+\endsetslot
+
+\setslot{\uctop{Dcaron}{dcaron}}
+   \comment{The letter `\v D'.}
+\endsetslot
+
+\setslot{\uctop{Ecaron}{ecaron}}
+   \comment{The letter `\v E'.}
+\endsetslot
+
+\setslot{\uc{Eogonek}{eogonek}}
+   \comment{The letter `\k E'.}
+\endsetslot
+
+\setslot{\uctop{Gbreve}{gbreve}}
+   \comment{The letter `\u G'.}
+\endsetslot
+
+\setslot{\uctop{Lacute}{lacute}}
+   \comment{The letter `\' L'.}
+\endsetslot
+
+\setslot{\uc{Lcaron}{lcaron}}
+   \comment{The letter `\v L'.}
+\endsetslot
+
+\setslot{\uc{Lslash}{lslash}}
+   \comment{The letter `\L'.}
+\endsetslot
+
+\setslot{\uctop{Nacute}{nacute}}
+   \comment{The letter `\' N'.}
+\endsetslot
+
+\setslot{\uctop{Ncaron}{ncaron}}
+   \comment{The letter `\v N'.}
+\endsetslot
+
+\setslot{\uc{Ng}{ng}}
+   \comment{The Sami letter `\NG'.  It is unavailable in \plain\ \TeX.
+     \actually{letter `S'}}
+\endsetslot
+
+\setslot{\uctop{Ohungarumlaut}{ohungarumlaut}}
+   \comment{The letter `\H O'.}
+\endsetslot
+
+\setslot{\uctop{Racute}{racute}}
+   \comment{The letter `\' R'.}
+\endsetslot
+
+\setslot{\uctop{Rcaron}{rcaron}}
+   \comment{The letter `\v R'.}
+\endsetslot
+
+\setslot{\uctop{Sacute}{sacute}}
+   \comment{The letter `\' S'.}
+\endsetslot
+
+\setslot{\uctop{Scaron}{scaron}}
+   \comment{The letter `\v S'.}
+\endsetslot
+
+\setslot{\uc{Scedilla}{scedilla}}
+   \comment{The letter `\c S'.}
+\endsetslot
+
+\setslot{\uctop{Tcaron}{tcaron}}
+   \comment{The letter `\v T'.}
+\endsetslot
+
+\setslot{\uc{Tcedilla}{tcedilla}}
+   \comment{The letter `\c T'.}
+\endsetslot
+
+\setslot{\uctop{Uhungarumlaut}{uhungarumlaut}}
+   \comment{The letter `\H U'.}
+\endsetslot
+
+\setslot{\uctop{Uring}{uring}}
+   \comment{The letter `\r U'.}
+\endsetslot
+
+\setslot{\uctop{Ydieresis}{ydieresis}}
+   \comment{The letter `\" Y'.}
+\endsetslot
+
+\setslot{\uctop{Zacute}{zacute}}
+   \comment{The letter `\' Z'.}
+\endsetslot
+
+\setslot{\uctop{Zcaron}{zcaron}}
+   \comment{The letter `\v Z'.}
+\endsetslot
+
+\setslot{\uctop{Zdotaccent}{zdotaccent}}
+   \comment{The letter `\. Z'.}
+\endsetslot
+
+\setslot{\uclig{IJ}{ij}}
+   \comment{The letter `IJ'.  This is a single letter, and in a monowidth
+      font should ideally be one letter wide.}
+\endsetslot
+
+\setslot{\uctop{Idotaccent}{idotaccent}}
+   \comment{The letter `\. I'.}
+\endsetslot
+
+\setslot{\lc{Dbar}{dbar}}
+   \comment{The letter `\dj'.}
+\endsetslot
+
+\setslot{section}
+   \comment{The section mark `\textsection'.}
+\endsetslot
+
+\setslot{\lctop{Abreve}{abreve}}
+   \comment{The letter `\u a'.}
+\endsetslot
+
+\setslot{\lc{Aogonek}{aogonek}}
+   \comment{The letter `\k a'.}
+\endsetslot
+
+\setslot{\lctop{Cacute}{cacute}}
+   \comment{The letter `\' c'.}
+\endsetslot
+
+\setslot{\lctop{Ccaron}{ccaron}}
+   \comment{The letter `\v c'.}
+\endsetslot
+
+\setslot{\lctop{Dcaron}{dcaron}}
+   \comment{The letter `\v d'.}
+\endsetslot
+
+\setslot{\lctop{Ecaron}{ecaron}}
+   \comment{The letter `\v e'.}
+\endsetslot
+
+\setslot{\lc{Eogonek}{eogonek}}
+   \comment{The letter `\k e'.}
+\endsetslot
+
+\setslot{\lctop{Gbreve}{gbreve}}
+   \comment{The letter `\u g'.}
+\endsetslot
+
+\setslot{\lctop{Lacute}{lacute}}
+   \comment{The letter `\' l'.}
+\endsetslot
+
+\setslot{\lc{Lcaron}{lcaron}}
+   \comment{The letter `\v l'.}
+\endsetslot
+
+\setslot{\lc{Lslash}{lslash}}
+   \comment{The letter `\l'.}
+\endsetslot
+
+\setslot{\lctop{Nacute}{nacute}}
+   \comment{The letter `\' n'.}
+\endsetslot
+
+\setslot{\lctop{Ncaron}{ncaron}}
+   \comment{The letter `\v n'.}
+\endsetslot
+
+\setslot{\lc{Ng}{ng}}
+%    \ligature{LIG/>}{hyphen}{s}
+%    \ligature{LIG/>}{hyphenchar}{s}
+   \comment{The Sami letter `\ng'.  It is unavailable in \plain\ \TeX.
+     \actually{letter round `s'}}
+\endsetslot
+
+\setslot{\lctop{Ohungarumlaut}{ohungarumlaut}}
+   \comment{The letter `\H o'.}
+\endsetslot
+
+\setslot{\lctop{Racute}{racute}}
+   \comment{The letter `\' r'.}
+\endsetslot
+
+\setslot{\lctop{Rcaron}{rcaron}}
+   \comment{The letter `\v r'.}
+\endsetslot
+
+\setslot{\lctop{Sacute}{sacute}}
+   \comment{The letter `\' s'.}
+\endsetslot
+
+\setslot{\lctop{Scaron}{scaron}}
+   \comment{The letter `\v s'.}
+\endsetslot
+
+\setslot{\lc{Scedilla}{scedilla}}
+   \comment{The letter `\c s'.}
+\endsetslot
+
+\setslot{\lctop{Tcaron}{tcaron}}
+   \comment{The letter `\v t'.}
+\endsetslot
+
+\setslot{\lc{Tcedilla}{tcedilla}}
+   \comment{The letter `\c t'.}
+\endsetslot
+
+\setslot{\lctop{Uhungarumlaut}{uhungarumlaut}}
+   \comment{The letter `\H u'.}
+\endsetslot
+
+\setslot{\lctop{Uring}{uring}}
+   \comment{The letter `\r u'.}
+\endsetslot
+
+\setslot{\lctop{Ydieresis}{ydieresis}}
+   \comment{The letter `\" y'.}
+\endsetslot
+
+\setslot{\lctop{Zacute}{zacute}}
+   \comment{The letter `\' z'.}
+\endsetslot
+
+\setslot{\lctop{Zcaron}{zcaron}}
+   \comment{The letter `\v z'.}
+\endsetslot
+
+\setslot{\lctop{Zdotaccent}{zdotaccent}}
+   \comment{The letter `\. z'.}
+\endsetslot
+
+\setslot{\lclig{IJ}{ij}}
+   \comment{The letter `ij'.  This is a single letter, and in a monowidth
+      font should ideally be one letter wide.}
+\endsetslot
+
+\setslot{exclamdown}
+   \comment{The Spanish punctuation mark `!`'.}
+\endsetslot
+
+\setslot{questiondown}
+   \comment{The Spanish punctuation mark `?`'.}
+\endsetslot
+
+\setslot{sterling}
+   \comment{The British currency mark `\textsterling'.}
+\endsetslot
+
+\setslot{\uctop{Agrave}{agrave}}
+   \comment{The letter `\` A'.}
+\endsetslot
+
+\setslot{\uctop{Aacute}{aacute}}
+   \comment{The letter `\' A'.}
+\endsetslot
+
+\setslot{\uctop{Acircumflex}{acircumflex}}
+   \comment{The letter `\^ A'.}
+\endsetslot
+
+\setslot{\uctop{Atilde}{atilde}}
+   \comment{The letter `\~ A'.}
+\endsetslot
+
+\setslot{\uctop{Adieresis}{adieresis}}
+   \comment{The letter `\" A'.}
+\endsetslot
+
+\setslot{\uctop{Aring}{aring}}
+   \comment{The letter `\r A'.}
+\endsetslot
+
+\setslot{\uc{AE}{ae}}
+   \comment{The letter `\AE'.  This is a single letter, and should not be
+      faked with `AE'.}
+\endsetslot
+
+\setslot{\uc{Ccedilla}{ccedilla}}
+   \comment{The letter `\c C'.}
+\endsetslot
+
+\setslot{\uctop{Egrave}{egrave}}
+   \comment{The letter `\` E'.}
+\endsetslot
+
+\setslot{\uctop{Eacute}{eacute}}
+   \comment{The letter `\' E'.}
+\endsetslot
+
+\setslot{\uctop{Ecircumflex}{ecircumflex}}
+   \comment{The letter `\^ E'.}
+\endsetslot
+
+\setslot{\uctop{Edieresis}{edieresis}}
+   \comment{The letter `\" E'.}
+\endsetslot
+
+\setslot{\uctop{Igrave}{igrave}}
+   \comment{The letter `\` I'.}
+\endsetslot
+
+\setslot{\uctop{Iacute}{iacute}}
+   \comment{The letter `\' I'.}
+\endsetslot
+
+\setslot{\uctop{Icircumflex}{icircumflex}}
+   \comment{The letter `\^ I'.}
+\endsetslot
+
+\setslot{\uctop{Idieresis}{idieresis}}
+   \comment{The letter `\" I'.}
+\endsetslot
+
+\setslot{\uc{Eth}{eth}}
+   \comment{The uppercase Icelandic letter `Eth' similar to a `D'
+      with a horizontal bar through the stem.  It is unavailable
+      in \plain\ \TeX.}
+\endsetslot
+
+\setslot{\uctop{Ntilde}{ntilde}}
+   \comment{The letter `\~ N'.}
+\endsetslot
+
+\setslot{\uctop{Ograve}{ograve}}
+   \comment{The letter `\` O'.}
+\endsetslot
+
+\setslot{\uctop{Oacute}{oacute}}
+   \comment{The letter `\' O'.}
+\endsetslot
+
+\setslot{\uctop{Ocircumflex}{ocircumflex}}
+   \comment{The letter `\^ O'.}
+\endsetslot
+
+\setslot{\uctop{Otilde}{otilde}}
+   \comment{The letter `\~ O'.}
+\endsetslot
+
+\setslot{\uctop{Odieresis}{odieresis}}
+   \comment{The letter `\" O'.}
+\endsetslot
+
+\setslot{\uc{OE}{oe}}
+   \comment{The letter `\OE'.  This is a single letter, and should not be
+      faked with `OE'.}
+\endsetslot
+
+\setslot{\uc{Oslash}{oslash}}
+   \comment{The letter `\O'.}
+\endsetslot
+
+\setslot{\uctop{Ugrave}{ugrave}}
+   \comment{The letter `\` U'.}
+\endsetslot
+
+\setslot{\uctop{Uacute}{uacute}}
+   \comment{The letter `\' U'.}
+\endsetslot
+
+\setslot{\uctop{Ucircumflex}{ucircumflex}}
+   \comment{The letter `\^ U'.}
+\endsetslot
+
+\setslot{\uctop{Udieresis}{udieresis}}
+   \comment{The letter `\" U'.}
+\endsetslot
+
+\setslot{\uctop{Yacute}{yacute}}
+   \comment{The letter `\' Y'.}
+\endsetslot
+
+\setslot{\uc{Thorn}{thorn}}
+   \comment{The Icelandic capital letter Thorn, similar to a `P'
+      with the bowl moved down.  It is unavailable in \plain\ \TeX.}
+\endsetslot
+
+\setslot{\uclig{SS}{germandbls}}
+   \comment{The ligature `SS', used to give an upper case `\ss'.
+      In a monowidth font it should be two letters wide.}
+\endsetslot
+
+\setslot{\lctop{Agrave}{agrave}}
+   \comment{The letter `\` a'.}
+\endsetslot
+
+\setslot{\lctop{Aacute}{aacute}}
+   \comment{The letter `\' a'.}
+\endsetslot
+
+\setslot{\lctop{Acircumflex}{acircumflex}}
+   \comment{The letter `\^ a'.}
+\endsetslot
+
+\setslot{\lctop{Atilde}{atilde}}
+   \comment{The letter `\~ a'.}
+\endsetslot
+
+\setslot{\lctop{Adieresis}{adieresis}}
+   \comment{The letter `\" a'.}
+\endsetslot
+
+\setslot{\lctop{Aring}{aring}}
+   \comment{The letter `\r a'.}
+\endsetslot
+
+\setslot{\lc{AE}{ae}}
+   \comment{The letter `\ae'.  This is a single letter, and should not be
+      faked with `ae'.}
+\endsetslot
+
+\setslot{\lc{Ccedilla}{ccedilla}}
+   \comment{The letter `\c c'.}
+\endsetslot
+
+\setslot{\lctop{Egrave}{egrave}}
+   \comment{The letter `\` e'.}
+\endsetslot
+
+\setslot{\lctop{Eacute}{eacute}}
+   \comment{The letter `\' e'.}
+\endsetslot
+
+\setslot{\lctop{Ecircumflex}{ecircumflex}}
+   \comment{The letter `\^ e'.}
+\endsetslot
+
+\setslot{\lctop{Edieresis}{edieresis}}
+   \comment{The letter `\" e'.}
+\endsetslot
+
+\setslot{\lctop{Igrave}{igrave}}
+   \comment{The letter `\`\i'.}
+\endsetslot
+
+\setslot{\lctop{Iacute}{iacute}}
+   \comment{The letter `\'\i'.}
+\endsetslot
+
+\setslot{\lctop{Icircumflex}{icircumflex}}
+   \comment{The letter `\^\i'.}
+\endsetslot
+
+\setslot{\lctop{Idieresis}{idieresis}}
+   \comment{The letter `\"\i'.}
+\endsetslot
+
+\setslot{\lc{Eth}{eth}}
+   \comment{The Icelandic lowercase letter `eth' similar to
+     a `$\partial$' with an oblique bar through the stem.
+     It is unavailable in \plain\ \TeX.}
+\endsetslot
+
+\setslot{\lctop{Ntilde}{ntilde}}
+   \comment{The letter `\~ n'.}
+\endsetslot
+
+\setslot{\lctop{Ograve}{ograve}}
+   \comment{The letter `\` o'.}
+\endsetslot
+
+\setslot{\lctop{Oacute}{oacute}}
+   \comment{The letter `\' o'.}
+\endsetslot
+
+\setslot{\lctop{Ocircumflex}{ocircumflex}}
+   \comment{The letter `\^ o'.}
+\endsetslot
+
+\setslot{\lctop{Otilde}{otilde}}
+   \comment{The letter `\~ o'.}
+\endsetslot
+
+\setslot{\lctop{Odieresis}{odieresis}}
+   \comment{The letter `\" o'.}
+\endsetslot
+
+\setslot{\lc{OE}{oe}}
+   \comment{The letter `\oe'.  This is a single letter, and should not be
+      faked with `oe'.}
+\endsetslot
+
+\setslot{\lc{Oslash}{oslash}}
+   \comment{The letter `\o'.}
+\endsetslot
+
+\setslot{\lctop{Ugrave}{ugrave}}
+   \comment{The letter `\` u'.}
+\endsetslot
+
+\setslot{\lctop{Uacute}{uacute}}
+   \comment{The letter `\' u'.}
+\endsetslot
+
+\setslot{\lctop{Ucircumflex}{ucircumflex}}
+   \comment{The letter `\^ u'.}
+\endsetslot
+
+\setslot{\lctop{Udieresis}{udieresis}}
+   \comment{The letter `\" u'.}
+\endsetslot
+
+\setslot{\lctop{Yacute}{yacute}}
+   \comment{The letter `\' y'.}
+\endsetslot
+
+\setslot{\lc{Thorn}{thorn}}
+   \comment{The Icelandic lowercase letter `thorn', similar to a `p'
+      with an ascender rising from the stem.  It is unavailable
+      in \plain\ \TeX.}
+\endsetslot
+
+\setslot{\lc{SS}{germandbls}}
+   \comment{The letter `\ss'.}
+\endsetslot
+
+\endencoding
+
+\end{document}
+%</t1fraketx>
+%    \end{macrocode}
+% \Finale
+
+\endinput
+%%% Local Variables: 
+%%% mode: latex
+%%% TeX-master: t
+%%% End: 

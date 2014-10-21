@@ -1,0 +1,347 @@
+% \iffalse
+% $Id: mdputu.dtx,v 1.6 2010-11-03 01:58:00 boris Exp $
+%
+% Copyright (c) 2010, Boris Veytsman
+%
+% All rights reserved.
+%
+% Redistribution and use in source and binary forms, with or without
+% modification, are permitted provided that the following conditions
+% are met: 
+%
+%    * Redistributions of source code must retain the above copyright
+%    notice, this list of conditions and the following disclaimer. 
+%    * Redistributions in binary form must reproduce the above
+%    copyright notice, this list of conditions and the following
+%    disclaimer in the documentation and/or other materials provided
+%    with the distribution. 
+%    * Neither the name of the original author nor the names of the
+%    contributors may be used to endorse or promote products derived
+%    from this software without specific prior written permission. 
+%
+% THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND
+% CONTRIBUTORS "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES,
+% INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF
+% MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+% DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS
+% BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL,
+% EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED
+% TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE,
+% DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON
+% ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
+% OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY
+% OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
+% POSSIBILITY OF SUCH DAMAGE.
+%
+% \fi 
+% \CheckSum{86}
+%
+%
+%% \CharacterTable
+%%  {Upper-case    \A\B\C\D\E\F\G\H\I\J\K\L\M\N\O\P\Q\R\S\T\U\V\W\X\Y\Z
+%%   Lower-case    \a\b\c\d\e\f\g\h\i\j\k\l\m\n\o\p\q\r\s\t\u\v\w\x\y\z
+%%   Digits        \0\1\2\3\4\5\6\7\8\9
+%%   Exclamation   \!     Double quote  \"     Hash (number) \#
+%%   Dollar        \$     Percent       \%     Ampersand     \&
+%%   Acute accent  \'     Left paren    \(     Right paren   \)
+%%   Asterisk      \*     Plus          \+     Comma         \,
+%%   Minus         \-     Point         \.     Solidus       \/
+%%   Colon         \:     Semicolon     \;     Less than     \<
+%%   Equals        \=     Greater than  \>     Question mark \?
+%%   Commercial at \@     Left bracket  \[     Backslash     \\
+%%   Right bracket \]     Circumflex    \^     Underscore    \_
+%%   Grave accent  \`     Left brace    \{     Vertical bar  \|
+%%   Right brace   \}     Tilde         \~} 
+%
+%\iffalse
+% Taken from xkeyval.dtx
+%\fi
+%\makeatletter
+%\def\DescribeOption#1{\leavevmode\@bsphack
+%              \marginpar{\raggedleft\PrintDescribeOption{#1}}%
+%              \SpecialOptionIndex{#1}\@esphack\ignorespaces}
+%\def\PrintDescribeOption#1{\strut\emph{option}\\\MacroFont #1\ }
+%\def\SpecialOptionIndex#1{\@bsphack
+%    \index{#1\actualchar{\protect\ttfamily#1}
+%           (option)\encapchar usage}%
+%    \index{options:\levelchar#1\actualchar{\protect\ttfamily#1}\encapchar
+%           usage}\@esphack}
+%\def\DescribeOptions#1{\leavevmode\@bsphack
+%  \marginpar{\raggedleft\strut\emph{options}%
+%  \@for\@tempa:=#1\do{%
+%    \\\strut\MacroFont\@tempa\SpecialOptionIndex\@tempa
+%  }}\@esphack\ignorespaces}
+%\makeatother
+%
+%
+% \MakeShortVerb{|}
+% \GetFileInfo{mdputu.dtx}
+% \title{Unslanted Digits in Adobe Utopia Italics\thanks{The font was
+% commissioned by the \emph{Annals of Mathematics}}}
+% \author{Boris Veytsman\thanks{%
+% \href{mailto:borisv@lk.net}{\texttt{borisv@lk.net}},
+% \href{mailto:boris@varphi.com}{\texttt{boris@varphi.com}}}} 
+% \date{\filedate, \fileversion}
+% \maketitle
+% \begin{abstract}
+%   The \emph{Annals of Mathematics} uses italics for theorems.
+%   However, slanted digits and parentheses look disturbing when
+%   surrounded by (upright) math.  This package provides virtual fonts
+%   with italics and upright digits and punctuation.
+% \end{abstract}
+% \tableofcontents
+% \clearpage
+%
+% \changes{v1.0}{2010/08/25}{First fully functional version} 
+% \changes{v1.1}{2010/09/15}{Changed the location of TFM and VF files
+% per request by Karl Berry} 
+% \changes{v1.2}{2010/11/02}{Corrected the bug in fd files:  the fonts are
+% scaled by 0.92 now (thanks to AoM staff for noticing!)} 
+%
+%\section{Introduction}
+%\label{sec:intro}
+%
+% This package provides fonts for the \emph{Annals of Mathematics.}
+% The journal uses italics for theorems, but the house style requires
+% upright digits and punctuation.  Since the journal switched to Adobe
+% Utopia fonts, it needed matching fonts for theorems typesetting.  
+%
+%
+% To install the package you need the file
+% \url{http://mirrors.ctan.org/install/fonts/mdputu.tds.zip}/ Unzip
+% this file in \path{$TEXMF}.  Run |texhash| to update the
+% configuration files and file names database.
+%
+%  
+%
+% To use the package, you need to call it after
+% |\usepackage[utopia]{mathdesign}|:
+% \begin{verbatim}
+% \usepackage[utopia]{mathdesign}
+% \usepackage{mdputu}
+% \end{verbatim}
+%\DescribeMacro{\sitshape}
+%\DescribeMacro{\textsit}
+%\DescribeMacro{\specialdigits}
+% This will define new font shape `special italics', which can be
+% switched on by the declaration |\sitshape| or command |\textsit|,
+% for example
+% \begin{verbatim}
+% {\sitshape This is example~1,} and this is \textsit{example~2.} 
+% \end{verbatim}
+% The command |\specialdigits| changes  italics to special italics:
+% \begin{verbatim}
+% Here the numbers \textit{123 are slanted}.  {\specialdigits Here 
+% the numbers \textit{123 are uprigt.}}
+% \end{verbatim}
+% 
+%
+%
+% \StopEventually{}
+%
+%\section{Implementation}
+%\label{sec:impl}
+%
+%\subsection{Identification}
+%\label{sec:ident}
+%
+% 
+% We start with the declaration who we are.  Most |.dtx| files put
+% driver code in a separate driver file |.drv|.  We roll this code into the
+% main file, and use the pseudo-guard |<gobble>| for it. 
+%
+%    \begin{macrocode}
+%<style>\NeedsTeXFormat{LaTeX2e}
+%<*gobble>
+\ProvidesFile{mdputu.dtx}
+%</gobble>
+%<style>\ProvidesClass{mdputu}
+%<drv>\ProvidesFile{drv.tex}
+%<*!mtx>
+[2010/11/02 v1.2 Adobe Utopia Font with Unslanted Digits]
+%</!mtx>
+%    \end{macrocode}
+% And the driver code:
+%    \begin{macrocode}
+%<*gobble>
+\documentclass{ltxdoc}
+\usepackage{booktabs,amsmath}
+\usepackage{url}
+\usepackage[breaklinks,colorlinks,linkcolor=black,citecolor=black,
+            pagecolor=black,urlcolor=black,hyperindex=false]{hyperref}
+\PageIndex
+\CodelineIndex
+\RecordChanges
+\EnableCrossrefs
+\begin{document}
+  \DocInput{mdputu.dtx}
+\end{document}
+%</gobble> 
+%    \end{macrocode}
+%
+%
+%\subsection{Fontinst Driver}
+%\label{sec:drv}
+%
+%
+% First, we read the \textsf{Fontinst} program |fontinst.sty|:
+%    \begin{macrocode}
+%<*drv>
+\input fontinst.sty
+%    \end{macrocode}
+% 
+% Standard substitutions.
+%    \begin{macrocode}
+\substitutesilent{bx}{b}
+%    \end{macrocode}
+%
+%
+% First, we create |.pl| files
+%    \begin{macrocode}
+\generalpltomtx{mdputri7t}{mdputri7t}{vpl}{}
+\generalpltomtx{mdputr7t}{mdputr7t}{vpl}{}
+\generalpltomtx{mdputbi7t}{mdputbi7t}{vpl}{}
+\generalpltomtx{mdputb7t}{mdputb7t}{vpl}{}
+\generalpltomtx{mdputri8t}{mdputri8t}{vpl}{}
+\generalpltomtx{mdputr8t}{mdputr8t}{vpl}{}
+\generalpltomtx{mdputbi8t}{mdputbi8t}{vpl}{}
+\generalpltomtx{mdputb8t}{mdputb8t}{vpl}{}
+%    \end{macrocode}
+% 
+% Now font installation
+% the first one:
+%    \begin{macrocode}
+\installfonts
+\installfamily{OT1}{mdputu}{}
+\installfont{mdputuri7t}{%
+  mdputri7t,deldigits,mdputr7t}{ot1}{OT1}{mdputu}{m}{si}{}
+\installfont{mdputubi7t}{%
+  mdputbi7t,deldigits,mdputb7t}{ot1}{OT1}{mdputu}{bx}{si}{}
+\installfamily{T1}{mdputu}{}
+\installfont{mdputuri8t}{%
+  mdputri8t,deldigits,mdputr8t}{t1}{T1}{mdputu}{m}{si}{}
+\installfont{%
+  mdputubi8t}{mdputbi8t,deldigits,mdputb8t}{t1}{T1}{mdputu}{bx}{si}{}
+\endinstallfonts
+\bye
+%</drv>
+%    \end{macrocode}
+% 
+%
+%
+%
+%\subsection{Deleting Digits}
+%\label{sec:deldigits}
+%
+%
+%
+% Everything between |\relax| and |\metrix| is just a comment:
+%    \begin{macrocode}
+%<*mtx>
+\relax
+Unset all digits and punctuation
+\metrics
+%    \end{macrocode}
+% 
+% The file itself uses the command |\unsetglyph|.  We unset the
+% digits, parenthesizes, etc.
+%    \begin{macrocode}
+\unsetglyph{exclam}
+\unsetglyph{parenleft}
+\unsetglyph{parenright}
+\unsetglyph{comma}
+\unsetglyph{period}
+\unsetglyph{slash}
+\unsetglyph{zero}
+\unsetglyph{one}
+\unsetglyph{two}
+\unsetglyph{three}
+\unsetglyph{four}
+\unsetglyph{five}
+\unsetglyph{six}
+\unsetglyph{seven}
+\unsetglyph{eight}
+\unsetglyph{nine}
+\unsetglyph{colon}
+\unsetglyph{semicolon}
+\unsetglyph{exclamdown}
+\unsetglyph{questiondown}
+\unsetglyph{question}
+\unsetglyph{bracketleft}
+\unsetglyph{bracketright}
+\unsetglyph{braceleft}
+\unsetglyph{braceright}
+\endmetrics
+%</mtx>
+%    \end{macrocode}
+%
+%
+%
+%\subsection{Style File}
+%\label{sec:style}
+%
+% Now we are ready to work on the style file.  First, some |fd|
+% commands.  They belong here rather than in a proper |fd| file
+% because we want to add to the |mdput| files, not to overwrite them:
+%    \begin{macrocode}
+%<*style>
+\InputIfFileExists{ot1mdput.fd}{}{\ClassError{mdputu}{You do not have
+    mathdesign package installed!}}
+\InputIfFileExists{t1mdput.fd}{}{\ClassError{mdputu}{You do not have
+    mathdesign package installed!}}
+\DeclareFontShape{OT1}{mdput}{m}{si}{
+   <-> s * [0.92] mdputuri7t
+}{}
+\DeclareFontShape{OT1}{mdput}{bx}{si}{
+   <-> s * [0.92] mdputubi7t
+}{}
+\DeclareFontShape{OT1}{mdput}{b}{si}{<-> ssub * mdputu/bx/si}{}
+\DeclareFontShape{T1}{mdput}{m}{si}{
+   <-> s * [0.92] mdputuri8t
+}{}
+\DeclareFontShape{T1}{mdput}{bx}{si}{
+   <-> s * [0.92] mdputubi8t
+}{}
+\DeclareFontShape{T1}{mdput}{b}{si}{<->ssub * mdputu/bx/si}{}
+%    \end{macrocode}
+%
+%
+% Now we are ready for font changing commands.
+%
+% \begin{macro}{\sishape}
+%   First, the declaration:
+%    \begin{macrocode}
+\DeclareRobustCommand\sishape{%
+  \not@math@alphabet\itshape\mathit
+  \fontshape{si}\selectfont}
+%    \end{macrocode}
+% \end{macro}
+% \begin{macro}{\textsi}
+%   And the command:
+%    \begin{macrocode}
+\DeclareTextFontCommand{\textsi}{\sishape}
+%    \end{macrocode}
+% \end{macro}
+% \begin{macro}{\specialdigits}
+%   This macro checks whether the current shape is italics; if yes, it
+%   switches to special italics
+%    \begin{macrocode}
+\def\specialdigits{\def\itdefault{si}}
+%    \end{macrocode}
+% \end{macro}
+%
+%
+%
+%    \begin{macrocode}
+%</style>
+%    \end{macrocode}
+%
+%
+%\Finale
+%\clearpage
+%
+%\PrintChanges
+%\clearpage
+%\PrintIndex
+%
+\endinput

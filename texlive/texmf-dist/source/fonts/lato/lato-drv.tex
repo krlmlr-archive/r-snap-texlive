@@ -1,0 +1,192 @@
+%% lato-drv.tex
+%% Copyright 2011 Mohamed El Morabity
+%
+% This work may be distributed and/or modified under the conditions of the LaTeX
+% Project Public License, either version 1.3 of this license or (at your option)
+% any later version. The latest version of this license is in
+% http://www.latex-project.org/lppl.txt and version 1.3 or later is part of all
+% distributions of LaTeX version 2005/12/01 or later.
+%
+% This work has the LPPL maintenance status `maintained'.
+%
+% The Current Maintainer of this work is Mohamed El Morabity
+%
+% This work consists of all files listed in manifest.txt.
+
+\input fontinst.sty
+
+
+\setint{smallcapsscale}{800}
+
+\substitutesilent{scsl}{scit}
+\substitutesilent{l}{l}
+
+
+\recordtransforms{lato-rec.tex}
+
+
+\foreach(e){01,02}
+  \transformfont{Lato-Hai-\str{e}}{\reencodefont{lato-\str{e}}{\fromafm{Lato-Hai}}}
+  \transformfont{Lato-HaiIta-\str{e}}{\reencodefont{lato-\str{e}}{\fromafm{Lato-HaiIta}}}
+  \transformfont{Lato-Lig-\str{e}}{\reencodefont{lato-\str{e}}{\fromafm{Lato-Lig}}}
+  \transformfont{Lato-LigIta-\str{e}}{\reencodefont{lato-\str{e}}{\fromafm{Lato-LigIta}}}
+  \transformfont{Lato-Reg-\str{e}}{\reencodefont{lato-\str{e}}{\fromafm{Lato-Reg}}}
+  \transformfont{Lato-RegIta-\str{e}}{\reencodefont{lato-\str{e}}{\fromafm{Lato-RegIta}}}
+  \transformfont{Lato-Bol-\str{e}}{\reencodefont{lato-\str{e}}{\fromafm{Lato-Bol}}}
+  \transformfont{Lato-BolIta-\str{e}}{\reencodefont{lato-\str{e}}{\fromafm{Lato-BolIta}}}
+  \transformfont{Lato-Bla-\str{e}}{\reencodefont{lato-\str{e}}{\fromafm{Lato-Bla}}}
+  \transformfont{Lato-BlaIta-\str{e}}{\reencodefont{lato-\str{e}}{\fromafm{Lato-BlaIta}}}
+\endfor(e)
+\transformfont{Lato-Hai-dotlessj}{\reencodefont{lato-dotlessj}{\fromafm{Lato-Hai-LCDFJ}}}
+\transformfont{Lato-HaiIta-dotlessj}{\reencodefont{lato-dotlessj}{\fromafm{Lato-HaiIta-LCDFJ}}}
+\transformfont{Lato-Lig-dotlessj}{\reencodefont{lato-dotlessj}{\fromafm{Lato-Lig-LCDFJ}}}
+\transformfont{Lato-LigIta-dotlessj}{\reencodefont{lato-dotlessj}{\fromafm{Lato-LigIta-LCDFJ}}}
+\transformfont{Lato-Reg-dotlessj}{\reencodefont{lato-dotlessj}{\fromafm{Lato-Reg-LCDFJ}}}
+\transformfont{Lato-RegIta-dotlessj}{\reencodefont{lato-dotlessj}{\fromafm{Lato-RegIta-LCDFJ}}}
+\transformfont{Lato-Bol-dotlessj}{\reencodefont{lato-dotlessj}{\fromafm{Lato-Bol-LCDFJ}}}
+\transformfont{Lato-BolIta-dotlessj}{\reencodefont{lato-dotlessj}{\fromafm{Lato-BolIta-LCDFJ}}}
+\transformfont{Lato-Bla-dotlessj}{\reencodefont{lato-dotlessj}{\fromafm{Lato-Bla-LCDFJ}}}
+\transformfont{Lato-BlaIta-dotlessj}{\reencodefont{lato-dotlessj}{\fromafm{Lato-BlaIta-LCDFJ}}}
+
+
+\fontinstcc
+\def\fd_family#1#2#3{
+   \a_toks{#3}
+   \edef\lowercase_file{\lowercase{
+     \edef\noexpand\lowercase_file{#1#2.fd}}}
+   \lowercase_file
+   \open_out{\lowercase_file}
+   \out_line{\percent_char~Filename:~\lowercase_file}
+   \out_line{\percent_char~Created~by:~tex~\jobname}
+   \out_line{\percent_char~Created~using~fontinst~v\fontinstversion}
+   \out_line{}
+   \out_line{\percent_char~THIS~FILE~SHOULD~BE~PUT~IN~A~TEX~INPUTS~
+      DIRECTORY}
+   \out_line{}
+   \out_line{\string\ProvidesFile{\lowercase_file}}
+   \out_lline{[
+      \the\year/
+      \ifnum10>\month0\fi\the\month/
+      \ifnum10>\day0\fi\the\day\space
+      Fontinst~v\fontinstversion\space
+      font~definitions~for~#1/#2.
+   ]}
+   \out_line{}
+   %%%
+   \out_line{\string\expandafter\string\ifx\string\csname\space lato@scale\string\endcsname\string\relax}
+   \out_line{\space\space\string\let\string\lato@scale\string\@empty}
+   \out_line{\string\fi}
+   \out_line{}
+   %%%
+   \out_line{\string\DeclareFontFamily{#1}{#2}{\the\a_toks}}
+   {
+      \csname #1-#2\endcsname
+      \out_line{}
+      \let\do_shape=\substitute_shape
+      \csname #1-#2\endcsname
+      \let\do_shape=\remove_shape
+      \csname #1-#2\endcsname
+   }
+   \x_cs\g_let{#1-#2}\x_relax
+   \out_line{}
+   \out_line{\string\endinput}
+   \close_out{Font~definitions}
+}
+\normalcc
+
+
+\installfonts
+\installfamily{OT1}{fla}{}
+
+\installfont{Lato-Hai-ot1}{Lato-Hai-01,Lato-Hai-02,Lato-Hai-dotlessj,lato-fixlatin,newlatin}{ot1}{OT1}{fla}{el}{n}{<->\string\lato@scale}
+\installfont{Lato-HaiIta-ot1}{Lato-HaiIta-01,Lato-HaiIta-02,Lato-HaiIta-dotlessj,lato-fixlatin,newlatin}{ot1}{OT1}{fla}{el}{it}{<->\string\lato@scale}
+\installfont{Lato-Hai-SmallCaps-ot1}{Lato-Hai-01,Lato-Hai-02,Lato-Hai-dotlessj,lato-fixlatin,newlatin}{ot1c}{OT1}{fla}{el}{sc}{<->\string\lato@scale}
+\installfont{Lato-HaiIta-SmallCaps-ot1}{Lato-HaiIta-01,Lato-HaiIta-02,Lato-HaiIta-dotlessj,lato-fixlatin,newlatin}{ot1c}{OT1}{fla}{el}{scit}{<->\string\lato@scale}
+
+\installfont{Lato-Lig-ot1}{Lato-Lig-01,Lato-Lig-02,Lato-Lig-dotlessj,lato-fixlatin,newlatin}{ot1}{OT1}{fla}{l}{n}{<->\string\lato@scale}
+\installfont{Lato-LigIta-ot1}{Lato-LigIta-01,Lato-LigIta-02,Lato-LigIta-dotlessj,lato-fixlatin,newlatin}{ot1}{OT1}{fla}{l}{it}{<->\string\lato@scale}
+\installfont{Lato-Lig-SmallCaps-ot1}{Lato-Lig-01,Lato-Lig-02,Lato-Lig-dotlessj,lato-fixlatin,newlatin}{ot1c}{OT1}{fla}{l}{sc}{<->\string\lato@scale}
+\installfont{Lato-LigIta-SmallCaps-ot1}{Lato-LigIta-01,Lato-LigIta-02,Lato-LigIta-dotlessj,lato-fixlatin,newlatin}{ot1c}{OT1}{fla}{l}{scit}{<->\string\lato@scale}
+
+\installfont{Lato-Reg-ot1}{Lato-Reg-01,Lato-Reg-02,Lato-Reg-dotlessj,lato-fixlatin,newlatin}{ot1}{OT1}{fla}{m}{n}{<->\string\lato@scale}
+\installfont{Lato-RegIta-ot1}{Lato-RegIta-01,Lato-RegIta-02,Lato-RegIta-dotlessj,lato-fixlatin,newlatin}{ot1}{OT1}{fla}{m}{it}{<->\string\lato@scale}
+\installfont{Lato-Reg-SmallCaps-ot1}{Lato-Reg-01,Lato-Reg-02,Lato-Reg-dotlessj,lato-fixlatin,newlatin}{ot1c}{OT1}{fla}{m}{sc}{<->\string\lato@scale}
+\installfont{Lato-RegIta-SmallCaps-ot1}{Lato-RegIta-01,Lato-RegIta-02,Lato-RegIta-dotlessj,lato-fixlatin,newlatin}{ot1c}{OT1}{fla}{m}{scit}{<->\string\lato@scale}
+
+\installfont{Lato-Bol-ot1}{Lato-Bol-01,Lato-Bol-02,Lato-Bol-dotlessj,lato-fixlatin,newlatin}{ot1}{OT1}{fla}{b}{n}{<->\string\lato@scale}
+\installfont{Lato-BolIta-ot1}{Lato-BolIta-01,Lato-BolIta-02,Lato-BolIta-dotlessj,lato-fixlatin,newlatin}{ot1}{OT1}{fla}{b}{it}{<->\string\lato@scale}
+\installfont{Lato-Bol-SmallCaps-ot1}{Lato-Bol-01,Lato-Bol-02,Lato-Bol-dotlessj,lato-fixlatin,newlatin}{ot1c}{OT1}{fla}{b}{sc}{<->\string\lato@scale}
+\installfont{Lato-BolIta-SmallCaps-ot1}{Lato-BolIta-01,Lato-BolIta-02,Lato-BolIta-dotlessj,lato-fixlatin,newlatin}{ot1c}{OT1}{fla}{b}{scit}{<->\string\lato@scale}
+
+\installfont{Lato-Bla-ot1}{Lato-Bla-01,Lato-Bla-02,Lato-Bla-dotlessj,lato-fixlatin,newlatin}{ot1}{OT1}{fla}{eb}{n}{<->\string\lato@scale}
+\installfont{Lato-BlaIta-ot1}{Lato-BlaIta-01,Lato-BlaIta-02,Lato-BlaIta-dotlessj,lato-fixlatin,newlatin}{ot1}{OT1}{fla}{eb}{it}{<->\string\lato@scale}
+\installfont{Lato-Bla-SmallCaps-ot1}{Lato-Bla-01,Lato-Bla-02,Lato-Bla-dotlessj,lato-fixlatin,newlatin}{ot1c}{OT1}{fla}{eb}{sc}{<->\string\lato@scale}
+\installfont{Lato-BlaIta-SmallCaps-ot1}{Lato-BlaIta-01,Lato-BlaIta-02,Lato-BlaIta-dotlessj,lato-fixlatin,newlatin}{ot1c}{OT1}{fla}{eb}{scit}{<->\string\lato@scale}
+
+\endinstallfonts
+
+
+\installfonts
+\installfamily{T1}{fla}{}
+
+\installfont{Lato-Hai-t1}{Lato-Hai-01,Lato-Hai-02,Lato-Hai-dotlessj,lato-fixlatin,newlatin}{t1}{T1}{fla}{el}{n}{<->\string\lato@scale}
+\installfont{Lato-HaiIta-t1}{Lato-HaiIta-01,Lato-HaiIta-02,Lato-HaiIta-dotlessj,lato-fixlatin,newlatin}{t1}{T1}{fla}{el}{it}{<->\string\lato@scale}
+\installfont{Lato-Hai-SmallCaps-t1}{Lato-Hai-01,Lato-Hai-02,Lato-Hai-dotlessj,lato-fixlatin,newlatin}{t1c}{T1}{fla}{el}{sc}{<->\string\lato@scale}
+\installfont{Lato-HaiIta-SmallCaps-t1}{Lato-HaiIta-01,Lato-HaiIta-02,Lato-HaiIta-dotlessj,lato-fixlatin,newlatin}{t1c}{T1}{fla}{el}{scit}{<->\string\lato@scale}
+
+\installfont{Lato-Lig-t1}{Lato-Lig-01,Lato-Lig-02,Lato-Lig-dotlessj,lato-fixlatin,newlatin}{t1}{T1}{fla}{l}{n}{<->\string\lato@scale}
+\installfont{Lato-LigIta-t1}{Lato-LigIta-01,Lato-LigIta-02,Lato-LigIta-dotlessj,lato-fixlatin,newlatin}{t1}{T1}{fla}{l}{it}{<->\string\lato@scale}
+\installfont{Lato-Lig-SmallCaps-t1}{Lato-Lig-01,Lato-Lig-02,Lato-Lig-dotlessj,lato-fixlatin,newlatin}{t1c}{T1}{fla}{l}{sc}{<->\string\lato@scale}
+\installfont{Lato-LigIta-SmallCaps-t1}{Lato-LigIta-01,Lato-LigIta-02,Lato-LigIta-dotlessj,lato-fixlatin,newlatin}{t1c}{T1}{fla}{l}{scit}{<->\string\lato@scale}
+
+\installfont{Lato-Reg-t1}{Lato-Reg-01,Lato-Reg-02,Lato-Reg-dotlessj,lato-fixlatin,newlatin}{t1}{T1}{fla}{m}{n}{<->\string\lato@scale}
+\installfont{Lato-RegIta-t1}{Lato-RegIta-01,Lato-RegIta-02,Lato-RegIta-dotlessj,lato-fixlatin,newlatin}{t1}{T1}{fla}{m}{it}{<->\string\lato@scale}
+\installfont{Lato-Reg-SmallCaps-t1}{Lato-Reg-01,Lato-Reg-02,Lato-Reg-dotlessj,lato-fixlatin,newlatin}{t1c}{T1}{fla}{m}{sc}{<->\string\lato@scale}
+\installfont{Lato-RegIta-SmallCaps-t1}{Lato-RegIta-01,Lato-RegIta-02,Lato-RegIta-dotlessj,lato-fixlatin,newlatin}{t1c}{T1}{fla}{m}{scit}{<->\string\lato@scale}
+
+\installfont{Lato-Bol-t1}{Lato-Bol-01,Lato-Bol-02,Lato-Bol-dotlessj,lato-fixlatin,newlatin}{t1}{T1}{fla}{b}{n}{<->\string\lato@scale}
+\installfont{Lato-BolIta-t1}{Lato-BolIta-01,Lato-BolIta-02,Lato-BolIta-dotlessj,lato-fixlatin,newlatin}{t1}{T1}{fla}{b}{it}{<->\string\lato@scale}
+\installfont{Lato-Bol-SmallCaps-t1}{Lato-Bol-01,Lato-Bol-02,Lato-Bol-dotlessj,lato-fixlatin,newlatin}{t1c}{T1}{fla}{b}{sc}{<->\string\lato@scale}
+\installfont{Lato-BolIta-SmallCaps-t1}{Lato-BolIta-01,Lato-BolIta-02,Lato-BolIta-dotlessj,lato-fixlatin,newlatin}{t1c}{T1}{fla}{b}{scit}{<->\string\lato@scale}
+
+\installfont{Lato-Bla-t1}{Lato-Bla-01,Lato-Bla-02,Lato-Bla-dotlessj,lato-fixlatin,newlatin}{t1}{T1}{fla}{eb}{n}{<->\string\lato@scale}
+\installfont{Lato-BlaIta-t1}{Lato-BlaIta-01,Lato-BlaIta-02,Lato-BlaIta-dotlessj,lato-fixlatin,newlatin}{t1}{T1}{fla}{eb}{it}{<->\string\lato@scale}
+\installfont{Lato-Bla-SmallCaps-t1}{Lato-Bla-01,Lato-Bla-02,Lato-Bla-dotlessj,lato-fixlatin,newlatin}{t1c}{T1}{fla}{eb}{sc}{<->\string\lato@scale}
+\installfont{Lato-BlaIta-SmallCaps-t1}{Lato-BlaIta-01,Lato-BlaIta-02,Lato-BlaIta-dotlessj,lato-fixlatin,newlatin}{t1c}{T1}{fla}{eb}{scit}{<->\string\lato@scale}
+
+\endinstallfonts
+
+
+\installfonts
+\installfamily{TS1}{fla}{}
+
+\installfont{Lato-Hai-ts1}{Lato-Hai-01,Lato-Hai-02,lato-fixtextcomp,textcomp}{ts1}{TS1}{fla}{el}{n}{<->\string\lato@scale}
+\installfont{Lato-HaiIta-ts1}{Lato-HaiIta-01,Lato-HaiIta-02,lato-fixtextcomp,textcomp}{ts1}{TS1}{fla}{el}{it}{<->\string\lato@scale}
+\installfontas{Lato-Hai-ts1}{TS1}{fla}{el}{sc}{<->\string\lato@scale}
+\installfontas{Lato-HaiIta-ts1}{TS1}{fla}{el}{scit}{<->\string\lato@scale}
+
+\installfont{Lato-Lig-ts1}{Lato-Lig-01,Lato-Lig-02,lato-fixtextcomp,textcomp}{ts1}{TS1}{fla}{l}{n}{<->\string\lato@scale}
+\installfont{Lato-LigIta-ts1}{Lato-LigIta-01,Lato-LigIta-02,lato-fixtextcomp,textcomp}{ts1}{TS1}{fla}{l}{it}{<->\string\lato@scale}
+\installfontas{Lato-Lig-ts1}{TS1}{fla}{l}{sc}{<->\string\lato@scale}
+\installfontas{Lato-LigIta-ts1}{TS1}{fla}{l}{scit}{<->\string\lato@scale}
+
+\installfont{Lato-Reg-ts1}{Lato-Reg-01,Lato-Reg-02,lato-fixtextcomp,textcomp}{ts1}{TS1}{fla}{m}{n}{<->\string\lato@scale}
+\installfont{Lato-RegIta-ts1}{Lato-RegIta-01,Lato-RegIta-02,lato-fixtextcomp,textcomp}{ts1}{TS1}{fla}{m}{it}{<->\string\lato@scale}
+\installfontas{Lato-Reg-ts1}{TS1}{fla}{m}{sc}{<->\string\lato@scale}
+\installfontas{Lato-RegIta-ts1}{TS1}{fla}{m}{scit}{<->\string\lato@scale}
+
+\installfont{Lato-Bol-ts1}{Lato-Bol-01,Lato-Bol-02,lato-fixtextcomp,textcomp}{ts1}{TS1}{fla}{b}{n}{<->\string\lato@scale}
+\installfont{Lato-BolIta-ts1}{Lato-BolIta-01,Lato-BolIta-02,lato-fixtextcomp,textcomp}{ts1}{TS1}{fla}{b}{it}{<->\string\lato@scale}
+\installfontas{Lato-Bol-ts1}{TS1}{fla}{b}{sc}{<->\string\lato@scale}
+\installfontas{Lato-BolIta-ts1}{TS1}{fla}{b}{scit}{<->\string\lato@scale}
+
+\installfont{Lato-Bla-ts1}{Lato-Bla-01,Lato-Bla-02,lato-fixtextcomp,textcomp}{ts1}{TS1}{fla}{eb}{n}{<->\string\lato@scale}
+\installfont{Lato-BlaIta-ts1}{Lato-BlaIta-01,Lato-BlaIta-02,lato-fixtextcomp,textcomp}{ts1}{TS1}{fla}{eb}{it}{<->\string\lato@scale}
+\installfontas{Lato-Bla-ts1}{TS1}{fla}{eb}{sc}{<->\string\lato@scale}
+\installfontas{Lato-BlaIta-ts1}{TS1}{fla}{eb}{scit}{<->\string\lato@scale}
+
+\endinstallfonts
+
+
+\endrecordtransforms
+\bye

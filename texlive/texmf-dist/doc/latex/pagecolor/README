@@ -1,0 +1,168 @@
+README for pagecolor package, 2012/02/23, v1.0e
+
+
+TABLE OF CONTENTS
+=================
+
+1 Introduction
+2 Download
+3 Installation
+4 Additional Packages
+5 Package Compatibility
+6 Author/Maintainer
+7 Bug Reports
+8 Known Problems
+
+
+1 INTRODUCTION
+==============
+
+This LaTeX package provides the command \thepagecolor, which gives
+the current page (background) colour, i. e. the argument used with
+the most recent call of \pagecolor{...}.
+The command \thepagecolornone gives the same colour as
+\thepagecolor, except when the page background colour is "none".
+In that case \thepagecolor is white and \thepagecolornone is none.
+Similar to \newgeometry and \restoregeometry of the geometry
+package \newpagecolor{...} and \restorepagecolor are provided.
+This material is subject to the LaTeX Project Public License
+(LPPL). See http://www.ctan.org/tex-archive/help/Catalogue/
+licenses.lppl.html for the details of that license.
+
+
+2 DOWNLOAD
+==========
+
+`pagecolor' is available on CTAN:
+  CTAN:macros/latex/contrib/pagecolor/
+
+Running
+tex pagecolor.dtx
+generates the files
+pagecolor.ins, pagecolor.drv, pagecolor.sty,
+and pagecolor-example.tex.
+
+Also a ZIP file is provided that contains these files,
+the manual (pagecolor.pdf), the compiled example
+(pagecolor-example.pdf), and this README, already
+sorted in a TDS tree:
+  CTAN:install/macros/latex/contrib/pagecolor.tds.zip
+
+`CTAN:' means one of the `Comprehensive TeX Archive Network'
+nodes or one of its mirrors. This is explained in
+  http://www.tex.ac.uk/cgi-bin/texfaq2html?label=archives
+
+The CTAN stuff will be mirrored automatically from the
+ftp server, so
+  ftp://ftp.tug.org/pub/tex/pagecolor/
+corresponds to
+  CTAN:macros/latex/contrib/pagecolor/
+
+
+3 INSTALLATION
+==============
+
+Installation with ZIP file in TDS format
+----------------------------------------
+The ZIP file `pagecolor.tds.zip' contains the files
+sorted in a TDS tree. Thus you can directly unpack the
+ZIP file inside a TDS tree.
+(See CTAN:tds.zip for an explanation of TDS.)
+Example:
+  cd /...somewhere.../texmf
+  unzip /...downloadpath.../pagecolor.tds.zip
+Do not forget to refresh the file name database of this
+TDS tree.
+Example:
+  texhash /...somewhere.../texmf
+
+Manual installation
+-------------------
+a) Download the pagecolor files from CTAN.
+   If necessary, unpack them.
+b) Generate the package and driver files:
+     tex pagecolor.dtx
+c) Install the file `*.sty' in your TDS tree:
+     cp *.sty TDS:tex/latex/pagecolor/
+   Replace `TDS:' by the prefix of your TDS tree
+   (texmf directory).
+d) Create the documentation (if necessary), e.g.
+     pdflatex pagecolor.dtx
+     makeindex -s gind.ist pagecolor.idx
+     pdflatex pagecolor.dtx
+     makeindex -s gind.ist pagecolor.idx
+     pdflatex pagecolor.dtx
+e) Update the databases if necessary, e.g. for teTeX:
+     mktexlsr .../texmf
+f) Create the pagecolor-example.pdf (if necessary), e.g.
+     pdflatex pagecolor-example.tex
+     pdflatex pagecolor-example.tex
+     pdflatex pagecolor-example.tex
+g) Copy the documentation files to
+   "TDS:doc/latex/pagecolor/":
+   README, pagecolor.pdf, pagecolor-example.tex,
+   pagecolor-example.pdf.
+
+
+4 ADDITIONAL PACKAGES
+=====================
+
+pagecolor loads other packages:
+
+* kvoptions, CTAN:macros/latex/contrib/oberdiek/kvoptions.dtx
+* xcolor, CTAN:macros/latex/contrib/xcolor/xcolor.dtx
+  if the color package has not been loaded before pagecolor.
+
+which again load other packages
+(see the result of the \listfiles command in the log-file
+ of the example).
+
+
+5 PACKAGE COMPATIBILITY
+=======================
+
+pagecolor should be loaded quite early, i. e. before
+\pagecolor{...} is used by some other package
+(but can be loaded later using the pagecolor={...} option
+with accordingly chosen value), but must be loaded after
+\nopagecolor is defined (if that is defined in the document
+at all).
+
+
+6 AUTHOR/MAINTAINER
+=====================
+
+* H.-Martin Münch
+
+
+7 BUG REPORTS
+==============
+
+A bug report should contain:
+* Comprehensive problem description. This includes error or
+  warning messages.
+* \errorcontextlines=\maxdimen can be added in the
+  TeX code to get more information in TeX error messages.
+* Minimal test file that shows the problem, but does not
+  contain any unnecessary packages and code.
+* Used drivers/programs.
+* Version information about used packages and programs.
+* If you are using LaTeX, then add "\listfiles". Then
+  a list of version information is printed at the end
+  of the LaTeX run.
+* Please no other files than the minimal test file.
+  The other files .log, .dvi, .ps, .pdf are seldom
+  necessary, so send them only on request.
+* Please .zip or .tar.gz your file(s) before sending them!
+
+Bug address
+-----------
+Bug reports can be send to the maintainer:
+  H.-Martin Münch
+  <Martin [dot] Muench [at] Uni-Bonn [dot] de>
+
+
+8 KNOWN PROBLEMS
+=================
+
+* as yet: none.

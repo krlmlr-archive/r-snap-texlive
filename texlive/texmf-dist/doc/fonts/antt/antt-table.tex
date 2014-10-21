@@ -1,0 +1,121 @@
+%&mex --translate-file=cp1250pl
+% plain format
+\baselineskip 20pt
+
+\def\texttestqx{\f Za¿ó³æ gêœl¹ jaŸñ\par}
+\def\texttest{\f OHamburgefonsz\par}
+\def\Font#1{\font\f #1 at16pt%
+ \leftline{\hbox to3cm{\rm #1\hfil} \texttest}}
+\def\FontQX#1{\font\f #1 at16pt%
+ \leftline{\hbox to3cm{\rm #1\hfil} \texttestqx}}
+\def\chartable #1{\smallbreak\vbox{\tracinglostchars=0\relax\noindent%
+     \underbar{Characters in the #1 font, with decimal codes:}
+     \raggedright \hbadness5000 \tolerance10000 \medskip
+     \font\ft #1 at 12pt
+     %\let\ft=#1
+     \ft \dimen0=14pt \baselineskip=\dimen0
+     \ifdim\dimen0<3.25ex \baselineskip=3.25ex \fi \count255=0 \dimen0=10pt
+     \loop \setbox0=\hbox{\char\count255}
+     \ifdim\wd0>\dimen0 \dimen0=\wd0 \fi \advance\count255 by1
+     \ifnum\count255<256 \repeat \count255=0
+     \advance\dimen0 by 25pt \noindent \loop
+     \hbox to\dimen0{\hbox to23pt{\hfil\rm\the\count255:\ }\char\count255\hfil}
+     \advance\count255 by1 \ifnum\count255<256 \quad\repeat
+     \smallbreak} \font\tenrm=cmr10 }
+
+
+\def\ec{
+\hbox{\hsize=.5\hsize\vbox{
+\Font{ec-anttl}       \Font{ec-anttlcap}
+\Font{ec-anttli}      \Font{ec-anttlicap}
+\Font{ec-anttr}       \Font{ec-anttrcap}
+\Font{ec-anttri}      \Font{ec-anttricap}
+\Font{ec-anttm}       \Font{ec-anttmcap}
+\Font{ec-anttmi}      \Font{ec-anttmicap}
+\Font{ec-anttb}       \Font{ec-anttbcap}
+\Font{ec-anttbi}      \Font{ec-anttbicap}
+}\vbox{
+\Font{ec-anttcl}       \Font{ec-anttclcap}
+\Font{ec-anttcli}      \Font{ec-anttclicap}
+\Font{ec-anttcr}       \Font{ec-anttcrcap}
+\Font{ec-anttcri}      \Font{ec-anttcricap}
+\Font{ec-anttcm}       \Font{ec-anttcmcap}
+\Font{ec-anttcmi}      \Font{ec-anttcmicap}
+\Font{ec-anttcb}       \Font{ec-anttcbcap}
+\Font{ec-anttcbi}      \Font{ec-anttcbicap}
+}}}
+
+\def\qx{
+\hbox{\hsize=.5\hsize\vbox{
+\FontQX{qx-anttl}       \FontQX{qx-anttlcap}
+\FontQX{qx-anttli}      \FontQX{qx-anttlicap}
+\FontQX{qx-anttr}       \FontQX{qx-anttrcap}
+\FontQX{qx-anttri}      \FontQX{qx-anttricap}
+\FontQX{qx-anttm}       \FontQX{qx-anttmcap}
+\FontQX{qx-anttmi}      \FontQX{qx-anttmicap}
+\FontQX{qx-anttb}       \FontQX{qx-anttbcap}
+\FontQX{qx-anttbi}      \FontQX{qx-anttbicap}
+}\vbox{
+\FontQX{qx-anttcl}       \FontQX{qx-anttclcap}
+\FontQX{qx-anttcli}      \FontQX{qx-anttclicap}
+\FontQX{qx-anttcr}       \FontQX{qx-anttcrcap}
+\FontQX{qx-anttcri}      \FontQX{qx-anttcricap}
+\FontQX{qx-anttcm}       \FontQX{qx-anttcmcap}
+\FontQX{qx-anttcmi}      \FontQX{qx-anttcmicap}
+\FontQX{qx-anttcb}       \FontQX{qx-anttcbcap}
+\FontQX{qx-anttcbi}      \FontQX{qx-anttcbicap}
+}}}
+
+
+\def\wncy{
+\hbox{\hsize=.5\hsize\vbox{
+\Font{wncy-anttl}
+\Font{wncy-anttli}
+\Font{wncy-anttr}
+\Font{wncy-anttri}
+\Font{wncy-anttm}
+\Font{wncy-anttmi}
+\Font{wncy-anttb}
+\Font{wncy-anttbi}
+}\vbox{
+\Font{wncy-anttcl}
+\Font{wncy-anttcli}
+\Font{wncy-anttcr}
+\Font{wncy-anttcri}
+\Font{wncy-anttcm}
+\Font{wncy-anttcmi}
+\Font{wncy-anttcb}
+\Font{wncy-anttcbi}
+}}}
+
+QX Encoding\bigskip
+
+\qx
+\vfill\eject
+
+EC (Encode Cork) Encoding\bigskip
+
+\ec
+\vfill\eject
+
+WNCY Encoding\bigskip
+
+\wncy
+\vfill\eject
+
+\chartable{qx-anttr}\vfill\eject
+\chartable{ec-anttr}\vfill\eject
+\chartable{texnansi-anttr}\vfill\eject
+\chartable{wncy-anttr}\vfill\eject
+\chartable{t2a-anttr}\vfill\eject
+\chartable{t2b-anttr}\vfill\eject
+\chartable{t2c-anttr}\vfill\eject
+\chartable{t5-anttr}\vfill\eject
+\chartable{greek-anttr}\vfill\eject
+\chartable{el-anttri}\vfill\eject
+\chartable{mi-anttri}\vfill\eject
+\chartable{sy-anttrz}\vfill\eject
+%\chartable{ex-anttr}\vfill\eject
+\chartable{rm-anttri}
+
+\bye

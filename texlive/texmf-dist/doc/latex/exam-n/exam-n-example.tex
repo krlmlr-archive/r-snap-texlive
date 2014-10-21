@@ -1,0 +1,133 @@
+%%
+%% This is file `exam-n-example.tex',
+%% generated with the docstrip utility.
+%%
+%% The original source files were:
+%%
+%% exam-n.dtx  (with options: `example')
+%% exam-n: format exam questions
+%% Release version 1.1, 2014 May 03.
+%%
+%%%% File: exam-n.dtx
+%%%% Copyright 2005--2014, Norman Gray
+%%
+%% This work may be distributed and/or modified under the
+%% conditions of the LaTeX Project Public License, either version 1.3
+%% of this license or (at your option) any later version.
+%% The latest version of this license is in
+%%   http://www.latex-project.org/lppl.txt
+%% and version 1.3 or later is part of all distributions of LaTeX
+%% version 2005/12/01 or later.
+%%
+%% This work has the LPPL maintenance status `maintained'.
+%%
+%% The Current Maintainer of this work is Norman Gray <http://nxg.me.uk>
+%%
+%% This work consists of the files exam-n.dtx and exam-n.ins,
+%% the derived file exam-n.cls,
+%% and the associated *.clo files.
+
+%%%% Source: Mercurial revision 6f818b549982, 2014-05-03 13:42 +0100, tag 1.1 + 0
+%%
+ 
+ 
+%%%START example (Makefile strips out this block)
+\documentclass{exam-n}  % standard final version
+%%\documentclass[draft,showsolutions]{exam-n}  % draft style, showing solutions
+%%\documentclass[compose]{exam-n}  % compose (author's) style
+
+\examdate{Wednesday, 18 May 2005}
+\examtime{9.30am -- 12 noon\\(or) 9.30am -- 1.45am}
+
+\exambanner{Examination for the Degrees of \BSc(Science) and
+  \MSci\ on the Honours Standard}
+\schoolcoursecode{P304D and P304H}
+\universitycoursecode{PHYS3031 and PHYS4025}
+\coursetitle{Quantum Mechanics}
+\degreedescriptions{Physics 3\\Chemical Physics 3\\Physics with
+  Astrophysics 3\\Theoretical Physics 3M\\Joint Physics 3}
+\paperident{GR/P304}
+
+\rubric{Candidates for examination in \emph{Quantum Mechanics} should
+  answer question 1 (16 marks) and \emph{either 2A or 2B} (24 marks each)}
+
+\numquestions{3}
+
+\begin{document}
+\maketitle
+
+\section{I}
+
+\begin{question}{20}
+\part At various points in the development of the mathematical theory of
+General Relativity, we pick a coordinate system in which
+differentiation is simple, and do a calculation using non-covariant
+differentiation, indicated by a comma.  We then immediately deduce the
+covariant result, replacing this comma with a semicolon.
+
+Separately, the strong equivalence principle is sometimes
+referred to as the `comma goes to semicolon' rule.
+
+Explain the logic of each of these replacements of a comma with a
+semicolon, putting particular stress on the distinction between
+them.\partmarks{10}
+
+\part The radial and angular coordinates, $r$ and $\phi$ respectively,
+of a test particle moving in the Schwartzschild metric exterior to a
+star of mass $M\ll r$, are related by the equation
+\[
+  r = \frac{h^2}M \left(
+        1 + e\cos\phi + \frac{3M^2}{h^2}e\phi\sin\phi
+        \right)^{-1},
+\]
+where $h$ and $e$ are constants.  Show that this equation takes the
+form of a precessing ellipse, of semi-latus rectum $l=h^2/M$, in which
+the pericentre line advances each orbit by an amount
+$\Delta=6\pi M^2/h^2$, stating clearly any assumptions that
+you make.\partmarks{6}
+
+The solar-mass star HD83443 has a 0.35 Jupiter-mass planet that
+follows a circular orbit of period 2.986 days and radius 0.038\units\au.
+Calculate the rate of precession, in arcseconds per year, of the
+pericentre line of the planet's orbit.\partmarks{4}
+
+[Schwartzschild radius of the Sun${}= 3.0\times10^3\units{m}$,
+$1\units\au=1.5\times10^{11}\units m$].
+
+\begin{solution}
+  In the first type of calculation, we do a calculation in the LIF, in
+which~$\Gamma^i_{jk}=0$, so that single partial differentiation is the
+same as covariant differentiation.  If this process produces a
+geometrical object such as a scalar or a tensor, then we know that the
+result is frame-invariant.  If the result involves only single partial
+differentiation -- that is, no second derivatives -- then since
+partial differentiation is the same as covariant differentiation in
+these coordinates, we cannot distinguish partial and covariant
+derivatives, and can replace the commas by semicolons.  Since these
+are now manifestly covariant derivatives, so that the result is a
+tensor, and thus frame-invariant, the same expression would be true in
+any frame.
+
+The second situation is the statement that the expressions of physical
+laws in SR, such as the conservation equation
+$T^{\mu\nu}_{,\nu}=0$, must take the same \emph{form} when written
+as a covariant equation in GR, crucially without any curvature
+coupling.  The slogan `comma goes to semicolon' is just a mnemonic for
+this.
+
+The distinction is that the first is a mathematical trick, of sorts,
+whereas the second is a version of the equivalence principle, and thus
+a statement with deep physical content.
+
+They don't have to explain things at this length or with this
+coherence (?) to get quite a few marks.  They just have to show they
+have a clue.
+\end{solution}
+\end{question}
+
+\end{document}
+%%%END example
+ 
+\endinput
+%%
+%% End of file `exam-n-example.tex'.

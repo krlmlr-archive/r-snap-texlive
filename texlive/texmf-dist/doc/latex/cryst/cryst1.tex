@@ -1,0 +1,284 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Versuche Typ1 Fonts zu erzeugen
+% 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+\documentclass{article}
+\usepackage{german}
+
+\RequirePackage{times}
+\RequirePackage{mathptm}
+%\DeclareFontFamily{U}{chin}{\hyphenchar\font=-1}
+%\DeclareFontShape{U}{chin}{m}{n}{<-> ChinPunkt }{} %f"ur chinesisches Zeichen Punkt
+%\newcommand{\chin}{\usefont{U}{chin}{m}{n}}
+
+\DeclareFontFamily{U}{cry}{\hyphenchar\font=-1}
+\DeclareFontShape{U}{cry}{m}{n}{ <-> cryst}{} 
+%\DeclareFontShape{U}{cry}{m}{n}{<-> cryr8t }{} 
+\newcommand{\cry}[1]{{\usefont{U}{cry}{m}{n}\symbol{#1}}}
+\setlength{\textwidth}{13.4cm}
+\setlength{\textheight}{208mm}
+
+\setlength{\topsep}{2pt plus 2pt}
+\setlength{\partopsep}{0pt plus 1pt}
+\addtolength{\evensidemargin}{-26mm}
+\addtolength{\oddsidemargin}{-7mm}
+\setlength{\unitlength}{1cm}
+
+
+
+\frenchspacing
+\sloppy
+
+\begin{document}
+
+\vspace*{6pt}
+\begin{center}
+{\Large  \TeX -Zeichensatz (Fonts) CRYST zum Druck der\\[3pt] Bildsymbole f"ur
+ Symmetrieelemente in der Kristallographie}
+
+\vskip9pt Fassung M"arz 2008 (diese Datei ist \texttt{cryst1.tex})
+
+\vskip9pt
+\textsc{Ulrich M\"uller}\\
+Fachbereich Chemie, Universit"at Marburg\\
+D-35032 Marburg
+\end{center}
+
+\vskip12pt
+\noindent Der \TeX -Zeichensatz \textsf{\small CRYST} stellt die Bildsymbole zur Verf"ugung,
+die in der Kristallographie f"ur Symmetrieelemente gebr"auchlich sind.
+Jedes Symmetriesymbol entspricht einem Schriftzeichen (Font).
+Die zugeh"origen Dateien sind von den \TeX -Servern, zum Beipiel bei \textsf{ftp://dante.ctan.org/tex-archive/fonts/cryst}, 
+abrufbar.
+
+Bis 2008 standen die Zeichen nur als \textsf{\small METAFONT}-Datei \texttt{CRYST.MF} zur Verf"ugung.
+Damit k"onnen sie mit dem Programm \textsf{\small METAFONT} in beliebiger Gr"o"se und f"ur
+beliebige Drucker erzeugt werden (in der Regel wird \textsf{\small METAFONT} bei Bedarf automatisch
+ausgef"uhrt). F"ur die PostScript- oder pdf-Ausgabe (z.\,B. mit \textsf{\small DVIPS})
+werden so allerdings nur ,Typ-3`-Fonts (Pixel-Dateien) erzeugt, die bei Druckereien unbeliebt sind.
+Daf"ur eignen sich ,Typ-1`-Fonts (frei skalierbar) besser, die seit 2008 als Dateien  \texttt{cryst.afm} und \texttt{cryst.pfb}
+zur Verf"ugung stehen. 
+Vor der Verwendung m"ussen die
+am Ende dieser Anleitung genannten Dateien installiert sein.
+
+Um die Zeichen in ein Dokument einzubinden, f"ugt man im Dokumentenvorspann folgende Befehlsfolge ein: 
+
+\vskip6pt
+\texttt{\symbol{92}DeclareFontFamily\{U\}\{cry\}\{\symbol{92}hyphenchar\symbol{92}font=-1\}}
+
+\texttt{\symbol{92}DeclareFontShape\{U\}\{cry\}\{m\}\{n\}\{ <-> cryst\}\{\}} 
+
+\texttt{\symbol{92}newcommand\{\symbol{92}cry\}[1]\{\{\symbol{92}usefont\{U\}\{cry\}\{m\}\{n\}\ \symbol{92}symbol\{\#1\}\}\}}
+
+(keine der geschweiften Klammern weglassen) 
+
+\vskip6pt
+Im Text wird das Symbol  Nr. $n$  dann erzeugt mit:
+
+\vskip3pt \texttt{\symbol{92}cry\{$n$\} }\\[6pt]
+$n$ steht f"ur die Nummer des Symbols in der Liste der Symbole. 
+\texttt{\symbol{92}cry\{41\}} 
+erzeugt zum Beispiel das Zeichen \cry{41}. 
+
+
+Will man die Symbole in einer \texttt{\symbol{92}picture}-Umgebung verwenden, so 
+sollte man sie mit \texttt{\symbol{92}put(}$x,y$\texttt{)\{\symbol{92}makebox(0,0)}[\emph{Pos}]\{...\}\}-Befehlen
+positionieren. Der optionale Parameter [\emph{Pos}] entf"allt, wenn das 
+Symbol in der Position $x,y$ zentriert werden soll.
+
+Bei den Symbolen f"ur schr"ag zur Papierebene geneigten Symmetrieelementen,
+wie sie bei kubischen Raumgruppen verwendet werden, zum Beispiel \ \cry{103} oder
+\cry{121}\,, und bei den Pfeilen, die zweiz"ahlige Achsen parallel zur
+Papierebene bezeichnen, zum Beispiel \cry{37}\,, sollte sich die
+Positionierung am Angelpunkt ausrichten, d.\,h. am Kringel, am schwarzen Punkt 
+oder am Pfeil\-ende, wobei je nach dessen Lage die Positionier-Parameter 
+\texttt{t}, \texttt{b}, \texttt{l}, \texttt{r} f"ur \emph{Pos} im 
+\texttt{\symbol{92}makebox}-Befehl verwendet werden, zum Beispiel: 
+
+\begin{picture}(16,2.6)(1.3,0.1)
+\put(2.4,2){\line(-1,0){0.5}}
+\put(2.4,1){\line(-1,0){0.5}}
+\put(5.5,2.1){\line(0,1){0.4}}
+\put(5.5,1.1){\line(0,1){0.3}}
+\put(7,1.9){\line(0,-1){0.3}}
+\put(7,0.9){\line(0,-1){0.4}}
+\put(4.1,1){\line(1,0){9.3}}
+\put(4.1,2){\line(1,0){9.3}}
+{\Large
+\multiput(2.5,0.5)(1.5,0){2}{\line(0,1){2}}
+\multiput(8.5,0.5)(1.5,0){4}{\line(0,1){2}}
+\put(2.5,2){\makebox(0,0)[l]{\cry{7}}}
+\put(4.0,2){\makebox(0,0)[r]{\cry{108}}}
+\put(2.5,1){\makebox(0,0)[l]{\cry{102}}}
+\put(4.0,1){\makebox(0,0)[r]{\cry{121}}}
+\put(5.5,2){\makebox(0,0)[t]{\cry{157}}}
+\put(5.5,1){\makebox(0,0)[t]{\cry{202}}}
+\put(7.0,2){\makebox(0,0)[b]{\cry{58}}}
+\put(7.0,1){\makebox(0,0)[b]{\cry{221}}}
+\put(8.5,2){\makebox(0,0)[tl]{\cry{195}}}
+\put(8.5,1){\makebox(0,0)[tl]{\cry{103}}}
+\put(10,2){\makebox(0,0)[bl]{\cry{39}}}
+\put(10,1){\makebox(0,0)[bl]{\cry{223}}}
+\put(11.5,2){\makebox(0,0)[br]{\cry{75}}}
+\put(11.5,1){\makebox(0,0)[br]{\cry{132}}}
+\put(13,2){\makebox(0,0)[tr]{\cry{129}}}
+\put(13,1){\makebox(0,0)[tr]{\cry{236}}}
+}
+\put(0.8,0){\makebox(0,0)[bl]{\emph{Pos} =}}
+\put(2.5,0){\makebox(0,0)[b]{\texttt{l}}}
+\put(4.0,0){\makebox(0,0)[b]{\texttt{r}}}
+\put(5.5,0){\makebox(0,0)[b]{\texttt{t}}}
+\put(7.0,0){\makebox(0,0)[b]{\texttt{b}}}
+\put(8.5,0){\makebox(0,0)[b]{\texttt{tl}}}
+\put(10,0){\makebox(0,0)[b]{\texttt{bl}}}
+\put(11.5,0){\makebox(0,0)[b]{\texttt{br}}}
+\put(13,0){\makebox(0,0)[b]{\texttt{tr}}}
+\end{picture}
+
+Die Symbole sind mit Symbol-Nummern bezeichnet, die im Zeichensatz \textsf{\small CRYST}
+die Bedeutung gem"a"s der folgenden Tabelle haben. 
+
+
+\vskip9pt
+\tabcolsep1.0mm
+{\large 
+\noindent\begin{tabular}{@{}cr@{\hspace{5mm}}cr@{\hspace{5mm}}cr@{\hspace{5mm}}%
+cr@{\hspace{5mm}}cr@{\hspace{5mm}}cr@{\hspace{5mm}}cr@{\hspace{5mm}}cr}
+%\small Symbol&\small Nr.&\small Symbol&\small Nr. &\small Symbol&\small Nr. %
+%&\small Symbol&\small Nr. &\small Symbol&\small Nr. &\small Symbol&\small Nr. &\small Symbol&\small Nr. \\
+\cry{0}&0 &\cry{3}&3  &\cry{4}&4   & \cry{43}&43  & \cry{5}&5  & \cry{7}&7 & \cry{8}&8& \cry{9}&9 \\[3pt]
+\cry{10}&10 &\cry{30}&30 &\cry{40}&40  & \cry{83}&83   & \cry{25}&25 & \cry{27}&27  & \cry{28}&28 & \cry{29}&29\\[3pt]
+\cry{2}&2  &\cry{133}&133 &\cry{44}&44 & \cry{143}&143   & \cry{35}&35 & \cry{37}&37 & \cry{38}&38&\cry{39}&39\\[3pt]
+\cry{20}&20 &\cry{233}&233 &\cry{140}&140 & \cry{243}&243   & \cry{45}&45 & \cry{47}&47 & \cry{48}&48&  \cry{49}&49\\[3pt]
+\cry{12}&12 &\cry{136}&136&\cry{104}&104 & \cry{15}&15  & \cry{55}&55  & \cry{57}&57& \cry{58}&58&  \cry{59}&59\\[3pt]
+\cry{102}&102  &\cry{236}&236 &\cry{204}&204 & \cry{50}&50  & \cry{75}&75  & \cry{77}&77 & \cry{78}&78&  \cry{79}&79 \\[3pt]
+\cry{120}&120 &\cry{103}&103 &\cry{24}&24 & \cry{6}&6  & \cry{85}&85  & \cry{87}&87& \cry{88}&88&  \cry{89}&89 \\[3pt]
+\cry{22}&22  &\cry{203}&203 &\cry{84}& 84 & \cry{60}&60  & \cry{95}&95  & \cry{97}&97 & \cry{98}&98 &  \cry{99}&99\\[3pt]
+\cry{202}&202 &\cry{130}&130 &\cry{124}&124 & \cry{36}&36  & \cry{105}&105  & \cry{107}&107  & \cry{108}&108& \cry{109}&109\\[3pt]
+\cry{220}&220  &\cry{230}&230 &\cry{224}&224 & \cry{61}&61 & \cry{125}&125 & \cry{127}&127 & \cry{128}&128 & \cry{129}&129 \\[3pt]
+\cry{21}&21 & \cry{31}&31  &\cry{41}&41 & \cry{62}&62 & \cry{135}&135 & \cry{137}&137& \cry{138}&138& \cry{139}&139\\[3pt]
+\cry{210}&210 &\cry{113}&113 &\cry{81}&81 & \cry{63}&63 & \cry{145}&145 & \cry{147}&147 & \cry{148}&148& \cry{149}&149\\[3pt]
+\cry{112}&112 &\cry{213}&213 &\cry{141}&141 & \cry{66}&66 & \cry{155}&155 & \cry{157}&157 & \cry{158}&158& \cry{159}&159\\[3pt]
+\cry{121}&121 &\cry{131}&131 &\cry{241}&241   &\cry{64}&64& \cry{175}&175& \cry{177}&177& \cry{178}&178& \cry{179}&179\\[3pt]
+\cry{212}&212 &\cry{231}&231 &\cry{42}&42   &\cry{65}&65 & \cry{185}&185& \cry{187}&187& \cry{188}&188& \cry{189}&189\\[3pt]
+\cry{221}&221 & \cry{32}&32 &\cry{82}& 82 &&& \cry{195}&195& \cry{197}&197& \cry{198}&198& \cry{199}&199 \\[3pt]
+&& \cry{123}&123   & \cry{240}&240     \\[3pt]
+&& \cry{223}&223   & \cry{80}&80    \\[3pt]
+&& \cry{132}&132   & \cry{142}&142   \\[3pt]
+&& \cry{232}&232  & \cry{242}&242   
+\end{tabular}}
+
+\vskip9pt
+Die Nummern f"ur die einfachen Symbole sprechen f"ur sich selbst, zum Beispiel
+4 f"ur eine vierz"ahlige Drehachse oder 32 f"ur eine $3_2$-Achse. Kommt ein
+Inversionszentrum hinzu, so ist eine 0 angeh"angt, zum Beispiel 210 f"ur \ \cry{210} \,(Ausnahme: \,\cry{66} \,hat die Nummer 66).
+ Die Nummern der "ubrigen Symbole sind etwas komplizierter (wegen der Beschr"ankung
+der Symbolnummern auf die Zahlen 0 bis 255). Symbole mit einem Angelpunkt 
+(wie im Bild auf der vorigen Seiten) haben dreistellige Nummern, die mit 1 oder 2 beginnen;
+1 wenn die Achse in der Projektion auf das Papier horizontal oder von links
+oben nach rechts unten verl"auft; 2 wenn sie vertikal oder von rechts oben 
+nach links unten verl"auft. Die Symbole Nr. 0 und Nr. 10 (Inversionspunkt)
+unterscheiden sich geringf"ugig in ihrer Gr"o"se.
+
+Die Nummern der Pfeile f"ur $2_1$-Achsen enden auf 5 und 7, die f"ur 2-Achsen auf 8 und 9.
+Die Pfeilrichtung entspricht dem Neigungswinkel, ausgedr"uckt in aufgerundeten
+Vielfachen von $10\pi$: $30^\circ\!$ = 0,166$\pi \Rightarrow 10\cdot$0,166 
+$\Rightarrow  2;$ $150^\circ\!$ = 0,833$\pi \Rightarrow 10\cdot$0,833 $\Rightarrow 9$. 
+Die Zahl ist der 5,7, 8 oder 9
+vorangestellt. Die verf"ugbaren Neigungen der Pfeile sind Vielfache von
+$30^\circ$ und $45^\circ$.
+
+\vskip6pt
+\noindent Beispiele f"ur Schriftgr"o"sen wenn normalsize 10 pt ist:\\[4pt]
+\texttt{\symbol{92}normalsize}\qquad\,{\cry{20}\quad\cry{21}\quad\cry{3}\quad\cry{113}\quad\cry{43}%
+\quad\cry{36}\quad\cry{95}\quad\cry{57}\quad\cry{189}}\\[3pt]
+\texttt{\symbol{92}large\ \ \ \ \ }
+\qquad{\large{\cry{20}\quad\cry{21}\quad\cry{3}\quad\cry{113}\quad\cry{43}%
+\quad\cry{36}\quad\cry{95}\quad\cry{57}\quad\cry{189}}}\\[4pt]
+\texttt{\symbol{92}Large\ \ \ \ \ }
+\qquad{\Large{\cry{20}\quad\cry{21}\quad\cry{3}\quad\cry{113}\quad\cry{43}%
+\quad\cry{36}\quad\cry{95}\quad\cry{57}\quad\cry{189}}}\\[4pt]
+\texttt{\symbol{92}LARGE\ \ \ \ \ }
+\qquad{\LARGE{\cry{20}\quad\cry{21}\quad\cry{3}\quad\cry{113}\quad\cry{43}%
+\quad\cry{36}\quad\cry{95}\quad\cry{57}\quad\cry{189}}}\\[5pt]
+\texttt{\symbol{92}huge\ \ \ \ \ \ }
+\qquad{\huge{\cry{20}\quad\cry{21}\quad\cry{3}\quad\cry{113}\quad\cry{43}%
+\quad\cry{36}\quad\cry{95}\quad\cry{57}\quad\cry{189}}}
+
+\vskip15pt
+\noindent\textbf{Installation des Zeichensatzes}
+
+\vskip6pt
+\noindent Um Ordnung zu halten, empfiehlt es sich, eigene Unterverzeichenisse (Ordner) anzulegen, die man
+beliebig nennen kann. Im folgenden werden sie \texttt{cryst1} genannt. Sie werden dort angelegt,
+wo \TeX\ die entsprechenden Dateien erwartet. Die folgend genannten Verzeichnis-Pfade
+entsprechen den Bezeichnungen, die unter MikTeX auf Windows-Rechnern bzw. unter Linux (RedHat) "ublich sind, wobei das
+letztgenannte Unterverzeichnis  \texttt{\symbol{92}cryst1}\ jeweils neu angelegt wird. 
+Folgende Dateien werden dorthin kopiert:
+
+
+\vskip6pt
+\texttt{cryst.tfm} \ in den Ordner f"ur \texttt{tfm}-Dateien:
+   
+MikTeX: \texttt{\symbol{92}texmf\symbol{92}fonts\symbol{92}tfm\symbol{92}public\symbol{92}cryst1}
+
+Linux: \texttt{/usr/share/texmf/fonts/tfm/cryst1} 
+
+\vskip3pt
+\texttt{cryst.mf} \ in den Ordner f"ur \texttt{mf}-Dateien (\textsf{\small METAFONT}):
+ 
+MikTeX: \texttt{\symbol{92}texmf\symbol{92}fonts\symbol{92}source\symbol{92}public\symbol{92}cryst1}
+
+Linux: \texttt{/usr/share/texmf/fonts/source/cryst1} 
+
+\vskip3pt
+\texttt{cryst.afm} \ in den Ordner f"ur \texttt{afm}-Dateien (PostScript type 1):
+ 
+MikTeX: \texttt{\symbol{92}texmf\symbol{92}fonts\symbol{92}afm\symbol{92}cryst1}
+ 
+Linux: \texttt{/usr/share/texmf/fonts/afm/cryst1} 
+
+\vskip3pt
+\texttt{cryst.pfb} \ in den Ordner f"ur \texttt{pfb}-Dateien (PostScript type 1):
+   
+MikTeX: \texttt{\symbol{92}texmf\symbol{92}fonts\symbol{92}type1\symbol{92}cryst1}
+ 
+Linux: \texttt{/usr/share/texmf/fonts/type1/cryst1} 
+
+\vskip6pt
+Dem Programm \textsf{\small DVIPS} (zur Ausgabe von PostScrpit) mu"s angezeigt werden,
+wo es die Dateien findet. Dazu wird in die Datei \texttt{config.ps} folgende Zeile eingef"ugt,
+am besten nach der Zeile, in der auf andere \texttt{map}-Dateien verwiesen wird:
+
+\vskip6pt
+\texttt{p +cryst1.map}
+
+\vskip6pt
+\noindent\texttt{config.ps} befindet sich im Verzeichnis:
+ 
+\vskip6pt MikTeX: \texttt{\symbol{92}texmf\symbol{92}dvips\symbol{92}config}
+
+Linux: \texttt{/usr/share/texmf/dvips/config}
+
+\vskip6pt Au"serdem mu"s man eine neue Datei \texttt{cryst1.map} in das Verzeichnis der \texttt{map}-Dateien einf"ugen;
+das ist das (neue) Verzeichnis \,\texttt{\symbol{92}texmf\symbol{92}dvips\symbol{92}cryst1} \, bzw.
+\texttt{/usr/share/texmf/dvips/cryst1}\,.
+Die neue  Datei \texttt{cryst1.map} besteht aus einer Zeile:
+
+\vskip6pt
+\texttt{cryst cryst1 <cryst.pfb}
+
+(die 1 nach dem zweiten cryst nicht vergessen)
+
+\vskip6pt
+Zum Schlu"s mu"s \TeX\ bekanntgegeben werden, welche neuen Verzeichnisse und Dateien existieren.
+Dies geschieht mit dem Kommando 
+
+\vskip6pt
+MikTeX: \texttt{initexmf -u}
+
+Linux: unter \texttt{root} in der \texttt{shell} mit \texttt{texhash} 
+
+\end{document}
+        

@@ -1,0 +1,640 @@
+% \iffalse meta-comment
+%
+% aunclmfb.dtx
+%
+%  Author: Peter Wilson (Herries Press) herries dot press at earthlink dot net
+%  Copyright 1999--2005 Peter R. Wilson
+%
+%  This work may be distributed and/or modified under the
+%  conditions of the Latex Project Public License, either
+%  version 1.3 of this license or (at your option) any
+%  later version.
+%  The latest version of the license is in
+%    http://www.latex-project.org/lppl.txt
+%  and version 1.3 or later is part of all distributions of
+%  LaTeX version 2003/06/01 or later.
+%
+%  This work has the LPPL maintenance status "author-maintained".
+%
+%  This work consists of the files listed in the README file.
+%
+% If you do not have the docmfp package (available from CTAN in
+% tex-archive/macros/latex/contrib/supported), comment out the
+% \usepackage{docmfp} line below and uncomment the line following it. 
+%
+%<*driver>
+\documentclass[twoside]{ltxdoc}
+\usepackage{docmfp}
+%%%%%% \providecommand{\DescribeVariable}[1]{} \newenvironment{routine}[1]{}{}
+\usepackage{url}
+\usepackage[draft=false,
+            plainpages=false,
+            pdfpagelabels,
+            bookmarksnumbered,
+            hyperindex=false
+           ]{hyperref}
+\providecommand{\phantomsection}{}
+\OnlyDescription %% comment this out for the full glory
+\EnableCrossrefs
+\CodelineIndex
+\setcounter{StandardModuleDepth}{1}
+\makeatletter
+  \@mparswitchfalse
+\makeatother
+\renewcommand{\MakeUppercase}[1]{#1}
+\pagestyle{headings}
+\newenvironment{addtomargins}[1]{%
+  \begin{list}{}{%
+    \topsep 0pt%
+    \addtolength{\leftmargin}{#1}%
+    \addtolength{\rightmargin}{#1}%
+    \listparindent \parindent
+    \itemindent \parindent
+    \parsep \parskip}%
+  \item[]}{\end{list}}
+\begin{document}
+  \raggedbottom
+  \DocInput{aunclmfb.dtx}
+\end{document}
+%</driver>
+%
+% \fi
+%
+% \CheckSum{132}
+%
+% \DoNotIndex{\',\.,\@M,\@@input,\@addtoreset,\@arabic,\@badmath}
+% \DoNotIndex{\@centercr,\@cite}
+% \DoNotIndex{\@dotsep,\@empty,\@float,\@gobble,\@gobbletwo,\@ignoretrue}
+% \DoNotIndex{\@input,\@ixpt,\@m}
+% \DoNotIndex{\@minus,\@mkboth,\@ne,\@nil,\@nomath,\@plus,\@set@topoint}
+% \DoNotIndex{\@tempboxa,\@tempcnta,\@tempdima,\@tempdimb}
+% \DoNotIndex{\@tempswafalse,\@tempswatrue,\@viipt,\@viiipt,\@vipt}
+% \DoNotIndex{\@vpt,\@warning,\@xiipt,\@xipt,\@xivpt,\@xpt,\@xviipt}
+% \DoNotIndex{\@xxpt,\@xxvpt,\\,\ ,\addpenalty,\addtolength,\addvspace}
+% \DoNotIndex{\advance,\Alph,\alph}
+% \DoNotIndex{\arabic,\ast,\begin,\begingroup,\bfseries,\bgroup,\box}
+% \DoNotIndex{\bullet}
+% \DoNotIndex{\cdot,\cite,\CodelineIndex,\cr,\day,\DeclareOption}
+% \DoNotIndex{\def,\DisableCrossrefs,\divide,\DocInput,\documentclass}
+% \DoNotIndex{\DoNotIndex,\egroup,\ifdim,\else,\fi,\em,\endtrivlist}
+% \DoNotIndex{\EnableCrossrefs,\end,\end@dblfloat,\end@float,\endgroup}
+% \DoNotIndex{\endlist,\everycr,\everypar,\ExecuteOptions,\expandafter}
+% \DoNotIndex{\fbox}
+% \DoNotIndex{\filedate,\filename,\fileversion,\fontsize,\framebox,\gdef}
+% \DoNotIndex{\global,\halign,\hangindent,\hbox,\hfil,\hfill,\hrule}
+% \DoNotIndex{\hsize,\hskip,\hspace,\hss,\if@tempswa,\ifcase,\or,\fi,\fi}
+% \DoNotIndex{\ifhmode,\ifvmode,\ifnum,\iftrue,\ifx,\fi,\fi,\fi,\fi,\fi}
+% \DoNotIndex{\input}
+% \DoNotIndex{\jobname,\kern,\leavevmode,\let,\leftmark}
+% \DoNotIndex{\list,\llap,\long,\m@ne,\m@th,\mark,\markboth,\markright}
+% \DoNotIndex{\month,\newcommand,\newcounter,\newenvironment}
+% \DoNotIndex{\NeedsTeXFormat,\newdimen}
+% \DoNotIndex{\newlength,\newpage,\nobreak,\noindent,\null,\number}
+% \DoNotIndex{\numberline,\OldMakeindex,\OnlyDescription,\p@}
+% \DoNotIndex{\pagestyle,\par,\paragraph,\paragraphmark,\parfillskip}
+% \DoNotIndex{\penalty,\PrintChanges,\PrintIndex,\ProcessOptions}
+% \DoNotIndex{\protect,\ProvidesClass,\raggedbottom,\raggedright}
+% \DoNotIndex{\refstepcounter,\relax,\renewcommand,\reset@font}
+% \DoNotIndex{\rightmargin,\rightmark,\rightskip,\rlap,\rmfamily,\roman}
+% \DoNotIndex{\roman,\secdef,\selectfont,\setbox,\setcounter,\setlength}
+% \DoNotIndex{\settowidth,\sfcode,\skip,\sloppy,\slshape,\space}
+% \DoNotIndex{\symbol,\the,\trivlist,\typeout,\tw@,\undefined,\uppercase}
+% \DoNotIndex{\usecounter,\usefont,\usepackage,\vfil,\vfill,\viiipt}
+% \DoNotIndex{\viipt,\vipt,\vskip,\vspace}
+% \DoNotIndex{\wd,\xiipt,\year,\z@}
+%
+% \changes{v1.0}{1999/05/22}{First public release}
+%
+% \def\fileversion{v1.0} \def\filedate{1999/05/22}
+% \newcommand*{\Lpack}[1]{\textsf {#1}}           ^^A typeset a package
+% \newcommand*{\Lopt}[1]{\textsf {#1}}            ^^A typeset an option
+% \newcommand*{\file}[1]{\texttt {#1}}            ^^A typeset a file
+% \newcommand*{\Lcount}[1]{\textsl {\small#1}}    ^^A typeset a counter
+% \newcommand*{\pstyle}[1]{\textsl {#1}}          ^^A typeset a pagestyle
+% \newcommand*{\Lenv}[1]{\texttt {#1}}            ^^A typeset an environment
+% \newcommand*{\AD}{\textsc{ad}}
+% \newcommand*{\thisfont}{Artificial Uncial}
+%
+% \title{\Lpack{Artificial Uncial}: MetaFont base code\thanks{This
+%        file has version number \fileversion, last revised
+%        \filedate.}}
+%
+% \author{%
+% Peter Wilson\footnote{\texttt{herries dot press at earthlink dot net}}\\
+% Herries Press }
+% \date{\filedate}
+% \maketitle
+% \begin{abstract}
+%    The \Lpack{auncial} bundle provides a PostScript Type1 set of 
+% \thisfont{} bookhands 
+% as used
+% for manuscripts in the 6th to the 10th century. This is one in a series
+% of manuscript fonts.
+%
+%    This document contains the MetaFont base code.
+% \end{abstract}
+% \tableofcontents
+% \listoftables
+%
+% 
+%
+% \section{Introduction}
+%
+%    The \Lpack{auncial} bundle provides a PostScript Type1 version of a 
+% Metafont~\cite{METAFONT} rendition 
+% of the \thisfont{} manuscript book-hand that was in use between about the
+% sixth and tenth centuries~\AD. It is part of a project to provide fonts
+% covering the major manuscript hands between the first century~\AD{} and
+% the invention of printing. 
+
+% this document contains the MetaFont base code for the font.
+%
+% This manual is typeset according to the conventions of the
+% \LaTeX{} \textsc{docstrip} utility which enables the automatic
+% extraction of the \LaTeX{} macro source files~\cite{GOOSSENS94}.
+% The \Lpack{docmfp} package is used for documenting the MetaFont portions
+% of the distribution~\cite{DOCMFP}.
+%
+%
+% \section{The Metafont code} \label{sec:mf}
+%
+%
+%    As previously noted, this work is part of a larger project to provide
+% fonts covering the main manuscript book-hands. As such, one of the
+% aims is to produce a coordinated set of fonts, especially as multiple
+% hands might be used in a single document. 
+%
+%    Noting that the hands tend to be somewhat larger than the typical 10pt
+% size (where the x-height is approximately 1.5mm) used for modern books, 
+% I have also designed the fonts
+% at a larger than normal size, then applied some non-linear factors when reducing
+% them down to a 10pt size.
+%    Further, I have used the height of the Carolingian minuscule as a 
+% normalising factor when deciding on the absolute height of any particular
+% script. The x-height of the Carolingian font is made equal to the
+% x-height of the Computer Modern Roman (CMR) font.
+%
+%    Modern fonts are effectively drawn. That is, the outline of the letter is
+% drawn carefully and the center is filled with ink. This is shown to good
+% effect in the Metafont code for the Computer Modern fonts~\cite{CM}.
+% In contrast, the manuscript letters were inked by single pen strokes in
+% a calligraphic manner. I have tried to repeat this calligraphic style
+% in the Metafont code.
+%
+%    As much as possible I have tried to use parameter values from the
+% Computer Modern Roman (CMR) fonts in order to reduce possible
+% infelicities if the CM and manuscript fonts are used together. However,
+% few of the CMR parameters are applicable to the calligraphic style.
+%
+%
+% \StopEventually{
+% \bibliographystyle{alpha}
+% \renewcommand{\refname}{Bibliography}
+% \begin{thebibliography}{GMS94}
+% \addcontentsline{toc}{section}{\refname}
+%
+% \bibitem[And69]{ANDERSON69}
+% Donald M.~Anderson.
+% \newblock \emph{The Art of Written Forms: The Theory and Practice of Calligraphy}.
+% \newblock Holt, Rinehart and Winston, 1969.
+%
+% \bibitem[Bol95]{BOLOGNA95}
+% Giulia Bologna.
+% \newblock \emph{Illuminated Manuscripts: The Book before Gutenberg}.
+% \newblock Crescent Books, 1995.
+%
+% \bibitem[Day95]{DAY95}
+% Lewis F.~Day.
+% \newblock \emph{Alphabets Old \& New}.
+% \newblock (3rd edition originally published by B.~T.~Batsford, 1910) 
+% \newblock Senate, 1995.
+%
+% \bibitem[Dro80]{DROGIN80}
+% Marc Drogin.
+% \newblock \emph{Medieval Calligraphy: Its History and Technique}.
+% \newblock Allenheld, Osmun \& Co., 1980.
+%
+% \bibitem[Dru95]{DRUCKER95}
+% Johanna Drucker.
+% \newblock \emph{The Alphabetic Labyrinth}.
+% \newblock Thames \& Hudson, 1995.
+%
+% \bibitem[Fir93]{FIRMAGE93}
+% Richard A.~Firmage.
+% \newblock \emph{The Alphabet Abecedarium}.
+% \newblock David R~Goodine, 1993.
+%
+% \bibitem[Fli98]{LETTRINE}
+% Daniel Flipo.
+% \newblock \emph{The LETTRINE package}.
+% \newblock (Available from CTAN in \texttt{macros/latex/contrib/supported}). 
+% \newblock 1998.
+%
+% \bibitem[Har95]{HARRIS95}
+% David Harris.
+% \newblock \emph{The Art of Calligraphy}.
+% \newblock DK Publishing, 1995.
+%
+% \bibitem[Jen95]{BETON}
+% Frank Jensen.
+% \newblock \emph{The BETON package}.
+% \newblock (Available from CTAN in \texttt{macros/latex/contrib/supported}). 
+% \newblock 1995.
+%
+% \bibitem[Joh71]{JOHNSTON75}
+% Edward Johnston (ed. Heather Child).
+% \newblock \emph{Formal Penship and Other Papers}.
+% \newblock Penthalic, 1971.
+%
+% \bibitem[Knu87]{CM}
+% Donald E.~Knuth.
+% \newblock \emph{Computer Modern Typefaces}.
+% \newblock Addison-Wesley, 1987.
+%
+% \bibitem[Knu92]{METAFONT}
+% Donald E.~Knuth.
+% \newblock \emph{The METAFONTbook}.
+% \newblock Addison-Wesley, 1992.
+%
+% \bibitem[GMS94]{GOOSSENS94}
+% Michel Goossens, Frank Mittelbach, and Alexander Samarin.
+% \newblock \emph{The LaTeX Companion}.
+% \newblock Addison-Wesley Publishing Company, 1994.
+%
+% \bibitem[Tho75]{THOMAS75}
+% Alan G.~Thomas.
+% \newblock \emph{Great Books and Book Collectors}.
+% \newblock Weidenfield and Nichoson, 1975.
+%
+% \bibitem[Wil99]{DOCMFP}
+% Peter R.~Wilson.
+% \newblock \emph{The DOCMFP Package}.
+% \newblock (Available from CTAN in \texttt{macros/latex/contrib/supported}). 
+% \newblock 1999.
+%
+% \bibitem[Wil99b]{ROMANNUM}
+% Peter R.~Wilson.
+% \newblock \emph{The ROMANNUM Package}.
+% \newblock (Available from CTAN in \texttt{macros/latex/contrib/supported}). 
+% \newblock 1999.
+%
+% \end{thebibliography}
+% \PrintIndex
+% }
+%
+%
+% \section{The base parameter file}
+%
+%    We deal with the parameter files first, and start by announcing
+% what they are for. The \thisfont{} font comes in three sizes and also as a normal
+% and a bold font.
+%    \begin{macrocode}
+%<*base7|base10|base17|base7b|base10b|base17b>
+%<base7>%%% AUNCL7.MF    Artificial Uncial at 7 point design size.
+%<base10>%%% AUNCL10.MF  Artificial Uncial at 10 point design size.
+%<base17>%%% AUNCL17.MF  Artificial Uncial at 17 point design size.
+%<base7b>%%% AUNCLB7.MF    Artificial Uncial Bold at 7 point design size.
+%<base10b>%%% AUNCLB10.MF  Artificial Uncial Bold at 10 point design size.
+%<base17b>%%% AUNCLB17.MF  Artificial Uncial Bold at 17 point design size.
+%
+%    \end{macrocode}
+%    Parameters from CMR are used as much as possible. We also
+% make sure that \Lpack{cmbase} is loaded as well as plain Metafont.
+%    \begin{macrocode}
+if unknown cmbase: input cmbase fi
+
+%<base7>font_identifier:="AUNCL"; font_size 7pt#;
+%<base10>font_identifier:="AUNCL"; font_size 10pt#;
+%<base17>font_identifier:="AUNCL"; font_size 17.28pt#;
+%<base7b>font_identifier:="AUNCLB"; font_size 7pt#;
+%<base10b>font_identifier:="AUNCLB"; font_size 10pt#;
+%<base17b>font_identifier:="AUNCLB"; font_size 17.28pt#;
+
+%    \end{macrocode}
+%
+% \DescribeVariable{jutstretch}
+%    The CMR scaling for lowercase serifs wrt 17pt size.
+%    \begin{macrocode}
+%<base7|base7b> jutstretch:=1.19; 
+%<base10|base10b> jutstretch:=1.152; 
+%<base17|base17b> jutstretch:=1.0;
+%    \end{macrocode}
+%
+% \DescribeVariable{stemstretch}
+%    The CMR scaling for lowercase stem widths wrt 17pt size.
+%    \begin{macrocode}
+%<base7|base7b> stemstretch:=1.50;
+%<base10|base10b> stemstretch:=1.31;
+%<base17|base17b> stemstretch:=1.0;
+%    \end{macrocode}
+%
+% \DescribeVariable{caprat}
+%    The scaling for `capitals' wrt `lowercase'. This is pretty much a guess.
+%    \begin{macrocode}
+ caprat:=1.25;          % ratio of capital height to minuscule height
+%    \end{macrocode}
+%
+% \DescribeVariable{cap_jutstretch}
+%    The CMR scaling for uppercase serifs wrt 17pt size.
+%    \begin{macrocode}
+%<base7|base7b> cap_jutstretch:=1.3;   
+%<base10|base10b> cap_jutstretch:=1.2;   
+%<base17|base17b> cap_jutstretch:=1.0;   
+%    \end{macrocode}
+%
+% \DescribeVariable{cap_stemstretch}
+%    The CMR scaling for uppercase stem width wrt 17pt size.
+%    \begin{macrocode}
+%<base7|base7b> cap_stemstretch:=1.45;  
+%<base10|base10b> cap_stemstretch:=1.31;  
+%<base17|base17b> cap_stemstretch:=1.0;  
+%    \end{macrocode}
+%
+% \DescribeVariable{bfudge}
+%    Letter width scaling for bold font wrt normal font.
+%    \begin{macrocode}
+%<base7|base10|base17> bfudge:=1.0;
+%<base7b|base10b|base17b> bfudge:=1.2;
+%    \end{macrocode}
+%
+% \DescribeVariable{szfudge}
+%    Width scaling wrt 17pt letter width.
+%    \begin{macrocode}
+%<base7|base7b> szfudge:=1.18; 
+%<base10|base10b> szfudge:=1.0; 
+%<base17|base17b> szfudge:=1.0; 
+%    \end{macrocode}
+%
+% \DescribeVariable{hstretch}
+%    Horizontal stretching factor wrt 17pt size letter width.
+%    \begin{macrocode}
+ hstretch:=szfudge*bfudge;
+%    \end{macrocode}
+%
+% \DescribeVariable{carol_height}
+%    The x-height of the Carolingian minuscule font.
+%    \begin{macrocode}
+%<base7|base7b> carol_height#:=108.5/36pt#; 
+%<base10|base10b> carol_height#:=155/36pt#; 
+%<base17|base17b> carol_height#:=268/36pt#; 
+%    \end{macrocode}
+%
+% \DescribeVariable{vstretch}
+%    The height of this font wrt the Carolingian font.
+%    \begin{macrocode}
+ vstretch:=1.4;   
+
+%    \end{macrocode}
+%
+% \DescribeVariable{x_height} 
+%    The x-height of lower case letters. Scaled from the Carolingian font.
+%    \begin{macrocode}
+ x_height#:=vstretch*carol_height#; 
+%    \end{macrocode}
+%
+% \DescribeVariable{u}
+%    The unit width. The CMR values are used.
+%    \begin{macrocode}
+%<base7> u#:=15.5/36pt#;  
+%<base10> u#:=20/36pt#;  
+%<base17> u#:=32.5/36pt#;  
+%<base7b> u#:=17.9/36pt#;  
+%<base10b> u#:=23/36pt#;  
+%<base17b> u#:=37/36pt#;  
+%    \end{macrocode}
+%
+% \DescribeVariable{width_adj}
+% \DescribeVariable{serif_fit}
+% \DescribeVariable{cap_serif_fit}
+% \DescribeVariable{letter_fit}
+%    The majority of these parameters and values are constant.
+% They are for fine adjustements of characters. The CM values are used.
+%    \begin{macrocode}
+ width_adj#:=0pt#;         % width adjustment for certain characters
+ serif_fit#:=0pt#;         % extra sidebar near lowercase serifs
+%<base7|base7b> cap_serif_fit#:=3.5/36pt#;  % extra sidebar near uppercase serifs
+%<base10|base10b> cap_serif_fit#:=5/36pt#;  % extra sidebar near uppercase serifs
+%<base17|base17b> cap_serif_fit#:=8/36pt#;  % extra sidebar near uppercase serifs
+%<base7|base7b> letter_fit#:=0pt#;        % extra space added to all sidebars
+%<base10|base10b> letter_fit#:=0pt#;        % extra space added to all sidebars
+%<base17|base17b> letter_fit#:=-0.1pt#;        % extra space added to all sidebars
+
+%    \end{macrocode}
+%
+% \DescribeVariable{cap_height} 
+%    The height of capital letters.
+%    \begin{macrocode}
+%<base7|base7b> cap_height#:=172.2/36pt#;        % height of caps
+%<base10|base10b> cap_height#:=246/36pt#;        % height of caps
+%<base17|base17b> cap_height#:=425/36pt#;        % height of caps
+%    \end{macrocode}
+%
+% \DescribeVariable{thickfudge}
+%    The reciprocal of the font height in nib widths. Normal font height
+% is 5 nib widths and the bold font height is 3.5 nib widths.
+%    \begin{macrocode}
+%<base7|base10|base17> thickfudge:=1/5;     
+%<base7b|base10b|base17b> thickfudge:=1/3.5;     
+%    \end{macrocode}
+%
+% \DescribeVariable{thinfudge}
+%    The nib sharpness.
+%    \begin{macrocode}
+thinfudge:=1/6;      
+%    \end{macrocode}
+%
+% \DescribeVariable{thick}
+%    The maximum nib width. 
+% That is, the width of the thickest line that can be penned.
+%    \begin{macrocode}
+thick#:=stemstretch*thickfudge*x_height#;    % max pen breadth
+%    \end{macrocode}
+%
+% \DescribeVariable{thin}
+%    The nib thinness. 
+% That is, the width of the thinnest line that can be penned.
+%    \begin{macrocode}
+thin#:=thinfudge*thick#;  
+%    \end{macrocode}
+%
+% \DescribeVariable{pangle}
+%  The pen angle (in degrees).
+%    \begin{macrocode} 
+pangle:=10;                  % pen angle
+%    \end{macrocode}
+%
+% \DescribeVariable{asc_height} 
+%    The height of lower case ascenders.
+%    \begin{macrocode}
+  asc_height#:=4/3x_height#;
+%    \end{macrocode}
+%
+% \DescribeVariable{desc_depth} 
+%    The depth of lower case descenders.
+%    \begin{macrocode}
+  desc_depth#:=2/3x_height#;
+%    \end{macrocode}
+%
+% \DescribeVariable{fig_height} 
+%    The height of numerals. Make these midway between normal and capital
+% letters.
+%    \begin{macrocode}
+  fig_height#:=(0.5[1,caprat])*x_height#;
+%    \end{macrocode}
+%
+% \DescribeVariable{fig_width} 
+%    The width of numerals. All numerals are the same width (roughly, an `o').
+%    \begin{macrocode}
+  fig_width#:=hstretch*(x_height#);
+%    \end{macrocode}
+%
+% \DescribeVariable{body_height} 
+%    The height of the tallest character.
+%    \begin{macrocode}
+ body_height#:=caprat*asc_height#;    
+%    \end{macrocode}
+%
+% \DescribeVariable{body_depth} 
+%    The depth of the lowest character.
+%    \begin{macrocode}
+ body_depth#:=caprat*desc_depth#;    
+%    \end{macrocode}
+%
+% \DescribeVariable{half_height} 
+%    Half the normal letter height.
+%    \begin{macrocode}
+ half_height#:=1/2x_height#;    % half the height of x height letters
+
+%    \end{macrocode}
+%
+% \DescribeVariable{side}
+%    We might be using a square for the character design.
+%    \begin{macrocode}
+side#:=x_height#;     
+%    \end{macrocode}
+%
+% \DescribeVariable{rule_thickness}
+%    Thickness of rules (in math symbols). The CMR values are used.
+%    \begin{macrocode}
+%<base7|base7b> rule_thickness#:=.34pt#; 
+%<base10|base10b> rule_thickness#:=.4pt#; 
+%<base17|base17b> rule_thickness#:=.6pt#; 
+
+%    \end{macrocode}
+%
+% \DescribeVariable{jutfudge}
+%    Controls the protrusion of serifs.
+%    \begin{macrocode}
+jutfudge:= 3/4;
+%    \end{macrocode}
+%
+% \DescribeVariable{jut} 
+%    The lowercase serif protrusion.
+%    \begin{macrocode}
+jut#:=jutstretch*jutfudge*thick#; 
+%    \end{macrocode}
+%
+% \DescribeVariable{srad}
+%    |srad| with |0 < srad < 1| controls the serif radius.
+%    \begin{macrocode}
+srad:=0.5;   
+%    \end{macrocode}
+%
+% \DescribeVariable{o}
+%    Amount of overshoot for curves (as in an `o'). Use CMR values.
+%    \begin{macrocode} 
+%<base7|base7b> o#:=5/36pt#;   
+%<base10|base10b> o#:=8/36pt#;   
+%<base17|base17b> o#:=10/36pt#;   
+
+%    \end{macrocode}
+%
+% \DescribeVariable{slant}
+% |slant| is the amount the font slopes to the right. 
+%    \begin{macrocode}
+slant:=0;      % tilt ratio $(\Delta x/\Delta y)$
+
+%    \end{macrocode}
+% 
+% \DescribeVariable{monospace} 
+%    We are generating a variable-width font.
+%    \begin{macrocode}
+monospace:=false;    % should all characters have the same width?
+
+%    \end{macrocode}
+%
+% \DescribeVariable{dot_size}
+%    The size of (punctuation) dots.
+%    \begin{macrocode}
+dot_size#:=5thin#;   % size of dots
+%    \end{macrocode}
+%
+% \DescribeVariable{comma_width}
+%    The horizontal width of a comma.
+%    \begin{macrocode}
+comma_width#:=2.5dot_size#; 
+
+%    \end{macrocode}
+%
+% \DescribeVariable{accent_ysize}
+% \DescribeVariable{accent_thickness}
+%  |accent_ysize| is the height/depth of an accent and |accent_thickness| is
+% the width of the pen for drawing accents.
+%    \begin{macrocode}
+accent_ysize#:=3/2thick#;
+accent_thickness#:=4/16[thin#,thick#];
+%    \end{macrocode}
+%
+% \DescribeVariable{accent_gap}
+% |accent_gap| is the space between the top of a character and the bottom
+% of a (top) accent.
+%    \begin{macrocode}
+accent_gap#:=1/2accent_ysize#;
+
+%    \end{macrocode}
+%
+%
+%
+% \DescribeVariable{accent_angle}
+% \DescribeVariable{sin_accent_angle}
+% \DescribeVariable{cos_accent_angle}
+% The angle that an accent makes with the horizontal, with its sin and cosine.
+%    \begin{macrocode}
+accent_angle:=45;
+sin_accent_angle:= sind(accent_angle);
+cos_accent_angle:= cosd(accent_angle);
+
+%    \end{macrocode}
+%
+%    Finally, call the driver file for the font.
+%    \begin{macrocode} 
+generate auncltitle      %% switch to the driver file
+
+%    \end{macrocode}
+%
+%    The end of this code section.
+%    \begin{macrocode}
+%</base7|base10|base17|base7b|base10b|base17b>
+%    \end{macrocode}
+%
+% \Finale
+%
+\endinput
+
+%% \CharacterTable
+%%  {Upper-case    \A\B\C\D\E\F\G\H\I\J\K\L\M\N\O\P\Q\R\S\T\U\V\W\X\Y\Z
+%%   Lower-case    \a\b\c\d\e\f\g\h\i\j\k\l\m\n\o\p\q\r\s\t\u\v\w\x\y\z
+%%   Digits        \0\1\2\3\4\5\6\7\8\9
+%%   Exclamation   \!     Double quote  \"     Hash (number) \#
+%%   Dollar        \$     Percent       \%     Ampersand     \&
+%%   Acute accent  \'     Left paren    \(     Right paren   \)
+%%   Asterisk      \*     Plus          \+     Comma         \,
+%%   Minus         \-     Point         \.     Solidus       \/
+%%   Colon         \:     Semicolon     \;     Less than     \<
+%%   Equals        \=     Greater than  \>     Question mark \?
+%%   Commercial at \@     Left bracket  \[     Backslash     \\
+%%   Right bracket \]     Circumflex    \^     Underscore    \_
+%%   Grave accent  \`     Left brace    \{     Vertical bar  \|
+%%   Right brace   \}     Tilde         \~}
+
+

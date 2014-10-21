@@ -1,0 +1,498 @@
+\documentclass{article}
+\def\version{1.2}
+%% Copyright 2013 Steven B. Segletes
+%
+% This work may be distributed and/or modified under the
+% conditions of the LaTeX Project Public License, either version 1.3
+% of this license or (at your option) any later version.
+% The latest version of this license is in
+%   http://www.latex-project.org/lppl.txt
+% and version 1.3c or later is part of all distributions of LaTeX
+% version 2005/12/01 or later.
+%
+% This work has the LPPL maintenance status `maintained'.
+%
+% The Current Maintainer of this work is Steven B. Segletes.
+% Revisions:
+% v1.01 Documentation revision
+% v1.1  Added \csname record\roman{@row}\endcsname to \readdef
+% v1.2  -Corrected the [truncated] LPPL license info
+%       -Added \arrayij and \arrayijk, which can be put into \edef
+%       -Used \romannumeral in preference to \roman{}, when possible,
+%        to avoid unnecessary use of counters.
+
+\parskip 1em
+\parindent 0em
+\newcommand\rl{\rule{1em}{0in}}
+\def\rdar{\textsf{readarray}}
+\usepackage{readarray}
+\usepackage{verbatimbox}
+\let\vb\verb
+\def\bs{{\ttfamily\char'134}}
+\reversemarginpar
+\marginparwidth 1.5in
+\newcommand\margcmd[1]{\marginpar{\hfill\ttfamily\char'134#1}}
+
+\begin{document}
+\begin{center}
+\LARGE The {\rdar} Package\\
+\rule{0em}{.7em}\small Routines for inputting formatted array data and 
+recalling it on an element-by-element basis.\\Currently supports 2-D 
+and 3-D array structures\\
+\rule{0em}{2.7em}\large Steven B. Segletes\\
+steven.b.segletes.civ@mail.mil\\
+\rule{0em}{1.7em}\today\\
+v\version
+\end{center}
+
+\section{Description and Commands}
+
+The {\rdar} package allows for the inputting of data arrays (numeric,
+string, or even formatted) in either file form or \vb|\def| form, such
+that the elements of multiple arrays can be specified and later recalled
+in an orderly fashion, on a cell-by-cell basis.  Routines have been
+developed to support the storage and recall of both 2-D and 3-D arrays.
+
+The commands included in this package help the user input data, define
+it in terms of array elements and recall those elements at will. Those
+commands are:\\\itshape
+\rl\vb|\readdef{|filename\vb|}{|token\vb|}|\\
+\rl\vb|\showrecord[|error\vb|]{|record number\vb|}|\\
+\rl\vb|\copyrecords{|identifier\vb|}|\\
+\rl\vb|\readArrayij{|token\vb|}{|identifier\vb|}{|columns\vb|}|\\
+\rl\vb|\readArrayijk{|token\vb|}{|identifier\vb|}{|rows\vb|}{|columns\vb|}|\\
+\rl\vb|\Arrayij[|error\vb|]{|identifier\vb|}{|row\vb|}{|column\vb|}|\\
+\rl\vb|\Arrayijk[|error\vb|]{|identifier\vb|}{|plane\vb|}{|row\vb|}{|%
+     column\vb|}|\\
+\rl\vb|\arrayij{|identifier\vb|}{|row\vb|}{|column\vb|}|\\
+\rl\vb|\arrayijk{|identifier\vb|}{|plane\vb|}{|row\vb|}{|%
+     column\vb|}|\upshape 
+
+Several strings of fixed name are defined through the use of this
+package which are accessible to the user:\\
+\rl\vb|\nrows|\\
+\rl\vb|\ncols|\\
+\rl\vb|\nrecords|\\
+\rl\vb|\record|\textit{index}
+
+In addition to the strings of fixed name, there are various strings
+created whose name is a function of the user-specified data, such
+as\\\itshape
+\rl\vb|\|identifier\vb|CELLS|\\
+\rl\vb|\|identifier\vb|PLANES|\\
+\rl\vb|\|identifier\vb|ROWS|\\
+\rl\vb|\|identifier\vb|COLS|\\\upshape
+where \textit{identifier} is the alphabetic-character string by which
+you have designated a particular array.  They will be discussed in
+relation to the commands that create these strings.
+
+Support routines which are generally not required directly by
+the user for the specification and recall of data arrays, but which are
+useful to this package and in a variety of other circumstances include
+the following:\\\itshape
+\rl\vb|\getargsC{|token {\upshape or} string\vb|}|\\
+\rl\vb|\arg|index\\
+\rl\vb|\narg|\\
+\rl\vb|\showargs[|number\vb|]|\\\upshape
+\rl\vb|\def\converttilde{|T or F\vb|}|\upshape
+
+\begin{center}
+\vfill
+[\textsc{This Space Intentionally Left Blank}]
+\vfill
+\end{center}
+\clearpage
+\section{Data Structure}
+
+The first requirement is to lay out a format for the data interface to
+this package.  The {\rdar} package is set up to digest space-separated data.
+The format for the data organization is as follows, for 2-D arrays:
+
+\(
+\begin{array}{lllll}
+A_{11} &A_{12} &A_{13} & \ldots & A_{1\mathrm{(columns)}} \\
+A_{21} &A_{22} & \ldots && \\
+\vdots&&&&\\
+A_{\mathrm{(rows)}1} &A_{\mathrm{(rows)}2} &A_{\mathrm{(rows)}3} & 
+              \ldots & A_{\mathrm{(rows)}\mathrm{(columns)}} \\
+\end{array}
+\)
+
+and for 3-D arrays:
+
+\(
+\begin{array}{lllll}
+A_{111} &A_{112} &A_{113} & \ldots & A_{11\mathrm{(columns)}} \\
+A_{121} &A_{122} & \ldots && \\
+\vdots&&&&\\
+A_{1\mathrm{(rows)}1} &A_{1\mathrm{(rows)}2} &A_{1\mathrm{(rows)}3} & 
+                     \ldots & A_{1\mathrm{(rows)}\mathrm{(columns)}} \\
+&&&&\\
+A_{211} &A_{212} &A_{213} & \ldots & A_{21\mathrm{(columns)}} \\
+A_{221} &A_{222} & \ldots && \\
+\vdots&&&&\\
+A_{2\mathrm{(rows)}1} &A_{2\mathrm{(rows)}2} &A_{2\mathrm{(rows)}3} & 
+                     \ldots & A_{2\mathrm{(rows)}\mathrm{(columns)}} \\
+&&&&\\
+\vdots&&&&\\
+&&&&\\
+A_{\mathrm{(planes)}11} &A_{\mathrm{(planes)}12} &A_{\mathrm{(planes)}13} & \ldots & A_{\mathrm{(planes)}1\mathrm{(columns)}} \\
+A_{\mathrm{(planes)}21} &A_{\mathrm{(planes)}22} & \ldots && \\
+\vdots&&&&\\
+A_{\mathrm{(planes)}\mathrm{(rows)}1} &A_{\mathrm{(planes)}\mathrm{(rows)}2} &A_{\mathrm{(planes)}\mathrm{(rows)}3} & 
+                     \ldots & A_{\mathrm{(planes)}\mathrm{(rows)}\mathrm{(columns)}} \\
+\end{array}
+\)
+
+\section{Getting Data into Array Structures\label{s:ex}}
+
+One can provide data to be digested by this package in one of two ways:
+either through an external file, or by way of ``cut and paste'' into a
+\vb|\def|.  If one chooses the external file approach, the command
+\vb|\readdef|\margcmd{readdef} is the command which can achieve this
+result.  The command takes two arguments.  The first is the file in
+which the data is stored, while the second is the token into which the
+data will be placed, for example
+
+\rl\vb|\readdef{data.txt}{\dataA}|
+
+In this case, the contents of the file \vb|data.txt| will be placed
+into the token \vb|\dataA|.  At this point, the data is still not
+digested into a data ``array,'' but merely stuffed into a \vb|\def| (a
+\vb|\protected@edef| actually).  Thus, there is no
+\textit{requirement} that carriage returns be part of the input file
+after each row of data, nor that blank lines exist between planes of
+data (if the data is 3-D). \textit{However}, there is a reason to do so,
+nonetheless.  In particular, for datafiles that are organized in the
+preferred fashion, for example:
+
+\begin{verbbox}
+A111 A112 A113 A114
+A121 A122 A123 A124
+A131 A132 A133 A134
+
+A211 A212 A213 A214
+A221 A222 A223 A224
+A231 A232 A233 A234
+\end{verbbox}
+\tabcolsep 1em\begin{tabular}{l}
+\theverbbox
+\end{tabular}
+
+a \vb|\readdef| will cause the following strings to be set:
+\vb|\ncols|\margcmd{ncols} and \vb|\nrows|\margcmd{nrows}, in this
+case to values of \vb|4| and \vb|3|, respectively.  Such data could
+prove useful if the array size is not known in advance.
+When \verb|\readdef| is invoked, a string
+\verb|\nrecords|\margcmd{nrecords} will also be set to the number of
+file records processed by the \vb|\readdef| command.
+
+In lieu of \verb|\readdef|, a generally less preferred, but viable way
+to make the data available is to cut and paste into a \vb|\def|.
+However, because a blank line is not permitted as part of the \vb|\def|,
+a filler symbol (\vb|%| or \vb|\relax|) must be used in its place, if it
+is desired to visually separate planes of data, as shown in the
+\verb|\def| example at the top of the following page.  Note that the
+\vb|%| is also required at the end of the line containing \vb|\def|, in
+order to guarantee that, in this case, \vb|A111| is the first element of
+data (and not a linebreak).  However, unlike \vb|\readdef|, this
+definition will set the values of neither \vb|\ncols| nor \vb|\nrows|.
+
+\begin{verbbox}[]
+\def{\dataA}{%
+A111 A112 A113 A114
+A121 A122 A123 A124
+A131 A132 A133 A134
+%
+A211 A212 A213 A214
+A221 A222 A223 A224
+A231 A232 A233 A234
+}
+\end{verbbox}
+\begin{tabular}{l}
+\theverbbox
+\end{tabular}
+
+Once the data to be placed into an array is available by way of either
+\vb|\readdef| or \vb|\def|, the command to digest the data into an array
+is either \vb|\readArrayij| (or \verb|\copyrecords|), in the case of 2-D
+data, or \vb|\readArrayijk|, for 3-D data.  
+
+\subsection{Creating 2-D Arrays}
+
+In the case of \vb|\readArrayij|\margcmd{readArrayij}, the command
+takes three arguments.  The first is the token into which the data had
+previously been stuffed.  The second is an alphabetic-string identifier
+for the array, which can be one or more characters in length.  Finally,
+the last argument is the number of columns in the array.  If the data
+had been read by way of \vb|\readdef|, the string \vb|\ncols|
+may be used to signify this value.
+
+\subsection{Creating Pseudo-1-D Arrays}
+
+While the {\rdar} package has no explicit provisions for 1-D arrays, one
+could use the 2-D \verb|\readArrayij| command, with the third argument set
+to a value of unity \{1\}, instead of \verb|\ncols|.  In this way, each
+space-separated word of the input file will be set to a new data row.
+While this approach is useful for sticking each ``word'' of input data
+into its own single-column data row, the command
+\verb|\copyrecords|\margcmd{copyrecords} can be used to stick the
+individual ``file records'' from the most recent \verb|\readdef| into a
+2-D array of \textbf{single-column width}.  The \verb|\copyrecords| command takes
+as its argument an alphabetic string identifier to associate with the
+array of data.  Its use accomplishes two things: 1) it allows records
+(rather than words) of a file to be accessed using the general
+\verb|\Arrayij| nomenclature to be discussed shortly; and 2) it saves
+the most recently read file data into its own data structure, so that it
+is not overwritten by a subsequent invocation of \verb|\readdef|.
+
+\subsection{Creating 3-D Arrays}
+
+For the 3-D case, \vb|\readArrayijk|\margcmd{readArrayijk} takes an
+additional argument, in comparison to \verb|\readArrayij|.  The first two
+arguments are identical to \vb|\readArrayij|; namely, the token containing
+the data and an identifier for the array.  The third argument is the
+number of rows in the array, while the fourth argument is the number of
+columns.  Likewise, if \vb|\readdef| had been used on a properly formed
+input file, both \vb|\nrows| and \vb|\ncols| may be used to supply the
+third and fourth arguments.
+
+While it may be easily envisioned that the array data is numerical, this
+need not be the case.  The data may be text, and even formatted text.
+Furthermore, one may introduce space characters into the data of
+individual cells through the use of hardspaces (\vb|~|), since
+normal white space would otherwise be interpreted as a data separator.
+Thus, given the following definitions and array initialization,
+
+\begin{verbbox}[]
+\def\I#1{\textit{#1}}
+\def\dataC{%
+\I{am}  \I{are} have~\I{been} have~\I{been}
+\I{are} \I{are} have~\I{been} have~\I{been}
+\I{is}  \I{are} has~\I{been}  have~\I{been}
+%
+\I{was}  \I{were} had~\I{been} had~\I{been}
+\I{were} \I{were} had~\I{been} had~\I{been}
+\I{was}  \I{were} had~\I{been} had~\I{been}
+%
+will~\I{be} will~\I{be} will~have~\I{been} will~have~\I{been}
+will~\I{be} will~\I{be} will~have~\I{been} will~have~\I{been}
+will~\I{be} will~\I{be} will~have~\I{been} will~have~\I{been}
+}
+\readArrayijk{\dataC}{tobeConjugation}{3}{4}
+\end{verbbox}
+\begin{tabular}{l}
+\theverbbox
+\end{tabular}
+
+\def\I#1{\textit{#1}}
+\def\dataC{%
+\I{am}  \I{are} have~\I{been} have~\I{been}
+\I{are} \I{are} have~\I{been} have~\I{been}
+\I{is}  \I{are} has~\I{been}  have~\I{been}
+%
+\I{was}  \I{were} had~\I{been} had~\I{been}
+\I{were} \I{were} had~\I{been} had~\I{been}
+\I{was}  \I{were} had~\I{been} had~\I{been}
+%
+will~\I{be} will~\I{be} will~have~\I{been} will~have~\I{been}
+will~\I{be} will~\I{be} will~have~\I{been} will~have~\I{been}
+will~\I{be} will~\I{be} will~have~\I{been} will~have~\I{been}
+}
+\readArrayijk{\dataC}{tobeConjugation}{3}{4}
+multi-word sequences will be placed into the individual array elements
+of an array identified as ``tobeConjugation,'' with the appropriate
+italic emphases applied to the words.
+
+If, perchance, a row is only partially defined by \vb|\readArrayij| or
+a plane is only partially defined by \vb|\readArrayijk|, the partial
+data is discarded.
+
+\subsection{Treatment of Hardspaces}
+
+For either the 2-D or 3-D \verb|\readArray| commands, the interpretation
+of hardspaces (\vb|~|) as data is specifically designed to allow
+multi-word data entries.  However, one may choose to turn this feature
+off by setting the flag
+
+\rl\vb|\def\converttilde{T}|
+
+which will have the effect of converting hardspaces to regular space
+tokens.
+
+\section{Recalling Data from Array Structures}
+
+While one has specified the number of columns and/or rows associated
+with the \vb|\readArray...| initialization, those numbers may not yet
+be known to the user, if the values employed came from the
+\vb|\readdef| initializations of 
+\vb|\ncols| and \vb|\nrows|.  Therefore, the \vb|\readArray...|
+\margcmd{{\rmfamily\itshape identifier}CELLS}%
+\margcmd{{\rmfamily\itshape identifier}PLANES}%
+\margcmd{{\rmfamily\itshape identifier}ROWS}%
+\margcmd{{\rmfamily\itshape identifier}COLS}%
+commands also set the following strings:
+\itshape\vb|\|identifier\vb|CELLS|, \vb|\|identifier\vb|PLANES|% ,
+\vb|\|identifier\vb|ROWS|{\upshape, and} 
+\vb|\|identifier\vb|COLS|\upshape, where
+\textit{identifier} is the array identifier string that was supplied to
+the \verb|\readarray...| command. Note that it is the
+case, for 3-D arrays, that
+
+\rl\itshape\vb|\|identifier\vb|CELLS| $=$ \vb|\|identifier\vb|PLANES|
+$\times$ \vb|\|identifier\vb|ROWS| $\times$
+\vb|\|identifier\vb|COLS|\upshape
+
+For the ``tobeConjugation'' example of the prior section,
+\tobeConjugationCELLS $=$\tobeConjugationPLANES 
+$\times$\tobeConjugationROWS $\times$%
+\tobeConjugationCOLS. Likewise, for 2-D arrays
+
+\rl\itshape\vb|\|identifier\vb|CELLS| $=$ \vb|\|identifier\vb|ROWS| 
+$\times$ \vb|\|identifier\vb|COLS|\upshape
+
+To retrieve the data from the array, one need employ either the
+\vb|\Arrayij|
+\margcmd{Arrayij}
+or \vb|\Arrayijk|
+\margcmd{Arrayijk}
+commands, depending on whether the array is 2-D or 3-D.  The first
+mandatory argument to either of these commands is the array identifer.
+The remaining arguments to these commands are simply the row and column,
+in the case of the 2-D \vb|\Arrayij|, or else the plane, row, and
+column, in the case of the 3-D \vb|\Arrayijk|.
+
+Thus, in the case of the earlier example involving conjugation of the
+verb \textit{to be}, the second-person future-perfect tense of the verb
+is given by\\
+\rl\vb|\Arrayijk{tobeConjugation}{3}{2}{4}|,\\
+which yields ``\Arrayijk{tobeConjugation}{3}{2}{4}.''
+
+For pseudo-1-D arrays, either created with \verb|\copyrecords| or else
+using the \verb|\readarray| command with the third argument set to
+unity, access to these arrays is achieved by way of \verb|\Arrayij|,
+setting the column argument to unity.
+
+There are also strings defined, one for each record that was read from
+the file, with the name
+\verb|\record|\textit{index}\margcmd{record\itshape\rmfamily index},
+where \textit{index} is the record number expressed in roman numerals.
+Thus in the example from section~\ref{s:ex}, \vb|\recordii| would
+contain the string ``\vb|A121 A122 A123 A124|''.  However, such syntax
+provides no bounds checking.
+
+An alternate (perhaps preferred) way to access one of the file records
+read during the most recent \verb|\readdef|, in a way which provides
+bounds checking, is to use the \verb|\showrecord|
+command\margcmd{showrecord}.  For the section~\ref{s:ex} example, the
+alternative to executing \vb|\recordii| would be to use
+\verb|\showrecord{2}|.  The optional argument to this command provides
+an alternative error message if the record requested is out of bounds.
+The default error messages for negative or excessive record numbers are,
+respectively:
+
+\def\nrecords{1}
+\rl\showrecord{-1}\\
+\rl\showrecord{10}
+
+Unlike the \vb|\Arrayij| and \verb|\Arrayijk| commands already
+discussed, the record data from a given file read will only be available
+until the next invocation of \verb|\readdef|.  For this reason, the
+command \verb|\copyrecords| was introduced to convert file-record data
+into an array data structure.
+
+While the user is developing his application involving the {\rdar}
+package, there may accidentally arise the unintended circumstance where
+an array element is asked for which falls outside the array bounds.
+Like \verb|\showrecord|, the \verb|\Arrayij| and \verb|\Arrayijk|
+commands also employ bounds checking. These commands check for
+four error conditions that, by default, produce the following error
+messages:\\
+\rl\Arrayijk{tobeConjugation}{-3}{2}{4}\\
+\rl\Arrayijk{tobeConjugation}{9}{2}{4}\\
+\rl\Arrayijk{tobeConjugation}{3}{9}{4}\\
+\rl\Arrayijk{tobeConjugation}{3}{2}{9}
+
+which are written in lieu of a valid array element datum.  While such
+messages help in debugging, the user may desire an error tailored to the
+application.  The optional argument to both \vb|\Arrayij| and
+\vb|\Arrayijk| replaces the default error messages and is to be printed
+if any error condition arises.  It could be a blank \vb|[]|, a black
+box \vb|[\rule{1ex}{1ex}]|, or anything else that makes sense for the
+application.
+
+\section{Alternate Accessing Commands if \texttt{\bs edef} is Required}
+
+The\verb|\Arrayij| and \verb|\Arrayijk| commands may, of course, be
+placed as arguments of \verb|\def| commands.  They, cannot, however, be
+placed into an \verb|\edef|.  If the user has need to place the
+array-element content into an \verb|\edef| (and assuming that the
+actual array-element content is suitable for an \verb|\edef|), the user
+should employ the \verb|\arrayij| and \verb|\arrayijk| commands, as
+alternatives.
+\margcmd{arrayij}\margcmd{arrayijk}% 
+These commands do not perform any bounds checking (thus eliminating the
+need for an optional argument).  Their advantage, however, is that they
+may be freely placed into an
+\verb|\edef|.
+
+\section{Support Routines}
+
+The engine for the {\rdar} package is the \vb|\getargsC|
+\margcmd{getargsC} command, based on the \vb|\getargs| command found
+in the \textsf{stringstrings} package.  This command has been herein
+rewritten for speed.  The \vb|\getargsC| command takes a string or
+token as its argument and separates each of the space-separated words of
+it into individual strings, named with roman numerals as
+\vb|\argi|\margcmd{arg\itshape\rmfamily index}, \vb|\argii|,
+\textit{etc}. The total number of arguments that are separated is given
+by the string \vb|\narg|\margcmd{narg}.  This command can be useful
+for a variety of applications outside of \rdar.  While generally used
+only for diagnostic purposes, the command
+\vb|\showargs|\margcmd{showargs} is used print out all the arguments
+recently digested by an invocation of \vb|\getargsC|, separated by
+small black blocks.  The optional argument to \vb|\showargs| is the
+number of individual arguments to place on a single line of output,
+before issuing a linefeed.  Thus, the command
+
+\begin{verbbox}[]
+\showargs[4]
+\end{verbbox}
+\begin{tabular}{l}
+\theverbbox
+\end{tabular}
+
+yields the following result:
+
+\showargs[4]
+
+Note that the 37$^{th}$ argument is non-printing and represents the
+residual linefeed left over fromt he \vb|\def| of \vb|\dataC|.  A
+similar residual argument is also left by the \vb|\readdef| command.
+It can be eliminated if the last record of the \vb|\readdef| input
+file (or the last record of the \vb|\def| command) ends with a
+\vb|%| symbol, so as to discard the final linefeed prior to the
+end-of-file (or \vb|}|).
+
+As mentioned earlier, the flag
+\vb|converttilde|\margcmd{converttilde}, by default ``false,'' can be
+set to \vb|\def\converttilde{T}| so as to tell \vb|\getargsC| to
+treat hardspaces as ordinary spaces.
+
+\section{Acknowledgements}
+
+The author would like to thank Dr. David Carlisle for his assistance in
+helping the author rewrite the \vb|\getargs| command, originally found
+in the \textsf{stringstrings} package.  To distinguish the two versions,
+and in deference to him, it is herein named \vb|\getargsC|.
+
+\clearpage
+
+\section{Code Listing}
+
+\verbatiminput{readarray.sty}
+
+\end{document}
+
+
+

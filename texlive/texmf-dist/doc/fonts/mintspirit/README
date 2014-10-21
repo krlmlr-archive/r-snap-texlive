@@ -1,0 +1,63 @@
+This is the README for the mintspirit package, version 2013-11-02.
+
+This package provides LaTeX, pdfLaTeX, XeLaTeX and LuaLaTeX support
+for the MintSpirit and MintSpiritNo2 families of fonts, designed by
+Hirwen Harendal. MintSpirit was originally designed for use as a
+system font on a Linux Mint system. The No. 2 variant provides more
+conventional shapes for some glyphs.
+
+To install this package on a TDS-compliant TeX system download the file
+tex-archive/install/fonts/mintspirit.tds.zip and unzip at the
+root of an appropriate texmf tree, likely a personal or local tree. If
+necessary, update the file-name database (e.g., texhash). Update the
+font-map files by enabling the Map file mintspirit.map.
+
+To use, add
+
+\usepackage{mintspirit}
+
+or
+
+\usepackage{mintspirit2}
+
+to the preamble of your document. These will activate MintSpirit or
+MintSpiritNo2 as the default sans font. To also set either as the
+main text font, use the sfdefault option.
+
+LuaLaTeX and xeLaTeX users who might prefer type1 fonts or who wish to
+avoid fontspec may use the type1 option.
+
+Options scaled=<number> or scale=<number> may be used to scale the
+fonts.
+
+The default figure style is oldstyle/proportional but options lining
+(or lf) and tabular (or tab) allow for use of lining and/or tabular
+figures. For local use of non-default figure styles, use
+
+\plstyle        \textpl{ }
+\postyle        \textpo{ }
+\tlstyle        \texttl{ }
+\tostyle        \textto{ }
+
+For superior/inferior figures, use
+
+\sufigures      \textsu{ }
+\infigures      \textin{ }
+
+Font encodings supported are OT1, T1, LY1 and TS1.
+
+Macro \mintspirit (or \mintspirit2) selects the specified family. 
+
+Command \useosf switches the default figure style to old-style
+figures; this is primarily for use after calling a math package with
+lining figures as the default.
+
+The original fonts (version 1.004) were obtained from
+
+http://arkandis.tuxfamily.org/adffonts.html
+
+and are licensed under the Open Font License (version 1.1); the text
+may be found in the doc directory. The type1 versions were created
+using cfftot1. The support files were created using autoinst and are
+licensed under the terms of the LaTeX Project Public License. The
+maintainer of this package is Bob Tennent (rdt at cs.queensu.ca)

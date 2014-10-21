@@ -1,0 +1,148 @@
+README for calxxxx-yyyy, 2014/01/01, v1.0f
+
+
+TABLE OF CONTENTS
+=================
+
+1 Introduction
+2 Download
+3 Installation
+4 Additional Packages
+5 Author/Maintainer
+6 Bug Reports
+7 Known Problems
+
+
+1 INTRODUCTION
+==============
+
+To print a calendar for some given years, use the \textsf{calxxxx-yyyy.tex}
+file. LaTeXe it, type in the year to start with (for example 2014), the
+year to end with (for example 2031), and the calendars for those years are
+produced.
+
+It is possible to print the calendars in different languages.
+Currently English (with week running from Sunday to Saturday),
+and Danish and German (with week running from Monday to Sunday) are supported,
+but other languages can be added. (When you did a translation, please send
+an e-mail with it to Martin DOT Muench AT Uni-Bonn DOT de,
+so that it might be included in calxxxx-yyyy.tex, thanks!)
+
+
+Note: The code of this "package" is based on calxxxx.tex,
+which is © 1999 Slobodan Jankovi\'{c} (Thanks!).
+
+This material is subject to the LaTeX Project Public License
+(LPPL). See http://www.ctan.org/tex-archive/help/Catalogue/
+licenses.lppl.html for the details of that license.
+
+
+2 DOWNLOAD
+==========
+
+'calxxxx-yyyy' is available on CTAN:
+  CTAN:macros/latex/contrib/calxxxx-yyyy/
+
+Also a ZIP file is provided that contains the files:
+the manual (README.tex, README.pdf), the compiled examples
+(cal2014-2031_DE.pdf, cal2014-2031_DK.pdf, and
+cal2014-2031_EN.pdf), and this README, already
+sorted in a TDS tree:
+  CTAN:install/macros/latex/contrib/calxxxx-yyyy.tds.zip
+
+`CTAN:' means one of the `Comprehensive TeX Archive Network'
+nodes or one of its mirrors. This is explained in
+  http://www.tex.ac.uk/cgi-bin/texfaq2html?label=archives
+
+The CTAN stuff will be mirrored automatically from the
+ftp server, so
+  ftp://ftp.tug.org/pub/tex/calxxxx-yyyy/
+corresponds to
+  CTAN:macros/latex/contrib/calxxxx-yyyy/
+
+
+3 INSTALLATION
+==============
+
+Installation with ZIP file in TDS format
+----------------------------------------
+The ZIP file `calxxxx-yyyy.tds.zip' contains the files
+sorted in a TDS tree. Thus you can directly unpack the
+ZIP file inside a TDS tree.
+(See CTAN:tds.zip for an explanation of TDS.)
+Example:
+  cd /...somewhere.../texmf
+  unzip /...downloadpath.../calxxxx-yyyy.tds.zip
+Do not forget to refresh the file name database of this
+TDS tree.
+Example:
+  texhash /...somewhere.../texmf
+.
+
+Manual installation
+-------------------
+a) Download the calxxxx-yyyy files from CTAN.
+   If necessary, unpack them.
+b) Install the file `calxxxx-yyyy.tex' in your TDS tree:
+     cp calxxxx-yyyy.tex TDS:tex/latex/calxxxx-yyyy/
+   Replace `TDS:' by the prefix of your TDS tree
+   (texmf directory).
+c) Create the documentation (if necessary), e.g.
+     pdflatex README.tex
+d) Copy the documentation files to
+   "TDS:doc/latex/calxxxx-yyyy/":
+   README, README.tex, README.pdf
+   (and e.g. cal2014-2031_DE.pdf, cal2014-2031_DK.pdf,
+    and cal2014-2031_EN.pdf).
+e) Update the databases if necessary, e.g. for teTeX:
+     mktexlsr .../texmf
+
+
+4 ADDITIONAL PACKAGES
+=====================
+
+calxxxx-yyyy itself loads these other packages:
+babel, geometry, arry,
+which again load other packages
+(see the result of the \listfiles command in the log-file
+ of the example).
+
+
+5 AUTHOR/MAINTAINER
+=====================
+
+   H.-Martin Münch
+
+
+6 BUG REPORTS
+==============
+
+A bug report should contain:
+* Comprehensive problem description. This includes error or
+  warning messages.
+* \errorcontextlines=\maxdimen can be added in the
+  TeX code to get more information in TeX error messages.
+* Minimal test file that shows the problem, but does not
+  contain any unnecessary packages and code.
+* Used drivers/programs.
+* Version information about used packages and programs.
+* If you are using LaTeX, then add "\listfiles". Then
+  a list of version information is printed at the end
+  of the LaTeX run.
+* Please no other files than the minimal test file.
+  The other files .log, .dvi, .ps, .pdf are seldom
+  necessary, so send them only on request.
+* Please .zip or .tar.gz your file(s) before sending them!
+
+Bug address
+-----------
+Bug reports can be send to the maintainer:
+  H.-Martin Münch
+  <Martin [dot] Muench [at] Uni-Bonn [dot] de>
+
+
+7 KNOWN PROBLEMS
+=================
+
+* If you request too many years (more than about 83) at once,
+(La)TeX will run out of memory.

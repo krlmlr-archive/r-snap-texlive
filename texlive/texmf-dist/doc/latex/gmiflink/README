@@ -1,0 +1,72 @@
+The gmiflink.sty LaTeX package
+is a work of Grzegorz `Natror' Murzynowski,
+<natror at o2 dot pl>
+
+   
+1. Copyright 2005, 2006 by Grzegorz `Natror' Murzynowski
+
+This program is subject to the LaTeX Project Public License. 
+See http://www.ctan.org/tex-archive/help/Catalogue/licenses.lppl.html
+for the details of that license.
+
+
+2. Introduction
+
+The gmiflink.sty package protects you against an error when a link is
+dangling and typesets some plain text instead of a hyperlink then. It
+is intended for use with the hyperref.sty package.
+
+I used it for typesetting the names of the objects in a documentation
+of a computer program. If the object had been defined a \hyperlink to its
+definition was made, otherwise a plain object's name was typeset.
+I also use this package in automatic making of hyperlinking indexes.
+
+It provides the macros \gmiflink, \gmifref and
+\gmhypertarget for conditional making of hyperlinks in your document.
+
+\gmhypertarget makes a \hypertarget and a \label of the given name.
+
+\gmiflink makes a \hyperlink to the given \hypertarget if the
+correspondent label exists, otherwise typesets an ordinary text.
+
+\gmifref makes a (hyper-)\ref to the given label if the label exists,
+otherwise it typesets an ordinary text.
+
+
+3. Installation
+
+Just put the gmiflink.sty somewhere in the texmf/tex/latex
+branch. Creating a /texmf/tex/latex/gm directory may be advisable if
+you consider using other packages written by me.
+
+Then you should refresh your TeX distribution's files'
+database most probably.
+
+
+4. Contents
+
+The distribution of this package consists of the following three files.
+
+gmiflink.sty
+README
+gmiflink.pdf
+
+
+5. Documentation
+
+The last of the above files (the .pdf) is a documentation compiled
+from the .sty file by running LaTeX (twice) on the gmiflink.sty
+file:
+xelatex gmiflink.sty
+ in the directory you wish the documentation to be in, 
+you don't have copy the .sty file  there---TeX will find it.
+Compiling of the documentation requires the packages: gmdoc
+(gmdoc.sty and gmdocc.cls), gmverb.sty, gmutils.sty and also some
+standard packages: hyperref.sty, xcolor.sty, geometry.sty,
+multicol.sty, lmodern.sty, fontenc.sty that should be installed
+on your computer by default.
+
+If you have not installed the mwart.cls class (available on CTAN in
+mwcls package), the result of your compilation may differ a bit from
+the .pdf provided in this .zip archive in formattings: If you have not
+installed mwart.cls, the standard article.cls will be used.

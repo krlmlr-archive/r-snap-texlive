@@ -1,0 +1,29 @@
+%this is the way to redefine styles
+% \newpsstyle{mytickstyle}{linewidth=1pt,linecolor=blue}
+
+\renewcommand{\betweenticks}{200}
+\bardiagrambegin{9.5}{1000}{2cm}{1}{2}{1cm}{0.01cm}
+    \drawlevellines
+    \renewcommand{\placenumber}{\overtop}
+    \newpsstyle{fillukr}{linestyle=solid,hatchsep=4pt,fillstyle=vlines*}
+    \newpsstyle{fillrus}{linestyle=solid,hatchsep=8pt,fillstyle=crosshatch*}
+    \newpsstyle{filloth}{linestyle=solid,hatchsep=8pt,fillstyle=hlines*}
+    \baritem[style=fillukr]{Kiev}{421}{gray}
+    \baritem[style=fillukr]{Odessa}{712}{lightgray}
+    \baritem[style=fillrus]{Moscow}{510}{gray}
+    \baritem[style=fillrus]{Bryansk}{310}{lightgray}
+    \baritem[style=filloth]{New-York}{542}{lightgray}  
+    %
+    % we can call
+    %  \diagLegendoptions{yellow}{red}{0.5pt}
+    % to produce a legend with yellow background with red frame
+    % with linewidth=0.5pt
+    %
+    \diagLegendbegin{5.6}{980}{4.5}
+      \diagLegenditem{during 6 months}{gray}
+      \diagLegenditem{during a year}{lightgray}
+      \diagLegenditem[style=fillukr]{Ukrainian cities}{white}
+      \diagLegenditem[style=fillrus]{Russian cities}{white}
+      \diagLegenditem[style=filloth]{other cities}{white}
+    \diagLegendend
+\bardiagramend{}{\large Stars Fallen}

@@ -1,0 +1,94 @@
+\documentclass[11pt]{amsart}
+\usepackage[margin=1in]{geometry} 
+\usepackage[parfill]{parskip}% Begin paragraphs with an empty line rather than an indent
+\title{{\tt\large pxtxalfa}\\Math Alphabets Derived From {\tt\large pxfonts} and {\tt\large txfonts}}
+\author{Michael Sharpe}
+\email{msharpe at ucsd dot edu}
+
+\begin{document}
+\maketitle
+\section{Overview}
+The {\tt txfonts} and {\tt pxfonts} packages, both created by Young Ryu but no longer under  active development, provide fairly complete typesetting environments based on the Times and Palatino text font families respectively. Other packages (eg, {\tt txgreeks}, providing the option of upright or slanted Greek letters) extend the range of coverage of its macros. 
+
+These packages contain some interesting math alphabets. The script alphabet glyphs (upper case only) seem to be identical to those in {\tt Mathematica5}, but the Fraktur font common to both packages is. as far as I can tell,  distinct from the Fraktur of other major math font packages, and worthy of note. Blackboard bold comes in two different versions in {\tt txfonts} (openface and double-struck) and in yet another double-struck version in {\tt pxfonts}. The double-struck alphabets are similar in overall style to those in {\tt mathpazo} and {\tt Mathematica7}, with stems a mix of double-struck, regular weight  and solid bold.
+
+The plan here is to provide virtual fonts for all these alphabets, plus packages that allow them to be used in stand-alone fashion and as part of the \textsf{mathalfa} package.
+
+The package contains the following files: those beginning with the letter `r' are `raw' fonts, not suitable for direct use, but sering as building blocks for some virtual math fonts.
+
+Raw fonts ({\tt .tfm} only), resolved in map file:
+
+\begin{tabular}{lll}
+{\tt rtxmia}&Regular weight raw double-struck from {\tt txmia}.\\
+{\tt pxtx.map}&Map file for the above, resolving {\tt rtmia} to a re-encoded {\tt.pfb} file.
+\end{tabular}
+
+Virtual fonts ({\tt.tfm} and {\tt.vf}):
+
+\begin{tabular}{lll}
+{\tt txr-cal}&Regular weight calligraphic from {\tt txfonts} and {\tt pxfonts}.\\
+{\tt txb-cal}&Bold weight calligraphic from {\tt txfonts} and {\tt pxfonts}.\\
+{\tt txr-frak}&Regular weight fraktur from {\tt txfonts} and {\tt pxfonts}.\\
+{\tt txb-frak}&Bold weight fraktur from {\tt txfonts} and {\tt pxfonts}.\\
+{\tt txr-of}&Regular weight openface from {\tt txfonts}.\\
+{\tt txb-of}&Bold weight openface from {\tt txfonts}.\\
+{\tt txr-ds}&Regular weight double-struck from {\tt txfonts}.\\
+{\tt pxr-ds}&Regular weight double-struck from {\tt pxfonts}.\\
+{\tt pxb-ds}&Bold weight double-struck from {\tt pxfonts}.
+\end{tabular}
+
+Font definition ({\tt.fd}) files:
+
+\begin{tabular}{lll}
+{\tt utx-cal.fd}&Regular and bold weights, calligraphic.\\
+{\tt utx-frak.fd}&Regular and bold weights, fraktur.\\
+{\tt utx-of.fd}&Regular and bold weights, openface.\\
+{\tt utx-ds.fd}&Regular weight double-struck from {\tt txfonts}.\\
+{\tt upx-ds.fd}&Regular and bold weights, double-struck from {\tt pxfonts}.
+\end{tabular}
+\newpage
+
+Other support files:
+
+\begin{tabular}{lll}
+{\tt pxtx-cal.sty}&Load regular and bold weights, calligraphic.\\
+{\tt pxtx-frak.sty}&Load regular and bold weights, fraktur.\\
+{\tt tx-of.sty}&Load regular and bold weights, openface.\\
+{\tt tx-ds.sty}&Load regular weight double-struck from {\tt txfonts}.\\
+{\tt px-ds.sty}&Load regular and bold weights, double-struck from {\tt pxfonts}.\\
+{\tt txbbenc.enc}&Encode bb glyphs from {\tt txfonts} into {\tt\small ASCII} slots.
+\end{tabular}
+
+\section{The interesting font files}
+The files ({\tt.afm} and {\tt.pfb}) with glyphs of interest are:
+\begin{verbatim}
+txmia, txbmia---Fraktur (UC, lc) and Double-Struck (regular weight only)
+txsy, txbsy---Calligraphic (UC)
+txsyb, txbsyb---Openface (UC)
+pxsyb, pxbsyb---Double-Struck (UC)
+\end{verbatim}
+
+In all cases except {\tt txmia}, the glyphs are in their normal {\tt\small ASCII} slots, named `A', `B', etc. A re-encoding of {\tt txmia} to bring the double-struck glyphs into those {\tt\small ASCII} positions and names simplifies the \textsf{fontinst} issues. The command
+\begin{verbatim}
+afm2tfm txmia -T txbbenc.enc rtxmia
+\end{verbatim}
+makes a raw font {\tt rtxmia.tfm} from the double-struck alphabet in {\tt txmia}, now with names `A', `B', etc. It also emits part of the line needed for the map file:
+\begin{verbatim}
+rtxmia txmia " txbbenc ReEncodeFont " <[txbbenc.enc <txmia.pfb
+\end{verbatim}
+\section{Notes}
+This package depends on {\tt txfonts} and {\tt pxfonts}. It will not function unless the map files {\tt txfonts.map} and {\tt pxfonts.map} are enabled. This is the default in \TeX\ Live installations.
+
+The map file {\tt pxtx.map} must also be enabled. In \TeX\ Live, if you installed the package in {\tt texmf-local} and you are not maintaining a personal version of {\tt updmap.cfg}, you use something like
+\begin{verbatim}
+sudo -H updmap-sys --enable map=pxtx.map
+\end{verbatim}
+
+Everything in this collection is based on the original pxfonts and txfonts PostScript fonts, and therefore suffers from their underlying problems. The hinting is not good, so there can be problems with screen representations of these virtual fonts. 
+
+On the other hand, the metrics for the math alphabets in this collection have been adjusted and do not have the problems of the originals. This is a matter of personal taste, and may not suit yours. Sorry---there is no way to allow simple user-configured settings for these parameters.
+
+The easiest way to use the fonts in this package is {\tt mathalfa}, the latest version of which builds in support for these alphabets. For font samples, see the documentation for that package.
+
+\end{document}  
+

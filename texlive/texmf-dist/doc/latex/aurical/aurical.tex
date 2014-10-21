@@ -1,0 +1,95 @@
+\documentclass[12pt]{article}
+\usepackage[backslant]{aurical}
+\usepackage[a4paper]{geometry}
+\usepackage[bookmarksopen=false]{hyperref}
+\usepackage[ngerman]{babel}
+\usepackage{multicol}
+\usepackage[T1]{fontenc}
+\usepackage[latin1]{inputenc}
+\newcommand{\longs}{s\rule{0pt}{0pt}}
+\begin{document}
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{\baselineskip}
+\begin{center}
+\Fontlukas\fontsize{40pt}{40pt}\selectfont
+Aurical \\
+\fontsize{30pt}{30pt}\selectfont %
+\textemdash{} a set of three decorative fonts in T1 encoding \textemdash
+\end{center}
+
+
+This package implements three calligraphic fonts I created for fun in 2004 and
+2005, which cover almost all glyphs from T1. The fonts have been created using
+fontforge\footnote{\url{fontforge.sourceforge.net}} and
+potrace\footnote{\url{potrace.sourceforge.net}}.
+
+Installation: Unpack the provided archive file ``\verb!aurical_texmf.zip!'' to
+your local TEXMF directory. Then update your filename database and add the
+mapfile ``aurical.map'' to your dvips and pdftex configuration. For example, in
+te\TeX 3 you have to issue the commands \texttt{texhash} and \texttt{updmap-sys
+--enable aurical.map}. For other systems consult the corresponding
+documentation.
+
+
+Usage: To use the fonts, just include \verb!\usepackage{aurical}! in the
+preamble of your document. Then you can use the commands \verb!\Fontauri!,
+\verb!\Fontskrivan!, \verb!\Fontlukas! and \verb!\Fontamici! to select one of
+the calligraphic fonts. Low-quality machine generated boldface and slanted 
+versions of each font are also included and integrated into NFSS. Thus they 
+are selected by the usual font commands like \verb!\bfseries! and \verb!\slshape!.
+Since script-like fonts are already slanted to the right, additional slanting
+does not always look good. Therefore, backward slanted fonts are provided also,  
+which can be activated by \verb!\usepackage[backslant]{aurical}!.
+\newpage
+
+\centering
+\fbox{\parbox{0.8\linewidth}{\fontsize{14pt}{17pt}\selectfont\Fontauri
+\textbf{Auriocus Kalligraphicus} is the first of my calligraphic fonts done in April 2004. It contains all glyphs
+from T1 except perthousandzero, but many of the non-letter glyphs look odd: \# \$ \%. 
+Its name is a pseudo--latin combination of my
+nickname auriocus and the word calligraphic. Like the other fonts in this package
+it provides only oldstyle figures: 0123456789 }}
+
+\fbox{\parbox{0.8\linewidth}{\fontsize{14pt}{17pt}\selectfont\Fontlukas
+\textbf{Luk\'a\v s Svatba} has been originally invented as AmiciLogo for the design of the cover of a
+mediaeval music CD in 2004.
+In May 2005, a friend asked me to add czech diacritics so he
+could use the font for his wedding (>>svatba<< means wedding in czech). I removed
+the long s together with its ligatures, because they are not suitable for
+writing modern czech and renamed the font Luk\'a\v s Svatba as a dedication to his wedding. The font
+currently covers the whole T1 encoding. 
+
+\Fontamici The original variant with the \textbf{long s*} is still available, as shown in
+this paragraph. It is selected by the command {\Fontskrivan \char92 Fontamici}. 
+%
+It contains a few extra ligatures like Ch, ch, ss, ssi, sk, sl, and a special
+swash character to write the logo of the band: \\ \hspace*{5em}Amici Musicae @ntiquae\\ To
+make room for these additional glyphs, some characters had to be withdrawn.
+Besides the standard ligatures fi, fl, ffi and ffl, which are faked by negative
+kerning, \Fontlukas \v s \Fontamici could be removed, because it is written like
+\v s in ancient czech texts. Similiarly, the uppercase german double~s* SS,
+perthousandzero and compwordmark are withdrawn to make space for additional
+ligatures. The long s* is automatically replaced by s before a space or punctuation symbol. 
+If it is necessary to typeset s inside a word like in some  compounds, e.g. 
+german ,,Aus+flug``, use \Fontskrivan s+\Fontamici. To force an s* where it is normally replaced,
+e.g. in the german shortening u.s*.w. or as the single letter s*, the corresponding input is 
+\Fontskrivan s*\Fontamici. This is the same input convention as used by \Fontskrivan fraktur.sty \Fontamici 
+by Matthias M\"uhlich.}}
+
+\fbox{\parbox{0.8\linewidth}{\fontsize{14pt}{16pt}\selectfont\Fontskrivan
+The last of the three fonts designed by me, \textbf{Jana Sk\v rivana}, is my cursive handwriting drawn with a
+copperplate calligraphy pen. It's dedicated to a girl, who can sing like a lark
+(>>sk\v rivan<< means lark in czech) and has been finished in December 2005. Sadly, a printout made with this
+font never looks equally attractive like a real hand-written sample. 
+Jana Sk\v rivana can be combined with Luk\'a\v s Svatba to typeset an URL or computer input, 
+as shown in the above paragraph.}}
+
+And now enjoy the fonts!
+
+\hfill{\Fontamici\fontsize{20pt}{20pt}\selectfont Christian Gollwitzer
+\raisebox{2pt}{(}\kern4pt
+@uriocus\/\kern3pt)} % some magic numbers to make the swash capital look good
+
+
+
+\end{document}

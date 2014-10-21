@@ -1,0 +1,81 @@
+\documentclass[11pt]{article}
+\usepackage[margin=1in]{geometry} 
+\usepackage[parfill]{parskip}% Begin paragraphs with an empty line rather than an indent
+\usepackage{graphicx}
+\usepackage{amssymb}% do not use with mtpro2 except lite version
+%SetFonts
+% fbb+newtxmath
+\usepackage[lining]{fbb}
+\usepackage[T1]{fontenc}
+\usepackage{textcomp}
+\usepackage[scaled=1.07]{zlmtt} % lmodern typewriter
+\usepackage{amsmath,amsthm}
+\usepackage[libertine,bigdelims]{newtxmath}
+\useosf
+\linespread{1.05}
+%\usepackage[supstfm=libertinesups,%
+%  supscaled=1.2,%
+%  raised=-.13em]{superiors}
+%SetFonts
+\title{Using {\tt zlmtt} to Access the Latin Modern Typewriter Fonts}
+\author{Michael Sharpe}
+\date{\today}  % Activate to display a given date or no date
+
+\begin{document}
+\maketitle
+Two serifed typewriter fonts are in common use in \LaTeX---{\tt courier} and (extensions of) {\tt cmtt}. (Many now prefer the sans serif monowidth fonts BeraSansMono or Inconsolata, though their appearance is less reminiscent of typewritten output.) The recently released STIX fonts have a typewriter alphabet that seems to be a slight variant of {\tt cmtt}, with height to match Times and thinner vertical stems, in only medium series. In my opinion, {\tt cmtt} and its enhancements are a much better choice than {\tt courier} in almost every circumstance, as the latter is so light and so wide that it looks poor on screen and causes endless problems with overfull boxes. (The ratio of their glyph widths is $723/525\approx1.38$.) The GUST extension of Computer Modern contains a very substantial enhancement of {\tt cmtt} called {\tt lmtt} (Latin Modern Typewriter). This small package, loaded with
+\begin{verbatim}
+\usepackage{zlmtt} % options can be added
+\end{verbatim}
+provides access to all its features, no matter what other text fonts you might be using. It should be placed after all your other text font loading packages that might contain instructions to change \verb|\ttdefault|, and before loading math packages so that the math packages can make a suitable definition of \verb|\mathtt|. With no options specified, as above, you'll get full functionality as a monospaced typewriter font family, with typewriter text rendered using {\tt lmtt}, and with italic and bold versions, plus small caps in regular (medium) weight only. 
+
+First, here's a quick review of what the Latin Modern Typewriter fonts offer. (The typewriter letters in parentheses, like ({\tt m}), denote the abbreviations for the font series used in the {\tt.fd} files.)
+\begin{itemize}
+\item
+Three weights---light ({\tt l}), medium ({\tt m}) and bold ({\tt b}). (Bold is only slightly so, with stems less than $20$\% thicker than in medium weight, so that glyph widths can be the same as in medium weight.) 
+\item Light weight has a {\tt \fontseries{lc}\selectfont condensed variant} ({\tt lc}).
+\item Medium weight has a {\tt \textsc{Small Caps}} variant ({\tt sc}) in upright shape only.
+\item Each weight has a \proptt{proportionally spaced variant} (i.e., not monospaced) with fewer features. 
+\item Each weight has an {\tt \fontshape{it}\selectfont italic style} in addition to the default upright style. This style is not simply a slanted version of the upright style except in the proportionally spaced variant.
+\item Support is provided for the following encodings: T$1$, TS$1$, LY$1$, OT$1$, IL$2$, L$7$x, OT$4$, QX, T$5$.
+\end{itemize}
+\newpage
+The options you may use in loading this package are:
+\begin{itemize}
+\item {\tt scaled=1.05} will load the fonts scaled to $1.05$ times natural size. This is useful with Roman fonts having an x-height greater than Computer Modern.
+\item
+{\tt proportional} (or just {\tt p}) loads the proportionally spaced version of the fonts. (By default, typewriter text is {\tt monospaced}.)
+\item The defaults for \verb|\mdseries| and \verb|\bfseries|, which determine the series used to render medium and bold, are ({\tt m}) and ({\tt b}). You may change these defaults without affecting the settings for Roman and Sans Serif fonts as follows:
+\begin{itemize}
+\item
+{\tt light} (or just {\tt l}) makes \verb|\mdseries|  render using ({\tt l}).
+\item
+{\tt lightcondensed} (or just {\tt lc}) makes \verb|\mdseries|  render using ({\tt lc}).
+\item
+{\tt med} (or just {\tt m}) makes \verb|\bfseries| render using ({\tt m}).
+\end{itemize}   
+\end{itemize}
+Note that the weight options depend on the {\tt mweights} package which was introduced only in July $2013$ and may require an update to your \TeX\ distribution.
+
+The package defines two macros, \verb|\proptt| and \verb|\monott| that allow you to use proportional typewriter mode or monospace typewriter mode whether or not you selected the {\tt proportional} option. This document uses {\tt monospace} mode, but I can write \verb|\proptt{proportional spacing}| and get \proptt{proportional spacing}, or \verb|\textit{\proptt{proportionally spaced slanted}}| to get \textit{\proptt{proportionally spaced slanted}}. The macro \verb|\lctt| prints its argument in light-condensed weight, monospaced mode, and uses a slanted font if italic shape is in force. E.g., \verb|\lctt{light condensed}| produces \lctt{light condensed}, and \verb|\textit{\lctt{light condensed italic}}| produces \textit{\lctt{light condensed italic}}.
+
+This package supports all the encodings supported by the {\tt lmodern} package.
+
+{\bf Examples}
+\begin{verbatim}
+\usepackage[scaled=1.1,lc]{zlmtt} % scale up 10\%, medium->light condensed
+\usepackage[scaled=1.1,p]{zlmtt} % scale up 10\%, proportional tt mode
+\end{verbatim}
+This document used the following font settings:
+\begin{verbatim}
+\usepackage[lining]{fbb} % free Bembo, lining figures in math mode
+\usepackage[T1]{fontenc}
+\usepackage{textcomp}
+\usepackage[scaled=1.07]{zlmtt} % lmodern typewriter
+\usepackage{amsmath,amsthm}
+\usepackage[libertine,bigdelims]{newtxmath}
+\useosf % oldstyle figures in text mode
+\linespread{1.05} % fbb has tall ascenders
+\end{verbatim}
+
+\end{document}  

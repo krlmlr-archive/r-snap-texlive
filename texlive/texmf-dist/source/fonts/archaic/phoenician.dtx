@@ -1,0 +1,1453 @@
+% \iffalse meta-comment
+%
+% phoenician.dtx
+%
+%  Author: Peter Wilson (Herries Press) herries dot press at earthlink dot net
+%  Copyright 1999--2006 Peter R. Wilson
+%
+%  This work may be distributed and/or modified under the
+%  conditions of the Latex Project Public License, either
+%  version 1.3 of this license or (at your option) any
+%  later version.
+%  The latest version of the license is in
+%    http://www.latex-project.org/lppl.txt
+%  and version 1.3 or later is part of all distributions of
+%  LaTeX version 2003/06/01 or later.
+%
+%  This work has the LPPL maintenance status "author-maintained".
+%
+%  This work consists of the files listed in the README file.
+%
+%<*driver>
+\documentclass[twoside]{ltxdoc}
+\usepackage{phoenician}
+\usepackage{url}
+\usepackage[draft=false,
+            plainpages=false,
+            pdfpagelabels,
+            bookmarksnumbered,
+            hyperindex=false
+           ]{hyperref}
+\providecommand{\phantomsection}{}
+\OnlyDescription %% comment this out for the full glory
+\EnableCrossrefs
+\CodelineIndex
+\setcounter{StandardModuleDepth}{1}
+\makeatletter
+  \@mparswitchfalse
+\makeatother
+\renewcommand{\MakeUppercase}[1]{#1}
+\pagestyle{headings}
+\newenvironment{addtomargins}[1]{%
+  \begin{list}{}{%
+    \topsep 0pt%
+    \addtolength{\leftmargin}{#1}%
+    \addtolength{\rightmargin}{#1}%
+    \listparindent \parindent
+    \itemindent \parindent
+    \parsep \parskip}%
+  \item[]}{\end{list}}
+\begin{document}
+  \raggedbottom
+  \DocInput{phoenician.dtx}
+\end{document}
+%</driver>
+%
+% \fi
+%
+% \CheckSum{491}
+%
+% \DoNotIndex{\',\.,\@M,\@@input,\@addtoreset,\@arabic,\@badmath}
+% \DoNotIndex{\@centercr,\@cite}
+% \DoNotIndex{\@dotsep,\@empty,\@float,\@gobble,\@gobbletwo,\@ignoretrue}
+% \DoNotIndex{\@input,\@ixpt,\@m}
+% \DoNotIndex{\@minus,\@mkboth,\@ne,\@nil,\@nomath,\@plus,\@set@topoint}
+% \DoNotIndex{\@tempboxa,\@tempcnta,\@tempdima,\@tempdimb}
+% \DoNotIndex{\@tempswafalse,\@tempswatrue,\@viipt,\@viiipt,\@vipt}
+% \DoNotIndex{\@vpt,\@warning,\@xiipt,\@xipt,\@xivpt,\@xpt,\@xviipt}
+% \DoNotIndex{\@xxpt,\@xxvpt,\\,\ ,\addpenalty,\addtolength,\addvspace}
+% \DoNotIndex{\advance,\Alph,\alph}
+% \DoNotIndex{\arabic,\ast,\begin,\begingroup,\bfseries,\bgroup,\box}
+% \DoNotIndex{\bullet}
+% \DoNotIndex{\cdot,\cite,\CodelineIndex,\cr,\day,\DeclareOption}
+% \DoNotIndex{\def,\DisableCrossrefs,\divide,\DocInput,\documentclass}
+% \DoNotIndex{\DoNotIndex,\egroup,\ifdim,\else,\fi,\em,\endtrivlist}
+% \DoNotIndex{\EnableCrossrefs,\end,\end@dblfloat,\end@float,\endgroup}
+% \DoNotIndex{\endlist,\everycr,\everypar,\ExecuteOptions,\expandafter}
+% \DoNotIndex{\fbox}
+% \DoNotIndex{\filedate,\filename,\fileversion,\fontsize,\framebox,\gdef}
+% \DoNotIndex{\global,\halign,\hangindent,\hbox,\hfil,\hfill,\hrule}
+% \DoNotIndex{\hsize,\hskip,\hspace,\hss,\if@tempswa,\ifcase,\or,\fi,\fi}
+% \DoNotIndex{\ifhmode,\ifvmode,\ifnum,\iftrue,\ifx,\fi,\fi,\fi,\fi,\fi}
+% \DoNotIndex{\input}
+% \DoNotIndex{\jobname,\kern,\leavevmode,\let,\leftmark}
+% \DoNotIndex{\list,\llap,\long,\m@ne,\m@th,\mark,\markboth,\markright}
+% \DoNotIndex{\month,\newcommand,\newcounter,\newenvironment}
+% \DoNotIndex{\NeedsTeXFormat,\newdimen}
+% \DoNotIndex{\newlength,\newpage,\nobreak,\noindent,\null,\number}
+% \DoNotIndex{\numberline,\OldMakeindex,\OnlyDescription,\p@}
+% \DoNotIndex{\pagestyle,\par,\paragraph,\paragraphmark,\parfillskip}
+% \DoNotIndex{\penalty,\PrintChanges,\PrintIndex,\ProcessOptions}
+% \DoNotIndex{\protect,\ProvidesClass,\raggedbottom,\raggedright}
+% \DoNotIndex{\refstepcounter,\relax,\renewcommand,\reset@font}
+% \DoNotIndex{\rightmargin,\rightmark,\rightskip,\rlap,\rmfamily,\roman}
+% \DoNotIndex{\roman,\secdef,\selectfont,\setbox,\setcounter,\setlength}
+% \DoNotIndex{\settowidth,\sfcode,\skip,\sloppy,\slshape,\space}
+% \DoNotIndex{\symbol,\the,\trivlist,\typeout,\tw@,\undefined,\uppercase}
+% \DoNotIndex{\usecounter,\usefont,\usepackage,\vfil,\vfill,\viiipt}
+% \DoNotIndex{\viipt,\vipt,\vskip,\vspace}
+% \DoNotIndex{\wd,\xiipt,\year,\z@}
+%
+% \changes{v1.0}{1999/03/14}{First public release}
+% \changes{v2.0}{2000/10/01}{Major changes to practically everything}
+% \changes{v2.1}{2005/04/04}{Minor circumstances and Type1}
+% \changes{v2.2}{2006/02/05}{Changes to two characters plus some fixes}
+%
+% \def\fileversion{v1.0} \def\filedate{1999/03/14}
+% \def\fileversion{v2.0} \def\filedate{2000/10/01}
+% \def\fileversion{v2.1} \def\filedate{2005/04/04}
+% \def\fileversion{v2.2} \def\filedate{2006/02/05}
+% \newcommand*{\Lpack}[1]{\textsf {#1}}           ^^A typeset a package
+% \newcommand*{\Lopt}[1]{\textsf {#1}}            ^^A typeset an option
+% \newcommand*{\file}[1]{\texttt {#1}}            ^^A typeset a file
+% \newcommand*{\Lcount}[1]{\textsl {\small#1}}    ^^A typeset a counter
+% \newcommand*{\pstyle}[1]{\textsl {#1}}          ^^A typeset a pagestyle
+% \newcommand*{\Lenv}[1]{\texttt {#1}}            ^^A typeset an environment
+% \newcommand{\BC}{\textsc{bc}}
+% \newcommand{\AD}{\textsc{ad}}
+% \newcommand{\thisfont}{Phoenician}
+%
+% \title{The \Lpack{Phoenician} fonts\thanks{This
+%        file has version number \fileversion, last revised
+%        \filedate.}}
+%
+% \author{%
+% Peter Wilson\thanks{\texttt{herries dot press at earthlink dot net}}\\
+% Herries Press
+% }
+% \date{\filedate}
+% \maketitle
+% \begin{abstract}
+%    The \Lpack{phoenician} package provides a set of Postscript Type1 
+% fonts for the Phoenician script used about 1100~\BC.
+% \end{abstract}
+% \tableofcontents
+% 
+%
+% \section{Introduction}
+%
+% The Phoenician alphabet and characters is a direct ancestor of our modern day
+% Latin alphabet and fonts. 
+% The font presented here is one of a series of fonts intended to show how
+% the modern Latin alphabet has evolved from its original Phoenician form
+% to its present day appearance.
+% 
+% This manual is typeset according to the conventions of the
+% \LaTeX{} \textsc{docstrip} utility which enables the automatic
+% extraction of the \LaTeX{} macro source files~\cite{MITTELBACH04}.
+%
+%    Section~\ref{sec:usc} describes the usage of the package.
+% Commented MetaFont code for the fonts 
+% and source code for the package may be in later sections.
+%
+% \subsection{An alphabetic tree}
+%
+%    Scholars are reasonably agreed that all the world's alphabets are descended
+% from a Semitic alphabet invented about 1600~\BC{} in the Middle 
+% East~\cite{DRUCKER95}. The word `Semitic' refers
+% to the family of languages used in the geographical area from
+% Sinai in the south, up the Mediterranean coast to Asia Minor in the north and
+% west to the valley of the Euphrates.
+%
+%    The Phoenician alphabet was stable by about 1100~\BC{} and the script was
+% written right to left. In earlier times the writing direction was variable, 
+% and so were
+% the shapes and orientation of the characters. The alphabet consisted of
+% 22 letters and they were named after things. For example, their first two 
+% letters were called \textit{aleph} (ox), and \textit{beth} (house). 
+% The Phoenician script had
+% only one case --- unlike our modern fonts which have both upper- and 
+% lower-cases. In modern terms the Phoenician abecedary was: \\
+% A B G D E Y Z H $\Theta$ I K L M N X O P ts Q R S T \\
+% where the `Y' (\textit{vau}) character was sometimes written as `F', and
+% `ts' stands for the \textit{tsade} character.
+%
+%    The Greek alphabet is one of the descendants of the Phoenician alphabet;
+% another was Aramaic which is the ancestor of the Arabic, Persian and Indian 
+% scripts.
+% Initially Greek was written right to left but around the 6th C~\BC{} became 
+% \textit{boustrophedron}, meaning that the lines 
+% alternated in direction. At about 500~\BC{} the writing direction stabilised 
+% as left to 
+% right. The Greeks modified the Phoenician alphabet to match the vocalisation
+% of their language. They kept the Phoenician names of the letters, suitably
+% `greekified', so \textit{aleph} became the familar \textit{alpha} and 
+% \textit{beth} became \textit{beta}. At this
+% point the names of the letters had no meaning. Their were several variants
+% of the Greek character glyphs until they were finally fixed in Athens in
+% 403~\BC.
+% The Greeks did not develop a lower-case 
+% script until about 600--700~\AD.
+%
+%    The Etruscans based their alphabet on the Greek one, and again modified it.
+% However, the Etruscans wrote right to left, so their borrowed characters are 
+% mirror images of the original Greek ones. Like the Phoenicians, the Etruscan
+% script consisted of only one case; they died out before ever needing a
+% lower-case script. The Etruscan script was used up until the first century 
+% \AD, even though the Etruscans themselves had dissapeared by that time.
+% 
+%
+%    In turn, the Romans based their alphabet on the Etruscan one, but as they 
+% wrote left to right, the characters were again mirrored (although the early
+% Roman inscriptions are boustrophedron). 
+%
+%    As the English alphabet is descended from the Roman alphabet
+% it has a pedigree of some three and a half thousand years.
+%
+% \section{The \Lpack{phoenician} package} \label{sec:usc}
+%
+%    The Phoenician alphabet consisted of 22 letters.
+% The Phoenician font as provided here consists of 23 letter shapes
+% as there appears to be two forms of the letter \textit{vav}. 
+% I have used infromation from Johanna Drucker~\cite{DRUCKER95},
+% John Healey~\cite{HEALEY90} and
+% Richard Firmage~\cite{FIRMAGE93}, as well as the
+% \textit{Encyclopedia Brittanica}, in deciding on the letter shapes.
+%
+%
+%    Table~\ref{tab} lists, in the \thisfont{} alphabetical order, the
+% transliterated value of the characters and, where I know it, the
+% modern name of the character.
+%
+% \begin{table}
+% \centering
+% \caption{The \thisfont{} script and alphabet}\label{tab}
+% \begin{tabular}{cclcll} \hline
+% Glyph & Value & Name & ASCII & Commands (L-R) & Commands (R-L)\\ \hline
+% \textphnc{a} & \textit{a} &
+% aleph &
+% ' a & |\Arq| |\Aa| |\Aaleph| &
+% |\ARrq| |\ARa| |\ARaleph|
+% \\
+% \textphnc{b} & \textit{b} &
+% beth &
+% b & |\Ab| |\Abeth| &
+% |\ARb| |\ARbeth|
+% \\
+% \textphnc{g} & \textit{g} &
+% gimel &
+% g & |\Ag| |\Agimel| &
+% |\ARg| |\ARgimel|
+% \\
+% \textphnc{d} & \textit{d} &
+% daleth &
+% d & |\Ad| |\Adaleth| &
+% |\ARd| |\ARdaleth|
+% \\
+% \textphnc{h} & \textit{h} &
+% he &
+% h & |\Ah| |\Ahe| &
+% |\ARh| |\ARhe| 
+% \\
+% \textphnc{f} & \textit{w} &
+% vav &
+% f & |\Af| |\Avaf| &
+% |\ARf| |\ARvaf|
+% \\
+% \textphnc{w} & \textit{w} &
+% vav &
+% w & |\Aw| |\Avav| &
+% |\ARw| |\ARvav|
+% \\
+% \textphnc{z} & \textit{z} &
+% zayin &
+% z & |\Az| |\Azayin| &
+% |\ARz| |\ARzayin|
+% \\
+% \textphnc{H} & \textit{\d{h}} &
+% heth &
+% H & |\Ahd| |\Aheth| &
+% |\ARhd| |\ARheth|
+% \\
+% \textphnc{T} & \textit{\d{t}} &
+% teth &
+% T & |\Atd| |\Ateth| &
+% |\ARtd| |\ARteth|
+% \\
+% \textphnc{y} & \textit{y} &
+% yod &
+% y & |\Ay| |\Ayod| &
+% |\ARy| |\ARyod|
+% \\
+% \textphnc{k} & \textit{k} &
+% kaph &
+% k & |\Ak| |\Akaph| &
+% |\ARk| |\ARkaph|
+% \\
+% \textphnc{l} & \textit{l} &
+% lamed &
+% l & |\Al| |\Alamed| &
+% |\ARl| |\ARlamed|
+% \\
+% \textphnc{m} & \textit{m} &
+% mem &
+% m & |\Am| |\Amem| &
+% |\ARm| |\ARmem|
+% \\
+% \textphnc{n} & \textit{n} &
+% nun &
+% n & |\An| |\Anun| &
+% |\ARn| |\ARnun|
+% \\
+% \textphnc{s} & \textit{s} &
+% samekh &
+% s & |\As| |\Asamekh| &
+% |\ARs| |\ARsamekh|
+% \\
+% \textphnc{o} & \textit{`} &
+% ayin &
+% ` o & |\Alq| |\Ao| |\Aayin| &
+% |\ARlq| |\ARo| |\ARayin|
+% \\
+% \textphnc{p} & \textit{p} &
+% pe &
+% p & |\Ap| |\Ape| &
+% |\ARp| |\ARpe|
+% \\
+% \textphnc{x} & \textit{\d{s}} &
+% sade &
+% x & |\Asd| |\Asade| &
+% |\ARsd| |\ARsade|
+% \\
+% \textphnc{q} & \textit{q} &
+% qoph &
+% q & |\Aq| |\Aqoph| &
+% |\ARq| |\ARqoph|
+% \\
+% \textphnc{r} & \textit{r} &
+% resh &
+% r & |\Ar| |\Aresh| &
+% |\ARr| |\ARresh|
+% \\
+% \textphnc{S} & \textit{\v{s}} &
+% shin &
+% S & |\Asv| |\Ashin| &
+% |\ARsv| |\ARshin|
+% \\
+% \textphnc{t} & \textit{t} &
+% tav &
+% t & |\At| |\Atav| &
+% |\ARt| |\ARtav|
+% \\
+% \hline
+% \end{tabular}
+% \end{table}
+%
+%
+%
+%
+% \DescribeMacro{\phncfamily}
+%    This command selects the Phoenician font family. The family name is |phnc|.
+%
+% \DescribeMacro{\textphnc}
+% The command |\textphnc{|\meta{text}|}| typesets \meta{text} in the
+% Phoenician font.
+%     
+%    I have provided three ways of accessing the \thisfont{} glyphs: 
+% (a) by ASCII characters,
+% (b) by commands whose names are based on the transliterated values, and
+% (c) by commands whose names are based on the (modern) name of the
+%     character.
+% These are shown in Table~\ref{tab} for left-to-right writing. For
+% right-to-left typesetting the glyphs, which are mirror images of
+% those for left-to-right writing, can only be accessed by commands
+% corresponding to those in the table --- those that are of the form
+% |\ARxxx| instead of |\Axxx|.
+%
+% \DescribeMacro{\translitphnc}
+%    The command |\translitphnc{|\meta{commands}|}| will typeset the
+% transliteration of the \thisfont{} character commands (those in the
+% last two columns of Table~\ref{tab}).
+%
+% \DescribeMacro{\translitphncfont}
+%    The font used for the transliteration is defined by this macro,
+% which is initialised to an italic font (i.e., |\itshape|).
+%
+%
+% \StopEventually{
+%
+% \bibliographystyle{alpha}
+% \begin{thebibliography}{GMS94}
+%
+% \bibitem[Dru95]{DRUCKER95}
+% Johanna Drucker.
+% \newblock \emph{The Alphabetic Labyrinth}.
+% \newblock Thames and Hudson, 1995.
+%
+% \bibitem[Fir93]{FIRMAGE93}
+% Richard A.~Firmage.
+% \newblock \emph{The Alphabet Abecedarium}.
+% \newblock David R.~Goodine, 1993.
+%
+% \bibitem[Hea90]{HEALEY90}
+% John F.~Healey.
+% \newblock \emph{The Early Alphabet}.
+% \newblock University of California Press/British Museum, 1990.
+%
+% \bibitem[MG04]{MITTELBACH04}
+% Frank Mittelbach and Michel Goossens.
+% \newblock \emph{The LaTeX Companion}.
+% \newblock Addison-Wesley Publishing Company, second edition, 2004.
+%
+% \end{thebibliography}
+% \PrintIndex
+% }
+%
+% \section{The Metafont code} \label{sec:mf}
+%
+% \subsection{The parameter file}
+%
+%    We deal with the parameter file first, and start by announcing
+% what it is for.
+%    \begin{macrocode}
+%<*up>
+%%% PHNC10.MF  Computer Phoenician font 10 point design size.
+
+%    \end{macrocode}
+%    Specify the font size.
+%    \begin{macrocode}
+
+font_identifier:="Archaic-Phoenician"; font_size 10pt#;
+
+%    \end{macrocode}
+%
+%
+% \begin{macro}{u} 
+% \begin{macro}{ht} 
+% \begin{macro}{s} 
+% \begin{macro}{o} 
+% \begin{macro}{px} 
+% \begin{macro}{font-normal-space} 
+% \begin{macro}{font-normal-shrink} 
+% \begin{macro}{font-x-height} 
+% \begin{macro}{font-quad}
+%    Define the very simple font parameters.
+%    \begin{macrocode}
+u#:=.2pt#;                 % unit width
+ht#:=7pt#;                 % height of characters (CM cap-height is approx 6.8pt)
+s#:=1.5pt#;                % width correction (right and left)
+o#:=1/20pt#;               % overshoot
+px#:=.7pt#;                % horizontal width of pen
+font_normal_space:=7pt#;   % width of a blank space
+font_normal_shrink:=.9pt#; % width correction for blank space
+font_x_height:=4.5pt#;     % height of one ex
+font_quad:=10pt#;          % an em
+
+%    \end{macrocode}
+% \end{macro}
+% \end{macro}
+% \end{macro}
+% \end{macro}
+% \end{macro}
+% \end{macro}
+% \end{macro}
+% \end{macro}
+% \end{macro}
+%
+%    For a full font, normally the driver file would be called next.
+% In this case I have embedded it.
+%    \begin{macrocode} 
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% end of parameters
+% start of driver code
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%    \end{macrocode}
+%
+%
+% \subsection{The driver file}
+%
+%    If there was a seperate driver file, this would be its contents.
+%
+%    \begin{macrocode}
+
+font_coding_scheme:="Archaic-Phoenician";
+mode_setup;
+
+%    \end{macrocode}
+%
+% \begin{macro}{ho}
+% \begin{macro}{leftloc}
+% \begin{macro}{py}
+%  Perform additional setup.
+%    \begin{macrocode}
+ho#:=o#;                   % horizontal overshoot
+leftloc#:=s#;              % leftmost xcoord of character
+py#:=.9px#;                % vertical thickness of the pen
+
+define_pixels(s,u);
+define_blacker_pixels(px,py);
+define_good_x_pixels(leftloc);
+define_corrected_pixels(o);             % turn on overshoot correction
+define_horizontal_corrected_pixels(ho);  
+
+%    \end{macrocode}
+% \end{macro}
+% \end{macro}
+% \end{macro}
+%
+% \begin{macro}{midloc}
+% \begin{macro}{rightloc}
+%    Variables for the middle xcoord and rightmost xcoord of a character.
+%    \begin{macrocode}
+numeric midloc, rightloc;
+%    \end{macrocode}
+% \end{macro}
+% \end{macro}
+%
+% \begin{macro}{stylus}
+%    Define the pen.
+%    \begin{macrocode}
+pickup pencircle xscaled px yscaled py;
+stylus:=savepen;
+
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{beginglyph}
+%    A macro to save some typing of beginchar arguments.
+%    \begin{macrocode}
+def beginglyph(expr code, unit_width) =
+  beginchar(code, unit_width*ht#+2s#, ht#, 0);
+  midloc:=1/2w; rightloc:=(w-s);
+  pickup stylus enddef;
+
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{cmchar}
+%    |cmchar| should precede each character
+%    \begin{macrocode}
+let cmchar=\;
+
+%    \end{macrocode}
+% \end{macro}
+% 
+%    This would be the end of the driver file, except for calling the
+% glyph code file.
+%
+%
+% \subsection{The glyph code}
+%
+%    The following code generates the glyphs for the Phoenician font. The characters
+% are defined in the Phoenician alphabetic ordering.
+%
+%    \begin{macrocode}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% end of driver code
+% start of glyph code
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%    \end{macrocode}
+%
+% \begin{macro}{'}
+% The Phoenician \textit{alpeh} (ox), which is like our A but tilted.
+%    \begin{macrocode}
+cmchar "Phoenician letter aleph (')";
+beginglyph("'",0.6);
+x3=rightloc; y3=0.5h;                % apex
+x1=0.1[leftloc, rightloc]; y1=0.1h; % bottom leg end
+z2=(leftloc,0.9h);                    % top leg end
+x7= 0.7[leftloc, rightloc]; y7=0;   % construction points
+x6= 0.2[leftloc, rightloc]; y6=h;
+z4'= whatever[z1,z3] = whatever[z7,z6]; % bottom leg intersection
+z5'= whatever[z2,z3] = whatever[z7,z6]; % top leg intersection
+z4 = 1.2[z5', z4']; z5 = 1.1[z4', z5'];
+draw z1--z3--z2;    % the legs
+draw z4--z5;        % the bar
+labels(1,2,3,4,4',5,5',6,7);
+endchar;
+
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{a}
+% The Phoenician \textit{aleph} (ox), which is like our A but tilted.
+%    \begin{macrocode}
+cmchar "Phoenician letter aleph (a)";
+beginglyph("a",0.6);
+x3=rightloc; y3=0.5h;                % apex
+x1=0.1[leftloc, rightloc]; y1=0.1h; % bottom leg end
+z2=(leftloc,0.9h);                    % top leg end
+x7= 0.7[leftloc, rightloc]; y7=0;   % construction points
+x6= 0.2[leftloc, rightloc]; y6=h;
+z4'= whatever[z1,z3] = whatever[z7,z6]; % bottom leg intersection
+z5'= whatever[z2,z3] = whatever[z7,z6]; % top leg intersection
+z4 = 1.2[z5', z4']; z5 = 1.1[z4', z5'];
+draw z1--z3--z2;    % the legs
+draw z4--z5;        % the bar
+labels(1,2,3,4,4',5,5',6,7);
+endchar;
+
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{b}
+% The Phoenician \textit{beth} (house), somewhat like a modern P.
+%    \begin{macrocode}
+cmchar "Phoenician letter beth (b)";
+beginglyph("b",0.6);
+x1=x3=0.2[leftloc, rightloc];
+rt x4=rightloc; y4= 0.75h;
+x2=leftloc;
+bot y1=-o; top y3=h; y2=0.5h;
+draw z1..z2..z3;               % the upright
+draw z3--z4--z2;               % upper bowl
+labels(1,2,3,4); endchar;
+ 
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{g}
+%    The Phoenician \textit{gimel} (camel). Like a broken topped T.
+%    \begin{macrocode}
+cmchar "Phoenician letter gimel (g)";
+beginglyph("g", 0.6);
+x3=leftloc; x1=x2=midloc; x4=rightloc;
+bot y1=-o; y2=y3=h;
+y4=0.8h;
+draw z1--z2;      % the stem
+draw z3--z2--z4;  % the top bar
+labels(1,2,3,4); endchar;
+ 
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{D}
+% The Phoenician \textit{daleth} (door); it's like the Greek \textit{delta} ($\Delta$).
+%    \begin{macrocode}
+cmchar "Phoenician letter daleth (d)";
+beginglyph("d",0.6);
+x1=leftloc; x2=rightloc; x3=midloc;
+bot y1= bot y2= 0; top y3=h;
+draw z1--z2--z3--cycle;
+labels(1,2,3); endchar;
+ 
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{h}
+% The Phoenician \textit{he} (window?), like a droopy E.
+%    \begin{macrocode}
+cmchar "Phoenician letter he (h)";
+beginglyph("h",0.6);
+numeric alpha;
+alpha:=0.1;
+x4=x5=x6=x7=leftloc;
+x1=x2=x3=rightloc; 
+bot y4=-o; y7=h;
+y6=.7h; y5=.4h;
+y1=y5-alpha*h; y2=y6-alpha*h; y3=y7-alpha*h;
+draw z4--z7;                           % the upright
+draw z1--z5; draw z2--z6; draw z3--z7; % the arms
+labels(1,2,3,4,5,6,7); endchar;
+ 
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{f}
+% This is one of forms of the Phoenician \textit{vau} (nail). 
+% It's like a 2-armed E.
+%    \begin{macrocode}
+cmchar "Phoenician letter vau (f)";
+beginglyph("f",0.6);
+numeric alpha;
+alpha:=0.1;
+x4=x5=x6=x7=leftloc;
+x1=x2=x3=rightloc; 
+bot y4=-o; y7=h;
+y6=.6h; y5=.4h;
+y1=y5-alpha*h; y2=y6-alpha*h; y3=y7-alpha*h;
+draw z4--z7;                           % the upright
+draw z2--z6; draw z3--z7;              % the arms
+labels(1,2,3,4,5,6,7); endchar;
+ 
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{z}
+% The Phoenician \textit{zayin} (dagger?). It looks like a modern seriffed I.
+%    \begin{macrocode}
+cmchar "Phoenician letter zayin (z)";
+beginglyph("z",0.2);
+x1=x2=midloc;
+bot y1=-o; top y2=h;
+draw z1--z2;         % the upright
+x3=x5=leftloc; x4=x6=rightloc;
+y3=y4=y1;  y5=y6=y2;
+draw z3--z4;         % lower bar
+draw z5--z6;         % upper bar
+labels(1,2); endchar;
+
+%    \end{macrocode}
+% \end{macro}
+%
+% 
+%
+%
+% \begin{macro}{H}
+% The Phoenician \textit{cheth} (fence?). It looks like a rectangle with 
+% one horizontal internal bar.
+% \changes{v2.2}{2006/02/05}{Deleted one bar from (c)heth}
+%    \begin{macrocode}
+cmchar "Phoenician letter cheth (H)";
+beginglyph("H", 0.6);
+numeric alpha;
+alpha:=0.1;
+x4=x6=leftloc;
+x1=x3=rightloc; 
+bot y1=-o; top y6=h;
+y3=y6-alpha*h; y4=y1+alpha*h;
+z2=0.5[z1,z3]; z5=0.5[z4,z6];
+draw z1--z3--z6--z4--cycle;     % outer boundary
+draw z2--z5;          % bar
+labels(1,2,3,4,5,6); endchar;
+ 
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{Thet}
+% The Phoenician \textit{thet}. It's a precursor of the Greek \textit{theta} ($\Theta$).
+%    \begin{macrocode}
+cmchar "Phoenician letter thet (T)";
+beginglyph("T",1.0);
+path p;
+x1=leftloc; x3=rightloc;
+y2=h; y4=0;
+x2=x4=midloc;
+y1=y3=h/2;
+z100=(x2,y3);  % circle center
+p = z1..z2..z3..z4..cycle;
+z11= (z100--(leftloc,h)) intersectionpoint p;
+z12= (z100--(rightloc,h)) intersectionpoint p;
+z13= (z100--(rightloc,0)) intersectionpoint p;
+z14= (z100--(leftloc,0)) intersectionpoint p;
+draw p;
+draw z11--z13; draw z12--z14;   % the cross
+labels(1,2,3,4,11,12,13,14); endchar;
+
+%    \end{macrocode}
+% \end{macro}
+%
+%
+% \begin{macro}{y}
+% The Phoenician \textit{yod} (hand).
+% A bit like a leaning F with a reversed leaning L.
+% \changes{v2.2}{2006/02/05}{Completely changed yod --- it was horribly wrong}
+%    \begin{macrocode}
+cmchar "Phoenician letter yod (y)";
+beginglyph("y",0.6);
+x1=rightloc; y1=0.7h;      % end top arm
+x4=leftloc; y4=0.25h;      % end bottom arm
+x2=1/3[x1,x4]; y2=h;       % top
+x3=1/4[x4,x1]; y3=0;       % bottom
+z5=5/8[z3,z2]; z5-z6 = 0.6(z2-z1);   % middle arm
+draw z1--z2--z3--z4; draw z5--z6;
+labels (1,2,3,4,5,6); endchar;
+
+%    \end{macrocode}
+% \end{macro}
+%
+%
+% \begin{macro}{k}
+% The Phoenician \textit{kaph} (palm of the hand).
+%    \begin{macrocode}
+cmchar "Phoenician letter kaph (k)";
+beginglyph("k",0.6);
+numeric alpha;
+alpha:=0.8;
+z1=(rightloc,0);
+z3=(rightloc,h);
+z5=(leftloc,h);
+z4=alpha[z1,z5];
+z2=alpha[z1,z3];
+draw z1--z5;     % the stem
+draw z3--z4--z2; % arms
+labels(1,2,3,4,5); endchar;
+ 
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{l}
+%    The letter \textit{lamed} (ox goad) which is asymmetrical. 
+%    \begin{macrocode}
+cmchar "Phoenician lamed (l)";
+beginglyph("l",0.4);
+x1=leftloc; x2=x3=rightloc;
+bot y2=-o; 
+y1=.3h;
+y3=h;
+draw z2--z3;               % the upright
+draw z2--z1;               % the arms
+labels(1,2,3); endchar;
+ 
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{m}
+% The Phoenician \textit{mem} (water).
+%    \begin{macrocode}
+ 
+cmchar"Phoenician letter mem (m)";
+beginglyph("m",1.0);
+x1=rightloc;
+x5=x6=leftloc;
+x2=3/4[x5,x1]; x3=1/2[x5,x1]; x4=1/4[x5,x1]; 
+bot y6= -o;
+top y5= top y3 = h;
+top y1=.8h;
+y2=.6h;
+y4=.7h;
+draw z6--z5;
+draw z1--z2--z3--z4--z5;
+labels(1,2,3,4,5,6); endchar;
+ 
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{n}
+% The Phoenician \textit{nun} (fish).
+%    \begin{macrocode}
+cmchar "Phoenician letter nun (n)";
+beginglyph("n",0.6);
+x1=rightloc;
+x3=midloc; x2=x4=leftloc;
+bot y2=-o;
+top y1= top y4= h;
+y3=.7h;
+draw z2--z4;
+draw z1--z3--z4;
+labels(1,2,3,4); endchar;
+ 
+%    \end{macrocode}
+% \end{macro}
+%
+%
+% \begin{macro}{s}
+% The Phoenician \textit{samech} (post). 
+% It is a progenitor of the Greek \textit{xi} ($\Xi$).
+%    \begin{macrocode}
+cmchar "Phoenician letter samekh (s)";
+beginglyph("s", 0.6);
+x1= x2 = midloc;
+x3=x4=x5=leftloc;
+x6=x7=x8=rightloc;
+y1=0; 
+y3=y6=0.4h;
+y4=y7=0.7h;
+y5=y2=y8=h;
+draw z1--z2;                            % upright
+draw z3--z6; draw z4--z7; draw z5--z8;  % arms
+labels(1,2,3,4,5,6,7,8); endchar;
+ 
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{o}
+% The Phoenician \textit{ayin} (eye).
+%    \begin{macrocode}
+cmchar "Phoenician letter ayin (o)";
+beginglyph("o",1.0);
+x1=leftloc; x3=rightloc;
+y2=h; y4=0;
+x2=x4=midloc;
+y1=y3=h/2;
+draw z1..z2..z3..z4..cycle;
+labels(1,2,3,4); endchar;
+ 
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{`}
+% The Phoenician \textit{ayin} (eye).
+%    \begin{macrocode}
+cmchar "Phoenician letter ayin (`)";
+beginglyph("`",1.0);
+x1=leftloc; x3=rightloc;
+y2=h; y4=0;
+x2=x4=midloc;
+y1=y3=h/2;
+draw z1..z2..z3..z4..cycle;
+labels(1,2,3,4); endchar;
+ 
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{p}
+% The Phoenician \textit{pe} (mouth).
+%    \begin{macrocode}
+cmchar "Phoenician letter pe (p)";
+beginglyph("p", 0.4);
+x1=rightloc; x2=x3=leftloc;
+bot y3=-o; y2=h;
+y1=0.8h;
+draw z1..z2{left}--z3;
+labels(1,2,3); endchar;
+ 
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{x}
+% The Phoenician \textit{tsade}. 
+%    \begin{macrocode}
+cmchar "Phoenician letter tsade (x)";
+beginglyph("x", 0.6);
+x1=x2=rightloc;
+x3=0.4[leftloc, rightloc];
+x4=0.6[leftloc, rightloc];
+x5=leftloc;
+y1=0;
+y2=y3=h;
+y4=y5=0.8h;
+draw z1--z2--z3--z4--z5;
+labels(1,2,3,4,5); endchar;
+
+%    \end{macrocode}
+% \end{macro}
+%
+%
+% \begin{macro}{q}
+% The Phoenician \textit{qoph} (knot?).
+%    \begin{macrocode}
+cmchar "Phoenician letter qoph (q)";
+beginglyph("q",0.6);
+numeric alpha;
+x1=leftloc;
+x3=rightloc;
+alpha=0.5(x3-x1);  % circle radius
+y2=h;
+y4=y2-2alpha;
+bot y5=-o;
+x2=x4=x5=midloc;
+y1=y3=h-alpha;
+draw z1..z2..z3..z4..cycle;  % the circle
+draw z5--z2;                 % the upright
+labels(1,2,3,4,5); endchar;
+ 
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{r}
+% The Phoenician \textit{resh} (head). It looks a little like a P.
+%    \begin{macrocode}
+cmchar "Phoenician letter resh(r)";
+beginglyph("r", 0.4);
+x1=x2=x3=leftloc; x4=rightloc;
+bot y1=-o; top y2=h;
+y3=y4=0.5h; 
+draw z1--z2--z4--z3;
+labels(1,2,3,4); endchar;
+ 
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{S}
+% The Phoenician \textit{shin} (teeth). It's like a Greek \textit{sigma} ($\Sigma$)
+% lying on its side.
+%    \begin{macrocode}
+cmchar "Phoenician letter shin (S)";
+beginglyph("S", 0.6);
+z1=(leftloc,h); z5=(rightloc,h);
+x2 = 0.2[leftloc, rightloc]; x4 = 0.8[leftloc, rightloc];
+x3=midloc;
+y2=y4=0;
+y3 = 0.4h;
+draw z1--z2--z3--z4--z5;
+labels(1,2,3,4,5); endchar;
+ 
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{t}
+% The Phoenician \textit{tav} (mark).
+%    \begin{macrocode}
+cmchar "Phoenician letter tav (t)";
+beginglyph("t", 0.5);
+x1=x2=midloc;
+x3=leftloc; x4=rightloc;
+bot y1=0; y2=h;
+y3=y4=0.6h;
+draw z1--z2;      % the stem
+draw z3--z4;      % the crossbar
+labels(1,2,3,4); endchar;
+ 
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{w}
+%    Another form of the Phoenician \textit{vau}.
+%    \begin{macrocode}
+cmchar "Phoenician letter vau (w)";
+beginglyph("w", 0.6);
+x1=x2=midloc;
+x3=leftloc; x4=rightloc;
+bot y1=0; y2=0.6h;
+y3=y4=h;
+draw z1--z2;          % the stem
+draw z3--z2--z4;      % the crossbar
+labels(1,2,3,4); endchar;
+ 
+%    \end{macrocode}
+% \end{macro}
+%
+%
+%
+%     The following characters are for the normal Phoenician writing mode
+% of right to left. The characters are mirror images of the ASCII uppercase
+% counterparts. Symmetric characters that are called by \LaTeX{} commands
+% need not be coded.
+% 
+%
+% \begin{macro}{A}
+% The Phoenician \textit{aleph} (ox), which is like our A but tilted.
+% \changes{v2.2}{2006/02/05}{Added the missing R-L aleph}
+%    \begin{macrocode}
+cmchar "Phoenician letter R-L aleph (A)";
+beginglyph("A",0.6);
+x3=leftloc; y3=0.5h;                  % apex
+x1=0.1[rightloc,leftloc]; y1=0.1h;    % end bottom leg
+z2=(rightloc,0.9h);                   % end top leg
+x7=0.7[rightloc,leftloc]; y7=0;       % construction points
+x6=0.2[rightloc,leftloc]; y6=h;
+z4'= whatever[z1,z3] = whatever[z7,z6]; % bottom leg intersection
+z5'= whatever[z2,z3] = whatever[z7,z6]; % top leg intersection
+z4 = 1.2[z5', z4']; z5 = 1.1[z4', z5'];
+draw z1--z3--z2;    % the legs
+draw z4--z5;        % the bar
+labels(1,2,3,4,4',5,5',6,7);
+endchar;
+
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{B}
+%    The letter beth, which is asymmetrical.
+%    \begin{macrocode}
+cmchar "Phoenician R-L b (B)";
+beginglyph("B",0.6);
+x1=x3=0.2[rightloc, leftloc];
+lft x4=leftloc; y4= 0.75h;
+x2=rightloc;
+bot y1=-o; top y3=h; y2=0.5h;
+draw z1..z2..z3;   % the upright
+draw z3--z4--z2;   % the bowl
+labels(1,2,3,4); endchar;
+ 
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{G}
+%    The letter G which is asymmetrical.
+%    \begin{macrocode}
+cmchar "Phoenician R-L g (G)";
+beginglyph("G", 0.6);
+x3=rightloc; x1=x2=midloc; x4=leftloc;
+bot y1=-o; y2=y3=h;
+y4=0.8h;
+draw z1--z2;      % the stem
+draw z3--z2--z4;  % top bar
+labels(1,2,3,4); endchar;
+ 
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{e}
+%    The letter he which is asymmetrical. 
+%    \begin{macrocode}
+cmchar "Phoenician R-L he (e)";
+beginglyph("e",0.6);
+numeric alpha;
+alpha:=0.1;
+x1=x2=x3=leftloc; x4=x5=x6=x7=rightloc;
+bot y4=-o; y7=h;
+y6=.7h; y5=.4h;
+y1=y5-alpha*h; y2=y6-alpha*h; y3=y7-alpha*h;
+draw z4--z7;                           % the upright
+draw z1--z5; draw z2--z6; draw z3--z7; % the arms
+labels(1,2,3,4,5,6,7); endchar;
+ 
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{F}
+%    The letter vau (f) which is asymmetrical.
+%    \begin{macrocode}
+cmchar "Phoenician R-L f-vau (F)";
+beginglyph("F",0.6);
+numeric alpha;
+alpha:=0.1;
+x1=x2=x3=leftloc; x4=x5=x6=x7=rightloc;
+bot y4=-o; y7=h;
+y6=.6h; y5=.4h;
+y1=y5-alpha*h; y2=y6-alpha*h; y3=y7-alpha*h;
+draw z4--z7;                           % the upright
+draw z2--z6; draw z3--z7;              % the arms
+labels(1,2,3,4,5,6,7); endchar;
+ 
+%    \end{macrocode}
+% \end{macro}
+%
+%
+% \begin{macro}{E}
+%    The letter heth which is asymmetrical.
+% \changes{v2.2}{2006/02/05}{Deleted one bar from L-R heth}
+%    \begin{macrocode}
+cmchar "Phoenician R-L heth (E)";
+beginglyph("E", 0.6);
+numeric alpha;
+alpha:=0.1;
+x1=x3=leftloc; x4=x6=rightloc;
+bot y1=-o; top y6=h;
+y3=y6-alpha*h; y4=y1+alpha*h;
+z2=0.5[z1,z3]; z5=0.5[z4,z6];
+draw z1--z3--z6--z4--cycle;   % outer boundary
+draw z2--z5;                  % bar
+labels(1,2,3,4,5,6,7,8); endchar;
+ 
+%    \end{macrocode}
+% \end{macro}
+%
+%
+%
+% \begin{macro}{Y}
+% The Phoenician \textit{yod} (hand), which is asymetrical.
+% A bit like a leaning F with a reversed leaning L.
+% \changes{v2.2}{2006/02/05}{Added L-R yod}
+%    \begin{macrocode}
+cmchar "Phoenician letter L-R yod (Y)";
+beginglyph("Y",0.6);
+x1=leftloc; y1=0.7h;       % end top arm
+x4=rightloc; y4=0.25h;     % end bottom arm
+x2=1/3[x1,x4]; y2=h;       % top
+x3=1/4[x4,x1]; y3=0;       % bottom
+z5=5/8[z3,z2]; z5-z6 = 0.6(z2-z1);   % middle arm
+draw z1--z2--z3--z4; draw z5--z6;
+labels (1,2,3,4,5,6); endchar;
+
+%    \end{macrocode}
+% \end{macro}
+%
+%
+% \begin{macro}{K}
+%    The letter kaph which is asymmetrical.
+%    \begin{macrocode}
+cmchar "Phoenician R-L kaph (K)";
+beginglyph("K",0.6);
+numeric alpha;
+alpha:=0.8;
+z1=(leftloc,0);
+z3=(leftloc,h);
+z5=(rightloc,h);
+z4=alpha[z1,z5];
+z2=alpha[z1,z3];
+draw z1--z5;     % the stem
+draw z3--z4--z2; % the arms
+labels(1,2,3,4,5); endchar;
+ 
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{L}
+% The Phoenician \textit{lamed} (ox goad) which is asymmetrical.
+%    \begin{macrocode}
+cmchar "Phoenician R-L lamed (L)";
+beginglyph("L",0.4);
+x2=x3=leftloc;
+x1=rightloc; 
+bot y2=-o; 
+y1=.3h;
+y3=h;
+draw z2--z3;               % the upright
+draw z2--z1;               % the arms
+labels(1,2,3); endchar;
+ 
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{M}
+%    The letter mem which is asymmetrical. 
+%    \begin{macrocode}
+cmchar"Phoenician R-L mem (M)";
+beginglyph("M",1.0);
+x1=leftloc;
+x5=x6=rightloc;
+x2=1/4[x1,x5]; x3=1/2[x1,x5]; x4=3/4[x1,x5]; 
+bot y6= -o;
+top y5= top y3 = h;
+top y1=.8h;
+y2=.6h;
+y4=.7h;
+draw z6--z5;
+draw z1--z2--z3--z4--z5;
+labels(1,2,3,4,5,6); endchar;
+ 
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{N}
+%    The letter nun which is asymmetrical. 
+%    \begin{macrocode}
+cmchar "Phoenician R-L nun (N)";
+beginglyph("N",0.6);
+x1=leftloc;
+x3=midloc; x2=x4=rightloc;
+bot y2=-o;
+top y1= top y4= h;
+y3=.7h;
+draw z2--z4;
+draw z1--z3--z4;
+labels(1,2,3,4); endchar;
+ 
+%    \end{macrocode}
+% \end{macro}
+%
+%
+% \begin{macro}{P}
+%    The letter pe which is asymmetrical.
+%    \begin{macrocode}
+cmchar "Phoenician R-L pe (P)";
+beginglyph("P", 0.4);
+x1=leftloc; x2=x3=rightloc;
+bot y3=-o; y2=h;
+y1=0.8h;
+draw z1..z2{right}--z3;
+labels(1,2,3); endchar;
+ 
+%    \end{macrocode}
+% \end{macro}
+%
+%
+% \begin{macro}{X}
+% The Phoenician \textit{tsade} which is asymmetrical.
+%    \begin{macrocode}
+cmchar "Phoenician R-L tsade (X)";
+beginglyph("X", 0.6);
+x1=x2=leftloc;
+x3=0.6[leftloc, rightloc];
+x4=0.4[leftloc, rightloc];
+x5=rightloc;
+y1=0;
+y2=y3=h;
+y4=y5=0.8h;
+draw z1--z2--z3--z4--z5;
+labels(1,2,3,4,5); endchar;
+
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{R}
+%    The letter resh which is asymmetrical.
+%    \begin{macrocode}
+cmchar "Phoenician R-L resh (R)";
+beginglyph("R", 0.4);
+x1=x2=x3=rightloc; x4=leftloc;
+bot y1=-o; top y2=h;
+y3=y4=0.5h;
+draw z1--z2--z4--z3;
+labels(1,2,3,4); endchar;
+
+%    \end{macrocode}
+% \end{macro}
+%
+%
+%
+%    The end of the glyphs and the file.
+%    \begin{macrocode}
+
+end
+ 
+%</up> 
+%    \end{macrocode}
+%
+%
+%
+% \section{The font definition files} \label{sec:fd}
+%
+%    \begin{macrocode}
+%<*fdot1>
+\DeclareFontFamily{OT1}{phnc}{}
+  \DeclareFontShape{OT1}{phnc}{m}{n}{ <-> phnc10 }{}
+  \DeclareFontShape{OT1}{phnc}{bx}{n}{ <-> sub phnc/m/n }{}
+  \DeclareFontShape{OT1}{phnc}{b}{n}{ <-> sub phnc/m/n }{}
+  \DeclareFontShape{OT1}{phnc}{m}{sl}{ <-> sub phnc/m/n }{}
+  \DeclareFontShape{OT1}{phnc}{m}{it}{ <-> sub phnc/m/n }{}
+%</fdot1>
+%    \end{macrocode}
+%
+%
+%    \begin{macrocode}
+%<*fdt1>
+\DeclareFontFamily{T1}{phnc}{}
+  \DeclareFontShape{T1}{phnc}{m}{n}{ <-> phnc10 }{}
+  \DeclareFontShape{T1}{phnc}{bx}{n}{ <-> sub phnc/m/n }{}
+  \DeclareFontShape{T1}{phnc}{b}{n}{ <-> sub phnc/m/n }{}
+  \DeclareFontShape{T1}{phnc}{m}{sl}{ <-> sub phnc/m/n }{}
+  \DeclareFontShape{T1}{phnc}{m}{it}{ <-> sub phnc/m/n }{}
+%</fdt1>
+%    \end{macrocode}
+%
+% \section{The \Lpack{phoenician} package code} \label{sec:code}
+%
+%    Announce the name and version of the package, which requires
+% \LaTeXe{}.
+% \changes{v1.2}{2006/02/05}{Added code for L-R yod}
+%    \begin{macrocode}
+%<*usc>
+\NeedsTeXFormat{LaTeX2e}
+%%%\ProvidesPackage{phoenician}[2000/10/01 v1.1 package for Phoenician fonts]
+\ProvidesPackage{phoenician}[2006/02/05 v1.2 package for Phoenician fonts]
+%    \end{macrocode}
+%
+%
+% \begin{macro}{\phncfamily}
+%    Selects the Phoenician font family in the OT1 encoding.
+%    \begin{macrocode}
+\newcommand{\phncfamily}{\usefont{OT1}{phnc}{m}{n}}
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{\textphnc}
+%    Text command for the Phoenician font family.
+%    \begin{macrocode}
+\DeclareTextFontCommand{\textphnc}{\phncfamily}
+%    \end{macrocode}
+% \end{macro}
+%
+% The commands for the signs.
+%    \begin{macrocode}
+
+%%%\chardef\Arq=`' \chardef\ARrq=`'   \chardef\Aaleph=`a    \chardef\ARaleph=`a
+%%%\chardef\Aa=`a  \chardef\ARa=`a  
+\chardef\Arq=`' \chardef\ARrq=`'   \chardef\Aaleph=`a    \chardef\ARaleph=`A
+\chardef\Aa=`a  \chardef\ARa=`A  
+\chardef\Ab=`b  \chardef\ARb=`B    \chardef\Abeth=`b    \chardef\ARbeth=`B
+\chardef\Ag=`g  \chardef\ARg=`G    \chardef\Agimel=`g    \chardef\ARgimel=`G
+\chardef\Ad=`d  \chardef\ARd=`d    \chardef\Adaleth=`d    \chardef\ARdaleth=`d
+\chardef\Ah=`h  \chardef\ARh=`e    \chardef\Ahe=`h    \chardef\ARhe=`e
+\chardef\Af=`f  \chardef\ARf=`F    \chardef\Avaf=`f    \chardef\ARvaf=`F
+\chardef\Az=`z  \chardef\ARz=`z    \chardef\Azayin=`z    \chardef\ARzayin=`z
+\chardef\Ahd=`H \chardef\ARhd=`E   \chardef\Aheth=`H    \chardef\ARheth=`E
+\chardef\Atd=`T \chardef\ARtd=`T   \chardef\Ateth=`T    \chardef\ARteth=`T
+%%%\chardef\Ay=`y  \chardef\ARy=`y    \chardef\Ayod=`y    \chardef\ARyod=`y
+\chardef\Ay=`y  \chardef\ARy=`Y    \chardef\Ayod=`y    \chardef\ARyod=`Y
+\chardef\Ak=`k  \chardef\ARk=`K    \chardef\Akaph=`k    \chardef\ARkaph=`K
+\chardef\Al=`l  \chardef\ARl=`L    \chardef\Alamed=`l    \chardef\ARlamed=`L
+\chardef\Am=`m  \chardef\ARm=`M    \chardef\Amem=`m    \chardef\ARmem=`M
+\chardef\An=`n  \chardef\ARn=`N    \chardef\Anun=`n    \chardef\ARnun=`N
+\chardef\As=`s  \chardef\ARs=`s    \chardef\Asamekh=`s    \chardef\ARsamekh=`s
+\chardef\Alq=`` \chardef\ARlq=``   \chardef\Aayin=``    \chardef\ARayin=``
+\chardef\Ao=`o  \chardef\ARo=`o    
+\chardef\Ap=`p  \chardef\ARp=`P    \chardef\Ape=`p    \chardef\ARpe=`P
+\chardef\Asd=`x \chardef\ARsd=`X   \chardef\Asade=`x    \chardef\ARsade=`X
+\chardef\Aq=`q  \chardef\ARq=`q    \chardef\Aqoph=`q    \chardef\ARqoph=`q
+\chardef\Ar=`r  \chardef\ARr=`R    \chardef\Aresh=`r    \chardef\ARresh=`R
+\chardef\Asv=`S \chardef\ARsv=`S   \chardef\Ashin=`S    \chardef\ARshin=`S
+\chardef\At=`t  \chardef\ARt=`t    \chardef\Atav=`t    \chardef\ARtav=`t
+\chardef\Aw=`w  \chardef\ARw=`w    \chardef\Avav=`w    \chardef\ARvav=`w
+
+%    \end{macrocode}
+%
+% \begin{macro}{\translitphnc}
+% \begin{macro}{\translitphncfont}
+% |\translitphnc{|\meta{commands}|}| transliterates \meta{commands}
+% using the |\translitphncfont| font.
+%    \begin{macrocode}
+\newcommand{\translitphnc}[1]{{%
+  \@translitP\translitphncfont #1}}
+\newcommand{\translitphncfont}{\itshape}
+
+%    \end{macrocode}
+% \end{macro}
+% \end{macro}
+%
+% \begin{macro}{\@translitP}
+% This macro redefines all the character commands to produce the
+% transliterated version instead of the glyph.
+% There must be no spaces in the definition.
+%    \begin{macrocode}
+\newcommand{\@translitP}{%
+\def\Arq{'}\def\ARrq{\Arq}\def\Aaleph{\Arq}\def\ARaleph{\Arq}%
+\def\Aa{\Arq}\def\ARa{\Arq}%
+\def\Ab{b}\def\ARb{\Ab}\def\Abeth{\Ab}\def\ARbeth{\Ab}%
+\def\Ag{g}\def\ARg{\Ag}\def\Agimel{\Ag}\def\ARgimel{\Ag}%
+\def\Ad{d}\def\ARd{\Ad}\def\Adaleth{\Ad}\def\ARdaleth{\Ad}%
+\def\Ah{h}\def\ARh{\Ah}\def\Ahe{\Ah}\def\ARhe{\Ah}%
+\def\Af{w}\def\ARf{\Af}\def\Avaf{\Af}\def\ARvaf{\Af}%
+\def\Az{z}\def\ARz{\Az}\def\Azayin{\Az}\def\ARzayin{\Az}%
+\def\Ahd{\d{h}}\def\ARhd{\Ahd}\def\Aheth{\Ahd}\def\ARheth{\Ahd}%
+\def\Atd{\d{t}}\def\ARtd{\Atd}\def\Ateth{\Atd}\def\ARteth{\Atd}%
+\def\Ay{y}\def\ARy{\Ay}\def\Ayod{\Ay}\def\ARyod{\Ay}%
+\def\Ak{k}\def\ARk{\Ak}\def\Akaph{\Ak}\def\ARkaph{\Ak}%
+\def\Al{l}\def\ARl{\Al}\def\Alamed{\Al}\def\ARlamed{\Al}%
+\def\Am{m}\def\ARm{\Am}\def\Amem{\Am}\def\ARmem{\Am}%
+\def\An{n}\def\ARn{\An}\def\Anun{\An}\def\ARnun{\An}%
+\def\As{s}\def\ARs{\As}\def\Asamekh{\As}\def\ARsamekh{\As}%
+\def\Alq{`}\def\ARlq{\Alq}\def\Aayin{\Alq}\def\ARayin{\Alq}%
+\def\Ao{\Alq}\def\ARo{\Ablq}%
+\def\Ap{p}\def\ARp{\Ap}\def\Ape{\Ap}\def\ARpe{\Ap}%
+\def\Asd{\d{s}}\def\ARsd{\Asd}\def\Asade{\Asd}\def\ARsade{\Asd}%
+\def\Aq{q}\def\ARq{\Aq}\def\Aqoph{\Aq}\def\ARqoph{\Aq}%
+\def\Ar{r}\def\ARr{\Ar}\def\Aresh{\Ar}\def\ARresh{\Ar}%
+\def\Asv{\v{s}}\def\ARsv{\Asv}\def\Ashin{\Asv}\def\ARshin{\Asv}%
+\def\At{t}\def\ARt{\At}\def\Atav{\At}\def\ARtav{\At}%
+\def\Aw{w}\def\ARw{\Aw}\def\Avav{\Aw}\def\ARvav{\Aw}%
+}
+
+%    \end{macrocode}
+% \end{macro}
+%
+%
+%
+%
+%
+%    The end of this package.
+%    \begin{macrocode}
+%</usc>
+%    \end{macrocode}
+%
+% \section{The Type1 map file}
+%
+% Just a line.
+% \changes{v2.1}{2005/04/04}{Added the map file}
+%    \begin{macrocode}
+%<*map>
+phnc10  Archaic-Phoenician  <phnc10.pfb
+%</map>
+%    \end{macrocode}
+%
+%
+%
+% \Finale
+% ^^A \PrintIndex
+%
+\endinput
+
+%% \CharacterTable
+%%  {Upper-case    \A\B\C\D\E\F\G\H\I\J\K\L\M\N\O\P\Q\R\S\T\U\V\W\X\Y\Z
+%%   Lower-case    \a\b\c\d\e\f\g\h\i\j\k\l\m\n\o\p\q\r\s\t\u\v\w\x\y\z
+%%   Digits        \0\1\2\3\4\5\6\7\8\9
+%%   Exclamation   \!     Double quote  \"     Hash (number) \#
+%%   Dollar        \$     Percent       \%     Ampersand     \&
+%%   Acute accent  \'     Left paren    \(     Right paren   \)
+%%   Asterisk      \*     Plus          \+     Comma         \,
+%%   Minus         \-     Point         \.     Solidus       \/
+%%   Colon         \:     Semicolon     \;     Less than     \<
+%%   Equals        \=     Greater than  \>     Question mark \?
+%%   Commercial at \@     Left bracket  \[     Backslash     \\
+%%   Right bracket \]     Circumflex    \^     Underscore    \_
+%%   Grave accent  \`     Left brace    \{     Vertical bar  \|
+%%   Right brace   \}     Tilde         \~}
+
+

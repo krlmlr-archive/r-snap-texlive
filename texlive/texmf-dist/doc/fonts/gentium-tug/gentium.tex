@@ -1,0 +1,540 @@
+% !TEX TS-program = pdflatex
+% !TEX encoding = UTF-8 Unicode
+
+% This file is part of the Gentium package for TeX.
+% It is licensed under the Expat License, see doc//README for details.
+
+\documentclass[11pt, welsh, british]{article}
+\usepackage{babel}
+\usepackage[utf8x]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{gentium}
+\renewcommand{\ttdefault}{lmvtt}
+\usepackage{fancyhdr,lastpage,fancyref}
+\usepackage{array,longtable,verbatim}
+\usepackage{booktabs}
+\usepackage{multirow}
+\usepackage{url}
+	\urlstyle{tt}
+\usepackage[breaklinks,colorlinks,
+            linkcolor=black,citecolor=black,urlcolor=black]
+           {hyperref}
+%\usepackage{microtype}
+\usepackage[a4paper,headheight=14pt,scale=0.8]{geometry}
+  % use 14pt for 11pt text, 15pt for 12pt text
+
+\title{Gentium for \TeX}
+\author{Mojca Miklavec \and Pavel Farář \and Thomas A. Schmitz}
+\newcommand*{\dyddiad}{\today}
+\newcommand*{\ofname}{of}
+\date{\dyddiad}
+\pagestyle{fancy}
+	\fancyhf[lh]{\itshape gentium}
+	\fancyhf[rh]{\itshape\dyddiad}
+	\fancyhf[ch]{}
+	\fancyhf[lf]{}
+	\fancyhf[rf]{}
+	\fancyhf[cf]{\itshape --- \thepage~\ofname~\pageref{LastPage} ---}
+
+\usepackage{textcomp}
+
+\def\ConTeXt{Con{\TeX}t}
+\def\ConTeXtMKII{Con{\TeX}t {\sc MkII}}
+\def\ConTeXtMKIV{Con{\TeX}t {\sc MkIV}}
+\def\XeTeX{Xe{\TeX}} % TODO: improve the first "e"--reversed and lowered
+\def\pdfTeX{pdf{\TeX}}
+\def\pdfLaTeX{pdf{\LaTeX}}
+\def\TeXLive{\TeX~Live}
+\def\MiKTeX{MiK\TeX}
+\def\MacTeX{Mac\TeX}
+
+\begin{document}
+\maketitle
+\thispagestyle{empty}
+\pdfinfo{%
+	/Creator	(TeX)
+	/Producer	(pdfTeX)
+	/Author		(Pavel Farář, Mojca Miklavec, Clea F.\ Rees)
+	/Title		(Gentium for TeX)
+	/Subject	(TeX)
+	/Keywords	(TeX,LaTeX,font,fonts,tex,latex,gentium,GentiumPlus,GentiumBasic,Gentium,SIL,sil)}
+\pdfcatalog{%
+	/URL		()
+	/PageMode	/UseOutlines}
+    % other values: /UseNone, /UseOutlines, /UseThumbs, /FullScreen
+	%[openaction <actionspec>]
+%	\pagestyle{empty}
+    % if you want this, you probably want to comment out \maketitle as well...?
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{0.5em}
+	
+	
+\newcommand*{\sil}{\textsc{sil}}
+\newcommand*{\pkgname}[1]{\textsf{#1}}
+\newcommand*{\fname}[1]{\textsf{#1}}
+
+\begin{abstract}
+	\hspace*{-\parindent}This document outlines the
+	\TeX/\LaTeX/\ConTeXt\ support provided by this
+	package for the Gentium font collection released by \sil.
+\end{abstract}
+
+\tableofcontents
+
+
+\section{Introduction}
+
+This document explains how to use the \TeX/\LaTeX/\ConTeXt\ support in
+the present package for the Gentium font collection developed by \sil.
+This package includes fonts in PostScript Type~1 format converted from
+the original TrueType files released by \sil\ (using the FontForge
+routines found in this package).  These Type~1 fonts use the name
+`Gentium' by permission of \sil\ to the \TeX\ Users Group.  Therefore
+the name of this \TeX\ package, by request of \sil, is
+\pkgname{gentium-tug}.  Its home page is \url{http://tug.org/gentium}.
+
+Further information about the fonts themselves can be found in the
+included documentation and at \url{http://scripts.sil.org/gentium}. The
+fonts are released under the \textsc{sil} Open Font License. For
+details, see \url{ofl.txt} and \url{ofl-faq.txt}.  (In the event of
+releasing modified versions of the fonts, either TrueType or Type~1,
+it's required to use a name that doesn't include ``Gentium'', per the
+\textsc{ofl}.)
+
+This \TeX/\LaTeX/\ConTeXt\ support package consists of metrics, map
+files, style files, documentation, and so on.  These files are released
+under the Expat license.  The text for both licenses is included at the
+end of this document, and in files in the distribution.
+
+If you have the package installed and just want to know how to use
+Gentium in your \TeX\ documents, feel free to skip to
+section~\ref{sec:latex-package} (\LaTeX\ usage) or
+section~\ref{sec:context-package} (\ConTeXt\ usage).
+
+Please report any problems (contact info on the web page).  If you can
+also send a fix, so much the better.
+
+
+\section{Gentium collection background}
+
+This package uses the original fonts GentiumPlus to make the regular and
+italic styles and GentiumBasic to make the bold and bold italic styles,
+and combines them into one \TeX-world family.
+
+GentiumPlus is a serif family designed to support a wide range of Latin,
+Greek and Cyrillic characters.  It currently includes just the regular
+and italic style, as well as smallcaps.
+
+GentiumBasic has just the Latin characters and it even lacks some Latin
+characters found in GentiumPlus.  Therefore, the bold and bold italic
+styles of this package support fewer languages than the regular and
+italic styles (e.g.\ Czech and Slovak are not fully
+supported). Moreover, GentiumBasic has no smallcaps and no kerning
+pairs.  When and if \sil\ releases bold and bold italic GentiumPlus
+fonts, we will switch to those, of course.
+
+This package does not use the Berry fontname scheme, but longer names
+similar to those of Latin Modern, etc.  One disadvantage of this choice
+is that you cannot use the additional font selection commands provided
+by the package \pkgname{nfssext-cfr}.
+
+
+\section{Installation}
+
+If you are using a reasonably recent \MiKTeX\ or \TeXLive\ or distro
+installation it should be enough to install the \pkgname{gentium-tug}
+package (if it's not already present).
+
+Otherwise, or if you want to install the font manually, you will in
+general need to perform these steps:
+\begin{enumerate}
+\item choose whether to install the font system-wide or in a personal
+      directory;
+\item move or copy the package files to the appropriate location;
+\item refresh the \TeX\ database;
+\item incorporate the included map file fragments for the different
+      engines.
+\end{enumerate}
+
+However, that's all that it make sense to say here.  It's beyond the
+scope of this Gentium documentation to explain all the myriad ways in
+which \TeX-world map files can be installed and used; there are
+differences between \TeXLive\ and \MiKTeX, too.
+
+Instead, we refer you to an explanation of the system-wide installation,
+with information for both \MiKTeX\ and \TeXLive, at
+\url{http://tug.org/fonts/fontinstall.html}.  A corresponding
+explanation for personal installation is at
+\url{http://tug.org/fonts/fontinstall-personal.html}. 
+
+Those pages describe using \path{testfont.tex} for a basic test of the
+font; a tfm file name to use with that is \url{ec-gentiumplus-regular}.
+
+To further test your installation and that the package works on your
+system, run \LaTeX\ on this \path{gentium.tex} source file.  (You'll
+need some commonly-available \LaTeX\ packages too, or comment them at.)
+The console output and/or log should tell you whether any fonts were not
+found. You can also compare your output with the original
+\path{gentium.pdf}.
+
+
+\section{Gentium \TeX\ support packages}\label{sec:support}
+
+In short, for \LaTeX\ it suffices to include \verb|\usepackage{gentium}|
+in your document preamble, and for \ConTeXtMKIV,
+\verb|\setupbodyfont[gentium]|.  Details follow.
+
+The only prerequisite is that the \LaTeX\ package (\path{gentium.sty})
+requires \pkgname{xkeyval}, which you almost certainly already have.
+
+
+\subsection{Encodings}\label{sec:encs}
+
+The package supports not only the most common Latin encodings such as
+\textsc{ot1}, TeXnANSI/\textsc{ly1}, Cork/\textsc{ec}/\textsc{t1} and
+Text Companion/\textsc{ts1} encodings, but also (in regular and italic)
+other Latin, Greek and Cyrillic encodings. Most characters in the text
+encodings and some of those in the Text Companion encoding are
+available, including the~\texteuro.  You can see the available encodings
+in table~\ref{encodings}. The Greek encoding LGR is supported only in
+\LaTeX, AGR only in \ConTeXt.
+
+\begin{table}[h]
+\centering
+  \begin{tabular}{lll}
+    \toprule
+    script & available encodings & styles \\
+    \midrule
+    Latin    & OT1, T1, LY1, L7x, QX, T5, TS1 & regular, italic, bold,
+    bold italic \\
+    Cyrillic & T2A, T2B, T2C, X2 & regular, italic\\
+    Greek    & LGR (\LaTeX), AGR (\ConTeXt) & regular, italic \\
+    \bottomrule
+  \end{tabular}
+  \caption{Available encodings in \pkgname{gentium-tug}.}
+  \label{encodings}
+\end{table}
+
+The regular and italic styles support all these Latin, Greek and Cyrillic
+encodings. They support also small caps for the Latin and Cyrillic encodings,
+but there are no small caps for Greek.
+
+The bold and bold italic styles support only the Latin encodings and they
+have no small caps.
+
+Cork/T1 encoding lacks visible space, cwm (compound work mark),
+SS and the character for composing permille sign.
+
+Missing characters in bold styles for Latin encodings:
+
+T1: Aogonek / aogonek, Eogonek / eogonek, Lcaron / lcaron,
+    Scedilla / scedilla, uni021A (Tcommaaccent) / uni021B (tcommaaccent),
+    dcaron, tcaron
+
+L7x: Rcommaaccent, Gcommaaccent, Kcommaaccent, Lcommaaccent, Ncommaaccent,
+    Aogonek, Eogonek, Iogonek, Uogonek
+
+QX: Aogonek, Eogonek, Iogonek, uni021A (Tcommaaccent)
+
+
+\subsection{\LaTeX}
+\label{sec:latex-package}
+
+To use Gentium fonts in a \LaTeX\ document, add
+\verb|\usepackage{gentium}| to your document preamble. This will set
+the default serif/roman family to \fname{gentium}.
+
+If you want to use Gentium together with another font (sans or
+typewriter) with a different x-height, you should consider using the
+option \verb|scaled|. This scales Gentium font and if you choose the
+right scaling factor, you will get the same x-height of both fonts.
+Here is an example of this option:
+\begin{verbatim}
+\usepackage[scaled=0.9]{gentium}
+\end{verbatim}
+
+
+\subsection{\ConTeXt}
+\label{sec:context-package}
+
+In \ConTeXtMKIV, to switch to the Gentium typeface you only need:
+\begin{verbatim}
+\setupbodyfont[gentium]
+\end{verbatim}
+
+In \ConTeXtMKII, before doing that you need either (for \pdfTeX):
+\begin{verbatim}
+\usetypescriptfile[type-gentium]
+\usetypescript[gentium][ec] % or whatever encoding
+\end{verbatim}
+or (for \XeTeX):
+\begin{verbatim}
+\usetypescriptfile[type-gentium]
+\usetypescript[gentium]
+\end{verbatim}
+
+
+\subsection{Changes in the Type~1 fonts vs.\ the TrueType originals}
+
+The shapes of all characters in the Type~1 fonts are the same as in the
+original TrueType fonts, except for the unavoidable changes are induced
+by the format conversion (that is, the spline representations are
+necessarily different).
+
+However, a few small changes---hopefully improvements---were made to the
+metrics of the GentiumPlus family (that is, regular and italic; bold and
+bold italic are untouched). The Type~1 fonts are used to generate the
+\TeX\ font metric files (tfm), so these changes propagate to the 8-bit
+engines like \pdfTeX.
+
+The first change concerns Greek.  8-bit Greek encodings (LGR and AGR) do
+not use precomposed accented capital letters. These letters are composed
+as a sequence of two glyphs: accent + capital letter. The problem is
+that this sequence does not look like the precomposed letter---there is
+often big space between the accent and the letter. Therefore, there are
+some extra kerning pairs between accents and capital Greek
+letters. These kerning pairs are created automatically (the script is
+included in the sources) and the goal is to have the same relative
+position between the accent and the letter as in the precomposed
+letter. Thanks to these extra kerning pairs you should get better
+results for 8-bit engines. These changes are irrelevant for Unicode
+engines---they use the precomposed letters.
+
+The second change is in the letters dcaron (ď) and lcaron
+(ľ) that are used in the Czech and Slovak languages. (There was
+no need to change tcaron (ť) and Lcaron (Ľ) with the same
+accent.) There is no change of their shapes, and their advance widths
+are also untouched---the change is to add several kerning pairs with
+quite big negative values. Without these changes there was often a large
+space between dcaron or lcaron and the following letter, so the changes
+make the words containing these letters much more compact. You get these
+changes automatically if you use 8-bit engines.  If you use Unicode
+engines with the original TrueType fonts, you get the original
+metrics. However, you can tell the Unicode engines to use the Type~1
+fonts (which append \verb|PS| to the family name) like this:
+\begin{verbatim}
+\usepackage{fontspec}
+\setmainfont{GentiumPlusPS}
+\end{verbatim}
+Then you get the additional kern pairs for dcaron and lcaron. The
+unfortunately disadvantage is that you cannot use small caps.
+
+The last (similar) change is that additional kerning pairs were added to
+the Type~1 fonts for accented Latin letters and small caps. The original
+TrueType fonts have no such kerning pairs. As with the Czech/Slovak
+changes, you get these changes automatically if you use 8-bit
+engines. If you use Unicode engines with the original TrueType fonts,
+you get the original metrics, but you can override as above (but since
+you cannot use small caps with that method, the kerning pairs for small
+caps become irrelevant).
+
+
+\section{Known bugs}
+
+There are problems in older versions of \pdfTeX\ with small caps when
+using TrueType fonts.  Especially the Latin encoding \textsc{t5} and all
+Cyrillic encodings are unusable.  You can use the Type~1 version of the
+fonts or at least \pdfTeX\ version 1.40.13 to avoid these problems.
+
+The Gentium fonts are a work in progress and as such they still miss
+some features like kerning pairs for some letters. Currently, there are
+no kerning pairs in the GentiumBasic family at all and the GentiumPlus
+family has kerning pairs just for Latin letters without accents and for
+Greek letters; there are no kerning pairs for small caps, accented Latin
+letters or Cyrillic letters. The Type~1 fonts in this package have some
+additional kerning pairs for accented Latin letters and for small
+caps. Kerning pairs for Cyrillic are under consideration.
+
+
+\section{License}
+
+The fonts in this page, both the \sil\ originals and the derived Type~1
+versions, are released under \textsc{ofl}.  The \TeX\ support files
+are licensed under the Expat License.  Here are the full license texts.
+
+
+\subsection{SIL Open Font License}
+
+Copyright (c) 2003-2011 SIL International (http://www.sil.org/),
+with Reserved Font Names ``Gentium'' and ``SIL''.
+
+This Font Software is licensed under the SIL Open Font License, Version 1.1.
+This license is copied below, and is also available with a FAQ at:
+http://scripts.sil.org/OFL
+
+
+% TODO: Try to have the similar look as the text version
+%-----------------------------------------------------------
+SIL OPEN FONT LICENSE Version 1.1 --- 26 February 2007
+%-----------------------------------------------------------
+
+
+PREAMBLE
+
+The goals of the Open Font License (OFL) are to stimulate worldwide
+development of collaborative font projects, to support the font creation
+efforts of academic and linguistic communities, and to provide a free and
+open framework in which fonts may be shared and improved in partnership
+with others.
+
+The OFL allows the licensed fonts to be used, studied, modified and
+redistributed freely as long as they are not sold by themselves. The
+fonts, including any derivative works, can be bundled, embedded, 
+redistributed and/or sold with any software provided that any reserved
+names are not used by derivative works. The fonts and derivatives,
+however, cannot be released under any other type of license. The
+requirement for fonts to remain under this license does not apply
+to any document created using the fonts or their derivatives.
+
+
+DEFINITIONS
+
+``Font Software'' refers to the set of files released by the Copyright
+Holder(s) under this license and clearly marked as such. This may
+include source files, build scripts and documentation.
+
+``Reserved Font Name'' refers to any names specified as such after the
+copyright statement(s).
+
+``Original Version'' refers to the collection of Font Software components as
+distributed by the Copyright Holder(s).
+
+``Modified Version'' refers to any derivative made by adding to, deleting,
+or substituting---in part or in whole---any of the components of the
+Original Version, by changing formats or by porting the Font Software to a
+new environment.
+
+``Author'' refers to any designer, engineer, programmer, technical
+writer or other person who contributed to the Font Software.
+
+
+PERMISSION \& CONDITIONS
+
+Permission is hereby granted, free of charge, to any person obtaining
+a copy of the Font Software, to use, study, copy, merge, embed, modify,
+redistribute, and sell modified and unmodified copies of the Font
+Software, subject to the following conditions:
+
+1) Neither the Font Software nor any of its individual components,
+in Original or Modified Versions, may be sold by itself.
+
+2) Original or Modified Versions of the Font Software may be bundled,
+redistributed and/or sold with any software, provided that each copy
+contains the above copyright notice and this license. These can be
+included either as stand-alone text files, human-readable headers or
+in the appropriate machine-readable metadata fields within text or
+binary files as long as those fields can be easily viewed by the user.
+
+3) No Modified Version of the Font Software may use the Reserved Font
+Name(s) unless explicit written permission is granted by the corresponding
+Copyright Holder. This restriction only applies to the primary font name as
+presented to the users.
+
+4) The name(s) of the Copyright Holder(s) or the Author(s) of the Font
+Software shall not be used to promote, endorse or advertise any
+Modified Version, except to acknowledge the contribution(s) of the
+Copyright Holder(s) and the Author(s) or with their explicit written
+permission.
+
+5) The Font Software, modified or unmodified, in part or in whole,
+must be distributed entirely under this license, and must not be
+distributed under any other license. The requirement for fonts to
+remain under this license does not apply to any document created
+using the Font Software.
+
+
+TERMINATION
+
+This license becomes null and void if any of the above conditions are
+not met.
+
+
+DISCLAIMER
+
+\textsc{The font software is provided ``as is'', without warranty of any kind,
+express or implied, including but not limited to any warranties of
+merchantability, fitness for a particular purpose and noninfringement
+of copyright, patent, trademark, or other right. In no event shall the
+copyright holder be liable for any claim, damages or other liability,
+including any general, special, indirect, incidental, or consequential
+damages, whether in an action of contract, tort or otherwise, arising
+from, out of the use or inability to use the font software or from
+other dealings in the font software.}
+
+
+\subsection{Expat License}
+
+Copyright (c) 2008-2013 TeX Users Group
+
+Permission is hereby granted, free of charge, to any person obtaining
+a copy of this software and associated documentation files (the
+``Software''), to deal in the Software without restriction, including
+without limitation the rights to use, copy, modify, merge, publish,
+distribute, sublicense, and/or sell copies of the Software, and to
+permit persons to whom the Software is furnished to do so, subject to
+the following conditions:
+
+The above copyright notice and this permission notice shall be included
+in all copies or substantial portions of the Software.
+
+\textsc{The software is provided ``as is'', without warranty of any kind,
+express or implied, including but not limited to the warranties of
+merchantability, fitness for a particular purpose and noninfringement.
+In no event shall the authors or copyright holders be liable for any
+claim, damages or other liability, whether in an action of contract,
+tort or otherwise, arising from, out of or in connection with the
+software or the use or other dealings in the software.}
+
+
+
+% OT1 is the same for regular and italic style (like TeX Gyre, unlike
+% Computer Modern)---this might go to the bugs section.
+
+% Cyrillic encodings use some letters with tail instead of with descender.
+
+
+% TODO
+
+% Show the available encodings in a better way (probably something
+% similar to README), probably use small caps. Look at Clea's tables
+% if they are better than what I wrote.
+
+% Improve the LaTeX logo in Gentium (not so much related to this
+% documentation).
+
+% Search for gentiumplus and vgx---the latter shouldn't be present.
+
+% Scale the monospaced font to match the x-height.
+
+% Change the license and other information in the header.
+
+
+% NOTES TO CLEA
+
+% Current (unlike Clea's) LY1 doesn't contain Wcircumflex and others.
+% Look at it!
+% \textsc{ly1} is
+% necessary for access to Wcircumflex (Ŵ), wcircumflex (ŵ),
+% Ycircumflex (Ŷ) and ycircumflex (ŷ) as pre-composed
+% glyphs.
+
+% Look what's different from Clea's package.
+
+
+% Some Clea's texts that might be used:
+
+% The final option controls whether Latin Modern is used for sans and
+% typewriter text. Because Computer Modern does not support the
+% TeXnANSI/\textsc{ly1} encoding, you will likely get strange results
+% unless you redefine \path{\sfdefault} and \path{\ttdefault}. Latin
+% Modern is used because it is close to the default Computer Modern fonts
+% and is widely available. If you would prefer that the package not
+% redefine the default sans and typewriter families, use \verb|lm=false|
+% when loading \pkgname{gentiumplus}. To explicitly request the default
+% behaviour, which does redefine these families, use \verb|lm| or
+% \verb|lm=true|.
+
+% Loading \path{gentium.sty} does not affect the setup for
+% mathematics.
+
+\end{document}  

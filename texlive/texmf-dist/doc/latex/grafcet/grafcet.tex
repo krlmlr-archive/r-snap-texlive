@@ -1,0 +1,2024 @@
+
+%-------------
+\documentclass[a4paper,DIV15]{scrbook}
+\usepackage[T1]{fontenc}   % Correspondance clavier -> document
+\usepackage{fourier} 
+\usepackage[usenames,dvipsnames]{xcolor}
+\usepackage{atbegshi} 
+\usepackage{tikz}
+\usetikzlibrary{arrows,snakes}%
+
+%\usetikzlibrary{external}
+%\tikzexternalize{main} % provide the file's real name
+\usepackage{makeidx} 
+\usepackage{fancyhdr}                       % entete et pied de pages
+\usepackage{wrapfig}
+
+\usepackage{calc,fullpage}
+\usepackage{amsmath,amssymb}
+\usepackage[frenchb]{babel}
+\usepackage{url}
+\usepackage{here}
+
+\usepackage{multicol}
+
+\usepackage{tkzexample}
+%\usepackage{microtype}
+\usepackage{graphicx}
+
+
+\usepackage{hyperref}
+\parindent=0pt
+
+\newdimen\oldparindent
+%-------------PACKAGES PERSO---------------------------------------------------------
+\usepackage{grafcet}
+
+
+%*******Macros diverses ***********
+
+
+%-------------ENTETE-ET-PIED-DE-PAGE-------------------------------------------
+\headheight= 1.5cm                          % taille entete
+\renewcommand{\headrulewidth}{0pt}          % epaisseur du trait apres entete
+\renewcommand{\footrulewidth}{0pt}          % epaisseur du trait avant pied de page
+\pagestyle{fancy}
+
+%\lhead{gauche haut}                                   % entete gauche perso
+%\chead{}                                   % entete centre perso
+%\rhead{}                                   % entete droit  perso
+%\lfoot{}                                   % pied gauche perso
+%\cfoot{}                                   % pied centre perso
+%\rfoot{}                                   % pied droit  perso
+
+%-------------PAGE-DE-GARDE----------------------------------------------------
+
+\title{Grafcet  avec  PGF/TIKZ}                                    % Titre
+\author{Papanicola Robert}                                   % Auteur(s)
+\date{\today}                                     % Date (\today pour aujourd'hui)
+%\graphicspath{}
+
+%%%% debut macro %%%%
+\makeatletter
+\def\@captype{figure}
+\makeatother
+%%%% fin macro %%%%
+
+\makeindex
+%-------------DEBUT-DU-DOCUMENT-----------------------------------------------
+
+
+\begin{document}
+\maketitle
+
+\chapter{GRAFCET / SFC  avec   TIKZ}
+\section*{Mise à jour}
+
+
+
+\begin{tabular}{l |l| p{10cm} }
+Version 	& Date 			& Évolution \\*
+1.3.5 	& mai 2011		& mise en ligne sur le Ctan\\
+1.3.1    & février 2010  & ajout de la commande étoilée \verb"\LienRetour"  qui admet un quatrième argument pour forcer le retour à passer \verb"#4" em au dessus de l'étape d'arrivée.\\
+1.3		& novembre 2009 & \begin{itemize}
+\item Ajout du package \verb"tkzexample" pour décrire les exemples,
+\item Ajout des commandes  \verb"\ActionXV"  et \verb"\ForcageXV" qui permettent de placer les actions les unes sous les autres,
+\item Modification du code de quelques commandes (étapes encapsulantes, initiales,...)
+\end{itemize}  \\
+1.2      & avril 2009 & Ajout raccourcis \verb"\EtapeTransition", test absence action et suppression de la commande \verb"\ActionEfface"  \\
+1.1		&	avril 2008	& Ajout Action au franchissement, Ajout marquage Étape active nouveaux exemples \\
+1			& Mars 2007 	& première mise en ligne \\
+\end{tabular}
+
+
+
+
+\section{Utilisation}
+L'objectif de la librairie GRAFCET est de permettre le tracé de grafcet selon la norme EN~60848 (la norme est disponible à l'achat sur le site de l'ISO:\\ \href{http://webstore.iec.ch/Webstore/webstore.nsf/ArtNum\_PK/28544}{http://webstore.iec.ch/Webstore/webstore.nsf/ArtNum\_PK/28544}).
+\subsection{Exemple typique}
+On retrouve dans le graphe fig~\ref{fig:Grafcetdebase} les principaux éléments graphiques de la librairie GRAFCET
+
+\begin{figure}[!ht]
+\centering
+
+\begin{tkzexample}[small]
+
+\begin{tikzpicture}
+\EtapeInit[0,0]{100}
+\Transition[VX100]{100}
+\Etape[VT100]{110}
+\Transition{110}
+\Etape[VT110]{120}
+\Transition[VX120]{120}
+\LienRetour{T120}{X100}
+\Recept{T100}{$dcy \cdot a_0$}
+\ActionX{X110}{Sortir A}
+\Recept{T110}{condition}
+\ActionX{X120}{Rentrer }
+\Recept{T120}{$a_0$}
+\end{tikzpicture}
+
+\end{tkzexample}
+
+\caption{GRAFCET de base}
+\label{fig:Grafcetdebase}
+\end{figure}
+
+
+La commande associée à chaque élément graphique est explicite:
+\begin{itemize}
+\item \verb"\Etape[VT100]{110}" pour dessiner une étape après la transition T110 avec le numéro 110;
+\item \verb"\Transition[VX120]{120}" pour dessiner une transition après l'étape X120, cette transition est référencée 120;
+\item \verb"\EtapeInit[0,0]{100}" pour dessiner une étape initiale au point (O,O) avec le numéro 100;
+\item \verb"\ActionX{X110}{Sortir A}" pour associer l'action \textit{Sortir A} à l'étape X110;
+\item \verb"\Recept{T100}{$dcy \cdot a_0$}" pour associer la réceptivité $dcy \cdot a_0$ à la transition T100;
+\item \verb"\LienRetour{T120}{X100}" pour tracer le lien orienté de la dernière transition  vers l'étape initiale.
+\end{itemize}
+
+\textbf{Remarque:} Il n'est pas forcément nécessaire de préciser le numéro de l'étape (respectivement de la transition) précédente, si le graphe est construit linéairement en respectant l'alternance étape transition (Fig~\ref{fig:Grafcetdebase2}). Chaque symbole de base s'accroche par défaut au n\oe ud de base précédent, en effet le n\oe ud d'accrochage par défaut est le n\oe ud NoeudGraf défini dans chaque commande.
+
+\begin{figure}[!ht]
+\centering
+\begin{tkzexample}[small]
+\begin{tikzpicture}
+\EtapeInit[5,0]{100}
+\Transition{100}
+\Etape{110}
+\Transition{110}
+\Etape{120}
+\Transition{120}
+\LienRetour{T120}{X100}
+\Recept{T100}{$dcy \cdot a_0$}
+\ActionX{X110}{Sortir A}
+\Recept{T110}{condition}
+\ActionX{X120}{Rentrer }
+\Recept{T120}{$a_0$}
+\end{tikzpicture}
+\end{tkzexample}
+\caption{GRAFCET de base 2}
+\label{fig:Grafcetdebase2}
+\end{figure}
+
+\section{Installation}
+
+\begin{itemize}
+\item Pré-requis indispensable : avoir une version à jour du package TikZ/pgf;
+\item Copier le fichier grafcet.sty avec vos packages personnels (localtexmf/tex/latex/) ou dans votre répertoire de travail;
+\item Appeler le package dans l'entête de vos fichier \LaTeX \verb"\usepackage{grafcet}".
+\end{itemize}
+
+C'est tout!
+
+
+
+\section{Les éléments de base}
+
+\subsection{Étapes}
+Les commandes ci-dessous permettent de représenter les étapes et étapes initiales. 
+\index{Etape}
+\index{EtapeInit}
+
+
+\begin{tikzpicture} 
+\draw (0,0) node[,text width=5cm,text justified]{Etape};
+\Etape[5,0]{10}
+\draw (10,0) node[fill=blue!20,text width=7cm,text justified]{\verb"\Etape[pos]{nom}"};
+\draw (0,-1) node[,text width=5cm,text justified]{Etape initiale};
+\EtapeInit[5,-1]{10}
+\draw (10,-1) node[fill=blue!20,text width=7cm,text justified]{\verb"\EtapeInit[pos]{nom}"};
+\end{tikzpicture}
+
+Tous les symboles de la librairie possèdent des paramètres de configuration et des n\oe uds d'accrochages pour les lier aux éléments suivant.
+
+Les deux paramètres  d'une étape sont la position et le nom, 
+\begin{description}
+\item [pos] La position peut être définie soit de manière absolue en précisant les coordonnées [x,y]  dans la tikzpicture (en cm , x vers la droite, y vers le haut), soit en faisant référence à un n\oe ud  (\verb"\node" de tikz) précédemment défini. La référence à une position est optionnelle, si vous ne la précisez pas, la macro commande va chercher à placer l'étape sur le n\oe ud \verb"NoeudGraf". Ce n\oe ud est défini automatiquement dans chaque symbole d'étape et transition, ce qui permet de dessiner un graphe sans préciser à quel élément doit être raccroché l'étape, la seule contrainte alors est de respecter l'alternance étape transition pour une même séquence linéaire.
+\item [nom] le nom est un nom alphanumérique,l'usage est de numéroter les étapes dans l'ordre croissant (ne pas utiliser le mode mathématique pour ce paramètre).
+\end{description}
+
+\begin{wrapfigure}{r}{6cm}
+\begin{tikzpicture} 
+\Etape[0,0]{10}
+\Transition{10}
+\ActionX{X10}{Action}
+\draw [->] (3,2) node[right] {n\oe ud X10} -- (X10.base);
+\draw  [->] (3,1)node[right] {n\oe ud AX10} -- (AX10.west);
+\draw  [->] (3,-1) node[right] {n\oe ud VX10}-- (VX10.base);
+\end{tikzpicture}
+\caption{N\oe ud d'une étape}
+\label{fig:noeudetape}
+\end{wrapfigure}
+
+Les étapes possèdent trois n\oe uds d'accrochage (fig~\ref{fig:noeudetape}) permettant de lier au symbole  la transition suivante et les actions associées.
+
+\begin{enumerate}
+\item [Xnnn] Ce n\oe ud correspond physiquement au \guillemotleft centre \guillemotright du symbole, nnn est le nom de l'étape;\label{Xnnn}
+\item [VXnnn] Ce n\oe ud est le point d'accrochage des transitions et plus généralement des éléments placés au dessous du symbole (mais pas tous);\label{VXnnn}
+\item [AXnnn] Ce n\oe ud est le point d'accrochage des actions, à droite du symbole. Ce n\oe ud n'est pas appelé directement mais il est utilisé par les macros \verb"\ActionX" et \verb"\Action" pour placer les actions les unes après les autres.\label{AXnnn}
+\end{enumerate}
+
+Un quatrième n\oe ud flottant, \emph{NoeudGraf}, est aussi défini, ce noeud  est le n\oe ud de connexion par défaut, il est superposé au n\oe ud \emph{VXnnn}.
+
+Les dimensions des étapes sont de $2{,}5 em$ (hauteur et largeur) cela permet d'écrire un numéro à trois chiffres dans un carré, au delà, la largeur s'adapte au nombre de caractères et la hauteur reste inchangée.
+
+\subsubsection{Étape active}
+la commande \verb"EtapeActive"  permet de marquer d'un point l'étape active d'un grafcet.
+
+\begin{tikzpicture}
+\draw (0,0) node[,text width=5cm,text justified]{Etape \\ 	Marquage étape active};
+\Etape[2,0]{50}
+\EtapeActive{X50}
+\draw (10,0) node[fill=blue!20,text width=7cm,text justified]{\verb"\Etape[2,0]{50}" \\
+\verb"\EtapeActive{X50}"};
+
+\end{tikzpicture}
+
+\subsection{Macro-étapes}\index{MacroEtape}\index{MacroEtapeE}\index{MacroEtapeS}
+
+La librairie GRAFCET permet aussi de représenter les macro-étapes.  La numérotation des macro-étapes ne comprends pas par défaut les lettres M, E, S, c'est à vous de les préciser. La norme ne prévoit plus de symbole spécifique pour les étapes d'entrée et de sortie de l'expansion de la macro-étape, on utilisera donc la commande \verb"\Etape" pour en précisant la lettre E ou S devant le numéro.
+
+Exemple d'utilisation : figure~\ref{fig:grfME}.
+
+\begin{tikzpicture}
+\draw (0,-2) node[,text width=5cm,text justified]{Macro Etape};
+\MacroEtape[5,-2]{M20}
+\draw (10,-2) node[fill=blue!20,text width=7cm,text justified]{\verb"\MacroEtape[pos]{nom}"};
+\draw (0,-3) node[,text width=5cm,text justified]{Macro Etape - Entrée};
+\Etape[5,-3]{E20}
+\draw (10,-3) node[fill=blue!20,text width=7cm,text justified]{\verb"\Etape[pos]{Enom}"};
+\draw (0,-4) node[,text width=5cm,text justified]{Macro Etape - Sortie};
+\Etape[5,-4]{S20}
+\draw (10,-4) node[fill=blue!20,text width=7cm,text justified]{\verb"\Etape[pos]{Snom}"};
+
+\end{tikzpicture}
+
+
+
+\begin{wrapfigure}{r}{6cm}
+\begin{tikzpicture} 
+\MacroEtape[0,0]{M10}
+\Transition{10}
+\ActionX{XM10}{Action}
+\draw [->] (3,2) node[right] {n\oe ud XM10} -- (XM10.base);
+\draw  [->] (3,1)node[right] {n\oe ud AXM10} -- (AXM10.west);
+\draw  [->] (3,-1) node[right] {n\oe ud VMX10}-- (VXM10.base);
+\end{tikzpicture}
+\caption{N\oe ud d'une macro-étape}
+\label{fig:noeudmacro}
+\end{wrapfigure}
+
+Les paramètres de configuration et les n\oe uds d'ancrage sont les mêmes que pour les étapes (position et nom), en prenant en compte le nom complet de la macro-étape, si votre macro-étape est nommée M10, les n\oe uds associés seront:
+\begin{itemize}
+\item XM10 pour le n\oe ud associé à l'étape,
+\item AXM10 pour le n\oe ud d'accrochage des actions,
+\item VXM10 pour le n\oe ud d'accrochage de la transition.
+\end{itemize}
+
+\paragraph{Anciens symboles:}
+La librairie grafcet propose aussi les anciens symboles pour leur vertu pédagogique.
+
+\begin{tikzpicture}
+\draw (0,-3) node[,text width=5cm,text justified]{Macro Etape - Entrée};
+\MacroEtapeE[5,-3]{E20}
+\draw (10,-3) node[fill=blue!20,text width=7cm,text justified]{\verb"\MacroEtapeE[pos]{nom}"};
+\draw (0,-4) node[,text width=5cm,text justified]{Macro Etape - Sortie};
+\MacroEtapeS[5,-4]{S20}
+\draw (10,-4) node[fill=blue!20,text width=7cm,text justified]{\verb"\MacroEtapeS[pos]{nom}"};
+\end{tikzpicture} 
+
+
+
+\subsection{Étapes encapsulantes}\index{EtapeEncapsulante}\index{EtapeEncapsulanteInit}
+
+Avec, la norme EN 60848 un nouveau concept est apparu, le concept d'encapsulation, La librairie GRAFCET permet de dessiner ces nouveaux symboles.
+
+Exemple d'utilisation: figure~\ref{fig:Grfencap}.
+
+{\shorthandoff{;:!?}
+\begin{tikzpicture}
+\draw (0,-5) node[,text width=5cm,text justified]{Etape Encapsulante};
+\EtapeEncapsulante[5,-5]{50}
+\draw (10,-5) node[fill=blue!20,text width=7cm,text justified]{\verb"\EtapeEncapsulante[pos]{nom}"};
+\draw (0,-6) node[,text width=5cm,text justified]{Etape Encapsulante Initiale};
+\EtapeEncapsulanteInit[5,-6]{501}
+\draw (10,-6) node[fill=blue!20,text width=7cm,text justified]{\verb"\EtapeEncapsulanteInit[pos]{nom}"};
+\end{tikzpicture}
+}
+
+Les n\oe uds d'accrochage d'une étape encapsulante sont les mêmes que pour une étape classique.
+
+
+
+L'étape activée du grafcet encapsulé est représentée par un astérisque, celui-ci est dessiné par la commande \verb"\LienActivation{nom}", avec nom, le repère de l'étape activée (ne pas oublier le X).\index{LienActivation}
+
+
+\begin{tikzpicture}
+\draw (0,0) node[,text width=5cm,text justified]{Etape activée};
+\Etape[5,0]{50}
+\LienActivation{X50}
+\draw (10,0) node[fill=blue!20,text width=7cm,text justified]{\verb"\Etape{50}" \\ \verb"\LienActivation{X50}"};
+\end{tikzpicture}
+
+
+\begin{figure}[!ht]
+\centering
+\begin{tkzexample}[small,latex=8cm]
+\begin{tikzpicture}
+\EtapeInitTransition[0,0]{10}{}{r10}
+\EtapeTransition{11}{}{r11}
+\EtapeTransition{12}{}{r12}
+\EtapeTransition{13}{}{r13}
+\EtapeEncapsulante[X12]{12}
+\LienRetour{T13}{X10}
+
+
+\begin{Encap}[nom]{1.5,1}{12}{G2}
+\Etape[0,0]{1}
+\DivOU{X1}{-3/L20,2/L10}
+\Transition[L10]{10a}
+\Etape{10}
+\SequenceTT[L20]{20}{21,22}
+\LienRetour{T22}{X1}
+\LienActivation{X1}
+\end{Encap}
+
+
+\end{tikzpicture}
+
+\end{tkzexample}
+\caption{Encapsulation et grafcet encapsulé}
+\label{fig:}
+\end{figure}
+
+
+La norme prévoit d'encadrer le grafcet encapsulé, l'environnement \verb"\begin{Encap}[nom]{pos}{etape}{Grafcet}....\end{Encap}" permet de tracer le cadre autour du grafcet encapsulé en nommant le grafcet et en précisant le numéro de l'étape encapsulante\label{sec:encapsulation}.
+
+\begin{tikzpicture}
+\draw (0,0) node[,text width=5cm,text justified]{Cadre encapsulation};
+\begin{Encap}[nom]{3,0}{10}{G1}
+\Etape[0,0]{0}
+\end{Encap}
+\draw (5,-1) node[right,fill=blue!20,text width=7cm,text justified]{\verb"\begin{Encap}[nom]{pos}{etape}{Grafcet}" \\ 
+dessin du grafcet encapsulé\\
+\verb"\end{Encap}"};
+\end{tikzpicture}
+
+
+
+
+
+\subsection{Transition - Réceptivité}\index{Transition}\index{Receptivite}
+
+Ces deux éléments sont indissociables, le premier est l'élément graphique de liaison entre les étapes, le second représente la condition logique associée.
+
+\begin{tikzpicture}
+\draw (0,0) node[,text width=5cm,text justified]{Transition \\ Réceptivité};
+\Transition[3,0]{50}
+\Recept{T50}{condition}
+\draw (10,0) node[fill=blue!20,text width=7cm,text justified]{\verb"\transition[pos]{nom}" \\ \verb"\Recept{Tnom}{condition}"};
+\end{tikzpicture}
+
+\subsubsection{Transition}
+\begin{itemize}
+\item La transition est placée sur le noeud définie par \verb"pos", si ou souhaite placer la transition à la suite de l'étape \emph{Xnnn}, il faut préciser le n\oe ud \emph{VXnnn} (Cf \ref{VXnnn}), en l'absence de précision, la transition se place sur le n\oe ud nommé \verb"NoeudGraf";
+\item Le nom associée à la transition sert à nommer les n\oe uds associés à celle-ci, c'est à dire
+\begin{itemize}
+\item VTnnn: le n\oe ud suivant (à 2{,}5 em) la transition, utile pour placer l'étape suivante; \label{VTnnn}
+\item RTnnn: le n\oe ud à droite de la transition permettant de positionner la réceptivité associée;\label{RTnnn}
+\item NoeudGraf: ce n\oe ud est superposé à \emph{VTnnn}, il est utile pour placer de manière automatique l'élément suivant (étape).
+\end{itemize}
+\end{itemize}
+
+\subsubsection{Réceptivité}
+\begin{itemize}
+\item La réceptivité doit être associée à une transition, celle-ci est désignée en précisant le nom de la transition Tnnn, la réceptivité est alors placée sur le n\oe ud \emph{RTnnn} (Cf. \ref{RTnnn})
+\item la condition peut tout aussi bien être du code alphanumérique que du code mathématique $a_0$, $\uparrow m$ ou $\overline{dcy}$ .
+\end{itemize}
+
+Une commande complémentaire permet d'affecter une liste de réceptivités à une liste de transition, \verb"\Recepts{1/r1,2/r2,3/r3,...,n/rn}". Cette commande associe chaque réceptivité ri avec chaque transition i. Un exemple d'utilisation est précisé plus bas.\index{Recepts}
+
+\subsubsection{Transition Source, Transition Puits}
+
+
+
+
+\begin{figure}[!ht]
+\centering
+\begin{tkzexample}[latex=8cm,small]
+\begin{tikzpicture}
+\TransitionSource[0,0]{1}
+\Etape{2}
+\TransitionPuits{2}
+\end{tikzpicture}
+\end{tkzexample}
+\caption{Transition source, Transition puits}
+\label{fig:TsTp}
+\end{figure}
+
+\subsection{Actions}\index{Action}\index{ActionX}
+
+La librairie GRAFCET permet de tracer les différents types d'action proposés par la norme. On distingue deux commandes différentes suivant que l'action (ou la liste d'action) doit être placée à coté de l'étape, ou juste après une action existante.
+
+\begin{tikzpicture}
+\draw (0,0) node[,text width=5cm,text justified]{Etape \\ Action};
+\Etape[2,0]{50}
+\ActionX{X50}{Action}
+\draw (10,0) node[fill=blue!20,text width=7cm,text justified]{\verb"\Etape[pos]{nom}" \\ \verb"\ActionX{Xnnn}{Action}"};
+
+\draw (0,-2) node[,text width=5cm,text justified]{Etape \\ Action \\Action};
+\Etape[2,-2]{50}
+\ActionX{X50}{Action1}
+\Action{X50}{Action2}
+\draw (10,-2) node[fill=blue!20,text width=7cm,text justified]{\verb"\Etape[pos]{nom}" \\ \verb"\ActionX{Xnnn}{Action}"\\
+\verb"\Action{Xnnn}{Action}" };
+\end{tikzpicture}
+ 
+Ces deux mêmes commandes permettent d'associer une liste d'action à une étape, en les séparant par une virgule.
+
+\begin{tikzpicture}
+\draw (0,0) node[,text width=5cm,text justified]{Etape \\ 	Liste d'actions};
+\Etape[2,0]{50}
+\ActionX{X50}{Action1,Action2}
+\draw (10,0) node[fill=blue!20,text width=7cm,text justified]{\verb"\Etape[pos]{nom}" \\ \verb"\ActionX{Xnnn}{Action1,..., Action3}"};
+\end{tikzpicture}
+
+A ces actions élémentaires, se rajoutent des actions particulières:
+\begin{itemize}
+\item Action conditionnelle;
+\item Action à l'activation;
+\item Action à la désactivation;
+\item Action sur événement;
+\item Action au franchissement.
+\end{itemize}
+Les quatre premières sont réalisées en complétant le symbole de base, avec une des commande suivantes:
+\index{ActionCond}
+\index{ActionActiv}
+\index{ActionDesactiv}
+\index{ActionEvenement}
+
+\begin{itemize}
+\item \verb"ActionCond{Xnnn}{condition}" : permet de préciser une condition \emph{condition} pour la "dernière" action de l'étape \emph{Xnnn};
+\item \verb"ActionActiv{Xnnn}" : permet de préciser une action à l'activation pour la "dernière" action de l'étape \emph{Xnnn};
+\item \verb"ActionDesactiv{Xnnn}: permet de préciser une action à la désactivation pour la "dernière" action de l'étape \emph{Xnnn};
+\item \verb"ActionEvenement{Xnnn}{condition}" : permet de préciser l'événement (la condition) \emph{condition} pour la "dernière" action de l'étape \emph{Xnnn}.
+\end{itemize}
+
+et la dernière avec la commande \index{ActionFranchissement}
+\begin{itemize}
+\item \verb"ActionFranchissement{Tnnn}{Action}" : permet de dessiner un action au franchissement de la transition \emph{Tnnn}.
+\end{itemize}
+
+\begin{tikzpicture}
+\draw (0,0) node[,text width=5cm,text justified]{Etape \\ 	Action conditionnelle};
+\Etape[2,0]{50}
+\ActionX{X50}{Action1}
+\ActionCond{X50}{$b_0$}
+\draw (10,0) node[fill=blue!20,text width=7cm,text justified]{\verb"\Etape[pos]{nom}" \\ \verb"\ActionX{Xnnn}{Action1}" \\
+\verb"\ActionCond{Xnnn}{condition}"};
+
+\draw (0,-2) node[,text width=5cm,text justified]{Etape \\ 	Action à l'activation};
+\Etape[2,-2]{50}
+\ActionX{X50}{Action1}
+\ActionActiv{X50}
+\draw (10,-2) node[fill=blue!20,text width=7cm,text justified]{\verb"\Etape[pos]{nom}" \\ \verb"\ActionX{Xnnn}{Action1:=1}" \\
+\verb"\ActionActiv{Xnnn}"};
+
+\draw (0,-4) node[,text width=5cm,text justified]{Etape \\ 	Action à la désactivation};
+\Etape[2,-4]{50}
+\ActionX{X50}{Action1:=1}
+\ActionDesactiv{X50}
+\draw (10,-4) node[fill=blue!20,text width=7cm,text justified]{\verb"\Etape[pos]{nom}" \\ \verb"\ActionX{Xnnn}{Action1}" \\
+\verb"\ActionDesactiv{Xnnn}"};
+
+\draw (0,-6) node[,text width=5cm,text justified]{Etape \\ 	Action sur événement};
+\Etape[2,-6]{50}
+\ActionX{X50}{Action1:=1}
+\ActionEvenement{X50}{$b_0$}
+\draw (10,-6) node[fill=blue!20,text width=7cm,text justified]{\verb"\Etape[pos]{nom}" \\ \verb"\ActionX{Xnnn}{Action1}" \\
+\verb"\ActionEvenement{Xnnn}{condition}"};
+
+\draw (0,-8) node[,text width=5cm,text justified]{Etape \\ 	Action au franchissement};
+\Transition[2,-8]{50}
+\Recept{T50}{$a$}
+\ActionFranchissement{T50}{Action1:=1}
+\draw (10,-8) node[fill=blue!20,text width=7cm,text justified]{\verb"\Transition[pos]{nnn}" \\ \verb"\Recept{Tnnn}{$cond$}" \\
+\verb"\ActionFranchissement{Tnnn}{Action}"};
+
+\end{tikzpicture}
+
+
+A partir de ces différentes commandes, il est possible de préciser tous les types d'actions pour obtenir un grafcet comme celui de la figure~\ref{fig:grfactpart}.
+
+\begin{figure}[!ht]
+\centering
+\begin{tkzexample}[latex=8cm,small]
+\begin{tikzpicture}
+\Etape[0,0]{10}
+\Transition{10}\Recept{T10}{$r_{10}$}
+\Etape{11}
+\Transition{11}\Recept{T11}{$r_{11}$}
+\Etape{12}
+\ActionX{X10}{$Action_1$,$Action_2$}
+\ActionCond{X10}{$cond_1$}
+\Action{X10}{$Action_3$}
+\ActionX[4]{X11}{$Action_4:=1$}
+\ActionActiv{X11}
+\Action{X11}{$Action_5$,$Action_6$}
+\ActionX{X12}{$Action_4:=0$}
+\ActionDesactiv{X12}
+\end{tikzpicture}
+\end{tkzexample}
+
+\caption{Actions particulières}
+\label{fig:grfactpart}
+\end{figure}
+
+\subsubsection{Placement vertical des actions}
+
+La commande \verb"\ActionXV[dist]{Etape}{liste actions}"  permet de placer les cadres d'actions les uns sous les autres plutôt qu'à l'horizontale.
+
+\begin{figure}[!ht]
+\centering
+\begin{tkzexample}[latex=8cm,small]
+\begin{tikzpicture}
+\Etape[0,0]{36}
+\LienET[6]{X36}
+\TransitionRecept[VX36]{36}{r36}
+\Etape{37}
+\ActionXV{X36}{A+,Sortir,B-}
+\end{tikzpicture}
+\end{tkzexample}
+\caption{Actions verticales}
+\label{fig:actionsV}
+\end{figure}
+
+\subsubsection{Raccourcis Étapes/actions}
+A ces commandes se rajoute une dernière commande qui permet d'affecter une liste d'actions à une liste d'étapes, \verb"\Actions{1/A1,2/A2,...,n/An}". Cette commande affecte l'action Ai à l'étape i. un exemple d'utilisation est présenté plus bas.\index{Actions}
+
+
+\subsection{Forçage}\index{ForcageX}
+La librairie GRAFCET permet de dessiner le double cadre des ordres de forçage.
+
+\begin{tikzpicture}
+\draw (0,0) node[,text width=5cm,text justified]{Etape \\ Forçage};
+\Etape[1,0]{50}
+\ForcageX{X50}{Forçage}
+\draw (10,0) node[fill=blue!20,text width=7cm,text justified]{\verb"\Etape[pos]{nom}" \\ \verb"\ForcageX{Xnnn}{Forçage}"};
+\end{tikzpicture}
+
+Cette même commande permet aussi de tracer plusieurs ordres de forçage associées à une même étape, en séparant les ordres par des virgules.
+
+\begin{tikzpicture}
+\draw (0,0) node[,text width=5cm,text justified]{Etape \\ Forçage};
+\Etape[1,0]{50}
+\ForcageX{X50}{Forçage 1,Forçage 2}
+\draw (10,0) node[fill=blue!20,text width=7cm,text justified]{\verb"\Etape[pos]{nom}" \\ \verb"\ForcageX{Xnnn}{Forçage 1,Forçage 2}"};
+\end{tikzpicture}
+
+\subsubsection{Forçages placés verticalement}
+
+La commande \verb"\ForcageXV[dis]{Etape}{liste forçage}" permet de placer les ordres de forçage verticalement.
+
+\begin{figure}[!ht]
+\centering
+\begin{tkzexample}[latex=8cm,small]
+\begin{tikzpicture}
+\Etape[0,0]{36}
+\LienET[6]{X36}
+\TransitionRecept[VX36]{36}{r36}
+\Etape{37}
+\ForcageXV{X36}{G1\{Init\},
+G0\{Init\},
+G2\{Init\}}
+\end{tikzpicture}
+\end{tkzexample}
+\caption{Forçages verticaux}
+\label{fig:forcagesV}
+\end{figure}
+
+\subsection{Raccourcis}
+
+Plusieurs commandes permettent de raccourcir l'écriture du grafcet
+\subsubsection{EtapeTransition}
+
+
+La  commande \verb"\EtapeTransition[pos]{num}{action}{recept}"   permet de dessiner directement, l'étape avec le numéro num, l'action et la réceptivité. En l'absence d'action, le cadre n'est pas dessiné. Cette commande fonctionne aussi avec une liste d'actions.
+
+On trouve aussi la commande \verb"\EtapeInitTransition[pos]{num}{action}{recept}"  qui dessine une étape initiale.
+
+\begin{figure}[!ht]
+\centering
+\begin{tkzexample}[latex=8cm,small]
+\begin{tikzpicture}
+\EtapeInitTransition[3,0]{10}{}
+{$b_f\cdot m$}
+\EtapeTransition{11}{OUVRIR}{$b_o$}
+\EtapeTransition{12}{}{$5s/X12$}
+\EtapeTransition{13}{FERMER,B+}{$b_f$}
+\LienRetour{T13}{X10}
+\end{tikzpicture}
+\end{tkzexample}
+\caption{Raccourcis Etape/Transition}
+\label{fig:EtapeTransition}
+\end{figure}
+
+
+\section{Séquences}
+Plusieurs commandes permettent d'automatiser le tracé des différentes séquences usuelles du grafcet mais aussi des graphes complets:
+\begin{itemize}
+\item Séquence linéaire,
+\item Séquences exclusives,
+\item Séquence simultanées.
+\end{itemize}
+
+\subsection{Séquence linéaire}
+Plusieurs commandes sont disponibles, selon que le premier et le dernier élément de la séquence sont soit une étape  soit une transition.
+
+\subsubsection{Séquence Étape Transition}\index{SequenceET}
+
+La commande \verb"\SequenceET"  permet de tracer une séquence débutant par une étape et finissant par une transition (figure~\ref{fig:SeqLin}).
+\begin{tikzpicture}
+\draw (0,0) node[fill=blue!20,text width=5.5cm,text justified]{\verb"\SequenceET[pos]{liste}"};
+\end{tikzpicture}
+
+Cette commande nécessite un seul paramètre obligatoire, la liste des étapes, le paramètre optionnel \verb"[pos]" permet de positionner la séquence.
+
+\begin{tkzexample}[latex=5cm,small]
+\begin{tikzpicture}
+\small
+\SequenceET[0,0]
+{50,51,...,53}
+\end{tikzpicture}
+\end{tkzexample}
+
+\subsubsection{Séquence Étape Étape}\index{SequenceEE}
+
+La commande \verb"\SequenceEE" permet de tracer une séquence débutant et se terminant par une étape (figure~\ref{fig:SeqLin} ).
+
+\begin{tikzpicture}
+\draw (0,0) node[fill=blue!20,text width=5.5cm,text justified]{\verb"\SequenceEE[pos]{liste}{nn}"};
+\end{tikzpicture}
+
+Cette commande nécessite deux paramètres obligatoires:
+\begin{itemize}
+\item une liste d'étape hormis la dernière,
+\item la dernière étape (nn).
+\end{itemize} 
+
+
+
+
+\begin{tkzexample}[latex=5cm,small]
+\begin{tikzpicture}
+\small
+\SequenceEE[0,0]
+{50,51,52,53}{54}
+\end{tikzpicture}
+\end{tkzexample}
+
+\subsubsection{Séquence Transition Etape}\index{SequenceTE}
+La commande \verb"\SequenceTE" permet de tracer une séquence débutant et se terminant par une étape (figure~\ref{fig:SeqLin}).
+\begin{tikzpicture}
+\draw (0,0) node[fill=blue!20,text width=5.5cm,text justified]{\verb"\SequenceTE[pos]{nunTrans}{liste etapes}{derniere etape}"};
+\end{tikzpicture}
+
+\begin{tkzexample}[latex=5cm,small]
+\begin{tikzpicture}
+\small
+\SequenceTE[0,0]{49}
+{50,51,51}{53}
+\end{tikzpicture}
+\end{tkzexample}
+
+
+\subsubsection{Séquence Transition Transition}\index{SequenceTT}
+La commande \verb"\SequenceTT" permet de tracer une séquence débutant et se terminant par une transition (figure~\ref{fig:SeqLin}).
+\begin{tikzpicture}
+\draw (0,0) node[fill=blue!20,text width=5.5cm,text justified]{\verb"\SequenceTT[pos]{nn}{liste}"};
+\end{tikzpicture}
+
+Cette commande nécessite deux paramètres obligatoires:
+\begin{itemize}
+\item une liste d'étape,
+\item le numéro de la transition initiale (nn).
+\end{itemize}
+
+
+\begin{tkzexample}[latex=5cm,small]
+\begin{tikzpicture}
+\small
+\SequenceTT[0,0]{49}
+{50,52,54,56}
+\end{tikzpicture}
+\end{tkzexample}
+
+
+
+\textbf{Nota:} la notion de liste s'entend au sens de TiKz, c'est à dire :
+\begin{itemize}
+\item soit une liste d'élément séparé par une virgule comme dans la commande suivante, \\
+\verb"\SequenceTT[0,0]{49}{50,52,56,65}" du dernier exemple;
+\item soit une liste sous la forme \verb"{50,51,...,53}", ou seul le premier, le second et le dernier élément sont précisés, TikZ calcule les autres en déterminant le pas ($pas=second-premier$).
+\end{itemize}
+
+A ces commandes de liste on peut associer, comme  les trois commandes : \index{Actions}\index{Recepts}\index{ActionRecept}
+\begin{itemize}
+\item \verb"\Actions{1/A1,2/A2,....,n/An}" qui permet d'associer l'action Ai à l'étape i (figure~\ref{fig:ComActa});
+\item \verb"\Recepts{1/r1,2,r2,...,n/rn]" qui permet d'associer la réceptivité ri à la transition i(figure~\ref{fig:ComActa}).
+\item \verb"\ActionRecept{1/A1/r1,2/A2/r2,...,n/An/rn}" qui permet d'associer à la fois une action Ai et une réceptivité ri à une étape i(figure~\ref{fig:ComActb}). En l'absence d'action, le cadre n'est pas dessiné.
+\end{itemize}
+
+
+\begin{figure}[!ht]
+\centering
+\begin{tkzexample}[latex=5cm,small]
+\begin{tikzpicture}
+\SequenceET[0,0]{10,15,...,25}
+\Actions{15/$A_1^+$,20/$A_1^-$,25/$B:=0$}
+\Recepts{10/$m$,15/$a_1$,20/$a_0$,25/$\underline{1}$}
+\end{tikzpicture}
+\end{tkzexample}
+\caption{Description des actions et des réceptivités -1}
+\label{fig:ComActa}
+\end{figure}
+
+\begin{figure}[!ht]
+\centering
+\begin{tkzexample}[latex=5cm,small]
+\begin{tikzpicture}
+
+\SequenceET[3,0]{30,35,40}
+\ActionRecept{
+30/$Action_1$/$recept_1$,
+35//$recept_2$,
+40/$Action_3$/$recept_3$
+}
+\end{tikzpicture}
+
+\end{tkzexample}
+\caption{Description des actions et des réceptivités - 2}
+\label{fig:ComActb}
+\end{figure}
+
+
+
+
+\subsection{Graphe linéaire}\index{Graphe}
+La commande \verb"\Graphe" permet de réaliser automatiquement le tracé d'une séquence linéaire en associant étapes, actions et réceptivités (fig~\ref{fig:graphlin}). La syntaxe d'écriture de cette liste des étapes, actions, réceptivités est assez stricte et doit être complète, elle est écrite avec la syntaxe suivante:
+\verb"{num/action/recept, num/action/recept, .....}" chaque groupe doit être séparé du suivant par une virgule (ce qui interdit de fait la virgule dans le texte des actions et réceptivités, les trois éléments de chaque groupe sont séparés par des \verb"/". en l'absence d'action associée à une étape, le cadre n'est pas dessiné.
+
+\begin{figure}[!ht]
+\centering
+\begin{tkzexample}[latex=5cm,small]
+\begin{tikzpicture}
+\Graphe[0,0]{
+1/$Action_1$/$recept_1$,
+2//$recept_2$,
+3/$Action_3$/$recept_3$,
+4/$Action_4$/$recept_4$
+}
+\end{tikzpicture}
+\end{tkzexample}
+\caption{Sequence - Graphe linéaire}
+\label{fig:graphlin}
+\end{figure}
+
+\subsection{Graphe bouclé}\index{GrapheBoucle}
+La commande \verb"\GrapheBoucle" permet de tracer un grafcet bouclé en une seule commande (fig~\ref{fig:graphboucl}).
+
+\begin{figure}[!ht]
+\centering\small
+
+\begin{tkzexample}[latex=5cm,small]
+\begin{tikzpicture}
+\GrapheBoucle[3,0]{
+0//$r_1$,
+5/$A_2$/$r_2$,
+10/$A_3$/$r_3$,
+15/$A_4$/$r_4$
+}
+\EtapeInit[X0]{0}
+\end{tikzpicture}
+\end{tkzexample}
+\caption{Séquence - Graphe bouclé}
+\label{fig:graphboucl}
+\end{figure}
+
+
+
+
+
+La qualité du graphisme généré par TiKz permet de transformer un étape normale, en une autre étape, en superposant au symbole initial, le nouveau symbole, vous pouvez aussi superposer une étape initiale sur l'étape O avec la commande \verb"\EtapeInit[X0]{0}".
+
+
+\subsection{Sélection de séquences}\index{DivOU}\index{ConvOU}
+Les deux commandes \verb"\DivOU" et \verb"\ConvOU" permettent de réaliser une sélection de séquence. La syntaxe de ces deux commandes est relativement complexe, nous allons nous appuyer sur l'exemple figure~\ref{fig:selseq} pour l'expliquer.
+
+\begin{figure}[!ht]
+\centering
+
+\begin{tkzexample}[latex=7.8cm,small]
+
+\begin{tikzpicture}
+\Etape[0,0]{1}
+\DivOU{X1}{-5/L1a,3/L1b,11/L1c}
+\SequenceTT[L1a]{1a}{11}
+\SequenceTT[L1b]{1b}{21,22,23}
+\SequenceTT[L1c]{1c}{31,32}
+\ConvOU[-3]{T23}{T32,T11}{L2}
+\Etape[L2]{2}
+\DecaleNoeudy[-3]{VX2}{VX2}
+\DecaleNoeudy[-3]{NoeudGraf}{NoeudGraf}
+\Actions{1/A1,11/A11,21/A11,22/A22,
+23/A23,31/A31,2/A2}
+\Recepts{1a/r1a,1b/r1b,1c/r1c,11/r11,
+21/r21,22/r22,23/r23,31/r31,32/r32}
+\end{tikzpicture}
+\end{tkzexample}
+\caption{Sélection de séquence}
+\label{fig:selseq}
+\end{figure}
+
+Commentaires du code:
+\begin{itemize}
+\item Commande \verb"\DivOU{X1}{-5/L1a,3/L1b,11/L1c}" : cette commande permet de réaliser une divergence en OU à partir du n\oe ud inférieur de l'étape (\verb"{X1})". La première branche est placée à -5~em (5 em à gauche) du n\oe ud VX1 (cf~\ref{VXnnn}), le lien associé se nomme 1a (\verb"-5/L1a"). La seconde à 3~em à droite du n\oe ud VX1 et se nomme L1b, la dernière à 11~em et se nomme L1c. La commande \verb"\DivOU" recherche le lien \verb"VXnnn" de l'étape Xnnn pour accrocher le symbole.
+\item Commande \verb"\SequenceTT[L1b]{1b}{21,22,23}" : la séquence Transition-Transition s'accroche au n\oe ud (\verb"[L1b]") de la divergence, la première transition est numérotée 1b.
+\item Commande \verb"\ConvOU[-3]{T23}{T32,T11}{L2}" : cette commande réalise la fermeture de la divergence, le premier paramètre obligatoire \verb"{T23}" correspond au numéro de la dernière transition de la branche la plus longue  (c'est le point le plus bas), le deuxième paramètre \verb"{T32,T11}" décrit la liste des dernières transitions de chaque branche à relier. Le dernier paramètre \verb"{L2}" représente le nom du lien sortant. Afin de limiter les conflits de noms, il faut éviter de le nommer uniquement par un numéro, préférez un nom signifiant -branche1- par exemple, ce nom sera utilisé pour connecter l'étape suivante, la distance de ce lien au premier lien est précisé par le paramètre optionnel \verb"[-3]". La figure\ref{fig:noeudConvOU}  précise les différents n\oe uds utilisés et définis par la commande.
+
+\end{itemize}
+
+
+\subsubsection{Les n\oe uds des divergences/convergences en OU}
+
+Il est important pour les tracés complexes de comprendre comment sont dessinées les divergences et convergences et surtout quels sont les n\oe uds utilisés et définis par ces fonctions.
+
+\paragraph{ConvOU} Cf. figure~\ref{fig:noeudConvOU}\index{ConvOU}
+
+\begin{itemize}
+\item Le symbole de convergence est positionné verticalement par rapport à la première transition (ici T23), il se place juste en dessous de celle-ci (au sud au sens de Tikz)
+\item Pour chaque transition le lien vertical par du centre (la base au sens de tikz) du symbole vers la ligne horizontale. Pour tracer une convergence, il faut donc définir autant de n\oe uds Txxx que de branches à relier, cette commande ne s'accroche pas aux n\oe uds VTxxx des transitions.
+\item Le n\oe ud de sortie est le n\oe ud L2, l'étape suivante se superpose exactement à ce n\oe ud.
+\end{itemize}
+\begin{figure}[!ht]
+\centering
+\begin{multicols}{3}
+\small
+Extrait du code
+\begin{verbatim}
+\Transition[T23]{23}
+\Transition[T32]{32}
+\Transition[T11]{11}
+\ConvOU[-3]{T23}{T32,
+T11}{L2}
+\Etape[L2]{2}
+\end{verbatim}
+
+\columnbreak
+
+\begin{tikzpicture}
+\node (debut) at (0,0) {};
+\DecaleNoeudx{debut}{T11}
+\DecaleNoeudx[7]{T11}{T23}
+\DecaleNoeudy[6]{T23}{T23}
+\DecaleNoeudx[14]{T11}{T32}
+\DecaleNoeudy[2]{T32}{T32}
+\Transition[T23]{23}
+\Transition[T32]{32}
+\Transition[T11]{11}
+\ConvOU[-3]{T23}{T32,T11}{L2}
+\Etape[L2]{2}
+
+\draw[->,red] (-0.3,-1.5) node[left] {T23} -- (T23.base){};
+\draw[->,red] (4,-0.5) node[left] {T32} -- (T32.base){};
+\draw[->,red] (-0.3,0.5) node[left] {T11} -- (T11.base){};
+\draw[->,red] (-0.3,-3) node[left] {L2} -- (L2.base){};
+
+\end{tikzpicture}
+
+\columnbreak
+\begin{tikzpicture}
+\node (debut) at (0,0) {};
+\DecaleNoeudx{debut}{T11}
+\DecaleNoeudx[7]{T11}{T23}
+\DecaleNoeudy[6]{T23}{T23}
+\DecaleNoeudx[14]{T11}{T32}
+\DecaleNoeudy[2]{T32}{T32}
+\DecaleNoeudy[2.5]{T23}{VT23}
+\DecaleNoeudy[2.5]{T32}{VT32}
+\DecaleNoeudy[2.5]{T11}{VT11}
+\ConvOU[-3]{T23}{T32,T11}{L2}
+
+\draw[->,red] (-0.3,-1.5) node[left] {T23} -- (T23.base){};
+\draw[->,red] (4,-0.5) node[left] {T32} -- (T32.base){};
+\draw[->,red] (-0.3,0.5) node[left] {T11} -- (T11.base){};
+\draw[->,red] (-0.3,-3) node[left] {L2} -- (L2.base){};
+\DecaleNoeudy[2.5]{L2}{VL2}
+
+\end{tikzpicture}
+\normalsize
+\end{multicols}
+\caption{N\oe uds de ConvOU}
+\label{fig:noeudConvOU}
+\end{figure}
+
+\paragraph{DivOU}(figure~\ref{fig:noeudDivOU}
+
+\begin{itemize}
+\item La divergence s'accroche au n\oe ud défini dans le premier paramètre (dans l'exemple le n\oe ud X1. le lien vertical est tracé entre le sud (au sens tikz) du n\oe ud et la ligne horizontale (longueur = $\dfrac{2.5}{2}$~em)
+\item Les  n\oe uds sortants sont placés de part et d'autre du n \oe ud d'accrochage au dessous de la ligne horizontale à une distance verticale de $\dfrac{2.5}{2}$~em, les  distances horizontales sont précisés dans la commande.
+\item Les transitions ou les liens se superposent à ces n\oe uds.
+\end{itemize}
+
+\begin{figure}[!ht]
+\centering
+\begin{multicols}{3}
+\small\begin{verbatim}
+\Etape[0,0]{1}
+\DivOU{X1}{-5/L1a,3/L1b,11/L1c}
+\Transition[L1a]{1a}
+\Transition[L1b]{1b}
+\Transition[L1c]{1c}
+\end{verbatim}
+
+\columnbreak
+
+\begin{tikzpicture}
+\node (X1) at (0,0){};
+\DivOU{X1}{-5/L1a,3/L1b,11/L1c}
+\draw[->,red] (-1.5,0.5) node[left] {X1} -- (X1.base){};
+\draw[->,red] (-0.3,-1.5) node[right] {L1a} -- (L1a.base){};
+\draw[->,red] (0,-2.5) node[left] {L1b} -- (L1b.base){};
+\draw[->,red] (3,-2.5) node[left] {L1c} -- (L1c.base){};
+\end{tikzpicture}
+
+\columnbreak
+
+\begin{tikzpicture}
+\Etape[0,0]{1}
+\DivOU{X1}{-5/L1a,3/L1b,11/L1c}
+\Transition[L1a]{1a}
+\Transition[L1b]{1b}
+\Transition[L1c]{1c}
+\draw[->,red] (-1.5,0.5) node[left] {X1} -- (X1.base){};
+\draw[->,red] (-0.3,-1.5) node[right] {L1a} -- (L1a.base){};
+\draw[->,red] (0,-2.5) node[left] {L1b} -- (L1b.base){};
+\draw[->,red] (3,-2.5) node[left] {L1c} -- (L1c.base){};
+\draw[->,red] (-0.3,-2) node[right] {T1a} -- (T1a.base){};
+\end{tikzpicture} 
+
+\normalsize
+\end{multicols}
+
+\caption{les n\oe uds de DivOU}
+\label{fig:noeudDivOU}
+\end{figure}
+
+Il est possible avec ces deux commandes de générer des grafcets tel celui présenté décrit sur le grafcet \ref{fig:selseqb}  et sur les exemples suivants dont les sauts d'étapes et les reprises d'étapes.
+
+\begin{figure}[!ht]
+\centering
+\begin{tkzexample}[latex=5cm,small]
+\begin{tikzpicture}
+\Etape[0,0]{1}
+\DivOU{X1}{-3/L10,2/L20,6/L30}
+\SequenceTT[L10]{10}{11}
+\SequenceTT[L20]{20}{21,22}
+\SequenceTT[L30]{30}{31,32,33}
+\ConvOU[-2]{T22}{T11}{L2}
+\SequenceET[L2]{2}
+\ConvOU[2]{T2}{T33}{L3}
+\Etape[L3]{3}
+\end{tikzpicture}
+
+\end{tkzexample}
+\caption{Sélection de séquences -2}
+\label{fig:selseqb}
+\end{figure}
+
+
+
+\subsection{Saut d'étapes}\index{SautEtapes}
+La commande \verb"\SautEtapes" permet de générer directement un saut d'étapes (Cf. \ref{fig:sautetape}).
+\subsubsection{Utilisation de la commande saut d'étapes}
+\begin{figure}[!ht]
+\centering
+\begin{tkzexample}[latex=5cm,small]
+\begin{tikzpicture}
+\Etape[0,0]{121}
+\SautEtapes[-6]{X121}{122,123}{L200}
+\Etape[L200]{200}
+\Recept{TX121s}{$rX121_s$}
+\Recept{TX121}{$rX121$}
+\end{tikzpicture}
+\end{tkzexample}
+\caption{Saut d'étapes}
+\label{fig:sautetape}
+\end{figure}
+
+Syntaxe de la commande:
+\verb"\SautEtapes[-6]{X121}{122,123}{L200}"
+\begin{itemize}
+\item \verb"[-6]" : distance de la branche de saut (paramètre optionnel, 5 em par défaut);
+\item \verb"{X121}" : numéro de l'étape de départ;
+\item \verb"{122,123}" : liste des étapes de la branche principale;
+\item \verb"{L200}" : nom du lien de sortie, l'étape suivante s'accroche à ce lien.
+\end{itemize}
+
+Les deux transitions sont référencées en fonction du nom de l'étape de départ (ici \verb"X121") soit:
+\begin{itemize}
+\item \verb"TXnnn" (ici \verb"TX121" pour la transition de la branche principale, d'où la commande \verb"\Recept{TX121}{$rX121$}" pour affecter la réceptivité;
+\item \verb"TXnnns" (ici \verb"TX121s" pour la transition de la branche du saut, la réceptivité est associée à cette transition par la commande \verb"\Recept{TX121s}{$rX121_s$}".
+\end{itemize} 
+
+\subsubsection{Saut d'étape comme une sélection de séquence}
+Un saut d'étapes est aussi une sélection de séquence particulière, il est donc possible de tracer cette structure directement comme  une sélection de séquence classique (Fig~\ref{fig:sautetape2}). L'intérêt de le tracer comme une sélection de séquence est de rester maître de tous les paramètres du tracé comme :
+\begin{itemize}
+\item la position de la branche de saut ( à gauche par défaut dans la commande \verb"\SautEtapes"), 
+\item l'écartement des deux branches (seule la branche de saut est modifiable par \verb"\SautEtapes").
+\item la numérotation des transitions.
+\end{itemize}
+
+\begin{figure}[!ht]
+\centering
+\begin{tkzexample}[latex=5cm,small]
+\begin{tikzpicture}
+\Etape[0,0]{121}
+\DivOU{X121}{-5/L130a,5/L130b}
+\Transition[L130b]{130b}
+\SequenceTT[L130a]{130a}{210,220}
+\ConvOU[5]{T220}{T130b}{L300}
+\Etape[L300]{300}
+\Recept{T130a}{r130a}
+\Recept{T130b}{r130b}
+\ActionX{X210}{Action 1}
+\ActionX{X220}{Action 2}
+\end{tikzpicture}
+\end{tkzexample}
+\caption{Saut d'étapes 2}
+\label{fig:sautetape2}
+\end{figure}
+
+
+\subsection{Reprise d'étapes}\index{RepriseEtapes}
+La librairie GRAFCET propose une commande pour tracer une reprise d'étapes  \verb"\RepriseEtapes" (Fig~\ref{fig:repetape}).
+
+\begin{figure}[!ht]
+\centering\small
+\begin{tkzexample}[latex=5cm,small]
+
+\begin{tikzpicture}
+\Etape[0,0]{121}
+\Transition{121}
+\RepriseEtapes[-6]{T121}{122,123}{124}
+\Etape[VT124]{125}
+\Recept{T124}{r124}
+\Recept{T124r}{r124r}
+\end{tikzpicture}
+
+\end{tkzexample}
+\caption{Reprise d'étapes}
+\label{fig:repetape}
+\end{figure}
+
+
+
+\subsubsection{Reprise d'étapes comme une sélection de séquence}
+Une reprise d'étapes étant une sélection de séquence particulière il est bien sûr possible de tracer celle-ci avec les commandes de base \verb"\DivOU" et \verb"\ConvOU" mais ici contrairement au saut d'étapes, la réalisation est assez complexe (fig~\ref{fig:repriseetape2}).
+
+\begin{figure}[!ht]
+\centering\small
+\begin{tkzexample}[latex=5cm,small]
+
+\begin{tikzpicture}
+\Etape[0,0]{121}
+\Transition{121}
+\DecaleNoeudx[-6]{T121}{T121r}
+\DecaleNoeudx[-6]{VT121}{VT121r}
+\ConvOU[-1]{T121}{T121r}{L122}
+\SequenceEE[L122]{122,123}{125}
+\DivOU{X125}{-5/L125a,1/L125b}
+\Transition[L125b]{125b}
+\Transition[L125a]{125a}
+\Etape[VT125b]{126}
+\LienRetour[2]{T125a}{VT121r}
+\Recept{T125a}{r125a}
+\Recept{T125b}{r125b}
+\end{tikzpicture}
+
+\end{tkzexample}
+\caption{Reprise d'étapes 2 }
+\label{fig:repriseetape2}
+\end{figure}
+
+
+
+La particularité de ce tracé réside dans les deux lignes:
+\small\begin{verbatim}
+\DecaleNoeudx[-6]{T121}{T121r},
+\DecaleNoeudx[-6]{VT121}{VT121r}.
+\end{verbatim}\normalsize
+
+Ces commandes permettent de créer deux n\oe uds fictifs permettant de tracer la convergence en OU  qui ferme la reprise d'étapes.
+\begin{itemize}
+\item T121r : ce n\oe ud est une pseudo transition décalée de -6~em par rapport à la transition T121, ce n\oe ud permet de définir le second n\oe ud d'accrochage de la convergence en OU (Cf. figure\ref{fig:noeudConvOU}).;
+\item VT121r : ce n\oe ud est le pseudo  n\oe ud de connexion de la transition T121r, il n'est utile ici que pour réaliser un tracé correct de la boucle de retour.
+\end{itemize}
+
+La commande \verb"DecaleNoeudx" est détaillée page~\pageref{DecaleNoeudx}.
+
+\subsection{Séquences simultanées} \index{DivET}\index{ConvET}
+
+Les deux commandes \verb"\DivET" et \verb"\ConvET" permettent de tracer des séquences simultanées, l'exemple fig~\ref{fig:seqsimul} en montre l'utilisation.
+
+
+\begin{figure}[!ht]
+\centering\small
+\begin{tkzexample}[latex=8cm,small]
+\begin{tikzpicture}
+\Etape{3}
+\Transition{3}
+\DivET{T3}{-5/br1,4.5/br3,13/br2}
+\Graphe[Vbr1]{
+21/$A^+$/$a_1$,
+22/$A^-$/$a_0$,
+23/$Vanne^+$ /$Vanne_1$
+}
+\Etape{24}
+\Etape[Vbr2]{31}
+\SequenceEE[Vbr3]{11,12,...,14}{15}
+\ConvET[-6]{X15}{X24,X31}{b40}
+\Transition[b40]{40}
+\Etape{41}
+\ActionRecept{
+11/$B^+$/$b_1$,
+12/$B^-$/$b_0$,
+13/$Ouvrir$/$ouvert$,
+14/$Fermer$/$fermé$
+}
+\ActionX{X31}{$Km_1$}
+\Recept{T3}{$marche$}
+\Recept{T40}{$\underline1$}
+\end{tikzpicture}
+
+\end{tkzexample}
+\caption{Séquence simultanées}
+\label{fig:seqsimul}
+\end{figure}
+
+\paragraph{Commentaires du code}
+\begin{itemize}
+\item La divergence débute par la commande \verb"\DivET{T3}{-5/br1,4.5/br3,13/br2}",
+\begin{itemize}
+\item le premier paramètre correspond au n\oe ud  associé à la transition de début de la divergence (ici \verb"{VT3}"), les branches de la divergence sont positionnées par rapport à ce n\oe ud ,
+\item  le deuxième paramètre (ici \verb"{-5/br1,4.5/br3,13/br2}" ) permet de positionner et nommer les n\oe uds de départ de chaque branche par rapport au n\oe ud VT3:
+\begin{itemize}
+\item \verb"-5/br1" : la branche br1 est placée à -5em (5em à gauche) du n\oe ud VT3,
+\item \verb"4.5/br3" : la branche br3 est placée à 4{,}5em (4{,}5em à droite) de n\oe ud VT3,
+\item \verb"13/br2" : la branche br2 est placée à 13em du n\oe ud VT3;
+\end{itemize}
+\end{itemize}
+\item La commande \verb"\ConvET[-6]{X15}{X24,X31}{b40}" permet de clore la divergence (la convergence), 
+\begin{itemize}
+\item le premier paramètre \verb"[-6]" (optionnel) permet de positionner (distance en em) le n\oe ud de sortie (la transition) par rapport à la branche la plus \guillemotleft longue\guillemotright;
+\item  Le deuxième paramètre \verb"{15}" correspond à la dernière étape de la branche la plus \guillemotleft longue\guillemotright;
+\item  le troisième paramètre \verb"{24,31}" présente la liste des dernières étapes de chaque branche (hormis celle de la branche la plus longue),
+\item  Le dernier paramètre correspond au nom du n\oe ud d'accrochage de la transition de sortie.
+\end{itemize}
+\item Entre ces deux commandes on doit trouver les différentes séquences, elles peuvent être réalisées soit directement avec des séquences \verb"\Etape", \verb"\Transition", soit avec une séquence Etape/Etape \verb"\SequenceEE", soit à l'aide de la commande \verb"\Graphe".
+\end{itemize}
+
+\subsubsection{Les n\oe uds des divergences/convergence en ET}
+
+\paragraph{N\oe uds de DivET}\index{DivET}
+
+\begin{figure}[!ht]
+\centering
+\begin{tikzpicture}
+\node (T3) at (0,0) {}{};
+\DecaleNoeudy[2.5]{T3}{VT3}
+\DivET{T3}{-3/br1,3.5/br3,8/br2}
+\draw[->,red] (-2.5,0.5) node[left] {T3} -- (T3.base){};
+\draw[->,red] (-2.5,-0.5) node[left] {br1} -- (br1.base){};
+\draw[->,red] (-2.5,-1) node[left] {Vbr1} -- (Vbr1.base){};
+\draw[->,red] (2,-2.5) node[left] {br2} -- (br2.base){};
+\draw[->,red] (-0,-2.5) node[left] {br3} -- (br3.base){};
+\end{tikzpicture}
+\begin{tikzpicture}
+\Transition[0,0]{3}
+\DivET{T3}{-3/br1,3.5/br3,8/br2}
+\Etape[Vbr1]{21}
+\Etape[Vbr2]{31}
+\Etape[Vbr3]{11}
+\draw[->,red] (-2.5,0.5) node[left] {T3} -- (T3.base){};
+\draw[->,red] (-2.5,-0.5) node[left] {br1} -- (br1.base){};
+\draw[->,red] (-2.5,-1) node[left] {Vbr1} -- (Vbr1.base){};
+\draw[->,red] (2,-2.5) node[left] {br2} -- (br2.base){};
+\draw[->,red] (-0,-2.5) node[left] {br3} -- (br3.base){};
+\end{tikzpicture}
+\caption{N\oe uds de DivET}
+\label{fig:noeudDivET}
+\end{figure}
+
+\paragraph{N\oe ud de ConvET}\index{ConvET}
+
+Comme on le voit sur la figure~\ref{fig:noeudConvET}, 
+\begin{figure}[!ht]
+\centering
+\begin{tikzpicture}
+\Etape[0,-1.5]{15}
+\Etape[-3,-1]{24}
+\Etape[2.5,-0.5]{31}
+\ConvET[-6]{X15}{X24,X31}{b40}
+\Transition[b40]{40}
+\draw[->,red] (-1.5,0) node[left] {X15} -- (X15.base){};
+\draw[->,red] (0.5,0) node[left] {X31} -- (X31.base){};
+\draw[->,red] (-4,-0.5) node[left] {X24} -- (X24.base){};
+\draw[->,red] (-4,-2.5) node[left] {b40} -- (b40.base){};
+\draw[->,red] (-4,-3) node[left] {T40} -- (T40.base){};
+\end{tikzpicture}
+\begin{tikzpicture}
+\node (X15) at (0,-1.5){};\DecaleNoeudy[0]{X15}{X15}
+\node(X24) at (-3,-1){};\DecaleNoeudy[0]{X24}{X24}
+\node(X31) at (2.5,-0.5){};\DecaleNoeudy[0]{X31}{X31}
+\ConvET[-6]{X15}{X24,X31}{b40}
+\DecaleNoeudy[2.5]{b40}{Vb40}
+\draw[->,red] (-1.5,0) node[left] {X15} -- (X15.base){};
+\draw[->,red] (0.5,0) node[left] {X31} -- (X31.base){};
+\draw[->,red] (-4,-0.5) node[left] {X24} -- (X24.base){};
+\draw[->,red] (-4,-3) node[left] {b40} -- (b40.base){};
+\end{tikzpicture}
+\caption{N\oe uds de ConvET}
+\label{fig:noeudConvET}
+\end{figure}
+
+
+\subsubsection{Sélection de séquences à partir d'une synchronisation}
+Le petit grafcet figure~\ref{fig:grfselseqsync} montre quelques problèmes liés à la réalisation de liens entre des éléments de type divergence/convergence en ET et en OU. ici on constate que la succession de la divergence en ou et de la convergence en ET laisse un \guillemotleft vide \guillemotright  entre les deux extrémités, en effet la première est conçus pour s'accrocher à une transition et l'autre à une étape. 
+Une solution pour résoudre le problème est présentée sur la figure~\ref{fig:grfselseqsync2}  ou les n\oe uds de sortie des divergences ont été décalés vers le haut. 
+\begin{figure}[!ht]
+\centering
+\begin{tkzexample}[very small,latex=8cm]
+\begin{tikzpicture}
+\Etape[0,0]{8}
+\DecaleNoeudx[8]{X8}{X9}
+\Etape[X9]{9}
+\LienET[3.5]{X9}
+\DivOU{X8}{-1/b8a,6/b8b}
+\DivOU{X9}{-6/b9a,1/b9b}
+\ConvET[-2]{b9a}{b8a}{ba}
+\ConvET[-1]{b9b}{b8b}{bb}
+\Transition[ba]{8}\Recept{T8}
+{$\uparrow{X8}\cdot X9$}
+\Transition[bb]{9}\Recept{T9}
+{$\uparrow{X9}\cdot X8$}
+\ActionX{X9}{A+}
+\ActionX{X8}{B+}
+\end{tikzpicture}
+\end{tkzexample}
+\caption{Sélection de séquences et synchronisation}
+\label{fig:grfselseqsync}
+\end{figure}
+
+\begin{figure}[!ht]
+\centering
+\begin{tkzexample}[very small,latex=8cm]
+
+\begin{tikzpicture}
+\Etape[0,0]{8}
+\DecaleNoeudx[8]{X8}{X9}
+\Etape[X9]{9}
+\LienET[3.5]{X9}
+\DivOU{X8}{-1/b8a,6/b8b}
+\DivOU{X9}{-6/b9a,1/b9b}
+\DecaleNoeudy[-2]{b8a}{b8a}
+\DecaleNoeudy[-2]{b9a}{b9a}
+\DecaleNoeudy[-2]{b8b}{b8b}
+\DecaleNoeudy[-2]{b9b}{b9b}
+\ConvET[-2]{b9a}{b8a}{ba}
+\ConvET[-1]{b9b}{b8b}{bb}
+\Transition[ba]{8}\Recept{T8}
+{$\uparrow{X8}\cdot X9$}
+\Transition[bb]{9}\Recept{T9}
+{$\uparrow{X9}\cdot X8$}
+\ActionX{X9}{A+}
+\ActionX{X8}{B+}
+\DecaleNoeudy[2]{VT8}{VT8}
+\end{tikzpicture}
+\end{tkzexample}
+
+
+\caption{Sélection de séquences et synchronisation - résolu}
+\label{fig:grfselseqsync2}
+\end{figure}
+
+\section{Commandes diverses}
+\subsection{Déplacer un n\oe ud} \index{DecaleNoeudx}\index{DecaleNoeudy}\label{DecaleNoeudx}\label{DecaleNoeudy}
+Deux commandes permettent de déplacer et ou créer un nouveau n\oe ud
+\begin{itemize}
+\item \verb"\DeplaceNoeudx[dist]{ni}{nf}" : cette commande permet de positionner horizontalement le n\oe ud \verb"{nf}" par rapport au n\oe ud \verb"{ni}" à la distance \verb"[dist]" (la distance est notée en unité em, et orientée positivement vers la droite);
+\item \verb"\DeplaceNoeudy[dist]{ni}{nf}" : cette commande permet de positionner verticalement le n\oe ud \verb"{nf}" par rapport au n\oe ud \verb"{ni}" à la distance \verb"[dist]" (la distance est notée en unité em, et orientée positivement vers le bas).
+\end{itemize}
+
+Ces deux commandes créent un n\oe ud dont les dimensions sont de 2{,}5~em en hauteur et de 1~em en largeur.
+
+En précisant, le même nom pour les n\oe uds \verb"{nf}" et \verb"{ni}" \verb"\DecaleNoeudx[dist]{ni}[ni}", on obtient le déplacement du n\oe ud.
+
+En précisant un distance nulle, on superpose les deux n\oe uds \verb"\DecaleNoeudx[0]{ni}[nf}" (la valeur par défaut de la distance est 0~em).
+
+\subsection{liens orientés}
+\subsubsection{LienRetour}\index{LienRetour}
+La commande \verb"\LienRetour[dist]{Tnnn}{Xnnn}" permet de tracer le LienRetour orienté d'une transition vers une étape plus haut sur le grafcet.
+
+Cette commande ne fonctionne correctement que si les deux extrémités du lien sont alignés, sinon il est préférable d'utiliser la commande suivante.
+
+\subsubsection{Lien}\index{Lien}
+La commande \verb"\Lien[dist]{NoeudGraf}{noeud2}{noeud3}", trace un lien entre une transition et une étape, le lien va du n\oe ud1 au n\oe ud3 en passant par le n\oe ud2. La commande optionnelle \verb"[dist]" permet de décaler le dernier lien horizontal.
+\begin{figure*}[!ht]
+\centering
+\begin{multicols}{2}
+\begin{tikzpicture}
+\node (noeuddebut) at (0,0)[draw,red]{}{};
+\node (noeudpassage) at (1,1)[draw,blue]{}{};
+\node (noeudfin) at (2,2)[draw,green]{}{};
+\Lien{noeuddebut}{noeudpassage}{noeudfin}
+\end{tikzpicture}
+
+\columnbreak
+
+\verb"\begin{tikzpicture}"\\
+\verb"\node (noeuddebut) at (0,0)[draw,red]{}{};"\\
+\verb"\node (noeudpassage) at (1,1)[draw,blue]{}{};"\\
+\verb"\node (noeudfin) at (2,-2)[draw,green]{}{};"\\
+\verb"\Lien{noeuddebut}{noeudpassage}{noeudfin}}"\\
+\verb"\end{tikzpicture}"
+\end{multicols}
+\end{figure*}
+
+\begin{figure*}[!ht]
+\begin{multicols}{2}
+\begin{tikzpicture}
+\node (noeuddebut) at (0,0)[draw,red]{}{};
+\node (noeudpassage) at (1,1)[draw,blue]{}{};
+\node (noeudfin) at (-2,2)[draw,green]{}{};
+\Lien{noeuddebut}{noeudpassage}{noeudfin}
+\end{tikzpicture}
+
+\columnbreak
+
+\verb"\begin{tikzpicture}"\\
+\verb"\node (noeuddebut) at (0,0)[draw,red]{}{};"\\
+\verb"\node (noeudpassage) at (1,1)[draw,blue]{}{};"\\
+\verb"\node (noeudfin) at (-2,2)[draw,green]{}{};"\\
+\verb"\Lien{noeuddebut}{noeudpassage}{noeudfin}"\\
+\verb"\end{tikzpicture}"
+\end{multicols}
+
+\end{figure*}
+
+\begin{figure*}[!ht]
+\begin{multicols}{2}
+\begin{tikzpicture}
+\node (noeuddebut) at (0,0)[draw,red]{}{};
+\node (noeudpassage) at (-1,1)[draw,blue]{}{};
+\node (noeudfin) at (-2,2)[draw,green]{}{};
+\Lien{noeuddebut}{noeudpassage}{noeudfin}
+\end{tikzpicture}
+
+\columnbreak
+
+\verb"\begin{tikzpicture}"\\
+\verb"\node (noeuddebut) at (0,0)[draw,red]{}{};"\\
+\verb"\node (noeudpassage) at (-1,1)[draw,blue]{}{};"\\
+\verb"\node (noeudfin) at (-2,2)[draw,green]{}{};"\\
+\verb"\Lien{noeuddebut}{noeudpassage}{noeudfin}"\\
+\verb"\end{tikzpicture}"
+\end{multicols}
+
+\end{figure*}
+
+\begin{figure*}
+
+
+\begin{multicols}{2}
+\begin{tikzpicture}
+\node (noeuddebut) at (-2,2)[draw,red]{}{};
+\node (noeudpassage) at (-2,1)[draw,blue]{}{};
+\node (noeudfin) at (0,0)[draw,green]{}{};
+\Lien{noeuddebut}{noeudpassage}{noeudfin}
+\end{tikzpicture}
+
+\columnbreak
+
+\verb"\begin{tikzpicture}"\\
+\verb"\node (noeuddebut) at (-2,2)[draw,red]{}{};"\\
+\verb"\node (noeudpassage) at (-2,1)[draw,blue]{}{};"\\
+\verb"\node (noeudfin) at (0,0)[draw,green]{}{};"\\
+\verb"\Lien{noeuddebut}{noeudpassage}{noeudfin}"\\
+\verb"\end{tikzpicture}"
+\end{multicols}
+\end{figure*}
+
+\subsubsection{Liens d'espacement}
+
+Il est parfois nécessaire d'augmenter l'intervalle entre une étape et un transition, pour cela, deux commandes permettent de créer un lien vertical en déplaçant les n\oe uds de connexion.
+\begin{itemize}
+    \item La commande \verb"LienET[long]{Xnnn}"  trace un lien vertical de longueur long depuis le bas de l'étape Xnnn, le n\oe ud de connexion VXnnn associé à cette étape est déplacé de la même quantité (Cf. exemple figure~\ref{fig:grfselseqsync})\index{LienET}.
+     \item La commande \verb"\LienTE[long]{Xnnn}" permet elle de tracer un lien vertical depuis une transition vers le haut d'une étape\index{LienTE}.
+\end{itemize}
+
+Ces liens peuvent aussi être utilisés pour "remplir un vide" lors d'un tracé entre des divergences et des convergences (Cf. figure\ref{fig:grfpartage})
+
+
+\begin{figure}[!ht]
+\centering
+\begin{multicols}{4}
+\begin{tikzpicture}
+\Etape[0,0]{9}
+\LienET[4]{X9}
+\Transition[VX9]{9}
+\Etape{10}
+\ActionX{X9}{$A+$}
+\Recept{T9}{$a_0$}
+\end{tikzpicture}
+\columnbreak
+\small
+\begin{verbatim}
+\begin{tikzpicture}
+\Etape[0,0]{9}
+\LienET[4]{X9}
+\Transition[VX9]{9}
+\Etape{10}
+\ActionX{X9}{$A+$}
+\Recept{T9}{$a_0$}
+\end{tikzpicture}
+\end{verbatim}\normalsize
+\columnbreak
+\begin{tikzpicture}
+\Etape[0,0]{9}
+\Transition[VX9]{9}
+\LienTE[4]{T9}
+\Etape[VT9]{10}
+\ActionX{X9}{$A+$}
+\Recept{T9}{$a_0$}
+\end{tikzpicture}
+\columnbreak
+\small
+\begin{verbatim}
+\begin{tikzpicture}
+\Etape[0,0]{9}
+\Transition[VX9]{9}
+\LienTE[4]{T9}
+\Etape[VT9]{10}
+\ActionX{X9}{$A+$}
+\Recept{T9}{$a_0$}
+\end{tikzpicture}
+\end{verbatim}\normalsize
+\end{multicols}
+\caption{Liens Étape-Transition et Transition-Étape}
+\label{fig:lienETetTE}
+\end{figure}
+
+\subsection{Commentaires}\index{Comment}
+
+La commande \verb"\Comment[dist]{pos}{commentaire}" permet d'écrire un commentaire dans la page, ce commentaire est positionné à la distance \textit{dist} par rapport au n\oe ud \textit{pos}.
+
+Exemple d'utilisation: figure~\ref{fig:grfpartage}.
+
+\subsection{Modifier la taille des figures}
+
+Tous les symboles étant dessinés avec une taille en em, la modification de la taille des caractères entraîne une modification en conséquence des grafcets, ainsi les grafcets de la figure~\ref{fig:modiftaille} sont tracés avec un code analogue à celui ci-contre (code pour la taille small):
+
+
+\small\begin{verbatim}
+\begin{small}
+\begin{tikzpicture}
+code
+.....
+\end{tikzpicture}
+\end{small}
+\end{verbatim}\normalsize
+
+
+\begin{figure}[!ht]
+\centering
+\begin{multicols}{3}
+\Large
+Large
+
+\begin{tikzpicture}
+\GrapheBoucle{
+10//$marche$,
+20/$A^+$/$a_1$,
+30/$A^-$/$a_0$
+}
+\ActionEfface{X10}
+\EtapeInit[X10]{10}
+\end{tikzpicture}
+
+\columnbreak
+
+\normalsize
+normalsize
+\begin{tikzpicture}
+\GrapheBoucle{
+10//$marche$,
+20/$A^+$/$a_1$,
+30/$A^-$/$a_0$
+}
+\ActionEfface{X10}
+\EtapeInit[X10]{10}
+\end{tikzpicture}
+
+\columnbreak
+
+\small
+small
+
+\begin{tikzpicture}
+\GrapheBoucle{
+10//$marche$,
+20/$A^+$/$a_1$,
+30/$A^-$/$a_0$
+}
+\ActionEfface{X10}
+\EtapeInit[X10]{10}
+\end{tikzpicture}
+\end{multicols}
+
+\begin{multicols}{3}
+\footnotesize
+footnotesize
+
+\begin{tikzpicture}
+\GrapheBoucle{
+10//$marche$,
+20/$A^+$/$a_1$,
+30/$A^-$/$a_0$
+}
+\ActionEfface{X10}
+\EtapeInit[X10]{10}
+\end{tikzpicture}
+
+\columnbreak
+
+\tiny
+tiny
+
+\begin{tikzpicture}
+\GrapheBoucle{
+10//$marche$,
+20/$A^+$/$a_1$,
+30/$A^-$/$a_0$
+}
+\ActionEfface{X10}
+\EtapeInit[X10]{10}
+\end{tikzpicture}
+
+\columnbreak
+
+\small
+
+\begin{verbatim}
+\begin{small}
+\begin{tikzpicture}
+\GrapheBoucle{
+10//$marche$,
+20/$A^+$/$a_1$,
+30/$A^-$/$a_0$
+}
+\ActionEfface{X10}
+\EtapeInit[X10]{10}
+\end{tikzpicture}
+\end{small}
+\end{verbatim}
+
+\end{multicols}
+\normalsize
+\caption{Modification de la taille des grafcets}
+\label{fig:modiftaille}
+\end{figure}
+
+
+
+\newpage
+
+
+\section{Exemples}
+\subsection{Exemples de la norme EN~60848}
+Les grafcets suivant sont extraits de la norme EN~60848 et traite de l'exemple du doseur-Malaxeur.
+
+\subsubsection{Doseur malaxeur - Actions continues}
+La première représentation (fig~\ref{fig:DMactcont} ) est une représentation classique à base d'action mémorisée.
+\begin{figure}[H]
+\centering
+\scriptsize
+%\begin{multicols}{2}
+\begin{tkzexample}[latex=8cm,very small]
+\begin{tikzpicture}
+\EtapeInit[0,0]{1}
+\Transition{1}
+\DivET{T1}{-5/b1,7/b2}
+\SequenceEE[Vb1]{2,3,4}{5}
+\SequenceEE[Vb2]{6,7,8}{10}
+\ConvET[5]{X5}{X10}{b3}
+\Transition[b3]{10}
+\DivET{T10}{-5/b4,7/b5}
+\SequenceEE[Vb4]{11}{12}
+\Etape[Vb5]{13}
+\ConvET[5]{X12}{X13}{b6}
+\Transition[b6]{12}
+\Etape{14}
+\Transition{14}
+\LienRetour[8]{T14}{X1}
+\Actions{
+2/VA,
+3/VB,
+4/VC,
+6/MT,
+7/MT,
+8/MT,
+12/MP+,
+13/MR,
+14/MP-}
+\Recepts{
+1/$DC_y\cdot z\cdot S_0$,
+2/$a$,
+3/$b$,
+4/$z$,
+6/$DP$,
+7/$\overline{DP}$,
+8/$DP$,
+10/$\underline{1}$,
+12/$S_1$,
+14/$S_0$
+}
+\Recept{T11}{$t_1/X11$}
+\end{tikzpicture}
+\end{tkzexample}
+
+\caption{Doseur Malaxeur - Description avec des actions continues}
+\label{fig:DMactcont}
+\end{figure}
+
+
+
+\paragraph{Remarques:}
+Les actions et réceptivités sont installées grâce aux commandes \verb"\Recepts" et \verb"\Actions", seule la réceptivité associée à la transition T11 (la temporisation $t_1/X11$ est programmée par la commande \verb"\Recept", en effet la commande \verb"\Recepts" comprend $/$ comme un séparateur de la liste. Un problème identique se produit lorsque l'action ou la réceptivité comporte une virgule.
+
+\subsubsection{Doseur malaxeur - Actions mémorisées}
+Le grafcet figure~\ref{fig:DMactmem} présente une autre traduction du cahier des charges en utilisant des actions mémorisées sur l'activation et la désactivation d'une étape. \index{ActionActiv} \index{ActionDesactiv}
+\begin{figure}[H]
+\centering\scriptsize
+\begin{tkzexample}[latex=8cm,very small]
+\begin{tikzpicture}
+\EtapeInit[0,0]{1}
+\Transition{1}
+\DivET{T1}{-5/b1,7/b2}
+\SequenceEE[Vb1]{2,3,4}{5}
+\SequenceEE[Vb2]{6,7,8}{10}
+\ConvET[5]{X5}{X10}{b3}
+\Transition[b3]{10}
+\SequenceET[VT10]{11,12,13}
+\LienRetour[8]{T13}{X1}
+\Actions{
+2/VA,
+3/VB,
+4/VC,
+6/MT:=1,
+8/MT:=0,
+11/MR:=1,
+12/MP+,
+13/MP-}
+\ActionActiv{X6}
+\ActionDesactiv{X8}
+\ActionActiv{X11}
+\Action{X12}{MR:=0}
+\ActionDesactiv{X12}
+\Recepts{
+1/$DC_y\cdot z\cdot S_0$,
+2/$a$,
+3/$b$,
+4/$z$,
+6/$DP$,
+7/$\overline{DP}$,
+8/$DP$,
+10/$\underline{1}$,
+12/$S_1$,
+13/$S_0$
+}
+\Recept{T11}{$t_1/X11$}
+\end{tikzpicture}
+\end{tkzexample}
+\caption{Doseur Malaxeur - Description avec des actions mémorisées}
+\label{fig:DMactmem}
+\end{figure}
+
+
+\paragraph{Remarques:}
+Les actions à l'activation et à la désactivation sont programmées en deux temps, dans la liste des actions avec la commande \verb"\Actions" pour placer les cadres d'action puis les symboles d'activation et de désactivation sont placés avec les deux commandes \verb"\ActionActiv" et \verb"\ActionDesactiv". \\
+La commande \verb"\Actions" ne permettant de placer qu'une action par étape, la deuxième action associée à l'étape X12 est rajoutée par la commande \verb"\Action", la commande de désactivation est placée à la suite.
+
+
+
+\subsubsection{Utilisation de Macro-étapes}
+La figure~\ref{fig:grfME} présente une solution du même cahier des charges à base de macro-étapes.
+
+\begin{figure}[H]
+\scriptsize
+\begin{tkzexample}[vbox,very small]
+\begin{tikzpicture}
+\EtapeInit[0,0]{1}   \Transition{1}
+\DivET{T1}{-3/b1,3/b2}
+\MacroEtape[Vb1]{M20} \MacroEtape[Vb2]{M30}
+\ConvET[3]{XM20}{XM30}{b3}
+\Transition[b3]{2} \MacroEtape{M40}
+\Transition{40}
+\LienRetour[6]{T40}{X1}
+\Recept{T1}{$DC_y\cdot z \cdot S_0$}
+\Recept{T2}{$\underline{1}$}
+\Recept{T40}{$S_0$}
+\draw (4,1.) node[text width=5cm,text centered]
+{Macro-étape M40 \\ "Malaxage - Évacuation"};
+\SequenceEE[3,0]{E40,41}{S40}
+\draw (8,1.) node[text width=4cm,text centered]
+{Macro-étape M30 \\ "Amenage briquettes"};
+\SequenceEE[7,0]{E30,31,32}{S30}
+\draw (12,1.) node[text width=4cm,text centered]
+{Macro-étape M20 \\ "Dosage produit"};
+\SequenceEE[11,0]{E20,21,22}{S22}
+\ActionRecept{E20/VA/$a$,21/VB/$b$,22/VC/$z$}
+\ActionRecept{E30/M/$DP$ ,31/MT/$\overline{DP}$,32/MT/$DP$}
+\Actions{ E40/MR,41/MP+,S40/MP-}
+\Action{X41}{MR}
+\Recept{TE40}{$t1/XE40$}
+\Recept{T41}{$s_1$}
+\end{tikzpicture}
+\end{tkzexample}
+\caption{Doseur Malaxeur - Description avec des macro-étapes}
+\label{fig:grfME}
+\end{figure}
+
+
+\vfill
+\newpage
+
+\subsubsection{Grafcet avec encapsulation}
+
+
+\begin{figure}[H]
+\tiny
+\begin{tkzexample}[vbox,very small]
+\begin{tikzpicture}
+\EtapeInit[0,0]{D1}
+\TransitionRecept{D1}{$\overline{BPAU}\cdot S_{manu}$}
+\DecaleNoeudx[-4]{TD1}{b1}  \DecaleNoeudx[-4]{VTD1}{Vb1}
+\ConvOU[-2]{TD1}{b1}{b2}
+\Etape[b2]{A6}
+\DivOU{XA6}{-1/b3,8/b4}
+\TransitionRecept[b3]{A6-a}{$z \cdot S_0 \cdot S_{auto}$}
+\TransitionRecept[b4]{A6-b}{$BPAU$}
+\EtapeEncapsulante[VTA6-a]{F1}
+\DivOU{XF1}{-1/b5,4.5/b6}
+\TransitionRecept[b5]{F1-a}{$S_{manu}$}
+\LienRetour[2]{TF1-a}{Vb1}
+\TransitionRecept[b6]{F1-b}{$BPAU$}
+\ConvOU[2]{TF1-b}{TA6-b}{b7}
+\DecaleNoeudx[11]{XD1}{liens} \DecaleNoeudy[-1.5]{b7}{b7}
+\Lien{b7}{liens}{XD1}
+\begin{Encap}[F1]{15em,0}{F1}{GM}
+\SequenceET[0,0]{0,1}  \EtapeEncapsulante[X1]{1} \LienActivation{X0}
+\LienRetour[4]{T1}{X0}
+\Recepts{0/$Dcy$,1/$X44$}
+\end{Encap}
+\begin{Encap}[dosage]{30em,0}{1}{Gdosage}
+\SequenceEE[0,0]{20,21,22}{23} \LienActivation{X20}
+\ActionRecept{20/VA/$a$,21/VB/$b$,22/VC/$z$}
+\end{Encap}
+\begin{Encap}[amenage]{45em,0}{1}{Gamenage}
+\SequenceEE[0,0]{30,31,32}{33}  \LienActivation{X30}
+\ActionRecept{30/MT/$DP$,31/MT/$\overline{DP}$,32/MT/$DP$}
+\end{Encap}
+\begin{Encap}[malaxage]{60em,5em}{1}{GMalaxage}
+\SequenceEE[0,0]{40,41,...,43}{44}
+\LienActivation{X40}
+\ActionRecept{42/MP+/$S_1$,43/MP-/$S_0$}
+\Recept{T40}{$X23\cdot X33$} \ActionX{X41}{MR}
+\Recept{T41}{$t_1/X41$} \Action{X43}{MR}
+\end{Encap}
+\end{tikzpicture}
+\end{tkzexample}
+\caption{Doseur Malaxeur - Description  avec des encapsulations}
+\label{fig:Grfencap}
+\end{figure}
+
+L'exemple~\ref{fig:Grfencap} propose une représentation à base d'encapsulation. Le premier grafcet est le grafcet des modes de marche.
+
+
+
+\subsection{Exemples à tracé complexe}
+Les quelques exemples qui suivent présentent des grafcets à structure complexe, ils montrent les possibilités et les limites de la librairie GRAFCET.
+
+\subsubsection{Exemple avec action au franchissement}\index{ActionFranchissement}
+
+L'exemple fig~\ref{fig:grfactfranch}  montre comment tracer une action au franchissement, cet exemple est tiré de la norme.
+
+
+\begin{figure}[H]
+\scriptsize
+\begin{tkzexample}[small]
+\begin{tikzpicture}
+\Etape[0,0]{12}
+\DecaleNoeudx[8]{X12}{X24}
+\Etape[X24]{24}
+\LienET[3.75]{X12}
+\Transition[VX12]{12}\Recept{T12}{$a$}
+\DivOU{X24}{-4.5/L1a,2/L1b}
+\Transition[L1a]{1a}\Recept{T1a}{$b$}
+\ActionFranchissement{T1a}{M:=1}
+\Transition[L1b]{1b}\Recept{T1b}{$c$}
+\ConvOU[1]{T12}{T1a}{L2}
+\Etape[L2]{13}
+\LienTE[4]{T1b}
+\Etape[VT1b]{23}
+\end{tikzpicture}
+\end{tkzexample}
+\caption{Action au franchissement}
+\label{fig:grfactfranch}
+\end{figure}
+
+
+
+
+
+\subsubsection{Partage de ressource}
+
+L'exemple suivant (Fig~\ref{fig:grfpartage} ) montre un exemple de grafcet avec partage de ressource, celui-ci décrit quelques particularités du tracé d'un grafcet complexe.
+
+\begin{figure}[!ht]
+\tiny
+\begin{tkzexample}[very small]
+\begin{tikzpicture}
+\SequenceEE[0,0]{10,M11,12}{13}   \EtapeInit[X10]{10} 
+\DecaleNoeudx[28]{X10}{X20}
+\SequenceEE[X20]{20,M21,22}{23}  \EtapeInit[X20]{20}
+\DecaleNoeudx[19]{T12}{X0}            \EtapeInit[X0]{0}
+\MacroEtape[XM11]{M11}               \MacroEtape[XM21]{M21}
+\DivOU{X0}{-4/b1,4/b2}
+\DecaleNoeudy[-2.5]{b1}{b1}
+\ConvET[3]{X13}{b1}{b3}                \Transition[b3]{13}
+\DecaleNoeudy[-2.5]{b2}{b2}
+\ConvET[-3]{X23}{b2}{b4}              \Transition[b4]{23}
+\SequenceET[VT13]{14,15,M16,17}    \MacroEtape[XM16]{M16}
+\SequenceET[VT23]{24,25,M26,27}    \MacroEtape[XM26]{M26}
+\DivET{T17}{-3/b5,16/b7}
+\SequenceET[Vb5]{19}               \LienRetour[4]{T19}{X10}
+\DivET{T27}{-3/b6,3/b8}
+\SequenceET[Vb8]{29}              \LienRetour[-19]{T29}{X20}
+\DecaleNoeudy[2.5]{Vb7}{VVb7}
+\ConvOU[2]{Vb7}{Vb6}{b9}
+\LienTE[3]{b7}                           \LienTE[3]{b6}
+\DecaleNoeudx[-5]{X10}{pointdepassage}
+\Lien[-13]{b9}{pointdepassage}{X0}
+\LienTE[-3]{b9}
+\Actions{12/Avancer Wagonnet A,22/Avancer Wagonnet B,14/Aiguiller voie A,24/Aiguiller voie B,
+15/Avancer Wagonnet A,25/Avancer Wagonnet B,19/Reculer Wagonnet A,29/Reculer Wagonner B}
+\Recepts{10/prod. Wagonnet en A,M11/fin remplissage A,12/Wagonnet au poste d'attente A,
+13/$\underline{1}$,14/aiguillage vers voie A,15/Wagonnet au poste de déchargement,
+M16/fin déchargement,17/Wagonnet au poste d'attente A,19/Wagonnet au poste de chargement A,
+20/prod. Wagonnet en B,M21/fin remplissage B,22/Wagonnet au poste d'attente B,23/$\underline{1}$,
+24/aiguillage vers voie B,25/Wagonnet au poste de déchargement,M26/fin déchargement,
+27/Wagonnet au poste d'attente B,29/Wagonnet au poste de chargement B}
+\Comment[3]{XM11}{\textit{\guillemotleft Remplissage A \guillemotright}}
+\Comment[3]{XM21}{\textit{\guillemotleft Remplissage B\guillemotright}}
+\Comment[3]{XM16}{\textit{\guillemotleft Décharger \\ Wagonnet\guillemotright}}
+\Comment[3]{XM26}{\textit{\guillemotleft Décharger \\ Wagonnet\guillemotright}}
+\end{tikzpicture}
+\end{tkzexample}
+\caption{Partage de ressources}
+\label{fig:grfpartage}
+\end{figure}
+
+
+
+Le grafcet Fig~\ref{fig:grfpartage} présente quelques particularités graphiques qui font que le tracé de ce grafcet n'est pas aisé avec la librairie GRAFCET. Le problème réside dans la liaison entre les divergence/convergence en OU et les divergences/convergences en ET. Ces éléments de la librairie GRAFCET sont conçus pour être connectés à des étapes, des transitions et des liens, ici les éléments sont reliés entre eux.
+
+
+Le premier problème réside  dans le fait que les commandes \verb"\ConvET" se connectent aux n\oe uds nommés \verb"Xxxx", elle trouvent bien les n\oe uds \verb"X13" et \verb"X23" mais aucun n\oe ud \verb"Xb1" ou \verb"Xb2" pour se connecter aux sorties de la divergence \verb"\DivOU{X0}{-4/b1,4/b2}". Il est donc nécessaire de créer ces deux n\oe uds, c'est ce que font les deux commandes \verb"\DecaleNoeudy[-2.5]{b2}{Xb2}" et \\ \verb"\DecaleNoeudy[-2.5]{b3}{Xb3}". Le décalage de 2.5~em correspond au pas étape/transition.
+
+
+\subsubsection{Pose-Dépose}
+
+La figure~\ref{fig:grafposedepos}  présente un grafcet avec deux séquences simultanées croisées.
+
+\begin{figure}[!ht]
+\centering
+\scriptsize
+\begin{tkzexample}[very small]
+\begin{tikzpicture}
+\SequenceEE[0,0]{10,11}{12}
+\DecaleNoeudx[10]{X12}{X1}
+\EtapeInit[X10]{10}           \EtapeInit[X1]{1}
+\ConvET[3]{X12}{X1}{b1}
+\Transition[b1]{b1}  \Etape{13}
+\Transition{13}
+\DivET{T13}{-3/br1,7/br2}
+\LienRetour{br1}{X10}
+\Recepts{10/$marche\cdot\overline{arret}\cdot usinage$,
+11/pièce  usinée,
+b1/$\underline{1}$,
+13/pièce déposée}
+\Actions{11/USINAGE,13/DEPOSE}
+
+\DecaleNoeudx[22]{X11}{X20}
+\SequenceEE[X20]{20}{21} \EtapeInit[X20]{20}
+\DecaleNoeudx[-6]{X21}{X2}
+\Etape[X2]{2}
+\ConvET[3]{X2}{X21}{b2}
+\Transition[b2]{b2} \Etape[VTb2]{22}
+\Transition{22}
+\DivET{T22}{-3/br3,3/br4}
+\Etape[Vbr4]{23} \Transition{23}
+\LienRetour[-15]{T23}{X20}
+\Recepts{20/$marche\cdot \overline{arret} \cdot assemblage$,
+b2/prise manuelle + prise automatique,
+22/pièce prise,
+23/pièce assemblée}
+\Actions{22/PRISE,23/ASSEMBLAGE}
+\DecaleNoeudx[3]{X1}{liens1}
+\Lien[0]{br2}{liens1}{X2}
+\DecaleNoeudx[4]{X1}{liens2}
+\Lien[-1]{br3}{liens2}{X1}
+\end{tikzpicture}
+\end{tkzexample}
+\caption{GRAFCET - Cycle pose dépose}
+\label{fig:grafposedepos}
+\end{figure}
+
+
+
+
+
+
+Commentaires
+
+La première commande crée la séquence 10,11,12.\\
+La commande de décalage permet de positionner le noeud pour installer l'étape initiale X1.
+L'étape X10 est surchargée en étape initiale.\\
+La commande \verb"\ConvET" permet de regrouper la divergence simultanée.\\
+Les actions et réceptivités sont mises en place avec les commandes \verb"\Actions" et \verb"\Recept".\\
+
+L'autre moitié du graphe est généré de la même manière. Il est positionné par rapport au premier par la commande \verb"DecaleNoeudx" qui positionne l'étape X20 par rapport à l'étape X11, l'étape X2 est ensuite positionné par rapport à l'étape X21.
+
+Le lien entre la divergence et l'étape X2 est réalisé par la commande \verb"\Lien", le n\oe ud lien1 permet de positionner le lien vertical, ce lien passe par ce n\oe ud.\\
+Le lien  de la seconde divergence à l'étape X1 est aussi tracé avec la commande \verb"\lien", le paramètre optionnel \verb"[-1]" permet de décaler vers le haut de 1~em le retour pour éviter la superpositions des liens.
+
+
+
+
+\begin{figure}[!ht]
+\scriptsize
+\begin{tkzexample}[very small]
+\begin{tikzpicture}
+\SequenceEE[0,0]{10,M20}{21}\MacroEtape[XM20]{M20}
+\DecaleNoeudx[10]{X21}{X1}
+\EtapeInit[X10]{10}
+\EtapeInit[X1]{1}
+\ConvET[3]{X21}{X1}{b1}
+\Transition[b1]{b1}
+
+\DivET{Tb1}{-3/br1,7/br2}
+\MacroEtape[Vbr1]{M30}
+\TransitionRecept{M30}{$\underline{1}$}
+\DivET{TM30}{-3/br3,6/br4}
+\LienRetour[1]{br3}{X10}
+\Etape[Vbr4]{32}
+\SequenceEE[Vbr2]{M40}{42}
+\Recepts{M40/$\underline{1}$}
+\MacroEtape[XM40]{M40}
+\ConvET[3]{X32}{X42}{b40}
+\TransitionRecept[b40]{40}{$\underline{1}$}
+
+\MacroEtape{M50}
+\Transition{M50}
+\LienRetour[-6]{TM50}{X1}
+\Recepts{
+10/$dcy\cdot auto\cdot N_A\cdot N_B\cdot c_i $,
+M20/$\underline{1}$,
+b1/$\underline{1}$,
+M50/$\underline{1}$
+}
+
+\end{tikzpicture}
+\end{tkzexample}
+\caption{Exemples divers}
+\label{fig:Exdiv1}
+\end{figure}
+
+
+
+\backmatter                   % Épilogue
+\printindex
+\tableofcontents            % Table des matières
+\listoffigures              % Table des figures
+
+\end{document}

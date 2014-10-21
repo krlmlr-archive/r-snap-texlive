@@ -1,0 +1,299 @@
+% \iffalse meta-comment
+%
+% Copyright 2006, 2007, 2009, 2011  J.J. Green
+% $Id: fge.dtx,v 1.55 2011/11/17 22:40:35 jjg Exp $
+% 
+% Changes:
+%
+% \fi
+%
+% \CheckSum{844}
+%% \CharacterTable
+%%  {Upper-case    \A\B\C\D\E\F\G\H\I\J\K\L\M\N\O\P\Q\R\S\T\U\V\W\X\Y\Z
+%%   Lower-case    \a\b\c\d\e\f\g\h\i\j\k\l\m\n\o\p\q\r\s\t\u\v\w\x\y\z
+%%   Digits        \0\1\2\3\4\5\6\7\8\9
+%%   Exclamation   \!     Double quote  \"     Hash (number) \#
+%%   Dollar        \$     Percent       \%     Ampersand     \&
+%%   Acute accent  \'     Left paren    \(     Right paren   \)
+%%   Asterisk      \*     Plus          \+     Comma         \,
+%%   Minus         \-     Point         \.     Solidus       \/
+%%   Colon         \:     Semicolon     \;     Less than     \<
+%%   Equals        \=     Greater than  \>     Question mark \?
+%%   Commercial at \@     Left bracket  \[     Backslash     \\
+%%   Right bracket \]     Circumflex    \^     Underscore    \_
+%%   Grave accent  \`     Left brace    \{     Vertical bar  \|
+%%   Right brace   \}     Tilde         \~}
+%
+% \iffalse   % this is a METACOMMENT !
+%
+%<package>\NeedsTeXFormat{LaTeX2e}
+%<package>\ProvidesPackage{fge}
+%<fdrm>\ProvidesFile{fgerm.fd}%
+%<fdit>\ProvidesFile{fgeit.fd}%
+%<-driver>             [2011/11/17 1.24
+%<package>               fge symbol support package]
+%<fdrm>                  fge roman symbol font definitions]
+%<fdit>                  fge italic symbol font definitions]
+%
+%<*driver>
+\documentclass{ltxdoc}
+\OnlyDescription
+\usepackage{multicol}
+\usepackage{fge}
+\providecommand\dst{\expandafter{\normalfont\scshape docstrip}}
+\renewcommand{\quad}{{\hskip1em plus 2em}}
+\begin{document}
+ \DocInput{fge.dtx}
+\end{document}
+%</driver>
+% \fi
+%
+% \GetFileInfo{fge.sty}
+% \title{The \texttt{fge} macro package for \LaTeXe}
+% \author{J.J. Green}
+% \date{Version \fileversion{} \filedate}
+% \maketitle
+%
+% \setcounter{StandardModuleDepth}{1}
+%
+% \begin{quote}
+%   \noindent The comfort of the typesetter is certainly not 
+%   the \textit{summum bonum}.
+%
+%   \hfill\textsc{G.~Frege, 1896.} 
+% \end{quote}
+% 
+% \noindent
+% This file defines the package |fge| which provides \LaTeXe\ access
+% to the characters from the \texttt{fge} fonts. These are 
+% based on Knuth's Computer Modern and specifically designed for setting 
+% the \textit{Grundgesetze der Arithmetik}, the culmination of Frege's 
+% logicist project.
+%
+% \begin{multicols}{2}
+%
+% \subsubsection*{Spiritus lenis}
+% The spiritus lenis accent is available as 
+% \begin{quote}
+%   |\spirituslenis{\alpha}|
+% \end{quote}
+% giving $\spirituslenis{\alpha}$, $\spirituslenis{\beta}$,
+% $\spirituslenis{\gamma}$, $\spirituslenis{\delta}$,
+% $\spirituslenis{\varepsilon}$,\ldots 
+%
+% \subsubsection*{Lazy capitals and numerals}
+% \begin{quote}
+%   \begin{tabular}{lc}
+%     |\fgerighttwo|  & $\fgerighttwo$  \\
+%     |\fgerightB|    & $\fgerightB$  \\
+%     |\fgelefttwo|   & $\fgelefttwo$ \\
+%     |\fgeleftthree| & $\fgeleftthree$ \\
+%     |\fgeleftB|     & $\fgeleftB$ \\
+%     |\fgeleftC|     & $\fgeleftC$
+%   \end{tabular}
+% \end{quote}
+%
+% \subsubsection*{Overturned romans}
+% \begin{quote}
+%   \begin{tabular}{lc}
+%     |\fgec|         & $\fgec$ \\
+%     |\fgee|         & $\fgee$ \\
+%     |\fgeeszett|    & $\fgeeszett$ \\
+%     |\fgeA|         & $\fgeA$ 
+%   \end{tabular}
+% \end{quote}
+%
+% \subsubsection*{Overturned italics}
+% \begin{quote}
+%   \begin{tabular}{lc}
+%     |\fged|         & $\fged$ \\
+%     |\fgef|         & $\fgef$ \\
+%     |\fgeF|         & $\fgeF$ \\ 
+%   \end{tabular}
+% \end{quote}
+%
+% \subsubsection*{Struckout numerals}
+% \begin{quote}
+%   \begin{tabular}{lc}
+%     |\fgestruckzero| & $\fgestruckzero$ \\
+%     |\fgestruckone|  & $\fgestruckone$
+%   \end{tabular}
+% \end{quote}
+%
+% \subsubsection*{Fletched arrows}
+% \begin{quote}
+%   \begin{tabular}{lc}
+%     |\fgerightarrow| & $\fgerightarrow$ \\
+%     |\fgeuparrow|    & $\fgeuparrow$
+%   \end{tabular}
+% \end{quote}
+%
+% \subsubsection*{Cups, caps and bars}
+% \begin{quote}
+%   \begin{tabular}{lc}
+%     |\fgeupbracket| & $\fgeupbracket$ \\
+%     |\fgecap| & $\fgecap$ \\
+%     |\fgecup| & $\fgecup$ \\
+%     |\fgecupbar| & $\fgecupbar$ \\
+%     |\fgecapbar| & $\fgecapbar$ \\
+%     |\fgebarcap| & $\fgebarcap$ \\
+%     |\fgecupacute| & $\fgecupacute$ \\
+%     |\fgebaracute| & $\fgebaracute$ 
+%   \end{tabular}
+% \end{quote}
+%
+% \subsubsection*{Erratics}
+% \begin{quote}
+%   \begin{tabular}{lc}
+%     |\fgemark|      & $\fgemark$  \\
+%     |\fgelb|        & $\fgelb$ \\
+%     |\fgeinfty|     & $\fgeinfty$ \\
+%     |\fgelangle|    & $\fgelangle$ \\
+%     |\fges|         & $\fges$ \\
+%     |\fgebackslash| & $\fgebackslash$
+%   \end{tabular}
+% \end{quote}
+%
+% \end{multicols}
+% 
+% \StopEventually{}
+% 
+% \section{The \dst{} modules}
+% 
+% The following modules are used in the implementation to direct
+% \dst{} in generating the external files:
+% \begin{center}
+%   \begin{tabular}{ll}
+%     driver  & produce a documentation driver file \\
+%     package & produce a package file \\
+%     fdrm    & produce a roman font definition file \\
+%     fdit    & produce an italic font definition file \\
+%   \end{tabular}
+% \end{center}
+% 
+% \section{The Implementation}
+% \subsection{The macro package}
+% 
+%<*package>
+% Setup the |crescent| option, which selects the crescent
+% variant of the spiritus lenis. 
+\newif\ifcrescent 
+\crescentfalse
+\DeclareOption{crescent}{\global\crescenttrue}
+\ProcessOptions\relax
+% We declare \texttt{fgerm} and \texttt{fgeit} math symbol fonts:
+%    \begin{macrocode}
+\DeclareSymbolFont{fgerm}{U}{fgerm}{m}{n}
+\DeclareSymbolFont{fgeit}{U}{fgeit}{m}{n}
+%    \end{macrocode}
+% 
+% The special symbols:
+%    \begin{macrocode}
+\DeclareMathSymbol{\fgelb}{\mathord}{fgeit}{"11}
+\DeclareMathSymbol{\fgeF}{\mathbin}{fgeit}{"46}
+\DeclareMathSymbol{\fgevareta}{\mathord}{fgerm}{"11}
+\DeclareMathSymbol{\fgeeszett}{\mathbin}{fgerm}{"19}
+\DeclareMathSymbol{\fgerightarrow}{\mathrel}{fgerm}{"21}
+\DeclareMathSymbol{\fgeuparrow}{\mathrel}{fgerm}{"22}
+\DeclareMathSymbol{\fgestruckzero}{\mathord}{fgerm}{"30}
+\DeclareMathSymbol{\fgestruckone}{\mathord}{fgerm}{"31}
+\DeclareMathSymbol{\fgelefttwo}{\mathbin}{fgerm}{"32}
+\DeclareMathSymbol{\fgeleftthree}{\mathbin}{fgerm}{"33}
+\DeclareMathSymbol{\fgerighttwo}{\mathbin}{fgerm}{"34}
+\DeclareMathSymbol{\fgeA}{\mathord}{fgerm}{"41}
+\DeclareMathSymbol{\fgerightB}{\mathbin}{fgerm}{"42}
+\DeclareMathSymbol{\fgeleftC}{\mathbin}{fgerm}{"43}
+\DeclareMathSymbol{\fgeleftB}{\mathbin}{fgerm}{"44}
+\DeclareMathSymbol{\fgebackslash}{\mathord}{fgerm}{"4B}
+\DeclareMathSymbol{\fgeupbracket}{\mathord}{fgerm}{"4C}
+\DeclareMathSymbol{\fgebaracute}{\mathord}{fgerm}{"4D}
+\DeclareMathSymbol{\fgecup}{\mathord}{fgerm}{"4E}
+\DeclareMathSymbol{\fgebarcap}{\mathord}{fgerm}{"4F}
+\DeclareMathSymbol{\fgecupbar}{\mathord}{fgerm}{"50}
+\DeclareMathSymbol{\fgecapbar}{\mathord}{fgerm}{"51}
+\DeclareMathSymbol{\fgecupacute}{\mathord}{fgerm}{"52}
+\DeclareMathSymbol{\fgecap}{\mathord}{fgerm}{"53}
+\DeclareMathSymbol{\fgemark}{\mathord}{fgerm}{"55}
+\DeclareMathSymbol{\fgec}{\mathbin}{fgerm}{"63}
+\DeclareMathSymbol{\fgee}{\mathbin}{fgerm}{"65}
+\DeclareMathSymbol{\fgef}{\mathord}{fgeit}{"66}
+\DeclareMathSymbol{\fgelangle}{\mathbin}{fgerm}{"68}
+\DeclareMathSymbol{\fgeinfty}{\mathord}{fgerm}{"69}
+\DeclareMathSymbol{\fged}{\mathord}{fgeit}{"70}
+\DeclareMathSymbol{\fges}{\mathbin}{fgerm}{"73}
+%    \end{macrocode}
+% This included for backward compatibility with versions
+% prior to 1.17, it was only then that I discovered that
+% what I first thought was an N, then an eta, then an 
+% overturned U, was in fact an overturned lb (pound) 
+% ligature. Likewise, what was  orignally thought to be
+% a U turned out to be a Mark (currency) sign
+%    \begin{macrocode}
+\newcommand{\fgeeta}{\fgelb}
+\newcommand{\fgeN}{\fgelb}
+\newcommand{\fgeoverU}{\fgelb}
+\newcommand{\fgeU}{\fgemark}
+%    \end{macrocode}
+% The spiritus lenis accent. Here we don't use \texttt{DeclareMathAccent}
+% but instead \TeX\ primatives; the former is for ordinary symbols 
+% which are press-ganged into being accents, the latter is for glyphs
+% designed as accents. The tricky part is selecting the \textt{fge} font
+% by coercing its symbol-code into an appropriate hex-string, we copy
+% the code in the AMS fonts package.
+%    \begin{macrocode}
+\def\spirituslenisA{\mathaccent"0\hexnumber@\symfgerm 15}
+\def\spirituslenisB{\mathaccent"0\hexnumber@\symfgerm 16}
+%    \end{macrocode}
+% There are two versions of the spiritus lenis, variant A
+% from the Ibycus font for classical Greek by
+% Pierre A. MacKay, from work by Silvio Levy's realization of a
+% classic Didot cut of Greek type from around 1800.
+% Variant B is my own, an approximation of the more crescent-like
+% accent used in the original printing. Variant A is the default,
+% since it is prettier; but the translators have asked me to retain
+% the crescent form.
+%    \begin{macrocode}
+\ifcrescent
+  \def\spirituslenis{\spirituslenisB}
+\else
+  \def\spirituslenis{\spirituslenisA}
+\fi
+%    \end{macrocode}
+% The character sizing
+%    \begin{macrocode}
+\DeclareMathSizes{10}{10}{7}{5}
+%    \end{macrocode}
+%</package>
+%    \end{macrocode}
+% \subsection{The font definition files}
+% 
+% The declarations, 
+% that have to go into the corresponding |.fd| files:
+%<*fdrm>
+%    \begin{macrocode}
+\DeclareFontFamily{U}{fgerm}{}
+\DeclareFontShape{U}{fgerm}{m}{n}{%
+  <5><6><7> fgerm10
+  <8><9><10> fgerm10
+  <10.95><12><14.4><17.28> fgerm10}{}
+%    \end{macrocode}
+%</fdrm>
+%<*fdit>
+%    \begin{macrocode}
+\DeclareFontFamily{U}{fgeit}{}
+\DeclareFontShape{U}{fgeit}{m}{n}{%
+  <5><6><7> fgeit10
+  <8><9><10> fgeit10
+  <10.95><12><14.4><17.28> fgeit10}{}
+%    \end{macrocode}
+%</fdit>
+% 
+% The next line goes into all files and in addition prevents \dst{}
+% from adding any further code from the main source file (such as a
+% character table).
+%    \begin{macrocode}
+\endinput
+%    \end{macrocode}
+% 
+% \DeleteShortVerb{\|}
+% \Finale

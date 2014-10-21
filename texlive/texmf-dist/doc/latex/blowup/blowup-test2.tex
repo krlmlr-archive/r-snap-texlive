@@ -1,0 +1,67 @@
+
+%---------------------------
+% Rolf Niepraschk, Rolf.Niepraschk@gmx.de, 2007-10-19
+
+\listfiles
+\documentclass[letterpaper]{article}
+%\documentclass[legalpaper]{article}
+%\documentclass[fontsize=10pt,paper=letter]{scrartcl}
+
+\usepackage{array,printlen,xcolor}
+\uselengthunit{mm}
+
+% Only for the test to show the page size.
+\usepackage{eso-pic}
+\AddToShipoutPicture{%
+  \AtPageLowerLeft{%
+    \textcolor{green!30}{\rule{\paperwidth}{\paperheight}}}%
+}
+
+% Load "blowup" as last package!
+\usepackage{blowup}
+\blowUp{paper=a2,pos={t,r}}
+%\blowUp{scale=1.414213562}
+%\blowUp{paper={841mm,1189mm},pos=bottom}
+
+\renewcommand\familydefault{\sfdefault}
+\pagestyle{empty}
+
+\begin{document}
+
+\null\vfill
+
+\huge\centering
+
+\setlength\extrarowheight{.5ex}
+\begin{tabular}{|>{\bfseries}l<{:}r<{\,mm}!{$\times$}r<{\,mm}|} \hline
+  letter    & 216 &  279 \\
+  legal     & 216 &  356 \\
+  executive & 184 &  267 \\
+  A8        &  52 &   74 \\
+  A7        &  74 &  105 \\
+  A6        & 105 &  148 \\
+  A5        & 148 &  210 \\
+  A4        & 210 &  297 \\
+  A3        & 297 &  420 \\
+  A2        & 420 &  594 \\
+  A1        & 594 &  841 \\
+  A0        & 841 & 1189 \\ \hline
+\end{tabular}
+
+\vfill
+
+\begin{tabular}{>{\bfseries}lr!{$\times$}r}
+  Original Paper Size: & 
+    \rndprintlength{\paperwidth} & \rndprintlength{\paperheight} \\
+  Final Paper Size: &
+    \rndprintlength{\sPaperWidth} & \rndprintlength{\sPaperHeight}
+\end{tabular}
+
+\vfill
+
+\newpage
+
+More Text \dots
+
+\end{document}
+%---------------------------

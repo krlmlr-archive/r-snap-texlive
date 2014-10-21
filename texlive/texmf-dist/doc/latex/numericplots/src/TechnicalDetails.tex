@@ -1,0 +1,254 @@
+% Copyright 2013 Thomas Koenig, Alexander Michel
+%
+% This file is part of NumericPlots.
+%
+% NumericPlots is free software: you can redistribute it and/or modify
+% it under the terms of the GNU General Public License as published by
+% the Free Software Foundation, either version 3 of the License, or
+% any later version.
+%
+% NumericPlots is distributed in the hope that it will be useful,
+% but WITHOUT ANY WARRANTY; without even the implied warranty of
+% MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+% GNU General Public License for more details.
+%
+% You should have received a copy of the GNU General Public License
+% along with NumericPlots.  If not, see <http://www.gnu.org/licenses/>.
+
+\section{Details}
+
+\subsection{Labels and TickLabels}\label{sec:Details:Labels}
+
+% mit input und lstinputlisting liese sich auch eine Umgebung definieren, mit
+% der Beispiele automatisch gesetzt werden können.
+
+The following example shows some possibilities to format the axis labels and the
+tick labels. The example is not intended to be pretty nor useful in any other
+way than just showing some labels. More examples of customized tick labels are listed in Sec.~\ref{sec:CustomTickLabels}.
+
+\input{examples/LabelsNTickLabels}
+
+\lstinputlisting{examples/LabelsNTickLabels.tex}
+
+
+
+
+\subsection{Coordinate Systems}
+
+This section should just give some hints how to use the different coordinate
+systems.
+
+A new plot is created with the environment
+\texttt{NumericDataPlot}. The options are illustrated in the following example.
+
+Consider the plot drawn below which is defined by the following code. Note that the example parameters deviate from the standard values to clarify the general possibilities. 
+
+\begin{minipage}[T]{0.5\linewidth}
+	\begin{verbatim}
+	\begin{NumericDataPlot}
+ [xPicMin=300, xPicMax=700, yPicMin=200, yPicMax=700,
+	  llx=2cm, lly=1.5cm, urx=1cm, ury=1cm]
+	   {8cm}{6.5cm}
+...
+% some axes and stuff
+	...
+	\end{NumericDataPlot}
+	\end{verbatim}
+\end{minipage}
+
+The total width and total height of the plot object are set with the mandatory arguments of \texttt{NumericDataPlot}. These dimensions define the bounding box of the plot object (dashed box in the plot below), as it is seen by the \TeX~interpreter\footnote{Because the elements inside a \texttt{NumericDataPlot} environment are set relative to an internal coordinate system, content may be placed outside the bounding box and may overlap with surrounding elements.}. The internal, dimensionless coordinate system, in which the actual axes will be placed, is defined by the optional xPicMin, xPicMax, yPicMin and yPicMax values. The location of the horizontal and vertical axes x=xPicMin, x=xPicMax, and y=yPicMin, y=yPicMax, respectively, relative to the bounding box is controlled by the padding values llx, lly, urx and ury. Thus, the actual length Wx of the range xPicMax-xPicMin on the page is calculated by
+\begin{align*}
+\mathrm{Wx} = \mathrm{total\ width} - \mathrm{llx} - \mathrm{urx},
+\end{align*}
+and alike for the y direction. Obviously, the padding values should be positive.
+
+The standard values of the padding values are chosen such that single line axis labels and 3-4 digit tick labels should be within the bounding box.
+
+\vspace{1cm}
+
+\begin{center}
+\psframebox[framesep=0pt,boxsep=false,linestyle=dashed]{%
+	\begin{NumericDataPlot}
+	   [xPicMin=300, xPicMax=700, yPicMin=200, yPicMax=700,
+	  llx=2cm, lly=1.5cm, urx=1cm, ury=1cm]
+	   {8cm}{6.5cm}
+	   
+	   \psline(300,200)(700,200)(700,700)(300,700)(300,200)
+	   \pnode(300,200){PicLL}
+	   \pnode(700,200){PicLR}
+	   \pnode(700,700){PicUR}
+	   \pnode(300,700){PicUL}
+	   \rput(200,100){\Rnode{CapLL}{(xPicMin, yPicMin)}}
+	   \ncline{->}{CapLL}{PicLL}
+	   \rput(800,100){\Rnode{CapLR}{(xPicMax, yPicMin)}}
+	   \ncline{->}{CapLR}{PicLR}
+	   \rput(800,800){\Rnode{CapUR}{(xPicMax, yPicMax)}}
+	   \ncline{->}{CapUR}{PicUR}
+	   \rput(200,800){\Rnode{CapUL}{(xPicMin, yPicMax)}}
+	   	\ncline{->}{CapUL}{PicUL}
+	   	
+	   % 	\pnode(400,400){PlotLL}
+	   % \pnode(600,400){PlotLR}
+	   % \pnode(600,600){PlotUR}
+	   % \pnode(400,600){PlotUL}
+	   % \rput(350,300){\Rnode{PCapLL}{(xCoordMin, yCoordMin)}}
+	   % \ncline{->}{PCapLL}{PlotLL}
+	   % \rput(800,450){\Rnode{PCapLR}{(xCoordMax, yCoordMin)}}
+	   % \ncline{->}{PCapLR}{PlotLR}
+	   % \rput(800,650){\Rnode{PCapUR}{(xCoordMax, yCoordMax)}}
+	   % \ncline{->}{PCapUR}{PlotUR}
+	   % \rput(500,870){\Rnode{PCapUL}{(xCoordMin, yCoordMax)}}
+	   % 	\ncline{->}{PCapUL}{PlotUL}
+	   
+	   	\rput(140,350){\pnode{LLXA}}
+	   	\rput(300,350){\pnode{LLXB}}
+	   	\ncline{<->}{LLXA}{LLXB}
+	   	\naput{llx}
+
+		\rput(350,200){\pnode{LLXA}}
+	    \rput(350,12.5){\pnode{LLXB}}
+	    \ncline{<->}{LLXA}{LLXB}
+	    \naput{lly}
+	    
+	    \rput(780,350){\pnode{URXA}}
+	   	\rput(700,350){\pnode{URXB}}
+	   	\ncline{<->}{URXA}{URXB}
+	   	\naput{urx}
+
+		\rput(350,825){\pnode{URXA}}
+	    \rput(350,700){\pnode{URXB}}
+	    \ncline{<->}{URXA}{URXB}
+	    \naput{ury}
+	    
+	   \rput(795,825){\pnode{HU}}
+	   \rput(795,12.5){\pnode{HL}} 
+           \ncline{<->}{HL}{HU}
+	    \nbput[nrot=:U]{total height}
+            
+\rput(140,-6.25){\pnode{WU}}
+	   \rput(780,-6.25){\pnode{WL}} 
+           \ncline{<->}{WU}{WL}
+	    \nbput[nrot=:U]{total width}
+	
+	% \setxAxis{xCoordMin=400, xCoordMax=600,
+	% 	   xMin=1, xMax=1.6, Dx=0.2}
+	% 	\setyAxis
+	% 	   {yCoordMin=400, yCoordMax=600,
+	% 	   yMin=50, yMax=150, Dy=25}
+		
+	%	\plotxAxis[NoLabel]{}
+	%	\plotyAxis[NoLabel]{}
+		
+	%	\listplot[style=StdLineStyA]{\IdentI}
+	\end{NumericDataPlot}}
+	
+\end{center}
+
+In the next example, the placement of multiple axes in the internal coordinate frame is illustrated. The coordinate frame settings are the same as above, but standard padding values are used.
+
+\begin{verbatim}
+	\begin{NumericDataPlot}
+	   [xPicMin=300, xPicMax=700, yPicMin=200, yPicMax=700]
+	   {0.8\textwidth}{7cm}
+
+% set and draw 1. (lower) axes
+\setxAxis{xCoordMin=300, xCoordMax=600, xMin=1, xMax=1.6, Dx=0.2}
+ \setyAxis{yCoordMin=200, yCoordMax=400, yMin=50, yMax=150, Dy=25}
+
+\plotxAxis{x-label}
+\plotyAxis{y-label}
+
+\listplot[style=StdLineStyA]{\IdentI}
+	    
+% set and draw 2. (upper) axes
+\setxAxis{xCoordMin=400, xCoordMax=700, xMin=1, xMax=1.6, Dx=0.2}
+\setyAxis{yCoordMin=450, yCoordMax=700, yMin=50, yMax=150, Dy=25}
+		
+\plotxAxis[NoLabel]{}
+\plotyAxis[NoLabel]{}
+
+\listplot[style=StdLineStyA]{\IdentI}
+
+\end{NumericDataPlot}
+\end{verbatim}
+
+\begin{center}
+\psframebox[framesep=0pt,boxsep=false,linestyle=dashed]{%
+	\begin{NumericDataPlot}%
+	   [xPicMin=300, xPicMax=700, yPicMin=200, yPicMax=700]
+	   {8cm}{7cm}
+	   
+		\psline(300,200)(700,200)(700,700)(300,700)(300,200) \pnode(300,200){PicLL}
+		\pnode(700,200){PicLR} \pnode(700,700){PicUR} \pnode(300,700){PicUL}
+		\rput(250,80){\Rnode{CapLL}{(xPicMin, yPicMin)}}
+	   	\ncline{->}{CapLL}{PicLL}
+		\rput(750,80){\Rnode{CapLR}{(xPicMax, yPicMin)}}
+	   	\ncline{->}{CapLR}{PicLR}
+		\rput(750,750){\Rnode{CapUR}{(xPicMax, yPicMax)}}
+	   	\ncline{->}{CapUR}{PicUR}
+		\rput(250,750){\Rnode{CapUL}{(xPicMin, yPicMax)}}
+	   	\ncline{->}{CapUL}{PicUL}
+
+		\pnode(300,200){PlotLL} \pnode(600,400){PlotUR}
+		\rput[l](325,235){\Rnode{PCapLL}{(xCoordMin$_{1}$, yCoordMin$_{1}$)}}
+	   	\ncline{->}{PCapLL}{PlotLL}
+		\rput(500,365){\Rnode{PCapUR}{(xCoordMax$_{1}$, yCoordMax$_{1}$)}}
+	   	\ncline{->}{PCapUR}{PlotUR}
+
+ 		\pnode(400,450){PlotLL}
+		\pnode(700,700){PlotUR} \rput[l](425,485){\Rnode{PCapLL}{(xCoordMin$_{2}$,yCoordMin$_{2}$)}}
+	   	\ncline{->}{PCapLL}{PlotLL}
+		\rput[r](675,665){\Rnode{PCapUR}{(xCoordMax$_{2}$, yCoordMax$_{2}$)}}
+	   	\ncline{->}{PCapUR}{PlotUR}
+
+
+		\setxAxis{xCoordMin=300, xCoordMax=600, xMin=1, xMax=1.6, Dx=0.2}
+	 	\setyAxis{yCoordMin=200, yCoordMax=400, yMin=50, yMax=150, Dy=25}
+		\plotxAxis{x-label $gj$}
+        \plotyAxis{y-label $\hat{E}$}
+	
+		\listplot[style=StdLineStyA]{\IdentI}
+	    
+	   	   
+		\setxAxis{xCoordMin=400, xCoordMax=700,
+		   xMin=1, xMax=1.6, Dx=0.2}
+		\setyAxis{yCoordMin=450, yCoordMax=700,
+		   yMin=50, yMax=150, Dy=25}
+		
+		\plotxAxis[NoLabel]{}
+		\plotyAxis[NoLabel]{}
+		
+		\listplot[style=StdLineStyA]{\IdentI}
+	
+	\end{NumericDataPlot}
+	}
+\end{center}
+
+
+\subsection{Undistorted plot}
+
+To get an undistorted plot, the following example may be helpful. The width $w$ of
+the graphic is set manually. The calculation of the total height $h$ is
+\begin{align*}
+	h &=\left(\frac{yMax-yMin}{xMax-xMin}\right)
+		\left(\frac{xCoordMax-xCoordMin}{yCoordMax-yCoordMin}\right)\\
+ &\hphantom{=} \qquad \left(\frac{yPicMax-yPicMin}{xPicMax-yPicMin}\right)\left(
+		w-llx-urx
+		\right)	 + lly + ury,
+\intertext{which simplifies for default values ($xCoordMax=yCoordMax=xPicMax=yPicMax=1000$, $xCoordMin=yCoordMin=xPicMin=yPicMin=0$) to}
+ 	h &=\left(\frac{yMax-yMin}{xMax-xMin}\right)
+		\left(
+		w-llx-urx
+		\right)	 + lly + ury
+\end{align*}
+
+
+\input{examples/data_Nyquist}
+
+\input{examples/NyquistPlot}
+\lstinputlisting[firstline=2,lastline=22]{examples/NyquistPlot.tex}
+
+%%% Local Variables: 
+%%% mode: latex
+%%% TeX-master: "NumericPlotsDoc"
+%%% End: 

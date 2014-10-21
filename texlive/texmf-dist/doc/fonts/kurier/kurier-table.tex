@@ -1,0 +1,146 @@
+%&mex --translate-file=cp1250pl
+% Polish plain format (MeX)
+\baselineskip 20pt
+
+\def\texttestqx{\f Za¿ó³æ gêœl¹ jaŸñ\par}
+\def\texttest{\f OHamburgefonsz\par}
+\def\Font#1{\font\f #1 at16pt%
+ \leftline{\hbox to3cm{\rm #1\hfil} \texttest}}
+\def\FontQX#1{\font\f #1 at16pt%
+ \leftline{\hbox to3cm{\rm #1\hfil} \texttestqx}}
+\def\chartable #1{\smallbreak\vbox{\tracinglostchars=0\relax\noindent%
+     \underbar{Characters in the #1 font, with decimal codes:}
+     \raggedright \hbadness5000 \tolerance10000 \medskip
+     \font\ft #1 at 12pt
+     %\let\ft=#1
+     \ft \dimen0=14pt \baselineskip=\dimen0
+     \ifdim\dimen0<3.25ex \baselineskip=3.25ex \fi \count255=0 \dimen0=10pt
+     \loop \setbox0=\hbox{\char\count255}
+     \ifdim\wd0>\dimen0 \dimen0=\wd0 \fi \advance\count255 by1
+     \ifnum\count255<256 \repeat \count255=0
+     \advance\dimen0 by 25pt \noindent \loop
+     \hbox to\dimen0{\hbox to23pt{\hfil\rm\the\count255:\ }\char\count255\hfil}
+     \advance\count255 by1 \ifnum\count255<256 \quad\repeat
+     \smallbreak} \font\tenrm=cmr10 }
+
+
+\def\ec{
+\hbox{\hsize=.5\hsize\vbox{
+\Font{ec-kurierl}       \Font{ec-kurierl-sc}
+\Font{ec-kurierli}      \Font{ec-kurierli-sc}
+\Font{ec-kurierr}       \Font{ec-kurierr-sc}
+\Font{ec-kurierri}      \Font{ec-kurierri-sc}
+\Font{ec-kurierm}       \Font{ec-kurierm-sc}
+\Font{ec-kuriermi}      \Font{ec-kuriermi-sc}
+\Font{ec-kurierb}       \Font{ec-kurierb-sc}
+\Font{ec-kurierbi}      \Font{ec-kurierbi-sc}
+\Font{ec-kurierh}       \Font{ec-kurierh-sc}
+\Font{ec-kurierhi}      \Font{ec-kurierhi-sc}
+}\vbox{
+\Font{ec-kuriercl}       \Font{ec-kuriercl-sc}
+\Font{ec-kuriercli}      \Font{ec-kuriercli-sc}
+\Font{ec-kuriercr}       \Font{ec-kuriercr-sc}
+\Font{ec-kuriercri}      \Font{ec-kuriercri-sc}
+\Font{ec-kuriercm}       \Font{ec-kuriercm-sc}
+\Font{ec-kuriercmi}      \Font{ec-kuriercmi-sc}
+\Font{ec-kuriercb}       \Font{ec-kuriercb-sc}
+\Font{ec-kuriercbi}      \Font{ec-kuriercbi-sc}
+\Font{ec-kurierch}       \Font{ec-kurierch-sc}
+\Font{ec-kurierchi}      \Font{ec-kurierchi-sc}
+}}}
+
+\def\qx{
+\hbox{\hsize=.5\hsize\vbox{
+\FontQX{qx-kurierl}       \FontQX{qx-kurierl-sc}
+\FontQX{qx-kurierli}      \FontQX{qx-kurierli-sc}
+\FontQX{qx-kurierr}       \FontQX{qx-kurierr-sc}
+\FontQX{qx-kurierri}      \FontQX{qx-kurierri-sc}
+\FontQX{qx-kurierm}       \FontQX{qx-kurierm-sc}
+\FontQX{qx-kuriermi}      \FontQX{qx-kuriermi-sc}
+\FontQX{qx-kurierb}       \FontQX{qx-kurierb-sc}
+\FontQX{qx-kurierbi}      \FontQX{qx-kurierbi-sc}
+\FontQX{qx-kurierh}       \FontQX{qx-kurierh-sc}
+\FontQX{qx-kurierhi}      \FontQX{qx-kurierhi-sc}
+}\vbox{
+\FontQX{qx-kuriercl}       \FontQX{qx-kuriercl-sc}
+\FontQX{qx-kuriercli}      \FontQX{qx-kuriercli-sc}
+\FontQX{qx-kuriercr}       \FontQX{qx-kuriercr-sc}
+\FontQX{qx-kuriercri}      \FontQX{qx-kuriercri-sc}
+\FontQX{qx-kuriercm}       \FontQX{qx-kuriercm-sc}
+\FontQX{qx-kuriercmi}      \FontQX{qx-kuriercmi-sc}
+\FontQX{qx-kuriercb}       \FontQX{qx-kuriercb-sc}
+\FontQX{qx-kuriercbi}      \FontQX{qx-kuriercbi-sc}
+\FontQX{qx-kurierch}       \FontQX{qx-kurierch-sc}
+\FontQX{qx-kurierchi}      \FontQX{qx-kurierchi-sc}
+}}}
+
+
+\def\wncy{
+\hbox{\hsize=.5\hsize\vbox{
+\Font{wncy-kurierl}
+\Font{wncy-kurierli}
+\Font{wncy-kurierr}
+\Font{wncy-kurierri}
+\Font{wncy-kurierm}
+\Font{wncy-kuriermi}
+\Font{wncy-kurierb}
+\Font{wncy-kurierbi}
+\Font{wncy-kurierh}
+\Font{wncy-kurierhi}
+}\vbox{
+\Font{wncy-kuriercl}
+\Font{wncy-kuriercli}
+\Font{wncy-kuriercr}
+\Font{wncy-kuriercri}
+\Font{wncy-kuriercm}
+\Font{wncy-kuriercmi}
+\Font{wncy-kuriercb}
+\Font{wncy-kuriercbi}
+\Font{wncy-kurierch}
+\Font{wncy-kurierchi}
+}}}
+
+QX Encoding\bigskip
+
+\qx
+\vfill\eject
+
+EC (Encode Cork) Encoding\bigskip
+
+\ec
+\vfill\eject
+
+WNCY Encoding\bigskip
+
+\wncy
+\vfill\eject
+
+\chartable{cs-kurierr}\vfill\eject
+\chartable{cs-kurierr-sc}\vfill\eject
+\chartable{ec-kurierr}\vfill\eject
+\chartable{ec-kurierr-sc}\vfill\eject
+\chartable{el-kurierr}\vfill\eject
+\chartable{el-kurierr-sc}\vfill\eject
+\chartable{ex-kurierr}\vfill\eject
+\chartable{exp-kurierr}\vfill\eject
+\chartable{greek-kurierr}\vfill\eject
+\chartable{l7x-kurierr-sc}\vfill\eject
+\chartable{l7x-kurierr}\vfill\eject
+\chartable{ly1-kurierr}\vfill\eject
+\chartable{ly1-kurierr-sc}\vfill\eject
+\chartable{mi-kurierri}\vfill\eject
+\chartable{qx-kurierr}\vfill\eject
+\chartable{qx-kurierr-sc}\vfill\eject
+\chartable{rm-kurierr}\vfill\eject
+\chartable{rm-kurierr-sc}\vfill\eject
+\chartable{sy-kurierrz}\vfill\eject
+\chartable{t2a-kurierr}\vfill\eject
+\chartable{t2b-kurierr}\vfill\eject
+\chartable{t2c-kurierr}\vfill\eject
+\chartable{t5-kurierr}\vfill\eject
+\chartable{t5-kurierr-sc}\vfill\eject
+\chartable{ts1-kurierr}\vfill\eject
+\chartable{wncy-kurierr}
+
+
+\bye

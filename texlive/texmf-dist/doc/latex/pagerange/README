@@ -1,0 +1,34 @@
+This is the README file for 'pagerange' package, version 0.5.
+
+When a given page range xx-yy (simple/plain characters) or
+\pages (command token, eg, \def\pages{xx-yy}) is submitted to the macro
+\pagerange (eg, \pagerange{xx-yy} or \pagerange\pages), this package
+splits the range as xx in the macro \pagestart and yy in \pageend.
+The counter equivalents of these are \prg@cnta and \prg@cntb.
+The command token containing the page range (eg, \pages) is fully
+expanded before the page range is split.
+
+If you specify a range consisting of a hyphen (or any tie) but with
+one or two empty page numbers, the following will happen:
+
+ 1. a range of the form -34 is taken to mean pages 1 to 34;
+ 2. a range of the form 12- is taken to mean page 12 to last page;
+ 3. a range of the form - (only hyphen) is taken to mean page 1 to
+    last page.
+
+This work may be distributed and/or modified under the conditions
+of the LaTeX Project Public License, either version 1.3 of this
+license or any later version. The latest version of this license
+is in http://www.latex-project.org/lppl.txt and version 1.3 or later
+is part of all distributions of LaTeX version 2005/12/01 or later.
+
+The LPPL maintenance status of this software is 'author-maintained'.
+
+This software is provided 'as it is', without warranty of any kind,
+either expressed or implied, including, but not limited to, the
+implied warranties of merchantability and fitness for a particular
+purpose.
+
+Copyright (c) 2010 Ahmed Musa (a.musa@rocketmail.com).
+
+End of README file.

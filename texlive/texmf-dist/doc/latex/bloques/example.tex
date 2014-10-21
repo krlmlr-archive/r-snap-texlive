@@ -1,0 +1,305 @@
+\documentclass[a4paper,onecolumn]{IEEETran}
+\usepackage{bloques}
+\usepackage{verbatim}
+\oddsidemargin=-1.5cm 
+
+
+\title{The Bloques Package}
+\author{Alejandro Garces Ruiz \\ alejandrogarces@gmail.com}
+
+\begin{document}
+
+\maketitle
+
+\section{Functions}
+
+
+The \textbf{bloques} package is a very simple set of commands based on \textbf{tikz} to generate control blocks.  The only packages required in the definition are:
+
+\begin{verbatim}
+	\usepackage{tikz}
+	\usepackage{bloques}
+\end{verbatim}
+
+The package is very efficient for sequential blocks as follow:
+
+\begin{verbatim}
+\bStart{TEXT}
+\bPlusDown{TEXT}
+\bPlusUp{TEXT}
+\bMinusDown{TEXT}
+\bMinusUp{TEXT}
+\bEnd{TEXT}
+\bGain{TEXT}
+
+\bGainPlus{TEXT1}{TEXT2}
+\bGainMinus{TEXT1}{TEXT2}
+
+
+\end{verbatim}
+
+For Feedback controls, it is required to mark the nodes with the following functions:
+
+\begin{verbatim}
+
+\bMinusF{NODENAME}
+\bPlusF{NODENAME}
+\bFeedBack{TEXT}{NODENAME}
+\bCrossGain{TEXT}{NODENAME1}{NODENAME2}
+\bNewStart{TEXT}{POSITION}
+\bMarkNode{NODENAME}
+\bMarkNodeUp{NODENAME}
+\bMarkNodeDown{NODENAME}
+\end{verbatim}
+
+
+To change colors and distances, the following functions are available
+
+\begin{verbatim}
+	\bShadow{NUMBER}  	% default = 0
+	\bColorB{COLOR}   	% default = white 
+	\bColorT{COLOR}			% default = black
+	\ydistance{NUMBER}	% default = 1.2 cm
+\end{verbatim}
+
+\newpage
+
+\section{examples}
+
+\begin{figure}[h!]
+\begin{tikzpicture}	
+	\bStart{$X_{ref}$}
+	\bMinusDown{$X$}
+	\bGain{$k_{p}$}	
+	\bPlusUp{$Y$}
+	\bGainPlus{$U$}{$\omega L$}
+	\bEnd{$V_{x}$}
+	\node[right of = NODO1, text width=8.5cm, node distance = 6.0cm, drop shadow={opacity=1}, fill=blue!20, rounded corners] (C4) 
+	{
+	\begin{verbatim}	
+	\begin{figure}
+	\begin{tikzpicture}	
+	   \bStart{$X_{ref}$}
+	   \bMinusDown{$X$}
+	   \bGain{$k_{p}$}	
+	   \bPlusUp{$Y$}
+	   \bGainPlus{$U$}{$\omega L$}
+	   \bEnd{$V_{x}$}	
+	\end{tikzpicture}
+	\end{figure}
+	\end{verbatim}
+	};
+	
+\end{tikzpicture}
+\caption{Simple Control diagram }
+\end{figure}
+
+
+
+\begin{figure}[h!]
+\begin{tikzpicture}	
+	\bShadow
+	\bStart{$X_{ref}$}
+	\bMinusDown{$X$}
+	\bGain{$k_{p}$}	
+	\bPlusUp{$Y$}
+	\bGainPlus{$U$}{$\omega L$}
+	\bEnd{$V_{x}$}
+	\node[right of = NODO1, text width=8.5cm, node distance = 6.0cm, drop shadow={opacity=1}, fill=blue!20, rounded corners] (C4) 
+	{
+	\begin{verbatim}	
+	\begin{figure}
+	\begin{tikzpicture}	
+	 \bShadow
+	    \bStart{$X_{ref}$}
+	    \bMinusDown{$X$}
+	    \bGain{$k_{p}$}	
+	    \bPlusUp{$Y$}
+	    \bGainPlus{$U$}{$\omega L$}
+	    \bEnd{$V_{x}$}	  
+	\end{tikzpicture}
+	\end{figure}
+	\end{verbatim}
+	};
+	
+\end{tikzpicture}
+\caption{Control diagram with shadow}
+\end{figure}
+
+
+
+\begin{figure}[h!]
+\begin{tikzpicture}[thick]	
+ \draw[fill=blue!20, draw=white]  (-0.5,-3) rectangle (8,2);
+ \draw[fill=green!20, dashed,thick] (4,-2) rectangle (7,0.5);
+  \bShadow
+  \bColorB{blue!80!green!50}
+	\bColorT{yellow}
+	\bColorL{white}
+	\bStart{$X_{ref}$}
+	\bMinusDown{$X$}
+	\bGain{$k_{p}$}	
+	\bColorB{blue!30!green!80}
+	\bPlusUp{$Y$}
+	\bGainPlus{$U$}{$\omega L$}
+	\bEnd{$V_{x}$}
+	\node[right of = NODO1, text width=8.5cm, node distance = 6.0cm, drop shadow={opacity=1}, fill=blue!20, rounded corners] (C4) 
+	{
+	\begin{verbatim}	
+	\begin{figure}
+	\begin{tikzpicture}[thick]
+			\draw[fill=blue!20, draw=white]  
+			     (-0.5,-3) rectangle (8,2);
+	    \draw[fill=green!20, dashed] 
+	         (4,-2) rectangle (7,0.5);
+	    
+	 \bShadow
+	 \bColorB{blue!50!green!45}
+	 \bColorT{yellow}
+	 \bColorL{white}
+	    \bStart{$X_{ref}$}
+	    \bMinusDown{$X$}
+	    \bGain{$k_{p}$}	
+	 \bColorB{blue!30!green!80}
+	    \bPlusUp{$Y$}
+	    \bGainPlus{$U$}{$\omega L$}
+	    \bEnd{$V_{x}$}	
+	\end{tikzpicture}
+	\end{figure}
+	\end{verbatim}
+	};
+	
+\end{tikzpicture}
+\caption{Control diagram with shadow and different colors}
+\end{figure}
+
+
+
+
+\begin{figure}[h!]
+	\begin{tikzpicture}
+		\bColorB{blue!70!green!20}		
+		\bStart{$X_{r}$}
+		\bMinusF{NODEX}
+		\bGain{$k_{p}+\frac{k_{i}}{S}$}
+		\bFeedBack{$k_{x}$}{NODEX}
+		\bEnd{$X$}
+		
+	\node[right of = NODO1, text width=8.5cm, node distance = 6.0cm, drop shadow={opacity=1}, fill=blue!20, rounded corners] (C4) 
+	{
+	\begin{verbatim}	
+\begin{figure}
+	\begin{tikzpicture}
+		   \bColorB{blue!70!green!20}		   
+		   \bStart{$X_{r}$}
+		\bMinusF{NODEX}
+		   \bGain{$k_{p}+\frac{k_{i}}{S}$}
+		\bFeedBack{$k_{x}$}{NODEX}
+		   \bEnd{$X$}		
+	\end{tikzpicture}
+\end{figure}	
+	\end{verbatim}		
+	}	;
+		
+	\end{tikzpicture}
+	\caption{Control diagram with feedback}
+\end{figure}
+
+
+
+
+\begin{figure}[h!]
+	\begin{tikzpicture}
+		\bColorB{blue!30!green!50}
+		\bColorT{white}
+		\bStart{$X_{r}$}
+		\bMinusF{NODEX}
+		\bGain{$k_{p}+\frac{k_{i}}{S}$}
+		\bGain{$K_{2}$}
+		\bPlusDown{$Y$}
+		\ydistance{2.5cm}				
+		\bFeedBack{$k_{x}$}{NODEX}
+		\bEnd{$X$}
+		
+\node[right of = NODO1, text width=8.5cm, node distance = 6.0cm, drop shadow={opacity=1}, fill=blue!20, rounded corners] (C4) 
+	{
+	\begin{verbatim}	
+
+\begin{figure}
+	\begin{tikzpicture}
+	    \bColorB{blue!30!green!50}
+	    \bColorT{white}
+	    \bStart{$X_{r}$}
+	    \bMinusF{NODEX}
+	    \bGain{$k_{p}+\frac{k_{i}}{S}$}
+	    \bGain{$K_{2}$}
+	    \bPlusDown{$Y$}
+		\ydistance{2.5cm}				
+	    \bFeedBack{$k_{x}$}{NODEX}
+	    \bEnd{$X$}
+	\end{tikzpicture}
+\end{figure}
+
+	
+	\end{verbatim}		
+	}	;		
+		
+		
+	\end{tikzpicture}
+	\caption{Change the ydistance}
+\end{figure}
+
+
+\begin{figure}[h!]
+	\begin{tikzpicture}
+		\bStart{$I_{d(ref)}=0$}
+		\bMinusDown{$I_{d}$}
+		\bGain{PI1}
+		\bPlusF{NODET}
+		\bEnd{$V_{d}$}
+		\bNewStart{$\omega_{ref}$}{(-2,-4)}
+		\bMinusDown{$\omega_{s}$}
+		\bGain{PI2}
+		\bMinusUp{$I_{q}$}
+		\bMarkNodeUp{NODEX}
+		\bGain{PI3}
+		\bEnd{$V_{q}$}		
+		\bCrossGain{$\omega L$} {NODEX} {NODET}
+		
+		
+		\node[right of = NODO1, text width=8.5cm, node distance = 6.0cm, drop shadow={opacity=1}, fill=blue!20, rounded corners] (C4) 
+	{
+	\begin{verbatim}
+	
+	
+\begin{figure}
+	\begin{tikzpicture}
+		\bStart{$I_{d(ref)}=0$}
+		   \bMinusDown{$I_{d}$}
+		   \bGain{PI1}
+		   \bPlusF{NODET}
+		   \bEnd{$V_{d}$}
+		\bNewStart{$\omega_{ref}$}{(-2,-4)}
+		   \bMinusDown{$\omega_{s}$}
+		   \bGain{PI2}
+		   \bMinusUp{$I_{q}$}
+		\bMarkNodeUp{NODEX}
+		   \bGain{PI3}
+		   \bEnd{$V_{q}$}		
+		\bCrossGain{$\omega L$} {NODEX} {NODET}
+	\end{tikzpicture}
+\end{figure}
+		
+	\end{verbatim}
+	};
+		
+	\end{tikzpicture}
+	\caption{More compex controls}
+\end{figure}
+
+
+\end{document}
+
+
+
+

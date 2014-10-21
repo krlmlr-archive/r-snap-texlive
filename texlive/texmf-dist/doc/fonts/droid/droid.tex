@@ -1,0 +1,283 @@
+%% droid.tex
+%% Copyright 2010, 2011 Mohamed El Morabity
+% 
+% This work may be distributed and/or modified under the conditions of the LaTeX
+% Project Public License, either version 1.3 of this license or (at your option)
+% any later version. The latest version of this license is in
+% http://www.latex-project.org/lppl.txt and version 1.3 or later is part of all
+% distributions of LaTeX version 2005/12/01 or later.
+% 
+% This work has the LPPL maintenance status `maintained'.
+% 
+% The Current Maintainer of this work is Mohamed El Morabity
+% 
+% This work consists of all files listed in manifest.txt.
+
+\documentclass{article}
+
+\usepackage[american]{babel}
+\usepackage{booktabs}
+\usepackage{droid}
+\usepackage{microtype}
+\usepackage{multirow}
+\usepackage{path}
+\usepackage{varioref}
+\usepackage[colorlinks]{hyperref}
+
+\hypersetup{%
+  pdftitle={LaTeX support for Droid},%
+  pdfauthor={Mohamed El Morabity}%
+}%
+
+\newcommand{\acronym}[1]{\textsc{\lowercase{#1}}}
+\newcommand{\code}{\texttt}
+\newcommand{\command}{\texttt}
+\newcommand{\email}[1]{\href{mailto:#1}{\nolinkurl{#1}}}
+\newcommand{\name}{}
+\newcommand{\package}{\texttt}
+\newcommand{\parameter}[1]{\textnormal{\textit{#1}}}
+\newcommand{\program}{}
+
+\title{\LaTeX{} support for Droid\\Version~2.1}
+
+\author{Mohamed \name{El~Morabity}\\\email{melmorabity@fedoraproject.org}}
+
+\begin{document}
+
+\maketitle
+
+\tableofcontents
+
+\section{Introduction}
+
+The Droid typeface family was designed in the fall of 2006 by Ascender's Steve
+\name{Matteson}, as a commission from Google to create a set of system fonts for
+its Android platform. The goal was to provide optimal quality and comfort on a
+mobile handset when rendered in application menus, web browsers and for other
+screen text. The Droid family of fonts consists of {\fdrfamily Droid Serif},
+{\fdsfamily Droid Sans} and {\fdmfamily Droid Sans Mono} (see
+figure~\vref{styles}), licensed under the Apache License version~2.0, and
+available in the Android \program{Git} tree~\cite{droid} as TrueType files.
+
+\begin{figure}
+  \centering
+  {%
+    \fdrfamily%
+    Droid Serif Regular\\
+    {\itshape Droid Serif Italic}\\
+    {\bfseries Droid Serif Bold}\\
+    {\bfseries\itshape Droid Serif Bold Italic}\\
+  }
+  {%
+    \fdsfamily%
+    Droid Sans Regular\\
+    {\bfseries Droid Sans Bold}\\
+  }
+  {%
+    \fdmfamily%
+    Droid Sans Mono Regular
+  }
+  \caption{Available styles for Droid}
+  \label{styles}
+\end{figure}
+
+This package provides support for this font family in \LaTeX{}. It includes the
+original TrueType fonts, as well as Type~1 versions, converted for this package
+using \program{FontForge} for full support with \program{Dvips}.
+
+Notice that this package does not support the Droid Pro family sold by
+Ascender~\cite{droidpro}.
+
+\section{Installation}
+
+These directions assume that your \TeX{} distribution is
+\acronym{TDS}-compliant.
+
+Once the \path|droid.zip| archive extracted:
+\begin{enumerate}
+\item Copy \path|doc/|, \path|fonts/|, \path|source/|, and \path|tex/|
+  directories to your \path|texmf/| directory (either your local or global
+  \path|texmf/| directory).
+\item Run \command{mktexlsr} to refresh the file name database and make \TeX{}
+  aware of the new files.
+\item Run \command{updmap --enable Map droid.map} to make \program{Dvips},
+  \program{dvipdf} and \program{pdf\TeX} aware of the new fonts.
+\end{enumerate}
+
+Note that this package requires the \package{keyval}~\cite{keyval} and
+\package{slantsc}~\cite{slantsc} (to handle italic/slanted small caps) ones to
+work.
+
+\section{Usage}
+
+\subsection{Calling Droid}
+
+Several macro packages, described in table~\vref{packages}, are provided to use these font
+families with \LaTeX.
+\begin{table}
+  \centering
+  \begin{tabular}{llll}
+    \toprule
+    font name&family&package&switch command\\
+    \midrule
+    Droid Serif&fdr&\package{droidserif}&\code{\char`\\fdrfamily}\\
+    Droid Sans&fds&\package{droidsans}&\code{\char`\\fdsfamily}\\
+    Droid Sans Mono&fdm&\package{droidmono}&\code{\char`\\fdmfamily}\\
+    \bottomrule
+  \end{tabular}
+  \caption{\LaTeX{} style files provided by the droid package}
+  \label{packages}
+\end{table}
+For each family package, the provided commands \code{\char`\\fdrfamily},
+\code{\char`\\fdsfamily} and \code{\char`\\fdmfamily} will switch the current
+font to Droid Serif, Droid Sans and Droid Sans Mono respectively. You need not
+necessarily use all three font families together (even though this is supported,
+see below).
+
+\subsubsection{Using the Droid font families together}
+
+To make the use of the three Droid fonts families together most easy, a further
+macro package \package{droid} is provided:
+\begin{verbatim}
+\usepackage{droid}
+\end{verbatim}
+This will set Droid Serif, Droid Sans and Droid Sans Mono as the three main text
+font families.
+
+\subsubsection{Using each font family separately}
+
+You can set \LaTeX{} to use Droid Serif only as standard font throughout the
+whole document by passing the \code{default} option to the \package{droidserif}
+package:
+\begin{verbatim}
+\usepackage[default]{droidserif}
+\end{verbatim}
+
+As well, you can set \LaTeX{} to use Droid Sans as standard font with the
+\code{default} option to the \package{droidsans} package:
+\begin{verbatim}
+\usepackage[default]{droidsans}
+\end{verbatim}
+To set Droid Sans as default sans-serif only:
+\begin{verbatim}
+\usepackage[defaultsans]{droidsans}
+\end{verbatim}
+
+Finally, to set Droid Sans Mono as the default typewriter font:
+\begin{verbatim}
+\usepackage[defaultmono]{droidmono}
+\end{verbatim}
+
+\paragraph{Font scaling}
+
+The font can be up- and downscaled by any factor. This can be used to make the
+Droid fonts more friendly when used in company with other type faces, e.g., to
+adapt the x-height. The package option \code{scale=\parameter{ratio}} will scale
+the font according to \parameter{ratio} (1.0 by default), for example:
+\begin{verbatim}
+\usepackage[scale=0.95]{droidserif}
+\usepackage[scale=0.95]{droidsans}
+\usepackage[scale=0.95]{droidmono}
+\end{verbatim}
+
+\subsection{Encodings}
+
+The following encodings are supported:
+\begin{description}
+\item[Latin] OT1, T1, TS1 (partial)
+\item[Cyrillic] T2A, T2B, T2C, X2
+\item[Greek] LGR (monotonic only)
+\end{description}
+To use one or another encoding, give the \LaTeX{} name to the \package{fontenc}
+package as usual, as in
+\begin{verbatim}
+\usepackage[T1]{fontenc}
+\usepackage{droid}
+\end{verbatim}
+
+Note that, as usual with OT1 encoded fonts, kerning with accented characters is
+treated poorly, if at all. Note difference in kerning between these two encoding
+in table~\vref{kerning}.
+\begin{table}
+\centering
+  \begin{tabular}{ll}
+    \toprule
+    OT1-encoded&{\fdsfamily Te T\'e}\\
+    \midrule
+    T1-encoded&{\fdsfamily\fontencoding{T1}\selectfont Te T\'e}\\
+    \bottomrule
+  \end{tabular}
+  \caption{Kerning with OT1 and T1 encodings}
+  \label{kerning}
+\end{table}
+It is therefore advised to always use the Droid fonts in any encoding than OT1
+when typing diacritics.
+
+\subsection{Available weights and variants}
+
+Table~\vref{nfss} lists the available font series and shapes with their
+\acronym{NFSS} classification. Parenthesized combinations are provided via
+substitutions.
+\begin{table}
+  \centering
+  \begin{tabular}{llll}
+    \toprule
+    family&encoding&series&shape\\
+    \midrule 
+    \multirow{4}{*}{fdr}&OT1,T1,&\multirow{4}{*}{m, b (bx)}&\multirow{3}{*}{n, it, sl, ui, sc, scit, scsl, scui}\\
+    &T2A, T2B, T2C, X2,&&\\
+    &LGR&&\\
+    \cmidrule{2-2}
+    \cmidrule{4-4}
+    &TS1&&n, it, sl, ui\\
+    \midrule 
+    \multirow{4}{*}{fds}&OT1,T1,&\multirow{4}{*}{m, b (bx)}&\multirow{3}{*}{n, sl (it), sc, scsl (scit)}\\
+    &T2A, T2B, T2C, X2,&&\\
+    &LGR&&\\
+    \cmidrule{2-2}
+    \cmidrule{4-4}
+    &TS1&&n, sl (it)\\
+    \midrule 
+    \multirow{4}{*}{fdm}&OT1,T1,&\multirow{4}{*}{m}&\multirow{3}{*}{n, sl (it), sc, scsl (scit)}\\
+    &T2A, T2B, T2C, X2,&&\\
+    &LGR&&\\
+    \cmidrule{2-2}
+    \cmidrule{4-4}
+    &TS1&&n, sl (it)\\
+    \bottomrule
+  \end{tabular}
+  \caption{Available font series and shapes for Droid}
+  \label{nfss}
+\end{table}
+Notice that the slanted shapes are faked ones, as well as the small capitals
+(reduced to 80\%).
+
+Samples of the font are available in the
+\href{run:droidserif-samples.pdf}{\path|droidserif-samples.pdf|},
+\href{run:droidsans-samples.pdf}{\path|droidsans-samples.pdf|}, and
+\href{run:droidsansmono-samples.pdf}{\path|droidsansmono-samples.pdf|} files.
+
+\section{Known bugs and improvements}
+
+Please send bug reports and suggestions about the Droid \LaTeX{} support to
+\href{mailto:melmorabity@fedoraproject.org}{Mohamed \name{El~Morabity}}.
+
+\section{License}
+
+This package is released under the \LaTeX{} project public license, either
+version~1.3c or above~\cite{lppl}. Anyway both the TrueType and Type~1 files are
+delivered under the Apache License Version~2.0~\cite{asl}.
+
+\begin{thebibliography}{9}
+\bibitem{droid}
+  \url{http://android.git.kernel.org/?p=platform/frameworks/base.git;a=tree;f=data/fonts}
+\bibitem{droidpro} \url{http://www.DroidFonts.com/}
+\bibitem{keyval}
+  \url{http://www.ctan.org/tex-archive/macros/latex/required/graphics/}
+\bibitem{slantsc}
+  \url{http://www.ctan.org/tex-archive/macros/latex/contrib/slantsc/}
+\bibitem{lppl} \url{http://www.latex-project.org/lppl/lppl-1-3c.html}
+\bibitem{asl} \url{http://www.apache.org/licenses/LICENSE-2.0.html}
+\end{thebibliography}
+
+\end{document}

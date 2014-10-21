@@ -1,0 +1,97 @@
+\documentclass[12pt]{article}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\usepackage[a4paper,nohead]{geometry}
+
+\usepackage{pst-coil} % for one of the "alternative" shapes
+\usepackage{bardiag}
+%\usepackage{showkeys}
+
+\usepackage{graphicx}     % From LaTeX distribution
+
+\newpsobject{showgrid}{psgrid}{subgriddiv=1,griddots=10,gridlabels=6pt}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{document}
+
+
+\begin{figure}[!htbp]
+  \begin{minipage}[t]{\textwidth}
+   \parbox[b]{\textwidth}{%
+    \centering
+    \centerline{%
+       \renewcommand{\ActiveBarPrimitive}{\barArrowRect}
+       \renewcommand{\frameTD}{0}
+       \renewcommand{\arrowheight}{5\dbar}
+       \renewcommand{\placenumber}{\bottom}
+       %
+       \input{src/1a.tex}
+    }
+   }
+  \end{minipage}
+\caption{\label{fig:9}Bar Diagram with alternative items: barArrowRect}
+\end{figure}
+
+\begin{figure}[!htbp]
+  \begin{minipage}[t]{\textwidth}
+   \parbox[b]{\textwidth}{%
+    \centering
+    \centerline{%
+       \renewcommand{\ActiveBarPrimitive}{\barGradRect}
+       \renewcommand{\frameTD}{0}
+       %
+       \input{src/1a.tex}
+    }
+   }
+  \end{minipage}
+\caption{\label{fig:10}Bar Diagram with alternative items: barGradRect}
+\end{figure}
+
+\begin{figure}[!htbp]
+  \begin{minipage}[t]{\textwidth}
+   \parbox[b]{\textwidth}{%
+    \centering
+    \centerline{%
+       \renewcommand{\ActiveBarPrimitive}{\barGradMidRect}
+       \renewcommand{\frameTD}{0}
+       %
+       \input{src/1a.tex}
+    }
+   }
+  \end{minipage}
+\caption{\label{fig:11}Bar Diagram with alternative items: barGradMidRect}
+\end{figure}
+
+\begin{figure}[!htbp]
+   \begin{minipage}[t]{\textwidth}
+    \parbox[b]{\textwidth}{%
+     \centering
+     \centerline{%
+        \renewcommand{\ActiveBarPrimitive}{\barGradCylinder}
+        \renewcommand{\tdx}{0.5} % depth of 3d
+        \renewcommand{\tdy}{30}
+        %
+        \renewcommand{\frameTD}{0}
+        %
+        \input{src/1a.tex}
+     }
+    }
+   \end{minipage}
+ \caption{\label{fig:12}Bar Diagram with alternative items: barGradMidRect}
+\end{figure}
+
+\begin{figure}[!htbp]
+   \begin{minipage}[t]{\textwidth}
+    \parbox[b]{\textwidth}{%
+     \centering
+     \centerline{%
+        \renewcommand{\ActiveBarPrimitive}{\barCoil}
+        \renewcommand{\frameTD}{0}
+        \renewcommand{\placenumber}{\overtop}
+        %
+        \input{src/1a.tex}
+     }
+    }
+   \end{minipage}
+ \caption{\label{fig:13}Bar Diagram with alternative items: barCoil}
+\end{figure}
+
+\end{document}

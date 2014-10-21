@@ -1,0 +1,77 @@
+%%
+%% This is file `feyn.drv',
+%% generated with the docstrip utility.
+%%
+%% The original source files were:
+%%
+%% feyn.dtx  (with options: `driver')
+%% Feyn: package to manage the font feyn10
+%% This software is copyright, 1991, 1994, 2001, 2002, 2005, 2008, 2009 Norman Gray.
+%%
+%% This program is free software; you can redistribute it and/or
+%% modify it under the terms of the GNU General Public License
+%% as published by the Free Software Foundation; either version 2
+%% of the License, or (at your option) any later version.
+%%
+%% This program is distributed in the hope that it will be useful,
+%% but WITHOUT ANY WARRANTY; without even the implied warranty of
+%% MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+%% GNU General Public License for more details.
+%%
+%% You should have received a copy of the GNU General Public License
+%% along with this program; if not, write to the Free Software
+%% Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
+%%
+%% Author: Norman Gray, norman@astro.gla.ac.uk.
+%% Department of Physics and Astronomy, University of Glasgow, UK
+%%
+%% See the file LICENCE for a copy of the GPL.
+%% You can also find an online copy at http://www.gnu.org/copyleft/gpl.html .
+%% VCS Info: Mercurial revision 204fc9a2e560, 2009-10-08 12:56 +0100
+\documentclass{ltxdoc}
+\usepackage{feyn}
+\title{The feyn font}
+\author{Norman Gray\\(\texttt{norman@astro.gla.ac.uk})}
+\date{Version 0.3.3, 2009 October 8}
+\newcommand\Lopt[1]{\textsf {#1}}
+\newcommand\file[1]{\texttt {#1}}
+\newcommand\Lcount[1]{\textsl {\small#1}}
+\newcommand\pstyle[1]{\textsl {#1}}
+%% \url macro (url.sty does this better)
+\def\setpathdots{\discretionary{.}{}{.}}
+\def\setpathslash{\discretionary{/}{}{/}}
+{\catcode`\.=\active
+ \catcode`\/=\active
+  \gdef\pathcats{%
+    \catcode`\%=12      \catcode`\~=12
+    \catcode`\.=\active  \let.\setpathdots
+    \catcode`\/=\active \let/\setpathslash
+    \catcode`\#=12      \catcode`\_=12}%
+    }
+\def\setpath#1{\ttfamily <\nobreak #1\nobreak>\endgroup}
+\def\url{\begingroup\pathcats\setpath}
+\OnlyDescription
+\parskip=\medskipamount
+\parindent=0pt
+\begin{document}
+\maketitle
+\DocInput{feyn.dtx}
+\end{document}
+%% \CharacterTable
+%%  {Upper-case    \A\B\C\D\E\F\G\H\I\J\K\L\M\N\O\P\Q\R\S\T\U\V\W\X\Y\Z
+%%   Lower-case    \a\b\c\d\e\f\g\h\i\j\k\l\m\n\o\p\q\r\s\t\u\v\w\x\y\z
+%%   Digits        \0\1\2\3\4\5\6\7\8\9
+%%   Exclamation   \!     Double quote  \"     Hash (number) \#
+%%   Dollar        \$     Percent       \%     Ampersand     \&
+%%   Acute accent  \'     Left paren    \(     Right paren   \)
+%%   Asterisk      \*     Plus          \+     Comma         \,
+%%   Minus         \-     Point         \.     Solidus       \/
+%%   Colon         \:     Semicolon     \;     Less than     \<
+%%   Equals        \=     Greater than  \>     Question mark \?
+%%   Commercial at \@     Left bracket  \[     Backslash     \\
+%%   Right bracket \]     Circumflex    \^     Underscore    \_
+%%   Grave accent  \`     Left brace    \{     Vertical bar  \|
+%%   Right brace   \}     Tilde         \~}
+\endinput
+%%
+%% End of file `feyn.drv'.

@@ -1,0 +1,211 @@
+%% cantarell-drv.tex
+%% Copyright 2011, 2012 Mohamed El Morabity
+%
+% This work may be distributed and/or modified under the conditions of the LaTeX
+% Project Public License, either version 1.3 of this license or (at your option)
+% any later version. The latest version of this license is in
+% http://www.latex-project.org/lppl.txt and version 1.3 or later is part of all
+% distributions of LaTeX version 2005/12/01 or later.
+%
+% This work has the LPPL maintenance status `maintained'.
+%
+% The Current Maintainer of this work is Mohamed El Morabity
+%
+% This work consists of all files listed in manifest.txt.
+
+\input fontinst.sty
+
+
+\setint{slant}{287}
+\setint{smallcapsscale}{800}
+
+\substitutesilent{scit}{scsl}
+
+
+\recordtransforms{cantarell-rec.tex}
+
+
+\foreach(e){01,02,03}
+  \transformfont{Cantarell-Regular-\str{e}}{\reencodefont{cantarell-\str{e}}{\fromafm{Cantarell-Regular}}}
+  \transformfont{Cantarell-Regular-Slanted-\str{e}}{\slantfont{\int{slant}}\reencodefont{cantarell-\str{e}}{\fromafm{Cantarell-Regular}}}
+  \transformfont{Cantarell-Bold-\str{e}}{\reencodefont{cantarell-\str{e}}{\fromafm{Cantarell-Bold}}}
+  \transformfont{Cantarell-Bold-Slanted-\str{e}}{\slantfont{\int{slant}}\reencodefont{cantarell-\str{e}}{\fromafm{Cantarell-Bold}}}
+\endfor(e)
+
+
+\fontinstcc
+\def\fd_family#1#2#3{
+   \a_toks{#3}
+   \edef\lowercase_file{\lowercase{
+     \edef\noexpand\lowercase_file{#1#2.fd}}}
+   \lowercase_file
+   \open_out{\lowercase_file}
+   \out_line{\percent_char~Filename:~\lowercase_file}
+   \out_line{\percent_char~Created~by:~tex~\jobname}
+   \out_line{\percent_char~Created~using~fontinst~v\fontinstversion}
+   \out_line{}
+   \out_line{\percent_char~THIS~FILE~SHOULD~BE~PUT~IN~A~TEX~INPUTS~
+      DIRECTORY}
+   \out_line{}
+   \out_line{\string\ProvidesFile{\lowercase_file}}
+   \out_lline{[
+      \the\year/
+      \ifnum10>\month0\fi\the\month/
+      \ifnum10>\day0\fi\the\day\space
+      Fontinst~v\fontinstversion\space
+      font~definitions~for~#1/#2.
+   ]}
+   \out_line{}
+   %%%
+   \out_line{\string\expandafter\string\ifx\string\csname\space cantarell@scale\string\endcsname\string\relax}
+   \out_line{\space\space\string\let\string\cantarell@scale\string\@empty}
+   \out_line{\string\fi}
+   \out_line{}
+   %%%
+   \out_line{\string\DeclareFontFamily{#1}{#2}{\the\a_toks}}
+   {
+      \csname #1-#2\endcsname
+      \out_line{}
+      \let\do_shape=\substitute_shape
+      \csname #1-#2\endcsname
+      \let\do_shape=\remove_shape
+      \csname #1-#2\endcsname
+   }
+   \x_cs\g_let{#1-#2}\x_relax
+   \out_line{}
+   \out_line{\string\endinput}
+   \close_out{Font~definitions}
+}
+\normalcc
+
+
+\installfonts
+\installfamily{OT1}{fca}{}
+
+\installfont{Cantarell-Regular-ot1}{Cantarell-Regular-01,Cantarell-Regular-02,Cantarell-Regular-03,cantarell-fixlatin,newlatin}{ot1}{OT1}{fca}{m}{n}{<->\string\cantarell@scale}
+\installfont{Cantarell-Regular-Slanted-ot1}{Cantarell-Regular-Slanted-01,Cantarell-Regular-Slanted-02,Cantarell-Regular-Slanted-03,cantarell-fixlatin,newlatin}{ot1}{OT1}{fca}{m}{sl}{<->\string\cantarell@scale}
+\installfont{Cantarell-Regular-SmallCaps-ot1}{Cantarell-Regular-01,Cantarell-Regular-02,Cantarell-Regular-03,cantarell-fixlatin,newlatin}{ot1c}{OT1}{fca}{m}{sc}{<->\string\cantarell@scale}
+\installfont{Cantarell-Regular-Slanted-SmallCaps-ot1}{Cantarell-Regular-Slanted-01,Cantarell-Regular-Slanted-02,Cantarell-Regular-Slanted-03,cantarell-fixlatin,newlatin}{ot1c}{OT1}{fca}{m}{scsl}{<->\string\cantarell@scale}
+
+\installfont{Cantarell-Bold-ot1}{Cantarell-Bold-01,Cantarell-Bold-02,Cantarell-Bold-03,cantarell-fixlatin,newlatin}{ot1}{OT1}{fca}{b}{n}{<->\string\cantarell@scale}
+\installfont{Cantarell-Bold-Slanted-ot1}{Cantarell-Bold-Slanted-01,Cantarell-Bold-Slanted-02,Cantarell-Bold-Slanted-03,cantarell-fixlatin,newlatin}{ot1}{OT1}{fca}{b}{sl}{<->\string\cantarell@scale}
+\installfont{Cantarell-Bold-SmallCaps-ot1}{Cantarell-Bold-01,Cantarell-Bold-02,Cantarell-Bold-03,cantarell-fixlatin,newlatin}{ot1c}{OT1}{fca}{b}{sc}{<->\string\cantarell@scale}
+\installfont{Cantarell-Bold-Slanted-SmallCaps-ot1}{Cantarell-Bold-Slanted-01,Cantarell-Bold-Slanted-02,Cantarell-Bold-Slanted-03,cantarell-fixlatin,newlatin}{ot1c}{OT1}{fca}{b}{scsl}{<->\string\cantarell@scale}
+
+\endinstallfonts
+
+
+\installfonts
+\installfamily{T1}{fca}{}
+
+\installfont{Cantarell-Regular-t1}{Cantarell-Regular-01,Cantarell-Regular-02,Cantarell-Regular-03,cantarell-fixlatin,newlatin}{t1}{T1}{fca}{m}{n}{<->\string\cantarell@scale}
+\installfont{Cantarell-Regular-Slanted-t1}{Cantarell-Regular-Slanted-01,Cantarell-Regular-Slanted-02,Cantarell-Regular-Slanted-03,cantarell-fixlatin,newlatin}{t1}{T1}{fca}{m}{sl}{<->\string\cantarell@scale}
+\installfont{Cantarell-Regular-SmallCaps-t1}{Cantarell-Regular-01,Cantarell-Regular-02,Cantarell-Regular-03,cantarell-fixlatin,newlatin}{t1c}{T1}{fca}{m}{sc}{<->\string\cantarell@scale}
+\installfont{Cantarell-Regular-Slanted-SmallCaps-t1}{Cantarell-Regular-Slanted-01,Cantarell-Regular-Slanted-02,Cantarell-Regular-Slanted-03,cantarell-fixlatin,newlatin}{t1c}{T1}{fca}{m}{scsl}{<->\string\cantarell@scale}
+
+\installfont{Cantarell-Bold-t1}{Cantarell-Bold-01,Cantarell-Bold-02,Cantarell-Bold-03,cantarell-fixlatin,newlatin}{t1}{T1}{fca}{b}{n}{<->\string\cantarell@scale}
+\installfont{Cantarell-Bold-Slanted-t1}{Cantarell-Bold-Slanted-01,Cantarell-Bold-Slanted-02,Cantarell-Bold-Slanted-03,cantarell-fixlatin,newlatin}{t1}{T1}{fca}{b}{sl}{<->\string\cantarell@scale}
+\installfont{Cantarell-Bold-SmallCaps-t1}{Cantarell-Bold-01,Cantarell-Bold-02,Cantarell-Bold-03,cantarell-fixlatin,newlatin}{t1c}{T1}{fca}{b}{sc}{<->\string\cantarell@scale}
+\installfont{Cantarell-Bold-Slanted-SmallCaps-t1}{Cantarell-Bold-Slanted-01,Cantarell-Bold-Slanted-02,Cantarell-Bold-Slanted-03,cantarell-fixlatin,newlatin}{t1c}{T1}{fca}{b}{scsl}{<->\string\cantarell@scale}
+
+\endinstallfonts
+
+
+\installfonts
+\installfamily{TS1}{fca}{}
+
+\installfont{Cantarell-Regular-ts1}{Cantarell-Regular-01,Cantarell-Regular-02,Cantarell-Regular-03,cantarell-fixtextcomp,textcomp}{ts1}{TS1}{fca}{m}{n}{<->\string\cantarell@scale}
+\installfont{Cantarell-Regular-Slanted-ts1}{Cantarell-Regular-Slanted-01,Cantarell-Regular-Slanted-02,Cantarell-Regular-Slanted-03,cantarell-fixtextcomp,textcomp}{ts1}{TS1}{fca}{m}{sl}{<->\string\cantarell@scale}
+\installfontas{Cantarell-Regular-ts1}{TS1}{fca}{m}{sc}{<->\string\cantarell@scale}
+\installfontas{Cantarell-Regular-Slanted-ts1}{TS1}{fca}{m}{scsl}{<->\string\cantarell@scale}
+
+\installfont{Cantarell-Bold-ts1}{Cantarell-Bold-01,Cantarell-Bold-02,Cantarell-Bold-03,cantarell-fixtextcomp,textcomp}{ts1}{TS1}{fca}{b}{n}{<->\string\cantarell@scale}
+\installfont{Cantarell-Bold-Slanted-ts1}{Cantarell-Bold-Slanted-01,Cantarell-Bold-Slanted-02,Cantarell-Bold-Slanted-03,cantarell-fixtextcomp,textcomp}{ts1}{TS1}{fca}{b}{sl}{<->\string\cantarell@scale}
+\installfontas{Cantarell-Bold-ts1}{TS1}{fca}{b}{sc}{<->\string\cantarell@scale}
+\installfontas{Cantarell-Bold-Slanted-ts1}{TS1}{fca}{b}{scsl}{<->\string\cantarell@scale}
+
+\endinstallfonts
+
+
+\installfonts
+\installfamily{T2A}{fca}{}
+
+\installfont{Cantarell-Regular-t2a}{Cantarell-Regular-01,Cantarell-Regular-02,Cantarell-Regular-03,cantarell-fixcyrillic,newlatin,cyrillic}{t2a}{T2A}{fca}{m}{n}{<->\string\cantarell@scale}
+\installfont{Cantarell-Regular-Slanted-t2a}{Cantarell-Regular-Slanted-01,Cantarell-Regular-Slanted-02,Cantarell-Regular-Slanted-03,cantarell-fixcyrillic,newlatin,cyrillic}{t2a}{T2A}{fca}{m}{sl}{<->\string\cantarell@scale}
+\installfont{Cantarell-Regular-SmallCaps-t2a}{Cantarell-Regular-01,Cantarell-Regular-02,Cantarell-Regular-03,cantarell-fixcyrillic,newlatin,cyrillic}{t2ac}{T2A}{fca}{m}{sc}{<->\string\cantarell@scale}
+\installfont{Cantarell-Regular-Slanted-SmallCaps-t2a}{Cantarell-Regular-Slanted-01,Cantarell-Regular-Slanted-02,Cantarell-Regular-Slanted-03,cantarell-fixcyrillic,newlatin,cyrillic}{t2ac}{T2A}{fca}{m}{scsl}{<->\string\cantarell@scale}
+
+\installfont{Cantarell-Bold-t2a}{Cantarell-Bold-01,Cantarell-Bold-02,Cantarell-Bold-03,cantarell-fixcyrillic,newlatin,cyrillic}{t2a}{T2A}{fca}{b}{n}{<->\string\cantarell@scale}
+\installfont{Cantarell-Bold-Slanted-t2a}{Cantarell-Bold-Slanted-01,Cantarell-Bold-Slanted-02,Cantarell-Bold-Slanted-03,cantarell-fixcyrillic,newlatin,cyrillic}{t2a}{T2A}{fca}{b}{sl}{<->\string\cantarell@scale}
+\installfont{Cantarell-Bold-SmallCaps-t2a}{Cantarell-Bold-01,Cantarell-Bold-02,Cantarell-Bold-03,cantarell-fixcyrillic,newlatin,cyrillic}{t2ac}{T2A}{fca}{b}{sc}{<->\string\cantarell@scale}
+\installfont{Cantarell-Bold-Slanted-SmallCaps-t2a}{Cantarell-Bold-Slanted-01,Cantarell-Bold-Slanted-02,Cantarell-Bold-Slanted-03,cantarell-fixcyrillic,newlatin,cyrillic}{t2ac}{T2A}{fca}{b}{scsl}{<->\string\cantarell@scale}
+
+\endinstallfonts
+
+
+\installfonts
+\installfamily{T2B}{fca}{}
+
+\installfont{Cantarell-Regular-t2b}{Cantarell-Regular-01,Cantarell-Regular-02,Cantarell-Regular-03,cantarell-fixcyrillic,newlatin,cyrillic}{t2b}{T2B}{fca}{m}{n}{<->\string\cantarell@scale}
+\installfont{Cantarell-Regular-Slanted-t2b}{Cantarell-Regular-Slanted-01,Cantarell-Regular-Slanted-02,Cantarell-Regular-Slanted-03,cantarell-fixcyrillic,newlatin,cyrillic}{t2b}{T2B}{fca}{m}{sl}{<->\string\cantarell@scale}
+\installfont{Cantarell-Regular-SmallCaps-t2b}{Cantarell-Regular-01,Cantarell-Regular-02,Cantarell-Regular-03,cantarell-fixcyrillic,newlatin,cyrillic}{t2bc}{T2B}{fca}{m}{sc}{<->\string\cantarell@scale}
+\installfont{Cantarell-Regular-Slanted-SmallCaps-t2b}{Cantarell-Regular-Slanted-01,Cantarell-Regular-Slanted-02,Cantarell-Regular-Slanted-03,cantarell-fixcyrillic,newlatin,cyrillic}{t2bc}{T2B}{fca}{m}{scsl}{<->\string\cantarell@scale}
+
+\installfont{Cantarell-Bold-t2b}{Cantarell-Bold-01,Cantarell-Bold-02,Cantarell-Bold-03,cantarell-fixcyrillic,newlatin,cyrillic}{t2b}{T2B}{fca}{b}{n}{<->\string\cantarell@scale}
+\installfont{Cantarell-Bold-Slanted-t2b}{Cantarell-Bold-Slanted-01,Cantarell-Bold-Slanted-02,Cantarell-Bold-Slanted-03,cantarell-fixcyrillic,newlatin,cyrillic}{t2b}{T2B}{fca}{b}{sl}{<->\string\cantarell@scale}
+\installfont{Cantarell-Bold-SmallCaps-t2b}{Cantarell-Bold-01,Cantarell-Bold-02,Cantarell-Bold-03,cantarell-fixcyrillic,newlatin,cyrillic}{t2bc}{T2B}{fca}{b}{sc}{<->\string\cantarell@scale}
+\installfont{Cantarell-Bold-Slanted-SmallCaps-t2b}{Cantarell-Bold-Slanted-01,Cantarell-Bold-Slanted-02,Cantarell-Bold-Slanted-03,cantarell-fixcyrillic,newlatin,cyrillic}{t2bc}{T2B}{fca}{b}{scsl}{<->\string\cantarell@scale}
+
+\endinstallfonts
+
+
+\installfonts
+\installfamily{T2C}{fca}{}
+
+\installfont{Cantarell-Regular-t2c}{Cantarell-Regular-01,Cantarell-Regular-02,Cantarell-Regular-03,cantarell-fixcyrillic,newlatin,cyrillic}{t2c}{T2C}{fca}{m}{n}{<->\string\cantarell@scale}
+\installfont{Cantarell-Regular-Slanted-t2c}{Cantarell-Regular-Slanted-01,Cantarell-Regular-Slanted-02,Cantarell-Regular-Slanted-03,cantarell-fixcyrillic,newlatin,cyrillic}{t2c}{T2C}{fca}{m}{sl}{<->\string\cantarell@scale}
+\installfont{Cantarell-Regular-SmallCaps-t2c}{Cantarell-Regular-01,Cantarell-Regular-02,Cantarell-Regular-03,cantarell-fixcyrillic,newlatin,cyrillic}{t2cc}{T2C}{fca}{m}{sc}{<->\string\cantarell@scale}
+\installfont{Cantarell-Regular-Slanted-SmallCaps-t2c}{Cantarell-Regular-Slanted-01,Cantarell-Regular-Slanted-02,Cantarell-Regular-Slanted-03,cantarell-fixcyrillic,newlatin,cyrillic}{t2cc}{T2C}{fca}{m}{scsl}{<->\string\cantarell@scale}
+
+\installfont{Cantarell-Bold-t2c}{Cantarell-Bold-01,Cantarell-Bold-02,Cantarell-Bold-03,cantarell-fixcyrillic,newlatin,cyrillic}{t2c}{T2C}{fca}{b}{n}{<->\string\cantarell@scale}
+\installfont{Cantarell-Bold-Slanted-t2c}{Cantarell-Bold-Slanted-01,Cantarell-Bold-Slanted-02,Cantarell-Bold-Slanted-03,cantarell-fixcyrillic,newlatin,cyrillic}{t2c}{T2C}{fca}{b}{sl}{<->\string\cantarell@scale}
+\installfont{Cantarell-Bold-SmallCaps-t2c}{Cantarell-Bold-01,Cantarell-Bold-02,Cantarell-Bold-03,cantarell-fixcyrillic,newlatin,cyrillic}{t2cc}{T2C}{fca}{b}{sc}{<->\string\cantarell@scale}
+\installfont{Cantarell-Bold-Slanted-SmallCaps-t2c}{Cantarell-Bold-Slanted-01,Cantarell-Bold-Slanted-02,Cantarell-Bold-Slanted-03,cantarell-fixcyrillic,newlatin,cyrillic}{t2cc}{T2C}{fca}{b}{scsl}{<->\string\cantarell@scale}
+
+\endinstallfonts
+
+
+\installfonts
+\installfamily{X2}{fca}{}
+
+\installfont{Cantarell-Regular-x2}{Cantarell-Regular-01,Cantarell-Regular-02,Cantarell-Regular-03,cantarell-fixcyrillic,newlatin,cyrillic}{x2}{X2}{fca}{m}{n}{<->\string\cantarell@scale}
+\installfont{Cantarell-Regular-Slanted-x2}{Cantarell-Regular-Slanted-01,Cantarell-Regular-Slanted-02,Cantarell-Regular-Slanted-03,cantarell-fixcyrillic,newlatin,cyrillic}{x2}{X2}{fca}{m}{sl}{<->\string\cantarell@scale}
+\installfont{Cantarell-Regular-SmallCaps-x2}{Cantarell-Regular-01,Cantarell-Regular-02,Cantarell-Regular-03,cantarell-fixcyrillic,newlatin,cyrillic}{x2c}{X2}{fca}{m}{sc}{<->\string\cantarell@scale}
+\installfont{Cantarell-Regular-Slanted-SmallCaps-x2}{Cantarell-Regular-Slanted-01,Cantarell-Regular-Slanted-02,Cantarell-Regular-Slanted-03,cantarell-fixcyrillic,newlatin,cyrillic}{x2c}{X2}{fca}{m}{scsl}{<->\string\cantarell@scale}
+
+\installfont{Cantarell-Bold-x2}{Cantarell-Bold-01,Cantarell-Bold-02,Cantarell-Bold-03,cantarell-fixcyrillic,newlatin,cyrillic}{x2}{X2}{fca}{b}{n}{<->\string\cantarell@scale}
+\installfont{Cantarell-Bold-Slanted-x2}{Cantarell-Bold-Slanted-01,Cantarell-Bold-Slanted-02,Cantarell-Bold-Slanted-03,cantarell-fixcyrillic,newlatin,cyrillic}{x2}{X2}{fca}{b}{sl}{<->\string\cantarell@scale}
+\installfont{Cantarell-Bold-SmallCaps-x2}{Cantarell-Bold-01,Cantarell-Bold-02,Cantarell-Bold-03,cantarell-fixcyrillic,newlatin,cyrillic}{x2c}{X2}{fca}{b}{sc}{<->\string\cantarell@scale}
+\installfont{Cantarell-Bold-Slanted-SmallCaps-x2}{Cantarell-Bold-Slanted-01,Cantarell-Bold-Slanted-02,Cantarell-Bold-Slanted-03,cantarell-fixcyrillic,newlatin,cyrillic}{x2c}{X2}{fca}{b}{scsl}{<->\string\cantarell@scale}
+
+\endinstallfonts
+
+
+% \installfonts
+% \installfamily{LGR}{fca}{}
+
+% \installfont{Cantarell-Regular-lgr}{Cantarell-Regular-01,Cantarell-Regular-02,Cantarell-Regular-03,cantarell-fixgreek,newlatin,greek}{lgr-lig}{LGR}{fca}{m}{n}{<->\string\cantarell@scale}
+% \installfont{Cantarell-Regular-Slanted-lgr}{Cantarell-Regular-Slanted-01,Cantarell-Regular-Slanted-02,Cantarell-Regular-Slanted-03,cantarell-fixgreek,newlatin,greek}{lgr-lig}{LGR}{fca}{m}{sl}{<->\string\cantarell@scale}
+% \installfont{Cantarell-Regular-SmallCaps-lgr}{Cantarell-Regular-01,Cantarell-Regular-02,Cantarell-Regular-03,cantarell-fixgreek,newlatin,greek}{lgrc}{LGR}{fca}{m}{sc}{<->\string\cantarell@scale}
+% \installfont{Cantarell-Regular-Slanted-SmallCaps-lgr}{Cantarell-Regular-Slanted-01,Cantarell-Regular-Slanted-02,Cantarell-Regular-Slanted-03,cantarell-fixgreek,newlatin,greek}{lgrc}{LGR}{fca}{m}{scsl}{<->\string\cantarell@scale}
+
+% \installfont{Cantarell-Bold-lgr}{Cantarell-Bold-01,Cantarell-Bold-02,Cantarell-Bold-03,cantarell-fixgreek,newlatin,greek}{lgr-lig}{LGR}{fca}{b}{n}{<->\string\cantarell@scale}
+% \installfont{Cantarell-Bold-Slanted-lgr}{Cantarell-Bold-Slanted-01,Cantarell-Bold-Slanted-02,Cantarell-Bold-Slanted-03,cantarell-fixgreek,newlatin,greek}{lgr-lig}{LGR}{fca}{b}{sl}{<->\string\cantarell@scale}
+% \installfont{Cantarell-Bold-SmallCaps-lgr}{Cantarell-Bold-01,Cantarell-Bold-02,Cantarell-Bold-03,cantarell-fixgreek,newlatin,greek}{lgrc}{LGR}{fca}{b}{sc}{<->\string\cantarell@scale}
+% \installfont{Cantarell-Bold-Slanted-SmallCaps-lgr}{Cantarell-Bold-Slanted-01,Cantarell-Bold-Slanted-02,Cantarell-Bold-Slanted-03,cantarell-fixgreek,newlatin,greek}{lgrc}{LGR}{fca}{b}{scsl}{<->\string\cantarell@scale}
+
+% \endinstallfonts
+
+
+\endrecordtransforms
+\bye

@@ -1,0 +1,52 @@
+Fig4LaTeX is designed to simplify management of the figures in a large LaTeX
+document.  Fig4LaTeX is appropriate for projects that include
+figures with graphics created by XFig -- in particular, graphics which use
+the combined PS/LaTeX (or PDF/LaTeX) export method.  When such a figure includes
+text elements that are marked with the "special" flag, those texts are actually
+rendered by LaTeX and only the strictly graphical elements of the figure are 
+rendered by including an image.  See the example document, included in this 
+directory which has been cunningly named "example.tex".
+
+In a large project one would typically place the .fig files in a seperate 
+sub-directory.  In "example.tex" the figures are in a sub-directory named
+"figs/" -- changing into that directory and running the fig4latex script
+produces a Makefile, one then runs "make" in order to create the .tex and
+.eps (or .pdf) files which contain the graphic.
+
+Fig4latex has been (minimally) tested in an Ubuntu linux environment.  
+The prerequisites are Perl, fig2dev and Make, so it could probably be made to
+work in other environments.
+
+Usage: fig4latex [-d dir] [-m NUM] [-p] [-l] [-h] 
+
+ -d DIR Directory containing the figures (a path relative to
+        the directory where your LaTeX source files are).
+ -m NUM Magnification factor.
+ -p Pdflatex -- create makefile for use with pdflatex -- the images
+    get converted to pdf format. 
+ -l Latex -- create makefile for use with (regular) latex -- the images
+    are exported as eps format. (this is the default)
+ -h Help -- print this message and quit.
+
+
+
+
+--Joe Fields
+ fieldsj1@southernct.edu
+
+-----------------------------------------------------------------------
+    This file is part of fig4latex.
+
+    fig4latex is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    fig4latex is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with fig4latex.  If not, see <http://www.gnu.org/licenses/>.
+

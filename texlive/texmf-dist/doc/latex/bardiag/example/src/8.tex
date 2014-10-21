@@ -1,0 +1,56 @@
+\renewcommand{\tdx}{1.2} % depth of 3d
+\renewcommand{\tdy}{6}
+
+\def\onecol{red}
+\def\onetopcol{blue}
+\def\twocol{red}
+\def\twotopcol{blue}
+\def\threecol{red}
+\def\threetopcol{blue}
+%-------------------------------------------------------
+
+%this is the way to redefine styles
+% \newpsstyle{mytickstyle}{linewidth=1pt,linecolor=blue}
+%
+\newpsstyle{diagframestyle}{linewidth=1pt,linecolor=black,fillcolor=white}
+\renewcommand{\betweenticks}{10}
+\renewcommand\numbercolor{\white\bf}
+\renewcommand{\placenumber}{\bottom}
+
+\bardiagrambegin{14}{100}{3cm}{1}{5}{1cm}{0.1cm}
+\drawlevellines
+       \baritem{1990}{32}{\onecol}
+          \subtopbaritem{}{40}{\onetopcol}
+        \subbaritem{2000}{20}{\twocol}
+          \subtopbaritem{}{30}{\twotopcol}
+        \subbaritem{2010}{13}{\threecol}
+          \subtopbaritem{}{50}{\threetopcol}
+       %---
+       \baritem{1990}{21}{\onecol}
+          \subtopbaritem{}{60}{\onetopcol}
+        \subbaritem{2000}{25}{\twocol} 
+          \subtopbaritem{}{64}{\twotopcol}
+        \subbaritem{2010}{58}{\threecol}  
+          \subtopbaritem{}{32}{\threetopcol}
+       %---
+       \baritem{1990}{22}{\onecol}
+          \subtopbaritem{}{19}{\onetopcol}
+        \subbaritem{2000}{12}{\twocol}
+          \subtopbaritem{}{18}{\twotopcol}
+        \subbaritem{2010}{9}{\threecol} 
+          \subtopbaritem{}{12}{\threetopcol}
+    % Legend
+    %\diagLegendoptions{yellow}{yellow}{0.0pt}
+    %
+    \diagLegendbegin{11}{90}{2.5}
+      \diagLegenditem{girls}{\onecol}
+      \diagLegenditem{boys}{\onetopcol}
+    \diagLegendend
+
+\bardiagramend{\parbox{14cm}{\vspace{-1.5cm}\hspace{-1cm}
+   \begin{tabular}{p{4.5cm}p{4.5cm}p{4.5cm}}
+      \centering Alpha's & \centering Beta's & \centering Gamma's
+   \end{tabular}
+   \\[0.6cm]
+   \centering \large Year}}
+  {\large Graduated (\%)}

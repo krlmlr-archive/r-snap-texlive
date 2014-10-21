@@ -1,0 +1,50 @@
+%%
+%% File: AnonymousPro.ins
+%% Copyright (c) 2013-2014 Arash Esbati
+%%
+%% This work may be distributed and/or modified under the conditions
+%% of the LaTeX Project Public License (LPPL), either version 1.3c of
+%% this license or (at your option) any later version.
+%%
+%% It is an installation file for extracting package and other files
+%% from the original source file. Simply process it under LaTeX.
+
+\input docstrip.tex
+
+\keepsilent
+\askforoverwritefalse
+
+\preamble
+
+Copyright (C) 2013-2014 Arash Esbati <esbati'at'gmx.de>
+
+This work may be distributed and/or modified under the conditions
+of the LaTeX Project Public License (LPPL), either version 1.3c of
+this license or (at your option) any later version.  The latest
+version of this license is in the file:
+
+   http://www.latex-project.org/lppl.txt
+
+\endpreamble
+\generate{
+  \file{\jobname.sty}{\from{\jobname.dtx}{package}}
+  \file{\jobname-drv.tex}{\from{\jobname.dtx}{anp-drv}}
+  \file{\jobname-map.tex}{\from{\jobname.dtx}{anp-map}}
+  \file{AnonymousPro-01.etx}{\from{\jobname.dtx}{anp-enc01}}
+  \file{AnonymousPro-02.etx}{\from{\jobname.dtx}{anp-enc02}}
+  \file{AnonymousPro-03.etx}{\from{\jobname.dtx}{anp-enc03}}
+  \file{AnonymousPro-symbols.etx}{\from{\jobname.dtx}{anp-sym}}
+  \file{anonymouspro-fixlatin.mtx}{\from{\jobname.dtx}{anp-fixlatin}}
+  \file{anonymouspro-fixtextcomp.mtx}{\from{\jobname.dtx}{anp-fixtextcomp}}
+}
+
+\obeyspaces
+\Msg{*********************************************************************}%
+\Msg{* For documentation in pdf, process with:                           *}%
+\Msg{*   pdflatex  AnonymousPro.dtx                                      *}%
+\Msg{*   makeindex.exe -s gglo.ist -o AnonymousPro.gls AnonymousPro.glo  *}%
+\Msg{*   pdflatex  AnonymousPro.dtx                                      *}%
+\Msg{*********************************************************************}%
+
+
+\endbatchfile

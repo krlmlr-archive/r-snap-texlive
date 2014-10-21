@@ -1,0 +1,69 @@
+             +-------------------------------------------+
+             |                   TEXMENTS                |
+             |                                           |
+             |  Access the Pygments syntax highlighter   |
+             |  from inside LaTeX.                       |
+             |                                           |
+             | By Marek Kubica, <marek@xivilization.net> |
+             +-------------------------------------------+
+
+
+Description
+-----------
+
+Ever wanted to include a source file into your LaTeX code? Code gets
+easier to read when it is colored so many people use the ``listings''
+package that can syntax-color (highlight) your source files. Not
+every language is supported, though. This is where ``texments''
+comes in handy. ``texments'' is an alternative to ``listings'' and
+uses the Pygments syntax highlighter which provides highlighting
+for more languages than ``listings'' itself. Especially when a 
+language is rather recent, Pygments often supports it already like
+for example Scala and Clojure.
+``texments'' also supports multiple color schemes, so almost everyone
+can find a setting that pleases him.
+
+
+Installation
+------------
+
+As ``texments'' is only glue between several packages, it has some
+dependencies. The dependencies on the LaTeX-side are ``fancyvrb'',
+``color'' and ``ifthen'' which should be all included in basically
+any notable TeX distribution, so no problems are to be expected.
+The documentation also uses the ``hyperref'' package which is also
+part of any self-respecting TeX distribution.
+The other dependency is the ``pygmentize'' command, which is part
+of the Pygments (<http://pygments.org/>) library. Pygments is 
+provided by many Linux distributions in the package 
+``python-pygments'' (Debian, Ubuntu, Fedora, openSUSE), 
+``pygments'' (Gentoo, Arch Linux AUR) or similar. Users of other
+systems can install it using ``easy_install Pygments'' (provided
+that setuptools are installed) or simply by downloading the Pygments
+tarball and running ``python setup.py install'' inside of it.
+
+To create the ``texments.sty'' file, call ``latex texments.ins''.
+Then you need to move the file into a place where TeX can find it,
+probably into your TEXMF tree. To generate the documentation,
+call ``pdflatex -shell-escape texments.dtx'' which will generate
+the ``texments.pdf'' file which includes some examples and hints
+how to use it. Note that the ``-shell-escape'' parameter is
+(unfortunately) mandatory, as the macro package needs to call
+``pygmentize'' to highlight the content.
+
+
+Copyright and license
+---------------------
+
+Copyright (C) 2008 Marek Kubica, <marek@xivilization.net>
+
+This package may be distributed and/or modified under the conditions
+of the LaTeX Project Public License, either version 1.3c of this
+license or (at your option) any later version.  The latest version of
+this license is in:
+
+    http://www.latex-project.org/lppl.txt
+
+and version 1.3c or later is part of all distributions of LaTeX version
+2008/05/04 or later.
+

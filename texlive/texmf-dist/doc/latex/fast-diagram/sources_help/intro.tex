@@ -1,0 +1,47 @@
+\section{Introduction}\label{intro}
+%=====================================
+
+	\subsection{Le pourquoi du comment}\label{auteur}
+	%--------------------------------
+
+		En tant qu'enseignant en sciences industrielles pour l'ingénieur, j'ai réalisé ce package en vue de m'aider à rédiger mes cours.
+		J'ai toutefois essayé de le rendre le plus paramétrable possible afin qu'il puisse être utilisé dans de nombreux cas.
+		(d'autres options/paramètres peuvent éventuellement être rajoutés selon la demande...).
+
+		Il s'agit de mon premier package \LaTeX.
+		De plus, ce package fonctionne sur la bibliothèque \emph{TikZ}, que je connaissais jusqu'alors assez mal.
+		Il n'est donc pas exclu qu'il y ait des bugs dans sa conception.
+		Si vous voyez quelque chose d'anormal ou d'incohérent, ou si vous avez des remarques, n'hésitez pas à m'en faire part à l'adresse suivante :
+		\href{mailto:allais.raphael@free.fr}{allais.raphael@free.fr}
+		
+		Pour le petite histoire, la difficulté pour réaliser ce package a été le caractère récursif du diagramme FAST.
+		En effet, il semblerait que \emph{TikZ} gère très mal la portée locale des variables :
+		Les variables d'une fonction \emph{enfant} écrasaient les variables de sa fonction \emph{parent}.
+		Cela posait des problèmes sur l'alignement des boîtes.
+		D'autre part, \emph{TikZ} propose déjà des diagrammes en arborescence, mais je n'ai pas su créer mes propres fonctions par dessus.
+
+		Merci à Yannick Le Bras, Robert Papanicola et Xavier Pessoles pour leur aide et leurs conseils.
+
+
+	\subsection{Petit rappel}\label{rappel}
+	%-----------------------------
+		Le diagramme ``\emph{\href{http://fr.wikipedia.org/wiki/Function_Analysis_System_Technique}{Function Analysis System Technique}}'', plus couramment appelé ``\emph{diagramme FAST}''
+		est un outil de \textbf{\href{http://fr.wikipedia.org/wiki/Analyse_fonctionnelle_\%28conception\%29}{l'analyse fonctionnelle}},
+		permettant de décrire et de décomposer hiérarchique une \emph{fonction de service} en sous-fonctions, appelées \emph{fonctions techniques}.
+		L'aboutissement d'un tel schéma doit être un ensemble de choix concrets appelés ``\emph{solutions techniques}''.
+		Historiquement, ce type de diagramme a été un passage indispensable dans le domaine de la conception et la rédaction des cahiers des charges.
+		Aujourd'hui, une approche plus globale (mais partiellement basée sur des concepts similaires) est proposée au travers des diagrammes \href{http://fr.wikipedia.org/wiki/Systems_Modeling_Language}{SysML}.
+
+		Pour plus de détail, n'hésitez pas à consulter les nombreux cours qui existent sur Internet.
+		
+
+	
+
+	\subsection{Limitations - Perspectives}\label{limitations}
+	%----------------------------------------
+
+		Le package a été écrit pour répondre \textbf{aux principales attentes} du diagramme FAST.
+		Il n'est cependant pas complet.
+		Il n'est, par exemple, pas possible de relier \textbf{automatiquement} une solution technique commune à plusieurs fonctions techniques.
+		Cette possibilité n'est toutefois pas exclue puisque les commandes de \emph{TikZ} sont autorisées à l'intérieur de l'environnement (voir \ref{tikzz}) et rien n'empêche de le faire ``\emph{à la main}''.
+		N'hésitez donc pas à me faire part d'éventuelles autres fonctions à mettre en place.

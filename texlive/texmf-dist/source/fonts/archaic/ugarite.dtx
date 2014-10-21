@@ -1,0 +1,1767 @@
+% \iffalse meta-comment
+%
+% ugarite.dtx
+%
+%  Author: Peter Wilson (Herries Press) herries dot press at earthlink dot net
+%  Copyright 1999--2005 Peter R. Wilson
+%
+%  This work may be distributed and/or modified under the
+%  conditions of the Latex Project Public License, either
+%  version 1.3 of this license or (at your option) any
+%  later version.
+%  The latest version of the license is in
+%    http://www.latex-project.org/lppl.txt
+%  and version 1.3 or later is part of all distributions of
+%  LaTeX version 2003/06/01 or later.
+%
+%  This work has the LPPL maintenance status "author-maintained".
+%
+%  This work consists of the files listed in the README file.
+%
+%<*driver>
+\documentclass[twoside]{ltxdoc}
+\usepackage{url}
+\usepackage[draft=false,
+            plainpages=false,
+            pdfpagelabels,
+            bookmarksnumbered,
+            hyperindex=false
+           ]{hyperref}
+\providecommand{\phantomsection}{}
+\OnlyDescription %% comment this out for the full glory
+\EnableCrossrefs
+\CodelineIndex
+\setcounter{StandardModuleDepth}{1}
+\makeatletter
+  \@mparswitchfalse
+\makeatother
+\renewcommand{\MakeUppercase}[1]{#1}
+\pagestyle{headings}
+\newenvironment{addtomargins}[1]{%
+  \begin{list}{}{%
+    \topsep 0pt%
+    \addtolength{\leftmargin}{#1}%
+    \addtolength{\rightmargin}{#1}%
+    \listparindent \parindent
+    \itemindent \parindent
+    \parsep \parskip}%
+  \item[]}{\end{list}}
+\makeatletter
+ \DeclareTextCommand{\Uunder}{OT1}[1]^^A
+   {{\o@lign{\relax#1\crcr\hidewidth\sh@ft{29}^^A
+     \vbox to.2ex{\hbox{\char21}\vss}\hidewidth}}}
+\makeatother
+\begin{document}
+  \raggedbottom
+  \DocInput{ugarite.dtx}
+\end{document}
+%</driver>
+%
+% \fi
+%
+% \CheckSum{309}
+%
+% \DoNotIndex{\',\.,\@M,\@@input,\@addtoreset,\@arabic,\@badmath}
+% \DoNotIndex{\@centercr,\@cite}
+% \DoNotIndex{\@dotsep,\@empty,\@float,\@gobble,\@gobbletwo,\@ignoretrue}
+% \DoNotIndex{\@input,\@ixpt,\@m}
+% \DoNotIndex{\@minus,\@mkboth,\@ne,\@nil,\@nomath,\@plus,\@set@topoint}
+% \DoNotIndex{\@tempboxa,\@tempcnta,\@tempdima,\@tempdimb}
+% \DoNotIndex{\@tempswafalse,\@tempswatrue,\@viipt,\@viiipt,\@vipt}
+% \DoNotIndex{\@vpt,\@warning,\@xiipt,\@xipt,\@xivpt,\@xpt,\@xviipt}
+% \DoNotIndex{\@xxpt,\@xxvpt,\\,\ ,\addpenalty,\addtolength,\addvspace}
+% \DoNotIndex{\advance,\Alph,\alph}
+% \DoNotIndex{\arabic,\ast,\begin,\begingroup,\bfseries,\bgroup,\box}
+% \DoNotIndex{\bullet}
+% \DoNotIndex{\cdot,\cite,\CodelineIndex,\cr,\day,\DeclareOption}
+% \DoNotIndex{\def,\DisableCrossrefs,\divide,\DocInput,\documentclass}
+% \DoNotIndex{\DoNotIndex,\egroup,\ifdim,\else,\fi,\em,\endtrivlist}
+% \DoNotIndex{\EnableCrossrefs,\end,\end@dblfloat,\end@float,\endgroup}
+% \DoNotIndex{\endlist,\everycr,\everypar,\ExecuteOptions,\expandafter}
+% \DoNotIndex{\fbox}
+% \DoNotIndex{\filedate,\filename,\fileversion,\fontsize,\framebox,\gdef}
+% \DoNotIndex{\global,\halign,\hangindent,\hbox,\hfil,\hfill,\hrule}
+% \DoNotIndex{\hsize,\hskip,\hspace,\hss,\if@tempswa,\ifcase,\or,\fi,\fi}
+% \DoNotIndex{\ifhmode,\ifvmode,\ifnum,\iftrue,\ifx,\fi,\fi,\fi,\fi,\fi}
+% \DoNotIndex{\input}
+% \DoNotIndex{\jobname,\kern,\leavevmode,\let,\leftmark}
+% \DoNotIndex{\list,\llap,\long,\m@ne,\m@th,\mark,\markboth,\markright}
+% \DoNotIndex{\month,\newcommand,\newcounter,\newenvironment}
+% \DoNotIndex{\NeedsTeXFormat,\newdimen}
+% \DoNotIndex{\newlength,\newpage,\nobreak,\noindent,\null,\number}
+% \DoNotIndex{\numberline,\OldMakeindex,\OnlyDescription,\p@}
+% \DoNotIndex{\pagestyle,\par,\paragraph,\paragraphmark,\parfillskip}
+% \DoNotIndex{\penalty,\PrintChanges,\PrintIndex,\ProcessOptions}
+% \DoNotIndex{\protect,\ProvidesClass,\raggedbottom,\raggedright}
+% \DoNotIndex{\refstepcounter,\relax,\renewcommand,\reset@font}
+% \DoNotIndex{\rightmargin,\rightmark,\rightskip,\rlap,\rmfamily,\roman}
+% \DoNotIndex{\roman,\secdef,\selectfont,\setbox,\setcounter,\setlength}
+% \DoNotIndex{\settowidth,\sfcode,\skip,\sloppy,\slshape,\space}
+% \DoNotIndex{\symbol,\the,\trivlist,\typeout,\tw@,\undefined,\uppercase}
+% \DoNotIndex{\usecounter,\usefont,\usepackage,\vfil,\vfill,\viiipt}
+% \DoNotIndex{\viipt,\vipt,\vskip,\vspace}
+% \DoNotIndex{\wd,\xiipt,\year,\z@}
+%
+% \changes{v1.0}{1999/03/14}{First public release}
+% \changes{v1.1}{2000/09/30}{Changed some encodings to match the series}
+% \changes{v1.2}{2005/06/18}{Added map file}
+%
+% \def\fileversion{v1.0} \def\filedate{1999/03/14}
+% \def\fileversion{v1.1} \def\filedate{2000/09/30}
+% \def\fileversion{v1.2} \def\filedate{2005/06/18}
+% \newcommand*{\Lpack}[1]{\textsf {#1}}           ^^A typeset a package
+% \newcommand*{\Lopt}[1]{\textsf {#1}}            ^^A typeset an option
+% \newcommand*{\file}[1]{\texttt {#1}}            ^^A typeset a file
+% \newcommand*{\Lcount}[1]{\textsl {\small#1}}    ^^A typeset a counter
+% \newcommand*{\pstyle}[1]{\textsl {#1}}          ^^A typeset a pagestyle
+% \newcommand*{\Lenv}[1]{\texttt {#1}}            ^^A typeset an environment
+% \newcommand{\BC}{\textsc{bc}}
+% \newcommand{\AD}{\textsc{ad}}
+% \newcommand{\thisfont}{Ugaritic Cuneiform}
+%
+%
+% \title{The \Lpack{Ugaritic Cuneiform} font\thanks{This
+%        file has version number \fileversion, last revised
+%        \filedate.}}
+%
+% \author{%
+% Peter Wilson\thanks{\texttt{herries dot press at earthlink dot net}}\\
+% Herries Press }
+% \date{\filedate}
+% \maketitle
+% \begin{abstract}
+%    The \Lpack{ugarite} bundle provides a set of fonts for the 
+% \thisfont{} alphabetic script which was used around 1300~\BC{} in the Middle East.
+% \end{abstract}
+% \tableofcontents
+%
+% 
+%
+% \section{Introduction}
+%
+%
+% The Phoenician alphabet and characters is a direct ancestor of our modern day
+% Latin alphabet and fonts. 
+% The \thisfont{} font presented here is one of a series of fonts intended 
+% to show how
+% the modern Latin alphabet has evolved from its original Phoenician form
+% to its present day appearance.
+% 
+% This manual is typeset according to the conventions of the
+% \LaTeX{} \textsc{docstrip} utility which enables the automatic
+% extraction of the \LaTeX{} macro source files~\cite{GOOSSENS94}.
+%
+%    Section~\ref{sec:usc} describes the usage of the package.
+% Commented code for the fonts and source code for the package is in 
+% later sections.
+%
+% \subsection{An alphabetic tree}
+%
+%    Scholars are reasonably agreed that all the world's alphabets are descended
+% from a Semitic alphabet invented about 1600~\BC{} in the Middle 
+% East~\cite{DRUCKER95}. The word `Semitic' refers
+% to the family of languages used in the geographical area from
+% Sinai in the south, up the Mediterranean coast to Asia Minor in the north and
+% west to the valley of the Euphrates.
+%
+%    The Phoenician alphabet was stable by about 1100~\BC{} and the script was
+% written right to left. In earlier times the writing direction was variable, 
+% and so were
+% the shapes and orientation of the characters. The alphabet consisted of
+% 22 letters and they were named after things. For example, their first two 
+% letters were called \textit{aleph} (ox), and \textit{beth} (house). 
+% The Phoenician script had
+% only one case --- unlike our modern fonts which have both upper- and 
+% lower-cases. In modern terms the Phoenician abecedary was: \\
+% A B G D E Y Z H $\Theta$ I K L M N X O P ts Q R S T \\
+% where the `Y' (\textit{vau}) character was sometimes written as `F', and
+% `ts' stands for the \textit{tsade} character.
+%
+%    The Greek alphabet is one of the descendants of the Phoenician alphabet;
+% another was Aramaic which is the ancestor of the Arabic, Persian and Indian 
+% scripts.
+% Initially Greek was written right to left but around the 6th C~\BC{} became 
+% \textit{boustrophedron}, meaning that the lines 
+% alternated in direction. At about 500~\BC{} the writing direction stabilised 
+% as left to 
+% right. The Greeks modified the Phoenician alphabet to match the vocalisation
+% of their language. They kept the Phoenician names of the letters, suitably
+% `greekified', so \textit{aleph} became the familar \textit{alpha} and 
+% \textit{beth} became \textit{beta}. At this
+% point the names of the letters had no meaning. Their were several variants
+% of the Greek character glyphs until they were finally fixed in Athens in
+% 403~\BC.
+% The Greeks did not develop a lower-case 
+% script until about 600--700~\AD.
+%
+%    The Etruscans based their alphabet on the Greek one, and again modified it.
+% However, the Etruscans wrote right to left, so their borrowed characters are 
+% mirror images of the original Greek ones. Like the Phoenicians, the Etruscan
+% script consisted of only one case; they died out before ever needing a
+% lower-case script. The Etruscan script was used up until the first century 
+% \AD, even though the Etruscans themselves had dissapeared by that time.
+% 
+%
+%    In turn, the Romans based their alphabet on the Etruscan one, but as they 
+% wrote left to right, the characters were again mirrored (although the early
+% Roman inscriptions are boustrophedron). 
+%
+%    As the English alphabet is descended from the Roman alphabet
+% it has a pedigree of some three and a half thousand years.
+%
+% \section{The \Lpack{ugarite} package} \label{sec:usc}
+%
+%    The earliest cuneiform writing, about 2800~\BC, was used by
+% the Sumerians in the Middle East~\cite{WALKER87,HEALEY90}. 
+% Other cuneiform scripts were used for Akkadian (2300~\BC) and
+% Babylonian (2000~\BC). These were partly ideographic and partly
+% syllabic scripts. The last dated use of a cuneiform script was
+% in 75~\AD.
+%
+%     The \thisfont{} script came from Ugarit (Ras Shamura) on the
+% Syrian coast and was used for a language related to Hebrew and
+% one of the precusors of Phoenician. Unlike the other cuneiform
+% scripts, \thisfont{} is alphabetic, and the order is known from
+% some abecedaries that have been found.
+%
+%    The full alphabetic script has 30 letters, plus a word divider in
+% the form of a short vertical stroke. The full script was used in
+% administrative texts, but the last three letters were dropped when
+% writing literary texts.
+%
+%
+%    Table~\ref{tab} lists, in the \thisfont{} alphabetical order, the
+% transliterated value of the characters and, where I know it, the
+% modern name of the character.
+%
+% \begin{table}
+% \centering
+% \caption{The \thisfont{} script and alphabet}\label{tab}
+% \begin{tabular}{clcll} \hline
+% Value & Name? & ASCII & Command & Command \\ \hline
+% \textit{a} &
+% aleph &
+% ' a & |\Arq| |\Aa| &
+% |\Aaleph| 
+% \\
+% \textit{b} &
+% beth &
+% b & |\Ab| &
+% |\Abeth|
+% \\
+% \textit{g} &
+% gimel &
+% g & |\Ag| &
+% |\Agimel|
+% \\
+% \textit{\Uunder{h}} &
+%   &
+% I & |\Ahu| &
+%
+% \\
+% \textit{d} &
+% daleth &
+% d & |\Ad| &
+% |\Adaleth|
+% \\
+% \textit{h} &
+% he &
+% h & |\Ah| &
+% |\Ahe|
+% \\
+% \textit{w} &
+% vav &
+% w & |\Aw| &
+% |\Avav|
+% \\
+% \textit{z} &
+% zayin &
+% z & |\Az| &
+% |\Azayin|
+% \\
+% \textit{\d{h}} &
+% heth &
+% H & |\Ahd| &
+% |\Aheth|
+% \\
+% \textit{\d{t}} &
+% teth &
+% T & |\Atd| &
+% |\Ateth|
+% \\
+% \textit{y} &
+% yod &
+% y & |\Ay| &
+% |\Ayod|
+% \\
+% \textit{k} &
+% kaph &
+% k & |\Ak| &
+% |\Akaph|
+% \\
+% \textit{\'{s}} &
+%    &
+% X & |\Asa| &
+%  
+% \\
+% \textit{l} &
+% lamed &
+% l & |\Al| &
+% |\Alamed|
+% \\
+% \textit{m} &
+% mem &
+% m & |\Am| &
+% |\Amem|
+% \\
+% \textit{\b{d}} &
+%   &
+% D & |\Adb| &
+%  
+% \\
+% \textit{n} &
+% nun &
+% n & |\An| &
+% |\Anun|
+% \\
+% \textit{\d{z}} &
+%   &
+% Z & |\Azd| &
+%    
+% \\
+% \textit{s} &
+% samekh &
+% s & |\As| &
+% |\Asamekh|
+% \\
+% \textit{`} &
+% ayin &
+% ` o & |\Alq| |\Ao| &
+% |\Aayin|
+% \\
+% \textit{p} &
+% pe &
+% p & |\Ap| &
+% |\Ape|
+% \\
+% \textit{\d{s}} &
+% sade &
+% x & |\Asd| &
+% |\Asade|
+% \\
+% \textit{q} &
+% qoph &
+% q & |\Aq| &
+% |\Aqoph|
+% \\
+% \textit{r} &
+% resh &
+% r & |\Ar| &
+% |\Aresh|
+% \\
+% \textit{\b{t}} &
+%   &
+% J & |\Atb| &
+%    
+% \\
+% \textit{\.{g}} &
+%   &
+% G & |\Agd| &
+%   
+% \\
+% \textit{t} &
+% tav &
+% t & |\At| &
+% |\Atav|
+% \\
+% \textit{i} &
+%   &
+% i & |\Ai| &
+%    
+% \\
+% \textit{u} &
+%   &
+% u & |\Au| &
+%    
+% \\
+% \textit{\`{s}} &
+%   &
+% V & |\Asg| &
+%    
+% \\
+% \textit{:} & 
+% word divider &
+% : & |\Awd| &
+%    
+% \\
+% \hline
+% \end{tabular}
+% \end{table}
+%
+%
+% \DescribeMacro{\cugarfamily}
+%    This command selects the \thisfont{} font family. 
+% The family name is |cugar|.
+%
+% \DescribeMacro{\textcugar}
+% The command |\textcugar{|\meta{ASCII/commands}|}| 
+% typesets \meta{ASCII/commands} in the
+% \thisfont{} font.
+%
+%    I have provided two, and sometimes three, ways of accessing the \thisfont{} glyphs: 
+% (a) by ASCII characters,
+% (b) by commands whose names are based on the transliterated values, and
+% (c) by commands whose names are based on the (modern) name of the
+%     character.
+% These are shown in Table~\ref{tab}.
+%
+%
+% \DescribeMacro{\translitcugar}
+% The command |\translitcugar{|\meta{commands}|}| will typeset the
+% transliteration of the Ugarite character commnds (those in the
+% last two columns of Table~\ref{tab}).
+%
+% \DescribeMacro{\translitcugarfont}
+%    The font used for the transliteration is defined by this macro,
+% which is initialised to an italic font (i.e., |\itshape|).
+%
+%
+% \StopEventually{
+% \bibliographystyle{alpha}
+% \begin{thebibliography}{GMS94}
+%
+% \bibitem[Dav97]{DAVIES97}
+% W. V. Davies.
+% \newblock \emph{Reading the Past: Egyptian Hieroglyphs}.
+% \newblock University of California Press/British Museum, 1997.
+% \newblock (ISBN 0-520-06287-6)
+%
+% \bibitem[Dru95]{DRUCKER95}
+% Johanna Drucker.
+% \newblock \emph{The Alphabetic Labyrinth}.
+% \newblock Thames and Hudson, 1995.
+%
+% \bibitem[Fir93]{FIRMAGE93}
+% Richard A.~Firmage.
+% \newblock \emph{The Alphabet Abecedarium}.
+% \newblock David R.~Goodine, 1993.
+%
+% \bibitem[GMS94]{GOOSSENS94}
+% Michel Goossens, Frank Mittelbach, and Alexander Samarin.
+% \newblock \emph{The LaTeX Companion}.
+% \newblock Addison-Wesley Publishing Company, 1994.
+%
+% \bibitem[Hea90]{HEALEY90}
+% John F.~Healey.
+% \newblock \emph{Reading the Past: The Early Alphabet}.
+% \newblock University of California Press/British Museum, 1990.
+% \newblock (ISBN 0-520-07309-6)
+%
+% \bibitem[Wal87]{WALKER87}
+% C.~B.~F.~Walker.
+% \newblock \emph{Reading the Past: Cuneiform}.
+% \newblock University of California Press/British Museum, 1987.
+% \newblock (ISBN 0-520-06115-2)
+%
+% \end{thebibliography}
+% \PrintIndex
+% }
+%
+%
+% \section{The Metafont code} \label{sec:mf}
+%
+% \subsection{The parameter file}
+%
+%    We deal with the parameter file first, and start by announcing
+% what it is for.
+%    \begin{macrocode}
+%<*up>
+%%% CUGAR10.MF  Computer Ugaritic Cuneiform font 10 point design size.
+
+%    \end{macrocode}
+%    Specify the font size.
+%    \begin{macrocode}
+
+font_identifier:="ugarite"; font_size 10pt#;
+
+%    \end{macrocode}
+%
+%
+% \begin{macro}{u} 
+% \begin{macro}{ht} 
+% \begin{macro}{s} 
+% \begin{macro}{o} 
+% \begin{macro}{px} 
+% \begin{macro}{font-normal-space} 
+% \begin{macro}{font-normal-shrink} 
+% \begin{macro}{font-x-height} 
+% \begin{macro}{font-quad}
+%    Define the very simple font parameters.
+%    \begin{macrocode}
+u#:=.2pt#;                 % unit width
+ht#:=8pt#;                 % height of characters (CM cap-height is approx 6.8pt)
+s#:=1.5pt#;                % width correction (right and left)
+o#:=1/20pt#;               % overshoot
+px#:=.4pt#;                % horizontal width of pen
+font_normal_space:=7pt#;   % width of a blank space
+font_normal_shrink:=.9pt#; % width correction for blank space
+font_x_height:=4.5pt#;     % height of one ex
+font_quad:=10pt#;          % an em
+
+%    \end{macrocode}
+% \end{macro}
+% \end{macro}
+% \end{macro}
+% \end{macro}
+% \end{macro}
+% \end{macro}
+% \end{macro}
+% \end{macro}
+% \end{macro}
+%
+%    For a full font the driver file would normally be called here.
+% In this case I have embedded it.
+%    \begin{macrocode} 
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% end of parameters
+% start of driver code
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%    \end{macrocode}
+%
+%
+% \subsection{The driver file}
+%
+%    If there was a driver file, this would be its contents.
+%
+%    \begin{macrocode}
+
+font_coding_scheme:="Ugarite glyphs";
+mode_setup;
+
+%    \end{macrocode}
+%
+% \begin{macro}{ho}
+% \begin{macro}{leftloc}
+% \begin{macro}{py}
+%  Perform additional setup.
+%    \begin{macrocode}
+ho#:=o#;                   % horizontal overshoot
+leftloc#:=s#;              % leftmost xcoord of character
+py#:=px#;                % vertical thickness of the pen
+
+define_pixels(s,u);
+define_blacker_pixels(px,py);
+define_good_x_pixels(leftloc);
+define_corrected_pixels(o);             % turn on overshoot correction
+define_horizontal_corrected_pixels(ho);  
+
+%    \end{macrocode}
+% \end{macro}
+% \end{macro}
+% \end{macro}
+%
+% \begin{macro}{midloc}
+% \begin{macro}{rightloc}
+% \begin{macro}{aw}
+%    Variables for the middldle and rightmost xcoord of a character, and
+% the actual width of a character.
+%    \begin{macrocode}
+numeric midloc, rightloc, aw;
+%    \end{macrocode}
+% \end{macro}
+% \end{macro}
+% \end{macro}
+%
+% \begin{macro}{stylus}
+%    Define the pen.
+%    \begin{macrocode}
+pickup pencircle xscaled px yscaled py;
+stylus:=savepen;
+
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{trht}
+% \begin{macro}{trbs}
+%    The normal height and base of a triangle.
+%    \begin{macrocode}
+numeric trht, trbs;
+%    \end{macrocode}
+% \end{macro}
+% \end{macro}
+%
+% \begin{macro}{th}
+% \begin{macro}{tb}
+%    The ratio of the normal height and base of a triangle with respect to
+% the character height.
+%    \begin{macrocode}
+numeric th, tb;
+th = 6/24; tb = 8/24;
+%    \end{macrocode}
+% \end{macro}
+% \end{macro}
+%
+% \begin{macro}{wiht}
+% \begin{macro}{wibs}
+%    The normal height and base of a wing.
+%    \begin{macrocode}
+numeric wiht, wibs;
+%    \end{macrocode}
+% \end{macro}
+% \end{macro}
+%
+% \begin{macro}{wh}
+% \begin{macro}{wb}
+%    The ratio of the normal height and base of a wing with respect to
+% the character height.
+%    \begin{macrocode}
+numeric wh, wb;
+wh = 10/24; wb = 20/24;
+%    \end{macrocode}
+% \end{macro}
+% \end{macro}
+%
+%
+% \begin{macro}{beginglyph}
+%    A macro to save some typing of beginchar arguments, and also assigns
+% values to various variables.
+% 
+%    \begin{macrocode}
+def beginglyph(expr code, unit_width) =
+  beginchar(code, unit_width*ht#+2s#, ht#, 0);
+  midloc:=1/2w; rightloc:=(w-s); aw := rightloc-leftloc;
+  trht := th*h; trbs := tb*h;
+  wiht := wh*h; wibs := wb*h;
+  pickup stylus enddef;
+
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{cmchar}
+%    |cmchar| should precede each character
+%    \begin{macrocode}
+let cmchar=\;
+
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{triangle}
+% |triangle($, ht, base, angle)| calculates the points on a triangle
+% whose apex is at |z$|, of height |ht| and base width |base| rotated
+% at |angle| from pointing along the positive |x| axis.
+%    \begin{macrocode}
+
+def triangle(suffix $)(expr ht, bs, ang) =
+  path pth[];
+  pair pr[];
+  pr1 := (x$-ht,y$);  % midpoint of base in default position
+  pr2 := pr1 shifted (1/2bs*up);   % base points
+  pr3 := pr1 shifted (1/2bs*down);
+  z$trl = pr2 rotatedaround(z$, ang);
+  z$trr = pr3 rotatedaround(z$, ang);
+  z$trc = 1/2[z$trl,z$trr];
+  z$tic = 1/2[z$,z$trc];
+  pth$ := z$--z$trl--z$trr--cycle;
+enddef;
+
+%    \end{macrocode}
+% \end{macro}
+% 
+% \begin{macro}{trir}
+% |trir($, ht, base)| calculates the points on a triangle
+% whose apex is at |z$|, of height |ht| and base width |base|
+% pointing in the positive |x| direction (i.e., Right).
+%    \begin{macrocode}
+
+def trir(suffix $)(expr ht, bs) =
+  path pth[];
+  z$trc = (x$-ht, y$);              % midpoint of base 
+  z$trl = (x$trc, y$trc+1/2bs);     % base points
+  z$trr = (x$trc, y$trc-1/2bs);
+  z$tic = 1/2[z$,z$trc];
+  pth$ := z$--z$trl--z$trr--cycle;
+enddef;
+
+%    \end{macrocode}
+% \end{macro}
+% 
+% \begin{macro}{triu}
+% |triu($, ht, base)| calculates the points on a triangle
+% whose apex is at |z$|, of height |ht| and base width |base|
+% pointing in the positive |y| direction (i.e. Up).
+%    \begin{macrocode}
+
+def triu(suffix $)(expr ht, bs) =
+  path pth[];
+  z$trc = (x$, y$-ht);         % midpoint of base 
+  z$trl = (x$-1/2bs, y$trc);   % base points
+  z$trr = (x$+1/2bs, y$trc);   % base points
+  z$tic = 1/2[z$,z$trc];
+  pth$ := z$--z$trl--z$trr--cycle;
+enddef;
+
+%    \end{macrocode}
+% \end{macro}
+% 
+% \begin{macro}{tril}
+% |tril($, ht, base)| calculates the points on a triangle
+% whose apex is at |z$|, of height |ht| and base width |base|
+% pointing in the negative |x| direction (i.e., Left).
+%    \begin{macrocode}
+
+def tril(suffix $)(expr ht, bs) =
+  path pth[];
+  z$trc = (x$+ht, y$);              % midpoint of base 
+  z$trl = (x$trc, y$trc-1/2bs);     % base points
+  z$trr = (x$trc, y$trc+1/2bs);
+  z$tic = 1/2[z$,z$trc];
+  pth$ := z$--z$trl--z$trr--cycle;
+enddef;
+
+%    \end{macrocode}
+% \end{macro}
+% 
+% \begin{macro}{trid}
+% |tril($, ht, base)| calculates the points on a triangle
+% whose apex is at |z$|, of height |ht| and base width |base|
+% pointing in the negative |x| direction (i.e., Left).
+%    \begin{macrocode}
+
+def tril(suffix $)(expr ht, bs) =
+  path pth[];
+  z$trc = (x$+ht, y$);              % midpoint of base 
+  z$trl = (x$trc, y$trc-1/2bs);     % base points
+  z$trr = (x$trc, y$trc+1/2bs);
+  z$tic = 1/2[z$,z$trc];
+  pth$ := z$--z$trl--z$trr--cycle;
+enddef;
+
+%    \end{macrocode}
+% \end{macro}
+% 
+% \begin{macro}{trid}
+% |trid($, ht, base)| calculates the points on a triangle
+% whose apex is at |z$|, of height |ht| and base width |base|
+% pointing in the negative |y| direction (i.e. Down).
+%    \begin{macrocode}
+
+def trid(suffix $)(expr ht, bs) =
+  path pth[];
+  z$trc = (x$, y$+ht);         % midpoint of base 
+  z$trl = (x$+1/2bs, y$trc);   % base points
+  z$trr = (x$-1/2bs, y$trc);   % base points
+  z$tic = 1/2[z$,z$trc];
+  pth$ := z$--z$trl--z$trr--cycle;
+enddef;
+
+%    \end{macrocode}
+% \end{macro}
+% 
+% \begin{macro}{wing}
+% |wing($, ht, base, angle)| calculates the points on a `flying wing'
+% whose apex is at |z$|, of height |ht| and base width |base| rotated
+% at |angle| from pointing along the negative |x| axis.
+%    \begin{macrocode}
+
+def wing(suffix $)(expr ht, bs, ang) =
+  path pth[];
+  pair pr[];
+  pr1 := (x$+ht,y$);  % midpoint of base in default position
+  pr2 := pr1 shifted (1/2bs*down);   % base points
+  pr3 := pr1 shifted (1/2bs*up);
+  pr4 := pr1 rotatedaround(z$, ang);
+  z$wil = pr2 rotatedaround(z$, ang);
+  z$wir = pr3 rotatedaround(z$, ang);
+  z$wic = 1/2[z$,pr4];
+  pth$ := z$--z$wil{(z$wic-z$wil)}..z$wic..{(z$wir-z$wic)}z$wir--cycle;
+enddef;
+
+%    \end{macrocode}
+% \end{macro}
+% 
+% \begin{macro}{wingl}
+% |wingl($, ht, base)| calculates the points on a `flying wing'
+% whose apex is at |z$|, of height |ht| and base width |base| 
+% pointing in the negative |x| direction (i.e., Left).
+%    \begin{macrocode}
+
+def wingl(suffix $)(expr ht, bs) =
+  path pth[];
+  z$wil = (x$+ht, y$-1/2bs);      % base points
+  z$wir = (x$wil, y$+1/2bs);
+  z$wic = (1/2[x$,x$wil], y$);    % midpoint of base curve
+  pth$ := z$--z$wil{(z$wic-z$wil)}..z$wic..{(z$wir-z$wic)}z$wir--cycle;
+enddef;
+
+%    \end{macrocode}
+% \end{macro}
+% 
+% \begin{macro}{wingd}
+% |wingd($, ht, base)| calculates the points on a `flying wing'
+% whose apex is at |z$|, of height |ht| and base width |base| 
+% pointing in the negative |y| direction (i.e., Down).
+%    \begin{macrocode}
+
+def wingd(suffix $)(expr ht, bs) =
+  path pth[];
+  z$wil = (x$+1/2bs, y$+ht);      % base points
+  z$wir = (x$-1/2bs, y$wil);
+  z$wic = (x$, 1/2[y$,y$wil]);    % midpoint of base curve
+  pth$ := z$--z$wil{(z$wic-z$wil)}..z$wic..{(z$wir-z$wic)}z$wir--cycle;
+enddef;
+
+%    \end{macrocode}
+% \end{macro}
+% 
+% \begin{macro}{wingr}
+% |wingr($, ht, base)| calculates the points on a `flying wing'
+% whose apex is at |z$|, of height |ht| and base width |base| 
+% pointing in the positive |x| direction (i.e., Right).
+%    \begin{macrocode}
+
+def wingr(suffix $)(expr ht, bs) =
+  path pth[];
+  z$wil = (x$-ht, y$+1/2bs);      % base points
+  z$wir = (x$wil, y$-1/2bs);
+  z$wic = (1/2[x$,x$wil], y$);    % midpoint of base curve
+  pth$ := z$--z$wil{(z$wic-z$wil)}..z$wic..{(z$wir-z$wic)}z$wir--cycle;
+enddef;
+
+%    \end{macrocode}
+% \end{macro}
+% 
+% \begin{macro}{wingu}
+% |wingu($, ht, base)| calculates the points on a `flying wing'
+% whose apex is at |z$|, of height |ht| and base width |base| 
+% pointing in the positive |y| direction (i.e., Up).
+%    \begin{macrocode}
+
+def wingu(suffix $)(expr ht, bs) =
+  path pth[];
+  z$wil = (x$-1/2bs, y$-ht);      % base points
+  z$wir = (x$+1/2bs, y$wil);
+  z$wic = (x$, 1/2[y$,y$wil]);    % midpoint of base curve
+  pth$ := z$--z$wil{(z$wic-z$wil)}..z$wic..{(z$wir-z$wic)}z$wir--cycle;
+enddef;
+
+%    \end{macrocode}
+% \end{macro}
+% 
+%    This would be the end of a seperate driver file, except for calling
+% the glyph code.
+%
+% \subsection{The glyph code}
+%
+%    The following code generates the glyphs for the \thisfont{} font. 
+% The characters
+% are defined in the original alphabetic ordering.
+%
+%    \begin{macrocode}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% end of driver code
+% start of glyph code
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%    \end{macrocode}
+%
+% \begin{macro}{'}
+% The \thisfont{} ' (semitic aleph).
+%    \begin{macrocode}
+ 
+cmchar "Ugarite letter '";
+beginglyph("'", 24/24);
+  z1trc=(leftloc,1/2h);
+  trir(1, trht, trbs); fill pth1;
+  z2trc=z1;
+  trir(2, trht, trbs); fill pth2;
+  z4=(rightloc,y1tic); draw z1tic--z4;
+  labels(1,1trc,2,3,4);
+endchar;
+
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{a}
+% The \thisfont{} ' (semitic aleph).
+%    \begin{macrocode}
+ 
+cmchar "Ugarite letter ' (coded as a)";
+beginglyph("a", 24/24);
+  z1trc=(leftloc,1/2h);
+  trir(1, trht, trbs); fill pth1;
+  z2trc=z1;
+  trir(2, trht, trbs); fill pth2;
+  z4=(rightloc,y1tic); draw z1tic--z4;
+  labels(1,1trc,2,3,4);
+endchar;
+
+%    \end{macrocode}
+% \end{macro}
+%
+%
+% \begin{macro}{b}
+% The \thisfont{} B.
+%    \begin{macrocode}
+ 
+cmchar "Ugarite letter b";
+beginglyph("b", (th+3/2tb));
+  z1trr=(leftloc,0);                 % bottom pin
+  trir(1, trht, trbs); fill pth1;
+  z3trc=(x1,h);                      % left pin
+  trid(3, trht, trbs); fill pth3;
+  z4trr=z3trl;                       % right pin
+  trid(4, trht, trbs); fill pth4;
+  z2=(x4,y1);
+  trir(2, trht, trbs); fill pth2;    % second bottom head
+  rt x21 = rightloc; y21=y1tic;      % bodies
+  draw z1tic--z21;
+  draw z3tic--z1; draw z4tic--z2;
+  labels(1,2,3,4); 
+endchar;
+ 
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{g}
+%    The \thisfont{} G. 
+%    \begin{macrocode}
+ 
+cmchar "Ugarite letter g";
+beginglyph("g", tb);
+  z1trc=(midloc,h);
+  trid(1, trht, trbs);  fill pth1;
+  z13=(x1,0); draw z1tic--z13;
+  labels(1,1trl,1trc,1trr,11,13); 
+endchar;
+ 
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{I}
+% The \thisfont{} letter H with a u under.
+%    \begin{macrocode}
+ 
+cmchar "Ugarite letter h sub u (I)";
+beginglyph("I", tb);
+  z1trc=(midloc,h);
+  trid(1, trht, trbs); fill pth1;   % top head
+  z2trc=(x1trc,y1);
+  trid(2, trht, trbs); fill pth2;   % middle head
+  z3trc=(x1trc,y2); 
+  trid(3, trht, trbs); fill pth3;   % bottom head
+  z13=(x1,0); draw z1tic--z13;
+  labels(1,2,3,4,5,6,11,13); 
+endchar;
+ 
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{d}
+% The \thisfont{} letter D.
+%    \begin{macrocode}
+ 
+cmchar "Ugarite letter d";
+beginglyph("d", (th+5/2tb));
+  z1trr=(leftloc,0);
+  trir(1, trht, trbs); fill pth1;   % bottom left head
+  z11trc=(x1,h);                    % top left head
+  trid(11, trht, trbs); fill pth11;
+  z12trr=z11trl;                    % top center head
+  trid(12, trht, trbs); fill pth12;
+  z13trr=z12trl;                    % top right head
+  trid(13, trht, trbs); fill pth13;
+  z2=(x12,y1);                      % bottom center head
+  trir(2, trht, trbs); fill pth2;
+  z3=(x13,y1);                      % bottom right head
+  trir(3, trht, trbs); fill pth3;
+  rt x3' = rightloc; y3'=y1tic;     % bodies
+  draw z1tic--z3';
+  draw z11tic--z1; draw z12tic--z2; draw z13tic--z3;
+  labels(1,2,3,4,11,12,13); 
+endchar;
+ 
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{h}
+% The \thisfont{} letter H.
+%    \begin{macrocode}
+ 
+cmchar "Ugarite letter h";
+beginglyph("h",24/24);
+  z2trc = (leftloc,1/2h);           % center head
+  trir(2, trht, trbs); fill pth2;
+  z1trr=z2trl;                      % top head
+  trir(1, trht, trbs); fill pth1;
+  z3trl=z2trr;                      % bottom head
+  trir(3, trht, trbs); fill pth3;
+  y1'' = y1; y2'' = y2; y3'' = y3;  % bodies
+  x1'' = x2'' = x3'' = rightloc;
+  draw z1tic--z1''; draw z2tic--z2''; draw z3tic--z3'';
+labels(1,2,3,4,5,6,7,8,9,10); endchar;
+ 
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{w}
+% The \thisfont{} letter W.
+%    \begin{macrocode}
+ 
+cmchar "Ugarite letter w";
+beginglyph("w", (5th));
+  z1trr=(leftloc,1/2h);             % top head
+  trir(1, trht, trbs); fill pth1;
+  z2trl=z1trr;                      % bottom head
+  trir(2, trht, trbs); fill pth2;
+  z3trc=(3/6aw, 1/2h);              % center left head
+  trir(3, trht, trbs); fill pth3;
+  z4trc=z3;                         % center right head
+  trir(4, trht, trbs); fill pth4;
+  x1''=x3trc; y1'' = y1;  % left bodies
+  x2''=x3trc; y2'' = y2;
+  x3''=rightloc; y3'' = y3;
+  draw z1tic--z1'';
+  draw z2tic--z2'';
+  draw z3tic--z3'';
+  labels(1,2,3,4,5,6,7,8,9,10); 
+endchar;
+ 
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{z}
+% The \thisfont{} letter Z.
+%    \begin{macrocode}
+ 
+cmchar "Ugarite letter z";
+beginglyph("z", tb);
+  z1trc=(midloc,h);
+  trid(1, trht, trbs); fill pth1;   % top head
+  z2trc=(x1trc,y1);
+  trid(2, trht, trbs); fill pth2;   % middle head
+  z1''=(x1,0); draw z1tic--z1'';
+  labels(1,2,3,4,5,6,7,8,9,10); 
+endchar;
+ 
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{H}
+% The \thisfont{} letter H sub d.
+%    \begin{macrocode}
+ 
+cmchar "Ugarite letter H sub d (H)";
+beginglyph("H", (4tb));       % 3tb too small
+  numeric n[];
+  z1trc=(leftloc,1/2h);             % left head
+  trir(1, trht, trbs); fill pth1;
+  z2trc=(midloc,h);                 % top middle head
+  trid(2, trht, trbs); fill pth2;
+  n1 := 3/2trbs;                    % base of small wing % 2trbs too large
+  n2 := 1/2n1;                      % height of small wing
+  z3 = (rightloc-n2,y1);
+  wingl(3, n2, n1); fill pth3;
+  z4 = (x2,y1);
+  z5=(1/2[x1,x3], y4-trht-1/2trbs);    % bottom head 
+  triangle(5, trht, trbs, -45); fill pth5;
+  z5'=whatever[z5trc,z5]; y5'=0;
+  draw z1tic--z3;
+  draw z2tic--z4;
+  draw z5tic--z5';
+  labels(1,2,3,4,5,6,7,8,9,10); 
+endchar;
+ 
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{T}
+% The \thisfont{} letter T sub d.
+%    \begin{macrocode}
+ 
+cmchar "Ugarite letter T sub d (T)";
+beginglyph("T", (3tb));
+  numeric n[];
+  z1trc=(leftloc,1/2h);             % left head
+  trir(1, trht, trbs); fill pth1;
+  z2trc=(midloc,h);                 % top middle head
+  trid(2, trht, trbs); fill pth2;
+  n1 := 2trbs;                      % base of small wing
+  n2 := 1/2n1;                      % height of small wing
+  z3 = (rightloc-n2,y1);
+  wingl(3, n2, n1); fill pth3;
+  z4 = (x2,y1);
+  draw z1tic--z3;
+  draw z2tic--z4;
+  labels(1,2,3,4,5,6,7,8,9,10); 
+endchar;
+ 
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{y}
+% The \thisfont{} letter Y.
+%    \begin{macrocode}
+ 
+cmchar "Ugarite letter y";
+beginglyph("y", (2tb));
+%% left pin
+  z1trr=(leftloc,h);
+  trid(1, trht, trbs); fill pth1;   % top head
+  z2trc=(x1trc,y1);
+  trid(2, trht, trbs); fill pth2;   % middle head
+  z3trc=(x1trc,y2); 
+  trid(3, trht, trbs); fill pth3;   % bottom head
+  z1''=(x1,0); draw z1tic--z1'';
+%% right pin
+  z11trr=z1trl;
+  trid(11, trht, trbs); fill pth11;   % top head
+  z12trc=(x11trc,y11);
+  trid(12, trht, trbs); fill pth12;   % middle head
+  z13trc=(x11trc,y12); 
+  trid(13, trht, trbs); fill pth13;   % bottom head
+  z11''=(x11,0); draw z11tic--z11'';
+  labels(1,2,3,4,5,6,11,12,13); 
+endchar;
+
+%    \end{macrocode}
+% \end{macro}
+%
+%
+%
+% \begin{macro}{k}
+% The \thisfont{} letter K.
+%    \begin{macrocode}
+ 
+cmchar "Ugarite letter k";
+beginglyph("k", (5th));
+  z1trr=(leftloc,1/2h);             % top head
+  trir(1, trht, trbs); fill pth1;
+  z2trl=z1trr;                      % bottom head
+  trir(2, trht, trbs); fill pth2;
+  z3trc=(3/6aw, 1/2h);              % center left head
+  trir(3, trht, trbs); fill pth3;
+  x1''=x3trc; y1'' = y1;  % left bodies
+  x2''=x3trc; y2'' = y2;
+  x3''=rightloc; y3'' = y3;
+  draw z1tic--z1'';
+  draw z2tic--z2'';
+  draw z3tic--z3'';
+  labels(1,2,3,4,5,6,7,8,9,10); 
+endchar;
+ 
+%    \end{macrocode}
+% \end{macro}
+%
+%
+% \begin{macro}{V}
+% The \thisfont{} letter S with an acute accent.
+%    \begin{macrocode}
+ 
+cmchar "Ugarite letter s acute (X)";
+beginglyph("X", (2wh+tb));
+  z1trc=(midloc,h);                 % top head
+  trid(1, trht, trbs); fill pth1;
+  z1''=(x1,0);
+  draw z1tic--z1'';
+  z2=(leftloc, 1/2h);               % left wing
+  wingl(2, wiht, wibs); fill pth2;
+  z3=(rightloc, y2) ;               % right wing
+  wingr(3, wiht, wibs); fill pth3;
+  labels(1,2,2wil,2wic,2wir,3,4,5,6,7,8,9,10); 
+endchar;
+ 
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{l}
+% The \thisfont{} letter L.
+%    \begin{macrocode}
+ 
+cmchar "Ugarite letter l";
+beginglyph("l", (3tb));
+%% left pin
+  z1trr=(leftloc,h);
+  trid(1, trht, trbs); fill pth1;   % top head
+  z1''=(x1,0); draw z1tic--z1'';
+%% center pin
+  z11trr=z1trl;
+  trid(11, trht, trbs); fill pth11;   % top head
+  z11''=(x11,0); draw z11tic--z11'';
+%% right pin
+  z21trr=z11trl;
+  trid(21, trht, trbs); fill pth21;   % top head
+  z21''=(x21,0); draw z21tic--z21'';
+  labels(1,2,3,4,5,6,11,12,13,21,22,23); 
+endchar;
+
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{m}
+% The \thisfont{} letter M.
+%    \begin{macrocode}
+ 
+cmchar "Ugarite letter m";
+beginglyph("m", (3tb));
+  z1trl=(rightloc,h);               % right head
+  trid(1, trht, trbs); fill pth1;
+  z1''=(x1,0); draw z1tic--z1'';
+  z2trc=(leftloc, 1/2[y1tic,y1'']); % left head
+  trir(2, trht, trbs); fill pth2;
+  z2''=(x1,y2); draw z2tic--z2'';
+  labels(1,2,3,4,5,6); 
+endchar;
+ 
+%    \end{macrocode}
+% \end{macro}
+%
+%
+% \begin{macro}{D}
+% The \thisfont{} letter D with an underbar.
+%    \begin{macrocode}
+ 
+cmchar "Ugarite letter d sub bar (D)";
+beginglyph("D", (wh+tb));
+  z1trl=(rightloc,h);                 % top head
+  trid(1, trht, trbs); fill pth1;
+  z1''=(x1,0); draw z1tic--z1'';
+  z2=(leftloc, 1/2h);                 % left wing
+  wingl(2, wiht, wibs); fill pth2;
+  labels(1,2,3,4,5,6,7,8,9,10); 
+endchar;
+ 
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{n}
+% The \thisfont{} letter N.
+%    \begin{macrocode}
+ 
+cmchar "Ugarite letter n";
+beginglyph("n", (5th));
+  z1trc=(leftloc, 1/2h);              % left head
+  trir(1, trht, trbs); fill pth1;
+  z2trc=z1;                           % center head
+  trir(2, trht, trbs); fill pth2;
+  z3trc=z2;                           % right head
+  trir(3, trht, trbs); fill pth3;
+  z1''=(rightloc,y1); draw z1tic--z1'';
+  labels(1,2,3,4,5); 
+endchar;
+ 
+%    \end{macrocode}
+% \end{macro}
+%
+%
+%
+% \begin{macro}{Z}
+% The \thisfont{} letter Z with an underdot.
+%    \begin{macrocode}
+ 
+cmchar "Ugarite letter z sub dot (Z)";
+beginglyph("Z", (3th+wh));
+  z1trr=(leftloc,1/2h);           % top head
+  trir(1, trht, trbs); fill pth1;
+  z1''=(leftloc+3trht, y1); draw z1tic--z1'';
+  z2trl=z1trr;                    % bottom head
+  trir(2, trht, trbs); fill pth2;
+  z2''=(x1'',y2); draw z2tic--z2'';
+  z3=(x1'',1/2h);                 % wing
+  wingl(3, wiht, wibs); fill pth3;
+  labels(1,2,3,4,5,6,7); 
+endchar;
+ 
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{s}
+% The \thisfont{} letter S.
+%    \begin{macrocode}
+ 
+cmchar "Ugarite letter s";
+beginglyph("s", (2tb));
+  z1trr=(leftloc,h);               % left head
+  trid(1, trht, trbs); fill pth1;
+  z1''=(x1,1/2h);  draw z1tic--z1'';
+  z2trr=z1trl;                     % right head
+  trid(2, trht, trbs); fill pth2;
+  z2''=(x2,y1''); draw z2tic--z2'';
+  z3trc=(1/2[x1,x2], y1'');         % bottom head
+  trid(3, trht, trbs); fill pth3;
+  z3''=(x3,0); draw z3tic--z3'';
+  labels(1,2,3,4,5,6,7); 
+endchar;
+ 
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{`}
+% The \thisfont{} letter single left quote.
+%    \begin{macrocode}
+ 
+cmchar "Ugarite letter `";
+beginglyph("`", (wh));
+  z1=(leftloc,1/2h);
+  wingl(1, wiht, wibs); fill pth1;
+  labels(1,2,3,4,5,6,7); 
+endchar;
+ 
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{o}
+% The \thisfont{} letter single left quote.
+%    \begin{macrocode}
+ 
+cmchar "Ugarite letter ` (coded as o)";
+beginglyph("o", (wh));
+  z1=(leftloc,1/2h);
+  wingl(1, wiht, wibs); fill pth1;
+  labels(1,2,3,4,5,6,7); 
+endchar;
+ 
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{p}
+% The \thisfont{} letter P.
+%    \begin{macrocode}
+ 
+cmchar "Ugarite letter p";
+beginglyph("p", (4th));
+  z1trr=(leftloc,1/2h);           % top head
+  trir(1, trht, trbs); fill pth1;
+  z1''=(rightloc,y1); draw z1tic--z1'';
+  z2trl=z1trr;                    % bottom head
+  trir(2, trht, trbs); fill pth2;
+  z2''=(x1'',y2);  draw z2tic--z2'';
+  labels(1,2,3,4,5,6,7); 
+endchar;
+ 
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{x}
+% The \thisfont{} letter S sub dot.
+%    \begin{macrocode}
+ 
+cmchar "Ugarite letter S sub dot (x)";
+beginglyph("x", (2tb));
+  z1trr=(leftloc,h);              % left head
+  trid(1, trht, trbs); fill pth1;
+  z1''=(x1,0); draw z1tic--z1'';
+  z2trr=z1trl;                    % right head
+  trid(2, trht, trbs); fill pth2;
+  z2''=(x2,0); draw z2tic--z2'';
+  labels(1,2,3,4,5,6,7); 
+endchar;
+ 
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{q}
+% The \thisfont{} letter Q.
+%    \begin{macrocode}
+ 
+cmchar "Ugarite letter q";
+beginglyph("q", (3tb));
+  numeric n[];
+  z1trc=(leftloc,1/2h);             % left head
+  trir(1, trht, trbs); fill pth1;
+  n1 := 2trbs;                      % base of small wing
+  n2 := 1/2n1;                      % height of small wing
+  z3 = (rightloc-n2,y1);
+  wingl(3, n2, n1); fill pth3;
+  draw z1tic--z3;
+  labels(1,2,3,4,5,6,7,8,9,10); 
+endchar;
+ 
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{r}
+% The \thisfont{} letter R.
+%    \begin{macrocode}
+ 
+cmchar "Ugarite letter r";
+beginglyph("r", (5th));     % 6th too much
+%% bottom
+  z1trl=(leftloc,1/2h);              % left head
+  trir(1, trht, trbs); fill pth1;
+  z2trc=z1;                       % center head
+  trir(2, trht, trbs); fill pth2;
+%% top
+  z11trr=z1trl;                     % left head
+  trir(11, trht, trbs); fill pth11;
+  z12trc=z11;                       % center head
+  trir(12, trht, trbs); fill pth12;
+%% right 
+  z21trc=(x2+trht, 1/2[y1,y11]);
+  trir(21, trht, trbs); fill pth21;
+  z1''=(x21trc,y1); draw z1tic--z1'';
+  z11''=(x21trl,y11); draw z11tic--z11'';
+  z21''=(rightloc,y21); draw z21tic--z21'';
+  labels(1,2,3,4,5,6,7,11,12,21); 
+endchar;
+ 
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{J}
+% The \thisfont{} T sub bar.
+%    \begin{macrocode}
+ 
+cmchar "Ugarite letter T sub bar (J)";
+beginglyph("J", (2tb));
+  z1trl=(rightloc,h);                      % vertical pin
+  trid(1, trht, trbs); fill pth1;
+  z1''=(x1,0); draw z1tic--z1'';
+  z2=(x1trr,1/3h);                         % angled pin
+  z2''=(rightloc,0);
+  triangle(2, trht, trbs, angle((z2''-z2))); fill pth2;
+  draw z2tic--z2'';
+  labels(1,1'',2,2'');
+endchar;
+
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{G}
+% The \thisfont{} G with a dot accent.
+%    \begin{macrocode}
+ 
+cmchar "Ugarite letter G sup dot (G)";
+beginglyph("G", 24/24);
+  z1trc=(leftloc,1/2h);           % horizontal pin
+  trir(1, trht, trbs); fill pth1;
+  z1''=(rightloc,y1);  draw z1tic--z1'';
+  z2=(1/2[x1,x1''], y1trr);       % angled pin
+  triangle(2, trht, trbs, 45); fill pth2;
+  z2''=whatever[z2trc,z2]; y2''=(y1+(y1-y2));
+  draw z2tic--z2'';
+  labels(1,2,3,4);
+endchar;
+
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{t}
+% The \thisfont{} T.
+%    \begin{macrocode}
+ 
+cmchar "Ugarite letter t";
+beginglyph("t", 24/24);
+  z1trc=(leftloc,1/2h);
+  trir(1, trht, trbs); fill pth1;
+  z1''=(rightloc,y1);  draw z1tic--z1'';
+  labels(1,2,3,4);
+endchar;
+
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{i}
+% The \thisfont{} I.
+%    \begin{macrocode}
+ 
+cmchar "Ugarite letter i";
+beginglyph("i", 24/24);
+  z1trc=(leftloc,h);                % top
+  trir(1, trht, trbs); fill pth1;
+  z1''=(rightloc,y1);  draw z1tic--z1'';
+  z2trl=z1trr;                      % center
+  trir(2, trht, trbs); fill pth2;
+  z2''=(rightloc,y2);  draw z2tic--z2'';
+  z3trl=z2trr;                      % bottom
+  trir(3, trht, trbs); fill pth3;
+  z3''=(rightloc,y3);  draw z3tic--z3'';
+
+  z4trc=(midloc,y3);                % small vertical pin
+  trid(4, trht, trbs); fill pth4;
+  z4''=(x4,0);  draw z4tic--z4'';
+  labels(1,2,3,4);
+endchar;
+
+%    \end{macrocode}
+% \end{macro}
+%
+%
+% \begin{macro}{u}
+% The \thisfont{} letter U.
+%    \begin{macrocode}
+ 
+cmchar "Ugarite letter u";
+beginglyph("u", (4tb));            % 5tb too big
+  z2trc=(midloc,h);                % center pin
+  trid(2, trht, trbs); fill pth2;
+  z1trl=z2trr;                     % left pin
+  trid(1, trht, trbs); fill pth1;
+  z3trr=z2trl;                     % right pin
+  trid(3, trht, trbs); fill pth3;
+  z4trr=(leftloc,0);               % bottom pin
+  trir(4, trht, trbs); fill pth4;
+  z1''=(x1,y4); draw z1tic--z1'';
+  z2''=(x2,y4); draw z2tic--z2'';
+  z3''=(x3,y4); draw z3tic--z3'';
+  z4''=(rightloc,y4); draw z4tic--z4'';
+  labels(1,2,3,4);
+endchar;
+
+%    \end{macrocode}
+% \end{macro}
+%
+%
+% \begin{macro}{V}
+% The \thisfont{} letter S with grave accent.
+%    \begin{macrocode}
+ 
+cmchar "Ugarite letter S with grave accent (V)";
+beginglyph("V", (4tb));
+  numeric n[];
+  n1 := 3/2trbs;           % base of wing  % 2trbs too large
+  n2 := 1/2n1;           % height of wing
+  z11trc=(midloc,h);                   % pin
+  trid(11, trht, trbs); fill pth11;
+  z11''=(x11,0); draw z11tic--z11'';
+%% left wings
+  z3wir=(x11trr,0);                  % bottom
+  wingu(3, n2, n1); fill pth3;
+  z1=(x3,y11);                         % top
+  wingu(1, n2, n1); fill pth1;
+  z2=1/2[z1,z3];                       % middle
+  wingu(2, n2, n1); fill pth2;
+%% right wings
+  z23wil=(x11trl,0);                  % bottom
+  wingu(23, n2, n1); fill pth23;
+  z21=(x23,y11);                        % top
+  wingu(21, n2, n1); fill pth21;
+  z22=1/2[z21,z23];                     % middle
+  wingu(22, n2, n1); fill pth22;
+  labels(1,2,3,11,21,22,23);
+endchar;
+
+%    \end{macrocode}
+% \end{macro}
+%
+%
+% \begin{macro}{:}
+% The \thisfont{} word divider.
+%    \begin{macrocode}
+ 
+cmchar "Ugarite word divider (:)";
+beginglyph(":", (tb));
+  z1trc=(midloc, 3/4h);
+  trid(1, trht, trbs); fill pth1;
+  z2=(midloc, 1/4h);  draw z1tic--z2;
+  labels(1,1',1'',2,2',2trl,2trc,2trr,3,4);
+endchar;
+
+%    \end{macrocode}
+% \end{macro}
+%
+%
+%
+%
+%  The end of the glyphs and file
+%
+%    \begin{macrocode} 
+
+end
+
+%</up> 
+%    \end{macrocode}
+%
+%
+%
+% \section{The font definition files} \label{sec:fd}
+%
+%    \begin{macrocode}
+%<*fdot1>
+\DeclareFontFamily{OT1}{cugar}{}
+  \DeclareFontShape{OT1}{cugar}{m}{n}{ <-> cugar10 }{}
+  \DeclareFontShape{OT1}{cugar}{bx}{n}{ <-> sub cugar/m/n }{}
+  \DeclareFontShape{OT1}{cugar}{b}{n}{ <-> sub cugar/m/n }{}
+  \DeclareFontShape{OT1}{cugar}{m}{sl}{ <-> sub cugar/m/n }{}
+  \DeclareFontShape{OT1}{cugar}{m}{it}{ <-> sub cugar/m/n }{}
+%</fdot1>
+%    \end{macrocode}
+%
+%
+%    \begin{macrocode}
+%<*fdt1>
+\DeclareFontFamily{T1}{cugar}{}
+  \DeclareFontShape{T1}{cugar}{m}{n}{ <-> cugar10 }{}
+  \DeclareFontShape{T1}{cugar}{bx}{n}{ <-> sub cugar/m/n }{}
+  \DeclareFontShape{T1}{cugar}{b}{n}{ <-> sub cugar/m/n }{}
+  \DeclareFontShape{T1}{cugar}{m}{sl}{ <-> sub cugar/m/n }{}
+  \DeclareFontShape{T1}{cugar}{m}{it}{ <-> sub cugar/m/n }{}
+%</fdt1>
+%    \end{macrocode}
+%
+% \section{The \Lpack{uguarite} package code} \label{sec:code}
+%
+%    Announce the name and version of the package, which requires
+% \LaTeXe{}.
+%    \begin{macrocode}
+%<*usc>
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{ugarite}[2000/09/30 v1.1 package for Ugaritic fonts]
+%    \end{macrocode}
+%
+%
+% \begin{macro}{\cugarfamily}
+%    Selects the font family in the OT1 encoding.
+%    \begin{macrocode}
+\newcommand{\cugarfamily}{\usefont{OT1}{cugar}{m}{n}}
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{\textcugar}
+%    Text command for the font family.
+%    \begin{macrocode}
+\DeclareTextFontCommand{\textcugar}{\cugarfamily}
+
+%    \end{macrocode}
+% \end{macro}
+%
+% The commands for the signs.
+%    \begin{macrocode}
+\chardef\Arq=`'     \chardef\Aa=`a     \chardef\Aaleph=`'
+\chardef\Ab=`b      \chardef\Abeth=`b
+\chardef\Ag=`g      \chardef\Agimel=`g
+\chardef\Ahu=`I   %  \chardef\A=`
+\chardef\Ad=`d      \chardef\Adaleth=`d
+\chardef\Ah=`h      \chardef\Ahe=`h
+\chardef\Aw=`w      \chardef\Avav=`w
+\chardef\Az=`z      \chardef\Azayin=`z
+\chardef\Ahd=`H     \chardef\Aheth=`H
+\chardef\Atd=`T     \chardef\Ateth=`T
+\chardef\Ay=`y      \chardef\Ayod=`y
+\chardef\Ak=`k      \chardef\Akaph=`k
+\chardef\Asa=`X   %  \chardef\A=`
+\chardef\Al=`l      \chardef\Alamed=`l
+\chardef\Am=`m      \chardef\Amem=`m
+\chardef\Adb=`D   %  \chardef\A=`
+\chardef\An=`n      \chardef\Anun=`n
+\chardef\Azd=`Z   %  \chardef\A=`
+\chardef\As=`s      \chardef\Asamekh=`s
+\chardef\Alq=``     \chardef\Ao=`o      \chardef\Aayin=``
+\chardef\Ap=`p      \chardef\Ape=`p
+\chardef\Asd=`x     \chardef\Asade=`x
+\chardef\Aq=`q      \chardef\Aqoph=`q
+\chardef\Ar=`r      \chardef\Aresh=`r
+\chardef\Atb=`J   %  \chardef\A=`
+\chardef\Agd=`G   %  \chardef\A=`
+\chardef\At=`t      \chardef\Atav=`t
+\chardef\Ai=`i    %  \chardef\A=`
+\chardef\Au=`u    %  \chardef\A=`
+\chardef\Asg=`V   %  \chardef\A=`
+\chardef\Awd=`:   %  \chardef\A=`
+
+%    \end{macrocode}
+%
+% \begin{macro}{\translitcugar}
+% \begin{macro}{\translitcugarfont}
+% |\translitcugar{|\meta{char-commands}|}| typesets a transliteration of
+% the \thisfont{} character commands. These are typeset with the
+% |\translitcugarfont|.
+%    \begin{macrocode}
+\newcommand{\translitcugar}[1]{{%
+  \@translitU\translitcugarfont #1}}
+\newcommand{\translitcugarfont}{\itshape}
+
+%    \end{macrocode}
+% \end{macro}
+% \end{macro}
+%
+% \begin{macro}{\Uunder}
+% We need a command to put a small U shaped cup under a letter.
+%    \begin{macrocode}
+\DeclareTextCommand{\Uunder}{OT1}[1]%
+  {{\o@lign{\relax#1\crcr\hidewidth\sh@ft{29}%
+    \vbox to.2ex{\hbox{\char21}\vss}\hidewidth}}}
+
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{\@translitU}
+% This macro redefines all the character producing commands for use within
+% |\translitcugar|. It is important not to have any spaces in the definition.
+%    \begin{macrocode}
+\newcommand{\@translitU}{%
+\def\Arq{'}\def\Aa{\Arq}\def\Aaleph{\Arq}%
+\def\Ab{b}\def\Abeth{\Ab}%
+\def\Ag{g}\def\Agimel{\Ag}%
+\def\Ahu{\Uunder{h}}%
+\def\Ad{d}%
+\def\Ah{h}\def\Ahe{\Ah}%
+\def\Aw{w}\def\Avav{\Aw}%
+\def\Az{z}\def\Azayin{\Az}%
+\def\Ahd{\d{h}}\def\Aheth{\Ahd}%
+\def\Atd{\d{t}}\def\Ateth{\Atd}%
+\def\Ay{y}\def\Ayod{\Ay}%
+\def\Ak{k}\def\Akaph{\Ak}%
+\def\Asa{\'{s}}%
+\def\Al{l}\def\Alamed{\Al}%
+\def\Am{m}\def\Amem{\Am}%
+\def\Adb{\b{d}}%
+\def\An{n}\def\Anun{\An}%
+\def\Azd{\d{z}}%
+\def\As{s}\def\Asamekh{\As}%
+\def\Alq{`}\def\Ao{\Alq}\def\Aayin{\Alq}%
+\def\Ap{p}\def\Ape{\Ap}%
+\def\Asd{\d{s}}\def\Asade{\Asd}%
+\def\Aq{q}\def\Aqoph{\Aq}%
+\def\Ar{r}\def\Aresh{\Ar}%
+\def\Atb{\b{t}}%
+\def\Agd{\.{g}}%
+\def\At{t}\def\Atav{\At}%
+\def\Ai{i}%
+\def\Au{u}%
+\def\Asg{\`{s}}%
+\def\Awd{:\space}%
+}
+
+%    \end{macrocode}
+% \end{macro}
+%
+%    The end of this package.
+%    \begin{macrocode}
+%</usc>
+%    \end{macrocode}
+%
+% \section{Map file}
+% A short file.
+% \changes{v1.2}{2005/06/18}{Added map file}
+%
+%    \begin{macrocode}
+%<*map>
+cugar10      Archaic-Ugaritic-Cuneiform      <cugar10.pfb
+%</map>
+%    \end{macrocode}
+%
+%
+% \Finale
+%
+\endinput
+
+%% \CharacterTable
+%%  {Upper-case    \A\B\C\D\E\F\G\H\I\J\K\L\M\N\O\P\Q\R\S\T\U\V\W\X\Y\Z
+%%   Lower-case    \a\b\c\d\e\f\g\h\i\j\k\l\m\n\o\p\q\r\s\t\u\v\w\x\y\z
+%%   Digits        \0\1\2\3\4\5\6\7\8\9
+%%   Exclamation   \!     Double quote  \"     Hash (number) \#
+%%   Dollar        \$     Percent       \%     Ampersand     \&
+%%   Acute accent  \'     Left paren    \(     Right paren   \)
+%%   Asterisk      \*     Plus          \+     Comma         \,
+%%   Minus         \-     Point         \.     Solidus       \/
+%%   Colon         \:     Semicolon     \;     Less than     \<
+%%   Equals        \=     Greater than  \>     Question mark \?
+%%   Commercial at \@     Left bracket  \[     Backslash     \\
+%%   Right bracket \]     Circumflex    \^     Underscore    \_
+%%   Grave accent  \`     Left brace    \{     Vertical bar  \|
+%%   Right brace   \}     Tilde         \~}
+
+

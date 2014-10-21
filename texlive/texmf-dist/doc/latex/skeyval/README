@@ -1,0 +1,779 @@
+This is the README file for the 'skeyval' package.
+
+AUTHOR
+
+Ahmed Musa
+
+VERSION
+
+Version 1.3, 2013/05/15.
+
+LOCATION ON CTAN
+
+macros/latex/contrib/skeyval
+
+ANNOUNCEMENT TEXT
+
+The package integrates the features of xkeyval and of pgfkeys by
+introducing a new set of handlers. Style keys, links, changing
+key callbacks and values on the fly, and other features of pgfkeys
+are introduced in a new context.
+
+LICENSE
+
+Copyright (c) 2010-2013 Ahmed Musa
+
+This software is author-maintained. Permission is granted to copy,
+distribute and/or modify this software under the terms of the
+LaTeX Project Public License, version 1.3 or higher. This software
+is provided 'as it is', without warranty of any kind, either
+expressed or implied, including, but not limited to, the implied
+warranties of merchantability and fitness for any particular purpose.
+
+
+FILES
+
+The following files constitute the skeyval bundle and must be
+distributed as a whole:
+
+  README, skeyval.sty, skeyval-core.tex, skeyval-for.tex,
+  skeyval-view.sty, skeyval-ltxpatch.sty, skeyval-ltxcmds.tex,
+  skeyval-pstkey.sty, skeyval-pstkey.tex, skeyval-testclass.cls,
+  skeyval-testpkg.sty, skeyval-pokayoke1.tex, skeyval-pokayoke2.tex,
+  skeyval-view-pokayoke1.tex.
+
+The skeyval package can be used by LaTeX and non-LaTeX users. LaTeX users
+should load the package via
+
+    \usepackage[<options>]{skeyval}
+
+or, in class files and packages,
+
+    \RequirePackage[<options>]{skeyval}
+
+Plain TeX users can do
+
+    \input skeyval-core
+
+Users of pre-version-1.0  of skeyval package can access the former
+version by entering the option 'compatibility' in <options> above.
+This option will automatically load version 0.73 (the version
+just before 1.0) of skeyval package. From version 1.0, the package
+has changed radically. Please accept my sincere apologies for making
+changes to the implementation and command names without renaming
+the package. I hate the practice of creating many forks of the same
+package, irrespective of the fact that forking a package is rather
+a standard practice in LaTeX.
+
+
+SUMMARY
+
+The 's' in skeyval means 'skeleton' or 'master' keys.
+
+The skeyval package provides commands for compactly defining and
+initializing all types of key (ordinary, command, boolean, style, choice,
+etc). It attempts to combine the features of xkeyval package and
+pgfkeys package. One of the powers of pgfkeys package lies in its use
+of handlers. But the way handlers are used in pgfkeys package does add
+to computational complexity and overheads. Family or key filtering in
+pgfkeys is particularly complex and inefficient. Nesting of family or
+key filtering is, in particular, not recommended.
+
+In pgfkeys package, handlers come at the end of the key name, so that
+if a key isn't defined, the system tests to find if the key has a
+handler at its end. If a handler is found and defined, the handler's
+callback (called 'code' by pgfkeys package) is executed on the
+current path. The required search overhead isn't insignificant.
+
+The skeyval package puts handlers at the beginning of the key
+(or a set of keys) and uses the handler to process the key (or a set
+of keys). This speeds up key processing and reduces the computational
+complexity. Key processing, including filtering, can be nested
+naturally and efficiently.
+
+The skeyval package also maintains and, in fact, greatly extends the
+functionality and syntaxes of the xkeyval and ltxkeys packages.
+
+Some of the features of skeyval vs. xkeyval are as follows. All the
+features listed below could be incorporated in xkeyval package but
+at a great expense.
+
+* xkeyval's use of the rather expensive selective sanitization
+   scheme of Uwe Kern;
+
+* xkeyval strips three levels of outer braces in the values of keys;
+
+* the impossibility of parsing unbalanced conditionals in key values
+   while using xkeyval;
+
+* xkeyval requires a large payload for defining many keys in the
+   same family;
+
+* when using xkeyval, existing keys could be easily overridden
+   (there is nothing like \newcommand functionality);
+
+* key macros, once defined by xkeyval, are difficult to modify/patch;
+
+* key macros defined by xkeyval can't accept more than one argument;
+
+* xkeyval provides no machinery for deploying style (subject/observer)
+   keys;
+
+* xkeyval offers no direct tools for key-commands and key-environments;
+
+* xkeyval can't be loaded before \documentclass (eg, in the past the
+   fontspec package needed this feature);
+
+* skeyval offers 'list processor keys' (called 'listkeys').
+
+
+Very few examples of the functionality of skeyval package are given in
+the following.
+
+**  Ordinary, command/store, boolean, toggle, and choice keys can be
+    defined and set. For example,
+
+    \skvordkeys[KV]{fam}{key1,key2}[default value]{%
+      \def\testcmd##1##2{#1+##1+##2}%
+    }
+    \skvoptionkeys[KV]{fam}{key1}
+    \skvnonoptionkeys[KV]{fam}{key2}
+
+    \skvchoicekeys[KV]{fam}[mp@]{key1,key2}[\val\nr]{%
+      center.do=\def\vala{#1},
+      right.do=\def\valb{#1},
+      left.do=\def\valc{#1}
+    }[center]{\def\x##1{#1*##1}}
+
+**  Apart from the usual keys in xkeyval and ltxkeys packages, it is
+    now possible to define a rather weird key like
+
+    \skvpntkey[KV]{fam}{evaluate (?) as (?) using (?)}{\edef#2{#3}}
+
+    The key name here is 'evaluate (?) as (?) by (?)'. It has three
+    arguments, indicated by the closed parenthesis. The mark '?' can be
+    replaced by any character or characters, and the key could have up
+    to 9 arguments. This key can be set as
+
+    \skvsetkeys[KV]{fam}{evaluate (\x) as (\y) using (\numexpr\x*2)}
+
+    We can also define the same key with the default values specified:
+
+    \skvpntkey[KV]{fam}{evaluate (?) as (?) using (?)}[\x\y{\numexpr\x*2}]{%
+      \def\argone{#1}\def\argtwo{#2}\def\argthree{#3}%
+    }
+
+    and set it as follows (if pgfmath package is loaded):
+
+    \skvsetkeys[KV]{fam}{%
+      evaluate (\x) as (\pgfmathresult) using (\pgfmathparse{\x^10})
+    }
+
+**  Default prefix can be set by
+
+    \skvsetdefaultprefix{<pref>}
+
+    For a fixed prefix, this can be used to avoid repeated entry of the
+    key prefix in many of the commands of the skeyval package. Note,
+    however, that the first '[]' in
+
+    \skvordkey[KV]{fam}{key1}[deafult value]{}
+
+    still can't be used for any other thing than the key prefix.
+
+    With
+
+    \skvsetdefaultprefix{myprefix}
+
+    we can do
+
+    \skvordkey{fam}{key1}[deafult1]{}
+    \skvcmdkey{fam}[mp@]{key2}[deafultx,defaulty]{%
+      \def\cmd##1{#1+#2+##1}%
+    }
+    \skvassignargs{fam}{key2}{.expanded{#1,#2}}
+
+    and much later
+
+    \def\valuex{valuex}
+    \def\valuey{valuey}
+    \skvsetkeys[myprefix]{fam}{key1=value1,key2={\valuex,\valuey}}
+
+**  The callbacks of keys can be readily modified using commands
+    like \skvaddtocallback, \skvprependtocallback, \skvappendtocallback,
+    or (within \directkeys) using the handlers .prepend code, .append code,
+    .add code.
+
+**  Handlers
+
+    The skeyval package has many handlers. The handlers of skeyval package
+    start with a dot (.), as in pgfkeys package.
+
+    Unlike in pgfkeys package, when 'expand' or 'expanded'
+    is found in a handler, the expansion will invariably be done
+    when the key is set, not when it's being defined.
+
+
+**  Subject-observer keys (called 'style keys' in pgfkeys) can be readily
+    introduced.
+
+    \skvappendstyles[KV]{fam}{key1,key2}{keya=.expanded{\vala},keyb=valb}
+     [default of key1&2]{\def\y##1{#1*##1}}
+
+    Here the subjects/observable are key1 and key2, while the observers are keya
+    and keyb. For now, the only thing the subject does is to set the given values
+    of the observers on the current path. In the future, we intend to extend
+    the subject-observer functionality to include more features of the
+    observer pattern found in other programming paradigms. We foresee that
+    subjects will be able to publish their services, and observer keys will be
+    able to subscribe for notification from subjects. And rather than having
+    'notify messages' simply setting observer keys with prior prescribed
+    observer values, which is what is currently obtainable, observers may be
+    able to do more with such messages (such as change observer state patterns).
+
+**  The parameters/arguments of callbacks of keys can be easily changed
+    by calling \skvdefinekeys, \skvmakekeys, \skvassignargs or \directkeys.
+
+    \skvordkeys[KV1]{fam2}{keya,keyb}[default-a]{\def\x##1{#1*##1}}
+    \skvassignargs[KV1,KV2]{fam1,fam2}{keya,keyb}{.expand{#1/#2}}
+    \skvsetkeys[KV1]{fam2}{keya=vala/valb}
+
+** \directkeys command:
+
+    \directkeys{%
+      .exec code=\def\avalue{a+b},
+      .paths={KV1/fam1,KV1/fam2,KV2/fam1,KV2/fam2},
+      .holder prefix=mp@,
+      .initialize keys after define,
+      .define keys={
+          .ord/keya/def-a/\def\xa##1{#1*##1*#2},
+          .arg/keya/#1+#2,
+          .cmd/.value required{keyb}/def-b/\def\cmdb##1{##1@#1},
+        },
+      .initial values={
+          keya=ini-value,
+        },
+      .ignore family=fam2,
+      .set keys={
+          keya=.expanded{\avalue}
+        },
+
+**  Nested \directkeys. The current path is put on stack
+    and restored later, so that the nest is independent
+    of its surrounding topology (prefix and family). But
+    the default prefix survives outside \directkeys.
+
+      \directkeys{
+          .default prefix=KV,
+          % The prefix for 'famx' will be 'KV'.
+          .paths={KV3/fam3,KV3/famx},
+          .new keys={
+            .initialize keys after define=false,
+            .ord/keya/defa/\def\ya##1{#1*##1*#2},
+            .arg/keya/#1+#2,
+            .choice/keyc/center/{right,left,center,justified},
+            .arg expanded/keyc/#1,
+            .bool/keyd/true,
+            .cmd/.forbid value{keye}/defe/\def\ye##1{#1*##1},
+          },
+        },
+      .try set keys={
+          .paths={KV1/fam1,KV3/fam3},
+          .try=2,
+          .goal=1,
+          .kv list={keyc=left,keyd=false},
+        },
+      .ignore path=KV1/fam1,
+      .exec=\def\cvalue{center},
+      .search also set keys={
+          .add prefix=KV3,
+          .add families={fam3,fam4},
+          .max attempts=4, .goal=2,
+          .kv list={keyc=.expand once{\cvalue}},
+        },
+      .append values={
+          keya=\def\y##1{#1+##1},
+          keyb=\def\w##1{#1+##1},
+        },
+      .prepend code={
+          keyb=\def\pre##1{#1+##1},
+        },
+      .slots{
+          key1/keya=value1,
+          key2/keyb=value2
+        },
+      .inherit code={
+          key1/keyb, key2/keyd
+        },
+      .preset keys={
+          key1,key2
+        },
+    }
+
+**  Handlers and letting handlers
+
+    The skeyval has many handlers and many tools for creating handlers.
+    A full listing of handlers and their meaning will be provided in
+    the user manual.
+
+    .define handlers, .define handler
+    .new handlers, .new handler
+    .new reserved handlers, .new reserved handler,
+        .define reserved handlers, .define reserved handler
+    .define narg handler,.define narg handlers
+    .new narg handler,.new narg handlers
+    .new reserved narg handler,.new reserved narg handlers,
+        .define reserved narg handler,.define reserved narg handlers
+    .handlers let, .handler let
+    .handlers let*, .handler let*, .force handler let
+    .handlers let reserved, .handler let reserved
+    .reserve handlers
+
+
+**  Prepending and appending to key names and callbacks at
+    definition time:
+
+    \directkeys*{
+      .path=claudio/color,
+      .hp=claudio@col@,
+      .define keys={
+        .prepend to every key name=X@,
+        .append to every key name=@Y,
+        .prepend to every callback=\def\X##1{#1*##1},
+        .append to every callback=\def\Y##1{##1**#1},
+        .ord/{1,2,3,4,5,6}/red,
+      }
+    }
+    \skvusekeys[.path=claudio/color]{X@1@Y,X@2@Y}
+
+
+**  Several new features are introduced by the skeyval package. For
+    example, we now have 'slot' and 'link' keys. For example, to link
+    keys via .link or .slot handler, we can do:
+
+    \directkeys{%
+      .link={key1, key2}/keya,
+      .link={key3, key4}/{keya, keyb},
+      .append slot expand twice={key3, key4}/keyf=\valuea,
+      .prepend slot expanded={key5, key6}/{keyc=#1, keyd=#1},
+      .prepend slot={key7, key8}/{keyd=#1, keye=#1},
+      .allowed values expanded=keye/{
+        center.do=\def\curralign##1{\hfil##1\hfil},
+        right.do=\def\curralign##1{\hfill##1},
+        left.do=\def\curralign##1{##1\hfill},
+        justified.do=\let\curralign\@iden
+      },
+    }
+
+**  Bipolar boolean keys
+
+    \skvbiboolkeys[KV]{fam}[mp@]{.forbid value{keya},keyb}[true]{%
+      \ifmp@keya\def\xa##1{##1}\fi
+    }{%
+      \ifmp@keyb\def\xb##1{##1}\fi
+    }%
+    \skvsetkeys[KV]{fam}{keya}
+
+    The value of keya is frozen as 'true'. Hence whenever keya is called,
+    the value 'true' will be used for it. Since keya and keyb are bipolar,
+    the value of keyb will be 'false' whenever keya is called.
+
+    \skvbiboolkeys+[KV]{fam}[mp@]{keya,keyb}[true]{%
+      \ifmp@keya\def\xa##1{##1}\fi
+    }{%
+      \ifmp@keyb\def\xb##1{##1}\fi
+    }{%
+      \skv@warn{Value '#1' is invalid}%
+    }
+    \skvsetkeys[KV]{fam}{keya=xtrue}
+
+
+**  The concepts of 'trying' to set a key with 'goals' is introduced.
+    The handler '.goal' can be interpreted in the sense of \pagegoal,
+    but applied to setting a key. See an example above. Then there
+    is 'search also' set keys.
+
+**  'Quick keys' are a new concept. They're quite fast to define and set,
+    but they can't carry pointers.
+
+    \skvquickkeys.define{<family>}[<holder.prefix>]{<list>}
+    \skvquickkeys.set{<family>}[<na>]{<kvlist>}
+
+    When defining keys, the syntax of <list> is:
+
+    {<keya-1,...,keya-n>}/{<default>}/{<callback>}/{<nominations>}/{<arg>}
+                           ;...;
+    {<keyx-1,...,keyx-n>}/{<default>}/{<callback>}/{<nominations>}/{<arg>}
+
+    Example:
+
+    \skvquickkeys.define{fam}[mp@]{%
+      keya/true/\def\x##1{#1*##1}/true,false;
+      keyb;
+      keyc,keyd/aaa+bbb/\def\y##1{#1*##1*#2}/.na/#1+#2;
+    }
+
+    '.na' means a missing entry that isn't empty but should be ignored.
+
+    <nominations> can be used to restrict the user-values of the key
+    or keys.
+
+    <arg> means the argument pattern for the key or keys.
+
+
+**  Keys can be 'made', as in
+
+    \skvmakekeys[
+      .prefix=KVA,
+      .families={fam1,fam2},
+      .holder prefix=mp@,
+      .all are new,
+      .define in all families,
+      .initialize after define
+    ]{%
+      .ord/{keya,keyb}/{default-a},
+      .arg/keyb/{#1+#2},
+      .cmd/{keyc,keyd}/,
+      .zcmd/key e/\def\cmde##1{##1}/
+        \edef\y{\detokenize\expandafter{\thp@keye}}\def\x##1{#1*key e*##1},
+      .choice/keyf/center/{center.do=\def\x##1{#1*##1},left,right},
+      .zbool/show center/true/\edef\cmd{\ifthp@showcenter Yes\else No\fi}
+    }
+
+    'z-keys' are keys whose names are zapped (ie, spaces are removed)
+    internally. This is to allow holder/store macros to be used
+    without spaces in their names, while maintaining key names with
+    spaces.
+
+**  Keys can be set using \skvsetkeys, \directkeys (with the handlers
+    .set keys, .try, etc.), or \skvusekeys:
+
+    \krdusekeys[
+      .prefix=KVA,
+      .families={fam1,fam2},
+      .set in all families,
+      .save unknown keys
+    ]{%
+      keya,keyb
+    }
+
+    \directkeys*{
+      .path=user/color,
+      .hp=user-col-,
+      .define keys={
+        .cmd/{1,2,3,4,5,6}/red
+      }
+    }
+    \newcommand*\setcolorlist[1]{\skvusekeys[.path=user/color]{#1}}
+    \setcolorlist{1=red,2=blue,3=cyan,4=green,5=magenta,6=purple}
+    \newcommand*\usecolor[1]{%
+      \skvifcsname user-col-#1\then
+        \csname user-col-#1\endcsname
+      \else
+        black%
+      \fi
+    }
+    \newcommand*\drawcoloredarrows[1]{%
+      \foreachfox {#1}{%
+        \draw[\usecolor{##1},-stealth] (0,-##1)--(2,-##1);
+      }
+    }
+    \begin{document}
+    \begin{tikzpicture}
+    \drawcoloredarrows{1,...,4}
+    \end{tikzpicture}
+    \end{document}
+
+**  Arguments of keys:
+
+    Argument of keys can be prescribed
+
+    1. Within the key's callback by using the pointers
+
+        .arg, .arg unexpanded, .arg expand once, .arg expand twice,
+        .arg expanded.
+
+       Example:
+
+        \def\somemethod#1#2{%
+          \begingroup
+          \color{#1}%
+          Using \ifskvnovalue default\else user \fi value of `\skvcurrentkey'.
+          \endgraf
+          Argument-2 of key: #2%
+          \endgroup
+        }
+        % Test arguments given inside the callback:
+        \skvcmdkeys[KV]{fam}{keya}[red/default]{%
+          .arg expanded{#1/#2}%
+          \somemethod{#1}{#2}%
+        }
+        \begin{document}
+        \def\aval{blue/Some stuff}
+        \skvsetkeys[KV]{fam}{keya=\aval}
+        \end{document}
+
+    2. By calling the command \skvassignargs.
+
+    3. By using the following handlers within \directkeys or within
+      \skvdefinekeys
+
+        .arg, .arg unexpanded, .arg expand once, .arg expand twice,
+        .arg expanded
+
+
+**  Listkeys
+
+    List processor keys. The key's value is considered a csv list
+    and each of its element is used as the argument of the key's callback.
+    The user of a listkey doesn't have to define his own list processor,
+    or define one key for each list item. The list separator can be
+    arbitrary; it can be specified in the key's callback as the
+    argument of the dummy commands \listsep and \listparser. The default
+    list separator is comma (,).
+
+    \makeatletter
+    \def\somemethod#1#2{%
+      \begingroup
+      \color{#1}%
+      \ifskvnovalue
+        \ifnum\skvlistcount=\@ne
+          \endgraf
+          Using default value of `\skvcurrentkey':
+        \fi
+      \else
+        \ifnum\skvlistcount=\@ne
+          \endgraf
+          Using user value of `\skvcurrentkey':
+        \fi
+      \fi
+      \endgroup
+      \endgraf
+      Processing item no. \skvlistcount: #2%
+    }
+
+    % Use comma (,), the default list separator, as the list
+    % separator for keya and keyb:
+    \skvlistkeys[KV]{fam}{keya,keyb}[default1,default2]{%
+      \somemethod{blue}{#1}%
+      % Process only four (4) items of the list/value for keya and keyb:
+      \ifnum\skvlistcount=4\relax
+        \skvstopprocessinglistkey
+      \fi
+    }
+    %\skvshowcs{KV/fam/keya.@cbk}
+
+    % Use semicolon (;) as the list separator for keyc and keyd:
+    \skvlistkeys[KV]{fam}{keyc,keyd}[default1;default2]{%
+      % The next line gives error, as expected, since a list key
+      % can't have an assigned argument that isn't simple.
+      % .arg{#1,#2}%
+      \listsep{;}\somemethod{red}{#1}%
+    }
+    \makeatother
+
+    \begin{document}
+    \parindent0pt
+    % No values for keya and keyb; use their default values:
+    \skvsetkeys[KV]{fam}{keya,keyb}
+    \par\bigskip
+    \skvsetkeys[KV]{fam}{%
+      keya={item1A,item1B,item1C,item1D,item1E,item1F},
+      keyb={item2A,item2B,item2C,item2D,item2E,item2F}
+    }
+    \par\bigskip
+    % Set keyc and keyd with their default values:
+    \skvsetkeys[KV]{fam}{keyc,keyd}
+    \par\bigskip
+    \skvsetkeys[KV]{fam}{%
+      keyc={item1A;item1B;item1C;item1D},
+      keyd={item2A;item2B;item2C;item2D}
+    }
+    \end{document}
+
+**  Make any key a listkeys at key-setting time
+
+    You can use the pointers '.process list' on any key's value at
+    key-setting time to temporarily turn that key into a listkey.
+    Its current value will be processed as a list, ie, the key's
+    callback will be applied to every element of the current value.
+    This scheme is costlier than defining the key as a listkey,
+    using \skvlistkey, but it is more versatile. This allows any
+    key to accept and process a value that is a list, irrespective
+    of its argument pattern.
+
+    Example 1:
+
+    \skvordkeys[KV]{fam}{key1,key2}[default]{\def\xx##1{##1*#1}}
+    \skvsetkeys[KV]{fam}{%
+      key1=val1,key2=.process list{val2a,val2b}
+    }
+
+    Example 2:
+
+    \skvordkeys[KV]{fam}{key1,key2}[default]{%
+      .arg expanded{#1/#2}%
+      \def\x##1{##1*#1*#2}%
+    }
+    \def\aval{val1a/val1b}
+    \def\bval{val2a/val2b,val2c/val2d}
+    \skvsetkeys[KV]{fam}{%
+      % Because of '.arg expanded' in the key's callback, \aval
+      % will be expanded at setting keys:
+      key1=\aval,
+      % \bval will be expanded before its content is processed
+      % as a list. Because of '.arg expanded' in the key's callback,
+      % each element in \bval will be expanded at setting keys:
+      key2=.expand once process list{\bval}
+    }
+
+    Example 3:
+
+    \skvordkeys[KV]{fam}{key1}[default]{\def\x##1{##1*#1}}
+    \def\aval{val1a,val1b,val1c,val1d}
+    \def\bval{\aval}
+    \def\cval{\bval}
+    \skvsetkeys[KV]{fam}{%
+      key1=.expand once process list{\aval},
+      key1=.expand twice process list{\bval},
+      key1=.expand process list{\cval}
+    }
+
+
+**  Disabling keys:
+
+    Message type to be issued when a disabled key is called:
+
+    \skvmessagetypefordisabledkey{<message type>}
+
+    <message type> can be 'warning', 'error', or 'nothing'. The default is
+    'warning'.
+
+    The key(s) may be disabled long before \skvmessagetypefordisabledkey
+    is called.
+
+    Disabling keys locally:
+
+    \skvdisablekeys[<pref>]{<fam>}{<key list>}
+
+    Disabling keys globally:
+
+    \skvgdisablekeys[<pref>]{<fam>}{<key list>}
+
+
+**  Keys defined in families can be 'viewed' in files using the package
+    'skeyval-view'. The functionality of 'skeyval-view' is greater than
+    that of xkeyval-view package.
+
+** Files skeyval-pstkey.sty and skeyval-pstkey.tex are provided for
+    PSTricks developers and users, as did xkeyval package.
+
+**  Some new and versatile looping macros are introduced in the
+    skeyval package. In fact, the powerful \newforeach list
+    processor of the 'loops' package has its roots in the 'skeyval-for'
+    module. It is a generalization of PGF's \foreach macro for
+    arbitrary parsers and list separators, including active parsers.
+
+**  For a package 'foobar', you can access its options by
+
+    \csname opt@foobar.sty\endcsname
+
+    To get the options that were actually found/defined and instantiated
+    during the processing of options, the skeyval package offers
+    \skvpackagelist and '.poxkeys' (processed options).
+
+    If 'option1' and 'option2' (but not 'option3') are recognized
+    options of foobar.sty, then after
+
+    \usepackage[option1,option2,option3]{foobar}
+
+    you can issue
+
+    \show\skvpackagelist -> foobar.sty{option1,option2}
+
+    \expandafter\show\csname foobar.sty.poxkeys\endcsname
+        -> option1, option2
+
+**  Key filtering
+
+    The handlers for key filtering are
+
+    .prefix, .change prefix, .family, .change family, .families,
+    .change families, .add family, .add families, .ignore family,
+    .ignore families, .restore family, .restore families, .paths,
+    .change path, .change paths, .add paths, .ignore paths, .restore paths,
+    .ignore keys, .restore keys
+
+    \newcommand{\storecontent}{}
+    \newcommand{\usecontent}{%
+      \ifx\storecontent\@empty
+        \@@warning{\noexpand\storecontent is empty}%
+      \else
+        \storecontent
+      \fi
+    }
+    \directkeys{%
+      % Define keys in two families:
+      .families={family1,family2},
+      .define ordinary keys={
+        store//\skvappendtomacro\storecontent{#1},
+        remove//\skvpatchcmd\storecontent{#1}{}{}{
+          \@@warning{No token '\detokenize{#1}' in command \string\storecontent}
+        }
+      }
+    }
+    \def\savpar{\par}
+    \def\bigvskip{\par\bigskip}
+    \def\showfam{Family: \skvcurrentfamily\savpar}
+
+    \begin{document}
+    \directkeys{%
+      % Set keys in only family1:
+      .family=family1,
+      .set keys={
+        store={\showfam first test\bigvskip},
+        store={\showfam second test\bigvskip}
+      },
+      .exec code=\usecontent{\color{red}\savpar\hrule\bigvskip},
+      % Set keys in only family2:
+      .family=family2,
+      .set keys={
+        remove={\showfam first test\bigvskip},
+        remove={\showfam second test\bigvskip},
+        store={\showfam third test\bigvskip},
+        store={\showfam fourth test\bigvskip}
+      },
+      .exec code=\usecontent
+    }
+    \end{document}
+
+**  Inheritance of keys
+
+    There are \skvkeyslet with the syntax
+
+      \skvkeyslet[<pref>]{<family>}{<list>}
+      <list> -> {<newkey1>,<newkey2>,...,<newkey-n>}={<oldkey>}
+
+    and the handler .inherit.
+
+    \directkeys{
+      .prefix=KV,
+      .family=fam,
+      .define ordinary keys={
+        key1/def1/\def\cmd##1{#1*##1},
+        key2/def2
+      },
+      .inherit={
+        {key3,key4}={key1},
+      }
+    }
+    \skvshowcs{KV/fam/key3.@cbk}
+
+**  Defining and setting keys on fixed prefix and family
+
+    \skvsetprefix{KV}
+    \skvsetfamily{fam}
+    \skvdefineordkey{key1}[def1]{\def\cmd##1{#1*##1}}
+    \skvprocesskeys{key1=value1}
+
+% End of readme file

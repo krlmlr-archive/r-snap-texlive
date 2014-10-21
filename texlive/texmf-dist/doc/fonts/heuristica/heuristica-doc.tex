@@ -1,0 +1,54 @@
+% !TEX TS-program = pdflatexmk
+\documentclass[11pt]{amsart}
+\usepackage[margin=1.5in]{geometry} 
+\usepackage[parfill]{parskip}% Begin paragraphs with an empty line rather than an indent
+\usepackage{graphicx}
+\pdfmapfile{=heuristica.map}
+%SetFonts
+% heuristica+newtxmath
+\usepackage[sups,osf,scaled=.92]{heuristica}
+\usepackage[T1]{fontenc}
+\usepackage{textcomp}
+\usepackage[varqu,varl]{zi4}% inconsolata
+\usepackage[utopia,vvarbb,bigdelims]{newtxmath}
+%SetFonts
+\title{\LaTeX\ Support for Heuristica}
+\author{Michael Sharpe}
+\date{\today}  % Activate to display a given date or no date
+\begin{document}
+\maketitle
+Andrey V. Panov's \emph{Heuristica} font family extends the \emph{Utopia} font family, adding many accented glyphs, Cyrillic glyphs, ligatures, superior and oldstyle fixed-width figures in all styles, and Small Caps in Regular style only. The font package is widely distributed as a free font collection in OpenType, TrueType and Type$1$ formats, but not until now on \textsc{ctan} with complete \LaTeX\ support files in encodings T$1$+TS$1$, LY$1$, T$2$A, T$2$B and T$2$C.
+
+The {\tt newtx} package has been modified, as of version $1.26$,  to offer a new option {\tt utopia} (or, equivalently, {\tt heuristica}) that uses math italic glyphs taken from Utopia and oldstyle figures from \emph{Heuristica}. Its slanted Greek alphabets are constructed from the {\tt txfonts} slanted Greek letters by reducing their italic angle from $15.5$\textdegree\ to $13$\textdegree, matching Utopia's italic angle. So, for Heuristica text and matching math, you can use\footnote{There is most likely also a way to use {\tt MathDesign} or {\tt fourier} with at least partial compatibility.}:
+\begin{verbatim}
+\usepackage[osf,scaled=.92]{heuristica}
+\usepackage[varqu,varl]{inconsolata} % typewriter
+\usepackage[type1,scaled=.95]{cabin} % sans serif like Gill Sans
+\usepackage[utopia,vvarbb,bigdelims]{newtxmath}
+\end{verbatim}
+The effect of the option {\tt osf} is to force the default figure style in {\tt heuristica} to be oldstyle 0123456789 while using lining figures $0123456789$ in math mode. The only other option of interest is {\tt sups}, which changes the footnote marker style to use the superior figures from \emph{Heuristica} rather than the default mathematical superscripts. (The {\tt superiors} package offers further options.)
+
+\emph{Heuristica} is so austere for a text font and \emph{inconsolata} is so fancy for a typewriter font that you may find they blend together all too well. For more of a distinction replace the {\tt inconsolata} line above with
+\begin{verbatim}
+\usepackage{zlmtt} % serifed typewriter font extending cmtt
+\end{verbatim}
+
+As I find Utopia text rather cramped, I suggest applying a small amount of letterspacing (tracking) and increasing the interword spacing by means of the {\tt microtype} package.
+
+\textsc{Macros:}
+\begin{itemize}
+\item
+\verb|\textlf| and \verb|\texttlf| render their arguments in tabular lining figures, no matter what the default figure style. Eg, \verb|\textlf{345}| produces \textlf{345}.
+\item
+\verb|\textosf| and \verb|\texttosf| render their arguments in tabular oldstyle figures, no matter what the default figure style. Eg, \verb|\textosf{345}| produces \textosf{345}.
+\item
+\verb|\textsu|  renders its argument in superior figures, no matter what the default figure style. Eg, \verb|\textsu{345}| produces \textsu{345}.
+\item
+\verb|\textin|  renders its argument in inferior figures, no matter what the default figure style. Eg, \verb|\textin{345}| produces \textin{345}.
+\item
+\verb|\textfrac|  renders its two arguments as a fraction, using \verb|\textsu| for the numerator and \verb|\textin| for the denominator. Eg, \verb|\textfrac{31}{64}| produces \textfrac{31}{64}.
+\end{itemize}
+\textsc{Very Brief, Nonsensical Math Example:}\\
+Let $B(X)$ be the set of blocks of $\Lambda_{X}$
+and let $b(X) \coloneq |{B(X)}|$ so that $\hat\phi=\sum_{Y\subset X}(-1)^{b(Y)}b(Y)$. 
+\end{document}   

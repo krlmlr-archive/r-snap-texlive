@@ -1,0 +1,357 @@
+%%
+%% This is file `eandoc.tex',
+%% generated with the docstrip utility.
+%%
+%% The original source files were:
+%%
+%% barcodes.dtx  (with options: `eandoc')
+%% As this is a generated file, you may perhaps not want to edit it.
+%% This file belongs to the barcode package.
+%% It may be of no great use without the rest of the barcode package.
+%% \CharacterTable
+%%  {Upper-case    \A\B\C\D\E\F\G\H\I\J\K\L\M\N\O\P\Q\R\S\T\U\V\W\X\Y\Z
+%%   Lower-case    \a\b\c\d\e\f\g\h\i\j\k\l\m\n\o\p\q\r\s\t\u\v\w\x\y\z
+%%   Digits        \0\1\2\3\4\5\6\7\8\9
+%%   Exclamation   \!     Double quote  \"     Hash (number) \#
+%%   Dollar        \$     Percent       \%     Ampersand     \&
+%%   Acute accent  \'     Left paren    \(     Right paren   \)
+%%   Asterisk      \*     Plus          \+     Comma         \,
+%%   Minus         \-     Point         \.     Solidus       \/
+%%   Colon         \:     Semicolon     \;     Less than     \<
+%%   Equals        \=     Greater than  \>     Question mark \?
+%%   Commercial at \@     Left bracket  \[     Backslash     \\
+%%   Right bracket \]     Circumflex    \^     Underscore    \_
+%%   Grave accent  \`     Left brace    \{     Vertical bar  \|
+%%   Right brace   \}     Tilde         \~}
+%%
+\documentclass{article}
+\begin{document}
+\author{Peter Willadt}
+\title{EAN Barcodes by \TeX{} an Metafont}
+\date{1998-01-24}
+\maketitle
+\begin{abstract}
+This article documents the use of the font {\tt wlean.mf}. With the font,
+there also comes an auxiliary Perl file for preprocessing TeX source.
+Its use is also documented here.
+\end{abstract}
+
+\section{Legal Restrictions and Introduction}
+
+All the files in this package are subject to the \LaTeX\ Project Public
+License. Also I got a special wish: If you find this package useful,
+support TUG or your local \TeX\ user group.
+
+The complete contents of this package is
+described in the file {\tt README}. That file also contains some
+information about the use of the other barcode fonts that are
+contained. For more information about these other files you may want
+to read an article that has appeared in the december, 1997 issue of
+{\em TUGboat}. Please see also the remarks in the section {\em
+Address} later in this file.
+
+\section{About {\sc ean}}
+
+In stores, {\sc upc} and {\sc ean} codes are widely used for automatic
+identification, pricing etc. {\sc ean} consist of either eight or
+thirteen digits. Twelve digit {\sc upc} codes are like thirteen digit
+{\sc ean} with the first digit equal to zero. {\sc ean} specifications
+do not only
+require bars, also the encoded number has to be written in plain text,
+in case a reader is defective or the code is too hard to read. {\sc
+ean} is a high-density code, and so it is highly vulnerable.
+
+\subsection{Coding}
+
+The last digit of an {\sc ean} is a weighted mod 10 checksum. Digits
+are alternatingly multiplied by 1 or 3. The so calculated sum over all
+digits has to be divisible by ten without any remainder.
+
+There are three different {\sc ean} character sets labeled A, B, and
+C. Eight digit {\sc ean} codes use character sets A and C, {\sc ean}
+codes with thirteen digits use all three character sets---see below.
+
+\begin{verse}
+{\sc ean} with eight digits consists of:\\
+a sidebar\\
+the first four digits (coded in character set A),\\
+the middle separator,\\
+the other four digits (coded in character set C)\\
+another sidebar.
+\end{verse}
+
+The first half of an {\sc ean} code with thirteen digits is coded in
+the character sets A and B, the second half in character set C. The
+coding of the very first digit is hidden in the varying use of the
+character sets A and B. A C programmer might use the following table
+and algorithm to decide which character set to use for digits 2--7:
+
+\begin{verbatim}
+static UBYTE abtab[10][6]={
+  {0,0,0,0,0,0}, /* 0 */
+  {0,0,1,0,1,1}, /* 1 */
+  {0,0,1,1,0,1}, /* 2 */
+  {0,0,1,1,1,0}, /* 3 */
+  {0,1,0,0,1,1}, /* 4 */
+  {0,1,1,0,0,1}, /* 5 */
+  {0,1,1,1,0,0}, /* 6 */
+  {0,1,0,1,0,1}, /* 7 */
+  {0,1,0,1,1,0}, /* 8 */
+  {0,1,1,0,1,0}  /* 9 */
+};
+
+char eancode[18];
+char eansource[14]="4025700001030";
+
+eancode[0]=eansource[0];
+eancode[1]=' ';
+eancode[2]='+';
+for(i=1;i<7;i++)
+  eancode[i+2]='A'+eansource[i]-'0'
+               +abtab[eansource[0]-'0'][i-1]*('a'-'A');
+/* then the middle separator, digits 7--13,
+ * and the final + sign */
+\end{verbatim}
+
+A zero means to use character set A and a one means to use character
+set B for the respective digit. The printed code of an {\sc ean} 13
+consist of the following elements, from left to right:
+
+\begin{verse}
+The first digit in human-readable form\\
+an {\sc ean} sidebar\\
+six digits in character sets A or B\\
+the {\sc ean} middle separator\\
+six digits in character set C\\
+another {\sc ean} sidebar
+\end{verse}
+
+Magazines or codes with pricing have a so called extension following
+the main code with some fixed distance. This extension consists of one
+sidebar and two or five digits. As I have no full {\sc ean}
+documentation at hand at the time of this writing, I am sorry that I
+am not able to tell you more about this.
+
+The {\sc ean} digits themselves obey to the following rules: Each
+digit takes seven units of space. Some of the seven elements are
+white, others are black. Digits from character set A always are white
+at the left edge and black at the right, and they always have an odd numer
+of black elements. Digits from character set B are quit similiar, but
+they have an even number of black elements. Digits from Character set C
+always start with a black element and have an even number of
+black elements. The rightmost element in character set C is always white.
+The sidebars are three elements wide, the middle separator takes five
+elements.
+
+\subsection{What {\sc ean} numbers may I use?}
+
+For inhouse use, you may use any 13-digit {\sc ean} that starts with a
+2. If you want to have your products sold elsewhere, you have to buy a
+set of {\sc ean} numbers from the organisation in your country that
+holds these numbers. For germany, this organisation is the {\em
+Zentrale f\"ur Coorganisation} in Cologne. Almost any country has a
+similiar organisation.
+
+The first digit or sometimes the first two digits code the country of
+origin, the next five to six digits code the manufacturer, the eigth
+to twelfth digits are for free use by the manufacturer. The
+thirteenth digit is, as explained above, a checksum. {\sc ean} do not
+contain any qualifiers, so if you get an {\sc ean} from somewhere, you
+may find out about the country of origin and about the manufacturer of
+the product, but if you want to know more, you have to contact the
+manufacturer.
+
+\section{Using {\tt wlean.mf}}
+
+{\tt wlean.mf} is rather raw. It  contains all three {\sc ean}
+character sets within one single font, but at different places.
+The character sets A, B, C, and the digits are
+featured through the following characters:
+
+\begin{verse}
+0 to 9 yield the digits from 0 to 9\\
+A to J yield the codes from character set A\\
+a to j yield the codes from character set B\\
+K to T yield the codes from character set C\\
++ makes the left and right sidebar and\\
+- makes the middle sign
+\end{verse}
+
+So, to code the number {\tt 2099993098253}, you have to write\\
+\verb*|{\eanfont2 +AJjjJd-KTSMPN+}|. The space is necessary to separate
+the leading 2 from the barcode.
+
+{\tt wlean.mf} does not use true {\sc ocr} digits, as it should. As
+the digits will not be used for {\sc ocr}, I do not consider this as
+a serious restriction. If you really need {\sc ocr} digits, there is
+an {\sc ocr} font on {\sc ctan}. And in {\em TUGboat}, there has been
+a publication about {\sc ean}, where \TeX{} draws the bars and
+the {\sc ocr} font prints the digits, see [1].
+
+{\tt wlean.mf} uses the normal {\sc ean} dimensions. If you would like
+lower bars---in contradiction to the {\sc ean} rules---you have to edit
+the source. The rules also make recommendations about the scaling. To
+be fully compatible, this font may be scaled 0.8, 0.9, 1, 1.2, 1.4,
+1.5, 1.7, 1.85, or 2 times the original size. With a 300 dpi printer,
+I do not recommend using sizes$<1.0$.
+
+\subsection{Installation}
+
+The installation itself is pretty mundane, like with any plain font.
+Just copy {\tt wlean.mf} to a location where Metafont can find
+it. Then invoke Metafont to create a {\sc tfm} file. Move this {\sc
+tfm} file where \TeX{} can find it. Type in the example at the end of
+this file and run it through \TeX{}. Then call Metafont again to
+produce a font suitable for your printer or previewer and move this
+font to an appropriate location. You may also want to edit {\tt
+codean.pl} to run on your shell. For this purpose you have to read
+your system's documentation or the documentation that comes with Perl.
+
+\subsection{Making readable output}
+
+Don't make {\sc ean} too small. With a 300 dpi printer, you should not
+use this font with magnification$<1$; {\tt scaled 1200} will be okay.
+If you want to do mass production, go to somebody with a barcode
+reader and check your output, {\em before} you loose money. You also
+should consider changes in the blackness that may be caused by
+production printing devices. And, of course, you should only use
+colours that can be used with barcode reading devices. Especially, do
+not use red and watch for much contrast between the colour you print
+and the colour of the paper.
+
+\subsection{Coding the numbers}
+
+You will perhaps not want to write something as ugly and error-prone
+as \verb*|{\eanfont2 +AJjjJd-KTSMPN+}| manually. So you have to use a
+preprocessor\footnote{See bcfaq.tex for \TeX{} code to go without
+preprocessing. It is very fine.}. With {\tt wlean.mf} there comes a
+tiny Perl program ({\tt codean.pl}) that does preprocessing within
+your \TeX{} sources\footnote{codean.pl in the meantime also handles
+code 128. See bcfaq.tex}.
+
+The \TeX{} file to be filtered may contain any number of lines
+that have one of the following commands starting at the leftmost position.
+
+\begin{itemize}
+\item \verb|\ean{|{\em12 or 13 digit number}\verb|}|
+The number will be coded as {\sc ean}. If it is only 12 digits long, the
+checksum will be calculated, too.
+
+\item \verb|\embed{|{\em12 or 13 digit number}\verb|}|
+The number is used as a base for embedding article numbers \&c.\
+within an {\sc ean}.
+
+\item \verb|\eean{|{\em number with at most 11 digits}\verb|}|
+This number is to be embedded within an {\sc ean}.
+
+\item \verb|\isbn{|{\em valid ISBN}\verb|}| An {\sc isbn} to
+make an embedded {\sc ean} of.
+\end{itemize}
+
+Let's look at an example: You want the {\sc isbn} {\tt0-201-13448-9}
+to be embedded. So you write \verb|\isbn{0201134489}|, but you might
+also use the embedding method and write
+\verb|\embed{9780000000000}| and, somewhere later in the file,
+\verb|\eean{020113448}|. In this latter case you have to omit the last digit,
+as {\sc isbn} loose their check digit in favour of the {\sc ean} check digit.
+Anyway you do it, you get your command replaced by
+\verb|\EAN{|{\em13-digit-number-coded-strange}\verb|}| in the output
+file.
+
+But embedding is especially useful if you also write the program that
+reads the barcodes. This program might then extract your article
+number from an {\sc ean} starting with {\tt20}, eg.
+
+What you have to do is, of course, to use stub definitions for the
+three macros mentioned above---as they shall never actually be
+typeset---and to use a valid definition for \verb|\EAN|. Then you run
+your \TeX{} source through {\tt codean.pl}. This program takes as
+first parameter the name of your original file and as second parameter
+the name of your destination file. If you omit the parameters, you will
+be asked for them.
+
+You may of course also peek the source of {\tt codean.pl} to see how
+{\sc ean} checksums are calculated, and so on.
+
+\subsection{Example}
+
+Here is a full example.
+Use this \TeX{} source:
+
+\begin{verbatim}
+\font\eanfont=WLEAN
+\def\ean#1{\message{Call codean.pl}}
+\def\eean#1{\message{Call codean.pl}}
+\def\isbn#1{\message{Call codean.pl}}
+\def\embed#1{}
+\def\EAN#1{\vbox{\vskip10pt\eanfont#1\vskip10pt}}
+ Now, something to do:
+\ean{4025700001030} % or, without checksum:
+\ean{402570000103}
+\embed{2500000000000}
+\eean{123}
+\isbn{0201134489}
+\end{verbatim}
+
+Having run your file through {\tt codean.pl}, the lines after the percent
+sign look like this:
+
+\begin{verbatim}
+ Now, something to do:
+\EAN{4 +AcFHaa-KKLKNK+} % or, without checksum: %(4025700001030)
+\EAN{4 +AcFHaa-KKLKNK+} %(402570000103)
+\embed{2500000000000}
+\EAN{2 +FAaaAa-KKLMNT+} % embedded(123)
+\EAN{9 +HiaCaB-LNOOSN+} % ISBN(0201134489)
+\end{verbatim}
+
+Running this file through \TeX{}, you get {\sc dvi} output containig
+{\sc ean} barcodes. Perhaps you wonder why there is not even a
+single {\sc ean} contained within this documentation. The reason is
+quite simple: You should be able to read the docs {\em before} you
+have installed the font. But now is the right time to try the example
+on your own. Better yet, you may code an {\sc ean} where you have
+taken the number from something like your favourite candy and then,
+having printed it, you may compare the bars. This is a nice way to
+spend your evenings. I actually started deciphering {\sc ean} codes in
+this way, several years ago.
+
+\section{The End}
+
+\subsection{Address}
+
+Just in case you want to write to me, here is my address---but
+please note: I am not the {\sc ean} guru.
+
+\begin{verbatim}
+Peter Willadt
+75177 Pforzheim
+Germany
+email: Willadt@t-online.de
+\end{verbatim}
+
+I also would appreciate if only one version of the material contained
+in this package is distributed. So if you have any corrections,
+suggestions, \&c., please do not hesitate to send them to me to
+incorporate them within this package.
+
+\subsection{Acknowledgement}
+
+I want to express my special thanks to Barbara Beeton for proofreading
+and making valuable suggestions. If there are still any typos or
+illegibilities, that is due to the fact that I had to change some
+things later on.
+
+\begin{thebibliography}{1}
+
+\bibitem{bc:ean}
+Peter Ol{\v{s}}ak.
+\newblock The {\sc ean} barcodes by {\TeX}.
+\newblock {\em TUGboat}, 15(4):459--464, 1994.
+
+\end{thebibliography}
+
+\end{document}
+\endinput
+%%
+%% End of file `eandoc.tex'.

@@ -1,0 +1,139 @@
+% tryoldprsn.tex    Test Old Persian Cuneiform fonts
+\documentclass[11pt]{article}
+\usepackage{oldprsn}
+
+\newcommand{\thisfont}{Old Persian}
+\newcommand{\abc}{a i u k K x g G c j J t T o C d P D n N %
+                  p f b m w M y r R l v V s S z h %
+                  X q Q L B e E F :}
+\newcommand{\xerxes}{%
+ \Oxa\Osva\Oya\Oa\Ora\Osva\Oa\Owd\-%                  1
+ \Oxa\Osva\Oa\Oya\Otha\Oi\Oya\Owd\-%                  2
+ \Ova\Oza\Ora\Oka\Owd\-%                              3
+ \Oxa\Osva\Oa\Oya\Otha\Oi\Oya\Owd\-%                  4
+ \Oxa\Osva\Oa\Oya\Otha\Oi\Oya\Oa\Ona\Oa\Oma\Owd\-%    5
+ \Oda\Oa\Ora\Oya\Ova\Oha\Ou\Osva\Owd\-%               6
+ \Oxa\Osva\Oa\Oya\Otha\Oi\Oya\Oha\Oya\Oa\Owd\-%       7
+ \Opa\Ou\Occa\Owd\-%                                  8
+ \Oha\Oxa\Oa\Oma\Ona\Oi\Osva\Oi\Oya\Owd}
+ 
+ 
+
+
+
+\title{Try Old Persian Cuneiform Fonts}
+%%\author{Peter Wilson \\ \texttt{peter.r.wilson@boeing.com}}
+\author{}
+\date{}
+\begin{document}
+\maketitle
+
+    This provides a short test of the characters in the \thisfont{} fonts
+--- the \verb|copsn| font family.
+
+\begin{center}
+The \thisfont{} font in the huge size \\
+{\copsnfamily\huge \abc\\ 1 2 3 4 5}
+\end{center}
+
+\begin{center}
+The font in its normal size \\
+\textcopsn{\abc\\ 1 2 3 4 5} \\
+and the Computer Modern Roman for comparison \\
+\abc\\ 1 2 10 20 100
+\end{center}
+
+    \thisfont{} in the \thisfont{} script is (as near as possible): \\
+\textcopsn{ld:persian}, which transliterates as: \\
+\translitcopsn{\Ola\Oda\Owd\Opa\Ora\Osa\Oi\Oa\Ona}
+
+\clearpage
+
+    Xerxes had this inscription carved above the doorways of his palace at
+Persepolis: 
+\begin{center}
+\textcopsn{\xerxes}
+\end{center}
+which transliterates as: 
+\begin{center}
+\translitcopsn{\xerxes} 
+\end{center}
+and which, when translated, means: 
+\begin{center}
+Xerxes, the great king, the king of kings, the son of Darius the king,
+an Achaemenian.
+\end{center}
+
+%%\end{document}
+
+\begin{table}
+\centering
+\caption{Syllabary and commands} 
+\begin{tabular}{|c|c|c|l|} \hline
+Value & Glyph      & ASCII    & Command \\ \hline
+\textit{a}  & \textcopsn{a} &  a & \verb|\Oa|   \\
+\textit{i}  & \textcopsn{i} &  i & \verb|\Oi|   \\
+\textit{u}  & \textcopsn{u} &  u & \verb|\Ou|   \\
+\textit{ka} & \textcopsn{k} &  k & \verb|\Oka|   \\
+\textit{ku} & \textcopsn{K} &  K & \verb|\Oku|   \\
+\textit{xa} & \textcopsn{x} &  x & \verb|\Oxa|   \\
+\textit{ga} & \textcopsn{g} &  g & \verb|\Oga|   \\
+\textit{gu} & \textcopsn{G} &  G & \verb|\Ogu|   \\
+\textit{ca} & \textcopsn{c} &  c & \verb|\Oca|   \\
+\textit{ja} & \textcopsn{j} &  j & \verb|\Oja|   \\
+\textit{ji} & \textcopsn{J} &  J & \verb|\Oji|   \\
+\textit{ta} & \textcopsn{t} &  t & \verb|\Ota|   \\
+\textit{tu} & \textcopsn{T} &  T & \verb|\Otu|   \\
+\textit{tha} & \textcopsn{o} & o & \verb|\Otha|   \\
+\textit{\c{c}a} & \textcopsn{C} & C & \verb|\Occa|   \\
+\textit{da} & \textcopsn{d} &  d & \verb|\Oda|   \\
+\textit{di} & \textcopsn{P} &  P & \verb|\Odi|   \\
+\textit{du} & \textcopsn{D} &  D & \verb|\Odu|   \\
+\textit{na} & \textcopsn{n} &  n & \verb|\Ona|   \\
+\textit{nu} & \textcopsn{N} &  N & \verb|\Onu|   \\
+\textit{pa} & \textcopsn{p} &  p & \verb|\Opa|   \\
+\textit{fa} & \textcopsn{f} &  f & \verb|\Ofa|   \\
+\textit{ba} & \textcopsn{b} &  b & \verb|\Oba|   \\
+\textit{ma} & \textcopsn{m} &  m & \verb|\Oma|   \\
+\textit{mi} & \textcopsn{w} &  w & \verb|\Omi|   \\
+\textit{mu} & \textcopsn{M} &  M & \verb|\Omu|   \\
+\textit{ya} & \textcopsn{y} &  y & \verb|\Oya|   \\
+\textit{ra} & \textcopsn{r} &  r & \verb|\Ora|   \\
+\textit{ru} & \textcopsn{R} &  R & \verb|\Oru|   \\
+\textit{la} & \textcopsn{l} &  l & \verb|\Ola|   \\
+\textit{va} & \textcopsn{v} &  v & \verb|\Ova|   \\
+\textit{vi} & \textcopsn{V} &  V & \verb|\Ovi|   \\
+\textit{sa} & \textcopsn{s} &  s & \verb|\Osa|   \\
+\textit{\v{s}a} & \textcopsn{S} & S & \verb|\Osva|   \\
+\textit{za} & \textcopsn{z} &  z & \verb|\Oza|   \\
+\textit{ha} & \textcopsn{h} &  h & \verb|\Oha|   \\
+\hline
+\end{tabular}
+\end{table}
+
+\begin{table}
+\centering
+\caption{Word glyphs, numerals, and commands} 
+\begin{tabular}{|c|c|c|l|} \hline
+Value                       & Glyph     & ASCII & Command \\ \hline
+\textit{x\v{s}\={a}yathiya} & \textcopsn{X} & X & \verb|\Oking|   \\
+\textit{dahy\={a}u\v{s}}    & \textcopsn{q} & q & \verb|\Ocountrya|   \\
+\textit{dahy\={a}u\v{s}}    & \textcopsn{Q} & Q & \verb|\Ocountryb|   \\
+\textit{b\={u}mi\v{s}}      & \textcopsn{L} & L & \verb|\Oearth|   \\
+\textit{baga}               & \textcopsn{B} & B & \verb|\Ogod|   \\
+\textit{Auramazd\={a}}      & \textcopsn{e} & e & \verb|\OAura|   \\
+\textit{Ahuramazda}         & \textcopsn{E} & E & \verb|\OAurb|   \\
+\textit{Ahuramazda}         & \textcopsn{F} & F & \verb|\OAurc|   \\
+\textit{1}                  & \textcopsn{1} & 1 & \verb|\Oone| \\
+\textit{2}                  & \textcopsn{2} & 2 & \verb|\Otwo| \\
+\textit{10}                 & \textcopsn{3} & 3 & \verb|\Oten| \\
+\textit{20}                 & \textcopsn{4} & 4 & \verb|\Otwenty| \\
+\textit{100}                & \textcopsn{5} & 5 & \verb|\Ohundred| \\
+\texttt{|}                  & \textcopsn{:} & : & \verb|\Owd| \\
+\hline
+\end{tabular}
+\end{table}
+
+%%%%    This is the end of the test file.
+
+\end{document}

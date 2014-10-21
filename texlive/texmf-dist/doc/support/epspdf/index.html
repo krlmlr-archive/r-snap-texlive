@@ -1,0 +1,216 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+
+<!DOCTYPE html
+   PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd" >
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+
+<link rel="stylesheet" href="default.css" type="text/css"/>
+
+<title>Epspdf and epspdftk</title>
+
+</head><body>
+
+<div id="pagehead">
+
+<h1>Epspdf and epspdftk</h1>
+
+<p>A multiplatform GUI- and command-line converter
+for [e]ps and pdf.</p>
+
+<p><i>Siep Kroonenberg,<br/><tt>siepo at cybercomm
+dot nl</tt></i></p>
+
+</div>
+
+<p id="logo"><img src="images/epspdf.png" alt=""/></p>
+
+<p><a href="http://tex.aanhet.net/epspdf/">Current online version of
+this page</a></p>
+
+<p><a href="http://tex.aanhet.net/epspdf/legacy.html">Legacy
+Ruby-based versions</a></p>
+
+<h2>Table of Contents</h2>
+
+<ul>
+<li><a href="#features">Features</a></li>
+<li><a href="#prerequisites">Prerequisites</a></li>
+<li><a href="#install">Installation</a></li>
+<li><a href="#files">Files</a></li>
+<li><a href="#releases">Releases</a></li>
+</ul>
+
+<h2><a name="features"/>Features</h2>
+
+<ul>
+<li>Distiller</li>
+<li>Works both for documents and for graphics</li>
+<li>Single-page selection</li>
+<li>Also converts from pdf back to PostScript and eps</li>
+<li>Removal of preview headers from eps files</li>
+<li>Cropping extra whitespace</li>
+<li>Grayscaling</li>
+<li>GUI- and command-line version</li>
+<li>GUI-configurable preferences</li>
+<li>Multiplatform: works unchanged on Windows and Unix/Linux</li>
+<li>Support for TeX Live and MiKTeX</li>
+</ul>
+
+<p>Epspdf has been created with TeX in mind. For TeX and its
+derivatives, eps and pdf are the preferred graphics formats.</p>
+
+<p>Ghostscript can convert PostScript to pdf. However, few people
+are prepared to deal with the ghostscript command-line. Several
+command-line utilities try to help out, e.g. epstopdf, a2ping, and
+the convert utility from ImageMagick. But many users simply want a
+GUI.</p>
+
+<p>Epspdftk adds a GUI, with buttons to select options and with
+dialogs for opening and saving files.</p>
+
+<p>A lot more can be done with multistep conversions: grayscaling,
+page selection, computing a tight boundingbox. People who depend on
+PSTricks will appreciate the option to go from pdf to
+PostScript.</p>
+
+<p>Where it makes sense, epspdf uses additional software for a
+better outcome.</p>
+
+<p>The command-line program epspdf is written in texlua, which is
+already part of recent versions of MikTeX and TeX Live. Versions <a
+href="http://tex.aanhet.net/epspdf/legacy.html">prior to 0.6</a>
+were written in Ruby. Epspdftk, its GUI companion, is written in in
+Tcl/Tk.</p>
+
+<p>Starting with the 2008 edition, TeX Live includes epspdf in some
+form as an optional package, complete with wrapper scripts epspdf
+and epspdftk which can be called from the command-line without
+further ado.</p>
+
+<p>There is also a third-party LaTeX package epspdfconversion which
+  uses epspdf for on-the-fly conversion of eps graphics to pdf, with
+  options to control grayscaling and boundingbox generation. See
+  CTAN or your TeX distribution.</p>
+
+<h2><a name="prerequisites"/>Prerequisites</h2>
+
+<p>These are the required and optional prerequisites, which will be
+checked for when epspdf starts:</p>
+<ul>
+
+<li>A recent TeX installation, either <a
+  href="http://www.tug.org/texlive/">TeX Live</a> or <a
+  href="http://miktex.org/">MikTeX</a>. If this is not an option,
+  get a <a href="http://tex.aanhet.net/epspdf/legacy.html">legacy
+  version</a> of epspdf instead.</li>
+
+<li><a href="http://ghostscript.com">Ghostscript</a></li>
+
+<li>Optional: pdftops from the <a
+ href="http://www.foolabs.com/xpdf/">xpdf suite</a> or from the <a
+ href="http://poppler.freedesktop.org/">Poppler
+ utilities</a>. Pdftops may do a better job of preserving scalable
+ fonts when converting from pdf to ps.</li>
+
+<li><a href="http://www.tcl.tk/">Tcl/Tk</a> for the GUI
+  interface. Versions 8.4 and 8.5 have been tested. A single-file <a
+  href="http://wiki.tcl.tk/52">TclKit</a> runtime is
+  sufficient. Recent <a
+  href="http://www.patthoyts.tk/tclkit/win32-ix86/">Windows
+  precompiled tclkit binaries</a> are available.</li>
+
+<li>Optional: viewers for PostScript and pdf</li>
+
+</ul>
+
+<p>On Windows, both MikTeX and TeX Live already include a copy of
+Ghostscript. TeX Live for Windows also includes pdftops.</p>
+
+<p>If you have MiKTeX and a copy of pdftops.exe, then you can point
+epspdf to this file from within the GUI. You need to do this only
+once.</p>
+
+<h2><a name="install"/>Installation</h2>
+
+<p>If you have a sufficiently recent standalone TeX Live, just
+   install the package. Otherwise:</p>
+
+<h3>Unix/Linux</h3>
+
+<p>Unpack the archive somewhere and create symlinks to epspdf.tlu
+   and epspdftk.tcl in a directory on your searchpath.</p>
+
+<h3>Windows setup program</h3>
+
+<p>This is a conventional Windows installer. If it does not find
+texlua.exe on the searchpath then it gives a warning and a chance to
+abort. It creates a shortcut to the epspdftk GUI and it also creates
+an uninstaller.</p>
+
+<p>It installs epspdftk in the form of a so-called
+<em>starpack</em>, which
+consists of the epspdftk script and a Tcl/Tk runtime, wrapped into
+a single file. The command-line script epspdf.tlu remains a separate
+file.</p>
+
+<p>This installer has been created with <a
+href="http://nsis.sourceforge.net/">NSIS</a>.</p>
+
+<h3>Windows zipfile</h3>
+
+<p>Download the epspdf zip file, unpack it somewhere and create a
+batchfile epspdf.bat such as</p>
+
+<pre>
+texlua "&lt;path_to_epspdf.tlu&gt;" %*
+</pre>
+
+<p>for epspdf.tlu, and a batchfile epspdftk.bat</p>
+
+<pre>
+wish85 "&lt;path_to_epspdftk.tcl&gt;" %1
+</pre>
+
+<p>for epspdftk.tcl. The wish executable might also be named
+  wish[.exe] or wish84[.exe]. The first command-line parameter will
+  be interpreted as startup directory for the file browser. Make
+  sure that wish85 and these batchfiles are on your searchpath.</p>
+
+<p>Epspdf[tk] has been tested with Windows XP, Windows 7 and
+Windows 8.</p>
+
+<h2><a name="files"/>Files</h2>
+
+<ul>
+
+  <li><a href="epspdf.0.6.03.tgz">epspdf.0.6.0.tgz</a> preferred for Unix
+and Mac OS X</li>
+
+<li><a href="epspdf.0.6.0.zip">epspdf.0.6.0.zip</a> preferred for
+Windows if you don't want to use the installer below</li>
+
+<li><a href="epspdf.0.6.0.exe">epspdf.0.6.0.exe</a> Windows setup
+  program which installs epspdf with a buit-in Tcl/Tk runtime.</li>
+
+</ul>
+
+<h2><a name="releases"/>Releases</h2>
+
+<ul>
+
+<li>0.6.0 Current version. Command-line component
+rewritten in texlua.</li>
+
+<li><a href="http://tex.aanhet.net/epspdf/legacy.html">Legacy
+Ruby-based versions</a></li>
+
+</ul>
+
+<hr/>
+
+<p class="fineprint">Last revised: February 7, 2013</p>
+</body></html>

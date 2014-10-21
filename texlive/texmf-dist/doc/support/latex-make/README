@@ -1,0 +1,63 @@
+              +------------------------------+
+	      |    The LaTeX-Make system     |
+              +------------------------------+
+
+VERSION: 2.1.19.1
+
+DESCRIPTION
+===========
+
+This package provides several tools that aim to simplify the
+compilation of LaTeX documents:
+* LaTeX.mk: a Makefile snippet to help compiling LaTeX documents in
+  DVI, PDF, PS, ... format. Dependencies are automatically tracked: one
+  should be able to compile documents with a one-line Makefile
+  containing 'include LaTeX.mk'. Complex documents (with multiple
+  bibliographies, indexes, glossaries, ...) should be correctly managed.
+
+* figlatex.sty: a LaTeX package to easily insert xfig figures (with
+  \includegraphics{file.fig}). It can interact with LaTeX.mk so that the
+  latter automatically invokes transfig if needed.
+
+* And various helper tools for LaTeX.mk
+
+Homepage: http://gforge.inria.fr/projects/latex-utils/
+License type: gpl
+
+INSTALLATION:
+=============
+
+Once generated, the following files need to be installed:
+* LaTeX.mk:
+  This is the Makefile snipset to include into your main Makefile.
+  To avoid the need to hardcode the path of LaTeX.mk in the 'include' directive
+  of the Makefile, LaTeX.mk must be installed in a default search directory of
+  GNUMake such as PREFIX/include, /usr/local/include, /usr/include/, etc.
+  See your GNUMake documentation for the list of such search directories;
+* *.sty, *.cfg
+  Main LaTeX package files. Should be installed into
+  TEXMF/tex/latex/latex-make/ where TEXMF is a base of a TeX Directory
+  Structure for your TeX installation;
+* *.py
+  Helper scripts used by LaTeX.mk. They should be installed into
+  TEXMF/scripts/latex-make/
+* *.pdf
+  Documentation that can be installed into
+  TEXMF/doc/latex/latex-make/
+
+REQUIREMENTS:
+=============
+
+  In order to work, LaTeX Make requires:
+  - GNU Make (>= 3.81)
+    type "make --version" to check
+  - a relatively recent LaTeX distribution (teTeX 3.0 should work,
+    TeXLive >= 2005 also)
+  
+  If using figlatex, LaTeX Make also needs:
+  - inkscape (>= 0.48.2) for converting svg files
+  - transfig (>= 3.2.4) for the fig2dev command
+    type "transfig -V" to check
+  - ghostscript that is called by fig2dev
+    type "gs --version" to check
+  

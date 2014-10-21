@@ -1,0 +1,102 @@
+% pgfmolbio.ins
+%%
+%% Copyright (C) 2013 by Wolfgang Skala
+%%
+%% This work may be distributed and/or modified under the
+%% conditions of the LaTeX Project Public License, either version 1.3
+%% of this license or (at your option) any later version.
+%% The latest version of this license is in
+%%   http://www.latex-project.org/lppl.txt
+%% and version 1.3 or later is part of all distributions of LaTeX
+%% version 2005/12/01 or later.
+%%
+%% This work has the LPPL maintenance status `maintained'.
+%%
+%% The Current Maintainer of this work is Wolfgang Skala.
+%%
+%% This work consists of the files pgfmolbio.dtx and pgfmolbio.ins
+%% and the derived files pgfmolbio.sty, pgfmolbio.chromatogram.tex
+%% and pgfmolbio.chromatogram.lua.
+
+\input docstrip.tex
+\keepsilent
+
+\usedir{tex/lualatex/pgfmolbio}
+
+\preamble
+
+Copyright (C) 2013 by Wolfgang Skala
+
+This work may be distributed and/or modified under the
+conditions of the LaTeX Project Public License, either version 1.3
+of this license or (at your option) any later version.
+The latest version of this license is in
+  http://www.latex-project.org/lppl.txt
+and version 1.3 or later is part of all distributions of LaTeX
+version 2005/12/01 or later.
+
+\endpreamble
+
+\edef\luapreamble{%
+--^^J%
+-- This is file `\outFileName ',^^J%
+-- generated with the docstrip utility.^^J%
+\ReferenceLines%
+--^^J%
+-- Copyright (C) 2013 by Wolfgang Skala^^J%
+--^^J%
+-- This work may be distributed and/or modified under the^^J%
+-- conditions of the LaTeX Project Public License, either version 1.3^^J%
+-- of this license or (at your option) any later version.^^J%
+-- The latest version of this license is in^^J%
+-- \space\space http://www.latex-project.org/lppl.txt^^J%
+-- and version 1.3 or later is part of all distributions of LaTeX^^J%
+-- version 2005/12/01 or later.^^J%
+--}
+
+\edef\luapostamble{%
+--^^J%
+--\space End of file `\outFileName'.%
+}
+
+
+\generate{%
+  \file{pgfmolbio.sty}{\from{pgfmolbio.dtx}{pgfmolbio-tex}}%
+  \file{pgfmolbio.chromatogram.tex}{\from{pgfmolbio.dtx}{pmb-chr-tex}}%
+  \file{pgfmolbio.domains.tex}{\from{pgfmolbio.dtx}{pmb-dom-tex}}%
+  \file{pgfmolbio.convert.tex}{\from{pgfmolbio.dtx}{pmb-con-tex}}
+}
+
+\def\LuaComment{--}
+\let\MetaPrefix\LuaComment
+\generate{%
+  \usepreamble\luapreamble\usepostamble\luapostamble%
+  \file{pgfmolbio.lua}{\from{pgfmolbio.dtx}{pgfmolbio-lua}}%
+  \file{pgfmolbio.chromatogram.lua}{\from{pgfmolbio.dtx}{pmb-chr-lua}}%
+  \file{pgfmolbio.domains.lua}{\from{pgfmolbio.dtx}{pmb-dom-lua}}%
+}
+
+\obeyspaces
+\Msg{****************************************************}
+\Msg{*}
+\Msg{* To finish the installation you have to move the}
+\Msg{* following files into a directory searched by TeX}
+\Msg{*}
+\Msg{*   pgfmolbio.sty}
+\Msg{*   pgfmolbio.lua}
+\Msg{*   pgfmolbio.chromatogram.tex}
+\Msg{*   pgfmolbio.chromatogram.lua}
+\Msg{*   pgfmolbio.domains.tex}
+\Msg{*   pgfmolbio.domains.lua}
+\Msg{*   pgfmolbio.convert.tex}
+\Msg{*}
+\Msg{* To produce the documentation execute the}
+\Msg{* following command:}
+\Msg{*}
+\Msg{*   lualatex pgfmolbio.dtx (2x)}
+\Msg{*}
+\Msg{* Happy TeXing!}
+\Msg{*}
+\Msg{****************************************************}
+
+\endbatchfile

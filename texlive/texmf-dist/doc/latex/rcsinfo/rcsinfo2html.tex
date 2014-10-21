@@ -1,0 +1,174 @@
+%%
+%% This is file `rcsinfo2html.tex',
+%% generated with the docstrip utility.
+%%
+%% The original source files were:
+%%
+%% rcsinfo.dtx  (with options: `header,html')
+%% 
+%% IMPORTANT NOTICE:
+%% 
+%% For the copyright see the source file.
+%% 
+%% Any modified versions of this file must be renamed
+%% with new filenames distinct from rcsinfo2html.tex.
+%% 
+%% For distribution of the original source see the terms
+%% for copying and modification in the file rcsinfo.dtx.
+%% 
+%% This generated file may be distributed as long as the
+%% original source files, as listed above, are part of the
+%% same distribution. (The sources need not necessarily be
+%% in the same archive or directory.)
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%
+%% `rcsinfo' package to use with LaTeX2e.
+%%
+%% This package is used to extract the revision and file information provided
+%% by the RCS revision control system.
+%% A PERL-package supporting rcsinfo and LaTeX2HTML is provieded too.
+%%
+%% Copyright (C) 1995 Dr. Juergen Vollmer
+%%                    Viktoriastrasse 15, D-76133 Karlsruhe, Germany
+%%                    Juergen.Vollmer@informatik-vollmer.de
+%% License:
+%%   This program can be redistributed and/or modified under the terms
+%%   of the LaTeX Project Public License Distributed from CTAN
+%%   archives in directory macros/latex/base/lppl.txt; either
+%%   version 1 of the License, or any later version.
+%%
+%% If you find this software useful, please send me a postcard.
+%%
+%% $Id: rcsinfo.dtx,v 1.7 2005/02/25 08:37:03 vollmer draft vollmer $
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%% \CheckSum{397}
+%% \CharacterTable
+%%  {Upper-case    \A\B\C\D\E\F\G\H\I\J\K\L\M\N\O\P\Q\R\S\T\U\V\W\X\Y\Z
+%%   Lower-case    \a\b\c\d\e\f\g\h\i\j\k\l\m\n\o\p\q\r\s\t\u\v\w\x\y\z
+%%   Digits        \0\1\2\3\4\5\6\7\8\9
+%%   Exclamation   \!     Double quote  \"     Hash (number) \#
+%%   Dollar        \$     Percent       \%     Ampersand     \&
+%%   Acute accent  \'     Left paren    \(     Right paren   \)
+%%   Asterisk      \*     Plus          \+     Comma         \,
+%%   Minus         \-     Point         \.     Solidus       \/
+%%   Colon         \:     Semicolon     \;     Less than     \<
+%%   Equals        \=     Greater than  \>     Question mark \?
+%%   Commercial at \@     Left bracket  \[     Backslash     \\
+%%   Right bracket \]     Circumflex    \^     Underscore    \_
+%%   Grave accent  \`     Left brace    \{     Vertical bar  \|
+%%   Right brace   \}     Tilde         \~}
+
+\documentclass{article}
+\usepackage{html}
+\usepackage{rcsinfo}
+
+\begin{htmlonly}
+\input{rcsinfo2html.aux}
+\end{htmlonly}
+
+\newcommand{\LatexToHtml}{\LaTeX 2\texttt{HTML}}
+\newcommand{\Var}[1]{\texttt{\$rcsinfo::#1}}
+\newcommand{\RCS}{\emph{RCS}}
+
+\pagestyle{fancy}
+
+\begin{document}
+\rcsInfo $Id: rcsinfo.dtx,v 1.7 2005/02/25 08:37:03 vollmer draft vollmer $
+
+\author{Dr.~J{\"u}rgen Vollmer\\
+        Viktoriastra{\ss}e 15, D-76133 Karlruhe, Germany\\
+        \small{\texttt{Juergen.Vollmer@informaktik-vollmer.de}}}
+\date{\today}
+\title{Example for converting a \LaTeX\ document to \texttt{HTML}\\
+       using \LatexToHtml\ and the \texttt{rcsinfo}-package}
+\maketitle
+
+\section{Notes}
+%%%%%%%%%%%%%%%
+
+\begin{itemize}
+\item Use at least version \emph{99.1 release (March 30, 1999)} of
+      \LatexToHtml.
+
+\item You should \verb|\usepackage{html}|.
+
+\item You must run \LaTeX\ on the input file before running \LatexToHtml.
+
+\item In order to make \LatexToHtml\ read the \verb|.aux| file, you must
+      either:
+      \begin{itemize}
+      \item call \LatexToHtml\ with the option
+                 \verb|-show_section_numbers| or
+      \item include the \verb|.aux| file explicitly in your \LaTeX-source, by
+            adding the lines in the preamble:\\
+                \verb|\begin{|\verb|htmlonly}|\\  % looks ulgy, but otherwise
+                \verb|\input{|\emph{source}\verb|.aux}|\\
+                \verb|\end{|\verb|htmlonly}|\\    % latex2html fails.
+            which requires \verb|\usepackage{html}|.
+      \end{itemize}
+      If you don't do so, the \verb|\rcsInfo...| commands give no value.
+
+\item If using the \LatexToHtml\ tool, only the last \verb|\rcsInfo| takes
+      effect, e.g.~if using several input files each having the \verb|\rcsInfo|
+      command, only the vales of the last included file are used.
+      (If this is a serious problem for you, drop me a mail).
+
+\item If the \verb|fancy| / \verb|fancyhdr| option is given to the
+      \verb|rcsinfo| package,
+      the date of the \verb|ADDRESS| at the bottom of the \texttt{HTML}
+      page is set to the \RCS\ date.
+
+\item If you would like to set your own \verb|ADDRESS| text, you should
+      define a procedure, which sets \texttt{perl} \verb|$main::ADDRESS|
+      variable in your local \texttt{.latex2html} initialization file.
+      The routine may use the \texttt{perl}
+      variables shown below. Assign a reference of this procdure to the
+      \texttt{perl}-variable
+      \verb|$rcsinfo::SetAddressProc|.
+      E.g.\ if you have a \texttt{perl} routine \verb|&my_address_field|,
+      then \\
+      \verb|$rcsinfo::SetAddressProc = &my_address_field|.
+
+      For example the follownig \texttt{perl}-code does the job:
+\begin{verbatim}
+sub my_address_field
+{
+ $ADDRESS = '<hr>This file was last updated on ' .
+            $rcsinfo::Date  .
+            '&nbsp; by ' .
+            '<a href="mailto: Juergen.Vollmer@informatik-vollmer.de">' .
+            'Dr. Juergen Vollmer ' .
+            '&lt;Juergen.Vollmer@informatik-vollmer.de&gt;</a>';
+}
+$rcsinfo::SetAddressProc = \&my_address_field;
+\end{verbatim}
+\end{itemize}
+
+\newpage
+
+\section{Example}
+%%%%%%%%%%%%%%%%%
+
+\label{sec-examples}
+Here are the commands and their output:
+
+\begin{tabular}{lll}
+\LaTeX-command              & \texttt{perl} variable & Result for this file \\\hline
+\verb|\today|               & \texttt{\$today}       & \today           \\
+\verb|\rcsInfoFile|         & \Var{File}             & \rcsInfoFile     \\
+\verb|\rcsInfoOwner|        & \Var{Owner}            & \rcsInfoOwner    \\
+\verb|\rcsInfoStatus|       & \Var{Status}           & \rcsInfoStatus   \\
+\verb|\rcsInfoLocker|       & \Var{Locker}           & \rcsInfoLocker   \\
+\verb|\rcsInfoDate|         & \Var{Date}             & \rcsInfoDate     \\
+\verb|\rcsInfoLongDate|     & \Var{LongDate}         & \rcsInfoLongDate \\
+\verb|\rcsInfoDay|          & \Var{Day}              & \rcsInfoDay      \\
+\verb|\rcsInfoMonth|        & \Var{Month}            & \rcsInfoMonth    \\
+\verb|\rcsInfoYear|         & \Var{Year}             & \rcsInfoYear     \\
+\end{tabular}
+
+\end{document}
+\endinput
+%%
+%% End of file `rcsinfo2html.tex'.

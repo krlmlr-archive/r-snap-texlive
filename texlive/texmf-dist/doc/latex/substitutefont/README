@@ -1,0 +1,101 @@
+substitutefont
+--------------
+Combine font families
+*********************
+
+:Copyright: © 2010 Günter Milde <milde@users.sf.net>
+:Contributor: Special thanks to Ulrike Fischer who provided
+              the indirect definition with active ``\nfss@catcodes``.
+:Licence:   This work may be distributed and/or modified under the
+            conditions of the `LaTeX Project Public License`_,
+            either version 1.3 of this license or (at your option)
+            any later version.
+
+.. _LaTeX Project Public License: http://www.latex-project.org/lppl.txt
+
+In traditional 8-bit LaTeX, fonts are restricted to 256 glyphs per file.
+To support different languages and scripts, the New Font Selection Scheme
+uses a set of TeX font encodings [encguide]_.
+
+Many Latin TeX fonts do not support Greek or Cyrillic, while many non-Latin
+fonts are extensions of a Latin font family but use a different family name
+due to license reasons or the creators preference.
+
+The `substitutefont` package facilitates the task to set up a font family as
+substitute for another one in a specified `font encoding <encguide>`_. 
+
+:News: 2013-11-04 Documentation/Test fixes.
+
+:Source: `<substitutefont.sty>`_
+
+  The literate source was converted with PyLit_ to reStructuredText_ and
+  with Docutils_ to the HTML documentation `<substitutefont.sty.html>`__.
+
+Usage
+=====
+
+The macro ``\substitutefont{<encoding>}{<family>}{<new-family>}`` selects
+the font family <new-family> as replacement for <family> in the font
+encoding <encoding>. The substitution must be defined before the first use
+of the specified font encoding, preferably in the document preamble.
+In contrast to the (deprecated) ``\substitutefontfamily`` macro provided by
+Babel_, ``\substitutefont`` does not write auxiliary files.
+
+The ``<encoding>`` is one of the LaTeX font encodings [encguide]_, e.g., T1
+for Latin, T2A for Cyrillic(Russian), or LGR for Greek.
+
+For ``<family>`` and ``<new-family>``, use the «TeX names» of the font.
+There are defined by a TeX font package's ``*.fd`` or ``*.sty`` file(s).
+LaTeX stores the default family names for Roman, Sans-Serif, and Teletype
+fonts in the ``\rmdefault``, ``\sfdefault``, and ``\ttdefault`` macros
+respectively.
+
+Example: Set the font family to Palatino using the standard package
+`mathpazo` for Latin and `GFS Didot`_ for Greek::
+  
+    \usepackage[sc,slantedGreek]{mathpazo}
+    \usepackage{substitutefont}
+    \substitutefont{LGR}{\rmdefault}{udidot}
+
+For details on LaTeX font selection, see [encguide]_ and [fntguide]_.
+
+Tests/Examples
+==============
+
+* Simple test with Latin fonts: 
+  `<substitutefont-test.tex>`__, `<substitutefont-test.pdf>`__
+* Palatino with Greek from `GFS Didot`_:
+  `<greek-palatino-didot.tex>`__, `<greek-palatino-didot.pdf>`__
+* Times/Helvetica/Courier (newtx_) with `GFS Artemisia`_, `GFS
+  Neohellenic`_, and teletype from the CB_ fonts: txfontsb_
+  `<greek-times-artemisia.tex>`__, `<greek-times-artemisia.pdf>`__
+* Latin Modern with Cyrillic from `CM LGC`_:
+  `<cyrillic-lm-lgc.tex>`__, `<cyrillic-lm-lgc.pdf>`__
+* Times/Helvetica/Courier (TeX Gyre) with Cyrillic ParaType_ fonts:
+  `<cyrillic-paratype.tex>`__, `<cyrillic-paratype.pdf>`__
+
+
+References
+==========
+
+.. [encguide] Frank Mittelbach, Robin Fairbairns, Werner Lemberg,
+   LaTeX3 Project Team, `LaTeX font encodings`:
+   http://mirror.ctan.org/macros/latex/doc/encguide.pdf.
+
+.. [fntguide] LaTeX3 Project Team, `LaTeX 2e font selection`:
+   http://mirror.ctan.org/macros/latex/doc/fntguide.pdf.
+
+.. _Babel: http://www.ctan.org/pkg/babel
+.. _CM LGC: http://www.ctan.org/pkg/cm-lgc
+.. _CB: http://www.ctan.org/pkg/cbgreek-complete
+.. _GFS Artemisia: http://www.ctan.org/pkg/gfsartemisia
+.. _GFS Didot: http://www.ctan.org/pkg/gfsdidot
+.. _GFS Neohellenic: http://www.ctan.org/pkg/gfsneohellenic
+.. _mathpazo: http://www.ctan.org/pkg/mathpazo
+.. _newtx: http://www.ctan.org/pkg/newtx
+.. _txfontsb: http://www.ctan.org/pkg/txfontsb
+.. _ParaType: http://www.ctan.org/pkg/paratype
+
+.. _PyLit: http://pylit.berlios.de
+.. _reStructuredText: http://docutils.sourceforge.net/rst.html
+.. _Docutils: http://docutils.sourceforge.net/rst.html

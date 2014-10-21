@@ -1,0 +1,19 @@
+#!/bin/bash
+
+function CompileIt () 
+{ 
+  TEX=$1
+  #latex $TEX
+  #makeindex $TEX
+  mv $TEX.ps $TEX.ps.bak
+  latex $TEX
+  while grep "Rerun" $TEX.log; do latex $TEX; done
+  dvips -Pcmz -Pamz -o $TEX.ps $TEX.dvi
+  rm $TEX.aux $TEX.log $TEX.dvi
+}
+
+
+CompileIt "diagrams"
+CompileIt "diagramsbw"
+CompileIt "altdiags"
+

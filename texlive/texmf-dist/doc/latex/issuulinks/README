@@ -1,0 +1,23 @@
+			  Package issuulinks
+			    Boris Veytsman
+				 v1.1
+
+PDF visualizer ISSUU (http://issuu.com) is a popular service
+allowing to show PDF documents ``one page a time''.  Due to the way
+it is implemented, internal links in these documents are not
+allowed.  Instead, they must be converted to external ones in the
+form http://issuu.com/action/page?page=PAGENUMBER.  
+
+This package patches hyperref to produce external links in the
+required form instead of internal links created by \ref, \cite and
+other commands.
+
+Since the package redefines the internals of hyperref, you need to
+call it AFTER hyperref.
+
+The author is grateful to FAO UN which partially funded this work
+and to Matthieu Stigler, Adam Prakash \& Filippo Gheri for
+suggesting and testing this package.
+
+Changes in v1.1:
+	Added standard warnings about undedined/changed references

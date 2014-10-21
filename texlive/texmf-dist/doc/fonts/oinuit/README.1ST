@@ -1,0 +1,39 @@
+The ``oinuit'' system is a set of Lambda (Omega LaTeX) typesetting tools for 
+the Inuktitut language. The ``oinuit'' package supports five different 
+input methods and is bundled with the necessary fonts. To learn more about
+the system, typeset with LaTeX the file omega/oinuit.dtx; to get the system
+files run LaTeX on file omega/oinuit.ins. To install the package:
+
+1) Create the directories 
+   a) texmf/omega/ocp/oinuit
+   b) texmf/omega/otp/oinuit
+   c) texmf/omega/lambda/oinuit
+   d) texmf/fonts/ovf/public/oinuit
+   e) texmf/fonts/ofm/public/oinuit
+   f) texmf/fonts/type1/public/oinuit
+   g) texmf/dvips/oinuit
+
+2) Copy to directory c) all the *.sty, *.fd, *.def and *.tex files generated
+   by running LaTeX on file oinuit.ins. The *.otp files generated with the
+   same process should be installed on directory b).
+
+3) Copy all the font files to the corresponding directories.
+
+4) Append the following line 
+
+   inuit inuit.tex
+
+   to file texmf/omega/lambda/base/language.dat and regenarate the Lambda
+   format so that the Inuktitut hyphenation patterns can be loaded.
+
+5) Copy the *.ocp files to directory a). 
+
+6) Copy the file oinuit.map to directory g).
+
+7) Rehash your system and make sure that you can process the examples.
+
+Please forward any commends, questions, or error reports to
+   apostolo@obelix.e.duth.gr
+
+Apostolos Syropoulos
+Sun Jul 21, 2002

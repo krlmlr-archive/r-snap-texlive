@@ -1,0 +1,437 @@
+\documentclass{article}
+\usepackage[fleqn]{amsmath}
+\usepackage[
+    web={centertitlepage,designv,forcolorpaper,
+         usesf,latextoc,pro}, %tight,
+    eforms,aebxmp
+]{aeb_pro}
+\usepackage{ran_toks}
+\useThisSeed{1441984427}
+%\useLastAsSeed
+%\rtdebugtrue
+%\ranToksOn
+%\ranToksOff
+
+
+%\usepackage{myriadpro}
+\usepackage[altbullet]{lucidbry}
+
+%\usepackage{makeidx}
+%\makeindex
+\usepackage{acroman}
+
+\makeatletter
+\def\eq@fititin#1{\noindent\unskip\nobreak\hfill\penalty50
+    \hskip2em\hbox{}\nobreak\hfill#1}
+\def\fitit{\eq@fititin{\exrtnlabelformat}}
+\@mparswitchfalse\reversemarginpar
+%\def\meta#1{$\langle\textit{\texttt{#1}}\rangle$}
+\def\meta#1{\textit{\texttt{#1}}}
+
+\makeatother
+%\usepackage[active]{srcltx}
+
+\urlstyle{rm}
+
+\DeclareDocInfo
+{
+    university={\AcroTeX.Net},
+    title={\texorpdfstring{The \textsf{ran\_toks}}{The manual for the ran\_toks}
+        Package\texorpdfstring{\\[6pt]\large}{: }
+        Randomizing the order of tokens},
+    author={D. P. Story},
+    email={dpstory@acrotex.net},
+    subject=Documentation for the ran\_toks package,
+    talksite={\url{www.acrotex.net}},
+    version={1.0},
+    Keywords={LaTeX,PDF,random, tokens, JavaScript,Adobe Acrobat},
+    copyrightStatus=True,
+    copyrightNotice={Copyright (C) \the\year, D. P. Story},
+    copyrightInfoURL={http://www.acrotex.net}
+}
+\DeclareInitView{windowoptions={showtitle}}
+
+
+\def\dps{$\hbox{$\mathfrak D$\kern-.3em\hbox{$\mathfrak P$}%
+       \kern-.6em \hbox{$\mathcal S$}}$}
+
+\universityLayout{fontsize=Large}
+\titleLayout{fontsize=LARGE}
+\authorLayout{fontsize=Large}
+\tocLayout{fontsize=Large,color=aeb}
+\sectionLayout{indent=-62.5pt,fontsize=large,color=aeb}
+\subsectionLayout{indent=-31.25pt,color=aeb}
+\subsubsectionLayout{indent=0pt,color=aeb}
+\subsubDefaultDing{\texorpdfstring{$\bullet$}{\textrm\textbullet}}
+
+\def\exSrc{\makebox[0pt][r]{\large{\Pisymbol{webd}{157}}\enspace}}
+
+%\pagestyle{empty}
+\parindent0pt
+\parskip\medskipamount
+
+
+\definePath\bgPath{"C:/Users/Public/Documents/%
+    ManualBGs/Manual_BG_Print_AeB.pdf"}
+\begin{docassembly}
+\addWatermarkFromFile({%
+    bOnTop: false,
+    cDIPath: \bgPath
+})
+\executeSave()
+\end{docassembly}
+
+\begin{document}
+
+\maketitle
+
+\selectColors{linkColor=black}
+\tableofcontents
+\selectColors{linkColor=webgreen}
+
+\section{Introduction}
+
+This is a short package for randomizing the order of tokens. The package
+is long overdue; users of \textbf{AeB} and of \textsf{eqexam} have long asked for a way to
+randomize the order of the problems in a test or quiz, or anything for
+that matter.
+
+\exSrc The example file for this package is \texttt{ran\_toks.tex} found in the
+\texttt{examples} folder. The file reproduces the sample code of this
+manual.
+
+\section{The Preamble and Package Options}
+
+The preamble for this package is
+\begin{Verbatim}[xleftmargin=20pt,commandchars=!()]
+!fbox(\usepackage{ran_toks})
+\end{Verbatim}
+The package itself has no options.
+
+The requirements for \textsf{ran\_toks} are the \textsf{verbatim} package
+(part of the standard {\LaTeX} distribution, and the macro file
+\texttt{random.tex}, by Donald Arseneau
+
+
+\section{The main commands and environments}\label{rtmain}
+
+There are two styles for defining a series of tokens to be randomized,
+using either the \cs{ranToks} command or the \cs{bRTVToks}/\cs{eRTVToks}
+pair. Each of these is discussed in the next two subsections.
+
+\subsection{The \texorpdfstring{\protect\cs{ranToks}
+command}{\CMD{ranToks}} command}
+
+The \cs{ranToks} command was the original concept; declare a series of
+tokens to be randomized.
+\begin{Verbatim}[xleftmargin=20pt,commandchars=!()]
+!fbox(!parbox(1.5in)(\ranToks{!meta(name)}{%
+    {!meta(token_1)}
+    {!meta(token_2)}
+    ...
+    {!meta(token_n)}
+}))
+\end{Verbatim}
+were \meta{token\_k} is any non-verbatim content;\footnote{Any token that
+can be in the argument of a command.} each token is enclosed in braces
+(\verb!{}!), this is required. The \meta{name} parameter is required, and
+must be unique for the document; it is used to build the names of internal
+macros. Of course several such \cs{ranToks} can be used in the document,
+either in the preamble or in the body of the document. Multiple
+\cs{ranToks} commands must have a different \meta{name} parameter.
+
+\emph{After} a \cs{ranToks} command has been executed, the number of tokens
+counted is accessible through the \cs{nToksFor} command,
+\begin{Verbatim}[xleftmargin=20pt,commandchars=!()]
+!fbox(\nToksFor{!meta(name)})
+\end{Verbatim}
+The one argument is \meta{name}, and will expand to the total number
+of tokens listing as argument in the \cs{ranToks} command by the same
+name.
+
+The \cs{ranToks} command does not display the randomized tokens, for that
+the command \cs{useRanTok} is used.
+\begin{Verbatim}[xleftmargin=20pt,commandchars=!()]
+!fbox(!parbox(1.3in)(\useRTName{!meta(name)}
+\useRanTok{1}
+\useRanTok{2}
+...
+\useRanTok{n}))
+\end{Verbatim}
+The argument of \cs{useRanTok} is a positive integer between 1 and
+\verb!\nToksFor{!\meta{name}\verb!}!, the number of tokens declared by \cs{ranToks}, inclusive.
+There is no space created following the \cs{useRanTok} command, so if
+these are to be used ``inline'', enclose them in braces (\verb~{}~), eg,
+\verb!{\useRanTok{1}}!. The use of \cs{useRTName} is optional unless the
+listing of the \cs{useRanTok} commands is separated from the \cs{ranToks}
+command that defined them by another \cs{ranToks} command of a different
+name. That should be clear!
+
+Consider this example.
+
+\begin{Verbatim}[xleftmargin=20pt,commandchars=!()]
+\ranToks{myPals}{%
+    {Jim}{Richard}{Don}
+    {Alex}{Tom}{J\"{u}rgen}
+}
+\end{Verbatim}
+\ranToks{myPals}{%
+    {Jim}{Richard}{Don}
+    {Alex}{Tom}{J\"{u}rgen}
+}
+I have {\nToksFor{myPals}} pals, they are \useRanTok{1}, \useRanTok{2},
+\useRanTok{3}, \useRanTok{4}, {\useRanTok{5}} and \useRanTok{6}. (Listed
+in the order of best friend to least best friend.)
+The verbatim listing is,
+\begin{Verbatim}[xleftmargin=20pt,commandchars=!()]
+I have {\nToksFor{myPals}} pals, they are \useRanTok{1},
+\useRanTok{2}, \useRanTok{3}, \useRanTok{4}, {\useRanTok{5}}
+and \useRanTok{6}.
+\end{Verbatim}
+Notice that \cs{useRanToks} are not enclosed in braces for 1--4 because
+they are each followed by a comma; the fifth token, \verb!{useRanTok{5}}!, is
+enclosed in braces to generate a space following the insertion of the text.
+
+Repeating the sentence yields, ``I have {\nToksFor{myPals}} pals, they are
+\useRanTok{1}, \useRanTok{2}, \useRanTok{3}, \useRanTok{4},
+{\useRanTok{5}} and \useRanTok{6}'' the exact same random order. To obtain
+a different order, re-execute the \cs{ranToks} command with the same
+arguments. Doing just that, \ranToks{myPals}{{Jim}{Richard}{Don}
+{Alex}{Tom}{J\"{u}rgen}}we obtain, ``I have {\nToksFor{myPals}} pals, they
+are \useRanTok{1}, \useRanTok{2}, \useRanTok{3}, \useRanTok{4},
+{\useRanTok{5}} and \useRanTok{6}.'' A new order? For most applications,
+re-randomizing the same token list in the same document is not very likely
+something you need to do.
+
+My original application for this, the one that motivated writing this
+package at long last, was the need to arrange several form buttons
+randomly on the page. My point is that the listing given in the argument
+of \cs{ranToks} can pretty much be anything that is allowed to be an
+argument of a macro; this would exclude verbatim text created by \cs{verb}
+and verbatim environments.
+
+\subsection{The
+\texorpdfstring{\protect\cs{bRTVToks}/\protect\cs{eRTVToks}}
+    {\CMD{bRTVToks}/\CMD{eRTVToks}} pair of commands}
+
+Sometimes the content to be randomized is quite large and contain verbatim
+text. For this, it may be more convenient to use the
+\cs{bRTVToks}/\cs{eRTVToks} command pair. The syntax is
+\begin{Verbatim}[xleftmargin=20pt,commandchars=!()]
+!fbox(!parbox(1.6in)(\bRTVToks{!meta(name)}
+\begin{rtVW}
+    !meta(content)
+\end{rtVW}
+...
+...
+\begin{rtVW}
+    !meta(content)
+\end{rtVW}
+\eRTVToks))
+\end{Verbatim}
+The \cs{bRTVToks}\texttt{\{\meta{name}\}} command begins the (pseudo)
+environment and is ended by \cs{eRTVToks}. Between these two are a series
+of \texttt{rtVW} (random toks verbatim write) environments. When the document
+is compiled, the contents of each of these environments is written to the
+disk drive and saved under a different name (based on the parameter
+\meta{name}). Later, using the \cs{useRanTok} commands, they are input
+back into the document in a random order.
+
+The use of \cs{useRTName} and \cs{useRanTok} were explained and illustrated
+in the previous section. Let's go to the examples,
+
+\begin{Verbatim}[xleftmargin=20pt,commandchars=!()]
+\bRTVToks{myThoughts}
+\begin{rtVW}
+\begin{minipage}[t]{.67\linewidth}
+Roses are red and violets are blue,
+I've forgotten the rest, have you too?
+\end{minipage}
+\end{rtVW}
+\begin{rtVW}
+\begin{minipage}[t]{.67\linewidth}
+I gave up saying bad things like
+\verb!$#%%%^*%^&#$@#! when I was just a teenager
+\end{minipage}
+\end{rtVW}
+\begin{rtVW}
+\begin{minipage}[t]{.67\linewidth}
+I am a good guy, pass it on! The code for this last sentence is,
+\begin{verbatim}
+%#$% I am a good guy, pass it on! ^&*&^*
+\end{verbatim}
+How did that other stuff get in there?
+\end{minipage}
+\end{rtVW}
+\eRTVToks
+\end{Verbatim}
+OK, now, let's display these three in random order. Here we place them in
+an \texttt{enumerate} environment.
+
+\bRTVToks{myThoughts}%
+\begin{rtVW}
+\begin{minipage}[t]{.67\linewidth}
+Roses are red and violets are blue,
+I've forgotten the rest, have you too?
+\end{minipage}
+\end{rtVW}
+\begin{rtVW}
+\begin{minipage}[t]{.67\linewidth}
+I gave up saying bad things like
+\verb!$#%%%^*%^&#$@#! when I was just a teenager
+\end{minipage}
+\end{rtVW}
+\begin{rtVW}
+\begin{minipage}[t]{.67\linewidth}
+I am a good guy, pass it on! The code for this last sentence is,
+\begin{verbatim}
+%#$% I am a good guy, pass it on! ^&*&^*
+\end{verbatim}
+How did that other stuff get in there?
+\end{minipage}
+\end{rtVW}
+\eRTVToks
+\begin{enumerate}
+    \item \useRanTok{1}
+    \item \useRanTok{2}
+    \item \useRanTok{3}
+\end{enumerate}
+The verbatim listing of the example above is
+\begin{Verbatim}[xleftmargin=20pt,commandchars=!()]
+\begin{enumerate}
+    \item \useRanTok{1}
+    \item \useRanTok{2}
+    \item \useRanTok{3}
+\end{enumerate}
+\end{Verbatim}
+
+\section{Additional arguments and commands}\label{AddCmds}
+
+The syntax given earlier for \cs{useRanTok} was not completely specified.
+It is
+\begin{Verbatim}[xleftmargin=20pt,commandchars=!()]
+!fbox(\useRanTok[!meta(name)]{!meta(number)})
+\end{Verbatim}
+The optional first parameter specifies the \meta{name} of the list from
+which to draw a random token; the \meta{number} is the number of the
+token in the range of 1 and \verb!\nToksFor{!\meta{name}\verb!}!,
+inclusive. The optional argument is useful in special circumstances when
+you want to mix two random lists together.
+
+To illustrate: \useRanTok[myPals]{1}, \useRanTok[myThoughts]{1}
+
+The verbatim listing is
+\begin{Verbatim}[xleftmargin=20pt,commandchars=!()]
+To illustrate: \useRanTok[myPals]{1}, \useRanTok[myThoughts]{1}
+\end{Verbatim}
+This is a rather bad illustration. Every time this document is compiled
+there is a different page break on page~\pageref*{AddCmds}. This must be used
+wisely.
+
+The original order of the list of tokens is not lost, you can retrieve
+them using the command \cs{rtTokByNum},
+\begin{Verbatim}[xleftmargin=20pt,commandchars=!()]
+!fbox(\rtTokByNum[!meta(name)]{!meta(number)})
+\end{Verbatim}
+This command expands to the token declared in the list named \meta{name}
+that appears at the \meta{number} place in the list. (Rather awkwardly written.)
+For example, my really best pals are {\rtTokByNum[myPals]{3}} and
+\rtTokByNum[myPals]{4}, but don't tell them. The listing is,
+\begin{Verbatim}[xleftmargin=20pt,commandchars=!()]
+For example, my really best pals are {\rtTokByNum[myPals]{3}}
+and \rtTokByNum[myPals]{4}, but don't tell them.
+\end{Verbatim}
+In some sense, \cs{rtTokByNum[\meta{name}]} acts like a simple array, the
+length of which is \cs{nToksFor\{\meta{name}\}}, and whose $k^{\text{th}}$
+element is \cs{rtTokByNum[\meta{name}]\{\meta{k}\}}.
+
+The randomization may be turned off using \cs{ranToksOff} or turned back
+on with \cs{ranToksOn}.
+\begin{Verbatim}[xleftmargin=20pt,commandchars=!()]
+!fbox(!parbox(.9in)(\ranToksOff
+\ranToksOn))
+\end{Verbatim}
+This can be done globally in the preamble for the whole of the document,
+or in the body of the document just prior to either \cs{ranToks} or
+\cs{bRTVToks}. For example,
+\begin{Verbatim}[xleftmargin=20pt,commandchars=!()]
+\ranToksOff
+\ranToks{integers}{ {1}{2}{3}{4} }
+\ranToksOff
+\end{Verbatim}
+This should make $\verb!\useRanTok{3}! =  \verb!\rtTokByNum{3}! = 3 $;
+executing this code, we get, \ranToksOff\ranToks{integers}{ {1}{2}{3}{4} }\ranToksOff
+$\useRanTok{3} = \rtTokByNum{3} = 3 $? As anticipated.
+
+The command \cs{ranToksOff} is probably best in the preamble to turn off
+all randomization while the rest of the document is being composed.
+
+The \textsf{ran\_toks} package writes an auxiliary file named
+\verb!\jobname\_rt.sav!, below represents two typical lines in this file.
+\begin{Verbatim}[xleftmargin=20pt,commandchars=!()]
+1604051353 % initializing seed value
+5747283528 % last random number used
+\end{Verbatim}
+The first line is the initializing seed value used for the last
+compilation of the document; the second line is the last value of the
+pseudo-random number generator used in the document.
+
+Normally, the pseudo-random number generator provided by
+\texttt{random.tex} produces a new initial seed value every minute. So if
+you recompile again before another minute, you'll get the same initial
+seed value.
+
+To obtain a new initial seed value each time you compile, place
+\cs{useLastAsSeed} in the preamble.
+\begin{Verbatim}[xleftmargin=20pt,commandchars=!()]
+!fbox(\useLastAsSeed)
+\end{Verbatim}
+When the document is compiled, the initial seed value taken as the second
+line in the \verb!\jobname\_rt.sav! file, as seen in the above example.
+With this command in the preamble, a new set of random numbers is
+generated on each compile. If the file \cs{jobname\_rt.sav} does not
+exist, the generator will be initialized by its usual method, using the time and date.
+
+The command \cs{useThisSeed} allows you to reproduce a previous
+pseudo-random sequence.
+\begin{Verbatim}[xleftmargin=20pt,commandchars=!()]
+!fbox(\useThisSeed{!meta(init_seed_value)})
+\end{Verbatim}
+This command needs to be placed in the preamble. The value of
+\meta{init\_seed\_value} is an integer, normally taken from the
+first line of the \verb!\jobname\_rt.sav! file.
+
+When creating tests (possibly using \textsf{eqexam}), the problems, or
+contiguous collections of problems, can be randomly ordered using the
+\cs{bRTVToks}/\cs{eRTVToks} paradigm. For example, suppose there are two
+classes and you want a random order (some of) the problems for each of the
+two classes. Proceed as follows:
+\begin{enumerate}
+\item Compile the document, open \cs{jobname\_rt.sav}, and copy the
+    first line (in the above example, that would be
+    \texttt{1604051353}).
+\item Place \verb!\useThisSeed{1604051353}! in the preamble. Compiling
+    will bring back the same pseudo-random sequence very time.
+\item Comment this line out, and repeat the process (use
+    \cs{useLastAsSeed} to generate new random sequences at each
+    compile) until you get another distinct randomization, open
+    \cs{jobname\_rt.sav}, and copy the first line again, say its \texttt{735794511}.
+\item Place \verb!\useThisSeed{735794511}! in the preamble.
+\item Label each
+\begin{Verbatim}
+%\useThisSeed{1604051353} % 11:00 class
+%\useThisSeed{735794511}  % 12:30 class
+\end{Verbatim}
+To reproduce the random sequence for the class, just uncomment the random
+seed used for that class.
+\end{enumerate}
+If you are using \textsf{eqexam}, the process can be automated as follows:
+\begin{Verbatim}[xleftmargin=20pt,commandchars=!()]
+\vA{\useThisSeed{1604051353}} % 11:00 class
+\vB{\useThisSeed{735794511}}  % 12:30 class
+\end{Verbatim}
+Again, this goes in the preamble.
+
+Now, I simply must get back to my retirement. \dps
+
+\end{document}

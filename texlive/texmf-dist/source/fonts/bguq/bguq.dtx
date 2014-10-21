@@ -1,0 +1,182 @@
+% \iffalse meta-comment
+%
+% Copyright 2012  J.J. Green
+% $Id: bguq.dtx,v 1.9 2012/08/05 15:39:27 jjg Exp $
+% 
+% Changes:
+% 0.1 - 2012/07/16 - first working version
+% 0.2 - 2012/07/18 - code tidying, comments
+% 0.3 - 2012/07/19 - documentation fixes
+% 0.4 - 2012/08/05 - made the stroke slightly rounder and lifted
+%       the terminals to the middle (rather than the bottom) of
+%       the horzontal stoke, this gives a better appearence for
+%       very thick lines   
+%
+% \fi
+%
+% \CheckSum{844}
+%% \CharacterTable
+%%  {Upper-case    \A\B\C\D\E\F\G\H\I\J\K\L\M\N\O\P\Q\R\S\T\U\V\W\X\Y\Z
+%%   Lower-case    \a\b\c\d\e\f\g\h\i\j\k\l\m\n\o\p\q\r\s\t\u\v\w\x\y\z
+%%   Digits        \0\1\2\3\4\5\6\7\8\9
+%%   Exclamation   \!     Double quote  \"     Hash (number) \#
+%%   Dollar        \$     Percent       \%     Ampersand     \&
+%%   Acute accent  \'     Left paren    \(     Right paren   \)
+%%   Asterisk      \*     Plus          \+     Comma         \,
+%%   Minus         \-     Point         \.     Solidus       \/
+%%   Colon         \:     Semicolon     \;     Less than     \<
+%%   Equals        \=     Greater than  \>     Question mark \?
+%%   Commercial at \@     Left bracket  \[     Backslash     \\
+%%   Right bracket \]     Circumflex    \^     Underscore    \_
+%%   Grave accent  \`     Left brace    \{     Vertical bar  \|
+%%   Right brace   \}     Tilde         \~}
+%
+% \iffalse   % this is a METACOMMENT !
+%
+%<package>\NeedsTeXFormat{LaTeX2e}
+%<package>\ProvidesPackage{bguq}
+%<-driver>             [2012/08/05 0.4
+%<package>              Begriffsschrift universal quantifier package]
+%
+%<*driver>
+\documentclass[10pt]{ltxdoc}
+\OnlyDescription
+\usepackage[8]{bguq}
+\usepackage[bguq]{begriff-bguq}
+\setlength{\BGthickness}{0.8pt}
+\usepackage{amssymb}
+\providecommand\dst{\expandafter{\normalfont\scshape docstrip}}
+\renewcommand{\quad}{{\hskip1em plus 2em}}
+\begin{document}
+\DocInput{bguq.dtx}
+\end{document}
+%</driver>
+% \fi
+%
+% \GetFileInfo{bguq.sty}
+% \title{The \texttt{bguq} macro package for \LaTeXe}
+% \author{J.J. Green}
+% \date{Version \fileversion{} \filedate}
+% \maketitle
+%
+% \setcounter{StandardModuleDepth}{1}
+%
+% \noindent
+% This file defines the package |bguq| which provides \LaTeXe\ access
+% to the \textit{Begriffsschrift} universal quantifier  ``$\bguq$'' 
+% from the \texttt{bguq} font in a small number of sizes.  These are 
+% are designed for setting the \textit{Begriffsschrift} diagrams used 
+% by Frege.
+% 
+% The package takes a single option which is an integer between
+% 4 and 12, this specifying the line-thickness of the quantifier 
+% stroke in units of $1/10$\,pt for a document font-size of 10\,pt. 
+% If the option is not specified then the value \texttt{8} will be 
+% assumed. Note that the size of the symbol produced will depend on 
+% the font size of the document (since the symbol needs to be wide 
+% enough to accomodate the variable quantified) and the line-thickness 
+% is scaled similarly --- in a 12\,pt document the line will be 1.2 
+% times the thickness, and so on.     
+%
+% The package provides only two commands: the |\bguq| macro which, 
+% in math-mode, produces the quantifer symbol, and |\bguqwidth| which 
+% is a the width of the symbol (for use in fancy placement). It is not 
+% expected that these commands will be used by end-users directly, 
+% rather they are intended for package writers.
+%
+% Below we see the results in a test implementation in the 
+% \texttt{begriff} package by Josh Parsons and Richard Heck:
+% the Geach--Kaplan sentence (as orignally set by Marcus Rossberg).
+% \[
+% \setlength{\BGlinewidth}{1.0in}
+% \BGnot \BGquant{\mathfrak{F}}%
+% \BGconditional{
+%   \BGquant{\mathfrak{c}}\BGquant{\mathfrak{d}}
+%   \BGconditional{
+%     \BGnot 
+%     \BGconditional{
+%       \BGterm{A(\mathfrak{c},\mathfrak{d})}
+%     }{
+%       \BGnot \BGterm{\mathfrak{F}(\mathfrak{c})}}
+%   }{
+%     \BGnot \BGconditional{
+%       \BGterm{\mathfrak{F}(\mathfrak{d})}
+%     }{
+%       \BGterm{\mathfrak{c}=\mathfrak{d}}
+%     }
+%   }
+% }{
+%   \BGconditional{
+%     \BGnot\BGquant{\mathfrak{b}}\BGnot\BGterm{\mathfrak{F}(\mathfrak{b})}
+%   }{
+%     \BGterm{f \BGbracket{\BGquant{\mathfrak{a}} \BGconditional{
+%       \mathfrak{F}(\mathfrak{a})
+%     }{
+%       C(\mathfrak{a})
+%     }}}
+%   } 
+% }
+% \]
+%
+% \StopEventually{}
+% 
+% \section{The \dst{} modules}
+% 
+% The following modules are used in the implementation to direct
+% \dst{} in generating the external files:
+% \begin{center}
+%   \begin{tabular}{ll}
+%     driver  & produce a documentation driver file \\
+%     package & produce a package file \\
+%   \end{tabular}
+% \end{center}
+% 
+% \section{The Implementation}
+% \subsection{The macro package}
+% 
+%<*package>
+% There is one font file for each possible thickness of
+% the Begriff stroke, indicated by an integer giving the
+% value in units of $1/10$pt.  We have an option for each
+% of the integers $4,\ldots,12$, and that option detemines
+% the variable |\bguqfont| (with default value for $8/10$pt).
+%    \begin{macrocode}
+\def\bguqfont{bguq08}
+\DeclareOption{4}{\def\bguqfont{bguq04}}
+\DeclareOption{5}{\def\bguqfont{bguq05}}
+\DeclareOption{6}{\def\bguqfont{bguq06}}
+\DeclareOption{7}{\def\bguqfont{bguq07}}
+\DeclareOption{8}{\def\bguqfont{bguq08}}
+\DeclareOption{9}{\def\bguqfont{bguq09}}
+\DeclareOption{10}{\def\bguqfont{bguq10}}
+\DeclareOption{11}{\def\bguqfont{bguq11}}
+\DeclareOption{12}{\def\bguqfont{bguq12}}
+\ProcessOptions\relax
+%    \end{macrocode}
+% The symbol font declared is just the value of |\bguqfont|.
+%    \begin{macrocode}
+\DeclareSymbolFont{\bguqfont}{U}{\bguqfont}{m}{n}
+%    \end{macrocode}
+% 
+% There is a single special symbol defined from this font:
+%    \begin{macrocode}
+\DeclareMathSymbol{\bguq}{\mathord}{\bguqfont}{"20}
+\newlength{\bguqwidth}
+\settowidth{\bguqwidth}{\ensuremath\bguq}
+%    \end{macrocode}
+% The character sizing
+%    \begin{macrocode}
+\DeclareMathSizes{10}{10}{7}{5}
+%    \end{macrocode}
+%</package>
+%    \end{macrocode}
+% 
+% The next line goes into all files and in addition prevents \dst{}
+% from adding any further code from the main source file (such as a
+% character table).
+%    \begin{macrocode}
+\endinput
+%    \end{macrocode}
+% 
+% \DeleteShortVerb{\|}
+% \Finale

@@ -1,0 +1,38 @@
+Notes on fixfoot.sty
+
+This is an experimental package that provides fixed footnotes; only
+one instance of a fixed footnote will appear on any one page.  (The
+package is "experimental" because it's lacking at least one obvious
+facility; no reports of problems in actual use have been received.)
+
+The package defines a single command, \DeclareFixedFootnote, which
+takes an optional *, and two `ordinary' arguments.
+
+If the optional * is present, the command declared has an \xspace
+command (from the xspace package) imbedded in it, so that spaces
+following the fixed footnote in running text tend not to be lost.
+
+The first ordinary argument is a command name.
+The second ordinary argument is the fixed text of the footnote.
+
+\DeclareFixedFootnote will then define the command to produce the
+footnote, or to a link to an existing copy of the fixed footnote on
+the same page.
+
+e.g., \DeclareFixedFootnote*{\sic}{\emph{sic}}
+      \DeclareFixedFootnote{\prooflater}{This theorem will be proved
+                                         later}
+
+The package works by exchanging information with itself via the .aux
+file.  Just as with labels (and per-page footnote numbers in
+footmisc), the user ordinarily needs to run latex at least twice.
+
+The package does not (yet) have the ability to warn the user that
+another run of latex is still necessary.  Some evidence of user demand
+would be necessary to encourage me to invest effort in getting LaTeX
+to give that warning.
+
+Robin Fairbairns
+afterthought, of 2009-07-20
+
+$Id: README,v 1.2 2009/07/20 12:45:45 rf10 Exp rf10 $

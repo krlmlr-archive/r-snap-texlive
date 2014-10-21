@@ -1,0 +1,85 @@
+%%
+%% This is file `gboxsamp.tex',
+%% generated with the docstrip utility.
+%%
+%% The original source files were:
+%%
+%% graphbox.dtx  (with options: `sample')
+%% 
+%% Copyright (C) 2013-2014 Niklas Beisert
+%% 
+%% This work may be distributed and/or modified under the
+%% conditions of the LaTeX Project Public License, either version 1.3
+%% of this license or (at your option) any later version.
+%% The latest version of this license is in
+%%   http://www.latex-project.org/lppl.txt
+%% and version 1.3 or later is part of all distributions of LaTeX
+%% version 2005/12/01 or later.
+%% 
+\NeedsTeXFormat{LaTeX2e}[1996/12/01]
+\ProvidesFile{gboxsamp.tex}[2014/08/31 v1.0 sample for graphbox]
+\documentclass[12pt]{article}
+\usepackage[margin=2cm]{geometry}
+\usepackage{graphicx}
+\usepackage{graphbox}
+
+\newcommand{\sample}[1]{
+\textbf{options:} \texttt{#1}\par\vspace{1ex}
+\parbox{0.6\textwidth}{%
+XXXXXX\phantom{\fbox{}}XXXXXX\\%
+XXXXXX\phantom{\fbox{}}XXXXXX\\%
+XXXXXX\fbox{\includegraphics[#1]{gboxsamp.mps}}XXXXXX\\%
+XXXXXX\phantom{\fbox{}}XXXXXX\\%
+XXXXXX\phantom{\fbox{}}XXXXXX%
+}\vspace{1cm}\par}
+
+\begin{document}
+\sample{}
+\sample{hide}
+\sample{hide=true}
+\sample{hide=false}
+\newpage
+\sample{align=b}
+\sample{align=c}
+\sample{align=t}
+\newpage
+\sample{align=l}
+\sample{align=m}
+\sample{align=u}
+\newpage
+\sample{vshift=10pt}
+\sample{vshift=-10pt}
+\newpage
+\sample{lmargin=10pt}
+\sample{rmargin=10pt}
+\sample{tmargin=10pt}
+\sample{bmargin=10pt}
+\newpage
+\sample{lmargin=-10pt}
+\sample{rmargin=-10pt}
+\sample{tmargin=-10pt}
+\sample{bmargin=-10pt}
+\newpage
+\sample{vsmash=b}
+\sample{vsmash=c}
+\sample{vsmash=t}
+\newpage
+\sample{vsmash=l}
+\sample{vsmash=m}
+\sample{vsmash=u}
+\newpage
+\sample{hsmash=l}
+\sample{hsmash=c}
+\sample{hsmash=r}
+\newpage
+\sample{smash=tl}
+\sample{smash=cc}
+\sample{smash=br}
+\newpage
+\sample{smash,vshift=10pt}
+\sample{smash,hshift=10pt}
+\sample{smash,hshift=-10pt,vshift=-10pt}
+\end{document}
+\endinput
+%%
+%% End of file `gboxsamp.tex'.

@@ -1,0 +1,156 @@
+Lapdf
+-----
+This is a short introduction for the Lapdf style. It has many instructive example
+files to show the usage of this macro package. I hope, this style helps you to
+produce nice graphics with the pdfTeX engine.
+
+This package is distributed under the GNU general pupblic licence (GPL) and it's
+free to use by everyone.
+
+
+What is it?
+-----------
+Lapdf  needs pdfTeX and the calc style, which is included in the LaTeX tools
+folder as standard package. Lapdf is a drawing environment like the standard
+LaTeX picture environment. So you can design you graphic from within the LaTeX
+document. Lapdf uses pdfTeX to calculate everything and native PDF commands for
+drawing everything. It lets you also put typesetted text into the graphic, which
+is sometimes rather complicated in other packages.
+
+Additionally to all the PDF drawing commands, Lapdf has a unique set of it's own
+drawing primitives and other macros. Here is a list:
+
+Math functions: These macros are used internally, but they can be also used in
+                your own drawings.
+                Sin, Cos, Tan, Asin, Acos, Atan, Sinh, Cosh, Tanh, Asinh,
+                Acosh, Atanh, Exp, Pow, Ln, Log, Pot, Root, Sqrt, Abs, Sig,
+                Mod, Len, Hypot, Direc, Rotpoint
+
+Loop macros:    There are two looping macros for repeating tasks:
+                - Whilenum{condition}{commands}
+                - Whiledim{condition}{commands}
+
+PDF commands:  These are the available PDF drawing primitives. I used my own
+               names, which differ only a bit from the original names:
+                - Gsave
+                - Grestore
+                - Setclip
+                - Stroke
+                - Closepath
+                - Setwidth
+                - Setcap
+                - Setjoin
+                - Setflat
+                - Setmiter
+                - Setdash
+                - Bezier
+                - Concat
+                - Translate
+                - Scale
+                - Rotate
+                - Rect
+
+Typesetting:    You can typeset text at position with direction with:
+                - Text
+
+Drawing macros: Lapdf fully supports color without the need of any style file. Color
+                usage is specified as an option [black | color] in the preamble:
+                - Setcol
+                - Setgray
+                For repreated color changes (especially in loops) there are 96
+                rainbow colors defined, wich can be used with these macros:
+                - Stepcol
+                - Nextcol
+                - Resetcol
+                Here are the standard drawing primitives:
+                - Moveto
+                - Lineto
+                - Line
+                - Polygon
+                - Vecto
+                - Vect
+                - Vpolygon
+                - Rectangle
+                - Triangle
+                - Epolygon
+                - Circle
+                - Point
+                - Ellipse
+                - Arc
+                - Sector
+                - Arcto
+                - Fill
+                - Gfill
+                - Sfill
+                These are special Bezier curve additions, which are unique. Lapdf
+                lets you draw  integral and also rational Bezier curves up to a
+                degree of seven.
+                - Curveto
+                - Curve
+                - Rmoveto
+                - Rcurveto
+                - Rcurve
+                - Quadratic
+                - Cubic
+                There are 5 kinds of grids availabe:
+                - Lingrid
+                - Logxgrid
+                - Logygrid
+                - Logxygrid
+                - Polgrid
+                You can plot functions in three different ways: normal functions,
+                parameter functions, polar functions with these commands:
+                - Fplot
+                - Tplot
+                - Pplot
+                Additionally you can plot polynoms (degree <= 3) directly and also
+                Tangents:
+                - Polynom
+                - Tangent
+                For special tasks you can also compute polynom values, derivatives,
+                partial and total derivatives:
+                - Fpoly
+                - Dpoly
+                - Df
+                - Dtx
+                - Dty
+                - Dtt
+                - Dpx
+                - Dpy
+                - Dpt
+                Some macros are useful shortcuts, like these:
+                - Thick
+                - Thin
+                - Dash
+				- Black
+				- Dred
+				- Dgreen
+				- Dblue
+				- Dcyan
+				- Dmagenta
+				- Dyellow
+				- Dgray
+				- Gray
+				- Red
+				- Green
+				- Blue
+				- Cyan
+				- Magenta
+				- Yellow
+				- White
+                
+Documentation:
+--------------
+There are several additional info files, which help you to use this package. I'm
+still working on the documentation, but the intro chapter completed. This Lapdf
+docs will be completed as soon as possible. The package itself will also be
+updated regularly. If you find errors or have any suggestions for improvements,
+please let me know.
+
+I wish you happy Texing with Lapdf!
+              
+Detlef Reimers
+
+---------------------------------------------------------------------------------
+(Email: detlefreimers@gmx.de; Web: http://detlefreimers.de)
+

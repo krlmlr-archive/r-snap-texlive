@@ -1,0 +1,114 @@
+%%
+%% This is file `DotArrow.tex',
+%% generated with the docstrip utility.
+%%
+%% The original source files were:
+%%
+%% DotArrow.dtx  (with options: `driver')
+%% 
+%% IMPORTANT NOTICE:
+%% 
+%% For the copyright see the source file.
+%% 
+%% Any modified versions of this file must be renamed
+%% with new filenames distinct from DotArrow.tex.
+%% 
+%% For distribution of the original source see the terms
+%% for copying and modification in the file DotArrow.dtx.
+%% 
+%% This generated file may be distributed as long as the
+%% original source files, as listed above, are part of the
+%% same distribution. (The sources need not necessarily be
+%% in the same archive or directory.)
+%% DotArrow.dtx
+%% Copyright 2008 Sven Schneider
+
+
+\documentclass{ltxdoc}
+
+\usepackage[utf8]{inputenc}
+\usepackage{epsfig,ifthen,amsmath,url,hyperref}
+
+\usepackage{DotArrow}
+
+\title{The DotArrow-Package\\ -- Dotted Extendable Arrows --}
+\author{Sven Schneider}
+
+\setlength{\parindent}{0pt}
+\begin{document}
+\maketitle
+
+\begin{abstract}
+This package defines a new extendable arrow. This time its a dotted one. Other interesting packages are \verb+extPfeil+\footnote{\url{http://tug.ctan.org/tex-archive/macros/latex/contrib/extpfeil/}} \verb+symbols+\footnote{\url{http://www.ctan.org/tex-archive/info/symbols/comprehensive/}} \verb+extarrows+\footnote{\url{http://tug.ctan.org/tex-archive/macros/latex/contrib/extarrows/}}
+\verb+chemarrow+\footnote{\url{http://tug.ctan.org/tex-archive/macros/latex/contrib/chemarrow/}}.
+\end{abstract}
+\tableofcontents
+\section{Simple Usage}
+\DescribeMacro{\dotarrow}
+$S\dotarrow{\kappa}S^\prime$\\
+\verb+$S\dotarrow{\kappa}S^\prime$+
+\section{Package - Options}
+\DescribeMacro{Option:autosep**}
+These Package-Options can be used to adjust the space on left and right to the label. The default is \verb+autosep03+.
+
+\begin{center}
+\begin{tabular}{ll}
+autosep00 & \DotArrowSetSep{0.0em}$S\dotarrow{\kappa}S^\prime$\\
+autosep01 & \DotArrowSetSep{0.1em}$S\dotarrow{\kappa}S^\prime$\\
+autosep02 & \DotArrowSetSep{0.2em}$S\dotarrow{\kappa}S^\prime$\\
+autosep03 & \DotArrowSetSep{0.3em}$S\dotarrow{\kappa}S^\prime$\\
+autosep04 & \DotArrowSetSep{0.4em}$S\dotarrow{\kappa}S^\prime$\\
+autosep05 & \DotArrowSetSep{0.5em}$S\dotarrow{\kappa}S^\prime$\\
+autosep06 & \DotArrowSetSep{0.6em}$S\dotarrow{\kappa}S^\prime$\\
+autosep07 & \DotArrowSetSep{0.7em}$S\dotarrow{\kappa}S^\prime$\\
+autosep08 & \DotArrowSetSep{0.8em}$S\dotarrow{\kappa}S^\prime$\\
+autosep09 & \DotArrowSetSep{0.9em}$S\dotarrow{\kappa}S^\prime$\\
+autosep10 & \DotArrowSetSep{1.0em}$S\dotarrow{\kappa}S^\prime$
+\end{tabular}
+\end{center}
+
+\DescribeMacro{Option:autoraise**}
+These Package-Options can be used to adjust the space between label and arrow. The default is \verb+autosep06+.
+
+\begin{center}
+\begin{tabular}{ll}
+autoraise00 & \DotArrowSetRaise{0.0ex}$S\dotarrow{\kappa}S^\prime$\\
+autoraise01 & \DotArrowSetRaise{0.1ex}$S\dotarrow{\kappa}S^\prime$\\
+autoraise02 & \DotArrowSetRaise{0.2ex}$S\dotarrow{\kappa}S^\prime$\\
+autoraise03 & \DotArrowSetRaise{0.3ex}$S\dotarrow{\kappa}S^\prime$\\
+autoraise04 & \DotArrowSetRaise{0.4ex}$S\dotarrow{\kappa}S^\prime$\\
+autoraise05 & \DotArrowSetRaise{0.5ex}$S\dotarrow{\kappa}S^\prime$\\
+autoraise06 & \DotArrowSetRaise{0.6ex}$S\dotarrow{\kappa}S^\prime$\\
+autoraise07 & \DotArrowSetRaise{0.7ex}$S\dotarrow{\kappa}S^\prime$\\
+autoraise08 & \DotArrowSetRaise{0.8ex}$S\dotarrow{\kappa}S^\prime$\\
+autoraise09 & \DotArrowSetRaise{0.9ex}$S\dotarrow{\kappa}S^\prime$\\
+autoraise10 & \DotArrowSetRaise{1.0ex}$S\dotarrow{\kappa}S^\prime$
+\end{tabular}
+\end{center}
+
+\DescribeMacro{Option:head*}
+These Package-Options can be used to choose a different head. The default is \verb+head1+.
+
+\begin{center}
+\begin{tabular}{ll}
+head1 & \DotArrowSetHead{\ensuremath{\succ}}$S\dotarrow{\kappa}S^\prime$\\
+head2 & \DotArrowSetHead{\ensuremath{>}}$S\dotarrow{\kappa}S^\prime$\\
+head3 & \DotArrowSetHead{\ensuremath{\gg}}$S\dotarrow{\kappa}S^\prime$
+\end{tabular}
+\end{center}
+
+\section{Commands}
+\DescribeMacro{\DotArrowSetSep}
+Select a new separation-value. \verb+\DotArrowSetSep{0.3em}+
+
+\DescribeMacro{\DotArrowSetRaise}
+Select a new raisevalue. \verb+\DotArrowSetRaise{0.6ex}+
+
+\DescribeMacro{\DotArrowSetHead}
+Select a new arrowhead. \verb+\DotArrowSetHead{\ensuremath{\succ}}+
+
+\end{document}
+
+\endinput
+%%
+%% End of file `DotArrow.tex'.

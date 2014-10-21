@@ -1,0 +1,94 @@
+This file documents the installation of the LX fonts, version 2.0, extracted
+from file lxfonts-tds.zip. Of course you don't have to install anything if your
+TeX system already contains these LX fonts. Verify by searching the file
+lxfonts.sty in the texmf-dist rooted tree of your distribution; if it exists,
+you probably can skip reading the rest of this file.
+
+This archive contains three main directories
+
+tex/		fonts/		and 		doc/
+
+each containing a TDS compliant folder or directory structure; TDS stands
+for: "TeX Directory Structure".
+
+Upon opening the compressed file extract or drag the contents of each main
+directory to the homonymous folder in you personal/local texmf tree, that,
+of course, should already be TDS compliant; if your operating system is not
+so smart to add the new files to existing TDS branches of the personal or
+local or system wide TDS tree, just copy or drag only the end twigs of these
+distributed branches.
+
+The use of a personal tree is suggested in order to avoid the need of
+reloading everything every time you upgrade your TeX system; in any case,
+should any upgrade already contain the LX fonts, check if the upgrade
+contains a more recent version of these fonts and related software; should
+it be the case, delete your personal installation and use the distributed one.
+
+Refresh the filename database; this operation depends from the particular
+distribution of the TeX system; on a Mac OS X, where the root of your
+personal texmf is  ~/Library/texmf, the filename database does not need
+an explcit refresh.
+
+On other UNIX systems, where TeXlive is the TeX system distribution,
+you need to refresh the file name database by running texhash.
+
+On win32 platforms, if you use the MiKTeX distribution, open the MiKTeX
+Options from the Start dialog box and click the Refresh button.
+
+Similar operations must be performed with other TeX distributions.
+
+At this point the line
+
+Map lxfonts.map
+
+or, at your choice,
+
+Mixedmap lxfonts.map
+
+should be added to one of the updmap.cfg, files, but this operation should
+be done only by means of programs available with your TeX system distribution;
+therefore read the documentation of your TeX system and follow the suitable
+instructions very carefully.
+
+Always following the decumentations of your TeX system distribution rebuild
+the overall font maps necessary for all programs that use Type 1 fonts;
+with a TeX Live distribution it would be necessary to run  the program
+updmap (as a single user) or updmap-sys (as an administrator or super user)
+depending on the operating system.  Notice that this operation is
+substantially the same with every distribution and every operating system,
+but the details vary from platform to platform; therefore, again, read the
+documentation of your TeX system so as to proceed as required for your
+particular distribution.
+
+WORTH NOTING: Once the system wide or local maps files contain the names of the
+various LX type 1 fonts, it is irrelevant if you had specified Map or MixedMap,
+because the Type 1 ones will be always preferred to the METAFONT bitmapped fonts.
+But since this distribution contains also the METAFONT sources, it does not hurt
+to specify MixedMap. Actually the METAFONT sources are available in case you
+spotted some errors and you wanted to try your chance to correct them; when you've
+got the good corrections, please, don't forget to notify me!
+
+
+If you did everything correctly, your TeX system is now capable of using the
+LX fonts with LaTeX and with pdflatex, and dvips and dvipdfm can perform
+their specific transformations by using the PostScript forms of these LX fonts.
+
+Warning: load the lxfonts.sty file in your document preamble *after* any
+other call to font related packages simply with
+
+\usepackage{lxfonts}
+
+Read the demo pdf file to see how to use these fonts. Of course the
+slides production software may be any class or package that produces slides;
+it not necessary to use the same package used in the example.
+
+All you need for using these fonts is already contained in the correct
+installation of the files extracted from this lxfonts-tds.zip file.
+
+If you have a complete TeX system distribution, which is always preferable
+to a basic or incomplete one, you don't have to do anything because all
+fonts and necessary files are already installed.
+
+Claudio Beccari                                         Torino 2013-12-07
+
+

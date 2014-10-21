@@ -1,0 +1,339 @@
+% \iffalse meta-comment
+%
+% Copyright (C) 2012 by Sigitas Tolu\v{s}is <sigitas@vtex.lt>
+% ---------------------------------------------------------------------------
+% This work may be distributed and/or modified under the
+% conditions of the LaTeX Project Public License, either version 1.3
+% of this license or (at your option) any later version.
+% The latest version of this license is in
+%   http://www.latex-project.org/lppl.txt
+% and version 1.3 or later is part of all distributions of LaTeX
+% version 2005/12/01 or later.
+%
+% This work has the LPPL maintenance status `maintained'.
+%
+% The Current Maintainer of this work is Sigitas Tolu\v{s}is.
+%
+% This work consists of the files marginal.dtx and marginal.ins
+% and the derived filebase marginal.sty.
+%
+% \fi
+%
+% \iffalse
+%<*driver>
+\ProvidesFile{marginal.dtx}
+%</driver>
+%<*package>
+%% Copyright (C) 1997-2012 by Sigitas Tolu\v{s}is <sigitas@vtex.lt>
+%% VTeX Ltd., Akademijos 4, Vilnius, Lithuania
+%% http://www.vtex.lt/tex/download/macros/
+%% --------------------------------------------------------------------------
+%% This work may be distributed and/or modified under the
+%% conditions of the LaTeX Project Public License, either version 1.3
+%% of this license or (at your option) any later version.
+%% The latest version of this license is in
+%%   http://www.latex-project.org/lppl.txt
+%% and version 1.3 or later is part of all distributions of LaTeX
+%% version 2005/12/01 or later.
+%%
+%% PURPOSE:   Enlarge free and show lost marginal inserts.
+%%
+%</package>
+%<package>\NeedsTeXFormat{LaTeX2e}[1999/12/01]
+%<package>\ProvidesPackage{marginal}
+%<*package>
+    [2012/05/29 v1.1 Enlarge free and show lost marginal inserts]
+%</package>
+%
+%<*driver>
+\documentclass{ltxdoc}
+\usepackage{marginal}[2012/05/29]
+%%\EnableCrossrefs
+%%\CodelineIndex
+\RecordChanges
+\begin{document}
+  \DocInput{marginal.dtx}
+  %%\PrintChanges
+  %%\PrintIndex
+\end{document}
+%</driver>
+% \fi
+%
+% \CheckSum{374}
+%
+% \CharacterTable
+%  {Upper-case    \A\B\C\D\E\F\G\H\I\J\K\L\M\N\O\P\Q\R\S\T\U\V\W\X\Y\Z
+%   Lower-case    \a\b\c\d\e\f\g\h\i\j\k\l\m\n\o\p\q\r\s\t\u\v\w\x\y\z
+%   Digits        \0\1\2\3\4\5\6\7\8\9
+%   Exclamation   \!     Double quote  \"     Hash (number) \#
+%   Dollar        \$     Percent       \%     Ampersand     \&
+%   Acute accent  \'     Left paren    \(     Right paren   \)
+%   Asterisk      \*     Plus          \+     Comma         \,
+%   Minus         \-     Point         \.     Solidus       \/
+%   Colon         \:     Semicolon     \;     Less than     \<
+%   Equals        \=     Greater than  \>     Question mark \?
+%   Commercial at \@     Left bracket  \[     Backslash     \\
+%   Right bracket \]     Circumflex    \^     Underscore    \_
+%   Grave accent  \`     Left brace    \{     Vertical bar  \|
+%   Right brace   \}     Tilde         \~}
+%
+%
+% \changes{v1.1}{2012/05/29}{Converted to DTX file}
+%
+% \DoNotIndex{\newcommand,\newenvironment}
+%
+% \providecommand*{\url}{\texttt}
+% \GetFileInfo{marginal.dtx}
+% \title{The \textsf{marginal} package}
+% \author{Sigitas Tolu\v{s}is \\ \url{sigitas@vtex.lt}}
+% \date{\fileversion~from \filedate}
+%
+% \maketitle
+%
+% \section{Introduction}
+%
+% Enlarge free and show lost marginal inserts.
+%
+% \section{Usage}
+%
+% \DescribeMacro{\showlostmarginals}
+% \indent Outputs lost marginal notes at the left of page.
+%
+% \medskip
+% \DescribeMacro{\enlargefreelist}
+% Adds more(34) free inserts to freelist.
+%
+% \medskip
+% \DescribeMacro{\onesidemarginals}
+% Outputs marginal notes only on one side. It saves one half 
+% of the available free inserts.
+%
+% \StopEventually{}
+%
+% \section{Implementation}
+%
+% \iffalse
+%<*package>
+% \fi
+%
+%    \begin{macrocode}
+\newif\if@mparlost      \@mparlostfalse
+%    \end{macrocode}
+%
+%    \begin{macrocode}
+\newbox\@mparlostbox
+\setbox\@mparlostbox\vbox{}
+%    \end{macrocode}
+%
+% \begin{macro}{\@fltovfpar}
+%
+%    \begin{macrocode}
+\gdef\@fltovfpar{\global\@mparlosttrue
+  \@latex@warning{Too many unprocessed (marginal)floats}\relax
+  }
+%    \end{macrocode}
+% \end{macro}
+%
+%
+% \begin{macro}{\@fltovfmess}
+%    \begin{macrocode}
+\gdef\@fltovfmess{%
+  \@latex@error{Too many unprocessed floats}\@ehb
+  }
+%    \end{macrocode}
+% \end{macro}
+%
+%
+% \begin{macro}{\marginpar}
+%
+%    \begin{macrocode}
+\def\marginpar{%
+  \ifhmode 
+    \@bsphack\@floatpenalty -\@Mii
+  \else
+    \@floatpenalty-\@Miii
+  \fi
+  \ifinner
+    \@parmoderr\@floatpenalty\z@
+  \else
+    \@next\@currbox\@freelist{}{}%
+    \@next\@marbox\@freelist{\global\count\@marbox\m@ne}{\@floatpenalty\z@ 
+            \@fltovfmess \def\@currbox{\@tempboxa}\def\@marbox{\@tempboxa}}%
+  \fi
+  \@ifnextchar[\@xmpar\@ympar
+  }
+%    \end{macrocode}
+% \end{macro}
+%
+%
+% \begin{macro}{\@savemarbox}
+%
+%    \begin{macrocode}
+\long\def\@savemarbox#1#2{%
+  \global\setbox#1%
+    \color@vbox
+      \vtop{%
+        \hsize\marginparwidth
+        \@parboxrestore
+        \@marginparreset
+        #2%
+        \global\@minipagefalse
+        \outer@nobreak
+        }%
+    \color@endbox
+  \if@mparlost
+    \global\setbox\@mparlostbox\vbox{\unvbox\@mparlostbox\copy#1}%
+    \global\@mparlostfalse
+  \fi
+  }
+%    \end{macrocode}
+% \end{macro}
+%
+%
+% \begin{macro}{\showlostmarginals}
+% Outputs lost marginal notes at the left of the page.
+%    \begin{macrocode}
+\def\showlostmarginals{%
+  \global\let\old@textbottom\@textbottom
+  \gdef\@textbottom{%
+    \vtop to\z@{%
+      \hbox to\z@{\kern-\wd\@mparlostbox
+        \vbox to\z@{\kern-\ht\@mparlostbox
+          \box\@mparlostbox
+          \vfill
+          }%
+        }%
+      }%
+    \old@textbottom
+    }%
+  \global\let\@fltovfmess\@fltovfpar
+  }
+%    \end{macrocode}
+% \end{macro}
+%
+%
+% \begin{macro}{\enlargefreelist}
+% Adds more(34) free inserts to freelist
+%    \begin{macrocode}
+\def\enlargefreelist{%
+  \@for\curr@option:={S,T,U,W,X,Y,Z,a,b,c,d,e,f,g,h,i,%
+                      j,k,l,m,n,o,p,q,r,s,t,u,v,w,x,y,z}%
+    \do{\expandafter\newinsert\csname bx@\curr@option\endcsname}%
+  \gdef\@freelist{%
+    \@elt\bx@A \@elt\bx@B \@elt\bx@C \@elt\bx@D \@elt\bx@E \@elt\bx@F
+    \@elt\bx@G \@elt\bx@H \@elt\bx@I \@elt\bx@J \@elt\bx@K \@elt\bx@L
+    \@elt\bx@M \@elt\bx@N \@elt\bx@O \@elt\bx@P \@elt\bx@Q \@elt\bx@R
+    \@elt\bx@S \@elt\bx@T \@elt\bx@U \@elt\bx@V \@elt\bx@W \@elt\bx@X
+    \@elt\bx@Y \@elt\bx@Z
+    \@elt\bx@a \@elt\bx@b \@elt\bx@c \@elt\bx@d \@elt\bx@e \@elt\bx@f
+    \@elt\bx@g \@elt\bx@h \@elt\bx@i \@elt\bx@j \@elt\bx@k \@elt\bx@l
+    \@elt\bx@m \@elt\bx@n \@elt\bx@o \@elt\bx@p \@elt\bx@q \@elt\bx@r
+    \@elt\bx@s \@elt\bx@t \@elt\bx@u \@elt\bx@v \@elt\bx@w \@elt\bx@x
+    \@elt\bx@y \@elt\bx@z
+    }%
+  }%   
+%    \end{macrocode}
+% \end{macro}
+%
+%
+% \begin{macro}{\onesidemarginals}
+%
+%%   \onesidemarginals - outputs marginals only on one side
+%
+%    \begin{macrocode}
+\def\onesidemarginals{%
+  \newbox\@marbox
+%    \end{macrocode}
+% \end{macro}
+%
+%
+% \begin{macro}{\@addmarginpar}
+%    \begin{macrocode}
+  \gdef\@addmarginpar{\@cons\@freelist\@currbox
+    \@tempdima\@mparbottom
+    \advance\@tempdima -\@pageht
+    \advance\@tempdima\ht\@currbox
+    \ifdim\@tempdima >\z@
+      \@latex@warning@no@line {Marginpar on page \thepage\space moved}%
+    \else
+      \@tempdima\z@
+    \fi
+    \global\@mparbottom\@pageht
+    \global\advance\@mparbottom\@tempdima
+    \global\advance\@mparbottom\dp\@currbox
+    \global\advance\@mparbottom\marginparpush
+    \advance\@tempdima -\ht\@currbox
+    \global\setbox\@currbox
+      \vbox {\vskip\@tempdima \box\@currbox}%
+    \global \ht\@currbox \z@
+    \global \dp\@currbox \z@
+    \kern -\@pagedp
+    \nointerlineskip
+    \hb@xt@\columnwidth
+      {\hskip\columnwidth \hskip\marginparsep \box\@currbox \hss}%
+    \nointerlineskip
+    \hbox{\vrule \@height\z@ \@width\z@ \@depth\@pagedp}%
+    }%
+%    \end{macrocode}
+% \end{macro}
+%
+%
+% \begin{macro}{\marginpar}
+%
+%    \begin{macrocode}
+  \gdef\marginpar{%
+    \ifhmode
+      \@bsphack\@floatpenalty -\@Mii
+    \else
+      \@floatpenalty-\@Miii
+    \fi
+    \ifinner
+      \@parmoderr\@floatpenalty\z@
+    \else
+      \@next\@currbox\@freelist{\global\count\@currbox\m@ne}{\@floatpenalty\z@ 
+                                        \@fltovfmess \def\@currbox{\@tempboxa}}%
+    \fi
+    \@ifnextchar[\@xmpar\@ympar
+    }%
+%    \end{macrocode}
+% \end{macro}
+%
+%
+% \begin{macro}{\@xmpar}
+%
+%    \begin{macrocode}
+  \long\gdef\@xmpar[##1]##2{\@savemarbox\@currbox{##2}\@xympar}%
+%    \end{macrocode}
+% \end{macro}
+%
+%
+% \begin{macro}{\@ympar}
+%    \begin{macrocode}
+  \long\gdef\@ympar##1{\@savemarbox\@currbox{##1}\@xympar}%
+%    \end{macrocode}
+% \end{macro}
+%
+%
+% \begin{macro}{\@xympar}
+%    \begin{macrocode}
+  \def\@xympar{%
+    \ifnum\@floatpenalty<\z@ \@cons\@currlist\@marbox \fi
+    \setbox\@tempboxa
+      \color@vbox
+        \vbox\bgroup
+          \end@float
+          \global\@ignorefalse \@esphack
+    }%
+  }
+%    \end{macrocode}
+% \end{macro}
+%
+%    \begin{macrocode}
+%\endinput
+%    \end{macrocode}
+%
+% \iffalse
+%</package>
+% \fi
+%
+% \Finale

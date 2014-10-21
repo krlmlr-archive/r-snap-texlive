@@ -1,0 +1,37 @@
+		pawpict package for LaTeX2e
+
+This is a distribution of my pawpict package for easy inclusion
+of graphics made by PAW (Physics Analysis Workstation). You need 
+to have PAW installed on yor system to bennefiet from this package.
+
+The distribution file are:
+
+	README		this file.
+	pawpict.dtx	documentation and source file
+	pawpict.ins	bacth file for docstrip
+
+To install this package, do in a temporary directory:
+	
+	1)
+			latex pawpict.ins
+	2)
+		move the files 
+			pawpict.sty
+		to some diretory seached by LaTeX, e.g. in teTeX:
+		/usr/lib/texmf/local/tex/latex/pawpict/, or %TEXINPUTS%
+		in DOS.
+	3)
+		do 
+			latex pawpict.dtx
+			latex pawpict.dtx
+			makeindex -s gind -o pawpict.ind pwpict.idx
+			makeindex -s gglo -o pawpict.gls pawpict.glo
+			latex pawpict.dtx
+		to produce the documentation.
+
+This package is copyright of Christian Holm, but is distributed
+under the GNU General Public Lisence.
+
+Happy typesetting :-)
+
+Christian Holm

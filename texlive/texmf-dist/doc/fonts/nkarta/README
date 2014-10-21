@@ -1,0 +1,110 @@
+                         NKARTA
+                         ------
+
+I have been unable to find the author or maintainer or copyright holder
+of the Metafont karta, containing map symbols. Problems have arisen with
+that font, mainly the usual ones: "Strange path" errors and capacity
+exceeded. I have change the coding a bit to try to avoid these. Also,
+there were two paths defined with incorrect turning number, and
+incorrect order of operations (a too-late unfill operation caused
+previously drawn elements of two figures to be erased). This was also
+corrected. Aside from that, no actual paths were changed.
+
+Licence
+-------
+To avoid confusion with the original files, I have renamed the result
+nkarta. Barring any legal claim by the creator of karta.mf, I hereby
+place nkarta in the public domain.
+
+Version
+-------
+This is version 0.2. The previous version failed to include a version
+number. It will be called version 0.1 when I need to refer to it.
+
+Use
+---
+The character shapes are all in nkchars.mf, which is input by a driver
+file nkarta.mf. The font produced has design size 15pt. A file
+nkart15.mf is provided as an example showing how that design size can be
+changed. In order to get a 20pt font, just copy nkarta15.mf to
+nkarta20.mf and then edit it, changing 15 to 20 everywhere.
+
+To allow larger scaling without risking exceeding Metafont's capacity, I
+have ported the figures to MetaPost in nkarta.mp. These figures have the
+same numbers as the corresponding characters in nkarta.mf. That is,
+after "mpost nkarta.mp", the file nkarta.NNN contains the same picture
+as charater NNN in the nkarta font. Without scaling, they will be the
+same size that nkarta.mf produces.
+
+One can also run mpost on nkarta15.mf (or nkarta20.mf if prepared as
+above). In that case nkarta15.NNN (or nkarta20.NNN) has the same figure
+as character NNN of the font nkarta15 (or nkarta20).
+
+Files figtest.pdf and fonttest.pdf provide a table of the available
+figures/characters.
+
+Installing nkarta
+-----------------
+ 0. Run tex or latex on nkarta.ins to generate the *.mf and *.mp source
+    files.
+
+ 1. Copy the .mf files somewhere Metafont will find them. In a TDS
+    compliant system, that would be a subdirectory path similar to
+       texmf/fonts/source/public/nkarta
+
+ 2. Copy the .tfm file somewhere TeX searches for TFM files, for example
+       texmf/fonts/tfm/public/nkarta
+
+ 3. Copy the .mp files where MetaPost will find them, for example:
+       texmf/metapost/nkarta
+
+ 4. Copy README, *.tex and *.pdf where documentation is kept, for example:
+       texmf/doc/fonts/nkarta
+
+ 5. Copy nkarta.dtx and nkarta.ins where source files are kept, for example:
+       texmf/source/fonts/nkarta
+
+ 6. Refresh the filename database (mktexlsr or MiKTeX Options).
+
+A list of the files and their uses.
+
+  README            This file
+  nkarta.ins        The script for unpacking nkarta.dtx
+  nkarta.dtx        The source for the next five files:
+    nkarta.mf       Preliminary definitions for MF
+    nkarta.mp       Preliminary definitions for MP
+    nkchars.mf      Actual characters, input by nkarta.mf
+    nkchars.mp      Actual figures, input by nkarta.mp  (a)
+    nkarta15.mf     MF source for the font at 15pt
+  nkarta15.tfm      Prebuilt TFM file
+  fonttable.tex     Source for a table of the characters
+  figtable.tex      Source for a table of the figures
+  fonttable.pdf     Prebuilt PDF file  (b)
+  figtable.pdf      Prebuilt PDF file  (c)
+
+  Notes:
+  (a) nkchars.mf and nkchars.mp are identical (apart from comments). You
+      can discard the second one if MetaPost is configured to find the
+      first one.
+  (b) fonttable.pdf was built by running
+        tex fonttable.tex
+        dvips fonttable.dvi
+        ps2pdf fonttable.ps
+      This requires testfont.tex and nkarta15.tfm
+  (c) figtable.pdf was built by running
+        mpost nkarta.mp
+        tex figtable.tex
+        dvips figtable.dvi
+        ps2pdf figtable.ps
+      This requires testfont.tex, epsf.tex and nkarta15.tfm.
+
+The only change from version 0.1 to 0.2 of nkarta to this one is a
+repackaging, and streamlining of the code. Also, more than 100K of
+garbage following "end" in nkarta.mp was removed.
+
+--
+Daniel H. Luecking      email: luecking at uark dot edu
+Department of Mathematical Sciences
+University of Arkansas
+Fayetteville, Arkansas 72701
+USA

@@ -1,0 +1,127 @@
+%%
+%% This is file `example.tex',
+%% generated with the docstrip utility.
+%%
+%% The original source files were:
+%%
+%% logpap.dtx  (with options: `example')
+%% 
+%% Copyright (c) 2004 Mike Kaufmann, all rights reserved
+%% 
+%% This program is provided under the terms of the
+%% LaTeX Project Public License distributed from CTAN
+%% archives in directory macros/latex/base/lppl.txt.
+%% 
+%% Author: Mike Kaufmann
+%%         Mike.Kaufmann@ei.fh-giessen.de
+%% 
+%% \CharacterTable
+%%  {Upper-case    \A\B\C\D\E\F\G\H\I\J\K\L\M\N\O\P\Q\R\S\T\U\V\W\X\Y\Z
+%%   Lower-case    \a\b\c\d\e\f\g\h\i\j\k\l\m\n\o\p\q\r\s\t\u\v\w\x\y\z
+%%   Digits        \0\1\2\3\4\5\6\7\8\9
+%%   Exclamation   \!     Double quote  \"     Hash (number) \#
+%%   Dollar        \$     Percent       \%     Ampersand     \&
+%%   Acute accent  \'     Left paren    \(     Right paren   \)
+%%   Asterisk      \*     Plus          \+     Comma         \,
+%%   Minus         \-     Point         \.     Solidus       \/
+%%   Colon         \:     Semicolon     \;     Less than     \<
+%%   Equals        \=     Greater than  \>     Question mark \?
+%%   Commercial at \@     Left bracket  \[     Backslash     \\
+%%   Right bracket \]     Circumflex    \^     Underscore    \_
+%%   Grave accent  \`     Left brace    \{     Vertical bar  \|
+%%   Right brace   \}     Tilde         \~}
+%%
+\documentclass[a4paper]{article}
+\usepackage[latin1]{inputenc}
+\usepackage{logpap}
+
+\voffset-2cm
+\hoffset-0.5cm
+\textheight25cm
+\textwidth14cm
+
+\parindent0pt
+\parskip1ex plus.3ex minus.2ex
+\pagestyle{empty}
+\unitlength1mm
+
+\newcommand*{\lp}{\textsf{logpap}}
+\newcommand*{\bs}{\char '134 }
+\newcommand*{\lb}{\char '173 }
+\newcommand*{\rb}{\char '175 }
+\newcommand*{\param}[1]{\texttt{\textit{#1}}}
+
+\begin{document}
+\centerline{\textbf{\LARGE Some Examples for the \lp\ package.\footnote{The
+source of this example file is part of \texttt{logpap.dtx}.}}}
+
+\vspace{4mm}
+The \lp\ package provides four macros for drawing logarithmic-logarithmic,
+logarithmic-linear, linear-logarithmic and (because it was easy to implement)
+linear-linear graph paper with \LaTeX.
+
+\vspace{2mm}
+\begin{picture}(140,50)
+\LPSet{nofsnx,notwoniney}
+\put( 0, 5){\linlogpap(60mm,12.5mm)(6,1){0,10}{1}[X][Y]}
+\put(75, 5){\linlinpap(60mm,12.5mm)(6,1){0,10}{0,10}[X][Y]}
+\put( 0,32.5){\loglogpap(60mm,12.5mm)(2,1){100m}{1}[X][Y]}
+\put(75,32.5){\loglinpap(60mm,12.5mm)(2,1){100m}{0,10}[X][Y]}
+\end{picture}
+
+\vspace{2mm}
+Altough the \lp\ package only draws logarithmic graph paper, there are
+various things that can be changed. Figure \ref{fig:ov} will give an
+overwiev. Here the first graph paper part where made with the default
+settings and the command
+\verb|\put(0,91){\loglinpap(80mm,10mm)(1,1){1}| \verb|{0}[X-name][Y-name]}|.
+On the right side you can find the commands used to change the appearance.
+
+Not all commands possible are shown here. Every option can be used with
+\verb|\LPSet{|\param{option1}\verb|,| \param{option2}\verb|,...}| within the
+document, every \param{option} has a counterpart \verb|no|\param{option} and
+for every \param{option}\verb|x| also an \param{option}\verb|y| exists. Also
+commands to set the three line widths, colors and the appearance of the $\mu$
+are not shown.
+
+\begin{figure}[ht]
+\centering
+\begin{picture}(140,106)
+\put( 0,91){\loglinpap(80mm,10mm)(1,1){1}{0}[X-name][Y-name]}
+\put(85,96){\makebox(0,0)[cl]{with default settings}}
+
+\LPSet{nodimensions,noticksupright,tenlower}
+\put( 0,69){\loglinpap(80mm,10mm)(1,1){1}{0}[optional][optional]}
+\put(85,78){\makebox(0,0)[cl]{\texttt{\bs LPSet\lb nodimensions,}}}
+\put(85,74){\makebox(0,0)[cl]{\texttt{\ \ \ \ \ \ \ noticksupright,}}}
+\put(85,70){\makebox(0,0)[cl]{\texttt{\ \ \ \ \ \ \ tenlower\rb}}}
+\LPSet{dimensions,ticksupright,notenlower}
+
+\LPSet{notext,nofsnx}\DefineLPMinLineDist{1.9999mm}
+\put( 0,47){\loglinpap(80mm,10mm)(1,1){1}{0}}
+\put(85,56){\makebox(0,0)[cl]{\texttt{\bs LPSet\lb notext,}}}
+\put(85,52){\makebox(0,0)[cl]{\texttt{\ \ \ \ \ \ \ nofsnx\rb}}}
+\put(85,48){\makebox(0,0)[cl]{\texttt{\bs DefineLPMinLineDist\lb 1.9999mm\rb}}}
+\LPSet{text,fsnx}\DefineLPMinLineDist{0.9999mm}
+
+\DefineLPText{new text\quad}\DefineLPLabelFont{\sffamily\tiny}\LPSet{notwoninex}
+\put( 0,25){\loglinpap(80mm,10mm)(1,1){1}{0}}
+\put(85,36){\makebox(0,0)[cl]{\texttt{\bs DefineLPText\lb new text\bs quad\rb}}}
+\put(85,32){\makebox(0,0)[cl]{\texttt{\bs DefineLPLabelFont}}}
+\put(85,28){\makebox(0,0)[cl]{\texttt{\ \ \ \ \lb\bs sffamily\bs tiny\rb}}}
+\put(85,24){\makebox(0,0)[cl]{\texttt{\bs LPSet\lb notwoninex\rb}}}
+\DefineLPText{made with \LaTeX\ and \textsf{logpap}\quad}\DefineLPLabelFont{\scriptsize}\LPSet{twoninex}
+
+\DefineLPThickTickLen{1mm}\DefineLPMedTickLen{0.5mm}\DefineLPLabelDist{0.5mm}
+\put( 0, 3){\loglinpap(80mm,10mm)(1,1){1}{0}}
+\put(85,12){\makebox(0,0)[cl]{\texttt{\bs DefineLPThickTickLen\lb 1mm\rb}}}
+\put(85, 8){\makebox(0,0)[cl]{\texttt{\bs DefineLPMedTickLen\lb 0.5mm\rb}}}
+\put(85, 4){\makebox(0,0)[cl]{\texttt{\bs DefineLPLabelDist\lb 0.5mm\rb}}}
+\DefineLPThickTickLen{2mm}\DefineLPMedTickLen{1mm}\DefineLPLabelDist{1mm}
+\end{picture}
+\caption{Overview}\label{fig:ov}
+\end{figure}
+\end{document}
+\endinput
+%%
+%% End of file `example.tex'.

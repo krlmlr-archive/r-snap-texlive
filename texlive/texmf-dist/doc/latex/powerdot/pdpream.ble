@@ -1,0 +1,172 @@
+%%
+%% This is file `pdpream.ble',
+%% generated with the docstrip utility.
+%%
+%% The original source files were:
+%%
+%% powerdot.dtx  (with options: `preamble')
+%% 
+%% ---------------------------------------------------------------
+%% Copyright (C) 2005-2014 Hendri Adriaens
+%% ---------------------------------------------------------------
+%%
+%% This work may be distributed and/or modified under the
+%% conditions of the LaTeX Project Public License, either version 1.3
+%% of this license or (at your option) any later version.
+%% The latest version of this license is in
+%%   http://www.latex-project.org/lppl.txt
+%% and version 1.3 or later is part of all distributions of LaTeX
+%% version 2003/12/01 or later.
+%%
+%% This work has the LPPL maintenance status "maintained".
+%%
+%% This Current Maintainer of this work is Hendri Adriaens.
+%%
+%% This work consists of all files listed in manifest.txt.
+%%
+\usepackage{url}
+\usepackage{fourier}
+\usepackage{xcolor}
+\usepackage{enumitem}
+\usepackage{graphicx}
+\usepackage{pst-char}
+\usepackage{listings}
+\usepackage{array}
+\usepackage{xkeyval}
+\usepackage[section]{placeins}
+\addtolength\textheight{2cm}
+\addtolength\topmargin{-1cm}
+\lstnewenvironment{command}{%
+  \lstset{columns=flexible,frame=single,backgroundcolor=\color{blue!20},%
+    xleftmargin=\fboxsep,xrightmargin=\fboxsep,escapeinside=`',gobble=1}}{}
+\lstnewenvironment{example}[1][]{%
+  \lstset{basicstyle=\footnotesize\ttfamily,columns=flexible,frame=single,%
+    backgroundcolor=\color{yellow!20},xleftmargin=\fboxsep,%
+    xrightmargin=\fboxsep,gobble=1,%
+    }\lstset{#1}}{}
+\def\mktitledecor{%
+  \rput[tl]{90}(-5.5,-26.51){%
+    \psline[linewidth=1pt](0,1.5)(\paperheight,1.5)%
+    \rput[lB](.075\paperheight,.5){\pscharpath[linecolor=blue!50,%
+      fillcolor=yellow!20,fillstyle=solid,linewidth=.5pt]%
+      {\Huge\bfseries\sffamily powerdot}%
+    }%
+    \rput[rB](.925\paperheight,.5){\pscharpath[linecolor=blue!50,%
+      fillcolor=yellow!20,fillstyle=solid,linewidth=.5pt]%
+      {\Huge\bfseries Documentation}%
+    }%
+    \psline[linewidth=1pt](0,0)(\paperheight,0)%
+  }%
+}
+\makeatletter
+\def\option#1{%
+  \XKV@for@n{#1}\pd@tempa{%
+    \fcolorbox{black}{red!20}{\texttt\pd@tempa}\quad
+  }%
+  \vspace*{.2cm}%
+}
+\def\tableofcontents{\@starttoc{toc}}
+\renewenvironment{theglossary}{%
+  \section*{Version history}%
+  For more information on bug fixes, typeset the source code
+  documentation (see section~\ref{sec:source}).\par\medskip
+  \GlossaryParms \let\item\@idxitem \ignorespaces
+}{}%
+\def\DescribeMacros{\leavevmode\@bsphack
+  \begingroup\MakePrivateLetters\Describe@Macros}
+\def\Describe@Macros#1{\endgroup\strut
+  \marginpar{\raggedleft
+  \def\@tempa{#1}\count@\z@
+  \XKV@for@o\@tempa\@tempa{%
+    \ifnum\count@>\z@\\\fi\advance\count@\@ne
+    \MacroFont\expandafter\string\@tempa
+    \expandafter\SpecialUsageIndex\expandafter{\@tempa}%
+  }}%
+  \@esphack\ignorespaces
+}
+\def\DescribeOption#1{\leavevmode\@bsphack
+              \marginpar{\raggedleft\PrintDescribeOption{#1}}%
+              \SpecialOptionIndex{#1}\@esphack\ignorespaces}
+\def\PrintDescribeOption#1{\strut\emph{option}\\\MacroFont #1\ }
+\def\SpecialOptionIndex#1{\@bsphack
+    \index{#1\actualchar{\protect\ttfamily#1}
+           (option)\encapchar usage}\@esphack}
+\def\DescribeOptions#1{\leavevmode\@bsphack
+  \marginpar{\raggedleft\strut\emph{options}%
+  \@for\@tempa:=#1\do{%
+    \\\strut\MacroFont\@tempa\SpecialOptionIndex\@tempa
+  }}\@esphack\ignorespaces}
+\def\SpecialEnvIndex#1{\@bsphack
+    \index{#1\actualchar{\protect\ttfamily#1}
+           (environment)\encapchar usage}\@esphack}
+\def\changes@#1#2#3{%
+  \protected@edef\@tempa{%
+    \noexpand\glossary{\textbf{#1}\hfill\emph{(#2)}%
+    \levelchar
+    \ifx\saved@macroname\@empty
+      \space\actualchar\generalname
+    \else
+      \expandafter\@gobble\saved@macroname
+      \actualchar\string\verb\quotechar*%
+      \verbatimchar\saved@macroname\verbatimchar
+    \fi
+    :\levelchar #3}%
+  }%
+  \@tempa\endgroup\@esphack
+}
+\makeatother
+\def\PrintChangesX{%
+  \begingroup
+    \let\efill\relax
+    \PrintChanges
+  \endgroup
+}
+\def\PrintIndexX{%
+  \begingroup
+    \setcounter{IndexColumns}{2}
+    \setlength{\columnsep}{18pt}%
+    \setlength{\columnseprule}{.4pt}%
+    \PrintIndex
+  \endgroup
+}
+\def\larg#1{{\ttfamily\char`\<}\meta{#1}{\ttfamily\char`\>}}
+\def\LyX{L\kern-.1667em\lower.25em\hbox{Y}\kern-.125emX\@}
+\def\LyXarrow{\leavevmode\,$\triangleright$\,\allowbreak}
+\let\pf\textsf
+\def\equals{=}
+\setcounter{tocdepth}{2}
+\newcolumntype{d}{c|l}
+\newcolumntype{e}{c|c|c|c}
+\newcolumntype{f}{l|p{8cm}}
+\RecordChanges
+\CodelineIndex
+\newcounter{FAQ}
+\def\question{%
+  \stepcounter{FAQ}%
+  \parskip4pt plus 2pt minus 1pt
+  \itemsep4pt plus 2pt minus 1pt
+  \parsep4pt plus 2pt minus 1pt
+  \item[\textbf{Q\arabic{FAQ}}]%
+}
+\def\answer{%
+  \parskip0pt
+  \itemsep0pt
+  \parsep0pt
+  \item[\textbf{A\arabic{FAQ}}]%
+}
+\def\styleexample#1{%
+  \IfFileExists{powerdot-styleexample-#1.001}{%
+    \IfFileExists{powerdot-styleexample-#1.002}{%
+      \hspace*{\stretch{1}}%
+      \fbox{\includegraphics[scale=.16,angle=-90,clip]%
+        {powerdot-styleexample-#1.001}}%
+      \hspace*{\stretch{2}}%
+      \fbox{\includegraphics[scale=.16,angle=-90,clip]%
+        {powerdot-styleexample-#1.002}}%
+      \hspace*{\stretch{1}}\par
+    }{\textbf{No example files found for style \pf{#1}.}}%
+  }{\textbf{No example files found for style \pf{#1}.}}%
+}
+\endinput
+%%
+%% End of file `pdpream.ble'.

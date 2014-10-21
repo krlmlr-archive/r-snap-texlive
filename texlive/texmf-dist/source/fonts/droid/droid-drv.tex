@@ -1,0 +1,52 @@
+%% droid-drv.tex
+%% Copyright 2011 Mohamed El Morabity
+%
+% This work may be distributed and/or modified under the conditions of the LaTeX
+% Project Public License, either version 1.3 of this license or (at your option)
+% any later version. The latest version of this license is in
+% http://www.latex-project.org/lppl.txt and version 1.3 or later is part of all
+% distributions of LaTeX version 2005/12/01 or later.
+%
+% This work has the LPPL maintenance status `maintained'.
+%
+% The Current Maintainer of this work is Mohamed El Morabity
+%
+% This work consists of all files listed in manifest.txt.
+
+\input fontinst.sty
+
+
+\setint{slant}{213}
+\setint{smallcapsscale}{800}
+
+\substitutesilent{scit}{scsl}
+
+
+\recordtransforms{droid-rec.tex}
+
+
+\foreach(e){01,02,03,04}
+  \transformfont{DroidSerif-Regular-\str{e}}{\reencodefont{droid-\str{e}}{\fromafm{DroidSerif-Regular}}}
+  \transformfont{DroidSerif-Italic-\str{e}}{\reencodefont{droid-\str{e}}{\fromafm{DroidSerif-Italic}}}
+  \transformfont{DroidSerif-Regular-Slanted-\str{e}}{\slantfont{\int{slant}}\reencodefont{droid-\str{e}}{\fromafm{DroidSerif-Regular}}}
+  \transformfont{DroidSerif-Italic-Upright-\str{e}}{\slantfont{-\int{slant}}\reencodefont{droid-\str{e}}{\fromafm{DroidSerif-Italic}}}
+  \transformfont{DroidSerif-Bold-\str{e}}{\reencodefont{droid-\str{e}}{\fromafm{DroidSerif-Bold}}}
+  \transformfont{DroidSerif-BoldItalic-\str{e}}{\reencodefont{droid-\str{e}}{\fromafm{DroidSerif-BoldItalic}}}
+  \transformfont{DroidSerif-Bold-Slanted-\str{e}}{\slantfont{\int{slant}}\reencodefont{droid-\str{e}}{\fromafm{DroidSerif-Bold}}}
+  \transformfont{DroidSerif-BoldItalic-Upright-\str{e}}{\slantfont{-\int{slant}}\reencodefont{droid-\str{e}}{\fromafm{DroidSerif-BoldItalic}}}
+  \transformfont{DroidSans-\str{e}}{\reencodefont{droid-\str{e}}{\fromafm{DroidSans}}}
+  \transformfont{DroidSans-Slanted-\str{e}}{\slantfont{\int{slant}}\reencodefont{droid-\str{e}}{\fromafm{DroidSans}}}
+  \transformfont{DroidSans-Bold-\str{e}}{\reencodefont{droid-\str{e}}{\fromafm{DroidSans-Bold}}}
+  \transformfont{DroidSans-Bold-Slanted-\str{e}}{\slantfont{\int{slant}}\reencodefont{droid-\str{e}}{\fromafm{DroidSans-Bold}}}
+  \transformfont{DroidSansMono-\str{e}}{\reencodefont{droid-\str{e}}{\fromafm{DroidSansMono}}}
+  \transformfont{DroidSansMono-Slanted-\str{e}}{\slantfont{\int{slant}}\reencodefont{droid-\str{e}}{\fromafm{DroidSansMono}}}
+\endfor(e)
+
+
+\input droidserif-drv.tex
+\input droidsans-drv.tex
+\input droidsansmono-drv.tex
+
+
+\endrecordtransforms
+\bye

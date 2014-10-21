@@ -1,0 +1,174 @@
+\input fontinst.sty
+\needsfontinstversion{1.926}
+%:substitutions
+%bold for bold extended
+\substitutesilent{bx}{b}
+\substitutesilent{si}{scsl}
+\substitutesilent{sc}{n}
+\substitutesilent{scsl}{it}
+\substitutesilent{it}{sl}
+%:record transformations for later map file creation
+\recordtransforms{yes-rec.tex}
+%:transformations - reencode
+	\transformfont{yesr8r}{\reencodefont{8r}{\fromafm{yesr8a}}}
+	\transformfont{yesro8r}{\reencodefont{8r}{\fromafm{yesro8a}}}
+	\transformfont{yesb8r}{\reencodefont{8r}{\fromafm{yesb8a}}}
+	\transformfont{yesbo8r}{\reencodefont{8r}{\fromafm{yesbo8a}}}
+	\transformfont{yesr8s}{\reencodefont{supp-yes}{\fromafm{yesr8a}}}
+	\transformfont{yesro8s}{\reencodefont{supp-yes}{\fromafm{yesro8a}}}
+	\transformfont{yesb8s}{\reencodefont{supp-yes}{\fromafm{yesb8a}}}
+	\transformfont{yesbo8s}{\reencodefont{supp-yes}{\fromafm{yesbo8a}}}
+	\transformfont{yesl8r}{\reencodefont{8r}{\fromafm{yesl8a}}}
+	\transformfont{yeslo8r}{\reencodefont{8r}{\fromafm{yeslo8a}}}
+	\transformfont{yess8r}{\reencodefont{8r}{\fromafm{yess8a}}}
+	\transformfont{yesso8r}{\reencodefont{8r}{\fromafm{yesso8a}}}
+	\transformfont{yesl8s}{\reencodefont{supp-yes}{\fromafm{yesl8a}}}
+	\transformfont{yeslo8s}{\reencodefont{supp-yes}{\fromafm{yeslo8a}}}
+	\transformfont{yess8s}{\reencodefont{supp-yes}{\fromafm{yess8a}}}
+	\transformfont{yesso8s}{\reencodefont{supp-yes}{\fromafm{yesso8a}}}
+	\input reglyph-yes.tex
+%:installation - creation of virtual fonts
+	\installfonts
+		\installfamily{T1}{yes}{}
+		\installfont{yesr8t}{yesr8r,yesr8sr,newlatin option nosc}{t1-yes}{T1}{yes}{m}{n}{}
+		\installfont{yesrc8t}{yesr8r,yesr8sr,build-ttsc,newlatin-dotsc}{dotsc2,t1-yes}{T1}{yes}{m}{sc}{}
+		\installfont{yesro8t}{yesro8r,yesro8sr,newlatin option nosc}{t1-yes}{T1}{yes}{m}{sl}{}
+		\installfont{yesrco8t}{yesro8r,yesro8sr,build-ttsc,newlatin-dotsc}{dotsc2,t1-yes}{T1}{yes}{m}{scsl}{}
+		\installfont{yesb8t}{yesb8r,yesb8sr,newlatin option nosc}{t1-yes}{T1}{yes}{b}{n}{}
+		\installfont{yesbc8t}{yesb8r,yesb8sr,build-ttsc,newlatin-dotsc}{dotsc2,t1-yes}{T1}{yes}{b}{sc}{}
+		\installfont{yesbo8t}{yesbo8r,yesbo8sr,newlatin option nosc}{t1-yes}{T1}{yes}{b}{sl}{}
+		\installfont{yesbco8t}{yesbo8r,yesbo8sr,build-ttsc,newlatin-dotsc}{dotsc2,t1-yes}{T1}{yes}{b}{scsl}{}
+		\installfont{yesl8t}{yesl8r,yesl8sr,newlatin option nosc}{t1-yes}{T1}{yes}{l}{n}{}
+		\installfont{yeslc8t}{yesl8r,yesl8sr,build-ttsc,newlatin-dotsc}{dotsc2,t1-yes}{T1}{yes}{l}{sc}{}
+		\installfont{yeslo8t}{yeslo8r,yeslo8sr,newlatin option nosc}{t1-yes}{T1}{yes}{l}{sl}{}
+		\installfont{yeslco8t}{yeslo8r,yeslo8sr,build-ttsc,newlatin-dotsc}{dotsc2,t1-yes}{T1}{yes}{l}{scsl}{}
+		\installfont{yess8t}{yess8r,yess8sr,newlatin option nosc}{t1-yes}{T1}{yes}{sb}{n}{}
+		\installfont{yessc8t}{yess8r,yess8sr,build-ttsc,newlatin-dotsc}{dotsc2,t1-yes}{T1}{yes}{sb}{sc}{}
+		\installfont{yesso8t}{yesso8r,yesso8sr,newlatin option nosc}{t1-yes}{T1}{yes}{sb}{sl}{}
+		\installfont{yessco8t}{yesso8r,yesso8sr,build-ttsc,newlatin-dotsc}{dotsc2,t1-yes}{T1}{yes}{sb}{scsl}{}
+		\installfamily{T1}{yesj}{}
+		\installfont{yesrj8t}{yesr8r,yesr8sr,newlatin option nosc}{t1j-yes}{T1}{yesj}{m}{n}{}
+		\installfont{yesrcj8t}{yesr8r,yesr8sr,build-ttsc,newlatin-dotsc}{dotsc2,t1j-yes}{T1}{yesj}{m}{sc}{}
+		\installfont{yesrjo8t}{yesro8r,yesro8sr,newlatin option nosc}{t1j-yes}{T1}{yesj}{m}{sl}{}
+		\installfont{yesrcjo8t}{yesro8r,yesro8sr,build-ttsc,newlatin-dotsc}{dotsc2,t1j-yes}{T1}{yesj}{m}{scsl}{}
+		\installfont{yesbj8t}{yesb8r,yesb8sr,newlatin option nosc}{t1j-yes}{T1}{yesj}{b}{n}{}
+		\installfont{yesbcj8t}{yesb8r,yesb8sr,build-ttsc,newlatin-dotsc}{dotsc2,t1j-yes}{T1}{yesj}{b}{sc}{}
+		\installfont{yesbjo8t}{yesbo8r,yesbo8sr,newlatin option nosc}{t1j-yes}{T1}{yesj}{b}{sl}{}
+		\installfont{yesbcjo8t}{yesbo8r,yesbo8sr,build-ttsc,newlatin-dotsc}{dotsc2,t1j-yes}{T1}{yesj}{b}{scsl}{}
+		\installfont{yeslj8t}{yesl8r,yesl8sr,newlatin option nosc}{t1j-yes}{T1}{yesj}{l}{n}{}
+		\installfont{yeslcj8t}{yesl8r,yesl8sr,build-ttsc,newlatin-dotsc}{dotsc2,t1j-yes}{T1}{yesj}{l}{sc}{}
+		\installfont{yesljo8t}{yeslo8r,yeslo8sr,newlatin option nosc}{t1j-yes}{T1}{yesj}{l}{sl}{}
+		\installfont{yeslcjo8t}{yeslo8r,yeslo8sr,build-ttsc,newlatin-dotsc}{dotsc2,t1j-yes}{T1}{yesj}{l}{scsl}{}
+		\installfont{yessj8t}{yess8r,yess8sr,newlatin option nosc}{t1j-yes}{T1}{yesj}{sb}{n}{}
+		\installfont{yesscj8t}{yess8r,yess8sr,build-ttsc,newlatin-dotsc}{dotsc2,t1j-yes}{T1}{yesj}{sb}{sc}{}
+		\installfont{yessjo8t}{yesso8r,yesso8sr,newlatin option nosc}{t1j-yes}{T1}{yesj}{sb}{sl}{}
+		\installfont{yesscjo8t}{yesso8r,yesso8sr,build-ttsc,newlatin-dotsc}{dotsc2,t1j-yes}{T1}{yesj}{sb}{scsl}{}
+		\installfamily{T1}{yesw}{}
+		\installfont{yesrw8t}{yesr8r,yesr8sr,newlatin option nosc}{t1-yesw}{T1}{yesw}{m}{n}{}
+		\installfont{yesrcw8t}{yesr8r,yesr8sr,build-ttsc,newlatin-dotsc}{dotsc2,t1-yesw-sc}{T1}{yesw}{m}{sc}{}
+		\installfont{yesrow8t}{yesro8r,yesro8sr,newlatin option nosc}{t1-yesw}{T1}{yesw}{m}{sl}{}
+		\installfont{yesrcow8t}{yesro8r,yesro8sr,build-ttsc,newlatin-dotsc}{dotsc2,t1-yesw-sc}{T1}{yesw}{m}{scsl}{}
+		\installfont{yesbw8t}{yesb8r,yesb8sr,newlatin option nosc}{t1-yesw}{T1}{yesw}{b}{n}{}
+		\installfont{yesbcw8t}{yesb8r,yesb8sr,build-ttsc,newlatin-dotsc}{dotsc2,t1-yesw-sc}{T1}{yesw}{b}{sc}{}
+		\installfont{yesbow8t}{yesbo8r,yesbo8sr,newlatin option nosc}{t1-yesw}{T1}{yesw}{b}{sl}{}
+		\installfont{yesbcow8t}{yesbo8r,yesbo8sr,build-ttsc,newlatin-dotsc}{dotsc2,t1-yesw-sc}{T1}{yesw}{b}{scsl}{}
+		\installfont{yeslw8t}{yesl8r,yesl8sr,newlatin option nosc}{t1-yesw}{T1}{yesw}{l}{n}{}
+		\installfont{yeslcw8t}{yesl8r,yesl8sr,build-ttsc,newlatin-dotsc}{dotsc2,t1-yesw-sc}{T1}{yesw}{l}{sc}{}
+		\installfont{yeslow8t}{yeslo8r,yeslo8sr,newlatin option nosc}{t1-yesw}{T1}{yesw}{l}{sl}{}
+		\installfont{yeslcow8t}{yeslo8r,yeslo8sr,build-ttsc,newlatin-dotsc}{dotsc2,t1-yesw-sc}{T1}{yesw}{l}{scsl}{}
+		\installfont{yessw8t}{yess8r,yess8sr,newlatin option nosc}{t1-yesw}{T1}{yesw}{sb}{n}{}
+		\installfont{yesscw8t}{yess8r,yess8sr,build-ttsc,newlatin-dotsc}{dotsc2,t1-yesw-sc}{T1}{yesw}{sb}{sc}{}
+		\installfont{yessow8t}{yesso8r,yesso8sr,newlatin option nosc}{t1-yesw}{T1}{yesw}{sb}{sl}{}
+		\installfont{yesscow8t}{yesso8r,yesso8sr,build-ttsc,newlatin-dotsc}{dotsc2,t1-yesw-sc}{T1}{yesw}{sb}{scsl}{}
+		\installfamily{T1}{yesjw}{}
+		\installfont{yesrjw8t}{yesr8r,yesr8sr,newlatin option nosc}{t1j-yesw}{T1}{yesjw}{m}{n}{}
+		\installfont{yesrcjw8t}{yesr8r,yesr8sr,build-ttsc,newlatin-dotsc}{dotsc2,t1j-yesw-sc}{T1}{yesjw}{m}{sc}{}
+		\installfont{yesrjow8t}{yesro8r,yesro8sr,newlatin option nosc}{t1j-yesw}{T1}{yesjw}{m}{sl}{}
+		\installfont{yesrcjow8t}{yesro8r,yesro8sr,build-ttsc,newlatin-dotsc}{dotsc2,t1j-yesw-sc}{T1}{yesjw}{m}{scsl}{}
+		\installfont{yesbjw8t}{yesb8r,yesb8sr,newlatin option nosc}{t1j-yesw}{T1}{yesjw}{b}{n}{}
+		\installfont{yesbcjw8t}{yesb8r,yesb8sr,build-ttsc,newlatin-dotsc}{dotsc2,t1j-yesw-sc}{T1}{yesjw}{b}{sc}{}
+		\installfont{yesbjow8t}{yesbo8r,yesbo8sr,newlatin option nosc}{t1j-yesw}{T1}{yesjw}{b}{sl}{}
+		\installfont{yesbcjow8t}{yesbo8r,yesbo8sr,build-ttsc,newlatin-dotsc}{dotsc2,t1j-yesw-sc}{T1}{yesjw}{b}{scsl}{}
+		\installfont{yesljw8t}{yesl8r,yesl8sr,newlatin option nosc}{t1j-yesw}{T1}{yesjw}{l}{n}{}
+		\installfont{yeslcjw8t}{yesl8r,yesl8sr,build-ttsc,newlatin-dotsc}{dotsc2,t1j-yesw-sc}{T1}{yesjw}{l}{sc}{}
+		\installfont{yesljow8t}{yeslo8r,yeslo8sr,newlatin option nosc}{t1j-yesw}{T1}{yesjw}{l}{sl}{}
+		\installfont{yeslcjow8t}{yeslo8r,yeslo8sr,build-ttsc,newlatin-dotsc}{dotsc2,t1j-yesw-sc}{T1}{yesjw}{l}{scsl}{}
+		\installfont{yessjw8t}{yess8r,yess8sr,newlatin option nosc}{t1j-yesw}{T1}{yesjw}{sb}{n}{}
+		\installfont{yesscjw8t}{yess8r,yess8sr,build-ttsc,newlatin-dotsc}{dotsc2,t1j-yesw-sc}{T1}{yesjw}{sb}{sc}{}
+		\installfont{yessjow8t}{yesso8r,yesso8sr,newlatin option nosc}{t1j-yesw}{T1}{yesjw}{sb}{sl}{}
+		\installfont{yesscjow8t}{yesso8r,yesso8sr,build-ttsc,newlatin-dotsc}{dotsc2,t1j-yesw-sc}{T1}{yesjw}{sb}{scsl}{}
+		\installfamily{T1}{yes0}{}
+		\installfont{yesr08t}{yesr8r,yesr8sr,newlatin option nosc}{t1-dotinferior}{T1}{yes0}{m}{n}{}
+		\installfont{yesr0o8t}{yesro8r,yesro8sr,newlatin option nosc}{t1-dotinferior}{T1}{yes0}{m}{sl}{}
+		\installfont{yesb08t}{yesb8r,yesb8sr,newlatin option nosc}{t1-dotinferior}{T1}{yes0}{b}{n}{}
+		\installfont{yesb0o8t}{yesbo8r,yesbo8sr,newlatin option nosc}{t1-dotinferior}{T1}{yes0}{b}{sl}{}
+		\installfont{yesl08t}{yesl8r,yesl8sr,newlatin option nosc}{t1-dotinferior}{T1}{yes0}{l}{n}{}
+		\installfont{yesl0o8t}{yeslo8r,yeslo8sr,newlatin option nosc}{t1-dotinferior}{T1}{yes0}{l}{sl}{}
+		\installfont{yess08t}{yess8r,yess8sr,newlatin option nosc}{t1-dotinferior}{T1}{yes0}{sb}{n}{}
+		\installfont{yess0o8t}{yesso8r,yesso8sr,newlatin option nosc}{t1-dotinferior}{T1}{yes0}{sb}{sl}{}
+		\installfamily{T1}{yes1}{}
+		\installfont{yesr18t}{yesr8r,yesr8sr,newlatin option nosc}{t1-dotsuperior}{T1}{yes1}{m}{n}{}
+		\installfont{yesr1o8t}{yesro8r,yesro8sr,newlatin option nosc}{t1-dotsuperior}{T1}{yes1}{m}{sl}{}
+		\installfont{yesb18t}{yesb8r,yesb8sr,newlatin option nosc}{t1-dotsuperior}{T1}{yes1}{b}{n}{}
+		\installfont{yesb1o8t}{yesbo8r,yesbo8sr,newlatin option nosc}{t1-dotsuperior}{T1}{yes1}{b}{sl}{}
+		\installfont{yesl18t}{yesl8r,yesl8sr,newlatin option nosc}{t1-dotsuperior}{T1}{yes1}{l}{n}{}
+		\installfont{yesl1o8t}{yeslo8r,yeslo8sr,newlatin option nosc}{t1-dotsuperior}{T1}{yes1}{l}{sl}{}
+		\installfont{yess18t}{yess8r,yess8sr,newlatin option nosc}{t1-dotsuperior}{T1}{yes1}{sb}{n}{}
+		\installfont{yess1o8t}{yesso8r,yesso8sr,newlatin option nosc}{t1-dotsuperior}{T1}{yes1}{sb}{sl}{}
+		\installfamily{TS1}{yes}{}
+		\installfont{yesr8c}{yesr8r,yesr8sr,textcomp}{ts1-yes}{TS1}{yes}{m}{n}{}
+		\installfont{yesro8c}{yesro8r,yesro8sr,textcomp}{ts1-yes}{TS1}{yes}{m}{sl}{}
+		\installfont{yesb8c}{yesb8r,yesb8sr,textcomp}{ts1-yes}{TS1}{yes}{b}{n}{}
+		\installfont{yesbo8c}{yesbo8r,yesbo8sr,textcomp}{ts1-yes}{TS1}{yes}{b}{sl}{}
+		\installfont{yesl8c}{yesl8r,yesl8sr,textcomp}{ts1-yes}{TS1}{yes}{l}{n}{}
+		\installfont{yeslo8c}{yeslo8r,yeslo8sr,textcomp}{ts1-yes}{TS1}{yes}{l}{sl}{}
+		\installfont{yess8c}{yess8r,yess8sr,textcomp}{ts1-yes}{TS1}{yes}{sb}{n}{}
+		\installfont{yesso8c}{yesso8r,yesso8sr,textcomp}{ts1-yes}{TS1}{yes}{sb}{sl}{}
+		\installfamily{TS1}{yesj}{}
+		\installfont{yesrj8c}{yesr8r,yesr8sr,textcomp}{ts1-dotoldstyle-yes}{TS1}{yesj}{m}{n}{}
+		\installfont{yesrjo8c}{yesro8r,yesro8sr,textcomp}{ts1-dotoldstyle-yes}{TS1}{yesj}{m}{sl}{}
+		\installfont{yesbj8c}{yesb8r,yesb8sr,textcomp}{ts1-dotoldstyle-yes}{TS1}{yesj}{b}{n}{}
+		\installfont{yesbjo8c}{yesbo8r,yesbo8sr,textcomp}{ts1-dotoldstyle-yes}{TS1}{yesj}{b}{sl}{}
+		\installfont{yeslj8c}{yesl8r,yesl8sr,textcomp}{ts1-dotoldstyle-yes}{TS1}{yesj}{l}{n}{}
+		\installfont{yesljo8c}{yeslo8r,yeslo8sr,textcomp}{ts1-dotoldstyle-yes}{TS1}{yesj}{l}{sl}{}
+		\installfont{yessj8c}{yess8r,yess8sr,textcomp}{ts1-dotoldstyle-yes}{TS1}{yesj}{sb}{n}{}
+		\installfont{yessjo8c}{yesso8r,yesso8sr,textcomp}{ts1-dotoldstyle-yes}{TS1}{yesj}{sb}{sl}{}
+		\installfamily{TS1}{yesw}{}
+		\installfontas{yesr8c}{TS1}{yesw}{m}{n}{}
+		\installfontas{yesro8c}{TS1}{yesw}{m}{sl}{}
+		\installfontas{yesb8c}{TS1}{yesw}{b}{n}{}
+		\installfontas{yesbo8c}{TS1}{yesw}{b}{sl}{}
+		\installfontas{yesl8c}{TS1}{yesw}{l}{n}{}
+		\installfontas{yeslo8c}{TS1}{yesw}{l}{sl}{}
+		\installfontas{yess8c}{TS1}{yesw}{sb}{n}{}
+		\installfontas{yesso8c}{TS1}{yesw}{sb}{sl}{}
+		\installfamily{TS1}{yesjw}{}
+		\installfontas{yesrj8c}{TS1}{yesjw}{m}{n}{}
+		\installfontas{yesrjo8c}{TS1}{yesjw}{m}{sl}{}
+		\installfontas{yesbj8c}{TS1}{yesjw}{b}{n}{}
+		\installfontas{yesbjo8c}{TS1}{yesjw}{b}{sl}{}
+		\installfontas{yeslj8c}{TS1}{yesjw}{l}{n}{}
+		\installfontas{yesljo8c}{TS1}{yesjw}{l}{sl}{}
+		\installfontas{yessj8c}{TS1}{yesjw}{sb}{n}{}
+		\installfontas{yessjo8c}{TS1}{yesjw}{sb}{sl}{}
+		\installfamily{TS1}{yes0}{}
+		\installfont{yesr08c}{yesr8r,yesr8sr,textcomp}{ts1-dotinferior}{TS1}{yes0}{m}{n}{}
+		\installfont{yesr0o8c}{yesro8r,yesro8sr,textcomp}{ts1-dotinferior}{TS1}{yes0}{m}{sl}{}
+		\installfont{yesb08c}{yesb8r,yesb8sr,textcomp}{ts1-dotinferior}{TS1}{yes0}{b}{n}{}
+		\installfont{yesb0o8c}{yesbo8r,yesbo8sr,textcomp}{ts1-dotinferior}{TS1}{yes0}{b}{sl}{}
+		\installfont{yesl08c}{yesl8r,yesl8sr,textcomp}{ts1-dotinferior}{TS1}{yes0}{l}{n}{}
+		\installfont{yesl0o8c}{yeslo8r,yeslo8sr,textcomp}{ts1-dotinferior}{TS1}{yes0}{l}{sl}{}
+		\installfont{yess08c}{yess8r,yess8sr,textcomp}{ts1-dotinferior}{TS1}{yes0}{sb}{n}{}
+		\installfont{yess0o8c}{yesso8r,yesso8sr,textcomp}{ts1-dotinferior}{TS1}{yes0}{sb}{sl}{}
+		\installfamily{TS1}{yes1}{}
+		\installfont{yesr18c}{yesr8r,yesr8sr,textcomp}{ts1-dotsuperior}{TS1}{yes1}{m}{n}{}
+		\installfont{yesr1o8c}{yesro8r,yesro8sr,textcomp}{ts1-dotsuperior}{TS1}{yes1}{m}{sl}{}
+		\installfont{yesb18c}{yesb8r,yesb8sr,textcomp}{ts1-dotsuperior}{TS1}{yes1}{b}{n}{}
+		\installfont{yesb1o8c}{yesbo8r,yesbo8sr,textcomp}{ts1-dotsuperior}{TS1}{yes1}{b}{sl}{}
+		\installfont{yesl18c}{yesl8r,yesl8sr,textcomp}{ts1-dotsuperior}{TS1}{yes1}{l}{n}{}
+		\installfont{yesl1o8c}{yeslo8r,yeslo8sr,textcomp}{ts1-dotsuperior}{TS1}{yes1}{l}{sl}{}
+		\installfont{yess18c}{yess8r,yess8sr,textcomp}{ts1-dotsuperior}{TS1}{yes1}{sb}{n}{}
+		\installfont{yess1o8c}{yesso8r,yesso8sr,textcomp}{ts1-dotsuperior}{TS1}{yes1}{sb}{sl}{}
+	\endinstallfonts
+\endrecordtransforms
+\bye

@@ -1,0 +1,255 @@
+%%% perfectcut.sty  documentation
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%
+%%% Author: Guillaume Munch-Maccagnoni
+%%% http://www.pps.univ-paris-diderot.fr/~munch/
+%%% 
+%%% This work may be distributed and/or modified under the conditions of
+%%% the LaTeX Project Public License, either version 1.3 of this license
+%%% or (at your option) any later version. Refer to the README file.
+%%%
+\documentclass[12pt,a4paper,british]{scrartcl}
+\usepackage[T1]{fontenc}
+\usepackage[latin9]{inputenc}
+\setcounter{secnumdepth}{1}
+\usepackage{babel}
+\usepackage{booktabs}
+\usepackage{calc}
+\usepackage{amsmath}
+\usepackage[unicode=true]{hyperref}
+
+\makeatletter
+
+\usepackage{perfectcut}
+%% NewTXtext with a bugfix
+\let\orig@makefnmark=\@makefnmark
+\usepackage{newtxtext}
+\let\@makefnmark=\orig@makefnmark
+%%End of bugfix
+
+\usepackage[T1]{fontenc}
+\usepackage{newtxmath}
+\renewcommand*\ttdefault{txtt}
+\usepackage[oldstyle,lining,scale=0.97]{sourcesanspro}
+\usepackage[protrusion=true,expansion=true,tracking=false,kerning=true,spacing=true]{microtype}
+
+\makeatother
+
+\begin{document}
+
+\title{\texttt{perfectcut.sty} documentation}
+\author{Guillaume Munch-Maccagnoni%
+\thanks{\protect\href{http://www.pps.univ-paris-diderot.fr/~munch/}{http://www.pps.univ-paris-diderot.fr/$\sim$munch/}%
+}}
+\date{January 31st 2014}
+\maketitle
+
+\section{Use}
+
+This package supplies the following commands:
+
+\begin{center}
+\begin{tabular}{ll}
+\toprule 
+Command & Produces\tabularnewline
+\midrule
+\texttt{\textbackslash{}perfectcut\{\#1\}\{\#2\}} & $\perfectcut{\#1}{\#2}$\tabularnewline
+\texttt{\textbackslash{}perfectbra\{\#1\}} & $\perfectbra{\#1}$\tabularnewline
+\texttt{\textbackslash{}perfectket\{\#1\}} & $\perfectket{\#1}$\tabularnewline
+\bottomrule
+\end{tabular}
+\end{center}
+
+The effect of the commands is to determine the size of the brackets
+depending on the number of nested \texttt{\textbackslash{}perfectcut}
+(regardless of the contents). It is intended for use: 
+\begin{itemize}
+\item In proof theory, for term notations of sequent calculus,
+\item In computer science, for the modeling of abstract machines.
+\end{itemize}
+It could also be adapted for any visually similar effects as an alternative
+to \texttt{\textbackslash{}left}, \texttt{\textbackslash{}right} and
+\texttt{\textbackslash{}middle}. (You can contact the author.)
+
+If the package causes errors see the option \texttt{nomathstyle} below. 
+
+
+\section{Example}
+
+\def\mt{\tilde{\mu}}
+
+
+\noindent \texttt{\footnotesize{The following states the commutativity
+of a strong monad:}}~\\
+\texttt{\footnotesize{\textbackslash{}def\textbackslash{}mt\{\textbackslash{}tilde\{\textbackslash{}mu\}\}}}~\\
+\texttt{\footnotesize{\textbackslash{}{[}}}~\\
+\texttt{\footnotesize{\textbackslash{}cut t\{\textbackslash{}mt x.\textbackslash{}cut
+u\{\textbackslash{}mt y.\textbackslash{}cut ve\}\}}}~\\
+\texttt{\footnotesize{=\textbackslash{}cut u\{\textbackslash{}mt y.\textbackslash{}cut
+t\{\textbackslash{}mt x.\textbackslash{}cut ve\}\}}}~\\
+\texttt{\footnotesize{\textbackslash{}{]}}}~\\
+\texttt{\footnotesize{The following states the idempotency of an adjunction: }}~\\
+\texttt{\footnotesize{\textbackslash{}{[}}}~\\
+\texttt{\footnotesize{\textbackslash{}cut t\{\textbackslash{}mt x.\textbackslash{}cut\{\textbackslash{}mu\textbackslash{}alpha.\textbackslash{}cut
+ue\}\{e'\}\}}}~\\
+\texttt{\footnotesize{=\textbackslash{}cut\{\textbackslash{}mu\textbackslash{}alpha.\textbackslash{}cut
+t\{\textbackslash{}mt x.\textbackslash{}cut ue\}\}\{e'\}}}~\\
+\texttt{\footnotesize{\textbackslash{}{]}}}{\footnotesize \par}
+
+
+\subsection{Using \texttt{perfectcut.sty}}
+
+\noindent \texttt{\footnotesize{\textbackslash{}usepackage\{perfectcut\}}}~\\
+\texttt{\footnotesize{\textbackslash{}let\textbackslash{}cut\textbackslash{}perfectcut}}{\footnotesize \par}
+
+\begin{center}
+\framebox{\begin{minipage}[t]{0.8\columnwidth}%
+\let\cut\perfectcut
+The following states the commutativity of a strong monad:
+\[
+\cut t{\mt x.\cut u{\mt y.\cut ve}}=\cut u{\mt y.\cut t{\mt x.\cut ve}}
+\]
+The following states the idempotency of an adjunction: 
+\[
+\cut t{\mt x.\cut{\mu\alpha.\cut ue}{e'}}=\cut{\mu\alpha.\cut t{\mt x.\cut ue}}{e'}
+\]
+%
+\end{minipage}}
+\end{center}
+
+
+\subsection{Using \texttt{\textbackslash{}left}, \texttt{\textbackslash{}middle}
+and \texttt{\textbackslash{}right} instead}
+
+\noindent \texttt{\footnotesize{\textbackslash{}renewcommand\{\textbackslash{}cut\}{[}2{]}\{\textbackslash{}left\textbackslash{}langle
+\#1\textbackslash{}middle|\textbackslash{}mkern-2mu\textbackslash{}middle|\#2\textbackslash{}right\textbackslash{}rangle\}}}{\footnotesize \par}
+
+\begin{center}
+\framebox{\begin{minipage}[t]{0.8\columnwidth}%
+\newcommand{\cut}[2]{\left\langle #1\middle|\mkern-2mu\middle|#2\right\rangle}
+The following states the commutativity of a strong monad:
+\[
+\cut t{\mt x.\cut u{\mt y.\cut ve}}=\cut u{\mt y.\cut t{\mt x.\cut ve}}
+\]
+The following states the idempotency of an adjunction: 
+\[
+\cut t{\mt x.\cut{\mu\alpha.\cut ue}{e'}}=\cut{\mu\alpha.\cut t{\mt x.\cut ue}}{e'}
+\]
+%
+\end{minipage}}
+\end{center}
+
+
+\section{Options}
+
+
+\subsection{Option \texttt{nomathstyle}}
+
+The use of \texttt{\textbackslash{}currentmathstyle} from the package
+\texttt{mathstyle }prevents the  exponential blowup in recursions
+that would occur if we used \texttt{\textbackslash{}mathpalette} instead.
+To record the \texttt{\textbackslash{}currentmath\-style}, \texttt{mathstyle}
+redefines many  primitives and is therefore a source of incompatibilities.
+If you run into such issues, please refer to the \texttt{mathstyle}
+manual.
+
+If you want to  disable the loading of \texttt{mathstyle}, use the
+\texttt{nomathstyle} option.  With the \texttt{nomathstyle} option,
+the style is set to \texttt{\textbackslash{}cutstyle}, which you must
+ define by hand to be \texttt{\textbackslash{}displaystyle}, \texttt{\textbackslash{}textstyle
+}(default), \texttt{\textbackslash{}scriptstyle},  \texttt{\textbackslash{}scriptscriptstyle}.
+This means that cuts in subscripts and superscripts do  not have the
+proper size unless \texttt{\textbackslash{}cutstyle }is redefined.
+
+
+\subsection{Option \texttt{realVert}}
+
+With the option \texttt{realVert}, the double bars are obtained with
+the \texttt{\textbackslash{}Vert} command. Without it, two \texttt{\textbackslash{}vert}
+symbols are used and their spacing is controlled with  \texttt{\textbackslash{}cutinterbarskip}.
+In addition, without \texttt{realVert}, a penalty is added for better
+line breaks.
+
+
+\subsection{Customisation}
+
+The following mu-skips can be redefined in your preamble:
+
+\begin{center}
+\begin{tabular}{ll}
+\toprule 
+Command & Defines\tabularnewline
+\midrule
+\texttt{\textbackslash{}cutbarskip=5.0mu plus 8mu minus 2.0mu} & spacing around bars\tabularnewline
+\texttt{\textbackslash{}cutangleskip=0.0mu plus 8mu minus 1.0mu} & spacing around angles (inside)\tabularnewline
+\texttt{\textbackslash{}cutangleouterskip=0.0mu plus 8mu minus 0mu} & spacing around angles (outside)\tabularnewline
+\texttt{\textbackslash{}cutinterbarskip=0.8mu plus 0mu minus 0mu} & spacing between bars\tabularnewline
+\bottomrule
+\end{tabular}
+\end{center}
+
+\noindent (1 mu equals $\tfrac{1}{18}$-th of an em in the current
+math font.)
+
+
+\section{Reimplementation of fixed-size delimiters}
+
+In addition, I provide the following corrections and generalisations
+of  \texttt{\textbackslash{}big},\texttt{\textbackslash{}bigg}, etc.
+Why not using the latter? Because both the plain \TeX{}
+and the \texttt{amsmath} versions are incorrect when changing math
+font, font size, math style or \texttt{\textbackslash{}delimitershortfall}.
+Moreover, Opentype math fonts in  particular offer more sizes. We
+want a robust solution.
+
+\begin{center}
+\begin{tabular}{lll}
+\toprule 
+Command & Example & \tabularnewline
+\midrule 
+\multicolumn{3}{l}{\emph{\#1-th size of delimiter \#2}}\tabularnewline
+\texttt{\textbackslash{}nthleft\{\#1\}\{\#2\} } & \texttt{\textbackslash{}nthleft\{2\}(} & $\nthleft{2}($\tabularnewline\addlinespace[0.1em]
+\texttt{\textbackslash{}nthmiddle\{\#1\}\{\#2\}} & \texttt{\textbackslash{}nthmiddle\{2\}\textbackslash{}Vert} & $\nthmiddle{2}\Vert$\tabularnewline\addlinespace[0.1em]
+\texttt{\textbackslash{}nthright\{\#1\}\{\#2\}} & \texttt{\textbackslash{}nthright\{2\})} & $\nthright{2})$\tabularnewline\addlinespace[0.1em]
+\multicolumn{1}{l}{\emph{delimiter \#2 of length at least \#1}} &  & \tabularnewline\addlinespace[0.1em]
+\texttt{\textbackslash{}lenleft\{\#1\}\{\#2\}}  & \texttt{\textbackslash{}lenleft\{3.2mm\}{[}} & $\lenleft{3mm}[$\tabularnewline\addlinespace[0.1em]
+\texttt{\textbackslash{}lenmiddle\{\#1\}\{\#2\}} & \texttt{\textbackslash{}lenmiddle\{3.2mm\}|} & $\lenmiddle{3mm}|$\tabularnewline\addlinespace[0.1em]
+\texttt{\textbackslash{}lenright\{\#1\}\{\#2\}} & \texttt{\textbackslash{}lenright\{3.2mm\}{]}} & $\lenright{3mm}]$\tabularnewline\addlinespace[0.1em]
+\multicolumn{3}{l}{\emph{delimiter \#2 of length exactly \#1 obtained by scaling the
+above one}}\tabularnewline\addlinespace[0.1em]
+\texttt{\textbackslash{}reallenleft\{\#1\}\{\#2\}}  & \texttt{\textbackslash{}reallenleft\{3.2mm\}{[}} & $\reallenleft{3mm}[$\tabularnewline\addlinespace[0.1em]
+\texttt{\textbackslash{}reallenmiddle\{\#1\}\{\#2\}} & \texttt{\textbackslash{}reallenmiddle\{3.2mm\}|} & $\reallenmiddle{3mm}|$\tabularnewline\addlinespace[0.1em]
+\texttt{\textbackslash{}reallenright\{\#1\}\{\#2\}} & \texttt{\textbackslash{}reallenright\{3.2mm\}{]}} & $\reallenright{3mm}]$\tabularnewline
+\bottomrule
+\end{tabular}  
+\end{center}
+
+
+\subsection{Exemple with \texttt{\textbackslash{}nthleft}}
+
+\texttt{\footnotesize{\textbackslash{}nthleft0(\textbackslash{}nthleft1(\textbackslash{}nthleft2(\textbackslash{}nthleft3(\textbackslash{}nthleft4(\textbackslash{}nthleft5(}}{\footnotesize \par}
+
+\[
+\nthleft0(\nthleft1(\nthleft2(\nthleft3(\nthleft4(\nthleft5(
+\]
+
+
+
+\subsection{Example with \texttt{\textbackslash{}big},\texttt{\textbackslash{}Big},\texttt{\textbackslash{}bigg},\texttt{\textbackslash{}Bigg}}
+
+\texttt{\footnotesize{(\textbackslash{}big(\textbackslash{}Big(\textbackslash{}bigg(\textbackslash{}Bigg(}}{\footnotesize \par}
+
+\[
+(\big(\Big(\bigg(\Bigg(
+\]
+Note: \texttt{\textbackslash{}big}\texttt{\footnotesize{ }}starts
+at at size 2 in some fonts.
+
+
+\section{License}
+
+This work may be distributed and/or modified under the conditions
+of the \LaTeX{} Project Public License, either version 1.3 of this
+license or (at your option) any later version. Refer to the \texttt{README}
+file.
+\end{document}

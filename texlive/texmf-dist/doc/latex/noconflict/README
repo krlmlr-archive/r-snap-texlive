@@ -1,0 +1,65 @@
+
+Conflict Resolver <noconflict.sty>
+Resolves Macro Name Conflict among Packages
+Copyright 2013 M. Zahid Hossain
+
+This package resolves macro name conflict among packages with concise 
+approaches and user-friendly syntaxes.
+
+This program may be distributed and/or modified under the conditions 
+of the LaTeX Project Public License, either version 1.2 of this 
+license or (at your option) any later version.
+
+A macro name can be defined by many packages. In LaTeX, macro name need 
+to be unique for a document and thus using the packages with same macro 
+name causes conflict among them. In order to avoid macro name conflict 
+this package defines several commands to save, restore and rename macros 
+defined by other packages.
+
+PACKAGE COMMANDS
+================
+
+\prefix{<prefix added to the macro name>}
+\save{<prefix added to the macro name>}
+     {<comma separated list of macro name>}
+\save*{<comma separated list of macro name>}
+\restore{<prefix added to the macro name>}
+\restore*
+\reinstate{<prefix added to the macro name>}
+          {<comma separated partial list of macro name>}
+\rename{<old name>}{<new name>}
+
+
+USAGE EXAMPLE
+=============
+
+If package A, B and C define three macro names X, Y and Z. To avoid macro 
+name conflict:
+
+\usepackage{noconflict}
+\usepackage{A}
+\prefix{First} is optional
+\save{X,Y,Z}
+
+\usepackage{B}
+\save{Second}{X,Y,Z}
+The above line can also be written as: \prefix{Second} and \save*{X,Y,Z}
+
+\usepackage{C}
+\save{Third}{X,Y,Z}
+
+Now macro X, Y and Z of
+Package A: \FirstX, \FirstY, \FirstZ
+Package B: \SecondX, \SecondY, \SecondZ
+Package C: \ThirdX, \ThirdY, \ThirdZ
+
+\restore{First}
+Macros \FirstX, \FirstY and \FirstZ become \X, \Y and \Z
+\restore{Second}
+The above line can also be written as: \prefix{Second} and \restore*
+The above line can also be written as: \reinstate{Second}{X,Y,Z}
+Macros \SecondX, \SecondY and \SecondZ become \X, \Y and \Z
+\restore{Third}
+Macros \ThirdX, \ThirdY and \ThirdZ become \X, \Y and \Z
+\rename{X}{CofX}
+Macro \X becomes \CofX

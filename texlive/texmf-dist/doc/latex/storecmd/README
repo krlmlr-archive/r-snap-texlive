@@ -1,0 +1,138 @@
+This is the README file for the 'storecmd' package.
+
+VERSION
+
+Version 0.0.1, October 2011.
+
+SUMMARY
+
+This package provides macros for command definition that save the
+name of the command being defined in a file or a macro container.
+Even when the user uses a syntax similar to that of \newcommand, 
+some or all of the parameters of the defined command can be delimited,
+as desired by the command author.
+
+It was written in response to a post on comp.text.tex for a macro
+that will define commands and also save the commands being defined
+in a file or a container macro, eg, for spelling exceptions. Three
+macros are provided for this purpose:
+
+\defsavecmd<cmd><param>{<defn>}
+\newsavecmd<cmd><param>{<defn>}
+\renewsavecmd<cmd><param>{<defn>}
+
+Here <cmd> is the command name, <param> is the parameter list, and
+<defn> is the replacement text. In \defsavecmd, the <param> list is
+as in \def; in \newsavecmd and \renewsavecmd, the <param> list is
+as in \newcommand. \defsavecmd will overwrite an existing command;
+both \newsavecmd and \renewsavecmd will not do so.
+
+The commands \defsavecmd, \newsavecmd and \renewsavecmd may be
+prefixed by \globalcmd and/or \protectedcmd to yield global or robust
+definitions, respectively. For example,
+
+\defsavecmd\cmda#1#2{xxx#1#2}
+\globalcmd\defsavecmd\cmdb#1#2{xxx#1#2}
+\globalcmd\newsavecmd\cmdc[2]{xxx#1#2}
+\protectedcmd\globalcmd\renewsavecmd*\cmda[2][zz]{\def\y##1{##1xxx}}
+
+The parameters of \defsavecmd can readily be delimited as in the case
+of \def. The parameters of \newsavecmd and \renewsavecmd can be
+delimited as follows:
+
+\newsavecmd<cmd><param>(<delimiters>){<defn>}
+\renewsavecmd<cmd><param>(<delimiters>){<defn>}
+
+The <delimiters>, given in parenthesis, have the syntax:
+
+1<\delim1> 2<\delim2> ... 9<\delim9>
+
+where <\delim1> is the delimiter for the first parameter, etc. Only the
+parameters with delimiters are to be specified in <delimiters>.
+For example,
+
+\protectedcmd\newsavecmd\cmda[2](1\@nil 2\@mil){xxx#1#2}
+\newsavecmd\cmdb[9][yy](3\@nil 9\@mil){xxx#1#2#3...#9}
+
+When the first argument is optional, then it can't have a delimiter,
+since the delimiter for that parameter is already '[]'.
+
+
+The package options are
+
+neversave  -  Never save/store the new commands in the container
+              file or command. The new commands will still be defined.
+              Default: false
+
+storerenew -  Allow the storage of a command that has already
+              been stored. This is used by \renewsavecmd.
+              Default: false.
+
+overwrite -   Allow overwrite of an existing container file or
+              command. Default: false.
+
+storefile -   Container file. Default: cmdnamesfile.
+
+storecmd  -   Container command. Default: cmdnamesmacro.
+
+verbose   -   Give extra information in the transcript file.
+              Default: true. Turn this off if you don't like
+              or need such information.
+
+
+EXAMPLE FILE
+
+\begin{filecontents}{storecmd-example.tex}
+\documentclass{article}
+% Container commands are also accepted as package options,
+% but in this case 'catoptions' must be loaded before
+% \usepackage{storecmd}.
+% Eg,
+%   \usepackage{catoptions}
+%   \usepackage[storecmd=\mycommands]{storecmd}
+%
+% Uncomment the next line to test what happens when
+% an existing command is being refilled:
+% \def\mycommands{}
+
+\usepackage[
+  storerenew=true,storecmd=mycommands,storefile=mycommands
+]{storecmd}
+
+\defsavecmd\cmda#1#2{xxx#1#2}
+\globalcmd\defsavecmd\cmdb#1#2{xxx#1#2}
+\globalcmd\newsavecmd\cmdc[2]{xxx#1#2}
+\globalcmd\newsavecmd\cmdd[2][yy]{xxx#1#2}
+\protectedcmd\globalcmd\renewsavecmd*\cmda[2][zz]{\def\y##1{##1xxx}}
+\newsavecmd\cmde[2](1\@nil 2\@mil){xxx#1#2}
+\newsavecmd\cmdf[9][yy](2\@nil 3\@mil){xxx#1#2#3...#9}
+
+% Try \show\mycommands or see file 'mycommands.tex'.
+
+\begin{document}
+Blackberry lily.
+\end{document}
+\end{filecontents}
+
+
+LICENSE
+
+Copyright (c) October 2011 Ahmed Musa (amusa22@gmail.com)
+
+This work (ie, all the files in the storecmd manifest) may be
+distributed and/or modified under the conditions of the LaTeX
+Project Public License (LPPL), either version 1.3 of this license or
+any later version. The latest version of this license is in
+http://www.latex-project.org/lppl.txt and version 1.3 or later
+is part of all distributions of LaTeX version 2005/12/01 or later.
+
+The LPPL maintenance status of this software is 'author-maintained'.
+
+This software is provided 'as it is', without warranty of any
+kind, either expressed or implied, including, but not limited to,
+the implied warranties of merchantability and fitness for a
+particular purpose.
+
+
+
+

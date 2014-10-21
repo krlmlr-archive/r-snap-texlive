@@ -1,0 +1,524 @@
+% \iffalse meta-comment
+%
+% Copyright 2008 Claudio Beccari
+%
+% This file is part of the ecclesiastic bundle
+% -------------------------------------------
+%
+% It may be distributed and/or modified under the
+% conditions of the LaTeX Project Public License, either version 1.3
+% of this license or (at your option) any later version.
+% The latest version of this license is in
+%    http://www.latex-project.org/lppl.txt
+% and version 1.3 or later is part of all distributions of LaTeX
+% version 2003/12/01 or later.
+%
+% This file has the LPPL maintenance status "author-maintained".
+%
+% The list of derived (unpacked) files belonging to the distribution
+% and covered by LPPL is: ecclesiastic.sty, ecclesiastic.pdf.
+%<*internal>
+\begingroup
+\input docstrip.tex
+\preamble
+
+Copyright 2012 Claudio Beccari and Donald Goodman. All rights reserved.
+
+ This system is distributed in the hope that it will be useful,
+ but WITHOUT ANY WARRANTY; without even the implied warranty of
+ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+
+
+IMPORTANT NOTICE:
+
+This file is subject to the LPPL licence, version 1.3 or any subsequent
+version. Copy of the LaTeX Project Public Licence is downloadable from
+any CTAN archive.
+
+
+\endpreamble
+
+\postamble
+This work consists of this file ecclesiastic.dtx, a README file, and
+the derived files ecclesiastic.sty and ecclesiastic.pdf.
+
+\endpostamble
+
+\keepsilent
+
+\askforoverwritefalse
+
+
+\generateFile{ecclesiastic.sty}{t}{\from{ecclesiastic.dtx}{package}}
+
+\def\tmpa{plain}
+\ifx\tmpa\fmtname\endgroup\expandafter\bye\fi
+\endgroup
+%</internal>
+%<*driver>
+\ProvidesFile{ecclesiastic.dtx}%
+%</driver>
+%<package>\NeedsTeXFormat{LaTeX2e}[1996/12/01]%
+%<package>\ProvidesPackage{ecclesiastic}%
+%<*package> 
+   [2012/07/29 v.0.2 Ecclesiastic composition of Latin]
+%</package>
+%<*driver>
+\documentclass{ltxdoc}
+\usepackage[latin,english]{babel}
+\usepackage[latin1]{inputenc}
+\usepackage{ecclesiastic}
+\begin{document}
+\DocInput{ecclesiastic.dtx}
+\end{document}
+%</driver>
+% \fi
+% 
+%
+% \GetFileInfo{ecclesiastic.sty}
+% 
+%
+% \title{Package \texttt{ecclesiastic.sty}\thanks{This document corresponds
+% to \textsf{ecclesiastic.sty}~\fileversion, dated~\filedate.\newline
+% Claudio Beccari (\texttt{claudio dot beccari at gmail dot com}) did the
+% programming.
+% Donald Goodman (\texttt{dgoodmaniii at gmail dot com}) asked for this
+% extension, produced the requirements, and
+% tested the results.}}
+% %\date{\fileversion\space\filedate}
+% \author{Claudio Beccari \and Donald Goodman}
+% \maketitle
+%
+% \begin{abstract}
+% This package extends the typesetting facilities of the \textsl{latin} option
+% to the \textsf{babel} package for typesetting Latin according to the
+% tradition of ecclesiastic documents; these documents are mainly the
+% devotional books used by the Roman Catholic clergy, but not limited to them,
+% that are being published not only by the Vatican Typography, but also by many
+% Printing Companies around the world.
+%
+% \end{abstract}
+%
+% \section{Introduction}
+% This small extension package extends the features of \texttt{latin.ldf} 
+% by adding a certain level of "frenchization" to the way of typesetting
+% Ecclesiastical Latin; in particular all punctuation marks, except comma
+% and full stop are preceded by a small space. The guillemets are also
+% accompanied by small spaces to the right of the opening marks and to the 
+% left of the closing ones, with the provision of removing spurious previous 
+% spaces. Footnotes are not indented and their reference number is not an
+% exponent, although footnote marks in the text keep being exponents.
+%
+% The acute accent (actually the apostrophe sign) is made active 
+% so as to set an acute accent over the following vowel (notice that in Latin
+% there is no elision, so there cannot be any conflict between the acute accent
+% and the elision apostrophe). Ecclesiastical Latin uses the
+% \ae\ and \oe\ ligatures. Goodman asked to declare `a' and `o' as active
+% characters so that the spelling |ae| and |oe| would automatically produce the
+% equivalent of |\ae| and |\oe| respectively.
+%
+% In practice Beccari found serious programming problems with this solution and
+% adopted an alternative one; specifically the adopted solution was to type in
+% |"ae| and |"oe| respectively, and \ae\ and \oe\ would be inserted in the
+% source text without the need of leaving blancks after the control sequences or
+% the need of inserting extra braces; therefore one types in |c"aelum| and this
+% is equivalent to \verb*|c\ae lum| or |c{\ae}lum| or |c\ae{}lum|; the saving in the
+% input stream is evident and misstypings are likely less frequent.
+%
+% The active apostrophe for the acute accent behaves properly also with y
+% and |'ae| and |'oe| produce the accented diphthongs.
+%
+% Of course, when using the OT1 encoding all accents interfere with
+% hyphenation and kerning. When using the T1 encoding this interference
+% takes place only with the accented diphthongs \ae\ and \oe; no visible
+% problems for the lack of kerning, but no hyphenation takes place after
+% the accented diphthong until the end of the word, even if the grammar
+% allowed it.
+% 
+%\section{Usage}
+% Besides loading this package with the usual
+%\begin{verbatim}
+% \usepackage{ecclesiastic}
+%\end{verbatim}
+% after loading \textsf{babel} with the option \textsl{latin} (possibly among
+% other ones) all you have to do is to input your source code the usual way,
+% except that for guillemets and accents you are supposed to use the |"| and
+% the |'| active characters. The input code
+%\begin{verbatim}
+%Ita enim fit, ut regn'are is "< in m'entibus h'ominum "> dic'atur non 
+%tam ob mentis 'aciem scienti'aeque su"ae amplit'udinem, quam quod ipse est 
+%V'eritas, et verit'atem ab eo mort'ales haur'ire atque obedi'enter acc'ipere 
+%nec'esse est;  "< in volunt'atibus "> item "< h'ominum ">, quia \dots
+%\end{verbatim}
+% will produce the following text:
+%\begin{quote}\otherlanguage{latin}
+%Ita enim fit, ut regn'are is "< in m'entibus h'ominum "> dic'atur non 
+%tam ob mentis 'aciem scienti'aeque su"ae amplit'udinem, quam quod ipse est 
+%V'eritas, et verit'atem ab eo mort'ales haur'ire atque obedi'enter acc'ipere 
+%nec'esse est;  "< in volunt'atibus "> item "< h'ominum ">, quia \dots
+%\end{quote}
+% Notice that the source text has spaces around the guillemets, but the
+% typeset code has the right small and constant space, irrespective of
+% justification. Notice the use of the `acute' accent (actually the
+% apostrophe) for accented vowels and diphthongs. Notice the space in the
+% typeset text before the semicolon.
+%
+% \section{Documented code}
+% Some checks in order to use this package together with the one it
+% should extend.
+% \iffalse
+%<*package>
+% \fi
+%    \begin{macrocode}
+\def\CheckLatin{\expandafter\ifx\csname captionslatin\endcsname\relax
+                 \PackageWarning{ecclesiastic}{\MessageBreak 
+                 latin must be specified as a global option\MessageBreak 
+                 or it must be passed as an option to babel\MessageBreak
+                 \MessageBreak 
+                 Nothing done}\expandafter\endinput\fi}
+                 
+\@ifpackageloaded{babel}{\CheckLatin}{%
+           \PackageWarning{ecclesiastic}{\MessageBreak
+           Package babel must be loaded before this package\MessageBreak 
+           \MessageBreak
+           Nothing will be done}\endinput}
+%    \end{macrocode}
+%
+% The following code was borrowed from \textsf{frenchle.sty} by Bernard Gaule,
+% but there  
+% are several modifications; in particular the Cyrillic guillemets are
+% effectively chosen as possible candidates before resorting to the horrible
+% patch made up with the `much smaller' and `much larger' scriptsize signs.
+% The Latin Modern fonts are preferred if they are available.
+% When the T1 encoding is in force the guillemets are taken from the
+% current font.
+% The first macro specifies a common interface for chosing where to get
+% guillemets from.
+%    \begin{macrocode}
+\let\og\empty\let\fg\empty%
+   \def\FrenchGuillemetsFrom#1#2#3#4{%
+     \DeclareFontEncoding{#1}{}{}%
+     \DeclareFontSubstitution{#1}{#2}{m}{n}%
+     \DeclareTextCommand{\guillemotleft}{OT1}{%
+        {\fontencoding{#1}\fontfamily{#2}\selectfont\char#3}}%
+     \DeclareTextCommand{\guillemotright}{OT1}{%
+        {\fontencoding{#1}\fontfamily{#2}\selectfont\char#4}}}
+%    \end{macrocode}
+% Then come the macros for selecting various type of guillemets: the first macro 
+%|\CyrillicGuillemets|  selects them from the Cyrillic fonts; the second macro 
+% |\PolishGuillemets| selects them from the Latin Modern fonts, who were
+% assembled by the Polish TUG, from which the name; the |\LasyGuillemets|
+% represent the poor man solution, which represents the last resort:
+%    \begin{macrocode}
+   \def\CyrillicGuillemets{\FrenchGuillemetsFrom{OT2}{wncyr}{60}{62}}
+   \def\PolishGuillemets{\FrenchGuillemetsFrom{T1}{lmr}{19}{20}}
+   \def\LasyGuillemets{%
+     \DeclareTextCommand{\guillemotleft}{OT1}{\hbox{%
+        \fontencoding{U}\fontfamily{lasy}\selectfont(\kern-0.20em(}}%
+     \DeclareTextCommand{\guillemotright}{OT1}{\hbox{%
+        \fontencoding{U}\fontfamily{lasy}\selectfont)\kern-0.20em)}}}
+%    \end{macrocode}
+% Now the previous macros are executed depending on what is available on the
+% particular computer the code is executed on. Thinking to end up with a PDF
+% file, we prefer the T1 encodec latin Modern fonts; if these are not
+% installed we resort to the Cyrillic one, since the OT2 encoded Cyrillic
+% fonts from the University o Wisconsin are generally installed by default
+% also in pfb format; should htese be missing, then the poor man solution
+% of the \LaTeX\ simbols is chosen. At the same time, since the latter are
+% the last resort, they are chosen as the default solution, although its
+% difficult to find an installation where either the Latin Modern or the
+% Wisconsin University fonts are not installed.
+%    \begin{macrocode}
+   \IfFileExists{t1lmr.fd}{\PolishGuillemets}{%
+       \IfFileExists{ot2wncyr.fd}{\CyrillicGuillemets}{\LasyGuillemets}}
+   \DeclareTextSymbolDefault{\guillemotleft}{OT1}
+   \DeclareTextSymbolDefault{\guillemotright}{OT1}
+%    \end{macrocode}
+% Having defined the symbols, we now think to the spacing; we chose a smaller
+% space than in French typography, but, essencially this glue is without
+% stretch and shrink components, so that this space remains constant and
+% does not stretch or shrink for helping in line justification.
+%    \begin{macrocode}
+   \def\guill@spacing{\penalty\@M\hskip.3\fontdimen2\font
+                       \@plus\z@\@minus\z@}
+%    \end{macrocode}
+%
+% Now we are in the position to define the opening and the closing
+% guillemet commands.
+%
+% The spacings on the interior of the guillements and the spacings before the 
+% "high" pucntuation marks are smaller than with the \texttt{frenchle.sty}
+% settings
+% for the French typography. This has been made following Robert Bringhurst
+% reccomendations of tight spacings, in particular before the punctuation
+% marks and within the French quotes. 
+%
+% Since Beccari is not used to such spacings, forbidden in Italian typography,
+% he finds the traditional French spacings very large, too large for his taste. 
+% Bringhurst reccomendations come in very handy to justify the chosen spacings.
+% May be who is used to wider spacings finds them too tight. We think we found
+% a compromise.
+%    \begin{macrocode}
+   \DeclareRobustCommand*{\begin@guill}{\leavevmode
+                             \guillemotleft\penalty\@M\guill@spacing
+                             \ignorespaces}
+   \DeclareRobustCommand*{\end@guill}{\ifdim\lastskip>\z@\unskip\fi
+                     \penalty\@M\guill@spacing\guillemotright{}}
+%    \end{macrocode}
+%
+% We add the definition of |\og| (ouvrir guillemets) and |\fg| (fermer
+% guillements) to the |\extraslatin| list, as well as we add their
+% `emptiness' to the |\noextrnolatin| one.
+%    \begin{macrocode}
+   \addto\extraslatin{%
+         \renewcommand{\og}{\begin@guill}\renewcommand{\fg}{\end@guill}%
+   }   
+   \addto\noextraslatin{\let\og\empty\let\fg\empty}
+%    \end{macrocode}
+%
+% Therefore open guillemets may be input with the |\og| macro and the
+% closed ones with the |\fg| macro. This might be inconvenient, so that
+% the |"<| and |">| shortcuts should be preferred; these shortcuts assure
+% that the spaces after these shortcuts are really spaces and are not
+% used to terminate the macro name. B.~Gaulle uses the |\xspace| macro from
+% the xspace package, but if this package is not loaded or is not available, the 
+% |\xspace| macro behaves as |\relax| and does not produce what is intended to
+% do. See below the extended defintion of the |"| shortcut active character.
+%
+% Here we make the apostrophe an active char and define the shortcuts for
+% Latin that introduce the acute accent over the specified vowels, lower
+% and upper case. Probably upper case is useless, but it does not harm.
+%    \begin{macrocode}
+\initiate@active@char{'}%
+\addto\extraslatin{\bbl@activate{'}}%
+\addto\noextraslatin{\bbl@deactivate{'}}%
+
+\declare@shorthand{latin}{'a}{\@ifnextchar e{\'\ae\@gobble}{\'a}}
+\declare@shorthand{latin}{'e}{\'e}
+\declare@shorthand{latin}{'i}{\'i}
+\declare@shorthand{latin}{'o}{\@ifnextchar e{\'\oe\@gobble}{\'o}}
+\declare@shorthand{latin}{'u}{\'u}
+\declare@shorthand{latin}{'y}{\'y}
+\declare@shorthand{latin}{'A}{\@ifnextchar E{\'\AE\@gobble}{\'A}}
+\declare@shorthand{latin}{'E}{\'E}
+\declare@shorthand{latin}{'I}{\'I}
+\declare@shorthand{latin}{'O}{\@ifnextchar E{\'\OE\@gobble}{\'O}}
+\declare@shorthand{latin}{'U}{\'U}
+\declare@shorthand{latin}{'Y}{\'Y}
+%    \end{macrocode}
+%
+% Here we redeclare the  definition of the |"| shortcut active character;
+% it is borrowed from \textsf{italian.ldf}, but a new |\LT@cwm| macro is
+% added to the existing |\lt@@cwm| one so as to cope also with |"ae| and |"oe|,
+% besides the guillemet commands.
+%
+% The following declaration is probably a repetition of what is already in 
+% \textsf{latin.ldf}
+%    \begin{macrocode}
+\declare@shorthand{latin}{"}{%
+\ifmmode
+    \def\lt@next{''}%
+\else
+    \def\lt@next{\futurelet\lt@temp\lt@cwm}%
+\fi
+\lt@next
+}%
+%    \end{macrocode}
+%
+% This also should already be in \textsf{latin.ldf}; it is the command that
+% inserts a discretionary break, but does not inhibit hyphenation in the
+% rest of the word.
+%    \begin{macrocode}
+\def\lt@@cwm{\nobreak\discretionary{-}{}{}\nobreak\hskip\z@skip}%
+%    \end{macrocode}
+%
+% This, for what concerns Latin, is new as an interface with the definitions
+% of the guillemets
+%    \begin{macrocode}
+\def\lt@@ocap#1{\begin@guill}\def\lt@@ccap#1{\end@guill}%
+%    \end{macrocode}
+%
+% This is completely new; il deals with |\ae| and |\oe|; since |\ae| is much
+% more frequent than |\oe|, we start with testing for an `a' followed by
+% an `e', otherwise we test about the presence of an `o':
+%    \begin{macrocode}
+\DeclareRobustCommand\LT@cwm[2]{%
+    \ifx#1a\bbl@afterelse
+       \maybeae#1#2%    
+    \else\bbl@afterfi
+        \testoe#1#2%
+    \fi}
+%    \end{macrocode}
+%
+% If a sequence |ae| was detected, then |\ae| is inserted in the input stream
+% in place of that sequence, otherwise the two tokens are inserted in the input
+% stream preceded by the discretionary break implied by the presence of the
+% |"| sign that thriggered the whole process.
+%
+%    \begin{macrocode}
+\def\maybeae#1#2{%
+    \ifx#2e\bbl@afterelse
+       \ae%
+    \else\bbl@afterfi
+        \lt@@cwm#1#2%
+    \fi
+}
+%    \end{macrocode}
+%
+% The same procedure is valid for the sequence |oe|
+%    \begin{macrocode}
+\def\maybeoe#1#2{%
+    \ifx#2e\bbl@afterelse
+       \oe%
+    \else\bbl@afterfi
+       \lt@@cwm#1#2%
+    \fi
+}
+%    \end{macrocode}
+%
+% But the presence of an `o' must be checked before activating the previous
+% macro:
+%    \begin{macrocode}
+\def\testoe#1#2{%
+   \ifx#1o\bbl@afterelse
+       \maybeoe#1#2%
+   \else\bbl@afterfi
+       \lt@@cwm#1#2%
+   \fi}
+%    \end{macrocode}
+%
+% This is the real execution of the |"| shortcut; remember that |\lt@csw|
+% is an alias for |\lt@next|, the action associated with |"| when outside
+% the math mode; furthermore |\lt@temp| contains the token following
+% the |"| sign. Notice that the category code of the |\lt@temp| is compared
+% to that of a generic letter; the choice of `e' is absolutely irrelevant,
+% because it is a generic letter; any other letter would have done the same.
+% So, first the temporary token is compared to a letter; if it's a letter the
+% |\LT@cwm| is executed; the latter on turn looks for an `a' or an `o' and
+% possibly inserts a diphthong or a discretionary break; otherwise the
+% temporary token is compared to \verb+|+, so that the shortcut \verb+"|+
+% is possibly executed by inserting a discretionary break and by gobbling
+% the bar; otherwise it checks for a `less than' sign and
+% possibly inserts double open guillemets; otherwise it checks for a
+% `greater than' sign and possibly inserts double closed guillemets;
+% otherwise it checks for the slash and possibly it inserts a breakable
+% slash |\slash|; otherwise it checks for another double straight quotes
+% sign and possibly it inserts  double open high quotes (this is useful
+% for those keyboards that do not have the `back tick' sign |`|).
+%    \begin{macrocode}
+\DeclareRobustCommand*{\lt@cwm}{\let\lt@@next\relax
+\ifcat\noexpand\lt@temp e%
+    \def\lt@@next{\LT@cwm}%
+\else
+    \if\noexpand\lt@temp \string|%
+        \def\lt@@next{\lt@@cwm\@gobble}%
+    \else
+        \if\noexpand\lt@temp \string<%
+            \def\lt@@next{\lt@@ocap}%
+        \else
+            \if\noexpand\lt@temp \string>%
+                \def\lt@@next{\lt@@ccap}%
+            \else
+                \if\noexpand\lt@temp\string/%
+                    \def\lt@@next{\slash\@gobble}%
+                \else
+                    \ifx\lt@temp"%
+                        \def\lt@@next{``\@gobble}%
+                    \fi
+                \fi
+            \fi
+        \fi
+    \fi
+\fi
+\lt@@next}%
+%    \end{macrocode}
+%
+% This done let's take care of the punctuation. First we create the aliases
+% of the puntuation marks with their original category codes
+%    \begin{macrocode}
+\edef\puntoevirgola{\string;}\edef\cc@pv{\the\catcode`;}%
+\edef\duepunti{\string:}\edef\cc@dp{\the\catcode`:}%
+\edef\puntoesclamativo{\string!}\edef\cc@pe{\the\catcode`!}%
+\edef\puntointerrogativo{\string?}\edef\cc@pi{\the\catcode`?}%
+%    \end{macrocode}
+%
+% Then we make those puctuation marks active and add their activeness to
+% |\extraslatin|, and also their ``deactiveness'' to the |\noextraslatin| list.
+% In this way we are sure that there is no interference with other languages.
+%    \begin{macrocode}
+\initiate@active@char{;}
+\initiate@active@char{:}
+\initiate@active@char{!}
+\initiate@active@char{?}
+\addto\extraslatin{\bbl@activate{;}}
+\addto\extraslatin{\bbl@activate{:}}
+\addto\extraslatin{\bbl@activate{!}}
+\addto\extraslatin{\bbl@activate{?}}
+\addto\noextraslatin{\bbl@deactivate{;}}
+\addto\noextraslatin{\bbl@deactivate{:}}
+\addto\noextraslatin{\bbl@deactivate{!}}
+\addto\noextraslatin{\bbl@deactivate{?}}
+%    \end{macrocode}
+%
+% Here we define the space before punctuation; again the glue  that is inserted
+% in the French typography is too large according to our taste; the glue we
+% want to put in front of the high punctuation marks should be smaller
+% and we chose a smaller compromise value, but again we fix the stretch
+% and shrink components to zero.
+%    \begin{macrocode}
+\def\punct@spacing{\penalty\@M\hskip.4\fontdimen2\font
+                   \@plus\z@\@minus\z@}
+%    \end{macrocode}
+%
+% When then we give a definition to these actie characters; in each definition
+% we start by eliminating aby previous spacing inserted by the typist, then
+% we insert our space and finally the punctuation mark.
+%    \begin{macrocode}
+\declare@shorthand{latin}{;}{\ifdim\lastskip>\z@\unskip\fi
+      \punct@spacing\puntoevirgola}
+\declare@shorthand{latin}{:}{\ifdim\lastskip>\z@\unskip\fi
+      \punct@spacing\duepunti}
+\declare@shorthand{latin}{!}{\ifdim\lastskip>\z@\unskip\fi
+      \punct@spacing\puntoesclamativo}
+\declare@shorthand{latin}{?}{\ifdim\lastskip>\z@\unskip\fi
+      \punct@spacing\puntointerrogativo}
+%    \end{macrocode}
+%
+% For footnotes we require that the footnote mark be tiped flush to the
+% left  margin and that it is typed normalsize; this rquires the
+% redefinition % of the |\@makefntext| macro that must call a different
+% version of |\@makefnmark|.
+%    \begin{macrocode}
+%
+\let\lt@ori@makefntext\@makefntext
+\newcommand\lt@makefntext[1]{%
+    \parindent 1em%
+    \noindent
+    \lt@Makefnmark\enspace #1}
+\newcommand\lt@Makefnmark{\hbox{\normalfont\@thefnmark.}}
+%    \end{macrocode}
+% We add these commands to the |\extraslatin| and |\noextraslatin| lists.
+%    \begin{macrocode}
+\addto\extraslatin{\let\@makefntext\lt@makefntext}
+\addto\noextraslatin{\let\@makefntext\lt@ori@makefntext}
+%    \end{macrocode}
+%
+% Is this correct? May be not! In a mixed language text footnotes get labelled
+% in a different way depending on which language was in force when the
+% |\footnote| command was issued. Any solution?
+%
+% In order to leave the category codes clean we re-establish the default codes 
+% reassigning the active cars their initial meaning; we do this by executing
+% \noextraslatin. If Latin is the default language, or when Latin is
+% selected, the \extraslatin macro is automatically executed and active
+% catcodes reassigned to the active characters.
+%
+%    \begin{macrocode}
+\noextraslatin
+%    \end{macrocode}
+% \iffalse
+%</package>
+% \fi
+% 
+% \Finale
+\endinput

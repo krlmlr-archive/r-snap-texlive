@@ -1,0 +1,29 @@
+    %this is the way to redefine styles
+    % \newpsstyle{mytickstyle}{linewidth=1pt,linecolor=blue}
+    %
+    \renewcommand{\betweenticks}{100}
+    \renewcommand{\shownumbers}{0}
+    \newpsstyle{diagframestyle}{linewidth=1pt,linecolor=black,fillcolor=yellow}
+    \bardiagrambegin{15}{1000}{2cm}{1}{3}{1cm}{0.015cm}
+       \barspergroup{2}
+       \drawlevellines
+       \baritem{Jelger}{721}{\onecol}
+        \subbaritem{}{500}{\twocol}
+       \baritem{Johan}{412}{\onecol}
+        \subbaritem{}{500}{\twocol}
+       \baritem{Rikkert}{810}{\onecol}
+        \subbaritem{}{500}{\twocol}
+       \baritem{Henk}{310}{\onecol}
+        \subbaritem{}{500}{\twocol}
+       \baritem{New Guy}{0}{\onecol}
+        \subbaritem{}{542}{\twocol}  
+       %
+       % we can call
+       \diagLegendoptions{yellow}{yellow}{0.0pt}
+       % to produce a legend with yellow background with yellow frame
+       %
+       \diagLegendbegin{10}{890}{3.5}
+         \diagLegenditem{19.12.2002}{\onecol}
+         \diagLegenditem{06.05.2003}{\twocol}
+       \diagLegendend
+    \bardiagramend{\large Cluster Users}{\large Jobs Submitted}

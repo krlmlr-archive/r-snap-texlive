@@ -1,0 +1,49 @@
+\def\onecol{red}
+\def\twocol{palegreen}
+
+\renewcommand{\tdx}{0.5} % depth of 3d
+\renewcommand{\tdy}{30}
+
+\newcommand{\mybar}[3]
+{ \renewcommand\numbercolor{\white\bf}
+  \baritem{#1}{#2}{#3}
+}
+\newcommand{\mysubbar}[3]
+{ \renewcommand\numbercolor{\black\bf}
+  \subbaritem{#1}{#2}{#3}
+}
+
+%\renewcommand{\ActiveBarPrimitive}{\barTDRect}
+%\renewcommand{\ActiveBarPrimitive}{\barCylinder}
+%-------------------------------------------------------
+%this is the way to redefine styles
+% \newpsstyle{mytickstyle}{linewidth=1pt,linecolor=blue}
+%
+\renewcommand{\placenumber}{\belowtop}
+\renewcommand{\betweenticks}{200}
+%
+\newpsstyle{diagframestyle}{linewidth=1pt,linecolor=black,fillcolor=white}
+%
+\bardiagrambegin{15}{1000}{3cm}{1}{3}{1cm}{0.007cm}
+       \barspergroup{2}
+       \mybar{Jelger}{721}{\onecol}
+        \mysubbar{}{500}{\twocol}
+       \mybar{Johan}{412}{\onecol}
+        \mysubbar{}{500}{\twocol}
+       \mybar{Rikkert}{810}{\onecol}
+        \mysubbar{}{500}{\twocol}
+       \mybar{Henk}{310}{\onecol}
+        \mysubbar{}{500}{\twocol}
+       \mybar{New Guy}{0}{\onecol}
+        \mysubbar{}{542}{\twocol}  
+  \drawlevellines
+  % Legend
+  %\diagLegendoptions{yellow}{yellow}{0.0pt}
+  %
+  \diagLegendbegin{10}{890}{3.5}
+    \renewcommand{\legendShadow}{1} % by default there is no
+                                    % shadow in 2D diagram
+    \diagLegenditem{19.12.2002}{\onecol}
+    \diagLegenditem{06.05.2003}{\twocol}
+  \diagLegendend
+\bardiagramend{\large Cluster Users}{\large Jobs Submitted}

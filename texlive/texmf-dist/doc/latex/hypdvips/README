@@ -1,0 +1,88 @@
+LaTeX package hypdvips 2014/06/22 v3.02
+
+The hypdvips package is a collection of add-ons and fixes for problems when
+using hyperref with dvips. It adds support for breaking links, hyperlinked
+tablenotes, file attachments, embedded documents and different types of GoTo-
+links. In addition, the cooperation with cleveref allows an enhanced back-
+referencing system.
+
+History:
+
+v3.02 - fixes erroneous "disable" and "enable" text output before and after
+        the \tableofcontents, \listoffigures, \listoftables, and
+        \listofattachments commands when hyperref option backref is disabled
+        (thanks to Matthias Walter for the bug-report and to Heiko Oberdiek
+        for analyzing the bug)
+
+v3.01 - supports newer versions of KOMA-Script (thanks to Peter Ebelsberger
+        for the bug-report and to Enrico Gregorio and Heiko Oberdiek for
+        analyzing and fixing the bug)
+      - supports newer versions of cleveref
+      - removes support for jobnames which start with a parenthesis `('
+        as it interferes with latex' command line option -output-directory
+        (thanks to Dominik Derigs for the bug-report)
+      - improves algorithm which decides whether to break links
+
+v3.00 - supports newer versions of hyperref
+      - loads the PU encoding only when it's really needed (thanks to Manuel
+        Cartignies for the bug-report)
+      - improves compatibility with package acronym (thanks to Timo Stein for
+        the bug-report)
+      - fixes duplicate back-references when option `detailedbr' is disabled
+
+v2.04 - improves compatibility with package biblatex (thanks to Alexander
+        Wilbuer for the bug-report)
+      - improves compatibility with AMS document classes (thanks to Ilya
+        Zakharevich for the bug-report)
+      - uses package atveryend instead of zref in order to avoid e-TeX
+        dependency
+      - adds support for package wrapfig
+      - corrects a bug in enumeration of subfigure anchors
+
+v2.03 - fixes broken links within cleveref references
+      - breaks up links between pages and columns into individual links
+	
+v2.02 - improves compatibility with package caption (thanks to Benedikt Leinss
+        for the bug-report)
+      - fixes the \bmstyle command to work with chapters (thanks to Benedikt
+        Leinss for the bug-report)
+      - fixes incorrect spacing after certain environments (thanks to Benedikt
+        Leinss for the bug-report)
+
+v2.01 - does not implicitly load the hyperref package anymore
+      - restores the original \autoref command of the hyperref package
+      - fixes labels and anchors to not be corrupted after certain environments
+
+v2.00 - supports newer versions of hyperref and cleveref
+      - new package option `emptypagelabels': allows to choose whether empty
+        PDF pagelabels are created if pagestyle is set to `empty' (thanks to
+        Sebastian Bomberg for the suggestion)
+      - uses \backrefalt for back-referencing system (thanks to Benedikt Leinss
+        for the bug-report)
+      - changes \bmstyle to use \bookmarkdefinestyle
+
+v1.06 - new package option `nlwarning': allows to suppress warnings concerning
+        nested links (thanks to Marco Daniel for the suggestion)
+      - fixes duplicate warnings about nested links when option `evenboxes'
+        is disabled
+
+v1.05 - improves compatibility with packages tabularx & subcaption (thanks to
+        Marco Daniel for the bug-report)
+
+v1.04 - fixes problem with back-reference when citing in footnotetext and
+        option `smallfootnotes' is enabled
+
+v1.03 - new package options: `flip' & `mirror'
+      - adds support for package threeparttable: tablenotes are now hyperlinked
+      - fixes corrupted /Names entry in {Catalog} when embedding files
+
+v1.02 - better support for broken links (should now work in tables too)
+      - fixes \bmstyle command
+
+v1.01 - uses xcolor package to achieve better print quality when hyperref 
+        option `colorlinks' is used
+      - patches bookmark package to work with jobnames which start with a 
+        parenthesis `('
+      - corrects some minor typos in the documentation
+
+v1.00 - initial release

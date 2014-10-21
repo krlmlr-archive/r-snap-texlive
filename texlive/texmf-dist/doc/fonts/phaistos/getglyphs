@@ -1,0 +1,31 @@
+#!/usr/bin/perl
+#
+# (c) Copyright 2004 Apostolos Syropoulos
+#
+# This program can be used to geneate a table of the glyphs
+# that are provided by the ``phaistos'' LaTeX package.
+# This program is absolutely free software.
+#
+open (XX, "phaistos.sty") || die "Can't open file './phaistos.sty'\n";
+open (YY, ">glyphs.tex") || die "Can't create file './glyphs.tex'\n";
+print YY <<Header;
+\\documentclass[a4paper]{article}
+\\usepackage{phaistos,multicol,fullpage}
+\\begin{document}
+\\small
+\\setlength{\\columnseprule}{0.5pt}
+\\begin{multicols}{4}
+\\noindent
+Header
+while(<XX>){
+  if (s/^\\DeclareTextSymbol\{\\//) {
+    /^(\w*)/;
+    print YY "\\verb|\\$1 = |\\$1\\newline \n";
+  }
+}
+print YY <<Trailer; 
+\\end{multicols}
+\\thispagestyle{empty}
+\\end{document}
+Trailer
+__END__

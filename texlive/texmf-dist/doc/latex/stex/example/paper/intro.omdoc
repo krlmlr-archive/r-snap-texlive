@@ -1,0 +1,145 @@
+<?xml version="1.0"?>
+<!--This OMDoc document is generated from an sTeX-encoded one via LaTeXML, you may want to reconsider editing it.-->
+<omdoc xmlns:omdoc="http://omdoc.org/ns" xmlns="http://omdoc.org/ns" xmlns:m="http://www.w3.org/1998/Math/MathML" xmlns:stex="http://kwarc.info/ns/sTeX" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:cc="http://creativecommons.org/ns" xmlns:om="http://www.openmath.org/OpenMath">
+  <omdoc:omgroup layout="sectioning" xml:id="intro" about="#intro" stex:srcref="intro.tex#textrange(from=1;0,to=91;13)"><omdoc:metadata xml:id="intro.metadata1" about="#intro.metadata1" stex:srcref="intro.tex#textrange(from=1;0,to=1;39)"><dc:title xml:id="intro.metadata1.title1" about="#intro.metadata1.title1" stex:srcref="intro.tex#textrange(from=1;0,to=91;13)">Introduction</dc:title></omdoc:metadata>
+  <div xmlns="http://www.w3.org/1999/xhtml" class="para" id="intro.p1">
+    <p style="" class="p" id="intro.p1.p1">We will show how to semantically mark up mathematics in the sTeX
+format&#xA0;<cite class="cite">[<citation xmlns="http://omdoc.org/ns" bibrefs="kohlhase:ulsmf08"/>]</cite> and how to convert it into
+OMDoc&#xA0;<cite class="cite">[<citation xmlns="http://omdoc.org/ns" bibrefs="kohlhase:omdoc1.3"/>]</cite>.</p>
+  </div>
+
+  <div xmlns="http://www.w3.org/1999/xhtml" class="para" id="intro.p2">
+    <p style="" class="p" id="intro.p2.p1">We have some mathematical material in <omdoc:oref href="#sec.math"/> which will serve as example
+content. In the rest of this section we will explain the setup of the example and
+present an approach to automation of the OMDoc conversion via Unix Makefiles.</p>
+  </div>
+<omdoc:omgroup layout="sectioning" xml:id="intro.omgroup4" about="#intro.omgroup4" stex:srcref="intro.tex#textrange(from=9;0,to=43;13)"><omdoc:metadata xml:id="intro.omgroup4.metadata1" about="#intro.omgroup4.metadata1" stex:srcref="intro.tex#textrange(from=9;0,to=42;12)"><dc:title xml:id="intro.omgroup4.metadata1.title1" about="#intro.omgroup4.metadata1.title1" stex:srcref="intro.tex#textrange(from=9;0,to=43;13)">The Setup</dc:title></omdoc:metadata><theory xml:id="setup" about="#setup" stex:srcref="intro.tex#textrange(from=10;0,to=42;12)"><omdoc:symbol name="target" xml:id="target.def.sym" about="#target.def.sym" stex:srcref="intro.tex#textrange(from=11;0,to=18;20)"/><omdoc:symbol name="module" xml:id="module.def.sym" about="#module.def.sym" stex:srcref="intro.tex#textrange(from=11;0,to=18;20)"/><omdoc:definition for="target module" xml:id="setup.definition3" about="#setup.definition3" stex:srcref="intro.tex#textrange(from=11;0,to=18;20)"><omdoc:CMP xml:id="setup.definition3.CMP1" about="#setup.definition3.CMP1" stex:srcref="intro.tex#textrange(from=11;0,to=18;20)">
+    <p xmlns="http://www.w3.org/1999/xhtml" style="" class="p" id="setup.definition3.CMP1.p1">The source of this note is contained in the file <span style="" class="text typewriter">paper.tex</span>. We call it
+the <omdoc:idx xml:id="setup.definition3.CMP1.p1.idx1" about="#setup.definition3.CMP1.p1.idx1" stex:srcref="intro.tex#textrange(from=12;59,to=13;23)"><omdoc:idt xml:id="setup.definition3.CMP1.p1.idx1.idt1" about="#setup.definition3.CMP1.p1.idx1.idt1" stex:srcref="intro.tex#textrange(from=12;59,to=13;23)"><omdoc:term cd="setup" name="target" role="definiendum" xml:id="setup.definition3.CMP1.p1.idx1.idt1.term1" about="#setup.definition3.CMP1.p1.idx1.idt1.term1" stex:srcref="intro.tex#textrange(from=12;59,to=13;23)">target</omdoc:term></omdoc:idt><omdoc:ide index="default" xml:id="setup.definition3.CMP1.p1.idx1.ide2" about="#setup.definition3.CMP1.p1.idx1.ide2" stex:srcref="intro.tex#textrange(from=12;59,to=13;23)"><omdoc:idp>target</omdoc:idp></omdoc:ide></omdoc:idx>, since formatting it with LaTeX will generate the main
+document. The content in <omdoc:oref href="#sec.contfuncs"/> and <omdoc:oref href="#sec.differentiable"/>
+comes from included files <span style="" class="text typewriter">continuous.tex</span> and
+<span style="" class="text typewriter">differentiable.tex</span>, we will call them <omdoc:idx xml:id="setup.definition3.CMP1.p1.idx2" about="#setup.definition3.CMP1.p1.idx2" stex:srcref="intro.tex#textrange(from=15;18,to=16;68)"><omdoc:idt xml:id="setup.definition3.CMP1.p1.idx2.idt1" about="#setup.definition3.CMP1.p1.idx2.idt1" stex:srcref="intro.tex#textrange(from=15;18,to=16;68)"><omdoc:term cd="setup" name="module" role="definiendum" xml:id="setup.definition3.CMP1.p1.idx2.idt1.term1" about="#setup.definition3.CMP1.p1.idx2.idt1.term1" stex:srcref="intro.tex#textrange(from=15;18,to=16;68)">module</omdoc:term></omdoc:idt><omdoc:ide index="default" xml:id="setup.definition3.CMP1.p1.idx2.ide2" about="#setup.definition3.CMP1.p1.idx2.ide2" stex:srcref="intro.tex#textrange(from=15;18,to=16;68)"><omdoc:idp>module</omdoc:idp></omdoc:ide></omdoc:idx>s, since they may
+be used (i.e. included) by other target documents as well.</p>
+  </omdoc:CMP></omdoc:definition><omdoc:omtext xml:id="setup.omtext4" about="#setup.omtext4" stex:srcref="intro.tex#textrange(from=20;1,to=31;14)"><omdoc:CMP xml:id="setup.omtext4.CMP1" about="#setup.omtext4.CMP1" stex:srcref="intro.tex#textrange(from=20;1,to=31;14)">
+    <p xmlns="http://www.w3.org/1999/xhtml" style="" class="p" id="setup.omtext4.CMP1.p1">As the modules are built for inclusion into other documents, they are not
+self-contained:</p>
+  
+    <ol xmlns="http://www.w3.org/1999/xhtml" class="enumerate" id="I5">
+    
+	<li class="item" id="I5.i1">
+	
+  <div class="para" id="I5.i1.p1">
+    <p style="" class="p" id="I5.i1.p1.p1">they do not contain a LaTeX preamble and
+<code class="verbatim typewriter" style="">\begin</code>/<code class="verbatim typewriter" style="">\end{document}</code>, and</p>
+  </div>
+
+	</li>
+      
+	<li class="item" id="I5.i2">
+	
+  <div class="para" id="I5.i2.p1">
+    <p style="" class="p" id="I5.i2.p1.p1">they may depend on other modules, whose semantic macros they need to include,</p>
+  </div>
+
+	</li>
+      
+	<li class="item" id="I5.i3">
+	
+  <div class="para" id="I5.i3.p1">
+    <p style="" class="p" id="I5.i3.p1.p1">to facilitate this a module file <span style="" class="text typewriter">modf.tex</span> comes with a &#x201C;semantic
+macro short form&#x201D; <span style="" class="text typewriter">modf.sms</span> that can be included without generating
+output in the PDF.</p>
+  </div>
+
+	</li>
+      
+    </ol>
+  </omdoc:CMP></omdoc:omtext><omdoc:omtext xml:id="setup.omtext5" about="#setup.omtext5" stex:srcref="intro.tex#textrange(from=33;1,to=41;14)"><omdoc:CMP xml:id="setup.omtext5.CMP1" about="#setup.omtext5.CMP1" stex:srcref="intro.tex#textrange(from=33;1,to=41;14)">
+    <p xmlns="http://www.w3.org/1999/xhtml" style="" class="p" id="setup.omtext5.CMP1.p1">This will have consequences for the automation. Concretely, the module on
+differentiable functions in <omdoc:oref href="#sec.differentiable"/> depends on that for continuous
+functions in <omdoc:oref href="#sec.contfuncs"/>. Both of them depend on modules for real numbers,
+sets and functions that we do not want to cover in this note. <span style="" class="text inlinedef">We assume
+that they have already been marked up with the same methods as we describe here and
+are accessible to us and call them <omdoc:idx xml:id="setup.omtext5.CMP1.p1.idx1" about="#setup.omtext5.CMP1.p1.idx1" stex:srcref="intro.tex#textrange(from=33;1,to=33;17)"><omdoc:idt xml:id="setup.omtext5.CMP1.p1.idx1.idt1" about="#setup.omtext5.CMP1.p1.idx1.idt1" stex:srcref="intro.tex#textrange(from=33;1,to=33;17)"><omdoc:term cd="setup" name="background-module" role="definiendum" xml:id="setup.omtext5.CMP1.p1.idx1.idt1.term1" about="#setup.omtext5.CMP1.p1.idx1.idt1.term1" stex:srcref="intro.tex#textrange(from=33;1,to=33;17)">background module</omdoc:term></omdoc:idt><omdoc:ide index="default" xml:id="setup.omtext5.CMP1.p1.idx1.ide2" about="#setup.omtext5.CMP1.p1.idx1.ide2" stex:srcref="intro.tex#textrange(from=33;1,to=33;17)"><omdoc:idp>background</omdoc:idp><omdoc:idp>module</omdoc:idp></omdoc:ide></omdoc:idx>s</span>. In our setup we
+keep them in the subdirectory <span style="" class="text typewriter">background</span>.</p>
+  </omdoc:CMP></omdoc:omtext></theory></omdoc:omgroup><omdoc:omgroup layout="sectioning" xml:id="intro.omgroup5" about="#intro.omgroup5" stex:srcref="intro.tex#textrange(from=45;0,to=53;13)"><omdoc:metadata xml:id="intro.omgroup5.metadata1" about="#intro.omgroup5.metadata1" stex:srcref="intro.tex#textrange(from=45;0,to=45;51)"><dc:title xml:id="intro.omgroup5.metadata1.title1" about="#intro.omgroup5.metadata1.title1" stex:srcref="intro.tex#textrange(from=45;0,to=53;13)">Formatting and OMDoc conversion</dc:title></omdoc:metadata>
+  <div xmlns="http://www.w3.org/1999/xhtml" class="para" id="intro.omgroup5.p1">
+    <p style="" class="p" id="intro.omgroup5.p1.p1">To format an sTeX document &#x2014; i.e. to produce a PDF file from the sTeX marked-up
+sources &#x2014; we only need to run the <span style="" class="text typewriter">pdflatex</span> program over the target document
+&#x2014; assuming that all modules (regular or background) have semantic macro short forms.</p>
+  </div>
+
+  <div xmlns="http://www.w3.org/1999/xhtml" class="para" id="intro.omgroup5.p2">
+    <p style="" class="p" id="intro.omgroup5.p2.p1">To convert an sTeX document to OMDoc, we need to run <span style="" class="text typewriter">latexml</span> over it,
+post-process the result by <span style="" class="text typewriter">latexmlpost</span>, and finally massage away all remaining
+LaTeXML islands with a stylesheet, see &#xA0;<cite class="cite">[<citation xmlns="http://omdoc.org/ns" bibrefs="kohlhase:ssmtl*"/>]</cite> for details.</p>
+  </div>
+</omdoc:omgroup><omdoc:omgroup layout="sectioning" xml:id="intro.omgroup6" about="#intro.omgroup6" stex:srcref="intro.tex#textrange(from=55;0,to=89;13)"><omdoc:metadata xml:id="intro.omgroup6.metadata1" about="#intro.omgroup6.metadata1" stex:srcref="intro.tex#textrange(from=55;0,to=55;42)"><dc:title xml:id="intro.omgroup6.metadata1.title1" about="#intro.omgroup6.metadata1.title1" stex:srcref="intro.tex#textrange(from=55;0,to=89;13)">Makefile-based Automation</dc:title></omdoc:metadata>
+  <div xmlns="http://www.w3.org/1999/xhtml" class="para" id="intro.omgroup6.p1">
+    <p style="" class="p" id="intro.omgroup6.p1.p1">As the conversion to OMDoc is rather complex (the programs in the three steps take a
+variety of options), we support an automation by Unix Makefiles. There are three main
+<span style="" class="text typewriter">make</span> targets.</p>
+  </div>
+
+    <dl xmlns="http://www.w3.org/1999/xhtml" class="description" id="I6">
+    
+    <dt class="item" id="I6.i1"><span class="tag"><span style="" class="text typewriter">make omdoc</span></span></dt>
+    <dd class="item">
+  <div class="para" id="I6.i1.p1">
+    <p style="" class="p" id="I6.i1.p1.p1">will trigger the OMDoc transformation of the target
+document.</p>
+  </div>
+</dd>
+  
+    <dt class="item" id="I6.i2"><span class="tag"><span style="" class="text typewriter">make mods</span></span></dt>
+    <dd class="item">
+  <div class="para" id="I6.i2.p1">
+    <p style="" class="p" id="I6.i2.p1.p1">will trigger the OMDoc transformation of the modules.</p>
+  </div>
+</dd>
+  
+    <dt class="item" id="I6.i3"><span class="tag"><span style="" class="text typewriter">make pdf</span></span></dt>
+    <dd class="item">
+  <div class="para" id="I6.i3.p1">
+    <p style="" class="p" id="I6.i3.p1.p1">will trigger the LaTeX formatting the target</p>
+  </div>
+</dd>
+  
+    <dt class="item" id="I6.i4"><span class="tag"><span style="" class="text typewriter">make mpdf</span></span></dt>
+    <dd class="item">
+  <div class="para" id="I6.i4.p1">
+    <p style="" class="p" id="I6.i4.p1.p1">will trigger the LaTeX formatting the modules</p>
+  </div>
+</dd>
+  
+    <dt class="item" id="I6.i5"><span class="tag"><span style="" class="text typewriter">make sms</span></span></dt>
+    <dd class="item">
+  <div class="para" id="I6.i5.p1">
+    <p style="" class="p" id="I6.i5.p1.p1">will trigger the re-generation of all semantic macro short
+forms of modules (this is implicitly called in all the other <span style="" class="text typewriter">make</span> targets)</p>
+  </div>
+</dd>
+  
+    </dl>
+  
+  <div xmlns="http://www.w3.org/1999/xhtml" class="para" id="intro.omgroup6.p2">
+    <p style="" class="p" id="intro.omgroup6.p2.p1">To use this, we need to set up a <span style="" class="text typewriter">Makefile</span> of the following form:</p>
+  </div>
+
+  <div xmlns="http://www.w3.org/1999/xhtml" class="para" id="intro.omgroup6.p3">
+    <p style="" class="p" id="intro.omgroup6.p3.p1">The variable <span style="" class="text listing ">STEXDIR}}<span style="" class="text lstspace">&#xA0;</span>has<span style="" class="text lstspace">&#xA0;</span>to<span style="" class="text lstspace">&#xA0;</span>be<span style="" class="text lstspace">&#xA0;</span>set<span style="" class="text lstspace">&#xA0;</span>to<span style="" class="text lstspace">&#xA0;</span>the<span style="" class="text lstspace">&#xA0;</span>main<span style="" class="text lstspace">&#xA0;</span>directory<span style="" class="text lstspace">&#xA0;</span>of<span style="" class="text lstspace">&#xA0;</span>the</span>sTeX
+distribution. The variable <span style="" class="text listing ">TARGET}}<span style="" class="text lstspace">&#xA0;</span>specifies<span style="" class="text lstspace">&#xA0;</span>the<span style="" class="text lstspace">&#xA0;</span>target<span style="" class="text lstspace">&#xA0;</span>document<span style="" class="text lstspace">&#xA0;</span>(all<span style="" class="text lstspace">&#xA0;</span>other</span><span style="" class="text typewriter">*.tex</span> files that are not excluded in the <span style="" class="text listing ">BUTFILES}}<span style="" class="text lstspace">&#xA0;</span>variables<span style="" class="text lstspace">&#xA0;</span>are<span style="" class="text lstspace">&#xA0;&#xA0;&#xA0;&#xA0;&#xA0;&#xA0;</span>considered<span style="" class="text lstspace">&#xA0;</span>as<span style="" class="text lstspace">&#xA0;</span>modules).<span style="" class="text lstspace">&#xA0;</span>Here,<span style="" class="text lstspace">&#xA0;</span>the</span><span style="" class="text typewriter">background</span> directory for convenience. The
+<span style="" class="text listing ">MODSLIBDIR}}<span style="" class="text lstspace">&#xA0;</span>specifies<span style="" class="text lstspace">&#xA0;</span>the<span style="" class="text lstspace">&#xA0;</span>location<span style="" class="text lstspace">&#xA0;</span>of<span style="" class="text lstspace">&#xA0;</span>the<span style="" class="text lstspace">&#xA0;</span>prefix<span style="" class="text lstspace">&#xA0;</span>and<span style="" class="text lstspace">&#xA0;</span>postfix<span style="" class="text lstspace">&#xA0;</span>files</span><span style="" class="text typewriter">pre.tex</span> and <span style="" class="text typewriter">post.tex</span> that will be prepended and appended to the
+modules to make them into complete files TeX files that can be converted. The last
+three lines just include the Makefiles from the sTeX distribution and configure the
+default make target (<span style="" class="text typewriter">make all</span>) to be produce the pdf version</p>
+  </div>
+
+  <div xmlns="http://www.w3.org/1999/xhtml" class="para" id="intro.omgroup6.p4">
+    <p style="" class="p" id="intro.omgroup6.p4.p1">Note that in the directory <span style="" class="text typewriter">background</span> we have a very similar Makefile as
+above. The only differences are that the variable <span style="" class="text listing ">STEXDIR}}<span style="" class="text lstspace">&#xA0;</span>is<span style="" class="text lstspace">&#xA0;</span>adapted<span style="" class="text lstspace">&#xA0;</span>and<span style="" class="text lstspace">&#xA0;&#xA0;&#xA0;&#xA0;&#xA0;</span>that<span style="" class="text lstspace">&#xA0;</span>the</span><span style="" class="text listing ">BUTFILE}}<span style="" class="text lstspace">&#xA0;</span>variable<span style="" class="text lstspace">&#xA0;</span>is<span style="" class="text lstspace">&#xA0;</span>set<span style="" class="text lstspace">&#xA0;</span>to</span><span style="" class="text typewriter">pre.tex</span> and
+<span style="" class="text typewriter">post.tex</span>, so that they are not converted. In the directory
+<span style="" class="text typewriter">background</span> we have followed good practice by establishing a phony</p>
+  </div>
+</omdoc:omgroup></omdoc:omgroup>
+</omdoc>

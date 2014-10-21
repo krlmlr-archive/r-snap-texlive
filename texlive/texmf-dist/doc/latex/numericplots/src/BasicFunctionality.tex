@@ -1,0 +1,621 @@
+% Copyright 2010 Thomas Koenig, Alexander Michel
+%
+% This file is part of NumericPlots.
+%
+% NumericPlots is free software: you can redistribute it and/or modify
+% it under the terms of the GNU General Public License as published by
+% the Free Software Foundation, either version 3 of the License, or
+% any later version.
+%
+% NumericPlots is distributed in the hope that it will be useful,
+% but WITHOUT ANY WARRANTY; without even the implied warranty of
+% MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+% GNU General Public License for more details.
+%
+% You should have received a copy of the GNU General Public License
+% along with NumericPlots.  If not, see <http://www.gnu.org/licenses/>.
+
+\part{Using the package}
+
+\section{Basic Functionality}
+
+The package NumericPlots\\
+\verb+\usepackage{NumericPlots}+
+\\
+is intended to be used to plot numeric data which
+may, e.g., be exported from Matlab by export2latex.m. The data must be defined
+in the form
+\lstinputlisting[lastline=9]{examples/DefineData}
+where the first column contains the x, the second column the y-data.
+
+\emph{Please note that the package relies on the \texttt{listplot}-command from
+pstricks!}
+
+\subsection{plots}
+
+
+The easiest plot may be done by
+
+\begin{minipage}[T]{0.45\linewidth}
+	\lstinputlisting{examples/basic_EasyPlot}
+\end{minipage}
+\hspace{0.05\linewidth}
+\begin{minipage}[T]{0.45\linewidth}
+	\input{examples/basic_EasyPlot}
+\end{minipage}
+
+if you want to add a legend, you simply call
+
+\begin{minipage}[T]{0.45\linewidth}
+	\lstinputlisting{examples/basic_Legend}
+\end{minipage}
+\hspace{0.05\linewidth}
+\begin{minipage}[T]{0.45\linewidth}
+	\input{examples/basic_Legend}
+\end{minipage}
+
+To plot multiple data in one plot call
+
+\begin{minipage}[T]{0.45\linewidth}
+	\lstinputlisting{examples/basic_MultipleData}
+\end{minipage}
+\hspace{0.05\linewidth}
+\begin{minipage}[T]{0.45\linewidth}
+	\centering
+	\input{examples/basic_MultipleData}
+\end{minipage}
+
+
+\subsection{Label and TickLabels}
+
+The commands \texttt{plotxAxis} and \texttt{plotyAxis} take the options
+\texttt{NoLabel}, \texttt{NoTicks}, \texttt{NoTickLabel} as well as
+\texttt{LabelOption} and \texttt{TickLabelOption} which may be used to eliminate
+or change the look of the labels.
+
+Standard values for \texttt{LabelOption} and \texttt{TickLabelOption} may be set\\
+by \verb|\newcommand{\StdLabelOption}{\color{blue}|\\
+and \verb|\newcommand{\StdTickLabelOption}{\small}|.
+
+The option \texttt{LabelSep} may be used for \verb|\plotxAxis| and
+\verb|\plotyAxis| to set the seperation between the axis and the label. Standard
+value is \verb|\baselineskip+1ex| for the x-label and \verb|7ex| for the
+y-label.
+
+\begin{minipage}[T]{0.45\linewidth}
+	\lstinputlisting{examples/basic_Labels}
+\end{minipage}
+\hspace{0.05\linewidth}
+\begin{minipage}[T]{0.45\linewidth}
+	\input{examples/basic_Labels}
+\end{minipage}
+
+It is furthermore possible to change the position and the rotation of the labels
+and tick labels, see the example in section \ref{sec:Details:Labels}.
+
+It is also possible to put single tick labels, see the example in section
+\ref{sec:Details:Labels}.
+
+\subsection{Place ``Objects'' in the plot.}\label{sec:PlaceObjects}
+
+There are basically two different options to place objects in the plot. To
+understand the difference one has to keep in mind that the axis have two
+different coordinate systems. One is the system defined by xMin, xMax, yMin and
+yMax (refered to as ``DataCoordinateSystem''), the other ist the system defined
+by xCoordMin, xCoordMax, yCoordMin and yCoordMax (refered to as
+``PictureCoordinateSystem''), see section \ref{sec:MultiplePlots}.
+
+It is now possible to place stuff in the graph with the DataCoordinates with the
+command NDPput, see the following example.
+
+\begin{minipage}[T]{0.45\linewidth}
+	\lstinputlisting{examples/basic_PlaceObjects}
+\end{minipage}
+\hspace{0.05\linewidth}
+\begin{minipage}[T]{0.45\linewidth}
+	\input{examples/basic_PlaceObjects}
+\end{minipage}
+
+
+For convenience the commands \verb|\putXX{object}| where
+$XX\in\left(N,S,E,W,NW,NE,SW,SE\right)$ are defined to place something in the
+North, South,\ldots, SouthEast corner of the plot. Also, the command
+\verb|\putExpY{xx}| and \verb|\putExpX{xx}| may be used to place exponents at
+the axes.
+
+\begin{minipage}[T]{0.45\linewidth}
+	\lstinputlisting[firstline=14,lastline=24]{examples/basic_PlaceObjectsII}
+\end{minipage}
+\hspace{0.05\linewidth}
+\begin{minipage}[T]{0.45\linewidth}
+	\input{examples/basic_PlaceObjectsII}
+\end{minipage}
+
+Alternatively, stuff can be placed
+within the plot with \verb|\rput|.
+
+
+\begin{minipage}[T]{0.5\linewidth}
+	\lstinputlisting[firstline=14,lastline=28]{examples/basic_UseRput}
+\end{minipage}
+\begin{minipage}[T]{0.5\linewidth}
+	\input{examples/basic_UseRput}
+\end{minipage}
+
+
+% =================================
+% |								  |
+% |     Linestyles and colors     |
+% |								  |
+% =================================
+
+\subsection{Linestyles and colors}
+
+While using the package, there are predefined linestyles which may be used:
+
+\begin{minipage}{0.55\linewidth}
+	\centering
+	\small
+	
+	\begin{NumericDataPlot}[lly=1cm,llx=1cm,urx=0.25cm,ury=0.25cm]{\linewidth}{0.85\linewidth}
+		\setxAxis{xMin=2, xMax=17, xO=5, Dx=4}
+		\setyAxis{yMin=20, yMax=70, yO=20, Dy=20}
+			
+        \plotxAxis[NoLabel, AxisStyle=Boxed]{}
+        \plotyAxis[NoLabel, AxisStyle=Boxed]{}
+
+		\listplot[style=StdLineStyA]{\DataA}
+		\listplot[style=StdLineStyB]{\DataB}
+		\listplot[style=StdLineStyC]{\DataC}
+		\listplot[style=StdLineStyD]{\DataD}
+		\listplot[style=StdLineStyE]{\DataE}
+		\listplot[style=StdLineStyF]{\DataF}
+		\listplot[style=StdLineStyG]{\DataG}
+	\end{NumericDataPlot}
+\end{minipage}
+\begin{minipage}{0.4\linewidth}
+	\centering
+	\LegendDefinition{
+		\LegLine{style=StdLineStyA} & StdLineStyA \\
+		\LegLine{style=StdLineStyB} & StdLineStyB \\
+		\LegLine{style=StdLineStyC} & StdLineStyC \\
+		\LegLine{style=StdLineStyD} & StdLineStyD \\
+		\LegLine{style=StdLineStyE} & StdLineStyE \\
+		\LegLine{style=StdLineStyF} & StdLineStyF \\
+		\LegLine{style=StdLineStyG} & StdLineStyG \\
+	}
+\end{minipage}
+
+When using the package option \texttt{BW} the standard line styles will be
+replaced by their black and white counterparts:
+
+\begin{minipage}{0.6\linewidth}
+	\centering
+	\small
+	
+	\begin{NumericDataPlot}[lly=1cm,llx=1cm,urx=0.25cm,ury=0.25cm]{\linewidth}{0.85\linewidth}
+		\setxAxis{xMin=2, xMax=17, xO=5, Dx=4}
+		\setyAxis{yMin=20, yMax=70, yO=20, Dy=20}
+			
+        \plotxAxis[NoLabel, AxisStyle=Boxed]{}
+        \plotyAxis[NoLabel, AxisStyle=Boxed]{}
+
+		\listplot[style=BWStdLineStyA]{\DataA}
+		\listplot[style=BWStdLineStyB]{\DataB}
+		\listplot[style=BWStdLineStyC]{\DataC}
+		\listplot[style=BWStdLineStyD]{\DataD}
+		\listplot[style=BWStdLineStyE]{\DataE}
+		\listplot[style=BWStdLineStyF]{\DataF}
+		\listplot[style=BWStdLineStyG]{\DataG}
+	\end{NumericDataPlot}
+\end{minipage}
+\begin{minipage}{0.4\linewidth}
+	\centering
+	\LegendDefinition{
+		\LegLine{style=BWStdLineStyA} & BWStdLineStyA \\
+		\LegLine{style=BWStdLineStyB} & BWStdLineStyB \\
+		\LegLine{style=BWStdLineStyC} & BWStdLineStyC \\
+		\LegLine{style=BWStdLineStyD} & BWStdLineStyD \\
+		\LegLine{style=BWStdLineStyE} & BWStdLineStyE \\
+		\LegLine{style=BWStdLineStyF} & BWStdLineStyF \\
+		\LegLine{style=BWStdLineStyG} & BWStdLineStyG \\
+	}
+\end{minipage}
+
+For values which are nearly the same (reference and measurement, e.g.) the
+following line styles may be used:
+
+\begin{minipage}{0.58\linewidth}
+	\centering
+	\small
+	
+	\begin{NumericDataPlot}[lly=1cm,llx=1cm,urx=0.25cm,ury=0.25cm]{\linewidth}{0.85\linewidth}
+		\setxAxis{xMin=2, xMax=17, xO=5, Dx=4}
+		\setyAxis{yMin=20, yMax=70, yO=20, Dy=20}
+			
+        \plotxAxis[NoLabel, AxisStyle=Boxed]{}
+        \plotyAxis[NoLabel, AxisStyle=Boxed]{}
+
+		\listplot[style=StdLineStyX]{\DataC}
+		\listplot[style=StdLineStyY]{\DataC}
+		
+		\listplot[style=BWStdLineStyX]{\DataD}
+		\listplot[style=BWStdLineStyY]{\DataD}
+	\end{NumericDataPlot}
+\end{minipage}
+\begin{minipage}{0.38\linewidth}
+	\centering
+	\LegendDefinition{
+		\LegLine{style=StdLineStyX} & StdLineStyX \\
+		\LegLine{style=StdLineStyY} & StdLineStyY \\
+		\LegLine{style=BWStdLineStyX} & BWStdLineStyX \\
+		\LegLine{style=BWStdLineStyY} & BWStdLineStyY \\
+	}
+\end{minipage}
+
+It is, of course, possible to redefine the available linestyles or to define new
+linestyles.
+
+\begin{minipage}[T]{0.48\linewidth}
+	\lstinputlisting[firstline=4,lastline=26]{examples/basic_UserLinestyles}
+\end{minipage}
+\begin{minipage}[T]{0.48\linewidth}
+	\input{examples/basic_UserLinestyles}
+\end{minipage}
+
+
+
+% =================================
+% |								  |
+% |            Legend             |
+% |								  |
+% =================================
+
+\subsection{Legend}
+
+The legend may be created with \verb|\LegendDefinition|. The command takes the
+two optional arguments \texttt{nrCols} and \texttt{LabelOrientation=[l|c|r]}.
+The mandatory argument is the definition of a table as demonstrated in the
+follwing examples.
+
+\begin{minipage}[T]{0.5\linewidth}
+	\lstinputlisting{examples/basic_LegendI}
+\end{minipage}
+\hspace{1ex}
+\begin{minipage}[T]{0.4\linewidth}
+	\input{examples/basic_LegendI}
+\end{minipage}
+
+\begin{minipage}[T]{0.5\linewidth}
+	\lstinputlisting{examples/basic_LegendII}
+\end{minipage}
+\hspace{1ex}
+\begin{minipage}[T]{0.4\linewidth}
+	\input{examples/basic_LegendII}
+\end{minipage}
+
+\begin{minipage}[T]{0.5\linewidth}
+	\lstinputlisting{examples/basic_LegendIII}
+\end{minipage}
+\hspace{1ex}
+\begin{minipage}[T]{0.4\linewidth}
+	\input{examples/basic_LegendIII}
+\end{minipage}
+
+
+\subsection{Add Lines to the Plot}
+
+Horizontal and vertical lines may be added to the plot with the commands
+\verb|\NDPhline{coord}|, \verb|\NDPvline{coord}| and \verb|\NDPline{coord}|. It is also possible to put
+nodes and draw lines between them, see section \ref{sec:PlaceObjects}.
+
+\begin{minipage}[T]{0.5\linewidth}
+	\lstinputlisting[firstline=14,lastline=17]{examples/basic_Lines}
+\end{minipage}
+\hspace{1ex}
+\begin{minipage}[T]{0.4\linewidth}
+	\input{examples/basic_Lines}
+\end{minipage}
+
+
+\subsection{Add Boxes to the Plot}
+
+Horizontal and vertical boxes may be added to the plot with the commands
+\verb|\NDPhbox{coord}|, \verb|\NDPvbox{coord}| and \verb|\NDPbox{coord}|. It is also possible to put
+nodes and draw lines between them, see section \ref{sec:PlaceObjects}.
+
+\begin{minipage}[T]{0.5\linewidth}
+	\lstinputlisting[firstline=11,lastline=21]{examples/basic_Boxes}
+\end{minipage}
+\hspace{1ex}
+\begin{minipage}[T]{0.4\linewidth}
+	\input{examples/basic_Boxes}
+\end{minipage}
+
+
+\subsection{Grid}
+
+As shwon in the example below, it is possible to plot a fine grid but not have a
+tick label at each of the grid lines. While the options \texttt{Dx} and
+\texttt{Dy} define the distance between the grid lines, the options \texttt{DDx}
+and \texttt{DDy} define the distance between the tick labels. If \texttt{DDx} or
+\texttt{DDy} are not set, they take the values of \texttt{Dx} and \texttt{Dy}. 
+
+One may choose not to plot the grid with
+the option \texttt{NoGrid} for the commands \verb|\plotxAxis| and \verb|\plotyAxis|.
+
+If the grid is plottet with the axis it may happen that the grid is plottet over
+the axis. To avoid this, plot the grid first and then plot the axis as shown.
+
+\begin{minipage}[T]{0.5\linewidth}
+	\lstinputlisting{examples/basic_Grid}
+\end{minipage}
+\hspace{1ex}
+\begin{minipage}[T]{0.4\linewidth}
+	\input{examples/basic_Grid}
+\end{minipage}
+
+
+
+\subsection{Logarithmic axes}
+
+
+\begin{minipage}[T]{0.5\linewidth}
+	\lstinputlisting{examples/basic_LogarithmicI}
+\end{minipage}
+\hspace{1ex}
+\begin{minipage}[T]{0.4\linewidth}
+	\input{examples/basic_LogarithmicI}
+\end{minipage}
+
+
+\begin{minipage}[T]{0.5\linewidth}
+	\lstinputlisting{examples/basic_LogarithmicII}
+\end{minipage}
+\hspace{1ex}
+\begin{minipage}[T]{0.4\linewidth}
+	\input{examples/basic_LogarithmicII}
+\end{minipage}
+
+
+\begin{minipage}[T]{0.5\linewidth}
+	\lstinputlisting{examples/basic_LogarithmicIII}
+\end{minipage}
+\hspace{1ex}
+\begin{minipage}[T]{0.4\linewidth}
+	\input{examples/basic_LogarithmicIII}
+\end{minipage}
+
+
+\subsection{plots with holes}
+
+If plotting data, one might not want to plot some part of this data, e.g. if
+only the data in a certain y-range is interesting. If one chooses to eliminate the
+invalid data either by using \verb+yStart+ or \verb+yEnd+ or by eliminating the
+data before the export, pstricks will always connect the last valid point of an
+interval with the first valid point of the next interval. In Matlab e.g.,
+invalid data (NaN) is just ignored. This behavior is also possible with NumericPlots and
+export2latex. If export2latex is called with data which contains NaN and with
+the option.NaNsplit=true, it will split the data in several intervals and append
+a consecutive number to the identifier for each interval. The exported yMax,
+yMin values etc. will still be valid for the whole data-vector. The exported
+data might look like:
+
+\begin{verbatim}
+\expandafter\def\csname DataIdentNrRanges\endcsname{3}
+\expandafter\def\csname DataIdent1\endcsname{
+560.00 5.40
+...
+574.72 6.25
+}
+
+\expandafter\def\csname DataIdent2\endcsname{
+588.73 4.78
+...
+609.53 12.09
+}
+
+
+\expandafter\def\csname DataIdent3\endcsname{
+620.56 27.81
+...
+649.56 27.32
+}
+\end{verbatim}
+
+
+\expandafter\def\csname DataIdentNrRanges\endcsname{3}
+\expandafter\def\csname DataIdent1\endcsname{
+560.00 5.40
+560.30 6.25
+560.59 4.74
+560.90 6.25
+561.60 5.18
+561.65 6.25
+561.70 4.73
+562.60 4.75
+562.63 6.06
+563.75 6.12
+563.75 5.00
+564.50 6.25
+564.76 4.71
+564.90 4.88
+565.51 6.25
+565.63 5.00
+566.13 5.69
+566.61 6.78
+567.10 4.88
+567.60 4.89
+567.66 6.25
+568.30 4.88
+568.31 6.25
+569.10 4.77
+569.51 6.25
+569.60 6.13
+570.35 4.85
+570.63 6.25
+570.71 5.00
+571.30 4.64
+571.31 6.25
+572.30 4.66
+572.62 6.06
+572.90 5.00
+572.93 5.61
+573.68 5.00
+574.11 6.25
+574.66 4.76
+574.72 6.25
+}
+
+\expandafter\def\csname DataIdent2\endcsname{
+588.73 4.78
+588.90 6.15
+589.50 4.76
+589.67 4.90
+589.74 6.25
+590.66 5.96
+590.73 4.55
+591.25 6.25
+591.69 4.68
+592.10 4.91
+592.31 6.25
+593.20 6.25
+593.55 5.36
+593.64 4.79
+593.74 6.25
+594.64 4.74
+594.75 6.11
+595.25 4.67
+595.31 6.12
+596.00 5.84
+596.30 11.90
+597.10 10.69
+597.20 12.00
+597.69 12.00
+598.15 10.00
+598.50 11.97
+598.67 10.00
+599.31 10.00
+599.69 11.91
+600.13 12.22
+600.79 10.79
+600.83 10.31
+600.86 11.72
+601.74 10.56
+601.80 11.25
+602.78 11.98
+602.94 10.00
+603.72 12.08
+603.94 10.00
+604.54 10.00
+604.70 11.96
+605.14 11.25
+605.24 10.83
+605.69 11.92
+605.80 10.00
+606.70 11.72
+607.03 10.00
+607.49 11.15
+607.54 10.00
+608.23 12.15
+608.72 10.00
+609.30 10.87
+609.53 12.09
+}
+
+\expandafter\def\csname DataIdent3\endcsname{
+620.56 27.81
+620.78 26.25
+620.85 27.80
+621.56 27.32
+621.74 27.78
+622.00 27.32
+622.74 26.36
+623.08 28.75
+623.31 27.79
+623.71 26.31
+624.05 27.32
+624.65 27.79
+625.18 27.83
+625.45 27.35
+625.95 27.74
+626.28 27.30
+626.75 26.34
+626.88 27.81
+627.54 28.75
+627.72 26.38
+628.23 27.29
+628.36 27.74
+628.88 26.25
+629.28 27.82
+629.78 28.84
+629.93 27.32
+631.13 26.27
+631.22 27.76
+631.94 28.75
+631.98 27.33
+632.54 26.25
+632.66 27.78
+632.89 27.29
+633.33 28.88
+633.76 26.45
+633.94 27.85
+634.76 26.33
+635.14 27.74
+635.68 27.82
+635.84 26.35
+636.08 27.84
+636.46 27.34
+637.04 27.74
+637.19 27.32
+637.70 27.34
+638.31 27.84
+638.50 27.78
+638.65 27.33
+639.45 27.79
+639.83 26.34
+640.03 27.38
+640.68 27.83
+641.45 27.31
+641.50 27.77
+642.08 27.80
+642.18 27.32
+642.76 27.93
+642.86 26.25
+643.75 27.32
+643.91 27.76
+644.38 27.30
+644.74 27.83
+645.06 27.37
+645.08 27.80
+645.80 28.80
+646.13 26.47
+646.76 26.57
+647.09 27.81
+647.26 27.83
+647.98 26.25
+648.20 27.33
+648.34 28.75
+648.93 28.91
+649.56 27.32
+}
+
+This data can then easily be plotted using the command\\
+\verb+\multilistplot{<options>}{<Identifier>}+\footnote{Please notice, that the
+first argument of multilistplot is a mandatory argument. Also notice, that the
+second argument ist only the name of the data including ``Data'' but not the
+command as it would be for the listplot command}.
+The command will call\\
+\verb+\listplot[<options>]{\<Identifier>}+ for each of
+the intervals. The first argument is directly passed to the listplot command which is part of the
+pstricks package. The second argument is the identifier of the data that should
+be plotted.
+
+\begin{minipage}[T]{0.5\linewidth}
+	\lstinputlisting{examples/basic_PlotWHoles}
+\end{minipage}
+\hspace{1ex}
+\begin{minipage}[T]{0.4\linewidth}
+	\input{examples/basic_PlotWHoles}
+\end{minipage}
+

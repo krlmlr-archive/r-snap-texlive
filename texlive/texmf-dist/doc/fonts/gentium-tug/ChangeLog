@@ -1,0 +1,184 @@
+This file is part of the Gentium package for TeX.
+It is licensed under the Expat License, see doc//README for details.
+
+This file lists internal changes to the development.  For the changes
+to the actual Gentium Plus PS fonts by release, see FONTLOG.txt.
+
+Each of the SIL fonts also has its own FONTLOG.txt.  Please consult
+these FONTLOGs in their separate font project doc folders for a full
+record of changes, and for more information on the individual font
+projects.
+
+2013-05-17
+- Some changes in the test files. (Pavel)
+
+2013-04-30
+- More doc and distribution tweaks, resent to Victor. (Karl)
+
+2013-04-27
+- At the request of Victor Gaultney, changed the advance width of
+  the letters dcaron and lcaron back to the original value.  Replaced
+  with some extra kerning pairs for the more common combinations. (Pavel)
+
+2013-03-20
+- Added license statement to more files, tweak docs. (Karl)
+
+2013-03-14
+- Updated Gentium Plus fonts. (Pavel)
+
+2013-03-10
+- Changed 'gentium' into 'gentium-tug' by request of SIL. (Mojca)
+
+2013-02-27
+- Added a script to create CTAN-friendly directory structure. (Mojca)
+
+2012-04-11
+- Added test files and samples for the differences between the
+  original TrueType and converted Type 1 fonts. (Pavel) 
+
+2012-04-07
+- Corrected letters Tcedilla and Tcommaaccent in the extra kerning
+  pairs added to the Type 1 fonts. (Pavel)
+- Test file for LGR shows also the italic style. (Pavel)
+
+2012-03-30
+- Added more kerning pairs for accented letters to the Type 1
+  fonts. (Pavel)
+- Corrected the kern value for DV in GentiumPlus Regular in the
+  Type 1 fonts. The value was positive. (Pavel)
+
+2012-03-22
+- Added more kerning pairs for accented letters to the Type 1
+  fonts. (Pavel)
+
+2012-03-20
+- The scripts for the conversion of the fonts to Type1 can add
+  kerning pairs for accented Latin letters now. The original TTF
+  fonts have no such kerning pairs. More such kerning pairs should
+  be added. (Pavel)
+
+2012-03-14
+- Added several kerning pairs for small caps in the Type 1 version of
+  GentiumPlus (original TTFs have no kerning pairs for small caps).
+  They were added for these combinations: small cap + small cap
+  (currently without accents), capital letter + small cap and some
+  punctuation symbols preceeded or followed by small cap letter.
+  All these kerning pairs are created automatically and they are derived
+  from the respective kerning pairs for capital letters. (Pavel)
+
+2012-03-07
+- The Type 1 fonts have "TeX Users Group" as creator now. (Pavel)
+- Added license header to some files. (Pavel)
+
+2012-02-27
+- Added FamilyBlues and FamilyOtherBlues to Type 1 fonts. The fonts
+  can not be one family (t1lint complained), therefore two fonts
+  from GentiumPlus are one family and two fonts from GentiumBasic
+  are other family. (Pavel)
+- ForceBold set explicitly (true or false) for Type 1 fonts. (Pavel)
+- Added new targets "test" and "kerns" for the makefile building
+  Type 1 fonts. (Pavel)
+- Small clean-up of the Type 1 build scripts. (Pavel)
+
+2012-02-14
+- Update of the PDF/LaTeX documentation. (Pavel)
+
+2012-02-10
+- Added build scripts for Type 1 fonts to the subdirectory "type1" in
+  "source". The fonts are not reencoded to Adobe Standard Encoding (which
+  created many slots containing ".notdef"). (Pavel)
+
+2012-02-07
+- Update of the PDF/LaTeX documentation. (Pavel)
+
+2012-02-06
+- The build scripts for the conversion of the fonts to Type 1 remove
+  the lookups "mark" and "mkmk" after opening the TrueType font. This
+  eliminates really huge amount of error messages for GentiumPlus.
+  The scripts print messages about the current operation now. (Pavel)
+
+2012-02-05
+- Remove old scripts and refactor ruby sources. (Mojca)
+- Different formatting in map files, no functional changes; map files
+  for ot1, ts1, lgr, t2b, t2c, x2 may be removed in future (Mojca)
+- Fix dotlessj (uni0237) in some encodings;
+  fix scommaaccent & some greek letters in qx encoding. (Mojca)
+- Change L7X -> L7x in fd files. (Mojca)
+- Fix some typos in licenses, update README.
+
+2012-02-04
+- Improved the PDF/LaTeX documentation. (Pavel)
+- Some clean-up of Cyrillic encodings. (Pavel)
+- It's possible to set copyright text in the generated Type 1
+  fonts. (Pavel)
+
+2012-02-03
+- Added documentation in PDF with LaTeX source. Heavily based on the work
+  by Clea F. Rees. (Pavel)
+
+2012-01-31
+- Added TS1 encoding. (Pavel)
+- Improved test files for LGR Greek and Cyrillics. (Pavel)
+
+2012-01-30
+- Added the Expat license.
+
+2012-01-28
+- Added OT1 encoding. (Pavel)
+
+2012-01-24
+- Removed LIGKERN commands (and similar stuff) from the encoding
+  files for T2A, T2B, T2C, X2 and LGR (lig files are used instead).
+  (Pavel)
+- Add support for SmallCaps. (Mojca)
+
+2012-01-20
+- Simplified the file gentium.sty quite a lot, uses xkeyval now.
+
+2012-01-19
+- Added the possibility for afm2pl to use a lig file if present. (Pavel)
+- Added lig files for AGR, LGR, T2A, T2B, T2C and X2. (Pavel)
+- The fonts from the previous update copied to the main package. (Pavel)
+- Generated support for LGR. (Pavel)
+- Added simple test files for LGR and Czech. (Pavel)
+- Workaround for 'dcroat' and 'Idotaccent' for EC and T5 encodings. (Mojca)
+
+2012-01-16
+- Created first serious version of Type 1 fonts based on the script
+  by Clea F. Rees. Added kerning pairs for the combinations
+  accent + capital Greek letter. The letters dcaron and lcaron made
+  narrower than it the original fonts (for better results in Czech
+  and Slovak). The package still uses the old version of the
+  fonts. (Pavel)
+- Added LGR encoding (no support files generated). (Pavel)
+
+2012-01-13
+- Add gentium.sty for LaTeX and sample *.fd files (Pavel)
+- Write a script to generate ${enc}gentium.fd (Mojca)
+- Update ConTeXt support files to new names. (Mojca)
+- Add some test files. (Mojca & Pavel)
+
+2012-01-12
+- Try to create Type1 fonts with ttf2pt1 (just a temporary solution).
+  Observation: AFM font metrics are not compatible (often 1 point difference).
+- Generate tfm files from new ttf fonts. (Mojca)
+- Update map files with new names and split gentium.map into
+  gentium-truetype.map & gentium-type1.map. (Mojca)
+
+2011-10-17
+- Add t2a, t2b, t2c and x2 encoding files. (Pavel)
+
+2011-10-06
+- Replace Gen{R,I}102.ttf  with Gentium-{R,I}.ttf (version 1.103)
+          GenA{R,I}102.ttf with GentiumAlt-{R,I}.ttf
+- Add GentiumPlus and GentiumPlusCompact (version 1.508)
+- TeX support files have not been updated yet.
+
+2010-10-09
+- Add GenAR102.ttf and GenAI102.ttf (requested by users)
+
+2010-07-07
+- Fix broken font files and some other typos in ConTeXt typescripts
+
+2008-11-13
+- First release of ConTeXt support files.

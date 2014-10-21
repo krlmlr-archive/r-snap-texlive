@@ -1,0 +1,201 @@
+.TH PREREX 5 2012-03-21 "prerex_format" ""
+.SH NAME
+prerex_format -- a format for prerequisite-chart descriptions 
+.SH DESCRIPTION
+This manual describes the format of 
+prerequisite-chart descriptions that can be processed by 
+.B [pdf]latex
+(normally using
+a suitable 
+.BR  prerex.sty  (7)
+style file) and edited using the
+.BR prerex (1)
+interactive editor (or by any conventional text editor).
+.SH TERMINOLOGY
+A prerequisite chart consists of a number of 
+.I course boxes,
+linked by 
+.I arrows.
+Courses are either
+.I half
+or
+.I full,
+and may be
+.I required
+or
+.I optional
+(or neither).
+Each course box can contain a course
+.I code
+(upper left corner),
+a course 
+.I title
+(lower half),
+and
+.I timetable
+information
+(upper right corner).
+An arrow can be either a
+.I prerequisite 
+(solid),
+a
+.I corequisite 
+(dotted),
+or 
+.I recommended
+(dashed).
+When a conventional arrow would be inappropriate,
+a
+.I mini 
+course just above a target box can be used.
+.SH STRUCTURE
+The file should contain exactly one instance of a LaTeX environment
+.P
+.BI \ebegin{chart} " instruction ... " \eend{chart}
+.P
+with at most one 
+.I instruction
+per line.
+Note that a program such as 
+.BR prerex (1)
+analyzes prerex-format files 
+.I without 
+using TeX; for example, 
+macro definitions will be ignored and
+macro calls will 
+not be
+expanded.
+.PP
+Instructions may be preceded by white space.
+Lines that start with % are treated as comments and ignored.
+The order of instructions is not significant except
+that the instruction for the source and target box o an arrow should 
+.I precede
+the instruction for the arrow. 
+The instruction formats are described in the following
+sections.
+.SH COURSE BOXES
+The instructions producing course boxes have the following forms:
+.HP 
+.BI \ehalfcourse " x,y" :{ code }{ title }{ timetable }
+.HP
+.BI \efullcourse " x,y" :{ code }{ title }{ timetable }
+.HP
+.BI \ereqhalfcourse " x,y" :{ code }{ title }{ timetable }
+.HP
+.BI \ereqfullcourse " x,y" :{ code }{ title }{ timetable }
+.HP
+.BI \eopthalfcourse " x,y" :{ code }{ title }{ timetable }
+.HP
+.BI \eoptfullcourse " x,y" :{ code }{ title }{ timetable }
+.LP
+where
+.I x,y
+are the coordinates of the 
+.I centerpoint 
+of the box, relative to the origin
+of the coordinate system at the lower-left corner of the diagram.
+The 
+.I code,
+.I title,
+and
+.I timetable
+arguments are arbitrary (well-bracketed) text, possibly with LaTeX markup.
+
+The following are similar but take an additional argument to specify the (non-default)
+background color of the course box:
+.IP 
+.BI \ehalfcoursec " x,y" :{ code }{ title }{ timetable }{ color }
+.IP
+.BI \efullcoursec " x,y" :{ code }{ title }{ timetable }{ color }
+.IP
+.BI \ereqhalfcoursec " x,y" :{ code }{ title }{ timetable }{ color }
+.IP
+.BI \ereqfullcoursec " x,y" :{ code }{ title }{ timetable }{ color }
+.IP
+.BI \eopthalfcoursec " x,y" :{ code }{ title }{ timetable }{ color }
+.IP
+.BI \eoptfullcoursec " x,y" :{ code }{ title }{ timetable }{ color }
+.LP
+
+.SH MINI COURSE BOXES AND TEXT
+A mini course is produced by an instruction of the form
+.HP 
+.BI \emini " x,y" :{ code }
+.HP
+A text line is inserted into the chart by an instruction of the form
+.HP
+.BI \etext " x,y" :{ line-of-text }
+.HP
+The maximum allowed length of a course-code may be smaller that the
+maximum allowed for a line of text.
+.SH ARROWS
+Arrows between course boxes (or from a mini to a course box) are produced
+by instructions of the form
+.HP
+.BI \eprereq " x0,y0,x1,y1" :
+.HP
+.BI \ecoreq " x0,y0,x1,y1" :
+.HP
+.BI \erecomm " x0,y0,x1,y1" :
+.LP
+These produce, respectively, solid, dotted, and dashed arrows from
+the course box (or mini) centered at coordinates
+.I x0,y0
+to the course box centered at coordinates
+.I x1,y1.
+.PP
+In some implementations, 
+certain arrows by default have a
+non-zero curvature.  It is possible to override the default curvature 
+for a particular arrow by using
+the instructions
+.HP
+.BI \eprereqc " x0,y0,x1,y1;c" :
+.HP
+.BI \ecoreqc " x0,y0,x1,y1;c" :
+.HP
+.BI \erecommc " x0,y0,x1,y1;c" :
+.LP
+where
+.I c
+is an integer in the range 0-100 specifying the desired curvature; for example, 
+.IR c= 0
+will produce a 
+.I straight 
+arrow. To change the default curvature, the user program may redefine the
+.B \eDefaultCurvature
+command.
+.SH COORDINATE GRID
+The following instruction produces a coordinate grid, which is
+useful for editing a diagram: 
+.HP
+.B \egrid 
+.LP
+This is normally placed before all the other instructions so that
+grid lines are in the background, covered by course boxes, minis, and arrows.
+.SH WEB LINKS
+Course boxes may be linked to web addresses.  
+The URL for course boxes may be set by the user by redefining the
+.B \eCourseURL 
+command; when called for a course box, it is supplied with three arguments, the
+.I x
+and
+.I y
+coordinates of the box, mini, or textline, and
+the
+.I code
+argument
+of the course box. For example,
+.HP
+.B \erenewcommand{\eCourseURL}[3]{http://www.cs.queensu.ca/undergraduate/courses/#3.html}
+.LP
+is appropriate for courses at the School of Computing, Queen's University.
+The first two arguments can be used to display the coordinates of a box, mini, or
+textline in some PDF viewers while the mouse hovers over it when the source
+file is being edited.
+.SH AUTHOR
+R. D. Tennent (rdt@cs.queensu.ca)
+.SH SEE ALSO
+.BR prerex (1),
+.BR prerex.sty (7).

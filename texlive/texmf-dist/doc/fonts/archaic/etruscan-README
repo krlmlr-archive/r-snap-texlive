@@ -1,0 +1,88 @@
+    The etruscan bundle provides fonts for the Etruscan script which was 
+in use between approximately 1000 BC to 100 AD. The font comes in mirrored
+forms suitable for writing either left-to-right or right-to-left (as the
+Etruscans did). The bundle is one of a series for archaic scripts.
+
+Changes in version 2.1 (2005/04/11)
+o Font supplied as Postscript Type1 
+o One additional glyph and some corrections
+
+Changes in version 2.0 (2000/10/01)
+o Major rewrite
+
+Changes in version 1.0 (1999/03/14)
+o First public release
+
+------------------------------------------------------------------
+  Author: Peter Wilson (Herries Press) herries dot press at earthlink dot net
+  Copyright 1999--2005 Peter R. Wilson
+
+  This work may be distributed and/or modified under the
+  conditions of the Latex Project Public License, either
+  version 1.3 of this license or (at your option) any
+  later version.
+  The latest version of the license is in
+    http://www.latex-project.org/lppl.txt
+  and version 1.3 or later is part of all distributions of
+  LaTeX version 2003/06/01 or later.
+
+  This work has the LPPL maintenance status "author-maintained".
+
+  This work consists of the files:
+    README (this file)
+    etruscan.dtx
+    etruscan.ins
+    etruscan.pdf
+  and the derived files
+    etruscan.sty
+    ot1fut10.fd
+    t1fut10.fd
+    etruscan.map
+    etr10.mf
+
+------------------------------------------------------------------
+     The distribution consists of the following files:
+README (this file)
+etruscan.dtx
+etruscan.ins
+etruscan.pdf     (user manual)
+tryetruscan.tex  (example usage)
+tryetruscan.pdf
+etr10.afm
+etr10.pfb
+etr10.tfm
+
+    To install the package:
+o If you want MetaFont sources uncomment the appropraite lines in etruscan.ins
+o run: latex etruscan.ins, which will generate:
+       etruscan.sty
+       *.fd files
+       etruscan.map
+       and possibly etr10.mf
+o Move *.sty and *.fd files to a location where LaTeX will find them
+    e.g., .../texmf-local/tex/latex/etruscan
+o Move *.afm, *.pfb and *.tfm files to where LaTeX looks for font information
+    e.g., .../texmf-var/fonts/afm/public/archaic/*.afm
+          .../texmf-var/fonts/type1/public/archaic/*.pfb
+          .../texmf-var/fonts/tfm/public/archaic/*.tfm
+o Add the *.map information to the dvips/pdftex font maps
+   If you want the MetaFont version as well:
+   o Move the *.mf files to, e.g., ...texmf-var/fonts/source/public/etruscan
+   o Add a line like the following to the (texmf/fontname/)special.map file
+     etr10.mf     public     etruscan
+o Refresh the database
+ (for more information on the above see the FAQ).
+
+o run: (pdf)latex tryetruscan for a test of the font
+
+    If you want a full manual with all MetaFont and LaTeX code and commentary,
+comment out the \OnlyDescription line in etruscan.dtx.
+o run: (pdf)latex etruscan.dtx
+o (for an index run: makeindex -s gind.ist *.idx)
+o run: (pdf)latex *.dtx
+o Print *.(pdf|dvi) for a hardcopy of the package manual
+
+2005/04/11
+Peter Wilson
+herries dot press at earthlink dot net
+

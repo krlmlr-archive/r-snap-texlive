@@ -1,0 +1,916 @@
+% $Id: eurotex2001-pqa-article.tex,v 1.9 2001/11/12 09:53:59 pedro Exp pedro $
+\documentclass{europroc}
+\usepackage[dvips]{graphicx}
+\usepackage{dcpic,pictex}
+\usepackage{calrsfs}
+\usepackage{dsfont}
+\usepackage{alltt}
+
+
+
+\begin{document}
+
+\title[DCpic]{DCpic, Commutative Diagrams in a (La)\TeX\ Document}
+\author[Pedro Quaresma]{Pedro Quaresma\thanks{This work was partially
+supported by the Portuguese Ministry of Science and Technology (MCT),
+under the programme PRAXIS XXI.}\\ CISUC\\ Departamento de
+Matem{\'a}tica, Universidade de Coimbra\\ 3001-454 COIMBRA, PORTUGAL}
+
+
+\maketitle
+
+\begin{abstract}
+  DCpic is a package of \TeX\ macros for graphing Commutative Diagrams
+  in a (La)\TeX\ or Con\TeX t document. Its distinguishing features
+  are: the use of \PiCTeX\ a powerful graphical engine, and a simple
+  specification syntax. A commutative diagram is described in
+  terms of its objects and its arrows. The objects are
+  textual elements and the arrows can have various straight or curved
+  forms.
+  
+  We describe the syntax and semantics of the user's commands, and
+  present many examples of their use.
+\end{abstract}
+
+\keywords{Commutative Diagrams, (La)\TeX, \PiCTeX}
+
+\section{Introduction}
+
+\initial{3}{C}{\scshape ommutative Diagrams} (Diagramas Comutativos,
+in Portuguese), are a kind of graphs which are widely used in Category
+Theory~\cite{Herrlich73,MacLane71,Pierce98}, not only as a concise and
+convenient notation but also for ``arrow chasing'', a powerful tool
+for mathematical thought. For example, the fact that in a Category we
+have arrow composition is easily expressed by the following
+commutative diagram.
+
+$$
+\begindc{\commdiag}[30]
+\obj(10,15){$A$}
+\obj(25,15){$B$}
+\obj(40,15){$C$}
+\mor(10,15)(25,15){$f$}
+\mor(25,15)(40,15){$g$}
+\cmor((10,11)(11,7)(15,6)(25,6)(35,6)(39,7)(40,11))
+\pup(25,3){$g\circ f$}
+\enddc
+$$
+
+The word commutative means that the result from going throught the
+path $f$ plus $g$ is equal to the result from going throught the path
+$g\circ f$. Most of the graphs used in Category Theory are digraphs which
+we can specify in terms of its objects, and its arrows.
+
+The (La)\TeX\ approach to typesetting can be characterized as
+``logical design''~\cite{Knuth86,Lamport94,Otten99}, but commutative
+diagrams are pieces of ``visual design'', and that, in our opinion is
+the {\em piece de resistance} of commutative diagrams package
+implementation in (La)\TeX. In a commutative diagrams package a user
+seeks the simplest notation, a logical notation, with the most
+powerful graphical engine possible, the visual part. The DCpic
+package, along with the package by John
+Reynolds~\cite{Feruglio94,Reynolds87}, has the simplest notation off
+all the commutative diagrams packages described in the Feruglio
+article~\cite{Feruglio94}. In terms of graphical capabilities the
+\PiCTeX~\cite{Wichura87} package provides us with the best
+\TeX-graphics engine, that is, without going to {\em Postscript}
+specials.
+
+The DCpic package depends only of \PiCTeX\ and \TeX,
+which means that you can use it in all formats that are based on these
+two. We have tested DCpic with \LaTeX, \TeX\ plain, pdf\LaTeX,
+pdf\TeX~\cite{Thanh99}, and Con\TeX t~\cite{Otten99}; we are confident
+that it can be used under many other formats.
+
+The present version (3.1) of DCpic package is available in CTAN and in
+the author's Web-page\footnote{http://www.mat.uc.pt/{\~{}}pedro/LaTeX/}.
+
+
+\section{Constructing Commutative Diagrams}
+
+DCpic depends on \PiCTeX, thus you must include an apropriate command
+to load \PiCTeX\ and DCpic in your document,
+e.g. ``{\tt $\backslash$usepackage\{dcpic,pictex\}}'', in a \LaTeX\ document.
+
+A commutative diagram in DCpic is a ``picture'' in \PiCTeX, in which
+we place our {\em objects} and {\em morphisms} (arrows). The user's
+commands in DCpic are: {\tt begindc} and {\tt enddc} which establishe
+the coordinate system where the objects will by placed; {\tt obj}, the
+command which defines the place and the contents of each object; {\tt
+mor}, and {\tt cmor}, the commands which define the morphisms, linear
+and curved arrows, and its labels.
+
+Now we will describe each of these commands in greater detail.
+
+\subsection{The Diagram Environment}
+
+The command {\tt begindc}, establishes a Cartesian coordinate system
+with 1pt units,
+
+\begin{alltt}
+  \(\backslash\)begindc[{\em<magnification factor>}] \dots \(\backslash\)enddc
+\end{alltt}
+such a small unit gives us a good control over the placement of the
+graphical objects, but in most of the diagrams not involving curved
+arrows such a ``fine grain'' is not desirable, so the optional
+argument specifies a magnifying factor $m\in\mathds{N}$, with a default
+value of 30. The advantage of this decision is twofold: we can define
+the ``grain'' of the diagram, and we can adjust the size of the
+diagram to the available space.
+\begin{itemize}
+\item a ``course grain'' diagram is specified almost as a table, with
+the numbers giving us the lines and the columns were the objects will
+be placed, the following diagram has the default magnification factor:
+
+\begin{center}
+  \begin{tabular}{cc}
+    \begindc{\commdiag}[300]
+    \obj(1,1){$A$}
+    \obj(3,1){$B$}
+    \obj(3,3){$C$}
+    \mor(1,1)(3,1){$f$}[\atright,\solidarrow]
+    \mor(1,1)(3,3){$g$}
+    \mor(3,1)(3,3){$h$}[\atright,\solidarrow]
+    \enddc &\tt
+    \begin{tabular}[b]{l}
+      $\backslash$begindc\{$\backslash$commdiag\}\\
+      $\backslash$obj(1,1)\{\$A\$\}\\
+      $\backslash$obj(3,1)\{\$B\$\}\\
+      $\backslash$obj(3,3)\{\$C\$\}\\
+      $\backslash$mor(1,1)(3,1)\{\$f\$\}[$\backslash$atright,$\backslash$solidarrow]\\
+      $\backslash$mor(1,1)(3,3)\{\$g\$\}\\
+      $\backslash$mor(3,1)(3,3)\{\$h\$\}[$\backslash$atright,$\backslash$solidarrow]\\
+      $\backslash$enddc 
+    \end{tabular}
+  \end{tabular}
+\end{center}
+\item a ``fine grain'' diagram is a bit harder to design but it gives
+us a better control over the objects placement, the following diagram
+has a magnification factor of three, this gives us the capability of
+drawing the arrows $f$ and $f^\prime$ very close together:
+\begin{center}
+  \begin{tabular}{cc}
+    \begindc{\commdiag}[30]
+    \obj(10,10){$A$}
+    \obj(30,10){$B$}
+    \obj(30,30){$C$}
+    \mor(10,9)(30,9){$f$}[\atright,\solidarrow]
+    \mor(10,11)(30,11){$f^\prime$}
+    \mor(10,10)(30,30){$g$}
+    \mor(30,10)(30,30){$h$}[\atright,\solidarrow]
+    \enddc &\tt
+    \begin{tabular}[b]{l}
+      $\backslash$begindc\{$\backslash$commdiag\}[30]\\
+      $\backslash$obj(10,10)\{\$A\$\}\\
+      $\backslash$obj(30,10)\{\$B\$\}\\
+      $\backslash$obj(30,30)\{\$C\$\}\\
+      $\backslash$mor(10,9)(30,9)\{\$f\$\}[$\backslash$atright,$\backslash$solidarrow]\\
+      $\backslash$mor(10,11)(30,11)\{\$f{\^{}}$\backslash$prime\$\}\\
+      $\backslash$mor(10,10)(30,30)\{\$g\$\}\\
+      $\backslash$mor(30,10)(30,30)\{\$h\$\}[$\backslash$atright,$\backslash$solidarrow]\\
+      $\backslash$enddc 
+    \end{tabular}
+  \end{tabular}
+\end{center}
+\item the magnification factor gives us the capability of adapting the
+  size of the diagram to the available space, without having to
+  redesign the diagram, for example the specification of the 
+  next two diagrams differs only in the magnification factor: 30 for
+  the first; and 25 for the second.
+\begin{center}
+  \begin{tabular}{cc}
+    \begindc{\commdiag}[300]
+    \obj(1,1){$A$}
+    \obj(3,1){$B$}
+    \obj(3,3){$C$}
+    \mor(1,1)(3,1){$f$}[\atright,\solidarrow]
+    \mor(1,1)(3,3){$g$}
+    \mor(3,1)(3,3){$h$}[\atright,\solidarrow]
+    \enddc &
+    \begindc{\commdiag}[250]
+    \obj(1,1){$A$}
+    \obj(3,1){$B$}
+    \obj(3,3){$C$}
+    \mor(1,1)(3,1){$f$}[\atright,\solidarrow]
+    \mor(1,1)(3,3){$g$}
+    \mor(3,1)(3,3){$h$}[\atright,\solidarrow]
+    \enddc 
+  \end{tabular}
+\end{center}
+\end{itemize}
+
+Note that the magnification factor does not interfere with the size of
+the objects, but only with the size of the diagram as a whole.
+
+After establishing our ``drawing board'' we can begin placing our
+``objects'' on it, we have three commands to do so, the {\tt obj},
+{\tt mor}, and {\tt cmor}, for objects, morphisms, and ``curved''
+morphisms respectively.
+
+
+\subsection{Objects}
+
+Each object has a place and a content
+
+\begin{alltt}
+  \(\backslash\)obj({\em<x>},{\em<y>})\{{\em<contents>}\}
+\end{alltt}
+the $x$ and $y$, integer values, will be multiplied by the magnifying
+factor. The {\em contents} will be put in the centre of an ``hbox''
+expanding to both sides of $(m\times x,m\times y)$.
+
+
+\subsection{Linear Arrows}
+
+
+Each linear arrow will have as mandatory arguments two pairs of
+coordinates, the beginning and the ending points, and a label,
+
+{\small\begin{alltt}
+\(\backslash\)mor({\em<x1>},{\em<y1>})({\em<x2>},{\em<y2>})[{\em<d1>},{\em<d2>}]\{{\em<label>}\}[{\em<label placement>},{\em<arrow type>}]
+\end{alltt}}%
+\noindent the other arguments are opcional. The two pairs of coordinates should
+coincide with the coordinates of two objects in the diagram, but no
+verification of this fact is made. The line connecting the two points
+is constructed in the following way: the beginning is given by a point
+10pt away from the point $(m\times x_1,m\times y_1)$, likewise the end point is
+10 points away from $(m\times x_2,m\times y_2)$. If the ``arrow type'' specifies
+that, a tail, and a pointer (arrow) will be added.  If the arrow is
+horizontal (vertical) the label is placed in a ``hbox'' with centre
+point, $(x_l,y_l)$, at a distance of 10 points plus a correction
+factor depending of the ``hbox'' width (height) from the middle point
+of the arrow. If the arrow is obliquos the point $(x_l,y_l)$, at a
+distance of 10 points from the middle point of the arrow, will be the
+bottom-right corner or the top-left corner of the ``hbox'' containing
+the label, depending of the angle of the arrow, and the label
+placement. In all cases the position of the
+``hbox'' is such that the contents of it will not interfere with the
+line.
+
+The distance from the point $(m\times x_1,m\times y_1)$ to the actual beginning of the
+arrow may be modified by the user with the specification of $d_1$, the
+same thing happens for the arrow actual ending in which case the
+user-value will be $d_2$. The specification of $d_1$ and $d_2$ is
+optional. 
+
+The placement of the label, to the left (default value), or to the
+right, and the type of the arrow: a solid arrow (default value), a
+dashed arrow, a line, an injection arrow, or an application arrow, are
+the last optional arguments of this command.
+
+
+\subsection{Quadratic Arrows}
+
+The command that draws curved lines in DCpic uses the {\tt
+setquadratic} command of \PiCTeX, this will imply a quadratic
+curve specified by an odd-number of points,
+
+{\small\begin{alltt}
+  \(\backslash\)cmor({\em<list of points>}){\textvisiblespace}{\em<arrow direction>}({\em<x>},{\em<y>})\{{\em<label>}\}[{\em<arrow type>}]
+\end{alltt}}
+\noindent the space after the list of points is mandatory. After drawing the
+curved line we must put the tip of the arrow on it, at present it is
+only possible to choose from: up, down, left, or right pointing arrow,
+and we must explicitly specify what type we want. The next thing to
+draw it is the arrow label, the placement of that label is determined
+by the $x$, and $y$ values which give us the coordinates, after being
+magnified, of the centre of the ``hbox'' that will contain the label
+itself.
+
+The arrow type is an optional argument, its default value is a solid
+arrow, the other possible values are a dashed arrow and a line, in
+this last case the arrow tip is omitted. The arrow type values are a
+subset of those of the {\tt mor} command.
+
+A rectangular curve with rounded corners is easy to specify and should
+cater for most needs, with this in mind we give the following tip to
+the user: to specify a rectangular, with rounded corners, curve we
+choose the points which give us the {\em expanded chess-horse
+movement}, that is, $(x,y)$, $(x\pm4,y\mp1)$, $(x\mp1,y\pm4)$, or
+$(x,y)$,$(x\pm1,y\mp4)$, $(x\mp4,y\pm1)$, those sets of points will give us
+the four corners of the rectangle; to form the whole line it is only
+necessary to add an odd number of points joining the two (or more)
+corners.
+
+
+\section{Examples}
+
+We now present some examples that give an idea of the DCpic package
+capabilities. We will present here the diagrams, and in the appendix
+the code which produced such diagrams.
+
+\subsection{The Easy Ones}
+
+The diagrams presented in this section are very easy to specify in the
+DCpic syntax, just a couple of objects and the arrows joining them.
+
+\begin{description}
+\item[Push-out and Exponentials:] 
+
+
+$$
+\begindc{\commdiag}[260] 
+\obj(1,1){$Z$} 
+\obj(1,3){$X$}
+\obj(3,1){$Y$}
+\obj(3,3){$P$}
+\obj(5,5){$P^\prime$}
+\mor(1,1)(1,3){$f$}
+\mor(1,1)(3,1){$g$}[\atright,\solidarrow]
+\mor(1,3)(3,3){$r$}[\atright,\solidarrow]
+\mor(3,1)(3,3){$s$}
+\mor(1,3)(5,5){$r^\prime$}
+\mor(3,1)(5,5){$s^\prime$}[\atright,\solidarrow]
+\mor(3,3)(5,5){$h$}[\atright,\dashArrow]
+\enddc
+\qquad
+\begindc{\commdiag}[350] 
+\obj(1,3)[A]{$Z^Y\times Y$}
+\obj(3,3)[B]{$Z$}
+\obj(3,1)[C]{$X\times{}Y$}
+\obj(4,1)[D]{$X$}
+\obj(4,3)[E]{$Z^Y$}
+\mor{A}{B}{$ev$}
+\mor{C}{A}{$f\times{}\mathrm{id}$}
+\mor{C}{B}{$\overline{f}$}[\atright,\dashArrow]
+\mor{D}{E}{$f$}[\atright,\solidarrow]
+\enddc
+$$
+
+\item[Function Restriction and the {\em CafeOBJ\/}
+Cube~\cite{Diaconescu98}]
+
+%\footnotetext{R. Diaconescu and K. Futatsugi, The CafeOBJ Report,
+%World Scientific, 1998}
+
+$$
+\begindc{\commdiag}[280]
+\obj(1,1){$X$}
+\obj(1,3){$X^\prime$}
+\obj(4,1){$Y$}
+\obj(4,3){$Y^\prime$}
+\mor(1,1)(4,1){$f$}
+\mor(1,3)(1,1){}[\atright,\injectionarrow]
+\mor(4,3)(4,1){}[\atright,\injectionarrow]
+\mor(1,3)(4,3){$g=f|^{Y^\prime}_{X^\prime}$}
+\enddc
+\qquad
+\begindc{\commdiag}[170]
+\obj(1,1){MSA}
+\obj(5,1){RWL}
+\obj(3,3){OSA}
+\obj(7,3){OSRWL}
+\obj(1,4){HSA}
+\obj(5,4){HSRWL}
+\obj(3,6){HOSA}
+\obj(7,6){HOSRWL}
+\mor{MSA}{RWL}{}
+\mor{MSA}{HSA}{}
+\mor{MSA}{OSA}{}
+\mor{RWL}{HSRWL}{} 
+\mor{RWL}{OSRWL}{}
+\mor{OSA}{HOSA}{}
+\mor{OSA}{OSRWL}{}
+\mor{OSRWL}{HOSRWL}{}
+\mor{HSA}{HSRWL}{} 
+\mor{HSA}{HOSA}{} 
+\mor{HOSA}{HOSRWL}{} 
+\mor{HSRWL}{HOSRWL}{}
+\enddc
+$$
+\end{description}
+
+\subsection{The Not so Easy}
+
+The diagrams presented in this section are a bit harder to specify. We
+have curved arrows, and also double arrows. The construction of the
+former was already explained. The double arrow (and triple, and \dots)
+is made with two distinct arrows drawn close to each other in a
+diagram with a very ``fine grain'', that is, using a magnifying factor
+of just 2 or 3.
+
+All the diagrams were made completely within DCpic.
+
+\begin{description}
+\item[Equaliser, and a 3-Category:] 
+
+$$
+\begindc{\commdiag}[20]
+\obj(1,1){$Z$}
+\obj(1,36){$\overline{ X}$}
+\obj(36,36){$X$}
+\obj(52,36){$Y$}
+\mor(1,1)(1,36){$\overline{ h}$}[\atleft,\dashArrow]
+\mor(1,1)(36,36){$h$}[\atright,\solidarrow]
+\mor(1,36)(36,36){$e$}
+\mor(36,37)(52,37)[80,80]{$f$}
+\mor(36,35)(52,35)[80,80]{$g$}[\atright,\solidarrow]
+\enddc
+\qquad
+\begindc{\commdiag}[30]
+\obj(14,11){$A$}
+\obj(39,11){$C$}
+\obj(26,35){$B$}
+\mor(14,11)(39,11){$h$}[\atright,\solidarrow]
+\mor(14,11)(26,35){$f$}
+\mor(26,35)(39,11){$g$}
+\cmor((11,10)(10,10)(9,10)(5,11)(4,15)(5,19)(9,20)(13,19)(14,15))
+ \pdown(1,20){$id_A$}
+\cmor((42,10)(43,10)(44,10)(48,11)(49,15)(48,19)(44,20)(40,19)(39,15))
+ \pdown(52,20){$id_C$}
+\cmor((26,39)(27,43)(31,44)(35,43)(36,39)(35,36)(31,35))
+ \pleft(40,40){$id_B$}
+\enddc
+$$
+
+
+\item[Isomorfisms:] 
+
+$$
+\begindc{\commdiag}[30]
+\obj(10,15){$A$}
+\obj(40,15){$A$}
+\obj(25,15){$B$}
+\mor(10,15)(25,15){$f$}
+\mor(25,15)(40,15){$g$}
+\cmor((10,11)(11,7)(15,6)(25,6)(35,6)(39,7)(40,11)) \pup(25,3){$id_A$}
+\obj(55,15){$B$}
+\obj(85,15){$B$}
+\obj(70,15){$A$}
+\mor(55,15)(70,15){$g$}
+\mor(70,15)(85,15){$f$}
+\cmor((55,11)(56,7)(60,6)(70,6)(80,6)(84,7)(85,11)) \pup(70,3){$id_B$}
+\enddc
+$$
+
+
+\item[Godement's ``five'' rules~\cite{Herrlich73}:]
+%\footnotetext{H. Herrlich and G. Strecker, Category Theory, Allyn and
+%Bacon Inc, 1973}
+
+$$
+\begindc{\commdiag}[70]
+\obj(12,10)[A]{$\mathcal{A}$}
+\obj(19,10)[B]{$\mathcal{B}$}
+\obj(26,10)[C]{$\mathcal{C}$}
+\obj(34,10)[D]{$\mathcal{D}$}
+\obj(41,10)[E]{$\mathcal{E}$}
+\obj(48,10)[F]{$\mathcal{F}$}
+\mor(12,10)(19,10){$L$}
+\mor(19,10)(26,10){$K$}
+\mor(26,10)(34,10){$V\qquad\ $}
+\mor(26,12)(34,12){$U$}
+\mor(26,12)(34,12){$\downarrow\xi$}[\atright,\solidarrow]
+\mor(26,8)(34,8){$\downarrow\eta$}
+\mor(26,8)(34,8){$W$}[\atright,\solidarrow]
+\mor(34,11)(41,11){$F$}
+\mor(34,9)(41,9){$\downarrow\mu$}
+\mor(34,9)(41,9){$H$}[\atright,\solidarrow]
+\mor(41,10)(48,10){$G$}
+\enddc
+$$
+\end{description}
+
+\subsection{The others \dots}
+
+It was already stated that some kinds of arrows are not supported in
+DCpic, e.g., $\Rightarrow$, but we can put a \PiCTeX\ command inside a DCpic
+diagram, so we can produce a diagram like the one that we will show
+now. Its complete specification within DCpic is not possible, at least
+for the moment.
+
+\begin{description}
+\item[Lax coproduct~\cite{Abramsky92}]
+
+$$
+\begindc{\commdiag}[30]
+\obj(10,50){$A$}
+\obj(50,50){$A\oplus B$}
+\obj(90,50){$B$}
+\obj(50,10){$C$}
+\obj(50,37){$[\sigma,\tau]$}
+\mor(10,50)(50,10){$f$}[\atright,\solidarrow]
+\mor(10,50)(50,50)[100,160]{$inl$}
+\mor(90,50)(50,50)[100,160]{$inr$}[\atright,\solidarrow]
+\mor(90,50)(50,10){$g$}
+\cmor((480,460)(440,300)(480,140)) \pdown(40,40){}[\solidline]
+\cmor((520,460)(560,300)(520,140)) \pdown(60,42){$[f,g]$}[\solidline]
+\arrow <6pt> [.2,.4] from 143 44 to 144 42
+\arrow <6pt> [.2,.4] from 157 44 to 156 42
+\setlinear
+% primeira implica{\c c}{\~a}o (simples)
+\plot 160 100 141 91 /
+\plot 160 104 140 94 /
+\arrow <8pt> [.4,.8] from 137 91 to 135 90
+% segunda implica{\c c}{\~a}o (quebrada)
+\plot 123 66 168 90 /
+\plot 122 69 168 94 /
+\plot 168 90 203 90 /
+\plot 168 94 203 94 /
+\arrow <8pt> [.4,.8] from 207 92 to 208 92
+\arrow <8pt> [.4,.8] from 120 66 to 118 65
+\obj(39,27)[inlfg]{\small $inl_{f,g}$}
+\obj(63,34)[inrfg]{\small $inr_{f,g}$}
+% terceira implica{\c c}{\~a}o (quebrada)
+\plot 132 55 136 60 /
+\plot 132 59 136 64 /
+\plot 136 60 173 60 /
+\plot 136 64 173 64 /
+\arrow <8pt> [.4,.8] from 178 62 to 179 62
+\arrow <8pt> [.4,.8] from 130 55 to 129 54
+\obj(45,17){$\sigma$}
+\obj(50,18){$\tau$}
+\enddc
+$$
+%\footnotetext{Handbook of Logic in Computer Science, Volume 1, Clarendon
+%Press, Oxford, 1992, pg. 511}
+
+\end{description}
+
+\section{DCpic compared}
+
+If one took the Feruglio article~\cite{Feruglio94} about typesetting
+commutative diagrams in (La)\TeX\ we can say that:
+
+\begin{itemize}
+\item the graphical capabilities of DCpic are among the
+  best. Excluding packages which use Postscript specials the DCpic
+  package is the best among available packages.
+\item the specification syntax is one of the simplest, the package by
+  John Reynolds has a very similar syntax.
+\end{itemize}
+
+We did not try to take any measure of computational performance. 
+
+The following diagram is one of the test-diagrams used by Feruglio, as
+we can see DCpic performs very well, drawing the complete diagram
+based on a very simple specification.
+
+\newcommand{\barraA}{\vrule height2em width0em depth0em}
+\newcommand{\barraB}{\vrule height1.6em width0em depth0em}
+
+\centerline{
+\begindc{\commdiag}[350]
+\obj(1,1){$G$}
+\obj(3,1){$G_{r^*}$}
+\obj(5,1){$H$}
+\obj(2,2){$\Sigma^G$}
+\obj(6,2){$\Sigma^H$}
+\obj(1,3){$L_m$}
+\obj(3,3){$K_{r,m}$}
+\obj(5,3){$R_{m^*}$}
+\obj(1,5){$L$}
+\obj(3,5){$L_r$}
+\obj(5,5){$R$}
+\obj(2,6){$\Sigma^L$}
+\obj(6,6){$\Sigma^R$}
+\mor(1,1)(2,2){$\lambda^G$}
+\mor(3,1)(1,1){$i_5$}[\atleft,\aplicationarrow]
+\mor(3,1)(5,1){$r^*$}[\atright,\solidarrow]
+\mor(5,1)(6,2){$\lambda^H$}[\atright,\dashArrow]
+\mor(2,2)(6,2){$\varphi^{r^*}$}[\atright,\solidarrow]
+\mor(1,3)(1,1){$m$}[\atright,\solidarrow]
+\mor(1,3)(1,5){$i_2$}[\atleft,\aplicationarrow]
+\mor(3,3)(1,3)[140,100]{$i_3\quad$}[\atright,\aplicationarrow]
+\mor(3,3)(5,3)[140,100]{$r$}
+\mor(3,3)(3,5){$i_4$}[\atright,\aplicationarrow]
+\mor(3,3)(3,1){$\stackrel{\displaystyle m}{\barraB}$}
+\mor(5,3)(5,5){$i_6$}[\atright,\aplicationarrow]
+\mor(5,3)(5,1){$\stackrel{\displaystyle m^*}{\barraA}$}
+\mor(1,5)(2,6){$\lambda^L$}
+\mor(3,5)(1,5){$i_1\quad$}[\atright,\aplicationarrow]
+\mor(3,5)(5,5){$r$}
+\mor(5,5)(6,6){$\lambda^R$}[\atright,\solidarrow]
+\mor(2,6)(2,2){$\varphi^m$}[\atright,\solidarrow]
+\mor(2,6)(6,6){$\varphi^r$}
+\mor(6,6)(6,2){$\varphi^{m^*}$}
+\enddc
+}
+
+
+\section{Conclusions}
+
+We think that DCpic performs well in the ``commutative diagrams
+arena'', it is easy to use, with its commands we can produce
+the most usual types of commutative diagrams, and if we accept the use
+of \PiCTeX\ commands, we are capable of producing any kind of
+diagram. It is also a (La)\TeX -only package, that is, the file
+produced by DCpic does not  contain any Postscript special, neither
+any special font, which in terms of portability is an advantage. 
+
+The author and his colleagues in the Mathematics Department of Coimbra
+University have been using the (now) old version (2.1) of DCpic for
+some time with much success, some of the missing capabilities of the
+older version were incorporated in the new version (3.1), and the
+missing capabilities of the new version will be taken care in future
+versions. 
+
+%\bibliographystyle{plain}
+
+%\bibliography{pedro}
+
+\newcommand{\noopsort}[1]{} \newcommand{\singleletter}[1]{#1}
+\begin{thebibliography}{10}
+
+\bibitem{Abramsky92}
+S.~Abramsky, Dov Gabbay, and T.~Maibaum, editors.
+\newblock {\em Handbook of Logic in Computer Science}, volume~1 of {\em Oxford
+  Science Publications}.
+\newblock Claredon Press, Oxford, 1992.
+
+\bibitem{Diaconescu98}
+R{\~a}zvan Diaconescu and Kokichi Futatsugi.
+\newblock {\em CafeOBJ Report: The Language, Proof Techniques, and
+  Methodologies for Object-Oriented Algebraic Specification}, volume~6 of {\em
+  AMAST series in Computing}.
+\newblock World Scientific, 1998.
+
+\bibitem{Feruglio94}
+{Gabriel Valiente} Feruglio.
+\newblock Typesetting commutative diagrams.
+\newblock {\em TUGboat}, 15(4):466--484, 1994.
+
+\bibitem{Herrlich73}
+Horst Herrlich and George Strecker.
+\newblock {\em Category Theory}.
+\newblock Allyn and Bacon Inc., 1973.
+
+\bibitem{Knuth86}
+Donald~E. Knuth.
+\newblock {\em The TeXbook}.
+\newblock Addison-Wesley Publishing Company, Reading,Massachusetts, 1986.
+
+\bibitem{Lamport94}
+Leslie Lamport.
+\newblock {\em {\LaTeX}: A Document Preparation System}.
+\newblock Addison-Wesley Publishing Company, Reading, Massachusetts, 2nd
+  edition, 1994.
+
+\bibitem{MacLane71}
+S.~MacLane.
+\newblock {\em Categories for the Working Mathematician}.
+\newblock Springer-Verlag, New York, 1971.
+
+\bibitem{Otten99}
+Ton Otten and Hans Hagen.
+\newblock {\em Con\TeX t an excursion}.
+\newblock Pragma ADE, Hasselt, 1999.
+
+\bibitem{Pierce98}
+Benjamin Pierce.
+\newblock {\em Basic Category Theory for Computer Scientists}.
+\newblock Foundations of Computing. The MIT Press, London, England, 1998.
+
+\bibitem{Reynolds87}
+John Reynolds.
+\newblock {\em User's Manual for Diagram Macros}.
+\newblock http://www.cs.cmu.edu/{\~{}}jcr/, 1987.
+\newblock {\tt diagmac.doc}.
+
+\bibitem{Thanh99}
+{H\`{a}n Th{$\acute{\hat{\mathrm e}}$}} Th\`{a}nh, Sebastian Rahtz, and Hans
+  Hagen.
+\newblock {\em The pdfTeX manual}, 1999.
+
+\bibitem{Wichura87}
+Michael Wichura.
+\newblock {\em The {\PiCTeX} Manual}.
+\newblock M. Pfeffer \& Co., New York, 1987.
+
+\end{thebibliography}
+
+\section{Appendix: The DCpic Specifications}
+
+\begin{description}
+
+\item[Push-out:] {\ }
+
+{\footnotesize
+\begin{verbatim}
+  \begindc{\commdiag}[260]
+  \obj(1,1){$Z$} 
+  \obj(1,3){$X$}
+  \obj(3,1){$Y$}
+  \obj(3,3){$P$}
+  \obj(5,5){$P^\prime$}
+  \mor(1,1)(1,3){$f$}
+  \mor(1,1)(3,1){$g$}[\atright,\solidarrow]
+  \mor(1,3)(3,3){$r$}[\atright,\solidarrow]
+  \mor(3,1)(3,3){$s$}
+  \mor(1,3)(5,5){$r^\prime$}
+  \mor(3,1)(5,5){$s^\prime$}[\atright,\solidarrow]
+  \mor(3,3)(5,5){$h$}[\atright,\dashArrow]
+  \enddc
+\end{verbatim}
+}
+
+
+\item[Exponentials:] {\ }
+
+{\footnotesize
+\begin{verbatim}
+\begindc{\commdiag}[300]
+\obj(1,3){$Z^Y\times Y$}
+\obj(3,3){$Z$}
+\obj(3,1){$X\times{}Y$}
+\obj(4,1){$X$}
+\obj(4,3){$Z^Y$}
+\mor(1,3)(3,3)[20,10]{$ev$}
+\mor(3,1)(1,3){$f\times{}\mathrm{id}$}
+\mor(3,1)(3,3){$\overline{f}$}[\atright,\dashArrow]
+\mor(4,1)(4,3){$f$}[\atright,\solidarrow]
+\enddc
+\end{verbatim}
+}
+
+\item[Function Restriction:] {\ }
+
+{\footnotesize
+\begin{verbatim}
+\begindc{\commdiag}[280]
+\obj(1,1){$X$}
+\obj(1,3){$X^\prime$}
+\obj(3,1){$Y$}
+\obj(3,3){$Y^\prime$}
+\mor(1,1)(3,1){$f$}
+\mor(1,3)(1,1){}[\atright,\injectionarrow]
+\mor(3,3)(3,1){}[\atright,\injectionarrow]
+\mor(1,3)(3,3){$g=f|^{Y^\prime}_{X^\prime}$}
+\enddc
+\end{verbatim}
+}
+
+\item[{\em CafeOBJ\/} Cube:] {\ }
+
+{\footnotesize
+\begin{verbatim}
+\begindc{\commdiag}[170]
+\obj(1,1){MSA}
+\obj(5,1){RWL}
+\obj(3,3){OSA}
+\obj(7,3){OSRWL}
+\obj(1,4){HSA}
+\obj(5,4){HSRWL}
+\obj(3,6){HOSA}
+\obj(7,6){HOSRWL}
+\mor(1,1)(5,1)[15,15]{}
+\mor(1,1)(1,4){} 
+\mor(1,1)(3,3){} 
+\mor(5,1)(5,4){} 
+\mor(5,1)(7,3){} 
+\mor(3,3)(3,6){} 
+\mor(3,3)(7,3)[15,22]{}
+\mor(7,3)(7,6){} 
+\mor(1,4)(5,4)[15,22]{}
+\mor(1,4)(3,6){} 
+\mor(3,6)(7,6)[17,26]{}
+\mor(5,4)(7,6){}
+\enddc
+\end{verbatim}
+}
+
+
+\item[Equaliser:] {\ }
+
+{\footnotesize
+\begin{verbatim}
+\begindc{\commdiag}[20]
+\obj(1,1){$Z$}
+\obj(1,36){$\overline{ X}$}
+\obj(36,36){$X$}
+\obj(52,36){$Y$}
+\mor(1,1)(1,36){$\overline{ h}$}[\atleft,\dashArrow]
+\mor(1,1)(36,36){$h$}[\atright,\solidarrow]
+\mor(1,36)(36,36){$e$}
+\mor(36,37)(52,37)[8,8]{$f$}
+\mor(36,35)(52,35)[8,8]{$g$}[\atright,\solidarrow]
+\enddc
+\end{verbatim}
+}
+
+
+\item[A 3-Category:] {\ }
+
+{\footnotesize
+\begin{verbatim}
+\begindc{\commdiag}[30]
+\obj(14,11){$A$}
+\obj(39,11){$C$}
+\obj(26,35){$B$}
+\mor(14,11)(39,11){$h$}[\atright,\solidarrow]
+\mor(14,11)(26,35){$f$}
+\mor(26,35)(39,11){$g$}
+\cmor((11,10)(10,10)(9,10)(5,11)(4,15)(5,19)(9,20)(13,19)(14,15))
+ \pdown(1,20){$id_A$}
+\cmor((42,10)(43,10)(44,10)(48,11)(49,15)(48,19)(44,20)(40,19)(39,15))
+ \pdown(52,20){$id_C$}
+\cmor((26,39)(27,43)(31,44)(35,43)(36,39)(35,36)(31,35)) \pleft(40,40){$id_B$}
+\enddc
+\end{verbatim}
+}
+
+\item[Isomorfisms:] {\ }
+
+{\footnotesize
+\begin{verbatim}
+\begindc{\commdiag}[30]
+\obj(10,15){$A$}
+\obj(40,15){$A$}
+\obj(25,15){$B$}
+\mor(10,15)(25,15){$f$}
+\mor(25,15)(40,15){$g$}
+\cmor((10,11)(11,7)(15,6)(25,6)(35,6)(39,7)(40,11)) \pup(25,3){$id_A$}
+\obj(55,15){$B$}
+\obj(85,15){$B$}
+\obj(70,15){$A$}
+\mor(55,15)(70,15){$g$}
+\mor(70,15)(85,15){$f$}
+\cmor((55,11)(56,7)(60,6)(70,6)(80,6)(84,7)(85,11)) \pup(70,3){$id_B$}
+\enddc
+\end{verbatim}
+}
+
+
+
+\item[Godement's ``five'' rules:] {\ }
+
+{\footnotesize
+\begin{verbatim}
+\begindc{\commdiag}[70]
+\obj(12,10){$\mathcal{A}$}
+\obj(19,10){$\mathcal{B}$}
+\obj(26,10){$\mathcal{C}$}
+\obj(34,10){$\mathcal{D}$}
+\obj(41,10){$\mathcal{E}$}
+\obj(48,10){$\mathcal{F}$}
+\mor(12,10)(19,10){$L$}
+\mor(19,10)(26,10){$K$}
+\mor(26,10)(34,10){$V\qquad\ $}
+\mor(26,12)(34,12){$U$}
+\mor(26,12)(34,12){$\downarrow\xi$}[\atright,\solidarrow]
+\mor(26,8)(34,8){$\downarrow\eta$}
+\mor(26,8)(34,8){$W$}[\atright,\solidarrow]
+\mor(34,11)(41,11){$F$}
+\mor(34,9)(41,9){$\downarrow\mu$}
+\mor(34,9)(41,9){$H$}[\atright,\solidarrow]
+\mor(41,10)(48,10){$G$}
+\enddc
+\end{verbatim}
+}
+
+\item[Lax coproduct:] Guess how.
+
+\item[DCpic and the others:] {\ }
+
+{\footnotesize
+\begin{verbatim}
+
+\begindc{\commdiag}[350]
+\obj(1,1){$G$}
+\obj(3,1){$G_{r^*}$}
+\obj(5,1){$H$}
+\obj(2,2){$\Sigma^G$}
+\obj(6,2){$\Sigma^H$}
+\obj(1,3){$L_m$}
+\obj(3,3){$K_{r,m}$}
+\obj(5,3){$R_{m^*}$}
+\obj(1,5){$L$}
+\obj(3,5){$L_r$}
+\obj(5,5){$R$}
+\obj(2,6){$\Sigma^L$}
+\obj(6,6){$\Sigma^R$}
+\mor(1,1)(2,2){$\lambda^G$}
+\mor(3,1)(1,1){$i_5$}[\atleft,\aplicationarrow]
+\mor(3,1)(5,1){$r^*$}[\atright,\solidarrow]
+\mor(5,1)(6,2){$\lambda^H$}[\atright,\dashArrow]
+\mor(2,2)(6,2){$\varphi^{r^*}$}[\atright,\solidarrow]
+\mor(1,3)(1,1){$m$}[\atright,\solidarrow]
+\mor(1,3)(1,5){$i_2$}[\atleft,\aplicationarrow]
+\mor(3,3)(1,3)[140,100]{$i_3\quad$}[\atright,\aplicationarrow]
+\mor(3,3)(5,3)[140,100]{$r$}
+\mor(3,3)(3,5){$i_4$}[\atright,\aplicationarrow]
+\mor(3,3)(3,1){$\stackrel{\displaystyle m}{\barraB}$}
+\mor(5,3)(5,5){$i_6$}[\atright,\aplicationarrow]
+\mor(5,3)(5,1){$\stackrel{\displaystyle m^*}{\barraA}$}
+\mor(1,5)(2,6){$\lambda^L$}
+\mor(3,5)(1,5){$i_1\quad$}[\atright,\aplicationarrow]
+\mor(3,5)(5,5){$r$}
+\mor(5,5)(6,6){$\lambda^R$}[\atright,\solidarrow]
+\mor(2,6)(2,2){$\varphi^m$}[\atright,\solidarrow]
+\mor(2,6)(6,6){$\varphi^r$}
+\mor(6,6)(6,2){$\varphi^{m^*}$}
+\enddc
+\end{verbatim}
+}
+
+\end{description}
+
+
+\end{document}
+
+
+
+%%% Local Variables: 
+%%% mode: latex
+%%% TeX-master: t
+%%% End: 

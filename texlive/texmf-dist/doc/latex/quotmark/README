@@ -1,0 +1,60 @@
+LaTeX Package : quotmark v 1.0
+
+Last Modified : 10 December 2007
+
+Author        : Nicola Talbot
+
+Files         : quotmark.dtx   - documented source file
+                quotmark.ins   - installation script
+		sample.tex     - sample file
+
+The purpose of this package is to provide consistent quotation
+marks throughout your document. To quote text use either \tqt{text}
+or \begin{qt}text\end{qt}.
+
+The style can be changed either via package options, or through the
+use of commands, so if, say, you have used single inverted commas
+throughout your document, and then your publisher tells you that you
+must use double inverted commas, this can be achieved by editing a
+single line, rather than trying to work out how to get your editor's
+search and replace function to work on closing quotes without changing
+apostrophes or acute accents.
+
+There is also an added advantage in that using the text-block
+command or the environment provided by this package will
+ensure that failing to close a quotation will result in an error.
+Paragraph breaks within a quotation are dealt with
+automatically.
+
+This package detects if babel has been loaded, and will use the
+punctuations marks for the current language.
+
+See the documentation for more details.
+
+To extract the code from the documented source file do:
+
+latex quotmark.ins
+
+This will create the file quotmark.sty and some .def files.
+
+Move quotmark.sty and the .def files to somewhere LaTeX will find it 
+(e.g. texmf/tex/latex/quotmark/) and remember to update the TeX 
+database. 
+
+To extract the documentation do:
+
+latex quotmark.dtx
+makeindex -s gind.ist quotmark
+latex quotmark.dtx
+latex quotmark.dtx
+
+Place the resulting file (quotmark.dvi) into the documentation
+directory (e.g. texmf/doc/latex/quotmark/).
+
+Read the file CHANGES for version changes.
+
+This material is subject to the LaTeX Project Public License.
+See http://www.ctan.org/tex-archive/help/Catalogue/licenses.lppl.html for
+the details of that license.
+
+http://theoval.cmp.uea.ac.uk/~nlct/

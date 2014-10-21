@@ -1,0 +1,137 @@
+
+\section{Matlab Support}
+
+
+\subsection{export2latex.m}
+The function \texttt{export2latex(data, filename, [options])} may be used to
+export data from Matlab to be used with NumericPlots.sty. The function takes the
+two parameters data and filename, where filename is the name of the file where
+the data should be stored with full path but without extension. Data is a
+structure with the three entries x, y, and ident, where x are the x-data, y the
+y-data and ident is an identifier to have access to the data in Latex. To access
+the data in Latex the command \verb+\Data<ident>+ is used.
+
+The parameter data may be provided as an 1xK array if each entry of the array is
+a structure with the entries x, y and ident. There may be an additional entry
+descr.
+\begin{itemize}
+  \item data(1,i).x = $X_i$
+  \item data(1,i).y = $Y_i$
+  \item data(1,i).ident = Identifier
+  \item (data(1,i).descr = Description)
+  \item (data(1,i).group = GroupNr)
+\end{itemize}
+Identifier must be a valid Latex command name, which basically means it must be
+a string without numbers.
+
+For every entry of data, $X$ and $Y$ must be arrays of the same size
+$M\text{x}N$. If $M>1$, each column of the array is exported to the file and the
+identifier is expanded by the roman representation of the column number.
+
+It might be useful to do a \texttt{interp1} before exporting the data to get
+smaller files and to use less of \TeX's memory. ($\rightarrow$ script
+Patrick?!?)
+
+The optional parameter \texttt{options} might be used to control which
+additional information is provided in the output file.
+\begin{itemize}
+	\item \texttt{options.DataBoundaries} [true] If set to true, the output file
+	contains the commands \verb+\DataXmin+, \verb+\DataXmax+, \verb+\DataYmin+ and
+	\verb+\DataYmax+ which may be used to define the axis.
+	\item \texttt{options.AxisBoundaries} [false] If set to true, the output file
+	contains the commands \verb+\DataXminAxis+, \verb+\DataXmaxAxis+,
+	\verb+\DataYminAxis+ and \verb+\DataYmaxAxis+ which may be used to define the
+	axis. In contrary to the DataBoundaries the AxisBoundaries add an additional
+	gap of \texttt{options.AxisBoundariesGap} [10] percent of the full scale to
+	the data boundaries such that the plot doesn't touch the axis.
+	\item \texttt{options.SuppressWarning} [false] suppresses the warning about
+	max/min values being to close together
+	\item \texttt{options.precision} [empty] how many decimal places should be
+	printed for x and y values. Will be calculated automatically if left empty.
+	\item \texttt{options.NaNsplit [false]} if true, the data will be split at NaN
+	values. See \verb+\multilistplot+ for how to plot them.
+\end{itemize}
+
+\subsection{struct2latex.m}
+The function\\
+\texttt{struct2latex(data,[xname],[downsample],[filtertype],[filename],[postfix],[options])}\\
+may be used to export a Matlab struct to be used with NumericPlots.sty. The
+function is based on export2latex and the \verb+options+ argument is given to
+export2latex. The optional argument \verb+xname+ specifies the fieldname of the
+x-data. If no \verb+xname+ is given, you have to chose one via popup. All other
+fields are treated like y-data. Furthermore, the identifier of the y-data are
+equal to the fieldnames and have to be valid Latex commands (fieldnames with
+numbers are not supported). The struct2latex command only supports 1 dimensional
+arrays (row vectors). Column vectors are mapped for propper export without
+warning. With the optional argument \verb+downsample+ (integer$>0$) it is
+possible to downsample the data for smaller files. A warning is given when data
+points exceed $5000$. Usually $1000$ data points are enough for a propper plot
+in latex. The optional argument \verb+filename+ specifies the outputname with
+path of the texfile. If no filename is given, it has to be chosen via popup. The
+optional argument \verb+postfix+ can be used to put a postfix after the
+fieldname in the identifier of the y-data. The \verb+options+ argument is also
+optional and equal to the options argument of the function export2latex.
+
+Filter may be one of \verb+{'none','MinMax','Hull'}+. The corresponding
+filter will be applied to the data before exporting it. See
+\ref{sec:FurtherExamples:NoisyData} for further details.
+
+Matlab example.
+\begin{verbatim}
+    % data for struct2latex should be row-vectors. anyway, column-vectors are
+    % mapped to row-vectors. matrices are not supported
+
+    %% export row-vectors
+    t = [1:0.1:10];
+
+    data.time = t;
+    data.sin = sin(t);
+    data.cos = cos(t);
+    data.exp = exp(t);
+    data.tan = tan(t);
+
+    %struct2latex(data,xname,downsample,filename,filtertype,postfix,options)
+    %downsample,filename,postfix,options are optional arguments
+    struct2latex(data,'time',1,'none','texdataA','row');
+\end{verbatim}
+
+\subsection{dspace2struct}
+The function \texttt{dspace2struct(dataname,version)} may be used to import
+\texttt{.mat} created by \textsc{dSpace} to \textsc{Matlab}. It returns a
+\textsc{Matlab} struct out of the provided variables \verb+dataname+ and
+\verb+version+. Thereby \verb+dataname+ is the name of the \textsc{dSpace}
+\verb+.mat+ file and the optional string argument \verb+version+ has to be equal
+\verb+version = 'NG'+ if \textsc{dSpace Control Desk Next Generation} is used.
+It is convenient to chose a unique signal name in \textsc{Matlab/Simulink}
+because they will be the same in \textsc{dSpace}. The function
+\texttt{dspace2struct(dataname,version)} just adopts the names provided by
+\textsc{dSpace} and use them as fieldnames. The time vector will always be
+called \verb+.time+.
+
+Matlab example:
+\begin{verbatim}
+  % Old Control Desk:
+  dataOG = dspace2struct(measurements)
+  % Control Desk Next Generation:
+  dataNG = dspace2struct(measurements,'NG')
+\end{verbatim}
+
+The resulting structs \verb+dataOG+ and \verb+dataNG+ differ in way of
+structuring. In the older versions of \textsc{dSpace} it was only possible to
+save one time vector. The \textsc{dSpace Control Desk Next Generation} allows to
+save several time vectors. So it was necessary to save the index of the time
+vector with the signal name. Typical plot commands for the two data structures
+look as follows:
+\begin{verbatim}
+	%Old Control Desk
+	plot(dataOG.time,dataOG.signalname);
+	
+	%Control Desk Next Generation
+	plot(dataNG.time(dataNG.signalname.timeidx),dataNG.signalname.Data);
+\end{verbatim} 
+\subsection{dspace2latex}
+The function \texttt{dspace2latex} is just a combination of
+\texttt{dspace2struct} and \texttt{struct2latex} with commonly used arguments.
+It is a simple and quick way to export measurements from \textsc{dSpace} to
+\LaTeX{} without any revision of the data. However, the current implementation
+allows only data structures of the old version of \textsc{dSpace Control Desk}.

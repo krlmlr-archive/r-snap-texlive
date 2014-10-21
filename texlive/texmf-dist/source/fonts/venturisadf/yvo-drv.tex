@@ -1,0 +1,76 @@
+%% public version
+%% Copyright 2010 Clea F. Rees
+%
+% This work may be distributed and/or modified under the
+% conditions of the LaTeX Project Public License, either version 1.3
+% of this license or (at your option) any later version.
+% The latest version of this license is in
+%   http://www.latex-project.org/lppl.txt
+% and version 1.3 or later is part of all distributions of LaTeX
+% version 2005/12/01 or later.
+%
+% This work has the LPPL maintenance status `maintained'.
+% 
+% The Current Maintainer of this work is Clea F. Rees.
+%
+% This work consists of all files listed in manifest.txt.
+\input fontinst.sty
+\needsfontinstversion{1.926}
+%:substitutions
+%bold for bold extended
+\substitutesilent{b}{db}
+\substitutesilent{bx}{b}
+\substitutesilent{m}{bx}
+\substitutesilent{sl}{it}
+\substitutesilent{si}{sc}
+\substitutenoisy{sc}{n}
+%:record transformations for later map file creation
+\recordtransforms{yvo-rec.tex}
+%:transformations - reencode
+	\transformfont{t1-yvor}{\reencodefont{t1-venturisold-longs}{\fromafm{yvor8a}}}
+	\transformfont{t1-yvori}{\reencodefont{t1-venturisold-longs}{\fromafm{yvori8a}}}
+	\transformfont{t1-yvob}{\reencodefont{t1-venturisold-longs}{\fromafm{yvob8a}}}
+	\transformfont{t1-yvobi}{\reencodefont{t1-venturisold-longs}{\fromafm{yvobi8a}}}
+	\transformfont{t1-yvodd}{\reencodefont{t1-f_f}{\fromafm{yvodd8a}}}
+	\transformfont{ts1-yvor}{\reencodefont{ts1-euro}{\fromafm{yvor8a}}}
+	\transformfont{ts1-yvori}{\reencodefont{ts1-euro}{\fromafm{yvori8a}}}
+	\transformfont{ts1-yvob}{\reencodefont{ts1-euro}{\fromafm{yvob8a}}}
+	\transformfont{ts1-yvobi}{\reencodefont{ts1-euro}{\fromafm{yvobi8a}}}
+	\transformfont{ts1-yvodd}{\reencodefont{ts1-euro}{\fromafm{yvodd8a}}}
+%:installation - creation of virtual fonts
+	\installfonts
+		\installfamily{T1}{yvo}{}
+		\installfont{yvor8t}{t1-yvor,newlatin}{t1-venturisold}{T1}{yvo}{m}{n}{}
+		\installfont{yvori8t}{t1-yvori,newlatin}{t1-venturisold}{T1}{yvo}{m}{it}{}
+		\installfont{yvob8t}{t1-yvob,newlatin}{t1-venturisold}{T1}{yvo}{b}{n}{}
+		\installfont{yvobi8t}{t1-yvobi,newlatin}{t1-venturisold}{T1}{yvo}{b}{it}{}
+		\installfamily{T1}{yvoa}{}
+		\installfont{yvoar8t}{t1-yvor,newlatin}{t1-venturisold-longs}{T1}{yvoa}{m}{n}{}
+		\installfont{yvoari8t}{t1-yvori,newlatin}{t1-venturisold-longs}{T1}{yvoa}{m}{it}{}
+		\installfont{yvoab8t}{t1-yvob,newlatin}{t1-venturisold-longs}{T1}{yvoa}{b}{n}{}
+		\installfont{yvoabi8t}{t1-yvobi,newlatin}{t1-venturisold-longs}{T1}{yvoa}{b}{it}{}
+		\installfamily{TS1}{yvo}{}
+		\installfont{yvor8c}{t1-yvor,ts1-yvor,t1-yvor suffix oldstyle,textcomp}{ts1-euro}{TS1}{yvo}{m}{n}{}
+		\installfont{yvori8c}{t1-yvori,ts1-yvori,t1-yvori suffix oldstyle,textcomp}{ts1-euro}{TS1}{yvo}{m}{it}{}
+		\installfont{yvob8c}{t1-yvob,ts1-yvob,t1-yvob suffix oldstyle,textcomp}{ts1-euro}{TS1}{yvo}{b}{n}{}
+		\installfont{yvobi8c}{t1-yvobi,ts1-yvobi,t1-yvobi suffix oldstyle,textcomp}{ts1-euro}{TS1}{yvo}{b}{it}{}
+		\installfamily{TS1}{yvoa}{}
+		\installfontas{yvor8c}{TS1}{yvoa}{m}{n}{}
+		\installfontas{yvori8c}{TS1}{yvoa}{m}{it}{}
+		\installfontas{yvob8c}{TS1}{yvoa}{b}{n}{}
+		\installfontas{yvobi8c}{TS1}{yvoa}{b}{it}{}
+		\installfamily{T1}{yvod}{}
+		\installfont{yvodd8t}{t1-yvodd,newlatin}{t1-f_f}{T1}{yvod}{db}{sc}{}
+		\installfontas{yvodd8t}{T1}{yvod}{db}{n}{}
+		\installfamily{T1}{yvoad}{}
+		\installfontas{yvodd8t}{T1}{yvoad}{db}{sc}{}
+		\installfontas{yvodd8t}{T1}{yvoad}{db}{n}{}
+		\installfamily{TS1}{yvod}{}
+		\installfont{yvodd8c}{t1-yvodd,ts1-yvodd,textcomp}{ts1-euro}{TS1}{yvod}{db}{sc}{}
+		\installfontas{yvodd8c}{TS1}{yvod}{db}{n}{}
+		\installfamily{TS1}{yvoad}{}
+		\installfontas{yvodd8c}{TS1}{yvoad}{db}{sc}{}
+		\installfontas{yvodd8c}{TS1}{yvoad}{db}{n}{}
+	\endinstallfonts
+\endrecordtransforms
+\bye

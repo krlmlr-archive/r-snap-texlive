@@ -1,0 +1,514 @@
+% knitkey.tex
+%
+% This file includes suggested meanings for the symbols in
+% the knitting package.
+%
+% author: Ariel Barton
+%
+% Copyright Ariel Barton, 2010
+%
+% The contents of the files knitkey.tex and knitexamples.tex
+% may be copied and/or modified in other files without
+% restriction or need for acknowledgement. 
+%
+% The work as a whole may be distributed and/or modified under the
+% conditions of the LaTeX Project Public License, either
+% version 1.3 of this license or (at your option) any
+% later version.
+% The latest version of the license is in
+%    http://www.latex-project.org/lppl.txt
+% and version 1.3 or later is part of all distributions of
+% LaTeX version 2003/06/01 or later.
+%
+% This work has the LPPL maintenance status "author-maintained".
+%
+% The complete list of files considered part of this work is in
+% the file `knitting-doc.pdf' and its source code `knitting-doc.tex'.
+%
+% Date: 2010/08/29
+%
+% Version: 2
+
+\documentclass{article}
+\usepackage{knitting}
+\usepackage[colorlinks]{hyperref}
+
+% Choose your chart symbol font
+\knitnogrid
+\knitwide
+\knitgrid
+
+% \ifdesigner lets me easily hide all my comments to the designer and 
+% just write a stitch key.
+\newif \ifdesigner 
+\designertrue
+% \designerfalse
+
+% The commands to draw chart rows
+% (I'm just not happy with {tabular})
+
+\newlength{\symbolcolwidth}
+\newlength{\singlecolwidth}
+\newlength{\doublecolwidth}
+\newcommand{\setcolwidths}[1]{
+	\setlength{\symbolcolwidth}{#1}
+	\addtolength{\symbolcolwidth}{1pt}
+	\setlength{\doublecolwidth}{\textwidth}
+	\addtolength{\doublecolwidth}{-4\tabcolsep}
+	\addtolength{\doublecolwidth}{-1.2pt} % Width of 3 rules
+	\addtolength{\doublecolwidth}{-\symbolcolwidth}
+	\setlength{\singlecolwidth}{0.5\doublecolwidth}
+	\addtolength{\singlecolwidth}{-1\tabcolsep}
+	\addtolength{\singlecolwidth}{-0.2pt} % Half the width of a rule
+	}
+
+\newcommand\keyrow[3]{\par\allowbreak\hrule\par\nopagebreak\noindent
+	\vrule\hfill 
+	% \vrule produces rules that are the height of the tallest thing on 
+	% the line
+	\begin{minipage}{\symbolcolwidth}\centering#1\end{minipage}%
+	\hfill\vrule\hfill
+	\begin{minipage}{\singlecolwidth}
+		\raisebox{1pt}{\strut}#2\raisebox{-1pt}{\strut}\end{minipage}%
+	\hfill\vrule\hfill
+	\begin{minipage}{\singlecolwidth}
+		\raisebox{1pt}{\strut}#3\raisebox{-1pt}{\strut}\end{minipage}%
+	\hfill\vrule
+	\par\nointerlineskip}
+	
+\newcommand\dblkeyrow[2]{\par\allowbreak\hrule\par\nopagebreak\noindent
+	\vrule\hfill
+	\begin{minipage}{\symbolcolwidth}\centering#1\end{minipage}%
+	\hfill\vrule\hfill
+	\begin{minipage}{\doublecolwidth}
+		\raisebox{1pt}{\strut}#2\raisebox{-1pt}{\strut}\end{minipage}%
+	\hfill\vrule
+	\par\nointerlineskip}
+
+\begin{document}
+
+\begin{fullpages}
+
+\ifdesigner
+Any knitting chart should have a key. This file provides a key of
+suggested definitions for most of the symbols. If you find it
+convenient, you have permission to simply copy and paste the relevant
+sections of this file to your pattern. No acknowledgement is required.
+
+The following symbols are meant to be used for increases, decreases,
+and special instructions; their
+exact definition should vary from pattern to pattern.
+
+\begin{quote}
+\textknit{H}
+\textknit{v}
+\textknit{V}
+\textknit{6}
+\textknit{7}
+\textknit{8}
+\textknit{9}
+\textknit{\narrowincrease{3}}
+\textknit{\pnarrowincrease{3}}
+\textknit{\wideincrease{3}}
+\quad
+\textknit{!}
+\textknit{2}
+\textknit{\narrowdecrease{3}}
+\textknit{\pnarrowdecrease{3}}
+\textknit{\widedecrease{3}}
+\quad
+\textknit{*}
+\textknit{\knitbox{etc.}{2}}
+\end{quote}
+
+\definecolor{darkgrey}{gray}{0.3}
+
+The Craft Yarn Council of America suggests a \href{http://www.craftyarncouncil.com/chart_knit.html}{slightly different set of symbols}. In particular, they want to use
+\begin{itemize}
+\item \textknit{)} and \textknit{(} for single decreases (where I have \textknit{>} and \textknit{<})
+\item \textknit{v} and \textknit{6} for slipped stitches (where I have \textknit{s} and \textknit{\purlbackground{s}})
+\item Solid black dots \textknit{\knitbox{{$\bullet$}}{1}} for bobbles
+\item Solid dark squares \textknit{{\purlpass{\color{darkgrey}}\mainpass[=]{``}}} for no-stitch boxes
+\item 
+\textknit{\rlap{\raisebox{-1pt}{\hskip1.3pt \footnotesize\textnormal{\textsf{3}}}}%
+\mainpass[(]{\hskip1pt\rule[-\stitchdp]{0pt}{\stitchht}\raisebox{1pt}[0pt][0pt]{(}\hskip-1pt}}
+and \textknit{\mainpass[)]{\hskip-1pt\rule[-\stitchdp]{0pt}{\stitchht}\raisebox{1pt}[0pt][0pt]{)}\hskip1pt}%
+\llap{\raisebox{-1pt}{\footnotesize\textnormal{\textsf{3}}\hskip1.3pt}}}
+for double decreases (and 
+\textknit{\rlap{\raisebox{-1pt}{\hskip1.3pt \footnotesize\textnormal{\textsf{4}}}}%
+\mainpass[(]{\hskip1pt\rule[-\stitchdp]{0pt}{\stitchht}\raisebox{1pt}[0pt][0pt]{(}\hskip-1pt}}
+and \textknit{\mainpass[)]{\hskip-1pt\rule[-\stitchdp]{0pt}{\stitchht}\raisebox{1pt}[0pt][0pt]{)}\hskip1pt}%
+\llap{\raisebox{-1pt}{\footnotesize\textnormal{\textsf{4}}\hskip1.3pt}}}
+for triple decreases)
+\item \textknit{7}, \textknit{8}, and \textknit{9} instead of \textknit{y}, \textknit{u}, and \textknit{z}.
+\end{itemize}
+\textknit{{\purlpass{\color{darkgrey}}\mainpass[=]{``}}} 
+is harder to get out of \TeX\ than the grid symbol {\knitgrid\textknit{,}} and is less clear than the nongrid symbol {\knitnogrid\textknit{,}}. The rest of my symbols are different because I think they are clearer, prettier, or allow for more different stitches to be indicated. (\textknit{v} looks like an increase to me, and the CYCA doesn't distinguish between \textknit{l} and \textknit{L}). \fi
+
+\section{General symbols}
+
+\ifdesigner
+If you do not use twisted make-1 increases (or if you use \textknit{m}
+for them) you may wish to substitute \textknit{t} for \textknit{b}.
+If you do use \textknit{t} or \textknit{x}, and you don't care about the
+distinction between \textknit{b} and \textknit{q}, you may wish to
+substitute \textknit{\knitbox{B}{1}} for \textknit{b}.
+
+\textknit{(} and \textknit{)} are meant to indicate biased stitches, that is, stitches worked between increases and decreases. These are needed in charts for machine knitting; they also can make the chart easier to visualize.
+
+\medskip
+
+\fi
+
+\settowidth{\dimen0}{\textknit{s} or \textknit{S}}
+\setcolwidths{\dimen0} % The argument is the width of the widest thing in the left column
+
+\keyrow{Symbol}{Right side instructions}{Wrong side instructions}
+\keyrow{\textknit{-}}{Knit}{Purl}
+\keyrow{\textknit{=}}{Purl}{Knit}
+\dblkeyrow{\textknit{\knitbox{12}{3}}}{Knit (RS) or purl (WS) the number of stitches listed in the center of the box.}
+\dblkeyrow{\textknit{\purlbox{12}{3}}}{Purl (RS) or knit (WS) the number of stitches listed in the center of the box.}
+\keyrow{\textknit{)} or \textknit{(}}{Knit}{Purl}
+\keyrow{\textknit{b}}{Knit through back loop}{Purl through back loop}
+\keyrow{\textknit{B}}{Purl through back loop}{Knit through back loop}
+\dblkeyrow{\textknit{q}}{Slip 1 as if to knit, return to right needle, and knit (RS) or purl (WS) through front loop. This twists the stitch, but in the opposite direction from \textknit{b}.}
+\dblkeyrow{\textknit{Q}}{As for \textknit{q}, but this time purl on WS and knit on RS.}
+\keyrow{\textknit{\bobble{3}}}
+{(Knit 1, yarn over, knit 1) in next stitch, turn, purl 3, turn, slip 1 knitwise, knit 2 together, pass slipped stitch over}
+{(Purl 1, yarn over, purl 1) in next stitch, turn, knit 3, turn, purl 3 together or slip 1 purlwise, ssp tbl, pass slipped stitch over}
+
+\ifdesigner\hrule\medskip
+If you use bobbles, be sure to define ssp tbl somewhere.
+\clearpage\fi
+
+\keyrow{\textknit{\bobble{5}}}
+{(Knit 1, yarn over, knit 1, yarn over, knit 1) in next stitch. Turn, purl 5, turn, knit 5, turn, purl 5, turn. Quadruple decrease: slip 2 as if to knit, knit 3 together, pass slipped sts over}
+{(Purl 1, yarn over, purl 1, yarn over, purl 1) in next stitch. Turn, knit 5, turn, purl 5, turn, knit 5, turn. Quadruple decrease: purl 5 together or slip 2 as if to purl, sssp tbl, pass 2 slipped sts over}
+\dblkeyrow{\textknit{s} or \textknit{S}}{Slip one as if to purl with yarn held to the wrong side.}
+\dblkeyrow{\textknit{\purlbackground{s}} or \textknit{\purlbackground{S}}}
+{Slip one as if to purl with yarn held to the right side.}
+\dblkeyrow{\textknit{[} or \textknit{]}}{Slip one as if to knit with yarn held to the wrong side.}
+\dblkeyrow{\textknit{\purlbackground{[}} or \textknit{\purlbackground{]}}}{Slip one as if to knit with yarn held to the right side.}
+\dblkeyrow{\textknit{"} or \textknit{""}}{Wrap and turn: Move yarn between needles to right side of work, slip 1 stitch as if to purl, move yarn to wrong side of work (wrapping it around the slipped stitch), slip stitch back to the left needle, and turn work.}
+\ifgrid\dblkeyrow{\textknit{,} or \textknit{.}}{No stitch; ignore these squares} \fi
+\dblkeyrow{\textknit{@}}{Beaded stitch}
+\dblkeyrow{\textknit{h}}{Drop stitch from needle}
+\keyrow{\textknit{\gridpass[``*``]{\knitbox{}{3}}}}{Purl 3 together but do not remove from left needle. Knit same 3 stitches together. Then purl same 3 stitches together and remove from left needle.}{Knit 3 together but do not remove from left needle. Purl same 3 stitches together. Then knit same 3 stitches together and remove from left needle.}
+\hrule
+
+\clearpage
+
+\setcolwidths{3\stitchwd}
+\keyrow{\textknit{111}}{Slip 1 as if to knit, knit 2, pass slipped stitch over both knitted stitches}{Slip 1 as if to purl, purl 2, pass slipped stitch over both purled stitches}
+\dblkeyrow{\textknit{???}}{Wrapped stitches: Knit 3 (RS) or purl 3 (WS) and then slide these three stitches to a cable needle. Move yarn to the right side and wrap yarn from left to right across these three stitches, then move yarn to wrong side and wrap yarn from right to left across these three stitches. You have just wrapped the yarn all the way around these three stitches once. Wrap yarn in this direction 2 more times, then slip stitches from cable needle to right needle and continue knitting.}
+\keyrow{\textknit{+++}}
+{Horizontal cable (worked throughout with yarn held to back):
+\par\emph{First stitch}: Slip 1 as to knit. Insert left needle through  last 2 stitches on right needle from right to left and remove right needle. Slip 1 as if to purl.
+\par\emph{Subsequent stitches}: Knit 1, then work as for the first stitch.}
+{Horizontal cable (worked throughout with yarn held to front):
+\par\emph{First stitch}: Slip 1 from right needle to left needle. Slip 2 as if to knit 2 together. Slip 1 from right needle back to left needle.
+\par\emph{Subsequent stitches}: Purl 1, then work as for the first stitch.}
+\keyrow{\textknit{/}}
+{Special horizontal cable (worked in the middle of a horizontal cable): Slip 2 as to k2tog, then slip 1 stitch from right needle back to left needle.}
+{Slip 2 as to SSK. Insert left needle through these two stitches from right to left and remove right needle. Slip 1 as if to purl.}
+\hrule
+
+\medskip
+
+\ifdesigner
+
+A horizontal cable should (usually) be preceded by a yarn over and followed by a decrease. You may wish to write the yarn over or decrease as part of the instructions for a horizontal cable:
+
+\medskip
+
+\setcolwidths{\stitchwd}
+{\knitgrid
+
+\keyrow{\textknit{\char21}}
+{Yarn over. Slip 1 as to knit. Insert left needle through  last 2 stitches on right needle from right to left and remove right needle. Slip 1 as if to purl.}{Purl 2 together}
+\keyrow{\textknit{\char20}}
+{Knit 1. Slip 1 as to knit. Insert left needle through  last 2 stitches on right needle from right to left and remove right needle. Slip 1 as if to purl.}
+{Purl 1. Slip 1 from right needle to left needle. Slip 2 as if to knit 2 together. Slip 1 from right needle back to left needle.}
+\keyrow{\textknit{+}}{SSK or SKP}{Yarn over. Slip 1 from right needle to left needle. Slip 2 as if to knit 2 together. Slip 1 from right needle back to left needle.}
+}
+\hrule
+
+\fi
+
+\clearpage
+
+\section{Increases}
+
+\ifdesigner Some charts work better if a double increase \textknit{W} takes up three squares instead of one. In the grid font, the best-looking way to do this is to use \verb|\mainpass|: {\verb|\mainpass[\purlbox{}{3}]{``W``}| \knitgrid \textknit{\mainpass[\purlbox{}{3}]{``W``}}}.
+
+\medskip
+
+\fi
+
+\setcolwidths{\stitchwd}
+\dblkeyrow{\textknit{O}}{Yarn over}
+\dblkeyrow{\textknit{U}}{Cast on}
+\dblkeyrow{\textknit{t}}{Pick up the yarn between the stitch just worked and the next stitch by inserting the right-hand needle from back to front. Slip this lifted stitch to left needle, purlwise. Knit (RS) or purl (WS) through the back loop. This produces a twisted make-1 increase slanting to the left.}
+\dblkeyrow{\textknit{T}}{As for \textknit{t}, but this time purl on WS and knit on RS.}
+\dblkeyrow{\textknit{x}}{Pick up the yarn between the stitch just worked and the next stitch by inserting the right-hand needle from front to back. Slip this lifted stitch to left needle, purlwise. Knit (RS) or purl (WS) through the front loop. This produces a twisted make-1 increase slanting to the right.}
+\dblkeyrow{\textknit{X}}{As for \textknit{x}, but this time purl on WS and knit on RS.}
+\dblkeyrow{\textknit{m}}{Twisted make-1: pick up the yarn between the stitch just worked and the next stitch, twist and knit it (RS) or twist and purl it (WS).}
+\dblkeyrow{\textknit{M}}{Twisted purlwise make-1: pick up the yarn between the stitch just worked and the next stitch, twist and purl it (RS) or twist and knit it (WS).}
+\keyrow{\textknit{i}}{Pick up the stitch just below the next one to be worked, and knit it.}{Pick up the stitch just below the last stitch that was worked, and purl it.}
+\keyrow{\textknit{I}}{Pick up the stitch just below the next one to be worked, and purl it.}{Pick up the stitch just below the last stitch that was worked, and knit it.}
+\keyrow{\textknit{j}}{Pick up the stitch just below the last stitch that was worked, and knit it.}{Pick up the stitch just below the next one to be worked, and purl it.}
+\keyrow{\textknit{J}}{Pick up the stitch just below the last stitch that was worked, and purl it.}{Pick up the stitch just below the next one to be worked, and knit it.}
+\keyrow{\textknit{y}}{Knit through front loop and then the back loop of the next stitch. Or, to better match with \textknit{u}: Slip 1 as if to knit and return to left needle, then knit 1 through back loop and then 1 through front loop of the slipped stitch.}{Slip 1 as if to knit and return to left needle, then purl through \textbf{front loop} (twisting the stitch) but do not remove the left needle. Pick up the front strand of the stitch with left needle, and purl it without twisting.}
+\keyrow{\textknit{u}}{Mirror image of \textknit{y}: Knit 1 through back loop but do not remove left needle. Pick up the back loop of the stitch just worked and knit it without twisting.}{Purl through front loop and then the back loop of the next stitch.}
+\dblkeyrow{\textknit{v\llap{`'}}}{Purl 1, then knit 1 both in the same stitch}
+\dblkeyrow{\textknit{v\llap{'`}}}{Knit 1, then purl 1 both in the same stitch}
+\dblkeyrow{\textknit{z}}{Insert needle as if to knit (RS) or purl (WS). Wrap the yarn around the needle twice, and pull this doubled strand of yarn through as if it were a normal stitch.}
+\dblkeyrow{\textknit{Z}}{As \textknit{z}, but wrap your yarn three times.}
+\dblkeyrow{\textknit{w}}{Make 3 from 1: Knit (RS) or purl (WS) 1 through back loop, then through front loop of the same stitch, and slide stitch off the left needle. Then pick up the front strand of the stitch just worked, twist it and knit or purl it.}
+\dblkeyrow{\textknit{W}}{As for \textknit{w}, but purl all stitches on RS and knit all stitches on WS.}
+\keyrow{\textknit{E}}{(Knit 1, purl 1, knit 1) in next stitch}{(Purl 1, knit 1, purl 1) in next stitch}
+\keyrow{\textknit{Y}}{(Knit 1, yarn over, knit 1) in next stitch}{(Purl 1, yarn over, purl 1) in next stitch}
+\hrule
+
+\clearpage
+
+\section{Decreases}
+
+\ifdesigner
+Purl decreases produce strong diagonal lines on the wrong side. You
+may wish to use \textknit{;} for p2tog and \textknit{:} for SSP tbl if
+you wish to clearly indicate which way these diagonal lines slant.
+
+You may also think that \textknit{4} and \textknit{5} look better in your pattern than \textknit{<} and \textknit{>}; their definitions may be interchanged.
+
+\nopagebreak
+
+\medskip
+\fi
+
+\setcolwidths{\stitchwd}
+\keyrow{\textknit{>}}{Knit 2 together}{Purl 2 together or slip 1, purl 1, pass slipped stitch over}
+\keyrow{\textknit{<}}{SSK: Slip 1 as to knit, slip 1 as to knit, insert left needle through both slipped stitches and knit the two stitches together as one; or\par SKP: slip 1 as to knit, knit 1, pass slipped stitch over}{SSP tbl: Slip 2 as if to SSK, slide stitches back to left needle (they will have reversed their orientation), then purl 2 together through back loop.}
+\keyrow{\textknit{4}}{Twisted decrease: knit 2 together through back loop}{Purl 2 together through back loop}
+\keyrow{\textknit{5}}{Slip 2 as if to SSK, return to left needle, and knit 2 together through front loop}{Slip 2 as if to SSK, return to left needle, and purl 2 together through front loop}
+\keyrow{\textknit{:}}{Purl 2 together or slip 1, purl 1, pass slipped stitch over}{Knit 2 together}
+\keyrow{\textknit{;}}{SSP tbl}{SSK or SKP}
+\keyrow{\textknit{f}}{Bind off knitwise}{Bind off purlwise}
+\keyrow{\textknit{F}}{Bind off purlwise}{Bind off knitwise}
+\keyrow{\textknit{A}}{Slip 1 as if to knit, knit 2 together, pass slipped stitch over}{Slip 1 as if to purl, SSP tbl, pass slipped stitch over}
+\keyrow{\textknit{3}}{Slip 1 as if to purl, SSP tbl, pass slipped stitch over}{Slip 1 as if to knit, knit 2 together, pass slipped stitch over}
+\keyrow{\textknit{R}}{Knit 3 together}{Purl 3 together or slip 2 as to purl, purl 1, pass slipped stitches over}
+\keyrow{\textknit{L}}{SSSK or slip 2 as if to knit, knit 1 stitch, pass slipped stitches over}{Slip 3 stitches, one by one, as to knit. Return to left needle and purl 3 together through back loop.}
+\keyrow{\textknit{r}}{Double decrease worked as follows: SSK or SKP; slip stitch just formed to left needle; pass next stitch over; slip 1 as if to purl}{Slip 1 as if to purl; SSP tbl; pass slipped stitch over}
+\keyrow{\textknit{l}}{Slip 1 as if to knit; knit 2 together; pass slipped stitch over}{Purl 2 together; slip stitch just formed to left needle; pass next stitch over; slip 1 as if to purl}
+\keyrow{\textknit{a}}{Slip 2 as if to k2tog; knit 1; pass two slipped stitches over}{Slip 2 as if to SSK. Insert left needle through these two stitches \textbf{from right to left}. (This is similar to inserting the right needle as if to k2tog.) Remove right needle, then purl 3 stitches together.}
+\hrule\clearpage
+
+\setcolwidths{5\stitchwd}
+\keyrow{\textknit{\widedecrease{5}}}{Quadruple decrease: Slip 2 as to knit.
+*Pass 2nd stitch on left needle over 1st stitch, slip 1 as to purl, pass 2nd stitch on right needle over
+first stitch, return first stitch on right needle to left needle.* Repeat from * to * once, then purl 1 stitch (which now has had four other
+stitches passed over it).}
+{Quadruple decrease: Slip 3 as to purl, slip 2 as to knit. Return last 3 stitches
+to right needle. *Pass 2nd stitch on left needle over 1st stitch, slip 1 as to purl, pass 2nd stitch on right needle over
+first stitch, return first stitch on right needle to left needle.* Repeat from * to * once, then knit 1 stitch.}
+\hrule
+
+\clearpage
+
+\section{Cable Symbols}
+
+\ifdesigner
+
+This is a comprehensive list of the cable symbols available in the grid
+fonts; more non-grid cable symbols are possible. (A few examples are at the end of this document.
+
+\medskip
+
+\fi
+
+% There are three different symbols for most of the cable crossings,
+% and two different symbols for most of the twist crossings.
+
+% These macros make it easy to change our keys to show more than one set of definitions.
+
+% Key showing two or three symbols
+%\newcommand\cableset[3]{\textknit{#1}\ifgrid\par\vspace{3pt}\textknit{#2}\par\vspace{3pt}\textknit{#3}\fi}
+\newcommand\cableset[3]{\textknit{#1}\ifgrid\hspace{3pt}\textknit{#2}\fi}
+\newcommand\twistset[2]{\textknit{#1}\ifgrid\hspace{3pt}\textknit{#2}\fi}
+
+% Most basic key
+%\newcommand\cableset[3]{\textknit{#1}}
+%\newcommand\twistset[2]{\textknit{#1}}
+
+% Key with white cable symbols
+%\newcommand\cableset[3]{\textknit{#3}}
+%\newcommand\twistset[2]{\textknit{#1}}
+
+%\setcolwidths{4\stitchwd}
+\setcolwidths{8.5\stitchwd}
+\dblkeyrow{\cableset{kK}{kN}{kD}}{Slip 2 as if to knit 2 together. Return to left needle, then knit 2 (RS) or purl 2 (WS), (\textbf{not} together!) through back loop.}
+\dblkeyrow{\cableset{Kk}{Kn}{Kd}}{Slip 2 as if to SSK. Insert left needle through both slipped stitches from right to left, as if to k2tog. Remove right needle, then knit 2 (RS) or purl 2 (WS) through front loop.}
+\dblkeyrow{\twistset{pK}{pN}}{Slip 2 as if to knit 2 together. Return to left needle, then knit 1 through back loop, purl 1 through back loop. Or: Slip 1 to cable neeble and hold in back; knit 1; purl 1 from cable needle.}
+\dblkeyrow{\twistset{Kp}{Ko}}{Slip 2 as if to SSK. Insert left needle through both slipped stitches from right to left, as if to k2tog. Remove right needle, then purl 1, knit 1. Or: Slip 1 to cable neeble and hold in front; knit 1; purl 1 from cable needle.}
+\dblkeyrow{\textknit{pP}}{Slip 2 as if to knit 2 together. Return to left needle, then purl 2 (RS) or knit 2 (WS) through back loop.}
+\dblkeyrow{\textknit{Pp}}{Slip 2 as if to SSK. Insert left needle through both slipped stitches from right to left, as if to k2tog. Remove right needle, then purl 2 (RS) or knit 2 (WS) through front loop.}
+%
+\keyrow{\cableset{kKK}{kKN}{kKD}}{{Slip 1 to cable needle and hold in back; knit 2; knit 1 from cable needle}}{{Slip 2 to cable needle and hold in back; purl 1; purl 2 from cable needle}}
+\keyrow{\cableset{KKk}{KKn}{KKd}}{{Slip 2 to cable needle and hold in front; knit 1; knit 2 from cable needle}}{{Slip 1 to cable needle and hold in front; purl 2; purl 1 from cable needle}}
+\keyrow{\twistset{pKK}{pKN}}{{Slip 1 to cable needle and hold in back; knit 2; purl 1 from cable needle}}{{Slip 2 to cable needle and hold in back; knit 1; purl 2 from cable needle}}
+\keyrow{\twistset{KKp}{KKo}}{{Slip 2 to cable needle and hold in front; purl 1; knit 2 from cable needle}}{{Slip 1 to cable needle and hold in front; purl 2; knit 1 from cable needle}}
+\keyrow{\textknit{pPP}}{{Slip 1 to cable needle and hold in back; purl 2; purl 1 from cable needle}}{{Slip 2 to cable needle and hold in back; knit 1; knit 2 from cable needle}}
+\keyrow{\textknit{PPp}}{{Slip 2 to cable needle and hold in front; purl 1; knit 2 from cable needle}}{{Slip 1 to cable needle and hold in front; knit 2; knit 1 from cable needle}}
+%
+\keyrow{\cableset{kKKK}{kKKN}{kKKD}}{{Slip 1 to cable needle and hold in back; knit 3; knit 1 from cable needle}}{{Slip 3 to cable needle and hold in back; purl 1; purl 3 from cable needle}}
+\keyrow{\cableset{KKKk}{KKKn}{KKKd}}{{Slip 3 to cable needle and hold in front; knit 1; knit 3 from cable needle}}{{Slip 1 to cable needle and hold in front; purl 3; purl 1 from cable needle}}
+\keyrow{\twistset{pKKK}{pKKN}}{{Slip 1 to cable needle and hold in back; knit 3; purl 1 from cable needle}}{{Slip 3 to cable needle and hold in back; knit 1; purl 3 from cable needle}}
+\keyrow{\twistset{KKKp}{KKKo}}{{Slip 3 to cable needle and hold in front; purl 1; knit 3 from cable needle}}{{Slip 1 to cable needle and hold in front; purl 3; knit 1 from cable needle}}
+\keyrow{\textknit{pPPP}}{{Slip 1 to cable needle and hold in back; purl 3; purl 1 from cable needle}}{{Slip 3 to cable needle and hold in back; knit 1; knit 3 from cable needle}}
+\keyrow{\textknit{PPPp}}{{Slip 3 to cable needle and hold in front; purl 1; knit 3 from cable needle}}{{Slip 1 to cable needle and hold in front; knit 3; knit 1 from cable needle}}
+\hrule
+
+\clearpage
+
+\renewcommand\cableset[3]{\textknit{#1}}
+\renewcommand\twistset[2]{\textknit{#1}}
+\setcolwidths{5\stitchwd}
+\keyrow{\cableset{kkK}{kkN}{kkD}}{{Slip 2 to cable needle and hold in back; knit 1; knit 2 from cable needle}}{{Slip 1 to cable needle and hold in back; purl 2; purl 1 from cable needle}}
+\keyrow{\cableset{Kkk}{Kkn}{Kkd}}{{Slip 1 to cable needle and hold in front; knit 2; knit 1 from cable needle}}{{Slip 2 to cable needle and hold in front; purl 1; purl 2 from cable needle}}
+\keyrow{\twistset{ppK}{ppN}}{{Slip 2 to cable needle and hold in back; knit 1; purl 2 from cable needle}}{{Slip 1 to cable needle and hold in back; knit 2; purl 1 from cable needle}}
+\keyrow{\twistset{Kpp}{Kpo}}{{Slip 1 to cable needle and hold in front; purl 2; knit 1 from cable needle}}{{Slip 2 to cable needle and hold in front; purl 1; knit 2 from cable needle}}
+\keyrow{\textknit{ppP}}{{Slip 2 to cable needle and hold in back; purl 1; purl 2 from cable needle}}{{Slip 1 to cable needle and hold in back; knit 2; knit 1 from cable needle}}
+\keyrow{\textknit{Ppp}}{{Slip 1 to cable needle and hold in front; purl 2; knit 1 from cable needle}}{{Slip 2 to cable needle and hold in front; knit 1; knit 2 from cable needle}}
+%
+\keyrow{\cableset{kkKK}{kkKN}{kkKD}}{{Slip 2 to cable needle and hold in back; knit 2; knit 2 from cable needle}}{{Slip 2 to cable needle and hold in back; purl 2; purl 2 from cable needle}}
+\keyrow{\cableset{KKkk}{KKkn}{KKkd}}{{Slip 2 to cable needle and hold in front; knit 2; knit 2 from cable needle}}{{Slip 2 to cable needle and hold in front; purl 2; purl 2 from cable needle}}
+\dblkeyrow{\twistset{ppKK}{ppKN}}{Slip 2 to cable needle and hold in back; knit 2; purl 2 from cable needle}
+\dblkeyrow{\twistset{KKpp}{KKpo}}{Slip 2 to cable needle and hold in front; purl 2; knit 2 from cable needle}
+\keyrow{\textknit{ppPP}}{{Slip 2 to cable needle and hold in back; purl 2; purl 2 from cable needle}}{{Slip 2 to cable needle and hold in back; knit 2; knit 2 from cable needle}}
+\keyrow{\textknit{PPpp}}{{Slip 2 to cable needle and hold in front; purl 2; purl 2 from cable needle}}{{Slip 2 to cable needle and hold in front; knit 2; knit 2 from cable needle}}
+%
+\keyrow{\cableset{kkKKK}{kkKKN}{kkKKD}}{{Slip 2 to cable needle and hold in back; knit 3; knit 2 from cable needle}}{{Slip 3 to cable needle and hold in back; purl 2; purl 3 from cable needle}}
+\keyrow{\cableset{KKKkk}{KKKkn}{KKKkd}}{{Slip 3 to cable needle and hold in front; knit 2; knit 3 from cable needle}}{{Slip 2 to cable needle and hold in front; purl 3; purl 2 from cable needle}}
+\keyrow{\twistset{ppKKK}{ppKKN}}{{Slip 2 to cable needle and hold in back; knit 3; purl 2 from cable needle}}{{Slip 3 to cable needle and hold in back; knit 2; purl 3 from cable needle}}
+\keyrow{\twistset{KKKpp}{KKKpo}}{{Slip 3 to cable needle and hold in front; purl 2; knit 3 from cable needle}}{{Slip 2 to cable needle and hold in front; purl 3; knit 2 from cable needle}}
+\keyrow{\textknit{ppPPP}}{{Slip 2 to cable needle and hold in back; purl 3; purl 2 from cable needle}}{{Slip 3 to cable needle and hold in back; knit 2; knit 3 from cable needle}}
+\keyrow{\textknit{PPPpp}}{{Slip 3 to cable needle and hold in front; purl 2; knit 3 from cable needle}}{{Slip 2 to cable needle and hold in front; knit 3; knit 2 from cable needle}}
+%
+\hrule
+
+\clearpage
+
+\setcolwidths{6\stitchwd}
+\keyrow{\cableset{kkkK}{kkkN}{kkkD}}{{Slip 3 to cable needle and hold in back; knit 1; knit 3 from cable needle}}{{Slip 1 to cable needle and hold in back; purl 3; purl 1 from cable needle}}
+\keyrow{\cableset{Kkkk}{Kkkn}{Kkkd}}{{Slip 1 to cable needle and hold in front; knit 3; knit 1 from cable needle}}{{Slip 3 to cable needle and hold in front; purl 1; purl 3 from cable needle}}
+\keyrow{\twistset{pppK}{pppN}}{{Slip 3 to cable needle and hold in back; knit 1; purl 3 from cable needle}}{{Slip 1 to cable needle and hold in back; knit 3; purl 1 from cable needle}}
+\keyrow{\twistset{Kppp}{Kppo}}{{Slip 1 to cable needle and hold in front; purl 3; knit 1 from cable needle}}{{Slip 3 to cable needle and hold in front; purl 1; knit 3 from cable needle}}
+\keyrow{\textknit{pppP}}{{Slip 3 to cable needle and hold in back; purl 1; purl 3 from cable needle}}{{Slip 1 to cable needle and hold in back; knit 3; knit 1 from cable needle}}
+\keyrow{\textknit{Pppp}}{{Slip 1 to cable needle and hold in front; purl 3; knit 1 from cable needle}}{{Slip 3 to cable needle and hold in front; knit 1; knit 3 from cable needle}}
+%
+\keyrow{\cableset{kkkKK}{kkkKN}{kkkKD}}{{Slip 3 to cable needle and hold in back; knit 2; knit 3 from cable needle}}{{Slip 2 to cable needle and hold in back; purl 3; purl 2 from cable needle}}
+\keyrow{\cableset{KKkkk}{KKkkn}{KKkkd}}{{Slip 2 to cable needle and hold in front; knit 3; knit 2 from cable needle}}{{Slip 3 to cable needle and hold in front; purl 2; purl 3 from cable needle}}
+\keyrow{\twistset{pppKK}{pppKN}}{{Slip 3 to cable needle and hold in back; knit 2; purl 3 from cable needle}}{{Slip 2 to cable needle and hold in back; knit 3; purl 2 from cable needle}}
+\keyrow{\twistset{KKppp}{KKppo}}{{Slip 2 to cable needle and hold in front; purl 3; knit 2 from cable needle}}{{Slip 3 to cable needle and hold in front; purl 2; knit 3 from cable needle}}
+\keyrow{\textknit{pppPP}}{{Slip 3 to cable needle and hold in back; purl 2; purl 3 from cable needle}}{{Slip 2 to cable needle and hold in back; knit 3; knit 2 from cable needle}}
+\keyrow{\textknit{PPppp}}{{Slip 2 to cable needle and hold in front; purl 3; knit 2 from cable needle}}{{Slip 3 to cable needle and hold in front; knit 2; knit 3 from cable needle}}
+%
+\ifdim \stitchwd > \stitchht \else
+\keyrow{\cableset{kkkKKK}{kkkKKN}{kkkKKD}}{{Slip 3 to cable needle and hold in back; knit 3; knit 3 from cable needle}}{{Slip 3 to cable needle and hold in back; purl 3; purl 3 from cable needle}}
+\keyrow{\cableset{KKKkkk}{KKKkkn}{KKKkkd}}{{Slip 3 to cable needle and hold in front; knit 3; knit 3 from cable needle}}{{Slip 3 to cable needle and hold in front; purl 3; purl 3 from cable needle}}
+\dblkeyrow{\twistset{pppKKK}{pppKKN}}{Slip 3 to cable needle and hold in back; knit 3; purl 3 from cable needle}
+\dblkeyrow{\twistset{KKKppp}{KKKppo}}{Slip 3 to cable needle and hold in front; purl 3; knit 3 from cable needle}
+\keyrow{\textknit{pppPPP}}{{Slip 3 to cable needle and hold in back; purl 3; purl 3 from cable needle}}{{Slip 3 to cable needle and hold in back; knit 3; knit 3 from cable needle}}
+\keyrow{\textknit{PPPppp}}{{Slip 3 to cable needle and hold in front; purl 3; purl 3 from cable needle}}{{Slip 3 to cable needle and hold in front; knit 3; knit 3 from cable needle}}
+\fi
+\hrule
+
+\clearpage
+
+\setcolwidths{6\stitchwd}
+%\newcommand\cablepair[2]{\textknit{#1}}
+\newcommand\cablepair[2]{\textknit{#1}\ifgrid \par\vspace{7pt}\par\textknit{#2}\fi}
+
+\noindent
+\keyrow{\cablepair{Kpk}{Kpd}}{
+\emph{Easy method}: Slip 1 to cable needle and hold in front, knit 1, purl 1, and then knit 1 from cable needle. \par
+\emph{Better-looking method}:
+Slip 1 to CN and hold to front. 
+Slip 2 as if to knit 2 together, return to left needle, then knit 1 through back loop, purl 1 through back loop. Knit 1 from cable needle.}
+{\emph{Easy method}: Slip 2 to cable needle and hold in front, purl 1, and then knit 1, purl 1 from cable needle. \par
+\emph{Better-looking method}:
+Slip 2 to CN and hold to front. Purl 1. Rotate the cable needle through a half-turn (180 degrees) by pulling the left tip towards you;
+this will switch the two stitches with the left stitch passing in front. Knit 1 through back loop, purl 1 through back loop.}
+\keyrow{\cablepair{KKpkk}{KKpkd}}
+{\emph{Easy method}: Slip 2 to cable needle and hold in front, knit 2, purl 1, and then knit 2 from cable needle. \par
+\emph{Better-looking method}:
+Slip 2 to CN and hold to front. 
+Slip 1 to a second CN and hold in back.
+Knit 2, purl 1 from the second (back) CN, then knit 2 from the first (front) CN.}
+{\emph{Easy method}: Slip 3 to cable needle and hold in front, purl 2,  and then knit 1, purl 2 from cable needle. \par
+\emph{Better-looking method}:
+Slip 3 to CN and hold to front. Purl 2. Slip leftmost stitch from CN back to left needle and move CN to the back. 
+Knit 1 from left needle, then purl 2 from CN.}
+\ifdim \stitchwd > \stitchht \else
+\keyrow{\cablepair{KKppkk}{KKppkd}}
+{\emph{Easy method}: Slip 2 to cable needle and hold in front, knit 2, purl 2, and then knit 2 from cable needle. \par
+\emph{Better-looking method}:
+Slip 2 to CN and hold to front. 
+Slip 2 to a second CN and hold in back.
+Knit 2, purl 2 from the second (back) CN, then knit 2 from the first (front) CN.}
+{\emph{Easy method}: Slip 4 to cable needle and hold in front, purl 2,  and then knit 2, purl 2 from cable needle. \par
+\emph{Better-looking method}:
+Slip 4 to CN and hold to front. Purl 2. Slip leftmost 2 stitches from CN back to left needle and move CN to the back. 
+Knit 2 from left needle, then purl 2 from CN.}
+\fi
+\keyrow{\cablepair{kpK}{kpD}}
+{\emph{Easy method}: Slip 2 to CN and hold in back, knit 1, then purl 1, knit 1 from CN. \par
+\emph{Better-looking method}: Slip 2 to CN and hold in back, knit 1.
+Rotate the cable needle through a half-turn (180 degrees) by pulling the right tip towards you;
+this will switch the two stitches with the right stitch passing in front. Purl 1 through back loop, knit 1 through back loop. }
+{\emph{Easy method}: Slip 1 to CN and hold in back, purl 1, knit 1, then purl 1 from CN. \par
+\emph{Better-looking method}:
+Slip 1 to CN and hold to back. 
+Slip 2 as if to SSK, insert left needle through slipped stitches from right to left, remove right needle,
+purl 1, knit 1. Purl 1 from CN.}
+\keyrow{\cablepair{kkpKK}{kkpKD}}
+{\emph{Easy method}: Slip 3 to CN and hold in back, knit 2, then purl 1, knit 2 from CN. \par
+\emph{Better-looking method}:
+Slip 3 to CN and hold in back, knit 2.
+Slip leftmost stitch from CN back to left needle and move CN to the front. 
+Purl 1 from left needle, then knit 2 from CN.}
+{\emph{Easy method}: Slip 2 to CN and hold in back, purl 2, knit 1, then purl 2 from CN. \par
+\emph{Better-looking method}: Slip 2 to CN and hold in back. Slip 1 to a second CN and hold in front.
+Purl 2 from left needle, knit 1 from second (front) CN, then purl 2 from first (back) CN.}
+\ifdim \stitchwd > \stitchht \else
+\keyrow{\cablepair{kkppKK}{kkppKD}}
+{\emph{Easy method}: Slip 4 to CN and hold in back, knit 2, then purl 2, knit 2 from CN. \par
+\emph{Better-looking method}:
+Slip 4 to CN and hold in back, knit 2.
+Slip leftmost 2 stitches from CN back to left needle and move CN to the front. 
+Purl 2 from left needle, then knit 2 from CN.}
+{\emph{Easy method}: Slip 2 to CN and hold in back, purl 2, knit 2, then purl 2 from CN. \par
+\emph{Better-looking method}: Slip 2 to CN and hold in back. Slip 2 to a second CN and hold in front.
+Purl 2 from left needle, knit 2 from second (front) CN, then purl 2 from first (back) CN.}
+\fi
+\hrule
+
+\clearpage
+
+\knitnogrid
+
+\keyrow{\textknit{peKK}}{{Slip 1 to cable needle and hold in back; knit 2; make 1 purlwise (by picking up any strand of yarn which is convenient); purl 1 from cable needle}}{{Slip 2 to cable needle and hold in back; knit 1; make 1 knitwise; purl 2 from cable needle}}
+
+\keyrow{\textknit{pkKK}}{{Slip 2 to cable needle and hold in back; knit 2; knit 1 from cable needle, purl 1 from cable needle}}{{Slip 2 to cable needle and hold in back; knit 1; purl 1; purl 2 from cable needle}}
+\keyrow{\textknit{kpKK}}{{Slip 2 to cable needle and hold in back; knit 2; purl 1 from cable needle, knit 1 from cable needle}}{{Slip 2 to cable needle and hold in back; purl 1; knit 1; purl 2 from cable needle}}
+
+\hrule
+
+\end{fullpages}
+
+\end{document}
+
+
+
+

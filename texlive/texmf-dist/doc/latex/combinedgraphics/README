@@ -1,0 +1,125 @@
+SHORT DESCRIPTION
+=================
+
+(This is a copy of the LaTeX code of the documentation's abstract.)
+
+This package provides a macro (|\includecombinedgraphics|) for the
+inclusion of combined EPS/\LaTeX{} and PDF/\LaTeX{} graphics (an export
+format of Gnuplot, Xfig, and maybe other programs).  Instead of including
+the graphics with a simple |\input|, the |\includecombinedgraphics| macro
+has some benefits:
+
+\begin{itemize}
+  \item changing the font and color of the text of the \LaTeX{} parts
+  \item rescaling the graphics without affecting the font of the \LaTeX{}
+    parts
+  \item automatic inclusion of the vector graphics parts, as far as \LaTeX{}
+    parts do not do it (e.\,g., for files exported from Gnuplot before
+    version 4.2 or Xfig)
+  \item changing the inclusion order of \LaTeX{} and vector graphics
+    parts (e.\,g., Gnuplot 4.4 exports files in a way that the vector
+    graphics part overlays the \LaTeX{} part, which means that text may be
+    hidden under shaded areas)
+  \item rescaling and rotating of complete graphics (similar to
+    |\includegraphics| from \textsf{graphicx} package)
+  \item scaling the vector graphics part (without affecting the font) to
+    a defined width or height of the graphics, which might, e.g., be of
+    importance for graphics that are intended for publication in a journal
+    requesting a certain size of graphics
+\end{itemize}
+
+A test PDF file with extensively commented examples is shipped with this
+package and a BASH script (\texttt{texpic2epspdf.sh}) to convert combined
+EPS/\LaTeX{} and PDF/\LaTeX{} graphics to EPS or PDF files with text part
+included.
+
+See `combinedgraphics.pdf' for detailed information on usage.
+
+BUILDING
+========
+
+If you do not want to use any pre-build `combinedgraphics.sty' and
+`combinedgraphics.pdf' files, you will have to choose one of the following
+two ways for building them. Otherwise you can skip this section.
+
+1) Building with make
+---------------------
+
+Running `make' will create the LaTeX package, the documentation and the test
+file:
+  $ make
+
+2) Building manually
+--------------------
+
+a) Generation of package (.sty file):
+
+Run `combinedgraphics.ins' through LaTeX:
+  $ pdflatex -interaction=nonstopmode combinedgraphics.ins
+
+b) Generation of documentation:
+
+Run `combinedgraphics.dtx' through LaTeX:
+  $ pdflatex -interaction=nonstopmode combinedgraphics.dtx
+
+Then create the index and change history:
+  $ makeindex -s gind.ist -o combinedgraphics.ind combinedgraphics.idx
+  $ makeindex -s gglo.ist -o combinedgraphics.gls combinedgraphics.glo
+
+Finally, run `combinedgraphics.dtx' three time through LaTeX:
+  $ pdflatex -interaction=nonstopmode combinedgraphics.dtx
+  $ pdflatex -interaction=nonstopmode combinedgraphics.dtx
+  $ pdflatex -interaction=nonstopmode combinedgraphics.dtx
+
+Optionally you can compile the test file:
+  $ pdflatex -interaction=nonstopmode combinedgraphics_test.tex
+  $ pdflatex -interaction=nonstopmode combinedgraphics_text.tex
+  $ pdflatex -interaction=nonstopmode combinedgraphics_text.tex
+
+INSTALLATION
+============
+
+1) Installing with make
+-----------------------
+
+To install the package into a TDS (= TeX directory structure; typically its base
+directory is named `texmf' or something similar), run the following command:
+  $ make DESTDIR=<your TDS> install
+
+Note: `$(DESTDIR)' defaults to `$(HOME)/.texmf'.
+
+2) Installing manually
+----------------------
+
+In principle, you will only habe to copy the file `ionumbers.sty' into a
+directory, where LaTeX can find it.  If you copy it into a TDS (TeX directory
+structure), you will most probably have to run the following command afterwards:
+  $ mktexlsr <your TDS>
+
+LICENSE
+=======
+
+Copyright 2009,2011 Christian Schneider <software(at)chschneider(dot)eu>
+
+ion@addto@macro: identical to l@addto@macro from koma-script
+                 bundle v2.9t
+Copyright 1994-2004 Markus Kohm and Frank Neukam
+
+Thanks to Markus Kohm for permitting to use his code in this package.
+Please do not bother Markus with questions or bugs concering this package!
+
+This file is part of combinedgraphics.
+
+combinedgraphics is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License version 3 as
+published by the Free Software Foundation, not any later version.
+
+combinedgraphics is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with combinedgraphics.  If not, see <http://www.gnu.org/licenses/>.
+
+WARNING: THIS IS ALPHA SOFTWARE AND MAY CONTAIN SERIOUS BUGS!

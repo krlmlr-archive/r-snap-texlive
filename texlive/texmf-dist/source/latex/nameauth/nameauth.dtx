@@ -1,0 +1,2308 @@
+% \iffalse meta-comment
+%
+% Copyright (C) 2011 by Charles P. Schaum <charles dot schaum at comcast dot net>
+% ---------------------------------------------------------------------------
+% This work may be distributed and/or modified under the
+% conditions of the LaTeX Project Public License, either version 1.3
+% of this license or (at your option) any later version.
+% The latest version of this license is in
+% http://www.latex-project.org/lppl.txt
+% and version 1.3 or later is part of all distributions of LaTeX
+% version 2005/12/01 or later.
+%
+% This work has the LPPL maintenance status `maintained'.
+%
+% The Current Maintainer of this work is Charles P. Schaum.
+%
+% This work consists of the files nameauth.dtx and nameauth.ins
+% and the derived filebase nameauth.sty.
+%
+% \fi
+%
+% \iffalse
+%<*driver>
+\ProvidesFile{nameauth.dtx}
+%</driver>
+%<package>\NeedsTeXFormat{LaTeX2e}[2005/12/01]
+%<package>\ProvidesPackage{nameauth}
+%<*package>
+    [2013/09/19 v1.8 name authority macros to aid consistent display and indexing of names]
+%</package>
+%
+%<*driver>
+\documentclass{ltxdoc}
+\usepackage{ifxetex}
+\usepackage{ifluatex}
+\usepackage{ifpdf}
+\ifxetex
+  \usepackage{fontspec}
+  \defaultfontfeatures{Mapping=tex-text}
+  \usepackage{xunicode}
+  \usepackage{xltxtra}
+\else
+  \ifluatex
+    \usepackage{fontspec}
+    \defaultfontfeatures{Ligatures=TeX}
+  \else
+    \usepackage[utf8]{inputenc}
+    \usepackage[TS1,T1]{fontenc}
+    \usepackage{newunicodechar}
+    \usepackage{lmodern}
+    \DeclareTextSymbolDefault{\textlongs}{TS1}
+    \DeclareTextSymbol{\textlongs}{TS1}{115}
+    \newunicodechar{ſ}{\textlongs}
+    \newunicodechar{ā}{\=a}
+    \newunicodechar{ṃ}{\d m}
+  \fi
+\fi
+\usepackage{makeidx}
+\usepackage{multicol}
+\usepackage[toc]{multitoc}
+\usepackage{nameauth}[2013/09/19]
+\usepackage{hypdoc}
+\usepackage{tikz}
+\makeindex
+\frenchspacing
+\EnableCrossrefs
+\CodelineIndex
+\RecordChanges
+\begin{nameauth}
+  \< Wash & George & Washington & >
+  \< Soto & Hernando & de Soto & >
+  \< JRock & John David & Rockefeller, II & >
+  \< JayR & John David & Rockefeller, IV & Jay >
+  \< Aris & & Aristotle & >
+  \< Eliz & & Elizabeth, I & >
+  \< Dagb & & Dagobert & I > 
+  \< Konoe & Fumimaro & Konoe & >
+  \< Yamt & & Yamamoto, Isoroku & >
+  \< Yosh & & Yoshida & Shigeru >
+\end{nameauth}
+\TagName{Louis}[the Pious]{, emperor}
+\TagName{Ptolemy I}[Soter]{, king}
+\TagName{Henry}[VIII]{, king}
+\TagName{Charles}[the Bald]{, emperor}
+\TagName{Francis, I}{, king}
+\TagName{Demetrius, I Soter}{, king}
+\TagName{Charles, V}{, emperor}
+\TagName{Louis, XIV}{, king}
+\TagName{Dagobert}[I]{, king}
+\TagName{Elizabeth, I}{, queen}
+\TagName{Leo, I}{, pope}
+\TagName[George]{Washington}{, president}
+\TagName{Gregory, I}{, pope}
+\TagName[Fumimaro]{Konoe}{, PM}
+\TagName{Yoshida}[Shigeru]{, PM}
+\begin{document}
+  \DocInput{nameauth.dtx}
+  \PrintChanges
+  \PrintIndex
+\end{document}
+%</driver>
+% \fi
+%
+% \CheckSum{1678}
+%
+% \CharacterTable
+%  {Upper-case    \A\B\C\D\E\F\G\H\I\J\K\L\M\N\O\P\Q\R\S\T\U\V\W\X\Y\Z
+%   Lower-case    \a\b\c\d\e\f\g\h\i\j\k\l\m\n\o\p\q\r\s\t\u\v\w\x\y\z
+%   Digits        \0\1\2\3\4\5\6\7\8\9
+%   Exclamation   \!     Double quote  \"     Hash (number) \#
+%   Dollar        \$     Percent       \%     Ampersand     \&
+%   Acute accent  \'     Left paren    \(     Right paren   \)
+%   Asterisk      \*     Plus          \+     Comma         \,
+%   Minus         \-     Point         \.     Solidus       \/
+%   Colon         \:     Semicolon     \;     Less than     \<
+%   Equals        \=     Greater than  \>     Question mark \?
+%   Commercial at \@     Left bracket  \[     Backslash     \\
+%   Right bracket \]     Circumflex    \^     Underscore    \_
+%   Grave accent  \`     Left brace    \{     Vertical bar  \|
+%   Right brace   \}     Tilde         \~}
+%
+%
+% \changes{v0.7}{2011/12/26}{Initial version}
+% \changes{v0.75}{2012/01/19}{New features added and described}
+% \changes{v0.8}{2012/01/29}{Improved function and compatibility; added quick start guide}
+% \changes{v0.85}{2012/02/05}{Added comma suppression, new class options, and more functionality}
+% \changes{v0.86}{2012/02/06}{Fixed some regressions}
+% \changes{v0.9}{2012/02/10}{Added first name formatting; comma and suffix handling expandable}
+% \changes{v0.94}{2012/02/15}{Build with all major \LaTeX{} engines; Added index suppression, error checking, name particle caps}
+% \changes{v0.95}{2012/02/17}{Bugfixes}
+% \changes{v0.96}{2012/02/19}{Bugfixes}
+% \changes{v1.0}{2012/02/20}{Works fully with \textsf{microtype} and \textsf{memoir}}
+% \changes{v1.1}{2012/03/08}{Fixed errors when emitting warnings}
+% \changes{v1.2}{2012/03/25}{Added tagging features; extensively edited documentation}
+% \changes{v1.26}{2012/04/24}{First-letter caps fixed; fixed sorting of name suffixes in index}
+% \changes{v1.4}{2012/07/24}{Fixed issues moving argument problems, added several features}
+% \changes{v1.5}{2013/02/22}{Minor bugfixes; added several features}
+% \changes{v1.6}{2013/03/10}{Added |nameauth| environment}
+% \changes{v1.7}{2013/04/02}{Change options processing to prevent errors}
+% \changes{v1.8}{2013/09/19}{Document undesirable behavior of protected accenting macros in names}
+%
+% \DoNotIndex{\@empty, \@gobble, \@period, \@token, \protected@edef, \zap@space, \bfseries, \bgroup, \csgdef, \csname, \csundef, \DeclareOption, \def, \detokenize, \edef, \egroup, \else, \endcsname, \endinput, \ExecuteOptions, \expandafter, \fi, \Forenames, \futurelet, \hbox, \if, \ifcsname, \ifx, \ignorespaces, \index, \itshape, \leavevmode, \let, \newcommand, \newcommandx, \newenvironment, \newif, \PackageWarning, \ProcessOptions, \relax, \renewcommand, \RequirePackage, \scshape, \space, \textbackslash, \uppercase, \WithSuffix}
+%
+% \GetFileInfo{nameauth.dtx}
+% \title{The \textsf{nameauth} package}
+% \author{Charles P. Schaum \\ \texttt{charles dot schaum at comcast dot net}}
+% \date{\fileversion~from \filedate}
+% \maketitle
+%
+% \begin{abstract}
+% \noindent The \textsf{nameauth} package automates the formatting and indexing of names, facilitating the implementation of a \textbf{name authority}. This allows one to move blocks of text without retyping names, making it easier to go from drafts to a final manuscript. This package mainly supports Western names, with basic features for ancient, royal, and Eastern names.
+% \end{abstract}
+%
+% \tableofcontents
+%
+% \section{Introduction}
+%
+% Book-length studies can engage more than 500 different names. Editors and proofreaders cost money when checking those names. This package provides basic tools for consistently and automatically formatting names for the body text and the index. The goal is to reduce error, streamline work, and become a more cost-effective author. Features include:
+% \begin{multicols}{2}
+% \begin{itemize}\setlength\itemsep{0pt}\small
+% \item Format, print, and index names all at once.
+% \item Automatically print a full name the first time it appears, with full or shorter forms thereafter.
+% \item Automatically apply typesetting to names, recalling German \emph{Sperr\-druck}.
+% \item Rearrange text without retyping the names therein.
+% \item Allow predictable name variants in the text, yet index consistent name forms, thus abstracting the concept of a name.
+% \item Provide for some cross-cultural features in name ordering, capitalization, and indexing.
+% \item ``Tag'' and ``untag'' names in the index in order to index different people with the same name.
+% \item Macros can be used in the body text, in a \cmd{\marginpar}, in tabular material, and in list environments like \texttt{enumerate}, among others.
+% \end{itemize}
+% \end{multicols}
+%
+% \subsection{Design Notes and Thanks}
+%
+% This package depends on \textsf{etoolbox}, \textsf{suffix}, \textsf{trimspaces}, and \textsf{xargs}. As of version 1.4 it has been refactored extensively with robustness and modularity in mind. It has been tested with \textsf{latex}, \textsf{lualatex}, \textsf{pdflatex} and \textsf{xelatex}. It will work with \textsf{makeindex} and \textsf{texindy}. This document was typeset with \ifxetex\textsf{xelatex}\else\ifluatex\ifpdf\textsf{lualatex} in \texttt{pdf} mode\else\textsf{lualatex} in \texttt{dvi} mode\fi\else\ifpdf\textsf{pdflatex}\else\textsf{latex}\fi\fi\fi{} and \textsf{makeindex}.
+%
+% Thanks to \Name[Marc van]{Dongen}, \Name[Enrico]{Gregorio}, \Name[Philipp]{Stephani}, \Name[Heiko]{Oberdiek}, \Name[Uwe]{Lueck}, and \Name[Robert]{Schlicht} for their assistance. The light of their knowledge banished the umbra of my ignorance.
+%
+% \subsection{Disclaimer}
+% This documentation uses names of living and historical figures because users refer to real people in their projects. At no time herein do I intending any statement of bias for or against a particular person, culture, or tradition. All names mentioned herein deserve respect for the impact and legacy of their bearers.
+% \subsection{Caveat}
+% Throughout this manual I perform a ``torture test'' of sorts on several macros in this package, disregarding the advice I offer the reader. General authors may never encounter some of these cases, as in Sections~\ref{sec:formatting} and~\ref{sec:Tweaks}.
+% \clearpage
+%
+% \section{Usage}
+%
+% \subsection{Package Options}
+% \label{sec:options}
+% Package options fall into several categories. Default options are in boldface:\\
+%
+% \begin{tabular}{p{0.2\textwidth}p{0.6\textwidth}}
+% & {\large\bfseries Show/Hide Suffix Commas}\\[1ex]
+% \bfseries\texttt{nocomma} & \bfseries Suppress commas between surnames and suffixes, following modern styles like \emph{Chicago Manual of Style}. Commas can be forced on a per-use basis with \cmd{\ShowComma}. See Section~\ref{sec:suffix}.\\[1ex]
+% \texttt{comma} & Retain commas between all surnames and suffixes. This imposes limits on certain macros.\\[2ex]
+% \end{tabular}
+%
+% \noindent These options are the ``most global'' because they affect names in both the text and the index. The |comma| option, meant for use with older texts, restricts name forms and available macros. The \cmd{\ShowComma} macro allows the general benefits of |nocomma| while allowing the more limited |comma| behavior on a per-use basis at the cost of greater complexity.
+%
+%The above options are meant to be invoked at load time and left alone thereafter. Below we start those options that represent states of behavior capable of being toggled on and off.\\
+%
+% \begin{tabular}{p{0.2\textwidth}p{0.6\textwidth}}
+% & {\large\bfseries Enable/Disable Formatting}\\[1ex]
+% \bfseries\texttt{mainmatter} & \bfseries Enable formatting attributes (see below), starting at the beginning of a document.\\[1ex]
+% \texttt{frontmatter} & Disable formatting \emph{before} the invocation of \cmd{\NamesActive} while retaining automatic full and short forms. This option fits well, e.g., with a foreword from a contributor. See Section~\ref{sec:SectionFormat}.\\[1ex]
+% & {\large\bfseries Enable/Disable Indexing}\\[1ex]
+% \bfseries\texttt{index} & \bfseries Create index entries in place with names.\\[1ex]
+% \texttt{noindex} & Prevent indexing before the invocation of the macro \cmd{\IndexActive}. See Section~\ref{sec:SectionIndex}.\\[2ex]
+% \end{tabular}
+%
+% The options above broadly affect whether formatting and indexing are ``on'' or ``off.'' They set the initial states of formatting and indexing, which can be toggled on and off respectively with \cmd{\NamesActive} and \cmd{\IndexActive} on the one hand and \cmd{\NamesInactive} and \cmd{\IndexInactive} on the other.
+%
+% This package makes a distinction between \textit{formatting}, i.e., font weight, style, family, placement, and so on, and \textit{form}, i.e., capitalization and name order. The options on the next page alter the printing and capitalization of names apart from their formatting, but they do not change index entries:
+%
+% \begin{tabular}{p{0.2\textwidth}p{0.6\textwidth}}
+% & {\large\bfseries Capitalize Entire Surnames}\\[1ex]
+% \bfseries\texttt{normalcaps} & \bfseries Do not perform any special capitalization.\\[1ex]
+% \texttt{allcaps} & Capitalize entire surnames in the manner of some romanized Japanese contexts. Note that this only affects the printed form; no capitalization occurs in the index. In that case, the user should type in the caps manually.\\[1ex]
+% & {\large\bfseries Reverse Name Order}\\[1ex]
+% \bfseries\texttt{notreversed} & \bfseries Print names in the order specified by \cmd{\Name} and the other macros.\\[1ex]
+% \texttt{allreversed} & Print name forms in ``smart'' reverse order. See Sections~\ref{sec:suffix} and~\ref{sec:Eastern}.\\[1ex]
+% \texttt{allrevcomma} & Not the same as the |comma| option or the \cmd{\ShowComma} macro. This causes all names to print in reverse Western order, with a comma between the surname and the other names.\\[2ex]
+% \end{tabular}
+%
+% Macros that toggle the states represented by these options include \cmd{\AllCapsActive} and \cmd{\AllCapsInactive} for capitalizing entire surnames, \cmd{\ReverseActive} and \cmd{\ReverseInactive} for reversing name order, and \cmd{\ReverseCommaActive} and \cmd{\ReverseCommaInactive} to aid making lists in last-comma-first order. An even finer grain of control exists with the macros \cmd{\CapName}, \cmd{\RevName}, and \cmd{\RevComma}, which activate these features on a per-use basis.\\
+%
+% \begin{tabular}{p{0.2\textwidth}p{0.6\textwidth}}
+% & {\large\bfseries Formatting Attributes}\\[1ex]
+% \texttt{alwaysformat} & With the \texttt{mainmatter} option or after \cmd{\NamesActive}, this option causes the formatting options below to affect every occurrence of \cmd{\Name}, not just the first use of a name. This recalls some contexts where German \emph{Sperrdruck} is used. See also the material on custom formatting (Section~\ref{sec:formatting}).\\[1ex]
+% \bfseries\texttt{smallcaps} & \bfseries Set the first use of a name in small caps.\\[1ex]
+% \texttt{italic} & Italicize the first occurrence of a name.\\[1ex]
+% \texttt{boldface} & Set the first use of a name in boldface.\\[1ex]
+% \texttt{noformat} & This is a ``do nothing'' format that merely suppresses the ``look'' of formatting without disabling the mechanism itself.\\
+% \end{tabular}
+% \clearpage
+%
+% \subsection{Quick Start Guide}
+% \label{sec:start}
+%
+% This page introduces basic concepts. The next pages offer simplified approaches and hints to avoid errors. Read the columns below in a left to right, top to bottom order. The basic patterns for \cmd{\Name}\oarg{arg1}\marg{arg2}\oarg{arg3} are:\\
+%
+%\begin{tikzpicture}[line/.style={draw,thick}]
+%  \node [matrix,column sep=4cm] (tipsi) at (3,3)
+%  {
+%    \node[text width=2cm,align=left](opt){\footnotesize Add to force full name.}; &
+%    \node[text width=4cm,align=left](grp){\footnotesize Add before immediately subsequent |[|text in brackets|]| if \meta{arg3} not used; else omit.}; \\
+%  };
+%  \node [matrix] (macro) at (2,1)
+%  {
+%    \node(cmd){\bfseries\texttt{\textbackslash Name}}; &
+%    \node(star){\bfseries\texttt{*}}; &
+%    \node(arg1){\bfseries\texttt{[}\textit{arg1}\texttt{]}}; &
+%    \node(arg2){\bfseries\texttt{\{}\textit{arg2}\texttt{\}}}; &
+%    \node(arg3){\bfseries\texttt{[}\textit{arg3}\texttt{]}}; &
+%    \node(braces){\bfseries\texttt{\{\}}}; \\
+%  };
+%  \node [matrix,column sep=1em] (tipsii) at (3,-2.5)
+%  {
+%    \node[align=left](a1)
+%    {
+%      \textit{forename(s)}\\
+%      \textit{forename(s)}\\
+%      \textit{forename(s)}\\
+%      \textit{forename(s)}\\
+%      \meta{empty}\\
+%      \meta{empty}\\
+%      \meta{empty}\\
+%      \textit{Eastern FNN}\\
+%      \meta{empty}\\
+%      \meta{empty}\\
+%    }; & & &
+%    \node[align=left](a2)
+%    {
+%      \textit{surname(s)}\\
+%      \textit{surname(s)}\texttt{, }\textit{Suffix}$^1$\\
+%      \textit{surname(s)}\\
+%      \textit{surname(s)}\texttt{, }\textit{Suffix}$^1$\\
+%      \textit{mononym}\\
+%      \textit{mononym}\texttt{, }\textit{Affix}$^1$\\
+%      \textit{mononym}\\
+%      \textit{Eastern SNN}$^4$\\
+%      \textit{Eastern SNN}\texttt{, }\textit{FNN}$^{1,5}$\\
+%      \textit{Eastern SNN}\\
+%    }; & &
+%    \node[align=left](a3)
+%    {
+%      \meta{empty}\\
+%      \meta{empty}\\
+%      \textit{Nickname(s)}$^2$\\
+%      \textit{Nickname(s)}$^2$\\
+%      \meta{empty}\\
+%      \meta{empty}\\
+%      \textit{Affix}$^3$\\
+%      \meta{empty}\\
+%      \meta{empty}\\
+%      \textit{Eastern FNN}$^{3,5}$\\
+%    }; \\
+%  };
+%  \begin{scope}[every path/.style=line]
+%    \path (opt) -- (star);
+%    \path (grp) -- (braces);
+%    \path (arg1) -- (a1);
+%    \path (arg2) -- (a2);
+%    \path (arg3) -- (a3);
+%  \end{scope}
+%\end{tikzpicture}
+%
+% \indent\textsuperscript{1}The pattern \cmd{\Name}\oarg{forenames}\marg{surnames, suffix} and all patterns thereafter with the mandatory argument \meta{Name$_1$, Name$_2$} cannot be used with the |comma| option or in an instance where \cmd{\ShowComma} is used.\\[1ex]
+% \indent\textsuperscript{2}The presence of a nickname is determined when both forename and nickname are present. In that case, the latter is swapped with the former.\\[1ex]
+% \indent\textsuperscript{3}When \meta{arg1} is empty, \meta{arg3} is an affix. That form cannot be used with \cmd{\PName} and \cmd{\AKA}, but it does work with |comma| and \cmd{\ShowComma}.\\[1ex]
+% \indent\textsuperscript{4}When expressing Eastern names via \cmd{\Name}\oarg{Eastern FNN}\marg{Eastern SNN}, they will appear in the index as the Western form \meta{SNN, FNN} even if \cmd{\RevName} is used to create an Eastern word order in the text.\\[1ex]
+% \indent\textsuperscript{5}When expressing Eastern names using the form \cmd{\Name}\marg{Eastern SNN, FNN} or \cmd{\Name}\marg{Eastern SNN}\oarg{Eastern FNN}, such names will appear in the index using the Eastern form \meta{SNN FNN} even if \cmd{\RevName} is used to create a Western word order in the text.\\[1.5ex]
+% \indent If given the choice, use the |nocomma| option and the \meta{Name$_1$, Name$_2$} forms for suffixes and affixes in order to take advantage of extra space removal and other features that minimize possible errors.
+% \clearpage
+%
+% \DescribeMacro{nameauth} A simplified interface has been introduced as of version 1.6. The |nameauth| environment  (best used in the document preamble) sets up a list of shorthands used in place of \cmd{\Name},  \cmd{\Name*}, and  \cmd{\FName}. The syntax is:
+%
+% \begin{quote}
+% |\begin{nameauth}|\\
+% |  \<| \meta{cseq-abbreviation1} |&| \meta{arg1} |&| \meta{arg2} |&| \meta{arg3} |>|\\
+% |  \<| \meta{cseq-abbreviation2} |&| \meta{arg1} |&| \meta{arg2} |&| \meta{arg3} |>| \dots\\
+% |\end{nameauth}|
+% \end{quote}
+% Each instance of \meta{cseq-abbreviation} creates three macros. The control sequence itself is an abbreviation for \cmd{\Name}. The form with an L prefixed stands in for \cmd{\Name*}. The form with an S prefixed stands in for \cmd{\FName}. There must be four arguments per line. Placement of ampersands is key to avoiding error. Leading and trailing spaces are stripped.
+%
+% The next example shows most of the name forms from the previous page:
+% \begin{quote}
+%|\begin{nameauth}|\\
+%|  \< Wash & George & Washington & >|\\
+%|  \< Soto & Hernando & de Soto & >|\\
+%|  \< JRock & John David & Rockefeller, II & >|\\
+%|  \< JayR & John David & Rockefeller, IV & Jay >|\\
+%|  \< Aris & & Aristotle & >|\\
+%|  \< Eliz & & Elizabeth, I & >|\\
+%|  \< Dagb & & Dagobert & I >|\\
+%|  \< Konoe & Fumimaro & Konoe & >|\\
+%|  \< Yamt & & Yamamoto, Isoroku & >|\\
+%|  \< Yosh & & Yoshida & Shigeru >|\\
+%|\end{nameauth}|
+% \end{quote}
+%
+% This example allows one to do the following:
+%
+% \begin{multicols}{2}
+% \noindent|\Wash|:  \Wash \\
+% |\Wash|: \Wash \\
+% |\LWash|: \LWash \\
+% |\SWash|: \SWash \\
+% |\RevComma\LWash|: \RevComma\LWash \\
+% |\Soto|: \Soto \\
+% |\Soto|: \Soto \\
+% |\CapThis\Soto|: \CapThis\Soto \\
+% |\JRock|: \JRock \\
+% |\JRock|: \JRock \\
+% |\JayR|: \JayR \\
+% |\SJayR{} \JayR|: \SJayR{} \JayR\\
+% |\Aris|: \Aris \\
+% |\Eliz|: \Eliz \\
+% |\Eliz|: \Eliz \\
+% |\Dagb|: \Dagb \\
+% |\Dagb|: \Dagb \\
+% |\Konoe|: \Konoe \\
+% |\RevName\LKonoe|: \RevName\LKonoe \\
+% |\CapName\LKonoe|: \CapName\LKonoe \\
+% |\CapName\RevName\LKonoe|: \\ \indent\CapName\RevName\LKonoe \\
+% |\CapName\Yamt|: \\ \indent\CapName\Yamt \\
+% |\RevName\LYamt|: \RevName\LYamt \\
+% |\Yosh|: \Yosh
+% \end{multicols}
+%
+% As with |\TagName|, one must add extra comment delimiters if the environment is used in the text body. This environment can augment the other macros.
+% \subsubsection{Additional Hints}
+% \IndexInactive\NamesInactive
+% \begin{tabular}{lp{4in}}
+% Q:&Too many macros! I quit.\\[0.5ex]
+% A:&The macro you will use the most is \cmd{\Name}. Just use it until you discover that you need one of the other macros.\\[1ex]
+% Q:&I see ``Paragraph ended\dots'' or ``Missing \meta{grouping token} inserted'' and execution stops.\\[0.5ex]
+% A:&Check that the |{|braces|}| and |[|brackets|]| are balanced.\\[1ex]
+% Q:&There is too much space between the initials in the names.\\[0.5ex]
+% A:&Bringhurst's \emph{Elements of Typographic Style} calls for no spaces or thin spaces between initials. Use \cmd{\frenchspacing}.\\[1ex]
+% Q:&|\Name[Davey]{Jones}[a Monkee]| shows ``\Name[Davey]{Jones}[a Monkee]'' or just ``\Name[Davey]{Jones}[a Monkee].'' \cmd{\FName} gives ``\FName[Davey]{Jones}[a Monkee].''\\[0.5ex]
+% A:&\cmd{\Name}\oarg{Forenames}\marg{Surnames}\oarg{Nicknames} creates a nickname, not an affix or sobriquet.\\[1ex]
+% Q:&|\Name[Henry]{VIII}| prints either ``\Name*[Henry]{VIII}'' or ``\Name[Henry]{VIII}.'' Adding [Tudor] creates ``\Name*[Henry]{VIII}[Tudor]'' and ``\Name[Henry]{VIII}[Tudor].''\\[0.5ex]
+% A:&\cmd{\Name}\oarg{King}\marg{Affix} will not work. Even though Mulvany, \emph{Indexing Books}, talks about forenames and optional surnames for royals, we prevent ambiguity by encoding royal names as surnames with optional affixes. Use \cmd{\Name}\marg{King, Affix} if possible, or \cmd{\Name}\marg{King}\oarg{Affix} with the |comma| option. For example, |\Name{Henry, VIII}| gives ``\Name{Henry, VIII}'' and ``\Name{Henry, VIII}.'' Manually add ``Tudor'' in the text and use |\TagName{Henry, VIII}{, Tudor}| to add the tag automatically to the index entry.\ForgetName[Henry]{VIII}\ForgetName{Henry, VIII}\\[1ex]
+% Q:&|\Name{Aethelred, the really}[Unraedig]| shows ``\Name{Aethelred, the really}[Unraedig]'' or ``\Name{Aethelred, the really}[Unraedig].''\\[0.5ex]
+% A:&The form \cmd{\Name}\marg{Mononym, Affix\/$_1$}\oarg{Affix\/$_2$} creates two sobriquets, but badly. Use either \cmd{\Name}\marg{Mononym, Affix} or \cmd{\Name}\marg{Mononym}\oarg{Affix} with |comma|. Mix the forms either at your peril or at your whimsy.\\[1ex]
+% Q:&|\AKA{Boris}[the Animal]{Just Boris}| fails.\\[0.5ex]
+% A:&\cmd{\AKA} fails with the \marg{Mononym}\oarg{Affix} pattern in order to avoid the collision of optional arguments. See Section~\ref{sec:AKA}.\\[1ex]
+% Q:&So how do I deal with some stage names and the like?\\[0.5ex]
+% A:&Use a forename or first initials to prevent failure:\\[0.5ex]
+% &OK: |\Name[J.]{Kreskin}[The Amazing]  |\Name[J.]{Kreskin}[The Amazing]\\&\quad|(\AKA[J.]{Kreskin}[Joseph]{Kresge})| (\AKA[J.]{Kreskin}[Joseph]{Kresge})\\[0.5ex]
+% &FAIL: |\Name{Kreskin}[The Amazing]|\\&\qquad|\AKA{Kreskin}[Joseph]{Kresge}|\\[1ex]
+% \end{tabular}
+%
+% \begin{tabular}{lp{4in}}
+% Q:&How do I refer to ``\SubvertName[Mike]{Tyson}\FName[Mike]{Tyson}[Iron Mike]'' \Name[Mike]{Tyson}?\\[0.5ex]
+% A:&Very carefully. One way uses |``\SubvertName[Mike]{Tyson}| |\FName[Mike]{Tyson}[Iron Mike]''| |\Name[Mike]{Tyson}| to produce the text above. Other manual methods are discussed on page \pageref{manualxref}. Using |``\AKA[Mike]{Tyson}{Iron Mike}''| creates ``\AKA[Mike]{Tyson}{Iron Mike}'' in the text and a \emph{see}-type cross-reference to the main name in the index.\\[1ex]
+% Q:&\cmd{\Name} has a full name in the source, but it is shorter in the text!\\[0.5ex]
+% A:&And you did not mean that to happen. Use \cmd{\Name*} in that case. It can be easy to forget that \cmd{\Name} auto-formats its arguments even if you type them out.\\[1ex]
+% \end{tabular}
+% \IndexActive\NamesActive
+%
+% \subsubsection{Error Handling}
+% \label{sec:error}
+%
+% Version 1.5 introduces space removal in \meta{Name$_1$, Name$_2$} pairs that mitigates problems in both the text and in the index. Older versions of \texttt{nameauth} were susceptible to fragility and moving arguments. Version 1.4 and later of \textsf{nameauth} address many of these issues.
+%
+% Except for the indexing parts of macros, most of the macros in this package print any erroneous arguments in the text, but not in the index. To find errors, one can look at index entries for irregularities or examine package warnings. Unless there is a syntax error, all macros that produce output also emit meaningful warnings. Convenience macros like \cmd{\PName} produce warnings via their component macros, e.g., \cmd{\Name} and \cmd{\AKA}.
+%
+% Not all warnings are created equal. For example, the multiple creation of a cross-reference with \cmd{\AKA} will generate a warning, but it will have no ill effects and may be intentional. Other warnings, especially in the case of indexing macros, indicate that the macro produced no output.\\
+%
+% \noindent Warnings result from:
+%
+% \begin{enumerate}\setlength{\itemsep}{-0.4ex}
+% \item Using a cross-reference \oarg{alternate FNN}\marg{alternate SNN}\oarg{alt. names} created by \cmd{\AKA} as a reference in \cmd{\Name}, \cmd{\FName}, and \cmd{\PName}.
+% \item Using a reference \oarg{FNN}\marg{SNN}\oarg{alternate names} created by \cmd{\Name}, \cmd{\FName}, and \cmd{\PName} as a cross-reference in \cmd{\AKA}.
+% \item Using \cmd{\AKA} to create the same cross-reference multiple times.
+% \item Using \cmd{\IndexName} to index a cross-reference as a main entry.
+% \item Using \cmd{\TagName} to tag a cross-reference.
+% \item Using \cmd{\ExcludeName} to exclude a name that has already been used.
+% \end{enumerate}
+% \clearpage
+%
+% \subsection{Naming Macros}
+%
+% \subsubsection{Surnames: \texttt{\textbackslash Name} and \texttt{\textbackslash Name*}}
+% 
+% \DescribeMacro{\Name}
+% \DescribeMacro{\Name*}
+% This macro generates two forms of the name: a printed form in the text and a form of the name that occurs in the index.
+% The general syntax is:
+% \begin{quote}
+% \cmd{\Name}\oarg{forename(s)}\marg{surname(s)}\oarg{alternate names}\\
+% \cmd{\Name*}\oarg{forename(s)}\marg{surname(s)}\oarg{alternate names}
+% \end{quote}
+%
+% From now on we will abbreviate \meta{forename(s)} with \meta{FNN} and \meta{surname(s)} with \meta{SNN} at various points. The following table helps to show how the syntax description works with first and subsequent references:
+%
+% \begin{quote}\small
+% \begin{tabular}{ll}\hline
+% {\large\strut}|\Name[Albert]{Einstein}| & \Name[Albert]{Einstein}\\
+% {\large\strut}|\Name*[Albert]{Einstein}| & \Name*[Albert]{Einstein}\\
+% {\large\strut}|\Name[Albert]{Einstein}| & \Name[Albert]{Einstein}\\\hline
+% {\large\strut}|\Name{Confucius}| & \Name{Confucius}\\
+% {\large\strut}|\Name*{Confucius}| & \Name{Confucius}\\
+% {\large\strut}|\Name{Confucius}| & \Name*{Confucius}\\\hline
+% {\large\strut}|\Name[M.T.]{Cicero}[Marcus Tullius]| & \Name[M.T.]{Cicero}[Marcus Tullius]\\
+% {\large\strut}|\Name*[M.T.]{Cicero}[Marcus Tullius]| & \Name*[M.T.]{Cicero}[Marcus Tullius]\\
+% {\large\strut}|\Name[M.T.]{Cicero}[Marcus Tullius]| & \Name[M.T.]{Cicero}[Marcus Tullius]\\\hline
+% {\large\strut}|\Name{Charles}[the Bald]| & \Name{Charles}[the Bald]\\
+% {\large\strut}|\Name*{Charles}[the Bald]| & \Name*{Charles}[the Bald]\\
+% {\large\strut}|\Name{Charles}[the Bald]| & \Name{Charles}[the Bald]\\\hline
+% \end{tabular}
+% \end{quote}
+%
+% \cmd{\Name} connects the \meta{FNN} to the \meta{SNN} to create respective printed and indexed forms, as illustrated in Section~\ref{sec:PatRef} and thereafter. The invocation of \cmd{\Name} always prints the \meta{SNN} field. \cmd{\Name} prints the ``full name'' at the first occurrence, then only the partial form thereafter. \cmd{\Name*} always prints the full name.
+%
+% Nicknames and sobriquets of some historical figures are implemented in slightly different ways. A nickname assumes the presence of \meta{FNN} and \meta{SNN} (see the example for \Name[M.T.]{Cicero}[Marcus Tullius] above). The \meta{alternate names} field allows a nickname to replace the \meta{FNN} field in the text while keeping the \meta{FNN} field in the index. Nicknames are truly optional. As long as the \meta{FNN} and \meta{SNN} fields are consistent, the index entries will be consistent. The shorter name printed by \cmd{\Name} will not print forenames or nicknames. See also Section~\ref{sec:start} and \cmd{\FName} below.
+%
+% In the example of \Name*{Charles}[the Bald] above, ``the Bald'' is not a nickname because no \meta{FNN} are present. In that case the \meta{alternate names} field is appended to the \meta{SNN} in both the printed form \emph{and} in the index form. This behavior implies that, while ``the Bald'' uses an optional parameter, it is not truly optional once used.
+%
+% Later we shall see that a similar effect, perhaps more preferable, can be achieved with the default \texttt{nocomma} option and |\Name{Charles, the Bald}|, as seen in Section~\ref{sec:suffix}. One must always be consistent in using these forms. Otherwise one may get bogus index entries and errors in the text that are difficult to track.
+% \clearpage
+%
+% \subsubsection{Forenames: \texttt{\textbackslash FName}}
+%
+% \DescribeMacro{\FName}
+% \DescribeMacro{\FName*}
+% This casual friend of \cmd{\Name} prints only ``first'' names, but it will still print a full name when a first use occurs. \cmd{\FName} is intended for Western-style names. \cmd{\FName*} is only a synonym for \cmd{\FName}. The syntax is basically the same:
+% \begin{quote}
+% \cmd{\FName}\oarg{FNN}\marg{SNN}\oarg{alternate names}
+% \end{quote}
+% The following table shows the output at a glance:\ForgetName[Albert]{Einstein}\ForgetName{Confucius}\ForgetName[M.T.]{Cicero}\ForgetName{Charles}[the Bald]
+%
+% \begin{quote}\small
+% \begin{tabular}{ll}\hline
+% {\large\strut}|\FName[Albert]{Einstein}| & \FName[Albert]{Einstein}\\
+% {\large\strut}|\FName[Albert]{Einstein}| & \FName[Albert]{Einstein}\\\hline
+% {\large\strut}|\FName{Confucius}| & \FName{Confucius}\\
+% {\large\strut}|\FName{Confucius}|& \FName{Confucius}\\\hline
+% {\large\strut}|\FName[M.T.]{Cicero}[Marcus Tullius]| & \FName[M.T.]{Cicero}[Marcus Tullius]\\
+% {\large\strut}|\FName[M.T.]{Cicero}[Marcus Tullius]| & \FName[M.T.]{Cicero}[Marcus Tullius]\\\hline
+% {\large\strut}|\FName{Charles}[the Bald]| & \FName{Charles}[the Bald]\\
+% {\large\strut}|\FName{Charles}[the Bald]| & \FName{Charles}[the Bald]\\\hline
+% \end{tabular}
+% \end{quote}
+%
+% See how the first reference is a full name? That prevents an accidental reference to a first name before a person has been introduced. Nicknames are used by including them in the \meta{alternate names} field in addition to \meta{FNN}. For example, aviation hero \Name[Chesley B.]{Sullenberger, III} can be noted as:
+%
+% \begin{quote}|``\FName[Chesley B.]{Sullenberger, III}[Sully]''|\quad``\FName[Chesley B.]{Sullenberger, III}[Sully]''\end{quote}
+%
+%\noindent A good way to cut keystrokes would be to assign the above macro to the control sequence \cmd{\Sully}.
+%
+% \subsubsection{Full Stop Detection}
+%
+% Suffixes and initials could result in the period of an abbreviation like ``Jr.,'' ``Sr.,'' and ``d.\,\"{A}.'' (\textit{der \"{A}ltere}) followed by the sentence full stop. These macros check for such collisions and drop the extra full stop as needed:
+%
+% \begin{quote}\small\ForgetName[Martin Luther]{King, Jr.}
+% \begin{tabular}{ll}
+% {\large\strut}|\Name[Martin Luther]{King, Jr.}.| & \Name[Martin Luther]{King, Jr.}.\\
+% {\large\strut}|\Name[Martin Luther]{King, Jr.}.| & \Name[Martin Luther]{King, Jr.}.\\
+% {\large\strut}|\Name[Martin Luther]{King, Jr.}| & \Name[Martin Luther]{King, Jr.} (e.g., in a sentence)\\
+% {\large\strut}|\Name*[Martin Luther]{King, Jr.}.| & \Name*[Martin Luther]{King, Jr.}.\\
+% {\large\strut}|\Name*[Martin Luther]{King, Jr.}| & \Name*[Martin Luther]{King, Jr.}
+% \end{tabular}
+% \end{quote}
+% \IndexInactive
+%
+% See Section~\ref{sec:suffix} for more on comma-delimited suffixes. Full-stop detection also works with \cmd{\FName} in cases like the fictional \FName[J.R.]{Wing, III} where one might discuss |``who shot \FName[J.R.]{Wing, III}.''| ``who shot \FName[J.R.]{Wing, III}.''\IndexActive
+%
+% \subsection{Affixes and Eastern Names}
+%
+% \subsubsection{Comma-Delimited Suffixes}
+% \label{sec:suffix}
+%
+% Before we consider the topic of non-Western names, we must first engage the concept of suffixes and affixes as expressed in the \meta{Name$_1$, Name$_2$} pattern used in the mandatory argument of \cmd{\Name}.
+%
+% \DescribeMacro{\ShowComma}
+% The |comma| option is restrictive, but helpful in reproducing older texts. \cmd{\ShowComma} permits the default |nocomma| option, yet forces a comma to appear between the name and suffix: |\ShowComma\Name[Louis]{Gossett, Jr.}| \ShowComma\Name[Louis]{Gossett, Jr.}. A caveat is that one must use \cmd{\ShowComma} consistently with that name thereafter or risk errors.
+%
+%The |comma| option and \cmd{\ShowComma} restrict the use of some royal names and Eastern names. \cmd{\AKA} and \cmd{\PName} cannot create cross-references to these forms, but \cmd{\AKA} can cross-reference \emph{from} these forms in its second set of arguments. These restricted forms are shown below:
+%
+% \begin{quote}\ForgetName{Henry}[VIII]
+% \begin{tabular}{ll}\hline
+% {\large\strut}|\Name{Henry}[VIII]| & \Name{Henry}[VIII]\\
+% {\large\strut}|\Name{Henry}[VIII]| & \Name{Henry}[VIII]\\\hline
+% {\large\strut}|\Name{Chiang}[Kai-shek]| & \Name{Chiang}[Kai-shek]\\
+% {\large\strut}|\Name{Chiang}[Kai-shek]| & \Name{Chiang}[Kai-shek]\\\hline
+% \end{tabular}
+% \end{quote}
+%
+% \noindent We remember that these forms work because no \meta{FNN} are present, only the \cmd{\Name}\marg{mononym}\oarg{affix} type pattern. Of course, the mononym field can have more than one word in it, as can the affix.
+%
+% Using the default package option \texttt{nocomma} with comma-delimited suffixes offers a more robust method that can handle several different name types quite flexibly. We begin with the idea of a name and a suffix. One cannot write |\Name[Oskar]{Hammerstein}[II]| without getting the likes of ``II Hammerstein.'' On the other hand, |\Name[Oskar]{Hammerstein, II}| produces \Name[Oskar]{Hammerstein, II} the first time and \Name[Oskar]{Hammerstein, II} thereafter. One must always include a comma as a suffix delimiter; trailing commas are ignored. Automatic space removal and formatting helps reduce potential error.
+%
+% We can move beyond suffixes to work with more complex examples, including royal names and basic Eastern name forms:
+%
+% \begin{quote}\ForgetName{Sun, Yat-sen}
+% \begin{tabular}{ll}\hline
+% {\large\strut}|\Name{Louis, XIV}| & \Name{Louis, XIV}\\
+% {\large\strut}|\Name{Louis, XIV}| & \Name{Louis, XIV}\\\hline
+% {\large\strut}|\Name{Sun, Yat-sen}| & \Name{Sun, Yat-sen}\\
+% {\large\strut}|\Name{Sun, Yat-sen}| & \Name{Sun, Yat-sen}\\\hline
+% \end{tabular}
+% \end{quote}
+%
+% \noindent The benefit to using this form is that one can type |\Name*{Louis, XIV}, the| |``\AKA{Louis, XIV}{Sun King}''| and get \Name*{Louis, XIV}, the ``\AKA{Louis, XIV}{Sun King}'' in the text with an appropriate \emph{see} reference from ``Sun King'' to ``Louis XIV'' in the index. The first method shown above prevents such usage.
+%
+% Suffix and sobriquet features generally produce the same \emph{output}, yet internally they are \emph{different}. For example, they do not respect each other's first use. One can force them to cooperate, as in Section~\ref{sec:formatting}, but it is not trivial. Users should avoid mixing the two suffix methods shown here.
+%
+% \subsubsection{Eastern Names}
+% \label{sec:Eastern}
+%
+% This section will work with both \cmd{\Name}\marg{Eastern SNN}\oarg{Eastern FNN} and \cmd{\Name}\marg{Eastern SNN, Eastern FNN}. We have already shown the advantages of preferring the latter form. In particular, this section addresses some features seen in romanized Japanese contexts. Nevertheless, its use may be broader.
+%
+% One sees in many non-Western contexts that the family name comes first, followed by personal names. The \textsf{nameauth} package offers two routes to that result. Those routes depend on how \cmd{\Name} assembles index entries. \cmd{\Name}\oarg{Eastern FNN}\marg{Eastern SNN} will produce an index entry of the form \meta{Eastern SNN}, \meta{Eastern FNN}. There exists a comma between the names and the default output order is Western. We will see how to change that below.
+%
+% In contrast, both \cmd{\Name}\marg{Eastern SNN}\oarg{Eastern FNN} and \cmd{\Name}\marg{Eastern SNN, Eastern FNN} produce an index entry of the form \meta{Eastern SNN} \meta{Eastern FNN}. No comma is present in the latter form. Furthermore, in the latter two cases, the default  output order is Eastern.
+%
+% \DescribeMacro{\ReverseActive}
+% \DescribeMacro{\ReverseInactive}
+% \DescribeMacro{\RevName}
+% The way we get these two methods to meet is the reverse output mechanism. One can use the class options described in Section~\ref{sec:options}. One may activate and deactivate reversal with \cmd{\ReverseActive} and \cmd{\ReverseInactive}. One also may activate reversal for one time with \cmd{\RevName}. Using these methods, Western word order can be made to look Eastern and vice-versa. Therefore, the key is to decide the index entry format and choose the name encoding.
+%
+% The reversing mechanism intelligently swaps name patterns. To illustrate this, we turn off indexing and name formatting and always use full names. A list of Japanese music artists allows us to use \cmd{\RevName}\cmd{\Name}\dots\ and some creativity:
+%
+% \NamesInactive\IndexInactive
+% \begin{quote}
+% \begin{tabular}{lll}\hline
+% {\large\strut}|\Name*[Aiko]{Nakano}| & \Name*[Aiko]{Nakano} & \RevName\Name*[Aiko]{Nakano}\\
+% {\large\strut}|\Name*{Arai, Akino}| & \Name*{Arai, Akino} & \RevName\Name*{Arai, Akino}\\
+% {\large\strut}|\Name*{Ishida}[Yoko]| & \Name*{Ishida}[Yoko] & \RevName\Name*{Ishida}[Yoko]\\
+% {\large\strut}|\Name*{Yohko}| & \Name*{Yohko} & \RevName\Name*{Yohko}\\\hline
+% \end{tabular}
+% \end{quote}
+% \NamesActive\IndexActive\medskip
+%
+% \DescribeMacro{\AllCapsActive}
+% \DescribeMacro{\AllCapsInctive}
+% \DescribeMacro{\CapName}
+% \vskip-2.8ex Full capitalization of surnames occurs with \cmd{\AllCapsActive}, \cmd{\AllCapsInactive}, and \cmd{\CapName}. These macros are analogous to the reversing macros above and may be used alone or with those macros, e.g. \cmd{\CapName}\cmd{\RevName}\cmd{\Name}:
+%
+% \NamesInactive\IndexInactive
+% \begin{quote}
+% \begin{tabular}{lll}\hline
+% {\large\strut}|\Name*[Yoko]{Kanno}| & \CapName\Name*[Yoko]{Kanno} & \CapName\RevName\Name*[Yoko]{Kanno}\\
+% {\large\strut}|\Name*{Shikata, Akiko}| & \CapName\Name*{Shikata, Akiko} & \CapName\RevName\Name*{Shikata, Akiko}\\
+% {\large\strut}|\Name*{Nogawa}[Sakura]| & \CapName\Name*{Nogawa}[Sakura] & \CapName\RevName\Name*{Nogawa}[Sakura]\\
+% {\large\strut}|\Name*{Yohko}| & \CapName\Name*{Yohko} & \CapName\RevName\Name*{Yohko}\\\hline
+% \end{tabular}
+% \end{quote}
+% \NamesActive\IndexActive
+%
+% The reversing and capitalization macros also work with \cmd{\AKA}. They affect only the text, not the index. Whoever wants all-cap forms in the index will have to cap everything manually or modify the macros.
+%
+% \subsection{Other Naming Topics}
+%
+% \subsubsection{Listing by Surname}
+%
+%\DescribeMacro{\ReverseCommaActive}
+%\DescribeMacro{\ReverseCommaInactive}
+%\DescribeMacro{\RevComma}
+% Another set of reversing macros, \cmd{\ReverseCommaActive}, \cmd{\ReverseCommaInactive}, and \cmd{\RevComma}, allows the easy generation of lists with surnames, followed by a comma, then forenames. The first two are broad toggles, while the third works on a per-use basis. Here is a good place to show incompatibility between Eastern, medieval, and royal names on the one hand and Western names on the other. An indiscriminate use of \cmd{\RevComma}\cmd{\Name}\dots\ can yield:
+%
+% \NamesInactive
+% \begin{quote}
+% \begin{tabular}{lll}
+% {\large\strut}\Name*[Jeremy]{Bentham} & \RevComma\Name*[Jeremy]{Bentham} & OK\\
+% {\large\strut}\Name*[J.S.]{Mill}[John Stuart] & \RevComma\Name*[J.S.]{Mill}[John Stuart] & OK\\
+% {\large\strut}\Name*{John, Eriugena} & \RevComma\Name*{John, Eriugena} & FAIL\\
+% {\large\strut}\Name*{Albertus}[Magnus] & \RevComma\Name*{Albertus}[Magnus] & FAIL\\
+% {\large\strut}\Name*{Anaximander} & \RevComma\Name*{Anaximander} & OK\\
+% \end{tabular}
+% \end{quote}
+% \NamesActive
+%
+% There is no way around this ``fail'' here because that is exactly what we want to happen in the case of Eastern names. It is not possible for this package to be all things to all names, but it tries to be as broad as possible.
+%
+% \subsubsection{Naming Standards}
+%
+% \DescribeMacro{\CapThis}
+% English names with the particles \emph{de}, \emph{de\ la}, \emph{d'}, \emph{von}, \emph{van}, and \emph{ten} generally keep them with the last name, using varied capitalization. \emph{Le}, \emph{La}, and \emph{L'} are capitalized unless preceded by \emph{de}. In English, these particles go in the \meta{SNN} field of \cmd{\Name}, e.g., \ForgetName[Walter]{de la Mare}\Name[Walter]{de la Mare}. To capitalize the first particle in a subsequent \cmd{\Name} reference at the beginning of a sentence, use |\CapThis\Name[Walter]{de la Mare}|. \CapThis\Name[Walter]{de la Mare} will think it fair. \CapThis\Name{du Cange} (\AKA{du Cange}[Charles]{du Fresne}) would too, because \cmd{\CapThis} works universally as of version 1.4.
+%
+% Names foreign to English often associate these particles with the \meta{FNN} field of \cmd{\Name}. Yet these particles are not really first names. Using \cmd{\FName} with alternate forenames avoids that issue. See also Section~\ref{sec:Particles}.
+%
+% \subsubsection{Hyphenation}
+%
+% I find it helpful to use respectively the \textsf{babel} or \textsf{polyglossia} packages with name hyphenation. If one is using English as the main language, the default hyphenation patterns may not suffice. For example, the name \Name[John]{Strietelmeier} may break thus: ``Stri-etelmeier.'' That is fixed by creating a \cmd{\de} macro equivalent to |\newcommand{\de}[1]{\foreignlanguage{ngerman}{#1}}| (using \textsf{babel}) and writing |\de{\Name[John]{Strietelmeier}}|.
+%
+% One can insert optional hyphens in the arguments of \cmd{\Name} and friends but that must be done \emph{consistently} to avoid variants being treated as different names.
+%
+% \subsubsection{Accented Names}
+% \label{sec:accents}
+% 
+% If you use accented names, \textsf{xindy} (or \textsf{texindy}) and \textsf{xelatex} or \textsf{lualatex} are strongly recommended. Nevertheless, if using NFSS, the following Unicode characters are available using \textsf{inputenc}/\textsf{fontenc}:
+% \begin{quote}
+% \begin{tabular}{llll}
+% \scshape À Á Â Ã Ä Å Æ & \scshape Ç È É Ê Ë & \scshape Ì Í Î Ï Ð Ñ & \scshape first use \\
+% À Á Â Ã Ä Å Æ & Ç È É Ê Ë & Ì Í Î Ï Ð Ñ & second use \\[1ex]
+% \scshape Ò Ó Ô Õ Ö Ø & \scshape Ù Ú Û Ü Ý & \scshape Þ ß & \scshape first use \\
+% Ò Ó Ô Õ Ö Ø & Ù Ú Û Ü Ý & Þ ß & second use \\[1ex]
+% \scshape à á â ã ä å æ & \scshape ç è é ê ë & \scshape ì í î ï ð ñ & \scshape first use \\
+% à á â ã ä å æ & ç è é ê ë & ì í î ï ð ñ & second use \\[1ex]
+% \scshape ò ó ô õ ö ø & \scshape ù ú û ü ý & \scshape þ ÿ & \scshape first use \\
+% ò ó ô õ ö ø & ù ú û ü ý & þ ÿ & second use \\[1ex]
+% \scshape Ă ă Ą ą Ć ć Č č & \scshape Ď ď Đ đ Ę ę Ě ě & \scshape Ğ ğ İ ı & \scshape first use \\
+% Ă ă Ą ą Ć ć Č č & Ď ď Đ đ Ę ę Ě ě & Ğ ğ İ ı & second use \\[1ex]
+% \scshape Ĳ ĳ Ľ ľ Ł ł & \scshape Ń ń Ň ň Œ œ & \scshape Ŕ ŕ Ř ř & \scshape first use \\
+% Ĳ ĳ Ľ ľ Ł ł & Ń ń Ň ň Œ œ & Ŕ ŕ Ř ř & second use \\[1ex]
+% \scshape Ś Ş ş Š š Ţ ţ Ť ť & \scshape Ů ů Ű ű & \scshape Ź ź Ż ż Ž ž & \scshape first use \\
+% Ś Ş ş Š š Ţ ţ Ť ť & Ů ů Ű ű & Ź ź Ż ż Ž ž &  second use \\
+% \end{tabular}
+% \end{quote}
+%
+% One may use expandable control sequences in names (thanks \Name*[Robert]{Schlicht}). Protected or unexpandable control sequences via |\protected@edef| or |\noexpand| may generate, respectively, empty index entries or unbalanced groups/erroneous entries in the auxiliary files. Thanks to \Name[Patrick]{Cousot} for pointing this out.
+%
+% To accomplish proper sorting with accents and |makeindex -g|, consider creating your own |.ist| file (pages 659--65 in \emph{The Latex Companion}) or:
+%  \begin{quote}\small
+% |\IndexInactive\Name{|\meta{actual}|}\index{|\meta{sortkey}|@|\meta{actual}|}\IndexActive|
+% \end{quote}
+%
+%  Additional accents and glyphs can be used with Unicode input, NFSS, \textsf{inputenc}, and \textsf{fontenc} when using fonts with TS1 glyphs, e.g., |\usepackage{lmodern}| (per the table on pages 455--63 in \emph{The Latex Companion}):
+%  \begin{quote}
+% |\DeclareTextSymbolDefault{\textlongs}{TS1}|\\
+% |\DeclareTextSymbol{\textlongs}{TS1}{115}|\\
+% |\newunicodechar{s}{\textlongs}|
+% \end{quote}
+% Similarly, the following allows |\Name{Ghazāli}| to generate \IndexInactive\Name{Ghaz{\=a}li}\IndexActive.:
+%  \begin{quote}
+% |\usepackage{newunicodechar}|\\
+% |\newunicodechar{ā}{\=a}|
+% \end{quote}
+% Indexing with control sequences like |\=a| will fail, whether with \textsf{nameauth} or manually, when using \textsf{makeindex} and \texttt{gind.ist}. The equal sign becomes an ``actual'' character instead of the |@| (thanks \Name[Dan]{Luecking}).
+% 
+% This package tries to work with multiple languages and typesetting engines. The following preamble snippet illustrates how that can be done:\\
+%
+% \begin{tabular}{ll}
+% |\usepackage{ifxetex}|\\
+% |\usepackage{ifluatex}|\\
+% |\ifxetex| & |% uses fontspec|\\
+% \hbox{\quad}|\usepackage{fontspec}|\\
+% \hbox{\quad}|\defaultfontfeatures{Mapping=tex-text}|\\
+% \hbox{\quad}|\usepackage{xunicode}|\\
+% \hbox{\quad}|\usepackage{xltxtra}|\\
+% |\else|\\
+% \hbox{\quad}|\ifluatex| & |% also uses fontspec|\\
+% \hbox{\quad}\hbox{\quad}|\usepackage{fontspec}|\\
+% \hbox{\quad}\hbox{\quad}|\defaultfontfeatures{Ligatures=TeX}|\\
+% \hbox{\quad}|\else| & |% traditional NFSS|\\
+% \hbox{\qquad}|\usepackage[utf8]{inputenc}|\\
+% \hbox{\qquad}|\usepackage[TS1,T1]{fontenc}|\\
+% \hbox{\quad}|\fi|\\
+% |\fi|
+% \end{tabular}
+%
+% \medskip The following can be used in the text itself to allow for conditional processing that helps one to document work under multiple engines:\\
+%
+% \begin{tabular}{l}
+% |\ifxetex |\meta{xelatex text}|%|\\
+% |\else%|\\
+% \hbox{\quad}|\ifluatex%|\\
+% \hbox{\qquad}|\ifpdf |\meta{lualatex in pdf mode text}|%|\\
+% \hbox{\qquad}|\else |\meta{lualatex in dvi mode text}|%|\\
+% \hbox{\qquad}|\fi%|\\
+% \hbox{\quad}|\else%|\\
+% \hbox{\qquad}|\ifpdf |\meta{pdflatex text}|%|\\
+% \hbox{\qquad}|\else |\meta{latex text}|%|\\
+% \hbox{\qquad}|\fi%|\\
+% \hbox{\quad}|\fi%|\\
+% |\fi|
+% \end{tabular}
+%
+% \subsubsection{Custom Formatting}
+% \label{sec:formatting}
+%
+% \DescribeMacro{\NamesFormat}
+% The first instance of a name is formatted with \cmd{\NamesFormat} when formatting is active. Additionally, the \texttt{alwaysformat} option will cause every name to be formatted when formatting is active. Beyond using the package options, one can redefine \cmd{\NamesFormat} to create some custom effects. For example, if you wanted to suppress formatting in footnotes, you could do something like:
+%
+% \begin{quote}
+% |\makeatletter|\\
+% |\let\@oldfntext\@makefntext|\\
+% |\long\def\@makefntext#1{\def\NamesFormat{}\@oldfntext{#1}}|\\
+% |\makeatother|
+% \end{quote}
+%
+% \noindent This approach synchronizes the ``first use'' feature in the text and the footnotes, but only suppresses the formatting. It takes advantage of the deep nesting of \cmd{\@makefntext} and a localized \cmd{\def} to make a temporary change.
+%
+% A second example puts the mention of first names in the margin if possible:
+% \begin{quote}
+% |\let\oldformat\NamesFormat|\\
+% |\renewcommand{\NamesFormat}[1]{\textbf{#1}%|\\
+% |\ifinner\else\marginpar{\scriptsize #1}\fi}|
+% \let\oldformat\NamesFormat
+%
+% \renewcommand{\NamesFormat}[1]{\textbf{#1}\ifinner\else\marginpar{\scriptsize #1}\fi}%
+% \bgroup\small\ttfamily%
+% |\Name{Vlad III}[Dracula]| was known as Vlad Ţepeş, ``The Impaler,''\break  after his death. He was the son of |\Name{Vlad II}%| |[Dracul]|, a\break member of the Order of the Dragon. Later references to\break |\Name{Vlad III}[Dracula]| appear thus.\egroup
+%
+% \Name{Vlad III}[Dracula] was known as Vlad Ţepeş, ``The Impaler,''  after his death. He was the son of \Name{Vlad II}[Dracul], a member of the Order of the Dragon. Later references to \Name{Vlad III}[Dracula] appear thus.
+% \end{quote}
+%
+% The forms above do not work with \cmd{\PName} and \cmd{\AKA}. Consistently use either the suffix mechanism (Section~\ref{sec:suffix}) or see Section~\ref{sec:pennames} regarding manual entries. If you use the suffix mechanism, you would use the following forms:
+%
+%\begin{quote}\ForgetName{Vlad III}[Dracula]\ForgetName{Vlad II}[Dracul]
+% \let\oldformat\NamesFormat%
+% \renewcommand{\NamesFormat}[1]{\textbf{#1}\ifinner\else\marginpar{\scriptsize #1}\fi}%
+% \bgroup\small\ttfamily%
+% |\Name{Vlad III, Dracula}| was known as |\AKA{Vlad III, Dracula}%|\break|{Vlad}[Ţepeş]|, |``\AKA*{Vlad III, Dracula}{Vlad}[the Impaler],''|\break  after his death. He was the son of |\Name{Vlad II, Dracul}|, a\break member of the Order of the Dragon. Later references to\break |\Name{Vlad III, Dracula}| appear thus.\egroup
+%
+% \Name{Vlad III, Dracula} was known as \AKA{Vlad III, Dracula}%
+% {Vlad}[Ţepeş], ``\AKA*{Vlad III, Dracula}{Vlad}[the Impaler],''  after his death. He was the son of \Name{Vlad II, Dracul}, a member of the Order of the Dragon. Later references to \Name{Vlad III, Dracula} appear thus.
+% \end{quote}
+%
+% The redefinition of \cmd{\NamesFormat} above follows scoping rules. Since I used it in a quote environment, it reverts to normal and now we have: \ForgetName{Vlad III}[Dracula]\Name{Vlad III}[Dracula]. Later references produce \Name{Vlad III}[Dracula]. The ``Dracula'' example was manipulated extensively with the tweaking macros \cmd{\ForgetName} and \cmd{\SubvertName}. Mixing the comma-delimited suffix and third-parameter affix forms might cause errors.
+%
+% \subsubsection{Disable Formatting}
+% \label{sec:SectionFormat}
+% 
+% \DescribeMacro{\NamesActive}
+% \DescribeMacro{\NamesInactive}
+% Using the \texttt{frontmatter} option deactivates formatting until \cmd{\NamesActive} occurs. Another macro, \cmd{\NamesInactive}, will deactivate formatting again. These two macros toggle two independent systems of formatting and first use.\\
+% 
+% Here we switch to the ``front matter'' mode with \cmd{\NamesInactive}:
+% \NamesInactive
+% \begin{quote}
+% \begin{tabular}{ll}
+% |\Name[Rudolph]{Carnap}| & \Name[Rudolph]{Carnap}\\
+% |\Name[Rudolph]{Carnap}| & \Name[Rudolph]{Carnap}\\
+% |\Name[Nicolas]{Malebranche}| & \Name[Nicolas]{Malebranche}\\
+%|\Name[Nicolas]{Malebranche}| & \Name[Nicolas]{Malebranche}\\
+% \end{tabular}
+% \end{quote}
+% 
+% Then we switch back to ``main matter'' mode with \cmd{\NamesActive}:
+% \NamesActive
+% \begin{quote}
+% \begin{tabular}{ll}
+% |\Name[Rudolph]{Carnap}| & \Name[Rudolph]{Carnap}\\
+% |\Name[Rudolph]{Carnap}| & \Name[Rudolph]{Carnap}\\
+% |\Name[Nicolas]{Malebranche}| & \Name[Nicolas]{Malebranche}\\
+%|\Name[Nicolas]{Malebranche}| & \Name[Nicolas]{Malebranche}\\
+% \end{tabular}
+% \end{quote}
+% 
+% Notice that we have two independent cases of ``first use'' above. That is intended for different sections of the document, like front matter and main matter. It clashes when on the same page or on one nearby.
+%
+% \subsubsection{Tweaks: \texttt{\textbackslash ForgetName} and \texttt{\textbackslash SubvertName}}
+% \label{sec:Tweaks}
+% 
+% Perhaps the easiest way to avoid the clashes above are the two macros presented here. They are meant for tweaking text at or near final draft stage. They affect both front matter and main matter.
+%
+% \DescribeMacro{\ForgetName}
+% This macro is a ``dirty trick'' of sorts that takes the same optional and mandatory parameters used by \cmd{\Name}. It handles its arguments in the same way, except that it ignores the final parameter if \meta{FNN} are present. The syntax is:
+% \begin{quote}
+% \cmd{\ForgetName}\oarg{FNN}\marg{SNN}\oarg{alternate names}
+% \end{quote}
+%
+% \noindent This macro causes \cmd{\Name} and friends to ``forget'' prior uses of a name with respect to typesetting. The next use will print as if it were a ``first use.'' Index entries and cross-references (see the next section) are \emph{never} forgotten.
+% 
+% \DescribeMacro{\SubvertName}
+% This macro is the opposite of the one above. It takes the same parameters. It handles its arguments in the same manner. The syntax is:
+% \begin{quote}
+% \cmd{\SubvertName}\oarg{FNN}\marg{SNN}\oarg{alternate names}
+% \end{quote}
+%
+% \noindent This macro causes \cmd{\Name} and friends to think that a prior use of a name already has occurred. The next use will print as if it were a ``subsequent use.''
+%
+% \subsection{Name Variant Macros}
+% \subsubsection{Introduction}
+% \label{sec:pennames}
+% 
+% \cmd{\AKA} handles pseudonyms, stage names, \emph{noms de plume}, and so on. Before we examine \cmd{\AKA} in detail, we should cover the manual solution that \cmd{\AKA} helps to automate. If needed, the \texttt{.idx} file can be a helpful reference when linking manual entries with \textsf{nameauth} entries. This remains the only solution for certain cases, especially with the \texttt{comma} option:
+%
+% \begin{quote}
+% \bgroup\ttfamily\small
+% \verb+\index{Jean the Fearless|see{Jean sans Peur}}%+\\
+% |\Name{Jean}[sans Peur]| (Jean the Fearless) reigned as Duke of\break Burgundy from 1404 to 1419.
+% \egroup
+%
+% \TagName{Jean}[sans Peur]{, duke}%
+% \index{Jean the Fearless|see{Jean sans Peur}}%
+% \Name{Jean}[sans Peur] (Jean the Fearless) reigned as Duke of Burgundy from 1404 to 1419.
+% \end{quote}
+%
+% The suffix workaround would use |\Name{Jean, sans Peur}| and the author need merely type |\AKA{Jean, sans Peur}{Jean the Fearless}|. See also Section~\ref{sec:suffix}. Using \textsf{makeindex} also requires some manual entries:
+% \begin{quote}
+% \bgroup\ttfamily\small
+% \verb+\index{Doctor Angelicus@\textit{Doctor Angelicus}|see{Thomas Aquinas}}+
+% \verb+\index{Thomas of Aquino|see{Thomas Aquinas}}+\\
+% Perhaps the greatest medieval theologian was |\Name{Thomas}[Aquinas]| (Thomas of Aquino), also known as |\textit{Doctor Angelicus}|. His name ``Aquinas'' is not a surname.
+% \egroup
+%
+% \index{Doctor Angelicus=\textit{Doctor Angelicus}|see{Thomas Aquinas}}
+% \index{Thomas of Aquino|see{Thomas Aquinas}}
+% Perhaps the greatest medieval theologian was \Name{Thomas}[Aquinas] (Thomas of Aquino), also known as \textit{Doctor Angelicus}. His name ``Aquinas'' is not a surname.
+% \end{quote}
+%
+% \subsubsection{\texttt{\textbackslash AKA}}
+% \label{sec:AKA}
+%
+% \DescribeMacro{\AKA}
+% \DescribeMacro{\AKA*}
+% The primary macro that handles aliases is \cmd{\AKA}. Its syntax is:
+% \begin{quote}
+% \cmd{\AKA}\oarg{FNN}\marg{SNN}\oarg{alt. FNN}\marg{alt. SNN}\oarg{alt. names}\\
+% \cmd{\AKA*}\oarg{FNN}\marg{SNN}\oarg{alt. FNN}\marg{alt. SNN}\oarg{alt. names}
+% \end{quote}
+%
+% \noindent The \meta{FNN} and \meta{SNN} arguments \emph{do not include} the final optional argument of \cmd{\Name} to avoid ambiguity. \cmd{\AKA} will not create a \emph{see} reference to a name that uses the \meta{alternate names} field. That must be done manually (see above). This macro is designed mainly with Western names in mind.
+%
+% \cmd{\AKA} only prints the alternate name, not the name to which it refers. It assumes that a \cmd{\Name} macro occurs somewhere to create the page-indexed target of a cross-reference. \textbf{No error checking} occurs for this. The macro also prevents double periods. Following is a quick review of what works and what fails for examples using \Name[Bob]{Hope}, \ForgetName{Louis, XIV}\Name{Louis, XIV}, and \Name{Gregory, I}:
+%
+% \begin{quote}\footnotesize
+% \begin{tabular}{ll}\hline
+% {\large\strut}|\AKA[Bob]{Hope}[Leslie Townes]{Hope}| & \AKA[Bob]{Hope}[Leslie Townes]{Hope}\\
+% {\large\strut}\dag|\AKA[Bob]{Hope}[Leslie Townes]{Hope}[Lester T.]| & \AKA[Bob]{Hope}[Leslie Townes]{Hope}[Lester T.]\\\hline
+% {\large\strut}\ddag|\AKA{Louis, XIV}{Sun King}| & \AKA{Louis, XIV}{Sun King}\\
+% {\large\strut}|\AKA{Louis}[XIV]{Sun King}| & FAIL\\\hline
+% {\large\strut}\S|\AKA{Gregory, I}{Gregory}[the Great]| & \AKA{Gregory, I}{Gregory}[the Great]\\
+% {\large\strut}|\AKA*{Gregory, I}{Gregory}[the Great]| & \AKA*{Gregory, I}{Gregory}[the Great]\\
+% {\large\strut}|\AKA{Gregory}[I]{Gregory}[the Great]| & FAIL\\\hline
+% \end{tabular}
+%
+% \smallskip\dag{} This succeeds, but replaces ``Leslie Townes'' with ``Lester T.'' in the text, while keeping ``Hope, Leslie Townes'' as the \emph{see} reference in the index.\\
+% \ddag{} This form uses the \texttt{nocomma} feature.\\
+% \S{} This produces different output, depending on whether \cmd{\AKA} or \cmd{\AKA*} is used.
+% \end{quote}
+%
+% \cmd{\AKA} prints an alternate name and creates a cross reference in the index. The target of this cross-reference is either \meta{SNN}, \meta{FNN} or just \meta{SNN}. In the cross-reference, the \meta{alternate names} replace the \meta{alternate FNN} if both exist. Otherwise the \meta{alternate names} follow the \meta{alternate SNN}:
+%
+% \begin{quote}
+% \bgroup\ttfamily
+% Today we consider |\AKA[George]{Eliot}[Mary Anne]{Evans}| and her literary contributions as |\Name[George]{Eliot}|.
+% \egroup
+%
+% Today we consider \AKA[George]{Eliot}[Mary Anne]{Evans} and her literary contributions as \Name[George]{Eliot}.
+% \end{quote}
+%
+% \noindent If the starred form \cmd{\AKA*} is used with the template \meta{none}\meta{alternate SNN}\meta{alt. names}, it only prints the \meta{alt. names}. With the same template, \cmd{\AKA} prints \meta{alternate SNN} followed by \meta{alt. names}. Section~\ref{sec:TagName} further illustrates the usefulness of \cmd{\AKA}, \cmd{\AKA*}, and index tagging.
+% 
+% The cross-references generated by \cmd{\AKA} and \cmd{\AKA*} are meant to be \emph{see} references and thus the other macros in this package will not create page references for these cross-references. See also Section~\ref{sec:error}. In certain cases, the alternate name might need to be indexed with page numbers. Do not use \cmd{\AKA} in those cases. Use \cmd{\Name} for both the main and the alternate names. Then, only after both instances of \cmd{\Name} have been invoked, create manual cross-references with \cmd{\index}, e.g.:\\
+%
+% \label{manualxref}%
+% \bgroup\footnotesize\label{Rambam}
+% \begin{tabular}{p{0.7in}ll}\hline
+% {\large\strut}Authoritative Name & Alternate Name\newline & Example of Use\newline\\\hline
+% {\large\strut}\Name{Maimonides} & \AKA{Maimonides}{Moses ben-Maimon} & |\Name{Maimonides}|\\
+% &&|\AKA{Maimonides}{Moses ben-Maimon}|\\
+% {\large\strut}\Name{Maimonides} & \Name{Rambam} & |\Name{Rambam}%|\\& & \verb!\index{Rambam|seealso{Maimonides}}!\\\hline
+% \end{tabular}
+% \index{Rambam|seealso{Maimonides}}\egroup
+%
+% \bigskip\cmd{\AKA} will not create multiple instances of a cross-reference. This allows the macro \cmd{\ExcludeName} to work, but it also prevents the special case where one moniker applies to multiple people, e.g.: \PName*[Willebrord]{Snel van Royen}{Snellius} and his son \PName*[Rudolph]{Snel van Royen}{Snellius}. \cmd{\AKA} produces the first cross-reference; the user manually creates the second:
+% \index{Snellius|see{Snel van Royen, Rudolph}}%
+% \begin{quote}
+% \verb!\index{Snellius|see{Snel van Royen, Rudolph}}!
+% \end{quote}
+% 
+% \subsubsection{\texttt{\textbackslash PName}}
+%
+% \DescribeMacro{\PName}
+% \cmd{\PName} is a ``convenience macro'' that sacrifices flexibility for simplicity. It uses only the \meta{FNN}\meta{SNN} use of \cmd{\AKA}. It does not use \cmd{\AKA*}. It is meant for Western-style names. It calls formats a Western-style ``main'' name followed by a cross-reference in parentheses. The syntax is:
+% \begin{quote}
+% \cmd{\PName}\oarg{FNN}\marg{SNN}\oarg{other FNN}\marg{other SNN}\oarg{other alt.}
+% \end{quote}
+%
+% The author determines the name that is indexed (the first name) and the subsequent name that only occurs as a \emph{see} reference. For example:
+%
+% \begin{quote}\footnotesize
+% \begin{tabular}{@{}p{0.5\textwidth}@{}p{0.37\textwidth}@{}}\hline
+% {\large\strut}|\PName[Mark]{Twain}[Samuel L.]{Clemens}| & \PName[Mark]{Twain}[Samuel L.]{Clemens}\\
+% {\large\strut}|\PName*[Mark]{Twain}[Samuel L.]{Clemens}| & \PName*[Mark]{Twain}[Samuel L.]{Clemens}\\
+% {\large\strut}|\PName[Mark]{Twain}[Samuel L.]{Clemens}| & \PName[Mark]{Twain}[Samuel L.]{Clemens}\\\hline
+% {\large\strut}|\PName{Voltaire}[François-Marie]{Arouet}| & \PName{Voltaire}[François-Marie]{Arouet}\\
+% {\large\strut}|\PName*{Voltaire}[François-Marie]{Arouet}| & \PName*{Voltaire}[François-Marie]{Arouet}\\
+% {\large\strut}|\PName{Voltaire}[François-Marie]{Arouet}| & \PName{Voltaire}[François-Marie]{Arouet}\\\hline
+% \end{tabular}
+% \end{quote}
+%
+% \subsection{Indexing Macros}
+% \subsubsection{\texttt{\textbackslash IndexName}}
+% 
+% \DescribeMacro{\IndexName}
+% This macro creates an index entry like those created by \cmd{\Name} and friends. It prints no text in the body and permits no special formatting. The syntax is:
+% \begin{quote}
+% \cmd{\IndexName}\oarg{FNN}\marg{SNN}\oarg{alternate names}
+% \end{quote}
+%
+% \cmd{\IndexName} does not index \meta{alternate names} unless \meta{FNN} are absent, whereupon it treats \meta{alternate names} as an affix. If indexing is switched off (see Section~\ref{sec:SectionIndex}), this macro does nothing. It will not create index entries for names that have been used as cross-references.
+%
+% \subsubsection{\texttt{\textbackslash TagName}}
+% \label{sec:TagName}
+%
+% \DescribeMacro{\TagName}
+% This macro creates a tag that will appear in all index entries corresponding to the name arguments from the point of invocation of \cmd{\TagName} onward. \cmd{\TagName} and \cmd{\UntagName} handle their name arguments like \cmd{\IndexName}. For consistency throughout the document, tag names at the beginning. The syntax is:
+% \begin{quote}
+% \cmd{\TagName}\oarg{FNN}\marg{SNN}\oarg{alternate names}\marg{tag}
+% \end{quote}
+%
+% Tags created by \cmd{\TagName} can be helpful in the indexes of history texts. Several features of this package are designed for historical research. Suppose you are working with medieval subject matter. The following macros come in handy:\\
+%
+% \begin{tabular}{p{2in}p{2in}}
+% |\TagName{Leo, I}{, pope}| |\TagName{Gregory, I}{, pope}| & Tag these names at the beginning of the document.\\
+% \dots & \\
+% |\Name{Leo, I}| |\Name{Gregory, I}| & First references to \Name{Leo, I} and \ForgetName{Gregory, I}\Name{Gregory, I}\\
+% \dots & \\
+% |\Name*{Leo, I} was known as| |\AKA{Leo, I}{Leo}[the Great].| & \Name*{Leo, I} was known as \AKA{Leo, I}{Leo}[the Great].\\
+% \dots & \\
+% |\Name{Gregory, I}| |``\AKA*{Gregory, I}%| |{Gregory}[the Great]''| & \Name{Gregory, I} ``\AKA*{Gregory, I}{Gregory}[the Great]'' was another major pope.\\
+% \end{tabular}\\[1ex]
+%
+% \cmd{\TagName} causes tags in the index entries to be inserted automatically from the point of invocation. \cmd{\AKA} prints the name and the sobriquet, while \cmd{\AKA*} only prints the sobriquet. The tag is literal text; it can be comma-delimited, in parentheses, or whatever an author might want.
+%
+% \subsubsection{\texttt{\textbackslash UntagName}}
+%
+% \DescribeMacro{\UntagName}
+% \cmd{\TagName} will replace one tag with another tag, but it does not remove a tag from a name. That is the role of \cmd{\UntagName}. The syntax is:
+% \begin{quote}
+% \cmd{\UntagName}\oarg{FNN}\marg{SNN}\oarg{alternate names}
+% \end{quote}
+%
+%  By using \cmd{\TagName} and \cmd{\UntagName}, one can disambiguate different people with the same name. For example:\\
+%
+% \begin{tabular}{p{2in}p{2in}}
+% |\ForgetName[John]{Smith}| |\TagName[John]{Smith}%| |{, the other one}| |\Name[John]{Smith}|\dots & This is the first reference to \ForgetName[John]{Smith}\TagName[John]{Smith}{, the other one}\Name[John]{Smith}, ``the other one'' in the index. Notice that it is tweaked.\newline\\[0.5ex]
+% |\ForgetName[John]{Smith}| |\TagName[John]{Smith}%| |{, the third}| |\Name[John]{Smith}|\dots & This refers to \ForgetName[John]{Smith}\TagName[John]{Smith}{, the third}\Name[John]{Smith} ``the third'' in the index. It is tweaked again as a ``first occurrence.''\newline\\[0.5ex]
+% |\SubvertName[John]{Smith}| |\UntagName[John]{Smith}| |\Name*[John]{Smith}| & This refers to the original \SubvertName[John]{Smith}\UntagName[John]{Smith}\Name*[John]{Smith}. It is tweaked in order to force a subsequent reference.\\[1ex]
+% \end{tabular}\\
+% \UntagName[John]{Smith}
+%
+% Tagging and untagging in this manner requires the author to juggle more info. With more freedom comes more responsibility. Also, if you use \cmd{\UntagName} within a scope, you may need to repeat it after leaving that scope.
+%
+% \subsubsection{\texttt{\textbackslash ExcludeName}}
+% 
+% \DescribeMacro{\ExcludeName}
+% This prevents \cmd{\Name}, etc. from both formatting and indexing a specific name, but \emph{only if that name has not been used}. See also Section~\ref{sec:error}. The syntax is:
+% \begin{quote}
+% \cmd{\ExcludeName}\oarg{FNN}\marg{SNN}\oarg{alternate names}
+% \end{quote}
+%
+% To suppress only indexing but retain formatting, enclose \cmd{\Name}, etc. between \cmd{\IndexInactive} and \cmd{\IndexActive}.
+%
+% \subsubsection{Indexing Certain Sections}
+% \label{sec:SectionIndex}
+%
+% \DescribeMacro{\IndexActive}
+% \DescribeMacro{\IndexInactive}
+% Using the \texttt{noindex} option deactivates indexing until \cmd{\IndexActive} occurs. Another macro, \cmd{\IndexInactive}, will deactivate indexing again. These can be used throughout the document, independently of \cmd{\ExcludeName}.
+%
+% \subsection{Variant Spellings}
+%
+% Handling variant name spellings can be complicated. For example, one might settle on the form \Name[W.E.B.]{Du Bois} in one's name authority. Yet an essay might use an alternate spelling for \Name[W.E.B.]{Du Bois}, namely, \IndexInactive\Name*[W.E.B.]{DuBois}\IndexActive, where the publisher would not grant the right to alter the spelling. In that case, do the following in that document section:
+%
+% \begin{enumerate}\setlength\itemsep{0pt}
+% \item Use |\ForgetName| for the first use when spaces are the only variation.
+% \item Wrap \cmd{\Name} and friends between \cmd{\IndexInactive} and \cmd{\IndexActive}.
+% \item Call \cmd{\IndexName} with the authoritative form right after \cmd{\IndexActive}.
+% \end{enumerate}
+% This can look like:
+% \begin{quote}%
+% \gdef\DuBoisAlt{\IndexInactive\Name[W.E.B.]{DuBois}\IndexActive\IndexName[W.E.B.]{Du Bois}}%
+% |\def\DuBoisAlt{\IndexInactive\Name[W.E.B.]{DuBois}%|\\\hbox to 3pc{\hfil}|\IndexActive\IndexName[W.E.B.]{Du Bois}}|
+% \end{quote}
+%
+% The alternate section mentions |\ForgetName[W.E.B.]{DuBois}\DuBoisAlt| \ForgetName[W.E.B.]{DuBois}\DuBoisAlt, then just |\DuBoisAlt| \DuBoisAlt. The index will only hold the standard form of \Name[W.E.B.]{Du Bois}. This approach should only be used in those cases where minor variations in spelling do not cause the reader to question the identity of the person in question.
+%
+% \subsection{Naming Pattern Reference}
+% \label{sec:PatRef}
+% \subsubsection{Basic Naming}
+% \label{sec:Basic}
+% When referring to a name for the first time, the following have the same result. We put the starred form first because its output is always longest:\\[2ex]
+% \begin{tabular}{p{0.4\textwidth}p{0.5\textwidth}}
+% First reference in the text:\newline\hbox to 1em{\hfil}\ForgetName[John]{Smith}\Name[John]{Smith} &
+% |\Name*[John]{Smith}|\newline |\Name[John]{Smith}|\newline |\FName[John]{Smith}|\\[0.5ex]
+% First mononym reference:\newline\hbox to 1em{\hfil}\ForgetName{Plato}\Name{Plato} &
+% |\Name*{Plato}|\newline |\Name{Plato}|\newline |\FName{Plato}|\\
+% \end{tabular}\\[2ex]
+% Subsequent references to names differ, based on the macro used:\\[1ex]
+% \begin{tabular}{p{0.4\textwidth}p{0.5\textwidth}}
+% Subsequent full name:\newline\hbox to 1em{\hfil}\Name*[John]{Smith} & |\Name*[John]{Smith}|\newline\\[0.5ex]
+% Subsequent surname: \Name[John]{Smith} & |\Name[John]{Smith}|\\[0.5ex]
+% Subsequent forename: \FName[John]{Smith} & |\FName[John]{Smith}|\\[0.5ex]
+% Subsequent mononym: \Name{Plato} & |\Name*{Plato}|\newline |\Name{Plato}|\newline |\FName{Plato}|\\
+% \end{tabular}\\[2ex]
+% \clearpage
+% Nicknames and alternate forenames use both the first and third arguments of \cmd{\Name}. The index forms are constant even when the print forms change:\\[2ex]
+% \begin{tabular}{p{0.4\textwidth}p{0.5\textwidth}}
+% Long first ref: \ForgetName[J.Q.]{Public}\Name[J.Q.]{Public}[Jane Q.] & |\Name*[J.Q.]{Public}[Jane Q.]|\newline |\Name[J.Q.]{Public}[Jane Q.]|\newline |\FName[J.Q.]{Public}[Jane Q.]|\\[0.5ex]
+% Different forenames, same surname: \Name*[J.Q.]{Public}[Jane Qetsiyah] & |\Name*[J.Q.]{Public}[Jane Qetsiyah]|\newline\\[0.5ex]
+% Subsequent name: \Name*[J.Q.]{Public} & |\Name*[J.Q.]{Public}|\\[0.5ex]
+% Alternate forename: \FName[J.Q.]{Public}[Janie] & |\FName[J.Q.]{Public}[Janie]|\\[0.5ex]
+% \end{tabular}\\[2ex]
+% \indent These next examples are the ``limited'' variants that work with the \texttt{comma} option. \cmd{\AKA} and \cmd{\PName} cannot cross-reference to these forms. Sections~\ref{sec:suffix} and~\ref{sec:pennames} address this issue with different solutions.\\[2ex]
+% \begin{tabular}{p{0.4\textwidth}p{0.5\textwidth}}
+% First Eastern reference:\newline \ForgetName{Mao}[Tse-tung]\Name{Mao}[Tse-tung] & |\Name*{Mao}[Tse-tung]|\newline |\Name{Mao}[Tse-tung]|\\[0.5ex]
+% Subsequent refs: \Name*{Mao}[Tse-tung] & |\Name*{Mao}[Tse-tung]|\\[0.5ex]
+% Subsequent refs: \Name{Mao}[Tse-tung] & |\Name{Mao}[Tse-tung]|\newline |\FName{Mao}[Tse-tung]|\\[0.5ex]
+% First royal: \ForgetName{Louis}[the Pious]\Name{Louis}[the Pious] & |\Name*{Louis}[the Pious]|\newline |\Name{Louis}[the Pious]|\newline |\FName{Louis}[the Pious]|\\[0.5ex]
+% Subsequent refs: \Name*{Louis}[the Pious] & |\Name*{Louis}[the Pious]|\\[0.5ex]
+% Subsequent refs: \Name{Louis}[the Pious] & |\Name{Louis}[the Pious]|\newline |\FName{Louis}[the Pious]|\\[0.5ex]
+% First ancient ref:\newline \ForgetName{Ptolemy I}[Soter]\Name{Ptolemy I}[Soter] & |\Name*{Ptolemy I}[Soter]|\newline |\Name{Ptolemy I}[Soter]|\newline |\FName{Ptolemy I}[Soter]|\\[0.5ex]
+% Subsequent refs: \Name*{Ptolemy I}[Soter] & |\Name*{Ptolemy I}[Soter]|\\[0.5ex]
+% Subsequent refs: \Name{Ptolemy I}[Soter] & |\Name{Ptolemy I}[Soter]|\newline |\FName{Ptolemy I}[Soter]|\\[0.5ex]
+% First royal: \ForgetName{Henry}[VIII]\Name{Henry}[VIII] & |\Name*{Henry}[VIII]|\newline |\Name{Henry}[VIII]|\newline |\FName{Henry}[VIII]|\\[0.5ex]
+% Subsequent refs: \Name*{Henry}[VIII] & |\Name*{Henry}[VIII]|\\[0.5ex]
+% Subsequent refs: \Name{Henry}[VIII] & |\Name{Henry}[VIII]|\newline |\FName{Henry}[VIII]|\\
+% \end{tabular}
+% \clearpage
+%
+% \subsubsection{Affixes}
+% \label{sec:Intermediate}
+% Always use a comma to delimit name/affix pairs. \cmd{\AKA} and \cmd{\PName} will cross-reference these forms. See also Section~\ref{sec:suffix}.\\[2ex]
+% \begin{tabular}{p{0.4\textwidth}p{0.5\textwidth}}
+% First: \ForgetName[George S.]{Patton, Jr.}\Name[George S.]{Patton, Jr.} & |\Name*[George S.]{Patton, Jr.}|\newline |\Name[George S.]{Patton, Jr.}|\newline |\FName[George S.]{Patton, Jr.}|\\[0.5ex]
+% Subsequent full:\newline\hbox to 1em{\hfil}\Name*[George S.]{Patton, Jr.} & |\Name*[George S.]{Patton, Jr.}|\newline\\[0.5ex]
+% Subsequent surname: \Name[George S.]{Patton, Jr.} & |\Name[George S.]{Patton, Jr.}|\\[0.5ex]
+% Subsequent forename: \FName[George S.]{Patton, Jr.}[George] & |\FName[George S.]{Patton, Jr.}[George]|\\
+% \end{tabular}\\[2ex]
+% \indent The next cases depend on the default \texttt{nocomma} option, whereby one can use comma suppression to implement forms of ancient, royal and Eastern names. \cmd{\AKA} and \cmd{\PName} will cross-reference these forms. Cf. the reference to \Name{Ptolemy I}[Soter] (Section~\ref{sec:Basic}). Using |\Name{Demetrius, I Soter}| keeps the number with the suffix. To keep the number with the name, use |\Name{Demetrius I, Soter}|.\\[2ex]
+% \begin{tabular}{p{0.4\textwidth}p{0.5\textwidth}}
+% First reference: \ForgetName{Francis, I}\Name{Francis, I} & |\Name*{Francis, I}|\newline |\Name{Francis, I}|\newline |\FName{Francis, I}|\\[0.5ex]
+% Subsequent full name: \Name*{Francis, I} & |\Name*{Francis, I}|\\[0.5ex]
+% Subsequent name: \Name{Francis, I} & |\Name{Francis, I}|\newline |\FName{Francis, I}|\\[0.5ex]
+% First reference: \newline\hbox to 1em{\hfil}\ForgetName{Demetrius, I Soter}\Name{Demetrius, I Soter} & |\Name*{Demetrius, I Soter}|\newline |\Name{Demetrius, I Soter}|\newline |\FName{Demetrius, I Soter}|\\[0.5ex]
+% Next full name: \newline\hbox to 1em{\hfil}\Name*{Demetrius, I Soter} & |\Name*{Demetrius, I Soter}|\newline\\[0.5ex]
+% Subsequent name: \Name{Demetrius, I Soter} & |\Name{Demetrius, I Soter}|\newline |\FName{Demetrius, I Soter}|\\[0.5ex]
+% First reference: \ForgetName{Sun, Yat-sen}\Name{Sun, Yat-sen} & |\Name*{Sun, Yat-sen}|\newline |\Name{Sun, Yat-sen}|\newline |\FName{Sun, Yat-sen}|\\[0.5ex]
+% Subsequent full name: \newline\hbox to 1em{\hfil}\Name*{Sun, Yat-sen} & |\Name*{Sun, Yat-sen}|\newline\\[0.5ex]
+% Subsequent name: \Name{Sun, Yat-sen} & |\Name{Sun, Yat-sen}|\newline |\FName{Sun, Yat-sen}|\\
+% \end{tabular}\\
+% \clearpage
+%
+% \subsubsection{Particles}
+% \label{sec:Particles}
+% The following illustrate the American style of particulate names.\\[2ex]
+% \begin{tabular}{p{0.4\textwidth}p{0.5\textwidth}}
+% First: \ForgetName[Walter]{de la Mare}\Name[Walter]{de la Mare} & |\Name*[Walter]{de la Mare}|\newline |\Name[Walter]{de la Mare}|\newline |\FName[Walter]{de la Mare}|\\[0.5ex]
+% Next reference: \Name[Walter]{de la Mare} & |\Name[Walter]{de la Mare}|\\[0.5ex]
+% At start of sentence: \CapThis\Name[Walter]{de la Mare} & |\CapThis\Name[Walter]{de la Mare}|\\[0.5ex]
+% Forename: \FName[Walter]{de la Mare} & |\FName[Walter]{de la Mare}|\\[0.5ex]
+% \end{tabular}\\[2ex]
+% The Continental style differs slightly. These first three forms below put the particles in the index. Long macros are split for readability.\\[2ex]
+% \begin{tabular}{p{0.4\textwidth}p{0.5\textwidth}}
+% The (admittedly long) first use:\newline\small\Name[Johann Wolfgang von]{Goethe} & |\Name*[Johann Wolfgang von]{Goethe}|\newline |\Name[Johann Wolfgang von]{Goethe}|\newline |\FName[Johann Wolfgang von]{Goethe}|\\[0.5ex]
+% Subsequent: \Name[Johann Wolfgang von]{Goethe} & |\Name[Johann Wolfgang von]{Goethe}|\\[0.5ex]
+% Forenames: \FName[Johann Wolfgang von]{Goethe}[Johann Wolfgang] & |\FName[Johann Wolfgang von]{Goethe}%|\newline|[Johann Wolfgang]|\\[0.5ex]
+% \end{tabular}\\[2ex]
+% \indent These latter examples of the Continental style use the nickname feature to omit the particles from the index. Long macros are split for readability.\\[2ex]
+% \begin{tabular}{p{0.4\textwidth}p{0.5\textwidth}}
+% First: \Name[Adolf]{Harnack}[Adolf von] & |\Name*[Adolf]{Harnack}[Adolf von]|\newline |\Name[Adolf]{Harnack}[Adolf von]|\newline |\FName[Adolf]{Harnack}[Adolf von]|\\[0.5ex]
+% Next full name:\newline\hbox to 1em{\hfil}\Name*[Adolf]{Harnack}[Adolf von] & |\Name*[Adolf]{Harnack}[Adolf von]|\newline\\[0.5ex]
+% Subsequent surname: \Name[Adolf]{Harnack}[Adolf von] & |\Name[Adolf]{Harnack}[Adolf von]|\newline |\Name[Adolf]{Harnack}|\\[0.5ex]
+% Subsequent forename: \FName[Adolf]{Harnack} & |\FName[Adolf]{Harnack}|\\[0.5ex]
+% \end{tabular}
+% \clearpage
+%
+% \StopEventually{\PrintChanges\clearpage\PrintIndex}
+%
+% \section{Implementation}
+%
+% \iffalse
+%<*package>
+% \fi
+% \subsection{Package Options and Required Packages}
+%
+%    \begin{macrocode}
+\newif\if@nameauth@FullName
+\newif\if@nameauth@FirstName
+\newif\if@nameauth@AltAKA
+%    \end{macrocode}
+% Used internally to control printed name forms. |@nameauth@FullName| is only used to decide long or short forms in subsequent occurrences of names. The next Boolean, |@nameauth@FirstName|, switches surnames and forenames in the short form. |@nameauth@AltAKA| determines the cross-references that \cmd{\AKA} will print.\\
+%
+%    \begin{macrocode}
+\newif\if@nameauth@DoFormat
+\newif\if@nameauth@DoIndex
+\newif\if@nameauth@AlwaysFormat
+\newif\if@nameauth@ShowComma
+%    \end{macrocode}
+% These Boolean values control formatting. The first two can be toggled with \cmd{\NamesActive} and \cmd{\NamesInctive}, as well as \cmd{\IndexActive} and \cmd{\IndexInctive}. The first three are set with package options. The last is set with \cmd{\ShowComma} and cleared by \cmd{\Name} and friends.\\
+%
+%    \begin{macrocode}
+\newif\if@nameauth@Comma
+\newif\if@nameauth@Punct
+%    \end{macrocode}
+% These Boolean values are used internally for detection of suffixes and final periods.\\
+%
+%    \begin{macrocode}
+\newif\if@nameauth@DoCaps
+\newif\if@nameauth@AllCaps
+\newif\if@nameauth@AllThis
+\newif\if@nameauth@RevAll
+\newif\if@nameauth@RevThis
+\newif\if@nameauth@RevAllComma
+\newif\if@nameauth@RevThisComma
+%    \end{macrocode}
+% This Boolean triggers capitalization in \cmd{\Name} of particles like \emph{de la} that may occur at the start of a sentence. It is triggered with \cmd{\CapThis}.\\
+%
+% \changes{v1.7}{2013/04/02}{Change options processing to prevent errors}
+%    \begin{macrocode}
+\newcommand{\NamesFormat}{}
+\DeclareOption{mainmatter}{\@nameauth@DoFormattrue}
+\DeclareOption{frontmatter}{\@nameauth@DoFormatfalse}
+\DeclareOption{smallcaps}{\renewcommand{\NamesFormat}{\scshape}}
+\DeclareOption{italic}{\renewcommand{\NamesFormat}{\itshape}}
+\DeclareOption{boldface}{\renewcommand{\NamesFormat}{\bfseries}}
+\DeclareOption{noformat}{\renewcommand{\NamesFormat}{}}
+\DeclareOption{alwaysformat}{\@nameauth@AlwaysFormattrue}
+\DeclareOption{allcaps}{\@nameauth@AllCapstrue}
+\DeclareOption{normalcaps}{\@nameauth@AllCapsfalse}
+\DeclareOption{allreversed}{\@nameauth@RevAlltrue\@nameauth@RevAllCommafalse}
+\DeclareOption{allrevcomma}{\@nameauth@RevAlltrue\@nameauth@RevAllCommatrue}
+\DeclareOption{notreversed}{\@nameauth@RevAllfalse\@nameauth@RevAllCommafalse}
+\DeclareOption{comma}{\protected@edef\Interspace{,\space}}
+\DeclareOption{nocomma}{\protected@edef\Interspace{\space}}
+\DeclareOption{index}{\@nameauth@DoIndextrue}
+\DeclareOption{noindex}{\@nameauth@DoIndexfalse}
+\ExecuteOptions{nocomma,mainmatter,index,normalcaps,notreversed,smallcaps}
+\ProcessOptions\relax
+\RequirePackage{etoolbox}
+\RequirePackage{trimspaces}
+\RequirePackage{suffix}
+\RequirePackage{xargs}
+%    \end{macrocode}
+% The options above interact with the prior Boolean values. Suppressing and showing commas is set at load time and should not be changed in the document or else significant errors will result. Most options can be changed with user interface macros. Avoid changing the internal Boolean values directly.\\
+%
+% \subsection{Internal Macros}
+% \begin{macro}{\@nameauth@CleanName}
+% \changes{v0.8}{2012/01/29}{Renamed macro to help compatibility}
+%    \begin{macrocode}
+\newcommand*{\@nameauth@CleanName}[1]%
+{%
+  \expandafter\zap@space\detokenize{#1} \@empty%
+}
+%    \end{macrocode}
+% \end{macro}
+% Thanks to \Name*[Heiko]{Oberdiek}, this macro produces a ``sanitized'' string based on the forename/surname parameters of \cmd{\Name} and friends. With this we can construct a control sequence name. Testing for the presence of that control sequence determines the existence of pseudonyms and the first occurrence of a name.\\
+%
+% The following macros parse a ``base'' name into a radix and a suffix. They are designed so that their function occurs at the time of macro expansion, not execution. This expandability is key to the proper indexing function of this package. They form the kernel of the suffix removal and comma suppression features.
+%
+% \begin{macro}{\@nameauth@Root}
+% \changes{v0.85}{2012/02/05}{Revise suffix handling}
+% \changes{v0.9}{2012/02/10}{renamed macro; suffix handling expandable}
+% \changes{v1.4}{2012/07/24}{Made more robust}
+%    \begin{macrocode}
+\newcommand*{\@nameauth@Root}[1]%
+{%
+  \@nameauth@TrimRoot#1,\@empty\relax%
+}
+%    \end{macrocode}
+% \end{macro}
+% Anything starting with a comma and ending with the end of the name is stripped off. That includes ``Sr.,'' ``Jr.,'' ``III,'' and so on.
+%
+% \begin{macro}{\@nameauth@TrimRoot}
+% \changes{v0.85}{2012/02/05}{Divide suffix handling into functional parts}
+% \changes{v0.9}{2012/02/10}{Renamed macro; suffix handling expandable}
+%    \begin{macrocode}
+\def\@nameauth@TrimRoot#1,#2\relax{#1}
+%    \end{macrocode}
+% \end{macro}
+% This delimited-parameter macro strips off the second parameter as it returns the first.
+%
+% \begin{macro}{\@nameauth@CapRoot}
+% \changes{v0.95}{2012/02/17}{Added macro}
+%    \begin{macrocode}
+\newcommand*{\@nameauth@CapRoot}[1]%
+{%
+  \@nameauth@CR#1\relax%
+}
+%    \end{macrocode}
+% \end{macro}
+% This macro implements the particulate name capitalization mechanism.
+%
+% \begin{macro}{\@nameauth@CR}
+% \changes{v0.95}{2012/02/17}{Added macro}
+%    \begin{macrocode}
+\def\@nameauth@CR#1#2\relax{\uppercase{#1}\@nameauth@Root{#2}}
+%    \end{macrocode}
+% \end{macro}
+% This delimited-parameter macro caps the first parameter and strips suffixes off the second.
+%
+% \begin{macro}{\@nameauth@AllCapRoot}
+% \changes{v1.5}{2013/02/22}{Added macro}
+%    \begin{macrocode}
+\newcommand*{\@nameauth@AllCapRoot}[1]%
+{%
+  \uppercase{\@nameauth@Root{#1}}%
+}
+%    \end{macrocode}
+% \end{macro}
+% This macro caps the root name(s) in a potential \meta{root}|,|\meta{suffix} pair.
+%
+% \begin{macro}{\@nameauth@Suffix}
+% \changes{v0.9}{2012/02/10}{added macro}
+% \changes{v1.4}{2012/07/24}{Made more robust}
+%    \begin{macrocode}
+\newcommand*{\@nameauth@Suffix}[1]%
+{%
+  \@nameauth@TrimSuffix#1\relax%
+}
+%    \end{macrocode}
+% \end{macro}
+% Anything before a comma is stripped off by |\@nameauth@Suffix|, but it should be called only in a conditional where one knows that a comma will be present.
+%
+% \begin{macro}{\@nameauth@TrimSuffix}
+% \changes{v0.9}{2012/02/10}{added macro}
+% \changes{v1.4}{2012/07/24}{Made more robust}
+% \changes{v1.5}{2013/02/22}{Added space removal}
+%    \begin{macrocode}
+\def\@nameauth@TrimSuffix#1,#2\relax{\trim@spaces{#2}}
+%    \end{macrocode}
+% \end{macro}
+% This delimited-parameter macro strips the first parameter and returns the second. By stripping off spaces it allows consistent formatting.
+%
+%The next macros check whether the next token is a period. They are only called if the terminal character produced within \cmd{\Name} and \cmd{\FName} is itself a period.
+%
+% \begin{macro}{\@nameauth@CheckDot}
+% \changes{v0.8}{2012/01/29}{Renamed macro to help compatibility}
+%    \begin{macrocode}
+\def\@nameauth@CheckDot{\futurelet\@token\@nameauth@EvalDot}
+%    \end{macrocode}
+% \end{macro}
+% This macro assigns the lookahead token \cmd{\@token} to be evaluated by\break \cmd{\@nameauth@EvalDot} while keeping \cmd{\@token} non-destructively on the list of input tokens. This does not gobble spaces like \cmd{\@nextchar}.
+%
+% \begin{macro}{\@nameauth@EvalDot}
+% \changes{v0.8}{2012/01/29}{Renamed macro to help compatibility}
+%    \begin{macrocode}
+\def\@nameauth@EvalDot%
+{%
+  \let\@period=.\ifx\@token\@period\expandafter\@gobble \fi%
+}
+%    \end{macrocode}
+% \end{macro}
+% \cmd{\@nameauth@EvalDot} checks if \cmd{\@token} is a period. If so it gobbles it by using \cmd{\expandafter} to get past the grouping. Another \cmd{\expandafter} occurs immediately before the invocation of \cmd{\@nameauth@CheckDot} in \cmd{\Name}, \cmd{\FName}, and \cmd{\AKA}.
+%
+% \begin{macro}{\@nameauth@TestDot}
+% \changes{v0.8}{2012/01/29}{Renamed macro to help compatibility}
+%    \begin{macrocode}
+\newcommand*{\@nameauth@TestDot}[1]%
+{%
+  \def\TestDot##1.\TestEnd##2\TestStop{\TestPunct{##2}}%
+  \def\TestPunct##1%
+    {\ifx\TestPunct##1\TestPunct\else\@nameauth@Puncttrue\fi}%
+  \@nameauth@Punctfalse%
+  \TestDot#1\TestEnd.\TestEnd\TestStop%
+}
+%    \end{macrocode}
+% \end{macro}
+% While \cmd{\@nameauth@CheckDot} looks \emph{ahead} for a period, \cmd{\@nameauth@TestDot}\,---\,based on a snippet by \Name*[Uwe]{Lueck}\,---\,checks for a terminal period in the name passed to it, ignoring medial periods. It always resets the Boolean value before making its test, making it unnecessary to reset elsewhere.\\
+%
+% The following macros format the output for \cmd{\Name} and friends. The intent is to separate formatting in modular fashion from name parsing.
+%
+% \begin{macro}{\@nameauth@FmtName}
+% \changes{v0.8}{2012/01/29}{Renamed macro to help compatibility}
+% \changes{v0.85}{2012/02/05}{Add comma suppression}
+% \changes{v0.9}{2012/02/10}{Redesigned macro}
+% \changes{v0.94}{2012/02/15}{Added particle caps}
+% \changes{v0.95}{2012/02/17}{Fixed incompatibility with \textsf{microtype}}
+%    \begin{macrocode}
+\newcommand{\@nameauth@FmtName}[1]%
+{%
+  \@nameauth@TestDot{#1}%
+  \if@nameauth@DoFormat%
+    \bgroup\NamesFormat{#1}\egroup%
+  \else%
+    #1%
+  \fi%
+}
+\WithSuffix\newcommand\@nameauth@FmtName*[1]%
+{%
+  \@nameauth@TestDot{#1}%
+  \if@nameauth@DoFormat%
+    \if@nameauth@AlwaysFormat%
+      \bgroup\NamesFormat{#1}\egroup%
+    \else%
+      #1%
+    \fi%
+  \else%
+    #1%
+  \fi%
+}
+%    \end{macrocode}
+% \end{macro}
+% \cmd{\@nameauth@FmtName} is where the first occurrences of a name are formatted. Notice how \cmd{\NamesFormat} sits between a \cmd{\bgroup} and an \cmd{\egroup} to localize the font change. The \cmd{\NamesFormat} hook has been discussed above. The conditional |\if@nameauth@AlwaysFormat| causes formatting to occur always (when possible).
+%
+% \begin{macro}{\@nameauth@Index}
+% \changes{v0.94}{2012/02/15}{Added macro}
+%    \begin{macrocode}
+\newcommandx\@nameauth@Index[2][2=\@empty]%
+{%
+  \ifx#2\@empty%
+    \if@nameauth@DoIndex\index{#1}\fi%
+  \else%
+    \ifcsname#2\endcsname%
+      \if@nameauth@DoIndex\index{#1\csname#2\endcsname}\fi%
+    \else%
+      \if@nameauth@DoIndex\index{#1}\fi%
+    \fi%
+  \fi%
+}
+%    \end{macrocode}
+% \end{macro}
+% If the indexing flag is true, create an index entry, otherwise do nothing.
+%
+% \subsection{User Interface Macros}
+%
+% \begin{macro}{\CapThis}
+% \changes{v0.94}{2012/02/15}{Added macro}
+%    \begin{macrocode}
+\newcommand{\CapThis}%
+{%
+  \@nameauth@DoCapstrue%
+}
+%    \end{macrocode}
+% \end{macro}
+% Force the capitalizing of particles. This affects the next occurrence of \cmd{\Name}, which then turns off the forced caps.
+%
+% \begin{macro}{\CapName}
+% \changes{v1.5}{2013/02/22}{Added macro}
+%    \begin{macrocode}
+\newcommand{\CapName}%
+{%
+  \@nameauth@AllThistrue%
+}
+%    \end{macrocode}
+% \end{macro}
+% Force the capitalizing of particles. This affects the next occurrence of \cmd{\Name}, which then turns off the forced caps.
+%
+% \begin{macro}{\RevName}
+% \changes{v1.5}{2013/02/22}{Added macro}
+%    \begin{macrocode}
+\newcommand{\RevName}%
+{%
+  \@nameauth@RevThistrue%
+}
+%    \end{macrocode}
+% \end{macro}
+% Force the capitalizing of particles. This affects the next occurrence of \cmd{\Name}, which then turns off the forced caps.
+%
+% \begin{macro}{\RevComma}
+% \changes{v1.5}{2013/02/22}{Added macro}
+%    \begin{macrocode}
+\newcommand{\RevComma}%
+{%
+  \@nameauth@RevThistrue%
+  \@nameauth@RevThisCommatrue%
+}
+%    \end{macrocode}
+% \end{macro}
+% Force the capitalizing of particles. This affects the next occurrence of \cmd{\Name}, which then turns off the forced caps.
+%
+% \begin{macro}{\ShowComma}
+% \changes{v1.4}{2012/07/24}{Added macro}
+%    \begin{macrocode}
+\newcommand{\ShowComma}%
+{%
+  \@nameauth@ShowCommatrue%
+}
+%    \end{macrocode}
+% \end{macro}
+% Force a comma between a name and a suffix on a per-issue basis.
+%
+% \begin{macro}{\Name}
+% \changes{v0.75}{2012/01/19}{Added ``sobriquet'' feature}
+% \changes{v0.8}{2012/01/29}{Merged all major functionality here}
+% \changes{v0.85}{2012/02/05}{Add comma suppression to indexing}
+% \changes{v0.9}{2012/02/10}{Redesigned macro}
+% \changes{v0.94}{2012/02/15}{Error checking expanded}
+% \changes{v0.95}{2012/02/17}{Fixed incompatibility with \textsf{microtype}}
+% \changes{v0.96}{2012/02/19}{Fixed occasional incompatibility with \textsf{memoir}.}
+% \changes{v1.0}{2012/02/20}{Fixed compatibility issues.}
+% \changes{v1.26}{2012/04/24}{Fixed sorting of name suffixes in index}
+% \changes{v1.4}{2012/07/24}{Made more robust}
+% \changes{v1.5}{2013/02/22}{Added reversing and caps mechanisms}
+%    \begin{macrocode}
+\newcommandx\Name[3][1=\@empty, 3=\@empty]%
+{%
+  \leavevmode\hbox{}%
+  \protected@edef\testi{#1}%
+  \protected@edef\testii{#2}%
+  \protected@edef\testiii{#3}%
+  \if@nameauth@AllCaps\CapName\fi%
+  \if@nameauth@RevAll\RevName\fi%
+  \if@nameauth@RevAllComma\RevComma\fi%
+  \if@nameauth@ShowComma%
+    \protected@edef\Space{,\space}%
+  \else%
+    \let\Space\Interspace%
+  \fi%
+  \protected@edef\RawShort{\@nameauth@Root{#2}}%
+  \protected@edef\CapShort{\@nameauth@CapRoot{#2}}%
+  \protected@edef\AllCapShort{\@nameauth@AllCapRoot{#2}}%
+  \let\IndexShort\RawShort%
+  \ifx\testii\RawShort%
+    \protected@edef\Suffix{\@empty}%
+    \let\IndexSurnames\RawShort%
+    \let\Reversed\RawShort%
+    \let\Surnames\RawShort%
+    \let\PrintShort\RawShort%
+    \if@nameauth@DoCaps%
+      \let\Reversed\CapShort%
+      \let\Surnames\CapShort%
+      \let\PrintShort\CapShort%
+    \fi%
+    \if@nameauth@AllThis%
+      \let\Reversed\AllCapShort%
+      \let\Surnames\AllCapShort%
+      \let\PrintShort\AllCapShort%
+    \fi%
+  \else%
+    \protected@edef\Suffix{\@nameauth@Suffix{#2}}%
+    \protected@edef\IndexSurnames{\RawShort\Space\Suffix}%
+    \protected@edef\Reversed{\Suffix\Space\RawShort}%
+    \protected@edef\Surnames{\RawShort\Space\Suffix}%
+    \if@nameauth@RevThis%
+      \let\PrintShort\Suffix%
+    \else%
+      \let\PrintShort\RawShort%
+    \fi%
+    \if@nameauth@DoCaps%
+      \protected@edef\Reversed{\Suffix\Space\CapShort}%
+      \protected@edef\Surnames{\CapShort\Space\Suffix}%
+      \if@nameauth@RevThis%
+        \let\PrintShort\Suffix%
+      \else%
+        \let\PrintShort\CapShort%
+      \fi%
+    \fi%
+    \if@nameauth@AllThis%
+      \protected@edef\Reversed{\Suffix\Space\AllCapShort}%
+      \protected@edef\Surnames{\AllCapShort\Space\Suffix}%
+      \if@nameauth@RevThis%
+        \let\PrintShort\Suffix%
+      \else%
+        \let\PrintShort\AllCapShort%
+      \fi%
+    \fi%
+  \fi%
+  \@nameauth@DoCapsfalse%
+  \@nameauth@AllThisfalse%
+  \@nameauth@ShowCommafalse%
+  \ifx\testi\@empty%
+    \ifx\testiii\@empty%
+      \ifcsname\@nameauth@CleanName{#2!PN!}\endcsname%
+        \PackageWarning{nameauth}%
+        {macro \Name: Xref: #2 cannot be a page reference.}%
+      \else%
+        \@nameauth@Index{\IndexSurnames}[\@nameauth@CleanName{#2}]%
+      \fi%
+      \if@nameauth@DoFormat%
+          \ifcsname\@nameauth@CleanName{#2!MN!}\endcsname%
+            \if@nameauth@FirstName%
+              \@nameauth@FullNamefalse%
+              \@nameauth@FirstNamefalse%
+            \fi%
+            \if@nameauth@FullName%
+              \@nameauth@FullNamefalse%
+              \if@nameauth@RevThis%
+                \expandafter\@nameauth@FmtName\expandafter*\expandafter{\Reversed}%
+              \else%
+                \expandafter\@nameauth@FmtName\expandafter*\expandafter{\Surnames}%
+              \fi%
+            \else%
+              \expandafter\@nameauth@FmtName\expandafter*\expandafter{\PrintShort}%
+            \fi%
+          \else%
+            \@nameauth@FullNamefalse%
+            \@nameauth@FirstNamefalse%
+            \csgdef{\@nameauth@CleanName{#2!MN!}}{}%
+            \if@nameauth@RevThis%
+              \expandafter\@nameauth@FmtName\expandafter{\Reversed}%
+            \else%
+              \expandafter\@nameauth@FmtName\expandafter{\Surnames}%
+            \fi%
+          \fi%
+      \else%
+          \ifcsname\@nameauth@CleanName{#2!NF!}\endcsname%
+            \if@nameauth@FirstName%
+              \@nameauth@FullNamefalse%
+              \@nameauth@FirstNamefalse%
+            \fi%
+            \if@nameauth@FullName%
+              \@nameauth@FullNamefalse%
+              \if@nameauth@RevThis%
+                \expandafter\@nameauth@FmtName\expandafter*\expandafter{\Reversed}%
+              \else%
+                \expandafter\@nameauth@FmtName\expandafter*\expandafter{\Surnames}%
+              \fi%
+            \else%
+              \expandafter\@nameauth@FmtName\expandafter*\expandafter{\PrintShort}%
+            \fi%
+          \else%
+            \@nameauth@FullNamefalse%
+            \@nameauth@FirstNamefalse%
+            \csgdef{\@nameauth@CleanName{#2!NF!}}{}%
+            \if@nameauth@RevThis%
+              \expandafter\@nameauth@FmtName\expandafter*\expandafter{\Reversed}%
+            \else%
+              \expandafter\@nameauth@FmtName\expandafter*\expandafter{\Surnames}%
+            \fi%
+          \fi%
+      \fi%
+    \else%
+      \ifcsname\@nameauth@CleanName{#2#3!PN!}\endcsname%
+        \PackageWarning{nameauth}%
+        {macro \Name: Xref: #2 #3 cannot be a page reference.}%
+      \else%
+        \@nameauth@Index{\IndexSurnames\space#3}[\@nameauth@CleanName{#2#3}]%
+      \fi%
+      \if@nameauth@DoFormat%
+        \ifcsname\@nameauth@CleanName{#2#3!MN!}\endcsname%
+          \if@nameauth@FirstName%
+            \@nameauth@FullNamefalse%
+            \@nameauth@FirstNamefalse%
+          \fi%
+          \if@nameauth@FullName%
+            \@nameauth@FullNamefalse%
+            \if@nameauth@RevThis%
+              \expandafter\@nameauth@FmtName\expandafter*\expandafter{%
+                \expandafter\testiii\expandafter\space\Surnames}%
+            \else%
+              \expandafter\@nameauth@FmtName\expandafter*\expandafter{%
+                \expandafter\Surnames\expandafter\space#3}%
+            \fi%
+          \else%
+            \if@nameauth@RevThis%
+              \expandafter\@nameauth@FmtName\expandafter*\expandafter{\testiii}%
+            \else%
+              \expandafter\@nameauth@FmtName\expandafter*\expandafter{\PrintShort}%
+            \fi%
+          \fi%
+        \else%
+          \@nameauth@FullNamefalse%
+          \@nameauth@FirstNamefalse%
+          \csgdef{\@nameauth@CleanName{#2#3!MN!}}{}%
+          \if@nameauth@RevThis%
+            \expandafter\@nameauth@FmtName\expandafter{%
+              \expandafter\testiii\expandafter\space\Surnames}%
+          \else%
+            \expandafter\@nameauth@FmtName\expandafter{%
+              \expandafter\Surnames\expandafter\space#3}%
+          \fi%
+        \fi%
+      \else%
+        \ifcsname\@nameauth@CleanName{#2#3!NF!}\endcsname%
+          \if@nameauth@FirstName%
+            \@nameauth@FullNamefalse%
+            \@nameauth@FirstNamefalse%
+          \fi%
+          \if@nameauth@FullName%
+            \@nameauth@FullNamefalse%
+            \if@nameauth@RevThis%
+              \expandafter\@nameauth@FmtName\expandafter*\expandafter{%
+                \expandafter\testiii\expandafter\space\Surnames}%
+            \else%
+              \expandafter\@nameauth@FmtName\expandafter*\expandafter{%
+                \expandafter\Surnames\expandafter\space#3}%
+            \fi%
+          \else%
+            \if@nameauth@RevThis%
+              \expandafter\@nameauth@FmtName\expandafter*\expandafter{\testiii}%
+            \else%
+              \expandafter\@nameauth@FmtName\expandafter*\expandafter{\PrintShort}%
+            \fi%
+          \fi%
+        \else%
+          \@nameauth@FullNamefalse%
+          \@nameauth@FirstNamefalse%
+          \csgdef{\@nameauth@CleanName{#2#3!NF!}}{}%
+          \if@nameauth@RevThis%
+            \expandafter\@nameauth@FmtName\expandafter*\expandafter{%
+              \expandafter\testiii\expandafter\space\Surnames}%
+          \else%
+            \expandafter\@nameauth@FmtName\expandafter*\expandafter{%
+              \expandafter\Surnames\expandafter\space#3}%
+          \fi%
+        \fi%
+      \fi%
+    \fi%
+  \else%
+    \if@nameauth@RevThisComma%
+      \protected@edef\Space{,\space}%
+    \else%
+      \let\Space\Interspace%
+    \fi%
+    \ifx\testiii\@empty%
+      \protected@edef\Forenames{#1}%
+    \else%
+      \protected@edef\Forenames{#3}%
+    \fi
+    \ifcsname\@nameauth@CleanName{#1#2!PN!}\endcsname%
+      \PackageWarning{nameauth}%
+      {macro \Name: Xref: #1 #2 cannot be a page reference.}%
+    \else%
+      \ifx\Suffix\@empty%
+        \@nameauth@Index{\IndexShort, #1}[\@nameauth@CleanName{#1#2}]%
+      \else%
+        \@nameauth@Index{\IndexShort, #1, \Suffix}[\@nameauth@CleanName{#1#2}]%
+      \fi%
+    \fi%
+    \if@nameauth@DoFormat%
+      \ifcsname\@nameauth@CleanName{#1#2!MN!}\endcsname%
+        \if@nameauth@FirstName%
+          \@nameauth@FullNamefalse%
+          \@nameauth@FirstNamefalse%
+          \let\PrintShort\Forenames%
+        \fi%
+        \if@nameauth@FullName%
+          \@nameauth@FullNamefalse%
+          \if@nameauth@RevThis%
+            \expandafter\@nameauth@FmtName\expandafter*\expandafter{%
+              \expandafter\Surnames\expandafter\Space\Forenames}%
+          \else%
+            \expandafter\@nameauth@FmtName\expandafter*\expandafter{%
+              \expandafter\Forenames\expandafter\space\Surnames}%
+          \fi%
+        \else%
+          \expandafter\@nameauth@FmtName\expandafter*\expandafter{\PrintShort}%
+        \fi%
+      \else%
+        \@nameauth@FullNamefalse%
+        \@nameauth@FirstNamefalse%
+        \csgdef{\@nameauth@CleanName{#1#2!MN!}}{}%
+        \if@nameauth@RevThis%
+          \expandafter\@nameauth@FmtName\expandafter{%
+            \expandafter\Surnames\expandafter\Space\Forenames}%
+        \else%
+          \expandafter\@nameauth@FmtName\expandafter{%
+            \expandafter\Forenames\expandafter\space\Surnames}%
+        \fi%
+      \fi%
+    \else%
+      \ifcsname\@nameauth@CleanName{#1#2!NF!}\endcsname%
+        \if@nameauth@FirstName%
+          \@nameauth@FullNamefalse%
+          \@nameauth@FirstNamefalse%
+          \let\PrintShort\Forenames%
+        \fi%
+        \if@nameauth@FullName%
+          \@nameauth@FullNamefalse%
+          \if@nameauth@RevThis%
+            \expandafter\@nameauth@FmtName\expandafter*\expandafter{%
+              \expandafter\Surnames\expandafter\Space\Forenames}%
+          \else%
+            \expandafter\@nameauth@FmtName\expandafter*\expandafter{%
+              \expandafter\Forenames\expandafter\space\Surnames}%
+          \fi%
+        \else%
+          \expandafter\@nameauth@FmtName\expandafter*\expandafter{\PrintShort}%
+        \fi%
+      \else%
+        \@nameauth@FullNamefalse%
+        \@nameauth@FirstNamefalse%
+        \csgdef{\@nameauth@CleanName{#1#2!NF!}}{}%
+        \if@nameauth@RevThis%
+          \expandafter\@nameauth@FmtName\expandafter*\expandafter{%
+            \expandafter\Surnames\expandafter\Space\Forenames}%
+        \else%
+          \expandafter\@nameauth@FmtName\expandafter*\expandafter{%
+            \expandafter\Forenames\expandafter\space\Surnames}%
+        \fi%
+      \fi%
+    \fi%
+  \fi%
+  \@nameauth@RevThisfalse%
+  \@nameauth@RevThisCommafalse%
+  \if@nameauth@Punct\expandafter\@nameauth@CheckDot\fi%
+}
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{\Name*}
+% \changes{v1.4}{2012/07/24}{Refactored}
+%    \begin{macrocode}
+\WithSuffix\newcommandx\Name*[3][1=\@empty, 3=\@empty]%
+{%
+  \@nameauth@FullNametrue%
+  \Name[#1]{#2}[#3]%
+}
+%    \end{macrocode}
+% \end{macro}
+% \cmd{\Name} is the heart of this package. \Name*[Marc van]{Dongen} provided the basic structure. The present version has been refactored to isolate indexing and parsing. Macros have been redesigned to be smaller, more efficient, and more robust.
+%
+% The present version of \cmd{\Name} incorporates \cmd{\FName} as well.
+%
+% The use of \cmd{\expandafter} before \cmd{\@nameauth@CheckDot} works with the other use of \cmd{\expandafter} mentioned with \cmd{\@nameauth@EvalDot} above to move past the closing brace and fetch the period as lookahead. That is only done when the check for a terminal period in the name succeeds.
+%
+% \begin{macro}{\FName}
+% \changes{v0.9}{2012/02/10}{Added macro}
+% \changes{v0.94}{2012/02/15}{Error checking expanded}
+% \changes{v0.96}{2012/02/19}{Fixed occasional incompatibility with \textsf{memoir}.}
+% \changes{v1.0}{2012/02/20}{Fixed compatibility issues.}
+% \changes{v1.26}{2012/04/24}{Fixed sorting of name suffixes in index}
+% \changes{v1.4}{2012/07/24}{Refactored}
+%    \begin{macrocode}
+\newcommandx\FName[3][1=\@empty, 3=\@empty]%
+{%
+  \@nameauth@FirstNametrue%
+  \Name[#1]{#2}[#3]%
+}
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{\FName}
+% \changes{v1.4}{2012/07/24}{Refactored}
+%    \begin{macrocode}
+\WithSuffix\newcommandx\FName*[3][1=\@empty, 3=\@empty]%
+{%
+  \@nameauth@FirstNametrue%
+  \Name[#1]{#2}[#3]%
+}
+%    \end{macrocode}
+% \end{macro}
+% \cmd{\FName} and \cmd{\FName*} are identical and derived from \cmd{\Name} using it to print forename(s) in a subsequent use.
+%
+% \begin{macro}{\AKA}
+% \changes{v0.85}{2012/02/05}{Add comma suppression, ltxdoc compatibility}
+% \changes{v0.86}{2012/02/06}{Fixed some regressions}
+% \changes{v0.9}{2012/02/10}{Added starred mode; redesigned}
+% \changes{v0.94}{2012/02/15}{Added error checking}
+% \changes{v1.0}{2012/02/20}{Fixed compatibility issues.}
+% \changes{v1.1}{2012/03/08}{Fixed warning reporting.}
+% \changes{v1.26}{2012/04/24}{Fixed sorting of name suffixes in index}
+% \changes{v1.4}{2012/07/24}{Made more robust}
+% \changes{v1.5}{2013/02/22}{Added reversing and caps mechanisms}
+%    \begin{macrocode}
+\newcommandx\AKA[5][1=\@empty, 3=\@empty, 5=\@empty]%
+{%
+  \leavevmode\hbox{}%
+  \protected@edef\testi{#1}%
+  \protected@edef\testii{#2}%
+  \protected@edef\testiii{#3}%
+  \protected@edef\testiv{#4}%
+  \protected@edef\testv{#5}%
+  \if@nameauth@AllCaps\CapName\fi%
+  \if@nameauth@RevAll\RevName\fi%
+  \if@nameauth@RevAll\RevComma\fi%
+  \if@nameauth@ShowComma%
+    \protected@edef\Space{,\space}%
+  \else%
+    \let\Space\Interspace%
+  \fi%
+  \protected@edef\Shortii{\@nameauth@Root{#2}}%
+  \protected@edef\Shortiv{\@nameauth@Root{#4}}%
+  \ifx\testii\Shortii%
+    \let\Surnamesii\Shortii%
+    \protected@edef\Suffixii{\@empty}%
+  \else%
+    \protected@edef\Suffixii{\@nameauth@Suffix{#2}}%
+    \protected@edef\Surnamesii{\Shortii\Space\Suffixii}%
+  \fi%
+  \ifx\testiv\Shortiv%
+    \protected@edef\Suffixiv{\@empty}%
+    \let\Surnamesiv\Shortiv%
+    \let\Reverseiv\Shortiv%
+  \else%
+    \protected@edef\Suffixiv{\@nameauth@Suffix{#4}}%
+    \protected@edef\Surnamesiv{\Shortiv\Space\Suffixiv}%
+    \protected@edef\Reverseiv{\Suffixiv\Space\Shortiv}%
+  \fi%
+  \@nameauth@ShowCommafalse%
+  \@nameauth@AllThisfalse%
+  \ifx\testiii\@empty%
+    \ifx\testv\@empty%
+      \ifcsname\@nameauth@CleanName{#4!PN!}\endcsname%
+        \PackageWarning{nameauth}%
+        {macro \AKA: XRef: #4 exists.}%
+      \else%
+        \ifcsname\@nameauth@CleanName{#4!MN!}\endcsname%
+          \PackageWarning{nameauth}%
+          {macro \AKA: Name reference: #4 already exists; no see ref.}%
+        \else%
+          \ifcsname\@nameauth@CleanName{#4#5!NF!}\endcsname%
+            \PackageWarning{nameauth}%
+            {macro \AKA: Name reference: #4 already exists; no see ref.}%
+          \else%
+            \csgdef{\@nameauth@CleanName{#4!PN!}}{}%
+            \ifx\testi\@empty%
+              \@nameauth@Index{\Surnamesiv|see{\Surnamesii}}%
+            \else%
+              \ifx\Suffixii\@empty \@nameauth@Index{\Surnamesiv|see{\Surnamesii, #1}}%
+              \else \@nameauth@Index{\Surnamesiv|see{\Shortii, #1, \Suffixii}}\fi%
+            \fi%
+          \fi%
+        \fi%
+      \fi%
+      \@nameauth@AltAKAfalse%
+      \if@nameauth@RevThisComma%
+        \protected@edef\Space{,\space}%
+      \else%
+        \let\Space\Interspace%
+      \fi%
+      \if@nameauth@RevThis%
+        \expandafter\@nameauth@FmtName\expandafter*\expandafter{\Reverseiv}%
+      \else%
+        \expandafter\@nameauth@FmtName\expandafter*\expandafter{\Surnamesiv}%
+      \fi%
+    \else%
+      \ifcsname\@nameauth@CleanName{#4#5!PN!}\endcsname%
+        \PackageWarning{nameauth}%
+        {macro \AKA: XRef: #4 #5 exists.}%
+      \else%
+        \ifcsname\@nameauth@CleanName{#4#5!MN!}\endcsname%
+          \PackageWarning{nameauth}%
+          {macro \AKA: Name reference: #4 #5 already exists; no see ref.}%
+        \else%
+          \ifcsname\@nameauth@CleanName{#4#5!NF!}\endcsname%
+            \PackageWarning{nameauth}%
+            {macro \AKA: Name reference: #4 #5 already exists; no see ref.}%
+          \else%
+            \csgdef{\@nameauth@CleanName{#4#5!PN!}}{}%
+            \ifx\testi\@empty%
+              \@nameauth@Index{\Surnamesiv\space#5|see{\Surnamesii}}%
+            \else%
+              \ifx\Suffixii\@empty \@nameauth@Index{\Surnamesiv\space#5|see{\Surnamesii, #1}}%
+              \else \@nameauth@Index{\Surnamesiv\space#5|see{\Shortii, #1, \Suffixii}}\fi%
+            \fi%
+          \fi%
+        \fi%
+      \fi%
+      \if@nameauth@RevThisComma%
+        \protected@edef\Space{,\space}%
+      \else%
+        \let\Space\Interspace%
+      \fi%
+      \if@nameauth@AltAKA%
+        \@nameauth@AltAKAfalse%
+        \if@nameauth@RevThis%
+        \else%
+          \expandafter\@nameauth@FmtName\expandafter*\expandafter{\testv}%
+        \fi%
+      \else%
+        \@nameauth@AltAKAfalse%
+        \if@nameauth@RevThis%
+          \expandafter\@nameauth@FmtName\expandafter*\expandafter{\expandafter\testv\expandafter\Space\Surnamesiv}%
+        \else%
+          \expandafter\@nameauth@FmtName\expandafter*\expandafter{\expandafter\Surnamesiv\expandafter\space\testv}%
+        \fi%
+      \fi%
+    \fi%
+  \else%
+    \ifcsname\@nameauth@CleanName{#3#4!PN!}\endcsname%
+      \PackageWarning{nameauth}%
+      {macro \AKA: XRef: #3 #4 exists.}%
+    \else%
+      \ifcsname\@nameauth@CleanName{#3#4!MN!}\endcsname%
+        \PackageWarning{nameauth}%
+        {macro \AKA: Name reference: #3 #4 already exists; no see ref.}%
+      \else%
+        \ifcsname\@nameauth@CleanName{#3#4!NF!}\endcsname%
+          \PackageWarning{nameauth}%
+          {macro \AKA: Name reference: #3 #4 already exists; no see ref.}%
+        \else%
+          \csgdef{\@nameauth@CleanName{#3#4!PN!}}{}%
+          \ifx\testi\@empty%
+            \ifx\Suffixiv\@empty \@nameauth@Index{\Surnamesiv, #3|see{\Surnamesii}}%
+            \else \@nameauth@Index{\Shortiv, #3, \Suffixiv|see{\Surnamesii}}\fi%
+          \else%
+            \ifx\Suffixii\@empty%
+              \ifx\Suffixiv\@empty%
+                \@nameauth@Index{\Surnamesiv, #3|see{\Surnamesii, #1}}%
+              \else%
+                \@nameauth@Index{\Shortiv, #3, \Suffixiv|see{\Surnamesii, #1}}%
+              \fi%
+            \else%
+              \ifx\Suffixiv\@empty%
+                \@nameauth@Index{\Surnamesiv, #3|see{\Shortii, #1, \Suffixii}}%
+              \else%
+                \@nameauth@Index{\Shortiv, #3, \Suffixiv|see{\Shortii, #1, \Suffixii}}%
+              \fi%
+            \fi%
+          \fi%
+        \fi%
+      \fi%
+    \fi%
+    \@nameauth@AltAKAfalse%
+    \if@nameauth@RevThisComma%
+      \protected@edef\Space{,\space}%
+    \else%
+      \let\Space\Interspace%
+    \fi%
+    \ifx\testv\@empty%
+      \protected@edef\Forenames{#3}%
+    \else%
+      \protected@edef\Forenames{#5}%
+    \fi%
+    \if@nameauth@RevThis%
+      \expandafter\@nameauth@FmtName\expandafter*\expandafter{%
+        \expandafter\Surnamesiv\expandafter\Space\Forenames}%
+    \else%
+      \expandafter\@nameauth@FmtName\expandafter*\expandafter{%
+        \expandafter\Forenames\expandafter\space\Surnamesiv}%
+    \fi%
+  \fi%
+  \@nameauth@RevThisfalse%
+  \@nameauth@RevThisCommafalse%
+  \if@nameauth@Punct\expandafter\@nameauth@CheckDot\fi%
+}
+\WithSuffix\newcommandx\AKA*[5][1=\@empty,3=\@empty,5=\@empty]%
+{%
+  \@nameauth@AltAKAtrue%
+  \AKA[#1]{#2}[#3]{#4}[#5]%
+}
+%    \end{macrocode}
+% \end{macro}
+% \cmd{\AKA} prints a pseudonym and creates index cross-references. Its starred form prints only the alternate name parameter, if that exists. It prevents multiple generation of cross-references and suppresses double periods.
+%
+% \begin{macro}{\PName}
+% \changes{v0.85}{2012/02/05}{Add comma suppression}
+%    \begin{macrocode}
+\newcommandx\PName[5][1=\@empty,3=\@empty,5=\@empty]%
+{%
+  \Name[#1]{#2}\space(\AKA[#1]{#2}[#3]{#4}[#5])%
+}
+\WithSuffix\newcommandx\PName*[5][1=\@empty,3=\@empty,5=\@empty]%
+{%
+  \Name*[#1]{#2}\space(\AKA[#1]{#2}[#3]{#4}[#5])%
+}
+%    \end{macrocode}
+% \end{macro}
+% \cmd{\PName} is a convenience macro whose starred and unstarred forms call the respective versions of \cmd{\Name}, followed only by \cmd{\AKA}.
+%
+% \begin{macro}{\TagName}
+% \changes{v1.2}{2012/02/25}{Added macro.}
+%    \begin{macrocode}
+\newcommandx\TagName[4][1=\@empty, 3=\@empty]%
+{%
+  \protected@edef\testi{#1}%
+  \protected@edef\testiii{#3}%
+  \ifx\testi\@empty%
+    \ifx\testiii\@empty%
+      \ifcsname\@nameauth@CleanName{#2!PN!}\endcsname%
+        \PackageWarning{nameauth}%
+        {macro \textbackslash TagName Cannot tag xref: #2.}%
+      \else%
+        \csgdef{\@nameauth@CleanName{#2}}{#4}%
+      \fi%
+    \else%
+      \ifcsname\@nameauth@CleanName{#2#3!PN!}\endcsname%
+        \PackageWarning{nameauth}%
+        {macro \textbackslash TagName Cannot tag xref: #2 #3.}%
+      \else%
+        \csgdef{\@nameauth@CleanName{#2#3}}{#4}%
+      \fi%
+    \fi%
+  \else%
+      \ifcsname\@nameauth@CleanName{#1#2!PN!}\endcsname%
+        \PackageWarning{nameauth}%
+        {macro \textbackslash TagName Cannot tag xref: #1 #2.}%
+      \else%
+        \csgdef{\@nameauth@CleanName{#1#2}}{#4}%
+      \fi%
+  \fi%
+}
+%    \end{macrocode}
+% \end{macro}
+% \cmd{\TagName} creates an index entry tag after a name that is not already a pseudonym.
+%
+% \begin{macro}{\UntagName}
+% \changes{v1.2}{2012/02/25}{Added macro.}
+%    \begin{macrocode}
+\newcommandx\UntagName[3][1=\@empty, 3=\@empty]%
+{%
+  \protected@edef\testi{#1}%
+  \protected@edef\testiii{#3}%
+  \ifx\testi\@empty%
+    \ifx\testiii\@empty%
+      \csundef{\@nameauth@CleanName{#2}}%
+    \else%
+      \csundef{\@nameauth@CleanName{#2#3}}%
+    \fi%
+  \else%
+      \csundef{\@nameauth@CleanName{#1#2}}%
+  \fi%
+}
+%    \end{macrocode}
+% \end{macro}
+% \cmd{\TagName} creates an index entry tag after a name that is not already a pseudonym.
+%
+% \begin{macro}{\IndexName}
+% \changes{v0.75}{2012/01/19}{Optional parameter added; mandatory parameter deleted}
+% \changes{v0.85}{2012/02/05}{Add comma suppression, ltxdoc compatibility}
+% \changes{v0.86}{2012/02/06}{Slight tweak using \cmd{\edef}}
+% \changes{v0.9}{2012/02/10}{redesigned macro}
+% \changes{v1.0}{2012/02/20}{Fixed compatibility issues.}
+% \changes{v1.2}{2012/02/25}{Added warnings.}
+% \changes{v1.26}{2012/04/24}{Fixed sorting of name suffixes in index}
+% \changes{v1.4}{2012/07/24}{Made more robust}
+%    \begin{macrocode}
+\newcommandx\IndexName[3][1=\@empty, 3=\@empty]%
+{%
+  \protected@edef\testi{#1}%
+  \protected@edef\testii{#2}%
+  \protected@edef\testiii{#3}%
+  \if@nameauth@ShowComma%
+    \protected@edef\Space{,\space}%
+  \else%
+    \let\Space\Interspace%
+  \fi%
+  \protected@edef\Short{\@nameauth@Root{#2}}%
+  \ifx\testii\Short%
+    \let\Surnames\Short%
+    \protected@edef\Suffix{\@empty}%
+  \else%
+    \protected@edef\Suffix{\@nameauth@Suffix{#2}}%
+    \protected@edef\Surnames{\Short\Space\Suffix}%
+  \fi%
+  \@nameauth@ShowCommafalse%
+  \ifx\testi\@empty%
+    \ifx\testiii\@empty%
+      \ifcsname\@nameauth@CleanName{#2!PN!}\endcsname%
+        \PackageWarning{nameauth}%
+        {macro \IndexName: XRef: #2 exists.}%
+      \else%
+        \@nameauth@Index{\Surnames}[\@nameauth@CleanName{#2}]%
+      \fi%
+    \else%
+      \ifcsname\@nameauth@CleanName{#2#3!PN!}\endcsname%
+        \PackageWarning{nameauth}%
+        {macro \IndexName: XRef: #2 #3 exists.}%
+      \else%
+        \@nameauth@Index{\Surnames\space#3}[\@nameauth@CleanName{#2#3}]%
+      \fi%
+    \fi%
+  \else%
+      \ifcsname\@nameauth@CleanName{#1#2!PN!}\endcsname%
+        \PackageWarning{nameauth}%
+        {macro \IndexName: XRef: #1 #2 exists.}%
+      \else%
+        \ifx\Suffix\@empty \@nameauth@Index{\Short, #1}[\@nameauth@CleanName{#1#2}]%
+        \else \@nameauth@Index{\Short, #1, \Suffix}[\@nameauth@CleanName{#1#2}]\fi%
+      \fi%
+  \fi%
+}
+%    \end{macrocode}
+% \end{macro}
+% \cmd{\IndexName} creates an index entry that is not already a pseudonym. It prints nothing. It does ensure consistent formatting.
+%
+% \begin{macro}{\ExcludeName}
+% \changes{v0.94}{2012/02/15}{Added macro}
+%    \begin{macrocode}
+\newcommandx\ExcludeName[3][1=\@empty, 3=\@empty]%
+{%
+  \protected@edef\testi{#1}%
+  \protected@edef\testiii{#3}%
+  \ifx\testi\@empty%
+    \ifx\testiii\@empty%
+      \ifcsname\@nameauth@CleanName{#2!PN!}\endcsname\relax%
+      \else%
+        \ifcsname\@nameauth@CleanName{#2!MN!}\endcsname%
+          \PackageWarning{nameauth}%
+          {macro \ExcludeName: Reference: #2 already exists; no exclusion.}%
+        \else%
+          \ifcsname\@nameauth@CleanName{#2!NF!}\endcsname%
+            \PackageWarning{nameauth}%
+            {macro \ExcludeName: Reference: #2 already exists; no exclusion.}%
+          \else%
+            \csgdef{\@nameauth@CleanName{#2!PN!}}{}%
+          \fi%
+        \fi%
+      \fi%
+    \else%
+      \ifcsname\@nameauth@CleanName{#2#3!PN!}\endcsname\relax%
+      \else%
+        \ifcsname\@nameauth@CleanName{#2#3!MN!}\endcsname%
+          \PackageWarning{nameauth}%
+          {macro \ExcludeName: Reference: #2 #3 already exists; no exclusion.}%
+        \else%
+          \ifcsname\@nameauth@CleanName{#2#3!NF!}\endcsname%
+            \PackageWarning{nameauth}%
+            {macro \ExcludeName: Reference: #2 #3 already exists; no exclusion.}%
+          \else%
+            \csgdef{\@nameauth@CleanName{#2#3!PN!}}{}%
+          \fi%
+        \fi%
+      \fi%
+    \fi%
+  \else%
+    \ifcsname\@nameauth@CleanName{#1#2!PN!}\endcsname%
+      \PackageWarning{nameauth}%
+      {macro \ExcludeName: XRef: #1 #2 exists.}%
+    \else%
+      \ifcsname\@nameauth@CleanName{#1#2!MN!}\endcsname%
+        \PackageWarning{nameauth}%
+        {macro \ExcludeName: Reference: #1 #2 already exists; no exclusion.}%
+      \else%
+        \ifcsname\@nameauth@CleanName{#1#2!NF!}\endcsname%
+          \PackageWarning{nameauth}%
+          {macro \ExcludeName: Reference: #1 #2 already exists; no exclusion.}%
+        \else%
+          \csgdef{\@nameauth@CleanName{#1#2!PN!}}{}%
+        \fi%
+      \fi%
+    \fi%
+  \fi%
+}
+%    \end{macrocode}
+% \end{macro}
+% This macro prevents a name from being formatted or indexed by using the exclusion mechanism of \cmd{\AKA}. The result is that \cmd{\Name} and friends will print their arguments, emit a warning, and continue.
+%
+% \begin{macro}{\ForgetName}
+% \changes{v0.75}{2012/01/19}{New parameter added}
+%    \begin{macrocode}
+\newcommandx\ForgetName[3][1=\@empty, 3=\@empty]%
+{%
+  \protected@edef\testi{#1}%
+  \protected@edef\testiii{#3}%
+  \ifx\testi\@empty%
+    \ifx\testiii\@empty%
+      \csundef{\@nameauth@CleanName{#2!MN!}}%
+      \csundef{\@nameauth@CleanName{#2!NF!}}%
+    \else%
+      \csundef{\@nameauth@CleanName{#2#3!MN!}}%
+      \csundef{\@nameauth@CleanName{#2#3!NF!}}%
+    \fi%
+  \else%
+      \csundef{\@nameauth@CleanName{#1#2!MN!}}%
+      \csundef{\@nameauth@CleanName{#1#2!NF!}}%
+  \fi%
+}
+%    \end{macrocode}
+% \end{macro}
+% \cmd{\ForgetName} undefines control sequences to force the ``first use'' option of \cmd{\Name}.
+%
+% \begin{macro}{\SubvertName}
+% \changes{v0.9}{2012/02/10}{Added macro}
+%    \begin{macrocode}
+\newcommandx\SubvertName[3][1=\@empty, 3=\@empty]%
+{%
+  \protected@edef\testi{#1}%
+  \protected@edef\testiii{#3}%
+  \ifx\testi\@empty%
+    \ifx\testiii\@empty%
+      \csgdef{\@nameauth@CleanName{#2!MN!}}{}%
+      \csgdef{\@nameauth@CleanName{#2!NF!}}{}%
+    \else%
+      \csgdef{\@nameauth@CleanName{#2#3!MN!}}{}%
+      \csgdef{\@nameauth@CleanName{#2#3!NF!}}{}%
+    \fi%
+  \else%
+      \csgdef{\@nameauth@CleanName{#1#2!MN!}}{}%
+      \csgdef{\@nameauth@CleanName{#1#2!NF!}}{}%
+  \fi%
+}
+%    \end{macrocode}
+% \end{macro}
+% \cmd{\SubvertName} defines control sequences to suppress the ``first use'' of \cmd{\Name}.\\
+%
+% \noindent The following macros toggle formatting and indexing.
+%
+% \begin{macro}{\NamesInactive}
+%    \begin{macrocode}
+\newcommand{\NamesInactive}{\@nameauth@DoFormatfalse}
+%    \end{macrocode}
+% \end{macro}
+% 
+% \begin{macro}{\NamesActive}
+%    \begin{macrocode}
+\newcommand{\NamesActive}{\@nameauth@DoFormattrue}
+%    \end{macrocode}
+% \end{macro}
+%
+% \changes{v1.5}{2013/02/22}{Added macro}
+% \begin{macro}{\AllCapsInactive}
+%    \begin{macrocode}
+\newcommand{\AllCapsInactive}{\@nameauth@AllCapsfalse}
+%    \end{macrocode}
+% \end{macro}
+% 
+% \changes{v1.5}{2013/02/22}{Added macro}
+% \begin{macro}{\AllCapsActive}
+%    \begin{macrocode}
+\newcommand{\AllCapsActive}{\@nameauth@AllCapstrue}
+%    \end{macrocode}
+% \end{macro}
+%
+% \changes{v1.5}{2013/02/22}{Added macro}
+% \begin{macro}{\ReverseInactive}
+%    \begin{macrocode}
+\newcommand{\ReverseInactive}{\@nameauth@RevAllfalse}
+%    \end{macrocode}
+% \end{macro}
+% 
+% \changes{v1.5}{2013/02/22}{Added macro}
+% \begin{macro}{\ReverseActive}
+%    \begin{macrocode}
+\newcommand{\ReverseActive}{\@nameauth@RevAlltrue}
+%    \end{macrocode}
+% \end{macro}
+%
+% \changes{v1.5}{2013/02/22}{Added macro}
+% \begin{macro}{\ReverseCommaInactive}
+%    \begin{macrocode}
+\newcommand{\ReverseCommaInactive}{\@nameauth@RevAllfalse\@nameauth@RevAllCommafalse}
+%    \end{macrocode}
+% \end{macro}
+% 
+% \changes{v1.5}{2013/02/22}{Added macro}
+% \begin{macro}{\ReverseCommaActive}
+%    \begin{macrocode}
+\newcommand{\ReverseCommaActive}{\@nameauth@RevAlltrue\@nameauth@RevAllCommatrue}
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{\IndexInactive}
+% \changes{v0.94}{2012/02/15}{Added macro}
+%    \begin{macrocode}
+\newcommand{\IndexInactive}{\@nameauth@DoIndexfalse}
+%    \end{macrocode}
+% \end{macro}
+% 
+% \begin{macro}{\IndexActive}
+% \changes{v0.94}{2012/02/15}{Added macro}
+%    \begin{macrocode}
+\newcommand{\IndexActive}{\@nameauth@DoIndextrue}
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{environment}{nameauth}
+% \changes{v1.6}{2013/03/10}{Added |nameauth| environment}
+% The |nameauth| environment provides a means to implement shorthand references to names in a document.
+%    \begin{macrocode}
+\newenvironment{nameauth}{%
+  \begingroup%
+  \csdef{<}##1&##2&##3&##4>{%
+    \protected@edef\arga{\trim@spaces{##1}}%
+    \protected@edef\argb{\trim@spaces{##2}}%
+    \protected@edef\argc{\trim@spaces{##3}}%
+    \protected@edef\argd{\trim@spaces{##4}}%
+    \ifx\arga\@empty
+        \PackageError{nameauth}%
+        {environment nameauth: Control sequence missing.}%
+    \else
+      \ifx\argc\@empty
+        \PackageError{nameauth}%
+        {environment nameauth: Essential name missing.}%
+      \else
+        \ifx\argd\@empty
+          \ifx\argb\@empty
+            \csxdef{\arga}{\Name{\argc}}%
+            \csxdef{L\arga}{\Name*{\argc}}%
+            \csxdef{S\arga}{\FName{\argc}}%
+          \else
+            \csxdef{\arga}{\Name[\argb]{\argc}}%
+            \csxdef{L\arga}{\Name*[\argb]{\argc}}%
+            \csxdef{S\arga}{\FName[\argb]{\argc}}%
+          \fi
+        \else
+          \ifx\argb\@empty
+            \csxdef{\arga}{\Name{\argc}[\argd]}%
+            \csxdef{L\arga}{\Name*{\argc}[\argd]}%
+            \csxdef{S\arga}{\FName{\argc}[\argd]}%
+          \else
+            \csxdef{\arga}{\Name[\argb]{\argc}[\argd]}%
+            \csxdef{L\arga}{\Name*[\argb]{\argc}[\argd]}%
+            \csxdef{S\arga}{\FName[\argb]{\argc}[\argd]}%
+          \fi
+        \fi
+      \fi
+    \fi
+    \ignorespaces%
+  }%
+}{\endgroup}
+%    \end{macrocode}
+% \end{environment}
+% \clearpage
+% \Finale
+\endinput
+% \iffalse
+%</package>
+% \fi

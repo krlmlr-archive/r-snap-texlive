@@ -1,0 +1,663 @@
+This is the README file for the 'loops' package.
+
+AUTHOR
+
+Ahmed Musa
+
+VERSION
+
+Version 1.3, 2013/05/15.
+
+LOCATION ON CTAN
+
+macros/latex/contrib/loops/
+
+
+The package provides efficient looping macros for processing both
+csv (separated-values) and nsv/tsv (non-separated values) lists.
+Csv lists that have associated arbitrary list-separators may be
+processed with the tools of the package.
+
+
+LICENSE
+
+Copyright (c) 2012-2013 Ahmed Musa
+
+This software is author-maintained. Permission is granted to copy,
+distribute and/or modify this software under the terms of the
+LaTeX Project Public License, version 1.3 or higher. This software
+is provided 'as it is', without warranty of any kind, either
+expressed or implied, including, but not limited to, the implied
+warranties of merchantability and fitness for any particular purpose.
+
+NOTE
+
+Non-LaTeX users can use the \newforeach macro (and some other
+looping macros) by loading the file skeyval-for.tex. These exclude
+\foreachfox, which are available only in loops.sty.
+
+SUMMARY
+
+The 'loops' package provides efficient looping macros for processing
+both csv (separated-values) and nsv/tsv (non-separated values) lists.
+csv lists having arbitrary parsers, and even active parsers, can
+be processed with the tools of this package.
+
+All our loops can be safely nested. Breaking the inner loop doesn't
+affect the continuation of the outer loop.
+
+The looping macros include:
+
+\skvrecurse:
+
+    \skvrecurse{<body>}\while<\if...>\fi
+
+    A variant of D.E. Knuth's \loop macro.
+
+    \@tempcnta\z@
+    \skvrecurse{
+        \advance\@tempcnta\@ne
+        \@tempcntb\z@
+        \skvrecurse
+          \advance\@tempcntb\@ne
+          \typeout{Doing \the\@tempcnta,\the\@tempcntb}
+        \while
+          \ifnum\@tempcntb<3\relax
+        \fi
+      }
+    \while
+      \ifnum\@tempcnta<4\relax
+    \fi
+
+
+\carlisleloop:
+
+    \carlisleloop<id>{<body>}<\if...>\repeat<id>
+
+    A nesting version of D.E. Knuth's \loop macro,
+    adapted from the original macros of David Carlisle.
+
+    \skvnewcounts{rowcnt,colcnt,maxrow,maxcol}
+    \maxrow4 \maxcol3\relax
+    \def\entries{}
+    \let\xp\skvexpandonce
+    \def\generate{%
+      \advance\colcnt\@ne
+      \edef\entries{\xp\entries\the\numexpr\rowcnt*\colcnt\relax}%
+      \ifnum\colcnt<\numexpr\maxcol+1\relax\relax
+      \edef\entries{\xp\entries\noexpand&}%
+    }
+    \def\generateentries{%
+      \carlisleloop\a
+        \advance\rowcnt\@ne\colcnt\z@
+        \carlisleloop\b
+          \generate
+        \repeat\b
+        \ifnum\rowcnt<\numexpr\maxrow+1\relax\relax
+        \edef\entries{\xp\entries\noexpand\cr}%
+      \repeat\a
+      \edef\entries{\xp\entries\noexpand\crcr}%
+    }
+    \begin{document}
+    \generateentries
+    $$\vbox{\halign{&\ \hfil#\hfil\strut\cr\entries}}$$
+    \end{document}
+
+
+\akterloop:
+
+    \akterloop{<body>}<\if...>\repeat
+
+    A generalized and naturally nesting version of D.E. Knuth's
+    \loop macro. No nesting brace is required, unlike in \skvrecurse.
+    No <id> is required, unlike in \carlisleloop.
+
+    \def\generateentries{%
+      \akterloop
+        \advance\rowcnt\@ne\colcnt\z@
+        \akterloop
+          \generate
+        \repeat
+        \ifnum\rowcnt<\numexpr\maxrow+1\relax\relax
+        \edef\entries{\xp\entries\noexpand\cr}%
+      \repeat
+      \edef\entries{\xp\entries\noexpand\crcr}%
+    }
+    \begin{document}
+    \generateentries
+    $$\vbox{\halign{&\ \hfil#\hfil\strut\cr\entries}}$$
+    \end{document}
+
+
+\skvtfor:
+
+    \skvtfor<holder.cmd>:={<list>}\do{<callback>}
+    \skvtfor*<holder.cmd>:={<listcmd>}\do{<callback>}
+
+    A variant of LaTeX kernel's \@tfor that has a different
+    approach to breaking the loop prematurely.
+
+    \skvnewregister\count\nr
+    \skvtfor\x:=a \ifx {\def\x#1{#1}} \fi\do{%
+      \nr\z@
+      \skvtfor\y:=12345\do{%
+        \typeout{Doing: \detokenize\expandafter{\x}--\y}%
+        \advance\nr\@ne
+        \ifnum\nr>\tw@\skvbreakloop\fi
+      }%
+    }
+
+
+\ayeloop:
+
+    \ayeloop{<list>}\do{<1.parameter.callback>}
+    \ayeloop*{<listcmd>}\do{<1.parameter.callback>}
+
+    A variant of \skvtfor that uses parameter characters
+    directly, instead of a holder macro.
+
+    \ayeloop abcd\do{%
+      \def\nr{0}%
+      \ayeloop 12345\do{%
+        \typeout{Doing #1--##1}%
+        \skvpushnumber\nr
+        \ifnum\nr>3\relax\skvbreakloop\fi
+      }%
+    }
+
+
+\sifakaloop:
+
+    \sifakaloop{<list>}{<1.parameter.callback>}
+    \sifakaloop*{<listcmd>}{<1.parameter.callback>}
+
+    \sifakaloop is as \ayeloop but will first normalize the list
+    using \skvtsvnormalize before parsing. Unlike all the
+    other nsv/tsv loops, it preserves outer braces in the
+    arguments. Hence, it is costlier. You can insert \foreachlistbreaker
+    as a token in <list> or <listcmd> to terminate the list prematurely.
+
+
+\skvfor:
+
+    \skvfor{<list>}<1.parameter.callback.macro>
+
+    \skvfor is an expandable comma loop. The list is not
+    normalized prior to parsing, and it is not possible to
+    terminate the loop prematurely (ie, before exhausting
+    the list).
+
+    \newcount\nr\nr=\tw@
+    \def\do#1{%
+      \let\noexpand#1%
+      \expandafter\noexpand\csname\skvremovescape{#1}@%
+      \romannumeral\nr\endcsname
+    }
+    \edef\x{\skvfor{\cmda,\cmdb}\do}
+    \show\x -> \let\cmda\cmda@ii \let\cmdb\cmdb@ii
+
+
+\skvgenloop:
+
+    \skvgenloop{<parser>}{<list>}{<1.parameter.callback>}
+
+    \skvgenloop is non-expandable but it takes any arbitrary
+    list separator (parser). In the case of non-separated (nsv/tsv)
+    lists, <parser> can be empty. The list is not normalized prior to
+    parsing, and it is not possible to terminate the loop prematurely
+    (ie, before exhausting the list).
+
+    Here, <1.parameter.callback> is not a macro, unlike the
+    <1.parameter.callback.macro> for \skvfor.
+
+    \newcount\nr\nr=\tw@
+    \def\stack{}
+    \skvgenloop{,}{\cmda,\cmdb}{%
+      \edef\stack{%
+        \unexpanded\expandafter{\stack}%
+        \let\noexpand#1%
+        \expandafter\noexpand\csname\skvremovescape{#1}@%
+        \romannumeral\nr\endcsname
+      }%
+    }
+    \show\stack
+
+
+\skvcommaloop, \skvecommaloop, \skvcommaparse, \skvkvparse:
+
+    \skvcommaloop{<list>}<holder-cmd>{<callback>}
+    \skvcommaloop*{<listcmd>}<holder-cmd>{<callback>}
+
+    All these have the same syntax. \skvecommaloop is as
+    \skvcommaloop but will execute <callback> once when <list>
+    is empty. This is needed for processing empty key families.
+
+    \skvcommaparse is as \skvcommaloop but will first normalize
+    <list> using \skvcsvnormalize. \skvkvparse is as \skvcommaloop
+    but will first normalize <list> using \skvkvnormalize.
+    \skvkvparse is meant for processing key-value lists.
+
+
+\skvdolist and \skvparselist:
+
+    \skvparselist{<parser>}{<list>}<holdercmd>{<callback>}
+    \skvparselist*{<parser>}{<listcmd>}<holdercmd>{<callback>}
+
+    These can process lists with arbitrary parsers/list
+    separators, including non-separated lists. The only difference
+    between \skvdolist and \skvparselist is that \skvparselist will
+    first normalize the list before parsing.
+
+
+\cicadaloop:
+
+    \cicadaloop[<parser>]{<list>}<\if...>\fi{<callback>}
+    \cicadaloop*[<parser>]{<listcmd>}<\if...>\fi{<callback>}
+
+    \cicadaloop will terminate prematurely on the current depth
+    whenever the condition specified by <\if...> is true.
+    <callback> is the regular code, to be executed
+    for every item of the list before the loop is terminated.
+
+    Some internal macros are accessible by the user: \iflastcicada,
+    \currentcicada, \nextcicada, \lastcicada, \cicadacount.
+    \cicadacount is depth-dependent.
+
+    You can insert \foreachlistbreaker as an item in <list> or <listcmd>
+    to terminate the list prematurely. Note: Unlike \newforeach and \foreachfox,
+    \foreachlistpauser isn't recognized by \cicadaloop.
+
+    \let\romn\romannumeral
+    \@tempcnta\z@
+    \def\blist{{X};{Y};Z;\fi}
+    \def\stack{}
+    \cicadaloop{{a},{b},c,\if}\if01\fi{%
+      \advance\@tempcnta\@ne
+      \@tempcntb\z@
+      \@tempswafalse
+      \cicadaloop*[;]\blist\if@tempswa\fi{%
+        \advance\@tempcntb\@ne
+        \typeout{Doing \romn\@tempcnta,\romn\@tempcntb:
+          \detokenize{#1,##1}}%
+        \edef\stack{%
+          \unexpanded\expandafter{\stack}\noexpand\do
+          {\romn\@tempcnta,\romn\@tempcntb}{\unexpanded{#1;##1}}%
+        }%
+        \ifnum\@tempcntb>\@ne
+          \@tempswatrue
+          \skvcsedef{cmd@\romn\cicadanestdepth}{\lastcicada,\cicadacount}%
+        \fi
+      }%
+    }
+    \show\stack
+
+
+\newforeach:
+
+    \newforeach[<options>]<holder.macros>{<optional.'in'>}
+      {<list.or.listcmd>}{<optional.'do'>}{<callback>}
+    \newforeach<holder.macros>[<options>]{<optional.'in'>}
+      {<list.or.listcmd>}{<optional.'do'>}{<callback>}
+
+    The star (*) form of \newforeach is equivalent to declaring
+    the option 'list is a macro' in <options>.
+
+    \newforeach is a more versatile and robust version of the popular
+    \foreach macro of the PGF bundle. The macro accepts arbitrary list
+    parsers and sub-parsers, including active list separators.
+    When needed, parameters corresponding to the holder macros can
+    be used directly in the callback. \newforeach does everything
+    that PGF's \foreach does. It doesn't automatically scope
+    calculations as \foreach does. Automatically creating local
+    groups for computations has been a problem for some users
+    of \foreach. Instead, \newforeach uses stacks to save and
+    restore the values of holder macros and some other internal
+    parameters/quantities.
+
+    There is a long list of options/keys in <options>, available for
+    \newforeach and \foreachfox. For example, key 'reverse list'
+    allows users to automatically reverse their lists prior to processing.
+
+    Also, there are many internal macros that can be accessed by the user.
+    A few of them are
+
+    \breaknewforeach (=\skvbreakloop),
+    \breakallforeachloops, \foreachcurrentitem,
+    \foreachnextitem, \foreachitemcount, \foreachprevitem,
+    \prependtobeginforeach, \appendtobeginforeach (=\atbeginforeach),
+    \prependtoendforeach, \appendtoendforeach (=\atendforeach),
+    \ifforeachlastitem, \foreachnestdepth, \foreachlistremainder,
+    \skvforeachonlyinitially.
+
+    \foreachitemcount counts the items as the loop progresses.
+    It is depth dependent, ie, it can be called to access the
+    number of items processed on each depth of nesting of
+    \newforeach. On any depth, the user can say, eg,
+
+      \ifnum\foreachitemcount>10\relax\breaknewforeach\fi
+
+    or
+
+      \ifnum\foreachitemcount>10\relax\breaknewforeach\fi
+
+    You can insert \foreachlistbreaker as an item in <list> or <listcmd>
+    to terminate the list prematurely. \foreachlistpauser will pause
+    the processing for user action.
+
+    \newforeach found a bug in PGF's \foreach, as reported at
+    <http://tex.stackexchange.com/questions/72707/an-unexpected-
+    outcome-from-pgfs-foreach>. However, \newforeach itself
+    can't be said to be bug free.
+
+    Maybe you fancy the following syntactic sugar:
+
+    \begingroup
+    \catcode`\,=13
+    \gdef\alist{1,2,...,5,7,8,...,12}
+    \endgroup
+    \parindent-20pt
+    \begin{tikzpicture}
+      \draw[step=.5cm,blue!65,very thin] (0,0) grid (13,6);
+      \newforeach \x [
+        expand list once,
+        count in=\xc all \x satisfying \ifnum\x>5\fi
+      ] in \alist {
+        \newforeach [
+          parser={;},
+          subparser=:,
+          evaluate=\y as \ye using \numexpr\y*10
+        ]
+        \y:\z in {1:red; 2:green; 3:blue; 4:brown; 5:purple} do {
+          \draw [fill=\z\ifnum\x>5!\ye\fi] (\x,\y) +(-.5,-.5)
+            rectangle ++(.5,.5);
+          \draw (\x,\y) node {\x,\y};
+        }
+      }
+      \global\let\xc\xc
+    \end{tikzpicture}
+    \show\xc
+
+    \begin{document}
+    \begin{tikzpicture}[every node/.style=draw]
+    \node (A) at (0,0) {A};
+    \node (B) at (1,0) {B};
+    \node (C) at (2,0) {C};
+    \node (D) at (3,0) {D};
+    \newforeach \n [remember=\n as \lastn initially A] in {B,C,D}
+      \draw [->] (\lastn) -- (\n);
+    \end{tikzpicture}
+
+    \foreachfox [remember=#1 as \x initially A] in {B,...,H} {%
+      $\overrightarrow{\x#1}$\ifforeachlastitem.\else,\space\fi
+    }
+
+    \foreachfox [list type=tsv,remember=#1 as \x initially A] {B(C1)DE[F1]GH} {%
+      $\overrightarrow{\x#1}$\ifforeachlastitem.\else,\space\fi
+    }
+    \end{document}
+
+    % Example credit: Tom Bombadil
+    \usetikzlibrary{arrows}
+    \parindent-40pt
+    \begin{tikzpicture}
+      % You may fix \pgfmathsetseed to get a constant output:
+      % \pgfmathsetseed{42}
+      \newforeach \y [count=\yc] in {-0.5,-1,...,-2.5} {%
+        \node[right] at (15.2,\y+0.1) {\scriptsize Subject \yc};
+        \newforeach \x in {1,...,300}{%
+          \pgfmathtruncatemacro{\drawbool}{rand-0.7 > 0 ? 1 : 0}%
+          \ifnum\drawbool=1\relax
+            \fill (\x/20,\y) rectangle (\x/20+0.05,\y+0.3);
+          \fi
+        }%
+      }%
+      \draw[-stealth] (0,0) -- (15.5,0);
+      \node[right] at (15.5,0.2) {t in ms};
+      \newforeach \x [
+        pgf evaluate=\x as \xv using int(20*\x)
+      ] in {0,...,15} {%
+        \draw (\x,-0.05) -- (\x,0.05) node[above] {\xv};
+      }
+    \end{tikzpicture}
+
+    Here, it is possible to use #1, ##1, ##2 in the callback to
+    refer to \x, y, \z, respectively. This relieves the user of the
+    need to manually expand the holder macros \x,\y,\z in the callbacks,
+    as I have seen some TikZ users do.
+
+    Here is an example that uses parameters.
+
+    \newforeach will not accept \skvifstreq or \skvifstrcmpTF because
+    they don't start with '\if'. So skeyval package cast \skvifstreq to
+    \ifforeachstrcmp.
+
+    Normally, breaking an inner loop doesn't affect the continuation of
+    outer loops, but \breakallforeachloops will break all current inner
+    and outer loops.
+
+    \newforeach \x [
+      item counter = \xc,
+      exit when =  \ifforeachstrcmp{#1}{b}\then\fi
+    ] in {a,b,c} do {%
+      \newforeach [
+        count in = \yc all \y satisfying \ifnum\y>2\fi,
+        loop stopper = \ifnum\y>3\fi
+      ] \y in {1,2,3,4,5} {%
+        \typeout{Doing items: #1, ##1}%
+        %\ifnum\y=3 \breakallforeachloops\fi
+      }%
+    }
+    \begin{document}
+    Numbers: {\tt\string\xc}: \xc, {\tt\string\yc}: \yc
+    \end{document}
+
+    Because of 'continue={\ifnum\y=3\fi}' item number 3 will not appear
+    in the log file from the following loop:
+
+    \newforeach [
+      item counter = \xc,
+      exit when = \ifforeachstrcmp{#1}{c}\then\fi
+    ] \x in {a,...,e} do {%
+      \newforeach \y [
+        count in = \yc all \y satisfying \ifnum\y>2\fi,
+        continue = {\ifnum\y=3\fi}
+      ] in {1,...,10} {%
+        \typeout{Doing items: #1, ##1}%
+        % \ifnum\y=5 \breakallforeachloops\fi
+      }%
+    }
+
+    \begin{document}
+    \begin{tikzpicture}[scale=2]
+    \let\pgftrun\pgfmathtruncatemacro
+    \newforeach [count=\ic] \x/\y in {1/.5,1/1,0/1,0/0,1/0,1/-1,0/-1,0/-.5,0/0}
+      \coordinate (p\ic) at (\x,\y);
+    \draw[line width=1pt,blue] (p1) \newforeach \p in {2,...,8} {-- (p\p)};
+    \newforeach \q in {1,...,7} {%
+      \pgftrun{\qa}{\q+1}\pgftrun{\qb}{\q+2}\pgftrun{\ind}{2*\q-1}%
+      \pgftrun{\next}{2*\q}%
+      \coordinate (n\ind) at (barycentric cs:p\q=0.5,p\qa=0.5);
+      \coordinate (n\next) at (barycentric cs:p\q=0.125,p\qa=0.75,p\qb=0.125);
+    }
+    \draw[line width=2pt,red] (n1)\newforeach \q in {2,...,13}{--(n\q)};
+    \end{tikzpicture}
+    \end{document}
+
+
+    % A complete graph.
+    % Example credit:
+    %     Quintin Jean-Noël
+    %     <http://moais.imag.fr/membres/jean-noel.quintin/>
+    \usepackage[active,tightpage]{preview}
+    \PreviewEnvironment{tikzpicture}
+    \setlength\PreviewBorder{5pt}%
+    \usetikzlibrary[topaths]
+    \newcount\mycount
+    \begin{document}
+    \begin{tikzpicture}[transform shape]
+    \newforeach \nr in {1,...,8}{
+      \mycount=\numexpr(\nr-1)*45\relax
+      \node[draw,circle,inner sep=0.25cm] (N-\nr) at
+        (\the\mycount:5.4cm) {};
+    }
+    \newforeach \nr in {9,...,16}{
+      \mycount=\numexpr(\nr-1)*45+22\relax
+      \node[draw,circle,inner sep=0.25cm] (N-\nr) at
+       (\the\mycount:5.4cm) {};
+    }
+    \newforeach \nr in {1,...,15}{
+      \mycount=\numexpr\nr+1\relax
+      \newforeach \nra in {\the\mycount,...,16}{
+        \path (N-\nr) edge[->,bend right=3] (N-\nra)
+          edge[<-,bend left=3](N-\nra);
+      }
+    }
+    \end{tikzpicture}
+
+
+\foreachfox:
+
+    \foreachfox[<options>]{<list>}{<parametered.callback>}
+    \foreachfox*[<options>]{<listcmd>}{<parametered.callback>}
+
+    \foreachfox does everything that \newforeach does, but, in addition,
+    it can process nsv/tsv (non-separated, tokenwise lists). It can
+    auto-complete ellipsis lists (ie, lists with '...'), but this
+    feature is available only for csv lists and not for tsv lists.
+
+    1.  One important characteristic of \foreachfox is that it doesn't use
+        holder macros (eg, \x/\y), but instead it uses parameter
+        characters directly. So it doesn't accept/expect holder macros.
+    2.  That means that if the argument isn't simple (ie, if it isn't #1),
+        then it has to be specified as the value of the key/option 'arg'
+        (eg, arg=#1/#2).
+    3.  Note that \foreachfox doesn't expect any optional 'in' or 'do' in the
+        argument list.
+    4.  Unlike \newforeach, \foreachfox doesn't recognize the semicolon
+        (;) as a callback terminator. In fact, the callback for \foreachfox
+        should ideally be always enclosed in balanced braces. PGF
+        often uses the semicolon as the callback terminator. \newforeach
+        supports that feature.
+
+    The following macros are available to the user:
+
+    \breakforeachfox, \foreachnestdepth, \foreachitemcount, \foreachprevitem,
+    \foreachcurrentitem, \foreachnextitem, \ifforeachlastitem, \foreachlistremainder,
+    \prependtobeginforeach, \appendtobeginforeach (=\atbeginforeachfox),
+    \prependtoendforeach, \appendtoendforeach (=\atendforeachfox).
+
+
+    Examples:
+
+    \foreachfox [
+      remember=#1 as \x initially A
+    ] {B,...,H} {%
+      $\overrightarrow{\x#1}$\ifforeachlastitem.\else,\space\fi
+    }
+
+    This is equivalent to:
+
+    \foreachfox [
+      list type=tsv,
+      remember=#1 as \x initially A
+    ] in {BCDEFGH} {%
+      $\overrightarrow{\x#1}$\ifforeachlastitem.\else,\space\fi
+    }
+
+    \usepackage{multicol}
+    \begin{document}
+    \begin{multicols}{2}
+    \foreachfox [count=\nchar] {a,...,f} {
+      \foreachfox [
+        evaluate=##1 as \xe using \numexpr##1*20,
+        evaluate=##1 as \hx using \pgfmathparse{##1 mm*5},
+        evaluate=##1 as \vx using \pgfmathparse{##1 mm*1.5},
+        count in= \ci all ##1 satisfying \ifnum##1<4\fi initially 2,
+        count in= \di all ##1 satisfying \ifnum##1>2\fi,
+      ] {1,...,6} {
+        \endgraf
+        Doing: #1, ##1, \nchar, \ci, \di
+        \endgraf
+        \ifnum\nchar>3\relax
+          \vskip-\vx pt\relax
+        \fi
+        \hskip\hx pt\relax
+        \tikz[rounded corners,ultra thick]{
+          \shade[ball color=red!\xe!blue] (0,0) circle (.25cm);
+          \node[white,font=\large] (0,0) {#1};
+        }%
+      }%
+    }
+    \end{multicols}
+    \end{document}
+
+
+    % Example credit: Heiko Oberdiek.
+    \makeatletter
+    \let\do\newdimen\do\DimWD\do\DimHT\do\DimDP
+    \newcommand*{\DimBox}[1]{%
+      \begingroup
+      \sbox0{\makebox[\DimWD]{#1}}%
+      \ht0=\DimHT\dp0=\DimDP\usebox\z@
+      \endgroup
+    }
+    \newcommand*{\DimMeasure}[3]{%
+      \node at (0,0) {%
+        \let\do\global
+        \do\DimWD\z@\do\DimHT\z@\do\DimDP\z@
+        \foreachfox* [arg=##1/##2,parser={#1}] #2 {%
+          \sbox0{#3}%
+          \ifdim\wd0>\DimWD\global\DimWD=\wd0\fi
+          \ifdim\ht0>\DimHT\global\DimHT=\ht0\fi
+          \ifdim\dp0>\DimDP\global\DimDP=\dp0\fi
+        }%
+      };%
+    }
+    \makeatother
+    \begin{document}
+    \def\yellowlist{a/-1,-2;b/1,-2;c/2,-1;d/2,1;e/1,2;f/-1,2;g/-2,1;h/-2,-1}
+    \def\bluelist{a/b,b/c,c/d,d/e,e/f,f/g,g/h,h/a}
+    \begin{tikzpicture}[scale=1.2,auto=left,every node/.style={circle,thick}]
+    \DimMeasure{;}{\yellowlist}{#1}
+    \foreachfox* [arg=#1/#2,parser={;},count=\xc] \yellowlist {
+      \node (#1) at (#2) [fill=blue!20,draw=yellow] {\DimBox{#1}};
+    }
+    \DimMeasure{,}{\bluelist}{#1--#2}
+    \foreachfox* [arg=#1/#2] \bluelist {
+      \draw [->] (#1) -- (#2)
+        node [midway,fill=red!20,draw=blue]{\DimBox{#1--#2}};
+    }
+    \end{tikzpicture}
+    \end{document}
+
+    \foreachfox [
+      item counter = \xc,
+      exit when = \ifforeachstrcmp{#1}{c}\then\fi
+    ] {a,b,c,d} {%
+      \foreachfox [
+        count in = \yc all ##1 satisfying \ifnum##1>2\fi,
+        ignore callback = {\ifnum##1=3\fi}
+      ] {1,...,10} {%
+        \typeout{Doing items: #1, ##1}%
+        \ifnum##1=8 \breakforeachfox\fi
+      }%
+    }
+    %\show\xc
+    \show\yc
+
+*   Unfortunately, for drawing instructions like
+
+      \draw[blue] (p) \newforeach \p in {1,...,8}{...};
+
+    (ie, when \draw precedes \newforeach), both \newforeach and \foreachfox
+    will not work, because of the way TikZ hardwires \foreach for this type
+    of task. The tack that loops package resorts to in this situation is
+    simply to replace \newforeach and \foreachfox with \foreach. The fact
+    here is that in this case, both \newforeach and \foreachfox will not work
+    but leave everything for \foreach. This can be a problem when \newforeach
+    or \foreachfox is called to avoid a known bug in \foreach, such as at
+
+      <http://tex.stackexchange.com/questions/79586/foreach-has-a-%
+      problem-with-initially-argument-in-remember-part/79644#79644>
+
+% End of readme file of loops.sty

@@ -1,0 +1,205 @@
+DESCRIPTION:
+The Logo typeface, which is known from logos like METAFONT, METAPOST or 
+METATYPE1 used to be very limited in the number of glyphs. The Fetamont 
+typeface extends the Logo fonts to complete the T1 encoding. The designs
+of the glyphs A, E, F, M, N, O, P, S, T are based on the METAFONT 
+constructions by D. E. Knuth. The glyphs Y and 1 imitate the shapes of 
+the corresponding glyphs in the METATYPE1 logo that is due to the 
+METATYPE1 team (Boguslaw Jackowski, Janusz M. Nowacki and Piotr 
+Strzelczyk). There exists a LaTeX package for the Fetamont typeface. 
+Both the package and the typeface are distributed under the terms of the 
+LaTeX Project Public License (LPPL).
+
+Copyright (c) 2014 Linus Romer
+
+Please write to 
+linus dot romer at gmx dot ch
+to submit bug reports, request new features, etc.
+
+INSTALLATION:
+The installation process will depend on your LaTeX distribution. Your
+distribution will probably provide an installation package that can
+easily be installed by a package manager.
+
+The main steps for a manual installation will be similar to the 
+following:
+
+1. Run LaTeX on fetamont.ins:
+    latex fetamont.ins
+   This will produce the files fetamont.map, T1ffm.fd, T1ffmw.fd and 
+   fetamont.sty.
+2. Determine your local texmf tree:
+    kpsexpand '$TEXMFLOCAL'
+   In the following, we assume that /usr/local/share/texmf is your 
+   local texmf tree.
+3. Copy the files into your local texmf tree:
+    cp tfm/* /usr/local/share/texmf/fonts/tfm/public/fetamont
+    cp afm/* /usr/local/share/texmf/fonts/afm/public/fetamont
+    cp type1/* /usr/local/share/texmf/fonts/type1/public/fetamont
+    cp opentype/* /usr/local/share/texmf/fonts/opentype/public/fetamont
+    cp fetamont.sty T1ffm.fd T1ffmw.fd /usr/local/share/texmf/tex/latex/fetamont
+    cp fetamont.map /usr/local/share/texmf/fonts/map/dvips/fetamont
+4. Add the line "Map fetamont.map" to your updmap.cfg and refresh
+   the LaTeX database:
+    mktexlsr
+    updmap-sys --enable Map fetamont.map
+    update-updmap
+    updmap-sys
+5. (Optional) Running pdfLaTeX on fetamont.dtx should now produce the 
+   package documentation in pdf format:
+    pdflatex fetamont.dtx
+    cp fetamont.pdf /usr/local/share/texmf/doc/fonts/fetamont
+    cp fetamont-typeface.pdf /usr/local/share/texmf/doc/fonts/fetamont
+
+CONTENTS:
+fetamont/opentype/ffmo9.otf
+fetamont/opentype/ffmb8.otf
+fetamont/opentype/ffmw10.otf
+fetamont/opentype/ffmr8.otf
+fetamont/opentype/ffmb10.otf
+fetamont/opentype/ffmlqo10.otf
+fetamont/opentype/ffmb9.otf
+fetamont/opentype/ffmh9.otf
+fetamont/opentype/ffmbwo10.otf
+fetamont/opentype/ffmh10.otf
+fetamont/opentype/ffmbw10.otf
+fetamont/opentype/ffmhwo10.otf
+fetamont/opentype/ffmr9.otf
+fetamont/opentype/ffmhw10.otf
+fetamont/opentype/ffmlwo10.otf
+fetamont/opentype/ffmo8.otf
+fetamont/opentype/ffmo10.otf
+fetamont/opentype/ffmbco40.otf
+fetamont/opentype/ffmho10.otf
+fetamont/opentype/ffmlo10.otf
+fetamont/opentype/ffmbc40.otf
+fetamont/opentype/ffmlc10.otf
+fetamont/opentype/ffmc10.otf
+fetamont/opentype/ffmh8.otf
+fetamont/opentype/ffmlco10.otf
+fetamont/opentype/ffmwo10.otf
+fetamont/opentype/ffmbo10.otf
+fetamont/opentype/ffmho8.otf
+fetamont/opentype/ffmho9.otf
+fetamont/opentype/ffmbo9.otf
+fetamont/opentype/ffmlq10.otf
+fetamont/opentype/ffmco10.otf
+fetamont/opentype/ffmlw10.otf
+fetamont/opentype/ffml10.otf
+fetamont/opentype/ffmr10.otf
+fetamont/opentype/ffmbo8.otf
+fetamont/fetamont.map
+fetamont/fetamont-typeface.pdf
+fetamont/afm/ffmbo10.afm
+fetamont/afm/ffmlwo10.afm
+fetamont/afm/ffmlo10.afm
+fetamont/afm/ffmbc40.afm
+fetamont/afm/ffmo9.afm
+fetamont/afm/ffmbwo10.afm
+fetamont/afm/ffmb10.afm
+fetamont/afm/ffmh8.afm
+fetamont/afm/ffmh10.afm
+fetamont/afm/ffmb9.afm
+fetamont/afm/ffmo8.afm
+fetamont/afm/ffmr10.afm
+fetamont/afm/ffmhw10.afm
+fetamont/afm/ffmo10.afm
+fetamont/afm/ffmlqo10.afm
+fetamont/afm/ffmwo10.afm
+fetamont/afm/ffml10.afm
+fetamont/afm/ffmlco10.afm
+fetamont/afm/ffmlw10.afm
+fetamont/afm/ffmw10.afm
+fetamont/afm/ffmbw10.afm
+fetamont/afm/ffmho10.afm
+fetamont/afm/ffmbo9.afm
+fetamont/afm/ffmc10.afm
+fetamont/afm/ffmbco40.afm
+fetamont/afm/ffmh9.afm
+fetamont/afm/ffmr9.afm
+fetamont/afm/ffmlc10.afm
+fetamont/afm/ffmr8.afm
+fetamont/afm/ffmhwo10.afm
+fetamont/afm/ffmbo8.afm
+fetamont/afm/ffmho9.afm
+fetamont/afm/ffmho8.afm
+fetamont/afm/ffmb8.afm
+fetamont/afm/ffmlq10.afm
+fetamont/afm/ffmco10.afm
+fetamont/fetamont.pdf
+fetamont/fetamont.ins
+fetamont/README
+fetamont/tfm/ffmbo8.tfm
+fetamont/tfm/ffmb10.tfm
+fetamont/tfm/ffmw10.tfm
+fetamont/tfm/ffmlco10.tfm
+fetamont/tfm/ffmlwo10.tfm
+fetamont/tfm/ffmhwo10.tfm
+fetamont/tfm/ffmh10.tfm
+fetamont/tfm/ffmbwo10.tfm
+fetamont/tfm/ffmb9.tfm
+fetamont/tfm/ffmc10.tfm
+fetamont/tfm/ffmbc40.tfm
+fetamont/tfm/ffmbo9.tfm
+fetamont/tfm/ffmo10.tfm
+fetamont/tfm/ffmlw10.tfm
+fetamont/tfm/ffmho9.tfm
+fetamont/tfm/ffmho10.tfm
+fetamont/tfm/ffmo9.tfm
+fetamont/tfm/ffmr10.tfm
+fetamont/tfm/ffmlq10.tfm
+fetamont/tfm/ffmho8.tfm
+fetamont/tfm/ffmo8.tfm
+fetamont/tfm/ffmb8.tfm
+fetamont/tfm/ffmlqo10.tfm
+fetamont/tfm/ffmbco40.tfm
+fetamont/tfm/ffmh8.tfm
+fetamont/tfm/ffml10.tfm
+fetamont/tfm/ffmbo10.tfm
+fetamont/tfm/ffmlo10.tfm
+fetamont/tfm/ffmbw10.tfm
+fetamont/tfm/ffmlc10.tfm
+fetamont/tfm/ffmhw10.tfm
+fetamont/tfm/ffmr9.tfm
+fetamont/tfm/ffmh9.tfm
+fetamont/tfm/ffmr8.tfm
+fetamont/tfm/ffmco10.tfm
+fetamont/tfm/ffmwo10.tfm
+fetamont/type1/ffmbwo10.pfb
+fetamont/type1/ffmh9.pfb
+fetamont/type1/ffmho9.pfb
+fetamont/type1/ffmlw10.pfb
+fetamont/type1/ffmbo9.pfb
+fetamont/type1/ffmb9.pfb
+fetamont/type1/ffmlwo10.pfb
+fetamont/type1/ffml10.pfb
+fetamont/type1/ffmo9.pfb
+fetamont/type1/ffmlco10.pfb
+fetamont/type1/ffmho10.pfb
+fetamont/type1/ffmr9.pfb
+fetamont/type1/ffmb8.pfb
+fetamont/type1/ffmlq10.pfb
+fetamont/type1/ffmr10.pfb
+fetamont/type1/ffmbw10.pfb
+fetamont/type1/ffmh10.pfb
+fetamont/type1/ffmw10.pfb
+fetamont/type1/ffmhw10.pfb
+fetamont/type1/ffmco10.pfb
+fetamont/type1/ffmhwo10.pfb
+fetamont/type1/ffmh8.pfb
+fetamont/type1/ffmc10.pfb
+fetamont/type1/ffmbco40.pfb
+fetamont/type1/ffmo8.pfb
+fetamont/type1/ffmho8.pfb
+fetamont/type1/ffmwo10.pfb
+fetamont/type1/ffmlc10.pfb
+fetamont/type1/ffmr8.pfb
+fetamont/type1/ffmbo8.pfb
+fetamont/type1/ffmlo10.pfb
+fetamont/type1/ffmo10.pfb
+fetamont/type1/ffmbc40.pfb
+fetamont/type1/ffmlqo10.pfb
+fetamont/type1/ffmbo10.pfb
+fetamont/type1/ffmb10.pfb
+fetamont/fetamont.dtx
+

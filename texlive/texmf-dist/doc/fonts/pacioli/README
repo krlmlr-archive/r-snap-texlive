@@ -1,0 +1,36 @@
+    The pacioli package provides fonts designed by Fra Luca de Pacioli
+in 1497. The font is uppercase letters together with punctuation
+and some analphabetics; no lowercase or digits.
+
+    The distribution consists of the following files:
+README (this file)
+pacioli.ins
+pacioli.dtx
+tryfont.tex
+
+    The distribution is provided under the terms of the LaTeX
+Project Public License (LPPL).
+
+    To install the package:
+o run: latex pacioli.ins, which will generate:
+       cpc*.mf files
+       *.fd files
+       pacioli.sty
+o run: latex pacioli.dtx
+o run: makeindex -s gind.ist pacioli
+o run: latex pacioli.dtx
+o Print pacioli.dvi for a hardcopy of the package manual 
+o Move the generated files to locations where LaTeX will find them.
+    For example: the cpc*.mf files to .../texmf/fonts/source/public/pacioli
+                 the *.fd and .sty files to /texmf/tex/latex/local/pacioli
+    On a teTeX distribution you might also have to add the following two
+    lines to texmf/fontname/special.map:
+      cpcr10.mf     public    pacioli
+      cpcsl10.mf    public    pacioli
+    On a teTeX distribution remember to run texhash after moving the files.
+
+o run: latex tryfont  for a testpage of the Pacioli font
+
+1999/03/14
+Peter Wilson
+peter.r.wilson@boeing.com

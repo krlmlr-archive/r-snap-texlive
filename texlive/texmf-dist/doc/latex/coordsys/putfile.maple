@@ -1,0 +1,166 @@
+##
+## This is file `putfile.',
+## generated with the docstrip utility.
+##
+## The original source files were:
+##
+## coordsys.dtx  (with options: `putfile')
+## 
+## 
+##  This is the coordsys and logsys packages
+##  Copyright 2000-06 by Mogens Lemvig Hansen,
+##                       mlhansen@uniserve.com
+## 
+## This program may be distributed and/or modified under the
+## conditions of the LaTeX Project Public License, either version 1.3
+## of this license or (at your option) any later version. The latest
+## version of this license is in
+##   http://www.latex-project.org/lppl.txt
+## and version 1.2 or later is part of all distributions of LaTeX
+## version 2003/12/01 or later.
+## 
+## This program consists of the files coordsys.dtx and coordsys.ins
+## 
+putfile := proc(fn::{string, list(string), set(string)},
+                 P::specfunc(anything, PLOT) )
+   option `Copyright 2000-06 by Mogens Lemvig Hansen`;
+   description "version 1.1";
+   local L, fns, i, V, scl, FH, ttl, pt, path, ext;
+   global StringTools;
+   L := [args[3..-1]];
+   if hasoption(L, 'scale', scl, 'L') then
+      scl := evalf(scl);
+      if not type(scl, ['numeric', 'numeric']) then
+         error "the scale option must be [numeric, numeric] but got %1",
+               scl;
+      fi;
+   else
+      scl := [1,1];
+   fi;
+   if L <> [] then
+      error "unknown options: %1", L;
+   fi;
+   L := map( `putfile/grabcurves`, [op(P)] );
+   if type(fn, 'string') then
+      path := map(StringTools:-FirstFromRight, ["\\", "/", ":"], fn);
+      path := max(op(path));
+      ext := StringTools:-FirstFromRight(".", fn[path+1..-1]);
+      if ext = 0 then
+         ext := ".tex";
+         fns := fn;
+      else
+         ext := fn[path+ext..-1];
+         fns := fn[1..-length(ext)-1]
+      fi;
+      if nops(L) = 1 then
+         fns := [fns];
+      else
+         fns := [ seq(cat(fns, i), i=1..nops(L)) ];
+      fi;
+      fns := map(cat, fns, ext);
+   else
+      fns := fn;
+      if nops(fns) <> nops(L) then
+         error "the number of filenames must match "
+               "the number of curves, "
+               "received %1 names but %2 curves.",
+               nops(fns), nops(L);
+      fi;
+   fi;
+   V := select(type, [op(P)], 'specfunc'('anything', 'VIEW'));
+   if nops(V) <> 1 then
+      V := ['DEFAULT', 'DEFAULT'];
+   else
+      V := [ op([1,1], V), op([1,2], V) ];
+   fi;
+   V := subs('DEFAULT'=Float(-infinity)..Float(infinity), V);
+   ttl := select(type, [op(P)], 'specfunc'('anything', 'TITLE'));
+   if nops(ttl) = 1 then
+      ttl := op([1,1], ttl);
+      ttl := StringTools:-SubstituteAll(ttl, "\n", "\n%%  ");
+   fi;
+   L := map( `putfile/cleancurve`, L, V);
+   L := map2( map, u->[scl[1]*u[1], scl[2]*u[2]], L );
+   for i from 1 to nops(L) do try
+      FH := fopen(fns[i], 'WRITE', 'TEXT');
+      if type(ttl, 'string') then fprintf(FH, "%%%%  %s\n", ttl) fi;
+      if scl <> [1,1] then fprintf(FH, "%% scaled %a\n", scl) fi;
+      V := [ map2(op, 1, L[i]), map2(op, 2, L[i]) ];
+      V := map( u-> min(op(u))..max(op(u)), V );
+      fprintf(FH, "%% horizontal range: %f .. %f\n", op(V[1]));
+      fprintf(FH, "%% vertical range:   %f .. %f\n", op(V[2]));
+      for pt in L[i] do
+         fprintf(FH, "%f \t%f\n", op(pt));
+      od;
+      finally fclose(FH);
+   end try end do;
+end;
+`putfile/grabcurves` := proc(x)
+   option `Copyright 2000-06 by Mogens Lemvig Hansen`;
+   description "version 1.1";
+   local L;
+   if op(0, x) = 'CURVES' then
+      L := [ op(x) ];
+      L := select(type, L, 'list');
+      RETURN(op(L));
+   else
+      RETURN(NULL);
+   fi;
+end;
+`putfile/cleancurve` := proc(CC::list, V::list)
+   local C, B, pts, pt, m, i;
+   option `Copyright 2004-06 by Mogens Lemvig Hansen`;
+   description "version 1.1";
+   C := select(type, CC, ['numeric', 'numeric']);
+   if nops(C) < 1 then error "no numeric points in %1", C fi;
+   B := C[1];
+   for i from 2 to nops(C) do
+      if C[i] = C[i-1] then next fi;
+      pts := NULL;
+      if ( C[i-1][1] < lhs(V[1]) and C[i][1] > lhs(V[1]) )
+      or ( C[i-1][1] > lhs(V[1]) and C[i][1] < lhs(V[1]) ) then
+         m := ( C[i-1][2] - C[i][2] ) / ( C[i-1][1] - C[i][1] );
+         pt := lhs(V[1]);
+         pt := [ pt, m*(pt-C[i][1]) + C[i][2] ];
+         pts := pts, pt;
+      fi;
+      if ( C[i-1][1] < rhs(V[1]) and C[i][1] > rhs(V[1]) )
+      or ( C[i-1][1] > rhs(V[1]) and C[i][1] < rhs(V[1]) ) then
+         m := ( C[i-1][2] - C[i][2] ) / ( C[i-1][1] - C[i][1] );
+         pt := rhs(V[1]);
+         pt := [ pt, m*(pt-C[i][1]) + C[i][2] ];
+         pts := pts, pt;
+      fi;
+      if ( C[i-1][2] < lhs(V[2]) and C[i][2] > lhs(V[2]) )
+      or ( C[i-1][2] > lhs(V[2]) and C[i][2] < lhs(V[2]) ) then
+         m := ( C[i-1][1] - C[i][1] ) / ( C[i-1][2] - C[i][2] );
+         pt := lhs(V[2]);
+         pt := [ m*(pt-C[i][2]) + C[i][1], pt ];
+         pts := pts, pt;
+      fi;
+      if ( C[i-1][2] < rhs(V[2]) and C[i][2] > rhs(V[2]) )
+      or ( C[i-1][2] > rhs(V[2]) and C[i][2] < rhs(V[2]) ) then
+         m := ( C[i-1][1] - C[i][1] ) / ( C[i-1][2] - C[i][2] );
+         pt := rhs(V[2]);
+         pt := [ m*(pt-C[i][2]) + C[i][1], pt ];
+         pts := pts, pt;
+      fi;
+      pts := [pts];
+      if C[i-1][1] < C[i][1] then
+         pts := sort(pts, (u,v)->evalb(u[1]<v[1]));
+      elif C[i-1][1] > C[i][1] then
+         pts := sort(pts, (u,v)->evalb(u[1]>v[1]));
+      elif C[i-1][2] < C[i][2] then
+         pts := sort(pts, (u,v)->evalb(u[2]<v[2]));
+      elif C[i-1][2] > C[i][2] then
+         pts := sort(pts, (u,v)->evalb(u[2]>v[2]));
+      else
+         error "cannot happen";
+      fi;
+      B := B, op(pts), C[i];
+   od;
+   C := [B];
+   C := select( u->evalb(lhs(V[1])<=u[1] and u[1] <= rhs(V[1])), C);
+   C := select( u->evalb(lhs(V[2])<=u[2] and u[2] <= rhs(V[2])), C);
+   C;
+end;

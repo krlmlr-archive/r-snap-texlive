@@ -1,0 +1,82 @@
+This package consists of 
+	BCFAQ.TEX  (*	Some more documentation)
+	BARCODES.STY (* some macros for barcoding)
+	CODE39.TEX (*	macros in TeX for producing code 39 barcode,
+			documented in itself)
+	CODEAN.PL  (    Preprocessor for EAN, code 93 and code 128 (Perl code))
+	EANDOC.TEX (*	Documentation for WLEAN.MF and CODEAN.PL)
+        EXAMPLES.TEX (*	demo sheet showing the use of all barcode fonts)
+	INSTALL.BAT  (  installation routine for dos/windows TDS systems)
+	WLC128.MF  (*	Raw Code 128 in Metafont format)
+	WLC39.MF   (*	Metafont source for Code 39)
+	WLC93.MF   (*   Metafont source for Code 93)
+	WLC11.MF   (*   Metafont source for Code 11)
+	WLEAN.MF   (*	Metafont source for EAN)
+	WLCR39.MF  (*	Metafont source for Code 39 rotated running down)
+	WLCDB.VPL  (    virtual font for codabar barcode)
+	WLITF.VPL  (    virtual font for ITF barcode---interleaved
+			2 of 5)
+	WLCF39.VPL (    virtual full ascii code 39)
+        CHANGES    (    text file listing the changes made)
+        README	   (	this file)
+	BARCODES.INS (  run this through TeX to make the files
+                     (  marked above with a star*)
+	BARCODES.DTX (  required by barcodes.ins)
+
+Dos/windows users may run install.bat and skip the next two statements.
+
+At first you should run barcodes.ins through TeX to obtain the files
+marked above with an asterisk.
+
+To use wlitf and/or wlcdb, run it through vptovf, move the tfm and vf
+files, then in TeX say, e.g.
+
+\font\bcfont=wlitf scaled 2000
+{\bcfont+1234-}
+
+for ITF. The second line will print 1234 as ITF barcode.
++ and - make the itf start and stop sign, respectively. Please note
+that ITF requires an even number of digits. 
+
+For Code 39, you may use something like 
+
+\font\bcfont=wlc39 scaled 2000
+{\bcfont @Hello\char32{}12345@}
+
+This will yield the word Hello, a space and the digits from one to five.
+Please note that the @ is used as start/stop sign in this font.
+
+Code 128 requires wlc128.mf to be copied to a place where metafont can 
+find it. Also you should use codean.pl to preprocess your input.
+Read the docs, code 128 is somewhat complicated.
+
+One last example:
+
+\font\bcfont=wlcdb scaled 2000
+{\bcfont a5678t \qquad b2345n \qquad c6789* \qquad d1234e}
+
+The last two code lines show the use of codabar.
+Please note that the start/stop signs for codabar get decoded, too.
+
+Usage ist freely permitted, comments are welcome, any warranty is
+void.  If you may find any inconveniences, bugs, or improvements, do
+not hesitate to tell me.
+
+Please note, the package is still far from complete.
+Especially, barcodes.sty needs lots of refinement and some documentation.
+Also, code 93 is not thoroughly tested.
+
+May, 2003
+Peter Willadt
+(email: Willadt@t-online.de)
+
+Legal Notice
+
+This package may be distributed accoring to the terms in the 
+LaTeX Project Public License, with the following two additions:
+
+1. If you distribute this package, you must make the LaTeX Project 
+Public License available, too. 
+
+2. If you find the barcode package useful, please support TUG or
+your local TeX user group.

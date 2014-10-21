@@ -1,0 +1,72 @@
+This is the README for the alegreya package, version 2014-05-22.
+
+This package provides LaTeX, pdfLaTeX, XeLaTeX and LuaLaTeX support
+for the Alegreya and Alegreya Sans families of fonts, designed by
+Juan Pablo del Peral (juan at huertatipografica.com.ar) for Huerta
+Tipográfica (http://www.huertatipografica.com.ar).
+
+To install this package on a TDS-compliant TeX system download
+the file "tex-archive"/install/fonts/alegreya.tds.zip where the
+preferred URL for "tex-archive" is http://mirrors.ctan.org. Unzip
+the archive at the root of an appropriate texmf tree, likely a
+personal or local tree. If necessary, update the file-name database
+(e.g., texhash). Update the font-map files by enabling the Map file
+Alegreya.map.
+
+To use, add
+
+\usepackage{Alegreya}
+
+and/or
+
+\usepackage{AlegreyaSans}
+
+to the preamble of your document. These will activate Alegreya as
+the main (serifed) text font and/or Alegreya Sans as the sans-serif
+font. To use the Sans font as the main text font, use
+
+\usepackage[sfdefault]{AlegreyaSans}
+
+LuaLaTeX and xeLaTeX users who might prefer type1 fonts or who wish
+to avoid fontspec may use the type1 option.
+
+Options scaled=<number> or scale=<number> may be used to scale the
+fonts.
+
+The default figure style is proportional-lining, but the oldstyle
+(or osf) option will change the default to OldStyle figures and
+the tabular (or tf) option will change the default to tabular
+(monospaced) figures. 
+
+Font encodings supported are OT1, T1, LY1 and TS1.
+
+The black option to either package activates that series as the
+default bold font. Options thin, light, medium, and extrabold are
+similarly available but for the Sans family only.
+
+Commands \Alegreya, \AlegreyaSC, \AlegreyaBlack, \AlegreyaSans,
+\AlegreyaSansSC, \AlegreyaSansThin, \AlegreyaSansLight,
+\AlegreyaSansMedium, \AlegreyaSansExtraBold, and \AlegreyaSansBlack
+select the specified family.
+
+Commands \AlegreyaLF, \AlegreyaOsF, \AlegreyaTLF, and \AlegreyaTOsF
+allow for localized use of non-default figures. Superior or inferior
+numbers are available using \sufigures, \infigures, \textsu{...} or
+\textin{...}. Command \useosf switches the default figure style to
+old-style figures; this is primarily for use after calling a math
+package with lining figures as the default.
+
+The original Truetype fonts were obtained from
+
+http://www.google.com/fonts
+
+or
+
+http://www.huertatipografica.com/fonts/alegreya-sans-ht
+
+and are licensed under the SIL Open Font License, version 1.1;
+the text may be found in the doc directory. The type1 versions
+were created using fontforge. The support files were created using
+autoinst and are licensed under the terms of the LaTeX Project
+Public License. The maintainer of this package is Bob Tennent (rdt
+at cs.queensu.ca)

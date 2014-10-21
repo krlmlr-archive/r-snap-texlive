@@ -1,0 +1,876 @@
+% \iffalse meta-comment
+%
+% Copyright (C) 2014 by Walter Daems <walter.daems@uantwerpen.be>
+%
+% This work may be distributed and/or modified under the conditions of
+% the LaTeX Project Public License, either version 1.3 of this license
+% or (at your option) any later version.  The latest version of this
+% license is in:
+% 
+%    http://www.latex-project.org/lppl.txt
+% 
+% and version 1.3 or later is part of all distributions of LaTeX version
+% 2005/12/01 or later.
+%
+% This work has the LPPL maintenance status `maintained'.
+% 
+% The Current Maintainer of this work is Walter Daems.
+%
+% This work consists of the files exsol.dtx and exsol.ins and the derived 
+% files:
+%   - exsol.sty
+%   - example.tex
+%   - example-solutionbook.tex
+%
+% \fi
+%
+% \iffalse
+%
+%<package|driver>\NeedsTeXFormat{LaTeX2e}
+%<driver>\ProvidesFile{exsol.dtx}
+%<package>\ProvidesPackage{exsol}
+%<package|driver>  [2014/08/31 v0.91 ExSol - Exercises and Solutions package (DMW)]
+%<*driver> 
+\documentclass[11pt]{ltxdoc}
+\usepackage[english]{babel}
+\usepackage[exercisesfontsize=small]{exsol}
+\usepackage{metalogo}
+\EnableCrossrefs
+\CodelineIndex
+\RecordChanges
+\usepackage{makeidx}
+\usepackage{alltt}
+\IfFileExists{tocbibind.sty}{\usepackage{tocbibind}}{}
+\IfFileExists{hyperref.sty}{\usepackage[bookmarksopen]{hyperref}}{}
+\EnableCrossrefs         
+\CodelineIndex
+\RecordChanges
+\newcommand{\exsol}{\textsf{ExSol}}
+\StopEventually{\PrintChanges\PrintIndex}
+\def\fileversion{0.91}
+\def\filedate{2014/08/31}
+\begin{document}
+ \DocInput{exsol.dtx}
+\end{document}
+%</driver>
+% \fi
+%
+% \CheckSum{0}
+%
+% \CharacterTable
+%  {Upper-case    \A\B\C\D\E\F\G\H\I\J\K\L\M\N\O\P\Q\R\S\T\U\V\W\X\Y\Z
+%   Lower-case    \a\b\c\d\e\f\g\h\i\j\k\l\m\n\o\p\q\r\s\t\u\v\w\x\y\z
+%   Digits        \0\1\2\3\4\5\6\7\8\9
+%   Exclamation   \!     Double quote  \"     Hash (number) \#
+%   Dollar        \$     Percent       \%     Ampersand     \&
+%   Acute accent  \'     Left paren    \(     Right paren   \)
+%   Asterisk      \*     Plus          \+     Comma         \,
+%   Minus         \-     Point         \.     Solidus       \/
+%   Colon         \:     Semicolon     \;     Less than     \<
+%   Equals        \=     Greater than  \>     Question mark \?
+%   Commercial at \@     Left bracket  \[     Backslash     \\
+%   Right bracket \]     Circumflex    \^     Underscore    \_
+%   Grave accent  \`     Left brace    \{     Vertical bar  \|
+%   Right brace   \}     Tilde         \~}
+%
+%
+% \changes{v0.1}{2012/01/05}{. Initial version}
+% \changes{v0.2}{2012/01/06}{. Minor bug fixes based on first use by
+% Paul Levrie}
+% \changes{v0.3}{2012/01/07}{. Minor bug fixes based on second use by
+% Paul}
+% \changes{v0.4}{2012/01/09}{. Allowed for non-list formatting of
+% exercises (as default)}
+% \changes{v0.5}{2012/01/15}{. Added option to also send exercises to
+% solutions file}
+% \changes{v0.6}{2013/05/12}{. Prepared for CTAN publication}
+% \changes{v0.7}{2014/07/14}{. Fixed UTF8 compatibility issues}
+% \changes{v0.8}{2014/07/15}{. Fixed missing babel tag and running out
+% of write hanles}
+% \changes{v0.9}{2014/07/28}{. Changed default behavior
+% w.r.t. minipage-wraping of exercises} 
+% \changes{v0.91}{2014/08/31}{. Corrected minipage dependence, made }
+%
+% \DoNotIndex{\newcommand,\newenvironment}
+% \setlength{\parindent}{0em}
+% \addtolength{\parskip}{0.5\baselineskip}
+%
+% \title{The \exsol{} package\thanks{This document
+%   corresponds to exsol~\fileversion, dated \filedate.}}
+% \author{Walter Daems (\texttt{walter.daems@uantwerpen.be})}
+% \date{}
+%
+% \maketitle
+%
+% \section{Introduction}
+% %%%%%%%%%%%%%%%%%%%%%%
+% The package \exsol{} provides macros to allow
+% embedding exercises and solutions in the \LaTeX{} source of an
+% instructional text (e.g., a book or a course text) while generating
+% the following separate documents:
+% \begin{itemize}
+% \item your original text that only contains the exercises, and
+% \item a solution book that only contains the solutions to the
+% exercises (a package option exists to also copy the exercises themselves to the solution book).
+% \end{itemize}
+% 
+% The former is generated when running \LaTeX{} on your document. This
+% run writes the solutions to a secondary file that can be included
+% into a simple document harness, such that when running \LaTeX{} on
+% the latter, you can generate a nice solution book.
+% 
+% Why use \exsol{}?
+% \begin{itemize}
+% \item It allows to keep the \LaTeX{} source of your exercises and their
+% solutions in a single file. Away with the nightmare to keep your
+% solutions in sync with the original text.
+% \item It separates exercises and solutions, allowing you
+%   \begin{itemize}
+%   \item to only release the solution book to the instructors of the
+%   course;
+%   \item to encourage students that you provide with the solution
+%   book to first try solving the exercises without opening the book;
+%   this seems to be easier than not peeking into the solution of an
+%   exercise that is typeset just below the exercise itself.
+%   \end{itemize}
+% \end{itemize}
+%
+% The code of the \exsol{} package was taken almost literally
+% from \textsf{fancyvrb} \cite{fancyvrb}. Therefore, all credits go to the
+% authors/maintainers of \textsf{fancyvrb}.
+%
+% Thanks to Pieter Pareit and Pekka Pere for signaling problems and
+% making suggestions for the documentation.
+%
+% \section{Installation}
+% %%%%%%%%%%%%%%%%%%%%%%
+% Either you are a package manager and then you'll know how to
+% prepare an installation package for \exsol{}.
+%
+% Either you are a normal user and then you have two options. First,
+% check if there is a package that your favorite \LaTeX{}
+% distributor has prepared for you. Second, grab the TDS package
+% from CTAN \cite{CTAN} (\texttt{exsol.tds.zip}) and unzip it somewhere in your
+% own TDS tree, regenerate your filename database and off you go.
+% In any case, make sure that \LaTeX{} finds the \texttt{exsol.sty} file.
+%
+% The \exsol{} package uses some auxiliary packages: \textsf{fancyvrb},
+% \textsf{ifthen}, \textsf{kvoptions} and, optionally,
+% \textsf{babel}. Fetch them from CTAN \cite{CTAN} if your \TeX{}
+% distributor does not provide them.
+%
+% \section{Usage}
+% %%%%%%%%%%%%%%%
+% 
+% \subsection{Preparing your document source}
+% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% The macro package exsol can be loaded with:
+% \begin{verbatim}
+% \usepackage{exsol}
+% \end{verbatim}
+%
+% Then, you are ready to add some exercises including their solution
+% to your document source. To this end, embed them in a
+% \texttt{exercise} and a corresponding \texttt{solution} environment.
+% Optionally, you may embed several of them in a \texttt{exercises}
+% environment, to make them stand out in your text.
+% E.g.,
+%
+% \begin{VerbatimOut}{exsol.tmp}
+% 
+% \begin{exercises}
+%
+%   \begin{exercise}
+%     Solve the following equation for $x \in C$, with $C$ the set of
+%     complex numbers:
+%     \begin{equation}
+%       5 x^2 -3 x = 5
+%     \end{equation}
+%   \end{exercise}
+%   \begin{solution}
+%     Let's start by rearranging the equation, a bit:
+%     \begin{eqnarray}
+%       5.7 x^2 - 3.1 x &=& 5.3\\
+%       5.7 x^2 - 3.1 x -5.3 &=& 0
+%     \end{eqnarray}
+%     The equation is now in the standard form:
+%     \begin{equation}
+%       a x^2 + b x + c = 0
+%     \end{equation}
+%     For quadratic equations in the standard form, we know that two
+%     solutions exist:
+%     \begin{equation}
+%       x_{1,2} = \frac{ -b \pm \sqrt{d}}{2a}
+%     \end{equation}
+%     with
+%     \begin{equation}
+%       d = b^2 - 4 a c
+%     \end{equation}
+%     If we apply this to our case, we obtain:
+%     \begin{equation}
+%       d = (-3.1)^2 - 4 \cdot 5.7 \cdot (-5.3) = 130.45
+%     \end{equation}
+%     and
+%     \begin{eqnarray}
+%       x_1 &=& \frac{3.1 + \sqrt{130.45}}{11.4} = 1.27\\
+%       x_2 &=& \frac{3.1 - \sqrt{130.45}}{11.4} = -0.73
+%     \end{eqnarray}
+%     The proposed values $x = x_1, x_2$ are solutions to the given equation.
+%   \end{solution}
+%   \begin{exercise}
+%     Consider a 2-dimensional vector space equipped with a Euclidean
+%     distance function. Given a right-angled triangle, with the sides
+%     $A$ and $B$ adjacent to the right angle having lengths, $3$ and
+%     $4$, calculate the length of the hypotenuse, labeled $C$.
+%   \end{exercise}
+%   \begin{solution}
+%     This calls for application of Pythagoras' theorem, which 
+%     tells us:
+%     \begin{equation}
+%       \left\|A\right\|^2 + \left\|B\right\|^2 = \left\|C\right\|^2
+%     \end{equation}
+%     and therefore:
+%     \begin{eqnarray}
+%       \left\|C\right\| 
+%       &=& \sqrt{\left\|A\right\|^2 + \left\|B\right\|^2}\\
+%       &=& \sqrt{3^2 + 4^2}\\
+%       &=& \sqrt{25} = 5
+%     \end{eqnarray}
+%     Therefore, the length of the hypotenuse equals $5$.
+%   \end{solution}
+%
+% \end{exercises}
+% \end{VerbatimOut}
+% \VerbatimInput[frame=lines,gobble=2,fontsize=\footnotesize]{exsol.tmp}
+%
+% The result in the original document, can be seen below. As you can
+% see, there's no trace of the solution. 
+%
+% \input{exsol.tmp}
+%
+% When running \LaTeX{} on your document (in our case on the
+% \texttt{exsol.dtx} file, as a side effect a file with extension
+% \texttt{.sol.tex} has been written to disk (in our case, the file
+% \texttt{exsol.sol.tex}), containing all solutions in sequence.
+%
+% Generating a solution book is a simple as including the file into a
+% simple \LaTeX{} harness, that allows you giving it a proper title page and to
+% add other bells and whistles.
+%
+% E.g.,
+% \begin{VerbatimOut}{exsol-solutionbook.tex}
+% \documentclass{article}
+% \usepackage[english]{babel}
+% \title{Solutions to the exercises, specified in the \textsf{ExSol} package}
+% \author{Walter Daems}
+% \date{2013/05/12}
+%
+% \begin{document}
+%
+% \maketitle
+%
+% \input{exsol.sol}
+%
+% \end{document}
+% \end{VerbatimOut}
+% \VerbatimInput[frame=lines,gobble=2,fontsize=\footnotesize]{exsol-solutionbook.tex}
+% 
+% You may generate this solution book, by running \LaTeX{} on the
+% file named \texttt{exsol-solutionbook.tex} that is generated when running
+% \LaTeX{} on the \texttt{exsol.dtx} file.
+%
+% The result approximately looks like this:
+%
+% \setcounter{equation}{0}
+% \rule{\linewidth}{.7pt}
+% \begin{center}
+% {\Large Solutions to the exercises, specified in the \textsf{ExSol} package}\\
+% {\large Walter Daems}\\
+% {\large 2013/05/12}
+% \end{center}
+% \par---\newline\textbf{Solution 3.1-1}
+%     Let's start by rearranging the equation, a bit:
+%     \begin{eqnarray}
+%       5.7 x^2 - 3.1 x &=% 5.3\\
+%       5.7 x^2 - 3.1 x -5.3 &=% 0
+%     \end{eqnarray}
+%     The equation is now in the standard form:
+%     \begin{equation}
+%       a x^2 + b x + c = 0
+%     \end{equation}
+%     For quadratic equations in the standard form, we know that two
+%     solutions exist:
+%     \begin{equation}
+%       x_{1,2} = \frac{ -b \pm \sqrt{d}}{2a}
+%     \end{equation}
+%     with
+%     \begin{equation}
+%       d = b^2 - 4 a c
+%     \end{equation}
+%     If we apply this to our case, we obtain:
+%     \begin{equation}
+%       d = (-3.1)^2 - 4 \cdot 5.7 \cdot (-5.3) = 130.45
+%     \end{equation}
+%     and
+%     \begin{eqnarray}
+%       x_1 &=& \frac{3.1 + \sqrt{130.45}}{11.4} = 1.27\\
+%       x_2 &=& \frac{3.1 + \sqrt{130.45}}{11.4} = -0.73
+%     \end{eqnarray}
+%     The proposed values $x = x_1, x_2$ are solutions to
+%     the given equation.
+% \par---\newline\textbf{Solution 3.1-2}
+%       This calls for application of Pythagoras' theorem, which
+%       tells us:
+%       \begin{equation}
+%         \left\|A\right\|^2 + \left\|B\right\|^2 = \left\|C\right\|^2
+%       \end{equation}
+%       and therefore:
+%       \begin{eqnarray}
+%         \left\|C\right\|
+%         &=& \sqrt{\left\|A\right\|^2 + \left\|B\right\|^2}\\
+%         &=& \sqrt{3^2 + 4^2}\\
+%         &=& \sqrt{25} = 5
+%       \end{eqnarray}
+%       Therefore, the length of the hypotenuse equals $5$.
+%
+% \rule{\linewidth}{.7pt}
+%
+% \subsection{Fiddling with the spacing}
+%
+% The default spacing provided by the \textsf{ExSol} package should be
+% fine for most users. However, if you like to tweak, below you can
+% find the controls.
+% \subsubsection{Spacing before and after the \texttt{exercises} environment}
+%
+% The lengths below control the spacing of the |exercises| environment:
+% \begin{itemize}
+% \item |exsolexerciseaboveskip|: rubber length controlling the
+% vertical space after the top marker line of the environment
+% \item |exsolexercisebelowskip|: rubber length controlling the
+% vertical space before the bottom marker line of the environment
+% \end{itemize}
+%
+% You can simply specify them like:
+% \begin{verbatim}
+% \setlength{\exsolexercisesaboveskip}{1ex plus 1pt minus 1pt}
+% \setlength{\exsolexercisesbelowskip}{1ex plus 1pt minus 1pt}
+% \end{verbatim}
+% The spacings specified here are the package defaults.
+%
+% \subsubsection{Spacing of the individual exercises}
+% Caution: the spacing can only be tuned, when one invokes the
+% |exerciseaslist| package option!
+%
+% Then lengths below control the spacing of the |exercise| environment:
+% \begin{itemize}
+% \item |exercisetopbottomsep|: rubber length controlling the vertical
+% space before and after individual exercises
+% \item |exerciseleftmargin|: length controlling the horizontal
+% space between the surrounding environment's left margin (most
+% often the page margin) and the left edge of the exercise
+% environment 
+% \item |exerciseleftmargin|: length controlling the horizontal
+% space between the surrounding environment's right margin (most
+% often the page margin) and the right edge of the exercise
+% environment
+% \item |exerciseitemindent|: length controlling the first-line
+% indentation of the first paragraph in the exercise environment
+% (actually, the label is set w.r.t. this position, that we will
+% conveniently call position 'x')
+% \item |exerciseparindent|: length controlling the first-line
+% indentation of the other paragraphs in the exercise environment.
+% \item |exerciselabelsep|: length controlling the distance between
+% the label and position 'x'
+% \item |exerciselabelwidth|: minimal width of the (internally
+% right-alligned) box to use for the exercises label; if the box is
+% not sufficiently big, position 'x' is shifted to the right
+% \item |exerciseparsep|: internal paragraph separation (vertically)
+% \end{itemize}
+% 
+% You can simply specify them like:
+% \begin{verbatim}
+% \setlength{\exsolexercisetopbottomsep}{0pt plus 0pt minus 1pt}
+% \setlength{\exsolexerciseleftmargin}{1em}
+% \setlength{\exsolexerciserightmargin}{1em}
+% \setlength{\exsolexerciseparindent}{0em}
+% \setlength{\exsolexerciselabelsep}{0.5em}
+% \setlength{\exsolexerciselabelwidth}{0pt}
+% \setlength{\exsolexerciseitemindent}{0pt}
+% \setlength{\exsolexerciseparsep}{\parskip}
+% \end{verbatim}
+% The spacings specified here are the package defaults.
+%
+% \subsection{Tips and tricks}
+%
+% If you want to include the solutions all at the
+% end of the current document, you need to explicitly close the
+% solution stream before including it:
+% \begin{verbatim}
+%   \closeout\solutionstream\input{\jobname.sol.tex}
+% \end{verbatim}
+%
+% If you want to avoid exercises being split by a page boundary, then
+% provide the package option 'minipage'. This causes the exercises to
+% be wrapped in a minipage environment.
+% 
+% \clearpage
+%
+% \section{Implementation}
+% %%%%%%%%%%%%%%%%%%%%%%%
+%    \begin{macrocode}
+%<*package>
+%    \end{macrocode}
+%
+% \subsection{Auxiliary packages}
+% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% The package uses some auxiliary packages:
+%    \begin{macrocode}
+\RequirePackage{fancyvrb}
+\RequirePackage{ifthen}
+\RequirePackage{kvoptions}
+%    \end{macrocode}
+%
+% \subsection{Package options}
+% %%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% The package offers some options:
+%
+% \changes{v0.2}{2012/01/06}{Added option exercisesfont}
+% \changes{v0.4}{2012/01/09}{Changed name of option to exercisesfontsize}
+%
+% \begin{macro}{exercisesfontsize}
+%  This option allows setting the font of the \texttt{exercises}
+%  environment. You may chopse one of tiny, scriptsize, footnotesize,
+%  small, normalsize, large, etc.\\
+%  E.g., \texttt{[exercisesfontsize=small]}.
+%    \begin{macrocode}
+\DeclareStringOption[normalsize]{exercisesfontsize}
+%    \end{macrocode}
+% \end{macro}
+%
+% \changes{v0.4}{2012/01/06}{Added option exercisesinlist}
+% \changes{v0.5}{2012/01/09}{Changed option exercisesinlist to exerciseaslist}
+%
+% \begin{macro}{exerciseaslist}
+%  This boolean option (true, false) allows setting the typesetting of
+%  the \texttt{exercises} in a list environment. This causes the
+%  exercises to be typeset in a more compact fashion, with indented
+%  left and right margin. 
+%    \begin{macrocode}
+\DeclareBoolOption[false]{exerciseaslist}
+%    \end{macrocode}
+% \end{macro}
+%
+% \changes{v0.5}{2012/01/09}{Added option copyexercisesinsolutions}
+% \begin{macro}{copyexercisesinsolutions}
+%  This boolean option (true, false) allows copying the exercises in
+%  the solutions file, to allow for making a complete stand-alone
+%  exercises bundle.
+%    \begin{macrocode}
+\DeclareBoolOption[false]{copyexercisesinsolutions}
+%    \end{macrocode}
+% \end{macro}
+%
+% \changes{v0.9}{2014/07/28}{. Changed default behavior
+% w.r.t. minipage-wraping of exercises}
+% \begin{macro}{minipage}
+%  This boolean option (true, false) causes the exercises to be
+%  wrapped in minipages. This avoids them getting split by a page
+%  boundary.
+%    \begin{macrocode}
+\DeclareBoolOption[false]{minipage}
+%    \end{macrocode}
+% \end{macro}
+%
+% The options are processed using:
+%    \begin{macrocode}
+\ProcessKeyvalOptions*
+%    \end{macrocode}
+%
+% The options are subsequently handled
+%    \begin{macrocode}
+\newcommand{\exercisesfontsize}{\csname \exsol@exercisesfontsize\endcsname}
+%    \end{macrocode}
+%
+%
+% \subsection{Customization of lengths}
+% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% The commands below allow customizing many lengths that control the
+% typesetting of the exercises.
+%
+% \changes{v0.91}{2014/08/31}{added user-accessible lengths}
+% First some lengths to control the spacing before and after |exercises|.
+%    \begin{macrocode}
+\newlength{\exsolexercisesaboveskip}
+\setlength{\exsolexercisesaboveskip}{1ex plus 1pt minus 1pt}
+\newlength{\exsolexercisesbelowskip}
+\setlength{\exsolexercisesbelowskip}{1ex plus 1pt minus 1pt}
+%    \end{macrocode}
+%
+% Then some lengths to control the spacing for a single
+% exercise. These lengths only work when the |exerciseaslist| package
+% option has been specified. Sensible defaults have been set.
+%    \begin{macrocode}
+\newlength{\exsolexercisetopbottomsep}
+\setlength{\exsolexercisetopbottomsep}{0pt plus 0pt minus 1pt}
+\newlength{\exsolexerciseleftmargin}
+\setlength{\exsolexerciseleftmargin}{1em}
+\newlength{\exsolexerciserightmargin}
+\setlength{\exsolexerciserightmargin}{1em}
+\newlength{\exsolexerciseparindent}
+\setlength{\exsolexerciseparindent}{0em}
+\newlength{\exsolexerciselabelsep}
+\setlength{\exsolexerciselabelsep}{0.5em}
+\newlength{\exsolexerciselabelwidth}
+\setlength{\exsolexerciselabelwidth}{0pt}
+\newlength{\exsolexerciseitemindent}
+\setlength{\exsolexerciseitemindent}{0pt}
+\newlength{\exsolexerciseparsep}
+\setlength{\exsolexerciseparsep}{\parskip}
+%    \end{macrocode}
+% 
+% 
+% \subsection{Con- and destruction of the auxiliary streams}
+% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% At the beginning of your document, we start by opening a stream to a
+% file that will be used to write the solutions to. At the end of your
+% document, the package closes the stream.
+% \changes{v0.8}{2014/07/15}{moved newwrite of exercise stream to this
+% spot to avoid consuming all handles}
+%    \begin{macrocode}
+\AtBeginDocument{
+  \newwrite\solutionstream
+  \immediate\openout\solutionstream=\jobname.sol.tex
+  \newwrite\exercisestream
+}
+\AtEndDocument{
+  \immediate\closeout\solutionstream
+}
+%    \end{macrocode}
+%
+% \subsection{Exercises counter}
+% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% By providing an exercise counter, proper numbering of the exercises
+% is provided to allow for good cross referencing of the solutions to
+% the exercises.
+% \changes{v0.2}{2012/01/06}{Removed dash in counter when in document
+% without sectioning commands}
+%    \begin{macrocode}
+\newcounter{exercise}[subsection]
+\setcounter{exercise}{0}
+\renewcommand{\theexercise}{%
+  \@ifundefined{c@chapter}{}{\if0\arabic{chapter}\else\arabic{chapter}.\fi}%
+  \if0\arabic{section}\else\arabic{section}\fi%
+  \if0\arabic{subsection}\else.\arabic{subsection}\fi%
+  \if0\arabic{subsubsection}\else.\arabic{subsubsection}\fi%
+  \if0\arabic{exercise}\else%
+    \@ifundefined{c@chapter}%
+                 {\if0\arabic{section}\else-\fi}%
+                 {-}%
+    \arabic{exercise}%
+  \fi
+}
+%    \end{macrocode}
+%
+%
+%
+% \subsection{Detokenization in order to cope with utf8}
+%
+% Combining old-school \LaTeX{} (before \XeTeX{} and \LuaTeX{}) and
+% UTF-8 is a pain.
+% Detokenization has been suggested by Geoffrey Poore to solve issues
+% with UTF-8 characters messing up the |fancyvrb| internals.
+% \changes{v0.7}{2014/07/14}{Added detokenized writing}
+%    \begin{macrocode}
+\newcommand{\GPES@write@detok}[1]{%
+  \immediate\write\exercisestream{\detokenize{#1}}}%
+\newcommand{\GPSS@write@detok}[1]{%
+  \immediate\write\solutionstream{\detokenize{#1}}}%
+\newcommand{\GPESS@write@detok}[1]{%
+  \GPES@write@detok{#1}%
+  \GPSS@write@detok{#1}}%
+%    \end{macrocode}
+%
+%
+% \section{The user environments}
+%
+% \begin{macro}{exercise}
+%   The \texttt{exercise} environment is used to typeset your
+%   exercises, provide them with a nice label and allow for copying
+%   the exercise to the solutions file (if the package option
+%   \texttt{copyexercisesinsolution}) is set. The label can be
+%   set by redefining the \cs{exercisename} macro, or by relying on
+%   the \textsf{Babel} provisions. The code is almost litteraly
+%   taken from the \textsf{fancyvrb} package.
+%    \begin{macrocode}
+\def\exercise{\FV@Environment{}{exercise}}
+\def\FVB@exercise{%
+  \refstepcounter{exercise}%
+  \immediate\openout\exercisestream=\jobname.exc.tex
+  \ifexsol@copyexercisesinsolutions
+    \typeout{Writing exercise to \jobname.sol.tex}
+    \immediate\write\solutionstream{\string\par---\string\newline
+      \string\textbf\string{\exercisename{} \theexercise \string}}
+  \else
+    \immediate\write\solutionstream{\string\par---\string\newline}
+  \fi
+  \immediate\write\exercisestream{\string\begin{exsol@exercise}}
+  \@bsphack
+  \begingroup
+    \FV@UseKeyValues
+    \FV@DefineWhiteSpace
+    \def\FV@Space{\space}%
+    \FV@DefineTabOut
+    \ifexsol@copyexercisesinsolutions
+      \let\FV@ProcessLine\GPESS@write@detok %
+    \else
+      \let\FV@ProcessLine\GPES@write@detok %
+    \fi
+    \relax
+    \let\FV@FontScanPrep\relax
+    \let\@noligs\relax
+    \FV@Scan
+  }
+\def\FVE@exercise{
+  \endgroup\@esphack
+  \immediate\write\exercisestream{\string\end{exsol@exercise}}
+  \ifexsol@copyexercisesinsolutions
+    \immediate\write\solutionstream{\string~\string\newline}
+  \fi
+  \immediate\closeout\exercisestream
+  \input{\jobname.exc.tex}
+}
+\DefineVerbatimEnvironment{exercise}{exercise}{}
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{exsol@exercise}
+%   The \texttt{exsol@exercise} environment is an internal macro used
+%   to typeset your exercises and provide them with a nice label and
+%   number. Do not use it directly. Use the proper environment
+%   \texttt{exercise} instead.
+%   \changes{v0.2}{2012/01/06}{Attempted to fix MiKTeX formatting problems}
+%   \changes{v0.3}{2012/01/08}{Fixed labelsep to avoid cluttered
+%   itemize environments}
+%   \changes{v0.4}{2012/01/06}{Added option exercisesinlist such that
+%   default results in non list formatting of exercise}
+%   \changes{v0.5}{2012/01/09}{Changed implementation to allow for
+%   copying the exercises to the solutions file.}
+%    \begin{macrocode}
+\newenvironment{exsol@exercise}[0]
+{%
+  \ifthenelse{\boolean{exsol@minipage}}{\begin{minipage}[t]{\textwidth}}{}%
+    \ifthenelse{\boolean{exsol@exerciseaslist}}
+               {\begin{list}%
+                   {%
+                   }%
+                   {%
+                     \setlength{\topsep}{\exsolexercisetopbottomsep}%
+                     \setlength{\leftmargin}{\exsolexerciseleftmargin}%
+                     \setlength{\rightmargin}{\exsolexerciserightmargin}%
+                     \setlength{\listparindent}{\exsolexerciseparindent}%
+                     \setlength{\itemindent}{\exsolexerciseitemindent}%
+                     \setlength{\parsep}{\exsolexerciseparsep}
+                     \setlength{\labelsep}{\exsolexerciselabelsep}
+                     \setlength{\labelwidth}{\exsolexerciselabelwidth}}
+                 \item[\textit{~\exercisename{} \theexercise:~}]
+               }%
+               {\textit{\exercisename{} \theexercise:}}
+}
+{%
+  \ifthenelse{\boolean{exsol@exerciseaslist}}%
+             {\end{list}}{}%
+  \ifthenelse{\boolean{exsol@minipage}}{\end{minipage}}{\par}%
+}
+%    \end{macrocode}
+% \end{macro}
+%
+%
+% \begin{macro}{solution}
+%   The \texttt{solution} environment is used to typeset your solutions
+%   and provide them with a nice label and number that corresponds to
+%   the exercise that preceeded this solution. Theno label can be
+%   set by redefining the \cs{solutionname} macro, or by relying on
+%   the \textsf{Babel} provisions. The code is almost litteraly
+%   taken from the \textsf{fancyvrb} package.
+%    \begin{macrocode}
+\def\solution{\FV@Environment{}{solution}}
+\def\FVB@solution{%
+  \typeout{Writing solution to \jobname.sol.tex}
+  \immediate\write\solutionstream{\string\textbf\string{\solutionname{}\string}}
+  \ifexsol@copyexercisesinsolutions
+    \immediate\write\solutionstream{\string\newline}
+  \else
+    \immediate\write\solutionstream{\string\textbf\string{\theexercise\string}%
+                                    \string\newline}
+  \fi
+  \@bsphack
+  \begingroup
+    \FV@UseKeyValues
+    \FV@DefineWhiteSpace
+    \def\FV@Space{\space}%
+    \FV@DefineTabOut
+    \let\FV@ProcessLine\GPSS@write@detok %
+    \relax
+    \let\FV@FontScanPrep\relax
+    \let\@noligs\relax
+    \FV@Scan
+  }
+\def\FVE@solution{\endgroup\@esphack}
+\DefineVerbatimEnvironment{solution}{solution}{}
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{exercises}
+%   The \texttt{exercises} environment helps typesetting your exercises to
+%   stand out from the rest of the text. You may use it at the end of
+%   a chapter, or just to group some exercises in the text.
+%   \changes{v0.2}{2012/01/06}{Attempted to fix MiKTeX formatting problems}
+%   \changes{v0.3}{2012/01/07}{Added some extra whitespace below exercisesname}
+%    \begin{macrocode}
+\newenvironment{exercises}
+{\par\exercisesfontsize\rule{.25\linewidth}{0.15mm}\vspace*{\exsolexercisesaboveskip}\\*%
+ \textbf{\normalsize \exercisesname}}
+{\vspace*{-\baselineskip}\vspace*{\exsolexercisesbelowskip}\rule{.25\linewidth}{0.15mm}\par}
+%    \end{macrocode}
+% \end{macro}
+%
+% \subsection{Some Babel provisions}
+% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% \changes{v0.2}{2012/01/06}{Fixed babel errors}
+% \begin{macro}{\exercisename}
+%   The exercise environment makes use of a label \texttt{\exercisename{}}
+%   macro.
+%    \begin{macrocode}
+\newcommand{\exercisename}{Exercise}
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{\exercisesname}
+%   The exercises environment makes use of a label \texttt{\exercisesname{}}
+%   macro.
+%    \begin{macrocode}
+\newcommand{\exercisesname}{Exercises}
+%    \end{macrocode}
+% \end{macro}
+% 
+% \begin{macro}{\solutionname}
+%   The solution environment makes use of a label \texttt{\solutionname{}}
+%   macro.
+%    \begin{macrocode}
+\newcommand{\solutionname}{Solution}
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{\solutionname}
+%   The solution environment makes use of a label \texttt{\solutionname{}}
+%   macro.
+% \changes{v0.8}{2014/07/15}{Added missing babel tag}
+%    \begin{macrocode}
+\newcommand{\solutionsname}{Solutions}
+%    \end{macrocode}
+% \end{macro}
+% 
+% 
+% You may redefine these macros, but to help you out a little bit, we
+% provide with some basic Babel auxiliaries. If you're a true polyglot
+% and are willing to help me out by providing translations for other
+% languages, I'm very willing to incorporate them into the code.
+%
+% \changes{v0.7}{2014/07/14}{Added Finnish language support}
+%    \begin{macrocode}
+\addto\captionsdutch{%
+  \renewcommand{\exercisename}{Oefening}%
+  \renewcommand{\exercisesname}{Oefeningen}%
+  \renewcommand{\solutionname}{Oplossing}%
+  \renewcommand{\solutionsname}{Oplossingen}%
+}
+\addto\captionsgerman{%
+  \renewcommand{\exercisename}{Aufgabe}%
+  \renewcommand{\exercisesname}{Aufgaben}%
+  \renewcommand{\solutionname}{L\"osung}%
+  \renewcommand{\solutionsname}{L\"osungen}%
+}
+\addto\captionsfrench{%
+  \renewcommand{\exercisename}{Exercice}%
+  \renewcommand{\exercisesname}{Exercices}%
+  \renewcommand{\solutionname}{Solution}%
+  \renewcommand{\solutionsname}{Solutions}%
+}
+\addto\captionsfinnish{
+  \renewcommand{\exercisename}{Teht\"av\"a}%
+  \renewcommand{\exercisesname}{Teht\"avi\"a}%
+  \renewcommand{\solutionname}{Ratkaisu}%
+  \renewcommand{\solutionsname}{Ratkaisut}%
+}
+%    \end{macrocode}
+%
+%
+%
+% Now the final hack overloads the basic sectioning commands to make
+% sure that they are copied into your solution book.
+%
+%    \begin{macrocode}
+\let\exsol@@makechapterhead\@makechapterhead
+\def\@makechapterhead#1{%
+  \immediate\write\solutionstream{\string\chapter{#1}}%
+  \exsol@@makechapterhead{#1}
+}
+\ifdefined\frontmatter
+  \let\exsol@@frontmatter\frontmatter
+  \def\frontmatter{%
+    \immediate\write\solutionstream{\string\frontmatter}%
+    \exsol@@frontmatter
+  }
+\fi
+\ifdefined\frontmatter
+  \let\exsol@@mainmatter\mainmatter
+  \def\mainmatter{%
+    \immediate\write\solutionstream{\string\mainmatter}%
+    \exsol@@mainmatter
+  }
+\fi
+\ifdefined\backmatter
+  \let\exsol@@backmatter\backmatter
+  \def\backmatter{%
+    \immediate\write\solutionstream{\string\backmatter}%
+    \exsol@@backmatter
+  }
+\fi
+%    \end{macrocode}
+%
+% \begin{macro}{\noexercisesinchapter}
+%   If you have chapters without exercises, you may want to indicate
+%   this clearly into your source. Otherwise empty chapters may appear
+%   in your solution book.
+%    \begin{macrocode}
+\newcommand{\noexercisesinchapter}
+{
+  \immediate\write\solutionstream{No exercises in this chapter}
+}
+%    \end{macrocode}
+% \end{macro}
+%
+%    \begin{macrocode}
+%</package>
+%    \end{macrocode}
+%
+% \bibliographystyle{alpha}
+%
+% \begin{thebibliography}{99}
+%
+% \bibitem{fancyvrb}
+% Timothy Van Zandt, Herbert Vo\ss, Denis Girou, Sebastian Rahtz, Niall
+% Mansfield 
+% \newblock The \texttt{fancyvrb} package.
+% \newblock \url{http://ctan.org/pkg/fancyvrb}.
+% \newblock online, accessed in January 2012.
+%
+% \bibitem{CTAN} 
+% The Comprehensive TeX Archive Network.
+% \newblock \url{http://www.ctan.org}.
+% \newblock online, accessed in January 2012.
+%
+% \end{thebibliography}
+%
+% \Finale
+\endinput

@@ -1,0 +1,245 @@
+%%
+%% This is file `unidoc.sty',
+%% generated with the docstrip utility.
+%%
+%% The original source files were:
+%%
+%% uni.dtx  (with options: `docpackage')
+%% 
+%% Copyright (C) 1998 Christian Holm.
+%% 
+%% This file is NOT the source for universal, because almost all
+%% comments have been stripped from it.  It is NOT the preferred
+%% form of universal for making modifications to it.
+%% 
+%% Therefore you can NOT redistribute and/or modify THIS file.
+%% You can however redistribute the complete source (uni.dtx
+%% and uni.ins) and/or modify it under the terms of the GNU
+%% General Public License as published by the Free Software
+%% Foundation; either version 2, or (at your option) any later
+%% version.
+%% 
+%% The universal font and package is distributed in the hope that
+%% it will be useful, but WITHOUT ANY WARRANTY; without even the
+%% implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR
+%% PURPOSE.  See the GNU General Public License for more details.
+%% 
+%% You should have received a copy of the GNU General Public
+%% License along with this package; if not, write to the
+%%   Free Software Foundation, Inc.,
+%%   675 Mass Ave, Cambridge,
+%%   MA 02139, USA.
+%% 
+%% See the file uni.dtx for further comments and documentation.
+%% 
+
+
+\def\fileversion{v2.0}
+\def\filedate{98/08/01}
+\ProvidesPackage{unidoc}[\filedate\space\fileversion\space universal
+                         documenation package.]
+\newif\ifeepic\eepicfalse
+\DeclareOption*{\PassOptionsToPackage{\CurrentOption}{uni}}
+\ProcessOptions\relax
+\RequirePackage{doc}
+\RequirePackage{mflogo}
+\RequirePackage{uni}
+\IfFileExists{eepic.sty}{%
+  \RequirePackage{eepic}\eepictrue}{%
+  \PackageWarning{unidoc}{`eepic.sty' not found, so there will be no
+    pictures - you are warned.}\eepicfalse}
+
+\def\file#1{
+  \def\c@r{#1}
+  \c@CodelineNo0
+  \if@filesw
+    \immediate\write\@indexfile
+    {\string\indexentry{#1=\string\texttt{#1}%
+        \string\space(File)}%
+    {\thepage}}\fi}
+
+\def\main#1{\texttt{{\small\c@r}:\ #1}}
+
+\def\src#1#2{\texttt{{\small#1}:\ #2}}
+
+\def\fontcodeindex#1{%
+  \@bsphack\begingroup\let\_=\protect\_%
+  \special@index{%
+    \expandafter\string#1\actualchar%
+    {\string\FontCodeFont\space#1}%
+    \encapchar src{\c@r}}\endgroup\@esphack}
+
+\def\fontmacroindex#1{%
+  \@bsphack\begingroup\let\_=\protect\_%
+  \special@index{%
+    \expandafter\string#1\actualchar%
+    {\string\MacroFont\space#1}%
+    \encapchar src{\c@r}}\endgroup\@esphack}
+
+\newcount\startfontcodeline
+\newcount\startfontmacroline
+
+\def\fontcode#1{
+  \def\saved@fontname{#1}
+  \let\temp@MF\MacroFont\let\MacroFont\FontCodeFont
+  \let\temp@PMN\PrintMacroName\let\PrintMacroName\PrintFontName
+  \let\temp@SMI\SpecialMainIndex
+  \let\SpecialMainIndex\fontcodeindex
+  \macro{#1}}
+\def\endfontcode{
+  \endmacro
+  \let\MacroFont\temp@MF
+  \let\SpecialMainIndex\temp@SMI
+  \let\PrintMacroName\temp@PMN}
+\let\FontCodeFont\unibf
+\def\PrintFontName#1{\strut\MacroFont\saved@fontname\ }
+
+\def\fontmacro#1{
+  \let\temp@under\_
+  \let\_\MacroUnderscore
+  \let\temp@SMI\SpecialMainIndex
+  \let\SpecialMainIndex\fontmacroindex
+  \macro{#1}}
+\def\endfontmacro{%
+  \endmacro\let\SpecialMainIndex\temp@SMI\let\_\temp@under}
+\def\MacroUnderscore{{\char"5F}}
+
+\let\beginillu\ifeepic
+\let\illuother\else
+\let\endillu\fi
+
+\def\Newestchanges#1#2#3{
+  \ifx\saved@macroname\@empty%
+    \marginpar{\small\raggedright{\sl Change on} #2, {\sl Version}
+      \expandafter\@gobble#1}
+  \else%
+    \llap{$\bullet$\footnote{{\sl Change of }
+        {\MacroFont\expandafter\string\saved@macroname}
+        {\sl on} #2, {\sl Version }\expandafter\@gobble#1}}
+  \fi
+  \changes{#1}{#2}{#3}}
+
+\def\Lcs#1{\texttt{\char"5C{}#1}}
+
+\newcount\n\newcount\m\newcount\p\newdimen\dim
+\newif\ifskipping
+\def\oct#1{\hbox{\rm\'{}\kern-.2em\it#1\/\kern.05em}}
+\def\hex#1{\hbox{\rm\H{}\tt#1}}
+
+\def\setdigs#1"#2{\gdef\h{#2}
+  \m=\n \divide\m by 64 \xdef\0{\the\m}%
+  \multiply\m by-64 \advance\m by\n \divide\m by 8 \xdef\1{\the\m}}
+
+\def\testrow{\setbox0=\hbox{\penalty 1\def\\{\char"\h}%
+  \\0\\1\\2\\3\\4\\5\\6\\7\\8\\9\\A\\B\\C\\D\\E\\F%
+  \global\p=\lastpenalty}}
+
+\def\oddline{
+  \cr\noalign{\nointerlineskip}\multispan{19}\hrulefill&
+  \setbox0=\hbox{\lower 2.3pt\hbox{\hex{\h x}}}\smash{\box0}\cr
+  \noalign{\nointerlineskip}}
+
+\def\evenline{
+  \loop\skippingfalse
+  \ifnum\n<256 \m=\n \divide\m 16 \chardef\next=\m
+  \expandafter\setdigs\meaning\next \testrow
+  \ifnum\p=1 \skippingtrue \fi\fi
+  \ifskipping \global\advance\n 16\repeat
+  \ifnum\n=256 \let\next=\endchart\else\let\next=\morechart\fi
+  \next}
+
+\def\morechart{
+  \cr\noalign{\hrule\penalty5000}
+  \chartline \oddline \m=\1 \advance\m 1 \xdef\1{\the\m}
+  \chartline \evenline}
+
+\def\chartline{&\oct{\0\1x}&&\:&&\:&&\:&&\:&&\:&&\:&&\:&&\:&&}
+\def\chartstrut{\lower4.5pt\vbox to14pt{}}
+
+\def\:{\setbox0=\hbox{\char\n}%
+  \ifdim\ht0>7.5pt\reposition
+  \else\ifdim\dp0>2.5pt\reposition\fi\fi
+  \box0\global\advance\n 1 }
+\def\reposition{
+  \setbox0=\vbox{\kern2pt\box0}\dim=\dp0
+  \advance\dim 2pt \dp0=\dim}
+\def\centerlargechars{
+  \def\reposition{\setbox0=\hbox{$\vcenter{\kern2pt\box0\kern2pt}$}}}
+
+\def\chart{$$\global\n=0
+  \halign to\hsize\bgroup
+    \chartstrut##\tabskip0pt plus10pt&&\hfil##\hfil&\vrule##\cr
+    \lower6.5pt\null&&&
+    \oct0&&\oct1&&\oct2&&\oct3&&\oct4&&\oct5&&\oct6&&\oct7&\evenline}
+\def\endchart{
+  \cr\noalign{\hrule}
+  \raise11.5pt\null&&&\hex 8&&\hex 9&&\hex A&&\hex B&
+  &\hex C&&\hex D&&\hex E&&\hex F&\cr
+  \egroup$$\par}
+
+\def\FontChart#1{
+%%   \marginpar{\small\raggedright Letters and symbols in \texttt{#1}
+%%      font.}
+  \begin{figure}
+    \begingroup
+      \font\chart@font=#1
+      \chart@font
+      \chart
+   \endgroup
+\end{figure}}
+
+\IndexPrologue{%
+  \section{Index}\markboth{Index}{Index}
+  The Numbers written in \textit{italic} refer to the pages, where
+  a macros usage is descriped, while those in \texttt{typewrite} refer
+  to line numbers in the files, mentioned before, where the definition
+  is, while \textsl{slanted} shows the places it is used. Normal letters
+  refer to pages, wether it be descriptions or usage.}
+\GlossaryPrologue{%
+  \section{Change History}\markboth{Change History}{Change History}
+  Below is listed the changes made to the \universal{} font and the
+  \LaTeX{} support package \textsf{uni}, from version~1.0 to 2.0.}
+
+\setcounter{IndexColumns}{2}
+
+\DoNotIndex{\@bsphack,\@empty,\@esphack,\@gobble,\@ifnextchar,%
+  \@ifundefined,\@indexfile,\@onlypreamble,\iffalse,\_,\,\accent,%
+  \aftergroup,\actualchar,\advance,\begin,\begingroup,\bgroup,%
+  \box,\bullet,\changes,\char,\chardef,\CheckModules,\CodeLineIndex,%
+  \cr,\crcr,\csname,\DeclareFontFamily,\DeclareFontShape,\DeclareMacro,%
+  \dim,\divide,\dp,\DeclareOption,\def,\DoNotIndex,\edef,\egroup,\else,%
+  \end,\endcsname,\EnableCrossrefs,\encapchar,\endgroup,\endmacro,%
+  \expandafter,\fbox,\fi,\font,\footnote,\fontemcoding,\fontfamuliy,%
+  \fontseries,\fontshape,\gdef,\global,\H,\h,\halign,\hbox,\hfil,%
+  \hidewidth,\hrule,\hrulefill,\hsize,\ht,\hyphenchar,\if@filesw,%
+  \ifdim,\IfFileExists,\ifnum,\ifskipping,\ifx,\immediate,\indexentry,%
+  \it,\itdefault,\kern,\lastpenalty,\LaTeX,\LaTeXe,\leavevmode,\let,%
+  \llap,\loop,\lower,\m,\macro,\MacroFont,\marginpar,\marginparwidth,%
+  \markboth,\mdseries,\meaning,\multiply,\multispan,\n,\newcommand,%
+  \newcount,\newdimen,\newif,\newline,\next,\noalign,\noexpand,%
+  \nointerlineskip,\not@math@alphabet,\null,\ooalign,\p,\par,\penalty,%
+  \ProcessOptions,\protect,\ProvidesFile,\ProvidesPackage,%
+  \RecordChanges,\raggedright,\raise,\relax,\renewcommand,\repeat,%
+  \RequirePackage,\rm,\saved@macroname,\scshape,\section,\selectfont,%
+  \setcounter,\setbox,\show,\skippingfalse,\skippingture,\sl,\slshape,%
+  \small,\smash,\space,\special@index,\SpecialMainIndex,\stop,\string,%
+  \strut,\tabskip,\TeX,\TeXbook,\textit,\textsf,\textsl,\texttt,\the,%
+  \thepage,\tt,\typeout,\unhbox,\universal,\upshape,\usefont,\vbox,%
+  \vcenter,\vrule,\write,\xdef,\z@}
+
+\EnableCrossrefs
+\CodelineIndex
+\RecordChanges
+\CheckModules
+\marginparwidth=54pt
+\newcommand{\NFSS}{\textsf{NFSS}}
+\newcommand{\ftnguide}{\textit{\LaTeXe{} Font Selection}}
+\newcommand{\clsguide}{
+  \textit{\LaTeXe{} for Class and Packages Writers}}
+\newcommand{\TeXbook}{\TeX\textsf{book}}
+\newcommand{\MFbook}{\MF\textsf{book}}
+\newcommand{\universal}{\textunibf{universal}}
+
+\endinput
+%%
+%% End of file `unidoc.sty'.

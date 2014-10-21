@@ -1,0 +1,14 @@
+For programmers, it is quite common to use the name of a macro (for
+instance `foo' for the macro \foo, in other words, the letters f, o,
+and o).  For this purpose, it is customary to call \string which does
+this sort of things...  except that it prepends the escape character,
+controlled by the counter \escapechar, in front of the name.  The
+traditional way of getting rid of it, is to set \escapechar to -1
+(without forgetting to restore the proper value at the end of the
+process) or to make use of \@gobble.  The former has the drawback not
+to be expandible while the second isn't completely reliable.  Here we
+extend the expandible methods to make it reliable.
+
+This material is subject to the LaTeX Project Public License.
+See http://www.ctan.org/tex-archive/help/Catalogue/licenses.lppl.html
+for the details of that license.    

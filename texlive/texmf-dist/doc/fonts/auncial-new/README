@@ -1,0 +1,103 @@
+    The auncial bundle provides packages and fonts for a script based 
+on the Artificial Uncial manuscript book-hand used between the 6th & 10th 
+century AD. The script consists of minuscules and digits, with some 
+appropriate period punctuation marks. Both normal and bold versions are 
+provided. This is one of a series for bookhand fonts.
+
+    The font follows the B1 encoding developed for bookhands. Access to
+this is essential. The encoding mainly follows the regular T1 encoding.
+
+   If there are any questions please ask them on the comp.text.tex newsgroup.
+
+Changes in version 2.0 (2005/11/27)
+o Font supplied as Postscript Type1 instead of MetaFont
+o Only B1 encoding supported
+o Major code rewrite
+
+Changes in version 1.0 (1999/05/22)
+o First public release
+
+------------------------------------------------------------------
+  Author: Peter Wilson (Herries Press) herries dot press at earthlink dot net
+  Copyright 1999--2005 Peter R. Wilson
+
+  This work may be distributed and/or modified under the
+  conditions of the Latex Project Public License, either
+  version 1.3 of this license or (at your option) any
+  later version.
+  The latest version of the license is in
+    http://www.latex-project.org/lppl.txt
+  and version 1.3 or later is part of all distributions of
+  LaTeX version 2003/06/01 or later.
+
+  This work has the LPPL maintenance status "author-maintained".
+
+  This work consists of the files:
+    README (this file)
+    auncial.dtx
+    aunclmfb.dtx
+    aunclmft.dtx
+    aunclmfc.dtx
+    auncial.ins
+    auncial.pdf
+  and the derived files
+    auncial.sty
+    b1auncl.fd
+    auncial.map
+    auncl*.mf files
+
+
+------------------------------------------------------------------
+     The distribution consists of the following files:
+README (this file)
+auncial.dtx
+aunclmfb.dtx
+aunclmft.dtx
+aunclmfc.dtx
+auncial.ins
+auncial.pdf     (user manual)
+tryauncial.tex  (example usage)
+tryauncial.pdf
+auncl10.afm
+auncl10.pfb
+auncl10.tfm
+aunclb10.afm
+aunclb10.pfb
+aunclb10.tfm
+
+    To install the bundle:
+o If you want MetaFont sources uncomment the appropriate lines in auncial.ins.
+o run: latex auncial.ins, which will generate:
+       auncial.sty
+       *.fd files
+       auncial.map
+       and possibly several *.mf files
+o Move *.sty and *.fd files to a location where LaTeX will find them
+    e.g., .../texmf-local/tex/latex/auncial
+o Move *.afm, *.pfb and *.tfm files to where LaTeX looks for font information
+    e.g., .../texmf-var/fonts/afm/public/bookhands/*.afm
+          .../texmf-var/fonts/type1/public/bookhands/*.pfb
+          .../texmf-var/fonts/tfm/public/bookhands/*.tfm
+o Add the *.map information to the dvips/pdftex font maps
+   If you want the MetaFont version as well:
+   o Move the *.mf files to, e.g., .../texmf-var/fonts/source/public/auncial
+   o Add a line like the following to the (texmf/fontname/)special.map file:
+     auncl10.mf     public      auncial 
+     aunclb10.mf    public      auncial 
+o Refresh the database
+ (for more information on the above see the FAQ).
+
+o run: (pdf)latex tryauncial for a test of the font
+
+    If you want a full manual with all the MetaFont and LaTeX code and 
+commentry, comment out the \OnlyDescription line in auncial.dtx.
+o run: (pdf)latex auncial.dtx
+o (for an index run: makeindex -s gind.ist *.idx)
+o run: (pdf)latex *.dtx
+o Print *.(pdf|dvi) for a hardcopy of the package manual
+
+2005/11/27
+Peter Wilson
+herries dot press at earthlink dot net
+
+

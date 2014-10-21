@@ -1,0 +1,177 @@
+#!/usr/bin/env fontforge
+#
+# This file is part of the Gentium package for TeX.
+# It is licensed under the Expat License, see doc//README for details.
+
+# It is heavily based on the work by Clea F. Rees (ff-gentium-vgx.pe),
+# with some modifications and additions by Pavel Farar.
+# 
+# The script is dirty now. It relies on the order in which the fonts are
+# processed and maybe on some other things. I will see if it will be
+# easier for me to do clean up or rewrite it to Python. I would prefer
+# the latter, because the syntax is more familiar to me.
+
+# You can set the desired copyright text in the following variable
+FONT_COPYRIGHT='Copyright (c) SIL International, 2003-2011. TeX conversion additions copyright (c) 2013 TeX Users Group.'
+
+TTF_PATH='../../../../fonts/truetype/public/gentium-tug/'
+FONT_VERSION_PLUS='gentiumps-1.0 (from Gentium Plus 1.510; 2012; Maintenance release)'
+FONT_VERSION_BASIC='gentiumps-1.0 (from Gentium Basic 1.100; 2008; Maintenance release)'
+
+LoadNamelist("vgx.nam")
+
+i = 1
+
+while ( i < $argc )
+
+	Print("* ----------------------------------------")
+	Print("* Converting font " + $argv[i] + " to Type 1")
+	Print("* Reading TrueType")
+	Open(TTF_PATH + $argv[i])
+	
+	# Removing problematic lookups "mark" and "mkmk" from GentiumPlus.
+	# This eliminates really huge amount of error messages.
+	if ( $argv[i] == "GentiumPlus-R.ttf" || $argv[i] == "GentiumPlus-I.ttf" )
+		Print("* Removing problematic lookups mark and mkmk")
+		# TODO: Don't use these hard-coded names, use GetLookups("GPOS")
+		RemoveLookup("'mark' Mark Positioning lookup 0")
+		RemoveLookup("'mark' Mark Positioning lookup 1")
+		RemoveLookup("'mkmk' Mark to Mark lookup 2")
+		RemoveLookup("'mkmk' Mark to Mark lookup 3")
+	endif
+	
+	# attempt to follow Hirwen's instructions:
+	Print("* Scaling")
+	ScaleToEm(1000)
+	Print("* Generating OpenType")
+	Generate($argv[i]:r + ".otf","",-1) # is the OpenType really needed?
+	Close()
+	
+	Print("* Reading OpenType")
+	Open($argv[i]:r + ".otf")
+
+	# TODO: Move following commands before generating OpenType
+	SetFontOrder(3)	# just to be sure
+	SelectAll()
+	Print("* Simplifying")
+	Simplify()
+	Simplify(104,5)
+	Print("* Adding extrema")
+	AddExtrema()
+
+	# Moving autohinting after guessing blue values makes no difference.
+	Print("* Autohinting")
+	AutoHint()
+	# ps private
+	Print("* Guessing blue values")
+	PrivateGuess("BlueValues")
+	PrivateGuess("OtherBlues")
+	PrivateGuess("BlueScale")
+	PrivateGuess("BlueShift")
+	# Hirwen doesn't include this though LM has it (and also FalseBold set as false - even for bold!)
+	PrivateGuess("BlueFuzz")
+	PrivateGuess("StdHW")
+	PrivateGuess("StdVW")
+	PrivateGuess("StemSnapH")
+	PrivateGuess("StemSnapV")
+	PrivateGuess("ExpansionFactor")
+
+	# Family blue values
+	# Adobe says that FamilyBlues and FamilyOtherBlues should be set for
+	# non-regular styles and that the values should be taken from
+	# BlueValues and OtherBlues for regular style. Unfortunately, it is
+	# impossible to use the values from the regular style for bold and
+	# bold italic styles--t1lint complained (too big difference). Therefore,
+	# family blues for the italic style are taken from the regular style and
+	# values for the bold italic style are taken from the bold style.
+	# It makes sense from another point of view: two fonts from  GentiumPlus 
+	# make one family, two fonts from GentiumBasic make other family.
+	# TODO: clean-up of the following code
+	if ( $argv[i] == "GentiumPlus-R.ttf" )
+		BlueValuesRegular = GetPrivateEntry("BlueValues")
+		OtherBluesRegular = GetPrivateEntry("OtherBlues")
+	endif
+	if ( $argv[i] == "GentiumPlus-I.ttf" )
+		ChangePrivateEntry("FamilyBlues", BlueValuesRegular)
+		ChangePrivateEntry("FamilyOtherBlues", OtherBluesRegular)
+	endif
+	if ( $argv[i] == "GenBasB.ttf" )
+		BlueValuesBold = GetPrivateEntry("BlueValues")
+		OtherBluesBold = GetPrivateEntry("OtherBlues")
+	endif
+	if ( $argv[i] == "GenBasBI.ttf" )
+		ChangePrivateEntry("FamilyBlues", BlueValuesBold)
+		ChangePrivateEntry("FamilyOtherBlues", OtherBluesBold)
+	endif
+
+	# Hirwen says add forcebold and write true if font is bold (or bold italic).
+	# Adobe strongly advises to set ForceBold explicitly (true or false).
+	if ( $argv[i] == "GentiumPlus-R.ttf" || $argv[i] == "GentiumPlus-I.ttf" )
+		ChangePrivateEntry("ForceBold", "false")
+	else
+		ChangePrivateEntry("ForceBold", "true")
+	endif
+
+	# Hirwen says to repeat with the os/2 and panose panels but these already seem to be filled out...
+	# os/2
+	#SetOS2Value(field-name,field-value)
+	# Usually the second argument is an integer but VendorID takes a 4 character ASCII string, and Panose takes a 10 element integer array. 
+	#Weight, Width, FSType, IBMFamily, VendorID, Panose, WinAscent, WinAscentIsOffset, WinDescent, WinDescentIsOffset, TypoAscent, TypoAscentIsOffset, TypoDescent, TypoDescentIsOffset, HHeadAscent, HHeadAscentIsOffset, HHeadDescent, HHeadDescentIsOffset, TypoLineGap, HHeadLineGap, VHeadLineGap, SubXSize, SubYSize, SubXOffset, SubYOffset, SupXSize, SupYSize, SupXOffset, SupYOffset, StrikeOutSize, StrikeOutPos 
+
+	Save($argv[i]:r + ".sfd") # Is it really needed?
+
+	# Reencoding to Adobe Standard Encoding introduced many slots with ".notdef".
+	# These slots can be either cleared (if you uncomment the following
+	# commands) or the reencoding can be switched off (if the following commands
+	# are commented out)
+#	Print("* Reencoding")
+#	Reencode("AdobeStandardEncoding")
+#	Select(".notdef")
+#	Clear()
+
+#	RenameGlyphs("vgx")	# currently switched off, file vgx not present;
+
+	Print("* Setting font names")
+#	SetFontNames(fontname[,family[,fullname[,weight[,copyright-notice[,fontversion]]]]])
+	# Note that this is not at all robust. If it doesn't work, comment out all the lines in the next block except for the single line between the "else" and the "endif". This will produce names which may be less than ideal from an aesthetic point of view but should at least work.	
+	hyphened=Strrstr($fontname,"-")
+	spaced=Strrstr($fullname," ")
+	if ( $argv[i] == "GentiumPlus-R.ttf" || $argv[i] == "GentiumPlus-I.ttf" )
+		FONT_VERSION=FONT_VERSION_PLUS
+	else
+		FONT_VERSION=FONT_VERSION_BASIC
+	endif
+	if ( hyphened > 0 )
+		fontnamecyntaf=Strsub($fontname,0,hyphened)
+		fontnameail=Strsub($fontname,hyphened)
+		fullnamecyntaf=Strsub($fullname,0,spaced)
+		fullnameail=Strsub($fullname,spaced)
+		SetFontNames(fontnamecyntaf + "PS" + fontnameail,$familyname + " PS", fullnamecyntaf + " PS" + fullnameail, $weight, FONT_COPYRIGHT, FONT_VERSION)
+	else
+		SetFontNames($fontname + "PS",$familyname + " PS", $fullname + " PS", $weight, FONT_COPYRIGHT, FONT_VERSION)
+	endif
+	
+
+	# Corrections for Greek (automatically generated values) and additional kerns
+	# TODO: Don't use hard-coded names, check the existence of extra kernings instead
+	if ( $argv[i] == "GentiumPlus-R.ttf" )
+		Print("* Correction for Greek and additional kerning pairs")
+		MergeFeature("GentiumPlus-R-extra.afm")
+	endif
+	if ( $argv[i] == "GentiumPlus-I.ttf" )
+		Print("* Correction for Greek and additional kerning pairs")
+		MergeFeature("GentiumPlus-I-extra.afm")
+	endif
+
+	# Correction of the kern between D and V in "GentiumPlus-R.ttf"
+	if ( $argv[i] == "GentiumPlus-R.ttf" )
+		Print("* Correction of kern between D and V")
+		Select("D")
+		SetKern("V", -20)
+	endif
+
+	Print("* Generating Type 1")
+	Generate($argv[i]:r + ".pfb","",-1)
+	i = i+1
+
+endloop

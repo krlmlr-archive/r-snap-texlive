@@ -1,0 +1,85 @@
+%%
+%% viking.ins
+%% Copyright 2003 Uwe Zimmermann
+%%
+%% This program is provided under the terms of the
+%% LaTeX Project Public License distributed from CTAN
+%% archives in directory macros/latex/base/lppl.txt.
+%%
+%% Author: Uwe Zimmermann
+%%         uwe.zimmermann@sciencetronics.com
+%%
+%% based on runic.ins by Peter R. Wilson
+%%
+%% This file will generate fast loadable files and documentation
+%% driver files from the doc files in this package when run through
+%% LaTeX or TeX.
+%%
+%% --------------- start of docstrip commands ------------------
+%%
+\def\batchfile{viking.ins}
+\input docstrip.tex
+\preamble
+
+ Copyright 2003 Uwe Zimmermann
+
+ This program is provided under the terms of the
+ LaTeX Project Public License distributed from CTAN
+ archives in directory macros/latex/base/lppl.txt.
+
+ Author: Uwe Zimmermann
+         uwe.zimmermann@sciencetronics.com
+
+ based on runic.ins by Peter R. Wilson
+
+\endpreamble
+
+\keepsilent
+
+%%% \Msg{*** Generating the driver file ***}
+%%% \generateFile{viking.drv}{t}{\from{viking.dtx}{driver}}
+
+\Msg{*** Generating the Metafont files ***}
+
+\usepostamble\empty
+\generateFile{vik10.mf}{t}{\from{viking.dtx}{up}}
+\generateFile{vikglyph.mf}{t}{\from{viking.dtx}{maj}}
+\generateFile{viktitle.mf}{t}{\from{viking.dtx}{mfd}}
+
+\Msg{*** Generating the Font Definition files ***}
+\usepostamble\defaultpostamble
+
+\generateFile{ot1vik.fd}{t}{\from{viking.dtx}{fdot1}}
+\generateFile{t1vik.fd}{t}{\from{viking.dtx}{fdt1}}
+
+\Msg{*** Generating the LaTeX2e package files ***}
+
+\generateFile{viking.sty}{t}{\from{viking.dtx}{usc}}
+
+\Msg{***********************************************************}
+\Msg{*}
+\Msg{* To finish the installation you have to move the following}
+\Msg{* files into directories searched by TeX:}
+\Msg{*}
+\Msg{* Move these into the font source area:}
+\Msg{* \space\space vik10.mf}
+\Msg{* \space\space vikglyph.mf}
+\Msg{* \space\space viktitle.mf}
+\Msg{*}
+\Msg{* Move these into the LaTeX macro area:}
+\Msg{* \space\space ot1vik.fd}
+\Msg{* \space\space t1vik.fd}
+\Msg{* \space\space viking.sty}
+\Msg{*}
+\Msg{*}
+\Msg{* To produce the documentation run the files ending with}
+\Msg{* `.dtx' through LaTeX.}
+\Msg{* Process any name.idx file by:}
+\Msg{* \space\space\space\space makeindex -s gind.ist name}
+\Msg{* Process any name.glo file by:}
+\Msg{* \space\space\space\space makeindex -s gglo.ist -o name.gls name.glo}
+\Msg{*}
+\Msg{* Happy TeXing}
+\Msg{***********************************************************}
+
+\endinput

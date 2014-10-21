@@ -1,0 +1,23 @@
+Manuscript package uses standard LaTeX packaging system. To
+install run
+
+latex manuscript.ins
+
+for unpacking .sty and .drv files. manuscript.sty should go
+somewhere, where it will be found by latex (if kpathsea is used
+in your distribution, do not forget to run texhash).
+
+Documentation can be obtained by
+
+	latex manuscript.drv
+	makeindex -s gglo.ist -o manuscript.gls manuscript.glo
+	makeindex -s gind.ist
+	latex manuscript.drv
+
+Alternatively you can just run
+
+   make
+
+to do everything automagically.
+
+Happy LaTeXing!

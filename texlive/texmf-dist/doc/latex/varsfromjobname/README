@@ -1,0 +1,40 @@
+README
+---------
+
+varsfromjobname.sty is based on code by supplied by Friedrich Vosberg and Markus Kohm,  help from Rolf Niepraschk, Sven Naumann, Ulrich Schwarz 
+and Andreas Mathias was greatly appreciated. The package extracts variables from the name of the LaTeX file.
+
+If the name of the file consists of tokens separated by hyphen, the package offers the following commands:  
+
+\getfromjobname{<param>} with <param> in the range of 1 to 9, which calls one of the following commands then, also available:
+
+\getonefromjobname 
+\gettwofromjobname 
+\getthreefromjobname 
+\getfourfromjobname 
+\getfivefromjobname 
+\getsixfromjobname 
+\getsevenfromjobname 
+\geteightfromjobname 
+\getninefromjobname  
+
+Usage:  
+
+a) Save your LaTeX-file under a name such as 2008-04-14-ziegenhagen.tex
+
+b) Load the package by putting \usepackage{varsfromjobname} in the preamble of 
+   your document  
+
+c) Use the commands given above to address the specific parts of the filename.
+
+d) Adressing a token which is not available gives an error, so make sure to request
+   only those tokens that are actually available.
+
+If you find this package useful, feel free to give me feedback: <http://www.uweziegenhagen.de>
+
+Version History:
+
+v0.5: Fixed a bug by inserting % at the right place. Thanks, Rolf.
+
+
+Uwe Ziegenhagen, 2009-01-11

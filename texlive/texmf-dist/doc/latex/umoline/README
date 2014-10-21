@@ -1,0 +1,28 @@
+umoline (v1.1): The Package for Under/Mid/Overline for Long Texts.
+
+[How to "make"]
+
+  % tex umoline.ins	# you'll have umoline.sty and umoline-man.tex
+
+# to have user's manual  
+  % latex umoline-man
+  % makeindex -s gind.ist -o umoline-man.ind umoline-man.idx
+  % latex umoline-man
+
+# to have implementation document
+  % latex umoline.dtx
+  % makeindex -s gind.ist -o umoline.ind umoline.idx
+  % makeindex -s gglo.ist -o umoline.gls umoline.glo
+  % latex umoline.dtx
+
+[Features]
+
++ \Underline{<text>} draw an underline for text allowing line breaks in
+  the <text> of "ordinary" character strings or general LaTeX staffs
+  surrounded by `{' and `}'.  
+
++ \Midline{<text>} and \Overline{<text>} are also available.
+
+Enjoy!
+
+Hiroshi Nakashima <nakasima@tutics.tut.ac.jp>

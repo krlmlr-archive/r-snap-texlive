@@ -1,0 +1,1615 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2 Final//EN">
+
+<!--Converted with LaTeX2HTML 2002 (1.67)
+original version by:  Nikos Drakos, CBLU, University of Leeds
+* revised and updated by:  Marcus Hennecke, Ross Moore, Herb Swan
+* with significant contributions from:
+  Jens Lippmann, Marek Rouchal, Martin Wilck and others -->
+<HTML>
+<HEAD>
+<TITLE>csvtools v1.24 : A LaTeX2e Package Providing Access to Data Saved in a CSV File</TITLE>
+<META NAME="description" CONTENT="csvtools v1.24 : A LaTeX2e Package Providing Access to Data Saved in a CSV File">
+<META NAME="keywords" CONTENT="manual">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<META NAME="Generator" CONTENT="LaTeX2HTML v2002">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+
+
+</HEAD>
+
+<BODY >
+
+
+ <H1 ALIGN="CENTER">csvtools v1.24 : A LaTeX2e Package Providing Access to Data Saved in a CSV File</H1>
+<P ALIGN="CENTER"><STRONG>Nicola Talbot</STRONG></P>
+<P ALIGN="CENTER"><STRONG>26th June 2007</STRONG></P>
+ <BR>
+
+<H2><A NAME="SECTION00010000000000000000">
+Contents</A>
+</H2>
+<!--Table of Contents-->
+
+<UL>
+<LI><A NAME="tex2html49"
+  HREF="manual.html#SECTION00030000000000000000">Introduction</A>
+<LI><A NAME="tex2html50"
+  HREF="manual.html#SECTION00040000000000000000">Mail Merging and Similar Applications</A>
+<LI><A NAME="tex2html51"
+  HREF="manual.html#SECTION00050000000000000000">Converting data in a CSV file into a tabular environment</A>
+<LI><A NAME="tex2html52"
+  HREF="manual.html#SECTION00060000000000000000">Converting CSV file into longtable environment</A>
+<LI><A NAME="tex2html53"
+  HREF="manual.html#SECTION00070000000000000000">Associated Counters</A>
+<LI><A NAME="tex2html54"
+  HREF="manual.html#SECTION00080000000000000000">Cross-Referencing</A>
+<LI><A NAME="tex2html55"
+  HREF="manual.html#SECTION00090000000000000000">Saving Entries</A>
+<LI><A NAME="tex2html56"
+  HREF="manual.html#SECTION000100000000000000000">Pie Charts (csvpie.sty)</A>
+<LI><A NAME="tex2html57"
+  HREF="manual.html#SECTION000110000000000000000">Sorting Data (csvsort.sty)</A>
+<LI><A NAME="tex2html58"
+  HREF="manual.html#SECTION000120000000000000000">The csvtools.pl Perl Script</A>
+<UL>
+<LI><A NAME="tex2html59"
+  HREF="manual.html#SECTION000122000000000000000">Notes</A>
+</UL>
+<BR>
+<LI><A NAME="tex2html60"
+  HREF="manual.html#SECTION000130000000000000000">Bugs/Drawbacks/``Features''</A>
+<LI><A NAME="tex2html61"
+  HREF="manual.html#SECTION000140000000000000000">Contact Details</A>
+</UL>
+<!--End of Table of Contents-->
+<P>
+
+<H1><A NAME="SECTION00020000000000000000">
+List of Examples</A>
+</H1>
+
+<P>
+
+
+<OL>
+<LI><A HREF="manual.html#ex:mail">Mail Merging</A>
+</LI>
+<LI><A HREF="manual.html#ex:ps">Multiple Figures</A>
+</LI>
+<LI><A HREF="manual.html#ex:field">Mail Merging using <TT>&#92;field</TT></A>
+</LI>
+<LI><A HREF="manual.html#ex:tab1">Aligning Data from a CSV file</A>
+</LI>
+<LI><A HREF="manual.html#ex:tab2">Adding Lines</A>
+</LI>
+<LI><A HREF="manual.html#ex:tab3">Added Complexity</A>
+</LI>
+<LI><A HREF="manual.html#ex:long">Using a longtable environment</A>
+</LI>
+<LI><A HREF="manual.html#ex:stripy">Stripy Table</A>
+</LI>
+<LI><A HREF="manual.html#ex:mailref">More Mail Merging</A>
+</LI>
+<LI><A HREF="manual.html#ex:ref1">Labelling within <TT>&#92;applyCSVfile</TT></A>
+</LI>
+<LI><A HREF="manual.html#ex:ref2">Labelling within <TT>&#92;applyCSVfile</TT></A>
+</LI>
+<LI><A HREF="manual.html#ex:timetogrowth">Labelling within <TT>&#92;CSVtotabular</TT></A>
+</LI>
+<LI><A HREF="manual.html#ex:tablabel">Labelling within <TT>&#92;CSVtotabular</TT></A>
+</LI>
+<LI><A HREF="manual.html#ex:index">Saving Entries</A>
+</LI>
+<LI><A HREF="manual.html#ex:piechart">A Pie Chart</A>
+</LI>
+<LI><A HREF="manual.html#ex:perl">csvtools.pl -- Aligning Data</A>
+</LI>
+</OL>
+
+<P>
+
+<H1><A NAME="SECTION00030000000000000000">
+Introduction</A>
+</H1>
+ The <TT>csvtools</TT> package allows you to repeatedly perform
+ a set of LaTeX commands on data in each row
+ of a comma separated variable (CSV) file.
+ This can be used for mail merging, generating
+ tables etc.
+
+<P>
+As from version 1.2, you can specify a different separator. 
+To change the separator, use the command:
+<BR>
+<BR><TT>&#92;setcsvseparator</TT>{<I>separator</I>}
+<BR>
+<BR>
+For example, if your data is separated by colons instead of
+commas, do:
+<PRE>
+\setcsvseparator{:}
+</PRE>
+If your separator occurs within an entry, the entry must be
+enclosed in double quotes, for example:
+<PRE>
+Name,Address,Telephone
+A.N. Other,"1 The Street,The Town",0123456789
+</PRE>
+Be careful of T<SMALL>E</SMALL>X special characters occuring within a CSV
+file, for example:
+<PRE>
+Name,Address,Telephone
+Jack \&amp; Jill,"2 The Street,The Town",0123456789
+</PRE>
+
+<P>
+
+<H1><A NAME="SECTION00040000000000000000">
+Mail Merging and Similar Applications</A>
+</H1>
+
+<P>
+
+ <TT>&#92;applyCSVfile</TT>[<I>n</I>]{<I>filename</I>}{<I>text</I>}
+<BR> <TT>&#92;applyCSVfile*</TT>[<I>n</I>]{<I>filename</I>}{<I>text</I>}
+<BR>
+<BR>
+Letters can be generated using data given in 
+ each line from <I>filename</I>.
+ If the CSV file contains a header row, the
+ unstarred version of <TT>&#92;applyCSVfile</TT> should
+ be used, otherwise the starred version <TT>&#92;applyCSVfile*</TT>
+ should be used.  The optional argument <I>n</I>
+ specifies on which line the actual data (not header line)
+ starts.  The unstarred version defaults to line 2 
+ (the header row is always assumed to be on line 1)
+ and the starred version defaults to 1.
+
+<P>
+With the unstarred version, the entries in the header row
+ are used to generate commands of the form 
+ <TT>&#92;insert</TT><I>identifier</I><A NAME="tex2html1"
+  HREF="#foot869"><SUP>1</SUP></A> to access corresponding elements
+ in the row currently being processed.  For example,
+ suppose the first line of the CSV file looks like:
+<PRE>
+Name,Address,Time,Date
+</PRE>
+ then the commands <TT>&#92;insertName</TT>, <TT>&#92;insertAddress</TT>,
+ <TT>&#92;insertTime</TT> and <TT>&#92;insertDate</TT> are
+ created, allowing you to use the entries in the first,
+ second, third and fourth columns of the current row.
+ If the header text contains non-alphabetical characters,
+ e.g. <TT>Full Name</TT>, then you will need to use 
+ <TT>&#92;insertbyname{</TT><I>text</I><TT>}</TT>,
+ e.g. <code>\insertbyname{Full Name}</code>.
+
+<P>
+Alternatively, you can use the 
+<TT>&#92;field</TT>{<I>col</I>} command, where 
+<I>col</I> is the column number of the entry, so <code>\field{1}</code>
+indicates the first entry in the current row and <code>\field{2}</code>
+indicates the second entry in the current row.
+
+<P>
+<A NAME="ex:mail"></A>
+<H2><A NAME="SECTION00041000000000000000">
+Example 1 (Mail Merging)</A>
+</H2>
+ Suppose there is a file called <TT>details.csv</TT> that has the 
+ following contents:
+<PRE>
+Name,Address,Time,Date
+Miss A. Person,1 The Road\\The Town\\AB1 2XY,15.00,4th May 2004
+Mr A. N. Other,2 The Road\\The Town\\AB1 2XY,15.30,11th May 2004
+</PRE>
+then the following code can be used to generate a letter for each 
+person in the CSV file<A NAME="tex2html2"
+  HREF="#foot150"><SUP>2</SUP></A>:
+<PRE>
+\applyCSVfile{details.csv}{%
+\begin{letter}{\insertName\\\insertAddress}
+\opening{Dear \insertName}
+
+You are invited to an interview at \insertTime\ on the \insertDate.
+
+\closing{Yours Sincerely}
+\end{letter}}
+</PRE>
+ Note that you could also use <code>\insertbyname{Name}</code> etc instead
+ of <TT>&#92;insertName</TT> etc.  Also note that you need to specify the
+ file extension when specifying the filename.
+<P>
+<DIV ALIGN="CENTER">
+</DIV>
+
+<P>
+
+<P>
+<A NAME="ex:ps"></A>
+<H2><A NAME="SECTION00042000000000000000">
+Example 2 (Multiple Figures)</A>
+</H2>
+ Suppose <TT>sample3.csv</TT> looks like:
+<PRE>
+File,Caption
+circle.ps,A Circle
+rectangle.ps,A Rectangle
+triangle.ps,A Triangle
+</PRE>
+ Assuming that the files <TT>circle.ps</TT>, <TT>rectangle.ps</TT>
+ and <TT>triangle.ps</TT> exist, then the following code will
+ generate a figure for each graphics file<A NAME="tex2html3"
+  HREF="#foot870"><SUP>3</SUP></A>:
+<PRE>
+\applyCSVfile{sample3.csv}{
+\begin{figure}
+\centerline{\includegraphics{\insertFile}}
+\caption{\insertCaption}
+\end{figure}}
+</PRE>
+ Note that in this example, you can't use <code>\insertbyname{File}</code>.
+ (See Note&nbsp;<A HREF="manual.html#itm:psbyname">3</A> in Section&nbsp;<A HREF="manual.html#sec:drawbacks">11</A>.)
+<P>
+<DIV ALIGN="CENTER">
+</DIV>
+
+<P>
+
+<P>
+<A NAME="ex:field"></A>
+<H2><A NAME="SECTION00043000000000000000">
+Example 3 (Mail Merging using <TT>&#92;field</TT>)</A>
+</H2>
+ Suppose there is a file called <TT>details.csv</TT> that has the 
+ following contents:
+<PRE>
+Miss A. Person,1 The Road\\The Town\\AB1 2XY,15.00,4th May 2004
+Mr A. N. Other,2 The Road\\The Town\\AB1 2XY,15.30,11th May 2004
+</PRE>
+In this case the data has no header file, so the starred version
+of <TT>&#92;applyCSVfile</TT> must be used. Since there is no header
+file, you must use <TT>&#92;field</TT> to access the entries:
+<PRE>
+\applyCSVfile*{details.csv}{%
+\begin{letter}{\field{1}\\\field{2}}
+\opening{Dear \field{1}}
+
+You are invited to an interview at \field{3}\ on the \field{4}.
+
+\closing{Yours Sincerely}
+\end{letter}}
+</PRE>
+<P>
+<DIV ALIGN="CENTER">
+</DIV>
+
+<P>
+
+<P>
+
+<H1><A NAME="SECTION00050000000000000000">
+Converting data in a CSV file into a tabular environment</A>
+</H1>
+ 
+ <TT>&#92;CSVtotabular</TT>{<I>filename</I>}{<I>col-align</I>}{<I>first</I>}{<I>middle</I>}{<I>last</I>}
+<BR>
+<BR> <I>filename</I> is the name of the CSV file which must have a header row on line&nbsp;1, 
+ <I>col-align</I> is the column alignment argument that gets passed
+ to the <TT>tabular</TT> environment, <I>first</I>
+ is the code for the first line, <I>middle</I> is the code
+ for the middle lines and <I>last</I> is the code for the last line.
+ This is best demonstrated with an example.
+
+<P>
+<A NAME="ex:tab1"></A>
+<H2><A NAME="SECTION00051000000000000000">
+Example 4 (Aligning Data from a CSV file)</A>
+</H2>
+ Suppose the file <TT>sample.csv</TT> looks like:
+<PRE>
+Name,Assignment 1,Assignment 2,Total
+A. Smith,80,70,150
+B. Jones,60,80,140
+J. Doe,85,75,160
+,75,75,150
+</PRE>
+ then the following code can be used to align the data:
+<PRE>
+\CSVtotabular{sample.csv}{lccc}{%
+\bfseries Name &amp;
+\bfseries Assignment 1&amp;
+\bfseries Assignment 2&amp;
+\bfseries Total\\}{%
+\insertName &amp;
+\insertbyname{Assignment 1} &amp;
+\insertbyname{Assignment 2} &amp;
+\insertTotal\\}{%
+ &amp;
+\insertbyname{Assignment 1} &amp;
+\insertbyname{Assignment 2} &amp;
+\insertTotal}
+</PRE>
+ The result of this code is shown in 
+ Table&nbsp;<A HREF="manual.html#tab:ex1">1</A><A NAME="tex2html4"
+  HREF="#foot872"><SUP>4</SUP></A>.
+<BR><P></P>
+<DIV ALIGN="CENTER">
+
+<A NAME="tab:ex1"></A>
+<BR>
+<BR>
+<DIV ALIGN="CENTER">
+<A NAME="873"></A>
+<TABLE CELLPADDING=3>
+<CAPTION><STRONG>Table 1:</STRONG>
+Example&nbsp;<A HREF="manual.html#ex:tab1">4</A></CAPTION>
+<TR><TH ALIGN="LEFT"><B>Name </B></TH>
+<TH ALIGN="CENTER"><B>Assignment 1 </B></TH>
+<TH ALIGN="CENTER"><B>Assignment 2 </B></TH>
+<TH ALIGN="CENTER"><B>Total</B></TH>
+</TR>
+<TR><TD ALIGN="LEFT">A. Smith</TD>
+<TD ALIGN="CENTER">80</TD>
+<TD ALIGN="CENTER">70</TD>
+<TD ALIGN="CENTER">150</TD>
+</TR>
+<TR><TD ALIGN="LEFT">B. Jones</TD>
+<TD ALIGN="CENTER">60</TD>
+<TD ALIGN="CENTER">80</TD>
+<TD ALIGN="CENTER">140</TD>
+</TR>
+<TR><TD ALIGN="LEFT">J. Doe</TD>
+<TD ALIGN="CENTER">85</TD>
+<TD ALIGN="CENTER">75</TD>
+<TD ALIGN="CENTER">160</TD>
+</TR>
+<TR><TD ALIGN="LEFT">&nbsp;</TD>
+<TD ALIGN="CENTER">75</TD>
+<TD ALIGN="CENTER">75</TD>
+<TD ALIGN="CENTER">150</TD>
+</TR>
+</TABLE></DIV>
+
+</DIV>
+<BR>
+<P>
+<DIV ALIGN="CENTER">
+</DIV>
+
+<P>
+
+<P>
+<BR>
+<BR>
+ 
+ <TT>&#92;ifnextrowlast</TT>{<I>last-code</I>}{<I>not-last-code</I>}
+<BR>
+<BR>
+The command <TT>&#92;ifnextrowlast</TT> can be used to vary what happens
+ on the last but one row.  The following example illustrates
+ this by placing <TT>&#92;hline&#92;hline</TT> after the penultimate row.
+
+<P>
+<A NAME="ex:tab2"></A>
+<H2><A NAME="SECTION00052000000000000000">
+Example 5 (Adding Lines)</A>
+</H2>
+<PRE>
+\CSVtotabular{sample.csv}{|l|ccc|}{%
+\hline\bfseries Name &amp;
+\bfseries Assignment 1&amp;
+\bfseries Assignment 2&amp;
+\bfseries Total\\\hline\hline}{%
+\insertName &amp;
+\insertbyname{Assignment 1} &amp;
+\insertbyname{Assignment 2} &amp;
+\insertTotal
+\ifnextrowlast{\\\hline\hline}{\\}}{%
+ &amp;
+\insertbyname{Assignment 1} &amp;
+\insertbyname{Assignment 2} &amp;
+\insertTotal\\\hline}
+</PRE>
+See the PDF version (<TT><A NAME="tex2html7"
+  HREF="csvtools.pdf">csvtools.pdf</A></TT>) of this 
+documentation for an illustration of the results.
+<P>
+<DIV ALIGN="CENTER">
+</DIV>
+
+<P>
+
+<P>
+<A NAME="ex:tab3"></A>
+<H2><A NAME="SECTION00053000000000000000">
+Example 6 (Added Complexity)</A>
+</H2>
+ In this example, <TT>&#92;multicolumn</TT> is used to override
+ the column specifier for the first column in the 
+ last row.
+<PRE>
+\CSVtotabular{sample2.csv}{|l|ccc|}{%
+\hline\bfseries Name &amp; 
+\bfseries Assignment 1 &amp; 
+\bfseries Assignment 2 &amp; 
+\bfseries Total\\\hline\hline
+}{%
+\insertName &amp; 
+\insertbyname{Assignment 1} &amp; 
+\insertbyname{Assignment 2} &amp; 
+\insertTotal
+\ifnextrowlast{\\\hline\multicolumn{1}{l|}{}}{\\}
+}{%
+ &amp; 
+\insertbyname{Assignment 1} &amp; 
+\insertbyname{Assignment 2} &amp; 
+\insertTotal\\\cline{2-4}
+}
+</PRE>
+ Notice that instead of placing <code>\multicolumn{1}{l|}{}</code>
+ at the start of the final argument, it is instead
+ placed in the first argument to <TT>&#92;ifnextrowlast</TT><A NAME="tex2html8"
+  HREF="#foot877"><SUP>5</SUP></A>.
+See the PDF version (<TT><A NAME="tex2html10"
+  HREF="csvtools.pdf">csvtools.pdf</A></TT>) of this
+manual for an illustration of the results.
+<P>
+<DIV ALIGN="CENTER">
+</DIV>
+
+<P>
+
+<P>
+
+<H1><A NAME="SECTION00060000000000000000">
+Converting CSV file into longtable environment</A>
+</H1>
+
+The command <TT>&#92;CSVtolongtable</TT> works in the same way as <TT>&#92;CSVtotabular</TT> but
+ creates a <TT>longtable</TT> environment instead of a <TT>tabular</TT> environment.
+
+<P>
+<A NAME="ex:long"></A>
+<H2><A NAME="SECTION00061000000000000000">
+Example 7 (Using a longtable environment)</A>
+</H2>
+Suppose the CSV file in the previous example, contains, say, 100 entries.
+This will no longer fit onto one page, so it would be better to use
+<TT>CSVtolongtable</TT> instead. For example:
+<PRE>
+\CSVtolongtable{sample.csv}{|l|ccc|}{%
+\caption{Student Marks}\label{tab:students}\\
+\hline
+\bfseries Name &amp;
+\bfseries Assignment 1 &amp;
+\bfseries Assignment 2 &amp;
+\bfseries Total\\\hline
+\endfirsthead
+\caption[]{Student Marks}\\
+\hline
+\bfseries Name &amp;
+\bfseries Assignment 1 &amp;
+\bfseries Assignment 2 &amp;
+\bfseries Total\\\hline
+\endhead
+\hline
+\multicolumn{3}{r}{\em Continued on next page}
+\endfoot
+\hline
+\endlastfoot}{%
+\insertName &amp;
+\insertbyname{Assignment 1} &amp;
+\insertbyname{Assignment 2} &amp;
+\insertTotal
+\ifnextrowlast{\\\hline\hline}{\\}}{%
+ &amp; \insertbyname{Assignment 1} &amp;
+ \insertbyname{Assignment 2} &amp;
+\insertTotal\\}
+</PRE>
+<P>
+<DIV ALIGN="CENTER">
+</DIV>
+
+<P>
+
+<P>
+
+<H1><A NAME="SECTION00070000000000000000">
+Associated Counters</A>
+</H1>
+
+<P>
+Within the <TT>&#92;CSVtotabular</TT>, <TT>&#92;CSVtolongtable</TT> and 
+<TT>&#92;applyCSVfile</TT> commands, there are two
+ counters, <TT>csvlinenum</TT> and <TT>csvrownumber</TT>.
+ The former, <TT>csvlinenum</TT>, is the current line number in the CSV
+ file, whereas the latter, <TT>csvrownumber</TT>, is the current
+ data row. Of the two counters, <TT>csvrownumber</TT> is likely to be
+ the most useful.
+
+<P>
+<A NAME="ex:stripy"></A>
+<H2><A NAME="SECTION00071000000000000000">
+Example 8 (Stripy Table)</A>
+</H2>
+David&nbsp;Carlisle's <TT>colortbl</TT> package defines the command 
+<TT>&#92;rowcolor</TT> which enables you to specify the row colour. 
+Suppose you want a stripy table<A NAME="tex2html11"
+  HREF="#foot297"><SUP>6</SUP></A>, 
+ this can be achieved as follows:
+<PRE>
+\CSVtotabular{sample2.csv}{lccc}{%
+\rowcolor{green}\bfseries Name &amp; 
+\bfseries Assignment 1 &amp; 
+\bfseries Assignment 2 &amp; 
+\bfseries Total\\\rowcolor{blue}
+}{%
+\insertName &amp; 
+\insertbyname{Assignment 1} &amp; 
+\insertbyname{Assignment 2} &amp; 
+\insertTotal
+\ifthenelse{\isodd{\value{csvrownumber}}}{%
+\\\rowcolor{green}}{\\\rowcolor{blue}}
+}{%
+ &amp; 
+\insertbyname{Assignment 1} &amp; 
+\insertbyname{Assignment 2} &amp; 
+\insertTotal
+}
+</PRE> 
+See the PDF version (<TT><A NAME="tex2html13"
+  HREF="csvtools.pdf">csvtools.pdf</A></TT>)
+for an illustration of the resulting table.
+<P>
+<DIV ALIGN="CENTER">
+</DIV>
+
+<P>
+
+<P>
+<A NAME="ex:mailref"></A>
+<H2><A NAME="SECTION00072000000000000000">
+Example 9 (More Mail Merging)</A>
+</H2>
+This is an example of mail merging where the letter reference
+is generated from the value of <TT>csvrownumber</TT>.  The CSV file 
+is as used in Example&nbsp;<A HREF="manual.html#ex:mail">1</A>.
+<PRE>
+\applyCSVfile{details.csv}{%
+\begin{letter}{\insertName\\\insertAddress}
+\opening{Dear \insertName}
+
+\textbf{Ref : } interview.\thecsvrownumber
+
+You are invited to an interview at \insertTime\ on the \insertDate.
+
+\closing{Yours Sincerely}
+\end{letter}}
+</PRE>
+<P>
+<DIV ALIGN="CENTER">
+</DIV>
+
+<P>
+
+<P>
+
+<H1><A NAME="SECTION00080000000000000000">
+Cross-Referencing</A>
+</H1>
+
+<P>
+Labels can be generated using the standard
+ <TT>&#92;label</TT> command, but you will need some way
+ to make each label unique.  Example&nbsp;<A HREF="manual.html#ex:ref1">10</A>
+ does this by using <TT>&#92;thecsvrownumber</TT>,
+ whereas Example&nbsp;<A HREF="manual.html#ex:ref2">11</A> uses <TT>&#92;insert</TT><I>identifier</I>.
+
+<P>
+<A NAME="ex:ref1"></A>
+<H2><A NAME="SECTION00081000000000000000">
+Example 10 (Labelling within <TT>&#92;applyCSVfile</TT>)</A>
+</H2>
+ Example&nbsp;<A HREF="manual.html#ex:ps">2</A> can be modified to 
+ label each figure:
+<PRE>
+\applyCSVfile{sample3.csv}{
+\begin{figure}
+\centerline{\includegraphics{\insertFile}}
+\caption{\insertCaption}
+\label{fig:pic\thecsvrownumber}
+\end{figure}}
+</PRE>
+ This example uses
+ <code>\label{fig:pic\thecsvrownumber}</code>, so the first figure 
+generated by this <TT>&#92;applyCSVfile</TT> command will have the 
+label <TT>fig:pic1</TT>, the second <TT>fig:pic2</TT> etc.
+<P>
+<DIV ALIGN="CENTER">
+</DIV>
+
+<P>
+
+<P>
+<A NAME="ex:ref2"></A>
+<H2><A NAME="SECTION00082000000000000000">
+Example 11 (Labelling within <TT>&#92;applyCSVfile</TT>)</A>
+</H2>
+ Modifying the previous example, we now have:
+<PRE>
+\applyCSVfile{sample3.csv}{
+\begin{figure}
+\centerline{\includegraphics{\insertFile}}
+\caption{\insertCaption}
+\label{fig:\insertFile}
+\end{figure}}
+</PRE>
+ The labels for each figure are now:
+ <TT>fig:circle.ps</TT>, <TT>fig:rectangle.ps</TT>
+ and <TT>fig:triangle.ps</TT>, respectively.
+<P>
+<DIV ALIGN="CENTER">
+</DIV>
+
+<P>
+
+<P>
+<A NAME="ex:timetogrowth"></A>
+<H2><A NAME="SECTION00083000000000000000">
+Example 12 (Labelling within <TT>&#92;CSVtotabular</TT>)</A>
+</H2>
+ This example is slightly more complicated.  
+ The CSV file, <TT>data.csv</TT> looks like:
+<PRE>
+Incubation Temperature,Incubation Time,Time to Growth
+40,120,40
+40,90,60
+35,180,20
+</PRE>
+The following code generates a table using the data
+ with an additional column that generates the experiment
+ number. (See note&nbsp;<A HREF="manual.html#itm:csvrownumber">8</A>.)
+<PRE>
+\begin{table}
+\caption{Time to Growth Experiments}
+\label{tab:exp}
+\vspace{10pt}
+\centering
+\CSVtotabular{data.csv}{cccc}{%
+ % Header Row
+\bfseries Experiment &amp;
+\bfseries \begin{tabular}{c}Incubation\\Temperature\end{tabular} &amp;
+\bfseries \begin{tabular}{c}Incubation\\Time\end{tabular} &amp;
+\bfseries \begin{tabular}{c}Time\\to\\Growth\end{tabular}\\}{%
+ % Middle Rows
+\label{exp:\insertbyname{Incubation Temperature}:\insertbyname{Incubation Time}}
+\thecsvrownumber &amp;
+\insertbyname{Incubation Temperature} &amp;
+\insertbyname{Incubation Time} &amp;
+\insertbyname{Time to Growth} \\}{%
+ % Final Row
+\label{exp:\insertbyname{Incubation Temperature}:\insertbyname{Incubation Time}}
+\thecsvrownumber &amp;
+\insertbyname{Incubation Temperature} &amp;
+\insertbyname{Incubation Time} &amp;
+\insertbyname{Time to Growth}}
+\par
+\end{table}
+
+It can be seen from Table~\ref{tab:exp}, that 
+Experiment~\ref{exp:35:180} had the shortest time to growth.
+</PRE>
+ In this example, each experiment has the corresponding label
+ <TT>exp:</TT><I>Incubation Temperature</I><TT>:</TT><I>Incubation Time</I>
+ so the first experiment has label <TT>exp:40:120</TT>, the
+ second experiment has the label <TT>exp:40:90</TT> and the
+ third experiment has the label <TT>exp:35:180</TT>.
+
+<P>
+Table&nbsp;<A HREF="manual.html#tab:timetogrowth">2</A> shows the resulting table for
+ this example.
+ <BR><P></P>
+<DIV ALIGN="CENTER">
+
+<A NAME="tab:timetogrowth"></A>
+<BR>
+<BR>
+<DIV ALIGN="CENTER"><A NAME="384"></A>
+<TABLE CELLPADDING=3>
+<CAPTION><STRONG>Table 2:</STRONG>
+Time to Growth Experiments</CAPTION>
+<TR><TH ALIGN="CENTER"><B>Experiment </B></TH>
+<TH ALIGN="CENTER"><B><TABLE CELLPADDING=3>
+<TR><TH ALIGN="CENTER">Incubation</TH>
+</TR>
+<TR><TH ALIGN="CENTER">Temperature</TH>
+</TR>
+</TABLE> </B></TH>
+<TH ALIGN="CENTER"><B><TABLE CELLPADDING=3>
+<TR><TH ALIGN="CENTER">Incubation</TH>
+</TR>
+<TR><TH ALIGN="CENTER">Time</TH>
+</TR>
+</TABLE> </B></TH>
+<TH ALIGN="CENTER"><B><TABLE CELLPADDING=3>
+<TR><TH ALIGN="CENTER">Time</TH>
+</TR>
+<TR><TH ALIGN="CENTER">to</TH>
+</TR>
+<TR><TH ALIGN="CENTER">Growth</TH>
+</TR>
+</TABLE></B></TH>
+</TR>
+<TR><TD ALIGN="CENTER">1</TD>
+<TD ALIGN="CENTER">40</TD>
+<TD ALIGN="CENTER">120</TD>
+<TD ALIGN="CENTER">40</TD>
+</TR>
+<TR><TD ALIGN="CENTER">2</TD>
+<TD ALIGN="CENTER">40</TD>
+<TD ALIGN="CENTER">90</TD>
+<TD ALIGN="CENTER">60</TD>
+</TR>
+<TR><TD ALIGN="CENTER">3</TD>
+<TD ALIGN="CENTER">35</TD>
+<TD ALIGN="CENTER">180</TD>
+<TD ALIGN="CENTER">20</TD>
+</TR>
+</TABLE>
+</DIV>
+<P>
+<DIV ALIGN="CENTER"></DIV>
+</DIV>
+<BR>
+<P>
+<DIV ALIGN="CENTER">
+</DIV>
+
+<P>
+
+<P>
+The following example is more refined in that it 
+ takes advantage of the fact that the time to growth data consists
+ of integers only, so the experiment with the maximum growth can be 
+ determined by LaTeX.
+
+<P>
+<A NAME="ex:tablabel"></A>
+<H2><A NAME="SECTION00084000000000000000">
+Example 13 (Labelling within <TT>&#92;CSVtotabular</TT>)</A>
+</H2>
+<PRE>
+\newcounter{maxgrowth}
+\newcounter{incT} % incubation temperature
+\newcounter{inct} % incubation time
+
+\begin{table}
+\caption{Time to Growth Experiments}
+\label{tab:exp}
+\vspace{10pt}
+\centering
+\CSVtotabular{data.csv}{cccc}{%
+ % Header row
+\bfseries Experiment &amp;
+\bfseries \begin{tabular}{c}Incubation\\Temperature\end{tabular} &amp;
+\bfseries \begin{tabular}{c}Incubation\\Time\end{tabular} &amp;
+\bfseries \begin{tabular}{c}Time\\to\\Growth\end{tabular}\\}{%
+ % Middle rows
+\label{exp:\insertbyname{Incubation Temperature}:\insertbyname{Incubation Time}}
+\thecsvrownumber &amp;
+\insertbyname{Incubation Temperature} &amp;
+\insertbyname{Incubation Time} &amp;
+\insertbyname{Time to Growth}%
+\ifthenelse{\value{maxgrowth}&lt;\insertbyname{Time to Growth}}{%
+\setcounter{maxgrowth}{\insertbyname{Time to Growth}}%
+\setcounter{incT}{\insertbyname{Incubation Temperature}}%
+\setcounter{inct}{\insertbyname{Incubation Time}}}{}%
+\\}{%
+ % Last row
+\label{exp:\insertbyname{Incubation Temperature}:\insertbyname{Incubation Time}}
+\thecsvrownumber &amp;
+\insertbyname{Incubation Temperature} &amp;
+\insertbyname{Incubation Time} &amp;
+\insertbyname{Time to Growth}%
+\ifthenelse{\value{maxgrowth}&lt;\insertbyname{Time to Growth}}{%
+\setcounter{maxgrowth}{\insertbyname{Time to Growth}}%
+\setcounter{incT}{\insertbyname{Incubation Temperature}}%
+\setcounter{inct}{\insertbyname{Incubation Time}}}{}%
+}
+\par
+\end{table}
+
+As can be seen from Table~\ref{tab:exp}, 
+Experiment~\ref{exp:\theincT:\theinct}
+had the maximum time to growth, with
+incubation time \theinct,
+incubation temperature \theincT\ and
+time to growth, \themaxgrowth.
+</PRE>
+ 
+<P>
+<DIV ALIGN="CENTER">
+</DIV>
+
+<P>
+
+<P>
+
+<H1><A NAME="SECTION00090000000000000000">
+Saving Entries</A>
+</H1>
+ Entries can be saved using the command:
+<BR>
+<BR> 
+
+ <TT>&#92;csvSaveEntry</TT>[<I>counter</I>]{<I>identifier</I>}[<I>empty text</I>]
+<BR>
+<BR>
+where <I>counter</I> is a LaTeX counter, by default 
+<TT>csvrownumber</TT>,
+ and <I>identifier</I> is the header entry.  The entry
+ can then be used with the command:
+<BR>
+<BR> 
+ <TT>&#92;csvGetEntry</TT>{<I>counter</I>}{<I>identifier</I>}
+<BR>
+<BR>
+The final optional argument <I>empty text</I> to 
+<TT>&#92;csvSaveEntry</TT> is the text to use if the entry is blank.
+For example, <code>\csvSaveEntry{Time}[MISSING DATA]</code> will 
+print MISSING DATA if the Time field is blank.
+
+<P>
+The following example illustrates the use of these commands.
+
+<P>
+<A NAME="ex:index"></A>
+<H2><A NAME="SECTION00091000000000000000">
+Example 14 (Saving Entries)</A>
+</H2>
+ This example illustrates how you can use one CSV
+ file to access data in other CSV files.
+ This example has several CSV files:
+<BR>
+<BR>
+File <TT>index.csv</TT>:
+<PRE>
+File,Temperature,NaCl,pH
+exp25a.csv,25,4.7,0.5
+exp25b.csv,25,4.8,1.5
+exp30a.csv,30,5.12,4.5
+</PRE>
+ File <TT>exp25a.csv</TT>:
+<PRE>
+Time,Logcount
+0,3.75
+23,3.9
+45,4.0
+</PRE>
+ File <TT>exp25b.csv</TT>:
+<PRE>
+Time,Logcount
+0,3.6
+60,3.8
+120,4.0
+</PRE>
+ File <TT>exp30a.csv</TT>:
+<PRE>
+Time,Logcount
+0,3.73
+23,3.67
+60,4.9
+</PRE>
+
+<P>
+It is not possible to nest <TT>&#92;CSVtotabular</TT>, 
+<TT>&#92;CSVtolongtable</TT> and <TT>&#92;applyCSVfile</TT>,
+ so if you need to go through <TT>index.csv</TT> and use each file
+ named in there, you can first go through <TT>index.csv</TT> 
+storing the information using <TT>&#92;csvSaveEntry</TT> as follows:
+<PRE>
+\newcounter{maxexperiments}
+\applyCSVfile{sample5.csv}{%
+\stepcounter{maxexperiments}
+\csvSaveEntry{File}
+\csvSaveEntry{Temperature}
+\csvSaveEntry{NaCl}
+\csvSaveEntry{pH}
+}
+</PRE>
+ The counter <TT>maxexperiments</TT> simply counts the number of 
+ entries in <TT>index.csv</TT>.
+ The entries can now be used to generate a table for each
+ file listed in <TT>index.csv</TT> (the <TT>&#92;whiledo</TT> command 
+is defined in the <TT>ifthen</TT> package):
+<PRE>
+\newcounter{experiment}
+\whiledo{\value{experiment}&lt;\value{maxexperiments}}{%
+\stepcounter{experiment}
+\begin{table}
+\caption{Temperature = \protect\csvGetEntry{experiment}{Temperature},
+NaCl = \protect\csvGetEntry{experiment}{NaCl},
+pH = \protect\csvGetEntry{experiment}{pH}}
+\vspace{10pt}
+\centering
+\CSVtotabular{\csvGetEntry{experiment}{File}}{ll}{%
+Time &amp; Log Count\\}{%
+\insertTime &amp; \insertLogcount\\}{%
+\insertTime &amp; \insertLogcount}
+
+\end{table}
+}
+</PRE>
+ Note that <TT>&#92;csvGetEntry</TT> needs to be <TT>&#92;protect</TT>ed 
+within the <TT>&#92;caption</TT> command.
+
+<P>
+This example can be modified if, say, you only want the
+ tables where the temperature is 25:
+<PRE>
+\setcounter{experiment}{0}
+\whiledo{\value{experiment}&lt;\value{maxexperiments}}{%
+\stepcounter{experiment}
+\ifthenelse{\equal{\csvGetEntry{experiment}{Temperature}}{25}}{%
+\begin{table}
+\caption{Temperature = \protect\csvGetEntry{experiment}{Temperature},
+NaCl = \protect\csvGetEntry{experiment}{NaCl},
+pH = \protect\csvGetEntry{experiment}{pH}}
+\vspace{10pt}
+\centering
+\CSVtotabular{\csvGetEntry{experiment}{File}}{ll}{%
+Time &amp; Log Count\\}{%
+\insertTime &amp; \insertLogcount\\}{%
+\insertTime &amp; \insertLogcount}\par
+\end{table}}{}
+}
+</PRE>
+ 
+<P>
+<DIV ALIGN="CENTER">
+</DIV>
+
+<P>
+
+<P>
+
+<H1><A NAME="SECTION000100000000000000000">
+Pie Charts (csvpie.sty)</A>
+</H1>
+
+<P>
+If you want to create a pie chart from data stored in a CSV file,
+you can use the <TT>csvpie</TT> package, distributed with the
+<TT>csvtools</TT> package. A basic pie chart can be created 
+using the command:
+<BR>
+<BR>
+<TT>&#92;csvpiechart</TT>[<I>options</I>]{<I>variable</I>}{<I>filename</I>}
+<BR>
+<BR>
+where <I>filename</I> is the name of the CSV file containing the 
+data, and <I>variable</I> is the command indicating the entry that 
+contains the value for the given segment.
+The starred version of <TT>&#92;csvpiechart</TT> should be used if
+the CSV file has no header row.
+
+<P>
+The pie charts have ``inner'' labels on the segment, and
+``outer'' labels outside the chart. The labels are given by the
+commands <TT>&#92;csvpieinnerlabel</TT>
+and <TT>&#92;csvpieouterlabel</TT>.
+The default definitions are:
+<PRE>
+\newcommand{\csvpieouterlabel}{\field{1}}
+\newcommand{\csvpieinnerlabel}{\field{2}\%}
+</PRE>
+This assumes that the second column contains the data, and the
+first column contains a description, but can be redefined
+as necessary.
+
+<P>
+The pie chart display can be modified using the optional
+argument to <TT>&#92;csvpiechart</TT>.
+This argument should be a <I>key</I>=<I>value</I> list.
+The available keys are as follows:
+<DL>
+<DT><STRONG>start</STRONG></DT>
+<DD>This should be an integer specifying the starting angle
+of the first segment. This is 0 by default.
+
+<P>
+</DD>
+<DT><STRONG>total</STRONG></DT>
+<DD>This should be an integer specifying the sum of all
+the segment values. This is 100 by default.
+
+<P>
+</DD>
+<DT><STRONG>radius</STRONG></DT>
+<DD>This should be a length specifying the radius of the
+pie chart. (Default: 2cm)
+
+<P>
+</DD>
+<DT><STRONG>inner</STRONG></DT>
+<DD>This should be a fraction specifying the relative distance
+along the radius to start the inner label. (Default: 0.25)
+
+<P>
+</DD>
+<DT><STRONG>outer</STRONG></DT>
+<DD>This should be a fraction specifying the relative distance
+along the radius to start the outer label. (Default: 1.25)
+
+<P>
+</DD>
+<DT><STRONG>cutaway</STRONG></DT>
+<DD>This should be a comma-separated list of numbers 
+corresponding to the segments that should be cut away from the
+rest of the pie chart. Since the value may contain commas, the value
+should always be enclosed in braces. Ranges may also be used.
+If a range is used, all the segments in the given range are
+kept together, so, for example, <code>cutaway={1,2}</code> will separate
+the first two segments from the pie chart, and the two segments
+will also be separated from each other, whereas <code>cutaway={1-2}</code>
+will separate the first two segments from the pie chart, but will
+keep the two segments together.
+
+<P>
+</DD>
+<DT><STRONG>offset</STRONG></DT>
+<DD>This should be a fraction specifying the
+relative distance along the radius to shift the cut away
+segments. (Default: 0.1)
+
+<P>
+</DD>
+<DT><STRONG>firstrow</STRONG></DT>
+<DD>This should be the number of the first row
+containing the actual data. This is equivalent to the optional
+argument of <TT>&#92;applyCSVfile</TT> or <TT>&#92;applyCSVfile*</TT>.
+</DD>
+</DL>
+
+<P>
+Note that T<SMALL>E</SMALL>X performs integer arithmetic. Although the CSV
+file may contain decimal numbers, rounding will occur when 
+constructing the pie charts.
+
+<P>
+The colours for the pie chart segments can be set using the
+command:
+<BR>
+<BR><TT>&#92;csvpiesegmentcol</TT>{<I>n</I>}{<I>colour</I>}
+<BR>
+<BR>
+where <I>n</I> is the segment number, and <I>colour</I> is a 
+defined colour name. For example, if you want the first segment
+in the pie chart to be yellow, do:
+<PRE>
+\csvpiesegmentcol{1}{yellow}
+</PRE>
+There are 8 predefined segment colours, if your pie chart has
+more than 8 segments, you will need to specify the remainder.
+
+<P>
+You can obtain the colour name for a given segment 
+using:
+<BR>
+<BR><TT>&#92;csvpiesegcolname</TT>{<I>n</I>}
+<BR>
+<BR>
+where <I>n</I> is the segment number. The <TT>&#92;csvpiechart</TT>
+command uses <TT>&#92;applyCSVfile</TT>, so the <TT>csvrownumber</TT>
+counter can be used. This means that you can change the text 
+colour of the outer label to match the segment. For example:
+<PRE>
+\renewcommand{\csvpieouterlabel}{%
+\color{\csvpiesegcolname{\value{csvrownumber}}}\field{2}}
+</PRE>
+Note that <TT>&#92;value</TT> must be used since <I>n</I> has to be
+a number.
+
+<P>
+If you want grey pie charts, either use the <TT>monochrome</TT>
+package option:
+<PRE>
+\usepackage[monochrome]{csvpie}
+</PRE>
+or use the command <TT>&#92;colorpiechartfalse</TT> prior to using <TT>&#92;csvpiechart</TT>.
+To switch back to colour pie charts, use
+<TT>&#92;colorpiecharttrue</TT>.
+
+<P>
+<A NAME="ex:piechart"></A>
+<H2><A NAME="SECTION000101000000000000000">
+Example 15 (A Pie Chart)</A>
+</H2>
+Given a CSV file
+(called <TT>fruit.csv</TT>) containing:
+<PRE>
+Name,Value
+Apples,20
+Pears,15
+"lemons,limes",30.5
+Peaches,24.5
+Cherries,10
+</PRE>
+Then the value for each segment is given by the second column, so
+<I>variable</I> should be <code>\field{2}</code> or <code>\insertValue</code>.
+The following code creates a figure containing two
+pie charts from the above data (for an image, see the
+PDF version of the manual, <TT><A NAME="tex2html15"
+  HREF="csvtools.pdf">csvtools.pdf</A></TT>):
+<PRE>
+ % Change the way the labels are displayed
+\renewcommand{\csvpieinnerlabel}{\sffamily\insertValue\%}
+\renewcommand{\csvpieoutlabel}{%
+\color{\csvpiesegcolname{\value{csvrownumber}}}\sffamily\insertName}
+
+\begin{figure}
+\begin{center}
+\begin{tabular}{cc}
+\csvpiechart[start=45,cutaway={1,2}]{\insertValue}{fruit.csv} &amp;
+\csvpiechart[start=45,cutaway={1-2}]{\insertValue}{fruit.csv} \\
+(a) &amp; (b)
+\end{tabular}
+\end{center}
+\caption{Pie Chart Example (a) cutaway=\{1,2\} (b) cutaway=\{1-2\}}
+\end{figure}
+</PRE>
+The inner and outer labels have been 
+redefined to use a sans-serif font, and the outer label is in
+the same colour as its corresponding segment.
+Both pie charts have a starting angle of 45 degrees, and they
+have the first two segments cutaway, but in (a)
+the first two segments are separated from each other, whereas in 
+(b), the first two segments are joined, although separated
+from the rest of the pie chart.
+
+<P>
+If the CSV file has no header row, the starred version should be
+used, e.g.:
+<PRE>
+\csvpiechart*[cutaway={1-2}]{\field{2}}{fruit.csv}
+</PRE>
+
+<P>
+
+<P>
+<DIV ALIGN="CENTER">
+</DIV>
+
+<P>
+
+<P>
+
+<H1><A NAME="SECTION000110000000000000000">
+Sorting Data (csvsort.sty)</A>
+</H1>
+
+<P>
+The <TT>csvsort</TT> package (which forms part of the 
+<TT>csvtools</TT> bundle) provides analogous commands to
+those provided by <TT>csvtools</TT>, but the data is first
+sorted. The <TT>csvsort</TT> package needs to be loaded
+separately in order to access the necessary commands. The package
+options should be a list of key=value pairs, where the available
+keys are:
+<DL>
+<DT><STRONG>verbose</STRONG></DT>
+<DD>Verbose mode. This is a boolean key. If set, the
+comparisons performed by the insertion sort code are printed to
+the screen. (Default: <TT>verbose=true</TT>.)
+
+<P>
+</DD>
+<DT><STRONG>sort</STRONG></DT>
+<DD>This key specifies how to sort the data. It may take
+one of the following values:
+
+<UL>
+<LI><TT>alphabetical ascending</TT> (or just <TT>alphabetical</TT>)
+</LI>
+<LI><TT>alphabetical descending</TT>
+</LI>
+<LI><TT>numerical ascending</TT> (or just <TT>numerical</TT>)
+</LI>
+<LI><TT>numerical descending</TT>
+</LI>
+</UL>
+(Default: <TT>sort=alphabetical ascending</TT>)
+
+<P>
+</DD>
+<DT><STRONG>variable</STRONG></DT>
+<DD>The sort variable. (Default: <code>sort=\field{1}</code>)
+
+<P>
+</DD>
+<DT><STRONG>sfirstdataline</STRONG></DT>
+<DD>The line on which the data starts in a data
+file without a header row. (Default: <TT>sfirstdataline=1</TT>.)
+
+<P>
+</DD>
+<DT><STRONG>firstdataline</STRONG></DT>
+<DD>The line on which the data starts in a data
+file with a header row. (Default: <TT>firstdataline=2</TT>.)
+</DD>
+</DL>
+
+<P>
+Note that the <TT>csvsort</TT> package requires &#201;amonn McManus'
+<TT>compare.tex</TT> file. The <TT>csvsort</TT> package uses
+an insertion sort method to sort the data, so large amounts of data
+may slow processing time. The following commands are provided
+by <TT>csvsort</TT>:
+
+<P>
+
+ <TT>&#92;sortapplyCSVfile</TT>optionsfilenametext
+<P>
+<TT>&#92;sortapplyCSVfile*</TT>optionsfilenametext
+<BR>
+<BR>
+These commands are analogous to <TT>&#92;applyCSVfile</TT> and
+<TT>&#92;applyCSVfile*</TT>, except that the data is first sorted.
+The optional argument is a key=value list. The keys are the same
+as those used in the package options, described above. These options
+only apply to the given instance of the command, whereas the
+package options apply to all <TT>csvsort</TT> commands, unless
+overridden in <I>options</I>. Example, suppose you have a file
+called <TT>unsorted.csv</TT> which looks like:
+<PRE>
+First Name,Surname,Age
+Zephram,Lang,60
+Fred,Lang,10
+Barney,Langley,25
+Jane,Brown,5
+Adam,Smith,24
+Bert,Jones,18
+</PRE>
+Then
+<PRE>
+\sortapplyCSVfile[sort=alphabetical,variable=\insertSurname]{unsorted.csv}{%
+\insertSurname, \insertbyname{First Name}. Age: \insertAge\par}
+</PRE>
+will produce the following output:
+<P>
+Brown, Jane. Age:5
+<P>
+Jones, Bart. Age:18
+<P>
+Lang, Zephram. Age:60
+<P>
+Lang, Fred. Age:10
+<P>
+Langley, Barney. Age:25
+<P>
+Smith, Adam. Age: 24
+<P>
+Note that the data has only been sorted according to the surname.
+To sort first by surname, then by first name, you can
+do something like:
+<PRE>
+\sortapplyCSVfile[sort=alphabetical,
+variable={\insertSurname,\insertbyname{First Name}}]{unsorted.csv}{%
+\insertSurname, \insertbyname{First Name}. Age: \insertAge\par}
+</PRE>
+As with <TT>&#92;applyCSVfile</TT>, you must use <TT>&#92;field</TT> if
+you use the starred version:
+<PRE>
+\sortapplyCSVfile*[sort=alphabetical,
+variable={\field{2},\field{1}}]{unsorted.csv}{%
+\field{2}, \field{1}. Age: \field{3}\par}
+</PRE>
+
+<P>
+The commands:
+<BR>
+<BR>
+<TT>&#92;sortCSVtotabular</TT>optionsfilenamecol-specfirst rowall but last rowlast row
+<BR>
+<TT>&#92;sortCSVtolongtable</TT>optionsfilenamecol-specfirst rowall but last rowlast row
+<BR>
+Are analogous to <TT>&#92;CSVtotabular</TT> and <TT>&#92;CSVtolongtable</TT>,
+where, again, <I>options</I> is a list of key=value pairs, the same
+as <TT>&#92;sortapplyCSVfile</TT>. Using the same example data as above,
+the following command will sort the data according to age (in
+numerical order) and place in a tabular environment:
+<PRE>
+\sortCSVtotabular[sort=numerical,variable=\insertAge]{unsorted.csv}{llr}{%
+\bfseries Surname &amp; \bfseries First Name &amp; \bfseries Age\\}{%
+\insertSurname &amp; \insertbyname{First Name} &amp; \insertAge\\}{%
+\insertSurname &amp; \insertbyname{First Name} &amp; \insertAge}
+</PRE>
+
+<P>
+Note that the counter <TT>csvlinenum</TT> has no meaning in the
+commands provided by the <TT>csvsort</TT> package. The
+<TT>csvrownumber</TT> counter corresponds to the sorted data row.
+
+<P>
+
+<H1><A NAME="SECTION000120000000000000000">
+The csvtools.pl Perl Script</A>
+</H1>
+
+<P>
+Suppose you have several large CSV files, and you have included 
+the information into your document using <TT>&#92;applyCSVfile</TT>, 
+<TT>&#92;CSVtolongtable</TT>, <TT>&#92;CSVtotabular</TT> or
+<TT>&#92;csvpiechart</TT>, which has 
+made life so much easier for you, but you are now required by a 
+journal to submit your source code in a single <TT>.tex</TT> file.
+ They don't want all your CSV files, so what do you do?  If you 
+have Perl installed on your system you can use the 
+<TT>csvtools.pl</TT> Perl script.  This has the following syntax:
+<BR>
+<BR> <TT>csvtools.pl</TT> <I>in-file</I> <I>out-file</I>
+<BR>
+<BR>
+where <I>in-file</I> is the name of your file that contains the 
+<TT>&#92;applyCSVfile</TT>, <TT>&#92;CSVtotabular</TT> etc
+ commands, and <I>out-file</I> is a new file which will be created by <TT>csvtools.pl</TT>.  This new
+ file will be the same as <I>in-file</I> except that all 
+occurances of <TT>&#92;applyCSVfile</TT>, <TT>&#92;CSVtolongtable</TT>, 
+<TT>&#92;CSVtotabular</TT> and <TT>&#92;csvpiechart</TT> will be replaced 
+by the relevant data extracted from the named CSV files.
+
+<P>
+<A NAME="ex:perl"></A>
+<H2><A NAME="SECTION000121000000000000000">
+Example 16 (csvtools.pl -- Aligning Data)</A>
+</H2>
+ Suppose the file <TT>mydoc.tex</TT> contains the code given in 
+Example&nbsp;<A HREF="manual.html#ex:tab1">4</A>, with the associated CSV file 
+<TT>sample.csv</TT> also given in that example.  Then if you do:
+<PRE>
+csvtools.pl mydoc.tex mydocnew.tex
+</PRE>
+the file <TT>mydocnew.tex</TT> will be created which will be 
+identical to <TT>mydoc.tex</TT> except the lines
+ containing the code <code>\CSVtotabular{sample.csv}{lccc}{</code>...<code>}{</code>...<code>}{</code>...<code>}</code> will be replaced
+with the lines:
+<PRE>
+ % \CSVtotabular{sample.csv}... converted using csvtools.pl
+ %&gt;&gt; START INSERT
+ \begin{tabular}{lccc}
+ \bfseries Name &amp;
+ \bfseries Assignment 1 &amp;
+ \bfseries Assignment 2 &amp;
+ \bfseries Total\\
+ A. Smith&amp;80&amp;70&amp;150\\
+ B. Jones&amp;60&amp;80&amp;140\\
+ J. Doe&amp;85&amp;75&amp;160\\
+  &amp;75&amp;75&amp;150
+ \end{tabular}%&lt;&lt; END INSERT
+</PRE>
+<P>
+<DIV ALIGN="CENTER">
+</DIV>
+
+<P>
+
+<P>
+Similarly, <TT>csvtools.pl</TT> will substitute all occurrances 
+of <TT>&#92;CSVtolongtable</TT>, <TT>&#92;applyCSVfile</TT> 
+and <TT>&#92;csvpiechart</TT>.
+
+<P>
+
+<H2><A NAME="SECTION000122000000000000000">
+Notes</A>
+</H2>
+
+<OL>
+<LI>If perl is located in a directory other than <TT>/usr/bin/</TT> 
+you will need to edit the first line of <TT>csvtools.pl</TT> as 
+appropriate. You can find the location using the command:
+<PRE>
+which perl
+</PRE>
+
+<P>
+</LI>
+<LI>If you can't directly execute a Perl script,
+ you can do:
+<BR>
+<BR> <TT>perl csvtools.pl</TT> <I>in-file</I> <I>out-file</I>
+
+<P>
+</LI>
+<LI>You must first LaTeX your document before using 
+<TT>csvtools.pl</TT> as it checks the log file for any counters 
+that have been defined.
+
+<P>
+</LI>
+<LI><TT>csvtools.pl</TT> only knows about a very limited set 
+of LaTeX commands.  It should be able to understand:
+<PRE>
+\CSVtotabular{\csvGetEntry{experiment}{File}}{ll}{...
+</PRE>
+(see Example&nbsp;<A HREF="manual.html#ex:index">14</A>), but it won't be able to understand,
+say,
+<PRE>
+\newcommand{\filename}{\csvGetEntry{experiment}{File}}
+\CSVtotabular{\filename}{ll}{...
+</PRE>
+It can pick up on <TT>&#92;addtocounter</TT>, <TT>&#92;stepcounter</TT>,
+<TT>&#92;refstepcounter</TT> and <TT>&#92;setcounter</TT> but only if 
+they are used explicitly in the named <TT>.tex</TT> file. (It 
+ignores any files that have been included using 
+<TT>&#92;input</TT>, <TT>&#92;include</TT> etc.)
+
+<P>
+</LI>
+<LI>This Perl script has only been tested under Linux, but it 
+ought to work under other systems.
+</LI>
+</OL>
+
+<P>
+
+<H1><A NAME="SECTION000130000000000000000"></A><A NAME="sec:drawbacks"></A>
+<BR>
+Bugs/Drawbacks/``Features''
+</H1>
+ 
+<OL>
+<LI><A NAME="itm:insert"></A> The package doesn't check to see whether 
+<TT>&#92;insert</TT><I>identifier</I> exists, otherwise you would not
+be able to use multiple CSV files with the same headers, as in 
+Example&nbsp;<A HREF="manual.html#ex:index">14</A>.  Therefore it is recommended that
+ you check to make sure that the command does not already exist.
+ For example, the T<SMALL>E</SMALL>X commands <TT>&#92;insert</TT> and 
+<TT>&#92;insertpenalties</TT> already exist, so a blank header or a 
+header named <TT>penalties</TT> would cause problems. (These two 
+will now cause an error as from version 1.1, but it's something 
+bear in mind.)
+
+<P>
+</LI>
+<LI>Note also that <TT>&#92;insertbyname</TT> doesn't check
+ if you've given a valid label, so if no text appears,
+ check you've spelt it correctly, checking punctuation, spaces and case.
+
+<P>
+</LI>
+<LI><A NAME="itm:psbyname"></A> Note that in Example&nbsp;<A HREF="manual.html#ex:ps">2</A>, replacing line&nbsp;3 with:
+<PRE>
+\centerline{\includegraphics{\insertbyname{File}}}
+</PRE>
+ will cause an error, as <code>\insertbyname{File}</code> doesn't get
+ fully expanded by the time it gets passed to 
+ <TT>&#92;includegraphics</TT>, and will prevent 
+<TT>&#92;includegraphics</TT> from
+ finding the file.  It is possible to get around this using
+ T<SMALL>E</SMALL>X's <TT>&#92;edef</TT> command:
+<PRE>
+\edef\psfilename{\insertbyname{File}}
+\centerline{\includegraphics{\psfilename}}
+</PRE>
+
+<P>
+</LI>
+<LI><A NAME="itm:noalign"></A> You can't have commands like 
+<TT>&#92;hline</TT>, <TT>&#92;cline</TT> and <TT>&#92;multicolumn</TT> in the
+first column of the <I>middle</I> or <I>last</I> code of 
+<TT>&#92;CSVtotabular</TT> or <TT>&#92;CSVtolongtable</TT>.  If you do, 
+it will generate a <code>misplaced \noalign</code> error, instead you 
+need to put it at the end of the <I>first</I> or <I>middle</I> 
+code.  (See Example&nbsp;<A HREF="manual.html#ex:tab3">6</A>.)
+
+<P>
+</LI>
+<LI>You can't have nested <TT>&#92;applyCSVfile</TT>, 
+<TT>&#92;CSVtolongtable</TT> and <TT>&#92;CSVtotabular</TT>
+ commands. Nor can you have <TT>&#92;csvpiechart</TT> within
+one of these commands (See Example&nbsp;<A HREF="manual.html#ex:index">14</A>)
+
+<P>
+</LI>
+<LI>If the CSV file has a header row, it must be on the first 
+line.
+
+<P>
+</LI>
+<LI>It is possible for T<SMALL>E</SMALL>X to run out of memory if you use
+ <TT>&#92;csvSaveEntry</TT> on a large file.
+
+<P>
+</LI>
+<LI><A NAME="itm:csvrownumber"></A> In version 1.0, there was an 
+inconsistency with <TT>csvrownumber</TT> within
+<TT>&#92;applyCSVfile</TT> and <TT>&#92;CSVtotabular</TT>.  In the 
+former it excluded the header row, whereas the latter
+included it.  This has been changed in version 1.1 so that within
+<TT>&#92;applyCSVfile</TT>, <TT>&#92;CSVtotabular</TT> and 
+<TT>&#92;CSVtolongtable</TT>, <TT>csvrownumber</TT> refers to the 
+data row (excluding header row.)  I hope this doesn't cause 
+problems, but it makes more sense that they should be 
+consistent.  So if you have no blank lines in your CSV file, 
+<TT>csvrownumber</TT> should always be 1 more than 
+<TT>csvlinenumber</TT>.
+
+<P>
+</LI>
+</OL>
+
+<P>
+
+<H1><A NAME="SECTION000140000000000000000">
+Contact Details</A>
+</H1>
+
+<P>
+Dr Nicola Talbot
+<BR>
+School of Computing Sciences
+<BR>
+University of East Anglia
+<BR>
+Norwich.  NR4 7TJ. England.
+ <BR>
+<BR> <TT><A NAME="tex2html17"
+  HREF="http://theoval.cmp.uea.ac.uk/~nlct/">http://theoval.cmp.uea.ac.uk/~nlct/</A></TT>
+<P>
+
+<P>
+
+<BR><HR><H4>Footnotes</H4>
+<DL>
+<DT><A NAME="foot869">...identifier</A><A
+ HREF="manual.html#tex2html1"><SUP>1</SUP></A></DT>
+<DD>See Note&nbsp;<A HREF="manual.html#itm:insert">1</A> in Section&nbsp;<A HREF="manual.html#sec:drawbacks">11</A>
+
+</DD>
+<DT><A NAME="foot150">... file</A><A
+ HREF="manual.html#tex2html2"><SUP>2</SUP></A></DT>
+<DD>Remeber to use a letter type of
+class file
+
+</DD>
+<DT><A NAME="foot870">... file</A><A
+ HREF="manual.html#tex2html3"><SUP>3</SUP></A></DT>
+<DD>The 
+ <TT>graphics</TT> or <TT>graphicx</TT> package will be 
+needed.
+
+</DD>
+<DT><A NAME="foot872">...tab:ex1</A><A
+ HREF="manual.html#tex2html4"><SUP>4</SUP></A></DT>
+<DD>Note that <TT>&#92;CSVtotabular</TT> only 
+ puts the data in a <TT>tabular</TT> environment not in a table
+
+</DD>
+<DT><A NAME="foot877">...&#92;ifnextrowlast</A><A
+ HREF="manual.html#tex2html8"><SUP>5</SUP></A></DT>
+<DD>See 
+ Note&nbsp;<A HREF="manual.html#itm:noalign">4</A> in Section&nbsp;<A HREF="manual.html#sec:drawbacks">11</A>
+
+</DD>
+<DT><A NAME="foot297">... table</A><A
+ HREF="manual.html#tex2html11"><SUP>6</SUP></A></DT>
+<DD>This is designed as an 
+example of how to use the package, not incouragement to produce 
+garish tables!
+
+</DD>
+</DL>
+<BR><HR>
+<ADDRESS>
+<A href=http://theoval.cmp.uea.ac.uk/~nlct/>Nicola L. C. Talbot</A>. 
+<A HREF=http://www.cmp.uea.ac.uk/>School of Computing Sciences</A>. 
+<A HREF=http://www.uea.ac.uk/>University of East Anglia.</A> 
+Last Modified: 2007-06-26
+</ADDRESS>
+</BODY>
+</HTML>

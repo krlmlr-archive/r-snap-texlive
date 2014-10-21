@@ -1,0 +1,64 @@
+% based on newlatin.mtx - because I can't figure out how to pass options...
+\relax
+
+\documentclass[twocolumn]{article}
+
+\metrics
+
+\needsfontinstversion{1.924}
+
+\usemtxpackage{llbuild}
+
+\usemtxpackage{lubuild}
+
+\ifoption{nosc}\then \Else
+
+\usemtxpackage{dotscbuild}
+% \usemtxpackage{lsfake}
+\usemtxpackage{dotscmisc}
+
+\Fi
+
+\usemtxpackage{ltpunct}
+
+
+\usemtxpackage{ltcmds}
+
+\unfakable{Gamma}
+\unfakable{Delta}
+\unfakable{Theta}
+\unfakable{Lambda}
+\unfakable{Xi}
+\unfakable{Pi}
+\unfakable{Sigma}
+\unfakable{Upsilon}
+\unfakable{Upsilon1}
+\unfakable{Phi}
+\unfakable{Psi}
+\unfakable{Omega}
+
+\foreach(accent){grave,acute,circumflex,tilde,dieresis,hungarumlaut,%
+      ring,caron,breve,macron,dotaccent}
+   \ifisglyph{\str{accent}}\then
+      \resetglyph{\str{accent}}
+         \glyph{\str{accent}}{1000}
+         \resetdepth{0}
+      \endresetglyph
+   \Fi
+\endfor(accent)
+
+
+\setglyph{ringfitted}
+   \movert{\half{\sub{\width{A}}{\width{ring}}}}
+   \glyph{ring}{1000}
+   \movert{\otherhalf{\sub{\width{A}}{\width{ring}}}}
+\endsetglyph
+
+
+
+\setleftkerning{less}{guillemotleft}{1000}
+\setleftkerning{greater}{guillemotright}{1000}
+
+
+\endmetrics
+

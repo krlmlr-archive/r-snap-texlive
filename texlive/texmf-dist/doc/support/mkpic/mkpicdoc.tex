@@ -1,0 +1,657 @@
+\documentclass[a4paper,twocolumn]{article}
+\usepackage{osf-txfonts,ctable,mkpic,moreverb}
+\usepackage[a4paper,margin=25mm]{geometry}
+
+\def\Mfpic{\textsl{mfpic}}
+\def\Mkpic{\textsl{mkpic}}
+\def\Perl{\textsl{Perl}}
+\newcommand{\makefigure}[1]{
+  \vspace{2ex}
+  \begin{figure}[htb]
+    \begin{center}
+      \mbox{\quad\csname Fig#1\endcsname}
+      \caption{#1}
+      \label{fig:#1}
+    \end{center}
+  \end{figure}
+}
+\pagestyle{myheadings}
+\markright{Mkpic: how Perl can help \TeX}
+
+\begin{document}
+
+\title{Mkpic: how Perl can help \TeX}
+
+\author{Wybo Dekker\\wybo@dekkerdocumenten.nl}
+\maketitle
+\begin{abstract}
+  Perl may be an easy interface to \TeX{} when it comes to repetitive
+  tasks, like writing letters, creating reports from databases, and
+  many more. This article shows how Perl can be used to generate many
+  similar pictures \emph{via} the \Mfpic\ style
+  \\[2ex]
+  \noindent Keywords: \textit{perl, mfpic, mkpic}
+\end{abstract}
+
+\section{Introduction}
+I recently had to produce about 40 pictures for insertion into 
+a book on elementary mathematics.  I decided that the \Mfpic\ would
+suite most of my needs. But writing \Mfpic\ commands is not easy.
+Figure~\ref{fig:parabola}, for example, can be constructed using the
+following \Mfpic\ commands:
+
+\footnotesize
+\begin{verbatim}
+ 1 \mftitle{parabola}
+   \setlength{\mfpicunit}{1mm}
+   \begin{mfpic}[16][5.45]{0}{4}{-6}{5}
+   \axes
+ 5 \hatchwd{2}
+   \tlabel[bc](0,5.54){$y$}
+   \tlabel[cl](4.21,0){$x$}
+   \tlabel[tc](2,-0.18){\strut 2}
+   \tlabel[bc](3,0.18){\strut 3}
+10 \tlabel[cr](-0.07,-5){\strut -5}
+   \tlabel[cr](-0.07,0){\strut 0}
+   \tlabel[cr](-0.07,4){\strut 4}
+   \rhatch\lclosed\connect
+   \lines{(0,0),(0,4)}
+15 \function{0,3,.05}{4-x*x}
+   \lines{(3,-5),(3,0)}
+   \endconnect
+   \function{0,3.2,.05}{4-x*x}
+   \dotted\arrow\lines{(3,-5),(0,-5)}
+20 \dotted\arrow\lines{(3,-5),(3,0)}
+   \tlabel[bc](3,4){\parbox[b]{60mm}{%
+     \center $f(x)=4-x^2$}}
+   \arrow\lines{(3,3.46),(1.7,1.1)}
+   \tlabel[bc](2,5){\parbox[b]{60mm}{%
+25   \center Area $O_1$}}
+   \arrow\lines{(2,4.46),(1,2)}
+   \tlabel[bc](4,2){\parbox[b]{60mm}{%
+     \center Area $O_2$}}
+   \arrow\lines{(4,1.46),(2.8,-2)}
+30 \end{mfpic}
+\end{verbatim}
+\normalsize
+
+\makefigure{parabola}
+%\ctable[figure,label=fig:parabola,caption=parabola]{@{}c@{}}{}{\Figparabola}
+
+As you can see, this implies a lot of typing and one has to type many
+nested [], \{\}, and () pairs. Also, several floating point numbers,
+such as those in lines 6--12, depend on the scaling factors defined in
+line 3. They have to be calculated manually, and changing the scale will
+imply recalculation of those values. The scale itself is set in line 3:
+I wanted the picture to be 64 mm wide, so I had to calculate
+$64/(4-0)=16$ for the scaling factor in the x-direction. It would be
+much easier if one could type something like:
+
+\footnotesize
+\begin{verbatim}
+ 1 begin parabola 64 64 0 -6 4 5 $x$ $y$
+   xmark 2
+   Xmark 3
+   ymark -5 0 4
+ 5 bhat
+   lines 0 0 0 4
+   func 0 3 .05 4-x*x
+   lines 3 -5 3 0
+   ehat
+10 func 0 3.2 .05 4-x*x
+   xydrop 3 -5
+   arrow 3 4 1.7 1.1 $f(x)=4-x^2$
+   arrow 2 5 1 2 Area $O_1$
+   arrow 4 2 2.8 -2 Area $O_2$
+15 end
+   \end{verbatim}
+\normalsize
+
+Here we see no brackets, braces or parentheses anymore, width and
+height are set straightforwardly to 64 mm and the labels along the
+axes are redefined as xmarks and ymarks, for which nothing has to be
+given but the x- and y-values, respectively. The corresponding y- and
+x-values are supposed to be calculated automatically. 
+
+Another construction that frequently occurs in my pictures is a label
+with an arrow starting from the center of its baseline, such as the
+one in lines 21--23 in the long listing. This is replaced in the short
+listing with line 12, where the starting position of the arrow is
+supposed to be calculated automatically. As a result, if I want to
+move the label, the arrow is moved with it automatically.
+
+All this is possible by using a \Perl\ interface that converts the
+short command file into an \Mfpic\ source file.
+
+\section{The Perl interface}
+
+In the \Perl{} script \Mkpic{}, the available commands are all defined
+in the subroutine \verb|parse_input|. My initial version defined only a
+few commands, and while using the script, new commands were inserted
+when they were needed. It's easy to insert your own new commands here,
+just look at what's already there and create new commands by analogy.
+The \verb|__DATA__| section of the script contains the picture needed
+for this documentation (and some more).
+
+The first was the \textsl{begin} command, of course, which has also the
+most complex definition, as it defines many scale-dependent variables
+and \TeX{} commands that might be useful for any command defined later.
+
+\subsection{How to use mkpic}
+First of all, read the manpage of the \Perl-script, generated from the
+script using pod2latex, which is shown in section~\ref{manpage}.
+
+The easiest way to use the script is to append your own commands to
+the \verb|__DATA__| section of the script, maybe after removing what's
+already there, and run it. This will produce a file mkpic.sty, which
+provides \LaTeX-commands named \verb|\Fig<name>|, where \verb|<name>|
+stands for every name you use in the \textsl{begin} command. Finally,
+you can use those \verb|\Fig<name>| commands in a \LaTeX{} document.
+
+\section{Some more examples}
+Here are a few more examples illustrating some features of the \Mkpic{} 
+script:
+
+The following commands will produce figure~\ref{fig:droparrows}:
+
+\footnotesize
+\begin{verbatim}
+ 1 begin droparrows 64 64 0 3 12 8 $x$ $y$
+   xmark $a$ 2 $x_1$ 4 $x_2$ 8 $b$ 10
+   ydrop 2 4.414
+   ydrop 4 5
+ 5 ydrop 8 5.828
+   ydrop 10 6.162
+   label cc 4 4 $f(x_1)$
+   label cc 8 4 $f(x_2)$
+   label cc 7 8 $f(x)$ increases on $[a,b]$
+10 label cc 7 7.5 $x_1<x_2\Rightarrow f(x_1)<F(x_2)$
+   func 1 11 .1 x**(.5)+3
+   end
+\end{verbatim}
+\normalsize
+
+\makefigure{droparrows}
+
+These commands illustrate how valid \Mfpic{} commands can be
+interspersed between \Mkpic{} commands (see figure~\ref{fig:asymptotes}:
+
+\footnotesize
+\begin{verbatim}
+ 1 begin asymptotes 64 64 0 0 10 10 $x$ $y$
+   curve 1 1 2 3 4 5.7 7 8.1 9 9
+   \shift{(-.05,.05)}
+   point 2 3 4 5.7 7 8.1
+ 5 \shift{(-.05,.05)}
+   func 1.4 2.6 .1 1.65*x-.3
+   func 3.2 4.8 .1 1.025*x+1.6
+   func 6.1 7.9 .1 .62*x+3.76
+   label cl 9.5 9 $f(x)$
+10 label tl 5 5 $f^\prime(x)>0$
+   label tl 5 4 $f^\prime(x)$ decreasing
+   end
+\end{verbatim}
+\normalsize
+
+\makefigure{asymptotes}
+
+Figure~\ref{fig:inflections} is produced by:
+
+\footnotesize
+\begin{verbatim}
+ 1 begin inflections 64 64 -.85 -1.5 1.5 5 $x$ $y$
+   func -.6 1.5 .05 6*(x**4)-8*(x**3)+1
+   lines -.2 1 .2 1
+   label cr -.25 1 horizontal
+ 5 arrow .5 2 0 1 inflection point
+   arrow .8 1 .65 0 inflection point
+   arrow 1 5 1.5 4.375 $f(x)=6x^4-8x^3+1$
+   Xmark 1
+   ymark \raisebox{-3.5mm}{0} 0 -1
+10 xydrop 1 -1
+   end
+\end{verbatim}
+\normalsize
+
+\makefigure{inflections}
+
+And here is an elaborate quasi 3D picture.
+It shows how comments can be inserted.
+Standard axes are suppressed because they need special treatment (see figure~\ref{fig:paraboloid}):
+
+\footnotesize
+\begin{verbatim}
+ 1 begin paraboloid 64 64 -4 -4 4 4 - -
+   \dashed
+   lines -4 0 0 0 0 0 0 -4 # neg z and neg y
+   \dashed
+ 5 lines 0 0 3 1.73        # neg x
+   \arrow
+   lines 0 0 0 4           # pos y
+   \arrow[5]
+   lines 0 0 4 0           # pos z
+10 \arrow[5]
+   lines 0 0 -3 -1.73      # pos x
+   \dotted
+   lines -1 4 -1 0 -4 -1.73  # intersections y=-1 plane
+   \dotted
+15 lines -1 -.577 -4 -.577 # intersection x=2 plane with xy-plane
+   % extra helplines
+   \dotted
+   lines -2 .423 -2 -.577 0 0 0 1 -2 .423
+   Ymark 3
+20 % end of extras
+   \dotted
+   lines 0 3 -1 3 -4 1.27
+   \dashed\sclosed
+   curve -3 2.42 -1.5 2.711 -1 2.42 -2.5 2.134
+25 label bc 0 \yhi $z$
+   label cl \xhi 0 $y$
+   label tr -3.1 -1.8 $x$
+   label cl -.85 -.577 2
+   label tc 0 5.5 $f(x,y)=x^2-4x+2y^2+4y+7$
+30 xmark -1
+   Ymark 1
+   \shift{(-2,.42)}
+   \dashed
+   func 0 .5 .1 9*x*x
+35 func -.5 0 .1 7*x*x
+   \dashed
+   func -1 0 .1 2*x*x
+   func 0 1 .1 2*x*x
+   end
+\end{verbatim}
+\normalsize
+\vspace*{3ex}
+\makefigure{paraboloid}
+
+\setcounter{secnumdepth}{1}
+\onecolumn
+\newpage
+\section{The mkpic manpage\label{manpage}}
+\small
+
+\subsection{mkpic - interface for making pictures with mfpic}
+
+\subsection{Synopsis\label{SYNOPSIS}\index{SYNOPSIS}}
+
+mkpic [options] [picfile]
+
+options:
+
+\begin{verbatim}
+       --clean               remove all but input file and die
+       --pdfsample           create pdf file with sample images
+       --font=<font command> set default font for labels
+       --[no]box             produce framed boxes
+       --version             report version number and die
+       --help                display help info and die
+       --[no]debug           display debugging information
+       --log=<logfile>       file for warning messages
+\end{verbatim}
+
+commands:
+
+\begin{verbatim}
+    begin    name xl yl xmin ymin xmax ymax xlabel ylabel
+    end    
+    stop    
+    <var>=<value>
+    #        comment
+\end{verbatim}
+\begin{verbatim}
+    arccst   xcenter ycenter xstart ystart theta
+    arcset   xstart ystart xend yend theta
+    arccrtt  xcenter ycenter radius theta1 theta2
+    arc3     x1 y1 x2 y2 x3 y3
+\end{verbatim}
+\begin{verbatim}
+    xmark    [label1] x1 [label2] x2 ...
+    Xmark    [label1] x1 [label2] x2 ...
+    ymark    [label1] y1 [label2] y2 ...
+    Ymark    [label1] y1 [label2] y2 ...
+\end{verbatim}
+\begin{verbatim}
+    xdrop    x y
+    ydrop    x y
+    xydrop   x y
+\end{verbatim}
+\begin{verbatim}
+    arrow    x1 y1 x2 y2 label
+    label    YX x y label
+    xlabels  YX x y dx label ...
+    ylabels  YX x y dy label ...
+\end{verbatim}
+\begin{verbatim}
+    point    x1 y1 x2 y2 ...
+    dpoint   x1 y1 dx1 dy1 ...
+    lines    x1 y1 x2 y2 ...
+    dlines   x1 y1 dx1 dy1 ...
+    curve    x1 y1 x2 y2 ...
+    dcurve   x1 y1 dx1 dy1 ...
+\end{verbatim}
+\begin{verbatim}
+    rect     x1 y1 x2 y2
+    drect    x y dx dy
+    dcrect   x y dx dy
+    crect    x1 y1 x2 y2
+    arect    xc yc width height theta
+    bar      x xdev height
+\end{verbatim}
+\begin{verbatim}
+    func     xmin xmax step expression-in-x
+\end{verbatim}
+\begin{verbatim}
+    grid     dx dy xgap ygap
+    hatch    
+    bhat    
+    ehat
+\end{verbatim}
+\subsection{Description\label{DESCRIPTION}\index{DESCRIPTION}}
+
+\textbf{mkpic} provides an easy interface for making small pictures with
+mfpic. To this end you create an input file has to be created consisting
+of commands, one per line, with space separated parameters (or you modify the
+\texttt{\_\_DATA\_\_} section of the \textbf{mkpic} script, which is used if you run it
+without an input file). \textbf{mkpic} produces two files. Assuming an input
+file named \emph{picfile} defaulting to \emph{mkpic} these are:
+
+\begin{description}
+
+\item[{\emph{picfile.mac}}] 
+
+a macro file which will contain \textbf{TeX} commands for every picture
+
+\item[{\emph{picfile.sty}}] 
+
+a style file for latex, defining the same \textbf{TeX} commands for every picture.
+
+\end{description}
+
+With the \textbf{--pdfsample} option, two other files are produced:
+
+\begin{description}
+
+\item[{\emph{picfile.pdf}}] 
+
+a PDF file containing all pictures. 
+This lets you easily check the results of your designs.
+
+\item[{\emph{picfile.tex}}] 
+
+the \textbf{TeX} source used for creating this PDF file.
+
+\end{description}
+
+In \textbf{LaTeX}, you have to include \texttt{$\backslash$usepackage\{picfile\}} and to include
+commands like \texttt{$\backslash$Fig$<$name$>$} in your source, where \texttt{name} is the
+name you gave one of your pictures in an \textbf{mkpic} \texttt{begin} command.
+
+In \textbf{TeX} and \textbf{ConTeXt}, you have to \texttt{$\backslash$input} \emph{picfile.mac} and to
+include commands like \texttt{$\backslash$Fig$<$name$>$} in your source, where \texttt{name} is
+the name you gave one of your pictures in an \textbf{mkpic} \texttt{begin} command.
+
+In \textbf{TeX}, you must use the \texttt{$\backslash$bye} command (\textbf{not} \texttt{$\backslash$end} to finish your \textbf{TeX} source
+
+See the RUNNING section for how to run \textbf{mkpic} and \textbf{TeX}/\textbf{LaTeX}/\textbf{ConTeXt}.
+
+\subsection{COMMANDS\label{COMMANDS}\index{COMMANDS}}
+
+The source is set up so that it is easy to add your own commands,
+
+Currently the following commands have been implemented:
+
+\begin{description}
+
+\item[{\textbf{begin end}}] 
+
+Every picture begins with the \textbf{begin} command and ends with the \textbf{end}
+command.  The \textbf{begin} command defines a name for the picture and
+defines a tex command with that name, prefixed with 'Fig'. The
+resulting command is written to a \emph{.mac} file. Thus the command
+
+\begin{verbatim}
+        begin aa ...
+\end{verbatim}
+
+starts writing \texttt{$\backslash$def$\backslash$Figaa\{...} to the \emph{.mac} file, and the
+picture can be reproduced in a \textbf{TeX} document by importing the \emph{.mac} file
+and using the \texttt{$\backslash$Figaa} command.
+
+xl and yl are the lengths of the x- and y-axes. xlabel and ylabel are
+the label that are placed at the ends of those axes. Use a space to
+suppress labeling, or "-" to suppress drawing the axes at all.
+
+\item[{\textbf{stop}}] 
+
+stops further reading of the input. Useful if you have many pictures,
+but want to see only the first few for testing purposes.
+
+\item[{\textbf{var=value}}] 
+
+sets the variable var to value. This variable, or an expression containing it,
+can be used instead of any numerical parameter. Variable names may contain 
+lower and uppercase letters, digits or underscores, with the restriction that 
+they must start with a letter and may not end in an underscore.
+
+\item[{\#}] 
+
+denotes a comment
+
+\item[{\textbf{xmark ymark Xmark Ymark}}] 
+
+These commands place one or more labels along the x- or y-axes, either
+below (\textbf{xmark} and \textbf{ymark}) of above (\textbf{Xmark} and \textbf{Ymark}) the axis.
+
+For the \textbf{[xXyY]mark} commands a parameter containing any character
+other than [-.0-9] is interpreted as the label (this implies that you
+cannot use expressions here!) to be placed and its position is expected
+in the next parameter. If a parameter is just a number, it is placed at
+that x-position. If you want a number to be interpreted as a label, put
+it in braces: \textit{\{1950\}}.
+
+\item[{\textbf{arccst}}] 
+
+(Mnemonic: \textbf{c}enter \textbf{s}tart \textbf{t}heta.)
+Draws an arc with its center in \textit{xcenter,ycenter}, starting in \textit{xstart,ystart}
+and with an arc length of \textit{theta} degrees.
+
+\item[{\textbf{arcset}}] 
+
+(Mnemonic: \textbf{s}tart \textbf{e}nd \textbf{t}heta.)
+Draws an arc starting in \textit{xstart,ystart}end ending in \textit{xend,yend}
+and with an arc length of \textit{theta} degrees.
+
+\item[{\textbf{arccrtt}}] 
+
+(Mnemonic: \textbf{c}enter \textbf{r}adius \textbf{t}heta1 \textbf{t}heta2.)
+Draws an arc with its center in \textit{xcenter,ycenter}, a radius \textit{radius}
+starting at \textit{theta1} degrees ænd ending at \textit{theta2} degrees.
+
+\item[{\textbf{arc3}}] 
+
+(Mnemonic: \textbf{3} points.)
+Draws an arc starting at \textit{(x1,y1), through (x2,y2) and ending in (x3,y3)}.
+
+\item[{\textbf{xdrop ydrop xydrop}}] 
+
+These commands draw dotted arrows perpendicularly to the x-axis, the
+y-axis and both axes, respectively, ending on the axes with the
+arrow head.
+
+\item[{\textbf{arrow}}] 
+
+draws an arrow from \textit{(x1,y1)} to \textit{(x2,y2)} labeled on its tail with
+\textit{label}
+
+\item[{\textbf{label}}] 
+
+draws a label at \textit{(x,y)}. \textit{YX} tells how it will be adjusted: for
+Y=t,b,c \textit{(x,y)} will be, in the y-direction, on top, bottom or center
+of the label respectively, for X=l,r,c it will be, in the x-direction,
+left, right or center adjusted on \textit{(x,y)}. Thus
+
+\begin{verbatim}
+        label tl 0 0 Hello World!
+\end{verbatim}
+
+will draw the string "Hello World"  with its lower left corner at (0,0)
+
+\item[{\textbf{xlabels}}] 
+
+draws many labels, starting at \textit{(x,y)}, and incrementing \textit{x} with \textit{dx}
+after every label. \textit{YX}: see \textbf{label}. Labels may not contain spaces;
+if you need spaces, use \texttt{\~{}} instead.
+
+\item[{\textbf{ylabels}}] 
+
+Same as \textbf{xlabels}, but incrementing \textit{y} with \textit{dy} instead.
+
+\item[{\textbf{point}}] 
+
+draws points (dots) at \textit{(x1,y1)}, \textit{(x2,y2)} et cetera.
+
+\item[{\textbf{dpoint}}] 
+
+draws points (dots) starting at \textit{(x1,y1)} and then moving by 
+\textit{(dx1,dy1)}, \textit{(dx2,dy2)} et cetera.
+
+\item[{\textbf{lines}}] 
+
+draws line segments from \textit{(x1,y1)} to \textit{(x2,y2)}, \textit{(x3,y3)} et cetera.
+
+\item[{\textbf{dlines}}] 
+
+draws line segments starting at \textit{(x1,y1)} and then moving by 
+\textit{(dx1,dy1)}, \textit{(dx2,dy2)} et cetera.
+
+\item[{\textbf{curve}}] 
+
+draws a bezier curve from \textit{(x1,y1)} to \textit{(x2,y2)}, \textit{(x3,y3)} et cetera.
+
+\item[{\textbf{dcurve}}] 
+
+draws a bezier curve starting at \textit{(x1,y1)} and then moving by 
+\textit{(dx1,dy1)}, \textit{(dx2,dy2)} et cetera.
+
+\item[{\textbf{rect}}] 
+
+draws a rectangle with diagonal points at \textit{(x1,y1)} and \textit{(x2,y2)}.
+
+\item[{\textbf{drect}}] 
+
+draws a rectangle with diagonal points at \textit{(x,y)} and \textit{(x+dx,y+dy)}.
+
+\item[{\textbf{crect}}] 
+
+clears a rectangle with diagonal points at \textit{(x1,y1)} and \textit{(x2,y2)}.
+
+\item[{\textbf{dcrect}}] 
+
+clears a rectangle with diagonal points at \textit{(x,y)} and \textit{(x+dx,y+dy)}.
+
+\item[{\textbf{arect}}] 
+
+draws a rectangle with a widdh \textit{width} and æ height \textit{height};
+the middle of the bottom is at \textit{(xc,yc)} and the centerline through 
+\textit{(xc,yc)} makes an angle \textit{theta} with the x-axis.
+
+\item[{\textbf{bar}}] 
+
+draws a equivalent with \textit{rect x-xdev 0 x+xdev height}
+
+\item[{\textbf{func}}] 
+
+draws the function given by \textit{expression-in-x} between \textit{xmin} and
+\textit{xmax}, stepping with \textit{step} units in the x-direction.
+Note that the \textit{expression-in-x} will be evaluated by \textbf{metafont}, so 
+you will have to use metafont syntax.
+
+\item[{\textbf{grid}}] 
+
+draw dotted grid lines at distances dx and dy in the x- and y
+directions; the gaps between the dots are set to \textit{xgap} an \textit{ygap}
+respectively. For an esthetic appearance, be sure to use integer
+\textit{dx/xgap} ænd \textit{dy/ygap} ratios.
+
+\item[{\textbf{hatch}}] 
+
+hatch the closed curve that follows.
+
+\item[{\textbf{bhat}}] 
+
+starts a path that will eventually be closed, and then hatched.
+
+\item[{\textbf{ehat}}] 
+
+ends a path started with \textbf{bhat}, closes it and then hatches it.
+
+\item[{\textbf{anything else}}] 
+
+will be inserted as is in the macro file, and therefore should be a
+valid \textit{mfpic} statement. You use this when you need such a statement
+only once, or a few times and therefore see no need to define a proper
+command for it.
+
+\end{description}
+\subsection{Running mkpic/TeX\label{RUNNING_mkpic_TeX}\index{RUNNING mkpic/TeX}}
+\subsubsection*{The difficult way\label{The_difficult_way}\index{The difficult way}}
+
+The effect of running \textbf{mkpic picfile} is the creation of
+\emph{picfile.mac}, which you can \texttt{$\backslash$input} into a \textbf{TeX} or \textbf{ConTeXt} source,
+and \emph{picfile.sty} which can be input into a \textbf{LaTeX} source using the
+\texttt{$\backslash$usepackage} command.
+
+After running \textbf{TeX} (or \textbf{LaTeX} or \textbf{ConTeXt}), you will find a file
+\emph{picfile.mf} and you will have to run \textbf{metafont} on it, which
+(assuming you configured \textbf{TeX} for 600 dpi) produces picfile.600gf. This
+file will have to be converted to a pk file with \textbf{gftopk}. Finally, you
+need to run \textbf{TeX} again. So the sequence is:
+
+\begin{description}
+
+\item[{\$}] 
+
+mkpic picfile
+
+\item[{\$}] 
+
+tex file.tex
+
+\item[{\$}] 
+
+mf picfile
+
+\item[{\$}] 
+
+gftopk picfile.600gf
+
+\item[{\$}] 
+
+tex file
+
+\end{description}
+\subsubsection*{The easy way\label{The_easy_way}\index{The easy way}}
+
+You can also include this line into your \textbf{TeX} or \textbf{ConTeXt} source (before
+\texttt{$\backslash$input}ing picfile.mac) or into your \textbf{LaTeX} source (before
+\texttt{$\backslash$usepackage\{picfile\}}:
+
+\texttt{$\backslash$immediate$\backslash$write18\{mkpic picfile\}}
+
+and \textbf{TeX} (\textbf{LaTeX}, \textbf{ConTeXt}) will do everything for you, except that you
+will have to run \textbf{TeX} at least twice. You need, however, to 1) finish
+your texjob with \texttt{$\backslash$bye}, \textbf{not} \texttt{$\backslash$end}, and 2) enable the \texttt{$\backslash$write18}
+command by setting, in \emph{texmf.cnf}, the \texttt{shell\_escape} variable to
+true (\texttt{t}) (or ask your system administrator to do so).
+
+\subsection{Bug\label{BUG}\index{BUG}}
+Currently only up to 256 pictures can be generated. In the future this
+problem will probably be solved by introducing more than one font and
+generating tex-command names that have the font name in front.
+
+\subsection{Author\label{AUTHOR}\index{AUTHOR}}
+
+Wybo Dekker (wybo@dekkerdocumenten.nl)
+
+\end{document}

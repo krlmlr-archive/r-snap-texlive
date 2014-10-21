@@ -1,0 +1,59 @@
+\NeedsTeXFormat{LaTeX2e}[1999/12/01]
+\ProvidesPackage{ntgletter}
+  [2010/08/21 v1.1 NTG style file for isodoc]
+\RequirePackage[english,dutch]{babel}
+\RequirePackage{ucs}\RequirePackage[utf8x]{inputenc}
+\RequirePackage{pxfonts}
+
+\setupdocument{%
+accountname   = NTG,
+accountno     = 1306238,
+areacode      = 31,
+autograph     = 0,
+bic           = pstbnl21,
+cellphone     = 6\,3033\,3955,
+city          = Deil,
+closing       = Met vriendelijke groet,
+company       = NTG,
+country       = The Netherlands,
+countrycode   = NL,
+language      = nl-NL,
+email         = wybo@ntg.nl,
+fax           = 842\,234393,
+fold3,
+footer,
+iban          = nl05pstb0001306238,
+opening       = L.S.,
+phone         = 87\,8748496, % phone numbers without leading 0:
+return,
+signature     = {Wybo Dekker,\\Treasurer NTG},
+street        = Deilsedijk 60,
+website       = www.ntg.nl,
+who           = Wybo Dekker,
+addresscenter = 67,
+zip           = 4158 CH,
+cityzip
+}
+\graphicspath{{./graphics/}}
+\autograph{2}{32mm}{13}{89}{9}{signlong}
+\autograph{3}{25mm}{34}{83}{28}{signshort}
+
+\renewcommand{\logo}{%
+  \begin{textblock}{140}[0,1](35,20)
+    \noindent\raisebox{-1.5ex}{\includegraphics[width=54pt]{ntgcolor}}%
+    { \sffamily
+      \,N{\scriptsize\,E\,D\,E\,R\,L\,A\,N\,D\,S\,T\,A\,L\,I\,G\,E}
+      \ T\kern-.05em\lower.5ex\hbox{E}\kern.06em X
+      \ G{\scriptsize\,E\,B\,R\,U\,I\,K\,E\,R\,S\,G\,R\,O\,E\,P}%
+    }\\[-1.7ex]
+    \rule{\hsize}{.3pt}
+  \end{textblock}
+  \begin{textblock}{35}[0,0](140,22)
+     \noindent\@hft
+     \ifx\undefined\tbfigures\else\tbfigures\fi
+     \ifx\who\empty\else\who\\\fi
+     \ifx\who\empty\else\street\\\fi
+     \prezip\ \zip\ \city\\
+  \end{textblock}
+}
+\endinput

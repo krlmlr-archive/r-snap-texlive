@@ -1,0 +1,2 @@
+set table "gnuplot/bodegraph/84.table"; set format "%.5f"
+set samples 151; set parametric; plot [t=-3:2] 10**((20*log10(abs(4/sqrt(1+(0.5*10**t)**2)))+20*log10(abs(1/sqrt(1+(2*10**t)**2))))/20)*cos(3.1415957/180*(-180/3.1415957*atan(0.5*10**t)+-180/3.1415957*atan(2*10**t))),10**((20*log10(abs(4/sqrt(1+(0.5*10**t)**2)))+20*log10(abs(1/sqrt(1+(2*10**t)**2))))/20)*sin(3.1415957/180*(-180/3.1415957*atan(0.5*10**t)+-180/3.1415957*atan(2*10**t)))

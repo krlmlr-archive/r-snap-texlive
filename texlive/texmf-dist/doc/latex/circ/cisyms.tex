@@ -1,0 +1,260 @@
+%%
+%% This is file `cisyms.tex',
+%% generated with the docstrip utility.
+%%
+%% The original source files were:
+%%
+%% circ.dtx  (with options: `doc')
+%% CIRC is a LaTeX package to typeset circuit and optics diagrams.
+%% Copyright (C) 1997,1998,2003  Sebastian Tannert and Andreas Tille
+%% 
+%%   This program is free software; you can redistribute it and/or modify
+%%   it under the terms of the GNU General Public License as published by
+%%   the Free Software Foundation; either version 2 of the License, or
+%%   (at your option) any later version.
+%% 
+%%   This program is distributed in the hope that it will be useful,
+%%   but WITHOUT ANY WARRANTY; without even the implied warranty of
+%%   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+%%   GNU General Public License for more details.
+%% 
+%%   You should have received a copy of the GNU General Public License
+%%   along with this program; if not, write to the Free Software
+%%   Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
+%% 
+%% For error reports concerning UNCHANGED versions of this file no
+%% more than one year old, see CIRC.DVI after installation.
+%% If installation fails search thru this file for 'bug'.
+\input cidoc
+\freecirc
+\hbox{\circuit0 \CIRCLogo \endcircuit\hskip3cm
+  \verb|\CIRCLogo|}\vskip5mm
+\cwdef        wire   {128\c*fnt}
+ {wire}
+\cwdef        dashed {120\c*fnt}
+ {dashed wire}
+\cwwdef bundle {bundle}
+\cwwdef wwire {double wire}
+\textdef Utext {text with arrow}
+\textdef centertext {centered text}
+\optionline basic
+\cdefo GND ground
+\cdefo gnd ground
+\cdefo . junction \par
+\cdef         R     R     \c*fntw    0
+ {resistor}
+\cdef         Rus   R     \c*fntw   24
+ {US resistor}
+\cdefviii     Rvar  R     \c*fntw    8          . S *
+ {variable resistor}
+\cdefviii     Rusvar R    \c*fntw   32          . S *
+ {variable resistor}
+\cdef         C     C     \c*fntw  128
+ {capacitor}
+\cdef         Cvar  C     \c*fntw  130
+ {variable capacitor}
+\cdefiv       Cel   C     \c*fntw  136          - +
+ {electrolytic capacitor}
+\cdefiv       D     D     \c*fntd    0          K A
+ {diode}
+\cdefiv       ZD    D     \c*fntd    4          K A
+ {Zener diode}
+\cdefiviv     LED   D     \c*fntd    8          K A
+ {light emitting diode}
+\cdefiv       Dcap  D     \c*fntd   16          K A
+ {capacitance variation diode}
+\cdefiv       whatI I     \c*fnt   248          d s
+ {current flow}
+\cdefiv       U     U     \c*fnt    16          + -
+ {voltage source}
+\cdef       varU  U   \c*fnt  44
+ {voltage source, variant}
+\cdef       varI  I   \c*fnt 46
+ {current source variant}
+\cdefiv       Uvar  U     \c*fnt    20          + -
+ {variable voltage source}
+\cdef         I     I     \c*fnt    12
+ {current source}
+\cdef         Ivar  I     \c*fnt    14
+ {variable current source}
+\cdef         V     U     {\def\add*cmds{\clr*acmds
+                           \ac*{\symfont V}}\c*fnt}8
+ {voltmeter}
+\cdef         A     I     {\def\add*cmds{\clr*acmds
+                           \ac*{\symfont A}}\c*fnt}8
+ {amperemeter}
+\cdefiv       L     L     \c*fnt     0          . *
+ {coil}
+\cdef         xtal  Q     \c*fnt     4
+ {quartz crystal}
+\cdef         La    La    \c*fnt     6
+ {incandescent lamp} % electric bulb
+\cdef         GasLa {}   \c*fnt     40
+ {gas lamp}
+\cdef         S     S     \c*fnt    24
+ {switch}
+\cdefviii     SW    S     \c*fnt    32          o s c
+ {changeover switch}
+\cdefivNL     mconnection \c*fnt   232          o c
+ {connection (pointed)}
+\cdefivNL     connection  \c*fnt   240          o c
+ {connection (round empty)}
+\cdefivNL     fconnection \c*fnt   244          o c
+ {connection (round full)}
+\cdefiviv npnPH T \c*fntt 80 E C
+ {phototransistor}
+\cdefviii     npnEC T     \c*fntt    0          E . C
+ {npn-transistor without base}
+\cdefviii     pnpEC T     \c*fntt    8          E . C
+ {pnp-transistor without base}
+\cdefviii     npn   T     \c*fntt   16          E B C
+ {npn-transistor}
+\cdefviii     pnp   T     \c*fntt   24          E B C
+ {pnp-transistor}
+\cdefviii     nfet  T     \c*fntt   32          S G D
+ {n-channel field effect transistor}
+\cdefviii     pfet  T     \c*fntt   40          S G D
+ {p-channel field effect transistor}
+\cdefviii     nvmos T     \c*fntt   48          S G D
+ {}
+\cdefviii     pvmos T     \c*fntt   56          S G D
+ {}
+\cdefviii     namos T     \c*fntt   64          S G D
+ {}
+\cdefviii     pamos T     \c*fntt   72          S G D
+ {}
+\pagebreak
+\optionline gate
+\gateIIO      OV          \c*fntb  255 \ldd*OV  + O -
+ {operational amplifier}
+\gateIIO      ov          \c*fntb  254 \ldd*OV  - O +
+ {operational amplifier}
+
+\NgateIIO     NAND        \c*fntb  132 {$\&$}
+ {NAND-gate}
+\NgateIIO     AND         \c*fntb  131 {$\&$}
+ {AND-gate}
+\NgateIIO     OR          \c*fntb  131 {$\ge$1}
+ {OR-gate}
+\NgateIIO     NOR         \c*fntb  132 {$\ge$1}
+ {NOR-gate}
+\NgateIIO     XOR         \c*fntb  131 {$=$1}
+ {XOR-gate}
+\NgateIIO     XNOR        \c*fntb  131 {$=$\vrule width 0pt height 1.5ex\,}
+ {XNOR-gate}
+\NgateIO      INV         \c*fntb  130 {1\,}
+ {NOT-gate}
+\NgateIO      ST          \c*fntb  128 {{\c*fnts\char7}}
+ {Schmitt trigger}
+\NgateIO      STINV       \c*fntb  130 {{\c*fnts\char7}}
+ {inverted Schmitt trigger}
+\NgateIO      BUF         \c*fntb  130 {{\c*fnts\char25}}
+ {buffer}
+\optionline oldgate
+\NgateIIO     oldAND        \c*fntb  133 {}
+ {old AND-gate}
+\NgateIIO    oldNAND         \c*fntb  134 {}
+ {old NAND-gate}
+\NgateIIO     oldOR          \c*fntb  135 {}
+ {old OR-gate}
+\NgateIIO     oldNOR         \c*fntb  136 {}
+ {old NOR-gate}
+\NgateIIO     oldXOR         \c*fntb  137 {}
+ {old XOR-gate}
+\optionline box
+\bbdef        BBa         \c*fntb  252
+ {black box analog}
+\bbdef        BBd         \c*fntb  253
+ {black box digital}
+\pagebreak
+\bbdefNeT oscillograph \c*fnt  142 {}
+ {oscillograph}
+\bbdefNeT G    \c*fntb 250 \vbox{\hc*{\symfont G}\kern1.5\*spc%
+                                 \hc*{\c*fnts\char16}}
+ {generator}
+\bbdefNeT Gvar \c*fntb 250 \vbox{\hc*{\symfont G}\kern1.5\*spc%
+                                 \hc*{\c*fnts\char17}}
+ {generator, variable}
+\bbdefNeT Impulse \c*fntb 250 \c*fnts\char13
+ {generator, pulses}
+\bbdefNeT Amp  \c*fntb 250 \c*fnts\char24
+ {amplifier}
+\sbdef ACtoDC \c*fntb 251 \hbox{\raise.6\ht*\hbox{\c*fnts\char16}%
+                                \lower.6\dp*\hbox{\symfont$=$}}
+ {AC to DC converter}
+\optionline ic
+\Ccirc RSFF S {RS flip flop}{\Clpin{S}\Clpin{R}\Crpin{Q}\Crpin{NQ}}
+\Ccirc NRSFF S {RS flip flop}{\Clpin{S}\Clpin{R}\Crpin{Q}\Crpin{NQ}}
+\Ccirc DFF C {D flip flop}{\Clpin{C}\Clpin{D}\Crpin{Q}\Crpin{NQ}}
+\Ccirc JKMSFF R {JK master slave flip flop}{\Clpin{S}\Clpin{J}\Clpin{C}\Clpin{K}\Clpin{R}\Crpin{Q}\Crpin{NQ}}
+\Ccirc fff R {timer NE\,555}{\Clpin{IS}\Clpin{IT}\Clpin{R}\Crpin{OK}\Crpin{O}\Crpin{OD}}
+\Ccirc NULL i+ {nullor}{\Clpin{i+}\Clpin{i-}\Crpin{o+}\Crpin{o-}}
+\optionline optics
+\textdef Dtext {text measuring a length}
+\cwdef     oa          {128\CIRCcioptic}
+ {optical axis}
+\cdef      SLens    L  \CIRCcioptic   0
+ {thin lens}
+\cdefiv    HSLens   L  \CIRCcioptic   2 | )
+ {half thin lens}
+\cdef      BLens    L  \CIRCcioptic   6
+ {thick lens}
+\cdefiv    HBLens   L  \CIRCcioptic   8 | )
+ {half thick lens}
+\cdef      VLens    L  \CIRCcioptic  12
+ {concave lens}
+\cdefiv    HVLens   L  \CIRCcioptic  14 | (
+ {half concave lens}
+\cdefviii  Mirror   M  \CIRCcioptic  85 * . +
+ {mirror}
+\cdefviii  BSplit   BS \CIRCcioptic  36 * . +
+ {beam splitter}
+\cdef      Polar    P  \CIRCcioptic  44
+ {polarizer}
+\cdef      Pinhole  {} \CIRCcioptic  46
+ {pinhole}
+\cdefiv    Cam      {} \CIRCcioptic  66  . |
+ {camera}
+\cdef      ScrL     {} \CIRCcioptic  72
+ {screen, look at the left side}
+\cdef      ScrR     {} \CIRCcioptic  74
+ {screen, look at the right side}
+\cdef      ScrBL    {} \CIRCcioptic  76
+ {screen, look behind the left side}
+\cdef      ScrBR    {} \CIRCcioptic  78
+ {screen, look behind the right side}
+\cdef      ScrTL    {} \CIRCcioptic  80
+ {screen, look trough the left side}
+\cdef      ScrTR    {} \CIRCcioptic  82
+ {screen, look trough the right side}
+\cdef      Laser    {} \CIRCcioptic 160
+ {laser}
+\cdef      PM       {} \CIRCcioptic 162
+ {photometer, -multiplyer, etc.}
+\bbdefNeTii  OM          \CIRCcioptic 164  {}
+ {optical modulator}
+\optionline physics
+\cdef spring k \CIRCciphysic 0
+ {spring}
+\cdef lspring k \CIRCciphysic 2
+ {long spring}
+\cdef fdmass m \CIRCciphysic 4
+ {mass with two forces; full drawn}
+\cdef dmass m \CIRCciphysic 6
+ {mass with two forces; outlined}
+\cdefiv fmass m \CIRCciphysic 8 . *
+ {mass; full drawn}
+\cdefiv mass m \CIRCciphysic 12 . *
+ {mass; outlined}
+\cdefivNL wall \CIRCciphysic 16 . |
+ {wall}
+\cdefivNL tile \CIRCciphysic 20 . *
+ {tile}
+\cdef spinu S \CIRCciphysic 24
+ {spin up}
+\cdef spind S \CIRCciphysic 26
+ {spin down}
+\protectcirc
+\endinput
+%%
+%% End of file `cisyms.tex'.

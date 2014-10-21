@@ -1,0 +1,176 @@
+README for regstats package, 2012/01/07, v1.0h
+
+
+TABLE OF CONTENTS
+=================
+
+1 Introduction
+2 Download
+3 Installation
+4 Additional Packages
+5 Package Compatibility
+6 Author/Maintainer
+7 Bug Reports
+8 Known Problems
+
+
+1 INTRODUCTION
+==============
+
+This LaTeX package allows to count the number of used registers (counter,
+dimen, skip, muskip, box, token, input, output, math families, languages,
+insertions). Therefore the according \count is read. While \count10 should
+be the number of the counters, \count11 the one of the dimens and so on,
+it is possible to use option proof, in which case a new one of each register
+is used and looked at \the\allocationnumber, and this is compared to the
+number determined by reading the \count. The result for each register is
+compared to the maximum available number of the respective register
+(comparison independent of usage of option proof).
+With option "left" additionally the number of remaining registers of each
+type is given, and with option "timer" the time needed for the compilation
+run (when either pdf(la)tex or lua(la)tex with
+\directlua{starttime = os.clock()}
+before \documentclass is used).
+This material is subject to the LaTeX Project Public License
+(LPPL). See http://www.ctan.org/tex-archive/help/Catalogue/
+licenses.lppl.html for the details of that license.
+
+
+2 DOWNLOAD
+==========
+
+`regstats' is available on CTAN:
+  CTAN:macros/latex/contrib/regstats/
+
+Running
+tex regstats.dtx
+generates the files
+regstats.ins, regstats.drv, regstats.sty,
+and regstats-example.tex.
+
+Also a ZIP file is provided that contains these files,
+the manual (regstats.pdf), the compiled example
+(regstats-example.pdf), its log-file (regstats-example.log),
+and this README, already sorted in a TDS tree:
+  CTAN:install/macros/latex/contrib/regstats.tds.zip
+
+`CTAN:' means one of the `Comprehensive TeX Archive Network'
+nodes or one of its mirrors. This is explained in
+  http://www.tex.ac.uk/cgi-bin/texfaq2html?label=archives
+
+The CTAN stuff will be mirrored automatically from the
+ftp server, so
+  ftp://ftp.tug.org/pub/tex/regstats/
+corresponds to
+  CTAN:macros/latex/contrib/regstats/
+
+
+3 INSTALLATION
+==============
+
+Installation with ZIP file in TDS format
+----------------------------------------
+The ZIP file `regstats.tds.zip' contains the files
+sorted in a TDS tree. Thus you can directly unpack the
+ZIP file inside a TDS tree.
+(See CTAN:tds.zip for an explanation of TDS.)
+Example:
+  cd /...somewhere.../texmf
+  unzip /...downloadpath.../regstats.tds.zip
+Do not forget to refresh the file name database of this
+TDS tree.
+Example:
+  texhash /...somewhere.../texmf
+
+Manual installation
+-------------------
+a) Download the regstats files from CTAN.
+   If necessary, unpack them.
+b) Generate the package and driver files:
+     tex regstats.dtx
+c) Install the file `*.sty' in your TDS tree:
+     cp *.sty TDS:tex/latex/regstats/
+   Replace `TDS:' by the prefix of your TDS tree
+   (texmf directory).
+d) Create the documentation (if necessary), e.g.
+     pdflatex regstats.dtx
+     makeindex -s gind.ist regstats.idx
+     pdflatex regstats.dtx
+     makeindex -s gind.ist regstats.idx
+     pdflatex regstats.dtx
+e) Update the databases if necessary, e.g. for teTeX:
+     mktexlsr .../texmf
+f) Create the regstats-example.pdf (if necessary), e.g.
+     pdflatex regstats-example.tex
+     pdflatex regstats-example.tex
+   or remove the "%% " before "\directlua{starttime = os.clock()}"
+   in the regstats-example.tex and use
+     lualatex regstats-example.tex
+     lualatex regstats-example.tex
+     lualatex regstats-example.tex
+g) Copy the documentation files to
+   "TDS:doc/latex/regstats/":
+   README, regstats.pdf, regstats-example.tex,
+   regstats-example.log, regstats-example.pdf.
+
+
+4 ADDITIONAL PACKAGES
+=====================
+
+regstats loads other packages:
+* kvoptions, http://ctan.org/pkg/kvoptions
+* atveryend, http://ctan.org/pkg/atveryend
+* ltxcmds,   http://ctan.org/pkg/ltxcmds
+with option timer additionally:
+* intcalc,   http://ctan.org/pkg/intcalc
+* ifluatex,  http://ctan.org/pkg/ifluatex
+* ifpdf,     http://ctan.org/pkg/ifpdf
+which again load other packages
+(see the result of the \listfiles command in the log-file
+ of the example).
+
+
+5 PACKAGE COMPATIBILITY
+=======================
+
+regstats should be loaded very last (but can be loaded earlier).
+The timer option does not work with e.g. XeTeX, only with
+(pdf)(la)tex or (lua)(la)tex. (Otherwise just do not use the option.)
+
+6 AUTHOR/MAINTAINER
+=====================
+
+* H.-Martin Münch
+
+
+7 BUG REPORTS
+==============
+
+A bug report should contain:
+* Comprehensive problem description. This includes error or
+  warning messages.
+* \errorcontextlines=\maxdimen can be added in the
+  TeX code to get more information in TeX error messages.
+* Minimal test file that shows the problem, but does not
+  contain any unnecessary packages and code.
+* Used drivers/programs.
+* Version information about used packages and programs.
+* If you are using LaTeX, then add "\listfiles". Then
+  a list of version information is printed at the end
+  of the LaTeX run.
+* Please no other files than the minimal test file.
+  The other files .log, .dvi, .ps, .pdf are seldom
+  necessary, so send them only on request.
+* Please .zip or .tar.gz your file(s) before sending them!
+
+Bug address
+-----------
+Bug reports can be send to the maintainer:
+  H.-Martin Münch
+  <Martin [dot] Muench [at] Uni-Bonn [dot] de>
+
+
+8 KNOWN PROBLEMS
+=================
+
+* as yet: none.

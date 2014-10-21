@@ -1,0 +1,252 @@
+\documentclass[a4paper]{article}
+
+\title{``Old Latin''\\
+--- Computer Modern like font with ``long s'' ---}
+\author{Taro \textsc{Terashita}
+\thanks{Ehime University, Japan.
+Email: \texttt{tarotera @ agr.ehime-u.ac.jp}
+}
+}
+\date{Version 1.00 (18. Apr. 2010)}
+\begin{document}
+\maketitle
+\tableofcontents
+
+\section{Introduction}
+
+As hobby and research,
+I copy from old German text on real paper into digital \LaTeX\ file.
+There are already fine fonts for the purpose:
+\texttt{yfrak}, \texttt{ygoth} and \texttt{yswab}.
+These fonts have not only fine graphic but also academic correctness.
+You learn how to typeset in ancient days if you master them.
+There is a package \texttt{oldgerm} for such old German fonts.
+I used be with it when the idea of ``Old Latin Font'' occurred,
+while I use the package \texttt{yfonts} with \texttt{german} today.
+
+Even in such happy time with these old German fonts,
+I find also some words with Latin font in original old book.
+In such case, normal Latin font is available, of course.
+Computer Modern is default of \TeX\ and suitable enough,
+but there is a problem with modern Latin fonts, i.~e.\ ``long s''
+(in German, ``langes s''):
+It looks like ``f'' but lacks right half of side bar.
+
+There is also Latin font with ``long s''
+in \LaTeX\ Font Catalogue, like ``Day Roman S''.
+But I love Computer Modern
+because of its shape and its philosophy.
+That is more than a design, that is a system.
+And it looked not so difficult to modify long s from ``f'';
+just bite off a little bit short side bar, wouldn't it?
+Additionally,
+I found some ligatures with ``t'' in old text,
+for example ``(long)st'' in ``Forst'' or ``ct'' in ``Inspector'',
+and tried to design them, too.
+
+Actually, it was not as easy as I've thought.
+The problems occur not direct by designing new fonts but
+mainly by setting new rules of ligature.
+However, I did somehow.
+
+You see not only practical ``long s'' in Roman as result,
+but also some fun fonts
+in Bold, Dunhil, Slanted, Sans Serif, Typewriter Text,
+which are generated through one common body, \texttt{roman.mf}.
+(You see then why the font in Italic
+was not redesigned.
+The font is generated through \texttt{textit.mf}.)
+
+I wish you enjoying this variation named ``Old Latin''.
+Your corrections and comments are always welcome.
+Especially, I let all combinations of ligatures allowed
+\uppercase{without} any knowledge in Germanistik or in history of Typesetting.
+So, some ligatures may be not allowed or not possible in real text.
+I am happy to hear about such information.
+
+\section{Lists of ``Old Latin''}
+
+\subsection{Parameter files}
+
+\texttt{%
+olb10.mf
+olbx5.mf olbx6.mf olbx7.mf olbx8.mf olbx9.mf olbx10.mf olbx12.mf
+olbxsl10.mf
+oldunh10.mf
+olff10.mf
+olfib8.mf
+olr5.mf olr6.mf olr7.mf olr8.mf olr9.mf olr10.mf olr10s.mf olr12.mf olr17.mf
+olsl8.mf olsl9.mf olsl10.mf olsl12.mf
+olsltt10.mf
+olss8.mf olss9.mf olss10.mf olss12.mf olss17.mf
+olssbx10.mf
+olssdc10.mf
+olssi8.mf olssi9.mf olssi10.mf olssi12.mf olssi17.mf
+olssq8.mf olssqi8.mf
+oltt8.mf oltt9.mf oltt10.mf oltt12.mf
+olvtt10.mf
+}
+
+\subsection{Common body files}
+
+\texttt{%
+oroman.mf
+oromanl.mf
+oromlig.mf
+oromligs.mf
+}
+
+\subsection{\LaTeX\ files}
+Your \LaTeX\ and dvi-viewer generates \texttt{tfm} and \texttt{pk} files
+with these files:\\
+\texttt{%
+test\_alphabet.tex
+test\_ol\_all.tex
+test\_ol\_bf.tex
+test\_ol\_rm.tex
+test\_ol\_sl.tex
+test\_ol\_ss.tex
+test\_ol\_tt.tex
+}
+
+And also sample files in same names with suffix \texttt{.pdf}
+
+\subsection{Required files of Computer Modern}
+
+These are not inclusive in this contribution.
+There must be somewhere in your \TeX\ system:\\
+\texttt{%
+romanu.mf
+greeku.mf
+romand.mf
+romanp.mf
+romspl.mf
+romspu.mf
+punct.mf
+accent.mf
+comlig.mf
+romsub.mf
+}
+
+\section{My Environment}
+
+You have all files above and it depends on you how cook them.
+As a example, I will show you how I did.
+I worked with following softwares:
+\begin{itemize}
+\item Microsoft Windows XP, Version 5.1.2600
+\item pdfTeX, Version 3.1415926-1.40.10 (Web2C 2009)
+\item dviout for Windows, Version 3.18.1
+\item dvipdfmx, Version 20090919
+\end{itemize}
+I hope you understand or infer what the following explanation means,
+even if you use Mac OS or UNIX.
+
+\section{How to install ``Old Latin''}
+
+\begin{itemize}
+\item
+Check if all above listed files
+(\texttt{ol*.mf, orom*.mf} and \texttt{test\_*.tex})
+are in your current work directory.
+\item
+Tip the command \texttt{latex test\_ol\_all},
+then \texttt{latex} stops because there is no \texttt{tfm} files.
+Just tip \texttt{r} for run further,
+then \texttt{latex} generates \texttt{tfm} files automatically.
+Try \texttt{latex} again after that,
+then it generates \texttt{dvi} file smoothly
+with fresh generated \texttt{tfm} files.
+
+\item
+Now you have two ways to display:
+ \begin{itemize}
+ \item
+ \texttt{dviout} for windows
+ $\rightarrow$ open file
+ $\rightarrow$ sellect \texttt{test\_ol\_all.dvi}.
+ At first, \texttt{dviout} will stop because there is no \texttt{pk} files.
+ Just click the icon ``Retry'' (it can be several times),
+ then \texttt{dviout} generates \texttt{pk} files automatically.
+ After that you have to close \texttt{dviout} once and
+ copy the fresh generated \texttt{pk} files
+ from current work directory
+ into the directory which your \texttt{dviout} can refer.
+ Then let \texttt{dviout} with \texttt{test\_ol\_all} again and
+ it shows you the result.
+ \item
+ Tip command \texttt{dvipdfmx test\_ol\_all}
+ and it generates \texttt{pk} files automatically.
+ See the result \texttt{pdf} file with your viewer,
+ for example Adobe Reader.
+ \end{itemize}
+\item
+If everything goes well,
+try other \texttt{test\_ol\_*.tex} files
+to generate all rest \texttt{tfm} and \texttt{pk} files.
+Then move \texttt{mf}, \texttt{tfm} and \texttt{pk} files
+into each correct directories.
+For example, I created new directories
+(A hint to decide the place:
+Near by the directory named \texttt{gothic}):\\
+\texttt{/texmf/fonts/source/public/oldlatin} for \texttt{mf} files,\\
+\texttt{/texmf/fonts/tfm/oldlatin} for \texttt{tfm} files and\\
+\texttt{/texmf/fonts/pk/cx/public/oldlatin} for \texttt{pk} files.
+
+\end{itemize}
+
+\section{How to use ``Old Latin''}
+
+See the inside of \texttt{test\_ol\_*.tex} files.
+That is shortest way to use the fonts.
+You declare:\\
+\texttt{{$\backslash$}font{$\backslash$}olr=olr10 scaled 1000}\\
+and write:\\
+\texttt{{$\backslash$}olr Forstwissenschaft}\\
+then the word ``Forstwissenschaft'' will be written with ``Old Latin'' font.
+
+You cannot change the size or shape with the commands
+like \texttt{{$\backslash$}large} or \texttt{{$\backslash$}textsl}.
+You have to declare every fonts for each size and shape.
+The rough comparison is:
+5 point is for \texttt{$\backslash$tiny},
+7 point for \texttt{$\backslash$scriptsize},
+8 point for \texttt{$\backslash$footnotesize},
+9 point for \texttt{$\backslash$small},
+10 point for \texttt{$\backslash$normalsize},
+12 point for \texttt{$\backslash$large} and
+17 point for \texttt{$\backslash$LARGE}.
+And \texttt{olr} is for Roman,
+\texttt{olbf} for Boldface,
+\texttt{olsl} for Slanted (differs from ``italic''),
+\texttt{olss} for Sans Serif,
+\texttt{oltt} for Typewriting Text.
+
+If you know NFSS2 well, then you can solve better
+(regrettably, I couldn't).
+See the \texttt{fntguide.pdf} (or \texttt{.tex}) in your \TeX\ system,
+or the book ``The \LaTeX\ Companion''.
+
+For ``Sperrsatz'' (this is a German word),
+which has larger space between letters and
+was used in order to emphasize,
+you can make new font
+with changing parameter \texttt{letter\_fit\#}
+in your favorite \texttt{ol*.mf}.
+I add \texttt{olr10s.mf} as an example.
+The result shows you an easygoing atmosphere
+especially by ligatured letters,
+but I do not recommend you this way.
+Use package \texttt{soul.sty}, that is much better.
+
+If you want to call a letter direct with code number,
+then get the code number at first.
+Each program for letter in \texttt{mf} file
+begins with ``\texttt{cmchar}'' and short explanation.
+In the next line you will find ``\texttt{beginchar(oct"213"\ldots}''
+for example.
+Here the number ``213'' is what you want.
+Write \verb|\symbol{'213}| in \texttt{tex} file,
+and \LaTeX\ generates the letter.
+
+\end{document}

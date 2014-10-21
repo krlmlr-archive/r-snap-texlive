@@ -1,0 +1,166 @@
+%%
+%% This is file `dtklogos.sty',
+%% 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% $Id: dtklogos.sty 124 2014-09-24 20:01:38Z herbert $
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Purpose:
+%%      LaTeX Class and Styles for ``Die TeXnische Komoedie''.
+%%
+%% Copyright (C) 1995-1996 Gerd Neugebauer
+%% Copyright (C) 1997-2011 DANTE, Deutschsprachige
+%%                                Anwendervereinigung TeX e.V.
+%%           (C) 2014-     Herbert Voss
+%%
+%% This file may be distributed and/or modified under the
+%% conditions of the LaTeX Project Public License, either version 1.3c
+%% of this license or (at your option) any later version.
+%% The latest version of this license is in
+%%    http://www.latex-project.org/lppl.txt
+%% and version 1.3c or later is part of all distributions of LaTeX
+%% version 2005/12/01 or later.
+%%
+%%  This package is still under development and may be replaced with
+%%  a new version which provides enhanced functionality.
+%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\def\fileversion{2.19}
+\def\filedate{2014/09/24}
+\let\docversion=\fileversion
+\let\docdate=\filedate
+\ProvidesPackage{dtklogos}[\filedate\space\fileversion\space  (hv)]
+%
+\RequirePackage{graphicx}
+\RequirePackage{mflogo,hologo,dantelogo}
+\RequirePackage{ifpdf}
+\providecommand\AmS{{\normalfont\(\cal A\)\kern-.1667em\lower.5ex\hbox{\(\cal M\)}\kern-.125em{\(\cal S\)}}}
+\providecommand\AMS{\AmS}
+\providecommand\AmSLaTeX{\AmS-\LaTeX}
+\providecommand\AMSLaTeX{\AmSLaTeX}
+\providecommand\AmSTeX{\normalfont%
+  $\cal A$\kern-.1667em\lower.5ex\hbox{$\cal M$}%
+  \kern-.125em$\cal S$-\TeX}
+\providecommand\AMSTEX{\AmSTeX}
+\providecommand\AMSTeX{\AmSTeX}
+\DeclareRobustCommand{\BibTeX}{B\kern-.05em%
+    \hbox{$\m@th$% %% force math size calculations
+          \csname S@\f@size\endcsname
+          \fontsize\sf@size\z@
+          \math@fontsfalse\selectfont
+          I\kern-.025emB}%
+    \kern-.08em%
+    \-\TeX}
+\providecommand\BIBTeX{\BibTeX}
+\providecommand\BibLaTeX{Bib\LaTeX}
+\providecommand\BIBTEX{\BibTeX}
+\providecommand\LAMSTeX{%
+  L\raise.42ex\hbox{\kern-.3em\the\scriptfont2 A}%
+  \kern-.2em\lower.376ex\hbox{\the\textfont2 M}%
+  \kern-.125em {\the\textfont2 S}-\TeX}
+\providecommand\LamSTeX{\LAMSTeX}
+\providecommand\LAmSTeX{\LAMSTeX}
+\providecommand\La{}
+\renewcommand\La{L\kern-.28em\raise.3ex\hbox{\textsc{a}}}
+\renewcommand\LaTeX{\La\kern-.15em\TeX}
+\let\LATEX\LaTeX
+\DeclareRobustCommand{\LaTeXTeX}{(\kern-.15emL\kern-.36em%
+    {\sbox\z@ T%
+      \vbox to\ht0{\hbox{$\m@th$%
+          \csname S@\f@size\endcsname
+          \fontsize\sf@size\z@
+          \math@fontsfalse\selectfont
+          A}%
+        \vss}%
+      }\kern-.2em)%
+    \kern-.15em%
+    \TeX}
+\providecommand\XeTeX{X\kern-.125em\lower.5ex\hbox{E}\kern-.1667em\TeX}
+\providecommand\XeLaTeX{X\kern-.125em\lower.5ex\hbox{E}\kern-.1667em\LaTeX}
+\providecommand\TeXLive{\TeX{}Live}
+%\DeclareTextFontCommand{\textlogo}{\logofamily}
+%\providecommand\MF{\mbox{\textlogo{META}}\-\mbox{\textlogo{FONT}}\@}
+\providecommand\MFun{\mbox{\textlogo{META}\textsc{Fun}}\@}
+%\providecommand\MP{\mbox{\textlogo{META}}\-\mbox{\textlogo{POST}}\@}
+\providecommand\METAFONT{\MF}
+\providecommand\METAFUN{\MFun}
+\providecommand\METAPOST{\MP}
+\def\LuaTeX{Lua\kern-0.15em\TeX}
+\let\luatex\LuaTeX
+\providecommand\LuaLaTeX{Lua\LaTeX}
+
+\providecommand\SLITEX{%
+    S\kern-.065em L\kern-.18em\raise.32ex\hbox{i}%
+    \kern-.03em\TeX}
+\providecommand\SLiTeX{\SLITEX}
+\providecommand\SliTeX{\SLITEX}
+\providecommand\SLITeX{\SLITEX}
+\def\NTS{\mbox{\mathsurround=0pt
+    \(\mathcal{N\mkern -4mu\lower .5ex\hbox{$\cal T$}\mkern -2mu S}\)}}
+\providecommand\MakeIndex{\textit{Make\-Index}}
+\providecommand\emTeX{{em\TeX}}
+\providecommand\PubliCTeX{PubliC\TeX}
+\providecommand\TeXXeT{%
+    \TeX--X\kern-.125em\lower.5ex\hbox{E}\kern-.1667emT}
+\providecommand\TeXeT{%
+    \TeX-X\kern-.125em\lower.5ex\hbox{E}\kern-.1667emT}
+\providecommand\WinEdt{\mbox{\textsf{WinEdt}}}%
+\providecommand\WinEdtKK{\mbox{\textsf{WinEdt2k}}}%
+\providecommand{\LyX}{L\kern-.1667em\lower.25em\hbox{Y}\kern-.125emX\@}
+\providecommand*{\exTeX}{%
+  \textrm{% das Logo grunds^^e4tzlich serifenbehaftet
+    \ensuremath{\textstyle\varepsilon_{\kern-0.15em\mathcal{X}}}%
+    \kern-.15em\TeX
+  }%
+}
+\providecommand\eV{e.V\kern-0.18em\@ifnextchar.{}{.}\kern0.18em}
+\providecommand\dante{\mbox{DANTE~\eV}}
+\providecommand\Dante{DANTE,
+  Deutschsprachige Anwendervereinigung \TeX~\eV}
+\providecommand\DTK{Die \TeX\-ni\-sche Ko\-m{\"o}\-die}
+\providecommand\LaTeXe{%
+  \LaTeX{}\kern.05em2$_{\textstyle\varepsilon}$}
+\providecommand\PS{Post\-Script}
+\providecommand\PiC{P\kern-.12em\lower.5ex\hbox{I}\kern-.075emC}
+\providecommand\PiCTeX{\PiC\kern-.11em\TeX}
+\providecommand\TUG{\TeX{} Users Group}
+\providecommand\TUGboat{\textsl{TUGboat}}
+\let\TUB\TUGboat
+\providecommand\TTN{\textsl{\TeX{} and TUG NEWS}}
+\providecommand\NFSS{\textsf{NFSS}}
+\providecommand\NTS{\leavevmode
+  \hbox{$\cal N\kern-0.35em\lower0.5ex\hbox{$\cal T$}\kern-0.2emS$}}
+\providecommand\eTeX{{\leavevmode\hbox{$\varepsilon$}-\TeX}}%$
+\providecommand*{\ExTeX}{% RN 2005-01-15
+  \textrm{% das Logo grunds^^e4tzlich serifenbehaftet
+    \ensuremath{\textstyle\varepsilon_{\kern-0.15em\mathcal{X}}}%
+    \kern-.15em\TeX
+  }%
+}
+%
+\let\DANTE\dantelogo
+%
+\providecommand*\ConTeXt{Con\kern-1pt\TeX{}t}
+\providecommand*\conTeXt{con\TeX t}
+\providecommand*\MiKTeX{MiK\TeX}
+\providecommand*\MikTeX\MiKTeX
+%
+\ifpdf
+  \providecommand\ThanhVN{H\`an Th\^e\protect\llap{\raise 0.5ex\hbox{\'{}}}}
+  \providecommand\Thanh{H\`an Th\^e\protect\llap{\raise 0.5ex\hbox{\'{\relax}}} Th\`anh}
+\else
+  \def\ThanhVN{H\`an Th\textcircumacute{e}\protect\llap{\raise 0.5ex\hbox{\'{}}}}
+  \def\Thanh{H\`an~Th\textcircumacute{e}\llap{\raise 0.5ex\hbox{\'{}}}~Th\`anh}
+\fi
+\def\ThanhNN{Th\`anh}
+%
+\providecommand\tikZ{\textsf{Ti\textit{k}Z}}
+\let\tikz\tikZ
+\providecommand\MacTeX{Mac\TeX}
+\let\TikZ\tikZ
+\def\pgf/tikz{\textsf{pgf/Ti\textit{k}Z}}
+\def\ALEPH{\ensuremath{\aleph}}
+%
+%
+\endinput
+%%
+%% End of file `dtklogos.sty'.

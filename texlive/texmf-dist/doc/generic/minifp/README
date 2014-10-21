@@ -1,0 +1,110 @@
+The MiniFP package
+
+Purpose:
+
+  minifp.sty defines macros for calculating with decimal real numbers.
+  It provides 8 decimal digits before and after the decimal point.
+  Minifp also provides a stack-based "assembly" language for writing
+  "programs".
+
+  In its basic form, minifp makes only simple operations available. To
+  get additional operations (sine, cosine, angle, square root, log and
+  exp), the file mfpextra.tex is provided.
+
+  Minifp should work in both LaTeX and plainTeX.
+
+  This is version 0.96. It should work reasonably well, barring any
+  bugs, but I expect to spend some time fine-tuning it before calling it
+  version 1.0.
+
+License:
+
+  All files of the minifp distribution (listed below) may be distributed
+  and/or modified under the conditions of the LaTeX Project Public
+  License, either version 1.3c of this license or (at your option) any
+  later version. The latest version of this license is in
+        http://www.latex-project.org/lppl.txt
+  and version 1.3c or later is part of all distributions of LaTeX
+  version 2008/12/01 or later.
+
+  While every effort has been made to make minifp useful, it comes with
+  no warranty, expressed or implied.
+
+Usage:
+
+  You can use minifp as a LaTeX package with
+        \usepackage{minifp}
+  or use it in plain TeX with
+        \input minifp.sty
+
+  You can access the extra commands from mfpextra.tex by issuing the
+  command
+        \MFPloadextra
+  after minifp.sty has been loaded.
+
+Installation:
+
+  To install minifp, obtain minifp.tds.zip from CTAN and unzip it in any
+  TDS-compliant texmf tree.
+
+  Or, in the presence of minifp.dtx, run tex or latex on minifp.ins to
+  unpack the files minifp.sty and mfpextra.tex. Copy those files to some
+  place where both tex and latex can find them. For example, in a TDS
+  compliant system, the directory /tex/generic/minifp/ under one of your
+  TEXMF root directories.
+
+  The documentation is provided in minifp.pdf. Put minifp.pdf (and this
+  README and the files test*.tex, if you wish) wherever documentation of
+  packages is kept. For example, in the directory /doc/generic/minifp/
+  under one of your TEXMF root directories.
+
+  If you wish to regenerate the documentation, run latex (or pdflatex)
+  on minifp.dtx three times and then
+        makeindex -s gind.ist -o minifp.ind minifp.idx
+  and then (pdf)latex again on minifp.dtx.
+
+Manifest:
+
+  These, together with the files minifp.sty and mfpextra.tex (generated
+  by tex-ing minifp.ins), constitute the minifp distribution to which the
+  license applies:
+
+    minifp.dtx      Contains minifp.sty and mfpextra.tex
+    minifp.ins      The unpacking script: run tex or latex on it.
+                    It reads in minifp.dtx and produces the files
+                    minifp.sty and mfpextra.tex
+    minifp.pdf      Documentation
+    test1.tex       A suite of tests, including error messages (plain TeX)
+    test2.tex       More tests, including long tests of speed (plain TeX)
+    README          This file.
+
+  This distribution, the latest updates, and possibly some past
+  versions, should also be available at my web site:
+        <http://comp.uark.edu/~luecking/tex/tex.html>.
+
+History:
+  Version 0.96:  Added random number generator, based on random.tex
+  Version 0.95:  More testing. Changed square root of negative from an
+                 error to a warning. Documentation updated. Now mfpextra
+                 checks for minifp.sty and inputs it if needed.
+  Version 0.94:  Improved accuracy of log, sin and sqrt.
+  Version 0.93:  Corrected mistyped data for logarithm.
+                 Fixed bugs in degree/radian conversions.
+  Version 0.92:  Corrected sign of floor and ceiling. Corrected
+                 occasional minus sign in front of 0.0 for sin or cos.
+  Version 0.9 :  angle: near maximum accuracy, at some cost to speed.
+  Version 0.8 :  exp: now more accurate for many cases.
+  Version 0.7 :  sqrt: now exact when possible and much more accurate.
+  Version 0.6 :  Added angle to mfpextra. Changed package name to minifp.
+  Version 0.5 :  Added sqrt, deg, rad to mfpextra.
+  Version 0.4 :  Added log, exp, pow to mfpextra.
+  Version 0.3 :  Added mfpextra.tex, defines sin and cos.
+  Version 0.2 :  Added macros for printing, formatting the results.
+  Version 0.1 :  First working set of macros. Package named mfp.sty.
+
+--
+Dan Luecking  <luecking (at) uark (dot) edu>
+Department of Mathematical Sciences
+1 University of Arkansas
+Fayetteville, Arkansas 72701-1201
+U.S.A.

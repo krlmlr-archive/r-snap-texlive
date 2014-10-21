@@ -1,0 +1,111 @@
+2013-02-07 0.6.0
+
+	Command-line component rewritten in TeXLua
+
+	Texlua's epdf library replaces Ghostscript's pdf2dsc.ps.
+
+	Grayscaling done by Ghostscript; both old grayscaling options now
+	do the same thing.
+
+	When going from eps to pdf, a PostScript wrapper is no longer
+	used. Instead, Ghostscript now takes care of translating the eps
+	boundingbox to a pdf MediaBox. This implies that the hires
+	boundingbox will be used if available.
+
+	Pdf crop adapted from Heiko Oberdiek's pdfcrop perl script
+
+	ATM custom options for GhostScript and pdftops are no-ops.
+
+	AppleScript wrapper dropped since I no longer own a Mac.
+
+2011-02-27 0.5.3
+
+	Windows: AppData now read from registry, because this value may not
+	always be available as environment variable
+
+	AppleScript wrapper now uses `do shell script' with some
+	heuristic path additions, instead of `tell application Terminal
+	do script'
+
+2010-12-25 0.5.2
+
+	Eliminate need for wrappers under Unix, as suggested by
+	Peter Breitenlohner; update manual
+
+2010-05-09 0.5.1
+
+	Bug fix: test for i_hrbb >= 0 instead of true
+
+2010-02-28 0.5
+
+	GUI module replaced with separate Tcl/Tk frontend. To this end,
+	epspdf.rb now has options for reading/writing settings over
+	stdin/stdout.
+
+	Epspdf.rb now also aborts on Unix if Ghostscript is missing.
+
+	Both logs and config moved to subdirectory: %APPDATA%/epspdf
+	under Windows, $HOME/.epspdf otherwise. On-demand log window.
+
+	Logo/icon added
+
+	Documentation updates
+
+	Manual in info format is now part of the distribution
+
+2009-09-11 0.4.3
+
+	Patch for Ruby 1.9 compatibility (Ruben Stein). Patch for
+	compatibility with newer Ghostscript under Windows. Fix for option
+	gRAY with ps => pdf. `epspdf --version' now prints
+	version. Documentation updates.
+
+2009-09-11 0.4.2
+
+	More liberal documentation license. Slight documentation updates.
+
+2009-03-12 0.4.1
+
+	Documentation: added section on bitmaps. Windows setup program:
+	added missing Tcl/Tk licenses. Mac: double-clickable epspdftk.app
+	with included epspdftk replaces double-clickable epspdf.app
+	add-on.
+
+2009-03-02 0.4
+
+	Handles hires boundingbox. Can use MikTeX Ghostscript. Updated,
+	streamlined Ruby subset. Simpler testing of prerequisites.  In
+	particular, no pdftops version testing. More tolerant boundingbox
+	parsing. Windows: View with... button. OS X: use open command for
+	viewing. Converting... text in main window.
+
+2008-07-28 0.3
+
+	TeX Live integration. Packaging for CTAN. Bug fixes: more tolerant
+	pdftops version testing; no inappropriate warning about missing
+	viewers under Mac OS X.
+
+2006-11-20 0.2.12
+
+	Bug fixes: log rotation now works. Solved quoting problems under
+	w2k by using short names. Minor updates to documentation.
+
+2006-11-03 0.2.11
+
+	Minor fixes. Changes in documentation.
+
+2006-10-29 0.2.10
+
+	Computed boundingbox padded by 1pt, to prevent some
+	cropping. Amount bb_spread is manually configurable. The File Open
+	dialog remembers the last directory visited (between function
+	calls, not between program sessions). Changes in documentation.
+
+2006-08-14 0.2.01
+
+	epspdf.app now packaged separately. Bug fix to Applescript applet
+	epspdf.app for starting up epspdftk under Mac OS X.
+
+2006-07-30 0.2
+
+	Original release

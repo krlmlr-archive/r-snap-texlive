@@ -1,0 +1,699 @@
+% \iffalse meta-comment
+%<*internal>
+\begingroup
+\input docstrip.tex
+\keepsilent
+\askforoverwritefalse
+
+\preamble
+  ______________________________________________________
+  The LXfonts package 
+  Copyright (C) 2008-2013 Claudio Beccari 
+  All rights reserved
+  
+  Distributable under the LaTeX Project Public License,
+  version 1.3c or higher (your choice). The latest version of
+  this license is at: http://www.latex-project.org/lppl.txt
+\endpreamble
+\postamble
+Read the README test file for further details about installation
+\endpostamble
+
+
+\generate{\file{lxfonts.sty}{\from{lxfonts.dtx}{lxsty}}}
+\generate{\file{ot1llcmss.fd}{\from{lxfonts.dtx}{lxot1ssfd}}}
+\generate{\file{ot1llcmtt.fd}{\from{lxfonts.dtx}{lxot1ttfd}}}
+\generate{\file{t1llcmss.fd}{\from{lxfonts.dtx}{lxt1ssfd}}}
+\generate{\file{t1llcmtt.fd}{\from{lxfonts.dtx}{lxt1ttfd}}}
+\generate{\file{ts1llcmss.fd}{\from{lxfonts.dtx}{lxts1ssfd}}}
+\generate{\file{omlllcmm.fd}{\from{lxfonts.dtx}{lxomlmmfd}}}
+\generate{\file{omsllcmsy.fd}{\from{lxfonts.dtx}{lxomssyfd}}}
+\generate{\file{omxllcmex.fd}{\from{lxfonts.dtx}{lxomxexfd}}}
+\generate{\file{ulmsa.fd}{\from{lxfonts.dtx}{lxumsafd}}}
+\generate{\file{ulmsb.fd}{\from{lxfonts.dtx}{lxumsbfd}}}
+\generate{\file{ulllasy.fd}{\from{lxfonts.dtx}{lxultxfd}}}
+\generate{\file{lxfonts.map}{\from{lxfonts.dtx}{lxmap}}}
+\generate{\file{lgrllcmss.fd}{\from{lxfonts.dtx}{lxlgrfd}}}
+\generate{\file{lgrllcmtt.fd}{\from{lxfonts.dtx}{lxlgrttfd}}}
+
+\def\tmpa{plain}
+\ifx\tmpa\fmtname\endgroup\expandafter\bye\fi
+\endgroup
+%</internal>
+% \fi
+%
+% \iffalse
+%<*driver>
+\documentclass{ltxdoc}
+\ProvidesFile{lxfonts.dtx}[2013/12/07 v.2.0b Documented TeX file for
+the LXfonts bundle]
+\GetFileInfo{lxfonts.dtx}
+\title{The LXfonts bundle}
+\date{\fileversion\space--- \filedate}
+ \author{Claudio Beccari\thanks{\texttt{claudio dot beccari at gmail dot com}}}
+ 
+\usepackage{mflogo}
+\usepackage{textcomp}
+\usepackage[LGR,OT1]{fontenc}
+
+\def\prog#1{\textsf{#1}}
+\def\pack#1{\textsf{\slshape#1}}
+\DeclareRobustCommand\AMS{\ensuremath{\mathcal{A\!_{\textstyle M}\mkern-2mu S}}}
+
+\begin{document}\errorcontextlines=9
+\maketitle
+ \setlength\hfuzz{20pt}
+ \DocInput{lxfonts.dtx}
+\end{document}
+%</driver>
+% \fi
+%
+% \CheckSum{0}
+%
+% This self extracting documented file |lxfonts.dtx|, besides the |lxfonts.sty|
+% file,  produces the font description files necessary to use the LX fonts
+% in any document, specifically presentations, but not only. It documents
+% why they were made and the choices made in selecting which fonts to convert
+% to this style.
+%
+% These fonts should be useful for typesetting documents with T1 encoding (OT1
+% is also supported) and blends text and math fonts in the proper way; AMS fonts
+% are  supported. For legacy reasons the \LaTeX\ special symbol set is also
+% accordingly restyled. 
+%
+% \section{The LX fonts}
+% In the first eighties, when \LaTeX\ was conceived, Leslie Lamport  created
+% a stand alone program, or better, a mark-up \SliTeX\ format that
+% could be used in place of \LaTeX\ when it was necessary to create transparencies
+% for conferences, lectures, and presentations; when \LaTeXe\ was made available
+% in the early nineties, that set of mark-up macros and format did not exist
+% any more, and in its place there was the new class \pack{slides}.
+%
+% The processing of the source files was almost identical, although the new
+% class \pack{slides} had more typesetting power thanks to the \LaTeXe\ more
+% powerful macros.
+% 
+% Both processes produced printed documents that could be photocopied onto
+% methacrylate transparencies and used with overhead projectors.
+%
+% Since the advent of beamer projectors, that can operate directly from a
+% computer, and the availability of the \prog{pdfLaTeX} typesetting program,
+% a set of packages was made available to the \TeX\ community so as to
+% produce wonderful presentations, possibly together with their 
+% printed handouts, that quickly replaced the old and honorable \SliTeX\ 
+% format and the \pack{slides} class.
+% 
+% The fonts that Leslie Lamport had devised to use with \SliTeX\ and
+% \pack{slides} had a great advantage over the default \TeX\ system fonts,
+% namely the traditional Computer Modern ones, and, after the introduction
+% of the  new encoding T1, of the European Computer fonts and, later on,
+% of the Latin Modern vector fonts.
+%
+% It was \emph{legibility}.
+%
+% This advantage was obtained from the sans serif quotation fonts designed
+% by D.E.~Knuth himself; he used them to typeset the witty quotations at each 
+% chapter end of both his \TeX\ and \MF\ books.
+%
+% But these Knuthian fonts had a disadvantage: the capital `I' and the lower
+% case `l' were hardly distinguishable from one another and from the absolute
+% value vertical bar. Leslie Lamport solved in part this problem by changing
+% the sans serif `I' with a serifed one; this was fine most of the time, but
+% did not solve the similarity of the sans serif lower case `l' with the math
+% absolute value bar.
+%
+% Moreover when typesetting math in those old fashioned slides, only the
+% |operators| font was changed to a sans serif one, while the |letters| math
+% italics font, together with the other |symbols| normal and |largesymbols| large
+% symbol fonts remained the same; the result was that some math glyphs
+% obtained by juxtaposition of symbols coming from the operator font and
+% some other math font, resulted clearly inadequate.
+%
+% The solution of such problems consisted in redesigning the shape of the lower
+% case `l', so as to be more similar to an upright italic one, with a curved
+% bottom, and to restyle all the math fonts with the same graphic font settings
+% of the Lamport fonts, both in OT1 and T1 encoding, and in the math encodings
+% OML, OMS OMX, plus the Text Companion TS1 encoded fonts, the \AMS\ fonts and
+% the \LaTeX\ symbol fonts.
+% 
+% This is all what concerns these extended slide LX fonts; while doing this
+% extensions I had to change the metadescription of several glyphs, but the
+% overall work was not that complicated; it was just heavy because the large
+% number of fonts involved, and therefore the overall glyph number.
+% 
+% This package redefines both the text and math font families; checks if
+% the \AMS\ fonts have been called for, avoids to redefine the nice glyphs of
+% the \AMS\ collection with the \LaTeX\ symbol fonts, although it will
+% redefine the latter ones in case the user wants to use them, but did not
+% load the \AMS\ font collections.
+%
+% These settings are deferred at begin document time, so that the necessary
+% checks may be used after other fonts are possibly loaded.
+%
+% As a bonus the typewriter fonts are loaded in a scaled up version so that
+% their x-height matches the larger LX fonts. Such fonts are scaled 25\%
+% up so that the 8pt design size typewriter font x-height matches
+% the corresponding height of the LX fonts.
+%
+% These LX fonts are available in both vector and bitmapped form; I made the
+% whole work by working on the \MF\ source files; when I was satisfied with
+% the bitmapped fonts produced with \MF, I traced them by means of the
+% \prog{mftrace} program, by Han-Wen Nien­huys, and produced the .pfb files
+% containing the vector description of the glyphs. In order to use them
+% with \prog{pdfLaTeX} it is necessary to have available the .map file,
+% that I provided as part of this package. As a consequence of the method
+% I followed, this bundle contains also the .tfm metric information
+%
+% \section{Usage}
+% The only action needed to use these LX fonts is to call 
+%\begin{verbatim}
+%\usepackage{lxfonts}
+%\end{verbatim}
+% in the preamble; there are no options to set.
+%
+% If you use \pack{beamer} to create your presentation you might need to specify
+%\begin{verbatim}
+%\usefonttheme{professionalfonts}
+%\end{verbatim}
+% in order to avoid that beamer resets some math fonts the way it defaults to;
+% for the rest you don't need to follow a particular loading order, although it
+% might be clearer if you loaded your fonts after specifying the input and 
+% font encoding(s).
+%
+% \section{Standalone usage of the LX fonts}\label{sec:standalone}
+%
+% The style file \texttt{lxfonts.sty} changes all the default font settings
+% so that you cannot use any other font together with the LX ones.
+%
+% You can circumvent this rigidity by using the explicit declaration of the
+% font family you want to use; for example, if you called this package and at a
+% certain point you want to typeset something with a serifed font, say, the
+% T1 encoded Latin Modern roman font, you can define a macro declaration or
+% explicitly specify:
+%\begin{verbatim}
+%{\usefont{T1}{lmr}{m}{n} Words\ldots words}
+%\end{verbatim}
+% By so doing the ``Words\ldots words'' will be typeset in roman medium Latin
+% Modern T1 encoded font at the current size
+%
+% On the opposite if you want to show a sample text written with the LX fonts while
+% you are typesetting with other fonts, you don't use the above .sty file package,
+% but use a macro declaration or the explicit command:
+%\begin{verbatim}
+%{\usefont{T1}{llcmss}{m}{n} Words\ldots words}
+%\end{verbatim}
+% and you get {\usefont{T1}{llcmss}{m}{n} Words\dots words} at the current type
+% size; notice though, how larger the script appears thanks to the larger x-height,
+% but uppercase letters are the same size as the serifed ones.
+%
+% With version 1.0 of this package, this functionality was not possible.
+%
+% \section{Integration of the  Latin and  the Greek scripts}  
+% The Greek CB fonts contain also the  families and shapes for slides;
+% the style is the same as these LX fonts, but the different script does
+% not require any restyling of any glyph; so they can be used directly;
+% but the script changing mechanism simply implies the change of the
+% encoding; therefore in order to  use the above Greek CB fonts, it is
+% simply necessary to have available new font description files whose
+% name is the agglutination of the Greek encoding name  (in lower case)
+% with the family name (identical to that of the Latin script); the contents
+% of such files, of course, retrieves the glyphs from the Greek fonts files.
+%
+% Therefore it should not be difficult in a presentation to specify the Greek
+% language in the preamble of the source file, and use the \pack{babel} language
+% switching commands to as to write something like this:
+% {\usefont{LGR}{llcmss}{m}{n} Kal'' hm'era!} means \emph{Good day!}.                                                                                                                                                                                                                                                                                                                    
+%
+% \section{ The LX fonts demo presentation}
+% This bundle, besides this documentation, is shipped with a demo presentation
+% where most features of the LX fonts are shown; the slides clearly show the
+% features of these fonts, both the positive  and negative ones.  The
+% \emph{legibility}, in my opinion, is excellent; if it was not for this
+% point I would not have undertaken the work of restyling all these fonts.
+% But there ale also some little glitches that are partly inherent to the
+% chosen one-size continuously scalable font. Moreover the Greek fonts,
+% which are not part in themselves of my LX project, requires some
+% adjustments in several kerning values, but at the moment it is acceptable,
+% even if its kerning is not perfect. 
+% 
+% While typesetting math it is clearly noticeable the lack of optical sizes:
+% the super and subscripts appear definitely of the right size, but their
+% scaling makes them appear lighter than they should be; this is common with
+% all fonts that come in one size only, and this happens with the majority
+% of the Type~1 fonts distributed with the \TeX\ system.
+%
+% The Greek font kerning  adjustment is on my TODO list.
+%
+% \section{Acknowledgemts}
+% I would like to thank all the users who appreciated these fonts and
+% gave me some feedback remarking some glitches; in particular I would
+% like to acknowledge the interaction with G\"unter Milde, who gave me
+% precious suggestions, among which that of detaching the font description
+% files form the |lxfonts.sty| file.
+%
+% \StopEventually{}^^A This macro argument can be a bibliography, for example.
+%
+% \section{Documented code}
+% \subsection{The package code}
+% The settings relative to the LX fonts are deferred to the |\AtEndPreamble|
+% hook (defined by package |etoolbox|) so that any previous font setting is
+% replaced by the ones relative to the LX fonts; this is particularly useful
+% when preparing source files for a presentation; in this way all the fonts
+% connected to the the slide show will be homogeneously styled the same way.
+
+% Of course this is not a serious drawback in other situations, since I have
+% shown in section~\ref{sec:standalone} what to do in order to overcome this
+% apparent limitation.
+% 
+% First I test if certain packages have been loaded, specifically packages
+% \pack{latexsym} and \pack{amsfonts}; if so, certain switches are set |true|.
+% At the proper point these switches will be used in order to load or to avoid
+% to load certain font description files that will supersede the ones called
+% by such named packages.
+%
+% At the same time the text and math defaults are set or reset so as to use only
+% the LX fonts.
+% \iffalse
+%<*lxsty>
+% \fi
+%    \begin{macrocode}
+\NeedsTeXFormat{LaTeX2e}[2001/06/01]
+\ProvidesPackage{lxfonts}[2013/09/03 v,2.0 Macros for using LX fonts]
+\newif\if@lasy \@lasyfalse
+\newif\if@AMSfonts \@AMSfontsfalse
+\RequirePackage{etoolbox}
+\AtEndPreamble{%
+	\@ifpackageloaded{latexsym}{\@lasytrue}{}
+	\@ifpackageloaded{amsfonts}{\@AMSfontstrue}{}
+	\def\rmdefault{llcmss}        % no roman
+	\def\sfdefault{llcmss}
+	\def\ttdefault{llcmtt}
+	\def\itdefault{sl}
+	\def\sldefault{sl}
+	\def\bfdefault{bx}
+	\SetSymbolFont{operators}{normal}{OT1}{llcmss}{m}{n}
+	\SetSymbolFont{letters}{normal}{OML}{llcmm}{m}{it}
+	\SetSymbolFont{symbols}{normal}{OMS}{llcmsy}{m}{n}
+	\SetSymbolFont{largesymbols}{normal}{OMX}{llcmex}{m}{n}
+	
+	\SetSymbolFont{operators}{bold}{OT1}{llcmss} {bx}{n}
+	\SetSymbolFont{letters}  {bold}{OML}{llcmm} {bx}{it}
+	\SetSymbolFont{symbols}  {bold}{OMS}{llcmsy}{bx}{n}
+	\SetSymbolFont{largesymbols}{bold}{OMX}{llcmex}{m}{n} % no bold!
+	
+	\DeclareSymbolFontAlphabet{\mathrm}    {operators}
+	\DeclareSymbolFontAlphabet{\mathnormal}{letters}
+	\DeclareSymbolFontAlphabet{\mathcal}   {symbols}
+	
+	\DeclareMathAlphabet      {\mathbf}{OT1}{llcmss}{bx}{n}
+	\DeclareMathAlphabet      {\mathsf}{OT1}{llcmss}{m}{n}
+	\DeclareMathAlphabet      {\mathit}{OT1}{llcmss}{m}{sl}
+	\DeclareMathAlphabet      {\mathtt}{OT1}{llcmtt}{m}{n}
+	
+	\SetMathAlphabet\mathsf{bold}{OT1}{llcmss}{bx}{n}
+	\SetMathAlphabet\mathit{bold}{OT1}{llcmss}{bx}{sl}
+%    \end{macrocode}
+% The following tests are needed to load the \AMS\ and the \LaTeX\ symbols
+% fonts; in order to use them it is necessary to input the relevant font
+% description files subject to the switches status; and then it is necessary
+% to redeclare the math fonts accordingly.
+%
+% The |\Join| and |\leadsto| characters had to be redefined or declared
+% to be aliases of some particular symbol command; the |\Join| macro had
+% to be redefined because the dimensions of the new font don't agree with
+% the kerning fixed in the |amssymb| package; of course, while I was at it,
+% I might have designed a real glyph for |\Join|, but I thought that it
+% was better to avoid conflicts with the existing \AMS\ symbol definitions.
+% The |\leadsto| character has been let to |\rightsquigarrow| in order
+% to name the same glyph also with the \LaTeX\ symbols font command.
+% In this way it is possible to avoid loading the \LaTeX\ symbols font
+% if the \AMS\ fonts have been already loaded.
+%    \begin{macrocode}
+\if@AMSfonts
+	\input{ulmsa.fd}
+	\input{ulmsb.fd}
+	\SetSymbolFont{AMSa}{normal}{U}{lmsa}{m}{n}
+	\SetSymbolFont{AMSb}{normal}{U}{lmsb}{m}{n}
+	\xdef\Join{\mathrel{\mathchar"0\hexnumber@\symAMSb 6F%
+	\mkern-14.2mu\mathchar"0\hexnumber@\symAMSb 6E}}
+	\global\let\leadsto\rightsquigarrow
+\fi
+\if@lasy
+	\if@AMSfonts%
+		\PackageWarning{lxfonts}{%
+		I did not load the LaTeX symbol fonts\MessageBreak
+		because its glyphs are already provided by the AMS fonts\MessageBreak}
+	\else	
+		\input{ulllasy.fd}
+		\SetSymbolFont{lasy}{normal}{U}{lllasy}{m}{n}
+		\SetSymbolFont{lasy}{bold}{U}{lllasy}{b}{n}
+	\fi
+\fi
+%    \end{macrocode}
+%
+% The following commands are defined so as to implement part of the
+% functionality of the old \LaTeX\,209 ones, with some significant modification:
+% their effects are cumulative as they are in \LaTeXe; at the same time they
+% can be used also in mathematics. These commands pamper those users who think
+% that the \LaTeXe\ commands are too lengthy to write, but such users forgot
+% that the old commands did not cumulate their effects, therefore they are
+% not as flexible as the \LaTeXe\ font commands. On the opposite these
+% definitions produce the same cumulative effects as the \LaTeXe\ commands;
+% I do not think the habit of using the old commands is correct, but it does
+% not harm anybody who has correct habits: it's not compulsory to use them
+% even if they are available.
+%    \begin{macrocode}
+\DeclareOldFontCommand{\rm}{\rmfamily}{\mathrm}
+\DeclareOldFontCommand{\sf}{\sffamily}{\mathsf}
+\DeclareOldFontCommand{\tt}{\ttfamily}{\mathtt}
+\DeclareOldFontCommand{\bf}{\bfseries}{\mathbf}
+\DeclareOldFontCommand{\it}{\itshape}{\mathit}
+\DeclareOldFontCommand{\sl}{\slshape}{\relax}
+\DeclareOldFontCommand{\sc}{\scshape}{\relax}
+}
+%    \end{macrocode}
+% \iffalse
+%</lxsty>
+% \fi
+%
+% \subsection{Fonts in OT1 encoding}
+% As long as the maths fonts are arranged the way they are, it is necessary
+% to have the OT1 encoded text fonts even if the user specifies the T1
+% option to the \pack{fontenc} package; this is due to the fact that the
+% |operators| font in math mode is always defined as the the OT1 encoded set.
+
+% At the same time those who don't need to use the many diacritics taken
+% care of by the T1 encoded fonts, can simply avoid to call the \pack{fontenc}
+% package, and get along without any problem.
+% \iffalse
+%<*lxot1ssfd>
+% \fi
+%    \begin{macrocode}
+\DeclareFontFamily{OT1}{llcmss}{\hyphenchar\font45}
+\DeclareFontShape{OT1}{llcmss}{m}{n}{<-> llcmss8}{}
+\DeclareFontShape{OT1}{llcmss}{m}{sl}{<-> llcmssi8}{}
+\DeclareFontShape{OT1}{llcmss}{m}{it}{<->ssub* llcmss/m/sl}{}
+\DeclareFontShape{OT1}{llcmss}{bx}{n}{<-> llcmssb8}{}
+\DeclareFontShape{OT1}{llcmss}{bx}{sl}{<-> llcmsso8}{}
+\DeclareFontShape{OT1}{llcmss}{bx}{it}{<->ssub* llcmss/bx/sl}{}
+%
+\DeclareFontShape{OT1}{llcmss}{m}{ui}{<-> ssub* llcmss/m/n}{}
+\DeclareFontShape{OT1}{llcmss}{bx}{ui}{<->ssub* llcmss/bx/n}{}
+%    \end{macrocode}
+% \iffalse
+%</lxot1ssfd>
+% \fi
+%
+% The typewriter fonts are loaded as the usual OT1 encoded Computer Modern
+% ones just scaled up by 25\% so as to have them with the same x-height as
+% the LX fonts. Substitutions are provided for the missing shapes and series.
+% \iffalse
+%<*lxot1ttfd>
+% \fi
+%    \begin{macrocode}
+\DeclareFontFamily{OT1}{llcmtt}{\hyphenchar\font\m@ne}
+\DeclareFontShape{OT1}{llcmtt}{m}{n}{<-> [1.25]cmtt8}{}
+\DeclareFontShape{OT1}{llcmtt}{m}{it}{<-> [1.25]cmti8}{}
+\DeclareFontShape{OT1}{llcmtt}{m}{sl}{<-> ssub* llcmtt/m/it}{}
+\DeclareFontShape{OT1}{llcmtt}{bx}{n}{<-> ssub* llcmtt/m/n}{}
+\DeclareFontShape{OT1}{llcmtt}{bx}{it}{<-> ssub* llcmtt/m/it}{}
+\DeclareFontShape{OT1}{llcmtt}{bx}{sl}{<-> ssub* llcmtt/m/it}{}
+%    \end{macrocode}
+% \iffalse
+%</lxot1ttfd>
+% \fi
+% 
+% \subsection{Fonts in T1 encoding}
+% The T1 encoded fonts are now described by the suitable font description
+% files; such fonts are essential for typesetting most languages that use
+% the Latin script. Actually I know that there exist some languages that
+% usually don't use diacritics; but even in such languages sometimes it is
+% necessary to typeset a foreign name or to typeset some phrases or paragraphs
+% in an ancient version of the same language and diacritics pop up again.
+% Personally I believe that T1 encoded fonts should be the only ones to be
+% used, unless the user has access to suitable UNICODE encoded OpenType
+% fonts, but this is out of topic since these LX fonts can be used only
+% by \prog{pdfLaTeX}, that cannot directly handle OpenType fonts.
+% \iffalse
+%<*lxt1ssfd>
+% \fi
+%    \begin{macrocode}
+ \DeclareFontFamily{T1}{llcmss}{\hyphenchar\font45}
+ \DeclareFontShape{T1}{llcmss}{m}{n}{<-> leclq8}{}
+ \DeclareFontShape{T1}{llcmss}{m}{sl}{<-> lecli8}{}
+ \DeclareFontShape{T1}{llcmss}{m}{it}{<->ssub* llcmss/m/sl}{}
+ \DeclareFontShape{T1}{llcmss}{bx}{n}{<-> leclb8}{}
+ \DeclareFontShape{T1}{llcmss}{bx}{sl}{<-> leclo8}{}
+ \DeclareFontShape{T1}{llcmss}{bx}{it}{<->ssub*llcmss/bx/sl}{}
+%
+\DeclareFontShape{T1}{llcmss}{m}{ui}{<->ssub*llcmss/m/n}{}
+\DeclareFontShape{T1}{llcmss}{bx}{ui}{<->ssub*llcmss/bx/n}{}
+%    \end{macrocode}
+% \iffalse
+%</lxt1ssfd>
+% \fi
+%
+% In this case of T1 encoded typewriter fonts I don't use any magnification,
+% as it was done for the OT1 encoded ones, because the upright font exists
+% at the design size of 8pt, but the italic one does not; therefore for
+% homogeneity I thought it was better to use them at a design size of 10pt
+% without any scaling. The differences are so tiny, that are invisible at
+% naked eye.
+% But since the |lcmtt| family is already defined as a standard family, we
+% need a different family name in order to avoid confusion; this is because
+% we use a single size to be enlarged or shrunk as it is done with the main
+% text font.
+% \iffalse
+%<*lxt1ttfd>
+% \fi
+%    \begin{macrocode}
+ \DeclareFontFamily{T1}{llcmtt}{\hyphenchar\font\m@ne}
+ \DeclareFontShape{T1}{llcmtt}{m}{n}{<-> ec-lmtt10}{}
+ \DeclareFontShape{T1}{llcmtt}{m}{it}{<-> ec-lmtti10}{}
+ \DeclareFontShape{T1}{llcmtt}{m}{sl}{<-> ssub* llcmtt/m/it}{}
+ \DeclareFontShape{T1}{llcmtt}{bx}{n}{<-> ssub* llcmtt/m/n}{}
+ \DeclareFontShape{T1}{llcmtt}{bx}{it}{<-> ssub* llcmtt/m/it}{}
+ \DeclareFontShape{T1}{llcmtt}{bx}{sl}{<-> ssub* llcmtt/m/it}{}
+%    \end{macrocode}
+% \iffalse
+%</lxt1ttfd>
+% \fi
+%
+% \subsection{Fonts in TS1 encoding}
+% The Text Companion fonts are also restyled so that these font must be
+% redeclared in case the user wants to use them.
+% \iffalse
+%<*lxts1ssfd>
+% \fi
+%    \begin{macrocode}
+ \DeclareFontFamily{TS1}{llcmss}{\hyphenchar\font45}
+ \DeclareFontShape{TS1}{llcmss}{m}{n}{<-> ltclq8}{}
+ \DeclareFontShape{TS1}{llcmss}{m}{sl}{<-> ltcli8}{}
+ \DeclareFontShape{TS1}{llcmss}{m}{it}{<-> ssub*llcmss/m/sl}{}
+ \DeclareFontShape{TS1}{llcmss}{bx}{n}{<-> ltclb8}{}
+ \DeclareFontShape{TS1}{llcmss}{bx}{sl}{<-> ltclo8}{}
+ \DeclareFontShape{TS1}{llcmss}{bx}{it}{<-> ssub*llcmss/bx/sl}{}
+ \DeclareFontShape{TS1}{llcmss}{m}{ui}{<-> ssub*llcmss/m/n}{}
+ \DeclareFontShape{TS1}{llcmss}{bx}{ui}{<-> ssub*llcmss/bx/n}{}
+%    \end{macrocode}
+% \iffalse
+%</lxts1ssfd>
+% \fi
+% \section {Math fonts and special fonts}
+% \subsection{Math fonts in OML encoding}
+% The math italic letters font has been restyled as the text fonts.
+% \iffalse
+%<*lxomlmmfd>
+% \fi
+%    \begin{macrocode}
+\DeclareFontFamily{OML}{llcmm}{\skewchar\font'177}
+\DeclareFontShape{OML}{llcmm}{m}{it}{<-> lcmmi8}{}
+\DeclareFontShape{OML}{llcmm}{bx}{it}{<-> lcmmib8}{}
+
+\DeclareFontFamily{OML}{llcmss}{}
+\DeclareFontShape{OML}{llcmss}{m}{n}{<-> ssub*llcmm/m/it}{}
+%    \end{macrocode}
+% \iffalse
+%</lxomlmmfd>
+% \fi
+%
+% \subsection{Math fonts in OMS encoding}
+% The math symbol font was restyled as the text fonts.
+% \iffalse
+%<*lxomssyfd>
+% \fi
+%    \begin{macrocode}
+\DeclareFontFamily{OMS}{llcmsy}{\skewchar\font'60}
+\DeclareFontShape{OMS}{llcmsy}{m}{n}{<-> lcmsy8}{}
+\DeclareFontShape{OMS}{llcmsy}{bx}{n}{<-> lcmbsy8}{}
+
+\DeclareFontFamily{OMS}{llcmss}{\skewchar\font'60}
+\DeclareFontShape{OMS}{llcmss}{m}{n}{<->ssub*llcmsy/m/n}{}
+%    \end{macrocode}
+% \iffalse
+%</lxomssyfd>
+% \fi
+%
+% \subsection{Math fonts in OMX encoding}
+% The large operators and delimiters font was restyled as the text fonts.
+% \iffalse
+%<*lxomxexfd>
+% \fi
+%    \begin{macrocode}
+\DeclareFontFamily{OMX}{llcmex}{}
+\DeclareFontShape{OMX}{llcmex}{m}{n}{<-> sfixed* lcmex8}{}
+%    \end{macrocode}
+% \iffalse
+%</lxomxexfd>
+% \fi
+% \subsection {The \AMS\ fonts}
+% Since the \AMS\ fonts are used so often, either directly or through
+% the \pack{amssymb} package, I restyled both families |msam| and |msbm|.
+% In the .sty file I kept the math group names the same so that the symbol
+% definitions keep making reference to the same encoding and slot positions,
+% but they take the glyphs from different files.
+%
+% In both cases the |\DeclareFontFamily| statement appears to be unnecessary
+% because these font description files are loaded only if the \pack{amsfonts}
+% package has been called. But we have seen above that these font description
+% files are reloaded at the |\AtEndPreamble| hook; moreover if these fonts are
+% used as standalone ones, the declaration is absolutely necessary.
+% \iffalse
+%<*lxumsafd>
+% \fi
+%    \begin{macrocode}
+\DeclareFontFamily{U}{lmsa}{}
+\DeclareFontShape{U}{lmsa}{m}{n}{<-> lmsam8}{}
+\DeclareFontShape{U}{lmsa}{bx}{n}{<-> ssub* lmsa/m/n}{}
+%    \end{macrocode}
+% \iffalse
+%</lxumsafd>
+% \fi
+%
+% \iffalse
+%<*lxumsbfd>
+% \fi
+%    \begin{macrocode}
+\DeclareFontFamily{U}{lmsb}{}
+\DeclareFontShape{U}{lmsb}{m}{n}{<-> lmsbm8}{}
+\DeclareFontShape{U}{lmsb}{bx}{n}{<-> ssub* lmsb/m/n}{}
+%    \end{macrocode}
+% \iffalse
+%</lxumsbfd>
+% \fi
+%
+% \subsection{The \LaTeX\ symbol fonts}
+% The same treatment is used for the \LaTeX\ symbol fonts as it was done with
+% the teletype text font: a different family name, but one font to be enlarged
+% or shrunk as the main text font..
+% \iffalse
+%<*lxultxfd>
+% \fi
+%    \begin{macrocode}
+\DeclareFontFamily{U}{lllasy}{}
+\DeclareFontShape{U}{lllasy}{m}{n}{<-> llasy8}{}
+\DeclareFontShape{U}{lllasy}{b}{n}{<-> llasyb8}{}
+%    \end{macrocode}
+% \iffalse
+%</lxultxfd>
+% \fi
+%
+% \subsection{The Greek font for slides}
+% The CB Greek font collection contains also the family and shape of the slides
+% fonts; of course with the Greek script there is no problem with possible
+% confusions of capital `I' and lower case `l', therefore they did not need
+% any restyling. The only question related to Greek fonts is that the same
+% font family names for the Latin Script must be associated with the Greek
+% script with the Greek encoding LGR, instead of the Latin encoding T1. The
+% Greek font description files, therefore, have a different prefix (LGR),
+% the same family name (llcmss for proportional sans serif fonts, or lcmtt
+% for monospaced ones), but the glyphs are taken from the relevant Greek fonts.
+% \iffalse
+%<*lxlgrfd>
+% \fi
+%    \begin{macrocode}
+\DeclareFontFamily{LGR}{llcmss}{\hyphenchar\font45}
+\DeclareFontShape{LGR}{llcmss}{m}{n}{<-> glmn0800}{}
+\DeclareFontShape{LGR}{llcmss}{m}{sl}{<-> glmo0800}{}
+\DeclareFontShape{LGR}{llcmss}{m}{it}{<-> ssub* llcmss/m/sl}{}
+\DeclareFontShape{LGR}{llcmss}{bx}{n}{<-> glxn0800}{}
+\DeclareFontShape{LGR}{llcmss}{bx}{sl}{<-> glxo0800}{}
+\DeclareFontShape{LGR}{llcmss}{bx}{it}{<-> ssub* llcmss/bx/sl}{}
+\DeclareFontShape{LGR}{llcmss}{m}{ui}{<-> ssub* llcmss/m/n}{}
+\DeclareFontShape{LGR}{llcmss}{bx}{ui}{<-> ssub* llcmss/bx/n}{}
+%    \end{macrocode}
+% \iffalse
+%</lxlgrfd>
+% \fi
+% The same action is taken for the teletype fonts, even if it is less probable
+% that such fonts are used in a presentations, since the teletype font is
+% normally used for typesetting programming code texts, very seldom written
+% in Greek.
+% \iffalse
+%<*lxlgrttfd>
+% \fi
+%    \begin{macrocode}
+ \DeclareFontFamily{LGR}{llcmtt}{\hyphenchar\font\m@ne}
+ \DeclareFontShape{LGR}{llcmtt}{m}{n}{<-> gltn1000}{}
+ \DeclareFontShape{LGR}{llcmtt}{m}{it}{<-> glto1000}{}
+ \DeclareFontShape{LGR}{llcmtt}{m}{sl}{<-> ssub* lcmtt/m/it}{}
+ \DeclareFontShape{LGR}{llcmtt}{bx}{n}{<-> ssub* lcmtt/m/n}{}
+ \DeclareFontShape{LGR}{llcmtt}{bx}{it}{<-> ssub* lcmtt/m/it}{}
+ \DeclareFontShape{LGR}{llcmtt}{bx}{sl}{<-> ssub* lcmtt/m/it}{}
+%    \end{macrocode}
+% \iffalse
+%</lxlgrttfd>
+% \fi
+%
+%\subsection{The map file}
+% The map file is necessary in order to reconfigure the |updmap.cfg|
+% so as to let \prog{pdftex} access these fonts. Notice that this
+% reconfiguration is done by the system installation macros and the
+% user should not play around with such delicate questions; it must be
+% remarked also that the methods for reconfiguring that file
+% are being updated in a significant way in certain distribution
+% of the \TeX\ system, and it would be very dangerous to describe the
+% 2013 procedure, when it possible that in 2014 it is a different one.
+% In any case the user who really needs to install these fonts ``by hand''
+% is advised to read the documentation of his/her current distribution
+% of the \TeX\ system so as to perform  the update map correct configuration
+% procedure.
+% \iffalse
+%<*lxmap>
+% \fi
+%    \begin{macrocode}
+lcmbsy8   lcmbsy8   <lcmbsy8.pfb
+lcmex8    lcmex8    <lcmex8.pfb
+lcmmi8    lcmmi8    <lcmmi8.pfb
+lcmmib8   lcmmib8   <lcmmib8.pfb
+lcmsy8    lcmsy8    <lcmsy8.pfb
+leclb8    leclb8    <leclb8.pfb
+lecli8    lecli8    <lecli8.pfb
+leclo8    leclo8    <leclo8.pfb
+leclq8    leclq8    <leclq8.pfb
+llasy8    llasy8    <llasy8.pfb
+llasyb8   llasyb8   <llasyb8.pfb
+llcmss8   llcmss8   <llcmss8.pfb
+llcmssb8  llcmssb8  <llcmssb8.pfb
+llcmssi8  llcmssi8  <llcmssi8.pfb
+llcmsso8  llcmsso8  <llcmsso8.pfb
+lmsam8    lmsam8    <lmsam8.pfb
+lmsbm8    lmsbm8    <lmsbm8.pfb
+ltclb8    ltclb8    <ltclb8.pfb
+ltcli8    ltcli8    <ltcli8.pfb
+ltclo8    ltclo8    <ltclo8.pfb
+ltclq8    ltclq8    <ltclq8.pfb
+%    \end{macrocode}
+% \iffalse
+%<*lxmap>
+% \fi
+% The Greek CB fonts need not to be listed in this map file, because they
+% are already listed in the CB font map file that is being already used in
+% the installation of that Greek font collection.
+% \Finale
+% \endinput
+
+
+
+
+

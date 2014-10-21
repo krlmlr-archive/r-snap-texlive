@@ -1,0 +1,26 @@
+
+pst-pdf.sty
+
+A LaTeX package to integrate PostScript code into a PDF output.
+Load the testfile pst-pdf-example.tex and run it with the shell script
+
+ps4pdf pst-pdf-example.tex
+
+it produces the output file pst-pdf-example.pdf. Be sure that the script is
+executable.
+
+pst-pdf.sty -> $TEXMF-LOCAL
+ps4pdf      -> /usr/local/bin
+               the shell script for running latex->dvips->ps2pdf->pdflatex
+
+
+without a shell script, run
+
+latex <file>
+dvips -Ppdf -o <file>-pics.ps <file>.dvi
+ps2pdf -dAutoRotatePages=/None <file>-pics.ps <file>-pics.pdf
+pdflatex <file>
+
+                        Rolf Niepraschk, 2006-07-23
+
+

@@ -1,0 +1,690 @@
+\definepapersize[DTK][width=148mm,height=210mm]
+\setuppapersize [DTK][DTK]
+\setuplayout[width=11.7cm,height=20cm]
+\setbreakpoints[compound]
+
+\definefontfeature[default][default][protrusion=quality,expansion=quality]%,script=latn]
+\setupbodyfont[libertine,10pt]
+%\setupbodyfont[pagella,10pt]
+
+\setupdelimitedtext[quotation:1][left=»,right=«]
+\setupdelimitedtext[quotation:2][left=›,right=‹]
+\setupdelimitedtext[quote:1][left=›,right=‹]
+
+\def\sloppy{%
+  \tolerance 9999%
+  \emergencystretch 3em%
+  \hfuzz .5pt
+  \vfuzz\hfuzz}
+
+
+\starttypescript [mono] [computer-modern] [size]
+% Newer, more-bold version of the bold typewriter fonts.
+  \definebodyfont [12pt] [tt] [bf=cmbtt10 at 12pt]
+  \definebodyfont [11pt] [tt] [bf=cmbtt10 at 11pt]
+  \definebodyfont [10pt] [tt] [bf=cmbtt10]
+  \definebodyfont [9pt] [tt] [bf=cmbtt9]
+  \definebodyfont [8pt] [tt] [bf=cmbtt8]
+%% Older, less-bold version of the bold typewriter fonts.
+%  \definebodyfont [12pt] [tt] [bf=cmttb10 at 12pt]
+%  \definebodyfont [11pt] [tt] [bf=cmttb10 at 11pt]
+%  \definebodyfont [10pt] [tt] [bf=cmttb10]
+%  \definebodyfont [9pt] [tt] [bf=cmttb10 at 9pt]
+%  \definebodyfont [8pt] [tt] [bf=cmttb10 at 8pt]
+\stoptypescript
+
+%\setupbodyfont[pagella,10pt]
+\setuppagenumbering[location={}]
+\setupcaptions[width=\hsize,minwidth=5mm,align=middle]
+\setupnote
+   [footnote]
+   [paragraph=no]
+
+\setupnotation
+   [footnote]
+   [alternative=serried,
+    width=broad,
+    distance=.5em,
+    display=no]
+\language[en]
+
+\setupbodyfontenvironment[default][em=italic]
+
+\setuphead[subsection][
+  style=\bf\ss,
+  before={},after={}, %\blank
+  %alternative=inmargin
+]
+\setuphead[section][
+  style=\bf\ssa,
+  %alternative=inmargin
+]
+%\setupitemize[inmargin]
+%\setupitemize[2,3][intext]
+
+\definefontfeature
+   [alm-default]
+   [mode=node,script=arab,language=dflt,
+    ccmp=yes,init=yes,medi=yes,fina=yes %,isol=yes, % no isol necessary in alm
+    rlig=yes,dlig=yes,mark=yes,tlig=yes] 
+    
+\definefont[ALM][file:almmono10-regular*arabic at 12pt]
+% \definefont[Husayni][file:husayni*arabic at 14pt]
+\definefont[SIL][file:Scheherazade-R*arabic at 24pt]
+\definefont[Deja][file:DejaVuSansMono at 10pt]
+
+\definefont[ALML][file:almmono10-regular*arabic at 27pt]
+\definefont[LML][file:lmmono10-regular at 27pt]
+
+\definefont[ALMLL][file:almmono10-regular*arabic at 27pt]
+\definefont[LMLL][file:lmmono10-regular at 27pt]
+
+\definefont[ALMLLL][file:almmono10-regular*arabic at 80pt]
+\definefont[LMLLL][file:lmmono10-regular at 80pt]
+
+\nonknuthmode
+\noheaderandfooterlines
+
+\def\OTEX{Oriental \TeX}
+\def\AM{Arabic-Latin Modern}
+\def\ALMF{Arabic-Latin Modern Fixed}
+\def\LM{Latin Modern}
+\def\LMM{Latin Modern Mono}
+
+\def\Tatwil{{\em taṭwīl}}
+
+\setupwhitespace[medium]
+\setupdirections[bidi=global]
+% \setcharactermirroring[1]
+\starttext
+
+\title{{\bf DANTE Summary Report:} \\ Introducing Arabic-Latin Modern Fixed \\ %\blank[small] \tfx \currentdate 
+\null %\blank[small] %\\ {\bf Researcher:} \\ Professor 
+\\Idris Samawi Hamid}%, Colorado State University}
+
+% {\ALM test امتحان}
+
+\startsection[title=Background: The \OTEX\ Project]
+
+The \OTEX\ project was initiated in 2006 to facilitate the development of high quality typography and typesetting of academic and scholarly texts that require the Arabic script, such as critical editions and monographs. Although support for the Arabic script in modern typesetting software has been slowly improving over the past decade or so, the situation is still very far behind the Latin script in terms of features, available high-quality typefaces, and layout-processing software. For academic and scholarly work, it's still very much a wilderness out there. A full solution to the 
+problems of advanced Arabic-script typography and typesetting, particularly one based on OpenType and Unicode standards, is still some ways off.
+
+So far the \OTEX\ project has worked closely with the \LUATEX\ project, also initiated in 2006; an initial large-sum 
+grant from Colorado State University in particular was an important boost to \LUATEX\ development. 
+In the last round of supplemental funding from DANTE (2009) we focused on the development, implementation, 
+and testing of the OpenType layout engine in \Context's \LUATEX-based MkIV (in close collaboration with Hans Hagen). 
+	\startfootnote
+	See \quotation{OpenType Engineering in \TeX}, {\em Die \TeX{}nische Komödie}, 4/2009.
+	\stopfootnote 
+	\
+In this current round of funding through DANTE, we are focusing on a different aspect of the mission of \OTEX, to be described in the next section.
+\stopsection
+
+\startsection[title=The Problem]
+
+\startsubsection[title=Editing Marks in an Abjad Writing System]
+Unlike Latin script, which is an {\em alphabetic} writing system, Arabic script is an {\em abjad} 
+writing system. The key difference between the two is as follows: 
+
+
+An {\em alphabetic} writing system consists of {\em letters} that represent consonant sounds, as well as characters that 
+represent vowel sounds. Thus in an alphabetic script each fundamental sound in a given language,%
+	\startfootnote
+	The technical term for such a fundamental sound is \quote{phoneme}.
+	\stopfootnote 
+	\
+whether a consonant (e.\,g. \quote{b}, \quote{ch}) or a vowel sound (e.\,g., \quote{i}, \quote{ai}), is represented by one or more letters of the alphabet of that language. 
+
+On the other hand an {\em abjad}\kern1pt\startfootnote
+	The term \quote{abjad} comes from the first four letters of most Semitic languages, \quote{A}, \quote{B}, \quote{J}, and \quote{D}.
+	\stopfootnote
+	\
+ writing system is one where each letter represents a consonant sound, and most vowels are not represented by letters. Sometimes a consonant may function as a vowel in certain contexts in addition to its consonantal function (in Arabic the equivalent of the letters \quote{a}, \quote{w}, and \quote{y} do this), but most vowels remain implicit rather than explicit. 
+
+Thus a single letter string can be quite ambiguous and represent a number of different words. Furthermore, in the case of Arabic in particular the grammatical role of words in a sentence are determined by {\em inflection}, where the last letter of a word takes on a different sound depending on its context. In order to disambiguate words and inflection endings, early scholars of Arabic developed a system of diacritics and vowel markings to mark each pure consonant within a word. This was especially motivated by the case of the Qurʾān; within a generation of the passing of the Prophet of Islam the non-Arabic-speaking peoples who were converting to Islam in large numbers would frequently get especially the inflections incorrect, inadvertently affecting the meaning of Qurʾānic expressions in disastrous ways. For the purpose of precisely presenting a Classical Arabic text in a modern edition, getting the vowel markings correct is also crucial. However, 
+entering the markings correctly for the purposes of typesetting has always been an arduous task. It is instructive to compare this with the situation in scholarly Greek.
+
+Although its script constitutes an alphabetic system (as opposed to an abjad one),  the precise representation of many aspirations (or \quotation{breathings}) and accents in Ancient and Hellenistic 
+Greek came to 
+be be represented by a sophisticated system of diacritical markings. The entire Greek alphabetic script inclusive of the full system of diacritics is called {\em polytonic Greek}. In Unicode this system is represented by characters 
+located within the Greek-Extended Block (U+1F00..U+1FFF). Most of these polytonic letters can be composed in Unicode from a combination of basic Greek consonants 
+(located within the U+0370..U+03FF block) and other diacritics (mostly common to both Greek and Latin typography). For example, \quote{\Deja Ἀ} 
+(U+1F08) can be decomposed into \quote{\Deja Α} and \quote{\Deja ̓}. This makes the digital entry of polytonic Greek text quite straightforward and easy to edit: One can easily proofread and edit a manuscript either 
+
+\startitemize[a,packed]
+\item by selecting and modifying each diacritic independent of the letter that it modifies (using decomposition); or 
+\item by replacing one Unicode code point (e.\,g. \quote{\Deja Ἀ}) with another (e.\,g. \quote{\Deja Ἁ}).
+\stopitemize
+
+\placefigure
+[here][fig:polytonic]
+{Polytonic Greek in action (image provided by Thomas Schmitz).}
+{\externalfigure[aristoteles.pdf][width=.84\textwidth]}
+
+Classical editions take the effort to properly represent polytonic Greek in all its glory (see \in{Figure}[fig:polytonic]). Monotonic Greek (i.\,e., Greek script mostly stripped of the diacritics) is thus hardly a credible option in Classical scholarship, philology, or textual studies (except perhaps for certain narrow, specialized cases). 
+
+Unfortunately, in the Arabic script and language the situation is much more complicated. Not only is there an array of intra-word vowels plus inflections that have to represented on most letters (by {\em marks}), but each letter can take on a multiple of shapes, with almost limitless possibilities. Representing each and every one of these possible letter-mark combinations by a single Unicode code point is unwieldy and impractical. A quick look at the (in my strong opinion) very ill-conceived Arabic Presentation Forms~A 
+(U+FB50..U+FDFF block) will let one view a non-exhaustive list of some possible letter-shape possibilities that is virtually unworkable for digital typesetting purposes. Now if one were to add all of the possible letter-mark combinations for each 
+character of the two Presentation-Forms blocks (A and B, for a total of 891 characters) the number of resultant code points would expand exponentially.
+
+Even if we consider only the basic four Arabic-script shapes-per-letter needed for normal text entry into an editor (isolated, initial, medial, and final), managing separate code points for each possibility still becomes quite impractical. Hence the OpenType solution of entering marks separate from base letters, then combining them using OpenType rules which are then displayed by the layout engine. That layout engine may be within a text editor or a text processor such as \TeX.
+
+But this is where the problem begins. OpenType rules specify {\em general positioning} (GPOS) rules for the {\em vertical} placement of marks over base letters. This is entirely correct and indispensable (see \in{Figure}[fig:wa]). On the other hand, in a text editor this makes it very impractical and tiresome to proofread and correct vowels in an Arabic text of any substantial length. This is because in an editor one selects text, not vertically, but {\em horizontally}. Anyone who has tried to select and edit Arabic-script marks in an editor separately from the consonants knows what a pain it is. It is a two-dimensional task boxed into a one-dimensional standard of digital input with a cursor. No text editor or processor of which I am aware has ever been designed to handle two-dimensional input.
+
+\placefigure
+[here][fig:wa]
+{Mark on consonant in Arabic.}
+{\externalfigure[wa.pdf][scale=3000]}
+
+The above problem is not unique to digital typography. Lead-press typography as well had a hard time dealing with marked Arabic script. Ironically, the best examples of Arabic-script typesetting with marks over multiple shapes is found in early 20\high{th} century Arabic typography. But over the following decades the use of marks decreases, along with less and less shape variations of the letters themselves. This is due, no doubt, to the overall unwieldiness and growing expense of the process. So Arabic critical editions are rarely, if ever, done to the same degree of orthographical precision 
+as a Classical-Greek edition (see \in{Figure}[fig:avicenna] for a standard example of an Arabic critical edition). 
+
+\start
+\setupcaptions[location=low,width=0.4\textwidth,align=right]
+\setupfloats[location=outer]
+\placefigure
+[][fig:avicenna]
+{From George Anawati's critical edition of Ibn Sīnā's {\em Metaphysics} (1950's).}
+{\externalfigure[ilahiyyat-1.pdf][width=.56\textwidth]}
+\stop
+
+As a part of my doctoral dissertation I did a critical edition of the Arabic text of {\em Wisdom Observations} by Shaykh Aḥmad al-Aḥsāʾī (d.~1826). In this 
+case full marks were applied 
+(see \in{Figure}[fig:fawaid]), a task made immensely easier by the use of Klaus Lagally's Arab\TeX\ transcription method. This method involves an entirely romanized Latin transcription of the Arabic script, using combinations of one or more Latin vowel letters to represent Arabic marks. If this had to be done in a text editor with a digital Arabic font the task of managing the marks would have been much more difficult.
+
+With the growing popularity of Unicode and its implementation within \TeX\ (particularly \XETEX\ and \Context) Lagally's method has become mostly obsolete. Thankfully, today no one should have to enter text via Lagally's transcription method (as complete and as reliable as it was), particularly for extensive texts. Yet the problem of entering and editing marks within digital Arabic text remains a thorn in the side of scholars who have to work with the Arabic script on a continual basis.
+
+\start
+\setupcaptions[location=low,width=0.33\textwidth,align=right]
+\setupfloats[location=outer]
+\placefigure
+[always][fig:fawaid]
+{From Idris Samawi Hamid's draft critical edition of Shaykh Aḥmad's {\em Wisdom Observations} (doctoral dissertation; note the extensive use of marks).}
+{\externalfigure[fawaid-427-crop.pdf][width=0.74\textwidth]}
+\stopsubsection
+\stop
+
+%\pagebreak
+\startsubsection[title=Enter SC~Unipad]
+For some time this author 
+struggled over the choice between the use of Unicode-based Arabic script and that of 
+Lagally's romanized transcription. Finally, I discovered a Unicode editor called SC Unipad, a \$200.00 utility  developed by some Persian-American developers. In addition to having perhaps the best implementation of the Unicode Bidirectional Algorithm in any text editor, the developers implemented a simple yet ingenious solution to the problem of entering text with marks. If the mark belongs to a given letter that is initial or medial, extend the letter via {\em taṭwīl} and place the mark {\em horizontally} to the left of that letter. Consider the following Unicode Arabic text rendered with a simple and basic 
+OpenType font such as SIL's Scheherazade:
+
+\startalignment[middle]
+{\SIL بِسۡمِ ٱللّٰهِ ٱلرَّحۡمٰنِ ٱلرَّحِيۡمِ ۝١}
+\stopalignment
+
+\blank\blank
+Note the vertical marks above and below the base letters. Now let's compare the above to precisely the same string rendered by Unipad (see \in{Figure}[fig:unipad]). Note the positioning of the marks now makes them easily editable in one dimension (horizontal). 
+
+As exciting as this development was (and Unipad has lots of useful features for editing Unicode text) it soon became clear that this was a solution with many limitations. For example: 
+
+\startitemize[packed]
+\item The interline spacing is too tight, so marks come very close to clashing. 
+\item The Unicode font is bitmap and hardcoded into the application. This means it cannot be used in any other editor.
+\item Although designed for its size (making it crystal clear at that size) it cannot be enlarged or shrunk.
+\item A \TeX-code editor needs lots of important features if one is to have an efficient workflow; Unipad is hardly any good at all as a \TeX-code editor.
+\item Perhaps worst of all, Unipad hasn't been updated since 2006 and is only up to Unicode version 4.1.0 in compatibility (Unicode is currently at 7.0). Numerous  characters (including from Arabic script) are thus missing.
+\stopitemize
+
+Despite its severe limitations, SC~Unipad had indeed found a simple and ingenious solution to the problem of entering and editing Arabic-script marked text. The more general solution to the problem, then, would be to develop an OpenType font with capabilities similar to (and beyond) those of Unipad's bitmap font.
+
+\start
+\setupcaptions[location=low,width=0.265\textwidth,align=right]
+\setupfloats[location=outer]
+\placefigure
+[here][fig:unipad]
+{SC Unipad and Arabic-script marks.}
+{\externalfigure[sc-unipad.pdf][width=0.7\textwidth,framed]}
+\stop
+
+
+
+\stopsubsection
+
+\startsubsection[title=Verbatim]
+In the process of consulting with Hans Hagen in the ongoing development of \Context's bidirectional capabilities, lots of verbatim issues arise. Verbatim is important because it helps to illustrate how a string of text is supposed to behave at different levels of the bi-directional analysis. So a common procedure would be to place a string of text into a 
+buffer, then process that buffer to show both verbatim as well as fully processed output in the resultant pdf. No current font really meets the needs for verbatim Arabic text. So far we have been using DejaVu Sans Mono, whose limitations and lacunae as far as Arabic script are concerned are considerable.
+
+A verbatim font is usually a fixed-width text font, the same kind of font generally used in a text editor. Thus a properly designed OpenType fixed-width font would address both issues: that of text editing as well as of verbatim representation in \TeX\ processing.
+\stopsubsection
+
+\startsubsection[title=Completeness]
+Finally, there is no generally available fixed-width (or even variable-width) font that is {\em complete} with respect to Arabic script. Nearly every available text-editing font is missing important characters. Any solution to the above problem would need to be as complete as possible as well as support the Arabic-script ranges of Unicode~7.0, the 
+latest version as of this writing.
+\stopsubsection
+\stopsection
+
+\startsection[title=From \LMM\ to \ALMF]
+\startsubsection[title=\TeX\ Gyre \LMM]
+For our project we decided to extend Latin Modern Mono Regular 10 to Arabic. We chose this particular font for a number of reasons, including
+
+\startitemize[packed]
+\item Most \TeX\ verbatim work is done in \LMM\ Regular.
+\item The \TeX\ Gyre fonts are OpenType, and currently support everything in Latin needed 
+for the {\em transliteration} of Arabic script into Latin. This is crucial for the editing of academic texts that work with transliteration.
+\stopitemize
+
+\TeX\ Gyre Cursor (close in design style to Courier New, a very nice editing fixed-width font) was also considered as a starting point. On the other hand, the metric width of Cursor is 600 font units, whereas that of Latin Modern Mono is 525 font units. Since the horizontal moving of marks is already going to stretch out the length of word strings, and the vertical metrics are going to have to be increased as well, using a smaller metric width allows a more economical use of space for marked Arabic-script expressions.
+
+Another reason for going with Latin Modern is in honor of Donald Knuth's original verbatim design (Computer Modern Mono). My own motivations for getting into digital typography in the first place are much the same as those of Knuth, so an extension of Knuth in this instance seemed to be in the spirit of things.
+\stopsubsection
+
+\startsubsection[title=Design]
+\startsubsubsection[title=Knuthian Inspiration]
+The Arabic-script portion of \ALMF\ is a completely original font design, not based on any other Arabic-script font or typeface. It is inspired in part by the SC~Unipad bitmap font. Its developers did an excellent job of designing it for readability at its intended resolution (which is where bitmaps are supposed to excel). But the actual letters of our font were developed from a careful study of Knuth's letters in \LMM, such as the characters \quote{l}, \quote{r}, \quote{c}, and \quote{7}. The aim was to use elements in the original Knuthian design to develop a culturally authentic and aesthetically pleasing Arabic-script fixed-width font. In other words, \ALMF\ is a natural extension of and complement to the Knuthian design and inspiration.
+
+In the following example, the Arabic-script letters are on the right:
+
+\blank
+{\LMLL l} \quad \quad\quad \quad {\ALMLL ا} 
+
+{\LMLL c} \quad \quad\quad \quad {\ALMLL ع ۴}
+
+{\LMLL r} \quad \quad\quad \quad {\ALMLL ب ج}
+
+{\LMLL m} \quad \quad\quad \quad {\ALMLL س}
+
+{\LMLL 7} \quad \quad\quad \quad {\ALMLL ٧}
+
+\blank
+
+Thus one notices that the \quotation{ear} of the \quote{r} (top-right \quotation{terminal} or extremity) harmonizes well with many of the extremities of the Arabic letters. Now traditional Arabic-script does not contain these \quotation{ears}: We integrated the ears into the Arabic design in a way that we hope expands the possibilities of culturally authentic Arabic in a natural way. For example: In traditional Arabic terminal endings in characters are usually tapered from thick to thin. In some of the characters above one will notice we did exactly the opposite: Tapering goes from thin to thick (at the \quotation{ears}). Yet I believe we have managed to maintain a powerful, authentic Arabic feel, that is in harmony with the Knuthian design.
+\stopsubsubsection
+
+\startsubsubsection[title=Vertical Metrics and Latin]
+
+Note that the width and length of the stem of the Arabic letter Alif (‎{\ALM ا}‎, first letter of the Arabic alphabet) is exactly the same as that of the Latin lower 
+case Ell ({\tt l}). Using this as a benchmark, it becomes easy to see why Arabic script nearly always needs more vertical-metric space than Latin in mixed script contexts. The maximum ascenders and descenders for \ALMF\ are considerably greater than those of \LMM. This is to be expected: As we design the rest of the Arabic letters with respect to Alif, the ascender-descender space naturally has to expand to accommodate things. Note also that the baseline for Arabic letters is higher than it is for Latin: This is also natural and to be expected.
+
+Virtually every aspect of the base \LMM\ design has been incorporated into \ALMF. I did notice defects in a number of glyphs but except in a few minor 
+cases have not changed anything in \LM. The OpenType tables have been ported over. The only thing that prevents \ALMF\ from serving as a drop-in replacement for its \LMM\ base is that the vertical metrics are different. Indeed, this is one reason for choosing to name the font \quote{\ALMF}\ instead of \quote{Latin-Arabic Modern}. Of course, in \TeX\ one can set the interline spacing of \ALMF\ to precisely match that of its \LM\ counterpart.
+
+\startsubsubsection[title=On-screen Applications]
+Due to its intended use for editors, a considerable effort has been made to make \ALMF\ comfortable for on-screen viewing. A number of Arabic-script characters have gone through numerous iterations in pursuit of this goal. Each shape iteration often involves having to then adjust dozens of other characters that depend on that shape, making this a very time-consuming process (the letter {\ALM س} has been a real challenge, with its very close teeth). I did not change the \LM\ counterparts (except in some very minor places as mentioned above). On the other hand, the hinting of \ALMF\ is, I hold, much better than that of \LMM. 
+
+One reason I did not previously use \LMM\ for on-screen applications such as text editing is because of its very limited hinting. For example: An on-screen string of, e.\,g., all capital letters at normal typing sizes (9-14 points) shows sometimes wild inconsistencies in the letter heights. Now, in \ALMF, the Latin component of \ALMF\ looks much better on-screen than in the former; it is to my eye virtually as comfortable as, say, Courier New on Windows. 
+
+Arabic-script fonts generally require greater point sizes for readability than Latin. \ALMF\ is just readable on-screen with marks even as low as seven points. Comfortable  point sizes for editing purposes range from 9 to 14 points (I particularly like the hinting effects in sizes 11 and 13; your own mileage may vary of course). 
+\stopsubsubsection
+
+\startsubsubsection[title=Some Notes:]
+
+\startitemize[packed] 
+\item In a future maintenance release I may fix some of the minor errors in a few of the \LMM\ glyphs.
+\item Although it has plenty of room for improvement (as almost any font does) the shapes have been more successful than I expected. I can envision Arabic-script applications where this could be used apart from editing or verbatim (such as 
+web-page design).
+\item Related to this, I may eventually add a proportional version of this design to complement \TeX\ Gyre \LM\ Proportional~10. Much of the current design elements can be reused. Although not as useful for verbatim and editing purposes, the aesthetics appear to me as robust enough to make a future proportional version a worthwhile pursuit.
+\stopitemize
+\stopsubsection
+
+\startsubsection[title=Character Coverage]
+\startsubsubsection[title=Arabic Blocks]
+The original Latin Modern Mono contains 785 glyphs, including about 617 standard Unicode characters. Oriental-\TeX\ Arabic-Latin 
+Modern Mono contains 2630 glyphs, for an increase of 1845 glyphs. Of these, 1113 are Unicode code points. \ALMF\ covers every single character in all Unicode-Arabic blocks: Arabic, Arabic Supplement, Arabic Extended, Arabic Presentation-Forms~A, and Arabic Presentation-Forms~B.
+
+One of the main features of \ALMF\ is its unique treatment of Arabic-script marks. Our font contains a total of 
+66 Unicode marks, more than any other publicly available font of which I am aware. It is almost certainly the 
+most complete fixed-width font as far as the Arabic-script blocks are concerned.
+	\startfootnote
+	Nor have I seen any commercial font that covers these ranges so completely. On the other hand, this 
+	is not to deny that others may exist or be under development. 
+	\stopfootnote
+\stopsubsubsection
+\startsubsubsection[title=Presentation Forms]
+The Arabic Presentation Forms~A includes what are commonly called \quotation{ligatures}, although the ligature 
+concept doesn't really make sense for the Arabic script (for reasons discussed elsewhere). These characters have 
+been decomposed into their base components: For two-component forms the metric width has been doubled; for 
+three-component forms the metric width has been tripled. In part for this reason we call this font \quotation{fixed-width} 
+rather than \quotation{mono}. That is, in a fixed-width font, occasional or special characters may have a width that is a 
+natural-number multiple of the fixed width; in a monospaced font every glyph must have precisely the same width. 
+The expressions \quote{fixed-width} and \quote{monospaced} are normally used synonymously; we have introduced a 
+subtle distinction in our adaptation of this nomenclature. Some examples:
+
+%\blank
+\start
+% \ALMLL ﯬ ﰦ ﲰ ﵐ ﶜ ﵥ
+\ALMLL ﯬ ﰦ ﲰ ﵐ ﶜ 
+\stop
+%\blank
+
+Column U+FDFX of Arabic Presentation-Forms~A has been maintained without decomposition: A special character has been 
+designed for each, within the standard fixed-width:
+
+\start
+\ALMLL ﷰ ﷱ ﷲ ﷳ ﷴ ﷵ ﷶ 
+
+ﷷ ﷸ ﷹ ﷺ  ﷻ ﷼ ﷽
+\stop
+
+The famous Lām-Alif \quotation{ligature} ({\ALM ﻻ ﻼ}) has been maintained {\em only} for U+FEFB and U+FEFC. 
+In every other case (U+FEF5..U+FEFA) they have been decomposed. In addition, 
+U+0644 plus U+0621 do {\em not} automatically combine into the  Lām-Alif combination. This is because \ALMF's purpose is primarily to serve as an input, editing, and verbatim font. Ligatures and the like get in the way of that task. Once input is done the text can processed via a layout processor such as \TeX\ to another font (or one can make a simple font switch in a word processor). 
+U+FEFB and U+FEFC (initial and final forms) have been kept 
+because these two have an ancient pedigree in the Arabic script and deserve an independent representation.%
+	\startfootnote
+	Indeed, in some ancient texts ({\ALM ﻻ} or U+FEFB) is considered a distinct letter of the Arabic alphabet. On the other hand, 
+	U+FEFB proper should only be used in special cases, otherwise U+0644 plus U+0621 should always be input explicitly.
+	\stopfootnote
+	
+With a few exceptions (such as U+FD3E--U+FD3F {\ALM ﴾ ﴿} ornate parenthesis), the bulk of Presentation-Forms~A are useless for digital text entry and their use should be severely discouraged. They are there purely for 
+esoteric legacy purposes, and in my view even those legacy purposes are suspect. Very few applications ever used the bulk of these characters; 
+it is better to convert what few (if any) texts encoded using them into what even the Unicode Consortium calls the \quotation{preferred} Arabic Block (0600-06FF). On the other hand, it is the aim of \ALMF\ to be complete, so we have included the entire range of presentation characters.
+
+Note that \ALMF\ does {\em not} support initial, medial, or final processing of  Presentation Forms; this is intentional. The most these forms should be used for is visual presentation for purposes of conversion to the main Unicode Arabic block.%
+	\startfootnote
+	Indeed, I strongly considered a purely {\em implicit} representation of the Presentation Forms in terms of OpenType lookups and the {\tt ccmp} feature. Uniscribe, Microsoft's ubiquitous OpenType and language-layout processor, would not apply the feature, although the lookups were technically correct (we will discuss some of Uniscribe's other peculiarities as well later in this report). After many experiments and careful analysis it was decided to go ahead with an {\em explicit} representation of each and every Presentation-Forms character.
+	\stopfootnote
+
+\stopsubsubsection
+
+\startsubsubsection[title=Format and Spacing Glyph Representations]
+We added twelve additional Unicode format and spacing characters (with explicit glyph representations) and also 
+designed a glyph representation for 
+\LM\ U+00A0 (no-break space), as well as U+25CC (dotted circle):
+
+\start
+\ALML ؜ ‌ ‎ ‍ ‎ ‏ ‪ ‫ ‬ ‭ ‮ ﻿ ◌
+\stop
+
+The glyph representations of these characters are important for at least a couple of reasons:
+\startitemize[n,packed]
+\item For verbatim representation of multi-directional and multilingual text.
+\item For visual control and confirmation in text editors. 
+	\startfootnote
+	Oddly enough, Microsoft Notepad is one of the only text editors that actually let's you see the glyph representations of format (or \quotation{control}) and spacing characters. The glyph representation of format characters can also be turned on and off, while those of spacing characters seem to remain on permanently if the font has them.
+	\stopfootnote
+\stopitemize 
+
+
+The Arabic Language Mark --- \start\ALML؜\stop\ or U+061C --- is a new format character, placed in the main Arabic block. We will discuss its role in bi-directional typesetting in future research. Given the decision by the Unicode Consortium to place it in the Arabic Block, I decided to give it an Arabic-script representation. The abbreviation is short for {\ALM علامة الحرف العربي}‎, which means \quotation{Arabic Language Mark}.
+
+The dotted circle is needed for Uniscribe to implement its \quotation{invalid marks} algorithm as well as the individual representation of marks in running text. We will say more about Uniscribe later.
+\stopsubsubsection
+\stopsubsection
+\stopsection
+
+\startsection[title=OpenType Features]
+\startsubsection[title=\TeX\ Gyre \LMM\ and OpenType]
+As mentioned earlier, \ALMF\ has imported all \TeX\ Gyre \LMM\ OpenType features. A few redundancies have been removed, and one important bug that caused Uniscribe-based applications to switch to another fallback font 
+under some conditions has been fixed.
+\stopsubsection
+\startsubsection[title=Scripts and Language-Specific Discretionaries]
+There are now two supported scripts: Arabic (OpenType tag {\tt<arab>}) and Latin (tag {\tt<latn>}). In \Context\ one activates them using the {\tt <script>} key (e.\,g., {\tt script=arab}).
+
+Given an OpenType script one can implement lookup and feature rules for each language supported by that script. For most purposes languages follow the same script rules so a Default language (OpenType tag {\tt <dflt>})%
+	\startfootnote
+	Internally this is converted to {\tt DefaultLangSys} internally within the OpenType font file, but higher-level syntax usually uses {\tt <dflt>}.
+	\stopfootnote 
+	\
+ is usually enough. In some cases, however, certain modifications are needed. In the case of \TeX\ Gyre\ \LMM, a few conventions related to punctuation and numerals are implemented for a small handful of Latin-script languages. 
+
+In a similar spirit we have implemented some lookups for punctuation and numeric conventions for the three primary and most used Arabic-script languages: Arabic, Persian, and Urdu. For each supported language these are implemented 
+under the Discretionary Ligatures feature ({\tt <dlig>}). Most other Arabic-script languages can use either one of these three conventions or the default language option. When and where necessary, more language-specific discretions (appropriate to the purpose of this font) can be added as needed by users in the future.
+
+I'll give just one example. Persian-Indo numerals (column U+06FX) and Arabic numerals (column U+066X) mostly look the same, but they follow different bidirectional rules.
+	\startfootnote
+	Loosely, the Arabic numerals have stronger bidirectional characteristics than the Persian-Indo numerals, which basically follow the same rules as Latin-script digits.
+	\stopfootnote
+	\
+Urdu numerals also look mostly the same. But two or three numerals use a language-specific shape. For example, the numeral \quote{4} takes on a distinctly different shape in Arabic, Persian, and Urdu respectively:
+
+\blank
+\start
+\ALML \fontchar{uni0664} \quad \fontchar{uni06F4} \quad \fontchar{uni06F4.indo}
+\stop
+\blank
+
+Users of each language (or a regionally related one) can thus choose which language to activate via the {\tt <locl>} feature.
+
+\pagebreak
+Here is a map of currently supported scripts and languages:
+\startitemize[packed,columns,two]
+\item Arabic script {\tt <arab>}
+	\startitemize[6,packed,columns=false]
+	\item Default {\tt <dflt>}
+	\item Arabic {\tt <ARA>}
+	\item Persian {\tt <FAR>}
+	\item Urdu {\tt <URD>} \blank\ \blank
+	\stopitemize
+\item Latin script {\tt <latn>}
+	\startitemize
+	\item Default {\tt <dflt>}
+	\item Azeri {\tt <AZE>}
+	\item Crimean Tatar {\tt <CRT>}
+	\item Moldavian {\tt <MOL>}	
+	\item Romanian {\tt <ROM>}
+	\item Turkish {\tt <TRK>}	
+	\stopitemize
+\stopitemize 
+
+Latin-script languages support the official features Discretionary Ligatures {\tt <dlig>}, Fractions {\tt <frac>}, Lining Figures {\tt <lnum>}, Oldstyle Figures {\tt <onum>}, and Slashed Zero {\tt <zero>}. 
+
+In each Arabic-script language ({\em except} Default) the language-specific features are found under the feature Localized Forms {\tt <locl>}. For  each Arabic-script language ({\em including} Default) punctuation alternates are found 
+under Discretionary Ligatures {\tt <dlig>}. 
+% There are currently no official tags for the particular language-specific conventions needed, so we use {\tt <locl>} and {\tt <dlig>} for now. 
+Thus all three languages and default ({\tt <dflt>}) support switching punctuation from Latin to a more authentic Arabic-script look. For example, the period on the left is the usual 
+U+002E, the one on the right is more suited to Arabic-script but does not involve a different Unicode symbol:
+
+\blank
+\start
+\LMLL \fontchar{period} \quad \ALMLL \fontchar{period.arabic}
+\stop
+\blank
+
+Notice that the Arabic-script period is both higher (the Arabic-script baseline is also higher) and shaped more squarish. This feature is turned on under <{\tt dlig}>
+
+Under Localized Forms {\tt locl} we have situated figure substitutions (discussed above), and even some analogous language-specific letter substitutions such as
+
+\blank
+\start
+{\ALML \fontchar{uni0643.fina} \ -> \ \fontchar{uni06A9.fina} (Persian)}
+
+{\ALML \fontchar{uni0647.fina} \ -> \ \fontchar{uni06C1.fina} (Urdu)}
+\stop
+\blank
+
+Although these localized forms are also encoded in Unicode and can be input directly, {\tt<locl>} allows users of one language system to, when desired,  switch these shapes without changing the encoding of the source text.
+
+\stopsubsection
+
+% \startsection[title=Baselines]
+% Given the radically different nature of ascenders and descenders in Arabic and Latin script, mixing the two scripts always requres some sensitivity depending on the context. In some cases it is better for the two scripts to share the same baselines; in others it looks better to have the Arabic baseline slightly higher. So we have added a Kerning {\tt <kern>} feature to the Latin-script languages (there was no {\tt <kern>} in \TeX\ Gyre \LMM, which is normal for monospaced fonts). Thus, when {\tt kern=on} in \Context, the baselines of Latin- and Arabic-script will be the same. For Arabic-script languages t
+% \stopsection
+\startsubsection[title=Mark Editing]
+One of the chief motivations for the development of \ALMF\ was improved marks handling. Unfortunately Uniscribe, Microsoft's language-layout processor and the most used one in the world by far, has some built-in, hardcoded rules that will override OpenType instructions as it sees fit. In other words, Uniscribe is not only an OpenType layout processor but in some cases also functions as a syntax enforcer. These restrictions make it difficult for font developers to be creative and develop features useful for, e.\,g., Arabic script. 
+
+For example, one could begin to approach the problem of moving marks to the left of the modified letter as follows: Since the font is already fixed-width, keep the marks at the same width (in most fonts a mark glyph is always zero width); and do not apply anchor attachment. Doing this will show up correctly when proofing and previewing the OpenType tables, but Uniscribe will override it, forcing the mark glyphs to occupy the same width space as the modified letter. 
+	\startfootnote
+	Some fonts that come with Windows operating systems (such as Courier New) also have mark glyphs that are not zero-width but fixed width. In either case Uniscribe ignores the width of mark glyphs.
+	\stopfootnote
+
+Overcoming this limitation of Uniscribe (as well as a couple of others) required some OpenType trickery. In our case, we first converted the marks to base characters (in OpenType each character has to be labelled as either {\tt base}, {\tt mark}, {\tt ligature}, or {\tt component}). Once converted to a base character, the mark can then be treated mostly as a base character by Uniscribe. I say \quotation{mostly} because Uniscribe also has other, more 
+esoteric, restrictions as well (we'll mention a couple of cases later).  
+
+After converting the marks to base characters, we can then make a substitution: For each initial or medial character, we substitute the mark (now converted to base) for itself plus the Arabic-script letter extender character 
+(\Tatwil\ or U+0640). For example:
+
+\blank
+\start
+\righttoleft
+\ALML \fontchar{uni0644.init} $+$ \fontchar{uni064E} $<-$  \fontchar{uni0644.init} $+$ \fontchar{uni0640} $+$ \fontchar{uni064E}
+\stop
+\blank
+
+Then we position the mark over the \Tatwil\ using pair-adjustment (GPOS). There are some other subtleties in programming the tables but this is the main idea. So we now have
+
+\blank
+\start
+\righttoleft
+\ALML \fontchar{uni0644.init}َ
+\stop
+\blank
+
+In a text editor, what had originally been a tedious and impractical task (selecting and editing marks) 
+is just as straightforward as editing any other base character.
+\stopsubsection
+
+\pagebreak
+\startsubsection[title=Esoteric Subtleties]
+
+In Uniscribe it is not allowed to form a string of marks in succession, e.\,g., 
+
+\blank
+\start
+\righttoleft
+\ALML \fontchar{uni0644.init}ََََ
+\stop
+\blank
+
+When an \quotation{invalid} string is encountered Uniscribe will often place the invalid mark over a dotted circle ({\ALM ◌} or U+25CC). We have added this symbol to \ALMF. Now, according to Microsoft,
+	\startfootnote
+	{\tt http://www.microsoft.com/typography/OpenTypeDev/arabic/intro.htm}
+	\stopfootnote
+	\
+\quotation{It should also be noted that the dotted circle is not inserted into the application's backing store. This is a run-time insertion into the glyph array\textellipsis}. This makes it very difficult to override via OpenType trickery, at least without unwanted side effects. However, we did find a workaround: Using the Zero-Width Joiner ({\ALM \fontchar{uni200D}} or 
+U+200D) and contextual substitution of the dotted circle with the \Tatwil\ the following string in a Uniscribe-based application will give the same effect as above --~with format-character glyph representation turned {\em off}, as is default. If you turn the format-character glyph representations {\em on} you will see something like this in Uniscribe-based applications:
+
+\blank
+\start
+\righttoleft
+\ALML \fontchar{uni0644.init}َ‍َ‍َ‍َ
+\stop
+\blank
+
+This particular case is somewhat esoteric, but will help make \ALMF\ more useful and complete. In \Context\ this trick is unnecessary. 
+
+Related: In Uniscribe, newly added marks to the Unicode standard will not be supported unless their status is explicitly hard-coded into Uniscribe. This can be a nightmare for some Arabic-script users of Windows text-processing applications. Consider the following two Arabic-script contextual strings:
+
+\blank
+\start
+\righttoleft
+\ALML بٟب بِب
+\stop
+\blank
+
+Both strings are rendered correctly in \Context. The one on the right uses a mark whose introduction to the Unicode 
+standard is rather recent. Since Uniscribe does not recognize it, even though the OpenType tables characterize it as 
+a mark it doesn't get properly displayed by Uniscribe no matter what. Instead Uniscribe gives
+
+\blank
+\start
+\righttoleft
+\ALML \fontchar{uni0628} \fontchar{uni065F} \fontchar{uni0628} بِب
+\stop
+\blank
+
+Our OpenType lookups allow a user to partially get around this by adding a \Tatwil\ before the unsupported mark, but that will add an extra \Tatwil. For Uniscribe applications this results in
+
+\blank
+\start
+\righttoleft
+\ALML بـٟب بِب
+\stop
+\blank
+
+Until there are more readily accessible alternatives to Uniscribe (which is by far the most used and depended-upon multi-lingual OpenType language-layout processor out there) these kinds of issues are things one simply has to live with. \ALMF\ has worked around some issues and/or ameliorated others; but given the run-time nature of Uniscribe's limitations OpenType trickery cannot by itself eliminate all peculiarites of Uniscribe. Fortunately, in \Context\ these issues do not arise, and at least the \TeX\ community is not locked in to the interests or time-table of a commercial corporation to get support as needed.
+\stopsubsection
+\stopsection
+
+\startsection[title=Conclusion]
+Arabic-Latin Modern Mono will be a boon to scholars, academics, coder editors, and anyone who wants to manage the entry of the wide array of Unicode Arabic text for editing, verbatim, or other purposes. In this regard I believe it is unique (I have not found a single other fixed-width font that comes close to matching it). Arabic-script critical editions can now use the full array of available marks at an expense no greater than that of other characters. I will periodically issue maintenance releases as needed to fix bugs or, on a selective case-by-case basis, add features needed by users (such as other language-dependent discretionaries that may arise). 
+\stopsection
+
+\setupheader[section][sectionnumber=no]
+\setupheader[subsection][sectionnumber=no]
+\startsection[title=Appendix]
+\startsubsection[title=Sample of \ALMF\ in \Context]
+
+Normally one gives displays a text in verbatim, then gives the result after processing. In this case the main text is the same in both cases (since \ALMF\ is also the verbatim font). In addition, getting verbatim bidi correct is for a future project (one that the current font project helps to pave the way for). Here we present the preamble 
+and postscript (without the body explicit, only an indication of the body buffer in its place), then we show the output. 
+
+\pagebreak
+Preamble and postscript:
+
+\setuptyping[before={\startframedtext[width=\makeupwidth,
+                           background=screen,
+                           backgroundscreen=0.9]},
+             after={\stopframedtext}]
+\start
+\setupbodyfont[modern,tt,9pt]
+\starttyping
+\setupbodyfont[modern,tt]
+\definefont[ALM][file:almmono10-regular*arabic at 14pt]
+\setuplayout[width=6in]
+\setupwhitespace[big]
+\starttext
+\setupinterlinespace[line=4.9ex] % One can play with this.
+\setupalign[r2l]
+\ALM 
+
+\getbuffer[almmono-sample] % Sample goes in this buffer.
+
+\stoptext
+\stoptyping
+\stop
+
+The result can be seen in \in{Figure}[fig:sample].
+
+
+\stopsubsection
+
+\startsubsection[title=License]
+Upon release, \ALMF\ will be released under the GUST Font License or something very close in spirit to it. See
+
+\type{http://www.gust.org.pl/projects/e-foundry/licenses}
+\stopsubsection
+
+\startsubsection[title=Unicode Arabic-Script Blocks]
+
+Notes: 
+
+\startitemize[packed]
+\item The grayed blocks are {\em unassigned} Unicode code points (as of version 6.3; see the last bullet); every {\em assigned} code point is supported by \ALMF\ as displayed here.
+\item The last page of Arabic Presentation Forms-A (FD20-FDFF) uses a smaller font size to fit the larger strings.
+\item The characters marked in black in the last page of Arabic Presentation Forms-A (FD20-FDFF) are \quotation{noncharacters}, i.\,e., these \quotation{codes are intended for process-internal uses} and will never be given character assignments by Unicode.
+\item Only the primary Unicode code points of \ALMF\ are displayed. The various variant and alternate forms are in the remainder of the font.
+\item As this report was going to press, Unicode~7.0 was released (the previous release was version 6.3). I have gone back and updated \ALMF\ to the latest Unicode. The new characters are in the 0600 block (one character) and the 08A0 block (eight characters). You'll notice that each new character is in a gray box (meaning it was unassigned until the latest version). Again, any variant and alternate forms of these characters will be found in the remainder of the font.
+\stopitemize 
+
+\placefigure
+[here][fig:sample]
+{Sample of \ALMF\ in action.}
+{\externalfigure[almmono10-sample-crop.pdf][width=0.9\textwidth]}
+
+
+\externalfigure[Unibook_0600.pdf][width=1\textwidth]
+\externalfigure[Unibook_0750.pdf][width=1\textwidth]
+\externalfigure[Unibook_08A0.pdf][width=1\textwidth]
+\externalfigure[Unibook_FB50-1.pdf][width=1\textwidth]
+\externalfigure[Unibook_FB50-2.pdf][width=1\textwidth]
+\externalfigure[Unibook_FB50-3.pdf][width=1\textwidth]
+\externalfigure[Unibook_FE70.pdf][width=1\textwidth]
+\stopsubsection
+
+
+\pagebreak
+
+\startsubsection[title=A Large Glyph Sample]
+
+It's useful to look at a few letters up close to examine some of the subtleties in the design. 
+In particular, the tapering towards extremities is the opposite of traditional Arabic design, 
+in keeping with the Knuthian spirit, but it still has a culturally authentic feel.
+
+% \blank[3*big]
+\start
+\righttoleft
+\ALMLLL  \setupinterlinespace[line=2.8ex] 
+
+ر ش ع ك 
+
+\fontchar{uni0645.init} \fontchar{uni0645.medi} ن ه 
+
+\fontchar{uni0629.alt} \fontchar{uni06BE} ﴿ ﴾
+
+\par
+\stop
+\stopsubsection
+\stopsection
+\stoptext

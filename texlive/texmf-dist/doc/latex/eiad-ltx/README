@@ -1,0 +1,121 @@
+
+What's this?
+============
+
+This directory contains a LaTeX2e package for an easy and NFSS2-compliant 
+use of the eiad font family created by Ivan A Derzhanski under
+LaTeX2e. 
+
+Obviously Plain-TeX users, etc, cannot use this package, but they
+should know how to load fonts with the \font-command anyhow...
+
+What is NOT provided here?
+==========================
+
+The fonts themselves are NOT in this directory. You can find them on
+CTAN in the directory tex-archive/fonts/eiad/, so for example in
+	ftp://ftp.dante.de/tex-archive/fonts/eiad
+or	ftp://ftp.tex.ac.uk/tex-archive/fonts/eiad
+and mirrors of CTAN...
+
+So you need the 6 *.mf-files contained in this place.
+
+What IS provided here?
+======================
+
+There are two additional mf-files: 
+	Fbf10.mf
+	Fr10.mf
+and two files to make the style file and the documentation:
+	eiad.ins
+	eiad.dtx
+(and this file (README) of course...).
+
+What are these files?
+---------------------
+In the documentation of the eiad-fonts there is described how to make
+two additional mf-files. 
+They are easy to produce, I admit, but this step might prevent someone
+from using the eiad-fonts. And since I had to make these files for
+using the fonts myself anyway, I think I should provide them here. So
+I have done some of your work, made your life easier ;-) and I am using
+7kB of CTAN space more...
+In the 'Installation'-part of this document is described where to put
+these files...
+
+With the files eiad.* you can easily produce the style file and the
+documentation, as described in the following...
+
+Installation
+============
+It's easy. But I will explain it in full detail...
+
+So you got the 6 *mf-files for the eiad-font-family created by  Ivan A
+Derzhanski (see above for finding them, if you haven't), the two
+*mf-files provided by me, eiad.ins and eiad.dtx. Good. 
+
+In a TDS-conforming TeX-installation you now have to put the 8 *mf-files 
+in the directory
+	$TEXMF/fonts/source/public/eiad
+
+If you have a TeX-installation which doesn't produce *tfm and
+*pk-files on the fly, you have to produce them by hand.
+On some TeX-installations (like teTeX, for example) there are some
+map-files used by MakeTeX* for putting the produced *tfm and *pk-files
+in the correct subdirectories.. So you should add 
+-----------
+@c Gaelic fonts: eiad font family
+eiad10          public          eiad
+eiadbf10        public          eiad
+-----------
+add the end of the file $TEXMF/fontname/special.map.
+
+Now run the file eiad.ins through latex:
+	latex eiad.ins
+You get a file called 
+	eiad.sty
+Copy this in a TDS-conforming installation to 
+	$TEXMF/macros/tex/latex/eiad/
+or (since this is only one file) to
+	$TEXMF/macros/tex/latex/misc/
+
+If you use a database for finding your files (like ls-R in teTeX) you
+have to update it now (e.g. run 'texhash' for teTeX). Do this first
+because we already need eiad.sty for producing the documentation...
+
+Now you can produce the documentation:
+	latex eiad.dtx
+If you want a change history in the docs, now run
+	makeindex -s ...  -o eiad.gls eiad.glo
+where ... means the full path for the file 'gglo.ist'. With teTeX 0.4
+you can say 
+	makeindex -s `kpsewhich tex gglo.ist` -o eiad.gls eiad
+Then run the file twice through latex again:
+	latex eiad.dtx
+	latex eiad.dtx
+The resulting file
+	eiad.dvi
+you can put in the TDS-conforming directory
+	$TEXMF/doc/latex/eiad
+or (since this is only one file) in
+	$TEXMF/doc/latex/misc
+
+Using the package
+=================
+
+To use the package you say 
+	\usepackage{eiad}
+in the preamble. The commands of this package are described in the
+documentation (see the 'Installation'-part for getting the
+documentation out of eiad.dtx.)
+
+Contact
+=======
+Please send comments, complaints, compliments and postcards to:
+
+Uwe M\"unch
+Schmittgasse 92
+51143 K\"oln
+Germany
+
+Email: muench@ph-cip.uni-koeln.de

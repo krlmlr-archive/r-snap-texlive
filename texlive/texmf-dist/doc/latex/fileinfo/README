@@ -1,0 +1,56 @@
+
+            == README for the `fileinfo' bundle ==
+
+This bundle has packages `readprov.sty' and `myfilist.sty'.
+
+`readprov.sty' 
+
+    renders \GetFileInfo from LaTeX's `doc.sty' (without the 
+    latter being required), as well as new robust (expandable) 
+    variants of it, usable with files that are not really 
+    loaded (they are quit when their file info is found, 
+    cf. the `zwgetfdate' package). So, e.g., you can describe 
+    packages that are incompatible with each other or with 
+    packages that your document uses. You even can report about 
+    various class files.
+
+    Such packages then also appear with LaTeX's \listfiles. 
+    You may consider this a bug ...
+
+`myfilist.sty' 
+
+    makes this "bug" a feature. In a "TeX script," you can 
+    choose some files and their order. Their names can be 
+    output into a plain text file with their dates, version 
+    ids, and one-line descriptions, formatted in the way 
+    \listfiles does it after a LaTeX run. This way you can get 
+    an overview of, e.g., some package bundle ... 
+
+The two packages are described in more detail in `readprov.pdf' 
+and `myfilist.pdf'. These documentation files also serve to 
+demonstrate some .txt->.tex functionality of the `nicetext' 
+bundle.
+
+Both packages evaluate the \Provides... commands that should 
+identify a LaTeX file. They are described in the context of 
+other packages evaluating the \Provides... entries by the 
+`info' package `latexfileinfo-pkgs',
+
+    http://ctan.org/pkg/latexfileinfo-pkgs
+
+The file `fileinfo.RLS', when installed just like 
+`myfilist.sty' and `readprov.sty' (in the `tex' tree of a TDS), 
+provides a summary of the currently installed release of the 
+`fileinfo' bundle, accessible as LaTeX file info by all of 
+these packages.
+
+`readprov' and `myfilist' are LICENSEd according to the LaTeX 
+Project Public License (see files; NO WARRANTY!). They are 
+author-maintained.
+
+A TDS version is available as 
+
+    CTAN:/install/macros/contrib/fileinfo.tds.zip
+
+2012/05/26, Uwe Lueck, http://contact-ednotes.sty.de.vu
+

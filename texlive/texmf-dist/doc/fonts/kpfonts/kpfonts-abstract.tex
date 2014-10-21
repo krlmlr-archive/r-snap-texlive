@@ -1,0 +1,130 @@
+\documentclass[a4paper,11pt]{christophe}
+% Packages
+\usepackage[latin1]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[french]{babel}
+\usepackage{kpfonts}
+\usepackage[margin=1.5cm]{geometry}
+\usepackage{fancyhdr}
+\fancyhead[L]{Kp-Fonts Abstract}
+\fancyhead[R]{Release 3.31}
+\fancyfoot[C]{}
+\setlength{\headheight}{30pt}
+\renewcommand{\headrulewidth}{0.4pt}
+\pagestyle{fancy}
+% Mise en page
+\setcounter{tocdepth}{0}
+\setlength{\parindent}{0pt}
+\setlength{\parsep}{0pt}
+\setlength{\parskip}{0pt}
+\renewcommand{\arraystretch}{1.3}
+% Special
+\DeclareMathSymbol{\partialup}{\mathord}{letters}{128}
+\DeclareMathSymbol{\narrowiiintop}{\mathop}{largesymbolsA}{135}
+   \def\narrowiiint{\narrowiiintop\nolimits}
+\newcommand{\versus}{\;\textit{versus}\;}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%
+\begin{document}
+
+\begin{center}
+\textsf{\Large Main options}
+\end{center}
+
+\begin{center}
+\textit{\small When there is an incompatibility between two options, kpfonts applies the heaviest or ignore these}
+\end{center}
+
+\begin{description}
+  \item[light]\textit{(Text \& Math)}, \textbf{lighttext} \textit{(Text)}, \textbf{lightmath} \textit{(Math)}\quad {\fontfamily{jkpl}\selectfont light fonts}\versus default fonts
+  \item[nofligatures]\textit{(Text)}\quad {\fontfamily{jkpf}\selectfont final effect}\versus final effect
+  \item[largesmallcaps]\textit{(T.)}\quad 
+       {\fontfamily{jkpk}\selectfont \textothersc{\textsc{Large Small Caps}}}\versus \textsc{Regular Small Caps}
+  \item[oldstylenums, matholdstylenums, fulloldstylenums]\textit{(T., Math, T. \& M.)}\quad
+       \oldstylenums{0123456789}\versus0123456\dots
+  \item[oldstyle, matholdstyle, fulloldstyle]\textit{(T., M., T. \& M.)}\quad
+        {\fontfamily{jkpos}\selectfont ct, st, Q} \versus ct, st, Q
+  \item[veryoldstyle, mathveryoldstyle, fullveryoldstyle]\textit{(T., M., T. \& M.)}\quad
+        {\fontfamily{jkpvos}\selectfont s, \textit{s}, s=} \versus s, \textit{s}, s=
+  \item[rmx]\textit{(T.)}\quad then, the series are: \textit{l, m, sb, b}
+  \item[sfmath]\textit{(M.)}\quad  the default math typesetting use \textit{sf} fonts:\quad
+       \mathversion{sf}$\sum u_n$ \versus\mathversion{normal}$\sum u_n$, \quad 
+  \item[sfmathbb, rmmathbb]\textit{(M.)}\quad  fix the \verb=\mathbb= font, independently of the math version
+  \item[uprightRoman]\textit{(M.)}\quad  the uppercase math roman letters are upright
+  \item[uprightgreeks]\textit{(M.)}\quad  the lowercase greek letters are upright:
+       \quad$\alphaup,\betaup,\gammaup$\versus$\alpha,\beta,\gamma$
+  \item[frenchstyle]\textit{(M.)}\quad  the uppercase math roman and lowercase greek letters are upright
+  \item[slantedGreeks]\textit{(M.)}\quad  the uppercase greek letters are slanted: 
+       \quad$\Gammasl,\Deltasl,\Phisl$\versus$\Gamma,\Delta,\Phi$
+  \item[narrowiints]\textit{(M.)}\quad the multiple integral symbols are narrower:
+       \quad  $\narrowiiint$\versus$\iiint$ 
+  
+  \item[partialup]\textit{(M.)}\quad the \verb=\partial= symbol is upright:\quad$\partialup$\versus$\partial$
+  \item[mathcalassript]\textit{(M.)}\quad swaps between: 
+       \verb=\mathcal{...}= $(\mathcal{ABC})$\versus\verb=\mathscr{...}= $(\mathscr{ABC})$
+\end{description}
+
+\vfill
+
+\begin{center}
+\textsf{\Large Math versions}
+\end{center}
+
+There are 6 math versions: \textbf{normal}, \textbf{bold}, \textbf{sf}, \textbf{boldsf}, \textbf{rm} and \textbf{boldrm}.
+
+\vfill
+
+\begin{center}
+\textsf{\Large New commands}
+\end{center}
+
+\begin{center}
+\textit{\small The result of the \textbf{"other"} commands depends from the options of \textit{kpfonts}}
+\end{center}
+
+\begin{description}
+  \item[\textbackslash scslshape, \textbackslash textscsl\{\dots\}]\textit{(T.)}\quad \textscsl{Slanted Small Caps}
+  \item[\textbackslash otherscshape, \textbackslash textothersc\{\dots\}, \textbackslash otherscslshape, \textbackslash textotherscsl\{\dots\}]\textit{(T.)}\quad 
+  
+       \textsc{Small Caps} \versus\textothersc{Other Small Caps}, \qquad
+       \textscsl{Small Caps} \versus\textotherscsl{Other Small Caps}
+  \item[\textbackslash othertailQ, \textbackslash othertailscq, \textbackslash othertailscslq]\textit{(T.)}\quad
+       Q\versus\othertailQ\quad,\quad \textsc{q}\versus\othertailscq
+  \item[\textbackslash otheralpha, \textbackslash otherGamma\dots]\textit{(M.)}\quad
+       $\alpha$\versus$\otheralpha$,\quad$\Gamma$\versus$\otherGamma$\dots
+  \item[\textbackslash alphaup, \textbackslash alphasl, 
+       \textbackslash Gammaup, \textbackslash Gammasl\dots]\textit{(M.)}\quad
+       $\alphaup$, $\alphasl$, $\Gammaup$, $\Gammasl$\dots
+  \item[\textbackslash mathscr\{\dots\}]\textit{(M.)}\quad the math script alphabet\quad $(\mathscr{ABC})$
+  \item[\textbackslash mathupright, \textbackslash mathup\dots]\textit{(M.)}\quad upright math font relative to default letter's math font
+  \item[\textbackslash D\{\dots\}]\textit{(M.)}\quad the integral \textit{d} symbol as \verb=\mathclose= 
+       and with good spacing
+  \item[\textbackslash varint, \textbackslash variint\dots]\textit{(M.)}\quad the primitive symbols with good metrics 
+       if there is no superscript
+  \item[\textbackslash widearc, \textbackslash widearcarrow, \textbackslash wideparen,
+       \textbackslash widering]\quad $\widearc{arc}\quad\widearcarrow{arrow}\quad\wideparen{paren}\quad\widering{RING}$
+\end{description}
+
+\vfill
+
+\begin{center}
+\textsf{\Large Partial loading options}
+\end{center}
+
+\begin{center}
+\textit{\small Mainly for compatibility with other packages}
+\end{center}
+
+\begin{description}
+  \item[noamsmath, notextcomp]\textit{kpfonts} doesn't load \textit{amsmath} or \textit{textcomp} packages
+  \item[notext, nomath]\textit{kpfonts} doesn't load its \textit{text} or \textit{math} fonts
+  \item[nosf, nott, onlyrm]\textit{(T.)}\quad 
+       \textit{kpfonts} doesn't load its \textit{sf}, \textit{tt} or \textit{both} fonts
+  \item[nomathscript]\textit{(M.)}\quad\textit{kpfonts} doesn't load its \verb=\mathscr= fonts
+  \item[noDcommand]\textit{(M.)}\quad\textit{kpfonts} doesn't load its \verb=\D= command
+\end{description}
+
+\vfill\vfill\vfill
+\centering{\small \textit{For further informations, read the doc files:} \texttt{kpfonts.pdf}, \texttt{Kpfonts-Doc-French.pdf}}
+
+\end{document}

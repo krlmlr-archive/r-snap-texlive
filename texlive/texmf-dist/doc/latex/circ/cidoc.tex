@@ -1,0 +1,324 @@
+%%
+%% This is file `cidoc.tex',
+%% generated with the docstrip utility.
+%%
+%% The original source files were:
+%%
+%% circ.dtx  (with options: `docsty')
+%% CIRC is a LaTeX package to typeset circuit and optics diagrams.
+%% Copyright (C) 1997,1998,2003  Sebastian Tannert and Andreas Tille
+%% 
+%%   This program is free software; you can redistribute it and/or modify
+%%   it under the terms of the GNU General Public License as published by
+%%   the Free Software Foundation; either version 2 of the License, or
+%%   (at your option) any later version.
+%% 
+%%   This program is distributed in the hope that it will be useful,
+%%   but WITHOUT ANY WARRANTY; without even the implied warranty of
+%%   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+%%   GNU General Public License for more details.
+%% 
+%%   You should have received a copy of the GNU General Public License
+%%   along with this program; if not, write to the Free Software
+%%   Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
+%% 
+%% For error reports concerning UNCHANGED versions of this file no
+%% more than one year old, see CIRC.DVI after installation.
+%% If installation fails search thru this file for 'bug'.
+\chardef\backslash="5C
+\catcode`\|=12
+\parindent 2mm
+\lineskip 0pt
+\advance\textwidth by 39.4pt
+
+\def\lpin#1{\shift -1.1 0 \put{\tlap{\llap{\tt#1$\rfloor$}\vss}}}
+\def\bpin#1{\shift 0 -1.5 \put{\blap{\llap{\tt#1\hss}}}}
+\def\tpin#1{\shift 0 1.5 \put{\tlap{\llap{\tt#1\hss}}}}
+\def\rpin#1{\shift 1.1 0 \put{\tlap{\rlap{$\lfloor$\tt#1}\vss}}}
+
+\def\cdef#1 #2 #3#4 #5 {\noindent
+\hbox{\vbox to 3cm{\vskip 2mm
+ {\hsize 4.3cm \footnotesize #5\par}
+ \vfill
+ \hbox to 4.5cm{\hfill
+   \begin{circuit}0 \csname #1\endcsname{n} {text} r \end{circuit}
+  \hfill}\vfill
+ \hbox to 4.5cm{~~{\tt\backslash#1}\quad\hfill
+                   \fbox{$\mathcal{SXY}$}\quad}
+ \vskip 2mm
+ \hrule width 4.5cm height .1pt}%
+ \vrule width.1pt height 3cm depth 0pt}\linebreak[1]}
+
+\def\cwdef#1 #2 #3 {\noindent
+\hbox{\vbox to 3cm{\vskip 2mm
+ {\hsize 4.3cm \footnotesize #3\par}
+ \vfill
+ \hbox to 4.5cm{\hfill
+   \begin{circuit}0 \csname #1\endcsname 6 r \end{circuit}
+  \hfill}\vfill
+ \hbox to 4.5cm{~~{\tt\backslash#1}\quad\hfill
+                   \fbox{$\mathcal{LI}$}\quad}
+ \vskip 2mm
+ \hrule width 4.5cm height .1pt}%
+ \vrule width.1pt height 3cm depth 0pt}\linebreak[1]}
+
+\def\cwwdef#1 #2 {\noindent
+\hbox{\vbox to 3cm{\vskip 2mm
+ {\hsize 4.3cm \footnotesize #2\par}
+ \vfill
+ \hbox to 4.5cm{\hfill
+   \begin{circuit}0 \csname #1\endcsname {text} 6 r \end{circuit}
+  \hfill}\vfill
+ \hbox to 4.5cm{~~{\tt\backslash#1}\quad\hfill
+                   \fbox{$\mathcal{LB}$}\quad}
+ \vskip 2mm
+ \hrule width 4.5cm height .1pt}%
+ \vrule width.1pt height 3cm depth 0pt}\linebreak[1]}
+
+\def\NgateIIO#1 #2#3 #4 #5 {\noindent
+\hbox{\vbox to 3cm{\vskip 2mm
+ {\hsize 4.3cm \footnotesize #5\par}
+ \vfill
+ \hbox to 4.5cm{\hfill
+   \begin{circuit}0 \csname #1\endcsname{n} {text} : a b c
+   \atpin{#1nI1} \lpin{I1}  \atpin{#1nI2} \lpin{I2} \atpin{#1nO} \rpin{O}
+   \end{circuit}
+  \hfill}\vfill
+ \hbox to 4.5cm{~~{\tt\backslash#1}\quad\hfill
+                   \fbox{$\mathcal{GII}$}\quad}
+ \vskip 2mm
+ \hrule width 4.5cm height .1pt}%
+ \vrule width.1pt height 3cm depth 0pt}\linebreak[1]}
+
+\def\gateIIO#1 #2#3 #4#5 #6 #7 #8 {\noindent
+\hbox{\vbox to 3.8cm{\vskip 2mm
+ {\hsize 4.8cm \footnotesize #8\par}
+ \vfill
+ \hbox to 5cm{\hfill
+   \begin{circuit}0 \csname #1\endcsname{n} {text} : a b c
+   \atpin{#1n#5} \lpin{#5}  \atpin{#1n#7} \lpin{#7} \atpin{#1n#6} \rpin{#6}
+   \end{circuit}
+  \hfill}\vfill
+ \hbox to 5cm{~~{\tt\backslash#1}\quad\hfill
+                   \fbox{$\mathcal{GII}$}\quad}
+ \vskip 2mm
+ \hrule width 5cm height .1pt}%
+ \vrule width.1pt height 3.8cm depth 0pt}\linebreak[1]}
+
+\def\NgateIO#1 #2#3 #4 #5 {\noindent
+\hbox{\vbox to 3cm{\vskip 2mm
+ {\hsize 4.3cm \footnotesize #5\par}
+ \vfill
+ \hbox to 4.5cm{\hfill
+   \begin{circuit}0 \csname #1\endcsname{n} {text} : a b
+   \atpin{#1nI} \lpin{I}  \atpin{#1nI} \atpin{#1nO} \rpin{O}
+   \end{circuit}
+  \hfill}\vfill
+ \hbox to 4.5cm{~~{\tt\backslash#1}\quad\hfill
+                   \fbox{$\mathcal{GI}$}\quad}
+ \vskip 2mm
+ \hrule width 4.5cm height .1pt}%
+ \vrule width.1pt height 3cm depth 0pt}\linebreak[1]}
+
+\def\cdefiv#1 #2 #3#4 #5 #6 #7 {\noindent
+\hbox{\vbox to 3cm{\vskip 2mm
+ {\hsize 4.3cm \footnotesize #7\par}
+ \vfill
+ \hbox to 4.5cm{\hfill
+   \begin{circuit}0 \csname #1\endcsname{n} {text} #5 r
+     \atpin {#1n#5} \lpin{#5}
+     \atpin {#1n#6} \rpin{#6}
+   \end{circuit}
+  \hfill}\vfill
+ \hbox to 4.5cm{~~{\tt\backslash#1}\quad\hfill
+                   \fbox{$\mathcal{SX}$}\quad}
+ \vskip 2mm
+ \hrule width 4.5cm height .1pt}%
+ \vrule width.1pt height 3cm depth 0pt}\linebreak[1]}
+
+\def\cdefivNL#1 #2#3 #4 #5 #6 {\noindent
+\hbox{\vbox to 3cm{\vskip 2mm
+ {\hsize 4.3cm \footnotesize #6\par}
+ \vfill
+ \hbox to 4.5cm{\hfill
+   \begin{circuit}0 \csname #1\endcsname{n} {text} #5 r
+     \atpin {#1n#4} \lpin{#4}
+     \atpin {#1n#5} \rpin{#5}
+   \end{circuit}
+  \hfill}\vfill
+ \hbox to 4.5cm{~~{\tt\backslash#1}\quad\hfill
+                   \fbox{$\mathcal{SX}$}\quad}
+ \vskip 2mm
+ \hrule width 4.5cm height .1pt}%
+ \vrule width.1pt height 3cm depth 0pt}\linebreak[1]}
+
+\def\cdefiviv#1 #2 #3#4 #5 #6 #7 {\noindent
+\hbox{\vbox to 3cm{\vskip 2mm
+{\hsize4.3cm \footnotesize #7\par}%
+ \vfill
+ \hbox to 4.5cm{\hfill
+   \begin{circuit}0 \csname #1\endcsname{n} {text} #5 r
+     \atpin {#1n#5} \lpin{#5}
+     \atpin {#1n#6} \rpin{#6}
+   \end{circuit}
+  \hfill}\vfill
+ \hbox to 4.5cm{~~{\tt\backslash#1}\quad\hfill
+                   \fbox{$\mathcal{SO}$}\quad}
+ \vskip 2mm
+ \hrule width 4.5cm height .1pt}%
+ \vrule width.1pt height 3cm depth 0pt}\linebreak[1]}
+
+\def\cdefivivNL#1 #2#3 #4 #5 #6 {\noindent
+\hbox{\vbox to 3cm{\vskip 2mm
+{\hsize4.3cm \footnotesize #6\par}%
+ \vfill
+ \hbox to 4.5cm{\hfill
+   \begin{circuit}0 \csname #1\endcsname{n} {text} #5 r
+     \atpin {#1n#4} \lpin{#4}
+     \atpin {#1n#5} \rpin{#5}
+   \end{circuit}
+  \hfill}\vfill
+ \hbox to 4.5cm{~~{\tt\backslash#1}\quad\hfill
+                   \fbox{$\mathcal{SO}$}\quad}
+ \vskip 2mm
+ \hrule width 4.5cm height .1pt}%
+ \vrule width.1pt height 3cm depth 0pt}\linebreak[1]}
+
+\def\cdefo#1 #2 {\noindent
+\hbox{\vbox to 3cm{\vskip 2mm
+ {\hsize 4.3cm \footnotesize #2\par}
+ \vfill
+ \hbox to 4.5cm{\hfill
+   \begin{circuit}0 \csname #1\endcsname{n} \end{circuit}
+  \hfill}\vfill
+ \hbox to 4.5cm{~~{\tt\backslash#1}\quad\hfill
+                   \fbox{$\mathcal{OP}$}\quad}
+ \vskip 2mm
+ \hrule width 4.5cm height .1pt}%
+ \vrule width.1pt height 3cm depth 0pt}\linebreak[1]}
+
+\def\optionline#1 {\vskip3mm
+  {\large Symbols provided by the option \fbox{\tt#1.def}}\\[3mm]}
+
+\def\bbdef#1 #2#3 #4 {\noindent
+\hbox{\vbox to 4.5cm{\vskip 2mm
+ {\hsize 4.3cm \footnotesize #4\par}
+ \vfill
+ \hbox to 4.5cm{\hfill
+   \begin{circuit}0 \csname #1\endcsname n {text} : a b c d
+   \atpin{#1nP1} \lpin{P1}
+   \atpin{#1nP2} \bpin{P2}
+   \atpin{#1nP4} \tpin{P4}
+   \atpin{#1nP3} \rpin{P3}
+   \end{circuit}
+  \hfill}\vfill
+ \hbox to 4.5cm{~~{\tt\backslash#1}\quad\hfill
+                   \fbox{$\mathcal{BXT}$}\quad}
+ \vskip 2mm
+ \hrule width 4.5cm height .1pt}%
+ \vrule width.1pt height 4.5cm depth 0pt}\linebreak[1]}
+
+\def\bbdefNeT#1 #2#3 #4 #5 {\noindent
+\hbox{\vbox to 4.5cm{\vskip 2mm
+ {\hsize 4.3cm \footnotesize #5\par}
+ \vfill
+ \hbox to 4.5cm{\hfill
+   \begin{circuit}0 \csname #1\endcsname n : a b c d
+   \atpin{#1nP1} \lpin{P1}
+   \atpin{#1nP3} \rpin{P3}
+   \atpin{#1nP2} \bpin{P2}
+   \atpin{#1nP4} \tpin{P4}
+   \end{circuit}
+  \hfill}\vfill
+ \hbox to 4.5cm{~~{\tt\backslash#1}\quad\hfill
+                   \fbox{$\mathcal{BX}$}\quad}
+ \vskip 2mm
+ \hrule width 4.5cm height .1pt}%
+ \vrule width.1pt height 4.5cm depth 0pt}\linebreak[1]}
+
+\def\bbdefNeTii#1 #2#3 #4 #5 {\noindent
+\hbox{\vbox to 4.5cm{\vskip 2mm
+ {\hsize 4.3cm \footnotesize #5\par}
+ \vfill
+ \hbox to 4.5cm{\hfill
+   \begin{circuit}0 \csname #1\endcsname n : a b c d h
+   \atpin{#1nP1} \lpin{P1}
+   \atpin{#1nP3} \rpin{P3}
+   \atpin{#1nP2} \bpin{P2}
+   \atpin{#1nP4} \tpin{P4}
+   \end{circuit}
+  \hfill}\vfill
+ \hbox to 4.5cm{~~{\tt\backslash#1}\quad\hfill
+                   \fbox{$\mathcal{BX}$}\quad}
+ \vskip 2mm
+ \hrule width 4.5cm height .1pt}%
+ \vrule width.1pt height 4.5cm depth 0pt}\linebreak[1]}
+
+\def\sbdef#1 #2#3 #4 #5 {\noindent
+\hbox{\vbox to 4.5cm{\vskip 2mm
+ {\hsize 4.3cm \footnotesize #5\par}
+ \vfill
+ \hbox to 4.5cm{\hfill
+   \begin{circuit}0 \csname #1\endcsname n : a b c d h
+   \atpin{#1nP1} \lpin{P1}
+   \atpin{#1nP3} \rpin{P3}
+   \atpin{#1nP2} \bpin{P2}
+   \atpin{#1nP4} \tpin{P4}
+   \end{circuit}
+  \hfill}\vfill
+ \hbox to 4.5cm{~~{\tt\backslash#1}\quad\hfill
+                   \fbox{$\mathcal{BX}$}\quad}
+ \vskip 2mm
+ \hrule width 4.5cm height .1pt}%
+ \vrule width.1pt height 4.5cm depth 0pt}\linebreak[1]}
+
+\def\textdef#1 #2 {\noindent
+\hbox{\vbox to 3cm{\vskip 2mm
+ {\hsize 4.3cm \footnotesize #2\par}
+ \vfill
+ \hbox to 4.5cm{\hfill
+   \begin{circuit}0
+   \at 0 0 \P1 \at 6 0 \P2
+   \csname #1\endcsname {text} from P1 to P2 \end{circuit}
+  \hfill}\vfill
+ \hbox to 4.5cm{~~{\tt\backslash#1}\quad\hfill
+                   \fbox{$\mathcal{TXT}$}\quad}
+ \vskip 2mm
+ \hrule width 4.5cm height .1pt}%
+ \vrule width.1pt height 3cm depth 0pt}\linebreak[1]}
+
+\def\cdefviii#1 #2 #3#4 #5 #6 #7 #8 {\noindent
+\hbox{\vbox to 3cm{\vskip 2mm
+{\hsize4.3cm \footnotesize #8\par}%
+ \vfill
+ \hbox to 4.5cm{\hfill
+   \begin{circuit}0 \csname #1\endcsname{n} {text} : l
+     \atpin {#1n#5} \rpin{#5}
+     \atpin {#1n#6} \lpin{#6}
+     \atpin {#1n#7} \rpin{#7}
+   \end{circuit}
+  \hfill}\vfill
+ \hbox to 4.5cm{~~{\tt\backslash#1}\quad\hfill
+                   \fbox{$\mathcal{S\mathrm{3}P}$}\quad}
+ \vskip 2mm
+ \hrule width 4.5cm height .1pt}%
+ \vrule width.1pt height 3cm depth 0pt}\linebreak[1]}
+
+\def\Ccirc#1 #2 #3#4{\noindent
+  \def\Clpin##1{\atpin{#1n##1} \lpin{##1} }
+  \def\Crpin##1{\atpin{#1n##1} \rpin{##1} }
+\hbox{\vbox to 4.5cm{\vskip 2mm
+ {\hsize 4.3cm \footnotesize #3\par}
+ \vfill
+ \hbox to 4.5cm{\hfill
+   \begin{circuit}0 \csname #1\endcsname n {text} #2 {} #4
+   \end{circuit}
+  \hfill}\vfill
+ \hbox to 4.5cm{~~{\tt\backslash#1}\quad\hfill
+                   \fbox{$\mathcal{IC}$}\quad}
+ \vskip 2mm
+ \hrule width 4.5cm height .1pt}%
+ \vrule width.1pt height 4.5cm depth 0pt}\linebreak[1]}
+\endinput
+%%
+%% End of file `cidoc.tex'.

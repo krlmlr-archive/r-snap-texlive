@@ -1,0 +1,491 @@
+% !TEX TS-program = pdflatex
+
+% sansmathfonts.tex
+%
+% Documentation for the sansmathfonts package
+%
+% author: Ariel Barton
+%
+% Copyright Ariel Barton, 2013
+%
+% This work may be distributed and/or modified under the
+% conditions of the LaTeX Project Public License, either
+% version 1.3 of this license or (at your option) any
+% later version.
+% The latest version of the license is in
+%    http://www.latex-project.org/lppl.txt
+% and version 1.3 or later is part of all distributions of
+% LaTeX version 2003/06/01 or later.
+%
+% This work has the LPPL maintenance status "author-maintained".
+%
+% The complete list of files considered part of this work is in
+% the file `sansmathfonts.pdf' and its source code `sansmathfonts.tex'.
+%
+% Date: 2013/03/22
+
+\documentclass{amsart}
+
+\raggedbottom
+
+\usepackage{sansmathfonts}
+\usepackage{hyperref, amsfonts, esint, slantsc, bm}
+
+\def\sectionautorefname{Section}
+
+\title{The \textsf{sansmathfonts} package}
+\author{Ariel Barton}
+
+\DeclareTextFontCommand{\cmsmf}
+{\fontencoding{OT1}\fontfamily{cmsmf}\selectfont}
+
+\begin{document}
+
+\maketitle
+
+The Computer Modern font family has a sans serif typeface. However, compared to the serif typeface, it is incomplete: there are no sans serif small caps or math fonts. Furthermore, the bold slanted font is not available as an outline font.
+This leads to highly unsatisfactory typography of documents that use sans serif for the body text.
+
+
+The \textsf{sansmathfonts} package provides these ``missing'' fonts. Most of the usefulness of the package is in the fonts; \texttt{sansmathfonts.sty} is a small package providing \LaTeX\ support. To use it, simply say \texttt{\char`\\usepackage\char`\{sansmathfonts\char`\}} in the document preamble.
+
+This will redefine the document's default sans serif font family from \textsf{cmss} to \textsf{xcmss}; this will make the \textsf{\textbf{\textit{bold slanted}}} and \textsf{\textsc{Caps and small caps}} fonts available via normal \LaTeX\ font commands (\verb|\textbf|, \verb|\textit| and \verb|\textsc|). If you additionally load Harald Harder's \textsf{slantsc} package, this will make \textsf{\textit{\textsc{slanted caps and small caps}}} available.
+
+This will also switch the math fonts to sans serif:
+\[\Im \mathop{\mathrm{exp}}(i\omega)=\sin(\omega) \]
+If you use symbols from the \textsf{amsfonts} or \textsf{esint} packages, they will also be replaced by appropriate sans serif versions:
+\[\ointclockwise \quad \mho \quad \hbar\]
+By default, the commands \verb|\mathrm| and \verb|\mathsf| both produce sans serif text. To get serifed roman text, use the command \verb|\mathserif|:
+\[\mathrm{mathrm}\quad\mathsf{mathsf}\quad\mathserif{mathserif}\]
+\textsf{sansmathfonts} knows about the \textsf{beamer} document class and will automatically use \textsf{beamer}'s \texttt{professionalfonts} theme.
+
+
+If you prefer roman math fonts, either use the \texttt{[notmath]} package option, or don't use the package at all; instead use the line \texttt{\char`\\renewcommand\char`\{\char`\\sfdefault\char`\}\char `\{xcmss\char`\}}
+in the document preamble.
+
+The math fonts differ slightly from Knuth's standard sans serif fonts. Specifically, for ease of reading I have chosen to put the serifs back on the uppercase I, Pi and~Xi:
+\[I\quad\mathrm{I}\quad\mathbf{I}\quad\bm{I}\quad
+\mathit{\Pi}\quad\Pi\quad\mathbf{\Pi}\quad
+\mathit{\Xi}\quad\Xi\quad\mathbf{\Xi}\quad
+\text{and not\quad \textsf{I\quad \char5\quad\char4}}\]
+\textsf{Sans serif Is outside of math mode} still have no serifs unless the package option \texttt{[I]} is used; note that this option is incompatible with the T1 encoding.
+
+
+Feedback is appreciated and may be sent to \texttt{origamist@gmail.com}.
+
+
+
+
+\section{List of new fonts}\label{sec:fonts}
+
+All of the Type 1 fonts in this package were generated using mftrace 1.2.18 and Fontforge.
+
+The following fonts are based mainly on Donald Knuth's Computer Modern fonts.
+
+\textsf{\fontshape{ui}\selectfont Unslanted italic} (needed for the pounds symbol \textsf{\pounds}):
+\begin{itemize}
+\item \textsf{cmssu10}
+\end{itemize}
+
+Text \textsf{\textsc{caps and small caps}}, OT1 encoding:
+
+\nobreak
+
+\noindent\parbox[t]{0.25\textwidth}{
+\begin{itemize}
+\item \textsf{cmssbxcsc10}
+\item \textsf{cmssxicsc10}
+\end{itemize}}\parbox[t]{0.25\textwidth}{\begin{itemize}
+\item \textsf{cmsscsc8}
+\item \textsf{cmsscsci8}
+\end{itemize}}\parbox[t]{0.25\textwidth}{\begin{itemize}
+\item \textsf{cmsscsc9}
+\item \textsf{cmsscsci9}
+\end{itemize}}\parbox[t]{0.25\textwidth}{\begin{itemize}
+\item \textsf{cmsscsc10}
+\item \textsf{cmsscsci10}
+\end{itemize}}
+
+\bigskip
+
+Math italic ($\alpha \beta \gamma abc \ell \wp$):
+
+\nobreak
+
+\noindent\parbox[t]{0.25\textwidth}{
+\begin{itemize}
+\item \textsf{cmssmi5}
+\item \textsf{cmssmi6}
+\item \textsf{cmssmi7}
+\end{itemize}}\parbox[t]{0.25\textwidth}{\begin{itemize}
+\item \textsf{cmssmi8}
+\item \textsf{cmssmi9}
+\item \textsf{cmssmi10}
+\end{itemize}}\parbox[t]{0.25\textwidth}{\begin{itemize}
+\item \textsf{cmssmib5}
+\item \textsf{cmssmib6}
+\item \textsf{cmssmib7}
+\end{itemize}}\parbox[t]{0.25\textwidth}{\begin{itemize}
+\item \textsf{cmssmib8}
+\item \textsf{cmssmib9}
+\item \textsf{cmssmib10}
+\end{itemize}}
+
+\bigskip
+
+Math symbols ($\Re\oplus \Im  $):
+
+\nobreak
+
+\noindent\parbox[t]{0.25\textwidth}{
+\begin{itemize}
+\item \textsf{cmsssy5}
+\item \textsf{cmsssy6}
+\item \textsf{cmsssy7}
+\end{itemize}}\parbox[t]{0.25\textwidth}{\begin{itemize}
+\item \textsf{cmsssy8}
+\item \textsf{cmsssy9}
+\item \textsf{cmsssy10}
+\end{itemize}}\parbox[t]{0.25\textwidth}{\begin{itemize}
+\item \textsf{cmssbsy5}
+\item \textsf{cmssbsy6}
+\item \textsf{cmssbsy7}
+\end{itemize}}\parbox[t]{0.25\textwidth}{\begin{itemize}
+\item \textsf{cmssbsy8}
+\item \textsf{cmssbsy9}
+\item \textsf{cmssbsy10}
+\end{itemize}}
+
+\bigskip
+
+
+Math extended fonts ($\int \sum \prod$):
+
+\nobreak
+
+\noindent\parbox[t]{0.25\textwidth}{
+\begin{itemize}
+\item \textsf{cmssex7}
+\end{itemize}}\parbox[t]{0.25\textwidth}{\begin{itemize}
+\item \textsf{cmssex8}
+\end{itemize}}\parbox[t]{0.25\textwidth}{\begin{itemize}
+\item \textsf{cmssex9}
+\end{itemize}}\parbox[t]{0.25\textwidth}{\begin{itemize}
+\item \textsf{cmssex10}
+\end{itemize}}
+
+\bigskip
+
+\cmsmf{Sans serif text fonts with serifed capital~I:}
+
+\noindent\parbox[t]{0.25\textwidth}{
+\begin{itemize}
+\item \textsf{cmsmf8}
+\item \textsf{cmsmf9}
+\item \textsf{cmsmf10}
+\item \textsf{cmsmf12}
+\item \textsf{cmsmf17}
+\item \textsf{cmsmfcsc8}
+\item \textsf{cmsmfcsc9}
+\item \textsf{cmsmfcsc10}
+\end{itemize}}\parbox[t]{0.25\textwidth}{\begin{itemize}
+\item \textsf{cmsmfbx8}
+\item \textsf{cmsmfbx9}
+\item \textsf{cmsmfbx10}
+\item \textsf{cmsmfbx12}
+\item \textsf{cmsmfbx17}
+\item \noindent\rlap{\textsf{cmsmfbxcsc10}}
+\end{itemize}}\parbox[t]{0.25\textwidth}{\begin{itemize}
+\item \textsf{cmsmfi8}
+\item \textsf{cmsmfi9}
+\item \textsf{cmsmfi10}
+\item \textsf{cmsmfi12}
+\item \textsf{cmsmfi17}
+\item \textsf{cmsmfcsci8}
+\item \textsf{cmsmfcsci9}
+\item \textsf{cmsmfcsci10}
+\end{itemize}}\parbox[t]{0.25\textwidth}{\begin{itemize}
+\item \textsf{cmsmfxi8}
+\item \textsf{cmsmfxi9}
+\item \textsf{cmsmfxi10}
+\item \textsf{cmsmfxi12}
+\item \textsf{cmsmfxi17}
+\item \noindent\rlap{\textsf{cmsmfxicsc10}}
+\end{itemize}}
+
+
+\bigskip
+
+
+The following fonts are based on fonts by other authors.
+
+\nobreak
+
+\noindent\parbox[t]{0.33\textwidth}{
+\raggedright
+Eddie Saudrais's \textsf{esint} package
+\begin{itemize}
+\item \textsf{ssesint7}
+\item \textsf{ssesint8}
+\item \textsf{ssesint9}
+\item \textsf{ssesint10}
+\end{itemize}}\parbox[t]{0.33\textwidth}{
+\raggedright
+AMS symbols (\textsf{amsfonts} package)
+\begin{itemize}
+\item \textsf{ssmsam5}
+\item \textsf{ssmsam6}
+\item \textsf{ssmsam7}
+\item \textsf{ssmsam8}
+\item \textsf{ssmsam9}
+\item \textsf{ssmsam10}
+\end{itemize}}\parbox[t]{0.33\textwidth}{
+\raggedright
+AMS symbols (\textsf{amsfonts} package)
+\begin{itemize}
+\item \textsf{ssmsbm5}
+\item \textsf{ssmsbm6}
+\item \textsf{ssmsbm7}
+\item \textsf{ssmsbm8}
+\item \textsf{ssmsbm9}
+\item \textsf{ssmsbm10}
+\end{itemize}}
+
+\bigskip
+
+The following fonts are based on J\"org Knappen's European Computer Modern fonts.
+
+\nobreak
+
+\bigskip
+\noindent
+\parbox[t]{0.25\textwidth}{
+\font\temp = eczz1000 \temp
+Normal
+\begin{itemize}
+\item \textsf{eczz0500}
+\item \textsf{eczz0600}
+\item \textsf{eczz0700}
+\item \textsf{eczz0800}
+\item \textsf{eczz0900}
+\item \textsf{eczz1000}
+\item \textsf{eczz1095}
+\item \textsf{eczz1200}
+\item \textsf{eczz1440}
+\item \textsf{eczz1728}
+\item \textsf{eczz2074}
+\item \textsf{eczz2488}
+\item \textsf{eczz2986}
+\item \textsf{eczz3583}
+\end{itemize}
+}\parbox[t]{0.25\textwidth}{
+\font\temp = eczi1000 \temp
+Slanted
+\begin{itemize}
+\item \textsf{eczi0500}
+\item \textsf{eczi0600}
+\item \textsf{eczi0700}
+\item \textsf{eczi0800}
+\item \textsf{eczi0900}
+\item \textsf{eczi1000}
+\item \textsf{eczi1095}
+\item \textsf{eczi1200}
+\item \textsf{eczi1440}
+\item \textsf{eczi1728}
+\item \textsf{eczi2074}
+\item \textsf{eczi2488}
+\item \textsf{eczi2986}
+\item \textsf{eczi3583}
+\end{itemize}
+}\parbox[t]{0.25\textwidth}{
+\font\temp = eczx1000 \temp
+Bold
+\begin{itemize}
+\item \textsf{eczx0500}
+\item \textsf{eczx0600}
+\item \textsf{eczx0700}
+\item \textsf{eczx0800}
+\item \textsf{eczx0900}
+\item \textsf{eczx1000}
+\item \textsf{eczx1095}
+\item \textsf{eczx1200}
+\item \textsf{eczx1440}
+\item \textsf{eczx1728}
+\item \textsf{eczx2074}
+\item \textsf{eczx2488}
+\item \textsf{eczx2986}
+\item \textsf{eczx3583}
+\end{itemize}
+}\parbox[t]{0.25\textwidth}{
+\font\temp = eczo1000 \temp
+Bold slanted
+\begin{itemize}
+\item \textsf{eczo0500}
+\item \textsf{eczo0600}
+\item \textsf{eczo0700}
+\item \textsf{eczo0800}
+\item \textsf{eczo0900}
+\item \textsf{eczo1000}
+\item \textsf{eczo1095}
+\item \textsf{eczo1200}
+\item \textsf{eczo1440}
+\item \textsf{eczo1728}
+\item \textsf{eczo2074}
+\item \textsf{eczo2488}
+\item \textsf{eczo2986}
+\item \textsf{eczo3583}
+\end{itemize}
+}
+
+\bigskip
+
+The \textsf{sansmathfonts} also provides outline versions of the following fonts (supplied with Mac\TeX\ 2012 as Metafont fonts only). These provide \textsf{\textbf{bold}} and \textsf{\textsl{\textbf{bold slanted}}} fonts at varying sizes.
+
+\noindent\parbox[t]{0.25\textwidth}{
+\font\temp = eczo1000 \temp
+\begin{itemize}
+\item \textsf{cmssxi8}
+\item \textsf{cmssxi9}
+\item \textsf{cmssxi10}
+\end{itemize}
+}\parbox[t]{0.25\textwidth}{
+\begin{itemize}
+\item \textsf{cmssxi12}
+\item \textsf{cmssxi17}
+\end{itemize}
+}\parbox[t]{0.25\textwidth}{
+\begin{itemize}
+\item \textsf{cmssbx8}
+\item \textsf{cmssbx9}
+\end{itemize}
+}\parbox[t]{0.25\textwidth}{
+\begin{itemize}
+\item \textsf{cmssbx12}
+\item \textsf{cmssbx17}
+\end{itemize}
+}
+
+
+\section{Files in this package}\label{sec:files}
+
+109 of the new fonts listed in \autoref{sec:fonts} come in three files each: the \TeX\ Font Metric files (extension \texttt{.tfm}), the Type 1 font file (extension \texttt{.pfb}), and Metafont source file (extension \texttt{.mf}).
+
+The 9 \textsf{cmssxi} and \textsf{cmssbx} fonts come as \texttt{.pfb} files only, as the MetaFont sources are already part of the \TeX\ Live distribution (see also the \textsf{sauter} package at \texttt{\href{http://www.ctan.org/tex-archive/fonts/cm/sauter} {http:/\slash www.ctan.org\slash tex-archive\slash fonts\slash cm\slash sauter}}).
+
+The 28 \textsf{cmsmf} fonts are almost identical to their \textsf{cmss} counterparts. Thus, these fonts are provided as \emph{virtual} fonts, and so come in five parts: the virtual font file (\texttt{cmsmf.vf}), the \TeX\ Font Metric file (\texttt{cmsmf.tfm}), and the font \textsf{cmsmfIPiXi} containing only the altered letters \cmsmf{I}, \cmsmf{\char4} and \cmsmf{\char5} (and \cmsmf{\textsc{i}}, in the small caps fonts); this font comes as MetaFont source (\texttt{cmsmfIPiXi.mf}), \TeX\ font metric (\texttt{cmsmfIPiXi.tfm}) and Type 1 font (\texttt{cmsmfIPiXi.pfb}).
+
+In addition, this package should come with the following 29 supplementary Metafont source files:
+
+\begin{itemize}
+\item \texttt{eczi.mf}
+\item \texttt{eczo.mf}
+\item \texttt{eczx.mf}
+\item \texttt{eczz.mf}
+\item \texttt{sans-amsya.mf}
+\item \texttt{sans-amsyb.mf}
+\item \texttt{sans-asymbols.mf}
+\item \texttt{sans-bigdel.mf}
+\item \texttt{sans-bigint.mf}
+\item \texttt{sans-bigop.mf}
+\item \texttt{sans-bsymbols.mf}
+\item \texttt{sans-calu.mf}
+\item \texttt{sans-csc.mf}
+\item \texttt{sans-greekl.mf}
+\item \texttt{sans-greeku.mf}
+\item \texttt{sans-IPiXi.mf}
+\item \texttt{sans-IPiXicsc.mf}
+\item \texttt{sans-mathex.mf}
+\item \texttt{sans-mathint.mf}
+\item \texttt{sans-mathsl.mf}
+\item \texttt{sans-mathsy.mf}
+\item \texttt{sans-roman.mf}
+\item \texttt{sans-romanu.mf}
+\item \texttt{sans-romms.mf}
+\item \texttt{sans-slantms.mf}
+\item \texttt{sans-sym.mf}
+\item \texttt{sans-symbol.mf}
+\item \texttt{sans-xbbold.mf}
+\item \texttt{sansfontbase.mf}
+\end{itemize}
+
+This package should also come with the following 11 \LaTeX\ Font Definition files:
+
+\begin{itemize}
+\item \texttt{omlcmssm.fd}
+\item \texttt{omscmsssy.fd}
+\item \texttt{omxcmssex.fd}
+
+\item \texttt{ot1cmsmf.fd}
+\item \texttt{ot1xcmss.fd}
+\item \texttt{t1xcmss.fd}
+
+\item \texttt{ucmsmf.fd}
+\item \texttt{ussesint.fd}
+\item \texttt{ussmsa.fd}
+\item \texttt{ussmsb.fd}
+\item \texttt{uxcmss.fd}
+\end{itemize}
+
+Finally, it should come with the font map file, LaTeX package, and documentation:
+
+\begin{itemize}
+\item \texttt{sansmathfonts.map}
+\item \texttt{sansmathfonts.sty}
+\item \texttt{sansmathfonts.tex}
+\item \texttt{sansmathfonts.pdf}
+\end{itemize}
+
+% The subfolders should contain:
+
+% doc: 2 files
+% map: 1 file
+% tex: 12 files
+
+% New Type 1 fonts: 	137
+% Old fonts as Type 1: 	9
+% Virtual fonts:		28
+% Supplementary .mf:	29
+
+% source: 166 files (=137+29)
+% tfm: 165 files	(=137+28)
+% type1: 146 files  (=137+9)
+% vf: 28  			(=28)
+
+\section{License}
+
+This work (the \textsf{sansmathfonts} package) consists of the
+files listed in \autoref{sec:files}.
+
+This work may be distributed and/or modified under the
+conditions of the \LaTeX\ Project Public License, either
+version 1.3 of this license or (at your option) any
+later version.
+
+The latest version of the license is in
+\begin{quote}
+\href {http://www.latex-project.org/lppl.txt} 
+{\texttt{http://www.latex-project.org/lppl.txt}}
+\end{quote}
+and version 1.3 or later is part of all distributions of
+\LaTeX\ version 2003/06/01 or later.
+
+This work has the LPPL maintenance status ``author-maintained''.
+
+Almost all of the Metafont files in this package are very closely based on existing files in the 2011 \TeX\ Live distribution; see comments near the start of the individual files for notes on their sources. Also, note that the 
+files
+\begin{itemize}
+\item \texttt{cmssxi8.pfb}
+\item \texttt{cmssxi9.pfb}
+\item \texttt{cmssxi10.pfb}
+\item \texttt{cmssxi12.pfb}
+\item \texttt{cmssxi17.pfb}
+\item \texttt{cmssbx8.pfb}
+\item \texttt{cmssbx9.pfb}
+\item \texttt{cmssbx12.pfb}
+\item \texttt{cmssbx17.pfb}
+\end{itemize}
+were derived from unedited MetaFont source files in the \textsf{sauter} package using mftrace 1.2.18 and Fontforge. 
+
+
+
+\end{document}

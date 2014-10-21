@@ -1,0 +1,44 @@
+%% grabtexdata.tex 
+%% part of the mathsPIC package
+%% example file used in Chapter 8  of the mathsPICmanual
+%% (accessing TeX parameter values)
+%% RWD Nickalls (c) April 2010
+%% dick@nickalls.org
+%%========================================================
+%% for extracting TeX-file data into mathspic var commands
+%%========================================================
+\scrollmode  % prevent LaTeX stopping if there are errors
+%---------------------
+% make a print command  macro
+\newcommand{\print}[1]{\immediate\write\outfile{#1}}
+%---------------------
+% make a comment % command  macro
+% first need to define percentchar for the write statement
+% (From "TeX for the Impatient" (1990), p 292)
+{\catcode`\%=12   \global\def\percentchar{%}}%
+\newcommand{\comment}{\percentchar\space}
+%
+% make a \macro command --> %def<space>
+\newcommand{\mydef}{def}
+\newcommand{\macro}{\percentchar\mydef\space}
+%----------------------
+% create and open a new file with filename = textfiledata.dat
+\newwrite\outfile
+\immediate\openout\outfile=texfiledata.dat
+%----------------------
+%% write file header & general info
+\print{\percentchar\percentchar\space file: texdata.dat}
+\print{\percentchar\percentchar\space accessing TeX parameter values}
+%---------------------
+%% now get \textwidth and \textheight values from the tex file
+\print{\comment ============}
+\print{var w555 = \number\textwidth\comment\textwidth=scaled points}
+\print{var w556 = \number\textwidth\comment\textwidth=\the\textwidth}
+\print{var w557 = \number\textwidth/1864679.8\comment (\textwidth in cms)}
+\print{\macro textwidthcms()\number\textwidth/1864679.8\comment}
+\print{\macro textheightcms()\number\textheight/1864679.8\comment}
+\print{\comment ============}
+%--------------------
+% close the file
+\immediate\closeout\outfile
+%%=========end=========================

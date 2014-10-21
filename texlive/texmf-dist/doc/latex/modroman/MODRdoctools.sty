@@ -1,0 +1,117 @@
+%%
+%% This is file `MODRdoctools.sty',
+%% generated with the docstrip utility.
+%%
+%% The original source files were:
+%%
+%% modroman.dtx  (with options: `doc-sty')
+%% 
+%% This is a generated file.
+%% 
+%% Copyright (C) 2003, 2004, 2008, 2010 by Yvon Henel,
+%% dit «le TeXnicien de surface» <le.texnicien.de.surface@wanadoo.fr>
+%% 
+%% This file may be distributed and/or modified under the conditions of
+%% the LaTeX Project Public License, either version 1.2 of this license
+%% or (at your option) any later version.  The latest version of this
+%% license is in:
+%% 
+%%    http://www.latex-project.org/lppl.txt
+%% 
+%% and version 1.2 or later is part of all distributions of LaTeX version
+%% 1999/12/01 or later.
+%% 
+\NeedsTeXFormat{LaTeX2e}[1999/12/01]
+\def\fileversion{v1}
+\def\filedate{2010/04/09}
+\def\fileinfo{fichier MODRdoctools par Le TeXnicien de surface}
+\ProvidesPackage{MODRdoctools}
+   [\filedate\space\fileversion\space\fileinfo]
+\RequirePackage{ifthen}
+\newcommand{\TO}{\textemdash\ \ignorespaces}
+\newcommand{\TF}{\unskip\ \textemdash\xspace}
+\newcommand{\CAD}{%
+  \iflanguage{frenchb}{c.-à-d.}{%
+    \iflanguage{english}{i.~e.}{%
+    \PackageError{MODRdoctools}%
+      {undefined language}%
+      {fix it before going on}}}\xspace}
+\newcommand\BOP{\discretionary{}{}{}}
+\newcommand\Option[1]{\textsc{#1}}
+\newcommand\Pkg[1]{\textsf{#1}}
+\newcommand\NOUVO{%
+  \marginpar{\hspace*{\stretch{1}}%
+    \textbf{N (v1)}\hspace*{.5em}}\xspace}
+\newcommand\DescribeOption[1]{\leavevmode\@bsphack
+  \marginpar{\raggedleft \textsc{#1}}\index{#1 (option)}\@esphack}
+\newcommand\PD{\textbf{[PD]}}
+\newcommand\LT{\textbf{[\LaTeX]}}
+\newcommand\TX{\textbf{[\TeX]}}
+
+\newcounter{EXEMPLE}
+\newcommand\Exemple[1]{\setcounter{EXEMPLE}{#1}\modroman{EXEMPLE}}
+
+\newcommand\UnExemple[2]{\par\noindent\cs{nb#1}\texttt{\{#2\}}
+  \(\longrightarrow\) \csuse{nb#1}{#2}\par}
+\newcommand\Exemples[1]{%
+  \par\noindent\hrulefill\par\noindent
+  \iflanguage{frenchb}{\textbf{Exemples}}{%
+    \iflanguage{english}{\textbf{Examples}}{}}
+  \UnExemple{#1}{1}\UnExemple{#1}{11}%
+  \UnExemple{#1}{444}%
+  \UnExemple{#1}{888}\UnExemple{#1}{1999}%
+  \par\noindent\hrulefill\par}
+
+\newenvironment{Anglais}[1][***]{%
+  \par\ifthenelse{\equal{#1}{***}}{\noindent}{}%
+  \begin{otherlanguage}{english}\itshape}%
+  {\end{otherlanguage}}
+\newcommand\EnAnglais[1]{ / \emph{\foreignlanguage{english}{#1}}}
+\newcommand\MODRdescrofr{%
+  Cette petite extension fournit des macros qui permettent d'écrire
+  les nombres en chiffres romains avec quelques modifications.
+
+  On dispose de macros permettant d'obtenir \og \nbshortroman{1}\fg
+  pour~1 et \og \nbshortroman{18}\fg pour~18; \og
+  \nblongroman{999}\fg ou \og \nbLongRoman{999}\fg pour~999.
+
+  Avec l'option \Option{upourv} \TO opposée de \Option{vpourv} option
+  par défaut\TF on obtient \og xuj\fg pour~15. Avec l'option
+  \Option{ifinal} \TO opposée de \Option{jfinal} option par défaut\TF
+  on peut obtenir \og xiiii\fg pour~14.
+
+  Certaines macros s'utilisent comme le \cs{romannumeral} de \TeX,
+  d'autres, purement développables, sont destinées à formater un
+  compteur \TO comme le \cs{roman} de \LaTeX\TF ou un nombre.
+
+  Elle offre aussi une macro \TO
+  \cs{printntimes}\marg{nombre}\marg{texte}\TF qui permet d'obtenir
+  \meta{nombre} fois le \marg{texte} comme
+  \texttt{\printntimes{10}{*}} obtenu avec
+  \texttt{\cs{printntimes}\{10\}\{*\}}.}
+
+\newcommand\MODRdescroen{%
+  This short package provides macros which enable one to write roman
+  numerals with some modifications.
+
+  It provides macros with which one can obtain `\nbshortroman{1}'
+  for~1 and `\nbshortroman{18}' for~18; `\nblongroman{999}' or
+  `\nbLongRoman{999}' for~999.
+
+  With option \Option{upourv} \TO opposite of \Option{vpourv} default
+  option \TF one obtains `xuj' for~15. With option \Option{ifinal} \TO
+  opposite of \Option{jfinal} default option\TF one can obtain `xiiii'
+  for~14.
+
+  Some of the macros are used as \TeX{} \cs{romannumeral}, others,
+  purely expandable, are devoted to format a counter \TO as \LaTeX{}
+  \cs{roman}\TF or a number.
+
+  It also provides a macro \TO
+  \cs{printntimes}\marg{number}\marg{text}\TF which produces
+  \meta{number} times the \marg{text} as e.g.
+  \texttt{\printntimes{10}{*}} obtained with
+  \texttt{\cs{printntimes}\{10\}\{*\}}.}
+\endinput
+%%
+%% End of file `MODRdoctools.sty'.

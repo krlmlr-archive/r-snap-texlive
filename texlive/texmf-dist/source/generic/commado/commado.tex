@@ -1,0 +1,131 @@
+\ProvidesFile{commado.tex}[2012/11/30 documenting commado.sty]
+\title{\pkg{\huge commado.sty} and \pkg{\huge filesdo.sty}\\---\\%
+       Immediately Extend a One-Argument Macro\\
+       to Comma-Separated Lists and Combinations\\ 
+       of Filename Bases and Extensions\thanks{This document describes
+       \textcolor{blue}{\UseVersionOf{\jobname.sty}} 
+       of \textsf{\jobname.sty} as of \UseDateOf{\jobname.sty}
+       and version \textcolor{blue}{\UseVersionOf{filesdo.sty}} 
+       as of \UseDateOf{filesdo.sty} of \pkg{filesdo.sty}..}}
+% \RequirePackage[wrap]{nicefilelist} \listfiles
+\RequirePackage{makedoc} \ProcessLineMessage{}
+\renewcommand*{\mdSectionLevelOne}{\string\subsection}
+\MakeJobDoc{19}{\SectionLevelOneParseInput}     %% 2012/11/26
+% \documentclass[fleqn]{article}%% TODO paper dimensions!?
+\documentclass{article} %% TODO paper dimensions!?
+\usepackage{catchdq}    %% TODO earlier than `langcode'
+\input{makedoc.cfg}     %% shared formatting settings
+\ReadPackageInfos{commado,filesdo}
+% \usepackage{commado}
+\MDkeywords{macro programming, programming structures, loops, lists}
+\sloppy \catchdqs
+\begin{document}
+\maketitle
+\begin{MDabstract}
+'commado.sty' provides \[`\DoWithCSL{<cmd>}{<list>}'\] 
+in order to apply an existing one-parameter macro <cmd> 
+to each item in a list <list> in which items are 
+\wikienref{comma-separated list}{separated by commas.} 
+'filesdo.sty' provides \[`\DoWithBasesExts{<cmd>}{<bases>}{<exts>}'\]
+in order to run `<cmd>{<base>.<ext>}' for some (at most) 
+one-parameter macro <cmd>, each base filename <base> in the 
+comma-separated list <bases> and each filename extension <ext> 
+in the comma-separated list <exts>.
+As opposed to \LaTeX's internal `\@for', no assignments are involved 
+(unless <cmd> uses assignments---"expandability" in "\TeX's gullet").
+
+Both packages are "generic," i.e., should work with Plain \TeX,
+\LaTeX\ or even other formats, relying on the \ctanpkgref{plainpkg} 
+package for some minimal \LaTeX-like behaviour.
+
+\MDaddtoabstract{Related packages} \ctanpkgref{loops} and others 
+mentioned in the \ctanpkgref{dowith} package documentation.
+\end{MDabstract}
+\newpage
+\tableofcontents
+% \newpage
+\section{Installing and Calling}
+The files 'commado.sty' and 'filesdo.sty' 
+are provided ready, installation just requires
+putting them somewhere where \TeX\ finds them
+(which may need updating the filename data
+ base).\urlfoot{ukfaqref}{inst-wlcf} 
+However, installation of the package \ctanpkgdref{plainpkg} 
+and the package 'stacklet.sty' (\ctanpkgdref{catcodes} bundle)
+is required additionally.
+
+As to calling (loading): 'commado.sty' and 'filesdo.sty' are 
+"\pkg{plainpkg} packages" in the sense of the 'plainpkg'
+documentation that you may consult for details.
+So roughly, 
+\begin{itemize}
+  \item load it by \ |\usepackage{<pkg>}| \ if you can, 
+  \item otherwise by \ |\RequirePackage{<pkg>}| \\
+        (perhaps from within another "\pkg{plainpkg} package"), 
+  \item or by \ |\input <pkg>.sty| 
+  \item or even by \ |\input{<pkg>.sty}|~\dots
+\end{itemize}
+---where <pkg> is \qtdcode{commado} or \qtdcode{filesdo}.
+
+% \pagebreak
+\section{Syntax and Relation to the 'dowith' Package}
+In <list> with `\DoWithCSL{<cmd>}{<list>}', blank spaces 
+before entries or after commas as well as preceding the 
+closing brace are ignored. So 
+\[`\DoWithCSL{<cmd>}{ cfg, sty, tex }'\]
+works like 
+\[`\DoWith{<cmd>}{{cfg}{sty}{tex}}'\]
+from \ctanpkgstyref{dowith}.\urlfoot{CtanPkgRef}{dowith} %% foot 2012/11/30
+With `\DoWithCSL' 
+(at present), %% 2012/11/27
+an item cannot be empty or consist of blank spaces only. 
+Empty or blank items can be handled by `\DoWith'.
+
+\section{Example for 'filesdo.sty'}
+In the file `srcfiles.tex' for the \ctanpkgdref{nicetext} bundle, 
+there is a line 
+\begin{quote}
+`\DoWithBasesExts\ReadFileInfos{fifinddo,niceverb}{sty,tex}'\kern-10pt
+\end{quote}
+This works like 
+\begin{quote}
+`\ReadFileInfos{fifinddo.sty}'\\
+`\ReadFileInfos{niceverb.sty}'\\
+`\ReadFileInfos{fifinddo.tex}'\\
+`\ReadFileInfos{niceverb.tex}'
+\end{quote}
+or actually 
+(a special feature of \ctanpkgref{readprov}'s\urlfoot{CtanPkgRef}{readprov}
+ %% <- foot 2012/11/30
+ `\ReadFileInfos' is that its argument may be 
+ a comma-separated list already)
+\begin{quote}
+`\ReadFileInfos{fifinddo.sty,niceverb.sty,'\\
+\null\texttt{ ~ ~ ~ ~ ~ ~ ~ }`fifinddo.tex,niceverb.tex}'
+\end{quote}
+I ponder providing a shorthand `\ReadBaseExtInfos' for 
+\begin{quote}
+`\DoWithBasesExts\ReadFileInfos'
+\end{quote}
+and reimplementing `\ReadFileInfos' using `\DoWithCLS' in 'myfilist.sty'
+(2012-11-27).
+
+\pagebreak
+\section{The File 'commado.sty'}
+\subsection{Package File Header (Legalese and 'plainpkg')}
+\input{commado.doc}
+
+\newpage
+
+\section{The File 'filesdo.sty'}
+\subsection{Package File Header (Legalese and 'plainpkg')}
+\ResetCodeLineNumbers
+\renewcommand*{\mdJobName}{filesdo}
+\MakeInputJobDoc{19}{\SectionLevelOneParseInput}
+\end{document}
+
+VERSION HISTORY
+
+2012/11/24  for v0.1   very first
+2012/11/30  for v0.11  \ctanpkgdref moves to `makedoc.cfg', 
+                       2 more link footnotes

@@ -1,0 +1,72 @@
+%% Copyright 2010 Clea F. Rees
+%
+% This work may be distributed and/or modified under the
+% conditions of the LaTeX Project Public License, either version 1.3
+% of this license or (at your option) any later version.
+% The latest version of this license is in
+%   http://www.latex-project.org/lppl.txt
+% and version 1.3 or later is part of all distributions of LaTeX
+% version 2005/12/01 or later.
+%
+% This work has the LPPL maintenance status `maintained'.
+% 
+% The Current Maintainer of this work is Clea F. Rees.
+%
+% This work consists of all files listed in manifest.txt.
+\input fontinst.sty
+\needsfontinstversion{1.926}
+%:substitutions
+%bold for bold extended
+\substitutesilent{bx}{b}
+%upright for small-caps
+\substitutesilent{sc}{n}
+%italic for italic small-caps
+\substitutesilent{si}{it}
+%italic for oblique
+\substitutesilent{sl}{si}
+%:record transformations for later map file creation
+\recordtransforms{yly-rec.tex}
+%:transformations - reencode
+	\transformfont{ylyr-t1}{\reencodefont{t1-cfr}{\fromafm{ylyr8a}}}
+	\transformfont{ylyri-t1}{\reencodefont{t1-cfr}{\fromafm{ylyri8a}}}
+	\transformfont{ylyb-t1}{\reencodefont{t1-cfr}{\fromafm{ylyb8a}}}
+	\transformfont{ylybi-t1}{\reencodefont{t1-cfr}{\fromafm{ylybi8a}}}
+	\transformfont{ylyr-ts1}{\reencodefont{ts1-euro}{\fromafm{ylyr8a}}}
+	\transformfont{ylyri-ts1}{\reencodefont{ts1-euro}{\fromafm{ylyri8a}}}
+	\transformfont{ylyb-ts1}{\reencodefont{ts1-euro}{\fromafm{ylyb8a}}}
+	\transformfont{ylybi-ts1}{\reencodefont{ts1-euro}{\fromafm{ylybi8a}}}
+	\transformfont{ylyr8s}{\reencodefont{libris-supp}{\fromafm{ylyr8a}}}
+	\transformfont{ylyri8s}{\reencodefont{libris-supp}{\fromafm{ylyri8a}}}
+	\transformfont{ylyb8s}{\reencodefont{libris-supp}{\fromafm{ylyb8a}}}
+	\transformfont{ylybi8s}{\reencodefont{libris-supp}{\fromafm{ylybi8a}}}
+	\input reglyph-yly.tex
+%:installation - creation of virtual fonts
+	\installfonts
+		\installfamily{T1}{yly}{}
+		\installfont{ylyr8t}{ylyr-t1,ylyr8sr,newlatin}{t1-libris}{T1}{yly}{m}{n}{}
+		\installfont{ylyri8t}{ylyri-t1,ylyri8sr,newlatin}{t1-libris}{T1}{yly}{m}{it}{}
+%:repeat for bold fonts
+		\installfont{ylyb8t}{ylyb-t1,ylyb8sr,newlatin}{t1-libris}{T1}{yly}{b}{n}{}
+		\installfont{ylybi8t}{ylybi-t1,ylybi8sr,newlatin}{t1-libris}{T1}{yly}{b}{it}{}
+%:swash
+		\installfamily{T1}{ylyw}{}
+		\installfont{ylyrw8t}{ylyr-t1,ylyr8sr,resetalt,newlatin}{t1-librisswash}{T1}{ylyw}{m}{n}{}
+		\installfont{ylyriw8t}{ylyri-t1,ylyri8sr,resetalt,newlatin}{t1-librisswash}{T1}{ylyw}{m}{it}{}
+		\installfont{ylybw8t}{ylyb-t1,ylyb8sr,resetalt,newlatin}{t1-librisswash}{T1}{ylyw}{b}{n}{}
+		\installfont{ylybiw8t}{ylybi-t1,ylybi8sr,resetalt,newlatin}{t1-librisswash}{T1}{ylyw}{b}{it}{}
+%:install with TS1 encoding for extra glyphs through textcomp
+		\installfamily{TS1}{yly}{}
+		\installfont{ylyr8c}{ylyr-t1,ylyr-ts1,ylyr8sr,textcomp}{ts1-euro}{TS1}{yly}{m}{n}{}
+		\installfont{ylyri8c}{ylyri-t1,ylyri-ts1,ylyri8sr,textcomp}{ts1-euro}{TS1}{yly}{m}{it}{}
+%:repeat for bold fonts
+		\installfont{ylyb8c}{ylyb-t1,ylyb-ts1,ylyb8sr,textcomp}{ts1-euro}{TS1}{yly}{b}{n}{}
+		\installfont{ylybi8c}{ylybi-t1,ylybi-ts1,ylybi8sr,textcomp}{ts1-euro}{TS1}{yly}{b}{it}{}
+%:swash
+		\installfamily{TS1}{ylyw}{}
+		\installfontas{ylyr8c}{TS1}{ylyw}{m}{n}{}
+		\installfontas{ylyri8c}{TS1}{ylyw}{m}{it}{}
+		\installfontas{ylyb8c}{TS1}{ylyw}{b}{n}{}
+		\installfontas{ylybi8c}{TS1}{ylyw}{b}{it}{}
+	\endinstallfonts
+\endrecordtransforms
+\bye

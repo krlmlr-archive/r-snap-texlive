@@ -1,0 +1,93 @@
+This is the public release of the qstest bundle
+(written for DocScape Publisher <URL:http://www.docscape.de>)
+(C) 2006, 2007 QuinScape GmbH <URL:http://www.quinscape.de>
+
+This software comes without warranty of any kind.
+
+The TeX source files are licensed under the LPPL version 1.3 or later,
+see the individual files for details.  Generated files refer to the
+license of their respective source.  Makefile and this README may be
+freely used, modified and copied.
+
+The bundle contains the packages `makematch' for matching patterns to
+targets (with a generalization in the form of pattern lists and
+keyword lists), and `qstest' for performing unit tests, allowing to
+run a number of logged tests ensuring the consistency of values,
+properties and call sequences during execution of test code.  Both
+packages make extensive use of qstest in their package documentation,
+providing illustrated examples that are automatically verified to work
+as expected.
+
+For efficiency and feature completeness reasons, both styles require
+the use of an eTeX-based engine for LaTeX, as recommended by the LaTeX
+team for some years (while the source code provides a way of producing
+files for a non-eTeX setup, this is discouraged, untested, not feature
+complete, not supported by Makefile and author).
+
+Files in the bundle:
+
+Makefile: this contains rules for managing unpacking, testing, and
+installing the bundle in TDS-compliant trees.  Interesting targets are
+all generated files, "test", and "install".
+
+qstest.ins: installer file.  Running
+    tex qstest.ins
+will unpack the packages (but not their driver files) right into the 
+target tree if your docstrip is configured for it.  If you want to
+unpack into the current directory instead (and avoid getting asked
+whether you want to overwrite old files, as is desirable for working
+with the program `make'), you can do so by instead running
+    tex "\let\Make=y \input qstest.ins"
+Should qstest.ins be missing, you can use (or look at) the Makefile
+for regenerating it.
+
+makematch.dtx: documented source of makematch.sty.  Running this
+document through LaTeX will give you the documentation of the package,
+but without the documented package source.
+
+qstest.dtx: documented source of qstest.sty.  Running this document
+through LaTeX will give you the documentation of the package, but
+without the documented package source.
+
+
+The following files are also placed on CTAN for informational
+purposes; as part of a TeX installation it would usually be preferable
+to rather install DVI files with full source code listing, generated
+by running latex on the files of form *.drv (see below):
+
+qstest.pdf: the result of running PDFLaTeX on qstest.dtx, namely the
+documentation for the qstest package without source code listing.
+
+makematch.pdf: the result of running PDFLaTeX on qstest.dtx, namely
+the documentation for the makematch package without source code
+listing.
+
+
+The following files will be unpacked by qstest.ins:
+
+makematch.sty: this package matches pattern lists with wildcards to
+keyword lists.
+
+makematch.drv: this file can be run through LaTeX in order to generate
+the documentation for the makematch package including the full
+documented source code.
+
+qstest.sty: this package allows one to perform unit tests and check
+for values, definitions and macro call sequences to meet expectations.
+Call sequences are specified with a syntax reminiscent of regular
+expressions.
+
+qstest.drv: this file can be run through LaTeX in order to generate
+the documentation for the qstest package including the full documented
+source code.
+
+makematch-qs.tex: a standalone unit test of makematch.sty, to be run
+through LaTeX.
+
+qstest-qs.tex: a standalone unit test of qstest.sty, to be run
+through LaTeX.
+
+
+David Kastrup <dak@gnu.org>
+QuinScape GmbH
+http://www.QuinScape.de

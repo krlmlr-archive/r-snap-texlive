@@ -1,0 +1,599 @@
+% +AMDG  This document was begun on 12 July 11EX, the feast
+% of St. Bonaventure, BCD, and it is humbly dedicated to him
+% and to the Immaculate Heart of Mary for their prayers, and
+% to the Sacred Heart of Jesus for His mercy.
+
+\documentclass{article}
+\title{DRM Specimen}
+\author{Donald P.\ Goodman III}
+\date{\today}
+
+\usepackage{array}
+\usepackage[typeone]{drm}
+\usepackage[margin=0.5in,paperwidth=841mm,paperheight=1189mm]{geometry}
+\usepackage{multicol}
+\usepackage[greek,latin,english]{babel}
+\usepackage{microtype}
+\pagestyle{empty}
+
+\def\hugongous{\fontsize{48pt}{48pt}\selectfont}
+\def\ginormous{\fontsize{60pt}{60pt}\selectfont}
+
+\def\coltitle#1{%
+	\vskip1em%
+	\hbox to\linewidth{%
+		\ginormous\textleftupfleuron\hfil\scshape#1\hfil\textrightupfleuron%
+	}%
+}%
+\def\texttitle#1{%
+	\vskip1em%
+	\hbox to\linewidth{%
+		\hugongous\textleftupfleuron\hfil\scshape#1\hfil\textrightupfleuron%
+	}%
+}%
+\def\alphabet{%
+	\vskip-0.5em%
+	\hbox to\linewidth{%
+		\hfil%
+		\large%
+		Aa Bb Cc Dd Ee Ff Gg Hh Ii Jj Kk Ll Mm Nn Oo Pp %
+		Qq Rr Ss Tt Uu Vv Ww Xx Yy Zz%
+		\hfil%
+	}%
+	\vskip-1em%
+}
+\def\grkalphabet{%
+	\vskip-0.5em%
+	\hbox to\linewidth{%
+		\hfil%
+		\large\foreignlanguage{greek}{%
+		Aa Bb Gg Dd Ee Zz Hh Jj Ii Kk Ll Mm Nn Xx Oo Pp Rr %
+		Ssc Tt Uu Ff Qq Yy Ww}
+	\hfil%
+	}
+	\vskip-1em%
+}
+
+\def\latintext{\noindent\selectlanguage{latin}Quia
+Catholic\ae\ veritatis doctor non solum provectos debet
+instruere, sed ad eum pertinet etiam incipientes erudire,
+secundum illud apostoli I ad Corinth.\ III, tanquam parvulis
+in Christo, lac vobis potum dedi, non escam}
+\def\latintwo{\selectlanguage{latin}; propositum nostr\ae\
+intentionis in hoc opere est, ea qu\ae\ ad Christianam
+religionem pertinent, eo modo tradere, secudum quod congruit
+ad eruditionem incipientium.  Consideravimus namque huius
+doctrin\ae\ novitios, in his qu\ae\ a diversis conscripta
+sunt}
+\def\latinthree{\selectlanguage{latin}, plurimum impediri,
+partim quidem propter multiplicationem inutilium qu\ae
+stionum, articulorum et argumentorum; partim etiam quia ea
+qu\ae\ sunt necessaria talibus ad sciendum, non traduntur
+secundum ordinem disciplin\ae, sed secundum quo requirebat
+librorum expositio, vel secundum quod se pr\ae bebat,
+occasio disputandi;}
+\def\latinfour{\selectlanguage{latin} partim quidem quia
+eorundem frequens repetitio et fastidium et confusionem
+generabat in animis auditorum.  H\ae c igitur et alia
+huiusmodi evitare studentes, tentabimus, cum confidentia
+divini auxilii, ea qu\ae\ ad sacram doctrinam pertinent,
+breviter ac dilucide prosequi, secundum quod materia
+patietur.}
+
+\def\greekone{\foreignlanguage{greek}{
+>En {\>a}rq\char'254\ {\>~h}n {\<o} l{\'o}goc, ka{\'i} {\<o}
+>l{\'o}goc {\~\>h}n pr{\'o}c t{\'o}n je{\'o}n, ka{\'i}
+>je{\'o}c {\>\~h}n {\<o} l{\'o}goc.  o{\<\~u}toc {\>\~h}n
+{\>e}n {\>a}rq\char'254\ pr{\`o}s t{\`o}n je{\'o}n.
+p{\'a}nta di' a{\>u}to{\~u} {\>e}g{\'e}neto, ka{\`i}
+qwr{\`i}c a{\>u}to{\~u} {\>e}g{\'e}neto o{\>u}d{\`e}
+{\<\'e}n.  {\<\`o} g{\'e}gonen \>en a\>ut\char'304\ zw\`h\
+\~\>hn, ka\`i\ \<h\ zw\`h\ \~\>hn t\`o\ f\~wc t\~wn
+\>anjr\'wpwn: ka\`i\ t\`o\ f\~wc \>en t\char'354\
+skot\'i\char'370\ fa\'nei, ka\`i\ \<h\ skot\'ia a\>ut\`o 
+o\>u\ kat\'elaben.  \>Eg\'eneto \>\'anjrwpoc
+\>apestalm\'enoc par\`a\ jeo\~u, \>\'onoma a\>ut\char'304\
+\>Iw\'annhc: o\<\~utoc \~\>hljen e\>ic martur\'ian, \<\'ina
+martur\'hs\char'371\ per\`i\ to\~u\ fwt\'oc, \<\'ina
+p\'antec piste\'uswsin di' a\>uto\~u.  o\>uk \~\>hn
+\>eke\~inoc t\`o\ f\~wc, \>all' \<\'ina martur\'hs\char'371\
+per\`i\ to\~u\ fwt\'oc.}}
+\def\greektwo{\foreignlanguage{greek}{
+\>\~hn t\`o f\~wc t\`o\ \>alhjin\'on, \>\`o\ fwt\'izei
+p\'anta \>\'anjrwpon, \>erx\'omenon e\>ic t\`on k\'osmon.
+\>en t\char'304\ k\'osm\char'304\ \~\>hn, ka\`i\ \<o\
+k\'osmoc di' a\>uto\~u\ \>eg\'eneto, ka\`i\ \<o\ k\'osmoc
+a\>ut\`on o\>uk \>\'egnw.  e\>ic t\`a\ \>\'idia \~\>hljen,
+ka\`i o\<i\ \>\'idioi a\>ut\`on o\>u\ par\'elabon.  \<\'osoi
+d\`e\ \>\'elabon a\>ut\'on, \>\'edwken a\>uto\~ic
+\>exous\'ian t\'ekna jeo\~u\ gen\'esjai, to\~ic
+piste\'uousin e\>ic t\`o\ \>\'onoma a\>uto\~,
+}}
+\def\greekthree{\foreignlanguage{greek}{
+o\<\`i\ o\>uk \>ex a\<im\'atwn o\>ud\`e \>ek jel\'hmatoc
+sark\`oc o\>ud\`e \>ek jel\'hmatoc \>andr\`oc \>all' \>ek
+jeo\~u\ \>egenn\'hjhsan.  Ka\`i \<o\ l\'ogoc s\`arx
+\>eg\'eneto ka\`i\ \>esk\'hnwsen \>en \<hm\~in, ka\`i\
+\>ejeas\'ameja t\`hn d\'oxan a\>uto\~u, d\'oxan \<wc
+monogeno\~uc par\`a\ patr\'oc, pl\'erec q\'aritoc ka\`i\
+\>alhje\'iac.
+}}
+
+\begin{document}
+
+\fontsize{140pt}{140pt}\selectfont
+\vbox{
+	\hbox to\linewidth{\hfil%
+		{\drmsym{\char'053}}\hfil%
+			{\drmsym{\char'116}}\hfil%
+			{\drmsym{\char'111}}\hfil%
+			{\drmsym{\char'116}}\hfil%
+			{\drmsym{\char'024}}\hfil%
+			{\drmsym{\char'116}}\hfil%
+			{\drmsym{\char'111}}\hfil%
+			{\drmsym{\char'116}}\hfil%
+			{\drmsym{\char'072}}\hfil}%
+	\vskip-0.5\baselineskip%
+	\hbox to\linewidth{\hfil%
+		\texttc{A DRM Specimen}%
+		\hfil%
+	}%
+	\vskip-0.5\baselineskip%
+	\hbox to\linewidth{\hfil%
+		{\drmsym{\char'073}}\hfil%
+			{\drmsym{\char'121}}\hfil%
+			{\drmsym{\char'112}}\hfil%
+			{\drmsym{\char'121}}\hfil%
+			{\drmsym{\char'027}}\hfil%
+			{\drmsym{\char'121}}\hfil%
+			{\drmsym{\char'112}}\hfil%
+			{\drmsym{\char'121}}\hfil%
+			{\drmsym{\char'110}}\hfil}%
+}
+
+\begin{minipage}[t]{0.23\textwidth}
+\coltitle{Roman}
+
+\alphabet
+
+\texttitle{Double Pica (24)}
+
+\Huge\latintext
+
+\texttitle{Paragon (20)}
+
+\huge\latintext\latintwo
+
+\texttitle{Great Primer}
+
+\LARGE\latintext\latintwo
+
+\texttitle{English (14)}
+
+\Large\latintext\latintwo
+
+\texttitle{Pica (12)}
+
+\large\latintext\latintwo
+
+\texttitle{Long-primer}
+
+\normalsize\latintext\latintwo\latinthree
+
+\texttitle{Bourgeois (9)}
+
+\small\latintext\latintwo\latinthree
+
+\texttitle{Brevier (8)}
+
+\footnotesize\latintext\latintwo\latinthree
+
+\texttitle{Minion (7)}
+
+\scriptsize\latintext\latintwo\latinthree\latinfour
+
+\texttitle{Pearl (5)}
+
+\tiny\latintext\latintwo\latinthree\latinfour
+\end{minipage}
+\begin{minipage}[t]{0.23\textwidth}
+\coltitle{Italic}\itshape
+
+\alphabet
+
+\texttitle{Double Pica (24)}
+
+\Huge\latintext
+
+\texttitle{Paragon (20)}
+
+\huge\latintext\latintwo
+
+\texttitle{Great Primer}
+
+\LARGE\latintext\latintwo
+
+\texttitle{English (14)}
+
+\Large\latintext\latintwo
+
+\texttitle{Pica (12)}
+
+\large\latintext\latintwo
+
+\texttitle{Long-primer}
+
+\normalsize\latintext\latintwo\latinthree
+
+\texttitle{Bourgeois (9)}
+
+\small\latintext\latintwo\latinthree
+
+\texttitle{Brevier (8)}
+
+\footnotesize\latintext\latintwo\latinthree
+
+\texttitle{Minion (7)}
+
+\scriptsize\latintext\latintwo\latinthree\latinfour
+
+\texttitle{Pearl (5)}
+
+\tiny\latintext\latintwo\latinthree\latinfour
+\end{minipage}
+\begin{minipage}[t]{0.23\textwidth}
+\coltitle{Small Caps}\scshape
+
+\alphabet
+
+\texttitle{Double Pica (24)}
+
+\Huge\latintext
+
+\texttitle{Paragon (20)}
+
+\huge\latintext\latintwo
+
+\texttitle{Great Primer}
+
+\LARGE\latintext\latintwo
+
+\texttitle{English (14)}
+
+\Large\latintext\latintwo
+
+\texttitle{Pica (12)}
+
+\large\latintext\latintwo
+
+\texttitle{Long-primer}
+
+\normalsize\latintext\latintwo\latinthree
+
+\texttitle{Bourgeois (9)}
+
+\small\latintext\latintwo\latinthree
+
+\texttitle{Brevier (8)}
+
+\footnotesize\latintext\latintwo\latinthree
+
+\texttitle{Minion (7)}
+
+\scriptsize\latintext\latintwo\latinthree\latinfour
+
+\texttitle{Pearl (5)}
+
+\tiny\latintext\latintwo\latinthree\latinfour
+\end{minipage}
+\begin{minipage}[t]{0.23\textwidth}
+\coltitle{Greek}
+
+\grkalphabet
+
+\texttitle{Double Pica (24)}
+
+\Huge\greekone
+
+\texttitle{Paragon (20)}
+
+\huge\greekone
+
+\texttitle{Great Primer}
+
+\LARGE\greekone
+
+\texttitle{English (14)}
+
+\Large\greekone
+
+\texttitle{Pica (12)}
+
+\large\greekone
+
+\texttitle{Long-primer}
+
+\normalsize\greekone\greektwo
+
+\texttitle{Bourgeois (9)}
+
+\small\greekone\greektwo
+
+\texttitle{Brevier (8)}
+
+\footnotesize\greekone\greektwo
+
+\texttitle{Minion (7)}
+
+\scriptsize\greekone\greektwo\greekthree
+
+\texttitle{Pearl (5)}
+
+\tiny\greekone\greektwo\greekthree
+\end{minipage}
+
+\begin{center}
+\fontencoding{TS1}\selectfont\Huge
+\setlength{\extrarowheight}{12pt}
+\begin{tabular}{p{0.025\textwidth}p{0.025\textwidth}p{0.025\textwidth}p{0.025\textwidth}p{0.025\textwidth}p{0.025\textwidth}p{0.025\textwidth}p{0.025\textwidth}p{0.025\textwidth}p{0.025\textwidth}p{0.025\textwidth}p{0.025\textwidth}p{0.025\textwidth}p{0.025\textwidth}p{0.025\textwidth}p{0.025\textwidth}p{0.025\textwidth}p{0.025\textwidth}p{0.025\textwidth}p{0.025\textwidth}p{0.025\textwidth}p{0.025\textwidth}p{0.025\textwidth}p{0.025\textwidth}p{0.025\textwidth}p{0.025\textwidth}p{0.025\textwidth}p{0.025\textwidth}p{0.025\textwidth}p{0.025\textwidth}p{0.025\textwidth}p{0.025\textwidth}}
+\char0 & 
+\char1 & 
+\char2 & 
+\char3 & 
+\char4 & 
+\char5 & 
+\char6 & 
+\char7 & 
+\char8 & 
+\char9 & 
+\char10 & 
+\char11 & 
+\char12 & 
+\char13 & 
+\char14 & 
+\char15 & 
+\char16 & 
+\char17 & 
+\char18 & 
+\char19 & 
+\char20 & 
+\char21 & 
+\char22 & 
+\char23 & 
+\char24 & 
+\char25 & 
+\char26 & 
+\char27 & 
+\char28 & 
+\char29 & 
+\char30 & 
+\char31 \\ 
+\char32 & 
+\char33 & 
+\char34 & 
+\char35 & 
+\char36 & 
+\char37 & 
+\char38 & 
+\char39 & 
+\char40 & 
+\char41 & 
+\char42 & 
+\char43 & 
+\char44 & 
+\char45 & 
+\char46 & 
+\char47 & 
+\char48 & 
+\char49 & 
+\char50 & 
+\char51 & 
+\char52 & 
+\char53 & 
+\char54 & 
+\char55 & 
+\char56 & 
+\char57 & 
+\char58 & 
+\char59 & 
+\char60 & 
+\char61 & 
+\char62 & 
+\char63 \\
+\char64 &
+\char65 & 
+\char66 & 
+\char67 & 
+\char68 & 
+\char69 & 
+\char70 & 
+\char71 & 
+\char72 & 
+\char73 & 
+\char74 & 
+\char75 & 
+\char76 & 
+\char77 & 
+\char78 & 
+\char79 & 
+\char80 & 
+\char81 & 
+\char82 & 
+\char83 & 
+\char84 & 
+\char85 & 
+\char86 & 
+\char87 & 
+\char88 & 
+\char89 & 
+\char90 & 
+\char91 & 
+\char92 & 
+\char93 & 
+\char94 & 
+\char95 \\
+\char96 &
+\char97 & 
+\char98 & 
+\char99 & 
+\char100 & 
+\char101 & 
+\char102 & 
+\char103 & 
+\char104 & 
+\char105 & 
+\char106 & 
+\char107 & 
+\char108 & 
+\char109 & 
+\char110 & 
+\char111 & 
+\char112 & 
+\char113 & 
+\char114 & 
+\char115 & 
+\char116 & 
+\char117 & 
+\char118 & 
+\char119 & 
+\char120 & 
+\char121 & 
+\char122 & 
+\char123 & 
+\char124 & 
+\char125 & 
+\char126 & 
+\char127 \\
+\char128 &
+\char129 & 
+\char130 & 
+\char131 & 
+\char132 & 
+\char133 & 
+\char134 & 
+\char135 & 
+\char136 & 
+\char137 & 
+\char138 & 
+\char139 & 
+\char140 & 
+\char141 & 
+\char142 & 
+\char143 & 
+\char144 & 
+\char145 & 
+\char146 & 
+\char147 & 
+\char148 & 
+\char149 & 
+\char150 & 
+\char151 & 
+\char152 & 
+\char153 & 
+\char154 & 
+\char155 & 
+\char156 & 
+\char157 & 
+\char158 & 
+\char159 \\
+\char160 &
+\char161 & 
+\char162 & 
+\char163 & 
+\char164 & 
+\char165 & 
+\char166 & 
+\char167 & 
+\char168 & 
+\char169 & 
+\char170 & 
+\char171 & 
+\char172 & 
+\char173 & 
+\char174 & 
+\char175 & 
+\char176 & 
+\char177 & 
+\char178 & 
+\char179 & 
+\char180 & 
+\char181 & 
+\char182 & 
+\char183 & 
+\char184 & 
+\char185 & 
+\char186 & 
+\char187 & 
+\char188 & 
+\char189 & 
+\char190 & 
+\char191 \\
+\char192 &
+\char193 & 
+\char194 & 
+\char195 & 
+\char196 & 
+\char197 & 
+\char198 & 
+\char199 & 
+\char200 & 
+\char201 & 
+\char202 & 
+\char203 & 
+\char204 & 
+\char205 & 
+\char206 & 
+\char207 & 
+\char208 & 
+\char209 & 
+\char210 & 
+\char211 & 
+\char212 & 
+\char213 & 
+\char214 & 
+\char215 & 
+\char216 & 
+\char217 & 
+\char218 & 
+\char219 & 
+\char220 & 
+\char221 & 
+\char222 & 
+\char223 \\
+\char224 &
+\char225 & 
+\char226 & 
+\char227 & 
+\char228 & 
+\char229 & 
+\char230 & 
+\char231 & 
+\char232 & 
+\char233 & 
+\char234 & 
+\char235 & 
+\char236 & 
+\char237 & 
+\char238 & 
+\char239 & 
+\char240 & 
+\char241 & 
+\char242 & 
+\char243 & 
+\char244 & 
+\char245 & 
+\char246 & 
+\char247 & 
+\char248 & 
+\char249 & 
+\char250 & 
+\char251 & 
+\char252 & 
+\char253 & 
+\char254 & 
+\char255 \\
+\end{tabular}
+\end{center}
+
+
+\end{document}

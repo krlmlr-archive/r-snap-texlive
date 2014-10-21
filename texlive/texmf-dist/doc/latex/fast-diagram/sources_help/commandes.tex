@@ -1,0 +1,312 @@
+\section{Détail des commandes}\label{commandes}
+%=====================================
+
+
+	\subsection{Environement ``fast''}\label{environnement}
+	%------------------------------------
+
+		Le diagramme fast est placé dans l'environnement {\color{blue}\verb'\begin{fast}...\end{fast}'}.
+		Cet environnement prend comme argument la \emph{fonction de service} que l'on souhaite développer.
+
+\begin{code}%##################################################################
+\begin{fast}{Fonction de Service}
+	%Votre diagramme FAST
+\end{fast}
+\end{code}%##################################################################
+		\cqd
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{exemple}
+\begin{fast}{Fonction de Service}
+	%Votre diagramme FAST
+\end{fast}
+\end{exemple}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+		A l'intérieur de l'environnement \verb!fast!, on va alors venir placer chacune des fonctions techniques, solutions techniques, etc.
+		Ces commandes vont être décrites dans les paragraphes suivants.
+
+
+
+
+
+	\subsection{Principe des commandes}\label{principe}
+	%----------------------------------------------
+
+		Une fois l'environnement fast ouvert, le but du jeu va être de créer des fonctions (c'est à dire des ``\emph{boites}'') à l'intérieur, reliées entre elles de manière hiérarchique.
+
+		Il existe plusieurs ``boites'' différentes qui seront chacune développées dans les paragraphes suivants.
+
+		Chaque boite possède un ``\textbf{parent}'' en amont, un ``\textbf{texte}'' à l'intérieur et éventuellement une ou plusieurs ``\textbf{descendances}'' en aval.
+
+		\begin{center}
+			\begin{fast}{Parent}
+				\definecolor{fastCouleurFondFT}{rgb}{1,0.5,0.5}
+				\FT{texte}{\fastReset
+					\FT{Descendance 1}{}
+					\FT{Descendance 2}{}
+					}
+			\end{fast}
+		\end{center}
+		
+
+		Le texte de chaque fonction est passé en premier argument de la commande.
+
+		On parlera de fonctions ``\emph{s\oe urs}'' lorsque ces fonctions sont en parallèles, issues d'un même parent.
+		Les commandes permettant de créer plusieurs fonctions s\oe urs sont placées les unes à la suite des autres.
+
+%##################################################################
+\begin{code}
+\begin{fast}{PARENT}
+	\une_fonction{texte}{Descendance de la fonction}
+	\une_fonction_soeur{texte}{Descendance de la fonction soeur}
+\end{fast}
+\end{code}
+%##################################################################
+
+		On parlera de fonctions ``\emph{filles}'' les fonctions descendant d'un parent.
+		Les fonctions filles sont passées en deuxième argument de leur parent.
+
+%##################################################################
+\begin{code}
+\begin{fast}{PARENT}
+	\une_fonction{texte}{
+				\une_fonction_fille{texte}{descendance}
+				\une_autre_fonction_fille{texte}{descendance}
+			}
+\end{fast}
+\end{code}
+%##################################################################
+
+	En pratique, la descendance peut être n'importe quelle fonction \emph{TikZ} (voir \ref{tikzz}).
+	Elle peut également ne rien comporter.
+
+	La suite de ce chapitre va présenter les différentes fonctions disponibles.
+
+
+
+
+	\subsection{Fonction technique}\label{FT}
+	%----------------------------------------------
+
+		{\color{blue}\verb'\fastFT'} (raccourci : {\color{blue}\verb'\FT'}) est une commande ``de base'' du diagramme FAST.
+		Elle s'emploie de la manière suivante :
+
+%##################################################################
+\begin{code}
+\begin{fast}{Fonction de Service}
+	\fastFT{Fonction technique FT}
+		{
+			%Descendance
+		}
+\end{fast}
+\end{code}
+%##################################################################
+		\cqd
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{exemple}
+\begin{fast}{Fonction de Service}
+	\fastFT{Fonction technique FT}
+		{
+			%Descendance
+		}
+\end{fast}
+\end{exemple}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+		Voici un exemple d'utilisation en série et en parallèle :
+
+%##################################################################
+\begin{code}
+\begin{fast}{Fonction de Service}
+	\fastFT{FT1}
+		{
+			\fastFT{FT11}{}
+			\fastFT{FT12}{}
+		}
+	\fastFT{FT2}
+		{
+			\fastFT{FT21}{}
+			\fastFT{FT22}{}
+		}
+\end{fast}
+\end{code}
+%##################################################################
+		\cqd
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{exemple}
+\begin{fast}{Fonction de Service}
+	\fastFT{FT1}
+		{
+			\fastFT{FT11}{}
+			\fastFT{FT12}{}
+		}
+	\fastFT{FT2}
+		{
+			\fastFT{FT21}{}
+			\fastFT{FT22}{}
+		}
+\end{fast}
+\end{exemple}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+		Si le premier argument est vide, cela revient à faire un trait horizontal, au même titre que que la fonction {\color{blue}\verb'\fastFTrait'} (voir \ref{trait}).
+
+		La commande {\color{blue}\verb'\fastFT'} peut également prendre un mot-clé en options :
+		%\begin{itemize}
+			%\item le mot clé {\color{blue}\verb'[tempo]'} permet de rajouter un connecteur entre la fonction courante et la fonction située au dessus (Ne fonctionne pas si la fonction est vide).
+			 le mot clé {\color{blue}\verb'[ou]'} ; il décale légèrement le connecteur pour représenter un liaison ``\emph{ou}'' (voir la mise en forme au paragraphe \ref{dimensions}).
+		%\end{itemize}
+
+%##################################################################
+\begin{code}
+\begin{fast}{FS}
+	\FT{FT1}
+		{
+			\fastFT{FT1}{}
+			\fastFT[ou]{FT2}{}
+		}
+\end{fast}
+\end{code}
+%##################################################################
+		\cqd
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{exemple}
+\begin{fast}{FS}
+	\fastFT{FT1}{}
+	\fastFT[ou]{FT2}{}
+\end{fast}
+\end{exemple}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+
+	\subsection{Solution technique }\label{ST}
+	%----------------------------------------------
+
+		{\color{blue}\verb'\fastST'} (raccourci : {\color{blue}\verb'\ST'}) prend un seul argument : le contenu de la solution technique.
+
+%##################################################################
+\begin{code}
+\begin{fast}{Fonction de Service}
+	\fastST{Solution technique}
+\end{fast}
+\end{code}
+%##################################################################
+		\cqd
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{exemple}
+\begin{fast}{Fonction de Service}
+	\fastST{Solution technique}
+\end{fast}
+\end{exemple}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+		Normalement, la solution technique correspond à la fin d'une branche du diagramme FAST.
+		C'est pourquoi elle ne requière pas d'autre argument.
+		Toutefois, pour des besoins spécifiques (commentaire, image, etc.), on peut lui rajouter une descendance en option :
+
+%##################################################################
+\begin{code}
+\begin{fast}{Fonction de Service}
+	\fastST{Solution technique}[\fastVide{Commentaire...}]
+\end{fast}
+\end{code}
+%##################################################################
+		\cqd
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{exemple}
+\begin{fast}{Fonction de Service}
+	\fastST{Solution technique}[\fastVide{Commentaire...}{}]
+\end{fast}
+\end{exemple}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+	\subsection{Fonction vide}\label{fvide}
+	%-----------------------------------------
+
+		{\color{blue}\verb'\fastVide'} (raccourci : {\color{blue}\verb'\FV'}) permet de faire une case sans connecteur ni bordure.
+
+%####################################
+\begin{code}
+\begin{fast}{Fonction de Service}
+	\fastFT{FT1}	{
+				\fastVide{Boite sans trait}
+				\fastVide{Autre boite sans trait}
+		}
+	\fastFT{FT2}{		\fastVide{Encore une boite sans trait}}
+\end{fast}
+\end{code}
+%####################################
+		\cqd
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{exemple}
+\begin{fast}{Fonction de Service}
+	\fastFT{FT1}	{
+				\fastVide{Boite sans trait}
+				\fastVide{Autre boite sans trait}
+		}
+	\fastFT{FT2}{		\fastVide{Encore une boite sans trait}}
+\end{fast}
+\end{exemple}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+		Tout comme pour la boite ``solution technique'', cette fonction est destinée à être en bout de branche du diagramme.
+		On ne demande donc pas de descendance.
+		Toutefois, on peut la lui proposer en argument optionnel :
+
+%##################################################################
+\begin{code}
+\begin{fast}{Fonction de Service}
+	\fastVide{Boite vide}[\fastFT{Descendance}{}]
+\end{fast}
+\end{code}
+%##################################################################
+\cqd
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{exemple}
+\begin{fast}{Fonction de Service}
+	\fastVide{Boite vide}[\fastFT{Descendance}{}]
+\end{fast}
+\end{exemple}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+	\subsection{Trait continu}\label{trait}
+	%-----------------------------------------
+
+		{\color{blue}\verb'\fastTrait'} (raccourci : {\color{blue}\verb'\trait'}) représente un simple trait.
+		Il permet en effet de tracer un connecteur directement de la colonne $(n-1)$ à $(n+1)$, en ``sautant'' la colonne $(n)$.
+		Le seul argument demandé est la descendance de ce connecteur.
+		La fonction technique {\color{blue}\verb'\fastFT'} avec un premier argument vide réalise la même chose.
+
+%##################################################################
+\begin{code}
+\begin{fast}{Fonction de Service}
+	\fastFT{De base}{}
+	\fastTrait	{
+		\fastFT{avec fastTrait}{}
+		}
+	\fastFT{}	{
+		\fastFT{avec fastFT dont le $1^{er}$ argument est vide}{}
+		}
+\end{fast}
+\end{code}
+%##################################################################
+		\cqd
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{exemple}
+\begin{fast}{Fonction de Service}
+	\fastFT{De base}{}
+	\fastTrait	{
+		\fastFT{avec fastTrait}{}
+		}
+	\fastFT{}	{
+		\fastFT{avec fastFT dont le $1^{er}$ argument est vide}{}
+		}
+\end{fast}
+\end{exemple}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+

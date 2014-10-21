@@ -1,0 +1,86 @@
+% Time-stamp: <2008-08-15T10:09:30 (cest) [yvon sur hypatie]>
+
+ENGPRON 2 2008-08-15
+50th anniversary edition
+
+------------------------------------------------------------
+                       DESCRIPTION :                        
+------------------------------------------------------------
+
+This bundle contains
+------------------------------------------------------------
+% the package itself
+engpron.sty  
+% bilingual OnlyDescription documentation
+engpron.pdf
+% documentation for the final user
+engpron-fr.pdf % in French
+engpron-en.pdf % in English
+% examples
+engpron-ex-fr.pdf % in French
+engpron-ex-en.pdf % in English
+% for *nix make
+Makefile    
+% sources
+engpron.dtx     engpron.ins
+% English part
+README      % this file 
+% French part
+LISEZMOI    
+% TDS-compliant archive
+engpron.tds.zip
+
+------------------------------------------------------------
+                       COMPILATION :                        
+------------------------------------------------------------
+For *nix user:
+make 
+or
+make all
+to produce all the files and documentation
+
+make clean
+to erase auxiliary files
+
+make distclean
+to come back to prepublication state
+------------------------------------------------------------
+Without Makefile
+1. run engpron.ins through LATEX (not TeX)
+that produces the following files
+engpron-en.ltx           % English documentation
+engpron-ex-en.tex        % English example
+engpron-fr.ltx           % French documentation
+engpron-ex-fr.tex        % French example
+engpron-tools.sty        % a package to produce the documentation
+engpron.sty              % the package
+2. to produce English documentation
+   1/ run engpron-en.ltx through pdflatex twice
+   2/ run ``makeindex engpron-en''
+   3/ run engpron-en.ltx through pdflatex once
+   4/ read! 
+
+============================================================
+                          CHANGES.                        
+============================================================
+ENGPRON 2 2008-08-15
+The active character £ is made `robust' with the meaning
+this word has in LaTeX parlance (moving argument) with the
+package drac if option `drac' is choosen as it is the case
+by default. Opposite option `nodrac'. 
+
+Macros for syllable divisions and hyphenation.
+
+The macros for stress marking enable hyphenation if option
+`hyphenable' is enforced. Opposite option `unhyphenable'
+
+The macros for syllable divisions produce a glyph if option
+`visible' is enforced. Opposite option `invisible'. 
+------------------------------------------------------------
+
+ENGPRON 1   2004-05-20
+1re version publique.
+
+-- 
+Yvon Henel, le TeXnicien de surface
+le.texnicien.de.surface@wanadoo.fr

@@ -1,0 +1,1532 @@
+% \iffalse meta-comment
+%
+% protosem.dtx
+%
+%  Author: Peter Wilson (Herries Press) herries dot press at earthlink dot net
+%  Copyright 1999 -- 2005 Peter R. Wilson
+%
+%  This work may be distributed and/or modified under the
+%  conditions of the Latex Project Public License, either
+%  version 1.3 of this license or (at your option) any
+%  later version.
+%  The latest version of the license is in
+%    http://www.latex-project.org/lppl.txt
+%  and version 1.3 or later is part of all distributions of
+%  LaTeX version 2003/06/01 or later.
+%
+%  This work has the LPPL maintenance status "author-maintained".
+%
+%  This work consists of the files listed in the README file.
+%
+%<*driver>
+\documentclass[twoside]{ltxdoc}
+\usepackage{docmfp}
+\usepackage{url}
+\usepackage[draft=false,
+            plainpages=false,
+            pdfpagelabels,
+            bookmarksnumbered,
+            hyperindex=false,
+           ]{hyperref}
+\providecommand{\phantomsection}{}
+\OnlyDescription  %% comment this out for the full glory
+\EnableCrossrefs
+\CodelineIndex
+\setcounter{StandardModuleDepth}{1}
+\makeatletter
+  \@mparswitchfalse
+\makeatother
+\renewcommand{\MakeUppercase}[1]{#1}
+\pagestyle{headings}
+\newenvironment{addtomargins}[1]{%
+  \begin{list}{}{%
+    \topsep 0pt
+    \addtolength{\leftmargin}{#1}%
+    \addtolength{\rightmargin}{#1}%
+    \listparindent \parindent
+    \itemindent \parindent
+    \parsep \parskip
+  }%
+  \item[]}{\end{list}}
+\begin{document}
+  \raggedbottom
+  \DocInput{protosem.dtx}
+\end{document}
+%</driver>
+%
+% \fi
+%
+% \CheckSum{389}
+%
+% \DoNotIndex{\',\.,\@M,\@@input,\@addtoreset,\@arabic,\@badmath}
+% \DoNotIndex{\@centercr,\@cite}
+% \DoNotIndex{\@dotsep,\@empty,\@float,\@gobble,\@gobbletwo,\@ignoretrue}
+% \DoNotIndex{\@input,\@ixpt,\@m}
+% \DoNotIndex{\@minus,\@mkboth,\@ne,\@nil,\@nomath,\@plus,\@set@topoint}
+% \DoNotIndex{\@tempboxa,\@tempcnta,\@tempdima,\@tempdimb}
+% \DoNotIndex{\@tempswafalse,\@tempswatrue,\@viipt,\@viiipt,\@vipt}
+% \DoNotIndex{\@vpt,\@warning,\@xiipt,\@xipt,\@xivpt,\@xpt,\@xviipt}
+% \DoNotIndex{\@xxpt,\@xxvpt,\\,\ ,\addpenalty,\addtolength,\addvspace}
+% \DoNotIndex{\advance,\Alph,\alph}
+% \DoNotIndex{\arabic,\ast,\begin,\begingroup,\bfseries,\bgroup,\box}
+% \DoNotIndex{\bullet}
+% \DoNotIndex{\cdot,\cite,\CodelineIndex,\cr,\day,\DeclareOption}
+% \DoNotIndex{\def,\DisableCrossrefs,\divide,\DocInput,\documentclass}
+% \DoNotIndex{\DoNotIndex,\egroup,\ifdim,\else,\fi,\em,\endtrivlist}
+% \DoNotIndex{\EnableCrossrefs,\end,\end@dblfloat,\end@float,\endgroup}
+% \DoNotIndex{\endlist,\everycr,\everypar,\ExecuteOptions,\expandafter}
+% \DoNotIndex{\fbox}
+% \DoNotIndex{\filedate,\filename,\fileversion,\fontsize,\framebox,\gdef}
+% \DoNotIndex{\global,\halign,\hangindent,\hbox,\hfil,\hfill,\hrule}
+% \DoNotIndex{\hsize,\hskip,\hspace,\hss,\if@tempswa,\ifcase,\or,\fi,\fi}
+% \DoNotIndex{\ifhmode,\ifvmode,\ifnum,\iftrue,\ifx,\fi,\fi,\fi,\fi,\fi}
+% \DoNotIndex{\input}
+% \DoNotIndex{\jobname,\kern,\leavevmode,\let,\leftmark}
+% \DoNotIndex{\list,\llap,\long,\m@ne,\m@th,\mark,\markboth,\markright}
+% \DoNotIndex{\month,\newcommand,\newcounter,\newenvironment}
+% \DoNotIndex{\NeedsTeXFormat,\newdimen}
+% \DoNotIndex{\newlength,\newpage,\nobreak,\noindent,\null,\number}
+% \DoNotIndex{\numberline,\OldMakeindex,\OnlyDescription,\p@}
+% \DoNotIndex{\pagestyle,\par,\paragraph,\paragraphmark,\parfillskip}
+% \DoNotIndex{\penalty,\PrintChanges,\PrintIndex,\ProcessOptions}
+% \DoNotIndex{\protect,\ProvidesClass,\raggedbottom,\raggedright}
+% \DoNotIndex{\refstepcounter,\relax,\renewcommand,\reset@font}
+% \DoNotIndex{\rightmargin,\rightmark,\rightskip,\rlap,\rmfamily,\roman}
+% \DoNotIndex{\roman,\secdef,\selectfont,\setbox,\setcounter,\setlength}
+% \DoNotIndex{\settowidth,\sfcode,\skip,\sloppy,\slshape,\space}
+% \DoNotIndex{\symbol,\the,\trivlist,\typeout,\tw@,\undefined,\uppercase}
+% \DoNotIndex{\usecounter,\usefont,\usepackage,\vfil,\vfill,\viiipt}
+% \DoNotIndex{\viipt,\vipt,\vskip,\vspace}
+% \DoNotIndex{\wd,\xiipt,\year,\z@}
+%
+% \changes{v1.0}{1999/03/14}{First public release}
+% \changes{v1.1}{2000/09/30}{Minor changes to glyph encodings}
+% \changes{v1.2}{2005/03/18}{Updated details, added map file}
+% \changes{v1.3}{2005/07/21}{Minor fixes}
+%
+% \def\fileversion{v1.0} \def\filedate{1999/03/14}
+% \def\fileversion{v1.1} \def\filedate{2000/09/30}
+% \def\fileversion{v1.2} \def\filedate{2005/03/18}
+% \def\fileversion{v1.3} \def\filedate{2005/07/21}
+% \newcommand*{\Lpack}[1]{\textsf {#1}}           ^^A typeset a package
+% \newcommand*{\Lopt}[1]{\textsf {#1}}            ^^A typeset an option
+% \newcommand*{\file}[1]{\texttt {#1}}            ^^A typeset a file
+% \newcommand*{\Lcount}[1]{\textsl {\small#1}}    ^^A typeset a counter
+% \newcommand*{\pstyle}[1]{\textsl {#1}}          ^^A typeset a pagestyle
+% \newcommand*{\Lenv}[1]{\texttt {#1}}            ^^A typeset an environment
+% \newcommand{\BC}{\textsc{bc}}
+% \newcommand{\AD}{\textsc{ad}}
+% \newcommand{\thisfont}{Proto-Semitic}
+%
+% \title{The \Lpack{Proto-Semitic} fonts\thanks{This
+%        file has version number \fileversion, last revised
+%        \filedate.}}
+%
+% \author{%
+% Peter Wilson\thanks{\texttt{herries dot press at earthlink dot net}}\\
+% Herries Press }
+% \date{\filedate}
+% \maketitle
+% \begin{abstract}
+%    The \Lpack{protosem} package provides a set of fonts for the 
+% Proto-Semitic alphabet which was used around 1600~\BC{} in the Middle East.
+% \end{abstract}
+% \tableofcontents
+%
+%
+% \section{Introduction}
+%
+% The Phoenician alphabet and characters is a direct ancestor of our modern day
+% Latin alphabet and fonts. 
+% The font presented here is one of a series of fonts intended to show how
+% the modern Latin alphabet has evolved from its original Phoenician form
+% to its present day appearance.
+% 
+% This manual is typeset according to the conventions of the
+% \LaTeX{} \textsc{docstrip} utility which enables the automatic
+% extraction of the \LaTeX{} macro source files~\cite{GOOSSENS94}.
+%
+%    Section~\ref{sec:usc} describes the usage of the package.
+% Later sections, if any, contain commented code for the fonts 
+% and source code for the package.
+%
+% \subsection{An alphabetic tree}
+%
+%    Scholars are reasonably agreed that all the world's alphabets are descended
+% from a Semitic alphabet invented about 1600~\BC{} in the Middle 
+% East~\cite{DRUCKER95}. The word `Semitic' refers
+% to the family of languages used in the geographical area from
+% Sinai in the south, up the Mediterranean coast to Asia Minor in the north and
+% west to the valley of the Euphrates.
+%
+%    The Phoenician alphabet was stable by about 1100~\BC{} and the script was
+% written right to left. In earlier times the writing direction was variable, 
+% and so were
+% the shapes and orientation of the characters. The alphabet consisted of
+% 22 letters and they were named after things. For example, their first two 
+% letters were called \textit{aleph} (ox), and \textit{beth} (house). 
+% The Phoenician script had
+% only one case --- unlike our modern fonts which have both upper- and 
+% lower-cases. In modern terms the Phoenician abecedary was: \\
+% A B G D E Y Z H $\Theta$ I K L M N X O P ts Q R S T \\
+% where the `Y' (\textit{vau}) character was sometimes written as `F', and
+% `ts' stands for the \textit{tsade} character.
+%
+%    The Greek alphabet is one of the descendants of the Phoenician alphabet;
+% another was Aramaic which is the ancestor of the Arabic, Persian and Indian 
+% scripts.
+% Initially Greek was written right to left but around the 6th C~\BC{} became 
+% \textit{boustrophedron}, meaning that the lines 
+% alternated in direction. At about 500~\BC{} the writing direction stabilised 
+% as left to 
+% right. The Greeks modified the Phoenician alphabet to match the vocalisation
+% of their language. They kept the Phoenician names of the letters, suitably
+% `greekified', so \textit{aleph} became the familar \textit{alpha} and 
+% \textit{beth} became \textit{beta}. At this
+% point the names of the letters had no meaning. Their were several variants
+% of the Greek character glyphs until they were finally fixed in Athens in
+% 403~\BC.
+% The Greeks did not develop a lower-case 
+% script until about 600--700~\AD.
+%
+%    The Etruscans based their alphabet on the Greek one, and again modified it.
+% However, the Etruscans wrote right to left, so their borrowed characters are 
+% mirror images of the original Greek ones. Like the Phoenicians, the Etruscan
+% script consisted of only one case; they died out before ever needing a
+% lower-case script. The Etruscan script was used up until the first century 
+% \AD, even though the Etruscans themselves had dissapeared by that time.
+% 
+%
+%    In turn, the Romans based their alphabet on the Etruscan one, but as they 
+% wrote left to right, the characters were again mirrored (although the early
+% Roman inscriptions are boustrophedron). 
+%
+%    As the English alphabet is descended from the Roman alphabet
+% it has a pedigree of some three and a half thousand years.
+%
+% \section{The \Lpack{protosem} package} \label{sec:usc}
+%
+%    The Proto-Semitic alphabet provided by this package is probably
+% a precursor to the Phoenician alphabet. As far as I can make out 
+% from Davies~\cite{DAVIES97}, Drucker~\cite{DRUCKER95} and 
+% Healey~\cite{HEALEY90}, there may have been several proto- alphabets
+% being referred to as Proto-Siniatic or Proto-Canaanite for example.
+% I have taken what I can from the sources available to me and
+% produced a sort of generic Proto-Semitic font.
+%
+%    The alphabet consisted of 23 letters, some of which came in two
+% different forms. The writing direction was normally left to right
+% but could also be vertical.
+%
+% \begin{table} 
+% \begin{addtomargins}{-2in}
+% \centering
+% \caption{Names and meanings of \thisfont{} letters}\label{tab}
+% \begin{tabular}{cllclcl} \hline
+%            &          &         &       &         & \multicolumn{2}{c}{Alternative} \\
+% Value      & Name     & Meaning & ASCII  & command              & ASCII & Command \\ \hline
+% \textit{a} & alpu     & ox           & ' a & |\Arq| |\Aa| |\Aaleph| & A & |\AAa| |\AAaleph| \\
+% \textit{b} & betu     & house        & b & |\Ab| |\Abeth|          & B & |\AAb| |\AAbeth| \\
+% \textit{g} &          & throw-stick? & g & |\Ag| |\Agimel|         &  &  \\
+% \textit{d} &          & fish         & d & |\Ad| |\Adaleth|        & D & |\AAd| |\AAdaleth| \\
+% \textit{h} &          & man?         & e & |\Ah| |\Ahe|            & E & |\AAh| |\AAhe| \\
+% \textit{w} & wawwu    & hook/peg     & w & |\Aw| |\Avav|           &  &  \\
+% \textit{z} &          &              & z & |\Az| |\Azayin|         &  &  \\
+% \textit{\d{h}} & hotu & fence        & h & |\Ahd| |\Aheth|         & H & |\AAhd| |\AAheth| \\
+% \textit{\d{t}} &      & twisted flax & T & |\Atd| |\Ateth|         &  &  \\
+% \textit{y} & yadu     & hand/arm     & y & |\Ay| |\Ayod|           & Y & |\AAy| |\AAyod| \\
+% \textit{k} & kappu    & palm of hand & k & |\Ak| |\Akaph|          & K & |\AAk| |\AAkaph| \\
+% \textit{l} & lamdu    & ox goad/whip & l & |\Al| |\Alamed|         & L & |\AAl| |\AAlamed| \\
+% \textit{m} & mayyuma? & water        & m & |\Am| |\Amem|           &  &  \\
+% \textit{n} & nahasu   & snake        & n & |\An| |\Anun|           &  &  \\
+% \textit{o} & enu      & eye          & ` o & |\Alq| |\Ao| |\Aayin| & O & |\AAo| |\AAayin| \\
+% \textit{s} &          &              & s & |\As| |\Asamekh|        &   &  \\
+% \textit{p} &          & leg/foot?    & p & |\Ap| |\Ape|            & P & |\AAp| |\AApe| \\
+% \textit{\d{s}} &      & plant?       & x & |\Asd| |\Asade|         & X & |\AAsd| |\AAsade| \\
+% \textit{q} &          & knot?        & q & |\Aq| |\Aqoph|          & Q & |\AAq| |\AAqoph| \\
+% \textit{r} & rasu     & head         & r & |\Ar| |\Aresh|          & R & |\AAr| |\AAresh| \\
+% \textit{\v{s}} &      & lotus pool?  & S & |\Asv| |\Ashin|         &  &  \\
+% \textit{t} & tawwu    & mark         & t & |\At| |\Atav|           &  &  \\
+% ???            &      &              & v & |\Av| |\Ahelmet|        & V & |\AAv| |\AAhelmet| \\
+% \hline
+% \end{tabular}
+% \end{addtomargins}
+% \end{table}
+% 
+% Table~\ref{tab} lists, in what I hope is the Proto-Semitic alphabetic order, the
+% transliterated values of the characters and, where I know it, the name and
+% meaning of the corresponding Proto-Semitic letter.
+%    Several of the glyphs are obviously based on Egyptian hieroglyphs.
+% There seems to be general agreement that the glyphs I have coded as: \\
+% |a b g d e w H T y k l m n o r S t| \\
+% fall into this category. 
+%
+%
+% \DescribeMacro{\protofamily}
+%    This command selects the \thisfont{} font family. The family name is |proto|.
+%
+% \DescribeMacro{\textproto}
+% The command |\textproto{|\meta{text}|}| typesets \meta{text} in the
+% \thisfont{} font.
+%
+%    I have provided two means of accessing the \thisfont{} glyphs:
+% (a) by ASCII characters, and (b) via commands. These are shown in
+% Table~\ref{tab}. The columns headed `Alternative' are for accessing 
+% an alternative form of the glyph, if it exists.
+%
+% \DescribeMacro{\translitproto}
+% The command |\translitproto{|\meta{commands}|}| will typeset the
+% transliteration of the \thisfont{} character commands (those in the
+% fifth and seventh columns of Table~\ref{tab}).
+%
+% \DescribeMacro{\translitprotofont}
+%   The font used for the transliteration is defined by this macro,
+% which is initialsed to an italic font (i.e., |\itshape|).
+%     
+% \StopEventually{
+% \bibliographystyle{alpha}
+%
+% \begin{thebibliography}{GMS94}
+%
+% \bibitem[Dav97]{DAVIES97}
+% W. V. Davies.
+% \newblock \emph{Reading the Past: Egyptian Hieroglyphs}.
+% \newblock University of California Press/British Museum, 1997.
+% \newblock (ISBN 0-520-06287-6)
+%
+% \bibitem[Dru95]{DRUCKER95}
+% Johanna Drucker.
+% \newblock \emph{The Alphabetic Labyrinth}.
+% \newblock Thames and Hudson, 1995.
+%
+% \bibitem[Fir93]{FIRMAGE93}
+% Richard A.~Firmage.
+% \newblock \emph{The Alphabet Abecedarium}.
+% \newblock David R.~Goodine, 1993.
+%
+% \bibitem[GMS94]{GOOSSENS94}
+% Michel Goossens, Frank Mittelbach, and Alexander Samarin.
+% \newblock \emph{The LaTeX Companion}.
+% \newblock Addison-Wesley Publishing Company, 1994.
+%
+% \bibitem[Hea90]{HEALEY90}
+% John F.~Healey.
+% \newblock \emph{Reading the Past: The Early Alphabet}.
+% \newblock University of California Press/British Museum, 1990.
+% \newblock (ISBN 0-520-07309-6)
+%
+% \end{thebibliography}
+% }
+%
+%
+% \section{The Metafont code} \label{sec:mf}
+%
+% \subsection{The parameter file}
+%
+%    We deal with the parameter file first, and start by announcing
+% what it is for.
+%    \begin{macrocode}
+%<*up>
+%%% PROTO10.MF  Computer Proto-Semitic font 10 point design size.
+
+%    \end{macrocode}
+%    Specify the font size.
+%    \begin{macrocode}
+
+font_identifier:="protosem"; font_size 10pt#;
+
+%    \end{macrocode}
+%
+%
+% \begin{macro}{u} 
+% \begin{macro}{ht} 
+% \begin{macro}{s} 
+% \begin{macro}{o} 
+% \begin{macro}{px} 
+% \begin{macro}{font-normal-space} 
+% \begin{macro}{font-normal-shrink} 
+% \begin{macro}{font-x-height} 
+% \begin{macro}{font-quad}
+%    Define the very simple font parameters.
+%    \begin{macrocode}
+u#:=.2pt#;                 % unit width
+ht#:=7pt#;                 % height of characters (CM cap-height is approx 6.8pt)
+s#:=1.5pt#;                % width correction (right and left)
+o#:=1/20pt#;               % overshoot
+px#:=.6pt#;                % horizontal width of pen
+font_normal_space:=7pt#;   % width of a blank space
+font_normal_shrink:=.9pt#; % width correction for blank space
+font_x_height:=4.5pt#;     % height of one ex
+font_quad:=10pt#;          % an em
+
+%    \end{macrocode}
+% \end{macro}
+% \end{macro}
+% \end{macro}
+% \end{macro}
+% \end{macro}
+% \end{macro}
+% \end{macro}
+% \end{macro}
+% \end{macro}
+%
+%    For a full font, the driver file would normally be called here.
+% In this case I have embedded it.
+%    \begin{macrocode} 
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% end of parameters
+% start of driver code
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%    \end{macrocode}
+%
+%
+% \subsection{The driver file}
+%
+%    If there was a seperate driver file, this would be its contents.
+%
+%    \begin{macrocode}
+
+font_coding_scheme:="Protosem glyphs";
+mode_setup;
+
+%    \end{macrocode}
+%
+% \begin{macro}{ho}
+% \begin{macro}{leftloc}
+% \begin{macro}{py}
+%  Perform additional setup.
+%    \begin{macrocode}
+ho#:=o#;                   % horizontal overshoot
+leftloc#:=s#;              % leftmost xcoord of character
+py#:=.8px#;                % vertical thickness of the pen
+
+define_pixels(s,u);
+define_blacker_pixels(px,py);
+define_good_x_pixels(leftloc);
+define_corrected_pixels(o);             % turn on overshoot correction
+define_horizontal_corrected_pixels(ho);  
+
+%    \end{macrocode}
+% \end{macro}
+% \end{macro}
+% \end{macro}
+%
+% \begin{macro}{midloc}
+% \begin{macro}{rightloc}
+%    Variables for the middle xcoord and rightmost xcoord of a character.
+%    \begin{macrocode}
+numeric midloc, rightloc;
+%    \end{macrocode}
+% \end{macro}
+% \end{macro}
+%
+% \begin{macro}{stylus}
+%    Define the pen.
+%    \begin{macrocode}
+pickup pencircle xscaled px yscaled py;
+stylus:=savepen;
+
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{beginglyph}
+%    A macro to save some typing of beginchar arguments.
+%    \begin{macrocode}
+def beginglyph(expr code, unit_width) =
+  beginchar(code, unit_width*ht#+2s#, ht#, 0);
+  midloc:=1/2w; rightloc:=(w-s);
+  pickup stylus enddef;
+
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{cmchar}
+%    |cmchar| should precede each character
+%    \begin{macrocode}
+let cmchar=\;
+
+%    \end{macrocode}
+% \end{macro}
+% 
+%    That would be the end of a driver file, except for calling the glyph code.
+%
+%
+% \subsection{The glyph code}
+%
+%    The following code generates the glyphs for the Proto-Semitic font. 
+% The characters
+% are defined in the Phoenician alphabetic ordering.
+%
+%    \begin{macrocode}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% end of driver code
+% start of glyph code
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+%    \end{macrocode}
+%
+% \begin{macro}{'}
+% The Proto-Semitic letter \textit{alpu} (ox). Left profile of an oxhead.
+%    \begin{macrocode}
+ 
+cmchar "Proto-Semitic letter ' (alpu)";
+beginglyph("'",0.8);
+numeric n[];
+n1 := rightloc-leftloc;  % glyph width
+z1=(leftloc, 1/10h);     % nose
+z5=(x1+y1,0);
+z3=(x1+7/8n1, 3/4h);     % top of neck
+z4=(x3, 1/2y3);          % bottom of neck
+z2=(1/2[x3,x1],y3);      % top of forehead
+z6=(x1,h); z7=(rightloc,7/8[y2,y6]);  % tips of horns
+z10=(1/4[x2,x3],2/3[y4,y3]);     % eye
+z11=z10 shifted (px*down);
+draw z1--z2--z3--z4--z5--cycle;      % head
+draw z10--z11;                            % eye
+draw z2{left}..z6{up};                     % a horn
+draw z3..z7{up};                     % other horn
+labels(1,2,3,4,5,6,7,10);
+endchar;
+
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{a}
+% The Proto-Semitic letter \textit{alpu} (ox). Left profile of an oxhead.
+%    \begin{macrocode}
+ 
+cmchar "Proto-Semitic letter alpu (coded as a)";
+beginglyph("a",0.8);
+numeric n[];
+n1 := rightloc-leftloc;  % glyph width
+z1=(leftloc, 1/10h);     % nose
+z5=(x1+y1,0);
+z3=(x1+7/8n1, 3/4h);     % top of neck
+z4=(x3, 1/2y3);          % bottom of neck
+z2=(1/2[x3,x1],y3);      % top of forehead
+z6=(x1,h); z7=(rightloc,7/8[y2,y6]);  % tips of horns
+z10=(1/4[x2,x3],2/3[y4,y3]);     % eye
+z11=z10 shifted (px*down);
+draw z1--z2--z3--z4--z5--cycle;      % head
+draw z10--z11;                            % eye
+draw z2{left}..z6{up};                     % a horn
+draw z3..z7{up};                     % other horn
+labels(1,2,3,4,5,6,7,10);
+endchar;
+
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{A}
+% Alternate Proto-Semitic \textit{alpu} (ox). Right profile of an oxhead.
+%    \begin{macrocode}
+ 
+cmchar "Alternate Proto-Semitic a";
+beginglyph("A",0.8);
+numeric n[];
+n1 := rightloc-leftloc;  % glyph width
+z1=(rightloc, 1/10h);     % nose
+z5=(x1-y1,0);
+z3=(x1-7/8n1, 3/4h);     % top of neck
+z4=(x3, 1/2y3);          % bottom of neck
+z2=(1/2[x3,x1],y3);      % top of forehead
+z6=(x1,h); z7=(leftloc,7/8[y2,y6]);  % tips of horns
+z10=(1/4[x2,x3],2/3[y4,y3]);     % eye
+z11=z10 shifted (px*down);
+draw z1--z2--z3--z4--z5--cycle;      % head
+draw z10--z11;                            % eye
+draw z2{right}..z6{up};                     % a horn
+draw z3..z7{up};                     % other horn
+labels(1,2,3,4,5,6,7,10);
+endchar;
+
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{b}
+% The Proto-Semitic \textit{betu} (house). A square with an opening.
+%    \begin{macrocode}
+ 
+cmchar "Proto-Semitic letter b";
+beginglyph("b",0.8);
+z1=(leftloc, 0.2h); z3=(rightloc,0.8h);
+z2=(x1,y3); z4=(x3,y1);
+z5=1/3[z1,z4];
+draw z1--z2--z3--z4--z5;
+labels(1,2,3,4); endchar;
+ 
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{B}
+% An alternative Proto-Semitic \textit{betu} (house), a square with a chimney.
+%    \begin{macrocode}
+ 
+cmchar "Proto-Semitic alternate b";
+beginglyph("B",0.8);
+z1=(leftloc, 0.1h); z3=(rightloc,0.8h);
+z2=(x1,y3); z4=(x3,y1);
+z5=1/3[z2,z3]; z6=(x5,h);
+z7=2/3[z2,z3]; z8=(x7,y6);
+draw z8--z7--z3--z4--z1--z2--z5--z6;
+labels(1,2,3,4,5,6,7,8); endchar;
+ 
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{g}
+%    The Proto-Semitic G. Like a broken stick or a 
+% throw-stick
+%    \begin{macrocode}
+ 
+cmchar "Proto-Semitic letter g";
+beginglyph("g", 0.7);
+x1=leftloc; x3=rightloc;
+x2=3/8[x1,x3];
+y1=2/3h; y2=y3=1/3h;
+draw z1--z2--z3;
+labels(1,2,3,4); endchar;
+ 
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{d}
+% The Proto-Semitic fish, facing right.
+%    \begin{macrocode}
+ 
+cmchar "Proto-Semitic letter fish (d)";
+beginglyph("d",1.0);
+numeric alpha;
+alpha := 3/16h;
+%% body
+x1=x6=leftloc; x4=rightloc; x2=1/4[x1,x4];
+y2=y4=1/2h;
+x3=x5=1/2[x2,x4];
+y1=y5=y2-alpha; y6=y3=y2+alpha;
+%% fins
+z13=(x3-alpha,y3+alpha);
+z15=(x5-alpha,y5-alpha);
+draw z1..z2..z3{right}..z4;     % body
+draw z4..z5{left}..z2..z6--z1;
+draw z3--z13; draw z5--z15;     % fins
+labels(1,2,3,4,5,6,13,15); endchar;
+ 
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{D}
+% Alternate Proto-Semitic fish, upright.
+%    \begin{macrocode}
+ 
+cmchar "Alternate Proto-Semitic fish (d)";
+beginglyph("D",0.6);
+numeric n[];
+n1 := rightloc-leftloc;   % glyph width
+numeric alpha;
+alpha := 3/8n1;
+%% body
+z4=(midloc,h);
+x1=x3=x4-alpha; x7=x5=x4+alpha;
+y1=y7=0;
+x2=1/4[x1,x7];
+x6=3/4[x1,x7];
+y2=y6=1/4h;
+y3=y5=1/2[y2,y4];
+%% fins
+z13=(leftloc,y3-alpha); z15=(rightloc,y13);
+draw z1..z2{up}..z3{up}..z4;         % body
+draw z4..z5{down}..z6{down}..z7--z1;
+draw z3--z13; draw z5--z15;          % fins
+labels(1,2,3,4,5,6,7,13,15); endchar;
+ 
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{E}
+% The Proto-Semitic h?, stick man with upraised arms.
+%    \begin{macrocode}
+ 
+cmchar "Proto-Semitic letter h? (E)";
+beginglyph("E",0.6);
+numeric alpha, beta;
+z1=(midloc,3/4h);
+alpha := 1/2(h-y1);
+beta := 24/16alpha;  % 20/16 too small
+z2=(x1,1/2y1);
+z3=(leftloc, 1/2[y1,h]);
+z4=(x3,2/3[y2,y1]);
+z7=(rightloc,y3);
+z6=(x7,y4);
+z8=(x3,0);
+z9=(x7,y8);
+z10=(x1,h-alpha);
+draw z3--z4--z6--z7;  % arms
+draw z8--z2--z9;      % legs
+draw z1--z2;          % body
+draw fullcircle scaled beta shifted z10;  % head
+labels(1,2,3,4,5,6,7,8,9,10); endchar;
+ 
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{e}
+% An alternate Proto-Semitic h?, abstract stick man 
+% with upraised arms.
+%    \begin{macrocode}
+ 
+cmchar "Proto-Semitic alternate h? (coded as e)";
+beginglyph("e",0.6);
+numeric alpha;
+z1=(midloc,h);
+alpha := 1/2(h-y1);
+z2=(x1,1/3y1);
+z3=(leftloc, y1);
+z4=(x3,2/3y1);
+z7=(rightloc,y3);
+z6=(x7,y4);
+z8=(x7,y2);
+z9=(x8,0);
+draw z3--z4--z6--z7;  % arms
+draw z1--z2--z8--z9;  % head, body, and leg
+labels(1,2,3,4,5,6,7,8,9,10); endchar;
+ 
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{z}
+% Proto-Semitic letter z?. Two horizontal parallel lines.
+%    \begin{macrocode}
+ 
+cmchar "Proto-Semitic letter z? (z)";
+beginglyph("z",0.8);
+numeric alpha;
+alpha:=0.2h;
+x1=x6=leftloc; x5=x10=rightloc;
+y1=y5=1/2h+alpha;
+y6=y10=1/2h-alpha;
+draw z1--z5;      % top
+draw z6--z10;     % bottom
+labels(1,2,3,4,5,6,7,8,9,10); endchar;
+ 
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{H}
+% The Proto-Semitic \textit{hotu} (fence?) (h sub dot?). Looks like a fence.
+%    \begin{macrocode}
+ 
+cmchar "Proto-Semitic letter hotu (h sub dot?) (coded as H)";
+beginglyph("H", 0.8);
+numeric alpha;
+alpha:=0.2h;
+x1=x6=leftloc; x5=x10=rightloc;
+y1=y2=y3=y4=y5=1/2h+alpha;
+y6=y7=y8=y9=y10=1/2h-alpha;
+x2=x7=1/4[x1,x5];
+x4=x9=3/4[x1,x5];
+x3=x8=1/2[x2,x4];
+draw z1--z5;      % fence top
+draw z6--z10;     % fence bottom
+draw z2--z7; draw z3--z8; draw z4--z9; % stakes
+labels(1,2,3,4,5,6,7,8,9,10); endchar;
+ 
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{h}
+% An alternate Proto-Semitic \textit{hotu} (fence?). Looks like a vertical fence.
+%    \begin{macrocode}
+ 
+cmchar "Alternate Proto-Semitic hotu (coded as h)";
+beginglyph("h", 0.4);
+numeric alpha;
+x1=x2=x3=x4=x5=leftloc;
+x7=x8=x9=rightloc;
+y1=0; y5=h;
+y2=y7=1/4h;
+y4=y9=3/4h;
+y3=y8=1/2[y2,y4];
+draw z1--z5; draw z7--z9;    % verticals
+draw z2--z7; draw z3--z8; draw z4--z9; % horizontals
+labels(1,2,3,4,5,6,7,8,9,10); endchar;
+ 
+%    \end{macrocode}
+% \end{macro}
+%
+%
+% \begin{macro}{T}
+% The Proto-Semitic t sub dot?. Twisted flax hieroglyph.
+%    \begin{macrocode}
+ 
+cmchar "Proto-Semitic letter t sub dot? (T)";
+beginglyph("T",0.4);
+x1=x8=x3=x6=leftloc; x9=x2=x7=x4=rightloc;
+x5=midloc;
+y1=y9=0; y5=h;
+y8=y2=3/12h;
+y6=y4=10/12h;
+y3=y7=1/2[y8,y6];
+z2'=1/2[z9,z2]; z8'=1/2[z1,z8];
+draw z1{(z2'-z1)}...z2{up}..z3{up}..z4{up}..z5{left}..
+     z6{down}..z7{down}..z8{down}...{(z9-z8')}z9;
+labels(1,2,3,4,5,6,7,8,9); endchar;
+
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{y}
+% The Proto-Semitic \textit{yadu} (hand/arm).
+%    \begin{macrocode}
+ 
+cmchar "Proto-Semitic letter y";
+beginglyph("y",1.0);
+numeric alpha,beta;;
+alpha := 3/8h;
+beta := 1/2alpha;
+%% the L
+x1=x2=leftloc; x3=rightloc;
+y1=1/2h+alpha; y2=y3=1/2h-alpha;
+%% the TV arial
+z4=1/2[z2,z3];
+z6=(x3,3/4[y2,y1]);
+z5=1/2[z4,z6];
+z4l=z4 shifted (beta*dir(135)); z4r=z4 shifted (beta*dir(-45));
+z5l=z5 shifted (beta*dir(135)); z5r=z5 shifted (beta*dir(-45));
+z6l=z6 shifted (beta*dir(135)); z6r=z6 shifted (beta*dir(-45));
+
+draw z1--z2--z3;
+draw z4--z6;
+draw z4l--z4r; draw z5l--z5r; draw z6l--z6r;
+labels(1,2,3,4,5,6); endchar;
+
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{Y}
+% Alternate Proto-Semitic \textit{yadu} (hand/arm).
+%    \begin{macrocode}
+ 
+cmchar "Alternate Proto-Semitic y";
+beginglyph("Y",1.0);
+z1=(leftloc,h); z3=(rightloc,0);
+z2=1/2[z1,z3];
+z4=(x2,y1); z5=(x3,y2);
+draw z1--z3;
+draw z4--z2--z5;
+labels(1,2,3,4,5,6); endchar;
+
+%    \end{macrocode}
+% \end{macro}
+%
+%
+% \begin{macro}{k}
+% The Proto-Semitic \textit{kappu} (palm of the hand).
+%    \begin{macrocode}
+ 
+cmchar "Proto-Semitic letter k";
+beginglyph("k",0.8);
+numeric alpha;
+alpha:=0.8;
+numeric n[];
+n1 := rightloc-leftloc;  % glyph width
+n2 := 1/8n1;
+z1=(leftloc+n2, h); z3=(rightloc-n2, y1);
+z11=(leftloc, 1/4h); z13=(rightloc,y11);
+z2=(midloc,0);
+z6=(1/3[x1,x3], y1); z7=(x6, 0.2h);
+z8=(2/3[x1,x3], y6); z9=(x8,y7);
+draw z1..{down}z11..z2..{up}z13..z3;           % bowl
+draw z6--z7; draw z8--z9;  % uprights
+labels(1,2,3,4,5,6,7,8,9,10,11,12,13); endchar;
+ 
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{K}
+% An alternate Proto-Semitic \textit{kappu}.
+%    \begin{macrocode}
+ 
+cmchar "Alternate Proto-Semitic k";
+beginglyph("K",0.8);
+numeric alpha;
+alpha:=0.8;
+numeric n[];
+n1 := rightloc-leftloc;  % glyph width
+n2 := 1/8n1;
+z1=(leftloc+n2, h); z3=(rightloc-n2, y1);
+z11=(leftloc, 1/3h); z13=(rightloc,y11);
+z2=(midloc,0);
+z6=(x2, y1); z7=(x6, 0);
+z8=(2/3[x1,x3], y6); z9=(x8,y7);
+draw z1..{down}z11..z2..{up}z13..z3;           % bowl
+draw z6--z7; %% draw z8--z9;  % uprights
+labels(1,2,3,4,5,6,7,8,9,10,11,12,13); endchar;
+ 
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{l}
+% The Proto-Semitic \textit{lamdu} (ox goad). A long spiral.
+%    \begin{macrocode}
+ 
+cmchar "Proto-Semitic letter l";
+beginglyph("l",0.8);
+z1=(1/4[leftloc,rightloc], 2/3h);
+z3=(x1,h);
+z4=(leftloc,1/2[y1,y3]);
+z2=(1/2[leftloc,rightloc],y4);
+z6=(rightloc,0);
+z5=(1/2[x4,x3], 8/10[y6,y1]);
+draw z1{right}..z2{up}..z3{left}..z4{down}..z5..z6;
+labels(1,2,3,4,5,6); endchar;
+ 
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{L}
+% Alternate Proto-Semitic \textit{lamdu} (ox goad). A long spiral.
+%    \begin{macrocode}
+ 
+cmchar "Alternate Proto-Semitic l";
+beginglyph("L",0.8);
+z1=(1/4[rightloc,leftloc], 2/3h);
+z3=(x1,h);
+z4=(rightloc,1/2[y1,y3]);
+z2=(1/2[rightloc,leftloc],y4);
+z6=(leftloc,0);
+z5=(1/2[x4,x3], 8/10[y6,y1]);
+draw z1{left}..z2{up}..z3{right}..z4{down}..z5..z6;
+labels(1,2,3,4,5,6); endchar;
+ 
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{m}
+% The Proto-Semitic \textit{mayyuma} (water). A jagged line.
+%    \begin{macrocode}
+ 
+cmchar"Proto-Semitic letter m";
+beginglyph("m",1.0);
+numeric alpha;
+alpha := 1/16h;
+z1=(leftloc,1/2h-alpha);
+z10=(rightloc,1/2h+alpha);
+x2=1/7[x1,x10];
+x3=2/7[x1,x10];
+x4=3/7[x1,x10];
+x5=4/7[x1,x10];
+x6=5/7[x1,x10];
+x7=6/7[x1,x10];
+y2=y4=y6=y10;
+y3=y5=y7=y1;
+draw z1--z2--z3--z4--z5--z6--z7--z10;
+labels(1,2,3,4,5,6,7,8,9,10); endchar;
+ 
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{n}
+% The Proto-Semitic \textit{nahasu} (snake). A wriggling cobra.
+%    \begin{macrocode}
+ 
+cmchar "Proto-Semitic letter n";
+beginglyph("n",1.0);
+numeric alpha;
+alpha := 3/8h;
+z1=(leftloc,1/2h+alpha);
+z3=(1/4[leftloc,rightloc],1/2h);
+z5=(rightloc,y3-1/2alpha);
+z4=(3/4[leftloc,rightloc],y3);
+draw z1{dir(-20)}..{down}z3--z4{right}..z5;
+labels(1,2,3,4,5); endchar;
+ 
+%    \end{macrocode}
+% \end{macro}
+%
+%
+%
+% \begin{macro}{`}
+% The Proto-Semitic \textit{enu} (eye).
+%    \begin{macrocode}
+ 
+cmchar "Proto-Semitic letter enu (`)";
+beginglyph("`",1.0);
+numeric alpha;
+path pth[];
+alpha := 3/16h;
+z1=(leftloc,1/2h);
+z3=(rightloc,y1);
+z2=(1/2[x1,x3],y1+alpha);
+z4=(x2,y1-alpha);
+pth1 := z1..z2..z3;
+pth2 := z1..z4..z3;
+z5 = point 0.75 of pth1; 
+z7 = point 1.25 of pth1;
+z6=1/2[z1,z3];
+draw pth1; draw pth2;       % the eye
+draw z5..z6..z7;             % the pupil
+labels(1,2,3,4,5,6,7); endchar;
+ 
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{o}
+% The Proto-Semitic \textit{enu} (eye).
+%    \begin{macrocode}
+ 
+cmchar "Proto-Semitic letter enu (coded as o)";
+beginglyph("o",1.0);
+numeric alpha;
+path pth[];
+alpha := 3/16h;
+z1=(leftloc,1/2h);
+z3=(rightloc,y1);
+z2=(1/2[x1,x3],y1+alpha);
+z4=(x2,y1-alpha);
+pth1 := z1..z2..z3;
+pth2 := z1..z4..z3;
+z5 = point 0.75 of pth1; 
+z7 = point 1.25 of pth1;
+z6=1/2[z1,z3];
+draw pth1; draw pth2;       % the eye
+draw z5..z6..z7;             % the pupil
+labels(1,2,3,4,5,6,7); endchar;
+ 
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{O}
+% An alternative Proto-Semitic \textit{enu} (eye).
+%    \begin{macrocode}
+ 
+cmchar "Alternative Proto-Semitic o";
+beginglyph("O",1.0);
+numeric alpha;
+path pth[];
+alpha := 3/16h;
+z1=(leftloc,1/2h);
+z3=(rightloc,y1);
+z2=(1/2[x1,x3],y1+alpha);
+z4=(x2,y1-alpha);
+pth1 := z1..z2..z3;
+pth2 := z1..z4..z3;
+%z5 = point 0.75 of pth1; 
+%z7 = point 1.25 of pth1;
+%z6=1/2[z1,z3];
+draw pth1; draw pth2;       % the eye
+%draw z5..z6..z7;             % the pupil
+labels(1,2,3,4,5,6,7); endchar;
+ 
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{s}
+% The Proto-Semitic letter s?. A box with a tail.
+%    \begin{macrocode}
+ 
+cmchar "Proto-Semitic letter s? (s)";
+beginglyph("s", 1.0);
+numeric alpha;
+alpha := 0.1*(rightloc-leftloc);
+z1=(leftloc+alpha, h/2); z3=(rightloc,y1);
+z2=(1/2[x1,x3], h); z4=(x2,0);
+z5=(leftloc,1/2[y1,y4]);
+draw z1--z2--z3--z4--cycle;
+draw z1--z5;
+labels(1,2,3,4,5); endchar;
+ 
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{q}
+% The Proto-Semitic q? figure of eight (a knot?).
+%    \begin{macrocode}
+
+cmchar "Proto-semitic letter q? figure-of-eight (q)";
+beginglyph("q", 1.0);
+numeric alpha;
+alpha := 3/16h;
+z1=(leftloc,h/2); z6=(rightloc,y1);
+%% left oval
+z3=2/3[z1,z6];
+x4=x2=1/2[x1,x3]; y2=y1+alpha; y4=y1-alpha;
+%% right oval
+x5=x7=1/2[x3,x6]; y5=y1+3/4alpha; y7=y1-3/4alpha;
+draw z1..z2..z3..z4..cycle;
+draw z3..z5..z6..z7..cycle;
+labels(1,2,3,4,5,6,7); endchar;
+
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{Q}
+% An alternate Proto-Semitic figure of eight (a knot?).
+%    \begin{macrocode}
+
+cmchar "Alternate Proto-Semitic figure-of-eight (coded as Q)";
+beginglyph("Q", 0.5);
+numeric alpha;
+z1=(midloc,0); z6=(midloc,h);
+%% bottom oval
+z3=2/3[z1,z6];
+y4=y2=1/2[y1,y3]; x2=leftloc; x4=rightloc;
+%% top oval
+y5=y7=1/2[y3,y6]; x5=1/2[x2,x3]; x7=1/2[x3,x4];
+draw z1..z2..z3..z4..cycle;
+draw z3..z5..z6..z7..cycle;
+labels(1,2,3,4,5,6,7); endchar;
+
+%    \end{macrocode}
+% \end{macro}
+%
+%
+% \begin{macro}{w}
+% The Proto-Semitic \textit{wawwu} (hook/peg). Like a lamppost.
+%    \begin{macrocode}
+ 
+cmchar "Proto-Semitic letter w";
+beginglyph("w",0.4);
+numeric alpha;
+x1=leftloc;
+x3=rightloc;
+alpha=0.5(x3-x1);  % circle radius
+y2=h;
+y4=y2-2alpha;
+bot y5=-o;
+x2=x4=x5=midloc;
+y1=y3=h-alpha;
+draw z1..z2..z3..z4..cycle;  % the circle
+draw z5--z4;                 % the upright
+labels(1,2,3,4,5); endchar;
+ 
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{r}
+% The Proto-Semitic \textit{rasu} (head). It looks like a head in left 
+% profile wearing a skull cap.
+%    \begin{macrocode}
+ 
+cmchar "Proto-Semitic letter r";
+beginglyph("r", 0.8);
+numeric alpha,beta;
+alpha := 1/20w;
+pair vec[];
+z2=(leftloc,1/3h);             % tip of nose
+z9=(rightloc,0);               % base of back of neck
+z1=(1/3[leftloc,rightloc],0);  % base of front of neck
+z3=(x1,3/4h);                  % front of hat
+z6=(1/2[x1,x9], 3/4[y1,y2]);   % nape of neck
+z5=(1/2[x6,x9], 1/2[y2,y3]);   % back of hat
+z4=(9/12[x3,x5], h);            % top of head
+z10'=9/16[z2,z3];               % eye
+z10=(x10'+5/2alpha, y10');
+beta := angle(z5-z3);
+vec1 := dir(beta);
+vec2=(z3-z2);
+z11=z10 shifted (alpha*vec1);
+z9'=(x5,y9);
+draw z1{up}..z2;               % chin
+draw z2--z3{vec2}..z4{right}..z5..z6..{down}z9'; % head
+draw z3--z5;                   % hat
+draw z10--z11;                 % eye
+labels(1,2,3,4,5,6,7,8,9,9',10,11); endchar;
+ 
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{R}
+% An alternate Proto-Semitic \textit{rasu} (head). It looks like a head in 
+% right profile.
+%    \begin{macrocode}
+ 
+cmchar "Alternate Proto-Semitic r (coded as R)";
+beginglyph("R", 0.8);
+numeric alpha, beta;
+alpha := 1/20w;
+pair vec[];
+z2=(rightloc,1/3h);             % tip of nose
+z9=(leftloc,0);               % base of back of neck
+z1=(1/3[rightloc,leftloc],0);  % base of front of neck
+z3=(x1,3/4h);                  % front of hat
+z6=(1/2[x1,x9], 3/4[y1,y2]);   % nape of neck
+z5=(1/2[x6,x9], 1/2[y2,y3]);   % back of hat
+z4=(9/12[x3,x5], 9/10h);            % top of head
+z10'=11/16[z2,z3];               % eye
+z10=(x10'-5/2alpha, y10');
+beta := angle(z5-z3);
+vec1 := dir(angle(z5-z3));
+vec2=(z3-z2);
+z11=z10 shifted (alpha*vec1);
+z9'=(x5,y9);
+draw z1{up}..z2;               % chin
+draw z2--z3{vec2}..z4{left}..z5..z6..{down}z9'; % head
+%%draw z3--z5;                   % hat
+draw z10--z11;                 % eye
+labels(1,2,3,4,5,6,7,8,9,9',10,11); endchar;
+ 
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{S}
+% The Proto-Semitic letter s sup v. It's like a modern lowercase w.
+%    \begin{macrocode}
+ 
+cmchar "Proto-Semitic letter s sup v (coded as S)";
+beginglyph("S", 1.0);
+z2=(leftloc,1/4h); z6=(rightloc,y2);
+z3=(1/4[x2,x6], 0); z5=(3/4[x2,x6], y3);
+z1=(x3,6/8h); z7=(x5,y1);
+z4=(1/2[x3,x5],y2);
+draw z1..z2{down}..z3{right}..{up}z4;
+draw z7..z6{down}..z5{left}..{up}z4;
+labels(1,2,3,4,5,6,7); endchar;
+ 
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{t}
+% The Proto-Semitic \textit{tawwu} (mark). A cross.
+%    \begin{macrocode}
+ 
+cmchar "Proto-Semitic letter t";
+beginglyph("t", 0.8);
+numeric alpha;
+alpha := midloc-leftloc;
+z10=(midloc,1/2h);
+z1=(leftloc,y10); z2=(rightloc,y1);
+z3=(x10,y10+alpha);
+z4=(x3,y10-alpha);
+draw z1--z2;         % horizontal
+draw z3--z4;         % vertical
+labels(1,2,3,4,10); endchar;
+ 
+ 
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{p}
+%    The Proto-Semitic letter looking like a leg \& foot, p?.
+%    \begin{macrocode}
+ 
+cmchar "Proto-Semitic letter like a leg & foot (p)";
+beginglyph("p", 0.8);
+x1=x2=leftloc; y1=17/20h; y2=3/20h;
+z3=(rightloc,y2);
+x6=1/4[x2,x3]; y6=y1;
+x5=x6; y5 = y2 + (x6-x1);
+x4=x3 -(y5-y2); y4=y5;
+draw z1--z2--z3;
+draw z6--z5--z4{right}..{down}z3;
+labels(1,2,3,4,5,6); endchar;
+ 
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{P}
+%    Alternate Proto-Semitic letter looking like a leg \& foot. Looks like an
+% elbow in this case.
+%    \begin{macrocode}
+ 
+cmchar "Alternate Proto-Semitic letter like a leg & foot (coded as P)";
+beginglyph("P", 0.8);
+numeric alpha;
+alpha := 2/10(rightloc-leftloc);
+x1=rightloc; x2=leftloc; y1=17/20h; y2=3/20h;
+z5=(x1-alpha, y1);
+z6=(x2,y2+alpha);
+z0=(x1,y2); z10=(x2,y1);
+z3=3/20[z0,z10];
+z7=7/20[z0,z10];
+draw z1{down}..z3..{left}z2;
+draw z5{down}..z7..{left}z6;
+labels(1,2,3,4,5,6,7,8); endchar;
+ 
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{x}
+%    The Proto-Semitic letter looking like a plant. S sub dot?
+%    \begin{macrocode}
+ 
+cmchar "Proto-Semitic letter like a plant, S sub dot? (coded as x)";
+beginglyph("x", 1.0);
+x1=x2=midloc;
+x3=leftloc; x4=rightloc;
+y1=0; y2=h;
+y3=y4=2/3h;
+draw z1--z2;          % the stem
+draw z1{up}..z3; draw z1{up}..z4;   % the leaves
+labels(1,2,3,4); endchar;
+ 
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{X}
+%    Alternate Proto-Semitic letter looking like a plant.
+%    \begin{macrocode}
+ 
+cmchar "Alternate Proto-Semitic letter like a plant (X)";
+beginglyph("X", 0.8);
+x1=x2=midloc;
+x3=leftloc; x4=rightloc;
+y1=0; y2=h;
+z5=1/2[z1,z2];
+y3=y4=h;
+draw z1--z2;          % the stem
+draw z5{up}..z3; draw z5{up}..z4;   % the leaves
+labels(1,2,3,4); endchar;
+ 
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{v}
+%    Proto-Semitic letter looking like a viking helmet.
+%    \begin{macrocode}
+ 
+cmchar "Proto-Semitic letter like a viking helmet (v)";
+beginglyph("v", 0.8);
+path pth[];
+%% helmet
+z1=(leftloc,0); z7=(rightloc,0);
+z4=(midloc,h);
+pth1 := z1{up}..{(1,2)}z4{(1,-2)}..z7{down};
+%% wings
+z3 = point 0.75 of pth1;
+z13=(leftloc,h);
+z5 = point 1.25 of pth1;
+z15=(rightloc,y13);
+draw pth1; draw z7--z1;                    % helmet
+draw z3--z13; draw z5--z15;                % 2 wings
+labels(1,2,3,4,5,6,7,13,15,16); endchar;
+ 
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{V}
+%    Alternate Proto-Semitic letter looking like a viking helmet.
+%    \begin{macrocode}
+ 
+cmchar "Alternate Proto-Semitic letter like a viking helmet (V)";
+beginglyph("V", 0.8);
+path pth[];
+%% helmet
+z1=(leftloc,0); z7=(rightloc,0);
+z4=(midloc,13/16h);
+y2=y6=3/4[y1,y4];
+x2=2/10[x1,x7]; x6=2/10[x7,x1];
+pth1 := z1--z2{(z2-z1)}..z4{right}..{(z7-z6)}z6--z7--cycle;
+pth2 := subpath (1,3) of pth1;
+%% wings
+z3 = point 0.5 of pth2;
+z13=(leftloc,h);
+z5 = point 1.5 of pth2;
+z15=(rightloc,y13);
+z16'=z6 shifted (h*(2,1));
+z16=whatever[z6,z16']; x16=rightloc;
+draw pth1;                                 % helmet
+draw z3--z13; draw z5--z15; draw z6--z16;  % 3 wings
+labels(1,2,3,4,5,6,7,13,15,16); endchar;
+ 
+%    \end{macrocode}
+% \end{macro}
+%
+%  The end of the glyphs and the file
+%
+%    \begin{macrocode} 
+
+end 
+
+%</up> 
+%    \end{macrocode}
+%
+%
+%
+% \section{The font definition files} \label{sec:fd}
+%
+%    \begin{macrocode}
+%<*fdot1>
+\DeclareFontFamily{OT1}{proto}{}
+  \DeclareFontShape{OT1}{proto}{m}{n}{ <-> proto10 }{}
+  \DeclareFontShape{OT1}{proto}{bx}{n}{ <-> sub proto/m/n }{}
+  \DeclareFontShape{OT1}{proto}{b}{n}{ <-> sub proto/m/n }{}
+  \DeclareFontShape{OT1}{proto}{m}{sl}{ <-> sub proto/m/n }{}
+  \DeclareFontShape{OT1}{proto}{m}{it}{ <-> sub proto/m/n }{}
+%</fdot1>
+%    \end{macrocode}
+%
+%
+%    \begin{macrocode}
+%<*fdt1>
+\DeclareFontFamily{T1}{proto}{}
+  \DeclareFontShape{T1}{proto}{m}{n}{ <-> proto10 }{}
+  \DeclareFontShape{T1}{proto}{bx}{n}{ <-> sub proto/m/n }{}
+  \DeclareFontShape{T1}{proto}{b}{n}{ <-> sub proto/m/n }{}
+  \DeclareFontShape{T1}{proto}{m}{sl}{ <-> sub proto/m/n }{}
+  \DeclareFontShape{T1}{proto}{m}{it}{ <-> sub proto/m/n }{}
+%</fdt1>
+%    \end{macrocode}
+%
+% \section{The \Lpack{protosem} package code} \label{sec:code}
+%
+%    Announce the name and version of the package, which requires
+% \LaTeXe{}.
+%    \begin{macrocode}
+%<*usc>
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{protosem}[2005/03/18 v1.2 package for Proto-Semitic fonts]
+%    \end{macrocode}
+%
+%
+% \begin{macro}{\protofamily}
+%    Selects the font family in the T1 encoding.
+%    \begin{macrocode}
+\newcommand{\protofamily}{\usefont{T1}{proto}{m}{n}}
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{\textproto}
+%    Text command for the font family.
+%    \begin{macrocode}
+\DeclareTextFontCommand{\textproto}{\protofamily}
+
+%    \end{macrocode}
+% \end{macro}
+%
+% The commands for the signs.
+% \changes{v1.3}{2005/07/21}{Changed \cs{Amum} to \cs{Amem}}
+%    \begin{macrocode}
+\chardef\Arq=`'
+\chardef\Aa=`a   \chardef\Aaleph=`a
+\chardef\Ab=`b   \chardef\Abeth=`b
+\chardef\Ag=`g   \chardef\Agimel=`g
+\chardef\Ad=`d   \chardef\Adaleth=`d
+\chardef\Az=`z   \chardef\Azayin=`z
+\chardef\Ah=`e   \chardef\Ahe=`e
+\chardef\Aw=`w   \chardef\Avav=`w
+\chardef\Ahd=`H   \chardef\Aheth=`H
+\chardef\Atd=`T   \chardef\Ateth=`T
+\chardef\Ay=`y   \chardef\Ayod=`y
+\chardef\Ak=`k   \chardef\Akaph=`k
+\chardef\Al=`l   \chardef\Alamed=`l
+\chardef\Am=`m   \chardef\Amem=`m
+\chardef\An=`n   \chardef\Anun=`n
+\chardef\Alq=``
+\chardef\Ao=`o   \chardef\Aayin=`o
+\chardef\As=`s   \chardef\Asamekh=`s
+\chardef\Ap=`p   \chardef\Ape=`p
+\chardef\Asd=`x   \chardef\Asade=`x
+\chardef\Aq=`q   \chardef\Aqoph=`q
+\chardef\Ar=`r   \chardef\Aresh=`r
+\chardef\Asv=`S   \chardef\Ashin=`S
+\chardef\Av=`v   \chardef\Ahelmet=`v
+\chardef\At=`t   \chardef\Atav=`t
+
+\chardef\AAa=`A  \chardef\AAaleph=`A
+\chardef\AAb=`B  \chardef\AAbeth=`B
+\chardef\AAd=`D  \chardef\AAdaleth=`D
+\chardef\AAh=`E  \chardef\AAhe=`E
+\chardef\AAhd=`h  \chardef\AAheth=`h
+\chardef\AAy=`Y  \chardef\AAyod=`Y
+\chardef\AAk=`K  \chardef\AAkaph=`K
+\chardef\AAl=`L  \chardef\AAlamed=`L
+\chardef\AAo=`O  \chardef\AAayin=`O
+\chardef\AAp=`P  \chardef\AApe=`P
+\chardef\AAsd=`X  \chardef\AAsade=`X
+\chardef\AAq=`Q  \chardef\AAqoph=`Q
+\chardef\AAr=`R  \chardef\AAresh=`R
+\chardef\AAv=`V  \chardef\AAhelmet=`V
+
+%    \end{macrocode}
+%
+% \begin{macro}{\translitproto}
+% \begin{macro}{\transliprotofont}
+%  |\translitproto{|\meta{commands}|}| transliterates
+% \meta{commands} using the |\translitproto| font. 
+%    \begin{macrocode}
+\newcommand{\translitproto}[1]{{%
+  \@translitPS\translitprotofont #1}}
+\newcommand{\translitprotofont}{\itshape}
+
+%    \end{macrocode}
+% \end{macro}
+% \end{macro}
+%
+% \begin{macro}{\@translitPS}
+%  This macro redefines all the character commands to produce
+% the transliterated value instead of the glyph. There must be no
+% spaces in the definition.
+%    \begin{macrocode}
+\newcommand{\@translitPS}{%
+\def\Arq{'}%
+\def\Aa{'}\def\Aaleph{\Aa}\def\AAa{\Aa}\def\AAaleph{\Aa}%
+\def\Ab{b}\def\Abeth{\Ab}\def\AAb{\Ab}\def\AAbeth{\Ab}%
+\def\Ag{g}\def\Agimel{\Ag}%
+\def\Ad{d}\def\Adaleth{\Ad}\def\AAd{\Ad}\def\AAdaleth{\Ad}%
+\def\Ae{h}\def\Ahe{\Ae}\def\AAe{\Ae}\def\AAhe{\Ae}%
+\def\Az{z}\def\Azayin{\Az}%
+\def\Aw{w}\def\Avav{\Aw}%
+\def\Ahd{\d{h}}\def\Aheth{\Ahd}\def\AAhd{\Ahd}\def\AAheth{\Ahd}%
+\def\Atd{\d{t}}\def\Ateth{\Atd}%
+\def\Ay{y}\def\Ayod{\Ay}\def\AAy{\Ay}\def\AAyod{\Ay}%
+\def\Ak{k}\def\Akaph{\Ak}\def\AAk{\Ak}\def\AAkaph{\Ak}%
+\def\Al{l}\def\Alamed{\Al}\def\AAl{\Al}\def\AAlamed{\Al}%
+\def\Am{m}\def\Amem{\Am}%
+\def\An{n}\def\Anun{\An}%
+\def\Alq{`}%
+\def\Ao{`}\def\Aayin{\Ao}\def\AAo{\Ao}\def\AAayin{\Ao}%
+\def\As{s}\def\Asamekh{\As}%
+\def\Ap{p}\def\Ape{\Ap}\def\AAp{\Ap}\def\AApe{\Ap}%
+\def\Asd{\d{s}}\def\Asade{\Asd}\def\AAsd{\Asd}\def\AAsade{\Asd}%
+\def\Aq{q}\def\Aqoph{\Aq}\def\AAq{\Aq}\def\AAqoph{\Aq}%
+\def\Ar{r}\def\Aresh{\Ar}\def\AAr{\Ar}\def\AAresh{\Ar}%
+\def\Asv{\v{s}}\def\Ashin{\Asv}%
+\def\Av{?}\def\Ahelmet{\Av}\def\AAv{\Av}\def\AAhelmet{\Av}%
+\def\At{t}\def\Atav{\At}%
+}
+
+%    \end{macrocode}
+% \end{macro}
+%
+%
+%
+%    The end of this package.
+%    \begin{macrocode}
+%</usc>
+%    \end{macrocode}
+%
+% \section{The Postscript Type1 map} \label{sec:map}
+%
+% Just one line.
+% \changes{v1.2}{2005/03/18}{Added map file}
+%    \begin{macrocode}
+%<*map>
+proto10 Archaic-ProtoSemitic <proto10.pfb
+%</map>
+%    \end{macrocode}
+%
+% \Finale
+% \PrintIndex
+%
+\endinput
+
+%% \CharacterTable
+%%  {Upper-case    \A\B\C\D\E\F\G\H\I\J\K\L\M\N\O\P\Q\R\S\T\U\V\W\X\Y\Z
+%%   Lower-case    \a\b\c\d\e\f\g\h\i\j\k\l\m\n\o\p\q\r\s\t\u\v\w\x\y\z
+%%   Digits        \0\1\2\3\4\5\6\7\8\9
+%%   Exclamation   \!     Double quote  \"     Hash (number) \#
+%%   Dollar        \$     Percent       \%     Ampersand     \&
+%%   Acute accent  \'     Left paren    \(     Right paren   \)
+%%   Asterisk      \*     Plus          \+     Comma         \,
+%%   Minus         \-     Point         \.     Solidus       \/
+%%   Colon         \:     Semicolon     \;     Less than     \<
+%%   Equals        \=     Greater than  \>     Question mark \?
+%%   Commercial at \@     Left bracket  \[     Backslash     \\
+%%   Right bracket \]     Circumflex    \^     Underscore    \_
+%%   Grave accent  \`     Left brace    \{     Vertical bar  \|
+%%   Right brace   \}     Tilde         \~}
+
+

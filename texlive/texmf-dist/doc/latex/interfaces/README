@@ -1,0 +1,66 @@
+Interfaces  provides  a small number of macros  to modify the settings
+^^^^^^^^^^ of a large number of parameters provided by Most Frequently
+  Used Packages (MFUP!) for typesetting beautiful documents with LaTeX.
+
+The macros shares a standardized syntax of the form key=value. The key
+names are intuitive:  font, top, bottom,  left, right,  bookmark, bold,
+italic, color, twocolumns, title, pagestyle, before, after, indent etc.
+
+Interfaces  DOES  NOT  provide  any new feature,  except  \repeatcell,
+\rowfont, and \bookmarksetup (as long as the bookmark package does not
+`steal' them to interfaces...  what whould be considered as a favour!)
+
+A  few  macros  are  modified.   The  complete  list  is  included  in
+interfaces.pdf, with explainations.
+
+          *           *            *             *
+Interfaces  is organised in different modules  which are  loaded after
+the master package is loaded. Each module can be loaded separately.
+
+Commands provided: (each in a distinct module) -----------------------
+
+\sectionformat: interface  for package  titlesec  to modify the titles
+           produced by the sectionning commands (and their bookmarks).
+           replaces  \titleformat,  \titlespacing and \titleclass  and
+           is compatible with them.
+
+\pagesetup: interface for package fancyhdr  to modify the current page
+            style or create new page styles.  Replaces \fancypagestyle
+            \fancyhf, \fancyhfoffset, \renewcommand\headrulewidth etc.
+
+\tocsetup: interface  for package tocloft  to fine tune  the aspect of
+   the table of contents, list of figures / of tables.  \tocsetup also
+    applies to  \shorttableofcontents provided by the shorttoc package.
+    Facility to make  multi-columns  table(s) of contents  is included,
+    give a label for the table of contents/of figures/of tables...
+    give them a bookmark. Replaces a lot of tocloft' control sequences.
+
+\repeatcell: to  create   `dynamic'  tabulars,  possibly with  formulas
+    computation:  \numexpr,  \pgfmathparse or  \FPeval  formulas can be
+    plugged in the tabular or array, with the possibility to transpose.
+
++ some macros to make easier the use of e-TeX \marks registers (useful
+                                   with \sectionformat and \pagesetup).
+
+\trunctext and \htruncadjust are provided in order to take advantage of
+                          the code provided by the package truncate.sty
+-----------------------------------------------------------------------
+
+Interfaces  is mainly based on  scrlfile.sty  ( provided  in the  Koma-
+   Script bundle, but Koma-Script classes are not required), on pgfkeys
+   and etoolbox.
+
+Interfaces  defines some  pgfkeys  handlers designed specially  to make
+key-value  interfaces for other packages.  Using those  handlers permit
+the design  of an interface  in a few minutes... (well,  good knowledge
+of pgfkeys is required ;-)
+
+. \bookmarksetup is also enhanced with starred keys.
+
+. Facility to load TikZ libraries and pgf modules is provided via \usetikz.
+
+. \pgfkeys is enhanced with a new ``default'' value in case the value is blank.
+
+. scrlfile's \AfterFile and \BeforeFile have starred forms.
+-----------------------------------------------------------------------
+(c) lppl 2010 FC.

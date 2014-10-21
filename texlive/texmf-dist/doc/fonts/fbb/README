@@ -1,0 +1,113 @@
+This package, derived from David Perry's Cardo, provides a Bembo-like font family in otf and pfb formats plus LaTeX font support files. As Cardo is licensed under the SIL OFL, so are the font files in this package. All other support files are subject to the LaTeX Project Public License. See 
+http://www.ctan.org/license/lppl1.3
+for the details of that license. Note that Bembo is a name trademarked by Monotype, and Cardo is a reserved name under the OFL, hence the strange name for this package, drawn from the Berry id for the Bembo font family.
+
+Current version: 1.06
+
+Changes in version 1.06
+1. Changes to accented small caps in fbb-Bold, plus addition of more symbols for use with small caps.
+2. Added option scosf, useful only if you have set the default text figure style to lining (the default) rather than oldstyle, but wish to use oldstyle figures with small caps.
+3. Added option p as a synonym for proportional.
+
+Changes in version 1.05
+1. Modified the sty file to require etoolbox, and so that the option osf and the macros \useosf and \usetosf do not take effect until AtEndPreamble, so that they do not affect the figures used in math mode, which are always tabular lining figures.
+2. Added fbb.fontspec for users of fontspec, so that if you write
+\fontspec{fbb}
+then it will load with defaults from fbb.fontspec.
+
+Changes in version 1.04
+Modified kerning tables in all styles, mainly to fix bad interations with f and some symbols.
+
+Changes in version 1.03
+Corrected the code in fbb.sty so that there is no longer unwanted space following a footnote marker.
+
+Changes in version 1.02
+Main change is to provide good versions of the pfb files, which were flawed in the previous version, causing segmentation faults in GhostScript and failing to work correctly in Adobe Reader. The new versions are generated from the otf versions using FontForge instead of cfftot1.
+
+Changes in version 1.01
+Revisions of some BoldItalic glyphs and substantial reworking of Italic Small Cap kerning tables.
+
+Changes in version 1.00
+Additions to sty file, bringing its capabilities in line with those of garamondx.
+
+Changes in version 0.93:
+Many additions and changes to glyphs, especially in bold and bold-italic, and those needed by textcomp.
+
+Changes in version 0.92:
+Corrected a number of glyph issues and corrected some faulty lookup tables that in some cases redirected 6 to 5.
+
+Changes in version 0.91:
+Reworked some problematic glyphs and corrected a number of issues in kerning tables.
+
+
+There are without doubt many errors remaining in the font files, especially the kerning tables, and I would appreciate error reports. The BoldItalic style is the most likely to contain errors, having been subjected to the least testing.
+
+The otf fonts contain all the kerning and other tables. Should you wish to modify these yourself, the LaTeX support files may be re-created using the command
+
+/usr/texbin/autoinst  --noupdmap  --noswash --notitling --noornaments --target=./texmf --encoding=OT1,TS1,T1,LY1 --vendor=public --typeface=fbb *.otf
+
+after cding to the folder containing just the modified otf fonts and a subfolder named texmf. You should replace the newly generated fbb.sty with the one from the distribution in order to preserve its functionality. The names of the encoding files should also be modified appropriately from those assigned by autoinst. I used the following bash shell script, which assumed you are in the directory holding the otf files and a texmf subfolder:
+
+#!/bin/bash
+pushd texmf/fonts/map/dvips/fbb
+sed -i '' 's/<\[a_/<\[fbb_/g' fbb.map
+popd
+pushd texmf/fonts/enc/dvips/fbb
+for f in *.enc; do mv ${f} fbb${f:1}; done
+popd
+
+Installation:
+
+Mac OS X: To install, open a Terminal window and cd to inside the downloaded TDS folder.
+
+Method A (recommended): type
+
+sudo cp -Rfp * /usr/local/texlive/texmf-local
+
+then
+
+sudo mktexlsr
+
+then
+
+sudo -H updmap-sys --enable Map=fbb.map
+
+Method B: If you insist on making your font installations in your home folder, potentially making your personal installation become out of sync with updates to TeXLive, use instead
+
+(i) if you checked Update for All Users in TeXLive utility
+
+cp -Rfp * ~/Library/texmf
+
+then
+
+updmap --enable Map=fbb.map
+
+(ii) otherwise
+
+cp -Rfp * ~/Library/texmf
+
+then
+
+sudo updmap-sys --enable Map=fbb.map
+
+Linux: Very similar to Mac OS X.
+
+MikTeX: Copy the fbb.tds.zip to the root of the folder you use for personal additions to the TeX trees, open a command window, chdir to that folder, and type
+
+unzip fbb.tds.zip
+initexmf --update-fndb
+initexmf --edit-config-file updmap
+
+The latter command should open updmap.cfg in your default editor, commonly Notepad. Add the line 
+
+Map fbb.map 
+
+to updmap.cfg, save and close. Then, in the command window, type
+
+initexmf --mkmaps
+
+You can ignore error messages that may occur here. This should result in a properly enabled fbb.
+
+Please send comments and bug reports or suggestions for improvement to
+
+msharpe at ucsd dot edu

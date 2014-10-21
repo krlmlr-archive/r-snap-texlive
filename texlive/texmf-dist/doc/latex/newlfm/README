@@ -1,0 +1,195 @@
+readme
+
+This file describes setting up newlfm.cls, the class file which contains the
+information about the new letter, fax and memo class newlfm.  newlfm creates
+two additional .sty files, addrset.sty and setdim.sty.  These support the
+processing performed by newlfm.
+
+newlfm uses a number of external .sty files to perform various functions.
+Please get the current version of these .sty files from better CTAN
+locations everywhere, install them as requested and update your configuration as
+necessary.  
+
+These files are as follows:
+
+.sty File      CTAN Location                             Retrieve?
+mdwlist        macros/latex/contrib/supported/mdwtools   Entire subdirectory  
+fancyhdr       macros/latex/contrib/supported/fancyhdr   Entire subdirectory  
+envlab         macros/latex/contrib/supported/envlab     Entire subdirectory  
+graphics       dviware/ln03/rmcs                         Specific file
+
+Setup procedure:
+
+1) Use a temporary working subdirectory.  Unpack the newlfm archive file by
+using an appropriate tool, if you have an archive file.  These tools are
+widely available.  If you do not have them, please check CTAN.  Otherwise
+just copy the files from the newlfm archive location in CTAN.
+
+2) Start up a OS command frame (MS-DOS command prompt, unix console).  The OS 
+command frame must be able to access some TeX version, and that is your
+responsibility.  The setup procedure here requires access to TeX and more
+specifically to LaTeX.
+
+3) The setup utility assumes that you are running dvips as your printer
+driver.  If not, you must change make_win.bat or make_unix.
+
+4) make .cls and .sty files:
+
+This acts to setup the program, by running the various components in the
+correct order.
+
+a) Win family: type
+
+make_win
+
+To check on commands:
+
+type make_win.bat
+
+b) unix/linux family: type
+
+make_unix
+
+To check on commands:
+
+more make_unix
+
+5) After running the make utility, print copies of the demonstration letters test1
+- test7. Print these letters and examine them.  Here is a brief description:
+
+(a) test1 is a standard letter, with a little palm tree in the left header
+and a motto in Large bf text in the footer.  A signature is printed in the signature 
+block.  It has a FAX cover page.  
+
+(b) test2 is a standard memo, with a large palm tree at an odd angle in the
+top margin, centered.  It is written in pig latin, or ig-pay atin-lay.  This
+is a dialect of American English popular among 8 year olds.  
+
+(c) test3 is a full memo, with a smaller memo space (144pt margins on either
+side).  It has all address information in both the "from" and "to" sections
+of the memo.  
+
+(d) test4 is a business letter with a header file containing a small palm
+tree and a firm identification section in the left margin.  
+
+(e) test5 is a business letter with a header file containing a small palm
+tree and a firm identification section in the left margin.  It also has a
+table, built in the standard table fashion, included.  
+
+(f) test6 is a form letter, which prints letters to two different persons,
+including a fax header page for each.  
+
+(g) test7 is a form letter file, which prints letters to two different persons,
+including a fax header page for each.  In addition, it changes the order of
+the date and from addresses, and fiddles with the spacing.
+
+(h) test8 is a form letter file, which prints letters to three different
+persons from a list command multletter, including a fax header page for
+each.  In addition, it changes the order of the date and from addresses, and
+fiddles with the spacing.  This file also illustrates the use of the stored
+letter dimensional information, stored in the letters database letrinfo.tex.
+
+(i) test9 is a form letter file, which prints letters to three different
+persons from a list command multletter, including a fax header page for
+each.  In addition, it changes the order of the date and from addresses, and
+fiddles with the spacing.  This file also illustrates the use of the stored
+letter dimensional information, stored in the letters database letrinfo.tex.
+
+(j) test10 is a letter showing inclusion of nameto and namefr options
+directly rather than through the letrinfo file.  It prints them in cello-window form.
+
+(k) test11 is a press release.
+
+6) newlfm.zip includes all files necessary to perform the demos.
+(a) After executing the setup utility, all files in these packages should
+be placed on your LaTeX path.  You may wish to place them in your "local
+site" tree, which is the LaTeX storage location for local files.  Ensure
+that the local LaTeX path is executed or searched after the default LaTeX
+path.
+
+(b) Place all files newlfm.* on the "local site" tree, in the location for
+LaTeX files.  In addition, letrinfo.tex and extracd.tex are both placed on
+the "local site" tree.  They should probably for simplicity be placed at the
+same location as is newlfm.cls.
+
+In that way, when you replace or upgrade, information for the use of newlfm
+(in particular, your letrinfo.tex file) will not be deleted inadvertantly.
+
+7) newlfm.dvi (and probably newlfm.ps) are produced by the setup utility.
+This is a result of the docstrip program's extraction from newlfm.dtx of the
+instructions for the newlfm.dtx class.  Please print this and check it for
+simple information about the class.
+
+8) Bugs and problems may be reported to 
+
+Paul A. Thompson, Ph.D.
+Div of Biostatistics
+Box 8067, Washington University School of Medicine
+St. Louis, MO 63110
+
+paul@wubios.wustl.edu
+
+If you wish me to examine anything, please send a gzipped tar file
+containing all sources (this includes letrinfo.tex and extracd.tex).  I will
+try to run your example.  NOTE: First step of debugging is to ensure that
+newlfm.cls is the same as mine; I don't look at your version of my class
+file.  Please be sure that you have read the documentation first, however.
+
+MANIFEST OF ALL NEWLFM COMPONENTS
+
+This is a manifest of all files currently used in newlfm.  It can serve as a
+checklist for users to ensure that all files for the class are present.
+
+extracd.tex        Pattern file to enable users to change phrases for letter components 
+letrinfo.tex       Letter database file for examples
+lvb.eps            Signature of Ludwig von Beetfonten
+makeclean_win.bat  Clean up the subdirectory on a Windows box
+make_clean         Clean up the subdirectory on a unix box 
+make_unix          Make .cls, .sty, manual and all examples on unix box
+make_win.bat       Make .cls, .sty, manual and all examples on Windows box
+newlfm.dtx         Source for newlfm and all associated program
+newlfm.ins         File to produce newlfm.cls
+newlfm.txt         A blurb about newlfm
+newlfm.zip         .zip file containing all parts of the system
+palm.eps           Palm tree used in examples
+README             Instructions for setting up system   
+sfaxpage.tex       Pattern for FAX header page, modifiable by the user
+smemosec.tex       Pattern for the memo block, modifiable by the user
+sprsrls.tex        Pattern for the press release, modifiable by the user
+test1.tex          Example file 1 
+test2.tex          Example file 2 
+test3.tex          Example file 3 
+test4.tex          Example file 4 
+test5.tex          Example file 5 
+test6.tex          Example file 6 
+test7.tex          Example file 7 
+test8.tex          Example file 8 
+test9.tex          Example file 9 
+test10.tex         Example file 10 
+test11.tex         Example file 11
+test12.tex         Example file 12
+test1alt.tex       Example file 1, alternative option specification (old style)
+test2alt.tex       Example file 2, alternative option specification (old style)
+test3alt.tex       Example file 3, alternative option specification (old style)
+test4alt.tex       Example file 4, alternative option specification (old style)
+test5alt.tex       Example file 5, alternative option specification (old style)
+test6alt.tex       Example file 6, alternative option specification (old style)
+test7alt.tex       Example file 7, alternative option specification (old style)
+test8alt.tex       Example file 8, alternative option specification (old style)
+wine.eps           Picture of some wine bottles
+
+newlfm uses internally defined macros to set up fax header pages, memo
+header blocks and press releases.  To customize these for yourself:
+
+1) Change sfaxpage.tex to faxpage.tex for the fax page and modify it as needed; or
+2) Change smemosec.tex to memosec.tex for the memo block and modify it as needed; 
+3) Change sprsrls.tex to prsrls.tex for the press release and modify it as needed.
+
+Modification of the files is in the hands of the user.  Your mileage may
+vary.  As developer and supporter of newlfm, I specifically exclude support
+for user modifications, but will consider a consulting arrangement at the
+user's discretion.
+
+
+
+

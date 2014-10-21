@@ -1,0 +1,546 @@
+\documentclass[11pt]{article}
+\usepackage[osf]{mathpazo}
+\usepackage[medium,semibold,scale=0.95]{cabin}
+\usepackage{fullpage}
+\usepackage{prerex}
+\newcommand{\myurl}[1]{\textcolor{blue}{\underline{\textcolor{black}{\url{#1}}}}}
+%\def\LaTeX{\mbox{LaTeX}}
+\begin{document}
+
+\title{\textsf{prerex.sty}: Prerequisite Charts in \LaTeX\\{\large Version 6.6}}
+\author{R. D. Tennent\\\texttt{rdt@cs.queensu.ca}}
+\date{\today}
+\maketitle 
+\thispagestyle{empty}
+
+\section{Description}
+\texttt{prerex.sty}
+defines macros that 
+\LaTeX\ processors
+can use
+to create charts consisting of labelled course boxes linked by arrows
+that represent pre- and co-requisite requirements; see
+the example chart in Figure~\ref{chart} on page~\pageref{chart}.
+If the source file satisfies the constraints
+of the
+\textsf{prerex(5)}
+format, a chart description may be edited using the
+\textsf{prerex(1)}
+interactive editor (as well as any conventional text editor).
+
+\begin{figure}\small
+\setcounter{diagheight}{40}
+\begin{chart}\sf
+\text 15,40:{\textsf{\textbf{\Large Computer Science}}}
+\reqfullcourse 50,35:{1083}{Comput.\,Sci.\\Concepts}{TTh 10:00}
+\reqhalfcourse 25,30:{1303}{Discrete\\Structures}{MWF 9:30}
+\reqhalfcourse 30,20:{2813}{Computer\\Organiz.\,I}{MWF 8:30}
+  \prereq 50,35,30,20:
+  \prereq 25,30,30,20:
+\reqhalfcourse 45,20:{2023}{Procedural\\Prog.\,Devel.}{MWF 2:30}
+  \prereq 50,35,45,20:
+\reqhalfcourse 65,20:{2513}{Informat.\\Systems}{TTh 1:00}
+  \coreq 50,35,65,20:
+\mini 10,16:{1083}
+\reqhalfcourse 10,10:{2333}{Computab.\,\&\\Formal\,Lang.}{TTh 11:30}
+  \prereq 25,30,10,10:
+  \prereq 10,16,10,10:
+\reqhalfcourse 45,10:{2013}{Software\\Engineer.\,I}{MWF 11:30}
+  \prereq 45,20,45,10:
+\halfcourse 55,10:{2685}{\texttt{C++}\\Program.}{no}
+  \prereq 45,20,55,10:
+\mini 21,6:{2013}
+\reqhalfcourse 15,0:{3323}{Data\\Structures}{MWF 10:30}
+  \prereq 25,30,15,0:
+  \prereq 21,6,15,0:
+\reqhalfcourse 25,0:{3813}{Comput.\\Organiz.\,II}{TTh 8:30}
+  \prereq 30,20,25,0:
+\reqhalfcourse 35,0:{3413}{Operating\\Systems\,I}{MWF 9:30}
+  \prereq 30,20,35,0:
+  \recomm 45,10,35,0:
+\halfcourse 45,0:{3013}{Software\\Engineer.\,II}{MWF 11:30}
+  \prereq 45,10,45,0:
+\halfcourse 58,0:{3513}{Database\\Mngt.\,Sys.\,I}{MWF 8:30 pm}
+  \prereq 65,20,58,0:
+  \prereq 45,10,58,0:
+\reqhalfcourse 70,0:{3503}{Sys.\,Anal.\\\&\,Design}{TTh 10:00}
+  \prereq 65,20,70,0:
+\end{chart}
+
+\paragraph{Notes}
+\begin{itemize}
+\item
+A solid arrow \solidarrow\  indicates a required prerequisite, 
+a dotted arrow \dottedarrow\ 
+indicates a corequisite (to be taken before or concurrently), and a
+dashed arrow \dashedarrow\ indicates a recommended prerequisite.
+Core courses are in \boldbox\ boxes; 
+other courses (i.e.,~options or prerequisites)
+are in \lightbox\ boxes.
+\item Timetable abbreviations: M, T, W, Th, F$=$Mon, Tue, Wed, Thur, Fri, resp.; no$=$not offered.
+\item \dots
+\end{itemize}
+\caption{A Prerequisite Chart}
+\label{chart}
+\end{figure}
+\section{Terminology}
+A prerequisite chart consists of a number of 
+\emph{course boxes},
+linked by 
+\emph{arrows}.
+Courses are either
+\emph{half}
+or
+\emph{full},
+and may be 
+\emph{required} or \emph{optional} (or neither).
+Each course box can contain a course
+\emph{code}
+(upper left corner),
+a course 
+\emph{title}
+(lower half),
+and
+\emph{timetable}
+information
+(upper right corner).
+An arrow can be either a \emph{prerequisite} (solid),
+a \emph{corequisite} (dotted),
+or 
+\emph{recommended} (dashed).
+When a conventional arrow would be inappropriate, it is possible to use
+a
+\emph{mini} 
+course ``box'' (consisting of just a course code) just above a target box.
+Lines of text may be placed anywhere on the chart.
+\section{Coordinate System}
+A conventional two-dimensional
+Cartesian coordinate system is used to specify the locations of
+diagram elements.
+The
+origin (where
+$x = 0$
+and
+$y = 0$)
+is at the lower-left corner of the diagram.
+The diagram height is configurable; the width is determined by
+the values of
+\verb|\textwidth|
+and
+an adjustable
+\verb|\unit|
+length, which defines the absolute value of a coordinate unit.
+It is possible to put a coordinate grid with labelled axes
+in the background of a chart.
+The coordinates of a
+\emph{box,}
+\emph{mini,}
+or
+\emph{text}
+are those of its centre point.  
+An
+\emph{arrow} 
+is described by the
+coordinates of the centre points of its source and target boxes/minis/texts. 
+
+
+
+\section{Usage}
+The command
+\verb|\usepackage{prerex}|
+should appear in the document preamble.
+This will define a \LaTeX\ environment 
+\begin{list}{}{}
+\item \verb|\begin{chart}|\quad$\cdots$\quad \verb|\end{chart}|
+\end{list}
+within which the commands described in the following sub-sections may be used
+to produce course boxes, minis, texts, and arrows. 
+The order of commands is not significant except
+that the commands for the source and target boxes of an arrow should 
+precede
+the command for the arrow, and the \verb|\grid| command, if present, should precede
+other chart commands.
+
+\subsection{Course Boxes}
+The commands producing course boxes have the following forms:
+\begin{list}{}{}
+\item \verb|\halfcourse | $x,y$ \verb|:{| \emph{code} \verb|}{| \emph{title} \verb|}{| \emph{timetable} \verb|}|
+\item \verb|\reqhalfcourse | $x,y$ \verb|:{| \emph{code} \verb|}{| \emph{title} \verb|}{| \emph{timetable} \verb|}|
+\item \verb|\opthalfcourse | $x,y$ \verb|:{| \emph{code} \verb|}{| \emph{title} \verb|}{| \emph{timetable} \verb|}|
+\item \verb|\fullcourse | $x,y$ \verb|:{| \emph{code} \verb|}{| \emph{title} \verb|}{| \emph{timetable} \verb|}|
+\item \verb|\reqfullcourse | $x,y$ \verb|:{| \emph{code} \verb|}{| \emph{title} \verb|}{| \emph{timetable} \verb|}|
+\item \verb|\optfullcourse | $x,y$ \verb|:{| \emph{code} \verb|}{| \emph{title} \verb|}{| \emph{timetable} \verb|}|
+\end{list}
+where
+$x,y$
+are the coordinates of the 
+centerpoint 
+of the box, relative to the origin
+of the coordinate system at the lower-left corner of the diagram.
+The 
+\emph{code},
+\emph{title},
+and
+\emph{timetable}
+arguments are arbitrary (well-bracketed) text, possibly with \LaTeX\ markup.
+
+The following are similar but take an additional argument to specify
+the (non-default) background color of the course box:
+\begin{list}{}{}
+\item \verb|\halfcoursec | $x,y$ \verb|:{| \emph{code} \verb|}{| \emph{title} \verb|}{| \emph{timetable} \verb|}| \verb|{| \emph{color} \verb|}|
+\item \verb|\reqhalfcoursec | $x,y$ \verb|:{| \emph{code} \verb|}{| \emph{title} \verb|}{| \emph{timetable} \verb|}| \verb|{| \emph{color} \verb|}|
+\item \verb|\opthalfcoursec | $x,y$ \verb|:{| \emph{code} \verb|}{| \emph{title} \verb|}{| \emph{timetable} \verb|}| \verb|{| \emph{color} \verb|}|
+\item \verb|\fullcoursec | $x,y$ \verb|:{| \emph{code} \verb|}{| \emph{title} \verb|}{| \emph{timetable} \verb|}| \verb|{| \emph{color} \verb|}|
+\item \verb|\reqfullcoursec | $x,y$ \verb|:{| \emph{code} \verb|}{| \emph{title} \verb|}{| \emph{timetable} \verb|}| \verb|{| \emph{color} \verb|}|
+\item \verb|\optfullcoursec | $x,y$ \verb|:{| \emph{code} \verb|}{| \emph{title} \verb|}{| \emph{timetable} \verb|}| \verb|{| \emph{color} \verb|}|
+\end{list}
+
+\subsection{Mini Course Boxes and Texts}
+A mini course ``box'' is produced by a command of the form
+\begin{list}{}{}
+\item \verb|\mini| $x,y$ \verb|:{| \emph{code} \verb|}|
+\end{list}
+A paragraph of text is produced by a command of the form
+\begin{list}{}{}
+\item \verb|\text| $x,y$ \verb|:{| \emph{text} \verb|}|
+\end{list}
+There are several differences between minis and texts.
+The maximum length allowed for a course-code may be less than that
+for texts. A sans-serif font and a reduced font size is
+used for a course-code.  A course-code
+may be hyperlinked but a text is not (except when the coordinate grid is on).
+
+
+\subsection{Arrows}
+Arrows between course boxes (or minis or texts) are produced
+by commands of the form
+\begin{list}{}{}
+\item \verb|\prereq| $ x_0,y_0,x_1,y_1$\verb|:|
+\item \verb|\coreq| $ x_0,y_0,x_1,y_1$\verb|:|
+\item \verb|\recomm| $ x_0,y_0,x_1,y_1$\verb|:|
+\end{list}
+These produce, respectively, solid, dotted, and dashed arrows from
+the course box (or mini or text) centered at coordinates
+$x_0,y_0$
+to the entity centered at coordinates
+$x_1,y_1$.
+
+Arrows by default have a
+non-zero curvature (unless they are very short).  It is possible to override the default curvature 
+for a particular arrow by using
+the instructions
+\begin{list}{}{}
+\item \verb|\prereqc| $ x_0,y_0,x_1,y_1;c$\verb|:|
+\item \verb|\coreqc| $ x_0,y_0,x_1,y_1;c$\verb|:|
+\item \verb|\recommc| $ x_0,y_0,x_1,y_1;c$\verb|:|
+\end{list}
+where
+$c$
+is an integer in the range $0$--$100$ specifying the desired curvature; for example, 
+$c= 0$
+will produce a 
+straight 
+arrow. To change the default curvature for all arrows, the user program may redefine the
+\verb|\DefaultCurvature|
+command.
+\subsection{Web Links}
+\label{WebLinks}
+Course boxes and minis may be hyperlinked.
+The default URL for course boxes is 
+\emph{course-code}\verb|.html|
+where
+\emph{course-code}
+is
+the 
+\emph{code}
+argument
+of the course box. The URL scheme may be changed by the user 
+by re-defining the 
+\verb|\CourseURL|
+command; see Section~\ref{Configuration}.
+\subsection{Coordinate Grid}
+The following command produces a coordinate grid with labelled axes, which is
+useful while editing a diagram: 
+\begin{list}{}{}
+\item \verb|\grid|
+\end{list}
+This is normally placed before all the other chart commands so that
+grid lines are in the background, covered by course boxes, minis, texts, and arrows,
+as in Figure~\ref{grid} on page~\pageref{grid}. 
+
+The \verb|\grid| command
+also redefines the \verb|CourseURL| command 
+so that, in suitable PDF viewers, 
+if the mouse cursor is placed over a box, mini, or midpoint of an arrow,
+the \emph{coordinates} of the box/mini/text(or the coordinates of the source \emph{and} target
+of the arrow) will be displayed 
+either in the 
+status bar
+or in a
+``tooltip.'' 
+This coordinate display make it easier to edit chart descriptions.
+When the grid is on, the mid-point of every arrow is highlighted by 
+a ``bullet''.
+
+The 
+\texttt{prerex}
+package at 
+\url{http://mirror.ctan.org/graphics/prerex/}
+contains source code for a graphical frontend 
+\texttt{vprerex} to the \texttt{prerex} 
+editor. It incorporates a minimalistic prerex-enabled PDF viewer
+which allows coordinates of course boxes,
+arrows, and
+background points to be captured in the X selection clipboard (for pasting into a 
+command being composed at the 
+\texttt{prerex} 
+prompt).
+
+
+\begin{figure}\small
+\setcounter{diagheight}{40}
+\begin{chart}\sf
+\grid
+\text 15,40:{\textsf{\textbf{\Large Computer Science}}}
+\reqfullcourse 50,35:{1083}{Comput.\,Sci.\\Concepts}{TTh 10:00}
+\reqhalfcourse 25,30:{1303}{Discrete\\Structures}{MWF 9:30}
+\reqhalfcourse 30,20:{2813}{Computer\\Organiz.\,I}{MWF 8:30}
+  \prereq 25,30,30,20:
+  \prereq 50,35,30,20:
+\reqhalfcourse 45,20:{2023}{Procedural\\Prog.\,Devel.}{MWF 2:30}
+  \prereq 50,35,45,20:
+\reqhalfcourse 65,20:{2513}{Informat.\\Systems}{TTh 1:00}
+  \coreq 50,35,65,20:
+\mini 10,16:{1083}
+\reqhalfcourse 10,10:{2333}{Computab.\,\&\\Formal\,Lang.}{TTh 11:30}
+  \prereq 10,16,10,10:
+  \prereq 25,30,10,10:
+\reqhalfcourse 45,10:{2013}{Software\\Engineer.\,I}{MWF 11:30}
+  \prereq 45,20,45,10:
+\halfcourse 55,10:{2685}{\texttt{C++}\\Program.}{no}
+  \prereq 45,20,55,10:
+\mini 21,6:{2013}
+\reqhalfcourse 15,0:{3323}{Data\\Structures}{MWF 10:30}
+  \prereq 21,6,15,0:
+  \prereq 25,30,15,0:
+\reqhalfcourse 25,0:{3813}{Comput.\\Organiz.\,II}{TTh 8:30}
+  \prereq 30,20,25,0:
+\reqhalfcourse 35,0:{3413}{Operating\\Systems\,I}{MWF 9:30}
+  \recomm 45,10,35,0:
+  \prereq 30,20,35,0:
+\halfcourse 45,0:{3013}{Software\\Engineer.\,II}{MWF 11:30}
+  \prereq 45,10,45,0:
+\halfcourse 58,0:{3513}{Database\\Mngt.\,Sys.\,I}{MWF 8:30 pm}
+  \prereq 45,10,58,0:
+  \prereq 65,20,58,0:
+\reqhalfcourse 70,0:{3503}{Sys.\,Anal.\\\&\,Design}{TTh 10:00}
+  \prereq 65,20,70,0:
+\end{chart}
+\vspace*{2ex}
+\caption{A Prerequisite Chart with a Coordinate Grid}
+\label{grid}
+\end{figure}
+\subsection{Stand-Alone Commands}
+The following commands may be used outside a 
+\verb|chart|
+environment, such as in the explanatory notes for a chart:
+\begin{center}
+\begin{tabular}{lc}
+\verb|\solidarrow| & \solidarrow\\
+\verb|\dottedarrow| & \dottedarrow \\
+\verb|\dashedarrow| & \dashedarrow \\
+\verb|\lightbox|  & \sf\small\lightbox \\
+\verb|\boldbox|   & \sf\small\boldbox \\
+\verb|\dottedbox|   & \sf\small\dottedbox \\
+\end{tabular}
+\end{center}
+
+\section{Dependencies}
+\sloppypar
+This implementation of 
+\verb|prerex.sty|
+uses 
+\verb|pgf|
+(version~3.0.0 or later)
+with add-on package
+\verb|tikz|.
+The following additional packages are used:
+\verb|multido|,
+\verb|relsize|,
+\verb|calc|,
+\verb|textcomp|,
+\verb|xcolor|,
+and 
+\verb|hyperref|.
+\emph{Either} \verb\pdflatex\
+\emph{or}
+\verb\xelatex\
+\emph{or}
+\verb\latex\, followed by \verb\dvips\ and, possibly, \verb\ps2pdf\
+\emph{or}
+\verb\latex\ (with suitable driver options), followed by either \verb\dvipdfmx\
+or \verb\dvisvgm\ may be used.  
+
+\pagebreak
+
+
+\section{Installation}
+
+\begin{enumerate}
+  \item install the most recent version of 
+\verb\pgf\ from \url{http://sourceforge.net/projects/pgf/}.
+  \item  copy \verb|prerex.sty| to \emph{your-texmf-tree}\verb|/tex/latex/misc|
+  \item copy \verb|doc/prerex.{tex,pdf}| to \emph{your-texmf-tree}\verb|/doc/latex/misc|
+  \item if necessary, refresh the \TeX\ database (e.g., \verb|texhash|)
+  \item on a \textsc{Unix}-like system, copy \verb|doc/prerex.5| and \verb|doc/prerex.sty.7| to sub-directories of a \verb|man| directory on your 
+    \verb|MANPATH|
+\end{enumerate}
+
+\section{Configuration} 
+\label{Configuration}
+The following are defined by the style file but may be re-defined by the
+user:
+\begin{list}{}{}
+\item \verb|\newcommand{\DefaultCurvature}{20}|
+\end{list}
+where the argument should be in the range $0$--$100$; $0$ means no curvature.
+\begin{list}{}{}
+\item \verb|\newcommand{\CourseURL}[3]{./#3.html}|
+\end{list}
+where the arguments supplied at the call are the $x$ and $y$ coordinates
+of the box or mini and the course code.
+\begin{list}{}{}
+\item \verb|\newcommand{\background}{yellow!15}|
+\end{list}
+which specifies the default background color of course boxes.
+\begin{list}{}{}
+\item \verb|\setlength{\unit}{5.7816pt}|
+\end{list}
+which defines the absolute size of a coordinate unit;
+this yields 10 pixels per
+coordinate unit if the chart is converted to an image at 125 dpi.
+\begin{list}{}{}
+\item \verb|\newcommand{\dpi}{125}| 
+\item \verb|\newcommand{\PixelsPerUnit}{10}| 
+\end{list}
+\begin{list}{}{}
+\item \verb|\setcounter{diagheight}{75}|
+\end{list}
+which is the 
+$y$-coordinate
+of the top of the diagram (reduced to $65$ in landscape mode);
+the nominal diagram width is 
+\verb|\textwidth|~$\div$~\verb|\unit|~$+ 10$.
+
+
+The following define the thicknesses of the three kinds of arrows,
+and the thickness of bold boxes:
+\begin{list}{}{}
+\item
+\verb|\newcommand{\solidwidth}{0.5pt}|
+\item
+\verb|\newcommand{\dottedwidth}{0.8pt}|
+\item
+\verb|\newcommand{\dashedwidth}{0.5pt}|
+\item
+\verb|\newcommand{\boldwidth}{1.0pt}|
+\end{list}
+
+The following command is used to change to a smaller size for course codes,
+timetable information, and mini-course codes:
+\begin{list}{}{}
+\item
+\verb|\newcommand{\smallersize}{\relsize{-3}}|
+\end{list}
+
+The following command defines the baseline adjustment for the stand-alone arrows and boxes;
+this parameter is font-dependent.
+\begin{list}{}{}
+\item
+\verb|\newcommand{\baselineAdj}{-0.5ex}|
+\end{list}
+
+\section{Conversion to Scalable Vector Graphic Format}
+
+Scalable Vector Graphics (SVG) is an emerging standard for high-quality graphics. It is supported
+by all modern browsers natively, making it ideal for posting charts on the web.  
+An SVG image is comparable in quality
+to a chart in PDF and, when compressed, is comparable in size.  
+The \texttt{dvisvgm}\footnote{%
+\myurl{http://dvisvgm.sourceforge.net/}; also available from CTAN and in TeXLive.}
+program may be used to produce a (compressed) SVG image directly from \verb\latex\ output,
+provided suitable class options are used.
+
+Another approach is to use \texttt{pdf2svg}\footnote{%
+\myurl{http://www.cityinthesky.co.uk/opensource/pdf2svg/}},
+a small program that uses \texttt{poppler} and \texttt{cairo} libraries
+to convert a PDF page to a scalable vector-graphic image.  
+
+Unfortunately, many web \emph{servers} are not properly configured for \texttt{svgz} 
+(or even \texttt{svg}) content.
+If you encounter this problem, try renaming the file to have extension
+\verb\.svg.gz\; otherwise, check out the information appropriate to your server software below:
+\begin{itemize}{\setlength{\topsep}{0pt}\setlength{\itemsep}{0pt}\setlength{\parsep}{0pt}}
+\item apache\footnote{%
+\myurl{http://kaioa.com/node/45}}
+
+\item Microsoft Internet Information Services (IIS)\footnote{%
+\myurl{http://forums.iis.net/t/1175276.aspx}}
+
+\item nginx\footnote{%
+\myurl{http://trac.nginx.org/nginx/ticket/372}}
+
+\item thttpd\footnote{%
+\myurl{http://opensource.dyc.edu/bugzilla3/show_bug.cgi?id=3}}
+
+\item lighttpd\footnote{%
+\myurl{http://redmine.lighttpd.net/issues/2579}}
+
+\item cherokee\footnote{%
+\myurl{https://github.com/cherokee/webserver/issues/101}}
+
+\item hiawatha\footnote{%
+\myurl{https://www.hiawatha-webserver.org/forum/topic/1628}}
+
+\end{itemize}
+
+\pagebreak
+
+\section{Implementation Details}
+
+\subsection{Boxes}
+
+To improve the appearance, boxes are drawn with slightly rounded corners.  The half-course
+boxes are assigned a minimum height to give a more uniform appearance to horizontal
+rows of such boxes. 
+The mini and text boxes have white frames and their
+fill colour is white, which is assumed to be the background colour of the chart.
+A text box is not normally hyperlinked; however, if the coordinate grid is
+on, it is hyperlinked and its chart coordinates are encoded in the URI.  
+
+\subsection{Arrows}
+Arrows with a small height and arrows whose
+source and target points have equal x or y coordinates are always drawn straight
+(using a specialized and simpler macro)  unless an explicit
+non-zero curvature argument is provided.
+
+If the coordinate grid is on, a hyperlink with the source and target coordinates is placed
+at the mid-point of the arrow.
+
+A wider background white edge is drawn below an arrow to 
+improve the appearance
+of crossing arrows; the background also
+ensures visibility of the
+arrow when the coordinate grid is on.
+
+\subsection{Coordinate Grid and Associated Changes}
+When the coordinate grid is drawn, the \texttt{CourseURL} command
+is re-defined to pass node coordinates in URIs. Also,
+two ``anchor'' hyperlinks are inserted at the southwest and northeast corners
+of the diagram to allow prerex-enabled
+PDF viewers to compute chart coordinates.
+
+\section{License}
+\verb|prerex.sty|, \verb|prerex.sty.7|, \verb|README.prerex| and this document may be distributed and/or modified under the
+conditions of the \LaTeX\ Project Public License.
+\end{document}

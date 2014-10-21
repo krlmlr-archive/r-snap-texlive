@@ -1,0 +1,35 @@
+Readme for the 'fouriernc' package
+
+This package provides a LaTeX math font setup for
+NC Schoolbook. In order to use it you need to have
+the Fourier-GUTenberg fonts installed.
+
+To install the package, copy
+  *.tfm into localtexmf/fonts/tfm/public/fouriernc
+  *.vf  into localtexmf/fonts/vf/public/fouriernc
+  *.sty and *.fd into localtexmf/tex/latex/fouriernc
+and run mktexlsr afterwards.
+
+Issue
+  \usepackage{fouriernc}
+in your document's preamble to set the math and serif text fonts.
+No extra documentation is provided, the usage is analogue
+to fourier's documentation.
+The metrics for the 'upright' option have not been tuned, thus
+this option is disabled.
+
+Future changes:
+The metrics refer to fourier v1.4, future versions of fourier
+may require a rebuild of the fouriernc metrics and possibly changes
+to specialkernings.mtx/specialkerningsital.mtx.
+
+Licence:
+This material is subject to the LaTeX Project Public License.
+See http://www.ctan.org/tex-archive/help/Catalogue/licenses.lppl.html
+for the details of that license.
+
+This package was written by Michael Zedler.
+Work on this package was commissioned by Joachim Schrod Net &
+Publication Consultance GmbH (NPC), http://www.npc.de/.
+
+Correction to build-fouriernc.tex (line 22) and fncmib.{tfm,vf} by Michael Sharpe 2013-04-02 so that bold Greek symbols now work as expected.

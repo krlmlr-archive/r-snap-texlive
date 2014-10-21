@@ -1,0 +1,34 @@
+\input epsf
+\newread\q
+\def\testexists#1{\openin\q=\figname.\number#1\relax
+  \ifeof\q \else \global\p=0 \fi \closein\q}%
+\let\noinit=!
+\def\fontname{nkarta15}%
+% If mpost is run on nkarta15.mf, change the following accordingly.
+\def\figname{nkarta}%
+\input testfont
+\def\:{\p=1\testexists\n
+    \setbox0=\hbox{%
+      \ifnum\p=0
+        \epsfbox{\figname.\number\n}%
+      \fi}%
+  \ifdim\ht0>7.5pt\reposition
+  \else\ifdim\dp0>2.5pt\reposition\fi\fi
+  \box0\global\advance\n 1 }%
+\def\testrow{\global\p=1
+  {\m=\next
+    \multiply \m by 16
+    \n=0
+    \loop
+      \testexists\m
+      \advance\m1 \advance\n1
+    \ifnum \n<16
+    \repeat
+  }%
+}%
+\footline{\hfil\tt\jobname.tex\hfil}
+\centerlargechars
+\startfont
+\table
+\end
+

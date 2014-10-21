@@ -1,0 +1,64 @@
+
+exam-n: LaTeX class file for exams, version 1.1, 2014 May 03.
+[ Mercurial revision 6f818b549982, 2014-05-03 13:42 +0100, tag 1.1 + 0 ]
+
+
+Overview
+--------
+
+The class is designed to be localised to a particular institution's
+exam layout, by a suitably skilled LaTeX hacker.  There are three
+possible ways of doing this, in increasing order of sophistication:
+
+  1. Make suitable adjustments to individual exam `.tex` files.
+
+  2. Rename the distributed `exam-n.dtx` file to something more locally
+     suitable, and edit it with suitable changes (search for
+     `%%%CONFIGURE` for hints on where to adjust).
+
+  3. Fork the Mercurial repository at
+     [bitbucket](https://bitbucket.org/nxg/exam-n), change the
+     value of the `EXAM-N` variable in the `Makefile`, and then
+     edit the `exam-n.dtx` file.  See the comments at the top of the
+     `Makefile`.  The command `make dist` will assemble a tarball
+     release of the class file.
+
+In the last two cases, if you change the `.dtx` file, you _must_ also
+change its name, to avoid confusion.
+
+For general details, talk to Norman Gray <norman@astro.gla.ac.uk>.
+
+This is free software, and you are encouraged to use and adapt it as
+you see fit.  If, however, you need more substantial help with the
+customisations of option 3 above, or need continuing support, then
+[Norman can help](http://8ameter.com), on a commercial basis.
+
+With the version 1.1 release, the interface should now be regarded
+as rather stable.  However version 1.1 was the first to be released
+outside Glasgow University, so there may be some changes to the
+interface which will emerge with broader use, as well as some bug
+fixes.  The interface _may_, therefore, yet change.  If you use
+this class to produce exams, it would be wise to include a copy of
+the class file locally, rather than relying on a central version.  If
+you need an earlier version of the class, let me know.
+
+
+Documentation
+------------
+
+  * Documentation for question authors is in `notes-for-authors.pdf`.
+  * The full version of the documentation, for 'exam conveners' (or
+    equivalent) is in `exam-n.pdf`.  This and the author
+    documentation are built as part of the distribution.
+  * Basic documentation for a LaTeX localiser is in this file (see
+    above), with extra remarks at the top of the `Makefile`.
+
+There are brief release notes in exam-n.html.
+
+
+Distribution and copyright
+--------------------------
+
+Copyright 2005--2014, Norman Gray <http://nxg.me.uk>  
+Distributed under the terms of The LaTeX Project Public License (LPPL);
+see the file lppl.txt for details.

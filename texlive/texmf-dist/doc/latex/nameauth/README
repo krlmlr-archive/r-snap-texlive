@@ -1,0 +1,61 @@
+The nameauth package
+Charles P. Schaum
+charles dot schaum at comcast dot net
+v1.8 from 2013/09/19
+
+Abstract
+
+The nameauth package automates the formatting and indexing of names,
+facilitating the implementation of a name authority. This allows one to
+move blocks of text without retyping names, making it easier to go from
+drafts to a final manuscript. This package mainly supports Western names,
+with basic features for ancient, royal, and Eastern names.
+
+Files		Distribution
+
+README		This file 	(normally in TEXMFDIST/doc/latex/nameauth)
+nameauth.pdf	Documentation	(normally in TEXMFDIST/doc/latex/nameauth)
+
+Makefile	Automates building with GNU make 3.81
+nameauth.ins	Installer
+nameauth.dtx	Documented LaTeX file containing both code and documentation
+
+Installation
+
+Unpack nameauth.zip.
+
+Generate the file nameauth.sty, e.g.:
+	$ pdflatex nameauth.ins
+
+Usually this will go in TEXMFDIST/tex/latex/nameauth.
+
+Generate the documentation (optimal with pdflatex):
+	$ pdflatex nameauth.dtx -draftmode "\AtBeginDocument{\OnlyDescription} \input nameauth.dtx"
+	$ makeindex -s gglo.ist -o nameauth.gls nameauth.glo
+	$ makeindex -s gind.ist -o nameauth.ind nameauth.idx
+	$ pdflatex nameauth.dtx "\AtBeginDocument{\OnlyDescription} \input nameauth.dtx"
+	$ pdflatex nameauth.dtx "\AtBeginDocument{\OnlyDescription} \input nameauth.dtx"
+
+I used GNU make to automate the process. See the makefile for more options:
+	$ make
+
+Create the directories listed above. For TeX Live, TEXMFDIST is often /usr/local/texmf/<year>/texmf-dist on Posix-compliant systems. Manual installation calls rather for /usr/local/texlive/texmf-local or ~/texmf.
+
+MacTeX and MikTeX differ. Please refer to your distribution manual.
+
+Copy the distribution files to their appropriate destinations.
+
+Run mktexlsr with the appropriate level of permissions.
+
+Testing notes:
+
+This packages works with the commands latex, lualatex, pdflatex, and xelatex. It can be used with makeindex and texindy (but I have not done so for building the package itself, which requires pdflatex for all documentation features).
+
+For testing purposes, the make file permits one to change the typesetting engine on the command line. The default is to build the package with pdflatex. See Makefile for more details.
+
+License
+
+This material is subject to the LaTeX Project Public License. See http://www.ctan.org/tex-archive/help/Catalogue/licenses.lppl.html for the details of that license.
+
+Happy TeXing!
+

@@ -1,0 +1,69 @@
+The gmutils package
+is a work of Grzegorz `Natror' Murzynowski,
+<natror at o2 dot pl>
+
+   
+1. Copyright 2006, 2007, 2008, 2009, 2010 by Grzegorz `Natror' Murzynowski
+
+This program is subject to the LaTeX Project Public License. 
+See http://www.ctan.org/tex-archive/help/Catalogue/licenses.lppl.html
+for the details of that license.
+
+
+2. Introduction
+
+The gmutils.sty package provides some macros that are analogous to
+the standard LaTeX ones but extend their functionality, such as
+\@ifnextcat, \addtomacro or \begin(*). The others are just
+conveniences I like to use in all my TeX works, such as \afterfi, \pk
+or \cs.
+
+I wouldn't say they are only for the package writers but I assume
+some nonzero (La)TeX-awareness of the user.
+
+
+3. Installation
+
+Unpack the gmutils-tds.zip archive in some texmf directory or put the
+gmutils.sty somewhere in the texmf/tex/latex branch on your
+own. (Creating a /texmf/tex/latex/gm directory may be advisable if you
+consider using other packages written by me.)
+
+Then you should refresh your TeX distribution's files'
+database most probably.
+
+
+4. Contents
+
+The distribution of this package consists of the following three files and a TDS-compliant archive.
+
+gmutils.sty
+README
+gmutils.pdf
+gmutils-tds.zip
+
+5. Documentation
+
+The last of the above files (the .pdf) is a documentation compiled
+from the .sty file by running LaTeX on the gmutils.sty file twice:
+xelatex gmutils.sty
+ in the directory you wish the documentation to be in, 
+you don't have copy the .sty file  there---TeX will find it,
+then MakeIndex on the gmutils.idx file, and then LaTeX
+on gmutilsDoc.tex once more.
+
+MakeIndex shell command:
+         makeindex -r gmutilsDoc
+The -r switch is to forbid MakeIndex make implicit ranges since the
+(code line) numbers will be hyperlinks
+
+Compiling of the documentation requires the packages: gmdoc
+(gmdoc.sty and gmdocc.cls), gmverb.sty, gmutils.sty and also some
+standard packages: hyperref.sty, xcolor.sty, geometry.sty,
+multicol.sty, lmodern.sty, fontenc.sty that should be installed
+on your computer by default.
+
+If you have not installed the mwart.cls class (available on CTAN in
+mwcls package), the result of your compilation may differ a bit from
+the .pdf provided in this .zip archive in formattings: If you have not
+installed mwart.cls, the standard article.cls will be used.

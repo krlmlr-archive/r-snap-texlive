@@ -1,0 +1,136 @@
+%%
+%% This is file `example.tex',
+%% generated with the docstrip utility.
+%%
+%% The original source files were:
+%%
+%% lcd.dtx  (with options: `example')
+%% 
+%% Copyright (c) 2004 Mike Kaufmann, all rights reserved
+%% 
+%% This program is provided under the terms of the
+%% LaTeX Project Public License distributed from CTAN
+%% archives in directory macros/latex/base/lppl.txt.
+%% 
+%% Author: Mike Kaufmann
+%%         Mike.Kaufmann@ei.fh-giessen.de
+%% 
+%% \CharacterTable
+%%  {Upper-case    \A\B\C\D\E\F\G\H\I\J\K\L\M\N\O\P\Q\R\S\T\U\V\W\X\Y\Z
+%%   Lower-case    \a\b\c\d\e\f\g\h\i\j\k\l\m\n\o\p\q\r\s\t\u\v\w\x\y\z
+%%   Digits        \0\1\2\3\4\5\6\7\8\9
+%%   Exclamation   \!     Double quote  \"     Hash (number) \#
+%%   Dollar        \$     Percent       \%     Ampersand     \&
+%%   Acute accent  \'     Left paren    \(     Right paren   \)
+%%   Asterisk      \*     Plus          \+     Comma         \,
+%%   Minus         \-     Point         \.     Solidus       \/
+%%   Colon         \:     Semicolon     \;     Less than     \<
+%%   Equals        \=     Greater than  \>     Question mark \?
+%%   Commercial at \@     Left bracket  \[     Backslash     \\
+%%   Right bracket \]     Circumflex    \^     Underscore    \_
+%%   Grave accent  \`     Left brace    \{     Vertical bar  \|
+%%   Right brace   \}     Tilde         \~}
+%%
+\documentclass[a4paper]{article}
+\usepackage[latin1]{inputenc}
+\usepackage{color}
+\usepackage{lcd}
+
+\parindent0pt
+\parskip1ex plus.3ex minus.2ex
+\pagestyle{empty}
+
+\newcommand\lcd{\textLCD{3}|LCD|}
+\newcommand\bs{\char '134 }
+\definecolor{lightgreen}{rgb}{0.05,0.97,0.55}
+\definecolor{darkgreen}{rgb}{0.22,0.26,0.19}
+\definecolor{lightblue}{rgb}{0.9,0.91,0.99}
+\definecolor{darkblue}{rgb}{0.14,0.2,0.66}
+\definecolor{lightred}{rgb}{1.0,0.27,0.37}
+\definecolor{darkred}{rgb}{0.37,0.14,0.18}
+
+\DefineLCDchar{euro}{00111010001111101000111110100000111}
+
+\begin{document}
+\centerline{\textbf{\LARGE Some Examples for the \lcd\ package.\footnote{The
+source of this example file is part of \texttt{lcd.dtx}.}}}
+
+As seen in the headline and here, the \lcd\ package calculates the size for
+LCD-text in normal text (\verb|\textLCD|) automaticly. It works for all
+fontsizes:
+
+\begin{center}
+{\tiny MM M \lcd\ M MM tiny}\hfill{\Huge Huge MM M \lcd\ M MM}
+
+{\scriptsize MM M \lcd\ M MM scriptsize}\hfill{\huge huge MM M \lcd\ M MM}
+
+{\footnotesize MM M \lcd\ M MM footnotesize}\hfill{\LARGE LARGE MM M \lcd\ M MM}
+
+{\small MM M \lcd\ M MM small}\hfill{\Large Large MM M \lcd\ M MM}
+
+{\normalsize MM M \lcd\ M MM normalsize}\hfill{\large large MM M \lcd\ M MM}
+\end{center}
+
+Now let's have some colored
+\LCDcolors{darkgreen}{lightgreen}\textLCD[0]{8}|LCD-text|.
+Here first the colors where set with
+\verb|\LCDcolors{darkgreen}{lightgreen}|\footnote{The color names where
+defined with \texttt{\bs definecolor} from the \textsf{color} package in the
+preamble.}
+and then the LCD-text where done with \verb+\textLCD[0]{8}|LCD-text|+.
+To invert the LCD, just exchange the
+\LCDcolors{lightgreen}{darkgreen}\textLCD[0]{6}|colors|
+(\verb|\LCDcolors{lightgreen}{darkgreen}|).
+
+\begin{minipage}[t]{.5\textwidth}
+Now some seperate LCD representations.  But first let's  change the colors
+to some not as ugly. The LCD was generated with
+\begin{verbatim}
+\LCD{4}{18}|LCD representation|
+           |made with the LCD |
+           |package for LaTeX |
+           |04.01.2004 {clock} 18:23|
+\end{verbatim}
+\end{minipage}
+\hspace{\fill}
+\begin{minipage}[t]{.46\textwidth}
+\mbox{}
+
+\LCDcolors{darkblue}{lightblue}%
+\LCD{4}{18}|LCD representation|
+           |made with the LCD |
+           |package for LaTeX |
+           |04.01.2004 {clock} 18:23|
+\end{minipage}
+
+The \verb|{clock}| is a so called multi-letter character. It generates the
+clock symbol.
+
+As you can see, there is a black colored frame around it. The frame color
+can be changed with the optional first argument of \verb|\LCDcolors|
+(\verb|\LCDcolors[red]|\ldots; left part of figure 1). And
+with \verb|\LCDnoframe| you can disable frames (reenabled with
+\verb|\LCDframe|; right part of figure 1).
+Of course \verb|\LCD| works within a figure environment.
+
+\begin{figure}[h]
+\LCDcolors[red]{darkblue}{lightblue}%
+\LCD{4}{18}|LCD representation|
+           |made with the LCD |
+           |package for LaTeX |
+           |04.01.2004 {clock} 18:45|
+\hspace{\fill}\LCDnoframe
+\LCD{4}{18}|LCD representation|
+           |made with the LCD |
+           |package for LaTeX |
+           |04.01.2004 {clock} 18:47|
+\caption{Example with red colored frame and without frame}
+\end{figure}
+
+\LCDcolors[lightgreen]{lightred}{darkred}\LCDframe
+\LCD{2}{36}|For more information please refer to|
+           |the documentation!                  |
+\end{document}
+\endinput
+%%
+%% End of file `example.tex'.

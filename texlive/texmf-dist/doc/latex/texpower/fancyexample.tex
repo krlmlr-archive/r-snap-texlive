@@ -1,0 +1,177 @@
+%%
+%% This is file `fancyexample.tex',
+%% generated with the docstrip utility.
+%%
+%% The original source files were:
+%%
+%% texpower-doc.dtx  (with options: `fancyexample')
+%% 
+%% --------------------------------------------------------------
+%% TeXPower bundle - dynamic online presentations with LaTeX
+%% Copyright (C) 1999-2004 Stephan Lehmke
+%% Copyright (C) 2003-2005 Hans Fredrik Nordhaug
+%% 
+%% This program is free software; you can redistribute it and/or
+%% modify it under the terms of the GNU General Public License
+%% as published by the Free Software Foundation; either version 2
+%% of the License, or (at your option) any later version.
+%% 
+%% This program is distributed in the hope that it will be useful,
+%% but WITHOUT ANY WARRANTY; without even the implied warranty of
+%% MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+%% GNU General Public License for more details.
+%% --------------------------------------------------------------
+%% 
+%% The list of all files belonging to the TeXPower bundle is
+%% given in the file `00readme.txt'.
+%% 
+\ProvidesFile{fancyexample.tex}%
+      [2005/04/07 TeXPower example file]
+
+\documentclass[KOMA,letterpaper,landscape,display,calcdimensions]{powersem}
+
+\usepackage{graphicx}
+
+\usepackage{soul}
+
+\usepackage{palatino}
+
+\usepackage[ps2pdf,pdfpagemode={FullScreen}]{hyperref}
+\usepackage{fixseminar}
+\usepackage[whitebackground]{texpower}
+
+\slidesmag{5}
+
+\slideframe{none}
+\pagestyle{empty}
+
+\renewcommand{\slideleftmargin}{2cm}
+\renewcommand{\sliderightmargin}{2cm}
+\renewcommand{\slidetopmargin}{2cm}
+\renewcommand{\slidebottommargin}{2cm}
+
+\newcounter{nosteps}
+\setcounter{nosteps}{10} % Controls the "resolution" - a value of 100 gives a *very* long compilation time.
+\newcounter{mycount}
+
+\makeatletter
+\DeclareRobustCommand*\appearI[1]
+{%
+  \SOUL@setup
+  \def\SOUL@everytoken{\makebox[\widthof{\the\SOUL@token\SOUL@setkern\SOUL@charkern}]{\scalebox{#1}{\the\SOUL@token\SOUL@setkern\SOUL@charkern}}}%
+  \SOUL@%
+  }%
+\DeclareRobustCommand*\appearII[1]
+{%
+  \SOUL@setup
+  \def\SOUL@everytoken{\makebox[\widthof{\the\SOUL@token\SOUL@setkern\SOUL@charkern}*\real{#1}]{\the\SOUL@token\SOUL@setkern\SOUL@charkern}}%
+  \SOUL@%
+  }%
+\DeclareRobustCommand*\appearIII[1]
+{%
+  \SOUL@setup
+  \def\SOUL@everyspace{\rule{.3em}{\fboxrule}}%
+  \def\SOUL@everysyllable{\the\SOUL@syllable\SOUL@setkern\SOUL@charkern\rule{#1}{\fboxrule}}%
+  \SOUL@%
+  }%
+\DeclareRobustCommand*\appearIV[1]
+{%
+  \SOUL@setup
+  \def\SOUL@everytoken{\makebox[\widthof{\the\SOUL@token\SOUL@setkern\SOUL@charkern}+2em-2em*\real{#1}]{\scalebox{#1}{\setcounter{mycount}{\value{nosteps}*4-\value{nosteps}*4*\real{#1}}\rotatebox[origin=c]{\themycount}{\the\SOUL@token\SOUL@setkern\SOUL@charkern}}}}%
+  \SOUL@%
+  }%
+\makeatother
+
+\begin{document}
+\begin{slide}
+  \pageDuration{1}%
+  \stepwise
+  {%
+    \begin{center}
+      \movie*{\value{nosteps}}{0.01}[\pageDuration{1}]
+      {%
+        \makebox[0pt]
+        {\rule{2\textwidth-2\textwidth/\value{nosteps}*\value{substep}}{0pt}`Twas brillig, and the slithy toves}%
+        }
+
+      \movie*{\value{nosteps}}{0.01}[\pageDuration{1}]
+      {%
+        \mkfactor{\mag}{\value{substep}/\value{nosteps}}%
+        \scalebox{\mag}{Did gyre and gimble in the wabe:}%
+        }
+
+      \movie*{\value{nosteps}}{0.01}[\pageDuration{1}]
+      {%
+        \mkfactor{\mag}{5*(\value{nosteps}-\value{substep})/\value{nosteps}+1pt}%
+        \makebox[0pt]{\scalebox{\mag}[1]{All mimsy were the borogoves,}}%
+        }
+
+      \movie*{\value{nosteps}}{0.01}[\pageDuration{1}]
+      {%
+        \mkfactor{\mag}{\value{substep}/\value{nosteps}}%
+        \colorbetween[\mag]{mycolor}{textcolor}{pagecolor}
+        \textcolor{mycolor}{And the mome raths outgrabe.}%
+        }
+
+      \medskip
+
+      \movie*{\value{nosteps}}{0.01}[\pageDuration{1}]
+      {%
+        \mkfactor{\mag}{\value{substep}/\value{nosteps}}%
+        \appearI{\mag}{"Beware the Jabberwock, my son!}%
+        }
+
+      \movie*{\value{nosteps}}{0.01}[\pageDuration{1}]
+      {%
+        \mkfactor{\mag}{\value{substep}/\value{nosteps}}%
+        \appearII{\mag}{The jaws that bite, the claws that catch!}%
+        }
+
+      \movie{\value{nosteps}}{0.01}[\pageDuration{0.01}]
+      {%
+        \makebox[0pt]{\appearIII{(\thenosteps pt-\thesubstep pt)*\real{1.5}}{Beware the Jubjub bird, and shun}}%
+        }%
+      %
+      \step{\afterstep{\pageDuration{1}}Beware the Jubjub bird, and shun}
+
+      \movie*{\value{nosteps}}{0.01}[\pageDuration{1}]
+      {%
+        \mkfactor{\mag}{\value{substep}/\value{nosteps}}%
+        \setcounter{mycount}{2*(\value{nosteps}-\value{substep})}%
+        \strut\rotatebox[origin=c]{\themycount}{\makebox[0pt]{\smash{\scalebox{\mag}{The frumious Bandersnatch!"}}}}%
+        }
+
+      \medskip
+
+      \movie*{\value{nosteps}}{0.01}[\pageDuration{1}]
+      {%
+        \mkfactor{\mag}{\value{substep}/\value{nosteps}}%
+        \hspace*{\fill}%
+        \emph
+        {%
+          \rlap
+          {%
+            \makebox[\widthof{Lewis Carroll}]
+            {\rule{5cm-5cm/\value{nosteps}*\value{substep}}{0pt}\strut\raisebox{1cm-1cm/\value{nosteps}*\value{substep}}[0pt][0pt]{\appearIV{\mag}{Lewis Carroll}}}%
+            }%
+          \rlap
+          {%
+            \makebox[\widthof{Lewis Carroll}]
+            {\strut\raisebox{1.5cm-1.5cm/\value{nosteps}*\value{substep}}[0pt][0pt]{\appearIV{\mag}{Lewis Carroll}}\rule{4cm-4cm/\value{nosteps}*\value{substep}}{0pt}}%
+            }%
+          \rlap
+          {%
+            \makebox[\widthof{Lewis Carroll}]
+            {\rule{3cm-3cm/\value{nosteps}*\value{substep}}{0pt}\strut\raisebox{-.5cm+.5cm/\value{nosteps}*\value{substep}}[0pt][0pt]{\appearIV{\mag}{Lewis Carroll}}}%
+            }%
+          \makebox[\widthof{Lewis Carroll}]
+          {\strut\raisebox{-1cm+1cm/\value{nosteps}*\value{substep}}[0pt][0pt]{\appearIV{\mag}{Lewis Carroll}}\rule{6cm-6cm/\value{nosteps}*\value{substep}}{0pt}}%
+          }%
+        }
+    \end{center}
+    }
+\end{slide}
+\end{document}
+\endinput
+%%
+%% End of file `fancyexample.tex'.

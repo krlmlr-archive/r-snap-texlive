@@ -1,0 +1,183 @@
+The home page for the original SIL Gentium font family is
+http://scripts.sil.org/Gentium.
+
+The home page for this TeX package, gentium-tug, is http://tug.org/gentium.
+This TeX package consists of:
+
+1. The original (unaltered) GentiumPlus, GentiumBook, and other
+Gentium-family fonts in TrueType format, as developed by SIL and
+released under the OFL (see OFL.txt and OFL-FAQ.txt).
+
+2. Converted fonts in PostScript Type 1 format, released under the same
+terms.  These incorporate the name "Gentium" by permission of SIL given
+to the TeX Users Group.
+
+3. ConTeXt, LaTeX and other supporting files under the Expat license,
+text given below (also at http://directory.fsf.org/wiki/License:Expat).
+
+4. Documentation: the TeX-specific documentation is in
+gentium.{tex,pdf}.  We have also included the original documentation,
+fontlogs, and other files from the SIL distribution, entirely unaltered,
+in the Gentium*/ subdirectories here.
+
+The contributors are listed in the FONTLOG.txt files.
+
+
+ENCODINGS:
+=========
+The package provides font files needed for both Unicode XeTeX and LuaTeX
+as well as 8-bit engines such as pdfTeX and TeX (->dvips).
+
+For 8-bit engines the following encodings are available:
+- Latin:
+  ot1      OT1 - default encoding in TeX
+  ec       T1  - for most European languages
+  texnansi LY1 - for most Western European languages
+  l7x      L7x - for Baltic languages
+  qx       QX  - for Polish
+  t5       T5  - for Vietnamese
+  ts1      TS1 - TeX symbols (for LaTeX)
+
+- Greek:
+  agr      (only supported in ConTeXt)
+  lgr      (only supported in LaTeX)
+
+- Cyrillic:
+  t2a      T2A
+  t2b      T2B
+  t2c      T2C
+  x2       X2
+
+
+FILES:
+=====
+See the FONTLOG for high-level descriptions of what comes from what.
+
+/doc/fonts/gentium
+  /Gentium    - OFL and other files from SIL
+  /GentiumBasic
+  /GentiumPlus
+  /GentiumPlusCompact
+  ChangeLog   - internal ChangeLog for development of TeX packaging
+  FONTLOG.txt - ChangeLog for font releases
+  gentium.tex - package documentation
+  gentium.pdf
+  OFL.txt     - font licence
+  OFL-FAQ.txt - FAQ about font licence
+  README      - this file
+/fonts
+  /afm/public/gentium - Adobe Font Metrics (only needed for generating new tfm files)
+    GentiumPlus-R.afm
+    GentiumPlus-I.afm
+    GenBasB.afm
+    GenBasBI.afm
+  /enc/dvips/gentium - encoding files
+    gentium-{ts1,agr,lgr}.enc
+    gentium-{ot1,ec,texnansi,qx,t5,l7x,t2a,t2b,t2c,x2}{,-sc}.enc
+    gentium-{ec,t5}-ttf{,-sc}.enc - to get around a bug in pdfTeX (dcroat & Idotaccent)
+  /map
+    /dvips/gentium
+      gentium-type1.map                           - for TeX and LaTeX
+    /pdftex/gentium
+      gentium-{ec,texnansi,qx,t5,l7x,agr,t2a}.map - for ConTeXt MKII
+      gentium-{ot1,ts1,lgr,t2b,t2c,x2}.map        - (not used anywhere; might be removed)
+      gentium-truetype.map                        - for pdfTeX and pdfLaTeX
+  /tfm/public/gentium
+    {ts1,agr,lgr}-gentiumplus-{regular,italic}.tfm
+    {ot1,ec,texnansi,qx,t5,l7x,t2a,t2b,t2c,x2}-gentiumplus-{regular,italic}{,-sc}.tfm
+    {ot1,ec,texnansi,qx,t5,l7x,ts1}-gentiumbasic-{bold,bolditalic}.tfm
+  /truetype/public/gentium - fonts from SIL
+    Gentium-R.ttf
+    Gentium-I.ttf
+    GentiumAlt-R.ttf
+    GentiumAlt-I.ttf
+
+    GenBasR.ttf
+    GenBasI.ttf
+    GenBasB.ttf
+    GenBasBI.ttf
+
+    GenBkBasR.ttf
+    GenBkBasI.ttf
+    GenBkBasB.ttf
+    GenBkBasBI.ttf
+
+    GentiumPlus-R.ttf
+    GentiumPlus-I.ttf
+    GentiumPlusCompact-R.ttf
+    GentiumPlusCompact-I.ttf
+  /type1/public/gentium - fonts, converted from TrueType by TUG
+    GentiumPlus-R.pfb
+    GentiumPlus-I.pfb
+    GenBasB.pfb
+    GenBasBI.pfb
+
+/source/fonts/gentium
+  /lig
+    gentium-{agr,lgr,t2a,t2b,t2c,x2}.lig - additional ligatures used to generate tfm files
+  /type1                    - scripts for TrueType -> Type1 conversion
+    ff-gentium.pe
+    generate-extra-kerns.sh
+    greekcorrection.py
+    kerncorrection.py
+    Makefile
+  generate-support-files.rb  - ruby script to generate different files
+  gentium.rb                 - ruby library with support classes and functions
+/tex
+  /context/third/gentium - support files for ConTeXt
+    type-gentium.tex
+  /latex/gentium - support files for LaTeX
+    gentium.sty
+    {ot1,t1,ly1,qx,t5,l7x,ts1,lgr,t2a,t2b,t2c,x2}gentium.fd
+
+
+TODO:
+====
+- check that there are no f-ligatures in the encodings X2, LGR
+  and possibly AGR
+
+- Add kerning pairs for Cyrillic.
+
+- Add more kerning pairs for accented Latin letters. Currently, there
+  are kerning pairs mostly for the combination of one accented letter
+  and a letter without accent. There are just several kerning pairs
+  for the combination of two accented letters, mostly useful for Czech
+  and Slovak.
+
+- Look at the letter Lcaron if the accent should be moved to the left
+  (reported to SIL).
+
+- The combination of two commas seems not to give quotedblbase in T1.
+  Check it and correct using lig file if needed.
+
+- when/if bold variants of Gentium are released,
+  either remove Gentium Basic or create a complete set.
+  
+
+
+EXPAT LICENSE:
+=============
+This file is part of the Gentium package for TeX.
+The package contains font files licensed under the SIL Open Font License,
+while the rest are under the Expat License.
+
+Copyright (c) 2008-2013 TeX Users Group
+
+Permission is hereby granted, free of charge, to any person obtaining
+a copy of this software and associated documentation files (the
+"Software"), to deal in the Software without restriction, including
+without limitation the rights to use, copy, modify, merge, publish,
+distribute, sublicense, and/or sell copies of the Software, and to
+permit persons to whom the Software is furnished to do so, subject to
+the following conditions:
+
+The above copyright notice and this permission notice shall be included
+in all copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
+EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.
+IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY
+CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT,
+TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
+SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.

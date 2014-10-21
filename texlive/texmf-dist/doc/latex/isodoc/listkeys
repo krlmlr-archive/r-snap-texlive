@@ -1,0 +1,50 @@
+#!/bin/bash
+#shopt -s extglob
+
+# after the addition of new options, two regions of the documentation in
+# isodoc.dtx need to be updated:
+# 1. the body of the definition of \showkeys
+#    listkeys will print that body with the argument `show'
+# 2. The body of the tabular (in the section `Commands'), which shows
+#    the options having a corresponding command.
+#    listkeys will print that body with the argument `defs'
+#    
+# An easy way to replace the data in isodoc.dtx is, using the vim editor: 
+# 1. select the lines (the contents of \def\showkeys, say) with V and then
+# 2. type :!listkeys show 
+
+
+usage() { echo "Usage: listkeys defs|show"; exit; }
+[[ -z $1 ]] && usage
+
+type=$1
+[[ $type =~ ^(defs|show)$ ]] || usage
+
+minipage='^(acceptdesc|copyto|enclosures|logoaddres|signature|returnaddress)$'
+undef='^(accountname|accountno|bic|iban|routingno|vatno)$'
+# find keys which have a corresponding command:
+a=($(
+   while read -r x; do
+     [[ $x =~ define@key ]] || continue
+     # \define@key{isodoc}{closing}     {\def\closing{#1}}
+     re='\\define@key\{isodoc\}\{([[:alpha:]]+)\}.*\\def\\\1\{'
+     #                            ----word----            ^^-same word  
+     [[ $x =~ $re ]] || continue
+     echo ${BASH_REMATCH[1]}
+   done<isodoc.dtx |sort
+))
+
+if [[ $type == defs ]]; then
+   for i in ${a[@]}; do 
+      if [[ $i =~ $minipage ]]; then
+         printf "%20s & \\%s\\NN\n" $i "@isodocmp{$i}"
+      elif [[ $i =~ $undef ]]; then
+         printf "%20s & \\%s\\NN\n" $i "@isodocun{$i}"
+      else
+         printf "%20s & \\%s\\NN\n" $i $i
+      fi
+   done
+else
+   for i in ${a[@]}; do echo $i; done |
+	cols -5 --squeeze --sep=' & ' --suf='\NN' --pre='% '
+fi

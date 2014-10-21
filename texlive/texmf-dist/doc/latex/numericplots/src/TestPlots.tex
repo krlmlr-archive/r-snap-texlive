@@ -1,0 +1,122 @@
+% Copyright 2010 Thomas Koenig, Alexander Michel
+%
+% This file is part of NumericPlots.
+%
+% NumericPlots is free software: you can redistribute it and/or modify
+% it under the terms of the GNU General Public License as published by
+% the Free Software Foundation, either version 3 of the License, or
+% any later version.
+%
+% NumericPlots is distributed in the hope that it will be useful,
+% but WITHOUT ANY WARRANTY; without even the implied warranty of
+% MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+% GNU General Public License for more details.
+%
+% You should have received a copy of the GNU General Public License
+% along with NumericPlots.  If not, see <http://www.gnu.org/licenses/>.
+
+\section{Some test plots}
+
+
+% +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+\subsection{example}
+
+\input{Roll406_Ref2288.tex}
+
+\newpsstyle{PlotTitle}{fillstyle=solid, fillcolor=white, framearc=0.5, opacity=0.85, linestyle=none}
+
+\newpsstyle{Rnew}{style=StdLineStyC, linestyle=dashed}
+\newpsstyle{R}{style=StdLineStyC}
+\newpsstyle{Rused}{linestyle=dashed}
+\newpsstyle{ShapeMeasured}{style=StdLineStyB}
+\newpsstyle{ShapeFitted}{style=StdLineStyA}
+\newpsstyle{Dia}{style=StdLineStyD, showpoints=true, dotstyle=asterisk,
+linestyle=none, dotsize=5pt}
+\newpsstyle{DiaUsed}{style=Dia, dotstyle=+}
+
+\begin{minipage}{0.7\linewidth}
+		\begin{NumericDataPlot}{\textwidth}{8.3cm}
+		
+			\setxAxis{xMin=-2.4, xMax=2.4, Dx=1.0, xO=0.0}
+			\setyAxis{yMin=-0.45, yMax=-0.05, Dy=0.1, yO=-0.2,
+			yCoordMin=750}
+			\plotxAxis[NoLabel, NoTickLabel]{$z$ in m}
+			\plotyAxis{$\Delta r$ in mm}
+			\listplot[style=ShapeMeasured]{\DataShapeMeasured}
+			\listplot[style=ShapeFitted]{\DataShapeFitted}
+			\putN{\psframebox[style=PlotTitle]{Formmessung}}
+			
+			
+			\setyAxis{yMin=545.15, yMax=545.85, yO=545.4, Dy=0.2,
+			yCoordMin=300, yCoordMax=700}
+			\plotxAxis[NoLabel, NoTickLabel]{$z$ in m}
+			\plotyAxis{$r$ in mm}
+			\listplot[style=Rnew]{\DataRadiusNew}
+			\listplot[style=Dia]{\DataRMeasured}
+			
+			\listplot[style=R]{\DataRadius}
+			\ifx \DataRadiusUsed \empty
+			\else
+				\listplot[style=Rused]{\DataRadiusUsed}
+				\listplot[style=DiaUsed]{\DataRMeasuredUsed}
+			\fi
+			
+			\putN{\psframebox[style=PlotTitle]{Walzenprofil}}
+			
+			\setyAxis{yMin=-0.45, yMax=0.05, yO=0.0, Dy=0.1, yCoordMax=250}
+			\plotxAxis{$z$ in m}
+			\plotyAxis{$w$ in mm}
+			
+			\listplot[style=StdLineStyX]{\DataWear}
+			\listplot[style=StdLineStyY]{\DataMeasuredWear}
+			
+			\putN{\psframebox[style=PlotTitle]{Verschleiﬂ}}
+		
+		\end{NumericDataPlot}
+\end{minipage}
+\begin{minipage}{0.3\linewidth}
+	\renewcommand{\arraystretch}{1.5}
+	\newlength{\mylen}\settowidth{\mylen}{Approximation}
+	\begin{tabular}{|p{15pt}p{\mylen}|}%
+		\hline
+		\LegLine[LegLineWidth=15pt]{style=ShapeMeasured} & Formmessung\\
+		\LegLine[LegLineWidth=15pt]{style=ShapeFitted} & Approximation\\
+		\hline\hline
+		\LegLine[LegLineWidth=15pt]{style=Dia} & Durchmesser\-messung\\
+		\LegLine[LegLineWidth=15pt]{style=Rnew} & $R_\text{new}$\\
+		\hline
+		\LegLine[LegLineWidth=15pt]{style=R} & $R = R_\text{new} + w_\text{DB}$\\
+		\LegLine[LegLineWidth=15pt]{style=Rused} & $R_\text{used}$\\
+		\LegLine[LegLineWidth=15pt]{style=DiaUsed} & Durchmesser\-messung\\
+		\hline\hline
+		\LegLine[LegLineWidth=15pt]{style=StdLineStyX} & $w_\text{DB}$\\
+		\LegLine[LegLineWidth=15pt]{style=StdLineStyY} &
+		$w_\text{Messung}=R_\text{used}-R_\text{new}$\\
+		\hline
+	\end{tabular}%
+	\renewcommand{\arraystretch}{1}
+\end{minipage}
+
+
+
+% +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+
+
+\subsection{bode plot}
+
+\input{examples/data_BodeDiagrammLinearerTerm}
+\input{examples/BodeDiagramm}
+
+\lstinputlisting{examples/BodeDiagramm.tex}
+
+
+% +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+
+\subsection{areas in a plot}
+
+\input{examples/data_SprungantwortPT1Glied}
+\input{examples/Sprungantwort_PT1Glied}
+
+\lstinputlisting{examples/Sprungantwort_PT1Glied.tex}

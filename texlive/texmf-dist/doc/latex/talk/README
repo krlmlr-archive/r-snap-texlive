@@ -1,0 +1,76 @@
+
+                talk.cls -- A LaTeX class for presentations
+
+
+
+Abstract
+========
+
+The talk document class allows you to create slides for screen
+presentations or printing on transparencies. It also allows you to print
+personal notes for your talk. You can create overlays and display structure
+information (current section / subsection, table of contents) on your slides.
+The main feature that distinguishes talk from other presentation classes like
+beamer or prosper is that it allows the user to define an arbitrary
+number of slide styles and switch between these styles from slide to
+slide. This way the slide layout can be adapted to the slide content. For
+example, the title or contents page of a talk can be given a slightly different
+layout than the other slides.
+
+The talk class makes no restrictions on the slide design whatsoever. The entire
+look and feel of the presentation can be defined by the user. The style
+definitions should be put in a separate sty file. Currently the package comes
+with only one set of pre-defined slide styles (greybars.sty). Contributions
+from people who are artistically more gifted than me are more than welcome!
+
+
+Requirements
+============
+
+The talk class requires the packages
+
+        amsmath,
+        pgf,
+        multido,
+        hyperref.
+
+They can all be obtained from http://www.ctan.org. For further documentation see
+talkdoc.pdf.
+
+
+License
+=======
+
+This material is subject to the LaTeX Project Public License. See
+
+        http://www.ctan.org/tex-archive/help/Catalogue/licenses.lppl.html
+
+for the details of that license.
+
+
+Changes
+=======
+
+
+v. 1.0.1:
+
+- Typesetting slides in minipages now, thus allowing for footnotes.
+
+- Added commands for changing colours in greybars.sty. Thus renamed greybars
+  to sidebars.
+
+v. 1.0.2:
+
+- \title and \author commands now support short versions as optional arguments.
+
+- Problem with the papersize in screen mode under pdflatex fixed.
+
+v. 1.1:
+
+- talk is now compatible with and requires pgf version 1.18.
+
+- talk no longer requires the graphicx package.
+
+- \@makeslide is now executed inside a pgfpicture environment. Existing style
+  packages may have to be adapted.
+

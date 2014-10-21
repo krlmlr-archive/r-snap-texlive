@@ -1,0 +1,204 @@
+\documentclass[12pt]{article}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\usepackage[a4paper,nohead,nofoot]{geometry}
+\usepackage{bardiag}
+%\usepackage{showkeys}
+
+\usepackage{graphicx}   
+
+\pagestyle{empty}
+
+\newpsobject{showgrid}{psgrid}{subgriddiv=1,griddots=10,gridlabels=6pt}
+
+% New colors defined - I do it in bardiag.cfg
+% But you can just put it here, like:
+% \definecolor{brown}{rgb}{.65, .16, .16}
+% \definecolor{lightblue}{rgb}{.68, .85, .9}
+% \definecolor{palegreen}{rgb}{.6, .98, .6}
+% \definecolor{pink}{rgb}{1, .75, .8}
+% \definecolor{wheat}{rgb}{.96, .87, .7}
+% \definecolor{verylightgray}{gray}{0.95}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\newcommand{\mycomment}[1]{}
+
+\begin{document}
+
+% This is a simple way to include a diagram
+
+\begin{center}
+\renewcommand{\betweenticks}{0.2}
+\bardiagrambegin{10}{1}{2cm}{1}{2}{1cm}{10cm}
+       \drawlevellines
+       \baritem{Jelger}{0.5}{green}
+       \baritem{Johan}{0.7}{red}
+       \baritem{Rikkert}{0.8}{yellow}
+       \baritem{Henk}{0.3}{green}
+       \baritem{Erwin}{0.5}{red}  
+\bardiagramend{\large Name}{\large Fraction of Jobs Active}
+\end{center}
+
+%--------------------------------------------------
+
+% This is a more accurate way to include a diagram
+
+\begin{figure}[t]
+  \begin{minipage}[t]{\textwidth}
+   \parbox[b]{\textwidth}{%
+    \centering
+    \centerline{%
+     \input{src/1a.tex}
+    }
+    \centerline{
+     \input{src/1b.tex}
+    }
+   }
+  \end{minipage}
+\caption{\label{fig:1}Bar Diagram}
+\end{figure}
+
+\newpage
+
+\begin{figure}[t]
+  \begin{minipage}[t]{\textwidth}
+   \parbox[b]{\textwidth}{%
+    \centering
+    \centerline{%
+     \input{src/2a.tex}
+    }
+    \centerline{%
+     \input{src/2b.tex}
+    }
+   }
+  \end{minipage}
+\caption{\label{fig:2}Bar Diagram - real numbers}
+\end{figure}
+
+%\newpage
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%\newpage
+\def\onecol{red}
+\def\twocol{blue}
+
+\begin{figure}[!htbp]
+  \begin{minipage}[t]{\textwidth}
+   \parbox[b]{\textwidth}{%
+    \centering
+    % %\bgroup
+    \centerline{%
+     \input{src/3.tex}
+    }
+    % %\egroup
+   }
+  \end{minipage}
+\caption{\label{fig:3}One more Bar Diagram}
+\end{figure}
+
+
+\begin{figure}[!htbp]
+  \begin{minipage}[t]{\textwidth}
+   \parbox[b]{\textwidth}{%
+    \centering
+    % %\bgroup
+    \centerline{%
+       \renewcommand{\ActiveBarPrimitive}{\barTDRect}
+       \input{src/4.tex}
+    }$ $\\
+    Changing only \texttt{ActiveBarPrimitive} parameter from 
+    \texttt{barTDRect} to \texttt{barCylinder} yelds:\vspace{1cm}
+    \centerline{%
+       \renewcommand{\ActiveBarPrimitive}{\barCylinder}
+       \input{src/4.tex}
+    }
+    % %\egroup
+   }
+  \end{minipage}
+\caption{\label{fig:4}Bar Diagram and  3D item-bars}
+\end{figure}
+
+
+
+\begin{figure}[!htbp]
+  \begin{minipage}[t]{\textwidth}
+   \parbox[b]{\textwidth}{%
+    \centering
+    \centerline{%
+       \renewcommand{\ActiveBarPrimitive}{\barTDRect}
+       \renewcommand{\frameTD}{1}
+       \input{src/5.tex}
+    }
+   }
+  \end{minipage}
+\caption{\label{fig:5}One more Bar Diagram in 3D}
+\end{figure}
+
+%\newpage %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\begin{figure}[!htbp]
+  \begin{minipage}[t]{\textwidth}
+   \parbox[b]{\textwidth}{%
+    \centering
+    % %\bgroup
+    \centerline{%
+       \renewcommand{\ActiveBarPrimitive}{\barTDRect}
+       \renewcommand{\frameTD}{1}
+       \input{src/6.tex}
+    }
+    % %\egroup
+   }
+  \end{minipage}
+\caption{\label{fig:6}One more Bar Diagram in 3D}
+\end{figure}
+
+
+\begin{figure}[!htbp]
+  \begin{minipage}[t]{\textwidth}
+   \parbox[b]{\textwidth}{%
+    \centering
+    \centerline{%
+       \renewcommand{\ActiveBarPrimitive}{\barCylinder}
+       \renewcommand{\frameTD}{1}
+       \input{src/7.tex}
+    }
+   }
+  \end{minipage}
+\caption{\label{fig:7}One more Bar Diagram in 3D (bar $\to$ cylinder)}
+\end{figure}
+
+\begin{figure}[!htbp]
+  \begin{minipage}[t]{\textwidth}
+   \parbox[b]{\textwidth}{%
+    \centering
+    % %\bgroup
+    \centerline{%
+       \renewcommand{\ActiveBarPrimitive}{\barTDRect}
+       \renewcommand{\frameTD}{1}
+       \input{src/8.tex}
+    }
+    % %\egroup
+   }
+  \end{minipage}
+\caption{\label{fig:8}Bar Diagram with ``top'' items}
+\end{figure}
+
+
+\end{document}
+
+
+
+
+
+
+
+
+
+
+
+
+
+

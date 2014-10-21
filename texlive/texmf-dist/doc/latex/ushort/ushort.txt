@@ -1,0 +1,183 @@
+
+%%#
+%%# Author:
+%%#
+%%# M. V\"ath      martin@mvath.de
+%%#
+%%# The package may be distributed and/or modified under the conditions of
+%%# the LaTeX Project Public License (version 1.3c or later).
+
+%%#############################################################################
+%%#
+%%#  With this package you may write shorter (or longer) underlines/underbars.
+%%#  This is particularly useful for `underlined' variables which are needed
+%%#  by some engineers.
+%%#
+%%#############################################################################
+
+%%#
+%%# This package was tested with plain TeX, LaTeX 2.09, and LaTeX 2e,
+%%# and it should actually run with most other TeX formats.
+%%#
+
+
+%%# In the newsgroup de.comp.text.tex the question arose whether it is
+%%# possible to define `underlined' variables: Such variables are required for
+%%# complex vectors by electrical engineers.
+%%# The usual \underline command is not appropriate for this purpose, because
+%%# the underlines of concatenated variables merge which is not desired.
+%%# One may use the macro "\ushort" of this package instead.
+%%#
+%%# However, this package also provides a generic macro which allows to
+%%# create new commands which work similarly but use different parameters
+%%# for the underlines. In particular, it is possible to create e.g. a macro
+%%# which draws longer underlines than usual or which does a similar task with
+%%# \underbar.
+
+%%#
+%%# Installation:
+%%#
+
+%%# To use ushort, you have to put `ushort.sty' in a path where TeX looks
+%%# for its input files. The TeX documents using ushort need the
+%%# following modifications in their header:
+%%#
+%%# a) If you use LaTeX2.09, use ushort as a style option, e.g.
+%%#      \documentstyle[ushort]{article}
+%%#    or
+%%#      \documentstyle[ushort,12pt]{article}
+%%# b) If you use LaTeX2e, put in the preamble the command
+%%#      \usepackage{ushort}
+%%# c) If you use some other (non-LaTeX) format, you will probably have to
+%%#    insert a line like
+%%#          \catcode`\@=11\relax \input ushort.sty \catcode`\@=12\relax
+%%#
+%%# For TeX insiders:
+%%# The only LaTeX-specific commands used in `ushort.sty' are:
+%%#
+%%#   \newcommand (only in the form \newcommand{\command}{} to ensure that
+%%#                 \command was not defined before)
+%%#   \ProvidesPackage
+%%#   \typeout
+%%#
+%%#   The above commands are used only if they are defined.
+%%#
+
+%%#
+%%# Description of the provided macros:
+%%#
+
+%%# This package provides the following macros.
+%%#
+%%# \ushort
+%%#     This command is used analogously to \underline with the difference that
+%%#     the underlines are slightly shorter than usual (and so, in particular,
+%%#     in concatenations of `\ushort'ed variable names the underlines do not
+%%#     merge). The length of the underline is chosen under the assumption that
+%%#     the argument is a single character. If you want to underline a variable
+%%#     name which consists of more than one character, use instead the command
+%%# \ushortw  [Mnemonic: ushort word]
+%%#     which is analogous to \ushort but such that the length of the underline
+%%#     is chosen appropriate for a `long' argument. (This does not look as
+%%#     good as \ushort if the argument is a single character).
+%%# \ushortd  [Mnemonic: ushort double]
+%%#     This is analogous to \ushort except that the underline is doubled.
+%%# \ushortdw [Mnemonic: ushortd word]
+%%#     This is analogous to \ushortw except that the underline is doubled.
+%%# \ushortdline
+%%#     This is analogous to \underline except that the underline is doubled.
+%%#     This command is internally used by \ushortd and \ushortdw and
+%%#     thus redefinitions change also the behavior of \ushortd and \ushortdw
+%%#     correspondingly.
+%%#     In Plain TeX, this macro can be used only in math mode.
+%%# \ushortCreate
+%%#     This can be used to generate a macro which behaves similarly to \ushort
+%%#     or \ushortd but for which certain parameters can be changed.
+%%# \ushortEnsuremath
+%%#     This is rather equivalent to the LaTeX2e macro \ensuremath
+%%#     (but is available also e.g. in compatibility mode or if this package
+%%#     is used with plain TeX or LaTeX 2.09).
+%%#
+%%# Only \ushortCreate needs a detailed description. Its call syntax is:
+%%#
+%%# \ushortCreate*:\command[Summand]<FactorBefore>(FactorAfter)
+%%#              +{additional calculations}{Name}
+%%#
+%%# All arguments except for the last one {Name} are optional.
+%%# Moreover, also the order of these arguments can be changed arbitrarily,
+%%# and they can be repeated (all except for the last occurrence of each
+%%# each type of argument is ignored).
+%%# Only the last argument {Name} can not be repeated and must be at the end.
+%%#
+%%# This command creates a new macro \Name. It is not tested whether \Name
+%%# already exists; if it exists already, it is overridden. In particular,
+%%# it is admissible to use \ushortCreate to redefine \ushort, \ushortw,
+%%# \ushortd, or \ushortdw. This is the recommended method, if you want to
+%%# change the default values.
+%%#
+%%# The macro \Name can be used analogously to \underline, but the precise
+%%# behavior depends on the arguments of \ushortCreate.
+%%#
+%%# The meaning of the arguments is as follows:
+%%#
+%%# *   If the * is present, then the command \underbar is used
+%%#     (instead of the default \underline) to draw the underline.
+%%#     Moreover, the command \underbar is not used in math mode (while
+%%#     \underline is used in math mode).
+%%# :\command  Use \command instead of the default \underline to draw the
+%%#     underline. Whether \command is executed in math mode or not
+%%#     depends on whether * has been used.
+%%# [Summand]  Add Summand to the length of the underline before drawing.
+%%#     Values like -.3\ht0 are admissible. Summand is expanded only when \Name
+%%#     is expanded, and \wd0 or \ht0 give the width respectively height of the
+%%#     argument given to \name. In particular, also the value of the unit `em'
+%%#     depends on the mode in which \Name is called.
+%%#     The default is empty (which means 0pt but is faster).
+%%# <FactorBefore> Multiply the length of the underline before adding Summand.
+%%#     The empty string means 1 (and costs no time).
+%%#     The default is empty.
+%%# (FactorAfter)  Multiply the length of the underline after adding Summand.
+%%#     The empty string means 1 (and costs no time).
+%%#     The default is `.8'.
+%%# +{Additional calculations} With this argument, you can introduce an
+%%#     arbitrary command sequence into the generated command: This sequence
+%%#     is executed (within a group) after Summand was added, but before
+%%#     FactorAfter is applied. This sequence is meant to do additional
+%%#     calculation with \dimen0 which is the length of the generated
+%%#     underline. When the calculations are carried out, \box0 contains the
+%%#     content which is to be underlined. However, in contrast to previous
+%%#     releases of this package, modifications of this box are ignored.
+%%#     Instead, the registers \dimen1 and \dimen2 also contain the height and
+%%#     depth of this box - you have to modify these values to attain the
+%%#     desired effect.
+%%#
+%%# Examples:
+%%#
+%%# The most important examples are the macros \ushort, \ushortw, \ushortd,
+%%# and \ushortdw which have been created by
+%%#
+%%#    \ushortCreate{ushort}
+%%#    \ushortCreate()[-.1em]{ushortw}
+%%#    \ushortCreate:\ushortdline{ushortd}
+%%#    \ushortCreate:\ushortdline()[-.1em]{ushortdw}
+%%#
+%%# A further example demonstrating other parameters is
+%%#
+%%#    \ushortCreate(3)(.5){uline}
+%%#
+%%# This creates the macro \uline which underbars its argument but such that
+%%# the underbar has only half of the usual length (the argument (3)
+%%# in the above call is overridden by the later argument (.5)).
+%%#
+%%# A more useful example is
+%%#
+%%#    \ushortCreate()[-.3\ht0]{ushort}
+%%#
+%%# This modifies \ushort such that the underline is shrunken by .3 times
+%%# the height of the argument of \ushort. If the argument is one letter, this
+%%# means: The higher the letter, the shorter the underline. This looks good
+%%# for italic fonts with some exceptions (like the letter `b').
+
+\endinput
+%%
+%% End of file `ushort.txt'.

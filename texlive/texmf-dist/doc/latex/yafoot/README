@@ -1,0 +1,35 @@
+yafoot (v1.0): The package for footnotes containing three style files;
+    pfnote:	To enclose footnote numbers within a page
+    fnopos:	To control vertical position of footnotes
+    dblfnote:	To make footnotes double-columned
+
+[How to "make"]
+
+  % tex yafoot.ins	# you'll have pfnote.sty, fnpos.sty, dblfnote.sty 
+			# and yafoot-man.tex
+# to have user's manual  
+  % latex yafoot-man
+  % makeindex -s gind.ist -o yafoot-man.ind yafoot-man.idx
+  % latex yafoot-man
+
+# to have implementation document
+  % latex yafoot.dtx
+  % makeindex -s gind.ist -o yafoot.ind yafoot.idx
+  % makeindex -s gglo.ist -o yafoot.gls yafoot.glo
+  % latex yafoot.dtx
+
+[Features]
+
++ Loading "pfnote" will make footnote numbers enclosed within a page.
+
++ "fnpos" has commands \makeFNbottom and \makeFNmid to control the
+  position of footnotes in a \raggedbottom page.  It also has commands 
+  \makeFNbelow and \makeFNabove to determine the footnote position
+  relative to bottom floats.
+
++ Loading "dblfnote" will make footnotes double-columned.  It also
+  gives a few parameters and commands for fine tuning.
+
+Enjoy!
+
+Hiroshi Nakashima <nakasima@tutics.tut.ac.jp>

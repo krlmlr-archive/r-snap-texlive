@@ -1,0 +1,169 @@
+%% Based on lsbuild.mtx
+%% See that file for commentary.
+
+\relax
+
+\metrics
+
+\needsfontinstversion{1.917}
+
+\usemtxpackage{ltcmds}
+\ProvidesMtxPackage{dotscbuild}
+
+\begincomment
+\section{Proper latin small capitals}
+
+\subsection{Some utility commands}
+\endcomment
+
+\setcommand\setcsctopglyph#1#2#3#4{
+   \ifareglyphs{#2.sc,#3}\then
+      \setglyph{#1}
+         \topaccent{#2.sc}{#3}{#4}
+      \endsetglyph
+      \setleftrightkerning{#1}{#2.sc}{1000}
+   \Fi
+}
+\setcommand\setcscbotglyph#1#2#3#4{
+   \ifareglyphs{#2.sc,#3}\then
+      \setglyph{#1}
+         \botaccent{#2.sc}{#3}{#4}
+      \endsetglyph
+      \setleftrightkerning{#1}{#2.sc}{1000}
+   \Fi
+}
+\begincomment\medskip
+A \textbf{Try: Set glyph} is an ordinary \textbf{Set glyph} which is 
+conditional on that a set of glyphs (those used to construct the 
+composite glyph) are available. It is technically e.g.
+\begin{quotation}
+  \setcsctopglyph{\macroparameter{1}}{\macroparameter{2}}%
+    {\macroparameter{3}}{\macroparameter{4}}
+  \setcscbotglyph{\macroparameter{1}}{\macroparameter{2}}%
+    {\macroparameter{3}}{\macroparameter{4}}\par
+\end{quotation}
+(both of which are implemented in the code as simple four argument 
+commands), but in the list of commands below those two commands will 
+be typeset as
+\resetcommand\setcsctopglyph#1#2#3#4{%
+   \Aheading{Try: Set glyph `\TypesetStringExpression{#1}'}
+   \topaccent{#2.sc}{#3}{#4}
+   \setleftrightkerning{#1}{#2.sc}{1000}
+}
+\resetcommand\setcscbotglyph#1#2#3#4{%
+   \Aheading{Try: Set glyph `\TypesetStringExpression{#1}'}
+   \botaccent{#2.sc}{#3}{#4}
+   \setleftrightkerning{#1}{#2.sc}{1000}
+}
+\begin{quotation}
+  \setcsctopglyph{\macroparameter{1}}{\macroparameter{2}}%
+    {\macroparameter{3}}{\macroparameter{4}}
+  \setcscbotglyph{\macroparameter{1}}{\macroparameter{2}}%
+    {\macroparameter{3}}{\macroparameter{4}}
+\end{quotation}
+\endcomment
+
+\ifareglyphs{L,l.sc}\then
+   \setint{smallcapsscale}{
+     \div{\mul{1000}{\height{l.sc}}}{\height{L}}
+   }
+\Else
+   \setint{smallcapsscale}{800}
+\Fi
+
+
+\setcsctopglyph{aacute.sc}{a}{acute}{500}
+\setcsctopglyph{abreve.sc}{a}{breve}{500}
+\setcsctopglyph{acircumflex.sc}{a}{circumflex}{500}
+\setcsctopglyph{adieresis.sc}{a}{dieresis}{500}
+\setcsctopglyph{agrave.sc}{a}{grave}{500}
+\setcscbotglyph{aogonek.sc}{a}{ogonek}{900}
+\setcsctopglyph{aring.sc}{a}{ring}{500}
+\setcsctopglyph{atilde.sc}{a}{tilde}{500}
+
+\setcsctopglyph{cacute.sc}{c}{acute}{500}
+\setcsctopglyph{ccaron.sc}{c}{caron}{500}
+\setcsctopglyph{ccedilla.sc}{c}{cedilla}{500}
+
+\setcsctopglyph{dcaron.sc}{d}{caron}{500}
+
+\setcsctopglyph{eacute.sc}{e}{acute}{500}
+\setcsctopglyph{ecaron.sc}{e}{caron}{500}
+\setcsctopglyph{ecircumflex.sc}{e}{circumflex}{500}
+\setcsctopglyph{edieresis.sc}{e}{dieresis}{500}
+\setcsctopglyph{egrave.sc}{e}{grave}{500}
+\setcscbotglyph{eogonek.sc}{e}{ogonek}{850}
+
+\setcsctopglyph{gbreve.sc}{g}{breve}{500}
+
+\setcsctopglyph{iacute.sc}{i}{acute}{500}
+\setcsctopglyph{icircumflex.sc}{i}{circumflex}{500}
+\setcsctopglyph{idieresis.sc}{i}{dieresis}{500}
+\setcsctopglyph{idotaccent.sc}{i}{dotaccent}{500}
+\setcsctopglyph{igrave.sc}{i}{grave}{500}
+
+\setcsctopglyph{lacute.sc}{l}{acute}{250}
+
+\ifareglyphs{l.sc,quoteright}\then
+   \setglyph{lcaron.sc}
+      \glyph{l.sc}{1000}
+      \ifisint{monowidth}\then\Else \movert{-100} \Fi
+      \glyph{quoteright}{\int{smallcapsscale}}
+   \endsetglyph
+   \setleftkerning{lcaron.sc}{l.sc}{1000}
+\Fi
+
+\setcsctopglyph{nacute.sc}{n}{acute}{500}
+\setcsctopglyph{ncaron.sc}{n}{caron}{500}
+\setcsctopglyph{ntilde.sc}{n}{tilde}{500}
+
+\setcsctopglyph{oacute.sc}{o}{acute}{500}
+\setcsctopglyph{ocircumflex.sc}{o}{circumflex}{500}
+\setcsctopglyph{odieresis.sc}{o}{dieresis}{500}
+\setcsctopglyph{ograve.sc}{o}{grave}{500}
+\setcsctopglyph{ohungarumlaut.sc}{o}{hungarumlaut}{500}
+\setcsctopglyph{otilde.sc}{o}{tilde}{500}
+
+\setcsctopglyph{racute.sc}{r}{acute}{500}
+\setcsctopglyph{rcaron.sc}{r}{caron}{500}
+
+\setcsctopglyph{sacute.sc}{s}{acute}{500}
+\setcsctopglyph{scaron.sc}{s}{caron}{500}
+\setcscbotglyph{scedilla.sc}{s}{cedilla}{500}
+
+\setcsctopglyph{tcaron.sc}{t}{caron}{500}
+\setcscbotglyph{tcedilla.sc}{t}{cedilla}{500}
+
+\setcsctopglyph{uacute.sc}{u}{acute}{500}
+\setcsctopglyph{ucircumflex.sc}{u}{circumflex}{500}
+\setcsctopglyph{udieresis.sc}{u}{dieresis}{500}
+\setcsctopglyph{ugrave.sc}{u}{grave}{500}
+\setcsctopglyph{uhungarumlaut.sc}{u}{hungarumlaut}{500}
+\setcsctopglyph{uring.sc}{u}{ring}{500}
+
+\setcsctopglyph{yacute.sc}{y}{acute}{500}
+\setcsctopglyph{ydieresis.sc}{y}{dieresis}{500}
+
+\setcsctopglyph{zacute.sc}{z}{acute}{500}
+\setcsctopglyph{zcaron.sc}{z}{caron}{500}
+\setcsctopglyph{zdotaccent.sc}{z}{dotaccent}{500}
+
+
+\begincomment
+\subsection{Other glyphs that can be built}
+\endcomment
+
+\ifisglyph{dcroat.sc}\then
+   \setglyph{dbar.sc}
+      \glyph{dcroat.sc}{1000}
+   \endsetglyph
+   \setleftrightkerning{dbar.sc}{dcroat.sc}{1000}
+\Else\ifisglyph{eth.sc}\then
+   \setglyph{dbar.sc}
+      \glyph{eth.sc}{1000}
+   \endsetglyph
+   \setleftrightkerning{dbar.sc}{eth.sc}{1000}
+\Fi\Fi
+
+
+\endmetrics

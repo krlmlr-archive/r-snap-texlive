@@ -1,0 +1,776 @@
+\documentclass[12pt,a4paper]{article}
+\usepackage{pictexwd,dcpic}
+\usepackage{listings}
+\usepackage{a4wide}
+\usepackage{svn-multi}
+
+\svnidlong
+{$HeadURL: svn+ssh://gentzen.mat.uc.pt/var/lib/svn/DCPiC/CTAN5.0/examples.tex $}
+{$LastChangedDate: 2013-05-01 19:49:49 +0100 (Qua, 01 Mai 2013) $}
+{$LastChangedRevision: 15 $}
+{$LastChangedBy: pedro $}
+
+\svnid{$Id: manDCPiC.tex 11 2013-04-20 23:01:43Z pedro $}
+
+\voffset=-2cm
+%\hoffset=-1cm
+%\addtolength{\textwidth}{2cm}
+\addtolength{\textheight}{4cm}
+
+\newcommand{\barraA}{\vrule height2em width0em depth0em}
+\newcommand{\barraB}{\vrule height1.6em width0em depth0em}
+
+\newcommand{\docver}{\svnyear/\svnmonth/\svnday\ (v\svnrev)}
+
+
+\begin{document}
+
+
+% definição da linguagem de programação
+\lstset{language=TeX,
+  frame = single,
+  morekeywords={begindc,enddc,cmor,pup,commdiag,undigraph,digraph,cdigraph,cundigraph,obj,mor,pleft,pup,pdown,pright,north,northeast,east,southeast,south,southwest,west,northwest,atright,atleft,solidarrow,dashArrow,dotArrow,solidline,dashline,dotline,injectionarrow,aplicationarrow,surjectivearrow,equalline,doublearrow,doubleopposite,nullarrow},
+  basicstyle=\tiny}
+
+\begin{center}
+  \huge\bf DCpic - Examples - \docver
+\end{center}
+
+\section{Commutative Diagrams}
+
+\subsection{Curved Arrows} 
+
+A rectangular curve with rounded corners is easy to specify and should
+cater for most needs. With this in mind we give the following tip to
+the user: to specify a rectangular, with rounded corners, curve we
+choose the points which give us the {\em expanded chess-horse
+  movement}, that is, $(x,y)$, $(x\pm4,y\mp1)$, $(x\mp1,y\pm4)$, or
+$(x,y)$,$(x\pm1,y\mp4)$, $(x\mp4,y\pm1)$, those sets of points will give us
+the four corners of the rectangle; to form the whole line it is only
+necessary to add an odd number of points joining the two (or more)
+corners.
+
+\begin{lstlisting}
+\begindc{\commdiag}
+\cmor((10,20)(6,21)(5,25)) \pup(5,15){$x$}
+\enddc
+\end{lstlisting}
+
+{\ }
+
+$$
+\begindc{\commdiag}
+\cmor((10,20)(6,21)(5,25)) \pup(5,15){$x$}
+\enddc
+$$
+
+
+
+\begin{lstlisting}
+\begindc{\commdiag}
+\obj(10,15){$A$}
+\obj(40,15)[Al]{$A$}
+\obj(25,15){$B$}
+\mor{$A$}{$B$}{$f$} \mor{$B$}{Al}{$g$}
+\cmor((10,11)(11,7)(15,6)(25,6)(35,6)(39,7)(40,11)) \pup(25,3){$id_A$}
+\enddc
+\end{lstlisting}
+
+$$
+\begindc{\commdiag}
+\obj(10,15){$A$}
+\obj(40,15)[Al]{$A$}
+\obj(25,15){$B$}
+\mor{$A$}{$B$}{$f$} 
+\mor{$B$}{Al}{$g$}
+\cmor((10,11)(11,7)(15,6)(25,6)(35,6)(39,7)(40,11)) \pup(25,3){$id_A$}
+\enddc
+$$
+
+\begin{lstlisting}
+\begindc{\commdiag}
+\obj(14,11){$A$}
+\obj(39,11){$B$}
+\mor(14,12)(39,12){$f$} \mor(39,10)(14,10){$g$}
+\cmor((10,10)(6,11)(5,15)(6,19)(10,20)(14,19)(15,15)) \pdown(2,20){$id_A$}
+\cmor((40,7)(41,3)(45,2)(49,3)(50,7)(49,11)(45,12)) \pleft(54,3){$id_B$}
+\enddc
+\end{lstlisting}
+
+$$
+\begindc{\commdiag}
+\obj(14,11){$A$}
+\obj(39,11){$B$}
+\mor(14,12)(39,12){$f$} 
+\mor(39,10)(14,10){$g$}
+\cmor((10,10)(6,11)(5,15)(6,19)(10,20)(14,19)(15,15)) \pdown(2,20){$id_A$}
+\cmor((40,7)(41,3)(45,2)(49,3)(50,7)(49,11)(45,12)) \pleft(54,3){$id_B$}
+\enddc
+$$
+
+
+\begin{lstlisting}
+\begindc{\commdiag}
+\obj(10,18){$A$}
+\obj(40,18){$B$}
+\cmor((10,20)(15,25)(20,20)(25,15)(30,20)(35,25)(40,20))
+\pdown(25,12){$f$}[2]
+\cmor((10,15)(15,10)(20,15)(25,20)(30,15)(35,10)(40,15))
+\pup(25,22){$g$}[2]
+\enddc
+\end{lstlisting}
+
+$$
+\begindc{\commdiag}
+\obj(10,18){$A$}
+\obj(40,18){$B$}
+\cmor((10,20)(15,25)(20,20)(25,15)(30,20)(35,25)(40,20))
+\pdown(25,12){$f$}[2]
+\cmor((10,15)(15,10)(20,15)(25,20)(30,15)(35,10)(40,15))
+\pup(25,22){$g$}[2]
+\enddc
+$$
+
+
+\vfill
+\pagebreak
+
+
+\subsection{Size Adjusting} 
+
+In version 4 (v4.0) two new features are introduced, relative
+specification {\tt $\backslash$mor\{objA\}\{objB\}} instead of {\tt
+  $\backslash$mor(1,3)(4,5)}, and the arrows now automatically adjust
+their size to the object's box size.
+
+
+
+\begin{lstlisting}[basicstyle=\tiny]
+\begindc{\commdiag}[300]
+\obj(1,3)[objSum]{$\displaystyle\sum_{k=2}^n\left\lfloor\frac{\phi(k)}{k-1}\right\rfloor}$}
+\obj(4,5)[objB]{$B$}
+\obj(4,3)[objA]{$A$}
+\obj(4,1)[objBp]{$B$}
+\mor{objSum}{objB}{$f$}
+\mor{objB}{objA}{$g$}
+\mor{objSum}{objA}{$f\circ g$}[\atright,\solidarrow]
+\mor{objSum}{objBp}{$f$}[\atright,\solidarrow]
+\mor{objA}{objBp}{$g$}[\atright,\solidarrow]
+\enddc
+\end{lstlisting}
+
+$$
+\begindc{\commdiag}[300]
+\obj(1,3)[objSum]{$\displaystyle \sum_{k=2}^n \left\lfloor\frac{\phi(k)}{k-1}\right\rfloor$}
+\obj(4,5)[objB]{$B$}
+\obj(4,3)[objA]{$A$}
+\obj(4,1)[objBp]{$B$}
+\mor{objSum}{objB}{$f$}
+\mor{objB}{objA}{$g$}
+\mor{objSum}{objA}{$f\circ g$}[\atright,\solidarrow]
+\mor{objSum}{objBp}{$f$}[\atright,\solidarrow]
+\mor{objA}{objBp}{$g$}[\atright,\solidarrow]
+\enddc
+$$
+
+
+\begin{lstlisting}
+\begindc{\commdiag}[250]
+\obj(10,10)[A]{$OOOOOO$}\obj(15,10)[Aa]{$XXXX$}\obj(14,11)[Ab]{$XXXX$}
+\obj(13,12)[Ac]{$XXXX$}\obj(12,13)[Ad]{$XXXX$}\obj(11,14)[Ae]{$XXXX$}
+\obj(10,15)[Af]{$XXXX$}\obj(9,14)[Ag]{$BBBB$}\obj(8,13)[Ah]{$XXXX$}
+\obj(7,12)[Ai]{$XXXX$}\obj(6,11)[Aj]{$XXXX$}\obj(5,10)[Ak]{$XXXX$}
+\obj(6,9)[Al]{$XXXX$}\obj(7,8)[Am]{$XXXX$}\obj(8,7)[An]{$BBBB$}
+\obj(9,6)[Ao]{$CCCC$}\obj(10,5)[Ap]{$DDDD$}\obj(11,6)[Aq]{$EEEE$}
+\obj(12,7)[Ar]{$EEEE$}\obj(13,8)[As]{$EEEE$}\obj(14,9)[At]{$EEEE$}
+\mor{A}{Aa}{$a1$}\mor{A}{Ab}{$a2$}\mor{A}{Ac}{$a3$}\mor{A}{Ad}{$a4$}
+\mor{A}{Ae}{$a5$}\mor{A}{Af}{$a6$}\mor{A}{Ag}{$a7$}\mor{A}{Ah}{$a8$}
+\mor{A}{Ai}{$a9$}\mor{A}{Aj}{$a10$}\mor{A}{Ak}{$a11$}\mor{A}{Al}{$a12$}
+\mor{A}{Am}{$a13$}\mor{A}{An}{$a14$}\mor{A}{Ao}{$a15$}\mor{A}{Ap}{$a16$}
+\mor{A}{Aq}{$a17$}\mor{A}{Ar}{$a18$}\mor{A}{As}{$a19$}\mor{A}{At}{$a20$}
+\enddc
+\end{lstlisting}
+
+$$
+\begindc{\commdiag}[250]
+\obj(10,10)[A]{$OOOOOO$}\obj(15,10)[Aa]{$XXXX$}\obj(14,11)[Ab]{$XXXX$}
+\obj(13,12)[Ac]{$XXXX$}\obj(12,13)[Ad]{$XXXX$}\obj(11,14)[Ae]{$XXXX$}
+\obj(10,15)[Af]{$XXXX$}\obj(9,14)[Ag]{$BBBB$}\obj(8,13)[Ah]{$XXXX$}
+\obj(7,12)[Ai]{$XXXX$}\obj(6,11)[Aj]{$XXXX$}\obj(5,10)[Ak]{$XXXX$}
+\obj(6,9)[Al]{$XXXX$}\obj(7,8)[Am]{$XXXX$}\obj(8,7)[An]{$BBBB$}
+\obj(9,6)[Ao]{$CCCC$}\obj(10,5)[Ap]{$DDDD$}\obj(11,6)[Aq]{$EEEE$}
+\obj(12,7)[Ar]{$EEEE$}\obj(13,8)[As]{$EEEE$}\obj(14,9)[At]{$EEEE$}
+\mor{A}{Aa}{$a1$}\mor{A}{Ab}{$a2$}\mor{A}{Ac}{$a3$}\mor{A}{Ad}{$a4$}
+\mor{A}{Ae}{$a5$}\mor{A}{Af}{$a6$}\mor{A}{Ag}{$a7$}\mor{A}{Ah}{$a8$}
+\mor{A}{Ai}{$a9$}\mor{A}{Aj}{$a10$}\mor{A}{Ak}{$a11$}\mor{A}{Al}{$a12$}
+\mor{A}{Am}{$a13$}\mor{A}{An}{$a14$}\mor{A}{Ao}{$a15$}\mor{A}{Ap}{$a16$}
+\mor{A}{Aq}{$a17$}\mor{A}{Ar}{$a18$}\mor{A}{As}{$a19$}\mor{A}{At}{$a20$}
+\enddc
+$$
+
+\vfill
+\pagebreak
+
+
+\subsection{A Complex Diagram} {\ }
+
+\begin{lstlisting}
+\begindc{\commdiag}[350]
+\obj(1,1)[Gr]{$G$}
+\obj(3,1)[Grstar]{$G_{r^*}$}
+\obj(5,1)[H]{$H$}
+\obj(2,2)[SigmaG]{$\Sigma^G$}
+\obj(6,2)[SigmaH]{$\Sigma^H$}
+\obj(1,3)[Lm]{$L_m$}
+\obj(3,3)[Krm]{$K_{r,m}$}
+\obj(5,3)[Rmstar]{$R_{m^*}$}
+\obj(1,5)[L]{$L$}
+\obj(3,5)[Lr]{$L_r$}
+\obj(5,5)[R]{$R$}
+\obj(2,6)[SigmaL]{$\Sigma^L$}
+\obj(6,6)[SigmaR]{$\Sigma^R$}
+\mor{Gr}{SigmaG}{$\lambda^G$}
+\mor{Grstar}{Gr}{$i_5$}[\atleft,\aplicationarrow]
+\mor{Grstar}{H}{$r^*$}[\atright,\solidarrow]
+\mor{H}{SigmaH}{$\lambda^H$}[\atright,\dashArrow]
+\mor{SigmaG}{SigmaH}{$\varphi^{r^*}$}[\atright,\solidarrow]
+\mor{Lm}{Gr}{$m$}[\atright,\solidarrow]
+\mor{Lm}{L}{$i_2$}[\atleft,\aplicationarrow]
+\mor{Krm}{Lm}{$i_3\quad$}[\atright,\aplicationarrow]
+\mor{Krm}{Rmstar}{$r$}
+\mor{Krm}{Lr}{$i_4$}[\atright,\aplicationarrow]
+\mor{Krm}{Grstar}{$m$}
+\mor{Rmstar}{R}{$i_6$}[\atright,\aplicationarrow]
+\mor{Rmstar}{H}{$m^*$}
+\mor{L}{SigmaL}{$\lambda^L$}
+\mor{Lr}{L}{$i_1\quad$}[\atright,\aplicationarrow]
+\mor{Lr}{R}{$r$}
+\mor{R}{SigmaR}{$\lambda^R$}[\atright,\solidarrow]
+\mor{SigmaL}{SigmaG}{$\varphi^m$}[\atright,\solidarrow]
+\mor{SigmaL}{SigmaR}{$\varphi^r$}
+\mor{SigmaR}{SigmaH}{$\varphi^{m^*}$}
+\enddc
+\end{lstlisting}
+
+$$
+\begindc{\commdiag}[350]
+\obj(1,1)[Gr]{$G$}
+\obj(3,1)[Grstar]{$G_{r^*}$}
+\obj(5,1)[H]{$H$}
+\obj(2,2)[SigmaG]{$\Sigma^G$}
+\obj(6,2)[SigmaH]{$\Sigma^H$}
+\obj(1,3)[Lm]{$L_m$}
+\obj(3,3)[Krm]{$K_{r,m}$}
+\obj(5,3)[Rmstar]{$R_{m^*}$}
+\obj(1,5)[L]{$L$}
+\obj(3,5)[Lr]{$L_r$}
+\obj(5,5)[R]{$R$}
+\obj(2,6)[SigmaL]{$\Sigma^L$}
+\obj(6,6)[SigmaR]{$\Sigma^R$}
+\mor{Gr}{SigmaG}{$\lambda^G$}
+\mor{Grstar}{Gr}{$i_5$}[\atleft,\aplicationarrow]
+\mor{Grstar}{H}{$r^*$}[\atright,\solidarrow]
+\mor{H}{SigmaH}{$\lambda^H$}[\atright,\solidarrow] %dashArrow]
+\mor{SigmaG}{SigmaH}{$\varphi^{r^*}$}[\atright,\solidarrow]
+\mor{Lm}{Gr}{$m$}[\atright,\solidarrow]
+\mor{Lm}{L}{$i_2$}[\atleft,\aplicationarrow]
+\mor{Krm}{Lm}{$i_3\quad$}[\atright,\aplicationarrow]
+\mor{Krm}{Rmstar}{$r$}
+\mor{Krm}{Lr}{$i_4$}[\atright,\aplicationarrow]
+\mor{Krm}{Grstar}{$m$}
+\mor{Rmstar}{R}{$i_6$}[\atright,\aplicationarrow]
+\mor{Rmstar}{H}{$m^*$}
+\mor{L}{SigmaL}{$\lambda^L$}
+\mor{Lr}{L}{$i_1\quad$}[\atright,\aplicationarrow]
+\mor{Lr}{R}{$r$}
+\mor{R}{SigmaR}{$\lambda^R$}[\atright,\solidarrow]
+\mor{SigmaL}{SigmaG}{$\varphi^m$}[\atright,\solidarrow]
+\mor{SigmaL}{SigmaR}{$\varphi^r$}
+\mor{SigmaR}{SigmaH}{$\varphi^{m^*}$}
+\enddc
+$$
+
+\vfill
+\pagebreak
+
+\begin{lstlisting}[basicstyle=\tiny]
+\begindc{\commdiag}[40]
+\obj(10,10){$G$}[Gr]
+\obj(30,10){$G_{r^*}$}[Grstar]
+\obj(50,10){$H$}[H]
+\obj(20,20){$\Sigma^G$}[SigmaG]
+\obj(60,20){$\Sigma^H$}[SigmaH]
+\obj(10,30){$L_m$}[Lm]
+\obj(30,30){$K_{r,m}$}[Krm]
+\obj(50,30){$R_{m^*}$}[Rmstar]
+\obj(10,50){$L$}[L]
+\obj(30,50){$L_r$}[Lr]
+\obj(50,50){$R$}[R]
+\obj(20,60){$\Sigma^L$}[SigmaL]
+\obj(60,60){$\Sigma^R$}[SigmaR]
+\mor{Gr}{SigmaG}{$\lambda^G$}
+\mor{Grstar}{Gr}{$i_5$}[\atleft,\aplicationarrow]
+\mor{Grstar}{H}{$r^*$}[\atright,\solidarrow]
+\mor{H}{SigmaH}{$\lambda^H$}[\atright,\dashArrow]
+\mor{SigmaG}{SigmaH}{$\varphi^{r^*}$}[\atright,\solidarrow]
+\mor{Lm}{Gr}{$m$}[\atright,\solidarrow]
+\mor{Lm}{L}{$i_2$}[\atleft,\aplicationarrow]
+\mor{Krm}{Lm}{$i_3\quad$}[\atright,\aplicationarrow]
+\mor{Krm}{Rmstar}{$r$}
+\mor{Krm}{Lr}{$i_4$}[\atright,\aplicationarrow]
+\mor{Krm}{Grstar}{$m$}
+\mor{Rmstar}{R}{$i_6$}[\atright,\aplicationarrow]
+\mor{Rmstar}{H}{$m^*$}
+\mor{L}{SigmaL}{$\lambda^L$}
+\mor{Lr}{L}{$i_1\quad$}[\atright,\aplicationarrow]
+\mor{Lr}{R}{$r$}
+\mor{R}{SigmaR}{$\lambda^R$}[\atright,\solidarrow]
+\mor{SigmaL}{SigmaG}{$\varphi^m$}[\atright,\solidarrow]
+\mor{SigmaL}{SigmaR}{$\varphi^r$}
+\mor{SigmaR}{SigmaH}{$\varphi^{m^*}$}
+\cmor((10,7)(11,3)(15,2)(40,2)(65,2)(69,3)(70,7)(70,10)(70,14)(69,18)(65,19))
+\pleft(75,10){$\varphi^{r^*}\lambda^G$}
+\cmor((10,53)(10,58)(10,63)(11,67)(15,68)(45,68)(65,68)(69,67)(70,63)(70,44)(70,25)(69,21)(65,20))
+\pleft(76,40){$\varphi^{m^*}\varphi^r\lambda^L$}
+\enddc
+\end{lstlisting}
+
+{\ }
+
+$$
+\begindc{\commdiag}[40]
+\obj(10,10)[Gr]{$G$}
+\obj(30,10)[Grstar]{$G_{r^*}$}
+\obj(50,10)[H]{$H$}
+\obj(20,20)[SigmaG]{$\Sigma^G$}
+\obj(60,20)[SigmaH]{$\Sigma^H$}
+\obj(10,30)[Lm]{$L_m$}
+\obj(30,30)[Krm]{$K_{r,m}$}
+\obj(50,30)[Rmstar]{$R_{m^*}$}
+\obj(10,50)[L]{$L$}
+\obj(30,50)[Lr]{$L_r$}
+\obj(50,50)[R]{$R$}
+\obj(20,60)[SigmaL]{$\Sigma^L$}
+\obj(60,60)[SigmaR]{$\Sigma^R$}
+\mor{Gr}{SigmaG}{$\lambda^G$}
+\mor{Grstar}{Gr}{$i_5$}[\atleft,\aplicationarrow]
+\mor{Grstar}{H}{$r^*$}[\atright,\solidarrow]
+\mor{H}{SigmaH}{$\lambda^H$}[\atright,\dashArrow]
+\mor{SigmaG}{SigmaH}{$\varphi^{r^*}$}[\atright,\solidarrow]
+\mor{Lm}{Gr}{$m$}[\atright,\solidarrow]
+\mor{Lm}{L}{$i_2$}[\atleft,\aplicationarrow]
+\mor{Krm}{Lm}{$i_3\quad$}[\atright,\aplicationarrow]
+\mor{Krm}{Rmstar}{$r$}
+\mor{Krm}{Lr}{$i_4$}[\atright,\aplicationarrow]
+\mor{Krm}{Grstar}{$m$}
+\mor{Rmstar}{R}{$i_6$}[\atright,\aplicationarrow]
+\mor{Rmstar}{H}{$m^*$}
+\mor{L}{SigmaL}{$\lambda^L$}
+\mor{Lr}{L}{$i_1\quad$}[\atright,\aplicationarrow]
+\mor{Lr}{R}{$r$}
+\mor{R}{SigmaR}{$\lambda^R$}[\atright,\solidarrow]
+\mor{SigmaL}{SigmaG}{$\varphi^m$}[\atright,\solidarrow]
+\mor{SigmaL}{SigmaR}{$\varphi^r$}
+\mor{SigmaR}{SigmaH}{$\varphi^{m^*}$}
+\cmor((10,7)(11,3)(15,2)(40,2)(65,2)(69,3)(70,7)(70,10)(70,14)(69,18)(65,19))
+\pleft(75,10){$\varphi^{r^*}\lambda^G$}
+\cmor((10,53)(10,58)(10,63)(11,67)(15,68)(45,68)(65,68)(69,67)(70,63)(70,44)(70,25)(69,21)(65,20)) \pleft(76,40){$\varphi^{m^*}\varphi^r\lambda^L$}
+\enddc
+$$
+
+\vfill
+\pagebreak
+
+\begin{lstlisting}[basicstyle=\tiny]
+\begindc{\commdiag}[40]
+\obj(10,10)[Gr]{$G$}
+\obj(30,10)[Grstar]{$G_{r^*}$}
+\obj(50,10)[H]{$H$}
+\obj(20,20)[SigmaG]{$\Sigma^G$}
+\obj(60,20)[SigmaH]{$\Sigma^H$}
+\obj(10,30)[Lm]{$L_m$}
+\obj(30,30)[Krm]{$K_{r,m}$}
+\obj(50,30)[Rmstar]{$R_{m^*}$}
+\obj(10,50)[L]{$L$}
+\obj(30,50)[Lr]{$L_r$}
+\obj(50,50)[R]{$R$}
+\obj(20,60)[SigmaL]{$\Sigma^L$}
+\obj(60,60)[SigmaR]{$\Sigma^R$}
+\mor{Gr}{SigmaG}{$\lambda^G$}
+\mor{Grstar}{Gr}{$i_5$}[\atleft,\aplicationarrow]
+\mor{Grstar}{H}{$r^*$}[\atright,\solidarrow]
+\mor{H}{SigmaH}{$\lambda^H$}[\atright,\dashArrow]
+\mor{SigmaG}{SigmaH}{$\varphi^{r^*}$}[\atright,\solidarrow]
+\mor{Lm}{Gr}{$m$}[\atright,\solidarrow]
+\mor{Lm}{L}{$i_2$}[\atleft,\aplicationarrow]
+\mor{Krm}{Lm}{$i_3\quad$}[\atright,\aplicationarrow]
+\mor{Krm}{Rmstar}{$r$}
+\mor{Krm}{Lr}{$i_4$}[\atright,\aplicationarrow]
+\mor{Krm}{Grstar}{$m$}
+\mor{Rmstar}{R}{$i_6$}[\atright,\aplicationarrow]
+\mor{Rmstar}{H}{$m^*$}
+\mor{L}{SigmaL}{$\lambda^L$}
+\mor{Lr}{L}{$i_1\quad$}[\atright,\aplicationarrow]
+\mor{Lr}{R}{$r$}
+\mor{R}{SigmaR}{$\lambda^R$}[\atright,\solidarrow]
+\mor{SigmaL}{SigmaG}{$\varphi^m$}[\atright,\solidarrow]
+\mor{SigmaL}{SigmaR}{$\varphi^r$}
+\mor{SigmaR}{SigmaH}{$\varphi^{m^*}$}
+\cmor((10,7)(11,3)(15,2)(33,2)(53,2)(56,3)(61,8)(66,13)(69,16)(69,18)(65,19))
+\pleft(75,10){$\varphi^{r^*}\lambda^G$}
+\cmor((10,53)(10,54)(10,55)(11,59)(15,64)(19,67)(23,68)(44,68)(65,68)(69,67)%
+(70,63)(70,44)(70,25)(69,21)(65,20))
+\pleft(76,40){$\varphi^{m^*}\varphi^r\lambda^L$}
+\enddc
+\end{lstlisting}
+
+{\ }
+
+$$
+\begindc{\commdiag}[40]
+\obj(10,10)[Gr]{$G$}
+\obj(30,10)[Grstar]{$G_{r^*}$}
+\obj(50,10)[H]{$H$}
+\obj(20,20)[SigmaG]{$\Sigma^G$}
+\obj(60,20)[SigmaH]{$\Sigma^H$}
+\obj(10,30)[Lm]{$L_m$}
+\obj(30,30)[Krm]{$K_{r,m}$}
+\obj(50,30)[Rmstar]{$R_{m^*}$}
+\obj(10,50)[L]{$L$}
+\obj(30,50)[Lr]{$L_r$}
+\obj(50,50)[R]{$R$}
+\obj(20,60)[SigmaL]{$\Sigma^L$}
+\obj(60,60)[SigmaR]{$\Sigma^R$}
+\mor{Gr}{SigmaG}{$\lambda^G$}
+\mor{Grstar}{Gr}{$i_5$}[\atleft,\aplicationarrow]
+\mor{Grstar}{H}{$r^*$}[\atright,\solidarrow]
+\mor{H}{SigmaH}{$\lambda^H$}[\atright,\dashArrow]
+\mor{SigmaG}{SigmaH}{$\varphi^{r^*}$}[\atright,\solidarrow]
+\mor{Lm}{Gr}{$m$}[\atright,\solidarrow]
+\mor{Lm}{L}{$i_2$}[\atleft,\aplicationarrow]
+\mor{Krm}{Lm}{$i_3\quad$}[\atright,\aplicationarrow]
+\mor{Krm}{Rmstar}{$r$}
+\mor{Krm}{Lr}{$i_4$}[\atright,\aplicationarrow]
+\mor{Krm}{Grstar}{$m$}
+\mor{Rmstar}{R}{$i_6$}[\atright,\aplicationarrow]
+\mor{Rmstar}{H}{$m^*$}
+\mor{L}{SigmaL}{$\lambda^L$}
+\mor{Lr}{L}{$i_1\quad$}[\atright,\aplicationarrow]
+\mor{Lr}{R}{$r$}
+\mor{R}{SigmaR}{$\lambda^R$}[\atright,\solidarrow]
+\mor{SigmaL}{SigmaG}{$\varphi^m$}[\atright,\solidarrow]
+\mor{SigmaL}{SigmaR}{$\varphi^r$}
+\mor{SigmaR}{SigmaH}{$\varphi^{m^*}$}
+\cmor((10,7)(11,3)(15,2)(33,2)(53,2)(56,3)(61,8)(66,13)(69,16)(69,18)(65,19))
+\pleft(75,10){$\varphi^{r^*}\lambda^G$}
+\cmor((10,53)(10,54)(10,55)(11,59)(15,64)(19,67)(23,68)(44,68)(65,68)(69,67)(70,63)(70,44)(70,25)(69,21)(65,20))
+\pleft(76,40){$\varphi^{m^*}\varphi^r\lambda^L$}
+\enddc
+$$
+
+\vfill
+\pagebreak
+
+\section{Graphs}
+
+\subsection{Undirected Graphs --- Magnification Factor,} 
+
+The magnification factor gives us the capability of adapting the size
+of the graph to the available space, without having to redesign the
+graph, for example the specification of the next two graphs differs
+only in the magnification factor: 200 for the first; and 160 for the
+second.
+
+\begin{center}
+  \begin{tabular}{cc}
+    \begindc{\undigraph}[200]
+    \obj(1,1)[1]{}
+    \obj(3,2)[2]{}
+    \obj(5,1)[3]{}
+    \obj(3,4)[4]{}
+    \mor{1}{2}{}
+    \mor{1}{3}{}
+    \mor{2}{3}{}
+    \mor{4}{1}{}
+    \mor{4}{3}{}
+    \mor{2}{4}{}
+   \enddc &\qquad
+    \begindc{\undigraph}[160]
+    \obj(1,1)[1]{}
+    \obj(3,2)[2]{}
+    \obj(5,1)[3]{}
+    \obj(3,4)[4]{}
+    \mor{1}{2}{}
+    \mor{1}{3}{}
+    \mor{2}{3}{}
+    \mor{4}{1}{}
+    \mor{4}{3}{}
+    \mor{2}{4}{}
+    \enddc 
+  \end{tabular}
+\end{center}
+
+\begin{lstlisting}
+    \begindc{\undigraph}[200]            \begindc{\undigraph}[160]
+     \obj(1,1)[1]{}                       \obj(1,1)[1]{}
+     \obj(3,2)[2]{}                       \obj(3,2)[2]{}
+     \obj(5,1)[3]{}                       \obj(5,1)[3]{}
+     \obj(3,4)[4]{}                       \obj(3,4)[4]{}
+     \mor{1}{2}{}                         \mor{1}{2}{}
+     \mor{1}{3}{}                         \mor{1}{3}{}
+     \mor{2}{3}{}                         \mor{2}{3}{}
+     \mor{4}{1}{}                         \mor{4}{1}{}
+     \mor{4}{3}{}                         \mor{4}{3}{}
+     \mor{2}{4}{}                         \mor{2}{4}{}
+    \enddc                               \enddc  
+\end{lstlisting}
+
+\subsection{Undirected Graphs --- ``Around the World''}
+
+$$
+\begindc{\undigraph}[70]
+\obj(6,4){18}[\south]
+\obj(18,4){17}[\south]
+\obj(8,7){11}[\west]
+\obj(12,8){12}[\south]
+\obj(16,7){13}[\east]
+\obj(8,11){10}[\west]
+\obj(10,12){6}[\northwest]
+\obj(12,10){5}
+\obj(14,12){4}[\northeast]
+\obj(16,11){14}[\east]
+\obj(2,16){19}
+\obj(6,15){9}
+\obj(9,16){8} \obj(11,14){7}
+\obj(13,14){3}
+\obj(15,16){2}
+\obj(18,15){15}
+\obj(22,16){16}
+\obj(12,19){1}[\northeast]
+\obj(12,22){20}
+\mor{18}{17}{}
+\mor{18}{11}{}
+\mor{18}{19}{}
+\mor{11}{12}{}\mor{11}{10}{}\mor{12}{13}{}
+\mor{12}{5}{}\mor{10}{6}{}\mor{10}{9}{}
+\mor{5}{6}{}\mor{5}{4}{} 
+\mor{13}{17}{}
+\mor{13}{14}{}\mor{9}{19}{}\mor{9}{8}{}
+\mor{6}{7}{}\mor{4}{3}{}\mor{4}{14}{}
+\mor{19}{20}{}\mor{8}{1}{}\mor{8}{7}{}
+\mor{7}{3}{}\mor{3}{2}{}\mor{2}{1}{}
+\mor{2}{15}{}\mor{14}{15}{}\mor{17}{16}{}
+\mor{16}{20}{}\mor{1}{20}{}\mor{15}{16}{}
+\enddc
+$$
+\begin{lstlisting}
+\begindc{\undigraph}[70]
+\obj(6,4){18}[\south]
+\obj(18,4){17}[\south]
+\obj(8,7){11}[\west]
+\obj(12,8){12}[\south]
+\obj(16,7){13}[\east]
+\obj(8,11){10}[\west]
+\obj(10,12){6}[\northwest]
+\obj(12,10){5}
+\obj(14,12){4}[\northeast]
+\obj(16,11){14}[\east]
+\obj(2,16){19} \obj(6,15){9} \obj(9,16){8} \obj(11,14){7} 
+\obj(13,14){3} \obj(15,16){2} \obj(18,15){15} \obj(22,16){16}
+\obj(12,19){1}[\northeast]
+\obj(12,22){20}
+\mor{18}{17}{}\mor{18}{11}{}\mor{18}{19}{}\mor{11}{12}{}\mor{11}{10}{}\mor{12}{13}{}
+\mor{12}{5}{}\mor{10}{6}{}\mor{10}{9}{}\mor{5}{6}{}\mor{5}{4}{}\mor{13}{17}{}
+\mor{13}{14}{}\mor{9}{19}{}\mor{9}{8}{}\mor{6}{7}{}\mor{4}{3}{}\mor{4}{14}{}
+\mor{19}{20}{}\mor{8}{1}{}\mor{8}{7}{}\mor{7}{3}{}\mor{3}{2}{}\mor{2}{1}{}
+\mor{2}{15}{}\mor{14}{15}{}\mor{17}{16}{}\mor{16}{20}{}\mor{1}{20}{}\mor{15}{16}{}
+\enddc
+\end{lstlisting}
+
+\vfill
+\pagebreak
+
+
+\subsection{Directed Graphs}
+
+$$
+\begindc{\digraph}[250]
+\obj(1,5){A}[\west]
+\obj(1,3){B}[\west]
+\obj(1,1){C}[\west]
+\obj(5,5){E}[\east]
+\obj(5,3){F}[\east]
+\obj(5,1){G}[\east]
+\mor{A}{E}{5}
+\mor{A}{F}{3}
+\mor{B}{F}{6}[\atright,\solidarrow]
+\mor{C}{E}{1}
+\mor{C}{F}{5}
+\mor{C}{G}{7}
+\enddc
+$$
+
+
+\begin{lstlisting}
+\begindc{\digraph}[250]
+\obj(1,5){A}[\west]
+\obj(1,3){B}[\west]
+\obj(1,1){C}[\west]
+\obj(5,5){E}[\east]
+\obj(5,3){F}[\east]
+\obj(5,1){G}[\east]
+\mor{A}{E}{5} \mor{A}{F}{3}
+\mor{B}{F}{6}[\atright,\solidarrow]
+\mor{C}{E}{1} \mor{C}{F}{5} \mor{C}{G}{7}
+\enddc
+\end{lstlisting}
+
+\subsection{Circled Directed Graphs}
+
+$$
+\begindc{\cdigraph}[200]
+\obj(6,6)[A]{1800000}
+\obj(12,6){17}
+\obj(10,9){16}
+\mor{A}{17}[240,90]{}
+\mor{16}{17}[90,90]{}
+\mor{16}{A}[95,125]{}
+\enddc
+$$
+
+\begin{lstlisting}
+\begindc{\cdigraph}[200]
+\obj(6,6)[A]{1800000}
+\obj(12,6){17}
+\obj(10,9){16}
+\mor{A}{17}[240,90]{}
+\mor{16}{17}[90,90]{}
+\mor{16}{A}[95,125]{}
+\enddc
+\end{lstlisting}
+
+\subsection{Circled Undirected Graphs}
+
+Some fine adjustment is nedeeded in some lines.
+
+$$
+\begindc{\cundigraph}[130]
+\obj(6,4)[A]{18}[\south]\obj(18,4){17}[\south]
+\obj(8,7){11}[\west]\obj(12,8){12}[\south]
+\obj(16,7){13}[\east]\obj(8,11){10}[\west]
+\obj(10,12)[6]{6}[\south]\obj(12,10)[5]{5}[\east]
+\obj(14,12){4}[\northeast]\obj(16,11){14}[\east]
+\obj(2,16){19}[\west]\obj(6,15){9}
+\obj(9,16){8}\obj(11,14){7}[\west]
+\obj(13,14){3}\obj(15,16){2}
+\obj(18,15){15}\obj(22,16){16}[\east]
+\obj(12,19){1}[\west]\obj(12,22){20}[\north]
+\mor{A}{17}[80,80]{}\mor{A}{11}{}\mor{A}{19}{}\mor{11}{12}{}
+\mor{11}{10}{}\mor{12}{13}{}\mor{12}{5}{}\mor{10}{6}{}
+\mor{10}{9}{}\mor{5}{6}{}\mor{5}{4}{}\mor{13}{17}[80,80]{}
+\mor{13}{14}{}\mor{9}{19}{}\mor{9}{8}{}\mor{6}{7}{}
+\mor{4}{3}{}\mor{4}{14}{}\mor{19}{20}{}\mor{8}{1}{}
+\mor{8}{7}{}\mor{7}{3}{}\mor{3}{2}{}\mor{2}{1}{}
+\mor{2}{15}{}\mor{14}{15}{}\mor{17}{16}{}\mor{16}{20}{}
+\mor{1}{20}{}\mor{15}{16}{}
+\enddc
+$$
+
+
+\begin{lstlisting}
+\begindc{\cundigraph}[130]
+\obj(6,4)[A]{18}[\south]\obj(18,4){17}[\south]
+\obj(8,7){11}[\west]\obj(12,8){12}[\south]
+\obj(16,7){13}[\east]\obj(8,11){10}[\west]
+\obj(10,12)[6]{6}[\south]\obj(12,10)[5]{5}[\east]
+\obj(14,12){4}[\northeast]\obj(16,11){14}[\east]
+\obj(2,16){19}[\west]\obj(6,15){9}
+\obj(9,16){8}\obj(11,14){7}[\west]
+\obj(13,14){3}\obj(15,16){2}
+\obj(18,15){15}\obj(22,16){16}[\east]
+\obj(12,19){1}[\west]\obj(12,22){20}[\north]
+\mor{A}{17}[80,80]{}\mor{A}{11}{}\mor{A}{19}{}\mor{11}{12}{}
+\mor{11}{10}{}\mor{12}{13}{}\mor{12}{5}{}\mor{10}{6}{}
+\mor{10}{9}{}\mor{5}{6}{}\mor{5}{4}{}\mor{13}{17}[80,80]{}
+\mor{13}{14}{}\mor{9}{19}{}\mor{9}{8}{}\mor{6}{7}{}
+\mor{4}{3}{}\mor{4}{14}{}\mor{19}{20}{}\mor{8}{1}{}
+\mor{8}{7}{}\mor{7}{3}{}\mor{3}{2}{}\mor{2}{1}{}
+\mor{2}{15}{}\mor{14}{15}{}\mor{17}{16}{}\mor{16}{20}{}
+\mor{1}{20}{}\mor{15}{16}{}
+\enddc
+\end{lstlisting}
+
+\section{New Arrows and Lines in v4 and v5}
+
+\subsection{Dashed, Dotted Lines, Dotted Arrows, Equaline, \ldots}
+$$
+\begindc{\commdiag}[250]
+\obj(10,10)[A]{$OOOOOO$}
+\obj(15,10)[A0]{$A_0$}
+\obj(14,11)[A1]{$A_1$}
+\obj(13,12)[A2]{$A_2$}
+\obj(12,13)[A3]{$A_3$}
+\obj(10,14)[A4]{$A_4$}
+\obj(9,13)[A5]{$A_5$}
+\obj(8,12)[A6]{$A_6$}
+\obj(7,11)[A7]{$A_7$}
+\obj(6,10)[A8]{$A_8$}
+\obj(7,9)[A9]{$A_9$}
+\obj(9,8)[A10]{$A_{10}$}
+\obj(12,8)[A11]{$A_{11}$}
+\mor{A}{A0}{$a_0$}[\atright,\solidarrow]
+\mor{A}{A1}{$a_1$}[\atright,\dashArrow]
+\mor{A}{A2}{$a_2$}[\atright,\dotArrow]
+\mor{A}{A3}{$a_3$}[\atright,\solidline]
+\mor{A}{A4}{$a_4$}[\atright,\dashline]
+\mor{A}{A5}{$a_5$}[\atleft,\dotline]
+\mor{A}{A6}{$a_6$}[\atleft,\injectionarrow]
+\mor{A}{A7}{$a_7$}[\atleft,\aplicationarrow]
+\mor{A}{A8}{$a_8$}[\atleft,\surjectivearrow]
+\mor{A}{A9}{$a_9$}[\atleft,\equalline]
+\mor{A}{A10}{$a_{10}$}[\atleft,\doublearrow]
+\mor{A}{A11}{$a_{11}$}[\atleft,\doubleopposite]
+\mor{A}{A11}{$a_{12}$}[\atright,\nullarrow]
+\enddc
+$$
+
+
+\begin{lstlisting}
+\begindc{\commdiag}[250]
+\obj(10,10)[A]{$OOOOOO$}
+\obj(15,10)[A0]{$A_0$}
+\obj(14,11)[A1]{$A_1$}
+\obj(13,12)[A2]{$A_2$}
+\obj(12,13)[A3]{$A_3$}
+\obj(10,14)[A4]{$A_4$}
+\obj(9,13)[A5]{$A_5$}
+\obj(8,12)[A6]{$A_6$}
+\obj(7,11)[A7]{$A_7$}
+\obj(6,10)[A8]{$A_8$}
+\obj(7,9)[A9]{$A_9$}
+\obj(9,8)[A10]{$A_{10}$}
+\obj(12,8)[A11]{$A_{11}$}
+\mor{A}{A0}{$a_0$}[\atright,\solidarrow]
+\mor{A}{A1}{$a_1$}[\atright,\dashArrow]
+\mor{A}{A2}{$a_2$}[\atright,\dotArrow]
+\mor{A}{A3}{$a_3$}[\atright,\solidline]
+\mor{A}{A4}{$a_4$}[\atright,\dashline]
+\mor{A}{A5}{$a_5$}[\atleft,\dotline]
+\mor{A}{A6}{$a_6$}[\atleft,\injectionarrow]
+\mor{A}{A7}{$a_7$}[\atleft,\aplicationarrow]
+\mor{A}{A8}{$a_8$}[\atleft,\surjectivearrow]
+\mor{A}{A9}{$a_9$}[\atleft,\equalline]
+\mor{A}{A10}{$a_{10}$}[\atleft,\doublearrow]
+\mor{A}{A11}{$a_{11}$}[\atleft,\doubleopposite]
+\mor{A}{A11}{$a_{12}$}[\atright,\nullarrow]
+\enddc
+\end{lstlisting}
+
+
+
+\end{document}
+
+%%% Local Variables: 
+%%% mode: latex
+%%% TeX-master: t
+%%% End: 

@@ -1,0 +1,24 @@
+% The same kind of thing as fig 1, but with real numbers
+    %this is the way to redefine styles
+    \newpsstyle{tickstyle}{linewidth=1pt,linecolor=blue}
+    \renewcommand{\betweenticks}{0.2}
+    \renewcommand\placenumber{\overtop}      
+    \bardiagrambegin{10.3}{1}{2cm}{2}{2}{1cm}{10cm}
+       \drawlevellines
+       \baritem{Jelger}{0.5}{green}
+       \baritem{Johan}{0.7}{red}
+       \baritem{Rikkert}{0.8}{yellow}
+       \baritem{Henk}{0.3}{green}
+       \baritem{Erwin}{0.5}{red}  
+       %
+       % we can call
+       %  \diagLegendoptions{yellow}{red}{0.5pt}
+       % to produce a legend with yellow background with red frame
+       % with linewidth=0.5pt
+       %
+%       \diagLegendbegin{6}{970}{5.0}
+%         \diagLegenditem{Full year}{green}
+%         \diagLegenditem{Less than a year}{red}
+%         \diagLegenditem{Less than 6 months}{yellow}
+%       \diagLegendend
+    \bardiagramend{}{\large Fraction of Jobs Active}
