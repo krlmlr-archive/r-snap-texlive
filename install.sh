@@ -12,9 +12,7 @@ clone_or_pull() {
     cd r-snap-texlive
     git pull
   else
-    log "Listing"
-    ls
-    ls -a r-snap-texlive
+    rm -rf r-snap-texlive
     git clone https://github.com/krlmlr/r-snap-texlive.git
   fi
 }
