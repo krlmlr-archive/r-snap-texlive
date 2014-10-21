@@ -22,5 +22,7 @@ set_symlinks() {
   sudo ln -s -f $SNAP_CACHE_DIR/r-snap-texlive/texlive/bin/x86_64-linux/* /usr/local/bin
 }
 
+log "clone_or_pull"
 clone_or_pull
+log "set_symlinks"
 set_symlinks
