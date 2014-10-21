@@ -28,7 +28,7 @@ update_cache_version() {
 }
 
 provide_latex() {
-  if ! test -d texlive; then
+  if ! test -d $CACHE_BASE_PATH/texlive; then
     if ! install_latex; then
       rm -rf $CACHE_BASE_PATH/texlive
       return 1
