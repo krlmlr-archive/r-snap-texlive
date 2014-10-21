@@ -12,5 +12,9 @@ clone_or_pull() {
   fi
 }
 
-(clone_or_pull > /dev/null)
-echo $SNAP_CACHE_DIR'/r-snap-texlive/texlive/bin/x86_64-linux'
+set_symlinks() {
+  sudo ln -s $SNAP_CACHE_DIR/r-snap-texlive/texlive/bin/x86_64-linux/* /usr/local/bin
+}
+
+clone_or_pull
+set_symlinks
