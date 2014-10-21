@@ -9,9 +9,11 @@ log() {
 clone_or_pull() {
   cd $SNAP_CACHE_DIR
   if test -d r-snap-texlive/.git; then
+    log "Updating TeXlive"
     cd r-snap-texlive
     git pull
   else
+    log "Cloning TeXlive"
     rm -rf r-snap-texlive
     git clone https://github.com/krlmlr/r-snap-texlive.git
   fi
