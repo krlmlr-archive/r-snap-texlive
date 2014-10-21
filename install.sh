@@ -8,7 +8,7 @@ clone_or_pull() {
     cd r-snap-texlive
     git pull
   else
-    git clone git@github.com:krlmlr/r-snap-texlive.git
+    git clone https://github.com/krlmlr/r-snap-texlive.git
   fi
 }
 
