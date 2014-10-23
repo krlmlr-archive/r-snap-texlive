@@ -49,7 +49,7 @@ push_latex() {
   rm -rf texlive
   cp -arx $CACHE_BASE_PATH/texlive .
   git add -A
-  if test -n $(git status --porcelain); then
+  if test -n "$(git status --porcelain)"; then
     git commit -m "update bits"
     git push origin
   fi
