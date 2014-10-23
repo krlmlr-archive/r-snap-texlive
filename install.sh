@@ -1,6 +1,7 @@
 #!/bin/sh
 
 set -e
+set -x
 
 log() {
   echo $* >> /dev/stderr
