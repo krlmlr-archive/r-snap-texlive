@@ -8,7 +8,7 @@ log() {
 }
 
 clone() {
-  ( cd $SNAP_CACHE_DIR/r-snap-texlive && git pull )
+  ( cd $SNAP_CACHE_DIR/r-snap-texlive && git pull && git checkout . && git clean -fdx )
 }
 
 clone_or_pull() {
